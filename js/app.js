@@ -72,13 +72,6 @@
 
     /* ---------- keyboard ---------- */
     document.addEventListener('keydown', e => {
-        const landing = document.getElementById('landing');
-        if (landing && !landing.classList.contains('hide')) {
-            if (e.key === '1') { enterApp('study'); e.preventDefault(); }
-            else if (e.key === '2') { enterApp('quiz'); e.preventDefault(); }
-            else if (e.key === 'Enter') { enterApp('study'); e.preventDefault(); }
-            return;
-        }
         if (e.target.tagName === 'INPUT') return;
         if (e.key === 'Escape') { ACP.closeNotes(); return; }
         if (S.ui.view === 'chapter' && S.ui.mode === 'single' && S.ui.pool.length) {

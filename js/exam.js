@@ -48,8 +48,8 @@
             <span class="spacer"></span>
             <button class="btn btn-sm" onclick="ACP.toggleOutlineAll()">展开全部</button>
           </div>
-          ${ACP.EXAM_DOMAINS.map((d, di) => `
-          <div class="outline-domain${di === 0 ? ' open' : ''}">
+          ${ACP.EXAM_DOMAINS.map((d) => `
+          <div class="outline-domain">
             <button class="outline-toggle" onclick="this.parentElement.classList.toggle('open')">
               <span class="ot-name">${ACP.esc(d.name)}</span>
               <span class="ot-pct">${d.pct}%</span>
