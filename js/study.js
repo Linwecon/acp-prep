@@ -230,23 +230,48 @@
     }
 
     function attnChart(words) {
+        // 示例句："苹果 很 便宜 而且 好吃" —— 第一个 Token 关注其余 Token，
+        // 权重数组对应 [很, 便宜, 而且, 好吃]（描述性词语相关性更高）
+        const weights = [0.4, 0.85, 0.25, 0.95];
         const n = words.length;
-        const w = n * 56;
-        // Token 与连线共用同一像素坐标系：token 圆心位于 (24 + idx*56, 24)
-        const tokens = words.map((wd, idx) =>
-            `<span class="attn-token" style="left:${idx * 56}px;animation-delay:${idx * 120}ms">${esc(wd)}</span>`).join('');
-        const lines = [];
-        for (let j = 1; j < n; j++) {
-            lines.push(`<line x1="24" y1="24" x2="${24 + j * 56}" y2="24" class="attn-line" style="animation-delay:${j * 130}ms"/>`);
-        }
+        const GAP = 96, R = 26, y0 = 34;
+        const cx0 = 48, W = cx0 + (n - 1) * GAP + 48, H = 108;
+
+        const nodes = words.map((wd, idx) => {
+            const cx = cx0 + idx * GAP;
+            const isFirst = idx === 0;
+            return `<g class="attn-node${isFirst ? ' focus' : ''}" style="animation-delay:${idx * 140}ms">
+              <circle cx="${cx}" cy="${y0}" r="${R}"/>
+              <text x="${cx}" y="${y0}" text-anchor="middle" dominant-baseline="central">${esc(wd)}</text>
+            </g>`;
+        }).join('');
+
+        const curves = words.slice(1).map((_, j) => {
+            const w = weights[j] || 0.5;
+            const c2 = cx0 + (j + 1) * GAP;
+            const mx = (cx0 + c2) / 2;
+            const my = y0 + 30 + (1 - w) * 30; // 权重越高，弧线越贴近节点（连接越"直接"）
+            const sw = 1.6 + w * 2.6;
+            const op = 0.35 + w * 0.6;
+            return `<path d="M ${cx0} ${y0} Q ${mx} ${my} ${c2} ${y0}" fill="none" class="attn-curve"
+              style="stroke-width:${sw.toFixed(2)};opacity:${op.toFixed(2)};animation-delay:${j * 170}ms"/>`;
+        }).join('');
+
         return `<div class="chart-wrap">
+      <div class="attn-title">自注意力：每个 Token 都在关注句中所有其他 Token</div>
       <div class="attn-scroll">
-        <div class="attn-chart" style="width:${w}px">
-          <svg viewBox="0 0 ${w} 48" width="${w}" height="48" class="attn-svg">${lines.join('')}</svg>
-          <div class="attn-tokens" style="width:${w}px">${tokens}</div>
-        </div>
+        <svg viewBox="0 0 ${W} ${H}" width="100%" class="attn-svg" role="img" aria-label="自注意力示意图">
+          <defs>
+            <linearGradient id="attnFocus" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0" stop-color="var(--accent)"/>
+              <stop offset="1" stop-color="var(--accent-2)"/>
+            </linearGradient>
+          </defs>
+          ${curves}
+          ${nodes}
+        </svg>
       </div>
-      <div class="chart-note">自注意力：每个 Token 都会关注序列中的所有其他 Token（以第一个 Token 的连线为例）</div>
+      <div class="chart-note">线越粗越亮 = 关注度越高："好吃""便宜"直接描述苹果，权重最高；"很""而且"为功能词，权重较低</div>
     </div>`;
     }
 
