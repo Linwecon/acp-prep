@@ -33,7 +33,7 @@ INCLUDE = [
     "js/exam.js",
     "js/search.js",
     "js/app.js",
-    "data/quiz_categorized.js",
+    "data/quiz_categorized.min.js",
     "data/knowledge.js",
     "README.md",
 ]

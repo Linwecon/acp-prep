@@ -8,24 +8,29 @@
         Object.entries(ACP.CHAPTER_QUESTIONS).forEach(([ch, qs]) => {
             ACP.BY_CH[ch] = [];
             qs.forEach(q => {
-                const ans = String(q.answer || '').replace(/\s/g, '');
+                // 兼容完整版与压缩版（quiz_categorized.min.js）键名
+                const g = (k1, k2) => (q[k1] !== undefined && q[k1] !== null) ? q[k1] : q[k2];
+                const ans = String(g('answer', 'a') || '').replace(/\s/g, '');
                 const ansArr = ACP.normAnsArr(ans);
                 // 数据源中存在同章同 seq 的撞号题目：id 唯一化，两题都保留
-                let id = ch + '-' + q.seq;
+                let id = ch + '-' + g('seq', 's');
                 if (ACP.ID_MAP[id]) id += 'b';
                 const item = {
                     id,
                     ch,
-                    seq: q.seq,
-                    stem: q.stem || '',
-                    options: (q.options || []).map(o => ({ label: o.option_label, text: o.option_text })),
+                    seq: g('seq', 's'),
+                    stem: g('stem', 't') || '',
+                    options: (g('options', 'o') || []).map(o => ({
+                        label: o.option_label !== undefined ? o.option_label : o.l,
+                        text: o.option_text !== undefined ? o.option_text : o.x
+                    })),
                     answer: ans,
                     ansArr,
-                    analysis: q.analysis || '',
-                    multi: ansArr.length > 1 || q.type === 2,
-                    difficultyScore: Number(q.difficulty_score || 99),
-                    difficultySort: Number(q.difficulty_sort || 999),
-                    difficultyLabel: q.difficulty_label || '进阶'
+                    analysis: g('analysis', 'n') || '',
+                    multi: ansArr.length > 1 || q.type === 2 || q.y === 2,
+                    difficultyScore: Number(g('difficulty_score', 'ds') || 99),
+                    difficultySort: Number(g('difficulty_sort', 'dsrt') || 999),
+                    difficultyLabel: g('difficulty_label', 'dl') || '进阶'
                 };
                 ACP.BANK.push(item);
                 ACP.BY_CH[ch].push(item);
