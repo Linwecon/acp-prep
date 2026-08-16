@@ -48,7 +48,8 @@
     function openChapter(ch) {
         ACP.resetPracticeSession();
         ACP.state.ui.ch = ch; ACP.state.ui.filter = 'all'; ACP.state.ui.customTitle = null;
-        ACP.state.ui.autoPos = true; // 进入后自动定位到最后一道已作答的题
+        ACP.state.ui.idx = 0; // 切换章节时重置位置（autoPos 再定位到该章的续做位置）
+        ACP.state.ui.autoPos = true; // 进入后自动定位到该章最后一道已作答的题
         ACP.go('chapter', { ch, filter: 'all' });
     }
 

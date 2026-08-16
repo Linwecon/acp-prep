@@ -97,11 +97,11 @@
         S.ui.pool = buildPool();
         if (S.ui.idx >= S.ui.pool.length) S.ui.idx = 0;
 
-        // 进入章节时自动定位到连续作答段末尾（保留刷题进度）
+        // 进入章节时自动定位到连续作答段末尾（保留刷题进度）；无作答记录则从第 1 题开始
         if (S.ui.autoPos && !S.ui.customTitle && S.ui.filter === 'all') {
             S.ui.autoPos = false;
             const idx = findResumeIdx(S.ui.pool);
-            if (idx >= 0) S.ui.idx = idx;
+            S.ui.idx = idx >= 0 ? idx : 0;
         }
 
         ACP.setCrumb(title, `${S.ui.pool.length} 题`);
@@ -179,6 +179,7 @@
       <div class="q-actions">
         <button class="btn" onclick="ACP.navQ(-1)" ${S.ui.idx === 0 ? 'disabled' : ''}>← 上一题</button>
         ${!S.judged ? `<button class="btn btn-primary" id="submitBtn" onclick="ACP.judge()">✓ 提交</button>` : ''}
+        ${!S.judged ? `<button class="btn" onclick="ACP.navQ(1)" ${S.ui.idx === S.ui.pool.length - 1 ? 'disabled' : ''}>下一题 →</button>` : ''}
         ${S.judged ? `<button class="btn btn-sm" onclick="ACP.retry()" title="重新作答本题">↺ 重做</button>` : ''}
         ${S.judged ? `<button class="btn btn-primary" onclick="ACP.navQ(1)">${S.ui.idx === S.ui.pool.length - 1 ? '完成 ✓' : '下一题 →'}</button>` : ''}
         ${S.judged && ACP.isWrong(q.id) ? `<button class="btn btn-danger-ghost btn-sm" onclick="ACP.onRemoveWrong()">✕ 移出错题</button>` : ''}
