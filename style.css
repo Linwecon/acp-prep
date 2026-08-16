@@ -1019,6 +1019,13 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
   animation: landRise .55s ease .36s both;
 }
 .landing-hint b { color: var(--text-2); font-family: var(--font-mono); }
+.landing-loading {
+  margin-top: 18px;
+  display: none;
+  align-items: center; justify-content: center; gap: 8px;
+  font-size: 13px; color: var(--accent-text);
+  animation: landRise .3s ease both;
+}
 
 @keyframes landRise {
   from { opacity: 0; transform: translateY(18px); }

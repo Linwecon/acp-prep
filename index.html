@@ -9,10 +9,18 @@
 /* 进入兜底：题库仍在加载时点击卡片，等待就绪后自动进入 */
 window.__enter = function (mode) {
     if (window.ACP && ACP.enterApp) return ACP.enterApp(mode);
+    var tip = document.getElementById('landingTip');
+    if (tip) tip.style.display = 'flex';
     var tries = 0;
     var t = setInterval(function () {
-        if (window.ACP && ACP.enterApp) { clearInterval(t); ACP.enterApp(mode); }
-        else if (++tries > 150) clearInterval(t);
+        if (window.ACP && ACP.enterApp) {
+            clearInterval(t);
+            if (tip) tip.style.display = 'none';
+            ACP.enterApp(mode);
+        } else if (++tries > 200) {
+            clearInterval(t);
+            if (tip) tip.textContent = '⚠ 加载超时，请刷新页面重试';
+        }
     }, 100);
 };
 </script>
@@ -45,6 +53,7 @@ window.__enter = function (mode) {
       </button>
     </div>
     <div class="landing-hint">键盘 <b>1</b> 学习 · <b>2</b> 刷题 · <b>Enter</b> 默认学习</div>
+    <div class="landing-loading" id="landingTip" style="display:none;">⏳ 题库加载中，请稍候…</div>
   </div>
 </div>
 
