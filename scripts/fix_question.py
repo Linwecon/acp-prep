@@ -50,6 +50,10 @@ REPLACEMENTS = {
         "answer": "A",
         "analysis": "OpenAI 兼容 / DashScope 的大模型 API 中，messages 数组的 role 字段用于标识每条消息的角色：system（系统提示词）、user（用户输入）、assistant（模型回复），模型据此理解对话结构。B 不做角色区分会让模型无法分辨指令与输入，多轮对话时更易混乱；C 混淆了采样参数——temperature 只控制输出随机性；D 混淆了长度参数——max_tokens 限制的是本次生成长度，与消息角色无关。",
     },
+    # 1-0457：题目本身合格，仅补充缺失的解析
+    "1-0457": {
+        "analysis": "微调（Fine-tuning）是在预训练模型基础上继续训练：预训练阶段模型已习得通用语言规律与知识，微调只需在少量领域数据上做增量学习，因此相比从零训练，计算资源与时间成本都大幅降低（C 正确）。A 把方向说反——微调是更省而非更费；B 的“时间相对较长”也错误，微调训练时间通常远短于全量训练；D 的“完成所有任务”过于绝对——微调只适配特定任务，且可能引入过拟合，不可能在所有任务上全面超越。",
+    },
 }
 
 # 删除依赖缺失材料、无法独立作答的劣质题（ask_llm_route 函数题 + 缺失的"答疑机器人提示词"材料题）
@@ -71,8 +75,8 @@ def main() -> int:
         if found is None:
             print(f"[警告] 未找到 {qid}，跳过")
             continue
-        found.update(new)
-        print(f"已改写 {qid}: {new['stem'][:36]}...")
+        found.update(new)  # 仅覆盖给出的字段，其余保留
+        print(f"已改写 {qid}: {new.get('stem', new.get('analysis', '')[:36])[:36]}...")
 
     for qid in DELETE_IDS:
         ch, seq = qid.split("-")
