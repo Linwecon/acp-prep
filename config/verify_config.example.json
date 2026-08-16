@@ -1,0 +1,6 @@
+{
+    "base_url": "https://dashscope.aliyuncs.com/compatible-mode/v1",
+    "api_key": "在这里填入你的 API Key",
+    "primary_model": "qwen-plus",
+    "secondary_model": "deepseek-v3.2"
+}

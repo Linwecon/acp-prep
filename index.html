@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ACP 备考助手</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- ==================== LANDING (mode selection) ==================== -->
+<div class="landing" id="landing">
+  <div class="landing-orb orb-a"></div>
+  <div class="landing-orb orb-b"></div>
+  <div class="landing-grid"></div>
+  <div class="landing-inner">
+    <div class="landing-brand">
+      <div class="landing-logo">🎓</div>
+      <h1>ACP 备考助手</h1>
+      <p>阿里云大模型高级工程师认证 · 一站式学习与刷题</p>
+    </div>
+    <div class="landing-cards">
+      <button class="landing-card" onclick="ACP.enterApp('study')" tabindex="0">
+        <span class="lc-ico">📖</span>
+        <span class="lc-title">学 习</span>
+        <span class="lc-desc">高频知识点系统精讲<br>分章复习 · 查漏补缺</span>
+        <span class="lc-key">1</span>
+      </button>
+      <button class="landing-card" onclick="ACP.enterApp('quiz')" tabindex="0">
+        <span class="lc-ico">🎯</span>
+        <span class="lc-title">刷 题</span>
+        <span class="lc-desc" id="lcQuizDesc">章节练习 · 模拟考试<br>错题本 · 收藏夹</span>
+        <span class="lc-key">2</span>
+      </button>
+    </div>
+    <div class="landing-hint">键盘 <b>1</b> 学习 · <b>2</b> 刷题 · <b>Enter</b> 默认学习</div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+<div class="sidebar-overlay" id="sidebarOverlay" onclick="ACP.toggleSidebar(false)"></div>
+
+<div class="app">
+
+  <!-- ==================== SIDEBAR ==================== -->
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-brand">
+      <div class="brand-title">🎓 ACP 备考助手</div>
+      <div class="brand-sub" id="brandSub">大模型高级工程师认证</div>
+    </div>
+    <div class="sidebar-scroll">
+      <div class="nav-group-label">学习</div>
+      <button class="nav-item" data-nav="study" onclick="ACP.go('study')">
+        <span class="nav-ico">📚</span> 知识点
+      </button>
+      <button class="nav-item" data-nav="dashboard" onclick="ACP.go('dashboard')">
+        <span class="nav-ico">📊</span> 学习总览
+      </button>
+      <button class="nav-item" data-nav="exam" onclick="ACP.go('exam')">
+        <span class="nav-ico">📝</span> 模拟考试
+        <span class="nav-badge">75题</span>
+      </button>
+
+      <div class="nav-group-label">章节练习</div>
+      <div id="chapterNav"></div>
+
+      <div class="nav-group-label">复习</div>
+      <button class="nav-item" data-nav="wrong" onclick="ACP.go('wrong')">
+        <span class="nav-ico">✗</span> 错题本
+        <span class="nav-badge alert" id="wrongBadge" style="display:none;">0</span>
+      </button>
+      <button class="nav-item" data-nav="fav" onclick="ACP.go('fav')">
+        <span class="nav-ico">藏</span> 收藏夹
+        <span class="nav-badge" id="favBadge" style="display:none;">0</span>
+      </button>
+    </div>
+    <div class="sidebar-footer">
+      <button class="foot-btn" onclick="ACP.toggleTheme()" title="切换主题">🌓 <span id="themeLabel">深色</span></button>
+      <button class="foot-btn" onclick="ACP.resetAllData()" title="清空所有学习记录">🗑 清空数据</button>
+    </div>
+  </aside>
+
+  <!-- ==================== MAIN ==================== -->
+  <main class="main">
+    <div class="topbar">
+      <button class="hamburger" onclick="ACP.toggleSidebar()">☰</button>
+      <div class="crumb" id="crumb">学习总览</div>
+      <div class="search-wrap">
+        <span class="search-ico">🔍</span>
+        <input class="search-input" id="searchInput" placeholder="搜索题干关键词…" autocomplete="off">
+        <div class="search-results" id="searchResults"></div>
+      </div>
+    </div>
+    <div class="content" id="content">
+      <div class="content-inner" id="contentInner"></div>
+    </div>
+  </main>
+</div>
+
+<script src="data/quiz_categorized.js?v=20260814-1"></script>
+<script src="data/knowledge.js"></script>
+<script src="js/acp.js"></script>
+<script src="js/utils.js"></script>
+<script src="js/store.js"></script>
+<script src="js/data.js"></script>
+<script src="js/sidebar.js"></script>
+<script src="js/dashboard.js"></script>
+<script src="js/chapter.js"></script>
+<script src="js/study.js"></script>
+<script src="js/exam.js"></script>
+<script src="js/search.js"></script>
+<script src="js/app.js"></script>
+
+</body>
+</html>

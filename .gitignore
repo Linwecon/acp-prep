@@ -1,0 +1,37 @@
+# OS
+Thumbs.db
+.DS_Store
+Desktop.ini
+
+# Editor
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Logs
+*.log
+npm-debug.log*
+
+# Data (large files)
+data/quiz_data.json
+data/quiz_categorized.json
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+
+# Temp
+*.tmp
+*.bak
+
+# Secrets (never commit API keys)
+config/verify_config.json
+data/verify_results*.json
+data/verify_cache*.json
+data/verify_votes*.json
+data/verify_final*.json
+
+# Build artifacts
+dist/
