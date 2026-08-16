@@ -266,7 +266,7 @@
             return `
             <button class="gallery-card ${galleryClass(i, ch.title)}" data-ch="${i}"
                     style="animation-delay:${i * 40}ms"
-                    onclick="ACP.openChapter(${i})">
+                    onclick="ACP.openStudyChapter(${i})">
               <span class="gk-icon">${h2IconFor(ch.title)}</span>
               <span class="gk-name">${ACP.esc(ch.title)}</span>
               <span class="gk-meta">${st.total ? `已掌握 ${st.done}/${st.total} · 进入闯关 →` : '进入学习 →'}</span>
@@ -319,9 +319,9 @@
         </div>
 
         <div class="chap-nav">
-          <button class="btn" onclick="ACP.openChapter(${ci - 1})" ${ci === 0 ? 'disabled' : ''}>← 上一章</button>
+          <button class="btn" onclick="ACP.openStudyChapter(${ci - 1})" ${ci === 0 ? 'disabled' : ''}>← 上一章</button>
           <button class="btn" onclick="ACP.backToGallery()">回到知识宇宙</button>
-          <button class="btn btn-primary" onclick="ACP.openChapter(${ci + 1})" ${ci === chapters.length - 1 ? 'disabled' : ''}>下一章 →</button>
+          <button class="btn btn-primary" onclick="ACP.openStudyChapter(${ci + 1})" ${ci === chapters.length - 1 ? 'disabled' : ''}>下一章 →</button>
         </div>
         <button class="study-top" id="studyTop" onclick="ACP.studyTop()" title="回到顶部">↑</button>
       </div>`;
@@ -336,6 +336,7 @@
             const details = document.createElement('details');
             const summary = document.createElement('summary');
             summary.textContent = label;
+            details.open = true; // 默认展开，可手动收起
             el.parentNode.insertBefore(details, el);
             details.appendChild(summary);
             details.appendChild(el);
@@ -349,7 +350,7 @@
         };
     }
 
-    function openChapter(i) {
+    function openStudyChapter(i) {
         if (i < 0 || i >= chapters.length) return;
         chapterMode = i;
         ACP.renderStudy(document.getElementById('contentInner'));
@@ -415,7 +416,7 @@
 
     ACP.mdToHtml = mdToHtml;
     ACP.renderStudy = renderStudy;
-    ACP.openChapter = openChapter;
+    ACP.openStudyChapter = openStudyChapter;
     ACP.backToGallery = backToGallery;
     ACP.studyTop = studyTop;
 
