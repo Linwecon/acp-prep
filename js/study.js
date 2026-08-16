@@ -145,7 +145,8 @@
             const buf = [];
             while (i < lines.length && lines[i].trim() !== '') { buf.push(lines[i]); i++; }
             if (buf.length) {
-                const joined = buf.join('<br>');
+                // 段落内换行按 Markdown 语义合并为空格（不能用 <br>，否则会被 esc 转义成字面文本）
+                const joined = buf.join(' ');
                 const first = buf[0].trim();
                 let cls = null;
                 if (/^\*\*核心概念\*\*/.test(first)) cls = 'core-concept';
