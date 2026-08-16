@@ -233,28 +233,40 @@
         // 示例句："苹果 很 便宜 而且 好吃" —— 第一个 Token 关注其余 Token，
         // 权重数组对应 [很, 便宜, 而且, 好吃]（描述性词语相关性更高）
         const weights = [0.4, 0.85, 0.25, 0.95];
-        const n = words.length;
-        const GAP = 96, R = 26, y0 = 34;
-        const cx0 = 48, W = cx0 + (n - 1) * GAP + 48, H = 108;
+        // 放射状布局：中心"苹果"，右侧目标词纵向扇形分散，连线互不交叉
+        const cx = 70, cy = 100, cr = 30;
+        const targets = [
+            { x: 238, y: 24 },  // 很
+            { x: 268, y: 72 },  // 便宜
+            { x: 268, y: 128 }, // 而且
+            { x: 238, y: 176 }  // 好吃
+        ];
+        const W = 500, H = 200;
 
-        const nodes = words.map((wd, idx) => {
-            const cx = cx0 + idx * GAP;
-            const isFirst = idx === 0;
-            return `<g class="attn-node${isFirst ? ' focus' : ''}" style="animation-delay:${idx * 140}ms">
-              <circle cx="${cx}" cy="${y0}" r="${R}"/>
-              <text x="${cx}" y="${y0}" text-anchor="middle" dominant-baseline="central">${esc(wd)}</text>
-            </g>`;
+        const lines = words.slice(1).map((_, j) => {
+            const w = weights[j] || 0.5;
+            const t = targets[j];
+            const dx = t.x - cx, dy = t.y - cy;
+            const dist = Math.sqrt(dx * dx + dy * dy) || 1;
+            // 从"苹果"圆边缘出发、到目标词圆边缘结束（不穿过圆）
+            const sx = cx + dx / dist * (cr + 4), sy = cy + dy / dist * (cr + 4);
+            const ex = t.x - dx / dist * 25, ey = t.y - dy / dist * 25;
+            const sw = 1.6 + w * 3.4;
+            const op = 0.4 + w * 0.55;
+            return `<line x1="${sx.toFixed(1)}" y1="${sy.toFixed(1)}" x2="${ex.toFixed(1)}" y2="${ey.toFixed(1)}"
+              class="attn-curve" style="stroke-width:${sw.toFixed(2)};opacity:${op.toFixed(2)};animation-delay:${j * 170}ms"/>`;
         }).join('');
 
-        const curves = words.slice(1).map((_, j) => {
-            const w = weights[j] || 0.5;
-            const c2 = cx0 + (j + 1) * GAP;
-            const mx = (cx0 + c2) / 2;
-            const my = y0 + 30 + (1 - w) * 30; // 权重越高，弧线越贴近节点（连接越"直接"）
-            const sw = 1.6 + w * 2.6;
-            const op = 0.35 + w * 0.6;
-            return `<path d="M ${cx0} ${y0} Q ${mx} ${my} ${c2} ${y0}" fill="none" class="attn-curve"
-              style="stroke-width:${sw.toFixed(2)};opacity:${op.toFixed(2)};animation-delay:${j * 170}ms"/>`;
+        const center = `<g class="attn-node focus">
+          <circle class="attn-pulse" cx="${cx}" cy="${cy}" r="${cr}"/>
+          <text x="${cx}" y="${cy}" text-anchor="middle" dominant-baseline="central">${esc(words[0])}</text>
+        </g>`;
+        const outers = words.slice(1).map((wd, j) => {
+            const t = targets[j];
+            return `<g class="attn-node" style="animation-delay:${(j + 1) * 140}ms">
+              <circle cx="${t.x}" cy="${t.y}" r="24"/>
+              <text x="${t.x}" y="${t.y}" text-anchor="middle" dominant-baseline="central">${esc(wd)}</text>
+            </g>`;
         }).join('');
 
         return `<div class="chart-wrap">
@@ -267,8 +279,9 @@
               <stop offset="1" stop-color="var(--accent-2)"/>
             </linearGradient>
           </defs>
-          ${curves}
-          ${nodes}
+          ${lines}
+          ${center}
+          ${outers}
         </svg>
       </div>
       <div class="chart-note">线越粗越亮 = 关注度越高："好吃""便宜"直接描述苹果，权重最高；"很""而且"为功能词，权重较低</div>

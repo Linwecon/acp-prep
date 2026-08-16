@@ -1547,25 +1547,27 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
 .ring-legend { display: flex; align-items: center; gap: 7px; font-size: 12px; color: var(--text-2); }
 .ring-legend i { width: 10px; height: 10px; border-radius: 3px; flex-shrink: 0; }
 
-/* attn 自注意力可视化（SVG 贝塞尔曲线 + 权重线宽 + 首词高亮） */
+/* attn 自注意力可视化（放射状布局：中心节点 + 扇形展开连线） */
 .attn-title {
   font-size: 12.5px; font-weight: 700; color: var(--text-1);
   margin-bottom: 10px;
 }
 .attn-scroll { overflow-x: auto; }
-.attn-svg { display: block; min-width: 320px; }
+.attn-svg { display: block; min-width: 380px; }
 .attn-node { cursor: default; }
 .attn-node circle {
   fill: var(--surface);
   stroke: var(--border-strong);
   stroke-width: 1.5;
   animation: attnNode .55s ease both;
-  transition: transform 180ms ease;
 }
 .attn-node.focus circle {
   fill: url(#attnFocus);
   stroke: none;
   filter: drop-shadow(0 4px 10px var(--accent-soft));
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: attnNode .55s ease both, attnPulse 2.4s ease-in-out infinite;
 }
 .attn-node text {
   font-size: 13px; font-weight: 600;
@@ -1586,6 +1588,13 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
 @keyframes attnCurve {
   from { opacity: 0; }
   to   { opacity: 1; }
+}
+@keyframes attnPulse {
+  0%, 100% { transform: scale(1); }
+  50%      { transform: scale(1.07); }
+}
+@keyframes dashMove {
+  to { stroke-dashoffset: -22; }
 }
 
 /* matrix 矩阵分解示意 */
