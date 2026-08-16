@@ -115,7 +115,6 @@
         root.innerHTML = `
     <div class="quiz-toolbar">
       ${filterChips}
-      <span class="hint" style="margin-left:8px;">默认按难度递增</span>
       <span class="spacer"></span>
       <button class="chip ${S.ui.shuffle ? 'active' : ''}" onclick="ACP.toggleShuffle()" title="随机顺序">🔀 随机</button>
       <button class="chip" onclick="ACP.toggleMode()" title="切换单题/列表">${S.ui.mode === 'single' ? '☰ 列表' : '☝ 单题'}</button>
