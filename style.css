@@ -1480,6 +1480,109 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
   margin: 22px 0 8px;
 }
 
+/* ============================================================
+   图表（flow / bars / ring / attn / matrix）
+   ============================================================ */
+.chart-wrap {
+  margin: 16px 0;
+  padding: 16px 18px;
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  overflow-x: auto;
+}
+.chart-title {
+  font-size: 11px; font-weight: 700; color: var(--text-3);
+  letter-spacing: .08em; margin-bottom: 10px;
+}
+.chart-note { margin-top: 10px; font-size: 11.5px; color: var(--text-3); text-align: center; }
+
+.study-outline { margin-bottom: 18px; }
+.ol-title {
+  font-size: 12.5px; font-weight: 700; color: var(--text-2);
+  margin: 2px 0 8px;
+}
+
+/* flow 流程动图 */
+.flow-chart { display: flex; align-items: center; flex-wrap: wrap; gap: 6px; }
+.flow-node {
+  display: inline-flex; align-items: center; gap: 7px;
+  padding: 7px 13px;
+  font-size: 12.5px; font-weight: 600; color: var(--text-1);
+  background: var(--surface);
+  border: 1px solid var(--accent);
+  border-radius: 10px;
+  animation: flowIn .5s ease both;
+}
+.flow-num {
+  width: 17px; height: 17px;
+  display: inline-flex; align-items: center; justify-content: center;
+  font-family: var(--font-mono); font-size: 10.5px; font-weight: 700;
+  color: #fff;
+  background: var(--accent);
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+.flow-arrow { color: var(--accent); font-weight: 700; animation: flowIn .4s ease both; }
+@keyframes flowIn {
+  from { opacity: 0; transform: translateY(8px) scale(.96); }
+  to   { opacity: 1; transform: none; }
+}
+
+/* bars 条形图 */
+.bar-row { display: flex; align-items: center; gap: 10px; margin: 7px 0; }
+.bar-label { width: 210px; flex-shrink: 0; font-size: 12px; color: var(--text-2); text-align: right; }
+.bar-track { flex: 1; height: 13px; background: var(--surface); border-radius: 7px; overflow: hidden; }
+.bar-track i { display: block; height: 100%; border-radius: 7px; animation: barGrow .9s ease both; }
+.bar-val { width: 46px; flex-shrink: 0; font-size: 12px; font-family: var(--font-mono); font-weight: 600; color: var(--text-1); }
+@keyframes barGrow { from { width: 0; } }
+@media (max-width: 860px) { .bar-label { width: 120px; } }
+
+/* ring 环形图 */
+.ring-chart { display: flex; align-items: center; gap: 18px; flex-wrap: wrap; }
+.ring-svg { width: 148px; height: 148px; flex-shrink: 0; }
+.ring-seg { animation: ringIn .8s ease both; }
+@keyframes ringIn { from { opacity: 0; } to { opacity: 1; } }
+.ring-legend-wrap { display: flex; flex-direction: column; gap: 7px; min-width: 180px; }
+.ring-legend { display: flex; align-items: center; gap: 7px; font-size: 12px; color: var(--text-2); }
+.ring-legend i { width: 10px; height: 10px; border-radius: 3px; flex-shrink: 0; }
+
+/* attn 自注意力连线动画 */
+.attn-chart { position: relative; }
+.attn-svg { position: absolute; top: 0; left: 0; width: 100%; height: 36px; pointer-events: none; }
+.attn-tokens { position: relative; display: flex; gap: 8px; padding-top: 42px; }
+.attn-token {
+  width: 48px; height: 48px; flex-shrink: 0;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 13px; font-weight: 600; color: var(--accent-text);
+  background: var(--accent-soft);
+  border: 1px solid var(--accent);
+  border-radius: 50%;
+  animation: flowIn .5s ease both;
+}
+.attn-line {
+  stroke: var(--accent); stroke-width: 1.5;
+  stroke-dasharray: 4 4;
+  opacity: .5;
+  animation: lineDraw .7s ease both, dashMove 1.1s linear infinite;
+}
+@keyframes lineDraw { from { opacity: 0; } to { opacity: .5; } }
+@keyframes dashMove { to { stroke-dashoffset: -16; } }
+
+/* matrix 矩阵分解示意 */
+.matrix-chart { display: flex; align-items: center; justify-content: center; gap: 12px; flex-wrap: wrap; }
+.mx-block {
+  display: inline-flex; align-items: center; justify-content: center;
+  padding: 10px 16px;
+  font-family: var(--font-mono); font-size: 12px; font-weight: 700;
+  border-radius: 8px;
+  animation: flowIn .5s ease both;
+}
+.mx-b { background: var(--accent-soft); color: var(--accent-text); border: 1.5px solid var(--accent); height: 88px; }
+.mx-a { background: var(--success-soft); color: var(--success); border: 1.5px solid var(--success); height: 40px; }
+.mx-w { background: var(--warning-soft); color: var(--warning); border: 1.5px solid var(--warning); height: 88px; }
+.mx-op { font-size: 20px; font-weight: 800; color: var(--text-3); }
+
 .study-top {
   position: fixed; right: 30px; bottom: 28px; z-index: 50;
   width: 40px; height: 40px;

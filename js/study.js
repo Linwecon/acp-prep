@@ -88,6 +88,17 @@
         while (i < lines.length) {
             const line = lines[i];
 
+            // chart block: ```chart <type>
+            const cm = line.trim().match(/^```chart\s+(\w+)/);
+            if (cm) {
+                const buf = [];
+                i++;
+                while (i < lines.length && !/^```/.test(lines[i].trim())) { buf.push(lines[i]); i++; }
+                i++;
+                out.push(chartHTML(cm[1], buf.join('\n').trim()));
+                continue;
+            }
+
             if (/^```/.test(line.trim())) {
                 const buf = [];
                 i++;
@@ -153,6 +164,95 @@
             else i++;
         }
         return out.join('\n');
+    }
+
+    /* ---------- charts (SVG/CSS animated) ---------- */
+
+    const CHART_COLORS = ['#6366f1', '#0ea5e9', '#10b981', '#f59e0b', '#ef4444', '#a855f7',
+        '#ec4899', '#14b8a6', '#f97316', '#3b82f6', '#84cc16', '#f472b6', '#94a3b8'];
+
+    function chartHTML(type, data) {
+        const lines = data.split('\n').map(l => l.trim()).filter(Boolean);
+        switch (type) {
+            case 'flow': return flowChart(lines);
+            case 'bars': return barsChart(lines);
+            case 'ring': return ringChart(lines);
+            case 'attn': return attnChart(lines);
+            case 'matrix': return matrixChart(lines);
+            default: return `<p>未知图表类型: ${esc(type)}</p>`;
+        }
+    }
+
+    function flowChart(steps) {
+        const items = steps.map((s, idx) => {
+            const label = esc(s.replace(/^\d+[.、]\s*/, ''));
+            return `<span class="flow-node" style="animation-delay:${idx * 280}ms"><span class="flow-num">${idx + 1}</span>${label}</span>` +
+                (idx < steps.length - 1 ? `<span class="flow-arrow" style="animation-delay:${idx * 280 + 160}ms">→</span>` : '');
+        }).join('');
+        return `<div class="chart-wrap"><div class="chart-title">流程</div><div class="flow-chart">${items}</div></div>`;
+    }
+
+    function barsChart(lines) {
+        const pairs = lines.map(l => {
+            const [label, val] = l.split('|').map(s => s.trim());
+            return { label, val: parseFloat(val) || 0 };
+        });
+        const max = Math.max(...pairs.map(p => p.val), 1);
+        const items = pairs.map((p, idx) => `
+        <div class="bar-row">
+          <span class="bar-label">${esc(p.label)}</span>
+          <span class="bar-track"><i style="width:${Math.round(p.val / max * 100)}%;background:${CHART_COLORS[idx % CHART_COLORS.length]};animation-delay:${idx * 160}ms"></i></span>
+          <span class="bar-val">${esc(String(p.val))}</span>
+        </div>`).join('');
+        return `<div class="chart-wrap"><div class="bars-chart">${items}</div></div>`;
+    }
+
+    function ringChart(lines) {
+        const pairs = lines.map(l => {
+            const [label, val] = l.split('|').map(s => s.trim());
+            return { label, val: parseFloat(val) || 0 };
+        });
+        const total = pairs.reduce((s, p) => s + p.val, 0) || 1;
+        const R = 52, C = 2 * Math.PI * R;
+        let offset = 0;
+        const segs = pairs.map((p, idx) => {
+            const len = p.val / total * C;
+            const seg = `<circle cx="60" cy="60" r="${R}" fill="none" stroke="${CHART_COLORS[idx % CHART_COLORS.length]}" stroke-width="15" stroke-dasharray="${len.toFixed(2)} ${(C - len).toFixed(2)}" stroke-dashoffset="${(-offset).toFixed(2)}" class="ring-seg" style="animation-delay:${idx * 180}ms"></circle>`;
+            offset += len;
+            return seg;
+        }).join('');
+        const legend = pairs.map((p, idx) =>
+            `<span class="ring-legend"><i style="background:${CHART_COLORS[idx % CHART_COLORS.length]}"></i>${esc(p.label)} · ${esc(String(p.val))}%</span>`).join('');
+        return `<div class="chart-wrap"><div class="ring-chart">
+      <svg viewBox="0 0 120 120" class="ring-svg">${segs}</svg>
+      <div class="ring-legend-wrap">${legend}</div>
+    </div></div>`;
+    }
+
+    function attnChart(words) {
+        const n = words.length;
+        const w = n * 56;
+        const tokens = words.map((wd, idx) => `<span class="attn-token" style="animation-delay:${idx * 120}ms">${esc(wd)}</span>`).join('');
+        const lines = [];
+        for (let j = 1; j < n; j++) {
+            lines.push(`<line x1="24" y1="18" x2="${24 + j * 56}" y2="18" class="attn-line" style="animation-delay:${j * 130}ms"/>`);
+        }
+        return `<div class="chart-wrap"><div class="attn-chart">
+      <svg viewBox="0 0 ${w} 36" class="attn-svg" preserveAspectRatio="none">${lines.join('')}</svg>
+      <div class="attn-tokens">${tokens}</div>
+    </div><div class="chart-note">自注意力：每个 Token 都会关注序列中的所有其他 Token（以第一个 Token 的连线为例）</div></div>`;
+    }
+
+    function matrixChart(lines) {
+        const parts = (lines[0] || 'W | B | A').split('|').map(s => s.trim());
+        const [w, b, a] = parts.length >= 3 ? parts : ['W', 'B', 'A'];
+        return `<div class="chart-wrap"><div class="matrix-chart">
+      <span class="mx-block mx-b">${esc(b)}</span>
+      <span class="mx-op">×</span>
+      <span class="mx-block mx-a">${esc(a)}</span>
+      <span class="mx-op">=</span>
+      <span class="mx-block mx-w">${esc(w)}</span>
+    </div><div class="chart-note">ΔW = B × A：低秩分解使可训练参数量骤降（冻结的 W₀ 不产生梯度）</div></div>`;
     }
 
     /* ---------- structured parsing: chapters → knowledge points ---------- */
@@ -222,6 +322,28 @@
         return 'gk-' + (idx + 1);
     }
 
+    /* 画廊页"官方大纲占比"环形图（数据与模拟考试抽题一致） */
+    function outlineRing() {
+        const doms = ACP.EXAM_DOMAINS || [];
+        if (!doms.length) return '';
+        const pairs = doms.map(d => ({ label: d.name, val: d.pct }));
+        const total = pairs.reduce((s, p) => s + p.val, 0) || 1;
+        const R = 52, C = 2 * Math.PI * R;
+        let offset = 0;
+        const segs = pairs.map((p, idx) => {
+            const len = p.val / total * C;
+            const seg = `<circle cx="60" cy="60" r="${R}" fill="none" stroke="${CHART_COLORS[idx % CHART_COLORS.length]}" stroke-width="15" stroke-dasharray="${len.toFixed(2)} ${(C - len).toFixed(2)}" stroke-dashoffset="${(-offset).toFixed(2)}" class="ring-seg" style="animation-delay:${idx * 180}ms"></circle>`;
+            offset += len;
+            return seg;
+        }).join('');
+        const legend = pairs.map((p, idx) =>
+            `<span class="ring-legend"><i style="background:${CHART_COLORS[idx % CHART_COLORS.length]}"></i>${ACP.esc(p.label)} · ${p.val}%</span>`).join('');
+        return `<div class="chart-wrap"><div class="ring-chart">
+      <svg viewBox="0 0 120 120" class="ring-svg">${segs}</svg>
+      <div class="ring-legend-wrap">${legend}</div>
+    </div></div>`;
+    }
+
     function chapterStats(ch) {
         const done = loadDone();
         let n = 0;
@@ -259,6 +381,10 @@
             <div class="sh-track"><i style="width:${pct}%"></i></div>
             <span class="sh-num">已掌握 <b>${s.done}</b> / ${s.total} 个知识点</span>
           </div>
+        </div>
+        <div class="study-outline">
+          <div class="ol-title">官方大纲考点占比</div>
+          ${outlineRing()}
         </div>
         <div class="study-gallery">
           ${chapters.map((ch, i) => {
