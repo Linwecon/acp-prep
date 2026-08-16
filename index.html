@@ -93,12 +93,54 @@ window.__enter = function (mode) {
         <span class="nav-ico">藏</span> 收藏夹
         <span class="nav-badge" id="favBadge" style="display:none;">0</span>
       </button>
+
+      <div class="nav-group-label">关于</div>
+      <button class="nav-item" data-nav="notes" onclick="ACP.openNotes()">
+        <span class="nav-ico">📌</span> 注意事项
+      </button>
     </div>
     <div class="sidebar-footer">
       <button class="foot-btn" onclick="ACP.toggleTheme()" title="切换主题">🌓 <span id="themeLabel">深色</span></button>
       <button class="foot-btn" onclick="ACP.resetAllData()" title="清空所有学习记录">🗑 清空数据</button>
     </div>
   </aside>
+
+  <!-- ==================== NOTES MODAL ==================== -->
+  <div class="modal-overlay" id="notesOverlay" onclick="ACP.closeNotes()"></div>
+  <div class="modal" id="notesModal" role="dialog" aria-modal="true" aria-label="使用注意事项">
+    <div class="modal-head">
+      <span class="modal-title">📌 使用注意事项</span>
+      <button class="modal-close" onclick="ACP.closeNotes()" title="关闭">✕</button>
+    </div>
+    <div class="modal-body">
+      <div class="note-item">
+        <span class="note-ico">💾</span>
+        <div class="note-text"><b>学习进度存本地浏览器</b>（localStorage）：换手机 / 电脑、清除浏览器缓存，进度、错题、收藏会丢失。建议固定一台设备备考，重要进度可截图留存。</div>
+      </div>
+      <div class="note-item">
+        <span class="note-ico">⏳</span>
+        <div class="note-text"><b>首次打开稍等</b>：题库约 300KB 需下载（页面有加载提示），之后秒开。</div>
+      </div>
+      <div class="note-item">
+        <span class="note-ico">🔄</span>
+        <div class="note-text"><b>更新后强制刷新</b>：题库更新后，需刷新页面（手机端可下拉刷新 / 清缓存）才能看到新版——GitHub Pages 有缓存。</div>
+      </div>
+      <div class="note-item">
+        <span class="note-ico">📖</span>
+        <div class="note-text"><b>答案以官方为准</b>：题库是第三方购买 + AI 多模型校验修正的，仍有几十道"模型分歧"题未定论，刷到解析标注"争议"的题，请以阿里云官方文档为准。</div>
+      </div>
+      <div class="note-item">
+        <span class="note-ico">🔒</span>
+        <div class="note-text"><b>纯前端无后端</b>：不收集任何数据、无登录；因此没有"云端进度同步"，换设备需手动迁移。</div>
+      </div>
+      <div class="note-item">
+        <span class="note-ico">🔗</span>
+        <div class="note-text"><b>分享链接</b>：
+          <button class="note-link" onclick="ACP.copyLink()" title="点击复制">https://linwecon.github.io/acp-prep/</button>
+        </div>
+      </div>
+    </div>
+  </div>
 
   <!-- ==================== MAIN ==================== -->
   <main class="main">

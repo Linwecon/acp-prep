@@ -34,6 +34,42 @@
         setTimeout(() => landing.remove(), 460);
     }
 
+    /* ---------- notes modal ---------- */
+    function openNotes() {
+        const m = document.getElementById('notesModal');
+        const o = document.getElementById('notesOverlay');
+        if (!m || !o) return;
+        m.classList.add('show');
+        o.classList.add('show');
+        ACP.toggleSidebar(false);
+    }
+
+    function closeNotes() {
+        const m = document.getElementById('notesModal');
+        const o = document.getElementById('notesOverlay');
+        if (m) m.classList.remove('show');
+        if (o) o.classList.remove('show');
+    }
+
+    function copyLink() {
+        const url = 'https://linwecon.github.io/acp-prep/';
+        const done = () => ACP.toast('链接已复制');
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+            navigator.clipboard.writeText(url).then(done).catch(() => { fallbackCopy(url); done(); });
+        } else { fallbackCopy(url); done(); }
+    }
+
+    function fallbackCopy(text) {
+        const ta = document.createElement('textarea');
+        ta.value = text;
+        ta.style.position = 'fixed';
+        ta.style.opacity = '0';
+        document.body.appendChild(ta);
+        ta.select();
+        try { document.execCommand('copy'); } catch (e) {}
+        document.body.removeChild(ta);
+    }
+
     /* ---------- keyboard ---------- */
     document.addEventListener('keydown', e => {
         const landing = document.getElementById('landing');
@@ -44,6 +80,7 @@
             return;
         }
         if (e.target.tagName === 'INPUT') return;
+        if (e.key === 'Escape') { ACP.closeNotes(); return; }
         if (S.ui.view === 'chapter' && S.ui.mode === 'single' && S.ui.pool.length) {
             const q = S.ui.pool[S.ui.idx];
             if (e.key === 'ArrowLeft') { ACP.navQ(-1); e.preventDefault(); }
@@ -103,6 +140,9 @@
     ACP.toggleTheme = toggleTheme;
     ACP.resetAllData = resetAllData;
     ACP.enterApp = enterApp;
+    ACP.openNotes = openNotes;
+    ACP.closeNotes = closeNotes;
+    ACP.copyLink = copyLink;
     ACP.boot = boot;
 
 })(window.ACP);
