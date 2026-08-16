@@ -38,7 +38,26 @@ REPLACEMENTS = {
         "answer": "A",
         "analysis": "提示词分隔符是提示工程的核心技巧：用固定标记（如【输入如下】、XML 标签、三引号等）明确圈出用户输入，帮助模型区分“指令”与“数据”，减少误读。B 不做区分会让模型难以判断哪里是指令、哪里是输入，容易出错；C 混淆了提示词设计与模型训练——训练数据不改变提示词结构；D 混淆了采样参数的作用——temperature 只控制输出随机性，与输入边界无关。",
     },
+    # 1-0178：原为"引用不存在材料 ask_lm_route 的输入格式题"，改写为自包含的 API 消息角色考点题
+    "1-0178": {
+        "stem": "在调用大模型 API 时，需要区分系统指令、用户输入与模型历史回复。下列哪种做法符合 API 调用的消息规范？",
+        "options": [
+            {"option_label": "A", "option_text": "将消息放入 messages 数组，并用 role 字段区分（system / user / assistant）"},
+            {"option_label": "B", "option_text": "把所有内容拼接成一段连续文本，不做角色区分"},
+            {"option_label": "C", "option_text": "用 temperature 参数的高低来区分不同角色"},
+            {"option_label": "D", "option_text": "用 max_tokens 参数分别限定各角色的长度"},
+        ],
+        "answer": "A",
+        "analysis": "OpenAI 兼容 / DashScope 的大模型 API 中，messages 数组的 role 字段用于标识每条消息的角色：system（系统提示词）、user（用户输入）、assistant（模型回复），模型据此理解对话结构。B 不做角色区分会让模型无法分辨指令与输入，多轮对话时更易混乱；C 混淆了采样参数——temperature 只控制输出随机性；D 混淆了长度参数——max_tokens 限制的是本次生成长度，与消息角色无关。",
+    },
 }
+
+# 删除依赖缺失材料、无法独立作答的劣质题（ask_llm_route 函数题 + 缺失的"答疑机器人提示词"材料题）
+DELETE_IDS = [
+    "2-0127", "2-0141", "2-0163", "2-0207", "2-0210",
+    "2-0469", "2-0479", "2-0484", "2-0486", "2-0504",
+    "2-0522", "2-0524", "2-0541", "2-0546", "2-1437",
+]
 
 
 def main() -> int:
@@ -54,6 +73,15 @@ def main() -> int:
             continue
         found.update(new)
         print(f"已改写 {qid}: {new['stem'][:36]}...")
+
+    for qid in DELETE_IDS:
+        ch, seq = qid.split("-")
+        before = len(data.get(ch, []))
+        data[ch] = [q for q in data.get(ch, []) if str(q.get("seq")) != seq]
+        if len(data[ch]) < before:
+            print(f"已删除 {qid}")
+        else:
+            print(f"[警告] 未找到待删除 {qid}")
 
     SRC.write_text(raw[: m.start(1)] + json.dumps(data, ensure_ascii=False) + raw[m.end(1):], encoding="utf-8")
 
