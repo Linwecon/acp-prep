@@ -232,15 +232,22 @@
     function attnChart(words) {
         const n = words.length;
         const w = n * 56;
-        const tokens = words.map((wd, idx) => `<span class="attn-token" style="animation-delay:${idx * 120}ms">${esc(wd)}</span>`).join('');
+        // Token 与连线共用同一像素坐标系：token 圆心位于 (24 + idx*56, 24)
+        const tokens = words.map((wd, idx) =>
+            `<span class="attn-token" style="left:${idx * 56}px;animation-delay:${idx * 120}ms">${esc(wd)}</span>`).join('');
         const lines = [];
         for (let j = 1; j < n; j++) {
-            lines.push(`<line x1="24" y1="18" x2="${24 + j * 56}" y2="18" class="attn-line" style="animation-delay:${j * 130}ms"/>`);
+            lines.push(`<line x1="24" y1="24" x2="${24 + j * 56}" y2="24" class="attn-line" style="animation-delay:${j * 130}ms"/>`);
         }
-        return `<div class="chart-wrap"><div class="attn-chart">
-      <svg viewBox="0 0 ${w} 36" class="attn-svg" preserveAspectRatio="none">${lines.join('')}</svg>
-      <div class="attn-tokens">${tokens}</div>
-    </div><div class="chart-note">自注意力：每个 Token 都会关注序列中的所有其他 Token（以第一个 Token 的连线为例）</div></div>`;
+        return `<div class="chart-wrap">
+      <div class="attn-scroll">
+        <div class="attn-chart" style="width:${w}px">
+          <svg viewBox="0 0 ${w} 48" width="${w}" height="48" class="attn-svg">${lines.join('')}</svg>
+          <div class="attn-tokens" style="width:${w}px">${tokens}</div>
+        </div>
+      </div>
+      <div class="chart-note">自注意力：每个 Token 都会关注序列中的所有其他 Token（以第一个 Token 的连线为例）</div>
+    </div>`;
     }
 
     function matrixChart(lines) {
