@@ -57,8 +57,12 @@
 
     function blockquoteHTML(buf) {
         const t = buf.map(l => l.replace(/^\s*>\s?/, '')).join(' ');
-        const cls = t.indexOf('⚠️') >= 0 ? ' warn' : (t.indexOf('💡') >= 0 || t.indexOf('📝') >= 0 ? ' tip' : '');
-        return `<blockquote class="study-bq${cls}">${inline(t)}</blockquote>`;
+        let cls = 'study-bq';
+        if (t.indexOf('⚠️') >= 0) cls += ' warn';
+        else if (t.indexOf('导读') >= 0) cls += ' guide';
+        else if (t.indexOf('白话') >= 0) cls += ' plain';
+        else if (t.indexOf('💡') >= 0 || t.indexOf('📝') >= 0) cls += ' tip';
+        return `<blockquote class="${cls}">${inline(t)}</blockquote>`;
     }
 
     function listHTML(buf) {
@@ -140,7 +144,15 @@
             // paragraph (accumulate until blank line)
             const buf = [];
             while (i < lines.length && lines[i].trim() !== '') { buf.push(lines[i]); i++; }
-            if (buf.length) out.push(`<p>${inline(buf.join('<br>'))}</p>`);
+            if (buf.length) {
+                const joined = buf.join('<br>');
+                // "**核心概念**：..." 段落 → 高亮卡片
+                if (/^\*\*核心概念\*\*/.test(buf[0].trim())) {
+                    out.push(`<div class="core-concept">${inline(joined)}</div>`);
+                } else {
+                    out.push(`<p>${inline(joined)}</p>`);
+                }
+            }
             else i++;
         }
         return out.join('\n');
@@ -197,9 +209,31 @@
             ).join('')}
           </div>
         </div>
+        <div class="study-meta">
+          <span class="sm-chip">📚 ${toc.length} 个章节</span>
+          <span class="sm-chip">⏱ 已读 <b id="studyPct">0%</b></span>
+        </div>
         <article class="study-article card">${html}</article>
         <button class="study-top" id="studyTop" onclick="ACP.studyTop()" title="回到顶部">↑</button>
       </div>`;
+
+        // 给每个 h2 章节标题加上主题图标
+        const H2_ICONS = [
+            ['易混', '⚖️'], ['应试', '💪'], ['陷阱', '🎯'],
+            ['大模型基础', '🧠'], ['提示工程', '✍️'], ['RAG', '🔎'],
+            ['Agent', '🤖'], ['微调', '🔧'], ['部署', '🚀'],
+            ['评估', '📊'], ['安全', '🛡️'], ['API', '🔌'],
+            ['阿里云', '☁️'], ['多模态', '🎨'], ['框架', '🧩'], ['附录', '🎓']
+        ];
+        root.querySelectorAll('.study-article h2[id]').forEach(h => {
+            const txt = h.textContent || '';
+            for (const [kw, icon] of H2_ICONS) {
+                if (txt.includes(kw)) {
+                    h.innerHTML = `<span class="h2-icon">${icon}</span>` + h.innerHTML;
+                    break;
+                }
+            }
+        });
 
         // smooth scroll for in-document anchors (rebind to avoid duplicates)
         if (studyClickHandler) root.removeEventListener('click', studyClickHandler);
@@ -215,6 +249,7 @@
         // scroll progress + scrollspy
         const content = document.getElementById('content');
         const prog = document.getElementById('studyProg');
+        const pct = document.getElementById('studyPct');
         const topBtn = document.getElementById('studyTop');
         const heads = root.querySelectorAll('.study-article h2[id]');
         const chips = root.querySelectorAll('.study-chip');
@@ -222,7 +257,9 @@
         const sync = () => {
             const sc = content.scrollTop;
             const sh = content.scrollHeight - content.clientHeight;
-            if (prog) prog.style.width = (sh > 0 ? Math.min(100, (sc / sh) * 100) : 0) + '%';
+            const ratio = sh > 0 ? Math.min(100, (sc / sh) * 100) : 0;
+            if (prog) prog.style.width = ratio + '%';
+            if (pct) pct.textContent = Math.round(ratio) + '%';
             if (topBtn) topBtn.classList.toggle('show', sc > 420);
             let cur = toc.length ? toc[0].id : null;
             heads.forEach(h => {

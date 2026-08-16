@@ -1088,6 +1088,20 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
   font-weight: 600;
 }
 
+.study-meta {
+  display: flex; gap: 8px; align-items: center;
+  margin-top: 14px;
+}
+.sm-chip {
+  display: inline-flex; align-items: center; gap: 6px;
+  padding: 5px 12px;
+  font-size: 12px; color: var(--text-2);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+}
+.sm-chip b { color: var(--accent-text); font-weight: 700; }
+
 .study-article {
   margin-top: 14px;
   padding: 36px 42px 48px;
@@ -1100,16 +1114,35 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
   -webkit-text-fill-color: transparent;
 }
 .study-article h2 {
+  display: flex; align-items: center; gap: 10px;
   font-size: 21px; font-weight: 700; letter-spacing: -.01em;
   margin: 40px 0 14px;
-  padding-bottom: 10px;
+  padding-bottom: 12px;
   border-bottom: 1px solid var(--border);
   scroll-margin-top: 110px;
 }
+.h2-icon {
+  flex-shrink: 0;
+  width: 36px; height: 36px;
+  display: inline-flex; align-items: center; justify-content: center;
+  font-size: 19px;
+  background: linear-gradient(135deg, var(--accent-soft), var(--surface-2));
+  border: 1px solid var(--border);
+  border-radius: 11px;
+  box-shadow: var(--shadow-sm);
+}
 .study-article h3 {
+  position: relative;
   font-size: 16px; font-weight: 700;
   margin: 26px 0 10px;
+  padding-left: 13px;
   scroll-margin-top: 110px;
+}
+.study-article h3::before {
+  content: '';
+  position: absolute; left: 0; top: 5px; bottom: 5px;
+  width: 3px; border-radius: 3px;
+  background: linear-gradient(180deg, var(--accent), var(--accent-2));
 }
 .study-article h2:first-of-type { margin-top: 18px; }
 .study-article p { margin: 10px 0; font-size: 14.5px; line-height: 1.8; }
@@ -1146,6 +1179,30 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
 }
 .study-article blockquote.study-bq.warn { border-left-color: var(--warning); background: var(--warning-soft); }
 .study-article blockquote.study-bq.tip  { border-left-color: var(--success); background: var(--success-soft); }
+/* 导读卡片：每章开头的白话引导 */
+.study-article blockquote.study-bq.guide {
+  border-left: 3px solid var(--accent);
+  background: linear-gradient(120deg, var(--accent-soft), transparent 72%);
+  font-size: 14px; line-height: 1.85; color: var(--text-1);
+  padding: 13px 18px;
+}
+/* 白话版：通俗解释 */
+.study-article blockquote.study-bq.plain {
+  border-left-color: var(--success);
+  background: var(--success-soft);
+  color: var(--text-2);
+}
+
+/* 核心概念高亮卡片 */
+.core-concept {
+  margin: 16px 0;
+  padding: 14px 18px;
+  border: 1px solid var(--accent);
+  border-radius: 12px;
+  background: linear-gradient(120deg, var(--accent-soft), transparent 80%);
+  font-size: 14.5px; line-height: 1.85;
+  box-shadow: var(--shadow-sm);
+}
 
 .study-article ul, .study-article ol { margin: 10px 0; padding-left: 24px; }
 .study-article li { margin: 5px 0; line-height: 1.75; }
@@ -1177,7 +1234,10 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
 }
 .study-article tr:last-child td { border-bottom: none; }
 .study-article tbody tr { transition: background 120ms ease; }
-.study-article tbody tr:hover { background: var(--surface-2); }
+/* 斑马纹 + 首列强调 */
+.study-article tbody tr:nth-child(even) { background: var(--surface-2); }
+.study-article tbody tr:hover { background: var(--accent-soft); }
+.study-article td:first-child { font-weight: 600; color: var(--text-1); }
 
 .study-top {
   position: fixed; right: 30px; bottom: 28px; z-index: 50;
