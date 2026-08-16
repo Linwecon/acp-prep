@@ -1204,6 +1204,28 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
   box-shadow: var(--shadow-sm);
 }
 
+/* 四类知识点卡片：白话 / 深入原理 / 实战要点 / 常见误区 */
+.plain-block, .deep-block, .practice-block, .pitfall-block {
+  position: relative;
+  margin: 14px 0;
+  padding: 12px 16px 12px 46px;
+  border-radius: 12px;
+  font-size: 14px; line-height: 1.85;
+  border: 1px solid transparent;
+}
+.plain-block::before, .deep-block::before, .practice-block::before, .pitfall-block::before {
+  position: absolute; left: 14px; top: 12px;
+  font-size: 17px;
+}
+.plain-block { background: var(--success-soft); border-color: rgba(22,163,74,.25); }
+.plain-block::before { content: '💬'; }
+.deep-block { background: var(--accent-soft); border-color: rgba(94,106,210,.25); }
+.deep-block::before { content: '📚'; }
+.practice-block { background: var(--warning-soft); border-color: rgba(217,119,6,.25); }
+.practice-block::before { content: '🎯'; }
+.pitfall-block { background: var(--danger-soft); border-color: rgba(220,38,38,.22); }
+.pitfall-block::before { content: '⚠️'; }
+
 .study-article ul, .study-article ol { margin: 10px 0; padding-left: 24px; }
 .study-article li { margin: 5px 0; line-height: 1.75; }
 .study-article li::marker { color: var(--accent); }

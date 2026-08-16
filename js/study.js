@@ -146,12 +146,15 @@
             while (i < lines.length && lines[i].trim() !== '') { buf.push(lines[i]); i++; }
             if (buf.length) {
                 const joined = buf.join('<br>');
-                // "**核心概念**：..." 段落 → 高亮卡片
-                if (/^\*\*核心概念\*\*/.test(buf[0].trim())) {
-                    out.push(`<div class="core-concept">${inline(joined)}</div>`);
-                } else {
-                    out.push(`<p>${inline(joined)}</p>`);
-                }
+                const first = buf[0].trim();
+                let cls = null;
+                if (/^\*\*核心概念\*\*/.test(first)) cls = 'core-concept';
+                else if (/^\*\*【?白话版】?\*\*/.test(first)) cls = 'plain-block';
+                else if (/^\*\*【?深入原理】?\*\*/.test(first)) cls = 'deep-block';
+                else if (/^\*\*【?实战\/考试要点】?\*\*/.test(first)) cls = 'practice-block';
+                else if (/^\*\*【?常见误区】?\*\*/.test(first)) cls = 'pitfall-block';
+                if (cls) out.push(`<div class="${cls}">${inline(joined)}</div>`);
+                else out.push(`<p>${inline(joined)}</p>`);
             }
             else i++;
         }
