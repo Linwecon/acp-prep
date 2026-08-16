@@ -1,7 +1,6 @@
 /* ============================================================
-   ACP — Study view (knowledge reader)
-   Renders window.KNOWLEDGE_MD (markdown from
-   docs/ACP高频知识点总结.md) into a polished reading UI.
+   ACP — Study view (interactive knowledge universe)
+   Gallery of knowledge domains + reader with reading progress
    ============================================================ */
 (function (ACP) {
 
@@ -162,9 +161,39 @@
         return out.join('\n');
     }
 
-    /* ---------- study view ---------- */
+    /* ---------- study view: knowledge universe ---------- */
 
     let studyClickHandler = null;
+    const DONE_KEY = 'acp_study_done';
+
+    function loadDone() {
+        try { return JSON.parse(localStorage.getItem(DONE_KEY) || '{}'); }
+        catch (e) { return {}; }
+    }
+    function saveDone(d) {
+        try { localStorage.setItem(DONE_KEY, JSON.stringify(d)); } catch (e) {}
+    }
+
+    /* 章节图标 + 主题色编号（画廊卡片渐变） */
+    const H2_ICONS = [
+        ['易混', '⚖️'], ['应试', '💪'], ['陷阱', '🎯'],
+        ['大模型基础', '🧠'], ['提示工程', '✍️'], ['RAG', '🔎'],
+        ['Agent', '🤖'], ['微调', '🔧'], ['部署', '🚀'],
+        ['评估', '📊'], ['安全', '🛡️'], ['API', '🔌'],
+        ['阿里云', '☁️'], ['多模态', '🎨'], ['框架', '🧩'], ['附录', '🎓']
+    ];
+
+    function h2IconFor(title) {
+        for (const [kw, icon] of H2_ICONS) {
+            if (title.includes(kw)) return icon;
+        }
+        return '📖';
+    }
+
+    function galleryClass(idx, title) {
+        if (title.includes('附录')) return 'gk-appendix';
+        return 'gk-' + (idx + 1);
+    }
 
     function studyJump(id) {
         const el = document.getElementById(id);
@@ -179,7 +208,7 @@
     }
 
     function renderStudy(root) {
-        ACP.setCrumb('知识点', '高频考点系统复习');
+        ACP.setCrumb('知识点', '互动学习 · 知识宇宙');
         const md = window.KNOWLEDGE_MD || '';
         if (!md) {
             root.innerHTML = `
@@ -192,6 +221,7 @@
         }
 
         const html = mdToHtml(md);
+        const done = loadDone();
 
         // collect chapter-level TOC from <h2>
         const toc = [];
@@ -202,8 +232,37 @@
             toc.push({ id: m[1], title: m[2] });
         }
 
+        const doneCount = toc.filter(t => done[t.id]).length;
+        const donePct = toc.length ? Math.round(doneCount / toc.length * 100) : 0;
+
         root.innerHTML = `
       <div class="study">
+        <div class="study-hero">
+          <div class="sh-head">
+            <span class="sh-title">✦ 知识宇宙</span>
+            <span class="sh-sub">12 大知识域 · 官方大纲考点全覆盖 · 点击卡片直达章节</span>
+          </div>
+          <div class="sh-progress">
+            <div class="sh-track"><i style="width:${donePct}%"></i></div>
+            <span class="sh-num">已学 <b id="shCount">${doneCount}</b> / ${toc.length} 章</span>
+          </div>
+        </div>
+
+        <div class="study-gallery">
+          ${toc.map((t, i) => {
+            const isDone = !!done[t.id];
+            const gk = galleryClass(i, t.title);
+            return `
+            <button class="gallery-card ${gk} ${isDone ? 'done' : ''}" data-target="${t.id}"
+                    style="animation-delay:${i * 40}ms"
+                    onclick="ACP.studyJump('${t.id}')">
+              <span class="gk-icon">${h2IconFor(t.title)}</span>
+              <span class="gk-name">${ACP.esc(t.title)}</span>
+              <span class="gk-meta">${isDone ? '✓ 已学完 · 点击回顾' : '点击开始学习 →'}</span>
+            </button>`;
+          }).join('')}
+        </div>
+
         <div class="study-sticky">
           <div class="study-progress"><i id="studyProg"></i></div>
           <div class="study-toc">
@@ -221,31 +280,38 @@
         <button class="study-top" id="studyTop" onclick="ACP.studyTop()" title="回到顶部">↑</button>
       </div>`;
 
-        // 给每个 h2 章节标题加上主题图标
-        const H2_ICONS = [
-            ['易混', '⚖️'], ['应试', '💪'], ['陷阱', '🎯'],
-            ['大模型基础', '🧠'], ['提示工程', '✍️'], ['RAG', '🔎'],
-            ['Agent', '🤖'], ['微调', '🔧'], ['部署', '🚀'],
-            ['评估', '📊'], ['安全', '🛡️'], ['API', '🔌'],
-            ['阿里云', '☁️'], ['多模态', '🎨'], ['框架', '🧩'], ['附录', '🎓']
-        ];
+        // 给每个 h2 章节标题加上主题图标 + "标记已学完"按钮
         root.querySelectorAll('.study-article h2[id]').forEach(h => {
+            if (h.id === '目录') return; // 跳过文档目录
             const txt = h.textContent || '';
-            for (const [kw, icon] of H2_ICONS) {
-                if (txt.includes(kw)) {
-                    h.innerHTML = `<span class="h2-icon">${icon}</span>` + h.innerHTML;
-                    break;
-                }
+            const isDone = !!done[h.id];
+            if (!h.querySelector('.h2-icon')) {
+                h.innerHTML = `<span class="h2-icon">${h2IconFor(txt)}</span>` + h.innerHTML;
             }
+            h.innerHTML += `
+            <button class="sec-done ${isDone ? 'on' : ''}" data-sec="${h.id}" title="标记本章已学完">
+              ${isDone ? '✓ 已学完' : '○ 标记学完'}
+            </button>`;
         });
 
-        // smooth scroll for in-document anchors (rebind to avoid duplicates)
+        // smooth scroll for in-document anchors + done toggling (rebind to avoid duplicates)
         if (studyClickHandler) root.removeEventListener('click', studyClickHandler);
         studyClickHandler = e => {
             const a = e.target.closest('a[href^="#"]');
             if (a) {
                 e.preventDefault();
                 studyJump(decodeURIComponent(a.getAttribute('href').slice(1)));
+                return;
+            }
+            const btn = e.target.closest('.sec-done');
+            if (btn) {
+                e.preventDefault();
+                e.stopPropagation();
+                const id = btn.dataset.sec;
+                const d = loadDone();
+                d[id] = !d[id];
+                saveDone(d);
+                updateDoneUI(root, id, d[id]);
             }
         };
         root.addEventListener('click', studyClickHandler);
@@ -273,6 +339,32 @@
         };
         content.onscroll = sync;
         sync();
+    }
+
+    /* 标记学完后的局部 UI 更新（不整页重绘） */
+    function updateDoneUI(root, id, isDone) {
+        const heads = root.querySelectorAll('.study-article h2[id]');
+        heads.forEach(h => {
+            if (h.id === id) {
+                const btn = h.querySelector('.sec-done');
+                if (btn) {
+                    btn.classList.toggle('on', isDone);
+                    btn.innerHTML = isDone ? '✓ 已学完' : '○ 标记学完';
+                }
+            }
+        });
+        const card = root.querySelector(`.gallery-card[data-target="${id}"]`);
+        if (card) {
+            card.classList.toggle('done', isDone);
+            const meta = card.querySelector('.gk-meta');
+            if (meta) meta.textContent = isDone ? '✓ 已学完 · 点击回顾' : '点击开始学习 →';
+        }
+        const all = root.querySelectorAll('.gallery-card');
+        const doneN = root.querySelectorAll('.gallery-card.done').length;
+        const cnt = document.getElementById('shCount');
+        if (cnt) cnt.textContent = doneN;
+        const track = root.querySelector('.sh-track i');
+        if (track && all.length) track.style.width = Math.round(doneN / all.length * 100) + '%';
     }
 
     ACP.mdToHtml = mdToHtml;
