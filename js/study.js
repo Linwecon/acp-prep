@@ -1,6 +1,7 @@
 /* ============================================================
    ACP — Study view (interactive knowledge universe)
-   Gallery of knowledge domains + reader with reading progress
+   Gallery (knowledge domains) → Chapter mode (interactive
+   knowledge-point cards with collapsible explanations)
    ============================================================ */
 (function (ACP) {
 
@@ -87,17 +88,15 @@
         while (i < lines.length) {
             const line = lines[i];
 
-            // fenced code block
             if (/^```/.test(line.trim())) {
                 const buf = [];
                 i++;
                 while (i < lines.length && !/^```/.test(lines[i].trim())) { buf.push(lines[i]); i++; }
-                i++; // skip closing fence
+                i++;
                 out.push('<pre><code>' + esc(buf.join('\n')) + '</code></pre>');
                 continue;
             }
 
-            // table
             if (/^\s*\|/.test(line)) {
                 const buf = [line];
                 i++;
@@ -106,7 +105,6 @@
                 continue;
             }
 
-            // blockquote
             if (/^\s*>/.test(line)) {
                 const buf = [line];
                 i++;
@@ -115,7 +113,6 @@
                 continue;
             }
 
-            // list
             if (/^\s*[-*]\s+/.test(line) || /^\s*\d+\.\s+/.test(line)) {
                 const buf = [line];
                 i++;
@@ -127,7 +124,6 @@
                 continue;
             }
 
-            // heading
             const h = line.match(/^(#{1,4})\s+(.*)$/);
             if (h) {
                 const level = h[1].length;
@@ -137,14 +133,12 @@
                 continue;
             }
 
-            // horizontal rule
             if (/^\s*---+\s*$/.test(line)) { out.push('<hr>'); i++; continue; }
 
-            // paragraph (accumulate until blank line)
             const buf = [];
             while (i < lines.length && lines[i].trim() !== '') { buf.push(lines[i]); i++; }
             if (buf.length) {
-                // 段落内换行按 Markdown 语义合并为空格（不能用 <br>，否则会被 esc 转义成字面文本）
+                // 段落内换行按 Markdown 语义合并为空格
                 const joined = buf.join(' ');
                 const first = buf[0].trim();
                 let cls = null;
@@ -161,10 +155,44 @@
         return out.join('\n');
     }
 
-    /* ---------- study view: knowledge universe ---------- */
+    /* ---------- structured parsing: chapters → knowledge points ---------- */
+
+    function parseDoc(md) {
+        const lines = md.replace(/\r\n/g, '\n').split('\n');
+        const chapters = [];
+        let curCh = null, curKp = null;
+        for (const line of lines) {
+            const h2 = line.match(/^##\s+(.*)$/);
+            const h3 = line.match(/^###\s+(.*)$/);
+            if (h2) {
+                if (h2[1] === '目录') continue;
+                curCh = { id: slugify(h2[1]), title: h2[1], intro: [], kps: [] };
+                chapters.push(curCh);
+                curKp = null;
+                continue;
+            }
+            if (!curCh) continue;
+            if (h3) {
+                curKp = { title: h3[1], md: [] };
+                curCh.kps.push(curKp);
+                continue;
+            }
+            if (curKp) curKp.md.push(line);
+            else curCh.intro.push(line);
+        }
+        chapters.forEach(ch => {
+            ch.html = ch.intro.length ? mdToHtml(ch.intro.join('\n')) : '';
+            ch.kps.forEach(kp => { kp.html = mdToHtml(kp.md.join('\n')); });
+        });
+        return chapters;
+    }
+
+    /* ---------- study view ---------- */
 
     let studyClickHandler = null;
-    const DONE_KEY = 'acp_study_done';
+    let chapters = [];          // parsed knowledge structure
+    let chapterMode = null;     // current chapter index (null = gallery)
+    const DONE_KEY = 'acp_kp_done';
 
     function loadDone() {
         try { return JSON.parse(localStorage.getItem(DONE_KEY) || '{}'); }
@@ -174,7 +202,6 @@
         try { localStorage.setItem(DONE_KEY, JSON.stringify(d)); } catch (e) {}
     }
 
-    /* 章节图标 + 主题色编号（画廊卡片渐变） */
     const H2_ICONS = [
         ['易混', '⚖️'], ['应试', '💪'], ['陷阱', '🎯'],
         ['大模型基础', '🧠'], ['提示工程', '✍️'], ['RAG', '🔎'],
@@ -195,12 +222,144 @@
         return 'gk-' + (idx + 1);
     }
 
-    function studyJump(id) {
-        const el = document.getElementById(id);
-        if (!el) return;
+    function chapterStats(ch) {
+        const done = loadDone();
+        let n = 0;
+        ch.kps.forEach((kp, i) => { if (done[ch.id + '|' + i]) n++; });
+        return { done: n, total: ch.kps.length };
+    }
+
+    function totalStats() {
+        const done = loadDone();
+        let n = 0, total = 0;
+        chapters.forEach((ch, ci) => {
+            ch.kps.forEach((kp, i) => {
+                total++;
+                if (done[ch.id + '|' + i]) n++;
+            });
+        });
+        return { done: n, total };
+    }
+
+    /* ---------- gallery view ---------- */
+
+    function renderGallery(root) {
+        ACP.setCrumb('知识点', '互动学习 · 知识宇宙');
+        const s = totalStats();
+        const pct = s.total ? Math.round(s.done / s.total * 100) : 0;
+
+        root.innerHTML = `
+      <div class="study">
+        <div class="study-hero">
+          <div class="sh-head">
+            <span class="sh-title">✦ 知识宇宙</span>
+            <span class="sh-sub">${s.total} 个知识点 · 官方大纲考点全覆盖 · 点击知识域开始闯关</span>
+          </div>
+          <div class="sh-progress">
+            <div class="sh-track"><i style="width:${pct}%"></i></div>
+            <span class="sh-num">已掌握 <b>${s.done}</b> / ${s.total} 个知识点</span>
+          </div>
+        </div>
+        <div class="study-gallery">
+          ${chapters.map((ch, i) => {
+            const st = chapterStats(ch);
+            return `
+            <button class="gallery-card ${galleryClass(i, ch.title)}" data-ch="${i}"
+                    style="animation-delay:${i * 40}ms"
+                    onclick="ACP.openChapter(${i})">
+              <span class="gk-icon">${h2IconFor(ch.title)}</span>
+              <span class="gk-name">${ACP.esc(ch.title)}</span>
+              <span class="gk-meta">${st.total ? `已掌握 ${st.done}/${st.total} · 进入闯关 →` : '进入学习 →'}</span>
+            </button>`;
+          }).join('')}
+        </div>
+      </div>`;
+    }
+
+    /* ---------- chapter view (interactive knowledge cards) ---------- */
+
+    function renderChapterView(root, ci) {
+        const ch = chapters[ci];
+        if (!ch) { chapterMode = null; renderGallery(root); return; }
+        ACP.setCrumb(ch.title, `${ch.kps.length} 个知识点`);
+        const done = loadDone();
+        const st = chapterStats(ch);
+        const pct = st.total ? Math.round(st.done / st.total * 100) : 0;
+
+        root.innerHTML = `
+      <div class="study">
+        <div class="chap-top">
+          <button class="back-btn" onclick="ACP.backToGallery()">← 知识宇宙</button>
+          <div class="chap-banner ${galleryClass(ci, ch.title)}">
+            <span class="cb-icon">${h2IconFor(ch.title)}</span>
+            <span class="cb-info">
+              <span class="cb-title">${ACP.esc(ch.title)}</span>
+              <span class="cb-meta">${ch.kps.length} 个知识点 · 已掌握 ${st.done}</span>
+            </span>
+            <span class="cb-pct">${pct}%</span>
+          </div>
+        </div>
+
+        ${ch.html ? `<div class="card chap-intro">${ch.html}</div>` : ''}
+
+        <div class="kp-list">
+          ${ch.kps.map((kp, i) => {
+            const key = ch.id + '|' + i;
+            const isDone = !!done[key];
+            return `
+            <div class="kp-card card ${isDone ? 'done' : ''}">
+              <div class="kp-head">
+                <span class="kp-num">${String(i + 1).padStart(2, '0')}</span>
+                <span class="kp-title">${ACP.esc(kp.title)}</span>
+                <button class="kp-done ${isDone ? 'on' : ''}" data-kp="${key}" title="掌握这个知识点">${isDone ? '✓' : '○'}</button>
+              </div>
+              <div class="kp-body">${kp.html}</div>
+            </div>`;
+          }).join('')}
+        </div>
+
+        <div class="chap-nav">
+          <button class="btn" onclick="ACP.openChapter(${ci - 1})" ${ci === 0 ? 'disabled' : ''}>← 上一章</button>
+          <button class="btn" onclick="ACP.backToGallery()">回到知识宇宙</button>
+          <button class="btn btn-primary" onclick="ACP.openChapter(${ci + 1})" ${ci === chapters.length - 1 ? 'disabled' : ''}>下一章 →</button>
+        </div>
+        <button class="study-top" id="studyTop" onclick="ACP.studyTop()" title="回到顶部">↑</button>
+      </div>`;
+
+        // 交互化：白话/原理/实战/误区 → 可折叠 <details>
+        root.querySelectorAll('.kp-body .plain-block, .kp-body .deep-block, .kp-body .practice-block, .kp-body .pitfall-block').forEach(el => {
+            let label = '展开';
+            if (el.classList.contains('plain-block')) label = '💬 白话解释';
+            else if (el.classList.contains('deep-block')) label = '📚 深入原理';
+            else if (el.classList.contains('practice-block')) label = '🎯 实战 / 考试要点';
+            else if (el.classList.contains('pitfall-block')) label = '⚠️ 常见误区';
+            const details = document.createElement('details');
+            const summary = document.createElement('summary');
+            summary.textContent = label;
+            el.parentNode.insertBefore(details, el);
+            details.appendChild(summary);
+            details.appendChild(el);
+        });
+
+        // scroll-to-top button
         const content = document.getElementById('content');
-        const top = el.getBoundingClientRect().top + content.scrollTop - 96;
-        content.scrollTo({ top: Math.max(top, 0), behavior: 'smooth' });
+        const topBtn = document.getElementById('studyTop');
+        content.onscroll = () => {
+            if (topBtn) topBtn.classList.toggle('show', content.scrollTop > 420);
+        };
+    }
+
+    function openChapter(i) {
+        if (i < 0 || i >= chapters.length) return;
+        chapterMode = i;
+        ACP.renderStudy(document.getElementById('contentInner'));
+        document.getElementById('content').scrollTop = 0;
+    }
+
+    function backToGallery() {
+        chapterMode = null;
+        ACP.renderStudy(document.getElementById('contentInner'));
+        document.getElementById('content').scrollTop = 0;
     }
 
     function studyTop() {
@@ -208,7 +367,6 @@
     }
 
     function renderStudy(root) {
-        ACP.setCrumb('知识点', '互动学习 · 知识宇宙');
         const md = window.KNOWLEDGE_MD || '';
         if (!md) {
             root.innerHTML = `
@@ -219,157 +377,46 @@
         </div>`;
             return;
         }
+        if (!chapters.length) chapters = parseDoc(md);
 
-        const html = mdToHtml(md);
-        const done = loadDone();
-
-        // collect chapter-level TOC from <h2>
-        const toc = [];
-        const re = /<h2 id="([^"]+)">([^<]*)<\/h2>/g;
-        let m;
-        while ((m = re.exec(html)) !== null) {
-            if (m[2] === '目录') continue;
-            toc.push({ id: m[1], title: m[2] });
+        // 深链支持：#study?ch=0 直达第 N 章（参数在 hash 内）
+        if (chapterMode === null) {
+            const m = location.hash.match(/[?&]ch=(\d+)/);
+            if (m) chapterMode = Math.min(parseInt(m[1], 10), chapters.length - 1);
         }
 
-        const doneCount = toc.filter(t => done[t.id]).length;
-        const donePct = toc.length ? Math.round(doneCount / toc.length * 100) : 0;
-
-        root.innerHTML = `
-      <div class="study">
-        <div class="study-hero">
-          <div class="sh-head">
-            <span class="sh-title">✦ 知识宇宙</span>
-            <span class="sh-sub">12 大知识域 · 官方大纲考点全覆盖 · 点击卡片直达章节</span>
-          </div>
-          <div class="sh-progress">
-            <div class="sh-track"><i style="width:${donePct}%"></i></div>
-            <span class="sh-num">已学 <b id="shCount">${doneCount}</b> / ${toc.length} 章</span>
-          </div>
-        </div>
-
-        <div class="study-gallery">
-          ${toc.map((t, i) => {
-            const isDone = !!done[t.id];
-            const gk = galleryClass(i, t.title);
-            return `
-            <button class="gallery-card ${gk} ${isDone ? 'done' : ''}" data-target="${t.id}"
-                    style="animation-delay:${i * 40}ms"
-                    onclick="ACP.studyJump('${t.id}')">
-              <span class="gk-icon">${h2IconFor(t.title)}</span>
-              <span class="gk-name">${ACP.esc(t.title)}</span>
-              <span class="gk-meta">${isDone ? '✓ 已学完 · 点击回顾' : '点击开始学习 →'}</span>
-            </button>`;
-          }).join('')}
-        </div>
-
-        <div class="study-sticky">
-          <div class="study-progress"><i id="studyProg"></i></div>
-          <div class="study-toc">
-            <span class="study-toc-label">章节</span>
-            ${toc.map(t =>
-                `<button class="study-chip" data-target="${t.id}" onclick="ACP.studyJump('${t.id}')">${ACP.esc(t.title)}</button>`
-            ).join('')}
-          </div>
-        </div>
-        <div class="study-meta">
-          <span class="sm-chip">📚 ${toc.length} 个章节</span>
-          <span class="sm-chip">⏱ 已读 <b id="studyPct">0%</b></span>
-        </div>
-        <article class="study-article card">${html}</article>
-        <button class="study-top" id="studyTop" onclick="ACP.studyTop()" title="回到顶部">↑</button>
-      </div>`;
-
-        // 给每个 h2 章节标题加上主题图标 + "标记已学完"按钮
-        root.querySelectorAll('.study-article h2[id]').forEach(h => {
-            if (h.id === '目录') return; // 跳过文档目录
-            const txt = h.textContent || '';
-            const isDone = !!done[h.id];
-            if (!h.querySelector('.h2-icon')) {
-                h.innerHTML = `<span class="h2-icon">${h2IconFor(txt)}</span>` + h.innerHTML;
-            }
-            h.innerHTML += `
-            <button class="sec-done ${isDone ? 'on' : ''}" data-sec="${h.id}" title="标记本章已学完">
-              ${isDone ? '✓ 已学完' : '○ 标记学完'}
-            </button>`;
-        });
-
-        // smooth scroll for in-document anchors + done toggling (rebind to avoid duplicates)
         if (studyClickHandler) root.removeEventListener('click', studyClickHandler);
         studyClickHandler = e => {
-            const a = e.target.closest('a[href^="#"]');
-            if (a) {
-                e.preventDefault();
-                studyJump(decodeURIComponent(a.getAttribute('href').slice(1)));
-                return;
-            }
-            const btn = e.target.closest('.sec-done');
+            const btn = e.target.closest('.kp-done');
             if (btn) {
-                e.preventDefault();
-                e.stopPropagation();
-                const id = btn.dataset.sec;
                 const d = loadDone();
-                d[id] = !d[id];
+                d[btn.dataset.kp] = !d[btn.dataset.kp];
                 saveDone(d);
-                updateDoneUI(root, id, d[id]);
+                btn.classList.toggle('on', d[btn.dataset.kp]);
+                btn.textContent = d[btn.dataset.kp] ? '✓' : '○';
+                btn.closest('.kp-card').classList.toggle('done', d[btn.dataset.kp]);
+                // 更新 banner 进度
+                const ci = chapterMode;
+                if (ci !== null) {
+                    const st = chapterStats(chapters[ci]);
+                    const pctEl = root.querySelector('.cb-pct');
+                    const metaEl = root.querySelector('.cb-meta');
+                    if (pctEl) pctEl.textContent = (st.total ? Math.round(st.done / st.total * 100) : 0) + '%';
+                    if (metaEl) metaEl.textContent = `${st.total} 个知识点 · 已掌握 ${st.done}`;
+                }
+                return;
             }
         };
         root.addEventListener('click', studyClickHandler);
 
-        // scroll progress + scrollspy
-        const content = document.getElementById('content');
-        const prog = document.getElementById('studyProg');
-        const pct = document.getElementById('studyPct');
-        const topBtn = document.getElementById('studyTop');
-        const heads = root.querySelectorAll('.study-article h2[id]');
-        const chips = root.querySelectorAll('.study-chip');
-
-        const sync = () => {
-            const sc = content.scrollTop;
-            const sh = content.scrollHeight - content.clientHeight;
-            const ratio = sh > 0 ? Math.min(100, (sc / sh) * 100) : 0;
-            if (prog) prog.style.width = ratio + '%';
-            if (pct) pct.textContent = Math.round(ratio) + '%';
-            if (topBtn) topBtn.classList.toggle('show', sc > 420);
-            let cur = toc.length ? toc[0].id : null;
-            heads.forEach(h => {
-                if (h.getBoundingClientRect().top - 110 <= 0) cur = h.id;
-            });
-            chips.forEach(ch => ch.classList.toggle('active', ch.dataset.target === cur));
-        };
-        content.onscroll = sync;
-        sync();
-    }
-
-    /* 标记学完后的局部 UI 更新（不整页重绘） */
-    function updateDoneUI(root, id, isDone) {
-        const heads = root.querySelectorAll('.study-article h2[id]');
-        heads.forEach(h => {
-            if (h.id === id) {
-                const btn = h.querySelector('.sec-done');
-                if (btn) {
-                    btn.classList.toggle('on', isDone);
-                    btn.innerHTML = isDone ? '✓ 已学完' : '○ 标记学完';
-                }
-            }
-        });
-        const card = root.querySelector(`.gallery-card[data-target="${id}"]`);
-        if (card) {
-            card.classList.toggle('done', isDone);
-            const meta = card.querySelector('.gk-meta');
-            if (meta) meta.textContent = isDone ? '✓ 已学完 · 点击回顾' : '点击开始学习 →';
-        }
-        const all = root.querySelectorAll('.gallery-card');
-        const doneN = root.querySelectorAll('.gallery-card.done').length;
-        const cnt = document.getElementById('shCount');
-        if (cnt) cnt.textContent = doneN;
-        const track = root.querySelector('.sh-track i');
-        if (track && all.length) track.style.width = Math.round(doneN / all.length * 100) + '%';
+        if (chapterMode === null) renderGallery(root);
+        else renderChapterView(root, chapterMode);
     }
 
     ACP.mdToHtml = mdToHtml;
     ACP.renderStudy = renderStudy;
-    ACP.studyJump = studyJump;
+    ACP.openChapter = openChapter;
+    ACP.backToGallery = backToGallery;
     ACP.studyTop = studyTop;
 
 })(window.ACP);

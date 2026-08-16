@@ -88,12 +88,12 @@
             quizDesc.innerHTML = `${ACP.TOTAL} 题章节练习 · 模拟考试<br>错题本 · 收藏夹`;
         }
 
-        // deep link: #study / #quiz / #exam skips the landing page
+        // deep link: #study / #quiz / #exam (可带参数如 #study?ch=0) 跳过落地页
         const hash = location.hash;
-        if (hash === '#study' || hash === '#quiz' || hash === '#exam') {
+        if (hash.startsWith('#study') || hash.startsWith('#quiz') || hash.startsWith('#exam')) {
             const landing = document.getElementById('landing');
             if (landing) landing.remove();
-            ACP.go(hash === '#study' ? 'study' : (hash === '#exam' ? 'exam' : 'dashboard'));
+            ACP.go(hash.startsWith('#study') ? 'study' : (hash.startsWith('#exam') ? 'exam' : 'dashboard'));
             return;
         }
 
