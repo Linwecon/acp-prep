@@ -46,29 +46,88 @@
 }
 
 /* ============================================================
-   配色主题（body[data-accent] 切换主色系）
+   配色主题（body[data-accent] 切换整体氛围：背景/侧边栏/卡片/边框/文字）
    ============================================================ */
-/* 主题二：深蓝 × 橙 */
+/* 主题二：深蓝 × 橙（亮色：浅蓝灰氛围） */
 body[data-accent="blue-orange"] {
+  --bg: #e9eff7;
+  --surface: #f7fafe;
+  --surface-2: #e8eef6;
+  --border: #d7e0ec;
+  --border-strong: #bdc9db;
+
+  --text-1: #16233c;
+  --text-2: #4a5a72;
+  --text-3: #8896aa;
+
   --accent: #2563eb; --accent-2: #1d4ed8;
-  --accent-text: #2563eb; --accent-soft: rgba(37, 99, 235, .10);
+  --accent-text: #1d4ed8; --accent-soft: rgba(37, 99, 235, .10);
   --pop: #f97316; --pop-soft: rgba(249, 115, 22, .13);
+
+  --shadow-sm: 0 1px 2px rgba(22, 35, 60, .06);
+  --shadow-md: 0 2px 8px rgba(22, 35, 60, .08);
+  --shadow-lg: 0 8px 24px rgba(22, 35, 60, .14);
 }
-body[data-accent="blue-orange"][data-theme="dark"] {
+/* 主题二 · 深色（深海军蓝氛围） */
+html[data-theme="dark"] body[data-accent="blue-orange"] {
+  --bg: #0b1423;
+  --surface: #111d30;
+  --surface-2: #182741;
+  --border: #223550;
+  --border-strong: #334a6c;
+
+  --text-1: #e8eef8;
+  --text-2: #9fb1c9;
+  --text-3: #64768d;
+
   --accent: #3b82f6; --accent-2: #2563eb;
-  --accent-text: #60a5fa; --accent-soft: rgba(59, 130, 246, .16);
-  --pop: #fb923c; --pop-soft: rgba(251, 146, 60, .15);
+  --accent-text: #7aa7f7; --accent-soft: rgba(59, 130, 246, .18);
+  --pop: #fb923c; --pop-soft: rgba(251, 146, 60, .16);
+
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, .4);
+  --shadow-md: 0 2px 8px rgba(0, 0, 0, .5);
+  --shadow-lg: 0 8px 24px rgba(0, 0, 0, .6);
 }
-/* 主题三：Tiffany 蓝 × 紫 */
+
+/* 主题三：Tiffany 蓝 × 紫（亮色：浅青氛围） */
 body[data-accent="tiffany-purple"] {
+  --bg: #e7f4f1;
+  --surface: #f6fbfa;
+  --surface-2: #e2f1ee;
+  --border: #cfe6e2;
+  --border-strong: #a9d0ca;
+
+  --text-1: #12312d;
+  --text-2: #41655f;
+  --text-3: #7ba09a;
+
   --accent: #14b8a6; --accent-2: #8b5cf6;
-  --accent-text: #0d9488; --accent-soft: rgba(20, 184, 166, .10);
+  --accent-text: #0d9488; --accent-soft: rgba(20, 184, 166, .11);
   --pop: #a855f7; --pop-soft: rgba(168, 85, 247, .13);
+
+  --shadow-sm: 0 1px 2px rgba(18, 49, 45, .06);
+  --shadow-md: 0 2px 8px rgba(18, 49, 45, .08);
+  --shadow-lg: 0 8px 24px rgba(18, 49, 45, .14);
 }
-body[data-accent="tiffany-purple"][data-theme="dark"] {
+/* 主题三 · 深色（深 Tiffany 青氛围） */
+html[data-theme="dark"] body[data-accent="tiffany-purple"] {
+  --bg: #0a211f;
+  --surface: #102b28;
+  --surface-2: #163633;
+  --border: #214a46;
+  --border-strong: #2f605b;
+
+  --text-1: #e4f5f2;
+  --text-2: #98c2bd;
+  --text-3: #639a94;
+
   --accent: #2dd4bf; --accent-2: #a78bfa;
-  --accent-text: #5eead4; --accent-soft: rgba(45, 212, 191, .16);
-  --pop: #c084fc; --pop-soft: rgba(192, 132, 252, .15);
+  --accent-text: #5eead4; --accent-soft: rgba(45, 212, 191, .18);
+  --pop: #c084fc; --pop-soft: rgba(192, 132, 252, .16);
+
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, .4);
+  --shadow-md: 0 2px 8px rgba(0, 0, 0, .5);
+  --shadow-lg: 0 8px 24px rgba(0, 0, 0, .6);
 }
 
 [data-theme="dark"] {
