@@ -137,33 +137,9 @@ window.__copyLinkFallback = function (text) {
     </div>
     <div class="sidebar-footer">
       <button class="foot-btn" onclick="ACP.toggleTheme()" title="切换主题">🌓 <span id="themeLabel">深色</span></button>
-      <button class="foot-btn" onclick="ACP.openThemePicker()" title="配色主题">🎨 配色</button>
-      <button class="foot-btn" onclick="ACP.resetAllData()" title="清空所有学习记录">🗑 清空</button>
+      <button class="foot-btn" onclick="ACP.resetAllData()" title="清空所有学习记录">🗑 清空数据</button>
     </div>
   </aside>
-
-  <!-- ==================== THEME PICKER ==================== -->
-  <div class="modal-overlay" id="themeOverlay" onclick="ACP.closeThemePicker()"></div>
-  <div class="modal modal-sm" id="themeModal" role="dialog" aria-modal="true" aria-label="配色主题">
-    <div class="modal-head">
-      <span class="modal-title">🎨 配色主题</span>
-      <button class="modal-close" onclick="ACP.closeThemePicker()" title="关闭">✕</button>
-    </div>
-    <div class="modal-body theme-body">
-      <button class="theme-opt" data-accent="" onclick="ACP.setAccent('')">
-        <span class="tp-swatches"><i style="background:#5e6ad2"></i><i style="background:#4c59c8"></i></span>
-        <span class="tp-name">经典靛蓝<small>默认配色 · 沉稳专业</small></span>
-      </button>
-      <button class="theme-opt" data-accent="blue-orange" onclick="ACP.setAccent('blue-orange')">
-        <span class="tp-swatches"><i style="background:#2563eb"></i><i style="background:#f97316"></i></span>
-        <span class="tp-name">深蓝 × 橙<small>蓝为主调 · 橙作点缀</small></span>
-      </button>
-      <button class="theme-opt" data-accent="tiffany-purple" onclick="ACP.setAccent('tiffany-purple')">
-        <span class="tp-swatches"><i style="background:#14b8a6"></i><i style="background:#a855f7"></i></span>
-        <span class="tp-name">Tiffany × 紫<small>青蓝渐变 · 优雅活力</small></span>
-      </button>
-    </div>
-  </div>
 
   <!-- ==================== NOTES MODAL ==================== -->
   <div class="modal-overlay" id="notesOverlay" onclick="ACP.closeNotes()"></div>

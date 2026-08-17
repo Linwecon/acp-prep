@@ -12,36 +12,6 @@
         if (label) label.textContent = cur === 'dark' ? '浅色' : '深色';
     }
 
-    const ACCENT_KEY = 'acp_v2_accent';
-
-    function applyAccent(name, silent) {
-        document.body.dataset.accent = name || '';
-        try { localStorage.setItem(ACCENT_KEY, name || ''); } catch (e) {}
-        document.querySelectorAll('.theme-opt').forEach(el => {
-            el.classList.toggle('on', (el.dataset.accent || '') === (name || ''));
-        });
-        if (!silent) ACP.toast(name ? '配色已切换' : '已恢复默认配色');
-    }
-
-    function openThemePicker() {
-        applyAccent(localStorage.getItem(ACCENT_KEY) || '', true); // 同步选中态
-        const m = document.getElementById('themeModal');
-        const o = document.getElementById('themeOverlay');
-        if (!m || !o) return;
-        m.classList.add('show');
-        o.classList.add('show');
-        ACP.toggleSidebar(false);
-    }
-
-    function closeThemePicker() {
-        const m = document.getElementById('themeModal');
-        const o = document.getElementById('themeOverlay');
-        if (m) m.classList.remove('show');
-        if (o) o.classList.remove('show');
-    }
-
-    function setAccent(name) { applyAccent(name, false); }
-
     function resetAllData() {
         if (!confirm('确定清空所有学习记录吗？（进度、错题、收藏都会被清除）')) return;
         localStorage.removeItem(ACP.STORE_KEY);
@@ -103,7 +73,7 @@
     /* ---------- keyboard ---------- */
     document.addEventListener('keydown', e => {
         if (e.target.tagName === 'INPUT') return;
-        if (e.key === 'Escape') { ACP.closeNotes(); ACP.closeThemePicker(); return; }
+        if (e.key === 'Escape') { ACP.closeNotes(); return; }
         if (S.ui.view === 'chapter' && S.ui.mode === 'single' && S.ui.pool.length) {
             const q = S.ui.pool[S.ui.idx];
             if (e.key === 'ArrowLeft') { ACP.navQ(-1); e.preventDefault(); }
@@ -142,9 +112,6 @@
         const themeLabel = document.getElementById('themeLabel');
         if (themeLabel) themeLabel.textContent = themeSaved === 'dark' ? '浅色' : '深色';
 
-        // 配色主题（body[data-accent]）
-        applyAccent(localStorage.getItem(ACCENT_KEY) || '', true);
-
         // landing: fill dynamic quiz stats
         const quizDesc = document.getElementById('lcQuizDesc');
         if (quizDesc && ACP.TOTAL) {
@@ -164,10 +131,6 @@
     }
 
     ACP.toggleTheme = toggleTheme;
-    ACP.applyAccent = applyAccent;
-    ACP.openThemePicker = openThemePicker;
-    ACP.closeThemePicker = closeThemePicker;
-    ACP.setAccent = setAccent;
     ACP.resetAllData = resetAllData;
     ACP.enterApp = enterApp;
     ACP.openNotes = openNotes;
