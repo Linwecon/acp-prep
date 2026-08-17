@@ -39,6 +39,36 @@
   --topbar-h: 52px;
   --transition: 160ms ease;
   --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+
+  /* 点缀色（进度条渐变 / 悬停光晕），默认跟随成功色 */
+  --pop: var(--success);
+  --pop-soft: var(--success-soft);
+}
+
+/* ============================================================
+   配色主题（body[data-accent] 切换主色系）
+   ============================================================ */
+/* 主题二：深蓝 × 橙 */
+body[data-accent="blue-orange"] {
+  --accent: #2563eb; --accent-2: #1d4ed8;
+  --accent-text: #2563eb; --accent-soft: rgba(37, 99, 235, .10);
+  --pop: #f97316; --pop-soft: rgba(249, 115, 22, .13);
+}
+body[data-accent="blue-orange"][data-theme="dark"] {
+  --accent: #3b82f6; --accent-2: #2563eb;
+  --accent-text: #60a5fa; --accent-soft: rgba(59, 130, 246, .16);
+  --pop: #fb923c; --pop-soft: rgba(251, 146, 60, .15);
+}
+/* 主题三：Tiffany 蓝 × 紫 */
+body[data-accent="tiffany-purple"] {
+  --accent: #14b8a6; --accent-2: #8b5cf6;
+  --accent-text: #0d9488; --accent-soft: rgba(20, 184, 166, .10);
+  --pop: #a855f7; --pop-soft: rgba(168, 85, 247, .13);
+}
+body[data-accent="tiffany-purple"][data-theme="dark"] {
+  --accent: #2dd4bf; --accent-2: #a78bfa;
+  --accent-text: #5eead4; --accent-soft: rgba(45, 212, 191, .16);
+  --pop: #c084fc; --pop-soft: rgba(192, 132, 252, .15);
 }
 
 [data-theme="dark"] {
@@ -1016,6 +1046,30 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
 }
 .note-link:hover { background: var(--accent-soft); border-style: solid; }
 
+/* 配色主题选择面板 */
+.modal-sm { width: min(360px, calc(100vw - 32px)); }
+.theme-body { gap: 10px; padding: 14px 20px 20px; }
+.theme-opt {
+  display: flex; align-items: center; gap: 14px;
+  width: 100%; text-align: left;
+  padding: 12px 14px;
+  border: 1px solid var(--border);
+  border-radius: 13px;
+  background: var(--surface-2);
+  transition: all 160ms var(--ease-out);
+}
+.theme-opt:hover { border-color: var(--border-strong); transform: translateX(2px); }
+.theme-opt.on { border-color: var(--accent); background: var(--accent-soft); }
+.tp-swatches { display: flex; flex-shrink: 0; }
+.tp-swatches i {
+  width: 28px; height: 28px; border-radius: 9px;
+  border: 2px solid var(--surface);
+  box-shadow: 0 2px 6px rgba(0,0,0,.18);
+}
+.tp-swatches i + i { margin-left: -9px; }
+.tp-name { font-size: 13.5px; font-weight: 700; }
+.tp-name small { display: block; font-size: 11px; color: var(--text-3); font-weight: 400; margin-top: 2px; }
+
 /* ============================================================
    Responsive
    ============================================================ */
@@ -1116,7 +1170,7 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
 .landing-card:focus-visible {
   transform: translateY(-5px);
   border-color: var(--accent);
-  box-shadow: 0 18px 44px var(--accent-soft);
+  box-shadow: 0 18px 44px var(--pop-soft);
   outline: none;
 }
 .landing-card .lc-ico {
@@ -1231,7 +1285,7 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
 }
 .study-progress i {
   display: block; height: 100%; width: 0;
-  background: linear-gradient(90deg, var(--accent), var(--accent-2));
+  background: linear-gradient(90deg, var(--accent), var(--pop));
   border-radius: 3px;
   transition: width 90ms linear;
 }
@@ -1301,7 +1355,7 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
 }
 .sh-track i {
   display: block; height: 100%; width: 0;
-  background: linear-gradient(90deg, var(--accent), var(--success));
+  background: linear-gradient(90deg, var(--accent), var(--pop));
   border-radius: 6px;
   transition: width 500ms var(--ease-out);
 }
@@ -1341,6 +1395,7 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
   box-shadow:
     0 1px 0 rgba(255,255,255,.22) inset,
     0 4px 10px rgba(0,0,0,.08),
+    0 0 0 1px var(--pop-soft),
     0 20px 44px rgba(0,0,0,.22);
 }
 .gallery-card:active { transform: translateY(-2px) scale(.99); }
