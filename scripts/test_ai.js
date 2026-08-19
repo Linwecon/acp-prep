@@ -76,12 +76,18 @@ if (cfg.apiKey !== '' || cfg.baseUrl.indexOf('dashscope.aliyuncs.com') < 0 || cf
     fails.push('loadAIConfig defaults wrong');
 }
 
-// 2. config save/load round-trip (baseUrl normalized)
-ACP.saveAIConfig({ apiKey: 'sk-test', baseUrl: 'https://example.com/v1/', model: 'qwen-max' });
+// 2. config save/load round-trip (baseUrl normalized + provider kept)
+ACP.saveAIConfig({ apiKey: 'sk-test', baseUrl: 'https://example.com/v1/', model: 'qwen-max', provider: 'deepseek' });
 const cfg2 = ACP.loadAIConfig();
-if (cfg2.apiKey !== 'sk-test' || cfg2.baseUrl !== 'https://example.com/v1' || cfg2.model !== 'qwen-max') {
+if (cfg2.apiKey !== 'sk-test' || cfg2.baseUrl !== 'https://example.com/v1' || cfg2.model !== 'qwen-max' || cfg2.provider !== 'deepseek') {
     fails.push('config round-trip wrong: ' + JSON.stringify(cfg2));
 }
+
+// 2b. provider presets
+const prov = ACP.PROVIDERS;
+if (!prov || prov.length < 4) fails.push('PROVIDERS missing');
+if (!prov.some(p => p.id === 'dashscope' && p.name.indexOf('推荐') >= 0)) fails.push('dashscope should be recommended');
+if (!prov.some(p => p.id === 'siliconflow')) fails.push('siliconflow preset missing');
 
 (async () => {
     const q = ACP.ID_MAP['1-0001'];

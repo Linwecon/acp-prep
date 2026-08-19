@@ -171,21 +171,20 @@ acp/
 
 ## 🤖 AI 答疑（可选，需自带 Key）
 
-答完题后，解析框下方会出现 **"AI 答疑"** 按钮，点击后调用大模型用
-"考点 / 解析 / 我的作答 / 易错点" 的**简明扼要**结构讲清当前题目。
+答完题后，解析框下方会出现 **"AI 答疑"** 按钮，点击后调用大模型按
+"一句结论 → 逐项 A/B/C/D 判定正确/错误 → 选X…（知识点）" 的**简明扼要**格式讲解。
 
-- **零后端直连**：浏览器直接请求阿里云百炼（DashScope）的 OpenAI 兼容接口
-  `https://dashscope.aliyuncs.com/compatible-mode/v1`，该接口已开启 CORS。
+- **零后端直连**：浏览器直接请求服务商的 OpenAI 兼容接口（已开启 CORS），不经过任何服务器。
+- **多服务商可选**：侧边栏 "🤖 AI 设置" 里内置服务商预设——阿里云百炼（推荐）、
+  硅基流动（免费额度）、DeepSeek 官方、智谱 GLM、月之暗面 Kimi、百川智能，
+  也支持"自定义接口"手动填写任意 OpenAI 兼容地址与模型名。
 - **流式输出**：结果按 token 逐字显示，首字秒出，不用干等整段生成。
 - **结果缓存**：生成后存到 `localStorage`（键名 `acp_ai_cache`，最多 200 条），
   下次跳到这道题直接显示上次讲解；点"重做"会清掉该题的缓存。
-- **Key 仅存本机**：在侧边栏 "🤖 AI 设置" 里填入你自己的 API Key，保存在
-  `localStorage`（键名 `acp_ai_config`），不上传任何服务器，可随时清空。
-- **模型可自选**：默认 `qwen-plus`，下拉建议 `qwen-plus-latest` / `qwen-turbo` /
-  `qwen-max` / `qwen-long` / `qwen-flash` / `deepseek-v3.2` / `deepseek-r1`，
-  也可手动输入你已开通的任意模型名。
-- **获取 Key**：阿里云百炼控制台开通服务后创建 API Key，见
-  <https://help.aliyun.com/zh/model-studio/get-api-key>。
+- **Key 仅存本机**：填入你自己的 API Key，保存在 `localStorage`（键名
+  `acp_ai_config`），不上传任何服务器，可随时清空。
+- **免费方案**：硅基流动（注册送免费额度、部分模型长期免费）、智谱 `glm-4-flash`
+  （免费）、阿里云百炼（新用户免费额度）——均需注册后获取 API Key，无 Key 无法调用。
 - 相关脚本：`node scripts/test_ai.js`（AI 模块逻辑冒烟测试）。
 
 ## 📄 参考文档

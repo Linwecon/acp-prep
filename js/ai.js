@@ -15,6 +15,24 @@
         '你是阿里云 ACP 大模型高级工程师认证的备考助教。用简体中文、简明扼要地讲解（全文 150 字以内），' +
         '严格遵循用户给出的输出格式，直接给结论、不要铺垫、不要长篇大论。';
 
+    /* ---------- 服务商预设（均为 OpenAI 兼容接口） ---------- */
+    const PROVIDERS = [
+        { id: 'dashscope', name: '阿里云百炼（推荐）', baseUrl: 'https://dashscope.aliyuncs.com/compatible-mode/v1', models: ['qwen-plus', 'qwen-turbo', 'qwen-max', 'qwen-long', 'qwen-flash'], note: '新用户有免费额度' },
+        { id: 'siliconflow', name: '硅基流动（免费额度）', baseUrl: 'https://api.siliconflow.cn/v1', models: ['Qwen/Qwen2.5-7B-Instruct', 'Qwen/Qwen2.5-14B-Instruct', 'deepseek-ai/DeepSeek-V3', 'THUDM/glm-4-9b-chat'], note: '注册送免费额度，部分模型长期免费' },
+        { id: 'deepseek', name: 'DeepSeek 官方', baseUrl: 'https://api.deepseek.com', models: ['deepseek-chat', 'deepseek-reasoner'], note: '' },
+        { id: 'zhipu', name: '智谱 GLM', baseUrl: 'https://open.bigmodel.cn/api/paas/v4', models: ['glm-4-plus', 'glm-4-air', 'glm-4-flash'], note: 'glm-4-flash 免费' },
+        { id: 'moonshot', name: '月之暗面 Kimi', baseUrl: 'https://api.moonshot.cn/v1', models: ['kimi-latest', 'moonshot-v1-8k', 'moonshot-v1-32k'], note: '' },
+        { id: 'baichuan', name: '百川智能', baseUrl: 'https://api.baichuan-ai.com/v1', models: ['Baichuan4', 'Baichuan3-Turbo'], note: '' },
+        { id: 'custom', name: '自定义接口', baseUrl: '', models: [], note: '手动填写 Base URL 与模型名' }
+    ];
+
+    const ALL_MODELS = [...new Set(PROVIDERS.flatMap(p => p.models))];
+
+    function findProviderByBaseUrl(baseUrl) {
+        const b = (baseUrl || '').replace(/\/+$/, '');
+        return PROVIDERS.find(p => p.baseUrl && p.baseUrl.replace(/\/+$/, '') === b) || null;
+    }
+
     /* ---------- 配置存取 ---------- */
 
     function loadAIConfig() {
@@ -25,18 +43,20 @@
                 return {
                     apiKey: c.apiKey || '',
                     baseUrl: c.baseUrl || DEFAULT_BASE,
-                    model: c.model || DEFAULT_MODEL
+                    model: c.model || DEFAULT_MODEL,
+                    provider: c.provider || ''
                 };
             }
         } catch (e) {}
-        return { apiKey: '', baseUrl: DEFAULT_BASE, model: DEFAULT_MODEL };
+        return { apiKey: '', baseUrl: DEFAULT_BASE, model: DEFAULT_MODEL, provider: '' };
     }
 
     function saveAIConfig(cfg) {
         const c = {
             apiKey: (cfg.apiKey || '').trim(),
             baseUrl: (cfg.baseUrl || DEFAULT_BASE).trim().replace(/\/+$/, ''),
-            model: (cfg.model || DEFAULT_MODEL).trim()
+            model: (cfg.model || DEFAULT_MODEL).trim(),
+            provider: (cfg.provider || '').trim()
         };
         localStorage.setItem(AI_KEY, JSON.stringify(c));
     }
@@ -298,6 +318,38 @@
 
     /* ---------- 设置弹窗 ---------- */
 
+    function populateProviderList() {
+        const sel = document.getElementById('aiProvider');
+        if (!sel) return;
+        sel.innerHTML = PROVIDERS.map(p => `<option value="${p.id}">${p.name}</option>`).join('');
+    }
+
+    /* 只刷新"模型候选 + 提示"，不覆盖用户已填的模型名 */
+    function setProviderNoteAndModels(provider) {
+        const listEl = document.getElementById('aiModelList');
+        const noteEl = document.getElementById('aiProviderNote');
+        const models = provider && provider.models && provider.models.length ? provider.models : ALL_MODELS;
+        if (listEl) listEl.innerHTML = models.map(m => `<option value="${m}"></option>`).join('');
+        if (noteEl) noteEl.textContent = provider ? (provider.note || '') : '手动填写 Base URL 与模型名';
+    }
+
+    function onProviderChange() {
+        const sel = document.getElementById('aiProvider');
+        if (!sel) return;
+        const p = PROVIDERS.find(x => x.id === sel.value);
+        if (!p) return;
+        const baseEl = document.getElementById('aiBase');
+        const modelEl = document.getElementById('aiModel');
+        if (p.id === 'custom') {
+            if (baseEl) baseEl.value = '';
+            setProviderNoteAndModels(null);
+            return;
+        }
+        if (baseEl) baseEl.value = p.baseUrl;
+        if (modelEl) modelEl.value = p.models[0];
+        setProviderNoteAndModels(p);
+    }
+
     function openAISettings() {
         const m = document.getElementById('aiModal');
         const o = document.getElementById('aiOverlay');
@@ -306,9 +358,14 @@
         const keyEl = document.getElementById('aiKey');
         const baseEl = document.getElementById('aiBase');
         const modelEl = document.getElementById('aiModel');
+        const sel = document.getElementById('aiProvider');
         if (keyEl) keyEl.value = cfg.apiKey;
         if (baseEl) baseEl.value = cfg.baseUrl;
         if (modelEl) modelEl.value = cfg.model;
+        populateProviderList();
+        const p = findProviderByBaseUrl(cfg.baseUrl);
+        if (sel) sel.value = p ? p.id : 'custom';
+        setProviderNoteAndModels(p);
         const out = document.getElementById('aiTestResult');
         if (out) { out.innerHTML = ''; out.className = 'ai-test-result'; }
         m.classList.add('show');
@@ -327,10 +384,12 @@
         const keyEl = document.getElementById('aiKey');
         const baseEl = document.getElementById('aiBase');
         const modelEl = document.getElementById('aiModel');
+        const sel = document.getElementById('aiProvider');
         saveAIConfig({
             apiKey: keyEl ? keyEl.value : '',
             baseUrl: baseEl ? baseEl.value : DEFAULT_BASE,
-            model: modelEl ? modelEl.value : DEFAULT_MODEL
+            model: modelEl ? modelEl.value : DEFAULT_MODEL,
+            provider: sel ? sel.value : ''
         });
         closeAISettings();
         ACP.toast(loadAIConfig().apiKey ? 'AI 设置已保存' : '已清除 API Key');
@@ -394,6 +453,8 @@
     ACP.closeAISettings = closeAISettings;
     ACP.saveAISettings = saveAISettings;
     ACP.testAIConnection = testAIConnection;
+    ACP.onProviderChange = onProviderChange;
+    ACP.PROVIDERS = PROVIDERS;
     ACP.aiAsk = aiAsk;
     ACP.aiCall = aiCall;
     ACP.aiStream = aiStream;

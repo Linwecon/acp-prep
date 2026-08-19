@@ -1998,6 +1998,21 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
   border-color: var(--accent);
   box-shadow: 0 0 0 3px var(--accent-soft);
 }
+.ai-field select {
+  font-family: var(--font-sans); font-size: 13px;
+  padding: 9px 12px;
+  color: var(--text-1);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 9px;
+  cursor: pointer;
+  transition: border-color var(--transition), box-shadow var(--transition);
+}
+.ai-field select:focus {
+  outline: none;
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px var(--accent-soft);
+}
 .ai-field-hint { font-size: 11px; color: var(--text-3); line-height: 1.5; }
 .ai-field-link { margin: 8px 0 2px; font-size: 12px; }
 .ai-field-link a { color: var(--accent-text); text-decoration: none; }
