@@ -92,6 +92,9 @@ if (cfg2.apiKey !== 'sk-test' || cfg2.baseUrl !== 'https://example.com/v1' || cf
     const b1 = JSON.parse(fetchCalls[0].opts.body);
     if (b1.stream !== false) fails.push('aiCall should not stream');
     if (b1.messages[0].content.indexOf('150 字') < 0) fails.push('system prompt not concise');
+    const userMsg = b1.messages[1].content;
+    if (userMsg.indexOf('正确/错误') < 0) fails.push('prompt missing per-option format');
+    if (userMsg.indexOf('选X') < 0) fails.push('prompt missing final line template');
 
     // 4. streaming aiStream
     let chunks = [];

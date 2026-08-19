@@ -12,8 +12,8 @@
     const DEFAULT_MODEL = 'qwen-plus';
 
     const SYSTEM_PROMPT =
-        '你是阿里云 ACP 大模型高级工程师认证的备考助教。请用简体中文、简明扼要地讲解题目：' +
-        '直接给结论和要点，不要铺垫、不要复述题目、不要长篇大论。全文控制在 150 字以内。';
+        '你是阿里云 ACP 大模型高级工程师认证的备考助教。用简体中文、简明扼要地讲解（全文 150 字以内），' +
+        '严格遵循用户给出的输出格式，直接给结论、不要铺垫、不要长篇大论。';
 
     /* ---------- 配置存取 ---------- */
 
@@ -105,11 +105,16 @@
             `【正确答案】${correct}`,
             `【我的作答】${mine}`,
             '',
-            '请用 Markdown 按下面四行结构讲解，每部分一句话、直接给结论：',
-            '## 考点',
-            '## 解析',
-            '## 我的作答',
-            '## 易错点'
+            '请严格按下面格式输出，纯文本、不要 Markdown 标题、不要多余解释：',
+            '',
+            '（一句话点明本题考点或结论）',
+            'A：（该选项为何正确或错误的简短理由），正确/错误',
+            'B：（理由），正确/错误',
+            'C：（理由），正确/错误',
+            'D：（理由），正确/错误',
+            '选X，（一句话解题要点）（知识点名称）。',
+            '',
+            '要求：每个选项一行；多选题"选"后写全部正确选项（如"选A、C"）；每行尽量简短。'
         ].join('\n');
     }
 
@@ -201,16 +206,9 @@
         return full;
     }
 
-    /* 对渲染后的 HTML 做最小安全处理：拦掉 javascript: 链接与事件属性 */
-    function sanitizeAIHtml(html) {
-        return String(html)
-            .replace(/href="\s*javascript:[^"]*"/gi, 'href="#"')
-            .replace(/on\w+="[^"]*"/gi, '');
-    }
-
-    function renderAIMarkdown(text) {
-        if (typeof ACP.mdToHtml === 'function') return sanitizeAIHtml(ACP.mdToHtml(text));
-        return '<pre>' + ACP.esc(text) + '</pre>';
+    /* 纯文本渲染：转义 HTML 并保留换行（AI 按固定逐行格式输出） */
+    function renderAIResult(text) {
+        return ACP.esc(text).replace(/\n/g, '<br>');
     }
 
     /* ---------- 解析框内容：有缓存显示缓存，否则显示入口按钮 ---------- */
@@ -225,7 +223,7 @@
             <span class="ai-model-tag">${ACP.esc(c.model || DEFAULT_MODEL)}</span>
             <span class="ai-cached-tag">已缓存</span>
           </div>
-          <div class="ai-result-body">${renderAIMarkdown(c.text)}</div>
+          <div class="ai-result-body">${renderAIResult(c.text)}</div>
           <div class="ai-result-foot">
             <button class="btn btn-sm" onclick="ACP.aiAsk('${qid}')">🔄 重新生成</button>
             <span class="ai-disclaimer">内容由大模型生成，仅供参考，以官方文档为准</span>
@@ -279,7 +277,7 @@
                 <span class="ai-model-tag">${ACP.esc(model)}</span>
                 <span class="ai-cached-tag">已保存</span>
               </div>
-              <div class="ai-result-body">${renderAIMarkdown(text)}</div>
+              <div class="ai-result-body">${renderAIResult(text)}</div>
               <div class="ai-result-foot">
                 <button class="btn btn-sm" onclick="ACP.aiAsk('${qid}')">🔄 重新生成</button>
                 <span class="ai-disclaimer">内容由大模型生成，仅供参考，以官方文档为准</span>
