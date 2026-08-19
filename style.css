@@ -1830,3 +1830,178 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
   .study-toc { flex-wrap: nowrap; overflow-x: auto; padding-bottom: 4px; }
   .study-top { right: 18px; bottom: 20px; }
 }
+
+/* ============================================================
+   AI 答疑（DashScope）
+   ============================================================ */
+.ai-wrap { margin-top: 12px; padding-top: 12px; border-top: 1px dashed var(--border); }
+.ai-ask-btn {
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 7px 13px;
+  font-size: 12.5px; font-weight: 600;
+  color: var(--accent-text);
+  background: var(--accent-soft);
+  border: 1px solid var(--accent);
+  border-radius: 10px;
+  cursor: pointer;
+  transition: all var(--transition);
+}
+.ai-ask-btn:hover { background: var(--accent); color: #fff; border-color: var(--accent); }
+.ai-ask-btn .ai-ico { font-size: 14px; }
+.ai-ask-btn .ai-hint { font-weight: 400; font-size: 11px; opacity: .75; }
+
+.ai-loading {
+  display: flex; align-items: center; gap: 10px;
+  padding: 12px 14px;
+  font-size: 13px; color: var(--text-2);
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+}
+.ai-loading b { color: var(--text-1); }
+.ai-spin {
+  width: 15px; height: 15px; flex-shrink: 0;
+  border: 2px solid var(--accent-soft);
+  border-top-color: var(--accent);
+  border-radius: 50%;
+  animation: aiSpin .7s linear infinite;
+}
+@keyframes aiSpin { to { transform: rotate(360deg); } }
+
+.ai-result {
+  margin-top: 4px;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  background: var(--surface);
+  overflow: hidden;
+}
+.ai-result-head {
+  display: flex; align-items: center; gap: 8px;
+  padding: 10px 14px;
+  font-size: 13px; font-weight: 700;
+  color: var(--text-1);
+  background: var(--accent-soft);
+  border-bottom: 1px solid var(--border);
+}
+.ai-model-tag {
+  font-family: var(--font-mono); font-size: 10.5px; font-weight: 600;
+  color: var(--accent-text);
+  background: var(--surface);
+  border: 1px solid var(--accent);
+  border-radius: 20px;
+  padding: 1px 8px;
+}
+.ai-result-body {
+  padding: 14px 16px;
+  font-size: 13.5px; line-height: 1.75; color: var(--text-1);
+}
+.ai-result-body h1, .ai-result-body h2, .ai-result-body h3, .ai-result-body h4 {
+  margin: 14px 0 6px;
+  color: var(--text-1);
+  line-height: 1.4;
+}
+.ai-result-body h1 { font-size: 16px; }
+.ai-result-body h2 { font-size: 15px; }
+.ai-result-body h3 { font-size: 14px; }
+.ai-result-body h4 { font-size: 13px; }
+.ai-result-body p { margin: 6px 0; }
+.ai-result-body ul, .ai-result-body ol { margin: 6px 0 6px 4px; padding-left: 20px; }
+.ai-result-body li { margin: 3px 0; }
+.ai-result-body li::marker { color: var(--accent); }
+.ai-result-body strong { font-weight: 700; color: var(--text-1); }
+.ai-result-body code {
+  font-family: var(--font-mono); font-size: 12px;
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  padding: 1px 5px;
+}
+.ai-result-body pre {
+  margin: 8px 0;
+  padding: 10px 12px;
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  overflow-x: auto;
+}
+.ai-result-body pre code { border: none; background: none; padding: 0; }
+.ai-result-body blockquote {
+  margin: 8px 0;
+  padding: 8px 12px;
+  border-left: 3px solid var(--accent);
+  background: var(--accent-soft);
+  border-radius: 0 8px 8px 0;
+  color: var(--text-2);
+}
+.ai-result-body hr { border: none; border-top: 1px solid var(--border); margin: 12px 0; }
+.ai-result-body a { color: var(--accent-text); text-decoration: none; }
+.ai-result-body a:hover { text-decoration: underline; }
+.ai-result-body .tbl-wrap { overflow-x: auto; margin: 8px 0; }
+.ai-result-body table { width: 100%; border-collapse: collapse; font-size: 12.5px; }
+.ai-result-body th, .ai-result-body td {
+  border: 1px solid var(--border);
+  padding: 6px 10px;
+  text-align: left;
+}
+.ai-result-body th { background: var(--surface-2); font-weight: 700; }
+.ai-result-body tbody tr:nth-child(even) { background: var(--surface-2); }
+.ai-result-foot {
+  display: flex; align-items: center; gap: 10px;
+  padding: 9px 14px;
+  border-top: 1px solid var(--border);
+  background: var(--surface-2);
+}
+.ai-disclaimer { font-size: 11px; color: var(--text-3); }
+
+.ai-error {
+  padding: 12px 14px;
+  font-size: 13px; color: var(--danger);
+  background: var(--danger-soft);
+  border: 1px solid var(--danger);
+  border-radius: 10px;
+  line-height: 1.6;
+}
+.ai-error-actions { margin-top: 8px; display: flex; gap: 8px; }
+
+/* AI 设置弹窗 */
+.ai-modal-tip {
+  font-size: 12.5px; line-height: 1.7; color: var(--text-2);
+  background: var(--accent-soft);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 10px 12px;
+  margin: 8px 0 10px;
+}
+.ai-modal-tip b { color: var(--text-1); }
+.ai-field { display: flex; flex-direction: column; gap: 5px; margin: 7px 0; }
+.ai-field-label { font-size: 12px; font-weight: 700; color: var(--text-2); }
+.ai-field input {
+  font-family: var(--font-mono); font-size: 13px;
+  padding: 9px 12px;
+  color: var(--text-1);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 9px;
+  transition: border-color var(--transition), box-shadow var(--transition);
+}
+.ai-field input:focus {
+  outline: none;
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px var(--accent-soft);
+}
+.ai-field-link { margin: 8px 0 2px; font-size: 12px; }
+.ai-field-link a { color: var(--accent-text); text-decoration: none; }
+.ai-field-link a:hover { text-decoration: underline; }
+.ai-modal-actions { display: flex; align-items: center; gap: 8px; margin-top: 14px; }
+.ai-modal-actions .spacer { flex: 1; }
+.ai-test-result {
+  margin-top: 12px;
+  font-size: 12.5px; line-height: 1.6;
+  padding: 9px 12px;
+  border-radius: 9px;
+  border: 1px solid var(--border);
+  color: var(--text-2);
+  min-height: 20px;
+}
+.ai-test-result.ok { color: var(--success); border-color: var(--success); background: var(--success-soft); }
+.ai-test-result.err { color: var(--danger); border-color: var(--danger); background: var(--danger-soft); }

@@ -16,6 +16,7 @@
 | ✗ 错题本 | 自动收集错题，按章节分组，支持一键重练 |
 | ⭐ 收藏夹 | 标记重点题目，随时回顾 |
 | 🔍 全局搜索 | 题干关键词实时搜索，高亮匹配 |
+| 🤖 AI 答疑 | 答完题后一键调用大模型，按"考点定位 / 解题思路 / 逐项分析 / 记忆要点"讲透每道题（自带 DashScope API Key，浏览器直连） |
 | ⌨️ 键盘操作 | A-G 选题、Enter 提交、方向键翻题 |
 | 🌓 深色模式 | 明暗主题切换，自动持久化 |
 | 💾 数据持久化 | localStorage 自动保存学习进度，支持旧版数据迁移 |
@@ -56,6 +57,7 @@ acp/
 │   ├── study.js             # 知识点阅读器（Markdown 渲染 + 章节导航）
 │   ├── exam.js              # 模拟考试
 │   ├── search.js            # 全局搜索
+│   ├── ai.js                # AI 答疑（DashScope 直连 + Key 配置）
 │   └── app.js               # 落地页/主题/键盘/启动
 │
 ├── scripts/                 # Python / Node 工具脚本
@@ -137,6 +139,7 @@ acp/
 | `chapter.js` | `render`, `go`, `judge`, `navQ`, `onFav`, `renderGroup`... | 章节练习核心（单题+列表+错题/收藏视图） |
 | `exam.js` | `renderExam`, `startExam`, `submitExam`, `isExamCorrect` | 模拟考试引擎 |
 | `search.js` | `closeSearch`, `jumpToQuestion` | 题干搜索与跳转 |
+| `ai.js` | `aiAsk`, `openAISettings`, `testAIConnection` | AI 答疑（DashScope 调用、Key 配置、讲解渲染） |
 | `app.js` | `boot`, `toggleTheme`, `resetAllData` | 启动、主题、键盘事件 |
 
 ## 🎯 键盘快捷键
@@ -165,6 +168,21 @@ acp/
   - `python scripts/verify_answers.py --limit 100` — 多模型交叉校验答案，
     先复制 `config/verify_config.example.json` 为 `verify_config.json` 填入 API Key
     （DashScope 兼容接口），结果输出到 `docs/answer_verify_report.md`
+
+## 🤖 AI 答疑（可选，需自带 Key）
+
+答完题后，解析框下方会出现 **"AI 答疑"** 按钮，点击后调用大模型按
+"考点定位 / 解题思路 / 选项逐项分析 / 记忆要点" 四段结构讲透当前题目。
+
+- **零后端直连**：浏览器直接请求阿里云百炼（DashScope）的 OpenAI 兼容接口
+  `https://dashscope.aliyuncs.com/compatible-mode/v1`，该接口已开启 CORS。
+- **Key 仅存本机**：在侧边栏 "🤖 AI 设置" 里填入你自己的 API Key，保存在
+  `localStorage`（键名 `acp_ai_config`），不上传任何服务器，可随时清空。
+- **默认模型** `qwen-plus`，也支持 `qwen-turbo` / `qwen-max` / `deepseek-v3.2`
+  等任意你已开通的模型（可手动输入模型名）。
+- **获取 Key**：阿里云百炼控制台开通服务后创建 API Key，见
+  <https://help.aliyun.com/zh/model-studio/get-api-key>。
+- 相关脚本：`node scripts/test_ai.js`（AI 模块逻辑冒烟测试）。
 
 ## 📄 参考文档
 
