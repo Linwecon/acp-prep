@@ -208,10 +208,15 @@ window.__copyLinkFallback = function (text) {
         <input id="aiModel" type="text" list="aiModelList" placeholder="qwen-plus" autocomplete="off" spellcheck="false">
         <datalist id="aiModelList">
           <option value="qwen-plus"></option>
+          <option value="qwen-plus-latest"></option>
           <option value="qwen-turbo"></option>
           <option value="qwen-max"></option>
+          <option value="qwen-long"></option>
+          <option value="qwen-flash"></option>
           <option value="deepseek-v3.2"></option>
+          <option value="deepseek-r1"></option>
         </datalist>
+        <span class="ai-field-hint">可直接输入你已开通的任意模型名（qwen-plus / qwen-max / deepseek-v3.2 等）</span>
       </label>
       <div class="ai-field-link">
         <a href="https://help.aliyun.com/zh/model-studio/get-api-key" target="_blank" rel="noopener">如何获取 DashScope API Key？（需开通百炼服务）</a>

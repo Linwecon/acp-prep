@@ -171,15 +171,19 @@ acp/
 
 ## 🤖 AI 答疑（可选，需自带 Key）
 
-答完题后，解析框下方会出现 **"AI 答疑"** 按钮，点击后调用大模型按
-"考点定位 / 解题思路 / 选项逐项分析 / 记忆要点" 四段结构讲透当前题目。
+答完题后，解析框下方会出现 **"AI 答疑"** 按钮，点击后调用大模型用
+"考点 / 解析 / 我的作答 / 易错点" 的**简明扼要**结构讲清当前题目。
 
 - **零后端直连**：浏览器直接请求阿里云百炼（DashScope）的 OpenAI 兼容接口
   `https://dashscope.aliyuncs.com/compatible-mode/v1`，该接口已开启 CORS。
+- **流式输出**：结果按 token 逐字显示，首字秒出，不用干等整段生成。
+- **结果缓存**：生成后存到 `localStorage`（键名 `acp_ai_cache`，最多 200 条），
+  下次跳到这道题直接显示上次讲解；点"重做"会清掉该题的缓存。
 - **Key 仅存本机**：在侧边栏 "🤖 AI 设置" 里填入你自己的 API Key，保存在
   `localStorage`（键名 `acp_ai_config`），不上传任何服务器，可随时清空。
-- **默认模型** `qwen-plus`，也支持 `qwen-turbo` / `qwen-max` / `deepseek-v3.2`
-  等任意你已开通的模型（可手动输入模型名）。
+- **模型可自选**：默认 `qwen-plus`，下拉建议 `qwen-plus-latest` / `qwen-turbo` /
+  `qwen-max` / `qwen-long` / `qwen-flash` / `deepseek-v3.2` / `deepseek-r1`，
+  也可手动输入你已开通的任意模型名。
 - **获取 Key**：阿里云百炼控制台开通服务后创建 API Key，见
   <https://help.aliyun.com/zh/model-studio/get-api-key>。
 - 相关脚本：`node scripts/test_ai.js`（AI 模块逻辑冒烟测试）。

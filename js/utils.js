@@ -60,10 +60,7 @@
       ? `<div class="analysis-text"><span class="a-label">解析</span>${esc(q.analysis)}</div>`
       : `<div class="analysis-empty">暂无解析</div>`}
     <div class="ai-wrap" id="ai-${q.id}">
-      <button class="ai-ask-btn" type="button" onclick="ACP.aiAsk('${q.id}')" title="调用大模型逐项讲解本题">
-        <span class="ai-ico">🤖</span> AI 答疑
-        <span class="ai-hint">让大模型讲透这道题</span>
-      </button>
+      ${typeof ACP.aiPanelHTML === 'function' ? ACP.aiPanelHTML(q.id) : ''}
     </div>`;
     }
 

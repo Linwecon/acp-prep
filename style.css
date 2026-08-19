@@ -1891,6 +1891,15 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
   border-radius: 20px;
   padding: 1px 8px;
 }
+.ai-streaming-tag, .ai-cached-tag {
+  font-size: 10.5px; font-weight: 600;
+  border-radius: 20px;
+  padding: 1px 8px;
+  margin-left: auto;
+}
+.ai-streaming-tag { color: var(--warning); background: var(--warning-soft); border: 1px solid var(--warning); }
+.ai-cached-tag { color: var(--text-3); background: var(--surface-2); border: 1px solid var(--border); }
+.ai-stream { white-space: pre-wrap; min-height: 60px; color: var(--text-2); font-size: 13px; line-height: 1.7; }
 .ai-result-body {
   padding: 14px 16px;
   font-size: 13.5px; line-height: 1.75; color: var(--text-1);
@@ -1989,6 +1998,7 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
   border-color: var(--accent);
   box-shadow: 0 0 0 3px var(--accent-soft);
 }
+.ai-field-hint { font-size: 11px; color: var(--text-3); line-height: 1.5; }
 .ai-field-link { margin: 8px 0 2px; font-size: 12px; }
 .ai-field-link a { color: var(--accent-text); text-decoration: none; }
 .ai-field-link a:hover { text-decoration: underline; }

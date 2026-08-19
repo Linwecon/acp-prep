@@ -239,6 +239,7 @@
         if (q) {
             delete S.session[q.id];
             ACP.clearAnswer(q.id); // 清除持久化作答快照，题目恢复未作答状态
+            if (ACP.clearAICache) ACP.clearAICache(q.id); // 重做时清掉该题的 AI 解析缓存
         }
         S.judged = false;
         S.sel = new Set();
