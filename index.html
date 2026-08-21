@@ -254,42 +254,67 @@ window.__copyLinkFallback = function (text) {
           登录后学习进度、错题、收藏、考试成绩会自动<b>同步到云端</b>，支持跨设备续学；
           未登录时数据照常保存在本地浏览器。
         </p>
-        <button class="auth-google" onclick="ACP.sync.signInGoogle()">
-          <span class="auth-g-logo">G</span> 使用 Google 登录
-        </button>
-        <div class="auth-divider"><span>或使用邮箱</span></div>
 
         <div class="auth-tabs">
-          <button class="auth-tab active" id="tabPwd" onclick="ACP.sync.switchAuthTab('pwd')">密码登录</button>
-          <button class="auth-tab" id="tabOtp" onclick="ACP.sync.switchAuthTab('otp')">验证码登录</button>
+          <button class="auth-tab active" id="tabSignIn" onclick="ACP.sync.switchAuthPage('signin')">登录</button>
+          <button class="auth-tab" id="tabSignUp" onclick="ACP.sync.switchAuthPage('signup')">注册</button>
         </div>
 
-        <div id="authPwdPane">
-          <label class="ai-field">
-            <span class="ai-field-label">邮箱</span>
-            <input id="authEmail" type="email" placeholder="you@example.com" autocomplete="email" spellcheck="false">
-          </label>
-          <label class="ai-field">
-            <span class="ai-field-label">密码</span>
-            <input id="authPassword" type="password" placeholder="请输入密码" autocomplete="current-password">
-          </label>
-          <div class="auth-btn-row">
-            <button class="btn btn-primary" onclick="ACP.sync.signInWithPassword()">登录</button>
-            <button class="btn" onclick="ACP.sync.signUp()">注册新账号</button>
+        <!-- ============ 登录页 ============ -->
+        <div id="authSignInPage">
+          <button class="auth-google" onclick="ACP.sync.signInGoogle()">
+            <span class="auth-g-logo">G</span> 使用 Google 登录
+          </button>
+          <div class="auth-divider"><span>或邮箱登录</span></div>
+
+          <div id="authPwdPane">
+            <label class="ai-field">
+              <span class="ai-field-label">邮箱</span>
+              <input id="authEmail" type="email" placeholder="you@example.com" autocomplete="email" spellcheck="false">
+            </label>
+            <label class="ai-field">
+              <span class="ai-field-label">密码</span>
+              <input id="authPassword" type="password" placeholder="请输入密码" autocomplete="current-password">
+            </label>
+            <button class="btn btn-primary auth-full" onclick="ACP.sync.signInWithPassword()">登录</button>
+            <div class="auth-switch-link"><a onclick="ACP.sync.switchSignInMethod('otp')">用验证码登录 →</a></div>
+          </div>
+
+          <div id="authOtpPane" style="display:none;">
+            <label class="ai-field">
+              <span class="ai-field-label">邮箱</span>
+              <input id="authOtpEmail" type="email" placeholder="you@example.com" autocomplete="email" spellcheck="false">
+            </label>
+            <button class="btn auth-full" onclick="ACP.sync.sendEmailOtp()">发送验证码</button>
+            <label class="ai-field">
+              <span class="ai-field-label">验证码</span>
+              <input id="authOtp" type="text" inputmode="numeric" maxlength="8" placeholder="6 位数字" autocomplete="one-time-code">
+            </label>
+            <button class="btn btn-primary auth-full" onclick="ACP.sync.verifyEmailOtp()">验证并登录</button>
+            <div class="auth-switch-link"><a onclick="ACP.sync.switchSignInMethod('pwd')">← 用密码登录</a></div>
           </div>
         </div>
 
-        <div id="authOtpPane" style="display:none;">
+        <!-- ============ 注册页 ============ -->
+        <div id="authSignUpPage" style="display:none;">
+          <button class="auth-google" onclick="ACP.sync.signInGoogle()">
+            <span class="auth-g-logo">G</span> 使用 Google 注册 / 登录
+          </button>
+          <div class="auth-divider"><span>或邮箱注册</span></div>
           <label class="ai-field">
             <span class="ai-field-label">邮箱</span>
-            <input id="authOtpEmail" type="email" placeholder="you@example.com" autocomplete="email" spellcheck="false">
+            <input id="authRegEmail" type="email" placeholder="you@example.com" autocomplete="email" spellcheck="false">
           </label>
-          <button class="btn" onclick="ACP.sync.sendEmailOtp()">发送验证码</button>
           <label class="ai-field">
-            <span class="ai-field-label">6 位验证码</span>
-            <input id="authOtp" type="text" inputmode="numeric" maxlength="6" placeholder="000000" autocomplete="one-time-code">
+            <span class="ai-field-label">密码（至少 6 位）</span>
+            <input id="authRegPassword" type="password" placeholder="设置密码" autocomplete="new-password">
           </label>
-          <button class="btn btn-primary" onclick="ACP.sync.verifyEmailOtp()">验证并登录</button>
+          <label class="ai-field">
+            <span class="ai-field-label">确认密码</span>
+            <input id="authRegPassword2" type="password" placeholder="再次输入密码" autocomplete="new-password">
+          </label>
+          <button class="btn btn-primary auth-full" onclick="ACP.sync.signUp()">注册</button>
+          <div class="auth-switch-link"><a onclick="ACP.sync.switchAuthPage('signin')">已有账号？返回登录</a></div>
         </div>
 
         <div class="auth-msg" id="authOtpHint"></div>

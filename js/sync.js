@@ -199,21 +199,34 @@
         if (hint) { hint.innerHTML = esc(msg); hint.className = 'auth-msg ' + (cls || ''); }
     }
 
-    function switchAuthTab(tab) {
+    function switchAuthPage(page) {
+        const signInPage = document.getElementById('authSignInPage');
+        const signUpPage = document.getElementById('authSignUpPage');
+        const tabSignIn = document.getElementById('tabSignIn');
+        const tabSignUp = document.getElementById('tabSignUp');
+        if (page === 'signup') {
+            if (signInPage) signInPage.style.display = 'none';
+            if (signUpPage) signUpPage.style.display = '';
+            if (tabSignIn) tabSignIn.classList.remove('active');
+            if (tabSignUp) tabSignUp.classList.add('active');
+        } else {
+            if (signInPage) signInPage.style.display = '';
+            if (signUpPage) signUpPage.style.display = 'none';
+            if (tabSignIn) tabSignIn.classList.add('active');
+            if (tabSignUp) tabSignUp.classList.remove('active');
+        }
+        showAuthMsg('', '');
+    }
+
+    function switchSignInMethod(method) {
         const pwdPane = document.getElementById('authPwdPane');
         const otpPane = document.getElementById('authOtpPane');
-        const tabPwd = document.getElementById('tabPwd');
-        const tabOtp = document.getElementById('tabOtp');
-        if (tab === 'otp') {
+        if (method === 'otp') {
             if (pwdPane) pwdPane.style.display = 'none';
             if (otpPane) otpPane.style.display = '';
-            if (tabPwd) tabPwd.classList.remove('active');
-            if (tabOtp) tabOtp.classList.add('active');
         } else {
             if (pwdPane) pwdPane.style.display = '';
             if (otpPane) otpPane.style.display = 'none';
-            if (tabPwd) tabPwd.classList.add('active');
-            if (tabOtp) tabOtp.classList.remove('active');
         }
         showAuthMsg('', '');
     }
@@ -239,10 +252,12 @@
 
     async function signUp() {
         if (!isConfigured()) { ACP.toast('未配置 Supabase'); return; }
-        const email = (document.getElementById('authEmail') || {}).value || '';
-        const password = (document.getElementById('authPassword') || {}).value || '';
+        const email = (document.getElementById('authRegEmail') || {}).value || '';
+        const password = (document.getElementById('authRegPassword') || {}).value || '';
+        const password2 = (document.getElementById('authRegPassword2') || {}).value || '';
         if (!email || !password) { showAuthMsg('请填写邮箱和密码', 'err'); return; }
         if (password.length < 6) { showAuthMsg('密码至少 6 位', 'err'); return; }
+        if (password !== password2) { showAuthMsg('两次输入的密码不一致', 'err'); return; }
         const { data, error } = await supabase.auth.signUp({ email, password });
         if (error) { showAuthMsg('注册失败：' + error.message, 'err'); return; }
         if (data && data.session) {
@@ -380,7 +395,7 @@
 
     ACP.sync = {
         init, isConfigured, isSignedIn,
-        openAuth, closeAuth, switchAuthTab,
+        openAuth, closeAuth, switchAuthPage, switchSignInMethod,
         signInGoogle, signInWithPassword, signUp, sendEmailOtp, verifyEmailOtp, signOut,
         renderAuthButton, renderAuthUser,
         pushProgress, pushFav, pushExam, pushLast, pushAll, clearCloud,
