@@ -1,69 +1,119 @@
-# 🎓 ACP 刷题助手
+# ACP 备考平台
 
-阿里云大模型高级工程师认证（ACP）备考工具：学习 + 刷题 + 模拟考试。纯前端静态站点，零构建依赖，GitHub Pages 部署，可选 Supabase 登录与云端同步。
+> 阿里云大模型高级工程师认证（ACP）一站式备考平台：知识学习 + 章节刷题 + 标准模考 + AI 答疑 + 云端同步。
+> 纯前端静态站点，零构建依赖，GitHub Pages 一键部署。
 
-## 功能
+**1548 道真题 · 12 章节 · 75 题标准模考 · 6 大知识域 · AI 答疑 · 跨设备云同步**
 
-- **学习**：高频考点阅读器（Markdown 渲染、章节导航、图表/动画）
-- **刷题**：12 章 1548 题，单选/多选，全部/未答/错题/收藏筛选，作答历史续做
-- **模拟考试**：75 题（50 单选 × 1 + 25 多选 × 2 = 100 分），按官方大纲知识域比例抽题，120 分钟计时，及格线 80 分
-- **错题本 / 收藏夹 / 全局搜索 / 深色模式 / 键盘操作**
-- **AI 答疑**：答题后调用大模型逐项讲解（OpenAI 兼容接口，多服务商可选，流式输出，结果缓存）
-- **登录与云同步**：邮箱密码登录（Supabase Auth），进度/错题/收藏/成绩跨设备同步；未登录时走 localStorage
+---
 
-## 运行
+## Demo
 
-```bash
-python -m http.server 8080   # 访问 http://localhost:8080，或直接打开 index.html
-```
+| 知识宇宙 | 模拟考试 |
+|:---:|:---:|
+| ![知识宇宙](github项目展示截图/知识宇宙截图.png) | ![模拟考试](github项目展示截图/模拟考试界面.png) |
 
-## 结构
+| 登录与云同步 | AI 答疑（可选） |
+|:---:|:---:|
+| ![登录与云同步](github项目展示截图/登录可跨平台登录.png) | ![AI 答疑](github项目展示截图/可选ai解析.png) |
+
+---
+
+## 项目简介
+
+面向阿里云 ACP 大模型高级工程师认证的备考平台。题库覆盖官方大纲全部 12 章、1548 道题，提供「学习 — 刷题 — 模考 — 复盘」完整闭环：高频考点知识宇宙、分章练习、按大纲比例抽题的标准模拟考试，以及可选的大模型 AI 答疑和 Supabase 云端同步。
+
+## 核心功能
+
+- **知识宇宙**：高频考点文档阅读器，自研 Markdown 渲染 + 5 种图表（流程图 / 条形图 / 环形图 / 注意力热力图 / 矩阵图），章节导航、滚动进度、考点卡片。
+- **章节刷题**：12 章分章练习，单选 / 多选，支持全部 / 未答 / 错题 / 收藏筛选；作答历史（选项 + 对错）持久保存，再次进入自动续做。
+- **模拟考试**：75 题标准卷（50 单选 × 1 分 + 25 多选 × 2 分 = 100 分，及格线 80 分），按新版大纲 6 大知识域比例分层抽题（最大余数法），120 分钟计时，交卷后逐题回顾 + 薄弱章节分析。
+- **错题本 / 收藏夹**：自动收集错题、一键重练；重点题目标记回顾。
+- **全局搜索**：题干关键词实时搜索，高亮命中并跳转。
+- **AI 答疑**（可选）：答题后调用大模型逐项讲解，流式输出，结果本地缓存。
+- **登录与云同步**（可选）：邮箱注册登录，进度 / 错题 / 收藏 / 成绩跨设备同步。
+- **体验细节**：深色模式、A–G 键盘选题、随机顺序、单题 / 列表双视图。
+
+## 技术架构
+
+| 技术 | 解决什么问题 |
+|------|--------------|
+| **原生 JavaScript（IIFE 模块化）** | 无框架、无构建工具，各模块隔离挂载到 `window.ACP` 命名空间，`<script defer>` 按依赖顺序加载 |
+| **localStorage 状态层** | 进度 / 错题 / 收藏 / 成绩 / 续做位置统一持久化，支持旧版本数据迁移 |
+| **自研 Markdown 渲染器 + SVG/CSS 图表** | 不依赖第三方渲染库，实现知识点的图文并茂与动效展示 |
+| **Supabase Auth + PostgreSQL + RLS**（可选） | 邮箱密码登录；`auth.uid() = user_id` 行级安全保证用户只能读写自己的数据 |
+| **跨设备同步 + 冲突合并** | 进度 `done/wrong` 取大值、`correct/answer` 取时间戳较新者、收藏取并集，避免数据丢失 |
+| **OpenAI-compatible API**（可选） | 一个通用调用层接入多家大模型（阿里云百炼 / DeepSeek / 智谱 / 硅基流动等），流式（SSE）输出 |
+| **Python 数据管线** | 题库合并、分类、压缩（-34% 体积）、多模型交叉校验答案、大纲覆盖率分析 |
+
+## 项目亮点
+
+相比普通静态刷题网站，这个项目在以下方面有实质性的工程实现：
+
+1. **数据工程链路**：1548 道第三方题库经「合并 → 分类 → 压缩 → 多模型答案校验 → 大纲覆盖率分析」离线处理，产出的题库按难度与章节组织。
+2. **按官方大纲分层抽题**：模考单选 / 多选分别按 6 大知识域配额（最大余数法）抽取，保证每次模考的考点分布贴合真实考试。
+3. **端到端 LLM 集成**：AI 答疑直连 OpenAI 兼容接口，SSE 流式输出，多服务商可切换，Key 仅存本地。
+4. **真正的云端同步**：Supabase Auth + PostgreSQL + RLS，实现跨设备同步与合并策略，而非把 localStorage 简单搬到云端。
+5. **零依赖的渲染引擎**：Markdown 解析、SVG 图表、动效均为手写，前端体积小、可控性强。
+
+## 项目结构
 
 ```
 acp/
-├── index.html  style.css         # 入口 + 样式
-├── data/                         # 题库与知识点（运行时加载）
-├── js/                           # 无框架模块（IIFE，挂 window.ACP 命名空间）
+├── index.html  style.css          # 入口与样式
+├── data/                          # 题库与知识点（运行时加载）
+├── js/                            # 前端模块（IIFE，window.ACP 命名空间）
 │   ├── acp.js utils.js store.js data.js
 │   ├── sidebar.js dashboard.js chapter.js study.js exam.js search.js
-│   ├── ai.js                     # AI 答疑
-│   ├── sync.js                   # Supabase 登录 + 云同步
-│   └── app.js                    # 启动
-├── config/supabase.js            # Supabase 公开 anon key
-├── supabase/schema.sql           # 建表 + RLS
-├── scripts/                      # 数据与测试脚本（Python + Node）
-└── docs/                         # 知识点文档
+│   ├── ai.js                      # AI 答疑
+│   ├── sync.js                    # Supabase 登录 + 云同步
+│   └── app.js                     # 启动
+├── config/supabase.js             # Supabase 公开 anon key
+├── supabase/schema.sql            # 建表 + RLS
+├── scripts/                       # Python / Node 数据与测试脚本
+├── docs/                          # 知识点文档与校验报告
+└── github项目展示截图/            # 项目截图
 ```
-
-前端为原生 JS，按 `<script defer>` 依赖顺序加载，模块用 IIFE 隔离，状态收口于 `ACP.state`。
 
 ## 数据与同步
 
-- 进度存 `localStorage`（`acp_v2_store`），登录后同步 Supabase。
-- 表：`user_progress`（进度/错题/章节完成）、`favorites`（收藏）、`exam_records`（成绩）、`user_meta`（续做位置）。
-- 合并策略：进度 `done`/`wrong` 取大值、`correct`/`answer` 取时间戳较新者；收藏取并集。
-- 登录后「拉取 → 合并 → 回推」，之后每次变更实时推送；RLS 限制用户只能读写 `auth.uid() = user_id` 的行。
+- 题库 **1548 题 / 12 章**，本地进度存 `localStorage`（`acp_v2_store`）。
+- 登录后同步到 Supabase 四张表：`user_progress`（进度 / 错题 / 章节完成）、`favorites`（收藏）、`exam_records`（成绩）、`user_meta`（续做位置）。
+- 同步流程：登录后「拉取云端 → 合并 → 回推」，之后每次数据变更实时推送。
 
-## AI 答疑（可选）
-
-侧边栏「🤖 AI 设置」填自己的 API Key，内置阿里云百炼（推荐）/硅基流动/DeepSeek/智谱/Kimi/百川/自定义，也可手动输入任意 OpenAI 兼容地址与模型名。Key 仅存本地 `localStorage`。
-
-## Supabase 配置
-
-1. 执行 `supabase/schema.sql`。
-2. Authentication → Providers → Email 开启；如需注册即登录，关闭 Confirm email。
-3. URL Configuration 里把站点地址加入 Site URL / Redirect URLs。
-4. 把 Project URL + anon public key 填入 `config/supabase.js`。
-5. 部署。
-
-只用公开 anon key，禁止 service_role 进入前端。
-
-## 测试
+## 本地运行
 
 ```bash
-node scripts/test_*.js          # 前端逻辑冒烟测试
-python scripts/build_knowledge.py   # 重新生成知识点数据
+python -m http.server 8080   # 访问 http://localhost:8080
 ```
+
+或直接打开 `index.html`。题库与知识点数据通过 `<script>` 加载，无需构建。
+
+## 部署
+
+静态托管即可，默认部署到 GitHub Pages：
+
+```bash
+# 一键推送（Windows）
+一键更新.bat
+```
+
+## 可选配置
+
+以下功能**均非必须**，未配置时应用照常以纯本地模式运行：
+
+### AI 答疑
+
+侧边栏「🤖 AI 设置」填入任意 OpenAI 兼容服务的 API Key 与模型名（阿里云百炼推荐、DeepSeek、智谱、硅基流动等）。Key 仅存本地 `localStorage`，浏览器直连，不经过任何服务器。
+
+### 登录与云同步（Supabase）
+
+1. 执行 `supabase/schema.sql`（建表 + RLS）。
+2. Authentication → Providers → Email 开启；如需注册即登录，关闭 Confirm email。
+3. URL Configuration 加入站点地址。
+4. 把 Project URL + anon public key 填入 `config/supabase.js`。
+
+仅使用公开 anon key，`service_role` 严禁进入前端。
 
 ## 许可
 
