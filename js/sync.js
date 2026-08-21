@@ -275,8 +275,15 @@
             email,
             options: { shouldCreateUser: true }
         });
-        if (error) showAuthMsg('发送失败：' + error.message, 'err');
-        else showAuthMsg('✓ 验证码已发送到 ' + email + '，请查收（6 位数字）', 'ok');
+        if (error) {
+            if (/rate limit|429/i.test(error.message)) {
+                showAuthMsg('邮件发送频率受限，请等约 1 小时后再试，或到 Supabase 配置自定义 SMTP', 'err');
+            } else {
+                showAuthMsg('发送失败：' + error.message + '（免费版邮件限流或 SMTP 未配置，可稍后重试）', 'err');
+            }
+        } else {
+            showAuthMsg('✓ 验证码已发送到 ' + email + '，请查收', 'ok');
+        }
     }
 
     async function verifyEmailOtp() {
