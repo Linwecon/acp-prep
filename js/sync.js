@@ -194,6 +194,30 @@
     }
 
     /* ---------- 认证 ---------- */
+    function showAuthMsg(msg, cls) {
+        const hint = document.getElementById('authOtpHint');
+        if (hint) { hint.innerHTML = esc(msg); hint.className = 'auth-msg ' + (cls || ''); }
+    }
+
+    function switchAuthTab(tab) {
+        const pwdPane = document.getElementById('authPwdPane');
+        const otpPane = document.getElementById('authOtpPane');
+        const tabPwd = document.getElementById('tabPwd');
+        const tabOtp = document.getElementById('tabOtp');
+        if (tab === 'otp') {
+            if (pwdPane) pwdPane.style.display = 'none';
+            if (otpPane) otpPane.style.display = '';
+            if (tabPwd) tabPwd.classList.remove('active');
+            if (tabOtp) tabOtp.classList.add('active');
+        } else {
+            if (pwdPane) pwdPane.style.display = '';
+            if (otpPane) otpPane.style.display = 'none';
+            if (tabPwd) tabPwd.classList.add('active');
+            if (tabOtp) tabOtp.classList.remove('active');
+        }
+        showAuthMsg('', '');
+    }
+
     async function signInGoogle() {
         if (!isConfigured()) { ACP.toast('未配置 Supabase'); return; }
         const { error } = await supabase.auth.signInWithOAuth({
@@ -203,32 +227,50 @@
         if (error) ACP.toast('Google 登录失败：' + error.message);
     }
 
-    async function sendEmailOtp(email) {
+    async function signInWithPassword() {
         if (!isConfigured()) { ACP.toast('未配置 Supabase'); return; }
+        const email = (document.getElementById('authEmail') || {}).value || '';
+        const password = (document.getElementById('authPassword') || {}).value || '';
+        if (!email || !password) { showAuthMsg('请填写邮箱和密码', 'err'); return; }
+        const { error } = await supabase.auth.signInWithPassword({ email, password });
+        if (error) showAuthMsg('登录失败：' + error.message, 'err');
+        // 成功时 onAuthStateChange 会触发 SIGNED_IN，自动关弹窗并同步
+    }
+
+    async function signUp() {
+        if (!isConfigured()) { ACP.toast('未配置 Supabase'); return; }
+        const email = (document.getElementById('authEmail') || {}).value || '';
+        const password = (document.getElementById('authPassword') || {}).value || '';
+        if (!email || !password) { showAuthMsg('请填写邮箱和密码', 'err'); return; }
+        if (password.length < 6) { showAuthMsg('密码至少 6 位', 'err'); return; }
+        const { data, error } = await supabase.auth.signUp({ email, password });
+        if (error) { showAuthMsg('注册失败：' + error.message, 'err'); return; }
+        if (data && data.session) {
+            showAuthMsg('注册成功，正在同步…', 'ok');
+        } else {
+            showAuthMsg('注册成功，请查收邮箱确认链接后再登录', 'ok');
+        }
+    }
+
+    async function sendEmailOtp() {
+        if (!isConfigured()) { ACP.toast('未配置 Supabase'); return; }
+        const email = (document.getElementById('authOtpEmail') || {}).value || '';
+        if (!email) { showAuthMsg('请先填写邮箱', 'err'); return; }
         const { error } = await supabase.auth.signInWithOtp({
             email,
             options: { shouldCreateUser: true }
         });
-        const hint = document.getElementById('authOtpHint');
-        if (error) {
-            if (hint) hint.innerHTML = '❌ ' + esc(error.message);
-            hint.className = 'auth-msg err';
-        } else {
-            if (hint) hint.innerHTML = '✓ 已发送，请查收邮箱（邮件里的链接可直接登录；若收到 6 位验证码，在下方输入）';
-            hint.className = 'auth-msg ok';
-            const box = document.getElementById('authOtpBox');
-            if (box) box.style.display = 'block';
-        }
+        if (error) showAuthMsg('发送失败：' + error.message, 'err');
+        else showAuthMsg('✓ 验证码已发送到 ' + email + '，请查收（6 位数字）', 'ok');
     }
 
-    async function verifyEmailOtp(email, token) {
+    async function verifyEmailOtp() {
         if (!isConfigured()) { ACP.toast('未配置 Supabase'); return; }
-        const { error } = await supabase.auth.verifyOtp({ email, token, type: 'email' });
-        const hint = document.getElementById('authOtpHint');
-        if (error) {
-            if (hint) hint.innerHTML = '❌ 验证失败：' + esc(error.message);
-            hint.className = 'auth-msg err';
-        }
+        const email = (document.getElementById('authOtpEmail') || {}).value || '';
+        const token = (document.getElementById('authOtp') || {}).value || '';
+        if (!email || !token) { showAuthMsg('请填写邮箱和验证码', 'err'); return; }
+        const { error } = await supabase.auth.verifyOtp({ email, token: token.trim(), type: 'email' });
+        if (error) showAuthMsg('验证失败：' + error.message, 'err');
     }
 
     async function signOut() {
@@ -338,8 +380,8 @@
 
     ACP.sync = {
         init, isConfigured, isSignedIn,
-        openAuth, closeAuth,
-        signInGoogle, sendEmailOtp, verifyEmailOtp, signOut,
+        openAuth, closeAuth, switchAuthTab,
+        signInGoogle, signInWithPassword, signUp, sendEmailOtp, verifyEmailOtp, signOut,
         renderAuthButton, renderAuthUser,
         pushProgress, pushFav, pushExam, pushLast, pushAll, clearCloud,
         pullAndMerge,

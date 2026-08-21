@@ -198,9 +198,9 @@ acp/
 
 ## 🔐 登录与云端同步（Supabase，可选）
 
-右上角提供**登录入口**：Google OAuth 一键登录，或邮箱验证码 / Magic Link。
-登录后学习进度、错题本、收藏、模拟考试成绩会自动同步到云端，支持跨浏览器 / 跨设备续学；
-**未登录时完全不影响使用**，数据照常存本地 `localStorage`。
+右上角提供**登录入口**，支持三种方式：**Google 一键登录**、**邮箱 + 密码登录（可注册）**、
+**邮箱 6 位验证码登录**。登录后学习进度、错题本、收藏、模拟考试成绩会自动同步到云端，
+支持跨浏览器 / 跨设备续学；**未登录时完全不影响使用**，数据照常存本地 `localStorage`。
 
 ### 数据表与同步策略
 
@@ -219,14 +219,19 @@ acp/
 
 1. 注册 [Supabase](https://supabase.com) 并新建项目。
 2. 在 **SQL Editor** 里整段执行 [`supabase/schema.sql`](supabase/schema.sql)（建表 + RLS）。
-3. 在 **Authentication → Providers** 里启用：
-   - **Google**：填入 Google Cloud OAuth 的 Client ID / Secret；
-   - **Email**：默认开启（Magic Link），如需 6 位验证码，在 Email 模板里启用 OTP。
-4. 在 **Authentication → URL Configuration** 里，把站点地址加入 **Redirect URLs**，
-   例如 `https://linwecon.github.io`（GitHub Pages 根路径，含 `/acp-prep/` 子路径则填完整路径）。
-5. 在 **Project Settings → API** 复制 `Project URL` 和 `anon public` key，
+3. 在 **Authentication → Providers → Email** 里：
+   - 打开 **Enable email provider**（密码登录与验证码登录都依赖它）；
+   - **Email OTP length** 设为 `6`（配合前端 6 位验证码）；
+   - 到 **Authentication → Email Templates → Magic Link**，把模板里的
+     `{{ .ConfirmationURL }}` 换成 `{{ .Token }}`（让邮件发 6 位验证码而非链接）；
+   - （可选）关闭 **Confirm email**，注册后直接登录，无需邮件确认。
+4. 在 **Authentication → Providers → Google** 里：打开开关，填入 Google Cloud OAuth 的
+   Client ID / Secret，回调地址填 `https://<project_ref>.supabase.co/auth/v1/callback`。
+5. 在 **Authentication → URL Configuration** 里，把站点地址加入 **Site URL / Redirect URLs**，
+   例如 `https://linwecon.github.io/acp-prep/`（GitHub Pages 含子路径需填完整路径）。
+6. 在 **Project Settings → API** 复制 `Project URL` 和 `anon public` key，
    填入 [`config/supabase.js`](config/supabase.js)。
-6. 重新部署到 GitHub Pages 即可。
+7. 重新部署到 GitHub Pages 即可。
 
 ### 安全说明
 

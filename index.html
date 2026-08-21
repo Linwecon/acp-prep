@@ -258,22 +258,40 @@ window.__copyLinkFallback = function (text) {
           <span class="auth-g-logo">G</span> 使用 Google 登录
         </button>
         <div class="auth-divider"><span>或使用邮箱</span></div>
-        <label class="ai-field">
-          <span class="ai-field-label">邮箱</span>
-          <input id="authEmail" type="email" placeholder="you@example.com" autocomplete="email" spellcheck="false">
-        </label>
-        <button class="btn btn-primary" onclick="ACP.sync.sendEmailOtp(document.getElementById('authEmail').value)">
-          发送验证码 / 登录链接
-        </button>
-        <div id="authOtpBox" style="display:none;">
+
+        <div class="auth-tabs">
+          <button class="auth-tab active" id="tabPwd" onclick="ACP.sync.switchAuthTab('pwd')">密码登录</button>
+          <button class="auth-tab" id="tabOtp" onclick="ACP.sync.switchAuthTab('otp')">验证码登录</button>
+        </div>
+
+        <div id="authPwdPane">
           <label class="ai-field">
-            <span class="ai-field-label">验证码（如收到 6 位数字）</span>
+            <span class="ai-field-label">邮箱</span>
+            <input id="authEmail" type="email" placeholder="you@example.com" autocomplete="email" spellcheck="false">
+          </label>
+          <label class="ai-field">
+            <span class="ai-field-label">密码</span>
+            <input id="authPassword" type="password" placeholder="请输入密码" autocomplete="current-password">
+          </label>
+          <div class="auth-btn-row">
+            <button class="btn btn-primary" onclick="ACP.sync.signInWithPassword()">登录</button>
+            <button class="btn" onclick="ACP.sync.signUp()">注册新账号</button>
+          </div>
+        </div>
+
+        <div id="authOtpPane" style="display:none;">
+          <label class="ai-field">
+            <span class="ai-field-label">邮箱</span>
+            <input id="authOtpEmail" type="email" placeholder="you@example.com" autocomplete="email" spellcheck="false">
+          </label>
+          <button class="btn" onclick="ACP.sync.sendEmailOtp()">发送验证码</button>
+          <label class="ai-field">
+            <span class="ai-field-label">6 位验证码</span>
             <input id="authOtp" type="text" inputmode="numeric" maxlength="6" placeholder="000000" autocomplete="one-time-code">
           </label>
-          <button class="btn" onclick="ACP.sync.verifyEmailOtp(document.getElementById('authEmail').value, document.getElementById('authOtp').value)">
-            验证并登录
-          </button>
+          <button class="btn btn-primary" onclick="ACP.sync.verifyEmailOtp()">验证并登录</button>
         </div>
+
         <div class="auth-msg" id="authOtpHint"></div>
       </div>
     </div>
