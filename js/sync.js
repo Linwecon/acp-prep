@@ -14,6 +14,7 @@
     let supabase = null;
     let uid = null;          // 当前登录用户 id
     let syncReady = false;   // 是否已完成首次云端合并
+    let otpTimer = null;     // 验证码重发倒计时定时器
 
     if (configured && typeof window !== 'undefined' && window.supabase && window.supabase.createClient) {
         supabase = window.supabase.createClient(CFG.url, CFG.anonKey, {
@@ -298,27 +299,54 @@
         }
     }
 
+    function startOtpCountdown() {
+        const btn = document.getElementById('authSendBtn');
+        if (!btn) return;
+        clearInterval(otpTimer);
+        let left = 60;
+        btn.disabled = true;
+        btn.textContent = left + 's';
+        otpTimer = setInterval(() => {
+            left--;
+            if (left <= 0) {
+                clearInterval(otpTimer);
+                otpTimer = null;
+                btn.disabled = false;
+                btn.textContent = '重新发送';
+            } else {
+                btn.textContent = left + 's';
+            }
+        }, 1000);
+    }
+
     async function sendEmailOtp() {
         if (!isConfigured()) { ACP.toast('未配置 Supabase'); return; }
         const email = (document.getElementById('authOtpEmail') || {}).value || '';
         if (!email) { showAuthMsg('请先填写邮箱', 'err'); return; }
-        setBtnLoading('authSendBtn', true);
+        const btn = document.getElementById('authSendBtn');
+        if (btn && btn.disabled) return; // 倒计时中
+        if (btn) { btn.disabled = true; btn.textContent = '发送中…'; }
         try {
             const { error } = await supabase.auth.signInWithOtp({
                 email,
-                options: { shouldCreateUser: true }
+                options: { shouldCreateUser: false }
             });
             if (error) {
-                if (/rate limit|429/i.test(error.message)) {
-                    showAuthMsg('邮件发送频率受限，请等约 1 小时后再试，或到 Supabase 配置自定义 SMTP', 'err');
+                if (btn) { btn.disabled = false; btn.textContent = '发送验证码'; }
+                const msg = error.message || '';
+                if (/otp_disabled|signups not allowed/i.test(msg) || error.status === 422) {
+                    showAuthMsg('该邮箱未注册，请先切换到「注册」页创建账号', 'err');
+                } else if (/rate limit|429/i.test(msg)) {
+                    showAuthMsg('发送太频繁，请稍后再试', 'err');
                 } else {
-                    showAuthMsg('发送失败：' + error.message + '（免费版邮件限流或 SMTP 未配置，可稍后重试）', 'err');
+                    showAuthMsg('发送失败：' + msg, 'err');
                 }
             } else {
                 showAuthMsg('✓ 验证码已发送到 ' + email + '，请查收', 'ok');
+                startOtpCountdown();
             }
-        } finally {
-            setBtnLoading('authSendBtn', false);
+        } catch (e) {
+            if (btn) { btn.disabled = false; btn.textContent = '发送验证码'; }
         }
     }
 

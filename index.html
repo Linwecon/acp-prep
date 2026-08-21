@@ -279,11 +279,11 @@ window.__copyLinkFallback = function (text) {
           </div>
 
           <div id="authOtpPane" style="display:none;">
-            <div class="auth-input">
+            <div class="auth-input has-send">
               <span class="auth-input-ico">✉️</span>
               <input id="authOtpEmail" type="email" placeholder="邮箱地址" autocomplete="email" spellcheck="false">
+              <button type="button" class="send-otp-btn" id="authSendBtn" onclick="ACP.sync.sendEmailOtp()">发送验证码</button>
             </div>
-            <button class="btn auth-full" id="authSendBtn" data-loading="发送中…" onclick="ACP.sync.sendEmailOtp()">发送验证码</button>
             <div class="auth-input">
               <span class="auth-input-ico">🔢</span>
               <input id="authOtp" type="text" inputmode="numeric" maxlength="8" placeholder="6 位验证码" autocomplete="one-time-code">
