@@ -78,11 +78,11 @@ window.__copyLinkFallback = function (text) {
       <details class="ln-details">
         <summary class="ln-summary">📌 使用注意事项</summary>
         <div class="ln-body">
-          <div class="ln-row"><span>💾</span><b>进度存本地浏览器</b>：换手机/电脑、清缓存会丢，建议固定设备备考</div>
+          <div class="ln-row"><span>💾</span><b>进度存本地浏览器</b>：未登录时换手机/电脑、清缓存会丢，建议登录后云端同步</div>
           <div class="ln-row"><span>⏳</span><b>首次打开稍等</b>：题库约 300KB 需下载，之后秒开</div>
           <div class="ln-row"><span>🔄</span><b>更新后强制刷新</b>：刷新页面（手机下拉刷新）才能看到新版</div>
           <div class="ln-row"><span>📖</span><b>答案以官方为准</b>：部分题存在模型分歧，以阿里云官方文档为准</div>
-          <div class="ln-row"><span>🔒</span><b>纯前端无后端</b>：无登录、无云端进度同步</div>
+          <div class="ln-row"><span>☁️</span><b>可登录同步</b>：右上角登录后进度/错题/收藏/成绩云端同步（Supabase），未登录数据存本地</div>
           <div class="ln-row"><span>🔗</span><b>分享链接</b>：<button class="note-link" onclick="__copyLink()">https://linwecon.github.io/acp-prep/</button></div>
         </div>
       </details>
@@ -167,8 +167,8 @@ window.__copyLinkFallback = function (text) {
         <div class="note-text"><b>答案以官方为准</b>：题库是第三方购买 + AI 多模型校验修正的，仍有几十道"模型分歧"题未定论，刷到解析标注"争议"的题，请以阿里云官方文档为准。</div>
       </div>
       <div class="note-item">
-        <span class="note-ico">🔒</span>
-        <div class="note-text"><b>纯前端无后端</b>：不收集任何数据、无登录；因此没有"云端进度同步"，换设备需手动迁移。</div>
+        <span class="note-ico">☁️</span>
+        <div class="note-text"><b>登录与云端同步</b>：右上角可登录（Google / 邮箱验证码·Magic Link）。登录后学习进度、错题、收藏、考试成绩会同步到 Supabase 云端，支持跨设备续学；未登录时数据仅保存在本地浏览器，换设备需先登录同步。</div>
       </div>
       <div class="note-item">
         <span class="note-ico">🤖</span>

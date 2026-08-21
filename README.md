@@ -166,7 +166,7 @@ acp/
 - 抽题遵循新版官方大纲的**知识域比例**：大模型应用开发 17% / 提示词工程 15% / 检索增强 20% / 微调 16% / 多Agent与多模态 16% / 生产实践 16%，单选与多选分别按域配额（最大余数法）分层抽取
 - 模拟考试入口页内置**新版考试大纲**面板：六大知识域 → 主要内容 → 知识点逐层展开，并可一键直达对应章节刷题
 - 及格线：80 分
-- 学习数据存储在浏览器 `localStorage`，键名 `acp_v2_store`
+- 学习数据存储在浏览器 `localStorage`，键名 `acp_v2_store`；登录后同步到 Supabase 云端（详见下文「登录与云端同步」）
 - 已支持从旧版（`acp_chapter_progress`、`acp_quiz_progress_glass`）自动迁移
 - 知识点内容来自 `docs/ACP高频知识点总结.md`，修改文档后运行
   `python scripts/build_knowledge.py` 重新生成 `data/knowledge.js`

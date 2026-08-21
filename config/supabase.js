@@ -4,8 +4,8 @@
    获取方式：Supabase Dashboard → Project Settings → API
    ============================================================ */
 window.SUPABASE_CONFIG = {
-  // 替换成你的项目地址，例如 https://abcd1234.supabase.co
-  url: 'https://YOUR-PROJECT-ID.supabase.co',
-  // 替换成你的 anon（public）key，以 eyJ... 开头
-  anonKey: 'YOUR-SUPABASE-ANON-KEY'
+  // 项目地址（已按你的 project_ref 填好）
+  url: 'https://uzeyrcmzbbpdhxgdmtgr.supabase.co',
+  // anon（public）key，可安全暴露在浏览器
+  anonKey: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InV6ZXlyY216YmJwZGh4Z2RtdGdyIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODczMDM3NjIsImV4cCI6MjEwMjg3OTc2Mn0.LWbgM_Ct6mYGKGDUQd_2-mmuyzGtJpD4v2l4c2VTIUE'
 };
