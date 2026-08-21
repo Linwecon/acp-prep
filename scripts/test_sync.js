@@ -42,7 +42,7 @@ const fails = [];
 
 // 1. sync namespace + methods
 if (!ACP.sync) fails.push('ACP.sync missing');
-for (const m of ['init', 'isConfigured', 'openAuth', 'switchAuthPage', 'switchSignInMethod', 'togglePassword', 'signInGoogle', 'signInWithPassword', 'signUp', 'sendEmailOtp', 'verifyEmailOtp', 'signOut', 'pushProgress', 'pushFav', 'pushExam', 'pushAll', 'pullAndMerge', '_mergeProgress']) {
+for (const m of ['init', 'isConfigured', 'openAuth', 'switchAuthPage', 'togglePassword', 'signInWithPassword', 'signUp', 'signOut', 'pushProgress', 'pushFav', 'pushExam', 'pushAll', 'pullAndMerge', '_mergeProgress']) {
     if (!ACP.sync[m]) fails.push('missing method: ' + m);
 }
 if (!ACP.sync.isConfigured()) fails.push('should be configured with real-looking config');

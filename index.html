@@ -275,21 +275,6 @@ window.__copyLinkFallback = function (text) {
               <button type="button" class="pwd-toggle" onclick="ACP.sync.togglePassword('authPassword', this)" title="显示密码">👁</button>
             </div>
             <button class="btn btn-primary auth-full" id="authPwdBtn" data-loading="登录中…" onclick="ACP.sync.signInWithPassword()">登录</button>
-            <div class="auth-switch-link"><a onclick="ACP.sync.switchSignInMethod('otp')">用验证码登录 →</a></div>
-          </div>
-
-          <div id="authOtpPane" style="display:none;">
-            <div class="auth-input has-send">
-              <span class="auth-input-ico">✉️</span>
-              <input id="authOtpEmail" type="email" placeholder="邮箱地址" autocomplete="email" spellcheck="false">
-              <button type="button" class="send-otp-btn" id="authSendBtn" onclick="ACP.sync.sendEmailOtp()">发送验证码</button>
-            </div>
-            <div class="auth-input">
-              <span class="auth-input-ico">🔢</span>
-              <input id="authOtp" type="text" inputmode="numeric" maxlength="8" placeholder="6 位验证码" autocomplete="one-time-code">
-            </div>
-            <button class="btn btn-primary auth-full" id="authVerifyBtn" data-loading="验证中…" onclick="ACP.sync.verifyEmailOtp()">验证并登录</button>
-            <div class="auth-switch-link"><a onclick="ACP.sync.switchSignInMethod('pwd')">← 用密码登录</a></div>
           </div>
         </div>
 

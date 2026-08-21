@@ -2156,20 +2156,6 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
 }
 .auth-input input::placeholder { color: var(--text-3); }
 .auth-input:has(.pwd-toggle) input { padding-right: 42px; }
-.auth-input:has(.send-otp-btn) input { padding-right: 92px; }
-.send-otp-btn {
-  position: absolute; right: 6px; top: 50%; transform: translateY(-50%);
-  height: 30px; padding: 0 10px;
-  font-size: 12px; font-weight: 600; color: var(--accent-text);
-  background: var(--accent-soft);
-  border: 1px solid var(--accent);
-  border-radius: 7px;
-  cursor: pointer;
-  white-space: nowrap;
-  transition: all var(--transition);
-}
-.send-otp-btn:hover:not(:disabled) { background: var(--accent); color: #fff; }
-.send-otp-btn:disabled { opacity: .55; cursor: not-allowed; }
 
 .pwd-toggle {
   position: absolute; right: 8px; top: 50%; transform: translateY(-50%);

@@ -14,7 +14,6 @@
     let supabase = null;
     let uid = null;          // 当前登录用户 id
     let syncReady = false;   // 是否已完成首次云端合并
-    let otpTimer = null;     // 验证码重发倒计时定时器
 
     if (configured && typeof window !== 'undefined' && window.supabase && window.supabase.createClient) {
         supabase = window.supabase.createClient(CFG.url, CFG.anonKey, {
@@ -219,19 +218,6 @@
         showAuthMsg('', '');
     }
 
-    function switchSignInMethod(method) {
-        const pwdPane = document.getElementById('authPwdPane');
-        const otpPane = document.getElementById('authOtpPane');
-        if (method === 'otp') {
-            if (pwdPane) pwdPane.style.display = 'none';
-            if (otpPane) otpPane.style.display = '';
-        } else {
-            if (pwdPane) pwdPane.style.display = '';
-            if (otpPane) otpPane.style.display = 'none';
-        }
-        showAuthMsg('', '');
-    }
-
     function togglePassword(inputId, btn) {
         const el = document.getElementById(inputId);
         if (!el) return;
@@ -251,15 +237,6 @@
             btn.disabled = false;
             if (btn.dataset.orig) btn.innerHTML = btn.dataset.orig;
         }
-    }
-
-    async function signInGoogle() {
-        if (!isConfigured()) { ACP.toast('未配置 Supabase'); return; }
-        const { error } = await supabase.auth.signInWithOAuth({
-            provider: 'google',
-            options: { redirectTo: location.origin + location.pathname }
-        });
-        if (error) ACP.toast('Google 登录失败：' + error.message);
     }
 
     async function signInWithPassword() {
@@ -296,71 +273,6 @@
             }
         } finally {
             setBtnLoading('authRegBtn', false);
-        }
-    }
-
-    function startOtpCountdown() {
-        const btn = document.getElementById('authSendBtn');
-        if (!btn) return;
-        clearInterval(otpTimer);
-        let left = 60;
-        btn.disabled = true;
-        btn.textContent = left + 's';
-        otpTimer = setInterval(() => {
-            left--;
-            if (left <= 0) {
-                clearInterval(otpTimer);
-                otpTimer = null;
-                btn.disabled = false;
-                btn.textContent = '重新发送';
-            } else {
-                btn.textContent = left + 's';
-            }
-        }, 1000);
-    }
-
-    async function sendEmailOtp() {
-        if (!isConfigured()) { ACP.toast('未配置 Supabase'); return; }
-        const email = (document.getElementById('authOtpEmail') || {}).value || '';
-        if (!email) { showAuthMsg('请先填写邮箱', 'err'); return; }
-        const btn = document.getElementById('authSendBtn');
-        if (btn && btn.disabled) return; // 倒计时中
-        if (btn) { btn.disabled = true; btn.textContent = '发送中…'; }
-        try {
-            const { error } = await supabase.auth.signInWithOtp({
-                email,
-                options: { shouldCreateUser: false }
-            });
-            if (error) {
-                if (btn) { btn.disabled = false; btn.textContent = '发送验证码'; }
-                const msg = error.message || '';
-                if (/otp_disabled|signups not allowed/i.test(msg) || error.status === 422) {
-                    showAuthMsg('该邮箱未注册，请先切换到「注册」页创建账号', 'err');
-                } else if (/rate limit|429/i.test(msg)) {
-                    showAuthMsg('发送太频繁，请稍后再试', 'err');
-                } else {
-                    showAuthMsg('发送失败：' + msg, 'err');
-                }
-            } else {
-                showAuthMsg('✓ 验证码已发送到 ' + email + '，请查收', 'ok');
-                startOtpCountdown();
-            }
-        } catch (e) {
-            if (btn) { btn.disabled = false; btn.textContent = '发送验证码'; }
-        }
-    }
-
-    async function verifyEmailOtp() {
-        if (!isConfigured()) { ACP.toast('未配置 Supabase'); return; }
-        const email = (document.getElementById('authOtpEmail') || {}).value || '';
-        const token = (document.getElementById('authOtp') || {}).value || '';
-        if (!email || !token) { showAuthMsg('请填写邮箱和验证码', 'err'); return; }
-        setBtnLoading('authVerifyBtn', true);
-        try {
-            const { error } = await supabase.auth.verifyOtp({ email, token: token.trim(), type: 'email' });
-            if (error) showAuthMsg('验证失败：' + error.message, 'err');
-        } finally {
-            setBtnLoading('authVerifyBtn', false);
         }
     }
 
@@ -471,8 +383,8 @@
 
     ACP.sync = {
         init, isConfigured, isSignedIn,
-        openAuth, closeAuth, switchAuthPage, switchSignInMethod, togglePassword,
-        signInGoogle, signInWithPassword, signUp, sendEmailOtp, verifyEmailOtp, signOut,
+        openAuth, closeAuth, switchAuthPage, togglePassword,
+        signInWithPassword, signUp, signOut,
         renderAuthButton, renderAuthUser,
         pushProgress, pushFav, pushExam, pushLast, pushAll, clearCloud,
         pullAndMerge,
