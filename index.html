@@ -235,31 +235,47 @@ window.__copyLinkFallback = function (text) {
       <button class="modal-close" onclick="ACP.sync.closeAuth()" title="关闭">✕</button>
     </div>
     <div class="modal-body">
-      <p class="ai-modal-tip">
-        登录后学习进度、错题、收藏、考试成绩会自动<b>同步到云端</b>，支持跨设备续学；
-        未登录时数据照常保存在本地浏览器。
-      </p>
-      <button class="auth-google" onclick="ACP.sync.signInGoogle()">
-        <span class="auth-g-logo">G</span> 使用 Google 登录
-      </button>
-      <div class="auth-divider"><span>或使用邮箱</span></div>
-      <label class="ai-field">
-        <span class="ai-field-label">邮箱</span>
-        <input id="authEmail" type="email" placeholder="you@example.com" autocomplete="email" spellcheck="false">
-      </label>
-      <button class="btn btn-primary" onclick="ACP.sync.sendEmailOtp(document.getElementById('authEmail').value)">
-        发送验证码 / 登录链接
-      </button>
-      <div id="authOtpBox" style="display:none;">
-        <label class="ai-field">
-          <span class="ai-field-label">验证码（如收到 6 位数字）</span>
-          <input id="authOtp" type="text" inputmode="numeric" maxlength="6" placeholder="000000" autocomplete="one-time-code">
-        </label>
-        <button class="btn" onclick="ACP.sync.verifyEmailOtp(document.getElementById('authEmail').value, document.getElementById('authOtp').value)">
-          验证并登录
-        </button>
+      <div id="authSetup" style="display:none;">
+        <p class="ai-modal-tip">
+          ⚠️ <b>尚未配置云端同步</b>，请按以下步骤启用登录：
+        </p>
+        <ol class="auth-setup-list">
+          <li>在 <a href="https://supabase.com" target="_blank" rel="noopener">Supabase</a> 新建项目，并在 SQL Editor 执行 <code>supabase/schema.sql</code>；</li>
+          <li>在 Authentication → Providers 开启 Google / Email 登录；</li>
+          <li>把项目 <b>URL</b> 和 <b>anon public key</b> 填入 <code>config/supabase.js</code>；</li>
+          <li>重新部署后即可使用登录与云同步。</li>
+        </ol>
+        <p class="ai-modal-tip" style="margin-top:8px;">
+          （详细步骤见 README「登录与云端同步」。未配置前数据照常保存在本地浏览器。）
+        </p>
       </div>
-      <div class="auth-msg" id="authOtpHint"></div>
+      <div id="authForm">
+        <p class="ai-modal-tip">
+          登录后学习进度、错题、收藏、考试成绩会自动<b>同步到云端</b>，支持跨设备续学；
+          未登录时数据照常保存在本地浏览器。
+        </p>
+        <button class="auth-google" onclick="ACP.sync.signInGoogle()">
+          <span class="auth-g-logo">G</span> 使用 Google 登录
+        </button>
+        <div class="auth-divider"><span>或使用邮箱</span></div>
+        <label class="ai-field">
+          <span class="ai-field-label">邮箱</span>
+          <input id="authEmail" type="email" placeholder="you@example.com" autocomplete="email" spellcheck="false">
+        </label>
+        <button class="btn btn-primary" onclick="ACP.sync.sendEmailOtp(document.getElementById('authEmail').value)">
+          发送验证码 / 登录链接
+        </button>
+        <div id="authOtpBox" style="display:none;">
+          <label class="ai-field">
+            <span class="ai-field-label">验证码（如收到 6 位数字）</span>
+            <input id="authOtp" type="text" inputmode="numeric" maxlength="6" placeholder="000000" autocomplete="one-time-code">
+          </label>
+          <button class="btn" onclick="ACP.sync.verifyEmailOtp(document.getElementById('authEmail').value, document.getElementById('authOtp').value)">
+            验证并登录
+          </button>
+        </div>
+        <div class="auth-msg" id="authOtpHint"></div>
+      </div>
     </div>
   </div>
 

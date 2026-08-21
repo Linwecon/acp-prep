@@ -244,17 +244,14 @@
     function renderAuthButton() {
         const area = document.getElementById('authArea');
         if (!area) return;
-        if (!isConfigured()) {
-            area.innerHTML = '';
-            return;
-        }
-        if (uid) {
+        if (uid && isConfigured()) {
             // 已登录：头像（邮箱首字母）+ 邮箱 + 退出
             area.innerHTML = `
           <span class="auth-user" id="authUser" title="已登录">…</span>
           <button class="auth-btn" onclick="ACP.sync.signOut()" title="退出登录">退出</button>`;
             renderAuthUser();
         } else {
+            // 未登录（或未配置）：始终显示登录入口
             area.innerHTML = `<button class="auth-btn auth-btn-primary" onclick="ACP.sync.openAuth()">登录</button>`;
         }
     }
@@ -278,6 +275,15 @@
         const m = document.getElementById('authModal');
         const o = document.getElementById('authOverlay');
         if (!m || !o) return;
+        const form = document.getElementById('authForm');
+        const setup = document.getElementById('authSetup');
+        if (isConfigured()) {
+            if (form) form.style.display = '';
+            if (setup) setup.style.display = 'none';
+        } else {
+            if (form) form.style.display = 'none';
+            if (setup) setup.style.display = '';
+        }
         m.classList.add('show');
         o.classList.add('show');
         ACP.toggleSidebar(false);
@@ -292,8 +298,8 @@
 
     /* ---------- 启动 ---------- */
     async function init() {
+        renderAuthButton(); // 无论是否配置，都先渲染登录入口
         if (!isConfigured()) return;
-        renderAuthButton();
 
         supabase.auth.onAuthStateChange((event, session) => {
             const newUid = uidFromSession(session);
