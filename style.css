@@ -2121,6 +2121,17 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
 .auth-switch-link { margin-top: 10px; font-size: 12.5px; color: var(--text-2); text-align: center; }
 .auth-switch-link a { color: var(--accent-text); cursor: pointer; text-decoration: none; }
 .auth-switch-link a:hover { text-decoration: underline; }
+.pwd-wrap { position: relative; }
+.pwd-wrap input { width: 100%; padding-right: 38px; }
+.pwd-toggle {
+  position: absolute; right: 6px; top: 50%; transform: translateY(-50%);
+  width: 28px; height: 28px;
+  display: inline-flex; align-items: center; justify-content: center;
+  font-size: 15px; color: var(--text-3);
+  background: transparent; border: none; border-radius: 6px;
+  cursor: pointer;
+}
+.pwd-toggle:hover { color: var(--text-1); background: var(--surface-2); }
 
 @media (max-width: 860px) {
   .auth-email { display: none; }

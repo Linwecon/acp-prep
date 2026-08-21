@@ -274,7 +274,10 @@ window.__copyLinkFallback = function (text) {
             </label>
             <label class="ai-field">
               <span class="ai-field-label">密码</span>
-              <input id="authPassword" type="password" placeholder="请输入密码" autocomplete="current-password">
+              <div class="pwd-wrap">
+                <input id="authPassword" type="password" placeholder="请输入密码" autocomplete="current-password">
+                <button type="button" class="pwd-toggle" onclick="ACP.sync.togglePassword('authPassword', this)" title="显示密码">👁</button>
+              </div>
             </label>
             <button class="btn btn-primary auth-full" onclick="ACP.sync.signInWithPassword()">登录</button>
             <div class="auth-switch-link"><a onclick="ACP.sync.switchSignInMethod('otp')">用验证码登录 →</a></div>
@@ -297,23 +300,25 @@ window.__copyLinkFallback = function (text) {
 
         <!-- ============ 注册页 ============ -->
         <div id="authSignUpPage" style="display:none;">
-          <button class="auth-google" onclick="ACP.sync.signInGoogle()">
-            <span class="auth-g-logo">G</span> 使用 Google 注册 / 登录
-          </button>
-          <div class="auth-divider"><span>或邮箱注册</span></div>
           <label class="ai-field">
             <span class="ai-field-label">邮箱</span>
             <input id="authRegEmail" type="email" placeholder="you@example.com" autocomplete="email" spellcheck="false">
           </label>
           <label class="ai-field">
             <span class="ai-field-label">密码（至少 6 位）</span>
-            <input id="authRegPassword" type="password" placeholder="设置密码" autocomplete="new-password">
+            <div class="pwd-wrap">
+              <input id="authRegPassword" type="password" placeholder="设置密码" autocomplete="new-password">
+              <button type="button" class="pwd-toggle" onclick="ACP.sync.togglePassword('authRegPassword', this)" title="显示密码">👁</button>
+            </div>
           </label>
           <label class="ai-field">
             <span class="ai-field-label">确认密码</span>
-            <input id="authRegPassword2" type="password" placeholder="再次输入密码" autocomplete="new-password">
+            <div class="pwd-wrap">
+              <input id="authRegPassword2" type="password" placeholder="再次输入密码" autocomplete="new-password">
+              <button type="button" class="pwd-toggle" onclick="ACP.sync.togglePassword('authRegPassword2', this)" title="显示密码">👁</button>
+            </div>
           </label>
-          <button class="btn btn-primary auth-full" onclick="ACP.sync.signUp()">注册</button>
+          <button class="btn btn-primary auth-full" onclick="ACP.sync.signUp()">注册并登录</button>
           <div class="auth-switch-link"><a onclick="ACP.sync.switchAuthPage('signin')">已有账号？返回登录</a></div>
         </div>
 

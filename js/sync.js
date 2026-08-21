@@ -231,6 +231,14 @@
         showAuthMsg('', '');
     }
 
+    function togglePassword(inputId, btn) {
+        const el = document.getElementById(inputId);
+        if (!el) return;
+        const show = el.type === 'password';
+        el.type = show ? 'text' : 'password';
+        if (btn) { btn.textContent = show ? '🙈' : '👁'; btn.title = show ? '隐藏密码' : '显示密码'; }
+    }
+
     async function signInGoogle() {
         if (!isConfigured()) { ACP.toast('未配置 Supabase'); return; }
         const { error } = await supabase.auth.signInWithOAuth({
@@ -402,7 +410,7 @@
 
     ACP.sync = {
         init, isConfigured, isSignedIn,
-        openAuth, closeAuth, switchAuthPage, switchSignInMethod,
+        openAuth, closeAuth, switchAuthPage, switchSignInMethod, togglePassword,
         signInGoogle, signInWithPassword, signUp, sendEmailOtp, verifyEmailOtp, signOut,
         renderAuthButton, renderAuthUser,
         pushProgress, pushFav, pushExam, pushLast, pushAll, clearCloud,
