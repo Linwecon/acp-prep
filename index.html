@@ -136,7 +136,7 @@ window.__copyLinkFallback = function (text) {
       </button>
     </div>
     <div class="sidebar-footer">
-      <button class="foot-btn" onclick="ACP.openAISettings()" title="AI 答疑设置（DashScope API Key）">🤖 AI 设置</button>
+      <button class="foot-btn" onclick="ACP.openAISettings()" title="AI 答疑设置（API Key）">🤖 AI 设置</button>
       <button class="foot-btn" onclick="ACP.toggleTheme()" title="切换主题">🌓 <span id="themeLabel">深色</span></button>
       <button class="foot-btn" onclick="ACP.resetAllData()" title="清空所有学习记录">🗑 清空数据</button>
     </div>
@@ -168,11 +168,11 @@ window.__copyLinkFallback = function (text) {
       </div>
       <div class="note-item">
         <span class="note-ico">☁️</span>
-        <div class="note-text"><b>登录与云端同步</b>：右上角可登录（Google / 邮箱验证码·Magic Link）。登录后学习进度、错题、收藏、考试成绩会同步到 Supabase 云端，支持跨设备续学；未登录时数据仅保存在本地浏览器，换设备需先登录同步。</div>
+        <div class="note-text"><b>登录与云端同步</b>：右上角用邮箱注册 / 登录。登录后学习进度、错题、收藏、考试成绩会同步到 Supabase 云端，支持跨设备续学；未登录时数据仅保存在本地浏览器，换设备需先登录同步。</div>
       </div>
       <div class="note-item">
         <span class="note-ico">🤖</span>
-        <div class="note-text"><b>AI 答疑（可选）</b>：答完题后点"AI 答疑"可让大模型讲透本题。需在侧边栏"🤖 AI 设置"填入你自己的阿里云百炼（DashScope）API Key——浏览器直连调用，Key 仅存本机 localStorage，不上传任何服务器。</div>
+        <div class="note-text"><b>AI 答疑（可选）</b>：答完题后点"AI 答疑"可让大模型讲透本题。需在侧边栏"🤖 AI 设置"填入你自己的 API Key（阿里云百炼 / DeepSeek / 智谱等任选）——浏览器直连调用，Key 仅存本机 localStorage，不上传任何服务器。</div>
       </div>
       <div class="note-item">
         <span class="note-ico">🔗</span>
