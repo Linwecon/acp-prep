@@ -16,7 +16,8 @@
 | ✗ 错题本 | 自动收集错题，按章节分组，支持一键重练 |
 | ⭐ 收藏夹 | 标记重点题目，随时回顾 |
 | 🔍 全局搜索 | 题干关键词实时搜索，高亮匹配 |
-| 🤖 AI 答疑 | 答完题后一键调用大模型，按"考点定位 / 解题思路 / 逐项分析 / 记忆要点"讲透每道题（自带 DashScope API Key，浏览器直连） |
+| 🤖 AI 答疑 | 答完题后一键调用大模型，按"逐项判定 + 结尾总结"格式讲透每道题（自带 API Key，支持多服务商） |
+| ☁️ 登录与云同步 | 右上角登录（Google / 邮箱验证码·Magic Link），学习进度/错题/收藏/考试成绩云端同步，支持跨设备续学 |
 | ⌨️ 键盘操作 | A-G 选题、Enter 提交、方向键翻题 |
 | 🌓 深色模式 | 明暗主题切换，自动持久化 |
 | 💾 数据持久化 | localStorage 自动保存学习进度，支持旧版数据迁移 |
@@ -57,8 +58,15 @@ acp/
 │   ├── study.js             # 知识点阅读器（Markdown 渲染 + 章节导航）
 │   ├── exam.js              # 模拟考试
 │   ├── search.js            # 全局搜索
-│   ├── ai.js                # AI 答疑（DashScope 直连 + Key 配置）
+│   ├── ai.js                # AI 答疑（多服务商直连 + Key 配置）
+│   ├── sync.js              # 登录 + 云端同步（Supabase）
 │   └── app.js               # 落地页/主题/键盘/启动
+│
+├── config/                  # 运行时配置
+│   └── supabase.js          # Supabase 公开 anon key（占位，需替换）
+│
+├── supabase/                # 数据库脚本
+│   └── schema.sql           # 建表 + RLS 策略
 │
 ├── scripts/                 # Python / Node 工具脚本
 │   ├── build_knowledge.py     # 生成 data/knowledge.js（知识点打包）
@@ -139,7 +147,8 @@ acp/
 | `chapter.js` | `render`, `go`, `judge`, `navQ`, `onFav`, `renderGroup`... | 章节练习核心（单题+列表+错题/收藏视图） |
 | `exam.js` | `renderExam`, `startExam`, `submitExam`, `isExamCorrect` | 模拟考试引擎 |
 | `search.js` | `closeSearch`, `jumpToQuestion` | 题干搜索与跳转 |
-| `ai.js` | `aiAsk`, `openAISettings`, `testAIConnection` | AI 答疑（DashScope 调用、Key 配置、讲解渲染） |
+| `ai.js` | `aiAsk`, `openAISettings`, `testAIConnection` | AI 答疑（多服务商调用、Key 配置、讲解渲染） |
+| `sync.js` | `init`, `openAuth`, `signInGoogle`, `pushProgress`, `pushAll`... | 登录 + 云端同步（Supabase Auth + RLS 数据） |
 | `app.js` | `boot`, `toggleTheme`, `resetAllData` | 启动、主题、键盘事件 |
 
 ## 🎯 键盘快捷键
@@ -186,6 +195,50 @@ acp/
 - **免费方案**：硅基流动（注册送免费额度、部分模型长期免费）、智谱 `glm-4-flash`
   （免费）、阿里云百炼（新用户免费额度）——均需注册后获取 API Key，无 Key 无法调用。
 - 相关脚本：`node scripts/test_ai.js`（AI 模块逻辑冒烟测试）。
+
+## 🔐 登录与云端同步（Supabase，可选）
+
+右上角提供**登录入口**：Google OAuth 一键登录，或邮箱验证码 / Magic Link。
+登录后学习进度、错题本、收藏、模拟考试成绩会自动同步到云端，支持跨浏览器 / 跨设备续学；
+**未登录时完全不影响使用**，数据照常存本地 `localStorage`。
+
+### 数据表与同步策略
+
+| 表 | 内容 | 对应本地数据 |
+|---|---|---|
+| `user_progress` | 每道题的做题次数/错题次数/最近答案 | `store.p`（进度 + 错题 + 章节完成） |
+| `favorites` | 收藏的题目 id | `store.fav` |
+| `exam_records` | 每次模拟考试的成绩 | `store.exams`（本次新增持久化） |
+| `user_meta` | 续做位置 `last` 等元信息 | `store.last` |
+
+合并策略（避免丢数据）：**进度**按字段合并——`done`/`wrong` 取两者较大值，
+`correct`/`answer` 取"最近一次作答"（时间戳较新者）；**收藏**取并集；
+**续做位置**取时间戳较新者。登录后先"拉取云端 → 合并 → 回推"，之后每次数据变更实时推送。
+
+### 配置步骤（一次性）
+
+1. 注册 [Supabase](https://supabase.com) 并新建项目。
+2. 在 **SQL Editor** 里整段执行 [`supabase/schema.sql`](supabase/schema.sql)（建表 + RLS）。
+3. 在 **Authentication → Providers** 里启用：
+   - **Google**：填入 Google Cloud OAuth 的 Client ID / Secret；
+   - **Email**：默认开启（Magic Link），如需 6 位验证码，在 Email 模板里启用 OTP。
+4. 在 **Authentication → URL Configuration** 里，把站点地址加入 **Redirect URLs**，
+   例如 `https://linwecon.github.io`（GitHub Pages 根路径，含 `/acp-prep/` 子路径则填完整路径）。
+5. 在 **Project Settings → API** 复制 `Project URL` 和 `anon public` key，
+   填入 [`config/supabase.js`](config/supabase.js)。
+6. 重新部署到 GitHub Pages 即可。
+
+### 安全说明
+
+- 前端**只使用公开的 anon key**（设计上可暴露，数据安全由 RLS 保证：
+  用户只能读写 `auth.uid() = user_id` 的行）。
+- **严禁**把 `service_role` key 或任何私密 key 放进前端 / 仓库。
+- `config/verify_config.json`（题库校验用 API Key）已被 `.gitignore` 忽略，不会打包。
+
+### 测试
+
+- `node scripts/test_sync.js` — 同步合并逻辑冒烟测试。
+- 其余测试脚本不变：`node scripts/test_*.js`。
 
 ## 📄 参考文档
 

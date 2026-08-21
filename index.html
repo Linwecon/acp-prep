@@ -227,6 +227,42 @@ window.__copyLinkFallback = function (text) {
     </div>
   </div>
 
+  <!-- ==================== AUTH MODAL ==================== -->
+  <div class="modal-overlay" id="authOverlay" onclick="ACP.sync.closeAuth()"></div>
+  <div class="modal" id="authModal" role="dialog" aria-modal="true" aria-label="登录">
+    <div class="modal-head">
+      <span class="modal-title">🔐 登录 / 注册</span>
+      <button class="modal-close" onclick="ACP.sync.closeAuth()" title="关闭">✕</button>
+    </div>
+    <div class="modal-body">
+      <p class="ai-modal-tip">
+        登录后学习进度、错题、收藏、考试成绩会自动<b>同步到云端</b>，支持跨设备续学；
+        未登录时数据照常保存在本地浏览器。
+      </p>
+      <button class="auth-google" onclick="ACP.sync.signInGoogle()">
+        <span class="auth-g-logo">G</span> 使用 Google 登录
+      </button>
+      <div class="auth-divider"><span>或使用邮箱</span></div>
+      <label class="ai-field">
+        <span class="ai-field-label">邮箱</span>
+        <input id="authEmail" type="email" placeholder="you@example.com" autocomplete="email" spellcheck="false">
+      </label>
+      <button class="btn btn-primary" onclick="ACP.sync.sendEmailOtp(document.getElementById('authEmail').value)">
+        发送验证码 / 登录链接
+      </button>
+      <div id="authOtpBox" style="display:none;">
+        <label class="ai-field">
+          <span class="ai-field-label">验证码（如收到 6 位数字）</span>
+          <input id="authOtp" type="text" inputmode="numeric" maxlength="6" placeholder="000000" autocomplete="one-time-code">
+        </label>
+        <button class="btn" onclick="ACP.sync.verifyEmailOtp(document.getElementById('authEmail').value, document.getElementById('authOtp').value)">
+          验证并登录
+        </button>
+      </div>
+      <div class="auth-msg" id="authOtpHint"></div>
+    </div>
+  </div>
+
   <!-- ==================== MAIN ==================== -->
   <main class="main">
     <div class="topbar">
@@ -237,6 +273,7 @@ window.__copyLinkFallback = function (text) {
         <input class="search-input" id="searchInput" placeholder="搜索题干关键词…" autocomplete="off">
         <div class="search-results" id="searchResults"></div>
       </div>
+      <div class="auth-area" id="authArea"></div>
     </div>
     <div class="content" id="content">
       <div class="content-inner" id="contentInner"></div>
@@ -244,6 +281,7 @@ window.__copyLinkFallback = function (text) {
   </main>
 </div>
 
+<script defer src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script defer src="data/quiz_categorized.min.js?v=20260816-1"></script>
 <script defer src="data/knowledge.js"></script>
 <script defer src="js/acp.js"></script>
@@ -257,6 +295,8 @@ window.__copyLinkFallback = function (text) {
 <script defer src="js/exam.js"></script>
 <script defer src="js/search.js"></script>
 <script defer src="js/ai.js"></script>
+<script defer src="config/supabase.js"></script>
+<script defer src="js/sync.js"></script>
 <script defer src="js/app.js"></script>
 
 </body>

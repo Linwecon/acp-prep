@@ -151,8 +151,9 @@
         S.sel = new Set(prev ? prev.sel : []);
         S.judged = !!prev;
 
-        ACP.state.store.last = { ch: q.ch, id: q.id };
+        ACP.state.store.last = { ch: q.ch, id: q.id, t: Date.now() };
         ACP.saveStore();
+        if (ACP.sync) ACP.sync.pushLast();
 
         area.innerHTML = `
     <div class="progress-line">

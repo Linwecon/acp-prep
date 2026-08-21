@@ -13,13 +13,14 @@
     }
 
     function resetAllData() {
-        if (!confirm('确定清空所有学习记录吗？（进度、错题、收藏都会被清除）')) return;
+        if (!confirm('确定清空所有学习记录吗？（进度、错题、收藏、考试成绩都会被清除；已登录时也会同步清空云端）')) return;
         localStorage.removeItem(ACP.STORE_KEY);
         localStorage.removeItem('acp_chapter_progress');
         localStorage.removeItem('acp_quiz_progress_glass');
         localStorage.removeItem('acp_quiz_favorites_glass');
-        S.store = { v: 2, p: {}, fav: [], last: null };
+        S.store = { v: 2, p: {}, fav: [], last: null, exams: [] };
         ACP.saveStore();
+        if (ACP.sync) ACP.sync.clearCloud();
         S.exam = null;
         ACP.toast('已清空全部数据');
         ACP.go('dashboard');
@@ -73,7 +74,7 @@
     /* ---------- keyboard ---------- */
     document.addEventListener('keydown', e => {
         if (e.target.tagName === 'INPUT') return;
-        if (e.key === 'Escape') { ACP.closeNotes(); return; }
+        if (e.key === 'Escape') { ACP.closeNotes(); if (ACP.sync) ACP.sync.closeAuth(); return; }
         if (S.ui.view === 'chapter' && S.ui.mode === 'single' && S.ui.pool.length) {
             const q = S.ui.pool[S.ui.idx];
             if (e.key === 'ArrowLeft') { ACP.navQ(-1); e.preventDefault(); }
@@ -103,6 +104,8 @@
         ACP.TOTAL = ACP.BANK.length;
 
         S.store = ACP.loadStore();
+
+        if (ACP.sync) ACP.sync.init();
 
         ACP.renderSidebar();
         ACP.renderSidebarBadges();

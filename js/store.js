@@ -4,12 +4,19 @@
 (function (ACP) {
 
     function loadStore() {
+        let s = null;
         try {
             const raw = localStorage.getItem(ACP.STORE_KEY);
-            if (raw) return JSON.parse(raw);
+            if (raw) s = JSON.parse(raw);
         } catch (e) {}
-        const s = { v: 2, p: {}, fav: [], last: null };
-        migrateLegacy(s);
+        if (!s) {
+            s = { v: 2, p: {}, fav: [], last: null };
+            migrateLegacy(s);
+        }
+        // 归一化：保证新字段存在，兼容旧版本数据
+        s.p = s.p || {};
+        s.fav = s.fav || [];
+        s.exams = s.exams || [];
         return s;
     }
 
@@ -57,6 +64,7 @@
         if (!correct) p.w++;
         p.c = correct ? 1 : 0;
         saveStore();
+        if (ACP.sync) ACP.sync.pushProgress(q.id);
     }
 
     /* 保存作答快照（用户选了哪些选项，无论对错）+ 作答时间戳 */
@@ -65,6 +73,7 @@
         p.a = (sel || []).slice();
         p.t = Date.now();
         saveStore();
+        if (ACP.sync) ACP.sync.pushProgress(q.id);
     }
 
     /* 清除作答快照（重做时调用）：题目恢复未作答状态，保留 d/w/c 统计 */
@@ -74,7 +83,11 @@
     }
 
     function clearWrong(id) {
-        if (ACP.state.store.p[id]) { ACP.state.store.p[id].w = 0; saveStore(); }
+        if (ACP.state.store.p[id]) {
+            ACP.state.store.p[id].w = 0;
+            saveStore();
+            if (ACP.sync) ACP.sync.pushProgress(id);
+        }
     }
 
     function toggleFav(id) {
@@ -82,6 +95,7 @@
         if (i >= 0) { ACP.state.store.fav.splice(i, 1); ACP.toast('已取消收藏'); }
         else { ACP.state.store.fav.push(id); ACP.toast('已收藏'); }
         saveStore();
+        if (ACP.sync) ACP.sync.pushFav(id, i < 0);
     }
 
     ACP.loadStore = loadStore;

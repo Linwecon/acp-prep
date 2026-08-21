@@ -235,6 +235,23 @@
             timeUsed: Math.min(ACP.EXAM_TIME, Math.round((Date.now() - S.exam.startAt) / 1000)),
             weakByCh
         };
+
+        // 持久化本次考试成绩（本地 + 云端同步）
+        const record = {
+            id: ACP.uuid ? ACP.uuid() : ('e-' + Date.now()),
+            score, correct,
+            wrong: S.exam.pool.length - correct,
+            pass: score >= 80,
+            time_used: S.exam.result.timeUsed,
+            weak_by_ch: weakByCh,
+            created_at: new Date().toISOString()
+        };
+        S.store.exams = S.store.exams || [];
+        S.store.exams.unshift(record);
+        S.store.exams = S.store.exams.slice(0, 100);
+        ACP.saveStore();
+        if (ACP.sync) ACP.sync.pushExam(record);
+
         ACP.renderSidebarBadges();
         ACP.renderExam(document.getElementById('contentInner'));
     }

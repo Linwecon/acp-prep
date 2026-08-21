@@ -50,6 +50,15 @@
         return text.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
     }
 
+    /* 生成 uuid v4（考试成绩记录等需要合法 uuid 的场景） */
+    function uuid() {
+        try { if (typeof crypto !== 'undefined' && crypto.randomUUID) return crypto.randomUUID(); } catch (e) {}
+        return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, c => {
+            const r = Math.random() * 16 | 0;
+            return (c === 'x' ? r : (r & 0x3 | 0x8)).toString(16);
+        });
+    }
+
     function analysisHTML(q, correct) {
         return `
     <div class="analysis-verdict">
@@ -73,5 +82,6 @@
     ACP.chapterName = chapterName;
     ACP.escapeRegExp = escapeRegExp;
     ACP.analysisHTML = analysisHTML;
+    ACP.uuid = uuid;
 
 })(window.ACP);
