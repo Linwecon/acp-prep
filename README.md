@@ -198,7 +198,7 @@ acp/
 
 ## 🔐 登录与云端同步（Supabase，可选）
 
-右上角提供**登录入口**，支持三种方式：**Google 一键登录**、**邮箱 + 密码登录（可注册）**、
+右上角提供**登录入口**，支持两种方式：**邮箱 + 密码登录（可注册）**、
 **邮箱 6 位验证码登录**。登录后学习进度、错题本、收藏、模拟考试成绩会自动同步到云端，
 支持跨浏览器 / 跨设备续学；**未登录时完全不影响使用**，数据照常存本地 `localStorage`。
 
@@ -225,13 +225,11 @@ acp/
    - 到 **Authentication → Email Templates → Magic Link**，把模板里的
      `{{ .ConfirmationURL }}` 换成 `{{ .Token }}`（让邮件发 6 位验证码而非链接）；
    - （可选）关闭 **Confirm email**，注册后直接登录，无需邮件确认。
-4. 在 **Authentication → Providers → Google** 里：打开开关，填入 Google Cloud OAuth 的
-   Client ID / Secret，回调地址填 `https://<project_ref>.supabase.co/auth/v1/callback`。
-5. 在 **Authentication → URL Configuration** 里，把站点地址加入 **Site URL / Redirect URLs**，
+4. 在 **Authentication → URL Configuration** 里，把站点地址加入 **Site URL / Redirect URLs**，
    例如 `https://linwecon.github.io/acp-prep/`（GitHub Pages 含子路径需填完整路径）。
-6. 在 **Project Settings → API** 复制 `Project URL` 和 `anon public` key，
+5. 在 **Project Settings → API** 复制 `Project URL` 和 `anon public` key，
    填入 [`config/supabase.js`](config/supabase.js)。
-7. 重新部署到 GitHub Pages 即可。
+6. 重新部署到 GitHub Pages 即可。
 
 ### 安全说明
 

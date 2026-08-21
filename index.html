@@ -241,7 +241,7 @@ window.__copyLinkFallback = function (text) {
         </p>
         <ol class="auth-setup-list">
           <li>在 <a href="https://supabase.com" target="_blank" rel="noopener">Supabase</a> 新建项目，并在 SQL Editor 执行 <code>supabase/schema.sql</code>；</li>
-          <li>在 Authentication → Providers 开启 Google / Email 登录；</li>
+          <li>在 Authentication → Providers 开启 Email 登录；</li>
           <li>把项目 <b>URL</b> 和 <b>anon public key</b> 填入 <code>config/supabase.js</code>；</li>
           <li>重新部署后即可使用登录与云同步。</li>
         </ol>
@@ -262,11 +262,6 @@ window.__copyLinkFallback = function (text) {
 
         <!-- ============ 登录页 ============ -->
         <div id="authSignInPage">
-          <button class="auth-google" onclick="ACP.sync.signInGoogle()">
-            <span class="auth-g-logo">G</span> 使用 Google 登录
-          </button>
-          <div class="auth-divider"><span>或邮箱登录</span></div>
-
           <div id="authPwdPane">
             <label class="ai-field">
               <span class="ai-field-label">邮箱</span>
