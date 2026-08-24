@@ -673,6 +673,27 @@
         return -1;
     }
 
+    // 从章节 intro 中提取纯文本摘要供 hero 显示（去除 Markdown 标记）
+    function heroSummary(ch) {
+        const raw = (ch.intro || []).join(' ');
+        let txt = raw
+            .replace(/<!--[\s\S]*?-->/g, '')
+            .replace(/^>\s?/gm, '')
+            .replace(/\*\*([^*]+)\*\*/g, '$1')
+            .replace(/`([^`]+)`/g, '$1')
+            .replace(/^[-*]\s+/gm, '')
+            .replace(/^#{1,6}\s+/gm, '')
+            .replace(/:::\w+.*$/gm, '')
+            .replace(/:::/g, '')
+            .replace(/\|/g, ' ')
+            .replace(/\s+/g, ' ')
+            .trim();
+        // 优先取"本章要解决的问题"那句
+        const m = txt.match(/本章要解决的问题["」：:]?\s*([^。]*。?)/);
+        if (m) txt = m[1];
+        return txt.slice(0, 140) || '本章知识点课程';
+    }
+
     function renderCourseView(root, ci) {
         const ch = chapters[ci];
         if (!ch) { chapterMode = null; renderGallery(root); return; }
@@ -701,7 +722,7 @@
               <span class="lx-hero-ico">${h2IconFor(ch.title)}</span>
               <div class="lx-hero-info">
                 <h1>${ACP.esc(ch.title)}</h1>
-                <p>${ACP.esc((ch.intro || []).slice(0, 3).join(' ').slice(0, 140) || '本章知识点课程')}</p>
+                <p>${ACP.esc(heroSummary(ch))}</p>
                 <div class="lx-hero-meta">
                   <span>📚 ${ch.kps.length} 个知识模块</span>
                   <span>⏱ 约 ${est} 分钟</span>
