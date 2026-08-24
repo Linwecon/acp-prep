@@ -4,13 +4,6 @@
 >
 > 纯前端静态站点，零构建依赖，双击 `index.html` 或部署到任意静态托管即可使用。
 
-<p align="center">
-  <img alt="知识宇宙" src="github项目展示截图/知识宇宙截图.png" width="45%">
-  <img alt="模拟考试" src="github项目展示截图/模拟考试界面.png" width="45%">
-  <img alt="登录与云同步" src="github项目展示截图/登录可跨平台登录.png" width="45%">
-  <img alt="AI 答疑" src="github项目展示截图/可选ai解析.png" width="45%">
-</p>
-
 ---
 
 ## 目录
@@ -163,7 +156,6 @@ acp/
 │
 ├── docs/                    # 知识点源文档与校验报告
 │   └── ACP高频知识点总结.md
-└── github项目展示截图/       # README 截图
 ```
 
 ---
