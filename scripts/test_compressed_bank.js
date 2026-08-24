@@ -30,7 +30,7 @@ const eq = (label, got, want) => {
     if (!ok) fails.push(label);
 };
 
-eq('total questions', ACP.BANK.length, 1548);
+eq('total questions', ACP.BANK.length, 1689);
 eq('chapters', Object.keys(ACP.BY_CH).length, 12);
 const q1 = ACP.BANK[0];
 eq('q1 has options', q1.options.length > 0 && !!q1.options[0].text, true);
@@ -49,10 +49,10 @@ for (let t = 0; t < 30; t++) {
 }
 console.log('30 exam draws with compressed bank ->', fails.some(f => f.includes('draw')) ? 'FAIL' : 'OK');
 
-// analysis preserved for fixed questions (e.g. 1-0411 was fixed)
-const fixed = ACP.ID_MAP['1-0411'];
-eq('fixed question analysis exists', !!fixed && fixed.analysis.length > 20, true);
-eq('fixed question new answer', fixed && fixed.ansArr, ['B']);
+// analysis preserved for new questions (e.g. 9-5001 Batch API)
+const fixed = ACP.ID_MAP['9-5001'];
+eq('sample new question analysis exists', !!fixed && fixed.analysis.length > 20, true);
+eq('sample new question answer', fixed && fixed.ansArr, ['C']);
 
 console.log('---', fails.length ? `FAIL (${fails.length})` : 'PASS');
 process.exit(fails.length ? 1 : 0);
