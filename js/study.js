@@ -66,18 +66,74 @@
     }
 
     function listHTML(buf) {
+        // 解析每一行
         const items = buf.map(l => {
-            const m = l.match(/^(\s*)([-*]|\d+\.)\s+(.*)$/);
-            return {
-                depth: m[1].length >= 2 ? 1 : 0,
-                ordered: /^\d+\.$/.test(m[2]),
-                text: m[3]
-            };
-        });
-        const tag = items[0].ordered ? 'ol' : 'ul';
-        return `<${tag}>` + items.map(it =>
-            `<li${it.depth ? ' class="sub"' : ''}>${inline(it.text)}</li>`
-        ).join('') + `</${tag}>`;
+            const m = l.match(/^(\s*)([-*]|\d+\.|[A-Z]\.)\s+(.*)$/);
+            if (!m) return null;
+            const marker = m[2];
+            const depth = m[1].length >= 2 ? 1 : 0;
+            let kind = 'ul';
+            if (/^\d+\.$/.test(marker)) kind = 'ol';
+            else if (/^[A-Z]\.$/.test(marker)) kind = 'ola';
+            return { depth, kind, text: m[3] };
+        }).filter(Boolean);
+
+        // 构建两层嵌套列表：顶层 + 缩进子层（子层若为字母则 type=A）
+        let html = '';
+        let topOpen = false, topLiOpen = false, subOpen = false, subKind = '';
+        const closeSub = () => { if (subOpen) { html += '</ol>'; subOpen = false; } };
+        const closeTopLi = () => {
+            closeSub();
+            if (topLiOpen) { html += '</li>'; topLiOpen = false; }
+        };
+        const closeTop = () => { closeTopLi(); if (topOpen) { html += '</ol>'; topOpen = false; } };
+
+        for (const it of items) {
+            if (it.depth === 0) {
+                closeTopLi();
+                if (!topOpen) { html += '<ol>'; topOpen = true; }
+                html += `<li>${inline(it.text)}`;
+                topLiOpen = true;
+            } else {
+                if (!subOpen || subKind !== it.kind) {
+                    if (subOpen) html += '</ol>';
+                    const attr = it.kind === 'ola' ? ' type="A"' : '';
+                    html += `<ol${attr}>`;
+                    subOpen = true; subKind = it.kind;
+                }
+                html += `<li class="sub">${inline(it.text)}</li>`;
+            }
+        }
+        closeTop();
+        // 若顶层无序列表（全是 - *），上面逻辑不适用；回退简单渲染
+        if (items.length && items.every(x => x.kind === 'ul')) {
+            return '<ul>' + items.map(it => `<li${it.depth ? ' class="sub"' : ''}>${inline(it.text)}</li>`).join('') + '</ul>';
+        }
+        return html;
+    }
+
+    /* ---------- textbook component blocks (::: type) ---------- */
+
+    const TB_LABELS = {
+        objectives: '🎯 学习目标',
+        scenario: '🌍 现实场景',
+        problem: '❗ 传统做法的局限',
+        value: '✨ 核心价值',
+        principle: '⚙️ 工作原理',
+        concept: '📌 核心概念',
+        best: '✅ 最佳实践',
+        cost: '💰 成本与限制',
+        risk: '⚠️ 风险与误区',
+        exam: '📝 考试重点',
+        qa: '❓ 自测题',
+        compare: '⚖️ 对比辨析',
+        note: '📎 补充说明',
+        case: '🏢 案例'
+    };
+
+    function containerHTML(type, body) {
+        const label = TB_LABELS[type] || '';
+        return `<div class="tb tb-${type}">${label ? `<div class="tb-hd">${label}</div>` : ''}<div class="tb-bd">${mdToHtml(body)}</div></div>`;
     }
 
     function mdToHtml(md) {
@@ -87,6 +143,17 @@
 
         while (i < lines.length) {
             const line = lines[i];
+
+            // textbook component: ::: type [title]
+            const fm = line.trim().match(/^:::(\w+)(?:\s+(.+))?$/);
+            if (fm) {
+                const buf = [];
+                i++;
+                while (i < lines.length && !/^:::\s*$/.test(lines[i].trim())) { buf.push(lines[i]); i++; }
+                i++;
+                out.push(containerHTML(fm[1], buf.join('\n').trim()));
+                continue;
+            }
 
             // chart block: ```chart <type>
             const cm = line.trim().match(/^```chart\s+(\w+)/);
@@ -124,11 +191,15 @@
                 continue;
             }
 
-            if (/^\s*[-*]\s+/.test(line) || /^\s*\d+\.\s+/.test(line)) {
+            if (/^\s*[-*]\s+/.test(line) || /^\s*\d+\.\s+/.test(line) || /^\s*[A-Z]\.\s+/.test(line)) {
                 const buf = [line];
                 i++;
-                while (i < lines.length &&
-                    (/^\s*[-*]\s+/.test(lines[i]) || /^\s*\d+\.\s+/.test(lines[i]) || /^\s{2,}[-*]\s+/.test(lines[i]))) {
+                // 列表遇空行即终止（标准 Markdown 行为），不跨空行收集
+                while (i < lines.length && lines[i].trim() !== '' &&
+                    ( /^\s*[-*]\s+/.test(lines[i]) || /^\s*\d+\.\s+/.test(lines[i]) ||
+                      /^\s*[A-Z]\.\s+/.test(lines[i]) || /^\s{2,}[-*]\s+/.test(lines[i]) ||
+                      /^\s{2,}[A-Z]\.\s+/.test(lines[i]) ) &&
+                    !/^\s*\*\*解析/.test(lines[i])) {
                     buf.push(lines[i]); i++;
                 }
                 out.push(listHTML(buf));
@@ -147,7 +218,14 @@
             if (/^\s*---+\s*$/.test(line)) { out.push('<hr>'); i++; continue; }
 
             const buf = [];
-            while (i < lines.length && lines[i].trim() !== '') { buf.push(lines[i]); i++; }
+            while (i < lines.length && lines[i].trim() !== '') {
+                const ln = lines[i];
+                // 遇到块级起始行（列表、标题、引用、组件、图表、代码块）则结束段落
+                if (/^\s*([-*]|\d+\.|[A-Z]\.)\s+/.test(ln) ||
+                    /^#{1,4}\s+/.test(ln) || /^\s*>/.test(ln) ||
+                    /^\s*:::/.test(ln) || /^\s*```/.test(ln)) break;
+                buf.push(ln); i++;
+            }
             if (buf.length) {
                 // 段落内换行按 Markdown 语义合并为空格
                 const joined = buf.join(' ');
@@ -175,6 +253,7 @@
         const lines = data.split('\n').map(l => l.trim()).filter(Boolean);
         switch (type) {
             case 'flow': return flowChart(lines);
+            case 'pipeline': return pipelineChart(lines);
             case 'bars': return barsChart(lines);
             case 'ring': return ringChart(lines);
             case 'attn': return attnChart(lines);
@@ -190,6 +269,32 @@
                 (idx < steps.length - 1 ? `<span class="flow-arrow" style="animation-delay:${idx * 280 + 160}ms">→</span>` : '');
         }).join('');
         return `<div class="chart-wrap"><div class="chart-title">流程</div><div class="flow-chart">${items}</div></div>`;
+    }
+
+    // pipeline: groups of steps separated by a "--" line.
+    // First line (before any "--") is treated as the chart title if it contains "|".
+    function pipelineChart(lines) {
+        let title = '';
+        const groups = [[]];
+        for (const l of lines) {
+            if (/^--+$/.test(l)) { groups.push([]); continue; }
+            if (l.indexOf('|title=') === 0) { title = l.split('=')[1] || ''; continue; }
+            groups[groups.length - 1].push(l);
+        }
+        const phases = ['离 线 建 库', '在 线 问 答'];
+        const colors = ['var(--accent-2)', 'var(--accent)'];
+        const stages = groups.filter(g => g.length).map((g, gi) => {
+            const nodes = g.map((s, idx) => {
+                const label = esc(s.replace(/^\d+[.、]\s*/, ''));
+                return `<span class="pl-node" style="animation-delay:${gi * 200 + idx * 180}ms">${label}</span>` +
+                    (idx < g.length - 1 ? '<span class="pl-arrow">→</span>' : '');
+            }).join('');
+            return `<div class="pl-phase">
+        <div class="pl-phase-tag" style="background:${colors[gi] || 'var(--accent)'}">${phases[gi] || ('阶段' + (gi + 1))}</div>
+        <div class="pl-track">${nodes}</div>
+      </div>`;
+        }).join('<div class="pl-stage-arrow" aria-hidden="true">↓</div>');
+        return `<div class="chart-wrap">${title ? `<div class="chart-title">${esc(title)}</div>` : ''}<div class="pipeline-chart">${stages}</div></div>`;
     }
 
     function barsChart(lines) {
@@ -310,7 +415,7 @@
             const h2 = line.match(/^##\s+(.*)$/);
             const h3 = line.match(/^###\s+(.*)$/);
             if (h2) {
-                if (h2[1] === '目录') continue;
+                if (h2[1] === '目录' || h2[1] === '如何使用本手册') continue;
                 curCh = { id: slugify(h2[1]), title: h2[1], intro: [], kps: [] };
                 chapters.push(curCh);
                 curKp = null;
@@ -345,6 +450,89 @@
     }
     function saveDone(d) {
         try { localStorage.setItem(DONE_KEY, JSON.stringify(d)); } catch (e) {}
+    }
+
+    const STUDY_KEY = 'acp_study_course_v1';
+    function loadStudy() {
+        try { return JSON.parse(localStorage.getItem(STUDY_KEY) || '{}'); } catch (e) { return {}; }
+    }
+    function saveStudy(d) {
+        try { localStorage.setItem(STUDY_KEY, JSON.stringify(d)); } catch (e) {}
+    }
+
+    const RELATED_RULES = [
+        { kw: 'Embedding', title: 'RAG 检索增强生成' },
+        { kw: '向量化', title: 'RAG 检索增强生成' },
+        { kw: '向量数据库', title: 'RAG 检索增强生成' },
+        { kw: 'RAG', title: 'RAG 检索增强生成' },
+        { kw: 'RAGAS', title: '模型评估' },
+        { kw: 'BLEU', title: '模型评估' },
+        { kw: 'ROUGE', title: '模型评估' },
+        { kw: 'Function Calling', title: 'Agent 智能体' },
+        { kw: '工具调用', title: 'Agent 智能体' },
+        { kw: 'MCP', title: 'Agent 智能体' },
+        { kw: 'LoRA', title: '模型微调与训练' },
+        { kw: '微调', title: '模型微调与训练' },
+        { kw: 'RLHF', title: '模型微调与训练' },
+        { kw: 'vLLM', title: '模型部署与推理优化' },
+        { kw: '量化', title: '模型部署与推理优化' },
+        { kw: '部署', title: '模型部署与推理优化' },
+        { kw: 'RAM', title: 'AI 安全与合规' },
+        { kw: '安全组', title: 'AI 安全与合规' },
+        { kw: 'WAF', title: 'AI 安全与合规' },
+        { kw: 'DDoS', title: 'AI 安全与合规' },
+        { kw: '备案', title: 'AI 安全与合规' },
+        { kw: '百炼', title: '阿里云 AI 平台' },
+        { kw: 'DashScope', title: '阿里云 AI 平台' },
+        { kw: 'PAI', title: '阿里云 AI 平台' },
+        { kw: 'Assistant API', title: 'Agent 智能体' },
+        { kw: 'LangChain', title: '框架与工具' },
+        { kw: 'LlamaIndex', title: '框架与工具' },
+        { kw: 'Dify', title: '框架与工具' },
+        { kw: 'CosyVoice', title: '多模态 AI' },
+        { kw: 'TTS', title: '多模态 AI' },
+        { kw: 'ASR', title: '多模态 AI' },
+        { kw: '多模态', title: '多模态 AI' }
+    ];
+
+    function findChapterByTitle(title) {
+        return chapters.findIndex(ch => ch.title === title || ch.title.includes(title));
+    }
+
+    function relatedChapters(kpText, currentIdx) {
+        const out = [];
+        const seen = new Set();
+        for (const rule of RELATED_RULES) {
+            if (kpText.includes(rule.kw)) {
+                const idx = findChapterByTitle(rule.title);
+                if (idx >= 0 && idx !== currentIdx && !seen.has(idx)) {
+                    seen.add(idx);
+                    out.push(idx);
+                }
+            }
+            if (out.length >= 4) break;
+        }
+        return out;
+    }
+
+    function moduleTag(kp) {
+        const t = kp.title + ' ' + (kp.md || []).join(' ');
+        if (/误区|陷阱|易错|注意|风险|安全/.test(t)) return 'warning';
+        if (/流程|链路|步骤|架构|工作模式|运行机制|工作流/.test(t)) return 'flow';
+        if (/对比|区别|选型|方案|vs|差异|比较/.test(t)) return 'compare';
+        if (/案例|场景|实战|实践|应用|示例|行业/.test(t)) return 'example';
+        if (/评估|指标|RAGAS|评测|考试|考点/.test(t)) return 'exam';
+        if (/原理|深入|数学|机制|本质|为什么/.test(t)) return 'detail';
+        return 'core';
+    }
+
+    const MODULE_TAG_LABEL = {
+        core: '核心', detail: '深入', exam: '考试', example: '案例',
+        warning: '易错', flow: '流程', compare: '对比'
+    };
+
+    function estimateMinutes(ch) {
+        return Math.max(6, Math.round(ch.kps.length * 4));
     }
 
     const H2_ICONS = [
@@ -447,76 +635,176 @@
       </div>`;
     }
 
-    /* ---------- chapter view (interactive knowledge cards) ---------- */
+    /* ---------- 课程化章节视图（三栏课程布局） ---------- */
 
-    function renderChapterView(root, ci) {
+    function courseNavHTML(ci) {
+        return chapters.map((c, i) => {
+            const st = chapterStats(c);
+            const pct = st.total ? Math.round(st.done / st.total * 100) : 0;
+            return `
+        <button class="lx-ch-btn ${i === ci ? 'active' : ''}" data-ci="${i}" onclick="ACP.openStudyChapter(${i})">
+          <span class="lx-ch-ico">${h2IconFor(c.title)}</span>
+          <span class="lx-ch-txt">
+            <span class="lx-ch-name">${ACP.esc(c.title)}</span>
+            <span class="lx-ch-meta"><i style="width:${pct}%"></i>${st.done}/${st.total}</span>
+          </span>
+        </button>`;
+        }).join('');
+    }
+
+    function relatedHTML(relIdxs, currentIdx) {
+        if (!relIdxs.length) return '<p class="lx-muted">本章暂无关联章节推荐。</p>';
+        return relIdxs.map(i => {
+            const c = chapters[i];
+            const st = chapterStats(c);
+            return `
+        <button class="lx-rel" onclick="ACP.openStudyChapter(${i})">
+          <span>${h2IconFor(c.title)}</span>
+          <em>${ACP.esc(c.title)}</em>
+          <small>${st.done}/${st.total}</small>
+        </button>`;
+        }).join('');
+    }
+
+    function nextUnfinished(ch, done) {
+        for (let i = 0; i < ch.kps.length; i++) {
+            if (!done[ch.id + '|' + i]) return i;
+        }
+        return -1;
+    }
+
+    function renderCourseView(root, ci) {
         const ch = chapters[ci];
         if (!ch) { chapterMode = null; renderGallery(root); return; }
-        ACP.setCrumb(ch.title, `${ch.kps.length} 个知识点`);
+        const study = loadStudy();
+        const mode = study.mode || 'deep';
         const done = loadDone();
         const st = chapterStats(ch);
         const pct = st.total ? Math.round(st.done / st.total * 100) : 0;
+        const est = estimateMinutes(ch);
+        const isTextbook = /class="tb /.test(ch.html) || ch.kps.some(kp => /class="tb /.test(kp.html));
+
+        ACP.setCrumb(ch.title, `课程模式 · ${st.done}/${st.total}`);
 
         root.innerHTML = `
-      <div class="study">
-        <div class="chap-top">
-          <button class="back-btn" onclick="ACP.backToGallery()">← 知识宇宙</button>
-          <div class="chap-banner ${galleryClass(ci, ch.title)}">
-            <span class="cb-icon">${h2IconFor(ch.title)}</span>
-            <span class="cb-info">
-              <span class="cb-title">${ACP.esc(ch.title)}</span>
-              <span class="cb-meta">${ch.kps.length} 个知识点 · 已掌握 ${st.done}</span>
-            </span>
-            <span class="cb-pct">${pct}%</span>
-          </div>
-        </div>
-
-        ${ch.html ? `<div class="card chap-intro">${ch.html}</div>` : ''}
-
-        <div class="kp-list">
-          ${ch.kps.map((kp, i) => {
-            const key = ch.id + '|' + i;
-            const isDone = !!done[key];
-            return `
-            <div class="kp-card card ${isDone ? 'done' : ''}">
-              <div class="kp-head">
-                <span class="kp-num">${String(i + 1).padStart(2, '0')}</span>
-                <span class="kp-title">${ACP.esc(kp.title)}</span>
-                <button class="kp-done ${isDone ? 'on' : ''}" data-kp="${key}" title="掌握这个知识点">${isDone ? '✓' : '○'}</button>
+      <div class="lx-course ${mode === 'exam' ? 'exam-mode' : ''} ${isTextbook ? 'lx-textbook' : ''}">
+        <main class="lx-main-col">
+          <header class="lx-hero ${galleryClass(ci, ch.title)}">
+            <div class="lx-hero-top">
+              <button class="lx-back" onclick="ACP.backToGallery()">← 知识宇宙</button>
+              <div class="lx-mode">
+                <button class="lx-mode-btn ${mode === 'deep' ? 'active' : ''}" data-mode="deep">深度学习</button>
+                <button class="lx-mode-btn ${mode === 'exam' ? 'active' : ''}" data-mode="exam">考前速记</button>
               </div>
-              <div class="kp-body">${kp.html}</div>
-            </div>`;
-          }).join('')}
-        </div>
+            </div>
+            <div class="lx-hero-body">
+              <span class="lx-hero-ico">${h2IconFor(ch.title)}</span>
+              <div class="lx-hero-info">
+                <h1>${ACP.esc(ch.title)}</h1>
+                <p>${ACP.esc((ch.intro || []).slice(0, 3).join(' ').slice(0, 140) || '本章知识点课程')}</p>
+                <div class="lx-hero-meta">
+                  <span>📚 ${ch.kps.length} 个知识模块</span>
+                  <span>⏱ 约 ${est} 分钟</span>
+                  <span>📊 进度 ${st.done}/${st.total}</span>
+                </div>
+              </div>
+              <div class="lx-hero-ring" style="--pct:${pct}">
+                <span>${pct}%</span>
+              </div>
+            </div>
+            <div class="lx-progress"><i style="width:${pct}%"></i></div>
+          </header>
 
-        <div class="chap-nav">
-          <button class="btn" onclick="ACP.openStudyChapter(${ci - 1})" ${ci === 0 ? 'disabled' : ''}>← 上一章</button>
-          <button class="btn" onclick="ACP.backToGallery()">回到知识宇宙</button>
-          <button class="btn btn-primary" onclick="ACP.openStudyChapter(${ci + 1})" ${ci === chapters.length - 1 ? 'disabled' : ''}>下一章 →</button>
-        </div>
-        <button class="study-top" id="studyTop" onclick="ACP.studyTop()" title="回到顶部">↑</button>
+          ${ch.html ? `<section class="lx-chapter-intro">${ch.html}</section>` : ''}
+
+          <div class="lx-module-list">
+            ${ch.kps.map((kp, i) => {
+                const key = ch.id + '|' + i;
+                const isDone = !!done[key];
+                const tag = moduleTag(kp);
+                return `
+            <article class="lx-module ${tag} ${isDone ? 'done' : ''}" id="lx-m-${i}" data-tag="${tag}">
+              <header class="lx-module-head">
+                <span class="lx-module-num">${String(i + 1).padStart(2, '0')}</span>
+                <div class="lx-module-title">
+                  <span class="lx-tag tag-${tag}">${MODULE_TAG_LABEL[tag] || '核心'}</span>
+                  <h2>${ACP.esc(kp.title)}</h2>
+                </div>
+                <button class="lx-kp-done ${isDone ? 'on' : ''}" data-kp="${key}" title="标记为已掌握">${isDone ? '✓ 已掌握' : '标记掌握'}</button>
+              </header>
+              <div class="lx-module-body">${kp.html}</div>
+              <footer class="lx-module-rel">
+                <span>相关：</span>
+                ${relatedHTML(relatedChapters(kp.title + ' ' + (kp.md || []).join(' '), ci), ci)}
+              </footer>
+            </article>`;
+            }).join('')}
+          </div>
+
+          <nav class="lx-bottom-nav">
+            <button class="btn" onclick="ACP.openStudyChapter(${ci - 1})" ${ci === 0 ? 'disabled' : ''}>← 上一章</button>
+            <button class="btn" onclick="ACP.backToGallery()">章节目录</button>
+            <button class="btn btn-primary" onclick="ACP.openStudyChapter(${ci + 1})" ${ci === chapters.length - 1 ? 'disabled' : ''}>下一章 →</button>
+          </nav>
+        </main>
       </div>`;
 
-        // 交互化：白话/原理/实战/误区 → 可折叠 <details>
-        root.querySelectorAll('.kp-body .plain-block, .kp-body .deep-block, .kp-body .practice-block, .kp-body .pitfall-block').forEach(el => {
+        enhanceCourse(root, ch, mode);
+    }
+
+    function enhanceCourse(root, ch, mode) {
+        // 折叠深入内容
+        root.querySelectorAll('.lx-module-body .plain-block, .lx-module-body .deep-block, .lx-module-body .practice-block, .lx-module-body .pitfall-block').forEach(el => {
             let label = '展开';
-            if (el.classList.contains('plain-block')) label = '💬 白话解释';
-            else if (el.classList.contains('deep-block')) label = '📚 深入原理';
-            else if (el.classList.contains('practice-block')) label = '🎯 实战 / 考试要点';
-            else if (el.classList.contains('pitfall-block')) label = '⚠️ 常见误区';
+            let cls = '';
+            if (el.classList.contains('plain-block')) { label = '💬 白话解释'; cls = 'plain'; }
+            else if (el.classList.contains('deep-block')) { label = '📚 深入原理'; cls = 'deep'; }
+            else if (el.classList.contains('practice-block')) { label = '🎯 实战 / 考试要点'; cls = 'practice'; }
+            else if (el.classList.contains('pitfall-block')) { label = '⚠️ 常见误区'; cls = 'pitfall'; }
             const details = document.createElement('details');
+            details.className = 'lx-fold ' + cls;
             const summary = document.createElement('summary');
             summary.textContent = label;
-            details.open = true; // 默认展开，可手动收起
+            details.open = mode !== 'exam';
+            if (mode === 'exam') details.open = cls === 'practice' || cls === 'pitfall';
             el.parentNode.insertBefore(details, el);
             details.appendChild(summary);
             details.appendChild(el);
         });
 
-        // scroll-to-top button
+        // 代码块加复制按钮
+        root.querySelectorAll('.lx-module-body pre').forEach(pre => {
+            const wrap = document.createElement('div');
+            wrap.className = 'lx-code';
+            const btn = document.createElement('button');
+            btn.className = 'lx-copy';
+            btn.textContent = '复制';
+            btn.type = 'button';
+            btn.addEventListener('click', () => {
+                const text = pre.innerText || '';
+                navigator.clipboard && navigator.clipboard.writeText(text);
+                btn.textContent = '已复制';
+                setTimeout(() => { btn.textContent = '复制'; }, 1500);
+            });
+            pre.parentNode.insertBefore(wrap, pre);
+            wrap.appendChild(pre);
+            wrap.appendChild(btn);
+        });
+
+        // 表格移动端卡片化
+        root.querySelectorAll('.lx-module-body table').forEach(table => {
+            const headers = [...table.querySelectorAll('thead th')].map(th => th.textContent.trim());
+            table.querySelectorAll('tbody tr').forEach(tr => {
+                tr.querySelectorAll('td').forEach((td, i) => {
+                    if (headers[i]) td.setAttribute('data-label', headers[i]);
+                });
+            });
+        });
+
+        // 模块进入视口时记录最近阅读位置
         const content = document.getElementById('content');
-        const topBtn = document.getElementById('studyTop');
         content.onscroll = () => {
+            const topBtn = document.getElementById('studyTop');
             if (topBtn) topBtn.classList.toggle('show', content.scrollTop > 420);
         };
     }
@@ -524,12 +812,14 @@
     function openStudyChapter(i) {
         if (i < 0 || i >= chapters.length) return;
         chapterMode = i;
+        try { history.pushState(null, '', '#study?ch=' + i); } catch (e) {}
         ACP.renderStudy(document.getElementById('contentInner'));
         document.getElementById('content').scrollTop = 0;
     }
 
     function backToGallery() {
         chapterMode = null;
+        try { history.pushState(null, '', '#study'); } catch (e) {}
         ACP.renderStudy(document.getElementById('contentInner'));
         document.getElementById('content').scrollTop = 0;
     }
@@ -551,7 +841,6 @@
         }
         if (!chapters.length) chapters = parseDoc(md);
 
-        // 深链支持：#study?ch=0 直达第 N 章（参数在 hash 内）
         if (chapterMode === null) {
             const m = location.hash.match(/[?&]ch=(\d+)/);
             if (m) chapterMode = Math.min(parseInt(m[1], 10), chapters.length - 1);
@@ -559,30 +848,53 @@
 
         if (studyClickHandler) root.removeEventListener('click', studyClickHandler);
         studyClickHandler = e => {
-            const btn = e.target.closest('.kp-done');
-            if (btn) {
+            const kpBtn = e.target.closest('.lx-kp-done');
+            if (kpBtn) {
                 const d = loadDone();
-                d[btn.dataset.kp] = !d[btn.dataset.kp];
+                d[kpBtn.dataset.kp] = !d[kpBtn.dataset.kp];
                 saveDone(d);
-                btn.classList.toggle('on', d[btn.dataset.kp]);
-                btn.textContent = d[btn.dataset.kp] ? '✓' : '○';
-                btn.closest('.kp-card').classList.toggle('done', d[btn.dataset.kp]);
-                // 更新 banner 进度
+                kpBtn.classList.toggle('on', d[kpBtn.dataset.kp]);
+                kpBtn.textContent = d[kpBtn.dataset.kp] ? '✓ 已掌握' : '标记掌握';
+                kpBtn.closest('.lx-module').classList.toggle('done', d[kpBtn.dataset.kp]);
                 const ci = chapterMode;
                 if (ci !== null) {
                     const st = chapterStats(chapters[ci]);
-                    const pctEl = root.querySelector('.cb-pct');
-                    const metaEl = root.querySelector('.cb-meta');
-                    if (pctEl) pctEl.textContent = (st.total ? Math.round(st.done / st.total * 100) : 0) + '%';
-                    if (metaEl) metaEl.textContent = `${st.total} 个知识点 · 已掌握 ${st.done}`;
+                    const pct = st.total ? Math.round(st.done / st.total * 100) : 0;
+                    root.querySelectorAll('.lx-progress > i').forEach(el => { el.style.width = pct + '%'; });
+                    root.querySelectorAll('.lx-progress-ring').forEach(el => { el.style.setProperty('--pct', pct); el.querySelector('span').textContent = `${st.done}/${st.total}`; });
+                    const heroRing = root.querySelector('.lx-hero-ring');
+                    if (heroRing) { heroRing.style.setProperty('--pct', pct); heroRing.querySelector('span').textContent = pct + '%'; }
                 }
+                return;
+            }
+
+            const modeBtn = e.target.closest('.lx-mode-btn, .lx-mode-btn-sm');
+            if (modeBtn) {
+                const d = loadStudy();
+                d.mode = modeBtn.dataset.mode;
+                saveStudy(d);
+                renderCourseView(root, chapterMode);
                 return;
             }
         };
         root.addEventListener('click', studyClickHandler);
 
+        window.removeEventListener('popstate', studyPopHandler);
+        window.addEventListener('popstate', studyPopHandler);
+
         if (chapterMode === null) renderGallery(root);
-        else renderChapterView(root, chapterMode);
+        else renderCourseView(root, chapterMode);
+    }
+
+    function studyPopHandler() {
+        const m = location.hash.match(/[?&]ch=(\d+)/);
+        if (m) {
+            chapterMode = Math.min(parseInt(m[1], 10), chapters.length - 1);
+        } else if (location.hash.startsWith('#study')) {
+            chapterMode = null;
+        }
+        ACP.renderStudy(document.getElementById('contentInner'));
+        document.getElementById('content').scrollTop = 0;
     }
 
     ACP.mdToHtml = mdToHtml;

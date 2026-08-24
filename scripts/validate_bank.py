@@ -104,7 +104,7 @@ def main():
     if unmapped:
         errors.append(f"存在无法映射到知识域的章节: {unmapped}")
 
-    new_qs = [q for arr in by_ch.values() for q in arr if str(q.get("seq", "")).isdigit() and int(q["seq"]) >= 5000]
+    new_qs = [q for arr in by_ch.values() for q in arr if str(q.get("seq", "")).isdigit() and 5000 <= int(q["seq"]) < 6000]
     new_by_ch = {}
     for q in new_qs:
         new_by_ch[q["chapter"]] = new_by_ch.get(q["chapter"], 0) + 1

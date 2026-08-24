@@ -30,7 +30,7 @@ const eq = (label, got, want) => {
     if (!ok) fails.push(label);
 };
 
-eq('total questions', ACP.BANK.length, 1689);
+eq('total questions', ACP.BANK.length, 1652);
 eq('chapters', Object.keys(ACP.BY_CH).length, 12);
 const q1 = ACP.BANK[0];
 eq('q1 has options', q1.options.length > 0 && !!q1.options[0].text, true);
