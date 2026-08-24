@@ -1,37 +1,128 @@
-# OS
+# ============================================================
+# 操作系统
+# ============================================================
 Thumbs.db
-.DS_Store
+ehthumbs.db
 Desktop.ini
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
 
-# Editor
+# ============================================================
+# 编辑器 / IDE
+# ============================================================
 .vscode/
+!.vscode/settings.json.example
 .idea/
 *.swp
 *.swo
+*~
+*.sublime-workspace
+*.sublime-project
+.mcp.json
 
-# Logs
+# ============================================================
+# 日志与临时文件
+# ============================================================
 *.log
 npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+*.tmp
+*.temp
+*.bak
+*.cache
 
-# Data (large files)
+# ============================================================
+# 环境变量与密钥（严禁提交）
+# ============================================================
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+config/verify_config.json
+Key.json
+**/Key.json
+
+# ============================================================
+# Python
+# ============================================================
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+*.egg-info/
+.eggs/
+build/
+dist/
+develop-eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg
+.venv/
+venv/
+env/
+ENV/
+llm_learn/
+.python-version
+
+# ============================================================
+# Node
+# ============================================================
+node_modules/
+.npm/
+.yarn/
+.pnpm-store/
+
+# ============================================================
+# 第三方教程仓库（aliyun_acp_learning 作为写作参考，
+# 拥有独立 .git 与 Apache 许可证，不纳入本仓库）
+# ============================================================
+aliyun_acp_learning/
+
+# ============================================================
+# 本地数据 / 构建产物
+# ============================================================
+# 未压缩题库与原始数据（体积大，由脚本生成）
 data/quiz_data.json
 data/quiz_categorized.json
-
-# Python
-__pycache__/
-*.pyc
-*.pyo
-
-# Temp
-*.tmp
-*.bak
-
-# Secrets (never commit API keys)
-config/verify_config.json
 data/verify_results*.json
 data/verify_cache*.json
 data/verify_votes*.json
 data/verify_final*.json
 
-# Build artifacts
-dist/
+# 知识点临时草稿
+docs/_draft*.md
+docs/_*.md
+
+# 覆盖率 / 测试报告
+htmlcov/
+.coverage
+.coverage.*
+.pytest_cache/
+
+# ============================================================
+# Supabase 本地开发
+# ============================================================
+.supabase/
+.branches/
+supabase/.temp/
+supabase/.env
+
+# ============================================================
+# 打包输出
+# ============================================================
+*.zip
+*.tar.gz
+*.rar
+out/
+release/
