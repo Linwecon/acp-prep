@@ -97,7 +97,7 @@ if (!prov.some(p => p.id === 'siliconflow')) fails.push('siliconflow preset miss
     if (text1 !== '## 考点\n非流式讲解') fails.push('aiCall content wrong');
     const b1 = JSON.parse(fetchCalls[0].opts.body);
     if (b1.stream !== false) fails.push('aiCall should not stream');
-    if (b1.messages[0].content.indexOf('150 字') < 0) fails.push('system prompt not concise');
+    if (b1.messages[0].content.indexOf('240 字') < 0) fails.push('system prompt not concise');
     const userMsg = b1.messages[1].content;
     if (userMsg.indexOf('正确/错误') < 0) fails.push('prompt missing per-option format');
     if (userMsg.indexOf('选X') < 0) fails.push('prompt missing final line template');

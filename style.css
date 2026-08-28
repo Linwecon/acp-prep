@@ -2279,7 +2279,7 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
 .lx-chapter-intro blockquote { margin: 10px 0; }
 
 .lx-module-list { display: flex; flex-direction: column; gap: 14px; }
-.lx-module { padding: 0; overflow: hidden; }
+.lx-module { padding: 0; overflow: visible; }
 .lx-module.done { border-color: var(--success); }
 .lx-module-head { display: flex; align-items: center; gap: 11px; padding: 13px 16px; border-bottom: 1px solid var(--border); background: linear-gradient(180deg, var(--surface-2), transparent); }
 .lx-module-num { flex-shrink: 0; width: 30px; height: 30px; display: flex; align-items: center; justify-content: center; font-family: var(--font-mono); font-size: 12px; font-weight: 700; color: var(--accent-text); background: var(--accent-soft); border: 1px solid var(--border); border-radius: 9px; }
@@ -2331,8 +2331,36 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
 .lx-fold[open] summary::after { transform: rotate(180deg); }
 .lx-fold > .plain-block, .lx-fold > .deep-block, .lx-fold > .practice-block, .lx-fold > .pitfall-block { margin: 0; border: none; border-radius: 0; }
 
-.lx-code { position: relative; margin: 14px 0; }
-.lx-code pre { margin: 0; }
+.lx-code { position: relative; margin: 14px 0; max-width: 100%; }
+.lx-code pre {
+  margin: 0;
+  max-width: 100%;
+  overflow-x: auto;
+  overflow-y: hidden;
+  -webkit-overflow-scrolling: touch;
+  white-space: pre;
+}
+.lx-code code { white-space: pre; display: block; width: max-content; min-width: 100%; }
+
+/* 手机端代码块：让代码自身撑开宽度，由 pre 负责横向滚动 */
+@media (max-width: 640px) {
+  .lx-module-body .lx-code pre {
+    display: block;
+    width: 100%;
+    max-width: 100%;
+    overflow-x: auto;
+    overflow-y: hidden;
+    -webkit-overflow-scrolling: touch;
+    white-space: pre;
+  }
+  .lx-module-body .lx-code code {
+    display: inline-block;
+    width: max-content;
+    min-width: 100%;
+    white-space: pre;
+    box-sizing: content-box;
+  }
+}
 .lx-copy { position: absolute; top: 8px; right: 8px; padding: 4px 9px; font-size: 11px; font-weight: 700; color: #e8eaed; background: rgba(255,255,255,.12); border: 1px solid rgba(255,255,255,.20); border-radius: 8px; cursor: pointer; transition: all var(--transition); }
 .lx-copy:hover { background: rgba(255,255,255,.22); }
 
@@ -2616,4 +2644,58 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
   .lx-textbook .lx-module-body td { display: table-cell; padding: 9px 11px; border-bottom: 1px solid var(--border); }
   .lx-textbook .lx-module-body td::before { display: none; content: none; }
   .lx-textbook .lx-module-body thead { display: table-header-group; }
+}
+
+/* 历史试卷 */
+.exam-history {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-top: 8px;
+}
+.hist-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 12px;
+  font-size: 12.5px;
+  color: var(--text-2);
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+}
+.hist-idx {
+  flex-shrink: 0;
+  width: 24px; height: 24px;
+  display: inline-flex; align-items: center; justify-content: center;
+  font-family: var(--font-mono); font-size: 11px; font-weight: 700;
+  color: var(--accent-text);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 7px;
+}
+.hist-score {
+  flex-shrink: 0;
+  min-width: 42px;
+  text-align: center;
+  font-weight: 800;
+  font-size: 14px;
+}
+.hist-score.pass { color: var(--success); }
+.hist-score.fail { color: var(--danger); }
+.hist-meta {
+  flex-shrink: 0;
+  color: var(--text-3);
+  font-size: 11.5px;
+}
+.hist-time {
+  margin-left: auto;
+  flex-shrink: 0;
+  color: var(--text-3);
+  font-size: 11.5px;
+  white-space: nowrap;
+}
+@media (max-width: 640px) {
+  .hist-row { flex-wrap: wrap; }
+  .hist-time { margin-left: 0; width: 100%; }
 }

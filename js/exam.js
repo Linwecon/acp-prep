@@ -16,6 +16,28 @@
         return base;
     }
 
+    function examHistoryHTML(limit = 8) {
+        const exams = S.store.exams || [];
+        if (!exams.length) return '';
+        const rows = exams.slice(0, limit).map((e, i) => {
+            const d = new Date(e.created_at);
+            const date = `${d.getMonth() + 1}/${d.getDate()} ${String(d.getHours()).padStart(2, '0')}:${String(d.getMinutes()).padStart(2, '0')}`;
+            const mm = String(Math.floor((e.time_used || 0) / 60)).padStart(2, '0');
+            const ss = String((e.time_used || 0) % 60).padStart(2, '0');
+            return `
+          <div class="hist-row">
+            <span class="hist-idx">${i + 1}</span>
+            <span class="hist-score ${e.pass ? 'pass' : 'fail'}">${e.score}</span>
+            <span class="hist-meta">对 ${e.correct} · 错 ${e.wrong}</span>
+            <span class="hist-meta">${mm}:${ss}</span>
+            <span class="hist-time">${date}</span>
+          </div>`;
+        }).join('');
+        return `
+      <div class="section-title">历史试卷 <span class="hint">最近 ${Math.min(limit, exams.length)} 次</span></div>
+      <div class="exam-history">${rows}</div>`;
+    }
+
     function renderExam(root) {
         if (!S.exam || S.exam.state === 'idle') {
             ACP.setCrumb('模拟考试', '新大纲 75 题 · 120 分钟');
@@ -71,6 +93,7 @@
           </div>`).join('')}
         </div>
         <button class="btn btn-primary" style="padding:10px 28px;font-size:14px;" onclick="ACP.startExam()">开始考试</button>
+        ${examHistoryHTML(8)}
       </div>`;
             return;
         }
@@ -88,7 +111,9 @@
 
         root.innerHTML = `
     <div class="exam-bar">
-      <div class="exam-timer ${t < 600000 ? 'urgent' : ''}">⏱ <span id="examClock">${mm}:${ss}</span></div>
+      ${review
+        ? `<div class="exam-timer">📝 已交卷</div>`
+        : `<div class="exam-timer ${t < 600000 ? 'urgent' : ''}">⏱ <span id="examClock">${mm}:${ss}</span></div>`}
       <span class="exam-meta">已答 ${Object.values(S.exam.answers).filter(a => (a || []).length).length}/${S.exam.pool.length}</span>
       <span class="spacer"></span>
       ${review
@@ -308,10 +333,12 @@
           </button>`;
         }).join('')}
       </div>
+      ${examHistoryHTML(8)}
     </div>`;
     }
 
     function backToResult() {
+        stopExamTimer();
         S.exam.state = 'done';
         ACP.renderExam(document.getElementById('contentInner'));
     }

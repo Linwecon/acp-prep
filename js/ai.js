@@ -12,8 +12,9 @@
     const DEFAULT_MODEL = 'qwen-plus';
 
     const SYSTEM_PROMPT =
-        '你是阿里云 ACP 大模型高级工程师认证的备考助教。用简体中文、简明扼要地讲解（全文 150 字以内），' +
-        '严格遵循用户给出的输出格式，直接给结论、不要铺垫、不要长篇大论。';
+        '你是阿里云 ACP 大模型高级工程师认证的备考助教。用简体中文讲解，全文控制在 240 字以内，' +
+        '比一句话解析稍详细一些：先给结论，再用一到两句话解释原因或易错点。' +
+        '严格遵循用户给出的输出格式，不要铺垫、不要长篇大论。';
 
     /* ---------- 服务商预设（均为 OpenAI 兼容接口） ---------- */
     const PROVIDERS = [
@@ -127,14 +128,14 @@
             '',
             '请严格按下面格式输出，纯文本、不要 Markdown 标题、不要多余解释：',
             '',
-            '（一句话点明本题考点或结论）',
-            'A：（该选项为何正确或错误的简短理由），正确/错误',
-            'B：（理由），正确/错误',
-            'C：（理由），正确/错误',
-            'D：（理由），正确/错误',
-            '选X，（一句话解题要点）（知识点名称）。',
+            '（先点明本题考点或结论）',
+            'A：正确/错误，理由（一到两句话）',
+            'B：正确/错误，理由（一到两句话）',
+            'C：正确/错误，理由（一到两句话）',
+            'D：正确/错误，理由（一到两句话）',
+            '选X，（解题要点）（知识点名称）。',
             '',
-            '要求：每个选项一行；多选题"选"后写全部正确选项（如"选A、C"）；每行尽量简短。'
+            '要求：每个选项一行；多选题"选"后写全部正确选项（如"选A、C"）；理由要解释原因或易错点，不要只写"错误"。'
         ].join('\n');
     }
 
@@ -161,7 +162,7 @@
                 { role: 'user', content: buildPrompt(q, userSel) }
             ],
             temperature: 0.2,
-            max_tokens: 500,
+            max_tokens: 700,
             stream: !!stream
         };
     }
@@ -324,13 +325,37 @@
         sel.innerHTML = PROVIDERS.map(p => `<option value="${p.id}">${p.name}</option>`).join('');
     }
 
-    /* 只刷新"模型候选 + 提示"，不覆盖用户已填的模型名 */
-    function setProviderNoteAndModels(provider) {
-        const listEl = document.getElementById('aiModelList');
+    /* 填充模型下拉框：服务商确定时列出候选，自定义接口时显示手动输入 */
+    function populateModelSelect(provider, currentModel) {
+        const sel = document.getElementById('aiModel');
+        const custom = document.getElementById('aiModelCustom');
+        const hint = document.getElementById('aiModelHint');
         const noteEl = document.getElementById('aiProviderNote');
-        const models = provider && provider.models && provider.models.length ? provider.models : ALL_MODELS;
-        if (listEl) listEl.innerHTML = models.map(m => `<option value="${m}"></option>`).join('');
         if (noteEl) noteEl.textContent = provider ? (provider.note || '') : '手动填写 Base URL 与模型名';
+
+        const models = provider && provider.models && provider.models.length ? provider.models : [];
+        if (models.length) {
+            if (sel) sel.style.display = '';
+            if (custom) custom.style.display = 'none';
+            if (sel) {
+                const options = [...models];
+                if (currentModel && !options.includes(currentModel)) options.unshift(currentModel);
+                sel.innerHTML = options.map(m => `<option value="${m}">${m}</option>`).join('');
+                sel.value = options.includes(currentModel) ? currentModel : models[0];
+            }
+            if (hint) hint.textContent = '已列出该服务商常用模型，可直接下拉选择';
+        } else {
+            if (sel) sel.style.display = 'none';
+            if (custom) { custom.style.display = ''; custom.value = currentModel || ''; }
+            if (hint) hint.textContent = '自定义接口请手动输入模型名';
+        }
+    }
+
+    function readModelValue() {
+        const sel = document.getElementById('aiModel');
+        const custom = document.getElementById('aiModelCustom');
+        if (custom && custom.style.display !== 'none') return custom.value;
+        return sel ? sel.value : '';
     }
 
     function onProviderChange() {
@@ -339,15 +364,14 @@
         const p = PROVIDERS.find(x => x.id === sel.value);
         if (!p) return;
         const baseEl = document.getElementById('aiBase');
-        const modelEl = document.getElementById('aiModel');
+        const currentModel = readModelValue();
         if (p.id === 'custom') {
             if (baseEl) baseEl.value = '';
-            setProviderNoteAndModels(null);
+            populateModelSelect(null, currentModel);
             return;
         }
         if (baseEl) baseEl.value = p.baseUrl;
-        if (modelEl) modelEl.value = p.models[0];
-        setProviderNoteAndModels(p);
+        populateModelSelect(p, currentModel);
     }
 
     function openAISettings() {
@@ -357,15 +381,13 @@
         const cfg = loadAIConfig();
         const keyEl = document.getElementById('aiKey');
         const baseEl = document.getElementById('aiBase');
-        const modelEl = document.getElementById('aiModel');
         const sel = document.getElementById('aiProvider');
         if (keyEl) keyEl.value = cfg.apiKey;
         if (baseEl) baseEl.value = cfg.baseUrl;
-        if (modelEl) modelEl.value = cfg.model;
         populateProviderList();
         const p = findProviderByBaseUrl(cfg.baseUrl);
         if (sel) sel.value = p ? p.id : 'custom';
-        setProviderNoteAndModels(p);
+        populateModelSelect(p, cfg.model);
         const out = document.getElementById('aiTestResult');
         if (out) { out.innerHTML = ''; out.className = 'ai-test-result'; }
         m.classList.add('show');
@@ -383,12 +405,12 @@
     function saveAISettings() {
         const keyEl = document.getElementById('aiKey');
         const baseEl = document.getElementById('aiBase');
-        const modelEl = document.getElementById('aiModel');
         const sel = document.getElementById('aiProvider');
+        const model = readModelValue();
         saveAIConfig({
             apiKey: keyEl ? keyEl.value : '',
             baseUrl: baseEl ? baseEl.value : DEFAULT_BASE,
-            model: modelEl ? modelEl.value : DEFAULT_MODEL,
+            model: model || DEFAULT_MODEL,
             provider: sel ? sel.value : ''
         });
         closeAISettings();
@@ -398,14 +420,13 @@
     async function testAIConnection() {
         const keyEl = document.getElementById('aiKey');
         const baseEl = document.getElementById('aiBase');
-        const modelEl = document.getElementById('aiModel');
         const btn = document.getElementById('aiTestBtn');
         const out = document.getElementById('aiTestResult');
         if (!out) return;
 
         const apiKey = (keyEl ? keyEl.value : '').trim();
         const baseUrl = (baseEl && baseEl.value ? baseEl.value : DEFAULT_BASE).trim().replace(/\/+$/, '');
-        const model = (modelEl && modelEl.value ? modelEl.value : DEFAULT_MODEL).trim();
+        const model = (readModelValue() || DEFAULT_MODEL).trim();
 
         if (!apiKey) {
             out.className = 'ai-test-result err';
