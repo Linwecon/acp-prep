@@ -122,7 +122,17 @@ Supabase 免费版项目**连续 7 天无任何活动会被自动暂停**。暂�
 | 文件 | 作用 |
 |------|------|
 | [`.github/workflows/supabase-keepalive.yml`](.github/workflows/supabase-keepalive.yml) | 每天 UTC 03:17 自动触发，也支持手动 `workflow_dispatch` |
-| [`.github/scripts/supabase-keepalive.mjs`](.github/scripts/supabase-keepalive.mjs) | 从 `config/supabase.js` 读取配置，请求 `/auth/v1/health` 与 `/rest/v1/` 制造活动 |
+| [`.github/scripts/supabase-keepalive.mjs`](.github/scripts/supabase-keepalive.mjs) | 从 `config/supabase.js` 读取配置，请求项目接口制造活动 |
+| [`supabase/keepalive_ping.sql`](supabase/keepalive_ping.sql) | **可选**：创建一个 anon 可调用的只读 `ping()` 函数 |
+
+脚本执行两项检查：
+
+| 检查项 | 端点 | 是否必需 |
+|--------|------|----------|
+| Auth 服务健康检查 | `GET /auth/v1/health` | ✅ 必需，返回 200 即判定项目活跃 |
+| 数据库触达 | `GET /rest/v1/rpc/ping` | ➖ 可选，需先执行 `keepalive_ping.sql` |
+
+> **为什么不直接查业务表？** `schema.sql` 只给 `authenticated` 授了表权限（`anon` 无任何表的 GRANT），且 `/rest/v1/` 根路径（OpenAPI 文档）现已被 Supabase 限制为仅 `service_role` 可访问。因此若要让保活请求真正落到数据库层，需要一个显式的只读 RPC 出口，即 `keepalive_ping.sql`。不执行它也能正常工作，只是少了这一层保险。
 
 注意事项：
 
@@ -164,7 +174,9 @@ acp/
 ├── config/
 │   ├── supabase.js          # Supabase 公开配置
 │   └── verify_config.example.json
-├── supabase/schema.sql      # 数据库表结构 + RLS 策略
+├── supabase/
+│   ├── schema.sql           # 数据库表结构 + RLS 策略
+│   └── keepalive_ping.sql   # 可选：保活用的只读 ping() 函数
 │
 ├── .github/                 # CI：Supabase 免费版保活
 │   ├── workflows/supabase-keepalive.yml
