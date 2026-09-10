@@ -113,6 +113,25 @@ API Key 仅保存在浏览器 `localStorage`（键名 `acp_ai_config`），浏�
 
 > **安全提示**：前端只能使用 `anon` public key，并依靠 RLS（Row Level Security）保证用户只能访问自己的数据。`service_role` 密钥严禁进入前端代码或仓库。
 
+#### 免费版保活（重要）
+
+Supabase 免费版项目**连续 7 天无任何活动会被自动暂停**。暂停后 `<project_ref>.supabase.co` 的 DNS 记录会被移除，前端表现为**登录 / 注册直接失败**（域名解析失败），需要到 Dashboard 手动 Resume 才能恢复。
+
+仓库已内置保活定时任务，无需任何配置：
+
+| 文件 | 作用 |
+|------|------|
+| [`.github/workflows/supabase-keepalive.yml`](.github/workflows/supabase-keepalive.yml) | 每天 UTC 03:17 自动触发，也支持手动 `workflow_dispatch` |
+| [`.github/scripts/supabase-keepalive.mjs`](.github/scripts/supabase-keepalive.mjs) | 从 `config/supabase.js` 读取配置，请求 `/auth/v1/health` 与 `/rest/v1/` 制造活动 |
+
+注意事项：
+
+1. 定时任务只在默认分支（`main`）上生效；
+2. 仓库连续 60 天没有任何提交时，GitHub 会自动停用定时任务，届时到 Actions 页面点一次「Enable workflow」即可恢复；
+3. 本地可随时验证：`node .github/scripts/supabase-keepalive.mjs`（退出码 `0` 表示项目活跃）。
+
+> 若不想依赖定时任务，也可选择升级 Supabase Pro（$25/月），付费组织的项目不会被暂停。
+
 ---
 
 ## 📁 项目结构
@@ -146,6 +165,10 @@ acp/
 │   ├── supabase.js          # Supabase 公开配置
 │   └── verify_config.example.json
 ├── supabase/schema.sql      # 数据库表结构 + RLS 策略
+│
+├── .github/                 # CI：Supabase 免费版保活
+│   ├── workflows/supabase-keepalive.yml
+│   └── scripts/supabase-keepalive.mjs
 │
 ├── scripts/                 # 数据处理与测试脚本（Python / Node）
 │   ├── build_knowledge.py   # 把知识点 Markdown 打包为 knowledge.js

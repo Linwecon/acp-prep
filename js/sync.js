@@ -14,15 +14,79 @@
     let supabase = null;
     let uid = null;          // 当前登录用户 id
     let syncReady = false;   // 是否已完成首次云端合并
+    let connState = 'unknown'; // unknown | ok | bad —— Supabase 项目是否可达
+    let connInfo = '';         // 不可达时的中文说明（展示在登录弹窗）
 
-    if (configured && typeof window !== 'undefined' && window.supabase && window.supabase.createClient) {
-        supabase = window.supabase.createClient(CFG.url, CFG.anonKey, {
-            auth: { persistSession: true, autoRefreshToken: true, detectSessionInUrl: true }
-        });
+    /* 懒加载客户端：即使 CDN 脚本晚于本文件就绪，也能在首次使用时补建 */
+    function ensureClient() {
+        if (supabase) return supabase;
+        if (!configured) return null;
+        if (typeof window !== 'undefined' && window.supabase && window.supabase.createClient) {
+            supabase = window.supabase.createClient(CFG.url, CFG.anonKey, {
+                auth: { persistSession: true, autoRefreshToken: true, detectSessionInUrl: true }
+            });
+        }
+        return supabase;
+    }
+    ensureClient();
+
+    function isConfigured() { return configured && !!ensureClient(); }
+    function isSignedIn() { return !!uid; }
+
+    /* 探测 Supabase 项目是否可达：被暂停/删除的项目，其域名会解析失败 */
+    async function checkConnection() {
+        if (!configured) {
+            connState = 'bad'; connInfo = '未配置 Supabase';
+            return { ok: false, reason: 'unconfigured' };
+        }
+        if (!ensureClient()) {
+            connState = 'bad';
+            connInfo = 'Supabase SDK 未加载成功（CDN 可能被网络拦截），请刷新页面或更换网络后重试。';
+            return { ok: false, reason: 'sdk' };
+        }
+        const url = CFG.url.replace(/\/+$/, '') + '/auth/v1/health';
+        try {
+            const ctrl = (typeof AbortController !== 'undefined') ? new AbortController() : null;
+            const timer = ctrl ? setTimeout(() => ctrl.abort(), 10000) : null;
+            const res = await fetch(url, {
+                headers: { apikey: CFG.anonKey },
+                signal: ctrl ? ctrl.signal : undefined
+            });
+            if (timer) clearTimeout(timer);
+            if (!res.ok) {
+                connState = 'bad';
+                connInfo = 'Supabase 返回 HTTP ' + res.status + '，项目可能已暂停或被限制访问。';
+                return { ok: false, reason: 'http', status: res.status };
+            }
+            connState = 'ok'; connInfo = '';
+            return { ok: true };
+        } catch (e) {
+            connState = 'bad';
+            connInfo = '无法连接 Supabase 项目（域名解析失败或网络不通）。常见原因：项目被暂停（免费版长期无活动会自动暂停）、项目已删除、或 URL 填错。请到 Supabase Dashboard 检查并恢复项目。';
+            return { ok: false, reason: 'network', message: e && e.message };
+        }
     }
 
-    function isConfigured() { return configured && !!supabase; }
-    function isSignedIn() { return !!uid; }
+    function renderConnWarn() {
+        const el = document.getElementById('authConn');
+        if (!el) return;
+        if (connState === 'bad' && connInfo) {
+            el.style.display = '';
+            el.className = 'auth-msg err auth-conn';
+            el.innerHTML = '⚠️ ' + esc(connInfo) +
+                ' <a href="#" onclick="ACP.sync.testConnection();return false;">重新检测</a>';
+        } else {
+            el.style.display = 'none';
+            el.innerHTML = '';
+        }
+    }
+
+    async function testConnection() {
+        const r = await checkConnection();
+        renderConnWarn();
+        ACP.toast(r.ok ? 'Supabase 连接正常' : 'Supabase 连接失败，详见弹窗提示');
+        return r;
+    }
 
     function esc(s) {
         return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
@@ -249,6 +313,11 @@
             const { error } = await supabase.auth.signInWithPassword({ email, password });
             if (error) showAuthMsg('登录失败：' + error.message, 'err');
             // 成功时 onAuthStateChange 会触发 SIGNED_IN，自动关弹窗并同步
+        } catch (e) {
+            connState = 'bad';
+            connInfo = '无法连接 Supabase 项目（域名解析失败或网络不通）。请到 Supabase Dashboard 确认项目是否被暂停。';
+            renderConnWarn();
+            showAuthMsg('登录失败：' + ((e && e.message) || '网络异常'), 'err');
         } finally {
             setBtnLoading('authPwdBtn', false);
         }
@@ -271,6 +340,11 @@
             } else {
                 showAuthMsg('注册成功，请查收邮箱确认链接后再登录', 'ok');
             }
+        } catch (e) {
+            connState = 'bad';
+            connInfo = '无法连接 Supabase 项目（域名解析失败或网络不通）。请到 Supabase Dashboard 确认项目是否被暂停。';
+            renderConnWarn();
+            showAuthMsg('注册失败：' + ((e && e.message) || '网络异常'), 'err');
         } finally {
             setBtnLoading('authRegBtn', false);
         }
@@ -278,7 +352,7 @@
 
     async function signOut() {
         if (!isConfigured()) return;
-        await supabase.auth.signOut();
+        await ensureClient().auth.signOut();
         uid = null;
         syncReady = false;
         ACP.toast('已退出登录，数据仍保存在本地');
@@ -331,6 +405,7 @@
         }
         m.classList.add('show');
         o.classList.add('show');
+        renderConnWarn();
         ACP.toggleSidebar(false);
     }
 
@@ -344,9 +419,23 @@
     /* ---------- 启动 ---------- */
     async function init() {
         renderAuthButton(); // 无论是否配置，都先渲染登录入口
+
+        // 配置存在但 SDK 没加载出来：明确提示，而不是静默失败
+        if (configured && !ensureClient()) {
+            connState = 'bad';
+            connInfo = 'Supabase SDK 未加载成功（CDN 可能被网络拦截），请刷新页面或更换网络后重试。';
+            console.warn('[sync] supabase-js 未加载，请检查 CDN 是否可访问');
+            return;
+        }
         if (!isConfigured()) return;
 
-        supabase.auth.onAuthStateChange((event, session) => {
+        // 后台探测项目可达性（暂停/删除的项目域名会解析失败）
+        checkConnection().then(r => {
+            if (!r.ok) console.warn('[sync] Supabase 不可达：', r, connInfo);
+        });
+
+        const sb = ensureClient();
+        sb.auth.onAuthStateChange((event, session) => {
             const newUid = uidFromSession(session);
             const justSignedIn = (event === 'SIGNED_IN') && newUid && newUid !== uid;
             uid = newUid;
@@ -368,7 +457,7 @@
 
         // 恢复会话：刷新页面后仍是登录态
         try {
-            const { data } = await supabase.auth.getSession();
+            const { data } = await sb.auth.getSession();
             const session = data && data.session;
             if (session) {
                 uid = uidFromSession(session);
@@ -385,6 +474,7 @@
         init, isConfigured, isSignedIn,
         openAuth, closeAuth, switchAuthPage, togglePassword,
         signInWithPassword, signUp, signOut,
+        checkConnection, testConnection,
         renderAuthButton, renderAuthUser,
         pushProgress, pushFav, pushExam, pushLast, pushAll, clearCloud,
         pullAndMerge,

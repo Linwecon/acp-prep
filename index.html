@@ -217,13 +217,15 @@ window.__copyLinkFallback = function (text) {
       <div class="ai-field-link">
         💡 <b>免费方案</b>：硅基流动（注册送免费额度、部分模型长期免费）、智谱 glm-4-flash（免费）、阿里云百炼（新用户免费额度）——均需注册后获取 API Key，无 Key 无法调用。
       </div>
-      <div class="ai-modal-actions">
+      <div class="ai-test-row">
         <button class="btn" id="aiTestBtn" onclick="ACP.testAIConnection()">🔌 测试连接</button>
+        <div class="ai-test-result" id="aiTestResult"></div>
+      </div>
+      <div class="ai-modal-actions">
         <span class="spacer"></span>
         <button class="btn" onclick="ACP.closeAISettings()">取消</button>
         <button class="btn btn-primary" onclick="ACP.saveAISettings()">保存</button>
       </div>
-      <div class="ai-test-result" id="aiTestResult"></div>
     </div>
   </div>
 
@@ -256,6 +258,8 @@ window.__copyLinkFallback = function (text) {
             <div class="auth-brand-sub">登录后云端同步学习进度 · 跨设备续学</div>
           </div>
         </div>
+
+        <div class="auth-msg err auth-conn" id="authConn" style="display:none;"></div>
 
         <div class="auth-tabs">
           <button class="auth-tab active" id="tabSignIn" onclick="ACP.sync.switchAuthPage('signin')">登录</button>

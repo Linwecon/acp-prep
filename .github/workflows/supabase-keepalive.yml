@@ -1,0 +1,39 @@
+name: Supabase Keep-Alive
+
+# 目的：防止 Supabase 免费版项目因「7 天无活动」被自动暂停。
+#       项目被暂停后域名解析会失败，前端表现为登录 / 注册不可用。
+# 频率：每天一次，远小于 7 天阈值，留足容错空间（公共仓库 Actions 分钟数免费）。
+#
+# ⚠️ 两点注意：
+#   1. 定时任务只在仓库默认分支（main）上生效；
+#   2. 仓库连续 60 天没有任何提交时，GitHub 会自动停用定时任务，
+#      届时到 Actions 页面点一次「Enable workflow」即可恢复。
+
+on:
+  schedule:
+    # UTC 03:17 = 北京时间 11:17，避开整点调度高峰
+    - cron: '17 3 * * *'
+  workflow_dispatch: # 支持手动触发，便于随时验证
+
+permissions:
+  contents: read
+
+concurrency:
+  group: supabase-keepalive
+  cancel-in-progress: false
+
+jobs:
+  ping:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Ping Supabase
+        run: node .github/scripts/supabase-keepalive.mjs

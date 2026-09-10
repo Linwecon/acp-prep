@@ -1989,6 +1989,17 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
   background: var(--surface-2);
 }
 .ai-disclaimer { font-size: 11px; color: var(--text-3); }
+.ai-verify-note {
+  margin: 10px 0;
+  padding: 8px 12px;
+  font-size: 12px;
+  font-weight: 700;
+  color: #b45309;
+  background: var(--warning-soft);
+  border: 1px solid var(--warning);
+  border-radius: 10px;
+  line-height: 1.6;
+}
 
 .ai-error {
   padding: 12px 14px;
@@ -2047,6 +2058,18 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
 .ai-field-link a:hover { text-decoration: underline; }
 .ai-modal-actions { display: flex; align-items: center; gap: 8px; margin-top: 14px; }
 .ai-modal-actions .spacer { flex: 1; }
+.ai-test-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-top: 4px;
+}
+.ai-test-row .ai-test-result {
+  margin-top: 0;
+  flex: 1;
+  min-width: 220px;
+}
 .ai-test-result {
   margin-top: 12px;
   font-size: 12.5px; line-height: 1.6;
@@ -2123,6 +2146,16 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
 .auth-msg { font-size: 12px; line-height: 1.6; margin-top: 8px; color: var(--text-2); }
 .auth-msg.ok { color: var(--success); }
 .auth-msg.err { color: var(--danger); }
+.auth-conn {
+  margin: 8px 0 4px;
+  padding: 8px 10px;
+  border: 1px solid var(--border);
+  border-left: 3px solid var(--danger);
+  border-radius: 8px;
+  background: var(--surface-2);
+}
+.auth-conn a { color: var(--accent-text); text-decoration: none; }
+.auth-conn a:hover { text-decoration: underline; }
 .auth-setup-list { margin: 4px 0 4px 18px; font-size: 12.5px; line-height: 1.9; color: var(--text-2); }
 .auth-setup-list li { margin: 3px 0; }
 .auth-setup-list code { font-family: var(--font-mono); font-size: 11.5px; background: var(--surface-2); border: 1px solid var(--border); border-radius: 4px; padding: 0 5px; }
@@ -2334,31 +2367,35 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
 .lx-code { position: relative; margin: 14px 0; max-width: 100%; }
 .lx-code pre {
   margin: 0;
+  display: block;
+  width: 100%;
   max-width: 100%;
-  overflow-x: auto;
+  overflow-x: scroll;
   overflow-y: hidden;
   -webkit-overflow-scrolling: touch;
+  overscroll-behavior-x: contain;
   white-space: pre;
 }
 .lx-code code { white-space: pre; display: block; width: max-content; min-width: 100%; }
 
-/* 手机端代码块：让代码自身撑开宽度，由 pre 负责横向滚动 */
+/* 手机端代码块：自动换行，避免横向滚动失败导致截断 */
 @media (max-width: 640px) {
   .lx-module-body .lx-code pre {
     display: block;
     width: 100%;
     max-width: 100%;
-    overflow-x: auto;
+    overflow-x: hidden;
     overflow-y: hidden;
-    -webkit-overflow-scrolling: touch;
-    white-space: pre;
+    white-space: pre-wrap;
+    word-break: break-word;
   }
   .lx-module-body .lx-code code {
-    display: inline-block;
-    width: max-content;
-    min-width: 100%;
-    white-space: pre;
-    box-sizing: content-box;
+    display: block;
+    width: 100%;
+    min-width: 0;
+    white-space: pre-wrap;
+    word-break: break-word;
+    box-sizing: border-box;
   }
 }
 .lx-copy { position: absolute; top: 8px; right: 8px; padding: 4px 9px; font-size: 11px; font-weight: 700; color: #e8eaed; background: rgba(255,255,255,.12); border: 1px solid rgba(255,255,255,.20); border-radius: 8px; cursor: pointer; transition: all var(--transition); }
