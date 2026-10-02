@@ -1,0 +1,212 @@
+{
+  "9-0051": {
+    "qid": "9-0051",
+    "classification": "own",
+    "chapter": 9,
+    "quality": "ok",
+    "reason": "考查流式输出核心价值，原文明确其降低TTFT提升体感速度",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "在线对话、聊天机器人等面向用户的场景默认开启流式，显著降低 TTFT、提升体感速度",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "原文未提资源消耗变化"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "显著降低TTFT提升体感速度"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "原文未提错误率变化"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "原文未提负载均衡"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "9-0073": {
+    "qid": "9-0073",
+    "classification": "own",
+    "chapter": 9,
+    "quality": "ok",
+    "reason": "考查temperature低值作用，原文明确低值使输出更确定",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "事实问答、代码生成、信息抽取任务类型建议temperature 0 ~ 0.3，要稳定、少随机",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "使输出更具确定性"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "高值才具创造性"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "高值才增加多样性"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "不控制长度只控随机性"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "9-0078": {
+    "qid": "9-0078",
+    "classification": "own",
+    "chapter": 9,
+    "quality": "ok",
+    "reason": "考查top_p原理，原文定义为累积概率达p的候选中采样",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "top_p（核采样）：把候选按概率从高到低累加，直到累积概率达到 p，只在这个核心集合内采样",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "描述temperature作用"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "筛选累计概率达阈值的候选"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "不增加数量只限范围"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "不减少数量只限范围"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "9-0089": {
+    "qid": "9-0089",
+    "classification": "own",
+    "chapter": 9,
+    "quality": "ok",
+    "reason": "考查确定性场景参数设置，原文明确事实类需低temperature",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "事实问答、代码生成、信息抽取，temperature 0 ~ 0.3，要稳定、少随机",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "高值用于创意场景"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "事实类要稳定需低值"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "默认值0.7偏高"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "随机设置违反工程规范"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "9-0136": {
+    "qid": "9-0136",
+    "classification": "own",
+    "chapter": 9,
+    "quality": "ok",
+    "reason": "考查top_p=0.5效果，原文指出越小越保守输出越单一",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "top_p=0.001 几乎等于贪婪解码，top_p=0.8 则允许一定的多样性",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "高p值才多样化"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "p值小输出更保守单一"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "完全随机需高temperature"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "输出仍可预测"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "9-0190": {
+    "qid": "9-0190",
+    "classification": "own",
+    "chapter": 9,
+    "quality": "ok",
+    "reason": "考查创意场景参数设置，原文明确文案类需高temperature",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "文案、头脑风暴、起名任务类型建议temperature 0.8 ~ 1.2，要多样性",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "创意需多样性高值"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "低值用于事实类"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "默认值0.7不够高"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "随机设置违反工程规范"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

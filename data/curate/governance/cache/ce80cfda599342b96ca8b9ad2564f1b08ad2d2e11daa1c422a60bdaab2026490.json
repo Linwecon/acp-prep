@@ -1,0 +1,154 @@
+{
+  "items": [
+    {
+      "type": 0,
+      "stem": "某团队对新人答疑机器人进行切片优化后，RAGAS评测显示Context Recall从0.62升至0.89，但Answer Correctness仅从0.71微升至0.73，且Faithfulness下降0.15。日志确认检索片段中包含完整答案信息。此时最应优先排查的环节是？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "知识库覆盖度不足，需补充教研部组织架构文档"
+        },
+        {
+          "option_label": "B",
+          "option_text": "检索排序噪声大，应引入Rerank模块并调小Top K"
+        },
+        {
+          "option_label": "C",
+          "option_text": "生成提示词缺乏‘仅依据上下文作答’约束，导致模型自由发挥"
+        },
+        {
+          "option_label": "D",
+          "option_text": "ground_truth标注不一致，需重新由HR专家统一审定"
+        }
+      ],
+      "answer": "C",
+      "analysis": "题干明确指出：Context Recall显著提升（0.62→0.89）说明检索已覆盖关键信息；日志确认‘检索片段中包含完整答案信息’，排除检索端漏召（A错误）；Precision未提及但Recall高而Faithfulness反降，说明问题不在排序噪声（B错误，此为Precision低时的典型对策）；ground_truth是评测基准，其质量影响所有生成类指标，但题干未提示标注争议或业务反馈矛盾，且Faithfulness计算无需ground_truth（仅需answer+contexts），故D非首要（教材7.4.3强调Faithfulness输入不含ground_truth）；Faithfulness下降直接反映‘答案中存在无法由contexts支撑的陈述’，即幻觉，根源在生成端约束失效——教材7.5黄金法则第2条明确：‘检索指标好但Faithfulness低 → 问题在生成阶段’，且7.5优化方向表指出‘强化‘只依据资料回答’的提示词约束’为首选（教材P7.5）。因此C正确。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 1,
+      "stem": "在构建新人答疑机器人的评测集时，以下哪些做法符合教材强调的‘评测先行’与‘领域专家主导’原则？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "从近3个月客服工单中按问题类型和频次抽样，覆盖‘入职流程’‘报销规则’‘年假政策’等核心场景"
+        },
+        {
+          "option_label": "B",
+          "option_text": "由算法工程师根据常见RAG测试题模板编写100道问题，并用Qwen-Plus生成标准答案"
+        },
+        {
+          "option_label": "C",
+          "option_text": "邀请HRBP和薪酬福利专家逐条审定ground_truth，确保答案符合最新制度且表述合规"
+        },
+        {
+          "option_label": "D",
+          "option_text": "将上线前A/B测试中用户投诉的5个失败案例加入评测集，标记为‘对抗样本’"
+        }
+      ],
+      "answer": "ACD",
+      "analysis": "A正确：教材7.2.1‘评测集构建铁律’第一条明确‘问题来自真实用户场景’，并举例‘线上用户问题、客服工单’，且要求‘覆盖主要业务场景与边界情况’（教材P7.2.1）；C正确：同节第二条铁律强调‘标准答案必须由业务领域专家编写/审定’，并解释‘技术人员能判断检索，但只有业务专家才知道答案是否正确、完整、合规’（教材P7.2.1）；D正确：教材7.8.2‘评测集设计要点’指出‘要把线上发现的失败案例持续补充进评测集’，并称其为‘活文档’，且‘对抗样本’属于分层覆盖中的困难/边界类型（教材P7.8.2）；B错误：问题由工程师凭空编造违反‘真实场景’原则；ground_truth由模型生成严重违背‘领域专家提供’铁律——教材7.2.1表格明确‘ground_truth由领域专家提供’，且7.8.2强调‘专业领域代价极高，必须由领域专家参与评测’（教材P7.2.1, P7.8.2）。因此ACD正确。",
+      "difficulty_label": "中等"
+    },
+    {
+      "type": 0,
+      "stem": "某Agent在课程写作任务中端到端评测得分为4.3/5，但业务方反馈‘生成的Python代码示例全部无法运行’。若要精准定位故障，下一步最应执行的操作是？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "扩大评测集规模至500题，用更高置信度的LLM-as-Judge重跑端到端分数"
+        },
+        {
+          "option_label": "B",
+          "option_text": "启动白盒评测，对‘代码生成组件’单独运行确定性检查（如执行trace、语法解析、单测验证）"
+        },
+        {
+          "option_label": "C",
+          "option_text": "修改系统提示词，增加‘生成的代码必须可执行’的强约束语句"
+        },
+        {
+          "option_label": "D",
+          "option_text": "将端到端评测阈值从4.0提高至4.5，强制淘汰当前版本"
+        }
+      ],
+      "answer": "B",
+      "analysis": "题干描述是典型的‘端到端总分掩盖过程缺陷’场景。教材7.6明确指出：‘Agent出问题往往在过程里……光看最终答案发现不了’，并定义白盒评测为‘深入链路，对关键组件/中间步骤单独打分’，其优势是‘信号清晰无干扰、迭代快、定位精准’（教材P7.6）；教材7.6.1进一步以‘课程写作Agent’为例，说明当‘用户抱怨代码跑不通’时，应‘单独评测代码生成组件，检查代码是否自包含、能否被解释器执行’（教材P7.6.1）；确定性检查正是白盒评测中用于‘客观项’（如代码能否运行）的核心方法（教材P7.6.1）；A错误：扩大规模和换评委仍属端到端，无法定位组件级故障；C错误：提示词调整是优化动作，但题干要求‘精准定位’，未诊断前盲目修改属本末倒置；D错误：提高阈值是结果管控，不解决根本定位问题。因此B正确。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 1,
+      "stem": "在使用RAGAS评估一个医疗问答系统时，发现Answer Correctness得分普遍偏高（>0.9），但临床专家人工抽检发现多处事实性错误（如将‘二甲双胍禁忌症’误答为‘可用于肾功能不全患者’）。以下哪些原因最可能造成该偏差？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "评测用LLM（qwen-plus）在医学领域存在知识盲区，导致对错误答案也给出高分"
+        },
+        {
+          "option_label": "B",
+          "option_text": "ground_truth由实习医生编写，未经过主任医师终审，存在权威性不足"
+        },
+        {
+          "option_label": "C",
+          "option_text": "评测集混入了部分训练数据，造成数据泄漏"
+        },
+        {
+          "option_label": "D",
+          "option_text": "Answer Correctness计算中语义相似度权重（0.25）过高，掩盖了事实F1的低分"
+        }
+      ],
+      "answer": "ABC",
+      "analysis": "A正确：教材7.8.1明确LLM-as-Judge存在‘自我偏好’偏见，且‘自身训练数据决定品味’，医疗领域知识盲区会导致评委无法识别专业错误（教材P7.8.1）；B正确：教材7.2.1铁律强调ground_truth‘必须由领域专家编写/审定’，实习医生非权威专家，导致评测基准失真（教材P7.2.1）；C正确：教材7.8.2‘风险’条款指出‘数据泄漏/刷分’是公开基准三大坑之一，会导致‘分数虚高’，此现象完全吻合（教材P7.8.2）；D错误：Answer Correctness公式为‘0.25×语义相似度 + 0.75×事实F1’，权重0.75给的是事实F1（教材P7.4.4），题干中Correctness高但事实错误，说明F1计算本身失效，而非权重问题——根源更可能是A/B/C导致F1判定不准。因此ABC正确。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 0,
+      "stem": "团队在优化RAG系统时观察到：Context Precision从0.35升至0.72，Context Recall却从0.88降至0.75，且Answer Correctness小幅下降。此时最合理的归因与应对策略是？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "检索端过度追求精度牺牲了召回，应平衡二者：保持Rerank但放宽相似度阈值"
+        },
+        {
+          "option_label": "B",
+          "option_text": "生成模型对高Precision上下文过拟合，应降低temperature并增加few-shot示例"
+        },
+        {
+          "option_label": "C",
+          "option_text": "评测集ground_truth编写有误，需立即由业务专家复核所有题目"
+        },
+        {
+          "option_label": "D",
+          "option_text": "LLM-as-Judge出现位置偏见，应交换候选顺序后重跑评测"
+        }
+      ],
+      "answer": "A",
+      "analysis": "题干呈现典型的‘跷跷板效应’：Precision↑（0.35→0.72）但Recall↓（0.88→0.75），且Correctness↓，说明优化动作（如加Rerank、设阈值）提升了相关片段排名，却过滤掉了部分本应召回的弱相关但关键的信息。教材7.5‘踩坑提醒’明确警示：‘❌ Context Recall低就一味调大Top K → 召回多了但噪声暴涨，Precision跟着掉’；反之，过度优化Precision（如严苛阈值）必然损害Recall（教材P7.5）；教材7.5优化方向表指出Recall低时‘换更强Embedding、做查询改写’，Precision低时‘加Rerank、缩小Top K、相似度阈值过滤’，而本题是Precision升、Recall降，正说明阈值过严，需‘放宽相似度阈值’以平衡（教材P7.5）；B错误：生成端问题通常表现为Faithfulness/Correctness与Recall/Precision趋势不一致，此处Correctness下降与Recall下降同步，指向检索端失衡；C/D无依据：题干未提示ground_truth或Judge异常，且Correctness下降是结果而非原因。因此A正确。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 1,
+      "stem": "关于LLM-as-Judge在RAGAS评测中的应用，以下哪些说法符合教材对‘偏见校准’的要求？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "为缓解位置偏见，在对比多个answer候选时，对每组候选随机打乱顺序后分别评分"
+        },
+        {
+          "option_label": "B",
+          "option_text": "为消除长度偏见，提示词中明确要求‘答案简洁性与准确性同等重要’并设置token上限"
+        },
+        {
+          "option_label": "C",
+          "option_text": "为校准评委，使用由临床专家标注的100题黄金集定期检验LLM评分与人工评分的一致性"
+        },
+        {
+          "option_label": "D",
+          "option_text": "为提升效率，固定使用同一款开源LLM（如Qwen-2.5）作为所有评测任务的Judge"
+        }
+      ],
+      "answer": "ABC",
+      "analysis": "A正确：教材7.8.1‘校准标准动作’第②条明确‘交换候选顺序多次打分取平均以抵消位置偏见’，随机打乱是其实现方式（教材P7.8.1）；B正确：同节‘长度偏见’缓解手段指出‘评分细则中明确冗余扣分、控制输出长度’，题干中‘设置token上限’即控制长度，‘简洁性与准确性同等重要’即细则明示（教材P7.8.1）；C正确：教材7.8.2定义‘黄金测试集’为‘由业务专家标注的高质量基准’，并强调‘定期用人工标注校准阈值’，临床专家即业务专家（教材P7.8.2）；D错误：教材7.8.1‘自我偏好’缓解手段明确‘用与被测模型不同的评委’，固定同一款Judge会放大其固有偏好，且未提及其与被测模型差异性（教材P7.8.1）。因此ABC正确。",
+      "difficulty_label": "中等"
+    }
+  ]
+}

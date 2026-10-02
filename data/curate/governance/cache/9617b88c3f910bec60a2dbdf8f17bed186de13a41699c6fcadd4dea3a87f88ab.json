@@ -1,0 +1,109 @@
+{
+  "new-11-60-0": {
+    "qid": "new-11-60-0",
+    "classification": "own",
+    "chapter": 11,
+    "quality": "ok",
+    "reason": "考查扫描件PDF在RAG中的处理流程，核心是文档解析。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "扫描件PDF本质是图片，文本切片器一行字都读不出来。需要文档智能解析先把结构还原出来。OCR（光学字符识别）识别图片/扫描件里的文字",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "问题在检索前，生成阶段非首要。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "扫描件需先OCR和版面分析还原文本。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "文本乱码非多模态Embedding问题。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "检索策略非根本原因，文档未解析。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-11-60-2": {
+    "qid": "new-11-60-2",
+    "classification": "own",
+    "chapter": 11,
+    "quality": "ok",
+    "reason": "考查多模态教育应用的安全与合规要求。",
+    "answer": [
+      "A",
+      "C"
+    ],
+    "supported": true,
+    "quote": "内容审核必须覆盖文本、图像、音频、视频全部模态。图像检测（image_moderation）审查图片画面和图片中的文字。音频异步任务（voice_moderation）提交+轮询结果",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "图像内容安全检测是必须的。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "不是必须，纯文本LLM也可处理转写后文本。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "语音需敏感词过滤和异步内容审核。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "输出解题视频非题干明确场景，非必须。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-11-60-4": {
+    "qid": "new-11-60-4",
+    "classification": "own",
+    "chapter": 11,
+    "quality": "ok",
+    "reason": "考查长视频理解的处理方式与约束。",
+    "answer": [
+      "B",
+      "C"
+    ],
+    "supported": true,
+    "quote": "视频理解=视觉（帧）+语音（ASR）+文本（字幕/LLM）联合。视频要抽大量帧，长视频必须抽帧/截断/分段。音视频文件通常走异步任务",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "全帧抽样成本过高，不符合约束。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "符合关键帧+ASR+对齐的三步处理原理。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "分段异步处理符合长视频约束。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "通义万相是生成模型，非理解模型。"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

@@ -1,0 +1,235 @@
+{
+  "2-0830": {
+    "qid": "2-0830",
+    "classification": "cross",
+    "chapter": 2,
+    "quality": "review",
+    "reason": "LlamaIndex框架细节未在第2章原文出现，需查证其文档",
+    "answer": [],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "LlamaIndex update_prompts未在原文提及"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "prompt字符串定义未在原文说明"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "源码修改与中文化未在原文涉及"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "PromptTemplate初始化未在原文描述"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "2-1445": {
+    "qid": "2-1445",
+    "classification": "own",
+    "chapter": 2,
+    "quality": "ok",
+    "reason": "考点为Few-shot适用场景判断，原文明确其适用格式/风格敏感任务",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "Few-shot（少样本）：给 2~5 个示例让模型模仿；适用：格式/风格敏感、需稳定结构的任务",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "流程问答需格式稳定，适合Few-shot"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "小众领域样本少，Few-shot可缓解"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "常识问答属Zero-shot典型场景"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "固定模板生成需样例对齐风格"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "2-1468": {
+    "qid": "2-1468",
+    "classification": "cross",
+    "chapter": 2,
+    "quality": "review",
+    "reason": "Answer Correctness和Context Recall是RAGAS评估指标，属第7章内容",
+    "answer": [],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "Prompt调整属提示工程，但指标归属RAGAS"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "temperature属第1章解码策略"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "知识库补充属RAG范畴"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "模型更换属第10章选型问题"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "2-0634": {
+    "qid": "2-0634",
+    "classification": "own",
+    "chapter": 2,
+    "quality": "ok",
+    "reason": "考查提示词优化手段，原文强调六要素中输出格式与样例作用",
+    "answer": [
+      "A",
+      "B",
+      "D"
+    ],
+    "supported": true,
+    "quote": "输出格式（Output Format）：指定格式、枚举值、禁止项；样例（Sample）：给 1~3 个范例对齐格式与风格",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "细化格式要求属输出格式要素"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "提供示例属样例要素"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "分段摘要属RAG切片策略，非提示工程"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "明确主旨属任务目标要素"
+      },
+      {
+        "label": "E",
+        "selected": false,
+        "why": "弃用模板违背工程化原则"
+      }
+    ],
+    "duplicate_of": "2-1085"
+  },
+  "2-0864": {
+    "qid": "2-0864",
+    "classification": "own",
+    "chapter": 2,
+    "quality": "ok",
+    "reason": "考查输出格式要素定义，原文表格明确其内涵",
+    "answer": [
+      "C",
+      "D",
+      "F"
+    ],
+    "supported": true,
+    "quote": "输出格式（Output Format）：指定格式、枚举值、禁止项；如“只输出 JSON，不要多余解释”",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "第一人称属角色要素"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "总结任务属任务目标要素"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "字段枚举属输出格式约束"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "JSON格式是典型输出格式"
+      },
+      {
+        "label": "E",
+        "selected": false,
+        "why": "资深律师属角色要素"
+      },
+      {
+        "label": "F",
+        "selected": true,
+        "why": "表格形式是输出格式要求"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "2-1085": {
+    "qid": "2-1085",
+    "classification": "own",
+    "chapter": 2,
+    "quality": "ok",
+    "reason": "与2-0634完全重复，考点相同且选项一致",
+    "answer": [
+      "A",
+      "B",
+      "D",
+      "E"
+    ],
+    "supported": true,
+    "quote": "输出格式（Output Format）：指定格式、枚举值、禁止项；样例（Sample）：给 1~3 个范例对齐格式与风格",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "分段摘要属RAG切片，非提示工程"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "明确主旨属任务目标要素"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "弃用模板违背工程化原则"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "提供示例属样例要素"
+      },
+      {
+        "label": "E",
+        "selected": true,
+        "why": "细化格式要求属输出格式要素"
+      }
+    ],
+    "duplicate_of": "2-0634"
+  }
+}

@@ -1,0 +1,72 @@
+{
+  "new-4-72-0": {
+    "qid": "new-4-72-0",
+    "classification": "own",
+    "chapter": 4,
+    "quality": "ok",
+    "reason": "考查Function Calling核心流程，题干与原文场景一致，选项明确区分正误。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "模型只输出结构化的“调用哪个工具、传什么参数”；由你的应用代码解析 tool_calls、真正执行对应函数，并把结果包装成 role=\"tool\" 的消息",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "模型不执行工具，只提议。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "符合Function Calling四步流程。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "不应避免依赖外部系统，这是Agent核心。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "Memory检索非此步骤关键动作。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-4-72-2": {
+    "qid": "new-4-72-2",
+    "classification": "own",
+    "chapter": 4,
+    "quality": "ok",
+    "reason": "考查多Agent设计四原则，题干描述明确对应两个违规点。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "不同 Agent 不得共用同一套账号/API 凭据；不要把所有 Agent 的知识/工具清单一次性写进主 Prompt",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "明确职责未违反，硬编码工具Schema违反避免全量注入。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "共用Token违反独立凭据，硬编码Schema违反避免全量注入。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "中央调度未违反，明确职责未违反。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "中央调度未违反，但漏了避免全量注入。"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

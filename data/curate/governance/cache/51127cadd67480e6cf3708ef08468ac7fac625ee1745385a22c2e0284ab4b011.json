@@ -1,0 +1,144 @@
+{
+  "new-10-72-0": {
+    "qid": "new-10-72-0",
+    "classification": "own",
+    "chapter": 10,
+    "quality": "ok",
+    "reason": "综合考查平台选型与组合，符合本章核心考点。",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "开源模型的价值集中在三点：① 数据隐私与合规（数据不出域）；② 可深度定制（任意微调/改结构）；③ 大规模稳定流量下的长期成本可控。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "开源模型数据不出域，PAI三件套覆盖开发、训练、部署全流程，满足并发要求。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "百炼知识库和RAG依赖托管API，数据需上送，违反数据不出内网要求。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "DashScope API调用数据需上送云端，违反数据不出内网要求。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "函数计算FC不适合高并发实时服务，且部署方式非PAI-EAS标准。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-10-72-2": {
+    "qid": "new-10-72-2",
+    "classification": "own",
+    "chapter": 10,
+    "quality": "ok",
+    "reason": "考查多模态处理与平台组合，符合本章产品定位与选型考点。",
+    "answer": [
+      "A",
+      "C"
+    ],
+    "supported": true,
+    "quote": "通义万相（图像生成/编辑（文生图、图生图））",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "万相处理图像，百炼编排工作流，PAI-EAS部署自研模型，可满足数据不出云。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "通义听悟是语音转写，不处理PDF图像；OSS存储可能涉及数据出域。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "PAI-DSW开发、ModelScope下载多模态模型、PAI-EAS部署，全流程在云内可控。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "百炼知识库和DashScope API依赖托管服务，数据可能出域，不满足全流程不出云。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-10-72-4": {
+    "qid": "new-10-72-4",
+    "classification": "own",
+    "chapter": 10,
+    "quality": "ok",
+    "reason": "考查平台能力与RAG、工作流、结构化输出等技术的结合应用。",
+    "answer": [
+      "A",
+      "C"
+    ],
+    "supported": true,
+    "quote": "百炼的核心能力可以理解为把前几章的技术'产品化'了：知识库（RAG） | 工作流编排 | 模型调优/微调",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "百炼知识库解析文档，工作流编排生成，JSON Schema约束输出，符合其定位。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "TextReRank是重排序服务，未提及能直接生成习题，且未涉及课件解析。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "在PAI-DSW训练专用模型，使用ModelScope开源基座，符合平台分工。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "将全文塞入prompt非最佳实践，且未解决课件解析问题。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-10-72-5": {
+    "qid": "new-10-72-5",
+    "classification": "own",
+    "chapter": 10,
+    "quality": "ok",
+    "reason": "考查数据合规风险与平台选择，是本章核心考点。",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "百炼知识库（RAG） | 内置文档解析、切片、向量化、检索，上传文档即可问答",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "百炼知识库处理文档需上传至阿里云服务器，违反医疗数据不出域要求。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "成本问题非CTO否决的核心依据，题干强调数据合规风险。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "原文未提及百炼不支持对接本地系统，且非主要风险。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "上下文窗口不足是技术问题，但CTO否决理由明确指向数据合规风险。"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

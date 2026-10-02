@@ -1,0 +1,72 @@
+{
+  "new-10-60-0": {
+    "qid": "new-10-60-0",
+    "classification": "own",
+    "chapter": 10,
+    "quality": "ok",
+    "reason": "考查百炼知识库RAG切片设计原则",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "知识库（RAG）：内置文档解析、切片、向量化、检索，上传文档即可问答",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "原文未提向量缓存默认启用"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "RAG依赖高质量切片，语义完整性优先"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "百炼知识库不强制私有Embedding模型"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "原文未要求显式添加答案提取器插件"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-10-60-2": {
+    "qid": "new-10-60-2",
+    "classification": "own",
+    "chapter": 10,
+    "quality": "ok",
+    "reason": "考查429限流后果与重试风险",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "遇 429 用指数退避 + 抖动重试，必要时降级到更小模型",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "无间隔重试加剧限流，错误指数上升"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "429超限即计费，免费额度不保可用性"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "DashScope不自动降级模型"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "平台不会主动暂停实例"
+      }
+    ],
+    "duplicate_of": "10-5160"
+  }
+}

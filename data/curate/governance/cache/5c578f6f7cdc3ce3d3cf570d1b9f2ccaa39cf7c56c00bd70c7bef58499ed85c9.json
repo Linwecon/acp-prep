@@ -1,0 +1,225 @@
+{
+  "new-8-12-0": {
+    "qid": "new-8-12-0",
+    "classification": "own",
+    "chapter": 8,
+    "quality": "ok",
+    "reason": "题干描述间接提示注入典型场景，选项清晰对应攻击面分类。",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "间接提示注入：恶意指令藏在外部数据里，被 RAG/Agent 读入上下文后悄悄生效",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "非对抗样本，是外部文档藏指令。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "非DDoS导致服务异常。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "PDF藏指令被读取后劫持工具调用，属间接提示注入。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "非知识库内容被篡改，是外部输入藏毒。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-8-12-1": {
+    "qid": "new-8-12-1",
+    "classification": "own",
+    "chapter": 8,
+    "quality": "ok",
+    "reason": "考查Base64编码绕过规则审核的根本原因，符合安全防护知识点。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "把 UPDATE xxx 用 Base64 编码，黑名单根本看不见；黑名单越攒越长，维护成本高，却永远追不上攻击者的造词速度",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "未提及模型选择是根本原因。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "Base64编码绕过关键词黑名单，规则审核无法识别语义变形。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "题干已配置内容安全服务，非请求头问题。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "自定义词库用于私域敏感词，非SQL注入。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-8-12-2": {
+    "qid": "new-8-12-2",
+    "classification": "own",
+    "chapter": 8,
+    "quality": "ok",
+    "reason": "考查RAG权限过滤实现细节，需结合代码逻辑判断。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "position_ids 是否包含当前用户的职位；只把用户有权看的条目拼进 Prompt",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "用户position_id为3（manager），与题干一致。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "文档应仅经理及以上可见，但误标为低权限，导致越权。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "题干未提及解析失败，且代码示例使用ast.literal_eval。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "过滤发生在检索后、拼Prompt前，非检索阶段下推。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-8-12-3": {
+    "qid": "new-8-12-3",
+    "classification": "own",
+    "chapter": 8,
+    "quality": "ok",
+    "reason": "考查多模态检测标准流程，需结合图像检测接口规范。",
+    "answer": [
+      "B",
+      "D"
+    ],
+    "supported": true,
+    "quote": "需要检测本地文件时，课程用 oss_service.py 先把文件上传到 OSS，再把 URL 传给审核接口",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "image_moderation接口需传入公网URL，非二进制流。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "先上传OSS获取URL再调用接口，符合标准流程。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "未提及'pdf_ocr_moderation'服务，文本审核不直接处理PDF。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "service设为'baselineCheck_pro'并传入OSS URL，符合规范。"
+      },
+      {
+        "label": "E",
+        "selected": false,
+        "why": "未提及截图批量调用，非标准流程。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-8-12-4": {
+    "qid": "new-8-12-4",
+    "classification": "own",
+    "chapter": 8,
+    "quality": "ok",
+    "reason": "考查资源耗尽型DDoS的应对机制，需区分防御层次。",
+    "answer": [
+      "D"
+    ],
+    "supported": true,
+    "quote": "应用层对单个用户设 token/算力上限并对超复杂请求做成本预估与熔断",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "非越狱话术，是高计算请求导致资源耗尽。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "题干未提及工具调用，是生成任务消耗算力。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "DDoS高防清洗流量洪峰，但此类请求非洪水流量。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "对单用户设算力上限并成本熔断，是应用层直接防御。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-8-12-5": {
+    "qid": "new-8-12-5",
+    "classification": "own",
+    "chapter": 8,
+    "quality": "ok",
+    "reason": "综合考查RAG权限隔离与数据安全加密措施。",
+    "answer": [
+      "A",
+      "B",
+      "D"
+    ],
+    "supported": true,
+    "quote": "检索后按职位/部门/密级过滤 Top-K；文本与向量双重加密；向量携带语义，需要加密",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "按position_id过滤Top-K，实现权限隔离。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "AES-256加密存储原始文档，保障数据安全。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "RAM权限管理是云安全，非RAG数据安全核心。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "对向量加噪处理（DCPE），防止语义泄露。"
+      },
+      {
+        "label": "E",
+        "selected": false,
+        "why": "元数据存权限服务是架构设计，非教材强调的双重目标。"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

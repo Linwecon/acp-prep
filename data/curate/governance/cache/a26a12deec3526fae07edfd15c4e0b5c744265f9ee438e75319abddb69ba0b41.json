@@ -1,0 +1,234 @@
+{
+  "2-1407": {
+    "qid": "2-1407",
+    "classification": "unsure",
+    "chapter": 2,
+    "quality": "remove",
+    "reason": "题干考查插图提示词设计，但本章原文未提及多模态或文生图提示词设计的具体要素。选项与本章知识无直接关联，属于条件缺失的无考查价值题。",
+    "answer": [],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "原文未提及颜色模式"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "原文未提及详细程度"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "原文未提及文件大小"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "原文未提及编号和位置"
+      },
+      {
+        "label": "E",
+        "selected": false,
+        "why": "原文未提及场景对象具体性"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "2-1429": {
+    "qid": "2-1429",
+    "classification": "own",
+    "chapter": 2,
+    "quality": "fixable",
+    "reason": "题干问提升用户体验和处理复杂咨询的措施，但选项混杂了提示工程、安全、NLU等不同领域，考查点不聚焦。",
+    "answer": [
+      "A",
+      "C"
+    ],
+    "supported": true,
+    "quote": "思维链（CoT）...引导模型在给出最终答案前，显式输出中间推理步骤...对数学计算、逻辑推理、多约束规划等任务提升尤其明显。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "思维链可提升复杂推理"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "身份验证属安全，非提示工程"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "标准模板是提示工程手段"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "NLU模块非本章核心措施"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "2-1449": {
+    "qid": "2-1449",
+    "classification": "own",
+    "chapter": 2,
+    "quality": "ok",
+    "reason": "考查提示词六要素中样例的定义，原文明确说明样例是Few-shot示例。",
+    "answer": [
+      "B",
+      "C",
+      "E"
+    ],
+    "supported": true,
+    "quote": "样例（Sample）...给 1~3 个范例对齐格式与风格...Few-shot 示例。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "这是角色定义"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "输入输出对是样例"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "输入输出对是样例"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "这是输出格式"
+      },
+      {
+        "label": "E",
+        "selected": true,
+        "why": "输入输出对是样例"
+      },
+      {
+        "label": "F",
+        "selected": false,
+        "why": "这是任务目标"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "2-1453": {
+    "qid": "2-1453",
+    "classification": "own",
+    "chapter": 2,
+    "quality": "ok",
+    "reason": "考查推理大模型不推荐使用思维链的原因，原文明确说明推理模型本身会深度思考，外加CoT可能限制发挥。",
+    "answer": [
+      "A",
+      "C"
+    ],
+    "supported": true,
+    "quote": "对 qwen3 这类推理模型，无需再写“一步步思考”——它们本身会自动进行深度思考，强加 CoT 提示反而可能限制其发挥。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "推理模型本身会深入思考"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "原文未提及计算量增加"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "强加CoT可能限制发挥"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "推理模型需要推理过程"
+      },
+      {
+        "label": "E",
+        "selected": false,
+        "why": "原文未提及设计目标"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "2-1460": {
+    "qid": "2-1460",
+    "classification": "own",
+    "chapter": 2,
+    "quality": "ok",
+    "reason": "考查零样本学习的正确定义，原文在Zero-shot/Few-shot/CoT对比表中明确说明。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "Zero-shot（零样本）...不给示例，直接提问...简单、明确的任务。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "训练时使用数据"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "仅通过提示词完成任务"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "准确率不一定更高"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "大模型支持零样本"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "2-0032": {
+    "qid": "2-0032",
+    "classification": "own",
+    "chapter": 2,
+    "quality": "ok",
+    "reason": "考查提示工程在优化顺序中的优先级，原文明确标准优化顺序为提示词优化优先。",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "标准优化顺序（务必记住，高频考点）：提示词优化 → RAG → （仍不满足才考虑）微调。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "微调是最后手段"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "换模型非优先策略"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "改进提示词是优先策略"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "调参非首要策略"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

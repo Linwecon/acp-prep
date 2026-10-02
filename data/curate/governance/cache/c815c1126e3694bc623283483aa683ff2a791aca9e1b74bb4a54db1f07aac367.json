@@ -1,0 +1,212 @@
+{
+  "1-1195": {
+    "qid": "1-1195",
+    "classification": "unsure",
+    "chapter": 1,
+    "quality": "remove",
+    "reason": "题目考查Python编程，与大模型基础知识点无关，属于错放章节且无考查价值。",
+    "answer": [],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "代码试图用feedback_list[i][0]，但未定义feedback_list结构，且字典键未初始化会报错。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "假设feedback_list元素可解包为(id, query)，但字典键未初始化会报错。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "将id传给classify_intent逻辑错误，且计数初始化为0，第一次计数错误。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "使用intent_counts列表存储意图，未实现计数功能，与题干要求不符。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "1-1310": {
+    "qid": "1-1310",
+    "classification": "own",
+    "chapter": 1,
+    "quality": "ok",
+    "reason": "考查分词化基本概念，属于大模型基础章节知识点。",
+    "answer": [
+      "A",
+      "B"
+    ],
+    "supported": true,
+    "quote": "分词器（Tokenizer）把文本切成一个个 Token，并映射为词表里的整数 ID。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "正确。分词后Token映射为词表中的整数ID。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "正确。分词化是将文本切分为更小单元（如Token）的步骤。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "不正确。词粒度分词并非仅适用于西方语言，且现代模型多用子词分词。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "不正确。Token在词表中的唯一标识是整数ID，而非词汇字符串。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "1-1312": {
+    "qid": "1-1312",
+    "classification": "own",
+    "chapter": 1,
+    "quality": "ok",
+    "reason": "考查大模型基础概念辨析，涉及Scaling Law等知识点。",
+    "answer": [
+      "D"
+    ],
+    "supported": true,
+    "quote": "Scaling Law（缩放定律）指在合理范围内，模型效果随参数量、训练数据量、计算量三者近似幂律增长而稳定提升；三者需要大致同步放大，单独堆某一项收益会受限。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "正确。深度学习是机器学习的一个分支。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "正确。企业专有知识库可通过微调基座模型实现。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "正确。生成式AI是机器学习的子集。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "不正确。优秀基础模型需要数据、算力、参数同步放大，仅靠参数和硬件不够。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "1-1322": {
+    "qid": "1-1322",
+    "classification": "cross",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "考查语义切片适用场景，属于RAG检索增强生成章节知识点。",
+    "answer": [
+      "A",
+      "B"
+    ],
+    "supported": true,
+    "quote": "文本切片策略与重叠机制",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "适合。文档逻辑性强时，语义切片能保持内容连贯性。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "适合。内容专业结构复杂时，语义切片有助于理解。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "不适合。严格控制Token数量通常采用固定长度切片。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "不适合。简单对话文本无需复杂语义切片。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "1-1329": {
+    "qid": "1-1329",
+    "classification": "cross",
+    "chapter": 8,
+    "quality": "ok",
+    "reason": "考查大模型生成内容的版权风险，属于AI安全与合规章节知识点。",
+    "answer": [
+      "A",
+      "B",
+      "D"
+    ],
+    "supported": true,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "是风险。使用未经授权数据训练模型可能侵权。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "是风险。生成内容与现有作品相似可能构成抄袭。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "不是风险。自动添加水印是版权保护手段。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "是风险。用户未授权使用场景可能违反数据使用协议。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "1-1354": {
+    "qid": "1-1354",
+    "classification": "cross",
+    "chapter": -1,
+    "quality": "remove",
+    "reason": "题目考查音频审核异步流程，与所有章节知识点均不匹配，且条件模糊无考查价值。",
+    "answer": [],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "异步处理不实时返回结果，与“异步”定义矛盾。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "生成波形图非异步流程必需步骤，属于特定功能。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "提交任务是异步流程的一部分，但非唯一必需步骤。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "轮询获取结果是异步流程常见方式，但非唯一必需步骤。"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

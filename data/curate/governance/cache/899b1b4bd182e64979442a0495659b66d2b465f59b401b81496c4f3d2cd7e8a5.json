@@ -1,0 +1,228 @@
+{
+  "1-1380": {
+    "qid": "1-1380",
+    "classification": "unsure",
+    "chapter": 11,
+    "quality": "review",
+    "reason": "原文未提时空一致性对齐方法，仅提抽帧/对齐/CLIP等，无'时空一致性'术语及对应技术",
+    "answer": [],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "原文未提自然对齐"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "原文未提注意力匹配时空"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "原文未提跨模态相似度学习"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "原文未提时间戳/位置标签"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "1-1404": {
+    "qid": "1-1404",
+    "classification": "cross",
+    "chapter": 11,
+    "quality": "ok",
+    "reason": "情感分析属多模态理解应用，原文明确要求图文语音联合理解",
+    "answer": [
+      "A",
+      "C"
+    ],
+    "supported": true,
+    "quote": "多模态 AI 指能联合理解、生成两种及以上模态信息，并建立它们之间关联的模型与系统",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "原文要求联合理解多模态"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "原文强调必须多模态"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "原文要求多样化数据"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "原文未提参数数量影响"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "1-1087": {
+    "qid": "1-1087",
+    "classification": "own",
+    "chapter": 11,
+    "quality": "ok",
+    "reason": "旅游导游属多模态典型场景，含图像识别、个性化生成、路径规划",
+    "answer": [
+      "A",
+      "B",
+      "C"
+    ],
+    "supported": true,
+    "quote": "多模态核心价值：降低表达门槛、获取文本外信息、产出更丰富载体",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "符合个性化生成价值"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "路径规划需多模态融合"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "图像识别属多模态理解"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "违背个性化定制原则"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "2-0630": {
+    "qid": "2-0630",
+    "classification": "misplaced",
+    "chapter": 11,
+    "quality": "remove",
+    "reason": "插图提示词属提示工程（章2），非多模态原理；且选项D/E与提示词无关",
+    "answer": [],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "属提示工程范畴"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "属提示工程范畴"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "争议点说明不专业"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "文件大小不影响提示词"
+      },
+      {
+        "label": "E",
+        "selected": false,
+        "why": "颜色模式非提示词要素"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "2-1407": {
+    "qid": "2-1407",
+    "classification": "misplaced",
+    "chapter": 11,
+    "quality": "remove",
+    "reason": "插图提示词属提示工程（章2），非多模态原理；选项A/C/E均非提示词核心要素",
+    "answer": [],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "颜色模式非提示词要素"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "属提示工程范畴"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "文件大小无关提示词"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "编号位置非提示词要素"
+      },
+      {
+        "label": "E",
+        "selected": false,
+        "why": "属提示工程范畴"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-1445": {
+    "qid": "3-1445",
+    "classification": "own",
+    "chapter": 11,
+    "quality": "ok",
+    "reason": "视频音字幕整合属多模态生成挑战，原文明确提及节奏、版权、算力",
+    "answer": [
+      "A",
+      "B",
+      "C",
+      "D",
+      "E"
+    ],
+    "supported": true,
+    "quote": "视频理解 = 视觉（帧）+ 语音（ASR）+ 文本（字幕/LLM）联合，不是单一魔法模型",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "节奏匹配属多模态整合"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "字幕翻译属多模态生成"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "音画失真属多模态质量"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "算力消耗属多模态成本"
+      },
+      {
+        "label": "E",
+        "selected": true,
+        "why": "版权合规属多模态风险"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

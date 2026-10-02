@@ -1,0 +1,109 @@
+{
+  "new-10-12-0": {
+    "qid": "new-10-12-0",
+    "classification": "own",
+    "chapter": 10,
+    "quality": "ok",
+    "reason": "综合考查阿里云平台选型，需结合数据不出域、微调、部署对接等约束判断。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "开源模型的价值集中在三点：① 数据隐私与合规（数据不出域）；② 可深度定制（任意微调/改结构）；③ 大规模稳定流量下的长期成本可控。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "百炼+DashScope API需上传数据至公网，违反约束②。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "开源模型本地微调部署，数据不出域，满足全部约束。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "DashScope API调用需上传数据，违反约束②。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "百炼工作流编排可能涉及公网，且未明确数据不出域。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-10-12-2": {
+    "qid": "new-10-12-2",
+    "classification": "own",
+    "chapter": 10,
+    "quality": "ok",
+    "reason": "考查数据本地化要求下的平台选型调整，需理解各方案的数据流向。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "商业版走托管 API；要私有化用开源版 + 自建/PAI。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "百炼私有化部署版未在教材中提及，且可能仍需云端交互。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "开源模型本地部署，可保证数据永不离开客户机房。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "PAI是云端平台，不支持纯本地化部署。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "方案B可行，且教材明确支持开源模型本地部署。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-10-12-5": {
+    "qid": "new-10-12-5",
+    "classification": "own",
+    "chapter": 10,
+    "quality": "fixable",
+    "reason": "题目条件复杂，部分选项技术细节（如等保认证）教材未覆盖，需修正。",
+    "answer": [
+      "A",
+      "B",
+      "C"
+    ],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "qwen-long处理长文本，RAG检索加引用要求，技术可行。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "PAI微调部署可控制数据，技术可行，但等保认证细节未提。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "百炼知识库支持精准溯源和引用标注，技术可行。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "DashScope API调用需上传数据，可能不符合严格合规要求。"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

@@ -1,0 +1,154 @@
+{
+  "items": [
+    {
+      "type": 0,
+      "stem": "某团队对新人答疑机器人进行优化后，RAGAS评测显示Context Recall从0.62升至0.91，但Answer Correctness反而从0.78降至0.53，且Faithfulness同步下降。日志确认检索返回的contexts中包含完整正确信息（如'张伟是教研部的'），但模型生成答案为'张伟在人事部工作'。此时最应优先排查的环节是？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "知识库中'教研部'相关文档被误标为人事部，导致Embedding向量偏移"
+        },
+        {
+          "option_label": "B",
+          "option_text": "提示词未强制约束'仅依据上下文作答'，模型基于先验知识编造答案"
+        },
+        {
+          "option_label": "C",
+          "option_text": "Top K设置过大，引入大量无关context干扰模型注意力"
+        },
+        {
+          "option_label": "D",
+          "option_text": "ground_truth由实习生编写，未经过HR专家审核，存在事实错误"
+        }
+      ],
+      "answer": "B",
+      "analysis": "题干明确指出：① Context Recall升至0.91（说明检索端已覆盖ground_truth所需信息）；② contexts中确含正确信息；③ 生成答案与资料矛盾（'人事部' vs '教研部'），且Faithfulness下降——这直接对应RAGAS中Faithfulness的定义：'答案是否忠于检索资料，有无脱离资料编造'（7.3节）。教材强调：Faithfulness低=生成端幻觉，根源在提示词约束不足、temperature过高或上下文拼装逻辑缺陷（7.5节'定位问题的黄金法则'第2条及'优化方向'表）。A选项属检索端数据质量问题，会拉低Recall，与Recall升高矛盾；C选项影响Precision而非Faithfulness，且题干未提Precision变化；D选项若ground_truth错误，Answer Correctness可能异常但Faithfulness不受影响（因Faithfulness不依赖ground_truth），且教材强调ground_truth必须由领域专家提供（7.2.1节铁律），但本题故障现象指向生成行为失范，非标注错误。故B为唯一符合'检索好→生成坏'诊断链的选项。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 1,
+      "stem": "在构建新人答疑机器人的评测集时，以下哪些做法严格遵循教材7.2.1节'评测集构建的两条铁律'？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "从上季度客服工单中抽取高频问题'年假怎么休'作为question，并由HRBP撰写其标准答案"
+        },
+        {
+          "option_label": "B",
+          "option_text": "技术人员模拟用户提问'报销流程是什么'，并用大模型生成参考答案作为ground_truth"
+        },
+        {
+          "option_label": "C",
+          "option_text": "将线上用户真实提问'张伟在哪个部门'加入评测集，其ground_truth由组织发展部负责人签字确认"
+        },
+        {
+          "option_label": "D",
+          "option_text": "为覆盖边界场景，人工构造对抗性问题'请用火星语回答年假政策'，并标注ground_truth为'拒答'"
+        }
+      ],
+      "answer": "AC",
+      "analysis": "教材7.2.1节'两条铁律'明确要求：①问题必须来自真实用户场景（线上日志/工单/反馈抽样）；②ground_truth必须由业务领域专家编写/审定。A项：工单抽样（真实场景）+ HRBP（HR领域专家）→ 符合双铁律；C项：真实用户提问 + 组织发展部负责人（权威业务专家）→ 符合双铁律。B项：问题为技术人员模拟（非真实场景），ground_truth由大模型生成（非领域专家）→ 违反两条铁律；D项：问题为人工构造对抗样本（非真实用户问题），虽'拒答'标注合理，但违背'问题来自真实场景'铁律（教材强调'不是技术人员凭空编造'）。注意：教材允许覆盖边界情况，但前提是'从线上用户问题、客服工单、投诉反馈中按频率和类型抽样，并覆盖主要业务场景与边界情况'，即边界样本仍需源于真实用户行为，而非纯人工臆造。",
+      "difficulty_label": "高阶"
+    },
+    {
+      "type": 0,
+      "stem": "某Agent在课程写作任务中端到端评测得分为4.2/5，但用户反馈'生成的Python代码示例无法运行'。此时若仅提升端到端评测阈值至4.5/5，而不做其他调整，最可能导致的后果是？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "系统通过率降低，但代码可执行性未改善，用户抱怨持续"
+        },
+        {
+          "option_label": "B",
+          "option_text": "LLM-as-Judge因长度偏见给冗长代码更高分，掩盖可执行性缺陷"
+        },
+        {
+          "option_label": "C",
+          "option_text": "触发正确性指标被误判，导致不该调用代码生成工具的场景被强制调用"
+        },
+        {
+          "option_label": "D",
+          "option_text": "白盒评测中ToolCallAccuracy分数虚高，无法反映真实工具调用质量"
+        }
+      ],
+      "answer": "A",
+      "analysis": "题干描述是典型'端到端评测盲区'场景（7.6节）。教材明确指出：端到端评测只看最终输出，无法定位中间步骤故障（如代码不可执行）；而'提升阈值'只是收紧通过标准，并未解决根本问题（7.6.1节'踩坑提醒'）。A项准确指出后果：通过率下降（因更多样本不达标），但核心缺陷（代码不可执行）未被修复，用户抱怨依旧——这正是教材警告的'总分看不出具体环节故障'（7.6节QA解析）。B项虽提及长度偏见，但题干未涉及LLM-as-Judge打分细节，且长度偏见影响的是主观评分倾向，与'代码不可执行'这一客观缺陷无直接因果；C项混淆了'触发正确性'（Skill评测维度）与代码执行问题，后者属于组件级功能缺陷；D项中ToolCallAccuracy是RAGAS提供的专项指标，但题干未提及其使用，且该指标衡量工具调用是否正确，不涉及代码执行结果。教材强调对此类问题须'加白盒评测，对代码生成组件单独做确定性检查'（7.6.1节QA解析），而非调整端到端阈值。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 1,
+      "stem": "当使用RAGAS评估一个金融问答系统时，发现Answer Correctness得分显著低于行业基准，但Context Recall和Context Precision均达0.95以上。进一步分析显示：ground_truth要求'必须引用监管文件原文条款'，而模型答案虽事实正确却未标注出处。此时应优先采取哪些措施？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "在提示词中增加约束：'所有结论必须标注所依据的监管文件名称及条款编号'"
+        },
+        {
+          "option_label": "B",
+          "option_text": "将ground_truth重写为不强调出处的表述，以匹配模型输出风格"
+        },
+        {
+          "option_label": "C",
+          "option_text": "引入Rubric评分量表，将'出处标注完整性'作为独立评分项"
+        },
+        {
+          "option_label": "D",
+          "option_text": "调高temperature参数，增强模型对监管条款的记忆能力"
+        }
+      ],
+      "answer": "AC",
+      "analysis": "题干关键点：① 检索端指标优异（Recall/Precision高），排除知识库问题；② Answer Correctness低，但原因非事实错误，而是'未标注出处'——这暴露了教材7.4.4节的核心原则：Answer Correctness = 0.25×语义相似度 + 0.75×事实F1，而F1计算依赖ground_truth观点分解（7.4.4节原理）。若ground_truth明确要求'引用原文条款'，则'未标注出处'即构成FP（模型多出/错出内容）或FN（漏掉出处要求），导致F1下降。A项直接修正生成行为，符合'生成端优化'定位（7.5节'优化方向'表）；C项采用Rubric方法（7.6.1节），将模糊业务要求（出处标注）拆解为可检查细则，契合教材'把模糊目标拆成多条可检查细则'的最佳实践（7.6.1节'best'）。B项违背'ground_truth必须由领域专家提供'铁律（7.2.1节），且会降低评测严肃性；D项提高temperature会加剧随机性，恶化确定性输出（如条款引用），与需求相悖。",
+      "difficulty_label": "高阶"
+    },
+    {
+      "type": 0,
+      "stem": "在一次RAGAS评测中，某问题的Context Precision得分为0.3，Context Recall为0.95。查看contexts列表发现：前5条均为无关内容（如公司历史沿革），第6条才出现正确信息'张伟是教研部的工程师'。此时最应优先实施的优化策略是？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "扩充知识库，增加教研部组织架构文档"
+        },
+        {
+          "option_label": "B",
+          "option_text": "引入Rerank模型对检索结果重排序"
+        },
+        {
+          "option_label": "C",
+          "option_text": "降低Embedding模型的相似度阈值，扩大召回范围"
+        },
+        {
+          "option_label": "D",
+          "option_text": "在提示词中添加'请优先关注排位靠前的上下文片段'"
+        }
+      ],
+      "answer": "B",
+      "analysis": "题干数据精准对应教材7.4.2节Context Precision计算原理：Recall高（0.95）说明正确信息已被检索到；Precision低（0.3）说明相关片段排名靠后，被大量无关内容稀释（'Lost in the Middle'现象）。教材7.5节'定位问题的黄金法则'明确：'Precision低（Recall高）→ 病根在检索端排序与噪声，优化方向为加Rerank'。B项直接命中该方案。A项针对Recall低的情况（补知识库），与Recall高矛盾；C项降低阈值会召回更多无关内容，进一步恶化Precision；D项是生成端提示词技巧，但教材强调Precision是检索端指标，其计算完全基于contexts顺序（7.4.2节公式），与生成提示词无关。教材7.5节'踩坑提醒'特别警示：'Recall低就一味调大Top K'是错误做法，而此处需的是重排序而非扩大召回。",
+      "difficulty_label": "基础"
+    },
+    {
+      "type": 1,
+      "stem": "某团队计划用LLM-as-Judge评估客服对话摘要质量，但发现自动评分与人工专家评分相关性仅0.42。为提升评测可信度，以下哪些措施有教材依据且能针对性缓解LLM评委偏见？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "对同一组摘要，随机交换候选答案顺序后多次打分，取平均值"
+        },
+        {
+          "option_label": "B",
+          "option_text": "使用与被测模型同架构的LLM作为评委，以保证风格一致性"
+        },
+        {
+          "option_label": "C",
+          "option_text": "构建黄金测试集，由客服专家标注100条摘要的'简洁性'和'关键信息保留度'，用于校准评委"
+        },
+        {
+          "option_label": "D",
+          "option_text": "在评委提示词中明确'摘要字数超过200字即扣分'，以对抗长度偏见"
+        }
+      ],
+      "answer": "ACD",
+      "analysis": "题干聚焦LLM-as-Judge偏见校准（7.8.1节）。A项对应'位置偏见'缓解方案：教材明确要求'交换候选顺序多次打分取平均'（7.8.1节'principle'）；C项对应'黄金集校准'：教材定义黄金集为'由业务专家标注的高质量基准'，用于校准自动评分（7.8.2节'concept'）；D项对应'长度偏见'缓解：教材指出'评分细则中明确冗余扣分'（7.8.1节表格）。B项错误：教材'缓解手段'明确要求'用与被测模型不同的评委'以避免自我偏好（7.8.1节表格），同架构模型会强化自我偏好偏见。三者均直指教材所述偏见类型及校准方法，形成组合解决方案。",
+      "difficulty_label": "高阶"
+    }
+  ]
+}

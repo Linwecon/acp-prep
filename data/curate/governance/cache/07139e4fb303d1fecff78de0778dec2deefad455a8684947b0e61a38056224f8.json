@@ -1,0 +1,218 @@
+{
+  "new-7-24-0": {
+    "qid": "new-7-24-0",
+    "classification": "own",
+    "chapter": 7,
+    "quality": "ok",
+    "reason": "考查指标分层逻辑与故障定位，需结合检索与生成指标变化判断根本层级。",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "检索指标都好（Recall、Precision 高），但 Faithfulness / Correctness 低 → 问题在生成阶段",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "题干未提及用户满意度，且问题定位在算法层。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "题干未涉及响应时间等技术指标。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "Recall升但Faithfulness降，表明生成端故障，属算法层。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "Recall提升但整体Correctness未改善，优化未成功。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-7-24-1": {
+    "qid": "new-7-24-1",
+    "classification": "own",
+    "chapter": 7,
+    "quality": "ok",
+    "reason": "综合考查评测集构建铁律与指标分层原则，需识别同时违反两者的操作。",
+    "answer": [
+      "A",
+      "B",
+      "D"
+    ],
+    "supported": true,
+    "quote": "标准答案来自领域专家；问题来自真实用户场景；算法指标是手段，业务指标才是目标",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "违反铁律：ground_truth未由领域专家审定。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "违反铁律：question非真实用户问题；违反分层：为刷分扭曲评测集。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "违反控制变量原则，但未同时违反两条铁律及分层原则。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "违反分层原则：业务指标不能直接作为自动化打分依据。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-7-24-2": {
+    "qid": "new-7-24-2",
+    "classification": "own",
+    "chapter": 7,
+    "quality": "ok",
+    "reason": "考查根据RAGAS指标组合定位问题并确定优化优先级。",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "Precision 低（Recall 高） → 找回来了但噪声多、排得靠后 → 加 Rerank",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "题干未提及业务标准需重新定义。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "题干未涉及响应延迟等技术指标。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "Precision低表明检索排序问题，应优先优化检索端。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "Correctness低但Recall高Precision低，病根在检索而非生成。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-7-24-3": {
+    "qid": "new-7-24-3",
+    "classification": "own",
+    "chapter": 7,
+    "quality": "ok",
+    "reason": "考查指标三层分层中各层必要条件缺失导致的诊断失效现象。",
+    "answer": [
+      "B",
+      "C",
+      "D"
+    ],
+    "supported": true,
+    "quote": "标准答案来自领域专家；算法指标是手段，业务指标才是目标；能被度量的，才能被有效改进",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "违反控制变量，但未直接体现三层必要条件缺失。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "ground_truth错误导致算法层基准失效，诊断无效。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "业务指标映射错误，技术/算法层缺失，无法诊断。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "无业务目标，算法指标提升无意义，各层目标缺失。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-7-24-4": {
+    "qid": "new-7-24-4",
+    "classification": "own",
+    "chapter": 7,
+    "quality": "ok",
+    "reason": "考查Answer Correctness公式子项分析，揭示算法层内部矛盾。",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "Answer Correctness = 0.25 × 语义相似度 + 0.75 × 事实准确度",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "语义相似度高但事实F1低，表明模型追求字面而非事实。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "语义相似度0.82不低，未表明Embedding失真。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "题干未提及用户更看重长度。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "题干未提及ground_truth来源问题。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-7-24-5": {
+    "qid": "new-7-24-5",
+    "classification": "own",
+    "chapter": 7,
+    "quality": "ok",
+    "reason": "考查EDD中同时满足防止回归与定位问题的实践，且符合指标分层。",
+    "answer": [
+      "A",
+      "B",
+      "C"
+    ],
+    "supported": true,
+    "quote": "每次改动后跑同一套题，确保'修好 A、没弄坏 B'；按题型、难度、类别细分找短板",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "冻结评测集对比指标变化，可防回归并定位问题。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "分层统计可定位短板场景，防止整体回归。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "业务与算法指标交叉分析，可定位问题并防业务回归。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "仅确保生成确定性，未直接体现防回归与定位问题。"
+      }
+    ],
+    "duplicate_of": "7-5058"
+  }
+}

@@ -1,0 +1,37 @@
+{
+  "new-7-30-2": {
+    "qid": "new-7-30-2",
+    "classification": "own",
+    "chapter": 7,
+    "quality": "ok",
+    "reason": "题干明确指向7.4.4节Answer Correctness官方口径，考点精准",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "Answer Correctness = 0.25 × 语义相似度 + 0.75 × 事实准确度。事实准确度（F1）：TP / (TP + 0.5 × (FP + FN))",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "语义相似度仅占0.25权重，非主因"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "事实F1占0.75权重且用户反馈事实错误，最可能偏低"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "Context Precision属检索端指标，与Correctness无关"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "Faithfulness需contexts字段，题干未提其异常"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

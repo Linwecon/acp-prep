@@ -1,0 +1,215 @@
+{
+  "new-12-24-0": {
+    "qid": "new-12-24-0",
+    "classification": "own",
+    "chapter": 12,
+    "quality": "ok",
+    "reason": "考查AgentScope中Agent消息处理协议的必要性",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "Worker-Agent的message处理函数始终返回空字符串。依据第12章12.6.1节对AgentScope核心抽象的定义",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "故障现象是消息处理返回空，与Tool注册无关"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "消息处理函数返回空，违反MsgHub对消息语义完整性的要求"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "Formatter不兼容可能导致格式错误，但非空响应是更基本要求"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "handoff是任务移交方法，与消息处理函数返回空无关"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-12-24-1": {
+    "qid": "new-12-24-1",
+    "classification": "own",
+    "chapter": 12,
+    "quality": "ok",
+    "reason": "考查ReActAgent正常工作的必要条件",
+    "answer": [
+      "A",
+      "B"
+    ],
+    "supported": true,
+    "quote": "ReActAgent，封装模型、系统提示词、工具与'思考—行动—观察'循环",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "ReActAgent必须绑定Model对象以执行思考循环"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "sys_prompt需描述工具，与JSON Schema一致以供调用"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "MsgHub协作不要求使用相同Formatter实例"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "formatter参数可为DashScopeChatFormatter，非强制"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-12-24-2": {
+    "qid": "new-12-24-2",
+    "classification": "own",
+    "chapter": 12,
+    "quality": "ok",
+    "reason": "考查Formatter在消息序列化中的作用",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "Formatter：如DashScopeChatFormatter、DashScopeMultiAgentFormatter，把Agent消息序列化成模型能接受的格式",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "MsgHub支持传输结构化数据"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "未使用Formatter导致消息未按所需格式序列化，语义结构丢失"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "问题根源是消息格式，而非接收方库缺失"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "Blackboard模式不要求使用同一套工具集"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-12-24-3": {
+    "qid": "new-12-24-3",
+    "classification": "own",
+    "chapter": 12,
+    "quality": "ok",
+    "reason": "考查Leader-Worker协作的必要步骤",
+    "answer": [
+      "A",
+      "B",
+      "C"
+    ],
+    "supported": true,
+    "quote": "分层规划（Leader-Worker，通过handoff转交任务）",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "handoff是任务移交的标准方法"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "Worker执行完毕需通过MsgHub向Leader发送响应"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "Agent需在MsgHub中注册才能参与消息路由"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "响应消息无需包含完整原始用户问题"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-12-24-4": {
+    "qid": "new-12-24-4",
+    "classification": "own",
+    "chapter": 12,
+    "quality": "ok",
+    "reason": "考查框架组合时Formatter配置的注意事项",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "Formatter：如DashScopeChatFormatter、DashScopeMultiAgentFormatter，把Agent消息序列化成模型能接受的格式",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "LangGraph与Runnable协议无关"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "封装时未传入Formatter参数，导致使用不兼容默认格式"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "Tool抽象不要求返回纯文本"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "版本兼容性非问题根本原因"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-12-24-5": {
+    "qid": "new-12-24-5",
+    "classification": "own",
+    "chapter": 12,
+    "quality": "ok",
+    "reason": "考查MsgHub中Agent注册与消息路由机制",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "Agent之间通过消息通信，MsgHub实现'群聊式'的共创协作",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "handoff方法支持字符串目标地址"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "Worker未以'hr_worker'为key注册，导致消息路由失败"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "Agent名称格式无此强制要求"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "handoff消息应进入消息总线，无需broadcast"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

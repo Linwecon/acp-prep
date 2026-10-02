@@ -1,0 +1,107 @@
+{
+  "new-4-60-0": {
+    "qid": "new-4-60-0",
+    "classification": "own",
+    "chapter": 4,
+    "quality": "ok",
+    "reason": "题目考查Agent核心设计约定，与原文‘要给模型“失败出口”’完全对应。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "要给模型“失败出口”：工具超时、报错时能重试或换方案，而不是整轮崩溃",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "描述正确，但非题干所述问题的根本原因。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "题干描述工具失败后无兜底，直接违反此约定。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "描述正确，但与工具调用失败处理无关。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "描述正确，但题干问题在于失败处理，非执行责任。"
+      }
+    ],
+    "duplicate_of": "4-5155"
+  },
+  "new-4-60-1": {
+    "qid": "new-4-60-1",
+    "classification": "own",
+    "chapter": 4,
+    "quality": "ok",
+    "reason": "题目考查JSON-Schema与参数收集原则，原文有明确对应。",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "参数可以在多轮对话中逐步收集，缺参时Agent应主动追问而不是瞎猜",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "题干描述缺参时未追问，直接违反此原则。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "题干未体现Schema字段名或描述含糊。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "表述错误，模型不执行工具。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "表述错误，工具结果必须由程序回传。"
+      }
+    ],
+    "duplicate_of": "4-5186"
+  },
+  "new-4-60-5": {
+    "qid": "new-4-60-5",
+    "classification": "own",
+    "chapter": 4,
+    "quality": "ok",
+    "reason": "题目考查ReAct循环中工具失败后的标准处理流程。",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "Observation可能含噪声甚至恶意内容（提示注入），模型不能盲目信任外部返回",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "符合ReAct循环：结果回传，由模型决策。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "直接终止，未利用模型决策能力。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "程序自动重试，未将结果回传模型决策。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "忽略结果并调用其他工具，未遵循ReAct循环。"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

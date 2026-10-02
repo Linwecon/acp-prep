@@ -1,0 +1,109 @@
+{
+  "new-6-108-0": {
+    "qid": "new-6-108-0",
+    "classification": "own",
+    "chapter": 6,
+    "quality": "ok",
+    "reason": "题目考察PAI-EAS与ECS自建方案的核心能力差异，符合本章部署形态对比考点。",
+    "answer": [
+      "D"
+    ],
+    "supported": true,
+    "quote": "PAI-EAS（Elastic Algorithm Service）是阿里云PAI平台的模型在线服务，提供弹性扩缩容、蓝绿/灰度发布、资源组管理、版本控制、资源监控等企业级能力。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "ECS自建也可通过脚本实现模型预热，非EAS独有。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "vLLM默认提供OpenAI兼容接口，ECS自建可直接使用。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "SLB负载均衡是ECS自建架构的标准组件，可自行配置。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "蓝绿发布、版本控制与一键回滚是EAS原生企业级能力，ECS需自研。"
+      }
+    ],
+    "duplicate_of": "6-5151"
+  },
+  "new-6-108-2": {
+    "qid": "new-6-108-2",
+    "classification": "own",
+    "chapter": 6,
+    "quality": "ok",
+    "reason": "题目考察函数计算FC的冷启动现象及教材依据，符合本章部署形态边界考点。",
+    "answer": [
+      "A",
+      "B",
+      "D"
+    ],
+    "supported": true,
+    "quote": "函数计算FC（Function Compute）是事件驱动的Serverless计算服务...冷启动延迟：无流量时实例被回收，新请求到来要重新拉起、加载模型，首个响应明显变慢。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "延迟突增且模型加载耗时高，符合教材对FC冷启动的描述。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "原文明确指出无流量时实例被回收，新请求需重新拉起加载模型。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "原文说可通过预留实例/预热缓解，但未承诺完全消除。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "教材指出FC有冷启动，不适合实时性要求高的大模型推理场景。"
+      }
+    ],
+    "duplicate_of": "6-5152"
+  },
+  "new-6-108-3": {
+    "qid": "new-6-108-3",
+    "classification": "own",
+    "chapter": 6,
+    "quality": "ok",
+    "reason": "题目考察量化效果（显存、速度、精度）与教材论断的匹配，符合本章量化考点。",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "量化主要省显存：参数体积成倍缩小，让大模型能放进更小的卡；INT4在敏感任务上可能掉点更明显，需要用业务评测集验证。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "原文支持量化主要省显存，且INT4在敏感任务上精度损失更明显。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "原文指出量化通常加速，但否定了‘必然加速’，需算子支持。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "TTFT不变可能因Prefill计算密集，但原文未断言量化对其无任何影响。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "INT4理论降幅75%，实测58%有差距，原文未验证此比例无异常。"
+      }
+    ],
+    "duplicate_of": "6-5136"
+  }
+}

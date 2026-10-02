@@ -1,0 +1,221 @@
+{
+  "5-1330": {
+    "qid": "5-1330",
+    "classification": "own",
+    "chapter": 5,
+    "quality": "ok",
+    "reason": "考查过拟合的缓解措施，属于本章核心知识点。",
+    "answer": [
+      "A",
+      "B",
+      "C"
+    ],
+    "supported": true,
+    "quote": "过拟合（Overfitting）……对策：提高数据多样性、增加正则（weight decay / dropout）、控制训练轮数",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "增大dropout是增加正则化，可缓解过拟合。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "减少训练轮次可防止模型过度记忆训练数据。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "增加训练数据可提高模型泛化能力。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "提高学习率可能导致训练不稳定，不直接缓解过拟合。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "5-1336": {
+    "qid": "5-1336",
+    "classification": "own",
+    "chapter": 5,
+    "quality": "ok",
+    "reason": "考查训练失败的可能原因，属于训练过程诊断内容。",
+    "answer": [
+      "A",
+      "B"
+    ],
+    "supported": true,
+    "quote": "训练 loss 大幅震荡 | 学习率偏高 / batch 太小导致梯度不稳 | 调低 lr……训练 loss 基本不降 | 数据/模板/模型加载/优化器配置有误",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "学习率过高可能导致loss震荡或不收敛。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "数据与标签无逻辑关联是数据质量问题，导致训练失败。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "训练轮次不足可能导致欠拟合，不直接导致训练失败。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "Dropout率过大可能影响模型学习能力，但非典型失败原因。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "5-1356": {
+    "qid": "5-1356",
+    "classification": "cross",
+    "chapter": -1,
+    "quality": "remove",
+    "reason": "题干表述模糊，选项A、C、D均存在歧义或与常识不符，考查价值低。",
+    "answer": [
+      "C"
+    ],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "表述绝对化，且非本章核心考点。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "此选项本身描述了一种局限性，不符合题干“不包括”。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "模型不能准确回答所有问题，这是其局限性。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "预训练模型学习语言结构也涉及知识，此说法不准确。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "5-1420": {
+    "qid": "5-1420",
+    "classification": "own",
+    "chapter": 5,
+    "quality": "ok",
+    "reason": "考查导致过拟合的具体原因，属于训练过程核心内容。",
+    "answer": [
+      "A",
+      "C",
+      "D"
+    ],
+    "supported": true,
+    "quote": "过拟合（Overfitting）……模型容量大而数据少/重复时……训练轮数过多 → 过拟合",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "训练数据不足易导致模型记忆噪声而过拟合。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "学习率过高可能导致训练不稳定，不直接导致过拟合。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "Dropout率过低意味着正则化弱，可能加剧过拟合。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "训练轮次过多会使模型过度拟合训练数据。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "5-1421": {
+    "qid": "5-1421",
+    "classification": "own",
+    "chapter": 5,
+    "quality": "ok",
+    "reason": "考查微调前的评估维度，符合本章前置评估逻辑。",
+    "answer": [
+      "A",
+      "C",
+      "D"
+    ],
+    "supported": true,
+    "quote": "前置评估（提示词 → RAG → 仍不满足才微调）……准备数据（清洗/去重/格式校验，划分训练/验证/测试）",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "需评估业务需求是否属于微调解决的行为风格问题。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "数据隐私合规性重要，但非本章强调的微调前置评估核心。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "需评估模型规模与可用资源，选择合适微调方法。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "需评估训练数据量是否足够，避免过拟合。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "5-1423": {
+    "qid": "5-1423",
+    "classification": "own",
+    "chapter": 5,
+    "quality": "ok",
+    "reason": "考查微调数据集的质量要求，属于数据准备核心内容。",
+    "answer": [
+      "A",
+      "B",
+      "D"
+    ],
+    "supported": true,
+    "quote": "质量从四个维度把关……正确性……多样性……一致性……无重复",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "数据集需覆盖关键场景以保证多样性。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "样本均衡有助于模型学习，避免偏差。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "仅需少量数据不准确，需足够高质量数据。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "高质量标注是数据正确性的基础。"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

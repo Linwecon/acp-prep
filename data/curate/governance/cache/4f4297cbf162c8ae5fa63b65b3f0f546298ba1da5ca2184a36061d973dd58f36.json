@@ -1,0 +1,212 @@
+{
+  "3-0250": {
+    "qid": "3-0250",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "D项直接对应RAG核心思想'开卷考试'",
+    "answer": [
+      "D"
+    ],
+    "supported": true,
+    "quote": "RAG（Retrieval-Augmented Generation，检索增强生成）的核心思路可以用四个字概括：'开卷考试'。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "解析是建库前置步骤，非增强本身"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "改写属文档预处理，非RAG特有"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "切片是向量化基础，非知识增强"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "召回文段即实现知识增强"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-0251": {
+    "qid": "3-0251",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "检索阶段定义明确为召回相关文本段",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "第二阶段：在线问答（Retrieval & Generation，每次请求都执行）：1. 用户提问；2.（可选）查询改写；3. 问题向量化；4. 检索 Top K",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "生成属第二阶段后半段"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "原文明确定义检索任务"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "RAG不改变训练数据"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "与推理时间无直接关系"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-0253": {
+    "qid": "3-0253",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "结构化格式提升理解是文档解析核心要求",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "文档解析（Document Parsing）是把 PDF、Word、Markdown 等加载并转换为大模型可读文本的过程。它看似简单，却是 RAG 质量的'地基'",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "原文强调结构化重要性"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "RAG不增加训练数据"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "与推理时间无关"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "不改变模型参数"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-0254": {
+    "qid": "3-0254",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "fixable",
+    "reason": "persist方法作用教材未提及，但属LlamaIndex标准API",
+    "answer": [
+      "A"
+    ],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "LlamaIndex中persist即保存索引"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "加载document用SimpleDirectoryReader"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "向量化由Embedding模型完成"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "创建引擎用as_query_engine"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-0257": {
+    "qid": "3-0257",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "滑动窗口即句子窗口检索机制",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "句子窗口检索（Sentence Window Retrieval）：建索引时以'单个句子'为可检索单元，同时在每个句子的元数据里存下它'前后各 N 句'组成的窗口",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "原文明确定义该机制"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "问题改写用于指代消解"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "重排序用于精排候选"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "与训练数据无关"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-0261": {
+    "qid": "3-0261",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "重排序专用于精排过滤无关信息",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "Rerank（重排序）：第一阶段向量检索快速'海选'出较多候选（如 Top 20），第二阶段用更强的重排序模型对候选逐篇精细打分、重新排序",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "原文明确定义其作用"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "问题改写用于语义补全"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "问题扩写非标准术语"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "与训练数据无关"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

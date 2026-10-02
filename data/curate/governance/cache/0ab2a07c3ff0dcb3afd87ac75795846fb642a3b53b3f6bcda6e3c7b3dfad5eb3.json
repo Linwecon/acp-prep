@@ -1,0 +1,107 @@
+{
+  "new-5-6-0": {
+    "qid": "new-5-6-0",
+    "classification": "own",
+    "chapter": 5,
+    "quality": "ok",
+    "reason": "题干明确问题为行为/风格/格式不稳定，且已穷尽提示词与RAG，符合微调前置评估逻辑。",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "微调前置评估：先提示词，再 RAG，最后才微调。只有当提示词和 RAG 都无法满足‘稳定的风格 / 统一的格式 / 一致的领域行为’时，才投入微调。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "未优先评估提示词与RAG，且全参微调非最优先手段。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "题干已说明‘反复优化提示词’，应进入下一阶段。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "符合‘提示词→RAG→微调’顺序，且问题属行为/风格/格式适配。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "知识蒸馏是微调的一种实现，题干未明确成本或推理速度诉求。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-5-6-2": {
+    "qid": "new-5-6-2",
+    "classification": "own",
+    "chapter": 5,
+    "quality": "ok",
+    "reason": "考查过拟合现象与后果，验证loss先降后升是过拟合铁证。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "验证 loss 先降后升 = 过拟合的铁证。模型在‘背题’，泛化能力下降。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "过拟合通常导致泛化能力下降，F1可能下降而非仅合规率变化。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "过拟合导致模型泛化能力恶化，上线后真实表现变差。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "过拟合主要影响模型能力，不直接导致显存错误。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "秩r是超参数，不会自动调整。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-5-6-4": {
+    "qid": "new-5-6-4",
+    "classification": "own",
+    "chapter": 5,
+    "quality": "ok",
+    "reason": "考查根据评测指标定位问题（判断病）并采取针对性改进措施。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "意图识别有遗漏 → 多意图/边界/相似意图样本覆盖不足，应补多意图、易混淆、真实业务边界样本。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "过拟合风险高，且未解决数据覆盖不足的根本问题。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "针对多意图识别遗漏，补充相关训练样本是直接有效方法。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "提升秩可能过拟合，且非针对数据覆盖问题的首选。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "全参微调成本高且可能过拟合，非针对数据问题的直接措施。"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

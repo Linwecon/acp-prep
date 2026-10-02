@@ -1,0 +1,154 @@
+{
+  "items": [
+    {
+      "type": 0,
+      "stem": "某金融合规问答服务要求每次对同一监管条款的解释必须完全一致（如'不得向未成年人销售高风险产品'的释义不能出现措辞漂移），且需通过审计。开发团队发现线上环境偶有输出微小变异（如'禁止' vs '不得'）。经排查，temperature=0.3、top_p=0.95，messages结构正确，模型为qwen-plus。最可能的根本故障原因是什么？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "temperature=0.3仍引入可测量的随机性，未达确定性生成要求"
+        },
+        {
+          "option_label": "B",
+          "option_text": "top_p=0.95扩大了候选集，与temperature叠加导致采样不稳定"
+        },
+        {
+          "option_label": "C",
+          "option_text": "未设置seed参数，分布式推理节点间存在微小浮点差异"
+        },
+        {
+          "option_label": "D",
+          "option_text": "qwen-plus模型本身不支持确定性输出，必须升级至qwen-max"
+        }
+      ],
+      "answer": "A",
+      "analysis": "依据原文9.4节‘temperature的数学含义’：temperature控制softmax分布尖锐程度，T>0即存在概率差，即使T=0.3，高分token间仍有非零概率差，导致多次调用出现‘禁止’/‘不得’等同义词变异；而教材明确指出‘事实查询要低temperature（如0.1）’，并强调‘temperature=0不等于绝对确定’（9.4风险栏），说明T=0.3已超出强一致性场景容忍阈值。B选项错误——原文明确建议‘固定一个、调另一个’，但未将组合视为根本故障源；C选项错误——原文9.4风险栏指出‘固定seed也不能跨版本复现’，但本题未提版本变更，且seed缺失属配置疏漏而非机制性故障；D选项错误——原文9.4选型表明确‘事实问答用qwen-plus’，且9.11故障地图将‘回答前后不一致’直接归因为‘temperature过高’，与模型档位无关。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 0,
+      "stem": "在实现新人答疑机器人的多轮对话时，开发人员观察到：当temperature=0.1、top_p=0.2时，模型对连续追问‘那Jira账号密码怎么重置？’的回答高度重复；但将top_p提升至0.8后，同一问题开始出现‘联系IT支持’‘自助重置链接’‘重置前需验证身份’等不同路径。此现象最能印证原文关于top_p的哪项核心机制？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "top_p通过累积概率截断，改变候选token集合的覆盖范围"
+        },
+        {
+          "option_label": "B",
+          "option_text": "top_p与temperature存在乘法耦合效应，共同放大随机性"
+        },
+        {
+          "option_label": "C",
+          "option_text": "top_p的调节独立于temperature，直接控制输出多样性下限"
+        },
+        {
+          "option_label": "D",
+          "option_text": "top_p值越大，模型越倾向于选择低概率但语义新颖的token"
+        }
+      ],
+      "answer": "A",
+      "analysis": "原文9.4节明确定义：‘top_p（核采样）：把候选按概率从高到低累加，直到累积概率达到p，只在这个“核心集合”内采样’。当top_p=0.2时，仅最高概率的极少数token被允许采样，导致回答僵化；提升至0.8后，更多中等概率token进入候选集（如‘联系IT支持’概率0.15、‘自助重置链接’概率0.12），使模型能在语义合理范围内切换表达路径——这正是‘累积概率截断改变候选集合’的直接体现。B选项错误——原文明确反对‘同时把两个都拉高’，且强调‘固定一个、调另一个’，否定乘法耦合；C选项错误——原文未提‘多样性下限’概念，且top_p降低（非升高）才更保守；D选项错误——原文指出top_p增大是‘允许一定的多样性’，但未声称其偏好‘低概率token’，实际是保留更高累积概率范围内的所有token。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 0,
+      "stem": "某HR系统批量生成500份培训摘要时，为控制成本将temperature设为0，但发现部分摘要出现格式错乱（如JSON结构缺失闭合括号）。运维日志显示该批次TPM配额充足，无429错误。最可能的技术根源是？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "temperature=0触发服务端贪婪解码优化，跳过某些校验逻辑导致结构化输出失效"
+        },
+        {
+          "option_label": "B",
+          "option_text": "低temperature加剧了上下文窗口压力，导致长输入被截断引发解析错误"
+        },
+        {
+          "option_label": "C",
+          "option_text": "temperature=0无法保证结构化输出稳定性，需配合response_format或JSON模式强制约束"
+        },
+        {
+          "option_label": "D",
+          "option_text": "Batch API在temperature=0时禁用缓存，输入token计费激增引发服务降级"
+        }
+      ],
+      "answer": "C",
+      "analysis": "原文9.4节场景化选型表明确指出：‘需程序解析的结构化输出’应配‘temperature 0~0.3 + 低top_p’，但该建议隐含前提——必须通过提示词工程（如‘请严格按JSON格式输出’）或API原生能力（如OpenAI的response_format）双重约束。原文9.4风险栏强调‘temperature=0不等于绝对确定’，且9.11故障地图将‘格式错乱’归因于‘未用结构化输出约束’。A选项无教材依据；B选项错误——错乱是格式问题而非截断，且TPM充足说明未超限；D选项错误——原文9.9未提及temperature影响缓存，且缓存与计费无直接因果。",
+      "difficulty_label": "挑战"
+    },
+    {
+      "type": 1,
+      "stem": "在调试一个代码生成服务时，用户反馈‘同一Python函数签名，有时生成正确代码，有时出现语法错误’。已知当前配置为temperature=0.7、top_p=0.9。根据原文9.4节原理，以下哪些调整可系统性降低语法错误率？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "将temperature降至0.2，保持top_p=0.9不变"
+        },
+        {
+          "option_label": "B",
+          "option_text": "将top_p降至0.3，保持temperature=0.7不变"
+        },
+        {
+          "option_label": "C",
+          "option_text": "同时将temperature和top_p均降至0.1"
+        },
+        {
+          "option_label": "D",
+          "option_text": "添加system message：‘你是一个严谨的Python代码生成器，必须输出可执行的语法正确代码’"
+        }
+      ],
+      "answer": "ABD",
+      "analysis": "原文9.4节明确：‘事实问答、代码生成、信息抽取’任务应使用‘temperature 0~0.3’（A正确）；‘top_p越小越保守’（B正确，0.3比0.9更聚焦高概率token，减少语法错误token入选）；C错误——原文强烈警告‘不能同时把两个都拉高’，虽未明说‘不能同时拉低’，但9.4原则指出‘优先调temperature，必要时再微调top_p’，叠加极端值可能导致过度收敛而丧失必要灵活性，且无教材依据支持；D正确——原文9.5节强调system message设定角色和规则，9.4选型表亦将‘结构化输出’与‘配合JSON模式’并列，提示词约束是降低错误率的基础手段，符合‘用对参数比选对模型更影响效果’的核心论点。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 1,
+      "stem": "某客服对话系统在早高峰出现‘回答前后矛盾’现象（如先确认支持退款，后一轮又说不支持），经监控发现temperature=0.6、top_p=0.85，messages历史完整传递。以下哪些因素可能构成该故障的必要条件？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "temperature值高于事实类任务推荐区间（0~0.3）"
+        },
+        {
+          "option_label": "B",
+          "option_text": "top_p值未同步下调以匹配temperature降低需求"
+        },
+        {
+          "option_label": "C",
+          "option_text": "未启用stream=True导致TTFT过长，用户误操作引发重复提交"
+        },
+        {
+          "option_label": "D",
+          "option_text": "system message中未明确定义‘退款政策’这一核心约束"
+        }
+      ],
+      "answer": "ABD",
+      "analysis": "原文9.11故障地图将‘回答前后不一致’直接归因为‘temperature过高’，且9.4选型表规定事实类任务temperature应为0~0.3，故A是必要条件；B是必要条件——原文9.4指出‘固定一个、调另一个’，当temperature已偏高（0.6），若top_p仍维持0.85（默认值），则双重宽松加剧不一致，符合‘组合约束’考查要求；D是必要条件——原文9.5强调system message设定角色和规则，若未固化政策，模型在随机采样下易漂移，9.4选型表亦将‘事实问答’与‘低temperature’绑定，隐含规则约束前提；C错误——流式影响TTFT，与‘前后矛盾’无因果，原文9.6明确‘流式不改变最终答案质量’。",
+      "difficulty_label": "挑战"
+    },
+    {
+      "type": 0,
+      "stem": "开发团队为法律合同审查工具配置参数：temperature=0.05、top_p=0.1，但测试发现模型对‘不可抗力条款’的解释在不同请求中出现术语不一致（如‘自然灾害’vs‘重大疫情’）。运维确认API Key有效、无400/429错误。最应优先检查的执行顺序环节是？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "检查messages中是否遗漏包含合同全文的user消息"
+        },
+        {
+          "option_label": "B",
+          "option_text": "验证system message是否明确定义‘不可抗力’的法定定义及适用范围"
+        },
+        {
+          "option_label": "C",
+          "option_text": "确认temperature=0.05是否被服务端正确接收（如请求体字段拼写）"
+        },
+        {
+          "option_label": "D",
+          "option_text": "排查客户端是否对响应做了截断或编码转换"
+        }
+      ],
+      "answer": "B",
+      "analysis": "原文9.4节‘场景化选型建议’强调：‘事实问答’需低temperature，但该建议成立的前提是‘上下文充分’。原文9.5节指出‘多轮对话答非所问’首查‘历史消息有没有完整放进messages’，而本题已确认无400错误，说明messages结构合法。关键在于：temperature和top_p只能约束采样过程，无法弥补知识缺口——若system message未提供法定定义，模型只能依赖自身参数化知识，在低随机性下仍会稳定输出其认知中的‘标准答案’，导致术语不一致。原文9.5示例中‘公司小蜜’的system message明确限定角色和任务范围，印证了规则定义的前置必要性。A选项错误——题干未提合同文本缺失；C选项属基础排错，但原文9.11故障地图将‘参数错误’列为400错误，而题干已排除；D选项无教材依据。",
+      "difficulty_label": "进阶"
+    }
+  ]
+}

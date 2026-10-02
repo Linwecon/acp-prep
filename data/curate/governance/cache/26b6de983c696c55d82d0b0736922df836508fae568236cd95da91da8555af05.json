@@ -1,0 +1,234 @@
+{
+  "5-0777": {
+    "qid": "5-0777",
+    "classification": "beyond",
+    "chapter": 5,
+    "quality": "remove",
+    "reason": "版权与内容重复属AI安全与合规（章8）或内容生成实践，本章未覆盖",
+    "answer": [],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "本章未提训练数据清洗"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "本章未提抄袭检测工具"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "本章未提原创性指令"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "本章未提多源综合创作"
+      },
+      {
+        "label": "E",
+        "selected": false,
+        "why": "本章未提事实性内容限制"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "5-0848": {
+    "qid": "5-0848",
+    "classification": "own",
+    "chapter": 5,
+    "quality": "ok",
+    "reason": "考查微调实操中数据格式要求，原文明确强调JSONL/messages格式",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "ms-swift 要求每条样本是一个 `messages` 数组，按 `system / user / assistant` 三个角色组织一轮对话",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "原文支持私有数据微调"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "原文提及部署小模型到高频链路"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "原文强制JSONL/messages格式"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "原文明确LoRA属PEFT"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "5-0862": {
+    "qid": "5-0862",
+    "classification": "own",
+    "chapter": 5,
+    "quality": "ok",
+    "reason": "PEFT定义在5.3节，明确列出LoRA/Prefix Tuning/Adapters/P-Tuning",
+    "answer": [
+      "A",
+      "B",
+      "D",
+      "E"
+    ],
+    "supported": true,
+    "quote": "PEFT（Parameter-Efficient Fine-Tuning，参数高效微调）是 LoRA、Prefix Tuning 等'只更新极少参数'方法的总称",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "原文明确定义为PEFT"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "原文列为PEFT代表方法"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "原文明确全参微调不属于PEFT"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "P-Tuning属PEFT范畴"
+      },
+      {
+        "label": "E",
+        "selected": true,
+        "why": "Adapters属PEFT代表方法"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "5-0892": {
+    "qid": "5-0892",
+    "classification": "own",
+    "chapter": 5,
+    "quality": "ok",
+    "reason": "考查PEFT对比细节，原文指出LoRA可缓解但非绝对避免灾难性遗忘",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "LoRA 扰动小，有助于缓解灾难性遗忘",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "原文称LoRA显存省、成本低"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "原文说'有助于缓解'而非'有效避免'"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "原文称LoRA训练快、显存省"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "原文称LoRA只训约0.4%参数"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "5-0930": {
+    "qid": "5-0930",
+    "classification": "own",
+    "chapter": 5,
+    "quality": "ok",
+    "reason": "所有选项均被5.5-5.7节覆盖：lr调参、验证集防过拟合、质量>数量、PEFT资源优势",
+    "answer": [
+      "A",
+      "B",
+      "D",
+      "E"
+    ],
+    "supported": true,
+    "quote": "学习率（lr）是每次参数更新的步长；验证 loss 先降后升 = 过拟合；数据质量 > 数据数量；全参微调要训100%参数，LoRA约0.4%",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "原文称lr需精心调整"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "原文称验证集监控过拟合"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "原文未断言'只需很少epochs'"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "原文强调质量>数量"
+      },
+      {
+        "label": "E",
+        "selected": true,
+        "why": "原文对比全参vs LoRA资源消耗"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "5-1067": {
+    "qid": "5-1067",
+    "classification": "own",
+    "chapter": 5,
+    "quality": "ok",
+    "reason": "欠拟合应对措施在5.7节明确：增数据、增epoch、增rank、调lr",
+    "answer": [
+      "A",
+      "B",
+      "C",
+      "D"
+    ],
+    "supported": true,
+    "quote": "欠拟合：还在学，可继续训练；r越大表达越强；lr太大震荡小慢；数据少时全参易过拟合，LoRA更稳",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "原文称数据多样性不足致欠拟合"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "原文称epoch过少导致欠拟合"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "原文称r越大容量越大"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "原文称lr太小导致收敛慢"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

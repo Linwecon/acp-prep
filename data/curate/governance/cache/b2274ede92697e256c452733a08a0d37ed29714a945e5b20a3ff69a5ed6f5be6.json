@@ -1,0 +1,212 @@
+{
+  "5-0007": {
+    "qid": "5-0007",
+    "classification": "own",
+    "chapter": 5,
+    "quality": "ok",
+    "reason": "考查微调核心适用场景，原文明确'微调解决行为适配而非知识更新'",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "微调（Fine-tuning）：在已经预训练好的模型权重基础上，用一批\"指令—回答\"样本继续做梯度下降，让模型在特定任务上的输出行为（风格、格式、领域表达）更稳定、更贴合业务。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "实时信息需RAG，微调不能更新知识截止时间"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "微调专精任务行为适配，原文定义明确"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "快速响应属部署优化，非微调目标"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "UI操作属Agent范畴，非微调解决"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "5-0047": {
+    "qid": "5-0047",
+    "classification": "own",
+    "chapter": 5,
+    "quality": "ok",
+    "reason": "考查RAG与微调互补性，原文强调'既需实时知识又要统一风格→RAG+微调'",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "既需实时知识又要统一风格 → RAG + 微调；二者互补：RAG 注知识，微调管风格",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "降低秩+提学习率会加剧过拟合"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "相似度阈值属RAG参数，非幻觉根因"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "幻觉根因含无私域知识，需RAG补知识+LoRA稳风格"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "全参微调易灾难性遗忘，不优先选"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "5-0048": {
+    "qid": "5-0048",
+    "classification": "own",
+    "chapter": 5,
+    "quality": "ok",
+    "reason": "考查早停法目的，原文明确'验证loss先降后升=过拟合铁证'",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "验证 loss 先降后升 = 过拟合的铁证，应回退到验证 loss 最低的 checkpoint",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "欠拟合对应loss不降，非早停原因"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "学习率小导致收敛慢，非早停目标"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "早停专防过拟合，原文明确标注"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "eval_step过大影响监控，非过拟合主因"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "5-0050": {
+    "qid": "5-0050",
+    "classification": "own",
+    "chapter": 5,
+    "quality": "ok",
+    "reason": "考查学习率影响，原文指出'lr太大→震荡/不收敛甚至loss飙升'",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "太大 → 震荡/不收敛甚至 loss 飙升；太小 → 收敛极慢",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "原文明确学习率过大会震荡"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "参数更新不足是学习率过小表现"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "收敛慢是学习率过小后果"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "迭代次数多是学习率过小导致"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "5-0120": {
+    "qid": "5-0120",
+    "classification": "own",
+    "chapter": 5,
+    "quality": "ok",
+    "reason": "考查大模型直接处理能力，文档审查属LLM原生能力，无需额外技术",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "LLM本质是概率性文本生成器",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "文档审查是文本理解基础任务"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "内部知识需RAG增强"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "增加训练数据属数据工程，非输入任务"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "减少推理时间属部署优化范畴"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "5-0148": {
+    "qid": "5-0148",
+    "classification": "own",
+    "chapter": 5,
+    "quality": "ok",
+    "reason": "考查私域知识接入方式，原文强调'知识时效与可溯源交给RAG'",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "知识时效与可溯源交给 RAG。把制度条文写进参数，制度一变就得重训，又慢又难溯源",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "微调不解决知识时效问题"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "训练新模型成本极高，非简便方案"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "提示词传递知识最简便，但仅限简单场景"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "默认模型无私域知识"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

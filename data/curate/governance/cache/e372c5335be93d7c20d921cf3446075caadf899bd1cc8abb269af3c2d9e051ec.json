@@ -1,0 +1,72 @@
+{
+  "new-4-24-0": {
+    "qid": "new-4-24-0",
+    "classification": "own",
+    "chapter": 4,
+    "quality": "ok",
+    "reason": "考查Function Calling流程中工具结果回传的关键步骤",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "结果必须以 `role=\"tool\"` 回传。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "题干已说明模型输出了tool_calls"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "执行后未回传结果才会报错"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "工具结果未以正确格式回传导致模型无下文"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "Schema问题通常导致参数提取错误"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-4-24-2": {
+    "qid": "new-4-24-2",
+    "classification": "own",
+    "chapter": 4,
+    "quality": "ok",
+    "reason": "考查多Agent设计原则中的职责边界",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "明确职责：每个 Agent 有清晰、不重叠的职责边界",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "账单Agent越权调用技术工具"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "题干未涉及凭据共用问题"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "题干未涉及调度机制"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "题干未涉及知识注入问题"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

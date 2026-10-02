@@ -1,0 +1,215 @@
+{
+  "9-0492": {
+    "qid": "9-0492",
+    "classification": "own",
+    "chapter": 9,
+    "quality": "ok",
+    "reason": "考查核心参数temperature和top_p对生成随机性的影响，属于本章重点。",
+    "answer": [
+      "A",
+      "B"
+    ],
+    "supported": true,
+    "quote": "temperature 控制随机性，越高越发散；top_p 核采样：只从累积概率达 p 的候选中采样",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "temperature直接控制输出随机性。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "top_p通过核采样影响随机性。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "learning_rate是训练参数，与API生成无关。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "batch_size是训练参数，与API生成无关。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "9-0519": {
+    "qid": "9-0519",
+    "classification": "own",
+    "chapter": 9,
+    "quality": "fixable",
+    "reason": "考查影响多样性的参数，但presence_penalty教材未提及，选项C无依据。",
+    "answer": [
+      "A"
+    ],
+    "supported": false,
+    "quote": "temperature 控制随机性，越高越发散；top_p 核采样：只从累积概率达 p 的候选中采样",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "temperature越高，输出越多样。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "max_tokens限制长度，不直接影响多样性。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "presence_penalty教材未提及，无依据。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "seed用于复现，不增加多样性。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "9-0530": {
+    "qid": "9-0530",
+    "classification": "own",
+    "chapter": 9,
+    "quality": "fixable",
+    "reason": "考查创造性文本的参数设置，但presence_penalty教材未提及，选项C无依据。",
+    "answer": [
+      "A"
+    ],
+    "supported": false,
+    "quote": "temperature 控制随机性，越高越发散；top_p 核采样：只从累积概率达 p 的候选中采样",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "提高temperature可增加创造性。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "增加max_tokens只延长文本，不直接增加创造性。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "presence_penalty教材未提及，无依据。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "固定seed用于复现，不增加创造性。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "9-0558": {
+    "qid": "9-0558",
+    "classification": "own",
+    "chapter": 9,
+    "quality": "ok",
+    "reason": "考查temperature参数在不同场景下的合理设置建议，符合教材内容。",
+    "answer": [
+      "A",
+      "B"
+    ],
+    "supported": true,
+    "quote": "事实类任务要稳定，应调低 temperature（如调到 0~0.3）；文案、头脑风暴、起名要多样性，temperature 0.8 ~ 1.2",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "明确答案场景需低temperature以求稳定。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "创意多样化情景需高temperature增加发散。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "并非所有场景都适合默认值。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "随机设置温度值不合理。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "9-0565": {
+    "qid": "9-0565",
+    "classification": "own",
+    "chapter": 9,
+    "quality": "ok",
+    "reason": "考查top_p参数在不同场景下的合理设置建议，符合教材调参逻辑。",
+    "answer": [
+      "A",
+      "B"
+    ],
+    "supported": true,
+    "quote": "top_p 核采样：只从累积概率达 p 的候选中采样；越小越保守",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "高top_p值在创意场景增加多样性。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "低top_p值在明确场景保证输出稳定。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "并非所有场景都适合默认值。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "随机设置top_p值不合理。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "9-0771": {
+    "qid": "9-0771",
+    "classification": "own",
+    "chapter": 9,
+    "quality": "ok",
+    "reason": "考查控制API调用成本的措施，max_tokens限制输出长度直接减少输出Token计费。",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "一次调用的费用 = 输入 Token 单价 × 输入 Token 数 + 输出 Token 单价 × 输出 Token 数；合理设置 max_tokens，避免模型“刹不住”",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "增加输入长度会提高输入Token成本。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "选用更高精度模型通常单价更高。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "限制输出长度直接减少更贵的输出Token数。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "提高并发量可能触发限流，不直接控成本。"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

@@ -1,0 +1,154 @@
+{
+  "items": [
+    {
+      "type": 0,
+      "stem": "某教育公司调试新人答疑机器人时发现：对同一system prompt和user query（'我们公司项目管理应该用什么工具？'），在Qwen-Max上tokenize后为42个Token，而在本地部署的Qwen2.5-7B上tokenize后为51个Token。两次调用均未超窗、参数一致、输出语义相同。该现象最根本的技术原因是什么？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "Qwen-Max使用RoPE位置编码，Qwen2.5-7B使用绝对位置编码，导致分词器对空格处理不同"
+        },
+        {
+          "option_label": "B",
+          "option_text": "不同模型采用独立构建的词表（vocabulary），BPE子词切分策略和合并频次不同，导致同一文本切分结果不同"
+        },
+        {
+          "option_label": "C",
+          "option_text": "temperature=0.7使Qwen-Max采样更集中，间接影响分词器前向传播路径"
+        },
+        {
+          "option_label": "D",
+          "option_text": "top_p=0.8在推理阶段动态截断logits，改变了输入token的embedding维度，进而影响分词长度"
+        }
+      ],
+      "answer": "B",
+      "analysis": "依据原文1.5节《Token与分词》明确指出：'同一段文字在不同模型上Token数可能不同，因为词表不同'；并强调'BPE等子词算法构建词表'，其核心是'反复合并出现频率最高的相邻片段'，故词表构建具有模型特异性。选项A错误——位置编码不影响分词（分词发生在Embedding之前，见1.3五阶段流程）；选项C、D错误——temperature和top_p作用于第四阶段（解码/自回归），完全不参与第一阶段（分词）和第二阶段（Embedding），无法反向影响Token数量。本题聚焦top_p/top_k相关知识点的**必要条件边界**：二者仅作用于softmax后的概率分布裁剪，与分词无任何因果关系，从而排除干扰项。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 0,
+      "stem": "开发团队为客服机器人配置流式输出（stream=True）后，监控发现首字延迟降低但整体响应时间未变。此时若将temperature从0.7降至0.1，最可能观察到的现象是？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "首字延迟进一步缩短，且生成总耗时显著下降"
+        },
+        {
+          "option_label": "B",
+          "option_text": "首字延迟基本不变，但输出内容稳定性大幅提升，重复调用结果高度一致"
+        },
+        {
+          "option_label": "C",
+          "option_text": "首字延迟略微增加，因低temperature需更多计算校验概率峰值"
+        },
+        {
+          "option_label": "D",
+          "option_text": "整体响应时间缩短，因top_p自动被系统设为0.3以配合低temperature"
+        }
+      ],
+      "answer": "B",
+      "analysis": "依据原文1.7.4调参建议：'事实问答/结构化抽取应调低temperature+低top_p，追求稳定可复现'；且1.7.1明确temperature作用是'调节概率分布陡峭程度'，T越小则高概率Token占比越高，采样确定性越强。流式输出只改变传输方式（1.9节），不影响推理过程，故首字延迟由第一Token生成速度决定，而temperature主要影响采样随机性而非单步前向计算耗时（Transformer推理耗时主要取决于层数/序列长，非采样策略）。选项A、C、D均违背原文：A错在temperature不加速计算（见1.7.4风险提示'调高temperature不能让模型更聪明'）；C错在无'校验峰值'计算开销（采样是轻量级操作）；D错在top_p不会被系统自动重设（参数相互独立，见1.7.4'不要同时大改temperature和top_p'）。本题考查temperature与top_p的**组合约束独立性**——二者可单独调节，无隐式耦合。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 0,
+      "stem": "某团队调试RAG系统时发现：当检索到3段高度相关的技术文档片段（共1200 Token）并拼入messages后，模型对'如何配置Qwen-Max的top_p参数'的回答开始出现事实性错误，且响应延迟显著增加。最可能的根本原因是？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "top_p参数在长上下文中被自动缩放，导致候选集过大，引入噪声Token干扰注意力机制"
+        },
+        {
+          "option_label": "B",
+          "option_text": "过长的无关上下文稀释了关键信息的注意力权重，触发'Lost in the Middle'现象，使模型忽略RAG提供的准确参数说明"
+        },
+        {
+          "option_label": "C",
+          "option_text": "top_p=0.8与temperature=0.7组合在长输入下导致softmax数值溢出，引发概率分布畸变"
+        },
+        {
+          "option_label": "D",
+          "option_text": "RAG检索片段中包含'config top_p=0.95'字样，top_p采样机制强制模型优先选择该数值，覆盖用户真实意图"
+        }
+      ],
+      "answer": "B",
+      "analysis": "依据原文1.6节《上下文窗口》明确指出：'过长的无关上下文会稀释注意力、引入噪声（\"Lost in the Middle\"现象）'；且1.7.2强调top_p/top_k仅作用于'下一个Token的概率分布'，不修改输入表示或注意力权重。选项A错误——top_p无'自动缩放'机制（取值范围恒为(0,1]，见1.7.4速查表）；选项C错误——现代推理框架已解决softmax溢出问题，且原文未提及其与上下文长度的关联；选项D错误——top_p是采样策略，不解析文本语义，更不会'强制选择某数值'（它只从当前logits分布中按概率选Token）。本题直击top_p/top_k的**执行顺序本质**：二者仅在第四阶段（解码）生效，而'Lost in the Middle'是第三阶段（Transformer推理）中注意力机制对长输入的固有缺陷，凸显解码策略无法修复上游表示缺陷。",
+      "difficulty_label": "挑战"
+    },
+    {
+      "type": 1,
+      "stem": "以下关于top_p与top_k解码策略的描述中，哪些符合教材原文的严格定义？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "top_p的候选集大小是动态的，取决于概率分布的累积和达到p阈值所需的最小Token数"
+        },
+        {
+          "option_label": "B",
+          "option_text": "top_k必须与temperature联合使用，否则无法生成有效Token"
+        },
+        {
+          "option_label": "C",
+          "option_text": "当top_p=1.0时，等价于在完整词表上进行均匀随机采样"
+        },
+        {
+          "option_label": "D",
+          "option_text": "top_k=1时的行为近似贪婪解码（greedy decoding），即每次选择概率最高的Token"
+        }
+      ],
+      "answer": "AD",
+      "analysis": "依据原文1.7.2：'top_p（核采样）...在\"累计概率达到p\"的最小集合里采样，候选集大小动态变化' → A正确；'top_k：固定只保留概率最高的k个Token'，且1.7.1指出temperature=0时近似贪婪解码，而top_k=1直接限定唯一候选，自然实现贪婪效果 → D正确。B错误——top_k可独立使用（如原文示例未提temperature）；C错误——top_p=1.0时在全部正概率Token上按原始分布采样（非均匀），均匀采样需temperature→∞（见1.7.1公式），且原文明确top_p∈(0,1]，1.0是合法上限但非均匀。本题考查**必要条件与数学定义的精确对应**，排除常见误解（如混淆top_p=1与uniform sampling）。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 1,
+      "stem": "某教育公司上线新人答疑机器人后，用户反复提问'我们项目管理用什么工具'，模型在三次调用中分别返回'Jira'、'Microsoft Project'、'Asana'。所有请求均使用默认参数（temperature=0.7, top_p=0.8），且messages结构完整包含system提示和当前user问题。以下哪些因素可能是导致该现象的技术根源？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "seed参数未显式设置，导致每次调用使用不同随机种子，引发采样结果差异"
+        },
+        {
+          "option_label": "B",
+          "option_text": "top_p=0.8在概率分布[0.5,0.24,0.12,0.09,0.05]中截取前两个Token（累计0.74），使'Jira'与'Microsoft Project'均在候选集内"
+        },
+        {
+          "option_label": "C",
+          "option_text": "temperature=0.7使原始logits分布平滑化，扩大了中低概率Token（如'Asana'）被选中的机会"
+        },
+        {
+          "option_label": "D",
+          "option_text": "模型在训练阶段未见过该公司内部政策，导致top_p采样从互联网先验分布中随机选取看似合理的答案"
+        }
+      ],
+      "answer": "ABCD",
+      "analysis": "A正确——原文1.7.3明确'seed用于尽力复现，未设置则每次随机'；B正确——依据1.7.2示例，top_p=0.8在给定分布中覆盖前两个Token（0.5+0.24=0.74<0.8），'Jira'和'Microsoft Project'均属候选；C正确——1.7.1指出T=0.7使分布'趋平衡'，提升中概率Token采样率；D正确——贯穿案例（1.1节）及1.2节'幻觉'定义指出：模型'按概率续写互联网常识'，而top_p正是从该幻觉分布中采样的机制。四者共同构成'同一输入不同输出'的完整技术链：D是根源（知识缺失），A/B/C是放大器（采样随机性）。本题考查**故障诊断的多因耦合**，避免单一归因陷阱。",
+      "difficulty_label": "挑战"
+    },
+    {
+      "type": 0,
+      "stem": "测试工程师发现：当向模型发送'计算12345×6789'时，不同temperature设置下结果稳定性差异显著。temperature=0.1时90%返回正确结果，temperature=1.5时正确率降至35%。这一现象最能印证教材中关于LLM的哪一根本特性？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "LLM是概率性文本生成器，不擅精确计算——temperature仅调控采样随机性，无法修复符号运算缺陷"
+        },
+        {
+          "option_label": "B",
+          "option_text": "top_p参数在高温下自动失效，导致模型退化为暴力穷举词表"
+        },
+        {
+          "option_label": "C",
+          "option_text": "temperature=1.5超出Qwen系列[0,2)取值范围，触发推理引擎降级模式"
+        },
+        {
+          "option_label": "D",
+          "option_text": "长数字乘法需超过8K上下文窗口，temperature升高加剧截断效应"
+        }
+      ],
+      "answer": "A",
+      "analysis": "依据原文1.2节'不擅精确计算'明确指出：'它不是按竖式一步步算，而是在猜下一个数字/符号'；1.7.4风险提示'调高temperature不能让模型更聪明'；且1.7.1强调temperature只改变'概率分布陡峭度'。现象本质是：低temperature迫使模型聚焦高概率数字Token（如正确乘积的各位），高温则让错误数字（进位错误、错位等）获得可观概率。选项B错误——top_p无'自动失效'机制（见1.7.2定义）；C错误——1.7.4速查表明确temperature∈[0,2)，1.5合法；D错误——该计算无需长上下文（输入仅15字符，远低于窗口）。本题直指top_p/top_k的**能力边界不可逾越性**：解码策略只能优化'从分布中选'，无法改变'分布本身错误'这一根本缺陷。",
+      "difficulty_label": "进阶"
+    }
+  ]
+}

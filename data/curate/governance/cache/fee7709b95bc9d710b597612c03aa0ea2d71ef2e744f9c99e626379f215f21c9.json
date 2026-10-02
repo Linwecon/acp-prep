@@ -1,0 +1,215 @@
+{
+  "new-7-120-0": {
+    "qid": "new-7-120-0",
+    "classification": "own",
+    "chapter": 7,
+    "quality": "ok",
+    "reason": "考查RAGAS指标定位与优化顺序，检索端Precision低是根本原因",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "检索指标都好（Recall、Precision 高），但 Faithfulness / Correctness 低 → 问题在生成阶段",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "检索Precision低导致模型注意力被噪声稀释，仅优化生成端无法根除幻觉"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "Precision低时，关键信息被噪声淹没，仅靠提示词约束难以显著提升Correctness"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "Context Precision是检索端指标，模型生成行为不会改变其值"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "题干已说明Faithfulness和Correctness已因低Precision而降低，但A更具体描述了根本后果"
+      }
+    ],
+    "duplicate_of": "7-5083"
+  },
+  "new-7-120-1": {
+    "qid": "new-7-120-1",
+    "classification": "own",
+    "chapter": 7,
+    "quality": "ok",
+    "reason": "考查Faithfulness与Answer Correctness的辨析，需结合指标定义",
+    "answer": [
+      "A",
+      "C",
+      "D"
+    ],
+    "supported": true,
+    "quote": "前者问'答案里的每句话能不能从检索资料里推出来'，后者问'答案和标准答案是否一致'",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "contexts信息不全但answer忠实，Faithfulness高；答案与完整ground_truth不符，Correctness低"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "answer与contexts矛盾，Faithfulness低，不符合'高Faithfulness'前提"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "answer忠实复述contexts，Faithfulness高；但与更详细的ground_truth不一致，Correctness低"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "answer忠实复述错误contexts，Faithfulness高；但与正确ground_truth冲突，Correctness低"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-7-120-2": {
+    "qid": "new-7-120-2",
+    "classification": "own",
+    "chapter": 7,
+    "quality": "ok",
+    "reason": "考查Answer Correctness公式分解与故障定位",
+    "answer": [
+      "D"
+    ],
+    "supported": true,
+    "quote": "Answer Correctness = 0.25 × 语义相似度 + 0.75 × 事实准确度",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "计算方式固定，无需优化；故障在于输入数据或模型表现"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "题干未提及性能指标，且与Correctness得分无直接关系"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "业务指标受损是结果，但题干要求定位'根本的定位层级'，算法层缺陷是直接原因"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "事实F1极低而语义相似度高，说明生成答案事实错误，是算法层生成环节缺陷"
+      }
+    ],
+    "duplicate_of": "7-5082"
+  },
+  "new-7-120-3": {
+    "qid": "new-7-120-3",
+    "classification": "own",
+    "chapter": 7,
+    "quality": "fixable",
+    "reason": "题干问'Faithfulness指标失效的必要条件'，但选项均非教材明确列出的该指标计算前提",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "Faithfulness：答案是否忠于检索资料，有没有脱离资料编造（幻觉）",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "contexts缺失则无法判断答案是否忠于资料，指标失效"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "question来源影响评测集真实性，但不是Faithfulness计算的必要条件"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "answer收集方式影响可比性，但不是Faithfulness计算的直接前提"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "评委LLM版本影响分数稳定性，但不是Faithfulness指标失效的必要条件"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-7-120-4": {
+    "qid": "new-7-120-4",
+    "classification": "own",
+    "chapter": 7,
+    "quality": "ok",
+    "reason": "考查根据Faithfulness低的现象，结合上下文定位检索端问题的能力",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "Context Precision 低（Recall 高） → 找回来了但噪声多、排得靠后 → 加 Rerank",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "应先诊断确认问题根源，而非直接优化生成端"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "无关文档前置是典型检索排序问题，应优先核查Context Precision指标确认"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "题干已说明answer陈述能在contexts中找到依据，与ground_truth准确性无关"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "可辅助定位，但非最优先的诊断动作；应先看现有RAGAS指标"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-7-120-5": {
+    "qid": "new-7-120-5",
+    "classification": "own",
+    "chapter": 7,
+    "quality": "ok",
+    "reason": "考查RAGAS各指标计算所需的输入字段",
+    "answer": [
+      "A",
+      "B"
+    ],
+    "supported": true,
+    "quote": "Faithfulness 用 question/answer/contexts；Answer Correctness 用 question/answer/ground_truth",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "计算Faithfulness不需要ground_truth，违反字段组合"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "计算Answer Correctness需要ground_truth而非contexts，违反字段组合"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "计算Context Recall需要question、ground_truth、contexts，符合规定"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "计算Faithfulness理论上可只用answer和contexts，但通常也需question，不绝对违反"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

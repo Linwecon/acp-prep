@@ -1,0 +1,44 @@
+{
+  "new-8-6-3": {
+    "qid": "new-8-6-3",
+    "classification": "own",
+    "chapter": 8,
+    "quality": "ok",
+    "reason": "题干明确指向教材8.8节'双保险'机制，原文定义清晰。",
+    "answer": [
+      "A",
+      "B",
+      "D"
+    ],
+    "supported": true,
+    "quote": "官方教程把知识库防护明确分成两道防线：第一道：访问控制（应用层）；第二道：双重加密（数据层）",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "符合'访问控制（应用层）'要求"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "符合'文本内容加密'要求"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "原文明确反对该做法"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "符合'向量加密'要求"
+      },
+      {
+        "label": "E",
+        "selected": false,
+        "why": "RAM权限属云安全层，非双保险"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

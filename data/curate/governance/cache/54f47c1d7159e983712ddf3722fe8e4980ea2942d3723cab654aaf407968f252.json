@@ -1,0 +1,238 @@
+{
+  "3-0566": {
+    "qid": "3-0566",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "考查RAG评估指标Context Precision的优化措施，与教材内容一致。",
+    "answer": [
+      "A",
+      "C",
+      "D"
+    ],
+    "supported": true,
+    "quote": "Context Precision 低分说明：无关内容排前面，加 Rerank。检索质量差的三大根因：① Embedding 模型不够好 ② 切片策略不当 ③ 文档格式丢失了结构信息。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "加Rerank可提升相关片段排名，提高Context Precision。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "检查知识库主要针对Context Recall低的问题。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "更换更好的Embedding模型是提升检索质量的根本措施。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "查询改写可改善问题表述，提升检索相关性。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-0570": {
+    "qid": "3-0570",
+    "classification": "cross",
+    "chapter": -1,
+    "quality": "remove",
+    "reason": "考查特定框架（如LangChain）的类参数细节，无考查价值且教材未提及。",
+    "answer": [],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "教材未提及OpenAIEmbedding类及其参数。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "教材未提及OpenAIEmbedding类及其参数。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "教材未提及OpenAIEmbedding类及其参数。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "similarity_top_k是检索参数，非Embedding类参数。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-0572": {
+    "qid": "3-0572",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "考查RAG离线建库（索引阶段）的核心步骤，与教材内容一致。",
+    "answer": [
+      "A",
+      "B",
+      "C"
+    ],
+    "supported": true,
+    "quote": "第一阶段：离线建库（Indexing，一次做好、多次复用）1.文档解析 2.文本切片（Chunking） 3.向量化：用 Embedding 模型把每个 chunk 转成一串数字（向量） 4.入库",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "将文件内容分割并转化为多维向量是切片和向量化步骤。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "使用专用Embedding模型进行向量化是核心步骤。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "结合向量存储保留文本的语义信息是入库步骤。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "增加训练数据属于微调范畴，非RAG建库步骤。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-0651": {
+    "qid": "3-0651",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "考查文档切片方法的优化思路，与教材切片策略内容相关。",
+    "answer": [
+      "B",
+      "C",
+      "E"
+    ],
+    "supported": true,
+    "quote": "Markdown 切片：按标题层级（`#`/`##`/`###`）切。切片选型与排错经验：文档有标题层级→优先 Markdown 切片。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "合并成大文件违反切片原则，会稀释语义、混入噪声。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "按Markdown结构切片可保留文档原始结构，是推荐策略。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "为独立内容补充语义信息有助于提升检索质量。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "等长切片易切断语义，非有效优化思路。"
+      },
+      {
+        "label": "E",
+        "selected": true,
+        "why": "根据用户提问习惯切片是考虑检索需求的工程实践。"
+      },
+      {
+        "label": "F",
+        "selected": false,
+        "why": "使用复杂解析器属于文档解析阶段，非切片方法优化。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-0654": {
+    "qid": "3-0654",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "考查RAG在特定场景（法律咨询）的合理技术方案，涉及RAG选型。",
+    "answer": [
+      "A",
+      "B",
+      "C",
+      "D",
+      "E"
+    ],
+    "supported": true,
+    "quote": "RAG典型场景：制度问答、知识库（内容常变）。微调典型场景：固定客服话术、领域语气。提示词约束：用模板明确告诉模型角色与规则。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "采用RAG接入法律条文库和案例库可解决知识获取问题。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "对通用大模型进行法律领域微调可适配领域风格和行为。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "在提示词中明确要求引用条文是生成阶段的约束手段。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "设置免责声明是AI安全与合规的合理措施。"
+      },
+      {
+        "label": "E",
+        "selected": true,
+        "why": "建立人工审核机制是保障输出质量的重要工程实践。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-0747": {
+    "qid": "3-0747",
+    "classification": "cross",
+    "chapter": -1,
+    "quality": "remove",
+    "reason": "考查术语一致性保障的工程方法组合，属于通用工程实践，无明确RAG考点。",
+    "answer": [],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "教材未提及构建术语库并在生成中强制使用。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "教材未提及使用统一文档模板确保术语一致性。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "事后人工检查是通用方法，非RAG特定考点。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "实现检查工具是工程实践，教材未提及。"
+      },
+      {
+        "label": "E",
+        "selected": false,
+        "why": "依赖模型术语管理能力不符合RAG增强知识的原则。"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

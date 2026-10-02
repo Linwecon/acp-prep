@@ -1,0 +1,249 @@
+{
+  "2-0759": {
+    "qid": "2-0759",
+    "classification": "own",
+    "chapter": 2,
+    "quality": "ok",
+    "reason": "考查提示工程中思维链、引用来源等确保结果准确可解释的措施。",
+    "answer": [
+      "A",
+      "C",
+      "D"
+    ],
+    "supported": true,
+    "quote": "思维链（Chain-of-Thought, CoT）：引导模型在给出最终答案前，显式输出中间推理步骤",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "思维链要求展示过程，提升可解释性。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "RAG属于知识更新，非本章核心考点。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "验证机制是确保准确性的工程实践。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "要求引用来源增强结果可信度。"
+      },
+      {
+        "label": "E",
+        "selected": false,
+        "why": "不关心中间过程违背可解释性要求。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "2-0801": {
+    "qid": "2-0801",
+    "classification": "cross",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "主要考查RAG接入权威知识库确保回答可靠性，属于RAG核心思想。",
+    "answer": [
+      "A",
+      "B",
+      "C"
+    ],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "RAG接入权威数据库是确保可靠性的核心。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "提示词约束仅基于指南，防止编造。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "少量样本提示（Few-shot）可对齐格式。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "免责声明是安全合规，非可靠性核心。"
+      },
+      {
+        "label": "E",
+        "selected": false,
+        "why": "直接基于通用知识违背可靠性要求。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "2-0998": {
+    "qid": "2-0998",
+    "classification": "own",
+    "chapter": 2,
+    "quality": "ok",
+    "reason": "考查通过提示词优化（角色定义、分步指令）低成本解决输出不全面的问题。",
+    "answer": [
+      "C",
+      "D"
+    ],
+    "supported": true,
+    "quote": "角色激活模型在训练中见过的角色模式；CoT把复杂问题分解为若干子问题逐步求解",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "增加训练数据属于微调，成本高。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "特定格式（如紫色字体）无助于解决遗漏内容。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "明确角色定义可引导模型聚焦关键信息。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "分步摘要标记是思维链的应用，提升全面性。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "2-1091": {
+    "qid": "2-1091",
+    "classification": "own",
+    "chapter": 2,
+    "quality": "ok",
+    "reason": "考查通过提示词设计（明确多方向）和temperature调节来平衡多样性。",
+    "answer": [
+      "B",
+      "D"
+    ],
+    "supported": true,
+    "quote": "temperature调节输出确定性；提示词给得越清晰、约束越明确，正确答案的概率分布就越集中",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "模糊指令易导致输出跑偏。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "提示词明确多方向可引导多样性。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "top_p=0.1限制词汇选择，反降低多样性。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "调高temperature可增加输出随机性。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "2-1405": {
+    "qid": "2-1405",
+    "classification": "own",
+    "chapter": 2,
+    "quality": "ok",
+    "reason": "直接考查思维链（CoT）提示设计的关键因素。",
+    "answer": [
+      "A",
+      "B",
+      "C",
+      "F"
+    ],
+    "supported": true,
+    "quote": "思维链（Chain-of-Thought, CoT）：引导模型在给出最终答案前，显式输出中间推理步骤",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "明确背景有助于模型理解问题。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "提供中间步骤是CoT核心。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "简洁语言使指令清晰。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "无关信息干扰会降低效果。"
+      },
+      {
+        "label": "E",
+        "selected": false,
+        "why": "增加难度非提升效果因素。"
+      },
+      {
+        "label": "F",
+        "selected": true,
+        "why": "逻辑连贯是推理的基本要求。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "2-1446": {
+    "qid": "2-1446",
+    "classification": "own",
+    "chapter": 2,
+    "quality": "ok",
+    "reason": "综合考查提升提示词有效性的多项措施，覆盖六要素、结构化输出、思维链等。",
+    "answer": [
+      "A",
+      "B",
+      "D",
+      "E"
+    ],
+    "supported": true,
+    "quote": "六要素共同构成一份完整的“上下文蓝图”；结构化输出把自然语言输出约束成程序可解析的结构；思维链（CoT）引导模型显式输出中间推理步骤",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "明确任务目标是六要素之一。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "清晰输出格式是结构化要求。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "增加冗余长度无益，应精准克制。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "赋予具体角色是六要素之一。"
+      },
+      {
+        "label": "E",
+        "selected": true,
+        "why": "思维链适用于复杂任务推理。"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

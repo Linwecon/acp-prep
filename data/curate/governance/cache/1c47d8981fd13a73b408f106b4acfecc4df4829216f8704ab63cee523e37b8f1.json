@@ -1,0 +1,212 @@
+{
+  "6-0873": {
+    "qid": "6-0873",
+    "classification": "own",
+    "chapter": 6,
+    "quality": "ok",
+    "reason": "考查量化对延迟的影响，选项有明确误导项",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "量化（Quantization）……以可控的精度损失换取显存占用下降、显存带宽压力减小、推理速度提升",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "量化可减少显存带宽压力，提升推理速度"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "增加层数会增大模型，通常增加延迟"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "增加生成长度会延长解码时间，增加延迟"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "复杂解码策略可能增加计算开销，不一定降低延迟"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "6-0879": {
+    "qid": "6-0879",
+    "classification": "own",
+    "chapter": 6,
+    "quality": "ok",
+    "reason": "考查动态批处理核心优势，与连续批处理概念一致",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "连续批处理（Continuous Batching，又称动态/持续批处理）……GPU几乎全程满载，吞吐量显著提升",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "动态批处理不改变模型参数数量"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "动态批处理提升GPU利用率，提高吞吐量"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "动态批处理优化整体吞吐，单次延迟可能因调度变化"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "动态批处理与幻觉现象无直接关系"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "6-0954": {
+    "qid": "6-0954",
+    "classification": "cross",
+    "chapter": 7,
+    "quality": "ok",
+    "reason": "考查模型评估指标适用性，属于模型评估章节",
+    "answer": [
+      "C"
+    ],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "连贯性是对话质量的重要指标"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "任务完成率是衡量对话效果的关键"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "单轮响应时间是性能指标，非对话质量指标"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "用户满意度是终极质量指标"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "6-1270": {
+    "qid": "6-1270",
+    "classification": "own",
+    "chapter": 6,
+    "quality": "ok",
+    "reason": "考查vLLM启动命令参数，有原文支持",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "vllm serve \"/mnt/workspace/model/Qwen3-0.6B\" \\ --load-format \"safetensors\" --port 8000",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "vLLM命令中模型路径是位置参数"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "--port指定端口，非模型路径"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "模型路径直接作为serve后的位置参数"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "--load-format指定权重格式，非模型路径"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "6-1274": {
+    "qid": "6-1274",
+    "classification": "own",
+    "chapter": 6,
+    "quality": "ok",
+    "reason": "考查vLLM启动命令格式，与示例一致",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "vllm serve \"/mnt/workspace/model/Qwen3-0.6B\" \\ --load-format \"safetensors\" --port 8000",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "缺少--load-format参数，不完整"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "命令格式与原文示例完全一致"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "vLLM无start子命令，格式错误"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "vLLM无deploy子命令，参数名错误"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "6-0774": {
+    "qid": "6-0774",
+    "classification": "own",
+    "chapter": 6,
+    "quality": "ok",
+    "reason": "考查部署选型决策，结合场景判断最优方案",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "选型题先抓三个关键词：数据出域、流量形态、运维能力，再算成本账",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "13B模型较大，本地部署可能难满足500ms延迟"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "70B模型过大，API调用延迟可能超标且成本高"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "轻量化模型结合RAG，响应快且能利用历史数据"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "不做优化难满足精准推荐和延迟要求"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

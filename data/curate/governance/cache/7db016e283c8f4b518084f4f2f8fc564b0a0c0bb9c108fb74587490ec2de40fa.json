@@ -1,0 +1,212 @@
+{
+  "4-0350": {
+    "qid": "4-0350",
+    "classification": "own",
+    "chapter": 4,
+    "quality": "ok",
+    "reason": "考查Agent上下文管理策略，C项'重初始化'原文未提且违背记忆设计原则",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "短期记忆：当前会话的对话历史与中间结果...长期记忆：跨会话持久化的用户偏好...三种主流管理策略：固定窗口截断/滚动摘要/向量化召回",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "动态压缩即滚动摘要，原文明确提及"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "注意力机制属模型底层，非Agent上下文缓解措施"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "原文未提重初始化，且违背记忆持续性原则"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "外部存储即向量化召回，原文明确提及"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "4-0352": {
+    "qid": "4-0352",
+    "classification": "own",
+    "chapter": 4,
+    "quality": "ok",
+    "reason": "考查Agent评测维度，C项界面美观非本章评测范畴",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "三种核心评测手段：确定性检查/LLM-as-Judge/Rubric...端到端评测（黑盒）看最终产出对用户是否好用",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "用户体验量化属端到端评测范畴"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "协作效率是多Agent评测关键指标"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "界面美观属前端设计，非本章评测重点"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "实时性是QPS/延迟等四维评估指标"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "4-0364": {
+    "qid": "4-0364",
+    "classification": "own",
+    "chapter": 4,
+    "quality": "ok",
+    "reason": "考查多Agent协作原则，B项违背信息共享基本要求",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "多 Agent 设计四原则：明确职责/独立凭据/中央调度/避免全量注入...分层模式：Leader拆解任务、分派、汇总",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "动态调整路径符合分层规划原则"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "完全不共享违反协作基本原则"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "请求协助符合中央调度原则"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "环境建模指导搜索属规划策略"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "4-0374": {
+    "qid": "4-0374",
+    "classification": "cross",
+    "chapter": 4,
+    "quality": "ok",
+    "reason": "考查人机协作模式，C项对应HITL人机协同考点",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "人机协作 HITL：在关键节点暂停，交人类审批/决策...适用于高风险操作、模糊需求、最终质量把关",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "社会关系非本章考点"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "AutoGen不承诺全自动开发"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "HITL人机协同是本章明确考点"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "中央控制器对应分层规划，但非AutoGen特性"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "4-0389": {
+    "qid": "4-0389",
+    "classification": "own",
+    "chapter": 4,
+    "quality": "ok",
+    "reason": "考查多Agent适用场景，C项符合分层规划典型场景",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "分层规划（Leader-Worker）：目标明确、可拆解为并行子任务...适合物流仓储中心自动化物资拣选与搬运",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "单一目标无需多Agent协作"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "简单任务应避免过度设计"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "大型物流中心需多Agent分工协作"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "操作系统属传统软件架构"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "4-1220": {
+    "qid": "4-1220",
+    "classification": "own",
+    "chapter": 4,
+    "quality": "ok",
+    "reason": "考查多Agent职责分工，请假需planner拆解+leave执行",
+    "answer": [
+      "D"
+    ],
+    "supported": true,
+    "quote": "Planner：拆解复杂任务、决定何时调哪个工具/Agent...Tool：Agent可调用的外部能力：数据库、API等",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "employee_info仅提供信息，不处理请假"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "leave_agent需planner调度才能触发"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "chat/summary不参与业务流程"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "planner拆解任务，monitor跟踪状态"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

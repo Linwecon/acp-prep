@@ -1,0 +1,154 @@
+{
+  "items": [
+    {
+      "type": 0,
+      "stem": "某教育公司开发多轮答疑机器人，用户首轮问'项目管理用什么工具？'，模型正确回复'Jira'；第二轮问'怎么申请账号？'，模型却未提及Jira，仅泛泛说明通用流程。经确认messages数组完整包含system、首轮user/assistant及当前user消息，总Token数仅占8K窗口的32%，temperature=0.7。此时最应优先排查的工程环节是？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "检查是否在第二轮调用中遗漏了assistant角色的历史回复（即首轮模型输出）"
+        },
+        {
+          "option_label": "B",
+          "option_text": "验证Qwen-Max模型的终止符是否被误识别导致提前截断"
+        },
+        {
+          "option_label": "C",
+          "option_text": "确认客户端是否将首轮assistant回复内容以纯文本而非结构化JSON传入messages"
+        },
+        {
+          "option_label": "D",
+          "option_text": "排查流式输出配置是否干扰了messages的序列完整性"
+        }
+      ],
+      "answer": "A",
+      "analysis": "依据原文1.8.2节核心原理：'大模型API是无状态的，所谓多轮对话本质是客户端把历史消息拼进messages，每次重新发一遍'；且1.8.1节明确指出assistant角色用于承载'模型之前的回复'，是让模型理解指代关系（如'这个工具'）的必要条件。题干已排除窗口不足、参数异常、流式干扰等干扰项，唯一未被验证但直接决定上下文连贯性的必要条件是：首轮assistant回复是否真实存在于messages中——若代码逻辑错误地只保留了user消息而丢弃assistant回复（如误用'last_user_only'模式），则模型完全无法建立指代链。B选项错误：终止符影响输出停止时机，不破坏输入理解；C选项错误：OpenAI兼容接口要求content为字符串，JSON格式传入content字段本身即违规，但题干未提示解析错误，且该错误会导致调用失败而非语义失联；D选项错误：原文1.9节强调流式'只改传输方式，不影响messages处理'。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 1,
+      "stem": "在构建企业级新人答疑机器人时，为确保模型能稳定理解'它'、'这个工具'等指代词，以下哪些关于messages结构与模型无状态特性的实践是严格必要的？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "每次HTTP请求必须携带完整的对话历史，包括所有system、user和assistant消息"
+        },
+        {
+          "option_label": "B",
+          "option_text": "assistant消息的内容必须与模型上一轮实际生成的content完全一致，不可人工编辑或摘要"
+        },
+        {
+          "option_label": "C",
+          "option_text": "system消息必须置于messages数组首位，且只能出现一次"
+        },
+        {
+          "option_label": "D",
+          "option_text": "客户端需在内存或数据库中持久化维护对话历史，不能依赖服务端状态"
+        }
+      ],
+      "answer": "A,D",
+      "analysis": "A正确：原文1.8.2节明确'要让模型记住前文，就必须由你的程序维护对话历史，并在每次调用时带上'，这是无状态API下实现上下文连贯的唯一路径；D正确：同节指出'生产环境通常要把对话历史持久化'，因HTTP无状态性决定了服务端不会跨请求保存数据。B错误：原文未禁止摘要或编辑assistant内容，1.6节甚至推荐'摘要压缩'作为长上下文优化手段，只要语义关键信息（如'Jira'）保留即可；C错误：虽然惯例将system放首位，但原文1.8.1节示例及OpenAI文档均未规定其位置强制性或唯一性，多system消息虽非常规但技术上可行（如动态注入规则），非'严格必要'。",
+      "difficulty_label": "挑战"
+    },
+    {
+      "type": 0,
+      "stem": "某团队调试多轮对话时发现：用户问'Jira账号怎么申请？'，模型正确回答流程；但当用户紧接着问'需要填哪些表格？'，模型却回复'请参考公司OA系统'（实际应提供《Jira权限申请表》链接）。messages数组经校验完整包含全部历史，token数远低于窗口上限。此时最可能的根本故障原因是？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "模型在推理阶段因自注意力机制限制，无法关注到首轮assistant消息中的'Jira'关键词"
+        },
+        {
+          "option_label": "B",
+          "option_text": "首轮assistant回复中未显式包含'Jira'二字，而是使用了同义表述（如'项目跟踪平台'）"
+        },
+        {
+          "option_label": "C",
+          "option_text": "客户端在构造第二轮messages时，错误地将首轮assistant消息的role设为'user'"
+        },
+        {
+          "option_label": "D",
+          "option_text": "temperature参数过高导致模型忽略上下文约束，自由发挥"
+        }
+      ],
+      "answer": "C",
+      "analysis": "C正确：原文1.8.1节定义roles作用——'assistant角色用于承载模型之前的回复'，若role被错误设为'user'，模型会将首轮回复误判为用户输入，彻底破坏对话逻辑链（如将'Jira'视为用户主张而非模型结论），导致指代失效。A错误：原文1.4节明确'自注意力不限制序列长度'，且题干token数充足，不存在注意力衰减；B错误：若首轮回复使用同义表述，模型本应基于语义理解指代，这属于能力边界问题而非工程故障，且题干描述首轮回答'正确'，说明已准确输出'Jira'；D错误：temperature仅影响采样随机性，不改变对messages中role-content语义的解析，原文1.7.4风险提示'输出不同≠Bug'，但此处是语义理解失效，根源在结构错误。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 1,
+      "stem": "以下哪些场景直接源于'模型无状态'与'messages角色约束'的组合特性，而非其他因素（如幻觉、计算错误）？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "用户连续提问'推荐手机'→'它的价格'，模型无法理解'它'指代手机，因第二轮messages未包含首轮assistant回复"
+        },
+        {
+          "option_label": "B",
+          "option_text": "模型在回答数学题时将123×456算错，因自回归生成缺乏符号运算机制"
+        },
+        {
+          "option_label": "C",
+          "option_text": "同一system prompt下，两次调用相同user query得到不同答案，因temperature=0.7引入采样随机性"
+        },
+        {
+          "option_label": "D",
+          "option_text": "用户问'我们用什么项目管理工具？'，模型推荐Trello而非公司规定的Jira，因训练数据中Trello出现频率更高"
+        }
+      ],
+      "answer": "A",
+      "analysis": "A正确：完全符合'无状态'（服务端不记忆）+ 'messages角色'（必须显式传入assistant消息才能建立指代）的双重约束，是教材1.8节贯穿案例的直接复现。B错误：源于1.2节'不擅精确计算'的固有局限，与状态/角色无关；C错误：源于1.7节生成参数的随机性，属采样机制问题；D错误：源于1.1节'概率性生成器'本质及知识截止，属幻觉范畴。只有A同时满足'无状态要求重传'和'assistant角色缺失导致指代断裂'两个必要条件。",
+      "difficulty_label": "挑战"
+    },
+    {
+      "type": 0,
+      "stem": "开发人员为客服机器人配置messages时，将system提示、用户问题、以及模型上一轮回复全部按正确role写入数组，但第二轮仍出现指代失效。经调试发现：首轮assistant回复内容为'软件一组目前使用Jira'，而第二轮user消息为'那怎么申请账号？'。此时最应检查的messages构造细节是？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "确认首轮assistant消息的content字段是否包含不可见Unicode控制字符，导致分词器切分异常"
+        },
+        {
+          "option_label": "B",
+          "option_text": "验证第二轮messages中user消息的content是否被意外截断，丢失'那'字"
+        },
+        {
+          "option_label": "C",
+          "option_text": "检查首轮assistant消息是否被错误地重复添加两次，导致上下文冗余干扰"
+        },
+        {
+          "option_label": "D",
+          "option_text": "确认所有messages的content均为UTF-8编码字符串，且未被JSON序列化时转义破坏"
+        }
+      ],
+      "answer": "D",
+      "analysis": "D正确：原文1.8.1节示例及OpenAI API规范要求content为原始字符串，若客户端在构造messages时对content做了JSON.stringify()等操作，会导致双引号、反斜杠等被转义（如'Jira'变成'\\\"Jira\\\"'），使模型接收到的是转义后字符串，破坏语义连贯性。这是工程实践中高频的隐蔽错误，且直接关联messages结构完整性。A错误：控制字符影响分词属1.5节范畴，但题干未提示token异常，且'Jira'为常见词，BPE分词器对其鲁棒；B错误：'那'字丢失属明显bug，但题干描述'那怎么申请账号'完整，且该字非指代关键；C错误：重复添加assistant消息虽降低效率，但不会导致指代失效，反而可能强化'Jira'存在感。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 0,
+      "stem": "某团队将新人答疑机器人升级为支持10轮以上对话，发现长对话中模型频繁'遗忘'早期关键信息（如首轮确认的'Jira'）。已确认messages完整回传且未超窗。此时依据教材1.8节'无状态'原理，最根本的解决路径是？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "增加temperature值以提升模型对长上下文的关注度"
+        },
+        {
+          "option_label": "B",
+          "option_text": "在客户端实现对话历史摘要机制，将早期关键事实压缩为精简assistant消息"
+        },
+        {
+          "option_label": "C",
+          "option_text": "更换为支持128K窗口的Qwen3模型，彻底消除长度限制"
+        },
+        {
+          "option_label": "D",
+          "option_text": "在system提示中加入'你必须记住首轮提到的所有工具名称'等强约束指令"
+        }
+      ],
+      "answer": "B",
+      "analysis": "B正确：原文1.8.2节明确'历史消息越多，占用上下文窗口越大'，并指出长对话需'截断、摘要或用长期记忆机制'；1.6节进一步强调'上下文工程的核心不是喂得多，而是喂得准'，摘要正是精准喂养的关键实践。A错误：temperature调节随机性，不增强记忆能力；C错误：原文1.6节风险提示'窗口越大效果未必越好'，且'Lost in the Middle'现象表明过长无关上下文会稀释注意力；D错误：原文1.2节'exam'部分明确'指望模型自觉'是错误手段，提示词约束无法突破无状态与注意力机制的物理限制。",
+      "difficulty_label": "进阶"
+    }
+  ]
+}

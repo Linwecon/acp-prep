@@ -1,0 +1,217 @@
+{
+  "3-5025": {
+    "qid": "3-5025",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "题干考查句子窗口检索的核心定义，选项清晰，原文有明确描述。",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "句子窗口检索（Sentence Window Retrieval）：建索引时以'单个句子'为可检索单元...检索命中某句后，后处理器自动把内容替换成整个窗口再交给模型。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "原文定义，以句子为单元索引，命中后返回其上下文窗口。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "与句子窗口检索原理相反，后者用小单元索引。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "句子窗口检索针对句子，不限于标题。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "句子窗口检索基于语义相似度，非随机抽取。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-5026": {
+    "qid": "3-5026",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "考查句子窗口检索相比固定长度分块的核心优势，原文有明确对比。",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "句子窗口检索...建索引时以'单个句子'为可检索单元（小块，便于精准命中），同时在每个句子的元数据里存下它'前后各 N 句'组成的窗口；",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "未提及存储总量减少，且可能因存储窗口而增加。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "句子窗口检索仍需embedding模型进行向量化。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "原文指出其平衡小粒度精准命中与完整上下文。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "未提及一定能降低延迟，扩展窗口可能增加处理。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-5027": {
+    "qid": "3-5027",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "考查句子窗口检索的典型步骤，选项与原文描述流程一致。",
+    "answer": [
+      "A",
+      "B",
+      "C"
+    ],
+    "supported": true,
+    "quote": "建索引时以'单个句子'为可检索单元...检索命中某句后，后处理器自动把内容替换成整个窗口再交给模型。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "对应建索引步骤，拆分句子或小片段并编码。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "对应在线检索步骤，查找最相关小片段。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "对应命中后扩展上下文窗口的步骤。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "与句子窗口检索原理相反，后者需扩展上下文。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-5029": {
+    "qid": "3-5029",
+    "classification": "cross",
+    "chapter": 3,
+    "quality": "review",
+    "reason": "题干考查‘自动合并检索’核心思想，但原文未提及此术语或父子块结构。",
+    "answer": [
+      "C"
+    ],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "与常见父子块设计不符，通常用小块索引。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "与分层检索思想不符，未体现粒度差异。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "根据工程常识，此描述符合层级检索常见设计思想。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "自动合并检索通常仍基于向量语义检索。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-5030": {
+    "qid": "3-5030",
+    "classification": "cross",
+    "chapter": 3,
+    "quality": "review",
+    "reason": "考查‘父子块/自动合并检索’设计要素，但原文未涉及此概念。",
+    "answer": [
+      "A",
+      "B",
+      "C",
+      "D"
+    ],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "符合层级检索设计常识，存在不同粒度块。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "符合常见设计，检索针对更精确的子块。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "符合设计，需通过关联找到父块以获取上下文。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "符合设计，返回合并或父块内容以提供完整信息。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-5031": {
+    "qid": "3-5031",
+    "classification": "cross",
+    "chapter": 3,
+    "quality": "review",
+    "reason": "比较句子窗口检索与‘自动合并检索’，后者原文未定义，考点存疑。",
+    "answer": [
+      "D"
+    ],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "自动合并检索不强调必须按句子语法切分。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "适用范围不限于表格文档。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "仍需分块，只是组织成层级结构。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "根据常识，此描述符合层级组织与合并的设计特点。"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

@@ -1,0 +1,215 @@
+{
+  "3-1471": {
+    "qid": "3-1471",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "云服务优势在原文未明确列举，但'生产环境可选用云服务'隐含运维/监控/成本优势",
+    "answer": [
+      "A",
+      "B",
+      "C"
+    ],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "云服务免运维是通用优势"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "云服务提供监控工具是标准能力"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "按量付费是云服务核心特性"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "原文未提安全性绝对更高"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-0012": {
+    "qid": "3-0012",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "检索不相关属检索端问题，原文明确'加Rerank提升相关片段排名'",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "正确答案存在但排名靠后没被用上 → 关注 Context Precision，加 Rerank 提升相关片段排名。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "重复惩罚影响生成非检索"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "微调不解决检索质量"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "Embedding+Rerank是检索优化核心"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "温度影响生成确定性"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-0035": {
+    "qid": "3-0035",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "通识问题不应走RAG，原文强调RAG用于私域知识，需意图识别分流",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "RAG 是上下文工程四大手段之一——在正确的时间把最相关的信息加载进上下文窗口。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "禁用RAG放弃私域优势"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "加入公开文档违背RAG定位"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "意图识别实现精准上下文加载"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "温度不解决领域适配"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-0037": {
+    "qid": "3-0037",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "多维度评测是RAGAS核心方法，原文要求'用RAGAS区分检索病/生成病'",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "RAGAS（RAG Assessment）是主流的开源 RAG 评估框架，它把 RAG 链路拆成'检索端'和'生成端'分别打分",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "逐条调整不可规模化"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "RAGAS多维评测定位根因"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "速度不解决质量"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "Prompt无法修复模型能力缺陷"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-0040": {
+    "qid": "3-0040",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "幻觉抑制需提示词约束，原文模板明确'根据上下文信息而非先验知识来回答'",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "注意事项：1. 根据上下文信息而非先验知识来回答问题。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "超上下文窗口不可行"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "提示词约束抑制幻觉"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "高温度加剧幻觉"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "旧模型可能更差"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-0059": {
+    "qid": "3-0059",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "R/B/C正确描述RAG三要素，D错误因模型能力有限，原文提'幻觉'三边界",
+    "answer": [
+      "B",
+      "C"
+    ],
+    "supported": true,
+    "quote": "RAG（Retrieval-Augmented Generation，检索增强生成）的核心思路可以用四个字概括：'开卷考试'。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "RAG不训练模型"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "检索模块提取相关信息"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "G指基于资料生成回答"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "模型有幻觉/知识截止缺陷"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

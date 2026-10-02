@@ -1,0 +1,154 @@
+{
+  "items": [
+    {
+      "type": 0,
+      "stem": "某团队在vLLM中启用PagedAttention后，发现长上下文（64K tokens）请求的并发数从3提升至8，但单请求TTFT未改善。以下哪项是PagedAttention机制本身无法直接优化的根本原因？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "KV Cache显存分配碎片化导致实际可用容量不足"
+        },
+        {
+          "option_label": "B",
+          "option_text": "Prefill阶段需全量加载并行计算输入prompt，与KV Cache管理无关"
+        },
+        {
+          "option_label": "C",
+          "option_text": "连续批处理未开启，Decode阶段GPU空转仍存在"
+        },
+        {
+          "option_label": "D",
+          "option_text": "模型权重未量化，FP16加载延迟仍占主导"
+        }
+      ],
+      "answer": "B",
+      "analysis": "依据原文6.5节：'Prefill（预填充阶段）：把用户输入的整段 prompt 一次性喂进去，并行计算所有输入 token 的表示。这一步是计算密集型……决定TTFT'；而PagedAttention的定义明确限定为'解决KV Cache的显存碎片与预分配浪费'（6.5节），其作用域仅覆盖Decode阶段的KV Cache管理（6.5节图示及'KV Cache是Decode加速的基础'）。选项B正确指出TTFT由Prefill计算特性决定，与KV Cache分页机制无因果关系，符合教材对两阶段根本区别的界定。A、C、D均为真实问题但非PagedAttention的设计目标：A是PagedAttention要解决的问题而非原因；C属于连续批处理范畴；D属量化范畴，原文6.4节强调量化与PagedAttention是并列优化手段。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 1,
+      "stem": "在vLLM服务中，以下哪些条件同时满足时，PagedAttention的显存利用率提升效果会显著减弱？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "所有并发请求的prompt前缀完全相同（如统一系统提示词）"
+        },
+        {
+          "option_label": "B",
+          "option_text": "启用KV Cache量化（INT8）且块大小（block size）设置为128"
+        },
+        {
+          "option_label": "C",
+          "option_text": "最大序列长度（max_model_len）被硬编码为固定值且远超实际生成长度"
+        },
+        {
+          "option_label": "D",
+          "option_text": "请求序列长度高度离散（如128/2048/32768 tokens混杂）且无共享前缀"
+        }
+      ],
+      "answer": "A,C",
+      "analysis": "依据原文6.5节PagedAttention原理：'消除碎片'和'按需分配'是核心价值，其收益依赖于序列长度差异性与前缀复用场景。A项：当所有请求前缀完全相同时，传统方案已可通过共享KV Cache实现高效利用，PagedAttention的碎片消除优势被削弱（原文6.5节明确'天然支持共享'是额外收益，非主要设计目标）；C项：若max_model_len被设为远超实际需求的固定值，vLLM仍会为每个请求预分配大量block（虽非连续内存，但逻辑上预留），违背'按需分配'原则，导致显存浪费（原文6.5节'不再按最大长度预分配浪费'隐含前提：max_model_len需合理设定）。B项：KV Cache量化与PagedAttention正交，且block size=128是vLLM默认推荐值，不影响分页机制有效性；D项：序列长度离散正是PagedAttention最擅长的场景（消除碎片），原文6.5节'不同请求的缓存还会在显存里形成碎片'直接对应此情形，故D反而是发挥优势的条件。",
+      "difficulty_label": "挑战"
+    },
+    {
+      "type": 0,
+      "stem": "运维人员观察到vLLM服务在高并发下KV Cache占用率持续95%以上，但GPU显存总占用仅60%。此时若仅调整PagedAttention相关参数，以下哪项操作最可能立即缓解该现象？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "增大--block-size参数值"
+        },
+        {
+          "option_label": "B",
+          "option_text": "减小--max-num-seqs参数值"
+        },
+        {
+          "option_label": "C",
+          "option_text": "启用--enable-prefix-caching"
+        },
+        {
+          "option_label": "D",
+          "option_text": "增加--gpu-memory-utilization阈值"
+        }
+      ],
+      "answer": "B",
+      "analysis": "依据原文6.5节：PagedAttention通过'按需分配'块来管理KV Cache，但'最大并发请求数'（--max-num-seqs）直接约束了可分配的block总数上限。当KV Cache占用率持续高位（95%+）而总显存未满（60%），说明block分配已近饱和，但其他显存（如权重、运行时开销）仍有余量——此时瓶颈是逻辑并发数限制而非物理显存。减小--max-num-seqs可降低block分配上限，使占用率回落（原文6.5节'同样的显存能塞下更多并发请求'反向推论：过高的并发数会挤占block资源）。A项：增大block size会降低块数量，加剧分配紧张；C项：前缀缓存需模型/框架支持且依赖请求相似性，非即时生效的参数调整；D项：gpu-memory-utilization是vLLM启动时的显存预留比例，影响权重加载，与KV Cache动态分配无直接关联（原文6.6节显存构成三部分独立）。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 1,
+      "stem": "某团队在诊断vLLM服务OOM故障时，发现错误日志包含'Out of memory on GPU 0'且监控显示KV Cache占用率已达100%。以下哪些根因分析符合教材对PagedAttention机制的描述？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "请求序列长度超过--max-model-len配置值，导致PagedAttention无法分配新block"
+        },
+        {
+          "option_label": "B",
+          "option_text": "多个长序列请求同时到达，block池耗尽，新请求无法获取足够block完成Decode"
+        },
+        {
+          "option_label": "C",
+          "option_text": "模型权重以FP16加载，占用显存过大，挤压了PagedAttention的block分配空间"
+        },
+        {
+          "option_label": "D",
+          "option_text": "连续批处理未启用，导致Decode阶段GPU空转，间接延长KV Cache驻留时间"
+        }
+      ],
+      "answer": "A,B,C",
+      "analysis": "依据原文6.5节PagedAttention定义：'把KV Cache切成固定大小的块（block），按需分配'，其正常运行依赖三个前提——有效配置（A）、资源池充足（B）、底层显存空间保障（C）。A项：max-model-len是PagedAttention分配block的逻辑上限，超限则无法创建新block（原文6.5节'按需分配'隐含边界）；B项：block池总量受--max-num-seqs和显存限制，耗尽即OOM（原文6.5节'大幅提升吞吐'的反面即资源争抢）；C项：原文6.6节明确'推理显存=权重+KV Cache+运行时开销'，权重占用过高必然挤压KV Cache block空间。D项错误：GPU空转影响吞吐效率，但不改变KV Cache的生命周期——Decode每步仍需读取历史KV，block驻留时间由序列长度决定，与是否空转无关（原文6.2节Decode定义）。",
+      "difficulty_label": "挑战"
+    },
+    {
+      "type": 0,
+      "stem": "开发人员尝试在vLLM中禁用PagedAttention（通过--disable-visual-batch等非标准参数），发现服务启动失败并报错'PagedAttention is required for vLLM v0.4+'.以下哪项最准确解释该现象？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "vLLM的连续批处理调度器深度耦合PagedAttention的block管理接口，移除后无法实现请求动态进出"
+        },
+        {
+          "option_label": "B",
+          "option_text": "PagedAttention提供的页表机制是vLLM实现OpenAI兼容流式响应的必要基础"
+        },
+        {
+          "option_label": "C",
+          "option_text": "现代vLLM版本已将PagedAttention作为KV Cache管理的强制抽象层，所有调度逻辑均基于block指针"
+        },
+        {
+          "option_label": "D",
+          "option_text": "禁用PagedAttention会导致KV Cache无法共享，违反vLLM对多请求前缀复用的设计要求"
+        }
+      ],
+      "answer": "C",
+      "analysis": "依据原文6.5节技术定位：'PagedAttention（分页注意力）：借鉴操作系统的虚拟内存分页思想，把KV Cache切成一个个固定大小的块（block）……'，并强调其是vLLM'两大核心发明'之一。教材虽未明说'强制耦合'，但6.5节全程以PagedAttention为KV Cache管理唯一范式展开，且6.5节对比静态批处理时明确'vLLM的OpenAI兼容服务'建立在PagedAttention+连续批处理基础上。C项准确指出其已成为架构级抽象层（'所有调度逻辑均基于block指针'），符合工程实践——vLLM源码中KV Cache管理完全重构为block-based，移除即破坏核心数据结构。A、B、D均为PagedAttention的衍生价值，但非架构强制依赖：连续批处理可独立实现（如TGI），流式响应不依赖分页，前缀复用是可选优化。",
+      "difficulty_label": "挑战"
+    },
+    {
+      "type": 0,
+      "stem": "当vLLM服务处理一批混合长度请求（128/2048/16384 tokens）时，PagedAttention相比传统连续内存分配，其显存节省主要来源于以下哪一机制？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "为每个请求按实际生成长度分配block，避免按最大长度预分配的浪费"
+        },
+        {
+          "option_label": "B",
+          "option_text": "将不同请求的KV Cache块在物理显存中非连续存放，消除内存碎片"
+        },
+        {
+          "option_label": "C",
+          "option_text": "复用相同前缀请求的block，减少重复KV Cache存储"
+        },
+        {
+          "option_label": "D",
+          "option_text": "压缩每个block内的KV值，降低单block显存占用"
+        }
+      ],
+      "answer": "A",
+      "analysis": "依据原文6.5节对PagedAttention的核心定义：'按需分配，不再按最大长度预分配浪费'，并明确其好处第一项即'按需分配：生成多长用多少，不再按最大长度预分配浪费'。A项直接对应原文原意，是PagedAttention解决的首要痛点（6.5节开头'痛点一'）。B项'消除碎片'是A项的实现手段而非节省来源——碎片消除提升的是利用率，但显存总量节省来自按需分配；C项'天然支持共享'是额外优势，但原文未将其列为显存节省主因，且依赖请求相似性；D项'压缩'属于KV Cache量化范畴（6.6节），与PagedAttention的内存管理机制无关。",
+      "difficulty_label": "入门"
+    }
+  ]
+}

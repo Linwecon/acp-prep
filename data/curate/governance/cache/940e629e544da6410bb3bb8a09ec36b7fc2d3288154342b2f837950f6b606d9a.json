@@ -1,0 +1,245 @@
+{
+  "2-0541": {
+    "qid": "2-0541",
+    "classification": "unsure",
+    "chapter": 2,
+    "quality": "remove",
+    "reason": "题干不完整，ask_llm_route函数未定义，无法判断其处理流程。",
+    "answer": [],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "函数未定义，无法判断。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "函数未定义，无法判断。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "函数未定义，无法判断。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "函数未定义，无法判断。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "2-0633": {
+    "qid": "2-0633",
+    "classification": "own",
+    "chapter": 2,
+    "quality": "ok",
+    "reason": "考查提示工程优化方法，符合章节知识。",
+    "answer": [
+      "A",
+      "C"
+    ],
+    "supported": true,
+    "quote": "明确任务 → 起草提示词 → 小样本测试 → 分析失败案例（Bad Case） → 迭代优化 → 版本固化 → 回归验证",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "详细清晰的提示词是基础。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "增加输入数据数量非提示工程核心。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "根据反馈优化提示词是迭代过程。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "使用多个模型非本章核心考点。"
+      },
+      {
+        "label": "E",
+        "selected": false,
+        "why": "固定模板可能限制灵活性。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "2-0645": {
+    "qid": "2-0645",
+    "classification": "own",
+    "chapter": 2,
+    "quality": "ok",
+    "reason": "考查提升用户体验的提示工程与系统设计实践。",
+    "answer": [
+      "A",
+      "C",
+      "D"
+    ],
+    "supported": true,
+    "quote": "System Prompt（系统提示词 / 系统消息）是在对话开始时注入、用于设定模型全局行为",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "详细系统提示词确保理解上下文。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "截断策略非本章核心优化手段。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "多轮对话机制可细化需求。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "自动检测查询类型是意图分类应用。"
+      },
+      {
+        "label": "E",
+        "selected": false,
+        "why": "大模型并非绝对准确，需反馈机制。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "2-0759": {
+    "qid": "2-0759",
+    "classification": "cross",
+    "chapter": -1,
+    "quality": "review",
+    "reason": "考点涉及RAG、CoT、验证，跨越多章，需综合判断。",
+    "answer": [
+      "A",
+      "B",
+      "C",
+      "D"
+    ],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "思维链提示可展示分析过程，增强可解释性。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "RAG系统可基于权威数据库提供知识。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "结果验证机制可交叉检查关键数据。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "要求提供数据来源引用增强可信度。"
+      },
+      {
+        "label": "E",
+        "selected": false,
+        "why": "仅用最终结论不符合可解释性要求。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "2-1091": {
+    "qid": "2-1091",
+    "classification": "own",
+    "chapter": 2,
+    "quality": "ok",
+    "reason": "考查通过提示词和参数调整控制生成多样性与主题一致性。",
+    "answer": [
+      "B",
+      "D"
+    ],
+    "supported": true,
+    "quote": "temperature调节输出确定性；提示词给得越清晰、约束越明确，正确答案的概率分布就越集中",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "模糊指令易导致内容不符合主题。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "明确指定多个方向可扩展灵活性。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "top_p=0.1限制词汇选择，降低多样性。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "调高temperature可增加生成多样性。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "2-1405": {
+    "qid": "2-1405",
+    "classification": "own",
+    "chapter": 2,
+    "quality": "ok",
+    "reason": "考查思维链（CoT）提示的设计关键因素。",
+    "answer": [
+      "A",
+      "B",
+      "C",
+      "F"
+    ],
+    "supported": true,
+    "quote": "思维链（Chain-of-Thought, CoT）：引导模型在给出最终答案前，显式输出中间推理步骤",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "明确问题背景有助于推理。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "提供中间步骤是CoT核心。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "简洁明了的语言便于模型理解。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "无关信息干扰会降低效果。"
+      },
+      {
+        "label": "E",
+        "selected": false,
+        "why": "增加难度非提升效果的关键。"
+      },
+      {
+        "label": "F",
+        "selected": true,
+        "why": "确保逻辑性和连贯性至关重要。"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

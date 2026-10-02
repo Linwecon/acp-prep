@@ -1,0 +1,154 @@
+{
+  "items": [
+    {
+      "type": 0,
+      "stem": "某团队构建新人答疑机器人评测集时，技术负责人从线上工单抽取100个高频问题，但标准答案由AI工程师基于知识库片段自动生成并未经业务确认。上线后自动化评测分数达92分，而HRBP抽检发现37%的答案存在政策性错误（如将'试用期可休5天年假'答为'不可休'）。该故障最根本违反教材中哪条刚性约束？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "未冻结评测配置（temperature/seed/模型版本）"
+        },
+        {
+          "option_label": "B",
+          "option_text": "未遵循'评测先行'原则，缺少基线分数"
+        },
+        {
+          "option_label": "C",
+          "option_text": "违反'评测集构建铁律'：ground_truth必须由领域专家提供"
+        },
+        {
+          "option_label": "D",
+          "option_text": "混淆指标层级，用算法指标替代业务指标"
+        }
+      ],
+      "answer": "C",
+      "analysis": "依据教材7.2.1节'评测集构建的两条铁律'明确指出：'标准答案来自领域专家'，且'技术人员能判断检索是否相关，但只有业务专家才知道答案在业务上是否正确、完整、合规'；表7.2.1亦强调'缺了ground_truth会无法判断对错，自动评测失去基准'。本题中AI工程师生成答案而非HRBP审定，直接导致评测基准失真——分数虚高但业务违规频发，是ground_truth来源错误的典型后果。A项属回归评测失效场景（7.2.4节），B项指流程顺序错误（7.1节），D项指目标错位（7.2.2节），均非本题根本原因。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 1,
+      "stem": "在一次RAGAS评测中，某问题样本显示：Context Recall=0.98、Context Precision=0.31、Faithfulness=0.25、Answer Correctness=0.29。日志确认contexts列表包含完整正确信息（如'张伟是教研部的'），但该片段位于第18位，前17位均为无关内容。若需同时满足'防止回归'与'精准定位'双重目标，以下哪些操作符合教材7.5节黄金法则及7.2.4节控制变量要求？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "立即加装Rerank模块，并在回归评测中冻结原Top K值与embedding模型版本"
+        },
+        {
+          "option_label": "B",
+          "option_text": "调大Top K至50以提升Recall，同时更换更强embedding模型"
+        },
+        {
+          "option_label": "C",
+          "option_text": "仅优化生成端提示词，要求模型'优先关注前5个context'"
+        },
+        {
+          "option_label": "D",
+          "option_text": "在回归评测中固定question/ground_truth/contexts三字段，仅变更Rerank配置"
+        }
+      ],
+      "answer": "A,D",
+      "analysis": "根据教材7.5节黄金法则：'Precision低（Recall高）→ 病根在检索端排序噪声，应加Rerank'；7.2.4节强调回归评测必须'冻结评测集与配置（embedding模型版本等）'，否则分数变化无法归因。A项既针对病根（加Rerank）又冻结关键变量（原Top K与embedding），符合双重目标；D项严格遵循控制变量原则，确保分数变化仅反映Rerank效果。B项违反'跷跷板效应'警示（7.1节）：盲目调大Top K会加剧噪声，且更换embedding模型破坏配置冻结；C项属错误归因——教材7.5节明确'检索指标差时不应查生成端'，且'优先关注前5个context'的提示词无法解决底层排序缺陷。",
+      "difficulty_label": "挑战"
+    },
+    {
+      "type": 0,
+      "stem": "团队使用qwen-plus作为RAGAS评委计算Answer Correctness时，发现对简洁答案（如'张伟是教研部的'）打分偏低，而对冗长解释（如'根据资料，张伟是教研部的一名工程师...'）打分偏高。人工抽检证实简洁答案完全正确。此现象最直接对应教材7.8.1节所列哪类LLM-as-Judge固有偏见？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "位置偏见"
+        },
+        {
+          "option_label": "B",
+          "option_text": "自我偏好"
+        },
+        {
+          "option_label": "C",
+          "option_text": "长度偏见"
+        },
+        {
+          "option_label": "D",
+          "option_text": "风格偏见"
+        }
+      ],
+      "answer": "C",
+      "analysis": "教材7.8.1节明确定义'长度偏见'为'倾向认为更长更详细的答案更完整，惩罚简洁但切题的答案'，并给出缓解手段'评分细则中明确冗余扣分'。本题中评委系统性地给冗长答案更高分、简洁正确答案更低分，完全匹配该定义。A项位置偏见指对比多个候选时偏好首尾选项（需交换顺序缓解）；B项自我偏好指偏爱与自身风格一致的输出；D项风格偏见指偏好特定行文/代码风格——三者均未在题干中体现。",
+      "difficulty_label": "入门"
+    },
+    {
+      "type": 1,
+      "stem": "某Agent端到端评测得分为4.3/5，但用户持续反馈'生成的Python代码示例全部无法运行'。依据教材7.6节Agent评测框架，以下哪些措施属于'白盒评测'且能精准定位该故障？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "在端到端评测中增加'代码可执行性'维度，由LLM-as-Judge按1-5分评估"
+        },
+        {
+          "option_label": "B",
+          "option_text": "构建独立测试集，对代码生成组件执行确定性检查：运行代码并验证其是否通过预设单元测试"
+        },
+        {
+          "option_label": "C",
+          "option_text": "在端到端评测中追加Rubric量表，要求评委检查答案是否含'代码'关键词"
+        },
+        {
+          "option_label": "D",
+          "option_text": "对Agent执行trace分析，用确定性检查器验证'代码生成'步骤是否被正确触发且输出符合JSON Schema"
+        }
+      ],
+      "answer": "B,D",
+      "analysis": "教材7.6节定义白盒评测为'深入链路，对关键组件/中间步骤单独打分'，并强调'Agent出问题往往在过程里'。B项直接对代码生成组件做确定性检查（运行+单元测试），是典型的白盒客观验证；D项通过trace分析检查'代码生成'步骤的触发与输出格式，符合'过程是否符合SOP'的白盒要求（7.6.1节）。A项仍属端到端主观评价（LLM-as-Judge打分），未深入组件；C项Rubric检查'是否含关键词'是表面规则，无法验证代码可执行性，违背'确定性检查管客观硬指标'原则（7.6.1节）。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 0,
+      "stem": "团队计划用MMLU基准初筛大模型用于新人答疑机器人。依据教材7.7节'公开基准的三个坑'，以下哪项操作最能规避'基准分高≠业务表现好'的风险？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "仅选用MMLU中'Humanities'子集，因其与HR政策问答领域接近"
+        },
+        {
+          "option_label": "B",
+          "option_text": "将MMLU高分模型直接上线，用A/B测试验证业务指标"
+        },
+        {
+          "option_label": "C",
+          "option_text": "用MMLU筛选出Top 3模型后，再用自建评测集（含真实工单问题+HRBP标注ground_truth）进行终选"
+        },
+        {
+          "option_label": "D",
+          "option_text": "在MMLU评测中增加'中文翻译准确率'指标以适配本地化需求"
+        }
+      ],
+      "answer": "C",
+      "analysis": "教材7.7节明确指出：'公开基准仅用于选型初筛，业务决策必须用自建评测集+领域专家验证'，并警示'基准只反映通用能力，和你的业务题型、语言分布、领域知识可能完全不同'。C项严格遵循该原则——MMLU初筛（初筛）→ 自建集终选（业务验证），形成双层过滤。A项错误假设子集领域接近即可替代业务场景；B项跳过自建集验证，违背'正确定位'原则；D项试图改造公开基准，但MMLU本质是英文多选题，翻译无法解决领域知识缺失的根本矛盾。",
+      "difficulty_label": "入门"
+    },
+    {
+      "type": 1,
+      "stem": "某团队对新人答疑机器人执行切片优化后，RAGAS评测显示Context Recall从0.62升至0.89，但Answer Correctness仅微升0.02，且Faithfulness下降0.15；日志确认检索返回的contexts中完整包含'张伟是教研部的'等关键信息。此时若要验证是否因控制变量失效导致分数失真，最应优先核查以下哪些配置？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "评测脚本中temperature参数是否从0.3调整为0.8"
+        },
+        {
+          "option_label": "B",
+          "option_text": "ground_truth字段是否在优化前后被同一HRBP重新审定"
+        },
+        {
+          "option_label": "C",
+          "option_text": "RAGAS评委LLM版本是否从qwen-plus切换为gpt-4-turbo"
+        },
+        {
+          "option_label": "D",
+          "option_text": "评测集question字段是否从原始工单问题替换为工程师重写的问题"
+        }
+      ],
+      "answer": "A,C,D",
+      "analysis": "教材7.2.4节强调回归评测必须'冻结评测集与配置（temperature/seed/模型版本）'，否则'分数变化无法归因'。A项temperature变化直接影响生成随机性，导致Answer Correctness/Faithfulness波动；C项评委LLM切换会改变打分逻辑（7.8.1节），如qwen-plus与gpt-4-turbo对简洁答案的偏好不同；D项question字段被重写则破坏'问题来自真实用户场景'铁律（7.2.1节），使评测脱离业务实际。B项ground_truth由同一专家审定符合要求，且教材未要求'每次优化都重审'，只要初始ground_truth权威即可（7.2.1节'必须由领域专家编写/审定'）。",
+      "difficulty_label": "挑战"
+    }
+  ]
+}

@@ -1,0 +1,208 @@
+{
+  "10-0297": {
+    "qid": "10-0297",
+    "classification": "own",
+    "chapter": 10,
+    "quality": "ok",
+    "reason": "考查通义千问模型家族规格定义，符合章节知识。",
+    "answer": [
+      "D"
+    ],
+    "supported": true,
+    "quote": "qwen-max：能力最强、效果最好 | 适合复杂推理、高质量生成、难任务",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "原文未将Max定义为原始模型。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "Max是通用能力最强，非特定任务微调。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "原文未提及在线交互优化定义Max。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "Max是能力最强的基线模型。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "10-0316": {
+    "qid": "10-0316",
+    "classification": "cross",
+    "chapter": -1,
+    "quality": "remove",
+    "reason": "题干模糊，选项与阿里云平台无关，考查价值低。",
+    "answer": [],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "题干不清晰，无法判断。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "题干不清晰，无法判断。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "题干不清晰，无法判断。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "题干不清晰，无法判断。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "10-0391": {
+    "qid": "10-0391",
+    "classification": "own",
+    "chapter": 10,
+    "quality": "ok",
+    "reason": "考查通义听悟产品定位，符合章节知识。",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "通义听悟：语音识别、会议转写（ASR） | \"把录音转成文字\"",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "听悟处理音频，非图像转视频。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "听悟是语音识别，非多模态生成。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "听悟聚焦音频转文字、摘要及翻译。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "听悟不处理图像推理。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "10-0455": {
+    "qid": "10-0455",
+    "classification": "cross",
+    "chapter": 11,
+    "quality": "review",
+    "reason": "考点是多模态解析适用场景，属第11章。",
+    "answer": [
+      "C"
+    ],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "简单文字截图可能无需深层次解析。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "清晰文本截图可能无需深层次解析。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "复杂不规则信息需视觉模型深解析。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "已解析文本无需视觉模型。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "10-1056": {
+    "qid": "10-1056",
+    "classification": "misplaced",
+    "chapter": -1,
+    "quality": "remove",
+    "reason": "题干与选项均未涉及阿里云平台，无考查价值。",
+    "answer": [],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "题干不清晰，无法判断。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "题干不清晰，无法判断。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "题干不清晰，无法判断。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "题干不清晰，无法判断。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "10-1211": {
+    "qid": "10-1211",
+    "classification": "own",
+    "chapter": 10,
+    "quality": "ok",
+    "reason": "考查百炼平台适用场景，符合章节知识。",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "百炼（Model Studio）是一站式大模型应用开发平台 | 把模型能力组装成可发布的应用",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "百炼支持托管模型部署与发布。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "百炼非边缘计算平台。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "长期私有化服务更可能用PAI。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "开源模型本地部署是PAI或自建。"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

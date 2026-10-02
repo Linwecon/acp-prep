@@ -1,0 +1,210 @@
+{
+  "10-0396": {
+    "qid": "10-0396",
+    "classification": "own",
+    "chapter": 10,
+    "quality": "ok",
+    "reason": "考查RAG预处理最佳实践，选项C明显错误",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "文档解析与结构保留，文本切片策略与重叠机制",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "使用专业解析服务是合理实践"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "使用API润色目录是优化手段"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "不预处理直接输入违背RAG切片原则"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "选择性使用视觉模型是合理优化"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "10-0791": {
+    "qid": "10-0791",
+    "classification": "cross",
+    "chapter": -1,
+    "quality": "review",
+    "reason": "考点是AI安全内容过滤，但章节归属不确定",
+    "answer": [
+      "B"
+    ],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "不处理敏感问题会导致风险"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "文本分类识别并转接是合理方案"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "仅靠示例学习回避不可靠"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "前端关键词过滤不全面"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "10-1084": {
+    "qid": "10-1084",
+    "classification": "own",
+    "chapter": 10,
+    "quality": "ok",
+    "reason": "考查合理使用大模型提升效率的思路",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "按任务难度分级路由才是工程上的最优解",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "所有图片都深度解析不经济"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "使用专业解析服务符合思路"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "拆分任务使用不同工具合理"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "简单任务用正则更高效"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "10-1208": {
+    "qid": "10-1208",
+    "classification": "beyond",
+    "chapter": -1,
+    "quality": "remove",
+    "reason": "考查具体API返回字段，无考查价值且教材未提及",
+    "answer": [],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "教材未提及具体字段"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "教材未提及具体字段"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "教材未提及具体字段"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "教材未提及具体字段"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "10-1361": {
+    "qid": "10-1361",
+    "classification": "cross",
+    "chapter": -1,
+    "quality": "review",
+    "reason": "考点是向量数据库优势，但章节归属不确定",
+    "answer": [
+      "D"
+    ],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "自动扩容是云服务优势"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "按量付费是云服务优势"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "混合检索是常见优势"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "无需监控工具不符合实际"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "10-0306": {
+    "qid": "10-0306",
+    "classification": "own",
+    "chapter": 10,
+    "quality": "ok",
+    "reason": "考查百炼API典型办公应用场景",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "百炼管'应用'：知识库、Prompt、智能体、工作流、一键发布",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "高级图像编辑超出典型API"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "实时翻译是典型文本处理应用"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "3D建模渲染超出典型API"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "物理实验模拟超出典型API"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

@@ -1,0 +1,212 @@
+{
+  "9-0239": {
+    "qid": "9-0239",
+    "classification": "own",
+    "chapter": 9,
+    "quality": "ok",
+    "reason": "考查temperature对输出多样性的影响，原文明确说明其与随机性正相关。",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "temperature 越高，分布越平坦，输出越多样。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "temperature越高输出越多样"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "与temperature正相关"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "temperature=0才接近固定"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "不影响生成能力"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "9-0313": {
+    "qid": "9-0313",
+    "classification": "own",
+    "chapter": 9,
+    "quality": "ok",
+    "reason": "考查API调用必要步骤，手动检查每份问卷非API调用必需环节。",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "大模型 API 调用，就是应用程序通过 HTTP 请求，把'提示词 + 上下文 + 生成参数'发给云端模型服务",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "预处理是输入准备必需"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "API调用核心动作"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "属人工质检，非API流程"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "输出分析是调用目的"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "9-0683": {
+    "qid": "9-0683",
+    "classification": "own",
+    "chapter": 9,
+    "quality": "ok",
+    "reason": "考查创意任务参数调优，原文明确建议创意类调高temperature。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "文案、头脑风暴、起名 | 0.8 ~ 1.2 | 0.9 | 要多样性",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "降低会减少多样性"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "提高temperature增加多样性"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "贪婪解码最保守"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "top_p=0非法"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "9-0827": {
+    "qid": "9-0827",
+    "classification": "own",
+    "chapter": 9,
+    "quality": "ok",
+    "reason": "考查top_p小值影响，原文指出越小越保守、多样性降低。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "top_p=0.001 几乎等于贪婪解码，top_p=0.8 则允许一定的多样性",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "不控制长度"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "top_p越小越保守"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "不控制长度"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "越小多样性越低"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "9-1012": {
+    "qid": "9-1012",
+    "classification": "own",
+    "chapter": 9,
+    "quality": "ok",
+    "reason": "考查一致性控制，原文强调事实类需低temperature+seed。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "事实问答、代码生成、信息抽取 | 0 ~ 0.3 | 低 | 要稳定、少随机",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "高temperature破坏一致性"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "低temperature+seed保稳定"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "调高增加随机性"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "调高增加随机性"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "9-1389": {
+    "qid": "9-1389",
+    "classification": "own",
+    "chapter": 9,
+    "quality": "ok",
+    "reason": "考查top_p定义，原文明确其为累积概率核采样机制。",
+    "answer": [
+      "D"
+    ],
+    "supported": true,
+    "quote": "top_p（核采样）：把候选按概率从高到低累加，直到累积概率达到 p，只在这个'核心集合'内采样",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "与CPU无关"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "不控制长度"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "不控制格式"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "准确描述核采样机制"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

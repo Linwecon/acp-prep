@@ -1,0 +1,215 @@
+{
+  "new-6-48-0": {
+    "qid": "new-6-48-0",
+    "classification": "own",
+    "chapter": 6,
+    "quality": "ok",
+    "reason": "综合考查部署选型决策，涉及数据合规、性能要求、运维能力和AB测试需求，符合本章核心考点。",
+    "answer": [
+      "D"
+    ],
+    "supported": true,
+    "quote": "数据不出域 → 排除百炼等公有 MaaS；私有自定义模型、实时在线、弹性 + 灰度/版本管理是 EAS 的典型场景",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "百炼MaaS数据会出域，不符合严禁出域要求。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "FC有冷启动和时长限制，不适合稳定高吞吐实时服务。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "ECS自建需较强运维，题干提及无专职SRE，非最优。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "PAI-EAS支持数据不出域、弹性、模型预热和蓝绿发布，最匹配。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-6-48-1": {
+    "qid": "new-6-48-1",
+    "classification": "own",
+    "chapter": 6,
+    "quality": "ok",
+    "reason": "考查高并发下性能劣化分析与应对措施，涉及限流、降级和优化，符合本章内容。",
+    "answer": [
+      "B",
+      "D"
+    ],
+    "supported": true,
+    "quote": "超出并发上限通常直接返回错误（如 429），需要客户端重试与降级配合；限制最大序列长度牺牲长上下文能力，换并发",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "扩容是长期方案，非题干“优先”措施，且错误已发生。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "针对429错误，客户端应实施指数退避重试和降级。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "量化需验证准确率，非解决当前并发错误的优先措施。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "限制序列长度可降低单请求KV Cache，从而提升并发能力。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-6-48-2": {
+    "qid": "new-6-48-2",
+    "classification": "own",
+    "chapter": 6,
+    "quality": "ok",
+    "reason": "考查KV Cache瓶颈识别与优化手段的有效性，紧扣显存构成与优化知识点。",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "KV Cache随序列长度 × 并发数线性增长；量化主要省显存（权重体积成倍缩小）",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "KV Cache占比82%是瓶颈，量化权重对缓解KV Cache压力无效。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "改变KV Cache数据类型（如fp8）可直接减少其显存占用。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "限制输出长度可减少Decode步数，从而降低KV Cache增长。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "PagedAttention能消除KV Cache碎片，提升显存利用率。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-6-48-3": {
+    "qid": "new-6-48-3",
+    "classification": "own",
+    "chapter": 6,
+    "quality": "ok",
+    "reason": "考查长上下文下KV Cache显存瓶颈的缓解技术组合，均为本章提及的有效手段。",
+    "answer": [
+      "A",
+      "B",
+      "C"
+    ],
+    "supported": true,
+    "quote": "GQA（分组查询注意力）KV 头数成倍减少；MLA（多头潜在注意力）对 KV Cache 做低秩压缩；KV Cache 量化对缓存本身低精度存储",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "GQA减少KV头数，直接降低单token缓存大小。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "MLA对KV Cache做低秩压缩，减少单token缓存。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "权重量化和KV Cache量化都能减少显存占用。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "上下文缓存复用系统提示词，对单次长文档请求帮助有限。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-6-48-4": {
+    "qid": "new-6-48-4",
+    "classification": "own",
+    "chapter": 6,
+    "quality": "ok",
+    "reason": "考查TPOT指标劣化根因分析，需结合GPU利用率和显存占用综合判断。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "Decode 显存带宽密集，决定 TPOT；KV Cache 随序列长度 × 并发数线性增长",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "驱动问题通常导致更严重故障，非TPOT高的典型原因。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "TPOT高、GPU利用率低、显存占用高，符合KV Cache带宽瓶颈特征。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "Prefill慢影响TTFT，而非TPOT。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "流式响应影响用户体验，不改变服务器端TPOT。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-6-48-5": {
+    "qid": "new-6-48-5",
+    "classification": "own",
+    "chapter": 6,
+    "quality": "ok",
+    "reason": "考查PAI-EAS成本模型与弹性伸缩配置，涉及实例最小数设置。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "弹性伸缩策略未配置最小实例数为0，导致空闲实例持续计费",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "Spot实例无资源时会回收，不会产生固定费用。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "最小实例数大于0，则空闲时实例常驻，产生固定费用。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "模型预热保障首请求性能，但不必然导致低谷期固定计费。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "PAI-EAS计费模式多样，非必然按ECS小时计费。"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

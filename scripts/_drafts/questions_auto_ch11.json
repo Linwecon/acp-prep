@@ -1,0 +1,286 @@
+{
+  "generated_at": "2026-10-02T15:36:29",
+  "chapter": 11,
+  "note": "草稿：已通过格式校验、文本相似初筛、LLM 语义查重（考点+解题路径）、章节归属、质量评审、隐藏答案独立解题、教材证据核对七段检查；草稿通过 ≠ 正式入库，合入前仍需人工逐题审核（merge_new_questions.py）。",
+  "check_chain": [
+    "format",
+    "sim_text",
+    "sem_dup",
+    "chapter",
+    "quality",
+    "solve",
+    "evidence"
+  ],
+  "draft": [
+    {
+      "seq": "5165",
+      "type": 0,
+      "stem": "在构建语音助手时，若需实现‘用户语音提问→ASR转文本→LLM理解并生成答案→TTS合成语音回复’的完整链路，以下哪项最能体现该管道式架构的核心特征？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "各模块可独立替换升级，接口协议标准化"
+        },
+        {
+          "option_label": "B",
+          "option_text": "所有处理均在端侧完成以保障隐私"
+        },
+        {
+          "option_label": "C",
+          "option_text": "ASR与TTS必须使用同一厂商模型以保证音色一致"
+        },
+        {
+          "option_label": "D",
+          "option_text": "LLM需直接处理原始音频波形输入"
+        }
+      ],
+      "answer": "A",
+      "analysis": "管道式架构核心是模块解耦与标准接口（如REST/SDK），支持ASR/LLM/TTS异构模型灵活组合；B非必需特征，C错误（音色一致性靠TTS音色克隆而非厂商绑定），D违背管道设计原则。",
+      "chapter": 11,
+      "difficulty_score": 1,
+      "difficulty_label": "入门",
+      "difficulty_sort": 1,
+      "gen_meta": {
+        "batch_id": "ch11-20261002-1",
+        "knowledge_point": "ASR→LLM→TTS管道式架构",
+        "basis": "ASR→LLM→TTS管道式架构要求模块间松耦合、接口标准化",
+        "checks": [
+          {
+            "stage": "format",
+            "passed": true,
+            "detail": "格式与精确查重通过"
+          },
+          {
+            "stage": "sim_text",
+            "passed": true,
+            "detail": "无近似题（文本初筛）"
+          },
+          {
+            "stage": "sem_dup",
+            "passed": true,
+            "detail": "无近似题，跳过语义判定"
+          },
+          {
+            "stage": "chapter",
+            "passed": true,
+            "detail": "章节归属通过: 考察ASR→LLM→TTS管道式架构"
+          },
+          {
+            "stage": "quality",
+            "passed": true,
+            "detail": "verdict=ok"
+          },
+          {
+            "stage": "solve",
+            "passed": true,
+            "detail": "自检一致（high）"
+          },
+          {
+            "stage": "evidence",
+            "passed": true,
+            "detail": "教材证据核对通过（exact）: 这种架构的好处是**解耦**：ASR、OCR、TTS 等单点能力成熟、成本低且可独立替换，LLM 专注中间的\"大脑\"部分"
+          }
+        ],
+        "note": "草稿通过 ≠ 正式入库；合入需人工逐题审核。"
+      }
+    },
+    {
+      "seq": "5166",
+      "type": 0,
+      "stem": "在构建ASR→LLM→TTS管道式架构时，若用户语音回复延迟高达3.2秒，最应优先排查哪个环节？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "ASR模型是否启用流式识别与部分结果返回"
+        },
+        {
+          "option_label": "B",
+          "option_text": "LLM是否使用了过长的系统提示词导致推理卡顿"
+        },
+        {
+          "option_label": "C",
+          "option_text": "TTS合成是否启用了高保真但非实时的WaveNet模型"
+        },
+        {
+          "option_label": "D",
+          "option_text": "前端音频采样率是否设置为44.1kHz而非16kHz"
+        }
+      ],
+      "answer": "A",
+      "analysis": "流式ASR支持低延迟部分输出，是管道端到端延迟的首要瓶颈；B/C影响整体耗时但非‘优先’根因；D采样率不匹配会导致识别失败而非单纯延迟。",
+      "chapter": 11,
+      "difficulty_score": 2,
+      "difficulty_label": "进阶",
+      "difficulty_sort": 2,
+      "gen_meta": {
+        "batch_id": "ch11-20261002-5",
+        "knowledge_point": "ASR→LLM→TTS管道式架构",
+        "basis": "ASR流式能力决定管道首字延迟，阿里云智能语音交互（ISI）强调流式ASR为实时交互基石",
+        "checks": [
+          {
+            "stage": "format",
+            "passed": true,
+            "detail": "格式与精确查重通过"
+          },
+          {
+            "stage": "sim_text",
+            "passed": true,
+            "detail": "无近似题（文本初筛）"
+          },
+          {
+            "stage": "sem_dup",
+            "passed": true,
+            "detail": "无近似题，跳过语义判定"
+          },
+          {
+            "stage": "chapter",
+            "passed": true,
+            "detail": "章节归属通过: 考查ASR→LLM→TTS管道式架构的延迟特征"
+          },
+          {
+            "stage": "quality",
+            "passed": true,
+            "detail": "verdict=ok"
+          },
+          {
+            "stage": "solve",
+            "passed": true,
+            "detail": "自检一致（high）"
+          },
+          {
+            "stage": "evidence",
+            "passed": true,
+            "detail": "教材证据核对通过（exact）: 语音链路对**延迟**敏感，实时通话要做流式 ASR/TTS 与首包优化；"
+          }
+        ],
+        "note": "草稿通过 ≠ 正式入库；合入需人工逐题审核。"
+      }
+    }
+  ],
+  "rejected": [
+    {
+      "stem": "某内容安全平台需对图文混合帖子进行违规检测。以下哪些技术环节属于多模态生成与内容安全强耦合的典型体现？",
+      "why": "[quality] verdict=fixable; 缺陷: no_leak:选项B含‘仅...忽略图像内容’，暗示多模态需兼顾图文，泄露",
+      "checks": [
+        {
+          "stage": "format",
+          "passed": true,
+          "detail": "格式与精确查重通过"
+        },
+        {
+          "stage": "sim_text",
+          "passed": true,
+          "detail": "无近似题（文本初筛）"
+        },
+        {
+          "stage": "sem_dup",
+          "passed": true,
+          "detail": "无近似题，跳过语义判定"
+        },
+        {
+          "stage": "chapter",
+          "passed": true,
+          "detail": "章节归属通过: 考查多模态生成与内容安全耦合"
+        },
+        {
+          "stage": "quality",
+          "passed": false,
+          "detail": "verdict=fixable; 缺陷: no_leak:选项B含‘仅...忽略图像内容’，暗示多模态需兼顾图文，泄露"
+        }
+      ]
+    },
+    {
+      "stem": "在构建ASR→LLM→TTS管道式架构时，若用户语音回复延迟高达3.2秒，最应优先排查哪个环节？",
+      "why": "[quality] verdict=fixable; 缺陷: logic_sound:题干未说明使用HTTP同步调用，却将D设为最优先排查项; distractors:A、B、C均为具体技术点，D是架构设计问题，类型不平行，干扰",
+      "checks": [
+        {
+          "stage": "format",
+          "passed": true,
+          "detail": "格式与精确查重通过"
+        },
+        {
+          "stage": "sim_text",
+          "passed": true,
+          "detail": "无近似题（文本初筛）"
+        },
+        {
+          "stage": "sem_dup",
+          "passed": true,
+          "detail": "无近似题，跳过语义判定"
+        },
+        {
+          "stage": "chapter",
+          "passed": true,
+          "detail": "章节归属通过: 考查ASR→LLM→TTS管道式架构的延迟特征"
+        },
+        {
+          "stage": "quality",
+          "passed": false,
+          "detail": "verdict=fixable; 缺陷: logic_sound:题干未说明使用HTTP同步调用，却将D设为最优先排查项; distractors:A、B、C均为具体技术点，D是架构设计问题，类型不平行，干扰"
+        }
+      ]
+    },
+    {
+      "stem": "在构建ASR→LLM→TTS管道式架构时，若用户语音回复延迟高达3.2秒，最应优先排查的环节是？",
+      "why": "[quality] verdict=fixable; 缺陷: no_leak:解析中明确说‘流式ASR是管道低延迟基石’，暗示A必对",
+      "checks": [
+        {
+          "stage": "format",
+          "passed": true,
+          "detail": "格式与精确查重通过"
+        },
+        {
+          "stage": "sim_text",
+          "passed": true,
+          "detail": "无近似题（文本初筛）"
+        },
+        {
+          "stage": "sem_dup",
+          "passed": true,
+          "detail": "无近似题，跳过语义判定"
+        },
+        {
+          "stage": "chapter",
+          "passed": true,
+          "detail": "章节归属通过: 考查ASR→LLM→TTS管道式架构的延迟特征"
+        },
+        {
+          "stage": "quality",
+          "passed": false,
+          "detail": "verdict=fixable; 缺陷: no_leak:解析中明确说‘流式ASR是管道低延迟基石’，暗示A必对"
+        }
+      ]
+    },
+    {
+      "stem": "在构建ASR→LLM→TTS管道式架构时，若用户语音指令中包含专业术语（如‘Transformer架构’），但TTS输出",
+      "why": "[quality] verdict=fixable; 缺陷: no_leak:解析中明确指出‘CosyVoice等阿里云TTS服务依赖专业",
+      "checks": [
+        {
+          "stage": "format",
+          "passed": true,
+          "detail": "格式与精确查重通过"
+        },
+        {
+          "stage": "sim_text",
+          "passed": true,
+          "detail": "无近似题（文本初筛）"
+        },
+        {
+          "stage": "sem_dup",
+          "passed": true,
+          "detail": "无近似题，跳过语义判定"
+        },
+        {
+          "stage": "chapter",
+          "passed": true,
+          "detail": "章节归属通过: 考察ASR→LLM→TTS管道式架构的核心缺陷"
+        },
+        {
+          "stage": "quality",
+          "passed": false,
+          "detail": "verdict=fixable; 缺陷: no_leak:解析中明确指出‘CosyVoice等阿里云TTS服务依赖专业"
+        }
+      ]
+    }
+  ]
+}

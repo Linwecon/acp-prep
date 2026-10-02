@@ -1,0 +1,154 @@
+{
+  "items": [
+    {
+      "type": 0,
+      "stem": "某金融企业需上线内部合规问答机器人，要求：①全部业务数据严禁出域；②日均稳定请求2000+，P95 TTFT需<1.2s；③支持灰度发布与秒级故障回滚。运维团队具备GPU调优能力，但无专职SRE。以下部署方案中，最符合全量约束的是？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "直接调用百炼MaaS API，通过VPC私网访问"
+        },
+        {
+          "option_label": "B",
+          "option_text": "在函数计算FC上部署vLLM服务，配置预留实例缓解冷启动"
+        },
+        {
+          "option_label": "C",
+          "option_text": "使用PAI-EAS部署自研模型，启用模型预热、蓝绿发布与自动弹性伸缩"
+        },
+        {
+          "option_label": "D",
+          "option_text": "在GPU ECS上自建vLLM集群，搭配SLB负载均衡与ESS弹性伸缩"
+        }
+      ],
+      "answer": "C",
+      "analysis": "依据教材6.12节‘部署选型四步决策法’：①‘数据能否出域’为首要判断——百炼（A）和FC（B）均需数据出域，直接排除；②‘流量形态’为稳定高吞吐实时在线，FC（B）因冷启动和执行时长限制不适用（6.10.1风险）；③‘运维能力’：ECS（D）虽可控但需全栈自运维（6.9），而题干明确‘无专职SRE’，超出其边界；PAI-EAS（C）在6.10.2明确定义为‘企业级在线推理平台’，提供‘模型预热（解决TTFT）、蓝绿/灰度发布（满足回滚）、自动弹性伸缩（适配2000+QPS）’，且由平台托管基础设施（6.7对比表），完美匹配‘数据不出域+实时高可用+低运维负担’三重约束。教材6.12典型场景表亦将‘私有微调模型上线，需弹性伸缩与灰度发布’对应PAI-EAS。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 0,
+      "stem": "压测发现vLLM服务在并发16时QPS达峰值28.4，但并发升至32后QPS反降至25.1且错误率升至3.2%。此时监控显示GPU显存占用98%、KV Cache占比82%。最应优先采取的优化措施是？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "增加GPU实例数量并配置SLB负载均衡"
+        },
+        {
+          "option_label": "B",
+          "option_text": "将模型从FP16量化为INT4，并验证业务准确率"
+        },
+        {
+          "option_label": "C",
+          "option_text": "启用GQA（分组查询注意力）并调整vLLM max_model_len参数"
+        },
+        {
+          "option_label": "D",
+          "option_text": "在客户端实现指数退避重试机制"
+        }
+      ],
+      "answer": "B",
+      "analysis": "题干关键证据：显存占用98%且KV Cache占82%，说明瓶颈在显存容量而非算力或网络（6.6原理）。教材6.6明确指出‘KV Cache随序列长度×并发数线性增长’，而6.4强调量化‘主要省显存’且INT4可将权重体积降至FP16的1/4（相对FP32的1/8），直接释放显存给KV Cache扩容（6.6成本）。A选项属横向扩容，但题干未提GPU利用率饱和，且显存已满，加卡无法解决单卡显存碎片问题；C选项GQA需模型原生支持（6.6对比表），非通用解法，且max_model_len限长会牺牲上下文能力；D选项是错误处理而非性能优化。教材6.4‘成本’段强调‘量化是最快见效、工程成本最低的压缩手段’，且6.6‘显存账’指导‘要扛更高并发，要么上更大卡，要么主动限制长度，要么用量化/分页等手段把KV Cache压下来’——B是唯一同时满足‘快速、低成本、直击显存瓶颈’的选项。",
+      "difficulty_label": "高阶"
+    },
+    {
+      "type": 1,
+      "stem": "某团队将Qwen3-0.6B模型部署于vLLM服务，观察到TTFT稳定在320ms，但TPOT波动剧烈（110ms~480ms）。下列哪些因素可能直接导致TPOT异常升高？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "客户端请求中max_tokens设置过大，导致生成token数远超实际需要"
+        },
+        {
+          "option_label": "B",
+          "option_text": "GPU显存带宽被其他进程占用，导致KV Cache读取延迟增加"
+        },
+        {
+          "option_label": "C",
+          "option_text": "vLLM未启用PagedAttention，导致KV Cache分配产生大量显存碎片"
+        },
+        {
+          "option_label": "D",
+          "option_text": "请求prompt中包含大量重复token，触发了前缀缓存复用"
+        }
+      ],
+      "answer": "B,C",
+      "analysis": "TPOT（Time Per Output Token）衡量Decode阶段每步生成效率，教材6.2明确定义其为‘显存带宽密集型’，受KV Cache读取速度直接影响。B选项直接对应‘显存带宽’瓶颈（6.2原理），符合；C选项中，PagedAttention的核心价值是‘消除KV Cache显存碎片、提升显存利用率’（6.5概念），碎片化会导致内存访问不连续、带宽下降，从而抬高TPOT，符合。A选项影响总延迟（TTFT+TPOT×输出数），但不改变TPOT本身（6.2公式）；D选项前缀缓存复用会降低实际计算量，应缩短TPOT而非升高（6.6对比表），故排除。教材6.5‘exam’强调‘PagedAttention解决KV Cache显存碎片’，6.2强调‘Decode决定TPOT’，二者构成因果链。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 0,
+      "stem": "开发团队需为客服系统选择部署形态：日均请求约800次，但集中在工作日9:00-18:00，峰值并发约15；要求首字响应快（TTFT<800ms），且无GPU运维人力。对比FC与PAI-EAS方案，为何FC更合适？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "FC支持模型预热，可确保TTFT达标，而EAS预热仅适用于批量任务"
+        },
+        {
+          "option_label": "B",
+          "option_text": "FC按调用付费，无流量时段零成本，且800次/日远低于EAS固定资源成本阈值"
+        },
+        {
+          "option_label": "C",
+          "option_text": "FC的Serverless GPU实例提供更高单卡算力，天然优于EAS的共享GPU资源"
+        },
+        {
+          "option_label": "D",
+          "option_text": "FC支持蓝绿发布与版本回滚，而EAS仅支持灰度发布"
+        }
+      ],
+      "answer": "B",
+      "analysis": "题干核心约束：低频（800次/日）、时段集中、无运维、TTFT敏感。教材6.7对比表明确FC优势为‘免运维、自动秒级弹性、按调用付费、无闲置成本’，而EAS‘固定成本通常高于FC，对于低频使用场景可能不如FC经济’（6.10.2成本）。B选项精准对应此成本逻辑。A错误：教材6.10.1指出FC‘冷启动明显，需预热缓解’，而6.10.2明确EAS‘提供模型预热，上线即就绪’，故EAS预热能力更强；C错误：FC与EAS的GPU资源均来自云平台，无‘天然算力更高’之说，且教材未做此比较；D错误：教材6.10.2对比表明确EAS支持‘蓝绿/灰度发布’，FC则无此企业级能力。教材6.12典型场景表将‘每天数百次查询的小工具’直接推荐FC，印证B为本质原因。",
+      "difficulty_label": "中阶"
+    },
+    {
+      "type": 1,
+      "stem": "在诊断一个vLLM服务RT飙升（>5s）的问题时，监控显示QPS正常、GPU利用率仅45%、KV Cache占用率78%。以下哪些排查方向符合教材推荐的可观测性方法？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "检查ARMS Traces链路，定位是否在Rerank环节耗时异常"
+        },
+        {
+          "option_label": "B",
+          "option_text": "查看ARMS Logs中是否有大量429错误日志"
+        },
+        {
+          "option_label": "C",
+          "option_text": "分析ARMS Metrics中TTFT与TPOT分项指标变化趋势"
+        },
+        {
+          "option_label": "D",
+          "option_text": "检查SLB健康检查失败率是否上升"
+        }
+      ],
+      "answer": "A,C",
+      "analysis": "教材6.11.2定义可观测性三支柱为Metrics/Traces/Logs，并强调‘Traces串联一次请求经过的检索、Rerank、模型推理等各环节耗时，定位卡在哪一步’（6.11.2概念），A选项直接应用Traces定位环节，符合。C选项中，RT=TTFT+TPOT×输出长度，教材6.3明确‘监控必须同时看QPS、RT/TTFT、错误率等’，且6.2强调TTFT/TPOT分别反映Prefill/Decode阶段，分项分析是定位RT飙升根源的标准动作。B选项429错误对应限流，但题干QPS正常、GPU利用率低，说明未超限，非首要方向；D选项SLB健康检查失败反映实例存活，但GPU利用率45%说明实例正常，与RT飙升无直接关联。教材6.11.2‘best’建议‘先观测再管控’，优先用Traces/Metrics定位根因，而非盲目查日志或基础设施。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 0,
+      "stem": "某团队使用vLLM部署模型时，发现相同prompt下不同请求的TTFT差异极大（200ms~1.8s）。已确认GPU无过载，且所有请求prompt长度一致。最可能的根本原因是？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "vLLM未启用连续批处理，导致长请求阻塞短请求的Prefill计算"
+        },
+        {
+          "option_label": "B",
+          "option_text": "请求排队等待时间波动，因并发数超过vLLM配置的max_num_seqs限制"
+        },
+        {
+          "option_label": "C",
+          "option_text": "模型权重未加载到GPU显存，每次Prefill需从CPU内存拷贝"
+        },
+        {
+          "option_label": "D",
+          "option_text": "客户端未启用流式响应，导致服务端需等待完整输出才返回首token"
+        }
+      ],
+      "answer": "B",
+      "analysis": "TTFT = Prefill耗时 + 排队时长（6.3表格），题干排除GPU过载（Prefill计算无瓶颈）和prompt长度差异（Prefill输入一致），故波动主因必为‘排队时长’。教材6.3‘risk’明确指出‘超出并发上限通常直接返回错误（如429）’，但若未配置严格限流，请求仍会排队，而排队时长受瞬时并发波动影响极大。B选项直指‘并发超限导致排队’这一根本机制。A错误：连续批处理优化Decode阶段（6.5），不影响Prefill；C错误：vLLM启动时已加载权重，且若真发生频繁拷贝，GPU利用率不会仅45%；D错误：流式响应影响客户端感知，但TTFT定义为服务端吐出首token的时间点，与客户端是否流式无关（6.2原理）。教材6.3‘指标’表将‘TTFT’明确定义为‘用户等多久才开口’，其组成包含‘排队时长’，B是唯一符合该定义的选项。",
+      "difficulty_label": "高阶"
+    }
+  ]
+}

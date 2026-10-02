@@ -1,0 +1,50 @@
+{
+  "new-10-210-3": {
+    "qid": "new-10-210-3",
+    "classification": "own",
+    "chapter": 10,
+    "quality": "ok",
+    "reason": "考查DashScope计费规则与qwen-long使用场景",
+    "answer": [
+      "A",
+      "B",
+      "D"
+    ],
+    "supported": true,
+    "quote": "输入 Token 与输出 Token 单价不同，输出通常更贵",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "输出Token多导致费用高，符合输出更贵规则"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "未设max_tokens致输出激增，原文明确要求限制"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "整份PDF作system prompt属输入膨胀，非输出高因"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "输出单价本就高于输入，原文直接说明"
+      },
+      {
+        "label": "E",
+        "selected": false,
+        "why": "RAG拼接属输入膨胀，与输出费用高无直接因果"
+      }
+    ],
+    "duplicate_of": "10-5184",
+    "references": [
+      {
+        "chapter": 10,
+        "id": 78
+      }
+    ]
+  }
+}

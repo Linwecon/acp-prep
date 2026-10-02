@@ -1,0 +1,212 @@
+{
+  "3-0433": {
+    "qid": "3-0433",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "语义分割模型专为保留语义设计，原文明确列为切片策略之一。",
+    "answer": [
+      "D"
+    ],
+    "supported": true,
+    "quote": "语义切片：用模型判断语义边界，在话题转换处切",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "字符分割破坏语义完整性"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "token切片长度固定，不保证语义完整"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "标点分割可能截断复合句"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "语义切片专为保留语义完整性设计"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-0451": {
+    "qid": "3-0451",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "向量数据库核心是存向量并做相似搜索，原文明确说明。",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "向量数据库用近似最近邻（ANN）索引实现毫秒级检索",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "不处理图像数据"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "不提供全文检索功能"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "专为存储向量和相似搜索设计"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "不管理关系型数据"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-0657": {
+    "qid": "3-0657",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "切分后按需检索是RAG标准解法，原文强调切片必要性。",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "文本切片是把解析后的长文档切成若干长度合适、语义相对完整的小文本块",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "RAG专为解决超长文本设计"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "超出上下文窗口无法强行输入"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "切分+按需检索是RAG标准流程"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "违背RAG开卷考试原则"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-0686": {
+    "qid": "3-0686",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "RAG通过检索增强提升事实准确性，原文明确其解决知识不足问题。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "RAG的核心思路是“开卷考试”，在回答前先检索最相关资料",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "纯生成易产生幻觉"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "RAG通过检索保障事实依据"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "微调不解决知识时效性"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "temperature升高增加随机性"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-0690": {
+    "qid": "3-0690",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "RAG核心是扩展知识边界，原文开篇即定义其解决知识截止与私域缺失。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "RAG解决什么问题——大模型知识不足/私有知识接入/知识时效性",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "不涉及训练效率"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "原文明确定义解决知识过时等问题"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "不直接降低延迟"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "非多模态技术"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-0727": {
+    "qid": "3-0727",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "切片策略直接影响检索相关性，原文指出切片不当是检索质量差根因。",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "检索质量差的三大根因：① Embedding模型不够好 ② 切片策略不当 ③ 文档格式丢失结构",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "降低阈值会降低精确率"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "减少数量加剧召回不足"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "切片策略不当是检索质量差根因"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "推理步数不解决检索相关性"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

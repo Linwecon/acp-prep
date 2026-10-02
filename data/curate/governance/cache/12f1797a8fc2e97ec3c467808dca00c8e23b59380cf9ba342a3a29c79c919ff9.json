@@ -1,0 +1,154 @@
+{
+  "items": [
+    {
+      "type": 0,
+      "stem": "某团队使用 vLLM 部署 Qwen3-0.6B 模型，压测中发现：当并发请求数从 8 增至 16 时，QPS 仅提升 15%，但平均 RT 飙升 40% 且出现 429 错误。此时若仅将 --max-num-seqs 参数从 16 调整为 12，最可能产生的效果是？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "QPS 进一步下降，但 RT 和错误率显著改善，因显存压力降低使 KV Cache 分配更稳定"
+        },
+        {
+          "option_label": "B",
+          "option_text": "RT 维持高位，429 错误减少，但部分请求被静默丢弃导致吞吐虚高"
+        },
+        {
+          "option_label": "C",
+          "option_text": "QPS 不变，TTFT 明显缩短，因 Prefill 阶段获得更充裕的计算资源"
+        },
+        {
+          "option_label": "D",
+          "option_text": "TPOT 降低 30%，因连续批处理调度粒度变细，GPU 利用率提升"
+        }
+      ],
+      "answer": "A",
+      "analysis": "依据原文 6.3 节 '高频误区'：'超出并发上限通常直接返回错误（如 429）'，以及 6.5 节 'vLLM 的 PagedAttention 解决的是 KV Cache 显存碎片与预分配浪费'；6.6 节明确指出 'KV Cache 占用随序列长度 × 并发数线性增长'，是并发瓶颈主因。--max-num-seqs 直接限制最大并发请求数，调低该值即主动约束 KV Cache 总显存需求，缓解显存争抢，从而降低 RT、减少 429。选项 B 错误——429 是显式 HTTP 错误，非静默丢弃；C 错误——TTFT 主要受 Prefill 计算和排队影响，与 --max-num-seqs 无直接因果；D 错误——TPOT 取决于 Decode 阶段显存带宽与 KV Cache 访问效率，PagedAttention 优化的是显存管理而非单步计算耗时，且连续批处理不改变 TPOT 本质。教材依据：6.3 '❌ 超出并发限制会排队慢慢处理 → 通常直接返回错误'；6.6 'KV Cache 是随序列长度 × 并发数线性增长'；6.5 'PagedAttention 消除碎片，提升同样显存下的并发承载能力'。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 0,
+      "stem": "在诊断一个突然出现高 TTFT（>8s）的线上 vLLM 服务时，监控显示 GPU 利用率正常、KV Cache 占用率仅 30%、无 429 错误。此时最应优先检查的日志线索是？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "Prefill 阶段的 CUDA kernel 启动耗时与 prompt token 数统计，判断是否存在超长 prompt 触发计算阻塞"
+        },
+        {
+          "option_label": "B",
+          "option_text": "Decode 阶段的 block 分配失败日志，确认 PagedAttention 页表是否发生频繁重映射"
+        },
+        {
+          "option_label": "C",
+          "option_text": "模型权重加载日志中的 mmap 或 offload 等关键词，排查是否因磁盘 I/O 延迟导致首 token 推迟"
+        },
+        {
+          "option_label": "D",
+          "option_text": "HTTP 请求队列长度与调度延迟日志，验证是否因请求积压导致首 token 排队过久"
+        }
+      ],
+      "answer": "D",
+      "analysis": "依据原文 6.2 节 'TTFT = Prefill 速度 + 排队时长'，并明确 'TTFT 受 Prefill 速度、排队时长、prompt 长度影响'；6.3 节强调 'RT（响应时间）= TTFT + TPOT × 输出长度 + 排队'，且 '延迟一旦升高，同等并发下吞吐就会下降'。题干中 GPU 利用率正常、KV Cache 占用低、无 429，排除了显存/算力硬瓶颈，说明问题不在 Prefill 计算本身或 Decode 显存压力，而极可能源于**请求调度层排队**——即请求已到达但未被及时调度进入 Prefill。vLLM 的连续批处理虽优化 Decode 调度，但 Prefill 仍需排队等待 batch 构建。选项 A 错误：若 prompt 超长，GPU 利用率应异常升高，与题干矛盾；B 错误：KV Cache 占用率仅 30%，页表重映射概率极低；C 错误：权重加载属启动阶段，不会导致'突然出现'的 TTFT 异常，且题干未提重启。教材依据：6.2 'TTFT 受...排队时长影响'；6.3 '并发过高导致排队、RT 飙升甚至报错'；6.5 '连续批处理优化 Decode 调度，但 Prefill 仍存在 batch 构建等待'。",
+      "difficulty_label": "挑战"
+    },
+    {
+      "type": 1,
+      "stem": "某金融企业需上线内部合规问答机器人，要求：①全部业务数据严禁出域；②日均稳定请求 2000+，P95 TTFT 需 <1.2s；③支持灰度发布与秒级故障回滚。运维团队具备 GPU 调优能力，但无专职 SRE。以下部署方案中，哪些完全满足全部约束？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "PAI-EAS：通过私有 VPC 部署，配置模型预热与蓝绿发布，利用 EAS 弹性伸缩应对流量波动"
+        },
+        {
+          "option_label": "B",
+          "option_text": "GPU ECS + vLLM：自建 SLB + ESS，手动维护灰度脚本与版本回滚流程"
+        },
+        {
+          "option_label": "C",
+          "option_text": "函数计算 FC：启用预留实例与模型预热，配置灰度路由规则"
+        },
+        {
+          "option_label": "D",
+          "option_text": "百炼 MaaS：开启 VPC 内网访问，申请专属资源组保障 TTFT"
+        }
+      ],
+      "answer": "AB",
+      "analysis": "依据原文 6.7 节对比表及 6.12 '四步决策法'：①'数据能否出域'是首要筛选项——百炼（D）和 FC（C）均为公有云托管，数据必然出域，违反约束①，排除；②TTFT<1.2s 要求低冷启动、高稳定性——FC（C）存在固有冷启动风险（6.7 '冷启动延迟'），即使预热也无法保证 P95 稳定性，且 FC 不支持企业级灰度（6.10.1 '调试监控更难'），排除；③PAI-EAS（A）明确支持'数据不出域'（VPC 部署）、'模型预热'（解决 TTFT）、'蓝绿/灰度发布'（6.10.2）、'弹性伸缩'（6.9），且无需用户自写运维脚本，符合'无专职 SRE'；ECS+vLLM（B）虽需手动维护灰度/回滚，但原文 6.9 指出其'适合数据不出域、稳定高吞吐、深度定制'，且'可结合 ESS/SLB 实现高可用'，运维能力存在（'具备 GPU 调优能力'）即满足，故 AB 均满足全部约束。教材依据：6.7 '百炼/FC 数据出域，ECS/PAI-EAS 支持私有部署'；6.10.2 'PAI-EAS 提供模型预热、蓝绿发布、版本控制'；6.9 'ECS 自建可控、无冷启动、可深度优化'；6.12 '数据不出域 → 排除百炼/FC'。",
+      "difficulty_label": "挑战"
+    },
+    {
+      "type": 0,
+      "stem": "开发者在 FC 上部署 AI 助手后，发现工作日早 9 点流量高峰时首个请求延迟达 3.2s，其余请求正常。夜间低峰期再次调用又重现该现象。最根本的原因及对应教材依据是？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "FC 实例被回收后冷启动：教材 6.7 明确指出 'Serverless 为了省成本，无流量时会回收实例；请求突然到来需要重新拉起实例、加载模型，导致首个请求明显变慢'"
+        },
+        {
+          "option_label": "B",
+          "option_text": "模型权重未量化导致加载缓慢：教材 6.4 指出 '量化主要省显存'，但未提及对加载耗时的影响"
+        },
+        {
+          "option_label": "C",
+          "option_text": "HTTP 触发器配置错误引发 DNS 解析延迟：教材未涉及网络基础设施配置细节"
+        },
+        {
+          "option_label": "D",
+          "option_text": "vLLM 的 PagedAttention 在 FC 环境下初始化失败：教材 6.5 明确 PagedAttention 是 vLLM 特性，而 FC 默认不运行 vLLM"
+        }
+      ],
+      "answer": "A",
+      "analysis": "题干描述'高峰时首个请求慢、其余正常'+'低峰后再次调用重现'，是 Serverless 冷启动的典型指纹：流量间隙导致实例回收，新请求触发重建。原文 6.7 节'为什么会有冷启动？'段落直接定义：'Serverless 为了省成本，无流量时会回收实例；请求突然到来需要重新拉起实例、加载模型，导致首个请求明显变慢'，并给出'预留实例/预热'的缓解方案。选项 B 错误：量化影响显存占用和推理速度，但加载耗时主要取决于磁盘 I/O 和模型大小，教材未将其与冷启动关联；C 错误：DNS 延迟属通用网络问题，非 FC 特有，且教材未覆盖；D 错误：FC 上通常不部署 vLLM（6.7 对比表中 FC 定位为'轻量推理'，vLLM 属 ECS/PAI-EAS 场景），且 PagedAttention 是运行时机制，不影响首次加载。教材依据：6.7 '为什么会有冷启动？' 全段。",
+      "difficulty_label": "入门"
+    },
+    {
+      "type": 1,
+      "stem": "某团队将 Qwen3-0.6B 模型量化为 AWQ INT4 后部署于 vLLM，观测到：①显存占用下降 58%；②TPOT 降低 22%；③TTFT 无明显变化；④在代码补全任务上 BLEU 分数下降 1.3 分。以下哪些结论可被教材原文直接支持？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "INT4 量化在敏感任务上可能掉点更明显，需用业务评测集验证"
+        },
+        {
+          "option_label": "B",
+          "option_text": "量化通常也加速，因显存带宽压力减小，但需框架算子支持"
+        },
+        {
+          "option_label": "C",
+          "option_text": "TTFT 主要由 Prefill 阶段决定，而 Prefill 是计算密集型，不受 KV Cache 量化影响"
+        },
+        {
+          "option_label": "D",
+          "option_text": "AWQ 属于 PTQ（训练后量化），在低比特下通常比 GPTQ 更稳"
+        }
+      ],
+      "answer": "ABD",
+      "analysis": "依据原文 6.4 节：A 项对应 'INT4 在敏感任务上可能掉点更明显，需要用业务评测集验证'（原文原句）；B 项对应 '量化通常也加速...因为 Decode 阶段是显存带宽密集型，从显存读权重的字节数变少了。但能否加速取决于推理框架/硬件是否有对应的低比特算子'；D 项对应 'AWQ（Activation-aware Weight Quantization）...在低比特（INT4）下通常更稳、更快'。C 项虽逻辑合理（TTFT 由 Prefill 决定，Prefill 不依赖 KV Cache），但原文 6.2 仅说明 'Prefill 决定 TTFT'，未提及'不受 KV Cache 量化影响'，属于过度推断，教材未直接支持。教材依据：6.4 'INT4 在敏感任务上可能掉点更明显'；'量化通常也加速...但需框架算子支持'；'AWQ...在低比特下通常更稳'。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 0,
+      "stem": "当使用 vLLM 部署服务时，若观察到 KV Cache 显存占用率持续高于 90%，且并发请求量无法提升，此时最应优先采取的针对性优化措施是？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "启用上下文缓存（Context Cache）复用系统提示词等公共前缀，减少重复 KV 存储"
+        },
+        {
+          "option_label": "B",
+          "option_text": "将模型权重从 FP16 量化为 INT4，进一步压缩权重体积腾出显存"
+        },
+        {
+          "option_label": "C",
+          "option_text": "增加 --max-model-len 参数，允许更长序列以提升单请求吞吐"
+        },
+        {
+          "option_label": "D",
+          "option_text": "关闭 PagedAttention，改用传统连续内存分配以提升访问局部性"
+        }
+      ],
+      "answer": "A",
+      "analysis": "题干核心矛盾是'KV Cache 占用率高'且'并发无法提升'，而原文 6.6 节明确 'KV Cache 是随序列长度 × 并发数线性增长'，是并发瓶颈主因；6.6 表格中'缓解 KV Cache 压力的常用手段'首条即为'上下文缓存 / 前缀复用'，并说明'相同前缀（系统提示词、知识库）的 KV 结果复用'，可'显著降本提速'。选项 A 直接针对 KV Cache 本身做去重优化，见效最快。B 错误：权重显存占比固定且已压缩（Qwen3-0.6B 本身较小），进一步量化对 KV Cache 无影响；C 错误：增大 --max-model-len 会**加剧** KV Cache 占用，恶化瓶颈；D 错误：PagedAttention 正是为解决 KV Cache 碎片化而生（6.5），关闭它将导致显存利用率暴跌，进一步降低并发。教材依据：6.6 '缓解 KV Cache 压力的常用手段' 表格第一行；6.5 'PagedAttention 天然支持共享：相同前缀的 KV 块可共享'；6.6 '长上下文、高并发业务，KV Cache 往往比权重更吃显存'。",
+      "difficulty_label": "进阶"
+    }
+  ]
+}

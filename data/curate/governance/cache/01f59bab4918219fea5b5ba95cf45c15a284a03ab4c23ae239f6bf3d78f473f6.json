@@ -1,0 +1,154 @@
+{
+  "items": [
+    {
+      "type": 0,
+      "stem": "某团队使用 vLLM 部署 Qwen3-0.6B 模型，启动命令中未指定 --max-model-len，服务上线后在处理长 prompt（如 8192 tokens）时频繁返回 400 错误，错误信息为 'context length exceeded'。此时最根本的故障原因及教材依据是？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "模型权重加载失败，导致上下文长度校验异常"
+        },
+        {
+          "option_label": "B",
+          "option_text": "vLLM 默认 max_model_len 为 1024，未显式配置时无法支持超过该长度的输入"
+        },
+        {
+          "option_label": "C",
+          "option_text": "OpenAI 兼容接口强制要求客户端必须在请求中携带 max_tokens 字段"
+        },
+        {
+          "option_label": "D",
+          "option_text": "KV Cache 分页块大小（block_size）未对齐导致内存越界"
+        }
+      ],
+      "answer": "B",
+      "analysis": "根据原文 6.5 节 'vLLM 的 OpenAI 兼容服务' 及其隐含约束：vLLM 启动时若未通过 --max-model-len 显式设置最大上下文长度，则采用框架默认值（vLLM v0.4+ 默认为 1024 或 2048，具体取决于版本，但远小于 8192）；当实际 prompt token 数超过此值，Prefill 阶段即触发 context length exceeded 校验失败（非运行时 OOM），返回 400。原文明确指出 Prefill 阶段决定 TTFT，且其计算需完整加载 prompt，因此长度超限属于前置校验失败，与 KV Cache 分配（D）、权重加载（A）或客户端参数（C）无关。教材虽未直接写出默认值数字，但在 6.5 节命令示例和 6.6 节显存账估算中反复强调‘必须为长上下文预留空间’‘限制最大序列长度是缓解 KV 压力的手段’，反向印证长度上限是启动时必须显式声明的关键约束。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 1,
+      "stem": "在 vLLM 提供的 OpenAI 兼容接口中，以下哪些条件同时满足时，客户端发起的 /v1/chat/completions 请求才能被正确路由并完成 Prefill 阶段？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "请求体中 'model' 字段值必须与 vLLM 启动时指定的模型路径完全一致（包括绝对路径）"
+        },
+        {
+          "option_label": "B",
+          "option_text": "vLLM 服务必须已成功加载模型权重，且 GPU 显存中存在有效权重张量"
+        },
+        {
+          "option_label": "C",
+          "option_text": "请求中 'messages' 数组至少包含一个 role='user' 的消息对象"
+        },
+        {
+          "option_label": "D",
+          "option_text": "服务端必须已预分配足够大的 KV Cache 分页块池以容纳该请求的 prompt 长度"
+        }
+      ],
+      "answer": "A,B,C",
+      "analysis": "A 正确：原文 6.5 节 curl 示例明确要求 'model' 字段传入模型本地路径（如 '/mnt/workspace/model/Qwen3-0.6B'），vLLM 的 OpenAI API 实现将此字段作为模型标识符进行路由匹配，路径不一致会导致 'model not found'（见题干库中第179题验证）；B 正确：Prefill 是前向计算，依赖已加载的权重，若加载失败（如路径错误、格式不支持），服务启动即报错或请求返回 500，无法进入 Prefill；C 正确：OpenAI API 规范要求 messages 至少含 user 角色（原文 6.5 示例），vLLM 严格遵循该规范，缺失则返回 400；D 错误：KV Cache 分页块按需动态分配（PagedAttention 核心特性），Prefill 阶段仅需为 prompt 计算 Key/Value 并写入分页块，无需预先为整个可能的最大序列长度分配——这正是 PagedAttention 解决的传统预分配浪费问题（原文 6.5）。因此 D 不是 Prefill 成功的必要条件。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 0,
+      "stem": "运维人员发现 vLLM 服务在高并发下 P95 TTFT 突然从 320ms 升至 4.8s，监控显示 GPU 利用率稳定在 85%，KV Cache 占用率仅 41%，无 429 错误。此时最应优先检查的执行环节是？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "检查 SLB/ALB 是否因健康检查失败将流量误导向异常实例"
+        },
+        {
+          "option_label": "B",
+          "option_text": "检查 vLLM 日志中是否存在大量 'Waiting for new requests' 等调度延迟日志"
+        },
+        {
+          "option_label": "C",
+          "option_text": "检查请求队列中是否存在大量长 prompt 请求阻塞了短 prompt 请求的 Prefill"
+        },
+        {
+          "option_label": "D",
+          "option_text": "检查 CUDA context 初始化是否在每次请求时重复执行"
+        }
+      ],
+      "answer": "C",
+      "analysis": "TTFT 暴涨而 GPU 利用率高、KV Cache 占用低，说明计算资源充足但首 token 延迟严重——这指向 Prefill 阶段的排队瓶颈。原文 6.3 节明确：TTFT 受 '排队时长' 影响；6.5 节指出连续批处理解决的是 Decode 阶段空转，但 Prefill 仍需按 batch 执行（vLLM 默认使用 grouped scheduling，长 prompt 会显著拖慢同 batch 中所有请求的 Prefill 完成时间）；6.3 节风险提示'长 prompt 会让等很久才开口'，且 Little 定律表明高并发下排队时长会指数级增长。选项 C 直接对应这一核心机制。A 属于基础设施层，但 GPU 利用率高说明实例存活且被调度；B 描述的是空闲状态，与高负载矛盾；D 中 CUDA context 初始化是进程级，非请求级，不可能导致请求级 TTFT 波动。",
+      "difficulty_label": "挑战"
+    },
+    {
+      "type": 1,
+      "stem": "当使用 vLLM 的 OpenAI 兼容接口时，以下哪些组合约束会导致 /v1/chat/completions 请求必然失败（返回非 200 响应）？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "请求中 'model' 字段值为空字符串，且 vLLM 启动时未指定 --served-model-name"
+        },
+        {
+          "option_label": "B",
+          "option_text": "请求中 'max_tokens' 设为 1，且模型本身不支持单 token 生成（如部分 LoRA 微调模型）"
+        },
+        {
+          "option_label": "C",
+          "option_text": "请求中 'messages' 包含 role='function'，但 vLLM 版本 < 0.4.0"
+        },
+        {
+          "option_label": "D",
+          "option_text": "请求中 'stream' 设为 true，但客户端未正确处理 SSE 流式响应"
+        }
+      ],
+      "answer": "A,C",
+      "analysis": "A 正确：原文 6.5 节示例及 vLLM 文档均要求 model 字段必须有效；若为空且未通过 --served-model-name 设置别名，vLLM 无法匹配到已加载模型，返回 404 或 400（如题干库第179题所示）；C 正确：vLLM 对 OpenAI API 的兼容是渐进式实现，role='function' 是较新扩展，旧版本（<0.4.0）不识别该 role，解析请求体时直接报错返回 400；B 错误：max_tokens=1 是合法参数，vLLM 支持单 token 生成，与模型是否 LoRA 无关（推理阶段参数冻结）；D 错误：stream=true 仅影响响应格式，服务端仍会正常执行 Prefill/Decode 并返回 SSE，客户端解析失败不影响服务端逻辑，不会导致请求失败（HTTP 状态码仍为 200）。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 0,
+      "stem": "某团队将 Qwen3-0.6B 量化为 AWQ INT4 后部署于 vLLM，观测到 TPOT 降低 22% 但 TTFT 无变化。这一现象最符合教材中关于推理两阶段的哪项原理？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "量化主要减少 Decode 阶段的显存带宽压力，而 Prefill 阶段是计算密集型，受益有限"
+        },
+        {
+          "option_label": "B",
+          "option_text": "AWQ 量化仅作用于权重，而 TTFT 主要受 KV Cache 读取速度影响"
+        },
+        {
+          "option_label": "C",
+          "option_text": "vLLM 的 PagedAttention 机制在 Prefill 阶段禁用了量化加速路径"
+        },
+        {
+          "option_label": "D",
+          "option_text": "TTFT 由网络传输延迟主导，与模型计算无关"
+        }
+      ],
+      "answer": "A",
+      "analysis": "原文 6.2 节明确定义：Prefill 是计算密集型，决定 TTFT；Decode 是显存带宽密集型，决定 TPOT。6.4 节指出量化'通常也加速'，因为 Decode 阶段需从显存读取权重，低比特减少字节数从而提升带宽效率；但 Prefill 阶段主要消耗 GPU 计算单元（SM），其加速依赖算子优化而非显存带宽，故量化对 TTFT 影响微弱。选项 A 完全复现教材原理。B 错误：TTFT 不涉及 KV Cache 读取（KV Cache 在 Prefill 后才生成）；C 错误：教材未提 PagedAttention 与量化路径的耦合限制；D 错误：教材强调 TTFT 是首 token 延迟，包含计算+排队，网络延迟只是其中一环。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 0,
+      "stem": "开发人员执行 vLLM 启动命令后，curl 调用 /v1/models 接口返回空列表，但 /v1/chat/completions 却能正常返回结果。造成此现象的最可能原因是？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "vLLM 服务未启用 --enable-scheduling-policy 参数"
+        },
+        {
+          "option_label": "B",
+          "option_text": "启动时未指定 --served-model-name，导致模型未注册到 OpenAI 兼容的模型列表"
+        },
+        {
+          "option_label": "C",
+          "option_text": "客户端请求头缺少 'Authorization: Bearer <api_key>'"
+        },
+        {
+          "option_label": "D",
+          "option_text": "vLLM 版本低于 0.3.0，不支持 /v1/models 接口"
+        }
+      ],
+      "answer": "B",
+      "analysis": "原文 6.5 节明确：vLLM 提供 OpenAI 兼容接口，包括 `/v1/models` 和 `/v1/chat/completions`；其 `/v1/models` 接口返回的是通过 `--served-model-name` 注册的模型别名列表（若未指定，则默认使用模型路径作为 name，但路径过长或含特殊字符可能导致注册失败或不可见）；而 `/v1/chat/completions` 可通过请求体中的 `model` 字段直接定位模型，不依赖模型列表注册。因此，B 是唯一符合教材描述的根因。A 无关调度策略；C 错误：vLLM OpenAI 接口默认无鉴权；D 错误：vLLM 自 0.2.x 起即支持该接口，教材示例基于主流版本。",
+      "difficulty_label": "进阶"
+    }
+  ]
+}

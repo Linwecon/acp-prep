@@ -1,0 +1,154 @@
+{
+  "items": [
+    {
+      "type": 0,
+      "stem": "某教育公司新人答疑机器人初期仅需单轮问答，两周后需求演进为RAG知识库+多轮对话+调用三个内部系统+效果评测+前端API接入。工程师发现代码从20行膨胀至600行，充斥手动拼接messages、重复检索逻辑和硬编码历史管理。根据第12章核心观点，导致此困境的根本原因是什么？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "未及时升级到最新版LangChain，导致API不兼容"
+        },
+        {
+          "option_label": "B",
+          "option_text": "缺乏对模型能力的持续调优，提示词工程不足"
+        },
+        {
+          "option_label": "C",
+          "option_text": "裸调SDK在需求复杂度提升后，无法复用共性工程模式，导致重复造轮子"
+        },
+        {
+          "option_label": "D",
+          "option_text": "选择了错误的向量数据库，造成检索性能瓶颈"
+        }
+      ],
+      "answer": "C",
+      "analysis": "原文12.1节明确指出：'真实应用通常会反复出现几类共性脏活'（如提示词拼装、多轮历史维护、文档加载/检索、多步骤编排等），而裸调SDK时'要自己写'这些逻辑，导致代码迅速膨胀、难以复用、维护成本激增。课程案例中'新人工程师第一次接答疑机器人时用SDK十几行跑通，两周后需求变复杂，代码迅速膨胀到几百行，到处是拼接messages、手工维护历史、重复写检索逻辑'正是本题情境的直接出处。选项C精准对应原文'框架的本质价值是把大模型应用中反复出现的工程模式抽象成可组合的组件'这一核心论断——缺失该抽象，即陷入'重复造轮子'困境。A、D属技术细节干扰项，非根本原因；B混淆了'模型能力'与'工程化编排'，原文强调'框架解决的是工程化编排而非模型能力'（12.1目标1），且题干未提模型效果问题。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 0,
+      "stem": "在调试一个基于LlamaIndex的RAG应用时，发现模型回答‘根据资料，年假有5天’，但实际知识库中明确写着‘司龄满3年员工年假10天’。检查QueryEngine日志显示检索返回了包含‘5天’的旧政策片段，而新政策未被召回。根据12.3节索引持久化要求，最可能的根本原因是什么？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "未配置Rerank后处理器，导致相关性排序不准"
+        },
+        {
+          "option_label": "B",
+          "option_text": "新增文档后未重建索引，仍使用旧索引文件"
+        },
+        {
+          "option_label": "C",
+          "option_text": "NodeParser切片粒度太粗，关键条款被合并丢失"
+        },
+        {
+          "option_label": "D",
+          "option_text": "Embedding模型未针对中文政策文本微调"
+        }
+      ],
+      "answer": "B",
+      "analysis": "原文12.3节明确要求：'索引需要持久化，避免每次重建'，并强调'新增/修改文档后必须重新走\"解析→切片→建索引\"流程'。题干中'新政策未被召回'而'旧政策片段被返回'，直接指向索引未更新——即系统仍在使用旧索引文件，未执行重建流程。这是12.3节'高频考点细节'中'索引需要持久化'的典型故障场景。A、C、D虽可能影响检索质量，但无法解释'完全未召回新文档'这一现象；只有B符合'新增文档后必须重建索引'的强制性操作规范。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 0,
+      "stem": "团队在评估RAG效果时，发现RAGAS报告Context Recall得分极低（0.2），但人工检查发现检索结果包含所有关键段落。进一步分析QueryEngine日志，发现默认提示词中{context_str}被误写为{query_str}。根据12.3节提示词模板规范，此错误会导致什么直接后果？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "模型将用户问题误认为参考上下文，导致生成答案脱离实际资料"
+        },
+        {
+          "option_label": "B",
+          "option_text": "模型因输入长度超限而截断，丢失关键信息"
+        },
+        {
+          "option_label": "C",
+          "option_text": "检索模块无法解析查询字符串，返回空结果"
+        },
+        {
+          "option_label": "D",
+          "option_text": "RAGAS评估器无法识别变量名，抛出KeyError异常"
+        }
+      ],
+      "answer": "A",
+      "analysis": "原文12.3节明确指出：'`context_str` 是检索到的上下文，不是用户问题'，并给出默认模板示例：'{context_str}'注入参考资料，'{query_str}'注入用户问题。若二者互换，模型收到的输入变为'问题作为上下文，资料作为问题'，必然导致模型基于错误前提生成答案，即'答非所问或编造'（原文QA自测第3题解析）。这直接破坏Context Recall指标的计算基础（该指标衡量检索结果是否覆盖答案所需的所有事实），故得分极低。B、C、D均非原文提及的后果：B属token限制问题，C属检索层错误，D属代码语法错误，而题干明确是'提示词中变量名写反'，属于语义注入错误。",
+      "difficulty_label": "挑战"
+    },
+    {
+      "type": 1,
+      "stem": "某团队计划将‘新人答疑机器人’上线为正式服务，需同时满足：内部员工通过网页聊天界面试用、外部HR系统通过HTTP API集成、运维团队需监控调用量与延迟。根据第12章12.7节配套工具层与12.8节技术栈分层，以下哪些部署策略最符合‘分层解耦、各司其职’原则？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "将Gradio界面、FastAPI服务、RAGAS评测全部封装在一个Flask应用中统一部署"
+        },
+        {
+          "option_label": "B",
+          "option_text": "用Gradio提供内部演示界面，FastAPI暴露标准HTTP API供HR系统调用，RAGAS独立运行离线评测任务"
+        },
+        {
+          "option_label": "C",
+          "option_text": "仅用Dify平台一站式发布Web App和API，禁用所有外部评测工具"
+        },
+        {
+          "option_label": "D",
+          "option_text": "将RAG核心逻辑封装为独立模块，Gradio和FastAPI均调用该模块，RAGAS使用相同模块进行评估"
+        }
+      ],
+      "answer": "BD",
+      "analysis": "原文12.7节明确划分技术栈分层：Gradio是'UI层'（给人用的Demo），FastAPI是'服务层'（给系统调的服务），RAGAS是'评估层'（量化效果），三者'各司其职'且'可以同时存在'（原文12.7.3末尾）。选项B完全遵循此分层：Gradio做UI、FastAPI做服务、RAGAS独立评测。选项D体现'业务逻辑下沉'原则（原文12.7.2强调'Gradio只负责界面，不承载业务逻辑'，应'放在下层可独立测试的模块里'），使UI、服务、评测共享同一套可测试的核心逻辑，符合'分层解耦'。选项A违反分层，将不同职责强耦合；选项C放弃专业评估工具，违背'要量化RAG效果→RAGAS'的选型原则（12.8表）。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 1,
+      "stem": "某金融企业需上线合规审计问答机器人，文档含大量扫描版合同、带复杂表格的监管报表及内部Markdown制度。团队要求：1）解析结果必须保留表格结构与标题层级；2）所有处理需离线完成；3）IT部门拒绝引入云服务。根据第12.5节文档解析工具链选型原则，以下哪些工具组合符合要求？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "DashScopeParse + SimpleDirectoryReader"
+        },
+        {
+          "option_label": "B",
+          "option_text": "Unstructured + PyMuPDF4LLM"
+        },
+        {
+          "option_label": "C",
+          "option_text": "自定义Reader（继承BaseReader）+ SentenceWindowNodeParser"
+        },
+        {
+          "option_label": "D",
+          "option_text": "SimpleDirectoryReader（默认）+ MarkdownNodeParser"
+        }
+      ],
+      "answer": "BC",
+      "analysis": "原文12.5节选型决策路径明确：'扫描件、复杂表格→上DashScopeParse'（但需云端，违反条件3）；'需要完全离线、多格式统一分区→评估Unstructured或PyMuPDF'；'内部专有格式→自定义Reader'。题干要求'离线完成'且含'扫描版合同'（需OCR）、'复杂表格'（需结构化）、'Markdown'（需保留层级），故单一工具难覆盖。选项B：Unstructured擅长分区识别标题/表格/列表，PyMuPDF4LLM可处理纯文本PDF转Markdown，二者组合可离线覆盖多格式；选项C：自定义Reader可针对'扫描版合同'定制OCR（如集成Tesseract）+ '复杂表格'解析（如camelot），再用SentenceWindowNodeParser保留语义窗口，完全可控且离线。选项A中DashScopeParse是云端服务，违反'离线'要求；选项D的SimpleDirectoryReader对扫描件无效，无法满足核心需求。",
+      "difficulty_label": "挑战"
+    },
+    {
+      "type": 0,
+      "stem": "某团队在引入LangChain后，发现原本100ms响应的单轮问答变慢至800ms，且栈追踪长达50行。查阅日志发现框架自动注入了额外system prompt并执行了两次嵌套回调。根据第12章12.1节‘risk’，这体现了框架引入的哪类典型负担？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "学习成本与版本依赖冲突"
+        },
+        {
+          "option_label": "B",
+          "option_text": "抽象泄漏与调试黑盒"
+        },
+        {
+          "option_label": "C",
+          "option_text": "过度工程化导致性能下降"
+        },
+        {
+          "option_label": "D",
+          "option_text": "生态扩展包引入冗余依赖"
+        }
+      ],
+      "answer": "B",
+      "analysis": "原文12.1节'risk'部分明确列出四类负担：'学习成本、版本依赖、抽象泄漏和调试黑盒'。其中'抽象泄漏'指'框架封装越深，出错时栈追踪越长'，'调试黑盒'指'为什么框架多塞了一段system prompt / 多调了一次模型常常要翻源码'。题干中'栈追踪长达50行'对应'抽象泄漏'，'自动注入额外system prompt'对应'调试黑盒'（行为不可控，需溯源），二者共同构成'抽象泄漏和调试黑盒'这一复合负担。A、D属其他负担类型，但题干未提版本冲突或依赖数量；C是现象描述，非原文定义的负担类别。",
+      "difficulty_label": "进阶"
+    }
+  ]
+}

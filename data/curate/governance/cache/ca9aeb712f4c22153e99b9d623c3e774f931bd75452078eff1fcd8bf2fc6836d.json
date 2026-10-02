@@ -1,0 +1,37 @@
+{
+  "new-4-66-1": {
+    "qid": "new-4-66-1",
+    "classification": "own",
+    "chapter": 4,
+    "quality": "ok",
+    "reason": "题干明确指向ReAct与CoT辨析，原文有直接对比定义。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "CoT（Chain-of-Thought）：只在脑子里推理，不调工具；ReAct：想一步、做一步，会调用外部工具。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "ReAct非CoT别名，原文明确区分二者"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "符合CoT定义：纯内部推理，不调工具"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "Plan-and-Execute需生成计划再执行"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "固定工作流需预设节点，题干未体现"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

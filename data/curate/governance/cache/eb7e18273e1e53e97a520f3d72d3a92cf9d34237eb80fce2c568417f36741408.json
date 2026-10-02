@@ -1,0 +1,179 @@
+{
+  "new-9-24-0": {
+    "qid": "new-9-24-0",
+    "classification": "own",
+    "chapter": 9,
+    "quality": "ok",
+    "reason": "考察Batch API异步处理与强一致性校验的核心优势",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "Batch API将请求打包为JSONL异步处理，平台保障每行独立执行与结果对齐，天然适配需强一致性校验的批处理场景",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "Batch是异步离线，不降低TTFT"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "JSONL异步处理与结果对齐是核心依据"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "Batch不默认固定temperature"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "缓存压缩非Batch核心优势"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-9-24-1": {
+    "qid": "new-9-24-1",
+    "classification": "own",
+    "chapter": 9,
+    "quality": "ok",
+    "reason": "考察成本控制优先级与上下文缓存原理的应用",
+    "answer": [
+      "A",
+      "B",
+      "C"
+    ],
+    "supported": true,
+    "quote": "要享受到缓存，关键是保持前缀稳定——把容易变化的内容（用户问题、时间戳）放在请求靠后位置",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "稳定前缀可命中缓存，降低输入成本"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "摘要压缩直接减少历史消息长度"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "减少RAG召回片段直接减少输入Token"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "换模型降单价非直接降低输入成本"
+      }
+    ],
+    "duplicate_of": "9-5159"
+  },
+  "new-9-24-2": {
+    "qid": "new-9-24-2",
+    "classification": "own",
+    "chapter": 9,
+    "quality": "ok",
+    "reason": "考察Function Calling中工具结果回传的API约束",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "回传结果时漏tool_call_id——模型无法把结果和之前的调用对应起来",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "tool_choice='auto'即可，非强制"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "未用role='tool'且缺tool_call_id"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "题干已执行工具，非决策上下文缺失"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "模型已返回tool_calls，参数提取成功"
+      }
+    ],
+    "duplicate_of": "9-5161"
+  },
+  "new-9-24-3": {
+    "qid": "new-9-24-3",
+    "classification": "own",
+    "chapter": 9,
+    "quality": "ok",
+    "reason": "考察Batch API结果校验与对齐的根治措施",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "必须校验输入输出行数、请求ID是否一一对应，防止错位或丢失",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "嵌入唯一ID并校验对齐是根治措施"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "拆分任务不能解决结果错位"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "轮询状态与文件损坏无关"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "时间戳排序不能保证行对齐"
+      }
+    ],
+    "duplicate_of": "9-5170"
+  },
+  "new-9-24-4": {
+    "qid": "new-9-24-4",
+    "classification": "own",
+    "chapter": 9,
+    "quality": "ok",
+    "reason": "考察对429限流错误的重试策略设计",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "指数退避 + 抖动（Exponential Backoff with Jitter）是处理429/5xx的标准做法",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "429应重试，但策略不对"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "固定延迟无退避抖动，导致重试集中"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "已设3次，非无限重试"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "题干未提客户端并发控制"
+      }
+    ],
+    "duplicate_of": "9-5158"
+  }
+}

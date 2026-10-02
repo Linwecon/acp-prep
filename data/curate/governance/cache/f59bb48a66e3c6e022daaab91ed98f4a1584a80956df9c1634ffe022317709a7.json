@@ -1,0 +1,212 @@
+{
+  "11-0839": {
+    "qid": "11-0839",
+    "classification": "own",
+    "chapter": 11,
+    "quality": "ok",
+    "reason": "模糊图片应主动提示用户重传，符合用户体验原则",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "识别到图片质量有问题时，主动告知用户并建议其提供更清晰的图片",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "强行分析易出错，违背可靠性"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "通用错误信息缺乏引导性"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "主动提示符合用户体验原则"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "忽略图片导致功能失效"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "11-0936": {
+    "qid": "11-0936",
+    "classification": "own",
+    "chapter": 11,
+    "quality": "ok",
+    "reason": "图文生成需统一建模，视觉-语言多模态模型最适配",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "图文多模态模型的工作原理可以用一个公式概括：编码器 + 投影对齐 + 大语言模型",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "纯文本模型无法处理图像"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "需统一建模图文关联"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "独立模型无法建立语义对齐"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "规则系统无法泛化理解"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "11-0949": {
+    "qid": "11-0949",
+    "classification": "own",
+    "chapter": 11,
+    "quality": "ok",
+    "reason": "语音助手采用管道式架构，ASR与LLM解耦",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "语音助手是典型的管道式架构，由多个各司其职的模型串成",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "端到端模型不可控且难调试"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "符合ASR→LLM→TTS管道设计"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "纯语音模型不输出文本"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "规则系统无法处理语音多样性"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "11-1252": {
+    "qid": "11-1252",
+    "classification": "own",
+    "chapter": 11,
+    "quality": "ok",
+    "reason": "图中文字检测需OCR提取+文本审核双步骤",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "图像检测不仅要看画面，还要审'图里的字'——攻击者可以把违规文字写进图片里绕过文本过滤",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "OCR提取文字后需合规检测"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "语音识别不适用图像场景"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "图像分类不识别文字"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "音频指纹无关图像文字"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "11-1267": {
+    "qid": "11-1267",
+    "classification": "own",
+    "chapter": 11,
+    "quality": "ok",
+    "reason": "CosyVoice是TTS模型，核心是语音合成模型选择",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "TTS（文字转语音）：文字 → 语音；如 CosyVoice（含个性化音色）",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "视频分辨率不相关"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "TTS核心是模型选型"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "字幕对齐属视频场景"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "PPT切换无关TTS"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "11-0319": {
+    "qid": "11-0319",
+    "classification": "own",
+    "chapter": 11,
+    "quality": "ok",
+    "reason": "图文检索依赖多模态融合实现跨模态对齐",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "关键是对比学习（CLIP范式）：训练时给模型大量'图文对'，把匹配的图文向量在空间中拉近",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "Stable Diffusion用于生成"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "文生图是生成非检索"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "多模态融合实现图文对齐"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "语音识别不涉及图文"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

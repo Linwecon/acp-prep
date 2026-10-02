@@ -1,0 +1,214 @@
+{
+  "4-5109": {
+    "qid": "4-5109",
+    "classification": "own",
+    "chapter": 4,
+    "quality": "ok",
+    "reason": "考查Agent安全实践，原文明确要求隐私过滤",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "隐私过滤：敏感信息不应进入长期记忆。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "违反隐私保护原则"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "模型不可信，需前置过滤"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "必须先脱敏再生成回答"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "随机替换仍属泄露隐私"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "4-5110": {
+    "qid": "4-5110",
+    "classification": "own",
+    "chapter": 4,
+    "quality": "ok",
+    "reason": "考查Agent闭环设计，含意图识别、工具调用、HITL",
+    "answer": [
+      "A",
+      "B",
+      "C"
+    ],
+    "supported": true,
+    "quote": "多 Agent 设计四条硬原则……避免全量注入……HITL 在关键节点暂停，交人类审批/决策",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "意图识别是感知环节"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "工具调用是行动环节"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "人工兜底即HITL机制"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "关闭日志违反Harness记录要求"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "4-5111": {
+    "qid": "4-5111",
+    "classification": "own",
+    "chapter": 4,
+    "quality": "ok",
+    "reason": "考查Memory与Tool协同，需按需调用非全量注入",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "避免全量注入：不要把所有 Agent 的知识/工具清单一次性写进主 Prompt，应按需加载、按需调用",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "实时调用符合按需原则"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "违反避免全量注入原则"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "违背个性化推荐目标"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "完全绕过Agent功能"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "4-5112": {
+    "qid": "4-5112",
+    "classification": "own",
+    "chapter": 4,
+    "quality": "ok",
+    "reason": "考查Agent安全响应，需专业渠道介入",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "安全问题与质量问题边界……AI 安全护栏与内容安全服务",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "提供专业援助是安全护栏"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "忽视高危风险"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "加剧心理风险"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "未履行基本关怀义务"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "4-5154": {
+    "qid": "4-5154",
+    "classification": "cross",
+    "chapter": 10,
+    "quality": "ok",
+    "reason": "考查百炼平台能力，属第10章MaaS范畴",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "百炼：应用开发平台……智能体与工作流低代码编排",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "仍需API Key和模型"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "无法保证零错误"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "平台托管执行闭环"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "支持在线交互"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "4-5053": {
+    "qid": "4-5053",
+    "classification": "cross",
+    "chapter": 12,
+    "quality": "ok",
+    "reason": "考查Dify定位，属第12章框架工具",
+    "answer": [
+      "D"
+    ],
+    "supported": true,
+    "quote": "低代码平台Dify的原型验证价值",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "非向量数据库"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "非训练框架"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "非操作系统"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "是低代码应用平台"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

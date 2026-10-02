@@ -1,0 +1,213 @@
+{
+  "3-0425": {
+    "qid": "3-0425",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "LlamaIndex标准流程明确文档先转Node再建索引",
+    "answer": [
+      "D"
+    ],
+    "supported": true,
+    "quote": "Document对象 - Node对象 - index - query_engine",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "Node不能先于Document存在"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "query_engine在index之后创建"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "Node必须在Document之后生成"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "原文明确Document→Node→index→query_engine顺序"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-0466": {
+    "qid": "3-0466",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "重排序是检索后精排过滤的典型技术",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "Rerank（重排序）：第一阶段向量检索快速'海选'出较多候选，第二阶段用更强的重排序模型对候选逐篇精细打分、重新排序",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "重排序专用于检索后精排过滤"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "滑动窗口是切片策略非过滤技术"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "问题改写在检索前执行"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "问题扩写非原文提及技术"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-0473": {
+    "qid": "3-0473",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "多轮对话需查询改写解决指代问题",
+    "answer": [
+      "A",
+      "B"
+    ],
+    "supported": true,
+    "quote": "多轮对话中'他/这个'指代不清 → 先用LLM把含代词的问题改写成完整问题再检索",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "原文明确多轮需查询改写"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "改写后必须重新检索生成"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "微调不属RAG多轮必要步骤"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "推理时间非多轮对话核心需求"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-0482": {
+    "qid": "3-0482",
+    "classification": "cross",
+    "chapter": 3,
+    "quality": "review",
+    "reason": "GraphRAG未在章节目录和原文中出现",
+    "answer": [],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "GraphRAG未在原文提及"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "GraphRAG未在原文提及"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "GraphRAG未在原文提及"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "GraphRAG未在原文提及"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-0483": {
+    "qid": "3-0483",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "大模型可用于意图识别和信息提取",
+    "answer": [
+      "A",
+      "B"
+    ],
+    "supported": true,
+    "quote": "查询改写：先用LLM把含代词的问题改写成完整问题；表格若被当成普通文字按固定长度切碎...为表格额外生成摘要",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "查询改写即意图识别应用"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "表格摘要属于结构化信息提取"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "训练速度非RAG场景应用"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "存储需求非RAG场景应用"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-0489": {
+    "qid": "3-0489",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "重排序和相似度阈值是精度提升核心手段",
+    "answer": [
+      "B",
+      "C"
+    ],
+    "supported": true,
+    "quote": "Rerank重排：只把最相关的少数交给大模型；相似度阈值过滤：similarity_cutoff=0.2",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "增大召回会降低精度"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "重排序提升相关片段排名"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "相似度阈值过滤无关内容"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "训练次数与检索无关"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

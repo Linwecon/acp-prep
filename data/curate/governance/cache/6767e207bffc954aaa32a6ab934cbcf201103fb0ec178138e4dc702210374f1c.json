@@ -1,0 +1,228 @@
+{
+  "6-1304": {
+    "qid": "6-1304",
+    "classification": "own",
+    "chapter": 6,
+    "quality": "ok",
+    "reason": "wrk参数属部署压测实操细节，原文明确列出-c/-d/-s",
+    "answer": [
+      "A",
+      "B",
+      "C"
+    ],
+    "supported": true,
+    "quote": "用 wrk 把并发从 1 提到 10，QPS 从 3.30 提升到约 20.08",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "原文明确提到并发参数-c"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "原文压测实验含持续时间控制"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "-s为wrk标准脚本参数"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "-g非wrk有效参数"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "6-1364": {
+    "qid": "6-1364",
+    "classification": "own",
+    "chapter": 6,
+    "quality": "ok",
+    "reason": "显存优化是本章核心考点，四选项均在原文有依据",
+    "answer": [
+      "A",
+      "B",
+      "C",
+      "D"
+    ],
+    "supported": true,
+    "quote": "量化（INT8/INT4）...模型并行能把单卡放不下的权重切到多卡...知识蒸馏...连续批处理（Continuous Batching）",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "原文明确量化省显存"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "原文指出张量并行可分担显存"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "蒸馏生成小模型降低显存"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "动态批处理提升显存利用率"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "6-0664": {
+    "qid": "6-0664",
+    "classification": "own",
+    "chapter": 6,
+    "quality": "ok",
+    "reason": "监控指标需聚焦服务健康，原文强调延迟与错误率",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "监控推理服务必须同时看 QPS、RT/TTFT、错误率、GPU 利用率与 KV Cache 占用",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "训练损失属训练阶段指标"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "原文明确列为必须监控项"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "论文引用与服务健康无关"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "训练数据大小不反映运行状态"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "6-0703": {
+    "qid": "6-0703",
+    "classification": "own",
+    "chapter": 6,
+    "quality": "ok",
+    "reason": "推理速度优化需匹配原文技术路径，E属训练概念",
+    "answer": [
+      "A",
+      "B",
+      "D"
+    ],
+    "supported": true,
+    "quote": "用更小的模型...量化 / 剪枝 / 蒸馏...精简输入输出 token...max_tokens 作为防失控的安全阀",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "原文明确小模型提速"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "量化可加速且省显存"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "并行属训练优化非推理"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "减上下文直接降KV Cache"
+      },
+      {
+        "label": "E",
+        "selected": false,
+        "why": "迭代次数属训练概念"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "6-0715": {
+    "qid": "6-0715",
+    "classification": "own",
+    "chapter": 6,
+    "quality": "ok",
+    "reason": "核心监控指标需覆盖性能、资源、稳定性，C属质量评估非运行监控",
+    "answer": [
+      "A",
+      "B",
+      "D"
+    ],
+    "supported": true,
+    "quote": "监控推理服务必须同时看 QPS、RT/TTFT、错误率、GPU 利用率与 KV Cache 占用",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "RT即推理延迟，原文必监"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "QPS是吞吐核心指标"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "准确率属评测非运行监控"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "显存占用是关键资源指标"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "6-0716": {
+    "qid": "6-0716",
+    "classification": "own",
+    "chapter": 6,
+    "quality": "ok",
+    "reason": "GPU显存不足需针对性解决，D用CPU替代GPU不可行",
+    "answer": [
+      "A",
+      "B",
+      "C"
+    ],
+    "supported": true,
+    "quote": "GPU 显存主要由三部分构成：模型权重...KV Cache...运行时开销...量化...张量并行...知识蒸馏",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "量化直接降低权重显存"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "模型并行分摊显存压力"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "蒸馏生成小模型降显存"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "CPU无法替代GPU显存"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

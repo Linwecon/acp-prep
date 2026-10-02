@@ -1,0 +1,227 @@
+{
+  "2-1407": {
+    "qid": "2-1407",
+    "classification": "beyond",
+    "chapter": 2,
+    "quality": "remove",
+    "reason": "题干问插图提示词，属多模态生成（第11章），非本章提示工程范畴",
+    "answer": [],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "颜色模式属多模态生成控制，非提示工程要素"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "描述详细程度属多模态提示设计，非本章内容"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "文件大小是工程部署指标，与提示词无关"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "编号位置属文档排版，非提示工程考点"
+      },
+      {
+        "label": "E",
+        "selected": false,
+        "why": "场景对象具体性属多模态提示，非本章知识"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "2-1429": {
+    "qid": "2-1429",
+    "classification": "cross",
+    "chapter": 2,
+    "quality": "ok",
+    "reason": "法律咨询需复杂推理，CoT适用；NLU属传统技术，非本章重点；身份验证和模板非提示工程核心",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "CoT 为什么有效？它把原本要求模型'一步到位'的高难度概率判断，拆成多个低难度的小步骤",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "法律咨询属复杂推理，CoT提升准确率"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "身份验证属安全合规层，非提示工程"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "标准模板未体现六要素，非最优解"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "NLU是传统NLP模块，非大模型提示工程"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "2-1438": {
+    "qid": "2-1438",
+    "classification": "own",
+    "chapter": 2,
+    "quality": "ok",
+    "reason": "题干明确描述CoT三阶段流程，与教材定义完全一致",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "思维链（Chain-of-Thought, CoT）：引导模型在给出最终答案前，显式输出中间推理步骤",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "少样本需提供示例，题干未提及"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "符合CoT定义：分析→拆解→结论"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "角色设定仅定义身份，不涉及步骤分解"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "指令优化是泛称，非特指该技术"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "2-1439": {
+    "qid": "2-1439",
+    "classification": "own",
+    "chapter": 2,
+    "quality": "ok",
+    "reason": "明确任务、格式、约束均指向具体性原则，教材强调补足决策信息",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "这些要素的本质是给模型补足决策信息：'角色'激活模型在训练中见过的角色模式",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "简洁性强调精准克制，非题干所指"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "任务/格式/约束均体现具体化要求"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "多样性非本章原则，且与题干矛盾"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "开放性会降低可控性，与题干相悖"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "2-1442": {
+    "qid": "2-1442",
+    "classification": "own",
+    "chapter": 2,
+    "quality": "ok",
+    "reason": "角色设定目的在教材明确为激活特定视角的模式，直接对应选项B",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "'角色'激活模型在训练中见过的角色模式（工程师 vs 小学老师，对同一问题的措辞深度完全不同）",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "长度与重视度无教材依据"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "教材明确定义角色激活视角模式"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "角色不限制格式，输出格式是独立要素"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "System Prompt需每轮注入，非永久记忆"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "2-1449": {
+    "qid": "2-1449",
+    "classification": "own",
+    "chapter": 2,
+    "quality": "ok",
+    "reason": "样例需展示输入输出映射关系，B/C/E符合Few-shot范式，A/D/F为其他要素",
+    "answer": [
+      "B",
+      "C",
+      "E"
+    ],
+    "supported": true,
+    "quote": "Few-shot 之所以有效，是因为示例让模型通过上下文学习对齐'输出什么格式、什么口吻'",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "属于角色要素，非样例"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "输入输出映射，典型Few-shot样例"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "用户输入与模型回复的完整映射"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "属于输出格式要素"
+      },
+      {
+        "label": "E",
+        "selected": true,
+        "why": "输入输出映射，符合样例定义"
+      },
+      {
+        "label": "F",
+        "selected": false,
+        "why": "属于任务目标要素"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

@@ -21,6 +21,10 @@ import re
 import sys
 from collections import Counter
 from concurrent.futures import ThreadPoolExecutor, as_completed
+from datetime import datetime
+
+sys.path.insert(0, str(pathlib.Path(__file__).resolve().parent))
+import curate_core  # noqa: E402
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(ROOT / "scripts"))
@@ -120,11 +124,34 @@ def decide(bank_ans, votes):
     return "undecided", bank_ans, details
 
 
+def sanitize_votes_cache(raw: dict, qid2fp: dict) -> tuple[dict, int, int]:
+    """断点缓存净化：缓存必须绑定实际输入版本。
+
+    - 旧格式（无 fingerprint / 无 votes 字段）→ 作废（不得把当前指纹补绑到旧缓存上）；
+    - 指纹与当前题目内容失配 → 作废（题目已变化，旧投票不得复用）。
+    返回 (有效缓存, 作废旧格式条数, 内容变化失效条数)。
+    """
+    valid, legacy, stale = {}, 0, 0
+    for qid, v in (raw or {}).items():
+        if not (isinstance(v, dict) and v.get("fingerprint") and isinstance(v.get("votes"), dict)):
+            legacy += 1
+            continue
+        if qid in qid2fp and v["fingerprint"] != qid2fp[qid]:
+            stale += 1
+            continue
+        valid[qid] = v
+    return valid, legacy, stale
+
+
 def main() -> int:
     ap = argparse.ArgumentParser()
-    ap.add_argument("--vote", action="store_true", help="多模型投票")
-    ap.add_argument("--apply", action="store_true", help="修正题库")
+    ap.add_argument("--vote", action="store_true", help="多模型投票（结果绑定题目内容指纹）")
+    ap.add_argument("--evidence", action="store_true", help="对 fix 项做教材证据核对（引用须能在章节原文定位）")
+    ap.add_argument("--apply", action="store_true", help="修正题库（需指纹绑定 + 教材证据通过）")
+    ap.add_argument("--allow-vote-only", action="store_true",
+                    help="显式放行无教材证据的仅投票修正（记录在台账）")
     ap.add_argument("--report", action="store_true", help="生成报告")
+    ap.add_argument("--limit", type=int, default=0, help="证据核对只处理前 N 条（0=全部）")
     ap.add_argument("--workers", type=int, default=8)
     args = ap.parse_args()
 
@@ -143,22 +170,45 @@ def main() -> int:
             seen.add(qid)
             qid2q[qid] = {
                 "ch": ch, "seq": q["seq"], "stem": q.get("stem", ""),
+                "type": q.get("type", 0),
                 "options": [(o["option_label"], o["option_text"]) for o in q.get("options", [])],
                 "bank": [re.sub(r"\s", "", x) for x in re.findall(r"[A-G]", str(q.get("answer", "")))]
                        or [x.strip() for x in str(q.get("answer", "")).split(",") if x.strip()],
                 "multi": True if q.get("type") == 2 else len(re.findall(r"[A-G]", str(q.get("answer", "")))) > 1,
             }
-    disputed = {qid: r for qid, r in vres.items() if r["primary"]["verdict"] != "agree"}
+    # 每题当前内容指纹（投票/证据的实际输入版本）
+    qid2fp = {qid: curate_core.q_fingerprint({"type": q["type"], "stem": q["stem"],
+                                              "options": [{"option_label": l, "option_text": t}
+                                                          for l, t in q["options"]]})
+              for qid, q in qid2q.items()}
+    # 校验结果（verify_results）绑定版本：题目变化后其结论不进入争议集，需重跑 verify_answers
+    stale_results = {qid: r for qid, r in vres.items()
+                     if r["primary"]["verdict"] != "agree"
+                     and qid in qid2q
+                     and curate_core.fingerprint_stale(r, {"type": qid2q[qid]["type"],
+                                                           "stem": qid2q[qid]["stem"],
+                                                           "options": [{"option_label": l, "option_text": t}
+                                                                       for l, t in qid2q[qid]["options"]]})}
+    if stale_results:
+        print(f"[版本守卫] {len(stale_results)} 条校验结果因题目内容变化失效，"
+              f"已排除出争议集（请重跑 verify_answers.py 后再投票）")
+    disputed = {qid: r for qid, r in vres.items()
+                if r["primary"]["verdict"] != "agree" and qid not in stale_results and qid in qid2q}
     print(f"争议题: {len(disputed)} 题 | 追加投票模型: {EXTRA_MODELS}")
 
     if args.vote:
         final = {}
         if FINAL.exists():
             final = json.loads(FINAL.read_text(encoding="utf-8"))
-        # 投票结果缓存：已存在则直接复用（断点续跑）
+        # 断点缓存：绑定实际输入版本（内容指纹）。旧格式或指纹失配的缓存一律作废。
         votes_map = {}
         if VOTES.exists():
-            votes_map = json.loads(VOTES.read_text(encoding="utf-8"))
+            raw = json.loads(VOTES.read_text(encoding="utf-8"))
+            votes_map, n_legacy, n_stale = sanitize_votes_cache(raw, qid2fp)
+            if n_legacy:
+                print(f"  断点缓存：作废 {n_legacy} 条未绑定版本的旧缓存（将重新投票）")
+            if n_stale:
+                print(f"  断点缓存：{n_stale} 条因题目内容变化失效，重新投票")
         todo = {qid: qid2q[qid] for qid in disputed if qid not in votes_map}
 
         def vote_one(item):
@@ -168,7 +218,7 @@ def main() -> int:
                 votes[cfg.get("secondary_model", "deepseek-v3.2")] = disputed[qid]["secondary"]["answer"]
             for m in EXTRA_MODELS:
                 votes[m] = ask(cfg, m, q)
-            return qid, votes
+            return qid, {"fingerprint": qid2fp[qid], "votes": votes}
 
         if todo:
             done = 0
@@ -182,23 +232,27 @@ def main() -> int:
                         VOTES.write_text(json.dumps(votes_map, ensure_ascii=False), encoding="utf-8")
                         print(f"  投票进度 {done}/{len(todo)}")
             VOTES.write_text(json.dumps(votes_map, ensure_ascii=False), encoding="utf-8")
-        print(f"投票完成: {len(votes_map)} 题（含缓存）")
+        print(f"投票完成: {len(votes_map)} 题（含有效缓存，全部绑定输入版本）")
 
         def finalize(item):
-            qid, votes = item
+            qid, cached = item
             q = qid2q[qid]
+            votes = cached["votes"]
             status, final_ans, tally = decide(q["bank"], votes)
             disputed_analysis = status == "undecided" and (not final_ans or tuple(final_ans) != tuple(q["bank"]))
             analysis = gen_analysis(cfg, ANALYSIS_MODEL, q, final_ans or q["bank"], disputed=disputed_analysis)
+            # 绑定实际输入版本：取投票缓存中的指纹（投票时题目内容的快照）
             return qid, {
                 "qid": qid, "ch": q["ch"], "seq": q["seq"],
                 "kind": "多选" if q["multi"] else "单选",
                 "bank": q["bank"], "status": status, "final": final_ans,
                 "tally": {m: list(a) for m, a in tally.items()},
+                "fingerprint": cached["fingerprint"],
                 "analysis": analysis,
             }
 
-        todo2 = {qid: v for qid, v in votes_map.items() if qid not in final}
+        todo2 = {qid: v for qid, v in votes_map.items()
+                 if qid not in final or final[qid].get("fingerprint") != v["fingerprint"]}
         done2 = 0
         with ThreadPoolExecutor(max_workers=args.workers) as ex:
             futs = {ex.submit(finalize, it): it[0] for it in todo2.items()}
@@ -207,42 +261,151 @@ def main() -> int:
                 final[qid] = rec
                 done2 += 1
                 if done2 % 20 == 0:
-                    FINAL.write_text(json.dumps(final, ensure_ascii=False, indent=1), encoding="utf-8")
+                    curate_core._atomic_write_text(
+                        FINAL, json.dumps(final, ensure_ascii=False, indent=1))
                     print(f"  解析进度 {done2}/{len(todo2)}")
+        # 注意：无指纹的旧结果不补绑——保留 unbound 状态，apply 时拒绝，须重新验证
         FINAL.write_text(json.dumps(final, ensure_ascii=False, indent=1), encoding="utf-8")
         print(f"解析完成 → {FINAL}")
 
+    # ---------- 教材证据核对（修正依据不能只有模型投票） ----------
+    final = json.loads(FINAL.read_text(encoding="utf-8")) if FINAL.exists() else {}
+    if args.evidence:
+        sections = curate_core.extract_chapter_sections(max_chars=9000)
+        targets = [f for f in final.values() if f.get("status") == "fix"]
+        if args.limit:
+            targets = targets[:args.limit]
+        print(f"教材证据核对：{len(targets)} 条 fix 记录（逐段定位引用 + 逐选项核对，绑定输入版本）")
+        n_ok = n_fail = 0
+        for i, f in enumerate(targets, 1):
+            qid = f["qid"]
+            if qid not in qid2q:
+                continue
+            q = qid2q[qid]
+            fp = qid2fp[qid]
+            # 证据必须绑定它核对时的题目版本；题目已变化的旧证据直接作废
+            sec = sections.get(int(q["ch"]) if str(q["ch"]).isdigit() else 0, {}).get("text", "")
+            kind = "多选" if q["multi"] else "单选"
+            options = "\n".join(f"{l}. {t}" for l, t in q["options"])
+            ans = ",".join(f["final"] or [])
+            prompt = f"""仅依据下面的章节原文，核对这道{kind}题。
+
+【章节原文（可能节选）】
+{sec[:6000]}
+
+【题目】{q['stem']}
+
+【选项】
+{options}
+
+【待核对答案】{ans}
+
+只输出 JSON：
+{{"supported": true/false,
+  "quote": "支持的原文引用（逐字摘录，可多句，禁止改写；原文不足以判断则留空）",
+  "per_option": [{{"label": "A", "verdict": "correct|wrong|unknown", "why": "不超过20字"}}],
+  "note": "补充说明，不超过40字"}}
+要求：逐项核对每个选项的正误及题干限定条件（如"最""必须""不包括"等），
+而不是只给答案找一句支持文字。若原文不足以判断，supported=false。禁止编造原文。"""
+            obj = parse_json(chat(cfg, ANALYSIS_MODEL, [
+                {"role": "system", "content": "只输出 JSON，引用必须逐字来自给定原文。"},
+                {"role": "user", "content": prompt},
+            ])) or {}
+            quote = str(obj.get("quote", ""))
+            loc = curate_core.locate_quote(quote, sec) if sec else {
+                "segments": [], "quote_found": False, "unmatched": []}
+            f["external_evidence"] = {
+                "supported": bool(obj.get("supported")),
+                "quote": quote[:200],
+                "quote_found": bool(loc["quote_found"]),      # 引用是否存在（逐段定位）
+                "locate": loc["segments"],                    # 命中位置/原文片段/未匹配部分
+                "unmatched": loc["unmatched"][:5],
+                "per_option": (obj.get("per_option") or [])[:8],
+                "fingerprint": fp,                            # 证据绑定的输入版本
+                "source": f"docs/ACP高频知识点总结.md 第{q['ch']}章",
+                "source_version": {"file": "docs/ACP高频知识点总结.md", "chapter": q["ch"],
+                                   "excerpt_max_chars": 9000},
+                "note": str(obj.get("note", ""))[:80],
+                "checked_at": datetime.now().isoformat(timespec="seconds"),
+            }
+            if obj.get("supported") and loc["quote_found"]:
+                n_ok += 1
+            else:
+                n_fail += 1
+            if i % 20 == 0 or i == len(targets):
+                curate_core._atomic_write_text(FINAL, json.dumps(final, ensure_ascii=False, indent=1))
+                print(f"  证据核对进度 {i}/{len(targets)}（通过 {n_ok} / 不通过 {n_fail}）")
+        curate_core._atomic_write_text(FINAL, json.dumps(final, ensure_ascii=False, indent=1))
+        print(f"证据核对完成：通过 {n_ok} · 不通过 {n_fail}（不通过项进入复核，apply 将拒绝）")
+
     final = json.loads(FINAL.read_text(encoding="utf-8")) if FINAL.exists() else {}
     if args.apply:
-        n_fix = n_keep = n_und = 0
+        # 统一守卫（curate_core.check_fix_entry）适用于所有修正条目
+        bank = curate_core.load_bank()
+        index = curate_core.build_index(bank)
+        batch_id = "ansfix_" + datetime.now().strftime("%Y%m%d_%H%M%S")
+        fixes = []
+        manual_items = []
+        n_keep = n_und = 0
+        counters = Counter()
         for qid, f in final.items():
-            ch = f["ch"]
-            # 按出现顺序精确匹配（同章同 seq 的撞号题第二个为 qid+b 后缀）
-            seen = set()
-            target = None
-            for x in data.get(ch, []):
-                s = str(x.get("seq"))
-                key = s if s not in seen else s + "b"
-                seen.add(s)
-                if f"{ch}-{key}" == qid:
-                    target = x
-                    break
-            if target is None:
+            if qid not in index:
                 continue
-            # 只修正有明确唯一票源的题（fix）
             if f["status"] == "fix" and f["final"]:
-                target["answer"] = ",".join(f["final"])
-                n_fix += 1
+                _, q = index[qid]
+                entry = {"qid": qid, "final": f["final"], "fingerprint": f.get("fingerprint"),
+                         "external_evidence": f.get("external_evidence")}
+                # --allow-vote-only：显式人工覆盖入口（不伪装成验证通过，台账记录人工覆盖）
+                if args.allow_vote_only:
+                    ev = f.get("external_evidence") or {}
+                    if not (ev.get("supported") and ev.get("quote_found")):
+                        entry["manual_reason"] = ("CLI --allow-vote-only 显式放行："
+                                                  "仅 6 模型投票 ≥%d 票，无教材证据" % MAJORITY)
+                ok, why, info = curate_core.check_fix_entry(entry, q, allow_manual=args.allow_vote_only)
+                if not ok:
+                    counters[why.split("（")[0][:12]] += 1
+                    print(f"  [拒绝] {qid}: {why}")
+                    continue
+                entry["reason"] = why
+                entry["evidence"] = {"tally": f.get("tally"),
+                                     "external_evidence": f.get("external_evidence")}
+                fixes.append(entry)
+                if info.get("manual"):
+                    manual_items.append(qid)
             elif f["status"] == "keep":
+                # 仅解析更新（答案不变）：也必须绑定当前题目版本
+                if f.get("analysis"):
+                    _, q = index[qid]
+                    fp_ok = f.get("fingerprint") and not curate_core.fingerprint_stale(f, q)
+                    if fp_ok and curate_core.normalize_space(q.get("analysis", "")) != curate_core.normalize_space(f["analysis"]):
+                        fixes.append({"qid": qid, "final": f["bank"],
+                                      "analysis": f["analysis"],
+                                      "fingerprint": f["fingerprint"],
+                                      "external_evidence": {"supported": True, "quote_found": True,
+                                                            "fingerprint": f["fingerprint"],
+                                                            "note": "解析更新（答案维持，非答案修正）"}})
+                    elif not fp_ok:
+                        counters["解析更新被拒(未绑定)"] += 1
                 n_keep += 1
             else:
                 n_und += 1
-            if f.get("analysis"):
-                target["analysis"] = f["analysis"]
-        js = "const QUIZ_CHAPTERS = " + json.dumps(chapters, ensure_ascii=False) + ";\n\n" \
-             "const QUIZ_DATA_BY_CHAPTER = " + json.dumps(data, ensure_ascii=False) + ";\n"
-        SRC.write_text(js, encoding="utf-8")
-        print(f"已写入 {SRC}：修正 {n_fix} 题答案，补充解析 {n_keep + n_fix + n_und} 题，未决 {n_und} 题")
+        result = curate_core.apply_answer_fix(bank, fixes, source="verify_disputed --apply",
+                                              batch_id=batch_id)
+        n_fix = result["applied"]
+        if n_fix:
+            curate_core.write_bank(bank)
+            reason_note = (f"verify_disputed --apply（人工覆盖 {len(manual_items)} 条）"
+                           if manual_items else "verify_disputed --apply")
+            curate_core.append_batch("answer_fix", reason_note,
+                                     result["ledger_items"], batch_id=batch_id)
+        for s in result["skipped"][:5]:
+            print(f"  [跳过] {s['qid']}: {s['why']}")
+        print(f"实际变更 {n_fix} 题（答案修正/解析更新，变更前的旧值已存档可回滚）· "
+              f"维持原答案 {n_keep} 题 · 未决 {n_und} 题" + ("" if n_fix else "（重复执行，幂等跳过）"))
+        if counters:
+            print(f"  守卫拒绝统计：{dict(counters)}")
+        if n_fix:
+            print(f"回滚: python scripts/quiz_curate.py rollback --batch {batch_id} --apply")
 
     if args.report:
         lines = [

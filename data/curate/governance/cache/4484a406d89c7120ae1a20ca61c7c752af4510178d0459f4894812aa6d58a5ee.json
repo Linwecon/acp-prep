@@ -1,0 +1,72 @@
+{
+  "new-1-24-0": {
+    "qid": "new-1-24-0",
+    "classification": "own",
+    "chapter": 1,
+    "quality": "ok",
+    "reason": "考查多轮对话无状态特性，题干条件清晰，选项有明确正误。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "大模型 API 是无状态（Stateless）的：每次 HTTP 请求相互独立，服务端不会因为你上次调过就'记得'你。所谓'多轮对话'，本质是客户端把历史消息拼进 messages，每次重新发一遍。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "自注意力机制始终启用，与轮次无关。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "无状态模型需客户端将历史assistant回复放入messages。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "temperature=0.1已降低随机性，top_p影响小。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "流式输出不改变模型处理逻辑和位置编码。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-1-24-2": {
+    "qid": "new-1-24-2",
+    "classification": "own",
+    "chapter": 1,
+    "quality": "ok",
+    "reason": "考查上下文窗口超限的优化手段，符合教材原则。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "长文本应用要把内容'塞进'窗口，常见手段：滑动窗口 / 摘要压缩：把过长的历史压缩成摘要；检索相关片段（RAG）：只把最相关的几段放进来，而不是整本手册。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "换模型不直接解决窗口超限问题，且非优先优化。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "摘要压缩是教材推荐的应对窗口不足的标准手段。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "增大temperature增加随机性，不解决信息过载。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "指令无法解决物理Token超限导致的截断问题。"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

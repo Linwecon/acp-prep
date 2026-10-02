@@ -1,0 +1,5240 @@
+[
+ {
+  "qid": "4-0328",
+  "ch": 4,
+  "type": 0,
+  "stem": "ModelScope-Agent如何实现对复杂任务的处理?",
+  "options": [
+   [
+    "A",
+    "通过预设的有限状态机直接执行固定流程，不支持动态调整"
+   ],
+   [
+    "B",
+    "将大任务拆分为一系列小任务，并按顺序自动调度执行这些子任务"
+   ],
+   [
+    "C",
+    "需要人工干预来规划每个子任务的执行顺序和方式"
+   ],
+   [
+    "D",
+    "依赖于一强大的LLM模型来一次性解决所有问题，无需任务拆分"
+   ]
+  ],
+  "bank": "B",
+  "first_answer": [],
+  "second_answer": [
+   "B"
+  ],
+  "f_quality": "ok",
+  "s_quality": "ok",
+  "f_cls": "own",
+  "s_cls": "own",
+  "f_chapter": 4,
+  "s_chapter": 4,
+  "f_reason": "ModelScope-Agent未在教材出现，属beyond范围。",
+  "s_reason": "考查Agent处理复杂任务的核心机制，即任务拆解与调度。"
+ },
+ {
+  "qid": "4-0355",
+  "ch": 4,
+  "type": 0,
+  "stem": "在下列描述中，哪一个不是斯坦福小镇项目的特点？",
+  "options": [
+   [
+    "A",
+    "虚拟小镇中的人是智能体，在形式上他们可以规划自己的一天的主要日程。"
+   ],
+   [
+    "B",
+    "虚拟小镇中的人可以实现两两对话，由于设计限制，不能实现多人小组讨论。"
+   ],
+   [
+    "C",
+    "每个智能体都有自己的角色设定，从而让大模型生成该智能体的日程规划。"
+   ],
+   [
+    "D",
+    "项目目标是创建一个自组织、动态调整角色关系的多智能体系统。"
+   ]
+  ],
+  "bank": "B",
+  "first_answer": [],
+  "second_answer": [],
+  "f_quality": "remove",
+  "s_quality": "remove",
+  "f_cls": "beyond",
+  "s_cls": "cross",
+  "f_chapter": 4,
+  "s_chapter": 4,
+  "f_reason": "斯坦福小镇项目未在第4章原文中出现。",
+  "s_reason": "题目考查斯坦福小镇项目细节，但教材未提及该项目，无法依据教材判断。"
+ },
+ {
+  "qid": "4-0368",
+  "ch": 4,
+  "type": 0,
+  "stem": "在通信实时性要求极高的场景中，直接通信往往效率更高，以下哪个通讯方式的效率较低？",
+  "options": [
+   [
+    "A",
+    "直接通信，即Agent间直接交换信息"
+   ],
+   [
+    "B",
+    "黑板模型，一个共享空间供Agent发布和获取信息"
+   ],
+   [
+    "C",
+    "基于事件的通信，Agent通过订阅发布事件来交互"
+   ],
+   [
+    "D",
+    "中心化协调，由中央控制器统一调度Agent行动"
+   ]
+  ],
+  "bank": "D",
+  "first_answer": [],
+  "second_answer": [],
+  "f_quality": "remove",
+  "s_quality": "remove",
+  "f_cls": "beyond",
+  "s_cls": "cross",
+  "f_chapter": 4,
+  "s_chapter": 4,
+  "f_reason": "黑板模型效率比较未在原文中讨论。",
+  "s_reason": "题目考查具体通信方式效率比较，教材未提供相关依据，无法判断。"
+ },
+ {
+  "qid": "4-0386",
+  "ch": 4,
+  "type": 0,
+  "stem": "在斯坦福小镇多智能体社区研究项目中，智能体间的主要互动模式是什么？",
+  "options": [
+   [
+    "A",
+    "所有智能体同时参与的大会讨论"
+   ],
+   [
+    "B",
+    "仅限于两两之间的频繁沟通"
+   ],
+   [
+    "C",
+    "由中心控制器统一调度，无需直接沟通"
+   ],
+   [
+    "D",
+    "智能体自行决定与其他所有智能体的交流顺序"
+   ]
+  ],
+  "bank": "B",
+  "first_answer": [],
+  "second_answer": [],
+  "f_quality": "remove",
+  "s_quality": "remove",
+  "f_cls": "beyond",
+  "s_cls": "cross",
+  "f_chapter": 4,
+  "s_chapter": 4,
+  "f_reason": "斯坦福小镇互动模式未在原文中描述。",
+  "s_reason": "题目考查斯坦福小镇互动模式细节，教材未提及该项目，无法判断。"
+ },
+ {
+  "qid": "4-0303",
+  "ch": 4,
+  "type": 0,
+  "stem": "在ModelScope-Agent中，如何实现对多轮对话中工具参数的有效提取？",
+  "options": [
+   [
+    "A",
+    "静态定义每种工具所需参数，不允许动态调整"
+   ],
+   [
+    "B",
+    "利用自然语言理解技术动态分析对话内容，识别并提取参数"
+   ],
+   [
+    "C",
+    "仅依赖用户明示指示参数位置，无法自动提取"
+   ],
+   [
+    "D",
+    "所有工具调用均预先配置好固定参数，不支持多轮交互调整"
+   ]
+  ],
+  "bank": "B",
+  "first_answer": [],
+  "second_answer": [
+   "B"
+  ],
+  "f_quality": "review",
+  "s_quality": "ok",
+  "f_cls": "own",
+  "s_cls": "own",
+  "f_chapter": 4,
+  "s_chapter": 4,
+  "f_reason": "原文未提ModelScope-Agent具体实现",
+  "s_reason": "考查Function Calling中参数提取机制，属于核心知识点。"
+ },
+ {
+  "qid": "4-0305",
+  "ch": 4,
+  "type": 0,
+  "stem": "ModelScope-Agent的核心优势之一是其高度的可定制性，这主要得益于其",
+  "options": [
+   [
+    "A",
+    "强大的预训练模型阵容，直接提供最优性能无需调整"
+   ],
+   [
+    "B",
+    "简化的Agent实现流程，允许用户仅通过指定角色描述等基本信息即可快速搭建应用"
+   ],
+   [
+    "C",
+    "限制性的接口设计，确保了所有组件的严格一致性"
+   ],
+   [
+    "D",
+    "集成了固定的工具集，减少了用户选择的复杂度"
+   ]
+  ],
+  "bank": "B",
+  "first_answer": [],
+  "second_answer": [
+   "B"
+  ],
+  "f_quality": "review",
+  "s_quality": "ok",
+  "f_cls": "own",
+  "s_cls": "misplaced",
+  "f_chapter": 4,
+  "s_chapter": 12,
+  "f_reason": "原文未提ModelScope-Agent可定制性来源",
+  "s_reason": "考查框架（如AgentScope）的可定制性，属于框架与工具章节。"
+ },
+ {
+  "qid": "4-0310",
+  "ch": 4,
+  "type": 0,
+  "stem": "哪一个项目强调了软件开发中多智能体协作的组织结构扁平化，并能够根据用户请求生成全面的软件开发文档套件？",
+  "options": [
+   [
+    "A",
+    "研究斯坦福小镇虚拟社区"
+   ],
+   [
+    "B",
+    "搭建虚拟动物社区"
+   ],
+   [
+    "C",
+    "用MetaGPT构建软件开发公司"
+   ],
+   [
+    "D",
+    "用AutoGen搭建聊天室"
+   ]
+  ],
+  "bank": "C",
+  "first_answer": [
+   "C"
+  ],
+  "second_answer": [
+   "C"
+  ],
+  "f_quality": "ok",
+  "s_quality": "ok",
+  "f_cls": "own",
+  "s_cls": "misplaced",
+  "f_chapter": 4,
+  "s_chapter": 12,
+  "f_reason": "MetaGPT项目明确用于软件开发公司建模",
+  "s_reason": "考查多Agent框架（如MetaGPT）的应用案例，属于框架与工具章节。"
+ },
+ {
+  "qid": "4-0344",
+  "ch": 4,
+  "type": 0,
+  "stem": "在开发智能体系统中，智能体的工作日志、历史检索数据等等，会占用大量的大模型上下文，影响智能体做规划的性能。人们可以通过哪些手段来缓解这方面压力？",
+  "options": [
+   [
+    "A",
+    "引入上下文感知的动态记忆机制，优先保留关键信息。"
+   ],
+   [
+    "B",
+    "使用固定窗口长度，或固定tokens长度截断上下文，保留最近的对话历史。"
+   ],
+   [
+    "C",
+    "实施注意力机制的变种，如Transformer-XL，以覆盖更长的上下文范围。"
+   ],
+   [
+    "D",
+    "每次对话都重启Agent对话状态，以清空不再相关的旧信息。"
+   ]
+  ],
+  "bank": "A",
+  "first_answer": [
+   "A",
+   "B"
+  ],
+  "second_answer": [
+   "A",
+   "B",
+   "D"
+  ],
+  "f_quality": "ok",
+  "s_quality": "ok",
+  "f_cls": "own",
+  "s_cls": "own",
+  "f_chapter": 4,
+  "s_chapter": 4,
+  "f_reason": "原文明确三种记忆管理策略含截断和动态机制",
+  "s_reason": "考查Memory管理策略，属于核心知识点。"
+ },
+ {
+  "qid": "4-0349",
+  "ch": 4,
+  "type": 0,
+  "stem": "在大模型应用系统成本优化方面，如何有效利用不同规模的语言模型（LLMs）以实现资源高效分配？",
+  "options": [
+   [
+    "A",
+    "为所有任务统一使用最大规模的LLM以保证最佳性能"
+   ],
+   [
+    "B",
+    "根据任务复杂度动态调整LLM规模，简单任务使用小型LLM"
+   ],
+   [
+    "C",
+    "在多Agent系统中，让不同Agent固定使用同一规模的LLM以减少配置复杂度"
+   ],
+   [
+    "D",
+    "只在关键决策点使用大型LLM，其余由小型LLM处理"
+   ]
+  ],
+  "bank": "B",
+  "first_answer": [],
+  "second_answer": [
+   "B",
+   "D"
+  ],
+  "f_quality": "review",
+  "s_quality": "review",
+  "f_cls": "own",
+  "s_cls": "unsure",
+  "f_chapter": 4,
+  "s_chapter": 4,
+  "f_reason": "原文未提LLM规模动态分配策略",
+  "s_reason": "考查成本优化策略，但章节归属模糊，需专家复核。"
+ },
+ {
+  "qid": "4-1220",
+  "ch": 4,
+  "type": 0,
+  "stem": "当用户请求\"帮我请明天的假\"时，系统需要调用哪些Agent?",
+  "options": [
+   [
+    "A",
+    "仅employee_info_agent"
+   ],
+   [
+    "B",
+    "仅leave_agent"
+   ],
+   [
+    "C",
+    "chat_agent和summary_agent"
+   ],
+   [
+    "D",
+    "planner_agent和monitor_agent"
+   ]
+  ],
+  "bank": "B",
+  "first_answer": [
+   "D"
+  ],
+  "second_answer": [],
+  "f_quality": "ok",
+  "s_quality": "fixable",
+  "f_cls": "own",
+  "s_cls": "own",
+  "f_chapter": 4,
+  "s_chapter": 4,
+  "f_reason": "考查多Agent职责分工，请假需planner拆解+leave执行",
+  "s_reason": "题目条件缺失，未提供具体系统架构和Agent职责定义，无法确定答案。"
+ },
+ {
+  "qid": "4-0614",
+  "ch": 4,
+  "type": 1,
+  "stem": "下列哪些描述符合斯坦福小镇项目的特征？",
+  "options": [
+   [
+    "A",
+    "项目包含3人模式和25人模式"
+   ],
+   [
+    "B",
+    "重点研究智能体的社会互动与关系形成"
+   ],
+   [
+    "C",
+    "智能体的日常活动按时间点分层设计执行"
+   ],
+   [
+    "D",
+    "目的是创建一个易用性高的Agent框架"
+   ]
+  ],
+  "bank": "A,B,C",
+  "first_answer": [],
+  "second_answer": [],
+  "f_quality": "review",
+  "s_quality": "remove",
+  "f_cls": "cross",
+  "s_cls": "cross",
+  "f_chapter": 4,
+  "s_chapter": 4,
+  "f_reason": "斯坦福小镇属外部案例，原文未提及。需确认是否超纲。",
+  "s_reason": "题目考查斯坦福小镇项目特征，本章原文未提及此项目，无法判断选项正误。"
+ },
+ {
+  "qid": "4-1129",
+  "ch": 4,
+  "type": 0,
+  "stem": "相比直接使用大模型的 API，使用百炼的 Assistant A PI 构建 Agent 的主要优势是什么？",
+  "options": [
+   [
+    "A",
+    "能够绕过一些 API 调用限制，使得开发出的 A agent 功能更强大"
+   ],
+   [
+    "B",
+    "能够完全控制模型底层训练过程"
+   ],
+   [
+    "C",
+    "自带了会话管理和网络搜索等工具，简化 Agent t 开发工作"
+   ],
+   [
+    "D",
+    "能够修改一些大模型 API 不直接提供的参数，使得开发 Agent 的过程更灵活"
+   ]
+  ],
+  "bank": "C",
+  "first_answer": [],
+  "second_answer": [
+   "C"
+  ],
+  "f_quality": "review",
+  "s_quality": "review",
+  "f_cls": "misplaced",
+  "s_cls": "unsure",
+  "f_chapter": 10,
+  "s_chapter": 4,
+  "f_reason": "考查百炼平台能力，需验证第10章原文",
+  "s_reason": "题目比较百炼Assistant API与直接API的优势，考点可能属于第10章（阿里云AI平台），但需确认。"
+ },
+ {
+  "qid": "4-1325",
+  "ch": 4,
+  "type": 1,
+  "stem": "以下哪些技术可与Multi-Agent系统结合？",
+  "options": [
+   [
+    "A",
+    "视觉标注"
+   ],
+   [
+    "B",
+    "自然语言处理"
+   ],
+   [
+    "C",
+    "机器学习优化"
+   ],
+   [
+    "D",
+    "区块链加密"
+   ]
+  ],
+  "bank": "A,B,C,D",
+  "first_answer": [],
+  "second_answer": [],
+  "f_quality": "review",
+  "s_quality": "remove",
+  "f_cls": "misplaced",
+  "s_cls": "unsure",
+  "f_chapter": 11,
+  "s_chapter": 4,
+  "f_reason": "考查多模态技术结合，需验证第11章原文",
+  "s_reason": "题目过于宽泛，选项与Agent核心知识无关，无考查价值。"
+ },
+ {
+  "qid": "4-0617",
+  "ch": 4,
+  "type": 1,
+  "stem": "关于多智能体对话框架的应用与特性，下列哪些说法正确?",
+  "options": [
+   [
+    "A",
+    "斯坦福小镇的多智能体通过分层设计和时间规划执行任务，强调两两沟通"
+   ],
+   [
+    "B",
+    "Agentscope演示了狼人杀等多人游戏，以及分布式对话、分布式辩论、分布式并行搜索、分布式大规模仿真等多种分布式智能"
+   ],
+   [
+    "C",
+    "MetaGPT能够为用户提供从用户案例到项目工程文档的一系列软件开发产出"
+   ],
+   [
+    "D",
+    "微软AutoGen提供易于构建多样应用的多智能体对话框架及增强的LLM推理优化"
+   ]
+  ],
+  "bank": "B,C,D",
+  "first_answer": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "second_answer": [
+   "B",
+   "C",
+   "D"
+  ],
+  "f_quality": "ok",
+  "s_quality": "review",
+  "f_cls": "own",
+  "s_cls": "misplaced",
+  "f_chapter": 4,
+  "s_chapter": 12,
+  "f_reason": "四个选项均对应课程提及的多Agent框架真实案例",
+  "s_reason": "题目考查具体多智能体框架的应用与特性，属于框架与工具章节知识。"
+ },
+ {
+  "qid": "4-1018",
+  "ch": 4,
+  "type": 0,
+  "stem": "在使用Assistant API 的 Assistant 类操作智能体过程中，使用了如下代码，分析这段代码主要的作用是什么？",
+  "options": [
+   [
+    "A",
+    "检索智能体"
+   ],
+   [
+    "B",
+    "删除智能体"
+   ],
+   [
+    "C",
+    "创建智能体"
+   ],
+   [
+    "D",
+    "更新智能体"
+   ]
+  ],
+  "bank": "A",
+  "first_answer": [],
+  "second_answer": [],
+  "f_quality": "review",
+  "s_quality": "remove",
+  "f_cls": "unsure",
+  "s_cls": "unsure",
+  "f_chapter": 4,
+  "s_chapter": 4,
+  "f_reason": "代码未提供，无法判断操作类型",
+  "s_reason": "题目不完整，缺少关键代码片段，无法判断考查点。"
+ },
+ {
+  "qid": "4-1226",
+  "ch": 4,
+  "type": 0,
+  "stem": "多Agent系统中，ast.literal_eval方法的作用是?",
+  "options": [
+   [
+    "A",
+    "解析字符串为Python数据结构"
+   ],
+   [
+    "B",
+    "加密敏感数据"
+   ],
+   [
+    "C",
+    "生成随机测试用例"
+   ],
+   [
+    "D",
+    "计算余弦相似度"
+   ]
+  ],
+  "bank": "A",
+  "first_answer": [],
+  "second_answer": [],
+  "f_quality": "remove",
+  "s_quality": "remove",
+  "f_cls": "beyond",
+  "s_cls": "unsure",
+  "f_chapter": 4,
+  "s_chapter": 4,
+  "f_reason": "ast.literal_eval属Python标准库，非本章Agent知识范畴",
+  "s_reason": "考查Python标准库函数，与Agent核心知识无关，无考查价值。"
+ },
+ {
+  "qid": "4-1338",
+  "ch": 4,
+  "type": 1,
+  "stem": "以下哪些是Multi-Agent系统的核心组件？",
+  "options": [
+   [
+    "A",
+    "日志存储Agent"
+   ],
+   [
+    "B",
+    "Planner Agent"
+   ],
+   [
+    "C",
+    "执行工具函数的Agent"
+   ],
+   [
+    "D",
+    "Summary Agent"
+   ]
+  ],
+  "bank": "B,C",
+  "first_answer": [
+   "B"
+  ],
+  "second_answer": [
+   "B",
+   "C"
+  ],
+  "f_quality": "ok",
+  "s_quality": "ok",
+  "f_cls": "own",
+  "s_cls": "own",
+  "f_chapter": 4,
+  "s_chapter": 4,
+  "f_reason": "考查Multi-Agent核心组件，原文明确Planner Agent为四大组件之一",
+  "s_reason": "考查多Agent系统的核心组件，符合单Agent四大组件及多Agent设计知识。"
+ },
+ {
+  "qid": "4-0585",
+  "ch": 4,
+  "type": 1,
+  "stem": "ModelScope-Agent框架具备简单的Agent实现流程、丰富的多模态工具、通义的接口和扩展性。在框架内部自动实现工具的使用、规划、记忆等工作流的编排。下列描述正确的是哪些？",
+  "options": [
+   [
+    "A",
+    "该框架自动将复杂任务分解为简单子任务来实现"
+   ],
+   [
+    "B",
+    "该框架自动处理任务之间的依赖关系和执行顺序"
+   ],
+   [
+    "C",
+    "该框架不支持多步骤任务执行"
+   ],
+   [
+    "D",
+    "开发者必须手动编写任务调度逻辑来使用插件"
+   ]
+  ],
+  "bank": "A,B",
+  "first_answer": [],
+  "second_answer": [],
+  "f_quality": "review",
+  "s_quality": "review",
+  "f_cls": "cross",
+  "s_cls": "unsure",
+  "f_chapter": 4,
+  "s_chapter": 4,
+  "f_reason": "ModelScope-Agent非本章核心内容，需确认框架原文",
+  "s_reason": "题目涉及ModelScope-Agent框架具体特性，但本章原文未提及此框架，无法判断选项准确性。"
+ },
+ {
+  "qid": "4-1229",
+  "ch": 4,
+  "type": 1,
+  "stem": "构建单Agent系统的基本步骤包括?",
+  "options": [
+   [
+    "A",
+    "定义工具函数"
+   ],
+   [
+    "B",
+    "通过Assistant API创建Agent"
+   ],
+   [
+    "C",
+    "建立工具函数映射"
+   ],
+   [
+    "D",
+    "部署分布式数据"
+   ]
+  ],
+  "bank": "A,B,C",
+  "first_answer": [
+   "A",
+   "C"
+  ],
+  "second_answer": [
+   "A",
+   "B",
+   "C"
+  ],
+  "f_quality": "ok",
+  "s_quality": "fixable",
+  "f_cls": "own",
+  "s_cls": "own",
+  "f_chapter": 4,
+  "s_chapter": 4,
+  "f_reason": "考查单Agent四件套实现步骤",
+  "s_reason": "选项D“部署分布式数据”与单Agent基本步骤无关，应修正或删除。"
+ },
+ {
+  "qid": "4-1271",
+  "ch": 4,
+  "type": 1,
+  "stem": "使用百炼平台进行多Agent编排的优势包括？",
+  "options": [
+   [
+    "A",
+    "可视化流程设计"
+   ],
+   [
+    "B",
+    "内置智能体协作逻辑"
+   ],
+   [
+    "C",
+    "完全无需代码开发"
+   ],
+   [
+    "D",
+    "快速验证业务效果"
+   ]
+  ],
+  "bank": "A,B,D",
+  "first_answer": [],
+  "second_answer": [
+   "A",
+   "B",
+   "D"
+  ],
+  "f_quality": "review",
+  "s_quality": "ok",
+  "f_cls": "cross",
+  "s_cls": "misplaced",
+  "f_chapter": 4,
+  "s_chapter": 10,
+  "f_reason": "百炼平台属第10章内容，需确认原文是否覆盖多Agent编排",
+  "s_reason": "考查百炼平台多Agent编排优势，属于阿里云AI平台产品特性。"
+ },
+ {
+  "qid": "4-1203",
+  "ch": 4,
+  "type": 1,
+  "stem": "下列关于将 AgentModule 类设计为基类的原因，正确的有哪些？",
+  "options": [
+   [
+    "A",
+    "简化子类中的构造函数，减少重复代码"
+   ],
+   [
+    "B",
+    "由于 Python 不支持多继承，因此需要这样设计"
+   ],
+   [
+    "C",
+    "允许每个子类定义自己的 query 方法，增加灵活性"
+   ],
+   [
+    "D",
+    "作为一个基类，可以方便地隐藏私有属性，保护数据"
+   ],
+   [
+    "E",
+    "提供统一的 call 方法以便通过相同的方式调用所有子类"
+   ],
+   [
+    "F",
+    "使得多个不同的代理模块可以共享相同的接口，实现代码复用"
+   ]
+  ],
+  "bank": "A,C,E,F",
+  "first_answer": [],
+  "second_answer": [
+   "A",
+   "C",
+   "E",
+   "F"
+  ],
+  "f_quality": "remove",
+  "s_quality": "ok",
+  "f_cls": "misplaced",
+  "s_cls": "misplaced",
+  "f_chapter": 4,
+  "s_chapter": 12,
+  "f_reason": "纯Python面向对象设计题，无Agent领域知识支撑",
+  "s_reason": "考查面向对象设计中基类的作用，属于框架与工具章节的工程实践。"
+ },
+ {
+  "qid": "4-1468",
+  "ch": 4,
+  "type": 1,
+  "stem": "根据“Multi-Agent” 的思想，以下哪种方式更适合处理复杂的RAG 优化任务？",
+  "options": [
+   [
+    "A",
+    "只使用DashScopeParse 解析文档，其他优化步骤都手动完成。"
+   ],
+   [
+    "B",
+    "根据任务特点，将复杂任务拆分成多个子任务，每个子任务使用不同的模型、prompt 或代码逻辑进行处理。"
+   ],
+   [
+    "C",
+    "将所有任务步骤整合到一个大型prompt 中，一次调用大模型完成所有处理。"
+   ],
+   [
+    "D",
+    "仅使用通义千问API 完成所有处理，不使用其他工具。"
+   ]
+  ],
+  "bank": "B",
+  "first_answer": [
+   "B"
+  ],
+  "second_answer": [
+   "B"
+  ],
+  "f_quality": "review",
+  "s_quality": "ok",
+  "f_cls": "misplaced",
+  "s_cls": "own",
+  "f_chapter": 3,
+  "s_chapter": 4,
+  "f_reason": "RAG优化任务应属第3章，但多Agent拆解思想在4.7节有支撑",
+  "s_reason": "考查多Agent思想，即分工协作处理复杂任务。"
+ },
+ {
+  "qid": "4-5154",
+  "ch": 4,
+  "type": 0,
+  "stem": "相比完全自行管理多轮对话状态和工具调用，使用百炼 Assistant API 构建 Agent 的主要优势是？",
+  "options": [
+   [
+    "A",
+    "不需要任何模型或 API Key"
+   ],
+   [
+    "B",
+    "保证生成内容完全无错误"
+   ],
+   [
+    "C",
+    "由平台托管 Thread 上下文、Run 执行与工具调用闭环，开发更聚焦业务"
+   ],
+   [
+    "D",
+    "只能用于离线任务"
+   ]
+  ],
+  "bank": "C",
+  "first_answer": [
+   "C"
+  ],
+  "second_answer": [
+   "C"
+  ],
+  "f_quality": "ok",
+  "s_quality": "ok",
+  "f_cls": "misplaced",
+  "s_cls": "misplaced",
+  "f_chapter": 10,
+  "s_chapter": 10,
+  "f_reason": "考查百炼平台能力，属第10章MaaS范畴",
+  "s_reason": "题目考查百炼Assistant API作为平台托管Agent服务的优势，属于阿里云AI平台产品能力。"
+ },
+ {
+  "qid": "4-5061",
+  "ch": 4,
+  "type": 0,
+  "stem": "关于 LangChain 的定位，下列描述最准确的是？",
+  "options": [
+   [
+    "A",
+    "专门用于存储和检索向量"
+   ],
+   [
+    "B",
+    "用于训练大语言模型"
+   ],
+   [
+    "C",
+    "用于设计前端界面"
+   ],
+   [
+    "D",
+    "主要提供链、Agent 和组件抽象，用于编排大模型应用"
+   ]
+  ],
+  "bank": "D",
+  "first_answer": [
+   "D"
+  ],
+  "second_answer": [
+   "D"
+  ],
+  "f_quality": "ok",
+  "s_quality": "ok",
+  "f_cls": "misplaced",
+  "s_cls": "misplaced",
+  "f_chapter": 12,
+  "s_chapter": 12,
+  "f_reason": "LangChain属框架工具，非Agent专属",
+  "s_reason": "题目考查LangChain的定位，属于框架与工具章节知识。"
+ },
+ {
+  "qid": "4-5057",
+  "ch": 4,
+  "type": 1,
+  "stem": "在 Dify 可视化工作流中，以下哪些节点类型属于常见能力？",
+  "options": [
+   [
+    "A",
+    "LLM 节点"
+   ],
+   [
+    "B",
+    "知识检索节点"
+   ],
+   [
+    "C",
+    "条件分支节点"
+   ],
+   [
+    "D",
+    "变量赋值/代码处理节点"
+   ]
+  ],
+  "bank": "A,B,C,D",
+  "first_answer": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "second_answer": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "f_quality": "ok",
+  "s_quality": "ok",
+  "f_cls": "misplaced",
+  "s_cls": "misplaced",
+  "f_chapter": 12,
+  "s_chapter": 12,
+  "f_reason": "Dify属低代码平台，非Agent核心",
+  "s_reason": "题目考查Dify工作流节点类型，属于框架与工具章节知识。"
+ },
+ {
+  "qid": "6-0825",
+  "ch": 6,
+  "type": 0,
+  "stem": "你正在开发一款面向客户的智能客服助手，主要功能包括产品咨询订单查询和售后 服务支持。在初步开发阶段，应该优先针对哪方面进行评测？",
+  "options": [
+   [
+    "A",
+    "界面交互设计的友好程度"
+   ],
+   [
+    "B",
+    "系统对高峰期并发请求的处理能力"
+   ],
+   [
+    "C",
+    "客户提问响应的时间"
+   ],
+   [
+    "D",
+    "大模型对用户的意图理解准确率"
+   ]
+  ],
+  "bank": "D",
+  "first_answer": [
+   "D"
+  ],
+  "second_answer": [
+   "D"
+  ],
+  "f_quality": "ok",
+  "s_quality": "ok",
+  "f_cls": "own",
+  "s_cls": "misplaced",
+  "f_chapter": 6,
+  "s_chapter": 7,
+  "f_reason": "考查评测优先级，应先保障基础功能正确性",
+  "s_reason": "考查评测优先级，意图理解准确率是功能核心，属模型评估范畴。"
+ },
+ {
+  "qid": "6-0954",
+  "ch": 6,
+  "type": 0,
+  "stem": "在评估大模型的多轮对话能力时，以下哪个指标通常不适合用来衡量对话质量？",
+  "options": [
+   [
+    "A",
+    "对话连贯性"
+   ],
+   [
+    "B",
+    "任务完成率"
+   ],
+   [
+    "C",
+    "单轮响应时间"
+   ],
+   [
+    "D",
+    "用户满意度"
+   ]
+  ],
+  "bank": "C",
+  "first_answer": [],
+  "second_answer": [
+   "C"
+  ],
+  "f_quality": "remove",
+  "s_quality": "ok",
+  "f_cls": "misplaced",
+  "s_cls": "misplaced",
+  "f_chapter": 6,
+  "s_chapter": 7,
+  "f_reason": "对话质量属模型评估（ch7）或提示工程（ch2），非部署优化考点",
+  "s_reason": "考查模型评估指标适用性，属于模型评估章节"
+ },
+ {
+  "qid": "6-0878",
+  "ch": 6,
+  "type": 1,
+  "stem": "在大模型部署优化中，以下哪些技术能降低模型的显存占用？",
+  "options": [
+   [
+    "A",
+    "模型量化（如 FP32 转为 INT8、INT4）"
+   ],
+   [
+    "B",
+    "模型并行（将模型拆分到多个 GPU）"
+   ],
+   [
+    "C",
+    "模型蒸馏（训练轻量化的小模型）"
+   ],
+   [
+    "D",
+    "动态批处理（合并多个请求批量推理）"
+   ]
+  ],
+  "bank": "A,B,C",
+  "first_answer": [
+   "A",
+   "C"
+  ],
+  "second_answer": [
+   "A",
+   "B",
+   "C"
+  ],
+  "f_quality": "ok",
+  "s_quality": "fixable",
+  "f_cls": "own",
+  "s_cls": "own",
+  "f_chapter": 6,
+  "s_chapter": 6,
+  "f_reason": "显存占用降低技术需原文支持",
+  "s_reason": "选项D“动态批处理”主要提升吞吐，不直接降低模型本身显存占用，题干表述易引发歧义。"
+ },
+ {
+  "qid": "6-1256",
+  "ch": 6,
+  "type": 1,
+  "stem": "模型小型化的常见方案包括?",
+  "options": [
+   [
+    "A",
+    "参数量化"
+   ],
+   [
+    "B",
+    "网络剪枝"
+   ],
+   [
+    "C",
+    "轻量化模型微调"
+   ],
+   [
+    "D",
+    "增加隐藏层维度"
+   ]
+  ],
+  "bank": "A,B,C",
+  "first_answer": [
+   "A",
+   "B",
+   "C"
+  ],
+  "second_answer": [
+   "A",
+   "B",
+   "C"
+  ],
+  "f_quality": "ok",
+  "s_quality": "review",
+  "f_cls": "own",
+  "s_cls": "unsure",
+  "f_chapter": 6,
+  "s_chapter": 6,
+  "f_reason": "小型化方案需教材明确列举",
+  "s_reason": "考点“模型小型化”属于模型压缩范畴，教材中分散在量化、蒸馏等章节，无专章。选项C“轻量化模型微调”表述模糊。"
+ },
+ {
+  "qid": "6-1364",
+  "ch": 6,
+  "type": 2,
+  "stem": "在大模型部署优化中，以下哪些技术能降低模型的显存占用？（多选，4 个选项）",
+  "options": [
+   [
+    "A",
+    "模型量化（如 FP32 转为 INT8、INT4）"
+   ],
+   [
+    "B",
+    "模型并行（将模型拆分到多个 GPU）"
+   ],
+   [
+    "C",
+    "模型蒸馏（训练轻量化的小模型）"
+   ],
+   [
+    "D",
+    "动态批处理（合并多个请求批量推理）"
+   ]
+  ],
+  "bank": "A,B,C",
+  "first_answer": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "second_answer": [
+   "A",
+   "B",
+   "C"
+  ],
+  "f_quality": "ok",
+  "s_quality": "fixable",
+  "f_cls": "own",
+  "s_cls": "own",
+  "f_chapter": 6,
+  "s_chapter": 6,
+  "f_reason": "显存优化是本章核心考点，四选项均在原文有依据",
+  "s_reason": "与6-0878完全相同，为重复题目。选项D“动态批处理”不直接降低模型显存占用。"
+ },
+ {
+  "qid": "6-0716",
+  "ch": 6,
+  "type": 1,
+  "stem": "开发者在部署开源大模型时，遇到“GPU 显存不足”的问题。以下哪些解决方案有效？",
+  "options": [
+   [
+    "A",
+    "使用模型量化技术（如将 FP32 量化为 INT8 或 INT4），降低显存占用"
+   ],
+   [
+    "B",
+    "采用模型并行策略，将模型拆分到多块 GPU 上运行（如将 Transformer 层拆分到 2 块 GPU）"
+   ],
+   [
+    "C",
+    "启用模型蒸馏，生成参数更少的小模型（如将 1 3B 模型蒸馏为 3B 模型）"
+   ],
+   [
+    "D",
+    "增加 CPU 内存容量，替代 GPU 显存运行模型"
+   ]
+  ],
+  "bank": "A,B",
+  "first_answer": [
+   "A",
+   "B",
+   "C"
+  ],
+  "second_answer": [
+   "A",
+   "B"
+  ],
+  "f_quality": "ok",
+  "s_quality": "ok",
+  "f_cls": "own",
+  "s_cls": "own",
+  "f_chapter": 6,
+  "s_chapter": 6,
+  "f_reason": "GPU显存不足需针对性解决，D用CPU替代GPU不可行",
+  "s_reason": "题目考查GPU显存不足的解决方案，覆盖量化、模型并行等核心知识点。"
+ },
+ {
+  "qid": "6-0967",
+  "ch": 6,
+  "type": 1,
+  "stem": "在生产环境部署大模型应用时，以下哪些监控指标是关键重要的？",
+  "options": [
+   [
+    "A",
+    "响应时间和吞吐量"
+   ],
+   [
+    "B",
+    "错误率和异常检测"
+   ],
+   [
+    "C",
+    "资源使用率（CPU、内存、GPU）"
+   ],
+   [
+    "D",
+    "模型输出质量评估"
+   ],
+   [
+    "E",
+    "用户行为分析"
+   ]
+  ],
+  "bank": "A,B,C,D",
+  "first_answer": [
+   "A",
+   "B",
+   "C"
+  ],
+  "second_answer": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "f_quality": "ok",
+  "s_quality": "ok",
+  "f_cls": "own",
+  "s_cls": "own",
+  "f_chapter": 6,
+  "s_chapter": 6,
+  "f_reason": "D和E超出本章监控范围",
+  "s_reason": "题目考查生产环境大模型应用的关键监控指标，覆盖性能、错误率、资源使用等核心维度。"
+ },
+ {
+  "qid": "6-1017",
+  "ch": 6,
+  "type": 0,
+  "stem": "下面的 Python 代码执行了哪种文本预处理操作?\n import re cleaned_text=re.sub(r'W+','',text)",
+  "options": [
+   [
+    "A",
+    "词形还原"
+   ],
+   [
+    "B",
+    "文本去噪(正则表达式清洗)"
+   ],
+   [
+    "C",
+    "文本分类"
+   ],
+   [
+    "D",
+    "文本翻译"
+   ]
+  ],
+  "bank": "B",
+  "first_answer": [],
+  "second_answer": [
+   "B"
+  ],
+  "f_quality": "remove",
+  "s_quality": "remove",
+  "f_cls": "misplaced",
+  "s_cls": "misplaced",
+  "f_chapter": 6,
+  "s_chapter": 12,
+  "f_reason": "文本预处理属NLP基础，非部署优化考点",
+  "s_reason": "考点是文本预处理正则操作，属于框架工具章节，且与模型部署推理优化无关，无考查价值。"
+ },
+ {
+  "qid": "6-1365",
+  "ch": 6,
+  "type": 2,
+  "stem": "关于大模型 “推理速度优化”，以下哪些措施是有效的？（多选，5 个选项）",
+  "options": [
+   [
+    "A",
+    "使用轻量化模型（如 3B 参数模型替代 13B 模型）"
+   ],
+   [
+    "B",
+    "对模型进行量化（如 FP16 转为 INT8）"
+   ],
+   [
+    "C",
+    "采用模型并行或数据并行技术"
+   ],
+   [
+    "D",
+    "减少上下文窗口大小（在满足需求的前提下）"
+   ],
+   [
+    "E",
+    "增加模型的迭代次数"
+   ]
+  ],
+  "bank": "A,B,C,D",
+  "first_answer": [
+   "A",
+   "B",
+   "D"
+  ],
+  "second_answer": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "f_quality": "ok",
+  "s_quality": "ok",
+  "f_cls": "own",
+  "s_cls": "own",
+  "f_chapter": 6,
+  "s_chapter": 6,
+  "f_reason": "五选项均需独立判断是否属推理速度优化措施",
+  "s_reason": "题目考查推理速度优化措施，选项均在本章有对应论述。"
+ },
+ {
+  "qid": "6-0960",
+  "ch": 6,
+  "type": 1,
+  "stem": "在评估大模型应用的性能时，以下哪些指标是应该关注的？（）",
+  "options": [
+   [
+    "A",
+    "响应延迟（Latency）"
+   ],
+   [
+    "B",
+    "吞吐量（Throughput）"
+   ],
+   [
+    "C",
+    "回答的准确率（Accuracy）"
+   ],
+   [
+    "D",
+    "服务的可用性（Availability）"
+   ],
+   [
+    "E",
+    "每次调用的成本（Cost per Request）"
+   ]
+  ],
+  "bank": "A,B,C,D,E",
+  "first_answer": [
+   "A",
+   "B"
+  ],
+  "second_answer": [
+   "A",
+   "B",
+   "D",
+   "E"
+  ],
+  "f_quality": "ok",
+  "s_quality": "ok",
+  "f_cls": "own",
+  "s_cls": "own",
+  "f_chapter": 6,
+  "s_chapter": 6,
+  "f_reason": "性能评估应关注QPS/TTFT/TPOT等技术指标",
+  "s_reason": "考查推理服务关键性能指标，符合本章知识。"
+ },
+ {
+  "qid": "6-1099",
+  "ch": 6,
+  "type": 1,
+  "stem": "在多轮对话场景中，以下哪些方案，更有利于保障用户体验的同时，降低大模型使用成本？",
+  "options": [
+   [
+    "A",
+    "在多轮对话场景中使用支持长上下文缓存的大模型 API"
+   ],
+   [
+    "B",
+    "每次对话仅保留最近 2 轮历史，避免携带过长的上下文"
+   ],
+   [
+    "C",
+    "按照 100 的长度，对历史对话取截断，避免携带上下文过长"
+   ],
+   [
+    "D",
+    "在多轮对话场景中，避免始终传入完整的历史对话，而是用最早的对话做总结处理后携带在对话中"
+   ]
+  ],
+  "bank": "A,D",
+  "first_answer": [
+   "A",
+   "B",
+   "D"
+  ],
+  "second_answer": [
+   "A",
+   "D"
+  ],
+  "f_quality": "ok",
+  "s_quality": "ok",
+  "f_cls": "own",
+  "s_cls": "own",
+  "f_chapter": 6,
+  "s_chapter": 6,
+  "f_reason": "多轮对话降本需平衡上下文长度与复用",
+  "s_reason": "考查多轮对话场景的成本优化策略，符合本章内容。"
+ },
+ {
+  "qid": "6-1190",
+  "ch": 6,
+  "type": 0,
+  "stem": "下列代码片段的作用是？ python from keras.preprocessing.sequence import pad_sequences padded_sequences(maxlen= max_len, padding='post', truncating='post')",
+  "options": [
+   [
+    "A",
+    "序列填充到固定长度"
+   ],
+   [
+    "B",
+    "文本摘要生成"
+   ],
+   [
+    "C",
+    "特征缩放"
+   ],
+   [
+    "D",
+    "文本向量化"
+   ]
+  ],
+  "bank": "A",
+  "first_answer": [],
+  "second_answer": [
+   "A"
+  ],
+  "f_quality": "remove",
+  "s_quality": "remove",
+  "f_cls": "beyond",
+  "s_cls": "misplaced",
+  "f_chapter": 6,
+  "s_chapter": 5,
+  "f_reason": "Keras pad_sequences属深度学习框架基础，非本章部署优化考点",
+  "s_reason": "考查Keras序列填充，与模型部署推理优化无关，属微调数据预处理。"
+ },
+ {
+  "qid": "7-0218",
+  "ch": 7,
+  "type": 0,
+  "stem": "在 Ragas 中，context recall 指标主要反映哪方面能力？",
+  "options": [
+   [
+    "A",
+    "评估 contexts 与 ground_trut的事实一致性程度"
+   ],
+   [
+    "B",
+    "评估检索召回的参考信息中与准确答案相关的条目是否排名靠前、占比高"
+   ],
+   [
+    "C",
+    "增加模型的训练数据"
+   ],
+   [
+    "D",
+    "减少模型的推理时间"
+   ]
+  ],
+  "bank": "A",
+  "first_answer": [
+   "A"
+  ],
+  "second_answer": [
+   "A"
+  ],
+  "f_quality": "ok",
+  "s_quality": "fixable",
+  "f_cls": "own",
+  "s_cls": "own",
+  "f_chapter": 7,
+  "s_chapter": 7,
+  "f_reason": "考点明确，Recall定义精准",
+  "s_reason": "题干与选项B描述不符，选项B描述的是Context Precision。"
+ },
+ {
+  "qid": "7-0796",
+  "ch": 7,
+  "type": 0,
+  "stem": "某团队使用大模型生成产品创意，并希望通过评估筛选出最好的创意。以下哪项评估标准更侧重于创意的“可行性”而非“新颖性”？",
+  "options": [
+   [
+    "A",
+    "这个创意是否前所未有"
+   ],
+   [
+    "B",
+    "这个创意与公司现有技术能力和资源的匹配程度"
+   ],
+   [
+    "C",
+    "这个创意的描述是否生动有趣"
+   ],
+   [
+    "D",
+    "这个创意名称的响亮度"
+   ]
+  ],
+  "bank": "B",
+  "first_answer": [
+   "B"
+  ],
+  "second_answer": [
+   "B"
+  ],
+  "f_quality": "ok",
+  "s_quality": "fixable",
+  "f_cls": "own",
+  "s_cls": "cross",
+  "f_chapter": 7,
+  "s_chapter": 7,
+  "f_reason": "考点为业务指标设计，可行性对应资源匹配度",
+  "s_reason": "考点是评估标准分层（业务/技术/算法），但选项未直接对应教材指标，需推理。"
+ },
+ {
+  "qid": "7-0472",
+  "ch": 7,
+  "type": 1,
+  "stem": "在 Ragas 中，以下哪些指标用于评估检索召回效果？",
+  "options": [
+   [
+    "A",
+    "context precision"
+   ],
+   [
+    "B",
+    "context recall"
+   ],
+   [
+    "C",
+    "增加模型的训练数据"
+   ],
+   [
+    "D",
+    "减少模型的推理时间"
+   ]
+  ],
+  "bank": "A,B",
+  "first_answer": [
+   "A",
+   "B"
+  ],
+  "second_answer": [
+   "A",
+   "B"
+  ],
+  "f_quality": "ok",
+  "s_quality": "fixable",
+  "f_cls": "own",
+  "s_cls": "own",
+  "f_chapter": 7,
+  "s_chapter": 7,
+  "f_reason": "考查RAGAS检索端指标，A、B均属检索评估",
+  "s_reason": "选项C/D明显无关，应修正或删除，但考查点明确"
+ },
+ {
+  "qid": "7-0488",
+  "ch": 7,
+  "type": 1,
+  "stem": "在 context recall 的计算过程中，以下哪些步骤是必要的?",
+  "options": [
+   [
+    "A",
+    "由大模型将 ground_trut 分解成观点列表"
+   ],
+   [
+    "B",
+    "由大模型判断每个观点是否能在 contexts 中找到依据"
+   ],
+   [
+    "C",
+    "增加模型的训练数据"
+   ],
+   [
+    "D",
+    "减少模型的推理时间"
+   ]
+  ],
+  "bank": "A,B",
+  "first_answer": [
+   "A",
+   "B"
+  ],
+  "second_answer": [
+   "A",
+   "B"
+  ],
+  "f_quality": "ok",
+  "s_quality": "fixable",
+  "f_cls": "own",
+  "s_cls": "own",
+  "f_chapter": 7,
+  "s_chapter": 7,
+  "f_reason": "考查Context Recall计算步骤，A、B为官方口径明确步骤",
+  "s_reason": "选项C/D明显无关，应修正或删除，但考查计算步骤正确"
+ },
+ {
+  "qid": "7-0595",
+  "ch": 7,
+  "type": 1,
+  "stem": "在大模型的风险评测中，哪些步骤可以帮助有效评估模型的安全性？",
+  "options": [
+   [
+    "A",
+    "定义风险类型"
+   ],
+   [
+    "B",
+    "构建评估基准 (Benchmark)"
+   ],
+   [
+    "C",
+    "优化用户界面"
+   ],
+   [
+    "D",
+    "增加模型的计算资源"
+   ]
+  ],
+  "bank": "A,B",
+  "first_answer": [
+   "A",
+   "B"
+  ],
+  "second_answer": [
+   "A",
+   "B"
+  ],
+  "f_quality": "review",
+  "s_quality": "review",
+  "f_cls": "misplaced",
+  "s_cls": "misplaced",
+  "f_chapter": 7,
+  "s_chapter": 8,
+  "f_reason": "风险评测属安全章节，本题未限定大模型风险评测场景",
+  "s_reason": "考点为AI安全风险评估步骤，属于第8章内容"
+ },
+ {
+  "qid": "7-0997",
+  "ch": 7,
+  "type": 1,
+  "stem": "在初步构建好大模型应用后，应该对它进行“自动化评测”，如何理解自动化？",
+  "options": [
+   [
+    "A",
+    "自动化的评测指标由大模型制定"
+   ],
+   [
+    "B",
+    "自动化的评测集由大模型生成"
+   ],
+   [
+    "C",
+    "自动化指的是通过引入大模型来减少人为查验的工作方式"
+   ],
+   [
+    "D",
+    "自动化的前提是要有业务专家参与构建评测集"
+   ]
+  ],
+  "bank": "C,D",
+  "first_answer": [
+   "D"
+  ],
+  "second_answer": [
+   "C",
+   "D"
+  ],
+  "f_quality": "ok",
+  "s_quality": "ok",
+  "f_cls": "own",
+  "s_cls": "own",
+  "f_chapter": 7,
+  "s_chapter": 7,
+  "f_reason": "考查自动化评测本质，D为原文强调前提",
+  "s_reason": "题目考查对自动化评测的理解，涉及评测集构建和专家参与。"
+ },
+ {
+  "qid": "7-1294",
+  "ch": 7,
+  "type": 0,
+  "stem": "在 Ragas 的常见指标中，哪一个不依赖检索覆盖而更关注生成答案本身的表现？",
+  "options": [
+   [
+    "A",
+    "context_precision"
+   ],
+   [
+    "B",
+    "faithfulness"
+   ],
+   [
+    "C",
+    "context_recall"
+   ],
+   [
+    "D",
+    "answer_correctness"
+   ]
+  ],
+  "bank": "D",
+  "first_answer": [
+   "B"
+  ],
+  "second_answer": [
+   "B",
+   "D"
+  ],
+  "f_quality": "ok",
+  "s_quality": "ok",
+  "f_cls": "own",
+  "s_cls": "own",
+  "f_chapter": 7,
+  "s_chapter": 7,
+  "f_reason": "考查RAGAS指标依赖关系，B不依赖检索覆盖",
+  "s_reason": "题目考查RAGAS指标分类，区分检索端与生成端指标。"
+ },
+ {
+  "qid": "7-1459",
+  "ch": 7,
+  "type": 1,
+  "stem": "ROUGE指标的核心评估维度包括？",
+  "options": [
+   [
+    "A",
+    "召回率"
+   ],
+   [
+    "B",
+    "精确率"
+   ],
+   [
+    "C",
+    "F1分数"
+   ],
+   [
+    "D",
+    "余弦相似度"
+   ]
+  ],
+  "bank": "A,B,C",
+  "first_answer": [
+   "A",
+   "B"
+  ],
+  "second_answer": [
+   "A",
+   "B",
+   "C"
+  ],
+  "f_quality": "ok",
+  "s_quality": "ok",
+  "f_cls": "own",
+  "s_cls": "own",
+  "f_chapter": 7,
+  "s_chapter": 7,
+  "f_reason": "ROUGE评估维度原文明确为召回率和精确率",
+  "s_reason": "题目考查ROUGE指标的具体评估维度。"
+ },
+ {
+  "qid": "7-0160",
+  "ch": 7,
+  "type": 0,
+  "stem": "Ragas 提供的以下哪些指标用于评估整体回答质量？",
+  "options": [
+   [
+    "A",
+    "Answer Correctness"
+   ],
+   [
+    "B",
+    "Answer Relevancy"
+   ],
+   [
+    "C",
+    "Faithfulness"
+   ],
+   [
+    "D",
+    "Context Precision"
+   ]
+  ],
+  "bank": "A,B,C",
+  "first_answer": [
+   "A"
+  ],
+  "second_answer": [
+   "A",
+   "B"
+  ],
+  "f_quality": "ok",
+  "s_quality": "ok",
+  "f_cls": "own",
+  "s_cls": "own",
+  "f_chapter": 7,
+  "s_chapter": 7,
+  "f_reason": "Answer Correctness是RAGAS整体回答质量综合指标",
+  "s_reason": "题目考查RAGAS指标分类，属于核心知识点。"
+ },
+ {
+  "qid": "7-0370",
+  "ch": 7,
+  "type": 0,
+  "stem": "在批量处理上万个问卷的过程中，大模型API相比传统的人工处理方式，最大的优势是什么？",
+  "options": [
+   [
+    "A",
+    "处理速度慢，但准确率极高"
+   ],
+   [
+    "B",
+    "需要大量人力物力投入"
+   ],
+   [
+    "C",
+    "能够保持高度一致性和效率，同时处理大量数据"
+   ],
+   [
+    "D",
+    "只能处理结构化数据，无法理解自由文本"
+   ]
+  ],
+  "bank": "C",
+  "first_answer": [],
+  "second_answer": [
+   "C"
+  ],
+  "f_quality": "remove",
+  "s_quality": "remove",
+  "f_cls": "beyond",
+  "s_cls": "cross",
+  "f_chapter": 7,
+  "s_chapter": 7,
+  "f_reason": "题干问API优势，属部署或工程实践，非本章评测主题",
+  "s_reason": "题目考查大模型API批量处理优势，但题干和选项与模型评估核心知识无关，属于泛泛的应用场景题，无考查价值。"
+ },
+ {
+  "qid": "7-0935",
+  "ch": 7,
+  "type": 1,
+  "stem": "在开发多轮对话系统时，需要处理对话历史的有效管理。以下哪些技术是重要的？",
+  "options": [
+   [
+    "A",
+    "对话状态跟踪和维护"
+   ],
+   [
+    "B",
+    "关键信息提取和存储"
+   ],
+   [
+    "C",
+    "对话历史长度优化"
+   ],
+   [
+    "D",
+    "上下文相关性评估"
+   ],
+   [
+    "E",
+    "每次对话独立处理"
+   ]
+  ],
+  "bank": "A,B,C,D",
+  "first_answer": [],
+  "second_answer": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "f_quality": "review",
+  "s_quality": "fixable",
+  "f_cls": "misplaced",
+  "s_cls": "misplaced",
+  "f_chapter": 7,
+  "s_chapter": 4,
+  "f_reason": "对话历史管理属Agent或提示工程，非本章考点",
+  "s_reason": "考点是对话历史管理，属于Agent的Memory组件，不在第7章。"
+ },
+ {
+  "qid": "7-1296",
+  "ch": 7,
+  "type": 0,
+  "stem": "下列哪个指标最适合评估SQL生成任务的语义完整性？",
+  "options": [
+   [
+    "A",
+    "ROUGE-L"
+   ],
+   [
+    "B",
+    "BLEU"
+   ],
+   [
+    "C",
+    "Perplexity"
+   ],
+   [
+    "D",
+    "mAP"
+   ]
+  ],
+  "bank": "A",
+  "first_answer": [
+   "D"
+  ],
+  "second_answer": [
+   "A"
+  ],
+  "f_quality": "ok",
+  "s_quality": "review",
+  "f_cls": "own",
+  "s_cls": "own",
+  "f_chapter": 7,
+  "s_chapter": 7,
+  "f_reason": "考查SQL生成专用指标，原文提及",
+  "s_reason": "考查SQL生成任务的评估指标选择，但教材未明确提及SQL生成专项指标。"
+ },
+ {
+  "qid": "7-1465",
+  "ch": 7,
+  "type": 2,
+  "stem": "在RAGAS评测体系中，以下哪些属于召回阶段的评估指标？",
+  "options": [
+   [
+    "A",
+    "Context Precision"
+   ],
+   [
+    "B",
+    "Context Recall"
+   ],
+   [
+    "C",
+    "Answer Correctness"
+   ],
+   [
+    "D",
+    "Faithfulness"
+   ]
+  ],
+  "bank": "A,B",
+  "first_answer": [
+   "A",
+   "B"
+  ],
+  "second_answer": [
+   "B"
+  ],
+  "f_quality": "ok",
+  "s_quality": "ok",
+  "f_cls": "own",
+  "s_cls": "own",
+  "f_chapter": 7,
+  "s_chapter": 7,
+  "f_reason": "考点明确，四选项均属RAGAS核心指标，原文有明确定义归属",
+  "s_reason": "题目考查RAGAS指标分类，属于本章核心知识。"
+ },
+ {
+  "qid": "7-0828",
+  "ch": 7,
+  "type": 1,
+  "stem": "实现早停法 (early stopping) 策略时, 考虑的条件可能包括:",
+  "options": [
+   [
+    "A",
+    "验证损失连续 n 轮不再下降"
+   ],
+   [
+    "B",
+    "验证损失达到预设阈值"
+   ],
+   [
+    "C",
+    "训练损失持续增加"
+   ],
+   [
+    "D",
+    "验证准确率连续提高"
+   ],
+   [
+    "E",
+    "训练准确率不再提高"
+   ],
+   [
+    "F",
+    "迭代次数达到预定最大值"
+   ]
+  ],
+  "bank": "A,B,F",
+  "first_answer": [],
+  "second_answer": [],
+  "f_quality": "remove",
+  "s_quality": "remove",
+  "f_cls": "misplaced",
+  "s_cls": "misplaced",
+  "f_chapter": 7,
+  "s_chapter": 5,
+  "f_reason": "早停法属模型训练阶段，第5章微调内容，本章未提及",
+  "s_reason": "考点是模型训练中的早停法，属于第5章微调与训练，非第7章模型评估。且题干条件模糊，选项存在歧义。"
+ },
+ {
+  "qid": "7-1034",
+  "ch": 7,
+  "type": 1,
+  "stem": "为了将 RAGAS 评测适配到中文问答场景，有哪些有效方法？",
+  "options": [
+   [
+    "A",
+    "使用中文能力较强的大模型"
+   ],
+   [
+    "B",
+    "将 RAGAS 自带的 prompt 翻译为中文再传入"
+   ],
+   [
+    "C",
+    "在 faithfulness 中修改 json.dumps 函数，使其返回中文而非 unicode 码"
+   ],
+   [
+    "D",
+    "在 System prompt 中提醒大模型：你要适配到中文问答场景"
+   ]
+  ],
+  "bank": "A,B,D",
+  "first_answer": [
+   "A",
+   "B",
+   "C"
+  ],
+  "second_answer": [
+   "A",
+   "B"
+  ],
+  "f_quality": "ok",
+  "s_quality": "ok",
+  "f_cls": "own",
+  "s_cls": "own",
+  "f_chapter": 7,
+  "s_chapter": 7,
+  "f_reason": "中文适配方法原文明确列出三项，ABC均被提及",
+  "s_reason": "题目考查RAGAS适配中文场景的方法，原文有提及。"
+ },
+ {
+  "qid": "7-5015",
+  "ch": 7,
+  "type": 0,
+  "stem": "某意图分类应用上线后出现大量误判。最应优先检查的是？",
+  "options": [
+   [
+    "A",
+    "模型是否运行在 GPU 上"
+   ],
+   [
+    "B",
+    "输出文本是否包含中文标点"
+   ],
+   [
+    "C",
+    "网络延迟是否过大"
+   ],
+   [
+    "D",
+    "各类别定义是否清晰、类别之间是否存在语义重叠"
+   ]
+  ],
+  "bank": "D",
+  "first_answer": [
+   "D"
+  ],
+  "second_answer": [],
+  "f_quality": "review",
+  "s_quality": "remove",
+  "f_cls": "cross",
+  "s_cls": "unsure",
+  "f_chapter": 7,
+  "s_chapter": 7,
+  "f_reason": "意图分类属第2章提示工程范畴，但评测视角切入合理",
+  "s_reason": "题目考查意图分类应用问题排查，但考点是模型评估前的数据/任务定义问题，非本章核心。题干条件缺失，未提供评估结果或指标，无法基于评估定位问题。"
+ },
+ {
+  "qid": "10-0316",
+  "ch": 10,
+  "type": 0,
+  "stem": "为了确保与通义千问大模型的交互更加个性化和连续性，下列哪项策略最不推荐？",
+  "options": [
+   [
+    "A",
+    "在每次请求时都提供完整的对话历史"
+   ],
+   [
+    "B",
+    "利用上下文管理机制，只保留最近的几轮对话"
+   ],
+   [
+    "C",
+    "每次发送新问题时，都将前一次的问答结果清空"
+   ],
+   [
+    "D",
+    "设计算法自动摘要长对话，仅传入关键信息点以节省资源"
+   ]
+  ],
+  "bank": "C",
+  "first_answer": [
+   "C"
+  ],
+  "second_answer": [],
+  "f_quality": "ok",
+  "s_quality": "remove",
+  "f_cls": "own",
+  "s_cls": "unsure",
+  "f_chapter": 10,
+  "s_chapter": 10,
+  "f_reason": "考查上下文管理最佳实践",
+  "s_reason": "题干模糊，选项与阿里云平台无关，考查价值低。"
+ },
+ {
+  "qid": "10-0455",
+  "ch": 10,
+  "type": 0,
+  "stem": "在开发大语言模型RAG应用过程中，以下哪种情况适合使用视觉模型进行深层次解析？",
+  "options": [
+   [
+    "A",
+    "包含简单文字的命令行截图"
+   ],
+   [
+    "B",
+    "包含清晰文本的文本截图"
+   ],
+   [
+    "C",
+    "包含不规则、复杂信息的图片"
+   ],
+   [
+    "D",
+    "已经通过DashScope Parse解析的普通文本段落"
+   ]
+  ],
+  "bank": "C",
+  "first_answer": [],
+  "second_answer": [
+   "C"
+  ],
+  "f_quality": "review",
+  "s_quality": "review",
+  "f_cls": "misplaced",
+  "s_cls": "misplaced",
+  "f_chapter": 11,
+  "s_chapter": 11,
+  "f_reason": "考查多模态解析适用场景，需跨章验证",
+  "s_reason": "考点是多模态解析适用场景，属第11章。"
+ },
+ {
+  "qid": "10-1056",
+  "ch": 10,
+  "type": 0,
+  "stem": "在检测文档内容中是否存在营销性表达时，下列哪种方法可以更全面地识别问题？",
+  "options": [
+   [
+    "A",
+    "识别所有内容错误的部分"
+   ],
+   [
+    "B",
+    "让大模型自动修改内容"
+   ],
+   [
+    "C",
+    "逐条单独识别营销词汇"
+   ],
+   [
+    "D",
+    "一次性生成所有类型的识别结果"
+   ]
+  ],
+  "bank": "D",
+  "first_answer": [],
+  "second_answer": [],
+  "f_quality": "remove",
+  "s_quality": "remove",
+  "f_cls": "misplaced",
+  "s_cls": "unsure",
+  "f_chapter": 8,
+  "s_chapter": 10,
+  "f_reason": "营销表达检测属安全合规范畴，非平台层功能",
+  "s_reason": "题干与选项均未涉及阿里云平台，无考查价值。"
+ },
+ {
+  "qid": "10-1211",
+  "ch": 10,
+  "type": 0,
+  "stem": "百炼平台的主要适用场景是?",
+  "options": [
+   [
+    "A",
+    "闭源模型的低成本高并发部署"
+   ],
+   [
+    "B",
+    "边缘计算任务"
+   ],
+   [
+    "C",
+    "长期稳定的私有化服务"
+   ],
+   [
+    "D",
+    "开源模型的本地部署"
+   ]
+  ],
+  "bank": "A",
+  "first_answer": [
+   "D"
+  ],
+  "second_answer": [
+   "A"
+  ],
+  "f_quality": "ok",
+  "s_quality": "ok",
+  "f_cls": "own",
+  "s_cls": "own",
+  "f_chapter": 10,
+  "s_chapter": 10,
+  "f_reason": "考查百炼平台定位",
+  "s_reason": "考查百炼平台适用场景，符合章节知识。"
+ },
+ {
+  "qid": "10-1269",
+  "ch": 10,
+  "type": 0,
+  "stem": "使用 Qwen-Turbo 进行文本翻译时，哪种方法能有效提高输出质量？",
+  "options": [
+   [
+    "A",
+    "直接翻译"
+   ],
+   [
+    "B",
+    "使用'生成-评估-优化'过程进行改进"
+   ],
+   [
+    "C",
+    "增加输入文本长度"
+   ],
+   [
+    "D",
+    "减少输入文本长度"
+   ]
+  ],
+  "bank": "B",
+  "first_answer": [
+   "B"
+  ],
+  "second_answer": [
+   "B"
+  ],
+  "f_quality": "ok",
+  "s_quality": "fixable",
+  "f_cls": "own",
+  "s_cls": "misplaced",
+  "f_chapter": 10,
+  "s_chapter": 2,
+  "f_reason": "考查Qwen-Turbo适用场景",
+  "s_reason": "题干问法模糊，未明确是Qwen-Turbo自身优化还是通用方法"
+ },
+ {
+  "qid": "10-1278",
+  "ch": 10,
+  "type": 0,
+  "stem": "适合需要Serverless GPU服务的部署平台是？<争议题>",
+  "options": [
+   [
+    "A",
+    "云服务器ECS"
+   ],
+   [
+    "B",
+    "函数计算FC"
+   ],
+   [
+    "C",
+    "PAI-EAS"
+   ],
+   [
+    "D",
+    "百炼平台"
+   ]
+  ],
+  "bank": "C",
+  "first_answer": [],
+  "second_answer": [
+   "C"
+  ],
+  "f_quality": "review",
+  "s_quality": "review",
+  "f_cls": "own",
+  "s_cls": "own",
+  "f_chapter": 10,
+  "s_chapter": 10,
+  "f_reason": "FC是否支持Serverless GPU需验证",
+  "s_reason": "题干标注争议题，需结合教材明确Serverless GPU定义"
+ },
+ {
+  "qid": "10-0361",
+  "ch": 10,
+  "type": 0,
+  "stem": "大模型如通义千问API在自动处理文本任务时，主要优势在于：",
+  "options": [
+   [
+    "A",
+    "需要大量人工预先编程每个细节"
+   ],
+   [
+    "B",
+    "能够理解并生成自然语言，适合处理大规模文本数据"
+   ],
+   [
+    "C",
+    "仅能处理简单的数学计算，无法进行复杂文本分析"
+   ],
+   [
+    "D",
+    "必须单独为每个任务训练模型"
+   ]
+  ],
+  "bank": "B",
+  "first_answer": [],
+  "second_answer": [
+   "B"
+  ],
+  "f_quality": "remove",
+  "s_quality": "remove",
+  "f_cls": "beyond",
+  "s_cls": "unsure",
+  "f_chapter": 10,
+  "s_chapter": 10,
+  "f_reason": "考查LLM通用能力，非阿里云平台特有知识",
+  "s_reason": "题干过于宽泛，考查大模型通用优势，非阿里云平台特定知识"
+ },
+ {
+  "qid": "10-0388",
+  "ch": 10,
+  "type": 0,
+  "stem": "以下哪项不属于通用问Qwen-VL-Max的能力?",
+  "options": [
+   [
+    "A",
+    "识别图像中的物体并进行描述"
+   ],
+   [
+    "B",
+    "将图像中的数据图表转化为可编辑表格"
+   ],
+   [
+    "C",
+    "基于图像内容创作故事"
+   ],
+   [
+    "D",
+    "实时三维场景重建"
+   ]
+  ],
+  "bank": "D",
+  "first_answer": [],
+  "second_answer": [
+   "D"
+  ],
+  "f_quality": "remove",
+  "s_quality": "ok",
+  "f_cls": "beyond",
+  "s_cls": "misplaced",
+  "f_chapter": 10,
+  "s_chapter": 11,
+  "f_reason": "Qwen-VL-Max未在章节目录或原文中提及",
+  "s_reason": "考查多模态模型能力边界，选项区分明确"
+ },
+ {
+  "qid": "10-0396",
+  "ch": 10,
+  "type": 0,
+  "stem": "以下哪种方式不符合“优化RAG过程”的最佳实践？",
+  "options": [
+   [
+    "A",
+    "使用DashScope Parse解析文档,提取文本和图片信息"
+   ],
+   [
+    "B",
+    "使用通义千问API润色目录层级,补全缺失信息"
+   ],
+   [
+    "C",
+    "直接将原始PDF文档内容输入向量数据库,不进行任何预处理"
+   ],
+   [
+    "D",
+    "根据图片内容的复杂程度,选择性地使用视觉模型进行深层次解析"
+   ]
+  ],
+  "bank": "C",
+  "first_answer": [
+   "C"
+  ],
+  "second_answer": [
+   "C"
+  ],
+  "f_quality": "ok",
+  "s_quality": "ok",
+  "f_cls": "misplaced",
+  "s_cls": "own",
+  "f_chapter": 3,
+  "s_chapter": 10,
+  "f_reason": "RAG预处理属第3章核心考点",
+  "s_reason": "考查RAG预处理最佳实践，选项C明显错误"
+ },
+ {
+  "qid": "10-1208",
+  "ch": 10,
+  "type": 0,
+  "stem": "阿里云音频审核服务返回结果中表示自定义标签的字段是？",
+  "options": [
+   [
+    "A",
+    "Labels: C_customized"
+   ],
+   [
+    "B",
+    "RiskLevel: high"
+   ],
+   [
+    "C",
+    "Description: 战争烟光"
+   ],
+   [
+    "D",
+    "Confidence: 80.0"
+   ]
+  ],
+  "bank": "A",
+  "first_answer": [],
+  "second_answer": [],
+  "f_quality": "remove",
+  "s_quality": "remove",
+  "f_cls": "misplaced",
+  "s_cls": "unsure",
+  "f_chapter": 8,
+  "s_chapter": 10,
+  "f_reason": "音频审核服务未在本章出现",
+  "s_reason": "考查具体API返回字段，无考查价值且教材未提及"
+ },
+ {
+  "qid": "10-1361",
+  "ch": 10,
+  "type": 0,
+  "stem": "云服务存储向量的优势不包括以下哪项?",
+  "options": [
+   [
+    "A",
+    "自动扩容"
+   ],
+   [
+    "B",
+    "按量付费"
+   ],
+   [
+    "C",
+    "支持混合检索（向量+标量）"
+   ],
+   [
+    "D",
+    "无需监控工具"
+   ]
+  ],
+  "bank": "D",
+  "first_answer": [],
+  "second_answer": [
+   "D"
+  ],
+  "f_quality": "remove",
+  "s_quality": "review",
+  "f_cls": "misplaced",
+  "s_cls": "unsure",
+  "f_chapter": 10,
+  "s_chapter": 10,
+  "f_reason": "题干问云服务存储向量优势，但原文未提向量存储技术细节",
+  "s_reason": "考点是向量数据库优势，但章节归属不确定"
+ },
+ {
+  "qid": "10-0320",
+  "ch": 10,
+  "type": 0,
+  "stem": "下列关于利用列表给通义千问大模型增加记忆的描述中，哪一项是不正确的？",
+  "options": [
+   [
+    "A",
+    "每次交互前，可以在列表中添加新的对话记录"
+   ],
+   [
+    "B",
+    "列表中存储的信息会随每次请求自动清除"
+   ],
+   [
+    "C",
+    "列表可以作为上下文连同新问题一起发送给模型"
+   ],
+   [
+    "D",
+    "这种方法可以帮助模型在回答问题时考虑之前对话历史"
+   ]
+  ],
+  "bank": "B",
+  "first_answer": [
+   "B"
+  ],
+  "second_answer": [
+   "B"
+  ],
+  "f_quality": "ok",
+  "s_quality": "remove",
+  "f_cls": "own",
+  "s_cls": "unsure",
+  "f_chapter": 10,
+  "s_chapter": 10,
+  "f_reason": "列表记忆即messages上下文，原文强调模型无状态",
+  "s_reason": "题干描述模糊，考点不明。‘列表增加记忆’非教材明确概念，选项B与常识矛盾，无考查价值。"
+ },
+ {
+  "qid": "10-0444",
+  "ch": 10,
+  "type": 0,
+  "stem": "在下列使用Qwen - Max辅助内容生产的场景中，以下哪个操作是可以执行的？",
+  "options": [
+   [
+    "A",
+    "直接使用Qwen - Max进行图像设计"
+   ],
+   [
+    "B",
+    "利用Qwen - Max生成课程文案"
+   ],
+   [
+    "C",
+    "应用Qwen - Max进行视频剪辑"
+   ],
+   [
+    "D",
+    "让Qwen - Max执行编程代码"
+   ]
+  ],
+  "bank": "B",
+  "first_answer": [
+   "B"
+  ],
+  "second_answer": [
+   "B"
+  ],
+  "f_quality": "ok",
+  "s_quality": "remove",
+  "f_cls": "own",
+  "s_cls": "unsure",
+  "f_chapter": 10,
+  "s_chapter": 10,
+  "f_reason": "Qwen-Max是文本模型，仅支持文本生成类任务",
+  "s_reason": "考点错放。Qwen-Max是文本模型，题干操作均非其核心能力，属多模态或工具调用范畴，无考查价值。"
+ },
+ {
+  "qid": "10-0587",
+  "ch": 10,
+  "type": 1,
+  "stem": "以下哪些描述符合使用列表方法给通义千问大模型增加记忆的场景？",
+  "options": [
+   [
+    "A",
+    "在与模型的交互中，将关键信息以列表形式累积存储"
+   ],
+   [
+    "B",
+    "每次提问时，将该列表作为上下文附加到问题中，帮助模型理解历史对话"
+   ],
+   [
+    "C",
+    "列表中存储的信息会随每次请求自动清空，保证每次对话独立性"
+   ],
+   [
+    "D",
+    "可以手动编辑列表内容，选择性地向模型展示特定的记忆信息"
+   ]
+  ],
+  "bank": "A,B,D",
+  "first_answer": [
+   "A",
+   "B",
+   "D"
+  ],
+  "second_answer": [
+   "A",
+   "B",
+   "D"
+  ],
+  "f_quality": "ok",
+  "s_quality": "remove",
+  "f_cls": "own",
+  "s_cls": "unsure",
+  "f_chapter": 10,
+  "s_chapter": 10,
+  "f_reason": "列表法模拟记忆需显式维护与注入上下文",
+  "s_reason": "题干概念‘列表方法增加记忆’模糊，非教材明确知识点。选项C与‘增加记忆’矛盾，题目整体无考查价值。"
+ },
+ {
+  "qid": "10-0591",
+  "ch": 10,
+  "type": 1,
+  "stem": "为了有效利用上下文记忆提升通义千问大模型的交互质量，可以采取哪些策略？",
+  "options": [
+   [
+    "A",
+    "设计高效的内存管理机制，自动丢弃较旧的对话记录"
+   ],
+   [
+    "B",
+    "根据对话内容的相关性选择性地更新记忆列表"
+   ],
+   [
+    "C",
+    "实现一个智能筛选机制，仅保留对当前对话有帮助的信息"
+   ],
+   [
+    "D",
+    "为每一次对话创建独立的记忆列表，不进行跨会话信息共享"
+   ]
+  ],
+  "bank": "A,B,C",
+  "first_answer": [
+   "A",
+   "B",
+   "C"
+  ],
+  "second_answer": [
+   "A",
+   "B",
+   "C"
+  ],
+  "f_quality": "ok",
+  "s_quality": "remove",
+  "f_cls": "own",
+  "s_cls": "unsure",
+  "f_chapter": 10,
+  "s_chapter": 10,
+  "f_reason": "上下文记忆需动态筛选与更新以提升质量",
+  "s_reason": "题干‘上下文记忆提升交互质量’宽泛，策略属通用工程实践，非第10章平台特定知识，无明确考查点。"
+ },
+ {
+  "qid": "10-0596",
+  "ch": 10,
+  "type": 1,
+  "stem": "以下选项中，百炼平台目前支持导入的数据格式有哪些?",
+  "options": [
+   [
+    "A",
+    "pdf"
+   ],
+   [
+    "B",
+    "html"
+   ],
+   [
+    "C",
+    "docx"
+   ],
+   [
+    "D",
+    "csv"
+   ]
+  ],
+  "bank": "A,C",
+  "first_answer": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "second_answer": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "f_quality": "ok",
+  "s_quality": "fixable",
+  "f_cls": "own",
+  "s_cls": "own",
+  "f_chapter": 10,
+  "s_chapter": 10,
+  "f_reason": "百炼知识库支持主流文档格式解析",
+  "s_reason": "考查百炼平台知识库支持的数据格式，但教材未明确列举，需修正为教材提及的典型格式或标记unsupported。"
+ },
+ {
+  "qid": "10-1055",
+  "ch": 10,
+  "type": 0,
+  "stem": "在使用Qwen-Max辅助内容生成的过程中，以下哪个操作是正确的？",
+  "options": [
+   [
+    "A",
+    "让Qwen-Max执行编程代码"
+   ],
+   [
+    "B",
+    "利用Qwen-Max生成课程脚本"
+   ],
+   [
+    "C",
+    "应用Qwen-Max进行视频剪辑任务"
+   ],
+   [
+    "D",
+    "直接使用Qwen-Max进行图像设计"
+   ]
+  ],
+  "bank": "B",
+  "first_answer": [
+   "B"
+  ],
+  "second_answer": [
+   "B"
+  ],
+  "f_quality": "ok",
+  "s_quality": "remove",
+  "f_cls": "own",
+  "s_cls": "unsure",
+  "f_chapter": 10,
+  "s_chapter": 10,
+  "f_reason": "Qwen-Max专精文本生成，不支持多模态操作",
+  "s_reason": "与10-0444高度重复，考点错放。考查Qwen-Max文本模型的能力边界，非第10章平台知识核心。"
+ },
+ {
+  "qid": "10-1073",
+  "ch": 10,
+  "type": 0,
+  "stem": "在调用百炼大模型接口时，如何指定用户的输入内容？",
+  "options": [
+   [
+    "A",
+    "将用户输入内容作为'messages'列表中字典的'content'字段的值传入"
+   ],
+   [
+    "B",
+    "将用户输入内容作为model参数的值传入"
+   ],
+   [
+    "C",
+    "将用户输入内容作为api_key 参数的值传入"
+   ],
+   [
+    "D",
+    "将用户输入内容作为base_url 参数的值传入"
+   ]
+  ],
+  "bank": "A",
+  "first_answer": [
+   "A"
+  ],
+  "second_answer": [],
+  "f_quality": "ok",
+  "s_quality": "remove",
+  "f_cls": "own",
+  "s_cls": "unsure",
+  "f_chapter": 10,
+  "s_chapter": 10,
+  "f_reason": "百炼API遵循messages角色化结构规范",
+  "s_reason": "题干表述不清，未明确是调用百炼API还是DashScope API，导致选项A的‘messages’字段归属不明，存在歧义。"
+ },
+ {
+  "qid": "10-1209",
+  "ch": 10,
+  "type": 1,
+  "stem": "阿里云支持的模型部署平台包括?",
+  "options": [
+   [
+    "A",
+    "云服务器ECS"
+   ],
+   [
+    "B",
+    "函数计算FC"
+   ],
+   [
+    "C",
+    "人工智能平台PAI-EAS"
+   ],
+   [
+    "D",
+    "大模型服务平台百炼"
+   ]
+  ],
+  "bank": "A,B,C,D",
+  "first_answer": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "second_answer": [
+   "A",
+   "B",
+   "C"
+  ],
+  "f_quality": "ok",
+  "s_quality": "ok",
+  "f_cls": "own",
+  "s_cls": "own",
+  "f_chapter": 10,
+  "s_chapter": 10,
+  "f_reason": "四选项均在原文10.1/10.4/10.5节明确列为部署形态或平台",
+  "s_reason": "题目考查阿里云支持的模型部署平台，与章节知识匹配，选项清晰。"
+ },
+ {
+  "qid": "10-1314",
+  "ch": 10,
+  "type": 0,
+  "stem": "以下哪个代码片段正确设置了百炼大语言模型的API key?",
+  "options": [
+   [
+    "A",
+    "client = OpenAI('your_api_key', 'https://dashscope.aliyuncs."
+   ],
+   [
+    "B",
+    "client = OpenAI(base_url='https://dashscope.aliyuncs.com/com"
+   ],
+   [
+    "C",
+    "client = OpenAI(api_key=os.getenv('DASHSCOPE_API_KEY'))"
+   ],
+   [
+    "D",
+    "client = OpenAI(base_url='https://dashscope.aliyuncs.com/com"
+   ]
+  ],
+  "bank": "C",
+  "first_answer": [
+   "C"
+  ],
+  "second_answer": [
+   "B"
+  ],
+  "f_quality": "fixable",
+  "s_quality": "ok",
+  "f_cls": "own",
+  "s_cls": "own",
+  "f_chapter": 10,
+  "s_chapter": 10,
+  "f_reason": "仅C语法正确且符合原文示例",
+  "s_reason": "题目考查正确设置API key的代码片段，与章节知识匹配。"
+ },
+ {
+  "qid": "10-1337",
+  "ch": 10,
+  "type": 1,
+  "stem": "以下哪些是优化 Qwen-Turbo 输出质量的有效方法？",
+  "options": [
+   [
+    "A",
+    "使用'生成-评估-优化'循环"
+   ],
+   [
+    "B",
+    "增加文本输入长度"
+   ],
+   [
+    "C",
+    "添加具体领域术语"
+   ],
+   [
+    "D",
+    "启用模型自带的校验功能"
+   ]
+  ],
+  "bank": "A,C",
+  "first_answer": [],
+  "second_answer": [],
+  "f_quality": "review",
+  "s_quality": "remove",
+  "f_cls": "misplaced",
+  "s_cls": "misplaced",
+  "f_chapter": 2,
+  "s_chapter": 2,
+  "f_reason": "属提示工程优化范畴，原文未提Turbo质量优化方法",
+  "s_reason": "题目问法模糊，选项与优化输出质量关联性弱，且缺乏明确判断依据，无考查价值。"
+ },
+ {
+  "qid": "10-1344",
+  "ch": 10,
+  "type": 0,
+  "stem": "以下哪种写法能够正确调用百炼 \"qwen-max\" 模型完成对话补全？",
+  "options": [
+   [
+    "A",
+    "completion = Client.chat.completions.create(model='qwen-max'"
+   ],
+   [
+    "B",
+    "completion = Client.chat.create(model='qwe-n-max', messages="
+   ],
+   [
+    "C",
+    "completion = Client.chat.completions.create(model='qwen-max'"
+   ],
+   [
+    "D",
+    "completion = Client.chat.create(model='qwe-n-max', records=["
+   ]
+  ],
+  "bank": "C",
+  "first_answer": [
+   "C"
+  ],
+  "second_answer": [
+   "C"
+  ],
+  "f_quality": "fixable",
+  "s_quality": "ok",
+  "f_cls": "own",
+  "s_cls": "own",
+  "f_chapter": 10,
+  "s_chapter": 10,
+  "f_reason": "仅C参数名和模型名正确",
+  "s_reason": "题目考查正确调用百炼模型的代码写法，与章节知识匹配。"
+ },
+ {
+  "qid": "10-1459",
+  "ch": 10,
+  "type": 1,
+  "stem": "某企业使用阿里云大模型构建客服机器人，要求机器人能识别用户的 “敏感问题”（如投诉企业负面信息），并转接人工客服。以下哪种技术方案最适配？",
+  "options": [
+   [
+    "A",
+    "让模型直接生成回复，不处理敏感问题"
+   ],
+   [
+    "B",
+    "采用文本分类任务，训练模型识别 “敏感问题” 类别，触发人工转接"
+   ],
+   [
+    "C",
+    "提供大量敏感问题示例，让模型学习回避"
+   ],
+   [
+    "D",
+    "限制用户提问内容，禁止输入敏感问题"
+   ]
+  ],
+  "bank": "B",
+  "first_answer": [],
+  "second_answer": [],
+  "f_quality": "review",
+  "s_quality": "remove",
+  "f_cls": "misplaced",
+  "s_cls": "unsure",
+  "f_chapter": 4,
+  "s_chapter": 10,
+  "f_reason": "属Agent决策逻辑，原文未提敏感问题转人工方案",
+  "s_reason": "题干未提供任何阿里云平台具体信息，考点是通用文本分类，与第10章无关。"
+ },
+ {
+  "qid": "10-0820",
+  "ch": 10,
+  "type": 0,
+  "stem": "你使用Qwen-Max 生成了课程内容，现在需要将其转换为Marp 格式的 Markdown 。 以下哪个Qwen-Max 的提示词最有效",
+  "options": [
+   [
+    "A",
+    "把这些内容转换成 Markdown"
+   ],
+   [
+    "B",
+    "将以下内容转换为适合 Marp 幻灯片演示的 M Markdown 格式，并包含标题、列表和代码块等元素"
+   ],
+   [
+    "C",
+    "用 Markdown 写个幻灯片"
+   ],
+   [
+    "D",
+    "帮我转换成 PPT"
+   ]
+  ],
+  "bank": "B",
+  "first_answer": [
+   "B"
+  ],
+  "second_answer": [
+   "B"
+  ],
+  "f_quality": "ok",
+  "s_quality": "ok",
+  "f_cls": "misplaced",
+  "s_cls": "misplaced",
+  "f_chapter": 2,
+  "s_chapter": 2,
+  "f_reason": "考查提示词六要素中的输出格式与上下文，属提示工程核心",
+  "s_reason": "考查提示词工程，要求具体、清晰、结构化。"
+ },
+ {
+  "qid": "10-0861",
+  "ch": 10,
+  "type": 1,
+  "stem": "以下哪些属于阿里云大模型生态的核心产品 / 服务?",
+  "options": [
+   [
+    "A",
+    "通义千问（基础大模型）"
+   ],
+   [
+    "B",
+    "PAI-EAS（弹性计算服务，模型部署）"
+   ],
+   [
+    "C",
+    "PAI-Studio（模型开发与微调平台）"
+   ],
+   [
+    "D",
+    "向量数据库（如 Lindorm）"
+   ],
+   [
+    "E",
+    "阿里云 OSS（对象存储服务，存储模型与数据）"
+   ]
+  ],
+  "bank": "A,B,C,D,E",
+  "first_answer": [
+   "A",
+   "B",
+   "E"
+  ],
+  "second_answer": [
+   "A",
+   "B",
+   "C",
+   "E"
+  ],
+  "f_quality": "ok",
+  "s_quality": "ok",
+  "f_cls": "own",
+  "s_cls": "own",
+  "f_chapter": 10,
+  "s_chapter": 10,
+  "f_reason": "题干问'大模型生态核心产品'，需严格按原文分层定义判断",
+  "s_reason": "考查对阿里云大模型生态核心产品的认知。"
+ },
+ {
+  "qid": "10-1054",
+  "ch": 10,
+  "type": 0,
+  "stem": "你需要使用 Qwen-Max 生成一个关于 'Python 基础' 的课程脚本。以下哪种请求方式最合适？",
+  "options": [
+   [
+    "A",
+    "向 Qwen-Max 发送一条包含 'Python 基础课程脚本' 的请求，并附加一些示例代码。"
+   ],
+   [
+    "B",
+    "向 Qwen-Max 发送一条详细描述课程目标和内容的请求，例如：'请生成一个 Python 基础课程脚本，包含变量、数"
+   ],
+   [
+    "C",
+    "向 Qwen-Max 发送多条分别包含 'Python 变量'、'Python 数据类型'、'Python 运算符' 等"
+   ],
+   [
+    "D",
+    "向 Qwen-Max 发送一条包含 'Python' 关键词的请求。"
+   ]
+  ],
+  "bank": "B",
+  "first_answer": [
+   "B"
+  ],
+  "second_answer": [
+   "B"
+  ],
+  "f_quality": "ok",
+  "s_quality": "ok",
+  "f_cls": "misplaced",
+  "s_cls": "misplaced",
+  "f_chapter": 2,
+  "s_chapter": 2,
+  "f_reason": "考查提示词六要素中'任务'与'上下文'的完整性，属提示工程基础",
+  "s_reason": "考查提示词工程，要求任务描述清晰具体。"
+ },
+ {
+  "qid": "10-1125",
+  "ch": 10,
+  "type": 0,
+  "stem": "你使用阿里云百炼平台的通义千问 API 开发了聊天机器人，用户反馈：提问某地天气时模型总是无法回答。如何快速解决这个问题？",
+  "options": [
+   [
+    "A",
+    "提前设置话术，在面对类似问题时可以直接将话术返回给用户"
+   ],
+   [
+    "B",
+    "通过复杂的工程手段，对用户的输入提取关键词，收集第三方搜索引擎，并将搜索结果返回给大模型"
+   ],
+   [
+    "C",
+    "设置 enable_search（联网搜索）参数，为通义千问 API 引入联网能力"
+   ],
+   [
+    "D",
+    "在聊天界面显眼位置标注限制，不建议用户输入类似问题"
+   ]
+  ],
+  "bank": "C",
+  "first_answer": [
+   "C"
+  ],
+  "second_answer": [],
+  "f_quality": "ok",
+  "s_quality": "remove",
+  "f_cls": "own",
+  "s_cls": "unsure",
+  "f_chapter": 10,
+  "s_chapter": 10,
+  "f_reason": "百炼知识库不解决实时天气，需联网能力，原文明确支持",
+  "s_reason": "题干提及百炼平台，但选项C的enable_search参数教材未提及，无法判断。"
+ },
+ {
+  "qid": "10-1189",
+  "ch": 10,
+  "type": 0,
+  "stem": "如何从百炼大模型的接口返回结果中获取模型生成的文本?",
+  "options": [
+   [
+    "A",
+    "print(completion.message.content)"
+   ],
+   [
+    "B",
+    "print(completion.choices[0].message)"
+   ],
+   [
+    "C",
+    "print(completion.choices.message.content)"
+   ],
+   [
+    "D",
+    "print(completion.choices[0].message.content)"
+   ]
+  ],
+  "bank": "D",
+  "first_answer": [
+   "D"
+  ],
+  "second_answer": [],
+  "f_quality": "ok",
+  "s_quality": "remove",
+  "f_cls": "own",
+  "s_cls": "unsure",
+  "f_chapter": 10,
+  "s_chapter": 10,
+  "f_reason": "考查百炼API返回结构，原文代码示例明确展示字段路径",
+  "s_reason": "题干与选项均无考查价值，属于纯代码语法题，与阿里云平台知识无关。"
+ },
+ {
+  "qid": "10-1446",
+  "ch": 10,
+  "type": 1,
+  "stem": "整合大模型生成的视频、音频和字幕时，哪些工具可帮助解决同步问题？",
+  "options": [
+   [
+    "A",
+    "ffmpeg"
+   ],
+   [
+    "B",
+    "moviepy"
+   ],
+   [
+    "C",
+    "CosyVoice"
+   ],
+   [
+    "D",
+    "Marp"
+   ]
+  ],
+  "bank": "A,B",
+  "first_answer": [],
+  "second_answer": [],
+  "f_quality": "remove",
+  "s_quality": "remove",
+  "f_cls": "beyond",
+  "s_cls": "beyond",
+  "f_chapter": 11,
+  "s_chapter": 11,
+  "f_reason": "题干涉及视频/音频/字幕同步，属多模态工程实践，原文第11章未提ffmpeg/moviepy/CosyVoice/Marp等工具",
+  "s_reason": "题目考查多模态音视频同步工具，属于第11章多模态AI范畴，与第10章阿里云平台无关。"
+ },
+ {
+  "qid": "10-1460",
+  "ch": 10,
+  "type": 2,
+  "stem": "以下哪些属于阿里云大模型生态的核心产品 / 服务？（多选，5 个选项）",
+  "options": [
+   [
+    "A",
+    "通义千问（基础大模型）"
+   ],
+   [
+    "B",
+    "PAI-EAS（弹性计算服务，模型部署）"
+   ],
+   [
+    "C",
+    "PAI-Studio（模型开发与微调平台）"
+   ],
+   [
+    "D",
+    "向量数据库（如 Lindorm）"
+   ],
+   [
+    "E",
+    "阿里云 OSS（对象存储服务，存储模型与数据）"
+   ]
+  ],
+  "bank": "A,B,C,D",
+  "first_answer": [
+   "A",
+   "B",
+   "E"
+  ],
+  "second_answer": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E"
+  ],
+  "f_quality": "ok",
+  "s_quality": "ok",
+  "f_cls": "own",
+  "s_cls": "own",
+  "f_chapter": 10,
+  "s_chapter": 10,
+  "f_reason": "考阿里云大模型生态核心产品，原文明确列出百炼/DashScope/PAI/ModelScope四层",
+  "s_reason": "考查对阿里云大模型生态核心产品的识别，属于本章核心知识。"
+ },
+ {
+  "qid": "10-0447",
+  "ch": 10,
+  "type": 0,
+  "stem": "以下哪行 Python 代码能够正确调用百炼的 \"qwen-max\" 模型进行对话补全？",
+  "options": [
+   [
+    "A",
+    "completion = client.chat.create(model=\"qwen-max\", messages=["
+   ],
+   [
+    "B",
+    "completion = client.chat.completions.create(model=\"qwen-max\""
+   ],
+   [
+    "C",
+    "completion = client.chat.create(model=\"qwen-max\", records=[{"
+   ],
+   [
+    "D",
+    "completion = client.chat.completions.create(model=\"qwen-max\""
+   ]
+  ],
+  "bank": "B",
+  "first_answer": [
+   "B"
+  ],
+  "second_answer": [
+   "B"
+  ],
+  "f_quality": "fixable",
+  "s_quality": "ok",
+  "f_cls": "own",
+  "s_cls": "own",
+  "f_chapter": 10,
+  "s_chapter": 10,
+  "f_reason": "API调用格式需匹配DashScope兼容模式，原文给出标准示例",
+  "s_reason": "考查调用DashScope（百炼底层API）的正确代码格式，属于OpenAI兼容接口知识。"
+ },
+ {
+  "qid": "10-0692",
+  "ch": 10,
+  "type": 1,
+  "stem": "关于阿里云 PAI 平台的核心功能，以下哪些描述正确？",
+  "options": [
+   [
+    "A",
+    "支持模型训练：可基于自有数据微调通义千问等基础模型"
+   ],
+   [
+    "B",
+    "提供模型部署服务：可将训练后的模型封装为 API 供应用调用"
+   ],
+   [
+    "C",
+    "集成数据处理工具：支持对文本、图像等数据进行清洗、标注"
+   ],
+   [
+    "D",
+    "仅支持阿里云自研模型，不兼容开源模型（如 Llama 3）"
+   ]
+  ],
+  "bank": "A,B,C",
+  "first_answer": [
+   "A",
+   "B"
+  ],
+  "second_answer": [
+   "A",
+   "B",
+   "C"
+  ],
+  "f_quality": "ok",
+  "s_quality": "ok",
+  "f_cls": "own",
+  "s_cls": "own",
+  "f_chapter": 10,
+  "s_chapter": 10,
+  "f_reason": "考PAI平台功能，原文明确DSW/DLC/EAS三件套及定位",
+  "s_reason": "考查对PAI平台核心功能的正确理解，属于本章重点。"
+ },
+ {
+  "qid": "10-1440",
+  "ch": 10,
+  "type": 1,
+  "stem": "在qwen-plus对messages进行回答后，如果你想按照当前对话基础继续提问，需要怎么做？",
+  "options": [
+   [
+    "A",
+    "对话历史跟着模型名称走，所以只要继续指定模型为qwen-plus就可以了"
+   ],
+   [
+    "B",
+    "将大模型生成的Assistant Message添加到messages列表中"
+   ],
+   [
+    "C",
+    "大模型不支持多轮对话"
+   ],
+   [
+    "D",
+    "将新的User Message添加到messages列表中"
+   ]
+  ],
+  "bank": "B,D",
+  "first_answer": [
+   "B",
+   "D"
+  ],
+  "second_answer": [
+   "B",
+   "D"
+  ],
+  "f_quality": "ok",
+  "s_quality": "ok",
+  "f_cls": "own",
+  "s_cls": "misplaced",
+  "f_chapter": 10,
+  "s_chapter": 9,
+  "f_reason": "考多轮对话机制，原文强调messages角色化结构和无状态性",
+  "s_reason": "考查API多轮对话的messages构建规则"
+ },
+ {
+  "qid": "10-0594",
+  "ch": 10,
+  "type": 1,
+  "stem": "已知Qwen-7B预训练模型、Qwen-7B-Chat对话对齐模型和Qwen-Max线上模型，对比三者在处理特定领域问题时的能力，我们有可能遇到的问题是：",
+  "options": [
+   [
+    "A",
+    "Qwen-7B由于缺乏特定领域知识的微调，可能在专业性回答上不如后两者"
+   ],
+   [
+    "B",
+    "Qwen-7B-Chat通过对话微调，能更好地理理解并回应复杂对话场景，但可能在广度上不及Qwen-Max"
+   ],
+   [
+    "C",
+    "Qwen-Max作为线上模型，通常拥有更庞大的参数数量和更广泛的训练数据，从而在泛化能力和某些特定任务上表现最优"
+   ],
+   [
+    "D",
+    "无论模型大小，只要经过足够的微调，所有模型都能达到相同水平的性能表现"
+   ]
+  ],
+  "bank": "A,B,C",
+  "first_answer": [],
+  "second_answer": [
+   "A",
+   "B",
+   "C"
+  ],
+  "f_quality": "review",
+  "s_quality": "ok",
+  "f_cls": "cross",
+  "s_cls": "own",
+  "f_chapter": 10,
+  "s_chapter": 10,
+  "f_reason": "模型能力对比需结合第1章LLM本质与第10章千问家族，原文未直接比较三者专业性",
+  "s_reason": "考查不同规格模型的能力差异与局限"
+ },
+ {
+  "qid": "10-1179",
+  "ch": 10,
+  "type": 0,
+  "stem": "def set_default_model(): EMBED_MODEL = DashScopeEmbedding(model_name=DashScopeTextEmbeddingsModels.TEXT_EMBEDDING_V2, type_name=DashScopeTextEmbedding",
+  "options": [
+   [
+    "A",
+    "使得 llm 可以流式输出"
+   ],
+   [
+    "B",
+    "使得 embedding 模型可以参与与 llm 的生成过程中"
+   ],
+   [
+    "C",
+    "使得有关 Llamaindex 的后续步骤中无需再次指定 llm 与 embed_model"
+   ],
+   [
+    "D",
+    "定义了 EMBED_MODEL 与 LLM_MODEL"
+   ]
+  ],
+  "bank": "C",
+  "first_answer": [
+   "C"
+  ],
+  "second_answer": [
+   "C"
+  ],
+  "f_quality": "fixable",
+  "s_quality": "ok",
+  "f_cls": "misplaced",
+  "s_cls": "misplaced",
+  "f_chapter": 12,
+  "s_chapter": 12,
+  "f_reason": "代码涉及LlamaIndex框架配置，属第12章框架知识",
+  "s_reason": "考查LlamaIndex中全局设置的作用"
+ },
+ {
+  "qid": "10-1430",
+  "ch": 10,
+  "type": 0,
+  "stem": "在以下提供的代码片段中，（）最终答案的步骤是直接从DashScope服务获取并处理查询结果的关键环节。\ndef query(self, query: str):\n    message = dashscope.Messages.create(self.thread.id, content=query",
+  "options": [
+   [
+    "A",
+    "调用 dashscope.Runs.create 函数"
+   ],
+   [
+    "B",
+    "调用 dashscope.Messages.list 函数"
+   ],
+   [
+    "C",
+    "调用用_and_submit_outputs 函数"
+   ],
+   [
+    "D",
+    "解析 msgs 获取最终答案"
+   ]
+  ],
+  "bank": "D",
+  "first_answer": [],
+  "second_answer": [
+   "D"
+  ],
+  "f_quality": "review",
+  "s_quality": "ok",
+  "f_cls": "misplaced",
+  "s_cls": "own",
+  "f_chapter": 4,
+  "s_chapter": 10,
+  "f_reason": "代码含thread/assistant/run等Agent概念，属第4章Agent闭环流程",
+  "s_reason": "考查DashScope API调用中获取最终答案的步骤"
+ },
+ {
+  "qid": "10-0060",
+  "ch": 10,
+  "type": 1,
+  "stem": "你写了一个提示词\"请用适合简报的形式，以每篇100字的篇幅总结今早的十大新闻，你希望大模型能按照提示词完成任务，以下哪些方案可行？\"",
+  "options": [
+   [
+    "A",
+    "整理历史新闻库，构建一个RAG应用，让大模型回答时参考知识库中的新闻"
+   ],
+   [
+    "B",
+    "设计提示词，结合 function call，让大模型回答时效性问题时，调用搜索工具"
+   ],
+   [
+    "C",
+    "使用阿里云云炼平台的qwen-plus，并且调用A PI时设置 enable_search=True"
+   ],
+   [
+    "D",
+    "设计提示词，明确要求大模型要基于今天最新的新闻来总结，避免基于历史新闻总结"
+   ]
+  ],
+  "bank": "B,C",
+  "first_answer": [
+   "B"
+  ],
+  "second_answer": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "f_quality": "ok",
+  "s_quality": "ok",
+  "f_cls": "cross",
+  "s_cls": "misplaced",
+  "f_chapter": 10,
+  "s_chapter": 2,
+  "f_reason": "考查RAG、Function Calling与平台能力边界，需结合第3、4、10章知识",
+  "s_reason": "考查解决时效性问题的多种工程手段"
+ },
+ {
+  "qid": "10-1021",
+  "ch": 10,
+  "type": 1,
+  "stem": "关于 Qwen-Max、CosVoice 和 moviepy 的协同使用，以下哪些说法是正确的？",
+  "options": [
+   [
+    "A",
+    "CosVoice 可以将文本转换为音频。"
+   ],
+   [
+    "B",
+    "CosVoice 的主要功能是视频剪辑。"
+   ],
+   [
+    "C",
+    "moviepy 可以直接将文本转换为视频。"
+   ],
+   [
+    "D",
+    "Qwen-Max 主要用于生成视频字幕。"
+   ],
+   [
+    "E",
+    "moviepy 可以用来获取音频文件的持续时间，用于生成字幕。"
+   ],
+   [
+    "F",
+    "使用这三个工具的典型流程是，Qwen-Max -> CosVoice -> moviepy"
+   ]
+  ],
+  "bank": "A,E,F",
+  "first_answer": [
+   "A",
+   "E",
+   "F"
+  ],
+  "second_answer": [],
+  "f_quality": "ok",
+  "s_quality": "review",
+  "f_cls": "cross",
+  "s_cls": "unsure",
+  "f_chapter": 10,
+  "s_chapter": 10,
+  "f_reason": "多模态工具链协同，需结合第11章知识",
+  "s_reason": "题目涉及Qwen-Max、CosVoice、moviepy协同，但教材未提及CosVoice和moviepy，无法判断正确性。"
+ },
+ {
+  "qid": "10-1186",
+  "ch": 10,
+  "type": 0,
+  "stem": "运行以下代码等待任务结束时，不属于终止状态的是哪一项？ from dashscope import Runs run = Runs. wait(run_id, thread_id=thread_id)",
+  "options": [
+   [
+    "A",
+    "completed"
+   ],
+   [
+    "B",
+    "failed"
+   ],
+   [
+    "C",
+    "cancelled"
+   ],
+   [
+    "D",
+    "in_progress"
+   ]
+  ],
+  "bank": "D",
+  "first_answer": [],
+  "second_answer": [
+   "D"
+  ],
+  "f_quality": "remove",
+  "s_quality": "ok",
+  "f_cls": "beyond",
+  "s_cls": "own",
+  "f_chapter": 10,
+  "s_chapter": 10,
+  "f_reason": "DashScope Runs.wait返回状态未在第10章原文中定义，属SDK细节超纲",
+  "s_reason": "考查DashScope Runs.wait方法返回的终止状态，属于API调用与工具使用。"
+ },
+ {
+  "qid": "10-1199",
+  "ch": 10,
+  "type": 1,
+  "stem": "APIAssistantAgent 的 query 函数里，哪些步骤与大语言模型交互？\ndef query(self, query: str):\n    \"\"\"\n    query: string, the query string to the assistant, e.g. Who is the",
+  "options": [
+   [
+    "A",
+    "调用 forward_and_submit_outputs 函数"
+   ],
+   [
+    "B",
+    "调用 Runs.wait 函数"
+   ],
+   [
+    "C",
+    "创建 message 对象"
+   ],
+   [
+    "D",
+    "调用 dashscope.Messages.list 函数"
+   ],
+   [
+    "E",
+    "解析 msg s 获取最终答案"
+   ],
+   [
+    "F",
+    "调用 dashscope.Runs.create 函数"
+   ]
+  ],
+  "bank": "B,C,D,F",
+  "first_answer": [],
+  "second_answer": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
+  "f_quality": "remove",
+  "s_quality": "ok",
+  "f_cls": "beyond",
+  "s_cls": "own",
+  "f_chapter": 10,
+  "s_chapter": 10,
+  "f_reason": "代码中forward_and_submit_outputs等函数未在第10章出现，属SDK实现细节",
+  "s_reason": "考查APIAssistantAgent查询函数中与大模型交互的步骤，属于API调用与工具使用。"
+ },
+ {
+  "qid": "10-1301",
+  "ch": 10,
+  "type": 1,
+  "stem": "下列AssistantAPI示例代码的query方法中，dashscope.Runs.wait的作用是什么？",
+  "options": [
+   [
+    "A",
+    "等待所有的辅助工具输出,确保信息的完整性"
+   ],
+   [
+    "B",
+    "提供异步呼叫的机制,以提升查询响应速度"
+   ],
+   [
+    "C",
+    "返回请求的实时进度,对于调试非常有用"
+   ],
+   [
+    "D",
+    "阻塞当前前线程,直到请求的响应准备好为止"
+   ],
+   [
+    "E",
+    "确保所有消息都已处理并存储好"
+   ],
+   [
+    "F",
+    "监听后台请求,并在用户的等待期间消耗资源"
+   ]
+  ],
+  "bank": "D",
+  "first_answer": [],
+  "second_answer": [
+   "D"
+  ],
+  "f_quality": "remove",
+  "s_quality": "ok",
+  "f_cls": "beyond",
+  "s_cls": "own",
+  "f_chapter": 10,
+  "s_chapter": 10,
+  "f_reason": "Runs.wait阻塞语义未在第10章说明，属SDK底层行为",
+  "s_reason": "考查DashScope Assistant API中Runs.wait方法的作用"
+ },
+ {
+  "qid": "10-1388",
+  "ch": 10,
+  "type": 2,
+  "stem": "APIAssistantAgent 的 query 流程里，哪些步骤与大语言模型交互？def query(self, query:str):\"\"\"query: string, the query string to the assistant, e.g. Who is the Jack Chou?\"",
+  "options": [
+   [
+    "A",
+    "调用forward_and_submit_outputs 函数"
+   ],
+   [
+    "B",
+    "调用dashscope.Runs.wait 函数"
+   ],
+   [
+    "C",
+    "创建message 对象"
+   ],
+   [
+    "D",
+    "调用dashscope.Messages.list 函数"
+   ],
+   [
+    "E",
+    "解析msgs 获取最终答案"
+   ],
+   [
+    "F",
+    "调用dashscope.Runs.create 函数"
+   ]
+  ],
+  "bank": "B,C,D,F",
+  "first_answer": [],
+  "second_answer": [
+   "A",
+   "B",
+   "D",
+   "F"
+  ],
+  "f_quality": "remove",
+  "s_quality": "ok",
+  "f_cls": "beyond",
+  "s_cls": "own",
+  "f_chapter": 10,
+  "s_chapter": 10,
+  "f_reason": "query流程中各步骤与LLM交互关系未在第10章定义，属SDK调用链细节",
+  "s_reason": "考查Assistant API流程中与LLM交互的步骤"
+ },
+ {
+  "qid": "10-1415",
+  "ch": 10,
+  "type": 2,
+  "stem": "关于Qwen-Max、CosyVoice 和moviepy 的协同使用，以下哪些说法是正确的？",
+  "options": [
+   [
+    "A",
+    "CosyVoice 可以将文本转换为音频。"
+   ],
+   [
+    "B",
+    "CosyVoice 的主要功能是视频剪辑。"
+   ],
+   [
+    "C",
+    "moviepy 可以直接将文本转换为视频。"
+   ],
+   [
+    "D",
+    "Qwen-Max 主要用于生成视频字幕。"
+   ],
+   [
+    "E",
+    "moviepy 可以用来获取音频文件的持续时间，用于生成字幕。"
+   ],
+   [
+    "F",
+    "使用这三个工具的典型流程是，Qwen-Max -> CosyVoice -> moviepy。"
+   ]
+  ],
+  "bank": "A,E,F",
+  "first_answer": [],
+  "second_answer": [
+   "A",
+   "E",
+   "F"
+  ],
+  "f_quality": "review",
+  "s_quality": "ok",
+  "f_cls": "misplaced",
+  "s_cls": "own",
+  "f_chapter": 11,
+  "s_chapter": 10,
+  "f_reason": "CosyVoice/moviepy属多模态工具链，需查第11章多模态内容",
+  "s_reason": "考查阿里云多模态工具功能与协同流程"
+ },
+ {
+  "qid": "10-1426",
+  "ch": 10,
+  "type": 1,
+  "stem": "在下列 Assistant API 示例代码的 query 方法中，dashscope.Runs.wait 的以下哪些作用描述是正确的？ class APIAssistantAgent(AgentModule):def query(self,query:str):Message =dashscope",
+  "options": [
+   [
+    "A",
+    "提供异步呼叫的机制，以提升查询响应速度"
+   ],
+   [
+    "B",
+    "阻塞当前线程，直到请求的响应准备好为止"
+   ],
+   [
+    "C",
+    "等待所有的辅助工具输出，确保信息的完整性"
+   ],
+   [
+    "D",
+    "监听后台请求，并在用户的等待期间消耗资源"
+   ],
+   [
+    "E",
+    "确保所有消息都已处理井存储好"
+   ],
+   [
+    "F",
+    "返回请求的实时进度，对于调试非常有用"
+   ]
+  ],
+  "bank": "B,F",
+  "first_answer": [],
+  "second_answer": [
+   "B",
+   "F"
+  ],
+  "f_quality": "remove",
+  "s_quality": "ok",
+  "f_cls": "beyond",
+  "s_cls": "own",
+  "f_chapter": 10,
+  "s_chapter": 10,
+  "f_reason": "callback参数及进度打印未在第10章提及，属SDK高级用法",
+  "s_reason": "考查Assistant API中Runs.wait方法的多重作用"
+ },
+ {
+  "qid": "10-5054",
+  "ch": 10,
+  "type": 1,
+  "stem": "Dify 平台通常提供以下哪些能力模块？",
+  "options": [
+   [
+    "A",
+    "可视化工作流编排"
+   ],
+   [
+    "B",
+    "知识库构建与检索"
+   ],
+   [
+    "C",
+    "多模型提供方接入配置"
+   ],
+   [
+    "D",
+    "应用调试、日志与运营数据"
+   ]
+  ],
+  "bank": "A,B,C,D",
+  "first_answer": [],
+  "second_answer": [],
+  "f_quality": "review",
+  "s_quality": "remove",
+  "f_cls": "misplaced",
+  "s_cls": "unsure",
+  "f_chapter": 12,
+  "s_chapter": 10,
+  "f_reason": "Dify属框架工具，教材仅提及其原型价值",
+  "s_reason": "题目考查Dify平台能力，但教材第10章未提及Dify，属于超出本章范围且无原文支持。"
+ },
+ {
+  "qid": "11-0590",
+  "ch": 11,
+  "type": 1,
+  "stem": "以下关于大语言模型与多模态模型的描述中，正确的是？",
+  "options": [
+   [
+    "A",
+    "大语言模型主要基于 Transformer 架构，通过深度学习处理自然语言文本，擅长任务包括文本生成和机器翻译"
+   ],
+   [
+    "B",
+    "Bard是微软推出的一款大型语言模型，专门设计用于创造高度创意的文本内容"
+   ],
+   [
+    "C",
+    "多模态模型能够同时处理文本、图像、音频等多类型的数据，并实现这些模态间的关联分析"
+   ],
+   [
+    "D",
+    "音频处理模型是一种计算机程序算法，用于将人类口语（即语音信号）转化为可被计算机理解的文字形式"
+   ]
+  ],
+  "bank": "A,C",
+  "first_answer": [
+   "A",
+   "C",
+   "D"
+  ],
+  "second_answer": [
+   "A",
+   "C"
+  ],
+  "f_quality": "ok",
+  "s_quality": "ok",
+  "f_cls": "own",
+  "s_cls": "own",
+  "f_chapter": 11,
+  "s_chapter": 11,
+  "f_reason": "A、C、D均正确，B中Bard为Google产品非微软",
+  "s_reason": "考察对大语言模型与多模态模型基本概念的理解。"
+ },
+ {
+  "qid": "11-0618",
+  "ch": 11,
+  "type": 1,
+  "stem": "在多模态对齐技术中，哪些方法可以用来确保不同模态数据间的时序一致性？",
+  "options": [
+   [
+    "A",
+    "使用注意力机制匹配关键信息"
+   ],
+   [
+    "B",
+    "应用跨模态相似度学习"
+   ],
+   [
+    "C",
+    "利用预定义的时间戳或位置标签"
+   ],
+   [
+    "D",
+    "仅依赖于数据的先后顺序自然对齐"
+   ]
+  ],
+  "bank": "A,B,C",
+  "first_answer": [
+   "A",
+   "B",
+   "C"
+  ],
+  "second_answer": [],
+  "f_quality": "ok",
+  "s_quality": "remove",
+  "f_cls": "own",
+  "s_cls": "own",
+  "f_chapter": 11,
+  "s_chapter": 11,
+  "f_reason": "A、B、C是原文支持的时序对齐方法；D无依据。",
+  "s_reason": "题干考查‘时序一致性’超出教材范围，教材未提及此概念。"
+ },
+ {
+  "qid": "11-0709",
+  "ch": 11,
+  "type": 1,
+  "stem": "关于多模态技术底层原理，正确的说法是？",
+  "options": [
+   [
+    "A",
+    "文生图模型生成不同尺寸图像时，必须重新训练模型"
+   ],
+   [
+    "B",
+    "视频合成所花费的时间与可用的算力呈负相关"
+   ],
+   [
+    "C",
+    "图像理解模型也需要将视频或图像分词化再做处理"
+   ],
+   [
+    "D",
+    "实现\"方言语音合成\"需要训练模型建立方言音素与标准发音的映射关系"
+   ]
+  ],
+  "bank": "C,D",
+  "first_answer": [
+   "C",
+   "D"
+  ],
+  "second_answer": [
+   "C"
+  ],
+  "f_quality": "ok",
+  "s_quality": "review",
+  "f_cls": "own",
+  "s_cls": "own",
+  "f_chapter": 11,
+  "s_chapter": 11,
+  "f_reason": "C、D符合原文原理描述；A、B无依据或错误。",
+  "s_reason": "选项涉及技术细节，部分超出教材明确范围，需专家复核。"
+ },
+ {
+  "qid": "11-1295",
+  "ch": 11,
+  "type": 1,
+  "stem": "下列关于大规模语言模型如 GPT 的陈述哪些是正确的的?",
+  "options": [
+   [
+    "A",
+    "GPT 是一种自回归语言模型"
+   ],
+   [
+    "B",
+    "它通过预测下一个单词来生成文本"
+   ],
+   [
+    "C",
+    "GPT 只支持英语"
+   ],
+   [
+    "D",
+    "最新的 GPT 版本集成了多模态功能"
+   ]
+  ],
+  "bank": "A,B,D",
+  "first_answer": [],
+  "second_answer": [
+   "A",
+   "B",
+   "D"
+  ],
+  "f_quality": "remove",
+  "s_quality": "ok",
+  "f_cls": "misplaced",
+  "s_cls": "misplaced",
+  "f_chapter": 1,
+  "s_chapter": 1,
+  "f_reason": "GPT基础原理属第1章大模型基础",
+  "s_reason": "考查GPT模型基本原理，属于大模型基础章考点。"
+ },
+ {
+  "qid": "11-0464",
+  "ch": 11,
+  "type": 1,
+  "stem": "在使用大模型提炼图文课程内容时，以下哪些内容组织原则是正确的？",
+  "options": [
+   [
+    "A",
+    "提炼关键信息，避免冗长段落"
+   ],
+   [
+    "B",
+    "使用简短标题，聚焦于要点"
+   ],
+   [
+    "C",
+    "内容应尽量详细和全面"
+   ],
+   [
+    "D",
+    "结合图片辅助，在适当的位置插入图片"
+   ],
+   [
+    "E",
+    "不做任何修改，直接使用原始内容"
+   ]
+  ],
+  "bank": "A,B,D",
+  "first_answer": [
+   "A",
+   "B",
+   "D"
+  ],
+  "second_answer": [
+   "A",
+   "B",
+   "D"
+  ],
+  "f_quality": "ok",
+  "s_quality": "review",
+  "f_cls": "own",
+  "s_cls": "unsure",
+  "f_chapter": 11,
+  "s_chapter": 11,
+  "f_reason": "题干问'正确原则'，ABD符合多模态内容提炼的简洁性、结构化与图文结合要求。",
+  "s_reason": "考点更接近提示工程或内容组织原则，非多模态核心知识。"
+ },
+ {
+  "qid": "11-0897",
+  "ch": 11,
+  "type": 1,
+  "stem": "在构建对话系统时，以下哪些功能可以提升用户体验？",
+  "options": [
+   [
+    "A",
+    "对话历史管理"
+   ],
+   [
+    "B",
+    "个性化记忆和能力"
+   ],
+   [
+    "C",
+    "多模态交互支持"
+   ],
+   [
+    "D",
+    "快速响应时间"
+   ],
+   [
+    "E",
+    "优雅的错误处理和帮助指引"
+   ]
+  ],
+  "bank": "A,B,C,D,E",
+  "first_answer": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E"
+  ],
+  "second_answer": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E"
+  ],
+  "f_quality": "ok",
+  "s_quality": "review",
+  "f_cls": "cross",
+  "s_cls": "unsure",
+  "f_chapter": 11,
+  "s_chapter": 11,
+  "f_reason": "ABCDE均属对话系统通用体验提升点，本章虽未直接定义但属多模态交互延伸。",
+  "s_reason": "考点属于对话系统通用设计，与多模态关联弱，更接近Agent或提示工程。"
+ },
+ {
+  "qid": "11-1159",
+  "ch": 11,
+  "type": 1,
+  "stem": "以下哪些任务可以使用 ffmpeg 完成?",
+  "options": [
+   [
+    "A",
+    "提取视频中的音频。"
+   ],
+   [
+    "B",
+    "调整视频的分辨率。"
+   ],
+   [
+    "C",
+    "训练一个语音识别模型。"
+   ],
+   [
+    "D",
+    "将多个视频片段合并成一个视频。"
+   ],
+   [
+    "E",
+    "为视频添加水印。"
+   ],
+   [
+    "F",
+    "转换视频格式（例如 mp4 到 avi）"
+   ]
+  ],
+  "bank": "A,B,D,E,F",
+  "first_answer": [
+   "A",
+   "B",
+   "D",
+   "E",
+   "F"
+  ],
+  "second_answer": [
+   "A",
+   "B",
+   "D",
+   "E",
+   "F"
+  ],
+  "f_quality": "review",
+  "s_quality": "remove",
+  "f_cls": "beyond",
+  "s_cls": "unsure",
+  "f_chapter": 11,
+  "s_chapter": 11,
+  "f_reason": "ffmpeg属通用音视频工具，原文未提及具体命令或能力，需确认是否超纲。",
+  "s_reason": "考查ffmpeg多媒体处理工具的具体功能，与多模态AI核心知识（模型、架构、产品）无关，无考查价值。"
+ },
+ {
+  "qid": "11-1409",
+  "ch": 11,
+  "type": 1,
+  "stem": "在使用 FFmpeg 和 MoviePy 进行视频处理时，下列哪几项操作是可以实现的？（多选）",
+  "options": [
+   [
+    "A",
+    "视频剪辑"
+   ],
+   [
+    "B",
+    "添加字幕"
+   ],
+   [
+    "C",
+    "调整音频音量"
+   ],
+   [
+    "D",
+    "图像识别"
+   ]
+  ],
+  "bank": "A,B,C",
+  "first_answer": [],
+  "second_answer": [],
+  "f_quality": "remove",
+  "s_quality": "remove",
+  "f_cls": "beyond",
+  "s_cls": "unsure",
+  "f_chapter": 11,
+  "s_chapter": 11,
+  "f_reason": "FFmpeg/MoviePy属工具链操作，原文未提及具体工具能力",
+  "s_reason": "考查FFmpeg/MoviePy工具功能，与多模态AI核心知识无关，无考查价值。"
+ },
+ {
+  "qid": "11-1410",
+  "ch": 11,
+  "type": 1,
+  "stem": "在使用大模型提炼图文课程内容时，以下哪些表达策略是正确的？",
+  "options": [
+   [
+    "A",
+    "内容应尽量详细和全面"
+   ],
+   [
+    "B",
+    "不做任何修改，直接使用原始内容"
+   ],
+   [
+    "C",
+    "使用简短标题，聚焦于要点"
+   ],
+   [
+    "D",
+    "提炼关键信息，避免冗长段落"
+   ],
+   [
+    "E",
+    "结合图片辅助，在适当的位置插入图片"
+   ]
+  ],
+  "bank": "C,D,E",
+  "first_answer": [
+   "C",
+   "D",
+   "E"
+  ],
+  "second_answer": [],
+  "f_quality": "ok",
+  "s_quality": "remove",
+  "f_cls": "cross",
+  "s_cls": "unsure",
+  "f_chapter": 11,
+  "s_chapter": 11,
+  "f_reason": "考查图文内容提炼策略，原文强调降低表达门槛、获取文本外信息、丰富产出载体",
+  "s_reason": "考查通用内容提炼策略，与多模态AI核心知识关联弱，无考查价值。"
+ },
+ {
+  "qid": "11-1414",
+  "ch": 11,
+  "type": 2,
+  "stem": "在大模型多模态应用开发中（如文本 + 图像），以下哪些技术组件是必要的？（多选，4 个选项）",
+  "options": [
+   [
+    "A",
+    "图像识别模型（如将图像转为文本描述）"
+   ],
+   [
+    "B",
+    "大模型（处理文本与图像描述，生成回答）"
+   ],
+   [
+    "C",
+    "图像存储服务（存储用户上传的图像）"
+   ],
+   [
+    "D",
+    "文本生成模型（仅处理文本，不涉及图像）"
+   ]
+  ],
+  "bank": "A,B,C",
+  "first_answer": [
+   "A",
+   "B"
+  ],
+  "second_answer": [
+   "A",
+   "B",
+   "C"
+  ],
+  "f_quality": "ok",
+  "s_quality": "ok",
+  "f_cls": "own",
+  "s_cls": "own",
+  "f_chapter": 11,
+  "s_chapter": 11,
+  "f_reason": "考查多模态应用必要组件，原文管道式架构明确需图像理解+LLM",
+  "s_reason": "考查多模态应用（文本+图像）的必要技术组件，符合章节知识。"
+ },
+ {
+  "qid": "11-0643",
+  "ch": 11,
+  "type": 1,
+  "stem": "在使用 CosyVoice 进行语音合成时，哪些做法有助于保证音频质量和自然度？",
+  "options": [
+   [
+    "A",
+    "保持录音环境的安静和无干扰"
+   ],
+   [
+    "B",
+    "在生成语音前，对文本内容进行优化，简化复杂句子"
+   ],
+   [
+    "C",
+    "使用多个语音合成模型进行比较，选择最佳结果"
+   ],
+   [
+    "D",
+    "调整语音合成模型的参数，如语速和音调"
+   ],
+   [
+    "E",
+    "增加语音合成的音量"
+   ]
+  ],
+  "bank": "A,B,D",
+  "first_answer": [
+   "A",
+   "B",
+   "D"
+  ],
+  "second_answer": [
+   "B",
+   "D"
+  ],
+  "f_quality": "ok",
+  "s_quality": "fixable",
+  "f_cls": "own",
+  "s_cls": "own",
+  "f_chapter": 11,
+  "s_chapter": 11,
+  "f_reason": "考查TTS质量保障，原文强调TTS音色克隆与语速情绪控制",
+  "s_reason": "考查TTS质量保证实践，但选项A（录音环境）与语音合成无关，存在干扰。"
+ },
+ {
+  "qid": "11-1100",
+  "ch": 11,
+  "type": 1,
+  "stem": "你负责的短视频平台在接入多模态技术后出现故障。1: 用户输入“生成夏日海滩 vlog 背景”时，系统返回静态图片而非视频 2: 视频自动剪辑功能无法识别冲浪板等特定物体 3: 添加的 AI 解说语音与动画动作不同步需要重点检查的技术环节是?",
+  "options": [
+   [
+    "A",
+    "视频编辑时是否设置了正确的时间轴"
+   ],
+   [
+    "B",
+    "图像理解模型可能缺少对特定场景的训练数据"
+   ],
+   [
+    "C",
+    "仅使用了文生图模型来生成完整视频"
+   ],
+   [
+    "D",
+    "语音合成模型采样率不合适导致视频音画不同步"
+   ]
+  ],
+  "bank": "A,B,C",
+  "first_answer": [
+   "C"
+  ],
+  "second_answer": [
+   "B",
+   "C"
+  ],
+  "f_quality": "ok",
+  "s_quality": "ok",
+  "f_cls": "own",
+  "s_cls": "own",
+  "f_chapter": 11,
+  "s_chapter": 11,
+  "f_reason": "考查多模态故障归因，原文明确文生图与文生视频原理不同、视频需抽帧对齐",
+  "s_reason": "场景题考查多模态生成（文生视频）、图像理解、音画同步故障排查。"
+ },
+ {
+  "qid": "11-1413",
+  "ch": 11,
+  "type": 1,
+  "stem": "在使用 CosyVoice 合成语音时，哪些方式有助于提升最终音频的自然度与质量？",
+  "options": [
+   [
+    "A",
+    "调整语音合成模型的参数,如语速和音调"
+   ],
+   [
+    "B",
+    "使用多个语音合成模型进行比较,选择最佳结果"
+   ],
+   [
+    "C",
+    "增加语音合成的音量"
+   ],
+   [
+    "D",
+    "保持录音环境的安静和无干扰"
+   ],
+   [
+    "E",
+    "在生成语音前,对文本内容进行优化,简化复杂句子"
+   ]
+  ],
+  "bank": "A,B,E",
+  "first_answer": [
+   "A",
+   "D",
+   "E"
+  ],
+  "second_answer": [
+   "A",
+   "E"
+  ],
+  "f_quality": "ok",
+  "s_quality": "fixable",
+  "f_cls": "own",
+  "s_cls": "own",
+  "f_chapter": 11,
+  "s_chapter": 11,
+  "f_reason": "考查CosyVoice使用实践，原文明确其为TTS且需调参与环境优化",
+  "s_reason": "考查TTS质量保证实践，与11-0643高度相似，但选项A（录音环境）无关。"
+ },
+ {
+  "qid": "11-0784",
+  "ch": 11,
+  "type": 1,
+  "stem": "某企业开发大模型多模态应用，要求‘用户上传产品图片→模型识别产品特征→生成推广文案’。以下哪些技术组件需集成?",
+  "options": [
+   [
+    "A",
+    "图像识别 API (如阿里云视觉智能开放平台): 提取产品特征 (如‘颜色：红色，类型：连衣裙’)"
+   ],
+   [
+    "B",
+    "大模型文本生成接口：基于特征生成文案 (如‘红色连衣裙，简约设计，适合夏季穿搭’)"
+   ],
+   [
+    "C",
+    "少样本提示：提供‘特征列表→文案’示例 (如‘特征：白色运动鞋→文案：百搭小白鞋，轻盈舒适’)"
+   ],
+   [
+    "D",
+    "向量数据库：存储产品特征向量，支持相似产品文案复用"
+   ],
+   [
+    "E",
+    "纯文本输入框：仅接收文字描述，不支持图片上传"
+   ]
+  ],
+  "bank": "A,B,C",
+  "first_answer": [
+   "A",
+   "B"
+  ],
+  "second_answer": [
+   "A",
+   "B",
+   "C"
+  ],
+  "f_quality": "ok",
+  "s_quality": "ok",
+  "f_cls": "own",
+  "s_cls": "own",
+  "f_chapter": 11,
+  "s_chapter": 11,
+  "f_reason": "考查图文理解→文案生成链路，原文明确图像识别+LLM组合",
+  "s_reason": "考查多模态应用典型管道架构，选项清晰对应图像理解与文本生成环节。"
+ },
+ {
+  "qid": "11-1032",
+  "ch": 11,
+  "type": 1,
+  "stem": "以下哪些 Python 库可以用于处理视频或图像？",
+  "options": [
+   [
+    "A",
+    "numpy"
+   ],
+   [
+    "B",
+    "OpenCV"
+   ],
+   [
+    "C",
+    "pandas"
+   ],
+   [
+    "D",
+    "TensorFlow E"
+   ],
+   [
+    "E",
+    "requests"
+   ],
+   [
+    "F",
+    "moviepy"
+   ]
+  ],
+  "bank": "A,B,D,F",
+  "first_answer": [
+   "B",
+   "F"
+  ],
+  "second_answer": [
+   "B",
+   "D",
+   "F"
+  ],
+  "f_quality": "ok",
+  "s_quality": "fixable",
+  "f_cls": "own",
+  "s_cls": "misplaced",
+  "f_chapter": 11,
+  "s_chapter": 12,
+  "f_reason": "考查多模态处理库，OpenCV/moviepy是标准图像视频库",
+  "s_reason": "考查Python库用途，但考点更偏向通用工具而非多模态AI核心原理。"
+ },
+ {
+  "qid": "11-1375",
+  "ch": 11,
+  "type": 0,
+  "stem": "在电影py中，若需调整视频的帧率，应修改哪个参数？",
+  "options": [
+   [
+    "A",
+    "fps"
+   ],
+   [
+    "B",
+    "bitrate"
+   ],
+   [
+    "C",
+    "duration"
+   ],
+   [
+    "D",
+    "resolution"
+   ]
+  ],
+  "bank": "A",
+  "first_answer": [],
+  "second_answer": [
+   "A"
+  ],
+  "f_quality": "remove",
+  "s_quality": "remove",
+  "f_cls": "beyond",
+  "s_cls": "beyond",
+  "f_chapter": 11,
+  "s_chapter": 11,
+  "f_reason": "电影py属第三方工具，超纲且原文未提及",
+  "s_reason": "考查电影py库具体参数，与多模态AI核心知识无关，无考查价值"
+ },
+ {
+  "qid": "11-1376",
+  "ch": 11,
+  "type": 0,
+  "stem": "在电影py中，若需合并多个视频片段，应使用以下哪个函数？",
+  "options": [
+   [
+    "A",
+    "concatenate_video clips"
+   ],
+   [
+    "B",
+    "VideoClip"
+   ],
+   [
+    "C",
+    "add_text"
+   ],
+   [
+    "D",
+    "write_video file"
+   ]
+  ],
+  "bank": "A",
+  "first_answer": [],
+  "second_answer": [
+   "A"
+  ],
+  "f_quality": "remove",
+  "s_quality": "remove",
+  "f_cls": "beyond",
+  "s_cls": "beyond",
+  "f_chapter": 11,
+  "s_chapter": 11,
+  "f_reason": "电影py函数属第三方工具，超纲且原文未提及",
+  "s_reason": "考查电影py库具体函数，与多模态AI核心知识无关，无考查价值"
+ },
+ {
+  "qid": "12-0755",
+  "ch": 12,
+  "type": 0,
+  "stem": "某教育平台需要生成不同难度的测验题目。以下哪种方法最能系统化控制难度?",
+  "options": [
+   [
+    "A",
+    "随机生成题目"
+   ],
+   [
+    "B",
+    "基于布鲁姆分类法明确要求认知层次"
+   ],
+   [
+    "C",
+    "要求模型生成简单题目"
+   ],
+   [
+    "D",
+    "人工编写所有题目"
+   ]
+  ],
+  "bank": "B",
+  "first_answer": [],
+  "second_answer": [
+   "B"
+  ],
+  "f_quality": "remove",
+  "s_quality": "ok",
+  "f_cls": "misplaced",
+  "s_cls": "misplaced",
+  "f_chapter": 12,
+  "s_chapter": 2,
+  "f_reason": "难度控制属提示工程范畴，非框架工具考点",
+  "s_reason": "考查通过提示词（如布鲁姆分类法）系统化控制生成内容，属提示工程。"
+ },
+ {
+  "qid": "12-0808",
+  "ch": 12,
+  "type": 0,
+  "stem": "某智能日程管理系统需要理解模糊的时间描述。以下哪种方法最能改善理解准确性？",
+  "options": [
+   [
+    "A",
+    "要求用户使用精确时间"
+   ],
+   [
+    "B",
+    "使用时间解析库预处理"
+   ],
+   [
+    "C",
+    "依赖模型理解能力"
+   ],
+   [
+    "D",
+    "忽略模糊描述"
+   ]
+  ],
+  "bank": "B",
+  "first_answer": [],
+  "second_answer": [
+   "B"
+  ],
+  "f_quality": "remove",
+  "s_quality": "review",
+  "f_cls": "beyond",
+  "s_cls": "unsure",
+  "f_chapter": 12,
+  "s_chapter": 12,
+  "f_reason": "时间解析属NLP通用能力，非本章框架与工具考点",
+  "s_reason": "考查改善模糊时间描述理解的方法，可能涉及工具使用或提示工程，但章节归属不明确。"
+ },
+ {
+  "qid": "12-1288",
+  "ch": 12,
+  "type": 2,
+  "stem": "通过LlamaIndex 创建RAG 应用，关于下面这段代码作用的描述正确的有哪些？def get_documents(path):documents = SimpleDirectoryReader(path).load_data()document = Document(text=\"\\n\\n\".j",
+  "options": [
+   [
+    "A",
+    "将所有Document 对象合并为一个Document 对象"
+   ],
+   [
+    "B",
+    "对乱码内容进行数据清洗"
+   ],
+   [
+    "C",
+    "将中文的标点符号预先转化为英文标点符号，使得切分时不会使得chunk 长度过长"
+   ],
+   [
+    "D",
+    "将指定文件夹中的文件加载为document 对象"
+   ]
+  ],
+  "bank": "A,C,D",
+  "first_answer": [
+   "A",
+   "C"
+  ],
+  "second_answer": [
+   "A",
+   "C",
+   "D"
+  ],
+  "f_quality": "ok",
+  "s_quality": "ok",
+  "f_cls": "own",
+  "s_cls": "own",
+  "f_chapter": 12,
+  "s_chapter": 12,
+  "f_reason": "考查文档预处理与标点规范化",
+  "s_reason": "考查文档加载与预处理（标点替换）的工程实践。"
+ },
+ {
+  "qid": "12-1291",
+  "ch": 12,
+  "type": 1,
+  "stem": "以下哪个代码片段能够正确处理classify_intent 函数可能抛出的异常，并打印错误信息？",
+  "options": [
+   [
+    "A",
+    "pythonfor id, query in feedback_list:try:intent = classify_i"
+   ],
+   [
+    "B",
+    "pythonfor id, query in feedback_list:intent = classify_inten"
+   ],
+   [
+    "C",
+    "pythonfor id, query in feedback_list:try:intent = classify_i"
+   ],
+   [
+    "D",
+    "pythonfor id, query in feedback_list:if classify_intent(quer"
+   ]
+  ],
+  "bank": "C",
+  "first_answer": [
+   "C"
+  ],
+  "second_answer": [
+   "C"
+  ],
+  "f_quality": "ok",
+  "s_quality": "fixable",
+  "f_cls": "own",
+  "s_cls": "misplaced",
+  "f_chapter": 12,
+  "s_chapter": 9,
+  "f_reason": "考查Python异常处理语法",
+  "s_reason": "考查Python异常处理语法，属于API调用与工具使用的编程基础，但无实质考查价值。"
+ },
+ {
+  "qid": "12-5063",
+  "ch": 12,
+  "type": 0,
+  "stem": "在百炼平台中，使用「可视化工作流」构建RAG应用时，若需对召回文档做关键词高亮，应选用哪个内置节点？",
+  "options": [
+   [
+    "A",
+    "文本清洗节点"
+   ],
+   [
+    "B",
+    "答案生成节点"
+   ],
+   [
+    "C",
+    "富文本渲染节点"
+   ],
+   [
+    "D",
+    "关键词提取节点"
+   ]
+  ],
+  "bank": "C",
+  "first_answer": [
+   "C"
+  ],
+  "second_answer": [
+   "C"
+  ],
+  "f_quality": "ok",
+  "s_quality": "review",
+  "f_cls": "own",
+  "s_cls": "misplaced",
+  "f_chapter": 12,
+  "s_chapter": 10,
+  "f_reason": "考查百炼可视化工作流节点功能，属本章框架工具实操细节",
+  "s_reason": "题干考查百炼平台可视化工作流的具体功能节点，属于阿里云AI平台（第10章）的实操细节。"
+ },
+ {
+  "qid": "12-5066",
+  "ch": 12,
+  "type": 0,
+  "stem": "某开发者在Dify中配置知识库后，发现上传PDF未被解析为文本。最可能的原因是？",
+  "options": [
+   [
+    "A",
+    "未启用‘自动解析’开关"
+   ],
+   [
+    "B",
+    "PDF文件超过10MB限制"
+   ],
+   [
+    "C",
+    "未安装PyPDF2依赖"
+   ],
+   [
+    "D",
+    "知识库类型误选为‘结构化数据’"
+   ]
+  ],
+  "bank": "A",
+  "first_answer": [
+   "A"
+  ],
+  "second_answer": [
+   "A"
+  ],
+  "f_quality": "ok",
+  "s_quality": "review",
+  "f_cls": "own",
+  "s_cls": "misplaced",
+  "f_chapter": 12,
+  "s_chapter": 10,
+  "f_reason": "考查Dify知识库解析机制，属本章低代码平台实操",
+  "s_reason": "考查Dify平台知识库配置的实操问题，属于阿里云AI平台（第10章）或Dify工具细节。"
+ },
+ {
+  "qid": "12-5068",
+  "ch": 12,
+  "type": 1,
+  "stem": "使用百炼平台构建智能体时，以下哪些能力可通过「工具调用（Tool Calling）」节点直接集成？",
+  "options": [
+   [
+    "A",
+    "调用企业内部HR系统API查询员工信息"
+   ],
+   [
+    "B",
+    "执行SQL查询分析数据库表"
+   ],
+   [
+    "C",
+    "调用DashScope Text-to-Speech服务生成语音"
+   ],
+   [
+    "D",
+    "自动修正用户输入中的错别字"
+   ]
+  ],
+  "bank": "A,B,C",
+  "first_answer": [
+   "A",
+   "B",
+   "C"
+  ],
+  "second_answer": [
+   "A",
+   "B",
+   "C"
+  ],
+  "f_quality": "ok",
+  "s_quality": "review",
+  "f_cls": "own",
+  "s_cls": "misplaced",
+  "f_chapter": 12,
+  "s_chapter": 10,
+  "f_reason": "考查百炼工具调用能力边界，属本章平台集成考点",
+  "s_reason": "考查百炼平台工具调用节点的集成能力，属于阿里云AI平台（第10章）功能。"
+ },
+ {
+  "qid": "12-5071",
+  "ch": 12,
+  "type": 1,
+  "stem": "在Dify的Chatflow中，以下哪些特性区别于普通Workflow？",
+  "options": [
+   [
+    "A",
+    "内置用户消息输入与AI回复输出端口"
+   ],
+   [
+    "B",
+    "支持WebSocket实时流式响应"
+   ],
+   [
+    "C",
+    "自动继承知识库与模型配置"
+   ],
+   [
+    "D",
+    "可直接发布为Web App供终端用户访问"
+   ]
+  ],
+  "bank": "A,B,D",
+  "first_answer": [
+   "A",
+   "C",
+   "D"
+  ],
+  "second_answer": [
+   "A",
+   "B",
+   "D"
+  ],
+  "f_quality": "ok",
+  "s_quality": "ok",
+  "f_cls": "own",
+  "s_cls": "own",
+  "f_chapter": 12,
+  "s_chapter": 12,
+  "f_reason": "Chatflow是Dify专为对话设计的预置工作流类型",
+  "s_reason": "考查Dify Chatflow特性，属于低代码平台能力"
+ },
+ {
+  "qid": "12-5072",
+  "ch": 12,
+  "type": 0,
+  "stem": "使用LangChain的SQLDatabaseChain时，若遇到‘no such table’错误，首要排查方向是？",
+  "options": [
+   [
+    "A",
+    "检查LLM是否返回了合法SQL"
+   ],
+   [
+    "B",
+    "确认SQLDatabase对象是否正确加载目标数据库文件"
+   ],
+   [
+    "C",
+    "验证数据库用户是否有SELECT权限"
+   ],
+   [
+    "D",
+    "检查prompt中是否遗漏表结构描述"
+   ]
+  ],
+  "bank": "B",
+  "first_answer": [
+   "B"
+  ],
+  "second_answer": [
+   "B"
+  ],
+  "f_quality": "ok",
+  "s_quality": "review",
+  "f_cls": "own",
+  "s_cls": "unsure",
+  "f_chapter": 12,
+  "s_chapter": 12,
+  "f_reason": "SQLDatabaseChain依赖数据库对象加载状态",
+  "s_reason": "考点涉及SQLDatabaseChain错误排查，但教材未提及此组件"
+ },
+ {
+  "qid": "12-5073",
+  "ch": 12,
+  "type": 0,
+  "stem": "在百炼平台「可视化工作流」中，若需对用户输入进行意图分类并路由至不同处理分支，应优先选用哪个节点？",
+  "options": [
+   [
+    "A",
+    "条件判断（Condition）节点"
+   ],
+   [
+    "B",
+    "大模型调用（LLM）节点 + 自定义提示词"
+   ],
+   [
+    "C",
+    "意图识别（Intent Classification）专用节点"
+   ],
+   [
+    "D",
+    "Python 脚本节点硬编码规则"
+   ]
+  ],
+  "bank": "C",
+  "first_answer": [
+   "C"
+  ],
+  "second_answer": [
+   "C"
+  ],
+  "f_quality": "ok",
+  "s_quality": "review",
+  "f_cls": "own",
+  "s_cls": "unsure",
+  "f_chapter": 12,
+  "s_chapter": 12,
+  "f_reason": "百炼可视化工作流提供专用意图识别节点",
+  "s_reason": "考查百炼可视化工作流节点，但教材未详细展开"
+ },
+ {
+  "qid": "12-5077",
+  "ch": 12,
+  "type": 0,
+  "stem": "在 Dify 平台中，若希望问答结果严格限定于知识库内容、禁止模型自由发挥，应启用哪项关键开关？",
+  "options": [
+   [
+    "A",
+    "开启‘引用溯源’并设置最小置信度"
+   ],
+   [
+    "B",
+    "关闭‘LLM 回退’并启用‘知识库强制模式’"
+   ],
+   [
+    "C",
+    "将 temperature 设为 0.0 并禁用 system prompt"
+   ],
+   [
+    "D",
+    "仅上传结构化 JSON 数据作为知识源"
+   ]
+  ],
+  "bank": "B",
+  "first_answer": [
+   "B"
+  ],
+  "second_answer": [
+   "B"
+  ],
+  "f_quality": "ok",
+  "s_quality": "fixable",
+  "f_cls": "own",
+  "s_cls": "own",
+  "f_chapter": 12,
+  "s_chapter": 12,
+  "f_reason": "Dify知识库强制模式对应防幻觉",
+  "s_reason": "题干描述Dify功能，但教材未明确提及“知识库强制模式”开关。"
+ },
+ {
+  "qid": "12-5078",
+  "ch": 12,
+  "type": 1,
+  "stem": "关于百炼平台提供的 LlamaIndex 组件，以下哪些描述符合其设计定位？",
+  "options": [
+   [
+    "A",
+    "封装了 DashScope Embedding 与 Qwen 系列 LLM 的默认适配"
+   ],
+   [
+    "B",
+    "提供可视化索引构建与调试能力"
+   ],
+   [
+    "C",
+    "完全替代原生 LlamaIndex API，不兼容社区代码"
+   ],
+   [
+    "D",
+    "支持一键导出为标准 LlamaIndex Python 脚本"
+   ]
+  ],
+  "bank": "A,B,D",
+  "first_answer": [
+   "A",
+   "D"
+  ],
+  "second_answer": [
+   "A"
+  ],
+  "f_quality": "ok",
+  "s_quality": "ok",
+  "f_cls": "own",
+  "s_cls": "own",
+  "f_chapter": 12,
+  "s_chapter": 12,
+  "f_reason": "百炼LlamaIndex组件定位为适配封装",
+  "s_reason": "考查百炼平台提供的LlamaIndex组件的设计定位。"
+ },
+ {
+  "qid": "12-5081",
+  "ch": 12,
+  "type": 0,
+  "stem": "在 LlamaIndex 中，若需对 PDF 文档执行‘按章节标题分割’而非简单按长度切分，应选用哪个 NodeParser？",
+  "options": [
+   [
+    "A",
+    "HierarchicalNodeParser"
+   ],
+   [
+    "B",
+    "MarkdownNodeParser"
+   ],
+   [
+    "C",
+    "PDFMinerNodeParser"
+   ],
+   [
+    "D",
+    "SentenceSplitter（with paragraph separator）"
+   ]
+  ],
+  "bank": "A",
+  "first_answer": [
+   "A"
+  ],
+  "second_answer": [
+   "B"
+  ],
+  "f_quality": "ok",
+  "s_quality": "review",
+  "f_cls": "own",
+  "s_cls": "own",
+  "f_chapter": 12,
+  "s_chapter": 12,
+  "f_reason": "考点为LlamaIndex NodeParser选型，原文明确提及按标题分割需HierarchicalNodeParser。",
+  "s_reason": "题干考查按章节标题分割PDF，教材未明确提及HierarchicalNodeParser。"
+ },
+ {
+  "qid": "12-5089",
+  "ch": 12,
+  "type": 0,
+  "stem": "在百炼平台「可视化工作流」中，若需对用户输入执行意图识别并调用对应工具（如查天气、查订单），应优先选用哪个节点类型？",
+  "options": [
+   [
+    "A",
+    "条件分支（Condition）节点"
+   ],
+   [
+    "B",
+    "工具调用（Tool Calling）节点"
+   ],
+   [
+    "C",
+    "大模型（LLM）节点 + 自定义提示词"
+   ],
+   [
+    "D",
+    "文本处理（Text Processing）节点"
+   ]
+  ],
+  "bank": "B",
+  "first_answer": [
+   "B"
+  ],
+  "second_answer": [],
+  "f_quality": "ok",
+  "s_quality": "remove",
+  "f_cls": "misplaced",
+  "s_cls": "unsure",
+  "f_chapter": 10,
+  "s_chapter": 12,
+  "f_reason": "考点为百炼可视化工作流节点选型，属第10章平台能力，非第12章框架。",
+  "s_reason": "题干提及“百炼平台「可视化工作流」”，但本章原文未描述其具体节点类型与功能，无法确定答案。"
+ },
+ {
+  "qid": "12-5092",
+  "ch": 12,
+  "type": 0,
+  "stem": "某团队使用百炼平台构建 RAG 应用，希望在召回文档后自动提取关键实体（如人名、地名）用于后续高亮与过滤。以下哪项能力最符合需求？",
+  "options": [
+   [
+    "A",
+    "启用知识库内置的实体识别开关"
+   ],
+   [
+    "B",
+    "在可视化工作流中添加「实体抽取（NER）」内置节点"
+   ],
+   [
+    "C",
+    "调用 DashScope NER API 封装为自定义工具"
+   ],
+   [
+    "D",
+    "在 LLM 提示词中要求模型输出 JSON 格式实体"
+   ]
+  ],
+  "bank": "B",
+  "first_answer": [
+   "C"
+  ],
+  "second_answer": [],
+  "f_quality": "ok",
+  "s_quality": "remove",
+  "f_cls": "own",
+  "s_cls": "unsure",
+  "f_chapter": 12,
+  "s_chapter": 12,
+  "f_reason": "考查百炼平台RAG实体抽取能力，DashScope NER API是标准封装方式",
+  "s_reason": "题干涉及“百炼平台构建RAG应用”的具体功能（实体识别、高亮过滤），但本章原文未描述百炼知识库或工作流的此类内置能力。"
+ }
+]

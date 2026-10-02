@@ -1,0 +1,251 @@
+{
+  "9-0854": {
+    "qid": "9-0854",
+    "classification": "own",
+    "chapter": 9,
+    "quality": "ok",
+    "reason": "考查Function Calling适用场景，区分需外部工具与纯生成任务。",
+    "answer": [
+      "A",
+      "C",
+      "D"
+    ],
+    "supported": true,
+    "quote": "Function Calling（函数调用）是API内置的能力：你在请求里通过tools参数告诉模型“有哪些工具可用、每个工具要什么参数”，模型按需在响应里返回结构化的tool_calls",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "需调用外部天气API获取实时数据，适合函数调用。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "纯文本生成，无需外部工具，不适合函数调用。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "需调用Excel解析API处理外部数据，适合函数调用。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "需调用航班API获取实时动态，适合函数调用。"
+      },
+      {
+        "label": "E",
+        "selected": false,
+        "why": "纯文本总结，无需外部工具，不适合函数调用。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "9-1384": {
+    "qid": "9-1384",
+    "classification": "own",
+    "chapter": 9,
+    "quality": "ok",
+    "reason": "考查temperature参数对输出随机性（创新性）的控制作用。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "temperature 控制随机性，越高越发散；事实类调低，创意类调高；temperature 只影响随机性",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "max_tokens控制长度，不直接影响创新性。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "temperature调节随机性，直接影响创新性。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "top_p也影响多样性，但题干问“最适配”，教材优先调temperature。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "stop控制停止，不直接影响创新性。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "9-1031": {
+    "qid": "9-1031",
+    "classification": "cross",
+    "chapter": 4,
+    "quality": "remove",
+    "reason": "题目考查Assistant类的具体CRUD操作，但教材第9章未提及Assistant类的具体方法。考点属于Agent框架的API设计，与本章核心知识无关，且选项设计无考查价值。",
+    "answer": [],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "教材未提及。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "教材未提及。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "教材未提及。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "教材未提及。"
+      },
+      {
+        "label": "E",
+        "selected": false,
+        "why": "教材未提及。"
+      },
+      {
+        "label": "F",
+        "selected": false,
+        "why": "教材未提及。"
+      }
+    ],
+    "duplicate_of": "9-1163"
+  },
+  "9-1163": {
+    "qid": "9-1163",
+    "classification": "cross",
+    "chapter": 4,
+    "quality": "remove",
+    "reason": "与9-1031完全相同，考查Assistant类的CRUD操作，教材第9章未涉及此内容，无考查价值。",
+    "answer": [],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "教材未提及。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "教材未提及。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "教材未提及。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "教材未提及。"
+      },
+      {
+        "label": "E",
+        "selected": false,
+        "why": "教材未提及。"
+      },
+      {
+        "label": "F",
+        "selected": false,
+        "why": "教材未提及。"
+      }
+    ],
+    "duplicate_of": "9-1031"
+  },
+  "9-1387": {
+    "qid": "9-1387",
+    "classification": "cross",
+    "chapter": 4,
+    "quality": "remove",
+    "reason": "与9-1031、9-1163完全相同，考查Assistant类的CRUD操作，教材第9章未涉及，无考查价值。",
+    "answer": [],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "教材未提及。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "教材未提及。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "教材未提及。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "教材未提及。"
+      },
+      {
+        "label": "E",
+        "selected": false,
+        "why": "教材未提及。"
+      },
+      {
+        "label": "F",
+        "selected": false,
+        "why": "教材未提及。"
+      }
+    ],
+    "duplicate_of": "9-1031"
+  },
+  "9-0995": {
+    "qid": "9-0995",
+    "classification": "cross",
+    "chapter": -1,
+    "quality": "remove",
+    "reason": "题目考查Message类的具体函数名，但教材第9章只讲messages数组的结构与角色，未提及Message类及其方法。考点与本章知识无关，选项设计无意义。",
+    "answer": [],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "教材未提及。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "教材未提及。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "教材未提及。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "教材未提及。"
+      },
+      {
+        "label": "E",
+        "selected": false,
+        "why": "教材未提及。"
+      },
+      {
+        "label": "F",
+        "selected": false,
+        "why": "教材未提及。"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

@@ -1,0 +1,222 @@
+{
+  "2-0974": {
+    "qid": "2-0974",
+    "classification": "own",
+    "chapter": 2,
+    "quality": "ok",
+    "reason": "考查角色要素的作用，题干清晰，选项明确。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "角色（Role）定义身份、语气、写作风格",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "角色扮演不直接降低计算成本。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "角色定义身份、语气，使内容符合场景。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "角色扮演旨在控制而非增加随机性。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "提示工程不改变模型结构。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "2-1007": {
+    "qid": "2-1007",
+    "classification": "own",
+    "chapter": 2,
+    "quality": "ok",
+    "reason": "考查提示词六要素的补充，选项均为合理改进。",
+    "answer": [
+      "D"
+    ],
+    "supported": true,
+    "quote": "六要素需要落成一个稳定的结构。推荐的通用结构是：角色 + 任务 + 上下文 + 示例 + 输出格式与约束",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "提供格式模板或示例属于输出格式要素。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "提供具体数据属于上下文要素。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "指定长度属于输出格式约束。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "A、B、C均为合理改进建议。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "2-1008": {
+    "qid": "2-1008",
+    "classification": "own",
+    "chapter": 2,
+    "quality": "ok",
+    "reason": "考查受众要素的应用，选项对比明显。",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "受众（Audience）指定为谁而写，约束内容深度",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "明确受众并指定生动比喻，符合要求。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "未指定受众和生动化要求。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "使用专业术语，不符合易懂要求。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "仅列参数，未解释原理。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "2-1064": {
+    "qid": "2-1064",
+    "classification": "own",
+    "chapter": 2,
+    "quality": "ok",
+    "reason": "考查上下文和样例要素在消除歧义中的应用。",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "样例（Sample）给 1~3 个范例对齐格式与风格",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "固定角色可能错误匹配上下文。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "仅要求标注全称，未解决歧义。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "提供上下文关联示例，有效消除歧义。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "直接指定翻译可能错误。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "2-1074": {
+    "qid": "2-1074",
+    "classification": "own",
+    "chapter": 2,
+    "quality": "ok",
+    "reason": "直接考查六要素中定义回应风格的要素。",
+    "answer": [
+      "F"
+    ],
+    "supported": true,
+    "quote": "角色（Role）定义身份、语气、写作风格",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "输出格式指定结构，非风格语气。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "样例提供范例，不直接定义风格。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "任务目标明确做什么，非风格。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "上下文提供背景事实。"
+      },
+      {
+        "label": "E",
+        "selected": false,
+        "why": "输入数据是待处理内容。"
+      },
+      {
+        "label": "F",
+        "selected": true,
+        "why": "角色定义身份、语气、写作风格。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "2-1110": {
+    "qid": "2-1110",
+    "classification": "cross",
+    "chapter": -1,
+    "quality": "review",
+    "reason": "考查temperature参数对输出多样性的影响，但章节归属存疑。",
+    "answer": [
+      "B"
+    ],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "enable_search与内容差异无关。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "较高temperature且不固定seed可增加输出随机性。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "temperature=0.0输出最确定，差异最小。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "相同提示词无法保证内容差异。"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

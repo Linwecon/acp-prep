@@ -1,0 +1,154 @@
+{
+  "items": [
+    {
+      "type": 0,
+      "stem": "某vLLM服务启用连续批处理后，监控显示GPU计算单元（SM）利用率从62%升至94%，但P95 TTFT却上升18%。在排除网络与客户端问题的前提下，最可能的根本原因是？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "请求队列中长prompt请求占比显著增加，导致Prefill阶段计算负载集中抬高首token延迟"
+        },
+        {
+          "option_label": "B",
+          "option_text": "KV Cache分页块分配失败，触发频繁显存重分配，拖慢Decode初始化"
+        },
+        {
+          "option_label": "C",
+          "option_text": "连续批处理强制所有请求共享同一attention mask，引发跨请求干扰"
+        },
+        {
+          "option_label": "D",
+          "option_text": "模型权重被错误量化为INT2，导致Prefill阶段反量化开销剧增"
+        }
+      ],
+      "answer": "A",
+      "analysis": "连续批处理（Continuous Batching）本身不改变Prefill阶段的计算逻辑，其核心优化在于Decode阶段的动态调度与GPU满载（教材6.5节明确：'GPU调度粒度从整批细化到每一步解码'）。TTFT完全由Prefill阶段决定（教材6.2节：'Prefill...决定了TTFT'），而Prefill耗时正比于输入prompt长度（教材6.2节：'长prompt会让等很久才开口'）。当队列中长prompt请求增多，即使并发数未超限，单个Prefill计算量增大，直接拉高TTFT；此时SM利用率反而因计算密集型任务饱和而上升——这与现象完全吻合。B选项错误：PagedAttention故障会导致OOM或崩溃，而非TTFT定向升高；C选项错误：vLLM中各请求KV Cache物理隔离，无mask共享（教材6.5节图示强调'逻辑位置→物理块映射'）；D选项错误：INT2非教材提及的量化精度（教材6.4节仅列FP32/FP16/INT8/INT4），且权重精度不影响Prefill延迟主因（计算量主导）。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 0,
+      "stem": "运维人员发现vLLM服务在高并发下KV Cache占用率持续95%以上，但GPU总显存占用仅60%。此时若仅调整PagedAttention相关参数，以下哪项操作最可能立即缓解该现象？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "增大--block-size参数，使每个分页块容纳更多token，减少块数量"
+        },
+        {
+          "option_label": "B",
+          "option_text": "减小--max-num-seqs参数，限制最大并发请求数"
+        },
+        {
+          "option_label": "C",
+          "option_text": "启用--enable-prefix-caching，复用公共系统提示词的KV块"
+        },
+        {
+          "option_label": "D",
+          "option_text": "调大--gpu-memory-utilization阈值，允许更高显存使用率"
+        }
+      ],
+      "answer": "B",
+      "analysis": "KV Cache占用率95%+表明显存已逼近瓶颈，而总显存占用仅60%说明权重和运行时开销未占满——矛盾根源在于KV Cache随'序列长度×并发数'线性增长（教材6.6节：'KV Cache是随序列长度 × 并发数线性增长'），当前并发过高导致KV Cache挤占显存空间。PagedAttention的--block-size（A）仅影响内存管理效率，不改变KV Cache总量；--enable-prefix-caching（C）需请求前缀高度一致才能生效，无法'立即'缓解；--gpu-memory-utilization（D）是vLLM启动时预估显存上限的参数，修改后需重启服务且不解决根本容量问题。唯一能'立即'降低KV Cache总量的操作是减小并发数（B），这是教材6.3节'风险'部分强调的：'必须通过压测确定最优并发阈值'，且'超出并发限制通常直接返回429'，此处虽未报错但已显存告急，限流是标准应对。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 1,
+      "stem": "在诊断一个突然出现高TTFT（>8s）的线上vLLM服务时，监控显示GPU利用率正常、KV Cache占用率仅30%、无429错误。此时应优先检查的日志线索包括？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "Prefill阶段CUDA kernel launch耗时日志"
+        },
+        {
+          "option_label": "B",
+          "option_text": "请求队列等待时间（queue time）指标"
+        },
+        {
+          "option_label": "C",
+          "option_text": "模型权重加载是否触发CPU-GPU数据拷贝阻塞"
+        },
+        {
+          "option_label": "D",
+          "option_text": "PagedAttention页表碎片化程度告警"
+        }
+      ],
+      "answer": "A,B,C",
+      "analysis": "TTFT = 队列等待时间 + Prefill计算时间（教材6.2节：'一次请求的总延迟 ≈ TTFT + TPOT × 输出token数'，且TTFT定义为'用户感知的开口快慢'）。GPU利用率正常排除算力瓶颈，KV Cache占用低排除显存不足，无429说明未超并发限——因此问题必在TTFT构成环节。A正确：Prefill是计算密集型，CUDA kernel耗时异常直接反映TTFT升高（教材6.2节：'Prefill计算密集、决定TTFT'）；B正确：队列等待是TTFT组成部分，监控缺失时需查日志确认是否因调度延迟（教材6.3节：'TTFT受排队时长影响'）；C正确：权重加载若未预热，首次请求需从CPU内存拷贝至GPU，造成显著延迟（教材6.7节：'冷启动延迟源于模型加载'，虽FC更典型，但ECS/vLLM若未预热同样存在）；D错误：PagedAttention专为消除碎片设计（教材6.5节：'消除碎片，显存利用率接近打满'），且碎片化不会导致TTFT飙升，只影响并发上限。",
+      "difficulty_label": "挑战"
+    },
+    {
+      "type": 0,
+      "stem": "某团队将Qwen3-0.6B模型量化为AWQ INT4后部署于vLLM，观测到：①显存占用下降58%；②TPOT降低22%；③TTFT无明显变化；④代码补全任务BLEU分数下降1.3分。以下结论中，可被教材原文直接支持的是？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "量化主要省显存，且INT4在敏感任务上可能掉点更明显"
+        },
+        {
+          "option_label": "B",
+          "option_text": "AWQ量化必然导致TPOT提升，因低比特计算开销更大"
+        },
+        {
+          "option_label": "C",
+          "option_text": "TTFT不变证明量化对Prefill阶段无任何影响"
+        },
+        {
+          "option_label": "D",
+          "option_text": "显存下降58%说明模型权重原占显存约72%"
+        }
+      ],
+      "answer": "A",
+      "analysis": "教材6.4节明确：'量化主要省显存'，'INT4在低比特下通常更稳，但精度损失略大，取决于方法与任务'，并指出'INT4在敏感任务上可能掉点更明显'（对应④）；同时教材6.5节指出'量化通常也加速'，因Decode是显存带宽密集型（对应②TPOT降低），但未断言必然加速（B错误）；TTFT不变仅说明Prefill计算量未变，但量化可能影响权重加载路径，教材未声称'无任何影响'（C过度推断）；显存下降58%是相对总量，而显存含权重+KV Cache+运行时三部分（教材6.6节），无法反推权重占比（D无依据）。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 1,
+      "stem": "当vLLM服务处理一批混合长度请求（128/2048/16384 tokens）时，PagedAttention相比传统连续内存分配，其显存节省主要来源于以下哪些机制？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "按需分配KV Cache块，避免为短请求预分配长序列空间"
+        },
+        {
+          "option_label": "B",
+          "option_text": "允许不同请求的KV块在显存中非连续存放，消除内存碎片"
+        },
+        {
+          "option_label": "C",
+          "option_text": "对KV Cache进行INT8量化存储，减少单块字节数"
+        },
+        {
+          "option_label": "D",
+          "option_text": "复用相同前缀请求的KV块，减少重复缓存"
+        }
+      ],
+      "answer": "A,B,D",
+      "analysis": "教材6.5节定义PagedAttention三大收益：'消除碎片'（B）、'按需分配'（A）、'天然支持共享'（D，'相同前缀的KV块可在多个请求间共享'）。C选项错误：KV Cache量化是独立技术（教材6.6节'KV Cache量化'列为单独手段），PagedAttention本身不包含量化功能，其块存储仍为原始精度。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 0,
+      "stem": "开发者在FC上部署AI助手后，工作日早9点首次调用延迟达3.2s，夜间低峰后再次调用仍重现该现象。若监控显示冷启动期间GPU显存占用从0%突增至85%，且模型加载耗时占总延迟70%，此时最根本的原因及教材依据是？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "FC实例被回收后需重新拉起并加载模型，教材6.7节指出'Serverless为省成本无流量时回收实例'"
+        },
+        {
+          "option_label": "B",
+          "option_text": "vLLM未启用PagedAttention，导致KV Cache分配失败触发重试"
+        },
+        {
+          "option_label": "C",
+          "option_text": "函数超时配置过短，强制中断模型加载流程"
+        },
+        {
+          "option_label": "D",
+          "option_text": "API网关HTTPS终止耗时过长，挤压模型加载窗口"
+        }
+      ],
+      "answer": "A",
+      "analysis": "题干明确'冷启动期间GPU显存占用从0%突增至85%'，这是Serverless冷启动的典型特征：实例销毁→新请求触发拉起→加载模型到GPU（教材6.7节：'无流量时会回收实例；请求突然到来需要重新拉起实例、加载模型'）。A选项完整复现教材原文，且解释了'为何每次冷启动都重现'（回收是常态）。B错误：PagedAttention是vLLM内部机制，FC上部署vLLM时若未启用会启动失败，而非仅延迟；C错误：超时会导致请求失败而非延迟升高；D错误：HTTPS终止是ALB/SLB层行为，FC函数内不可见，且耗时远低于模型加载。",
+      "difficulty_label": "入门"
+    }
+  ]
+}

@@ -1,0 +1,108 @@
+{
+  "new-9-36-0": {
+    "qid": "new-9-36-0",
+    "classification": "own",
+    "chapter": 9,
+    "quality": "ok",
+    "reason": "题目考查对429限流错误重试策略的理解，核心是缺少指数退避和抖动机制导致重试风暴。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "指数退避 + 抖动（Exponential Backoff with Jitter）是处理 429/5xx 的标准做法",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "题干明确是429错误，且原文区分了429与5xx的重试策略。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "固定间隔重试导致请求同步，加剧压力，原文强调需指数退避+抖动。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "题干未提及401错误，且401不应重试，与核心缺陷无关。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "代码已设重试3次，非无限重试，非题干描述的核心缺陷。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-9-36-2": {
+    "qid": "new-9-36-2",
+    "classification": "own",
+    "chapter": 9,
+    "quality": "ok",
+    "reason": "题目考查多轮对话中messages历史维护，需完整传递历史上下文。",
+    "answer": [
+      "A",
+      "B"
+    ],
+    "supported": true,
+    "quote": "多轮对话能力，本质是客户端把历史消息按角色组织好，每次调用都完整地放进 `messages` 里再传一遍",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "必须追加第一次的user消息，以提供完整对话历史。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "必须追加第一次的assistant消息，模型才知道之前回答过Jira。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "system消息稳定即可，重复添加非问题主因，且原文建议固定开头。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "题干未涉及Function Calling，添加tool角色消息不必要。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-9-36-5": {
+    "qid": "new-9-36-5",
+    "classification": "own",
+    "chapter": 9,
+    "quality": "ok",
+    "reason": "题目考查API Key安全军规，日志记录完整Key违反不打印原则。",
+    "answer": [
+      "D"
+    ],
+    "supported": true,
+    "quote": "打印进日志或错误信息——日志被收集、分享后间接泄露",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "题干已通过代理调用，Key托管方式非日志泄露主因。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "题干未提及提交Git，焦点在日志记录泄露。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "异常监控是防护措施，非题干描述违规行为。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "日志持续记录完整API Key，直接违反不打印进日志的军规。"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

@@ -1,0 +1,217 @@
+{
+  "new-9-0-0": {
+    "qid": "new-9-0-0",
+    "classification": "own",
+    "chapter": 9,
+    "quality": "ok",
+    "reason": "题目考查API调用中限流错误（429）的处理策略，符合本章知识点。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "429 是限流（Too Many Requests）... 指数退避 + 抖动（Exponential Backoff with Jitter）是处理 429/5xx 的标准做法",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "429是限流，非服务端过载；升级模型不直接提升配额。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "正确指出了客户端并发控制和指数退避+抖动的正确重试策略。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "429是配额超限，非API Key权限问题。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "429是限流错误，与流式读取超时无关。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-9-0-1": {
+    "qid": "new-9-0-1",
+    "classification": "own",
+    "chapter": 9,
+    "quality": "ok",
+    "reason": "题目考查控制输入Token以优化成本的工程实践，符合本章计费与配额知识点。",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "历史消息是把双刃剑... 生产环境通常需要：滑动窗口截断——只保留最近 N 轮；摘要压缩",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "压缩system prompt作用有限，非最直接有效。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "添加时间戳会破坏前缀稳定性，不利于缓存。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "滑动窗口截断可直接减少输入Token，是直接有效的成本优化。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "换模型可能降成本，但非最直接针对输入过长的措施。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-9-0-2": {
+    "qid": "new-9-0-2",
+    "classification": "own",
+    "chapter": 9,
+    "quality": "ok",
+    "reason": "题目考查多轮对话中因缺失历史消息导致指代不清的问题，符合本章messages结构知识点。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "多轮对话答非所问、指代不清 → 首先检查“历史消息有没有完整放进 messages”",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "401错误与上下文缺失问题无关。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "正确指出需检查messages数组是否包含完整的对话历史。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "temperature影响随机性，非指代消解失败主因。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "问题描述未涉及Function Calling。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-9-0-3": {
+    "qid": "new-9-0-3",
+    "classification": "own",
+    "chapter": 9,
+    "quality": "ok",
+    "reason": "题目考查Batch API的适用场景与优势，符合本章批量生成知识点。",
+    "answer": [
+      "B",
+      "C",
+      "D"
+    ],
+    "supported": true,
+    "quote": "Batch 通过异步调度提供更高吞吐和更经济的单价... JSONL 输入输出、按行校验",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "Batch API是异步离线处理，不降低TTFT。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "Batch API通过异步调度实现高吞吐，避免排队。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "Batch API通常提供更经济的单价，降低成本。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "Batch API支持JSONL格式，便于按行校验结果对齐。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-9-0-4": {
+    "qid": "new-9-0-4",
+    "classification": "own",
+    "chapter": 9,
+    "quality": "ok",
+    "reason": "题目考查Function Calling API调用规范，符合本章工具使用知识点。",
+    "answer": [
+      "A",
+      "B",
+      "C",
+      "D"
+    ],
+    "supported": true,
+    "quote": "拿到 tool_calls 就以为工具已经执行——模型只是“提议”，执行工具的是你自己的代码... 忘了把 response_message 追加进 messages... 回传结果时漏 tool_call_id... Schema 描述含糊",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "未解析JSON字符串直接发送，违反参数处理规范。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "工具结果应以role='tool'回传，非assistant。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "缺失response_message会导致模型无决策上下文。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "required字段为空会导致模型无法提取必填参数。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-9-0-5": {
+    "qid": "new-9-0-5",
+    "classification": "own",
+    "chapter": 9,
+    "quality": "ok",
+    "reason": "题目考查API Key泄露后的应急处置流程，符合本章API Key安全知识点。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "泄漏后的应急顺序：立即禁用/轮换 Key → 检查近期调用记录 → 评估损失",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "删除GitHub文件无法阻止已泄露Key被继续滥用。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "符合教材所述的应急顺序：禁用Key、检查日志、评估损失。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "回滚和修复代码是后续措施，非应急处置第一步。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "冻结账户和提交漏洞报告非教材推荐的首选应急步骤。"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

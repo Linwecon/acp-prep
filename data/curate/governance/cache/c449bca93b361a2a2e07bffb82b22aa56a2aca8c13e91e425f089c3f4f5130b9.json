@@ -1,0 +1,227 @@
+{
+  "4-1382": {
+    "qid": "4-1382",
+    "classification": "own",
+    "chapter": 4,
+    "quality": "ok",
+    "reason": "function_mapper是工具调用中绑定函数名与实际函数的映射机制",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "工具必须以 JSON-Schema 描述自己（名称、参数、用途），让模型知道'有什么可用、怎么用'",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "API密钥由环境变量或配置管理，非function_mapper职责"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "用户历史由Memory组件管理，非function_mapper功能"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "将工具函数名称与实际函数绑定是function_mapper核心作用"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "temperature由API参数控制，与function_mapper无关"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "4-1395": {
+    "qid": "4-1395",
+    "classification": "own",
+    "chapter": 4,
+    "quality": "ok",
+    "reason": "Transformer-XL属模型架构改进，非Agent上下文管理手段",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "短期记忆：当前会话的对话历史与中间结果，维持本次对话连贯",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "动态记忆机制是课程明确推荐策略"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "固定窗口截断是课程提到的三种主流策略之一"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "Transformer-XL是底层模型改进，原文未提及其用于Agent上下文缓解"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "重启对话状态清空旧信息是可行基础手段"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "4-0404": {
+    "qid": "4-0404",
+    "classification": "own",
+    "chapter": 4,
+    "quality": "ok",
+    "reason": "Multi-Agent本质是任务拆解与分工，符合分层规划原则",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "分层规划（Leader-Worker / Boss-Worker）：中心化星型：Leader 拆解任务、分派、汇总；Worker 各司其职",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "违反避免全量注入原则，且非Multi-Agent思想"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "任务拆分是Multi-Agent核心设计原则"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "DashScope Parse仅是文档解析工具，非Multi-Agent方案"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "单模型无法体现Multi-Agent协作特性"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "4-0588": {
+    "qid": "4-0588",
+    "classification": "own",
+    "chapter": 4,
+    "quality": "ok",
+    "reason": "Agent可自动化处理多种重复性人工任务",
+    "answer": [
+      "A",
+      "B",
+      "C",
+      "D",
+      "E"
+    ],
+    "supported": true,
+    "quote": "Agent（智能体） 是由大模型驱动、具备自主感知、规划、调用工具并根据反馈迭代能力的应用",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "阅卷属规则明确的重复劳动，Agent可自动化"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "数据清洗可封装为Tool由Agent调用执行"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "日志分析可作为Tool接入Agent工作流"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "总结聊天记录是典型文本生成类Agent任务"
+      },
+      {
+        "label": "E",
+        "selected": true,
+        "why": "数学计算可通过代码解释器Tool完成"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "4-0616": {
+    "qid": "4-0616",
+    "classification": "own",
+    "chapter": 4,
+    "quality": "ok",
+    "reason": "长链路规划性能问题包括延迟、稳定性、粒度和人机接口",
+    "answer": [
+      "A",
+      "B",
+      "C",
+      "D"
+    ],
+    "supported": true,
+    "quote": "ReAct 不是无限循环：必须设置最大迭代轮数 / 超时 / token 预算上限，超限要主动收尾",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "等待时间过长是TTFT/TPOT指标体现的性能问题"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "执行偏差累积是ReAct多轮误差传播典型问题"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "过细粒度增加资源消耗是课程明确指出的风险"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "缺乏HITL接口限制人工修正是课程强调的反模式"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "4-0617": {
+    "qid": "4-0617",
+    "classification": "own",
+    "chapter": 4,
+    "quality": "ok",
+    "reason": "四个选项均对应课程提及的多Agent框架真实案例",
+    "answer": [
+      "A",
+      "B",
+      "C",
+      "D"
+    ],
+    "supported": true,
+    "quote": "在 AgentScope 中，分层模式常用 handoff（Leader 把 Worker 当工具调用，支持异步并发与动态创建）",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "斯坦福小镇是课程引用的分层设计典型案例"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "Agentscope演示案例在原文4.7节明确列出"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "MetaGPT是课程4.7节提到的多Agent框架"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "AutoGen是课程4.7节提及的多Agent框架"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

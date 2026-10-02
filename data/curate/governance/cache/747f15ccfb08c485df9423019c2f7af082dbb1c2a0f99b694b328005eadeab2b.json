@@ -1,0 +1,47 @@
+{
+  "new-10-6-0": {
+    "qid": "new-10-6-0",
+    "classification": "own",
+    "chapter": 10,
+    "quality": "ok",
+    "reason": "题干明确要求私有化、LoRA微调、高QPS，完全对应PAI三件套分工与顺序",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "调试选 DSW、训练选 DLC、上线选 EAS。在 PAI-DSW 的 GPU 实例里写代码、用 ms-swift 做 LoRA 微调；大规模/分布式训练可提交到 DLC；要稳定对外提供高并发服务时，再用 PAI-EAS 部署",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "DSW开发验证、DLC训练、EAS部署是PAI标准流程，顺序不可颠倒"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "EAS仅部署，不支持训练；DSW/DLC是微调必需环节"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "EAS不可被vLLM替代，因需弹性伸缩、监控等生产级能力"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "ModelScope只提供模型下载，无训练能力，DSW/DLC不可省"
+      }
+    ],
+    "duplicate_of": "",
+    "references": [
+      {
+        "chapter": 10,
+        "id": 42
+      },
+      {
+        "chapter": 10,
+        "id": 44
+      }
+    ]
+  }
+}

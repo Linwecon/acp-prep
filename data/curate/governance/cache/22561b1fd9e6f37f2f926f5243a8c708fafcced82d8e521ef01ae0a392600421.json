@@ -1,0 +1,213 @@
+{
+  "new-10-18-0": {
+    "qid": "new-10-18-0",
+    "classification": "own",
+    "chapter": 10,
+    "quality": "ok",
+    "reason": "考查DashScope OpenAI兼容模式认证失败的根本原因，属于API调用与平台使用细节。",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "百炼和 DashScope 共用一套 API Key。如今登录百炼控制台即可使用 DashScope 的全部模型能力。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "路径拼接错误通常导致404，而非401认证错误。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "SDK版本过低可能导致兼容性问题，但非401的根本原因。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "API Key权限正常但未开通DashScope服务，是401的常见原因。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "模型未开通通常导致其他错误，而非401认证失败。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-10-18-1": {
+    "qid": "new-10-18-1",
+    "classification": "own",
+    "chapter": 10,
+    "quality": "ok",
+    "reason": "考查DashScope兼容模式与OpenAI原生SDK在流式响应上的差异，属于迁移实践细节。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "OpenAI 兼容模式的价值：把 base_url 指向 DashScope 兼容地址、把 api_key 换成阿里云的 Key，原本基于 OpenAI Python SDK 写的程序几乎不用改就能调用通义千问。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "chunk大小限制可能导致延迟，但非最优先检查的兼容性约束。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "SSE格式字段差异是导致前端解析延迟和截断的直接兼容性问题。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "缓存参数非流式响应的核心兼容性约束。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "qwen-plus支持流式生成，原文未提及不支持。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-10-18-2": {
+    "qid": "new-10-18-2",
+    "classification": "own",
+    "chapter": 10,
+    "quality": "ok",
+    "reason": "考查DashScope原生SDK与OpenAI兼容模式的适用场景差异，属于平台能力边界。",
+    "answer": [
+      "A",
+      "D"
+    ],
+    "supported": true,
+    "quote": "原生接口能用上部分平台特有参数/能力（如特定多模态、重排序服务）",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "TextReRank是平台特有重排序服务，需用原生SDK。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "单次请求同时调用多模态非必须放弃兼容模式的理由。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "自定义HTTP header非必须放弃兼容模式的核心原因。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "qwen3-rerank是仅在原生接口暴露的模型，必须用原生SDK。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-10-18-3": {
+    "qid": "new-10-18-3",
+    "classification": "own",
+    "chapter": 10,
+    "quality": "ok",
+    "reason": "考查百炼平台知识库API调用与控制台调试的配置差异，属于应用部署细节。",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "百炼的核心能力可以理解为把前几章的技术'产品化'了：知识库（RAG）内置文档解析、切片、向量化、检索，上传文档即可问答",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "API默认模型可能不同，但题干已说明请求体完全一致。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "知识库ID参数缺失会导致完全无知识库结果，非质量下降。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "启用知识库增强开关独立于模型选择，是导致RAG未生效的常见原因。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "API Key权限不足通常导致认证失败，而非质量下降。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-10-18-4": {
+    "qid": "new-10-18-4",
+    "classification": "own",
+    "chapter": 10,
+    "quality": "ok",
+    "reason": "考查DashScope兼容模式计费规则与使用注意事项，属于成本控制细节。",
+    "answer": [
+      "C"
+    ],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "自动截断可能导致信息丢失，但不直接导致计费模型不符。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "模型忽略max_tokens参数可能导致超长输出，但计费仍按实际Token。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "流式断开连接后服务端仍计已生成Token，是计费与预期不符的直接原因。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "URL拼写错误可能导致路由错误，但非计费模型不符的直接原因。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-10-18-5": {
+    "qid": "new-10-18-5",
+    "classification": "own",
+    "chapter": 10,
+    "quality": "ok",
+    "reason": "考查百炼应用接入自定义模型（如PAI部署的vLLM服务）的集成前提，属于平台互联。",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "百炼应用也可以调用部署在 PAI-EAS 上的私有模型。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "百炼支持调用非EAS托管的服务，只要接口兼容。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "同地域VPC非必要前提，公网可访问即可。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "百炼配置中需填写服务公网域名及API Key是集成必要前提。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "vLLM服务本身兼容OpenAI API即可，无需DashScope中间件。"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

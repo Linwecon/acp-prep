@@ -1,0 +1,222 @@
+{
+  "5-1420": {
+    "qid": "5-1420",
+    "classification": "own",
+    "chapter": 5,
+    "quality": "ok",
+    "reason": "四选项均符合原文过拟合成因描述",
+    "answer": [
+      "A",
+      "C",
+      "D"
+    ],
+    "supported": true,
+    "quote": "过拟合（Overfitting）：模型容量大而数据少/重复时，会把训练集里的噪声也'背'下来...对策：提高数据多样性、增加正则（weight decay / dropout）、控制训练轮数",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "原文明确'数据少'导致过拟合"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "学习率过高导致loss震荡，非过拟合"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "Dropout率低削弱正则，加剧过拟合"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "过多epoch是过拟合典型原因"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "5-1421": {
+    "qid": "5-1421",
+    "classification": "own",
+    "chapter": 5,
+    "quality": "ok",
+    "reason": "ABCD均属微调前必要评估项",
+    "answer": [
+      "A",
+      "B",
+      "C",
+      "D"
+    ],
+    "supported": true,
+    "quote": "微调是三者中成本最高、周期最长、回滚最难的手段，还伴随着过拟合和灾难性遗忘的风险。标准的优化顺序：提示词优化 → RAG → 微调",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "需求匹配度决定是否需微调"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "合规性是部署前提条件"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "资源评估防训练失败"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "数据量影响方法选型"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "5-1423": {
+    "qid": "5-1423",
+    "classification": "own",
+    "chapter": 5,
+    "quality": "ok",
+    "reason": "AD为原文强调核心要求，B未提及，C错误",
+    "answer": [
+      "A",
+      "D"
+    ],
+    "supported": true,
+    "quote": "质量从四个维度把关，其重要性远高于数量：正确性、多样性、一致性、无重复...数据越多越好 → 低质、重复、错位的数据反而有害",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "原文要求覆盖各种问法场景"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "原文未提样本均衡要求"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "原文明确反对'仅需少量'"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "质量四维首要是正确性"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "5-1452": {
+    "qid": "5-1452",
+    "classification": "own",
+    "chapter": 5,
+    "quality": "ok",
+    "reason": "B准确对应微调定义，ACD均为干扰项",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "微调（Fine-tuning）：在已经预训练好的模型权重基础上，用一批'指令—回答'样本继续做梯度下降，让模型在特定任务上的输出行为更稳定、更贴合业务",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "延迟降低是蒸馏目标"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "原文定义明确适配任务需求"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "上下文窗口由模型架构决定"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "微调不改变参数量"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "5-1468": {
+    "qid": "5-1468",
+    "classification": "own",
+    "chapter": 5,
+    "quality": "ok",
+    "reason": "ABC符合泛化能力定义，D绝对化错误",
+    "answer": [
+      "A",
+      "B",
+      "C"
+    ],
+    "supported": true,
+    "quote": "过拟合（Overfitting）：模型容量大而数据少/重复时，会把训练集里的噪声也'背'下来，表现为训练集越来越好、验证集反而变差，泛化能力下降",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "原文定义泛化即未见数据表现"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "预训练多样性提升泛化力"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "过拟合直接损害泛化能力"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "参数量与泛化无必然正相关"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "5-0003": {
+    "qid": "5-0003",
+    "classification": "own",
+    "chapter": 5,
+    "quality": "ok",
+    "reason": "ABC对应优化顺序三步，D属资源准备非优先评估",
+    "answer": [
+      "A",
+      "B",
+      "C"
+    ],
+    "supported": true,
+    "quote": "标准的优化顺序（务必背下来）：提示词优化 → RAG → （仍不满足才考虑）微调...微调是三者中成本最高、周期最长、回滚最难的手段",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "提示词优化是第一优先级"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "RAG是第二优先级"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "数据量评估属前置条件"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "采购硬件非评估环节"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

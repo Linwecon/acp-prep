@@ -1,0 +1,154 @@
+{
+  "items": [
+    {
+      "type": 0,
+      "stem": "某团队在vLLM服务中启用连续批处理后，观测到GPU计算单元（SM）利用率从62%提升至94%，但单请求TTFT反而上升了18%。以下哪项最可能是根本原因？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "Prefill阶段因动态调度引入额外序列对齐开销，导致首token计算延迟增加"
+        },
+        {
+          "option_label": "B",
+          "option_text": "KV Cache分页表查询增加了Decode阶段延迟，影响首token生成"
+        },
+        {
+          "option_label": "C",
+          "option_text": "连续批处理强制所有请求共享同一prefill batch，长prompt请求拖慢短prompt请求"
+        },
+        {
+          "option_label": "D",
+          "option_text": "模型权重被加载到显存非最优位置，导致Prefill内存带宽下降"
+        }
+      ],
+      "answer": "A",
+      "analysis": "依据原文6.5节：连续批处理（Continuous Batching）优化的是Decode阶段的GPU空转问题，其核心是'请求完成即可返回、新请求立即补位'，不改变Prefill的并行计算逻辑；但为支持动态batch，vLLM需在每次prefill前对不同长度的prompt做padding/alignment（教材虽未明说，但属vLLM工程实现必然开销），而TTFT完全由Prefill决定（6.2节明确'Prefill决定TTFT'）。选项B错误——PagedAttention影响KV Cache管理，与TTFT无关；选项C混淆概念：连续批处理不存在'强制共享prefill batch'，它本质是解耦prefill与decode调度粒度，各请求prefill仍独立执行；选项D属硬件层问题，原文未提及且与连续批处理无因果关系。故A是唯一符合'连续批处理→prefill开销微增→TTFT上升'逻辑链的选项。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 1,
+      "stem": "在诊断vLLM服务吞吐骤降故障时，监控显示GPU显存占用率稳定在85%，但QPS下降40%、TPOT升高35%。以下哪些条件组合可构成连续批处理失效的充分必要条件？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "所有并发请求的输出长度均超过max_model_len设置值"
+        },
+        {
+          "option_label": "B",
+          "option_text": "请求队列中存在大量超长prompt（>4K tokens），且系统未启用PagedAttention"
+        },
+        {
+          "option_label": "C",
+          "option_text": "vLLM启动参数--block-size=16，但实际请求平均序列长度为32768"
+        },
+        {
+          "option_label": "D",
+          "option_text": "KV Cache物理块分配失败率持续高于15%，且page table碎片化指数>0.8"
+        }
+      ],
+      "answer": "C,D",
+      "analysis": "依据原文6.5节：连续批处理依赖PagedAttention的按需分页机制（'把KV Cache切成固定大小的块'）；若block-size过小（如16）而序列极长（32768），则单请求需分配2048个block，page table映射开销剧增，直接拖慢decode调度（C正确）。同时，原文明确PagedAttention解决'显存碎片'问题，当碎片化严重+分配失败率高（D），说明分页机制已无法有效复用block，导致新请求无法及时获取KV Cache空间，连续批处理因缺乏可用block而退化为串行处理，TPOT飙升、QPS下降（D正确）。A错误：max_model_len是硬上限，超限请求会被拒绝而非降低吞吐；B错误：PagedAttention是vLLM默认启用的（6.5节'vLLM默认提供'），且长prompt影响的是prefill而非decode吞吐；故仅C、D构成连续批处理失效的直接技术条件。",
+      "difficulty_label": "挑战"
+    },
+    {
+      "type": 0,
+      "stem": "某企业将Qwen3-0.6B部署于vLLM，启用连续批处理后，在压测中发现当并发从32增至64时，QPS仅提升12%，且出现大量429错误。此时若仅调整--max-num-seqs参数，最可能产生的效果是？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "429错误率显著下降，但QPS进一步降低，因系统主动限制并发数"
+        },
+        {
+          "option_label": "B",
+          "option_text": "QPS提升至理论值，因该参数解除连续批处理的调度瓶颈"
+        },
+        {
+          "option_label": "C",
+          "option_text": "TPOT明显下降，因更小的batch size减少显存竞争"
+        },
+        {
+          "option_label": "D",
+          "option_text": "TTFT大幅改善，因prefill阶段获得更高优先级调度"
+        }
+      ],
+      "answer": "A",
+      "analysis": "依据原文6.3节风险提示：'超出并发上限通常直接返回错误（如429）'；6.5节明确--max-num-seqs是vLLM控制'最大并发请求数'的核心参数（对应教材'并发数'指标）。当压测出现429，说明当前并发已超服务承载阈值，调低--max-num-seqs即主动限流，可消除429错误，但会牺牲QPS（A正确）。B错误：该参数是限制而非解除瓶颈；C错误：TPOT由decode效率决定，与batch size无直接线性关系；D错误：TTFT由prefill决定，而--max-num-seqs不干预prefill调度逻辑。教材6.3节'并发过高已超服务处理能力'的案例与本题场景完全一致。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 1,
+      "stem": "以下哪些场景中，连续批处理的实际收益会显著低于理论预期？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "所有请求的prompt长度高度一致（标准差<50 tokens），且输出长度均控制在128以内"
+        },
+        {
+          "option_label": "B",
+          "option_text": "请求中80%为超长文档摘要任务（输入5K+ tokens，输出2K+ tokens）"
+        },
+        {
+          "option_label": "C",
+          "option_text": "服务配置了--enforce-eager参数禁用CUDA Graph优化"
+        },
+        {
+          "option_label": "D",
+          "option_text": "KV Cache使用AWQ量化后，显存带宽压力降低30%"
+        }
+      ],
+      "answer": "B,C",
+      "analysis": "依据原文6.5节原理：连续批处理的核心价值在于'避免长请求拖累短请求'，其收益与请求长度离散度正相关。B中80%请求均为超长任务，长度差异小，动态调度带来的GPU利用率提升有限（B正确）。C中--enforce-eager禁用CUDA Graph，导致每个decode step需重新编译kernel，极大增加调度开销，抵消连续批处理的调度优势（原文虽未提此参数，但6.5节强调'GPU几乎全程满载'依赖高效调度，而CUDA Graph是vLLM关键优化，禁用后必然劣化）。A错误：长度高度一致时静态批处理已接近最优，连续批处理收益本就小，但'显著低于预期'不成立；D错误：AWQ量化降低带宽压力，反而有利于decode阶段，与连续批处理正向协同。故B、C为收益受损的关键场景。",
+      "difficulty_label": "挑战"
+    },
+    {
+      "type": 0,
+      "stem": "运维人员发现vLLM服务在连续运行24小时后，QPS持续下降5%/小时，重启服务立即恢复。监控显示KV Cache占用率从40%升至92%，但显存总量未超限。以下哪项最可能是根本故障原因？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "PagedAttention的page table发生内存泄漏，导致可用block持续减少"
+        },
+        {
+          "option_label": "B",
+          "option_text": "连续批处理未释放已完成请求的KV Cache block，造成block泄露"
+        },
+        {
+          "option_label": "C",
+          "option_text": "模型权重在显存中发生碎片化，降低Prefill计算效率"
+        },
+        {
+          "option_label": "D",
+          "option_text": "客户端未正确关闭HTTP连接，导致vLLM维持大量空闲请求上下文"
+        }
+      ],
+      "answer": "B",
+      "analysis": "依据原文6.5节：连续批处理要求'谁完成谁先返回'，其正确性依赖PagedAttention的block精准回收机制；若已完成请求的KV Cache block未被释放（B），则占用率会随时间累积上升，最终因无可用block导致新请求无法调度，QPS下降。这与'重启恢复'现象完全吻合（重启清空所有block）。A错误：page table本身是元数据结构，其泄漏不会导致KV Cache占用率上升；C错误：权重碎片化不影响KV Cache占用率；D错误：HTTP连接空闲不占用KV Cache资源。教材6.5节'按需分配'和'完成一个就立刻返回'的表述，隐含了block生命周期管理必须严格闭环的要求。",
+      "difficulty_label": "挑战"
+    },
+    {
+      "type": 0,
+      "stem": "某团队在vLLM中启用连续批处理后，对比静态批处理，发现相同硬件下最大并发数提升2.3倍。这一提升最直接依赖的底层机制是？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "PagedAttention对KV Cache的分页管理，消除预分配浪费"
+        },
+        {
+          "option_label": "B",
+          "option_text": "CUDA Graph对Decode kernel的图优化，减少kernel launch开销"
+        },
+        {
+          "option_label": "C",
+          "option_text": "vLLM的AsyncLLMEngine异步调度器，降低请求排队延迟"
+        },
+        {
+          "option_label": "D",
+          "option_text": "AWQ量化对权重的通道感知压缩，提升显存带宽利用率"
+        }
+      ],
+      "answer": "A",
+      "analysis": "依据原文6.5节：连续批处理提升并发数的根本前提是'同样的显存能塞下更多并发请求'，而这一能力直接源于PagedAttention'按需分配、不再按最大长度预分配浪费'（原文原句）。A选项精确对应教材描述。B、C、D虽为vLLM优化手段，但B影响的是decode速度而非并发容量，C是调度框架非底层机制，D属于量化范畴与并发数无直接关系。教材6.5节明确将'大幅提升吞吐'归因于PagedAttention与连续批处理的协同，其中PagedAttention解决显存瓶颈，连续批处理解决计算瓶颈。",
+      "difficulty_label": "入门"
+    }
+  ]
+}

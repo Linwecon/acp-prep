@@ -1,0 +1,154 @@
+{
+  "items": [
+    {
+      "type": 0,
+      "stem": "某金融公司需构建合规问答系统，要求：① 所有客户合同与监管文件严禁出域；② 通用千问模型对'穿透式尽调'等术语回答不准；③ 需支持1000+并发实时响应。技术团队决定基于Qwen2-7B开源模型微调后部署。以下哪组阿里云产品组合最符合全链路需求？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "ModelScope下载模型 → PAI-DSW开发微调代码 → PAI-DLC执行分布式训练 → PAI-EAS部署为高并发服务"
+        },
+        {
+          "option_label": "B",
+          "option_text": "百炼知识库上传合同 → DashScope调用qwen-max → 开启RAG增强 → 百炼API发布至内部系统"
+        },
+        {
+          "option_label": "C",
+          "option_text": "OSS存储合同 → DataWorks清洗 → DashScope Embedding向量化 → 百炼智能体编排"
+        },
+        {
+          "option_label": "D",
+          "option_text": "ModelScope Notebook微调 → 本地导出模型 → 自建K8s集群部署 → Nginx负载均衡"
+        }
+      ],
+      "answer": "A",
+      "analysis": "题干三重约束：'数据严禁出域'排除所有需上送API的方案（B、C均依赖DashScope或百炼托管服务，数据需经公网传输）；'术语回答不准'需模型级定制，百炼轻量微调无法满足专业垂类深度适配；'1000+并发实时响应'要求生产级弹性伸缩与监控能力，自建K8s（D）虽满足私有化但缺乏PAI-EAS原生的蓝绿发布、预热、TPM/RPM自动扩缩容等工程保障。A选项严格对应教材10.4节PAI三件套分工：DSW是'写代码、做实验的工作台'（开发LoRA脚本），DLC是'真正烧GPU训练的车间'（执行分布式微调），EAS是'模型对外服务的门面'（提供弹性伸缩、高并发SLA）。原文明确指出：'百炼上能做轻量微调，但自研结构、大规模训练、自定义部署是PAI的主场'（10.4末段），且'三者可组合：百炼应用可回调PAI-EAS服务'（10.5），印证EAS是私有模型上线的唯一生产级选择。",
+      "difficulty_label": "挑战"
+    },
+    {
+      "type": 0,
+      "stem": "运维工程师发现生产环境DashScope API调用频繁返回429错误，日志显示RPM（每分钟请求数）持续超限。此时最应优先执行的操作是？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "立即申请提升RPM配额，并同步在前端增加请求队列"
+        },
+        {
+          "option_label": "B",
+          "option_text": "检查是否遗漏指数退避重试逻辑，并验证当前重试策略是否含随机抖动"
+        },
+        {
+          "option_label": "C",
+          "option_text": "将所有qwen-plus调用切换为qwen-turbo以降低单次延迟"
+        },
+        {
+          "option_label": "D",
+          "option_text": "在PAI-DSW中启动GPU实例，将部分流量迁移至自托管模型"
+        }
+      ],
+      "answer": "B",
+      "analysis": "429是限流响应，根源在于客户端未遵守服务端配额规则。教材10.8节'处理限流'明确要求：'遇429用指数退避+抖动重试，必要时降级'，并警示'切忌无间隔死循环重试，那会加剧限流、推高成本'。B选项直击故障根因——验证重试机制是否符合规范，是成本与稳定性双控的首要动作。A选项治标不治本：盲目提配额可能掩盖设计缺陷，且队列无法解决根本的并发过载；C选项属降级策略，但题干未说明任务复杂度，强行切turbo可能牺牲准确性（10.6强调'按任务难度分级路由'）；D选项是长期架构优化，但429是瞬时流量问题，自托管需数小时部署，无法作为'最优先'操作。原文10.8风险应对原则强调：'429要指数退避'，此为唯一教材直接指定的即时响应动作。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 0,
+      "stem": "课程实验中，学生在PAI-DSW GPU实例运行微调脚本后关闭浏览器，次日发现账单异常高昂。最可能的根本原因及依据是？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "GPU实例未停止，持续计费；教材10.4明确提醒：'关闭浏览器不等于停止实例，必须回控制台停止或删除'"
+        },
+        {
+          "option_label": "B",
+          "option_text": "微调过程触发了DLC分布式训练任务，产生额外费用；教材10.4指出DLC需单独提交任务"
+        },
+        {
+          "option_label": "C",
+          "option_text": "模型权重自动同步至OSS产生存储费用；教材未提及DSW默认同步行为"
+        },
+        {
+          "option_label": "D",
+          "option_text": "EAS服务被意外创建并持续运行；教材10.4强调EAS需显式部署"
+        }
+      ],
+      "answer": "A",
+      "analysis": "题干核心线索是'关闭浏览器后账单飙升'，这与教材10.4节'PAI-DSW费用提醒'完全吻合：'DSW实例按计算时计费，关闭浏览器不等于停止实例，不学了必须回控制台停止或删除'。该提醒被课程'反复强调'，且明确指出'GPU实例消耗额度远快于CPU'，直接解释'异常高昂'。B选项错误：DLC是独立提交的任务，DSW中运行脚本不会自动触发DLC；C、D选项均无教材依据——DSW无默认OSS同步机制，EAS需手动创建，不可能'意外'产生。A选项完整引用原文措辞，精准对应故障现象与教材警示，是唯一有直接文本支撑的答案。",
+      "difficulty_label": "入门"
+    },
+    {
+      "type": 1,
+      "stem": "当百炼应用需要调用部署在PAI-EAS上的私有模型时，以下哪些条件是必须同时满足的？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "PAI-EAS服务已配置公网访问或VPC内网互通"
+        },
+        {
+          "option_label": "B",
+          "option_text": "百炼工作流中需配置EAS服务的Endpoint和认证Token"
+        },
+        {
+          "option_label": "C",
+          "option_text": "EAS服务的API接口需兼容OpenAI标准格式（如/chat/completions）"
+        },
+        {
+          "option_label": "D",
+          "option_text": "百炼平台必须开通PAI服务权限并完成跨产品授权"
+        }
+      ],
+      "answer": "A,B,C",
+      "analysis": "百炼调用EAS私有模型是教材10.1与10.5明确描述的典型组合场景：'百炼应用再去调用EAS上的私有模型'。A正确：网络连通是前提，EAS服务若未暴露Endpoint（公网/VPC），百炼无法访问；B正确：百炼工作流需显式配置目标服务地址与鉴权信息，这是API集成基本要求；C正确：教材10.4实践案例指出'用vLLM本地起服务验证（其HTTP接口本身兼容OpenAI API）'，而百炼工作流节点支持调用标准OpenAI格式API，故EAS服务需遵循该协议才能被无缝集成。D错误：百炼与PAI同属阿里云账号体系，无需额外'跨产品授权'，教材从未提及此限制，且控制台实际操作中无此步骤。三者缺一不可，共同构成调用链路的技术必要条件。",
+      "difficulty_label": "挑战"
+    },
+    {
+      "type": 1,
+      "stem": "算法团队在PAI-DSW中完成Qwen2-1.5B模型微调后，需验证推理效果。以下哪些操作符合教材10.4节推荐的验证路径？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "在DSW同一GPU实例中，加载微调后模型权重，使用vLLM启动本地HTTP服务进行测试"
+        },
+        {
+          "option_label": "B",
+          "option_text": "将模型导出至OSS，提交PAI-DLC任务进行批量推理验证"
+        },
+        {
+          "option_label": "C",
+          "option_text": "直接在DSW中编写Python脚本调用transformers pipeline进行单样本推理"
+        },
+        {
+          "option_label": "D",
+          "option_text": "跳过本地验证，直接提交PAI-EAS部署并用生产流量灰度测试"
+        }
+      ],
+      "answer": "A,C",
+      "analysis": "教材10.4节'principle'明确给出验证路径：'得到合并后的模型，用vLLM本地起服务验证（其HTTP接口本身兼容OpenAI API）'。A选项完全复现该步骤——在DSW中用vLLM起服务，既利用现有GPU资源，又验证API兼容性，为后续EAS部署铺路。C选项符合DSW作为'交互式建模工作台'的定位（10.4表），教材未禁止脚本级验证，且是快速调试的合理方式。B错误：DLC用于'大规模/分布式训练'，非推理验证场景；D错误：教材强调'先本地验证再生产部署'，跳过验证违反工程规范，且EAS部署成本高，不适合初验。A与C共同体现'DSW开发→本地验证→EAS上线'的递进逻辑，是教材唯一指定的验证范式。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 0,
+      "stem": "HR希望零代码搭建新人答疑机器人，上传员工手册后能回答‘年假几天’等问题，并发布到钉钉群。若在PAI-DSW中创建Jupyter Notebook编写RAG流水线代码实现该功能，此做法最根本的问题在于？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "违背'谁该用控制台、谁该写代码、谁必须训模型'的选型原则：HR是应用使用者，应使用百炼而非PAI"
+        },
+        {
+          "option_label": "B",
+          "option_text": "PAI-DSW不支持文档解析与向量化，无法实现RAG"
+        },
+        {
+          "option_label": "C",
+          "option_text": "钉钉发布需调用钉钉API，PAI-EAS不提供该插件"
+        },
+        {
+          "option_label": "D",
+          "option_text": "Qwen系列模型在PAI-DSW中无法调用，仅支持DashScope API"
+        }
+      ],
+      "answer": "A",
+      "analysis": "题干本质是考查平台分层定位与使用者匹配。教材10.5'选型决策'第一条即：'要快速搭知识库问答/智能体/工作流并发布 → 百炼'；10.2'best'明确：'HR不懂编程...百炼就是为这类人准备的'，并列出'上传文档即可问答'、'一键发布到钉钉'等能力。PAI-DSW是'算法工程师写代码的工作台'（10.4表），要求编程能力，与'零代码'需求根本冲突。A选项直指教材核心选型原则，是根本性错误。B、D错误：教材10.4指出DSW提供'预置镜像'，且ModelScope可下载Qwen模型，DSW完全支持RAG开发；C错误：钉钉发布是百炼原生能力，非PAI职责。本题聚焦'使用者错配'这一最高频考点，避免陷入技术细节陷阱。",
+      "difficulty_label": "入门"
+    }
+  ]
+}

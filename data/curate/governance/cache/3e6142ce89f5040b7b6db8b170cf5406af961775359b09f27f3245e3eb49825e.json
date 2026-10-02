@@ -1,0 +1,208 @@
+{
+  "3-1083": {
+    "qid": "3-1083",
+    "classification": "unsure",
+    "chapter": 3,
+    "quality": "remove",
+    "reason": "题干提及‘RAGS评分’，但原文未定义此术语，且询问具体实现字段，超出教材范围，无考查价值。",
+    "answer": [],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "原文未提及此字段。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "原文未提及此字段。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "原文未提及此字段。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "原文未提及此字段。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-1233": {
+    "qid": "3-1233",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "考查Embedding模型基本概念，选项涉及能力、用途、相似度计算和模型迭代。",
+    "answer": [
+      "C",
+      "D"
+    ],
+    "supported": true,
+    "quote": "Embedding（向量化 / 嵌入）是把一段文本转换成一串数字（高维向量，如 1024 维）。余弦相似度是向量检索首选相似度。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "原文未提长度限制，且能处理长文本切片。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "Embedding用于检索，不生成答案。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "原文明确余弦相似度是首选。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "新版本模型通常效果更好是合理推断。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-1235": {
+    "qid": "3-1235",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "fixable",
+    "reason": "考查node_postprocessors参数配置的合理性，但部分选项表述模糊，需结合上下文理解。",
+    "answer": [
+      "A",
+      "B"
+    ],
+    "supported": true,
+    "quote": "典型配置（粗召回 20 → 重排取 3 → 再用相似度阈值 0.2 过滤）：query_engine = index.as_query_engine( similarity_top_k=20, streaming=True, node_postprocessors=[ DashScopeRerankPostprocessor(rerank_client=rerank_client, top_n=3), SimilarityPostprocessor(similarity_cutoff=0.2)])",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "粗召回K应大于精排top_n，符合两阶段设计。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "streaming是query_engine参数，非postprocessor内。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "similarity_cutoff=0会禁用过滤，不合理。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "忽略重排序模型会降低精度，不合理。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-1268": {
+    "qid": "3-1268",
+    "classification": "beyond",
+    "chapter": 3,
+    "quality": "remove",
+    "reason": "题目考查Marp工具使用技巧，与RAG核心知识无关，属于工具操作，无考查价值。",
+    "answer": [],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "超出教材范围。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "超出教材范围。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "超出教材范围。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "超出教材范围。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-1412": {
+    "qid": "3-1412",
+    "classification": "cross",
+    "chapter": -1,
+    "quality": "remove",
+    "reason": "题目考查Assistant API具体参数，属于API调用细节，但未提供对应章节原文，无法归属。",
+    "answer": [],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "无原文支持。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "无原文支持。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "无原文支持。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "无原文支持。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-1458": {
+    "qid": "3-1458",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "考查文本分块（切片）策略的核心原则，要求找出错误描述。",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "切片之所以关键，是因为它直接决定了检索的‘颗粒度’：切得太大……检索时容易‘沾边但不精准’；切得太小……语义被截断。因此工程上通常会设置重叠。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "正确，分块过大会引入噪声。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "正确，分块过小会丢失上下文。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "错误，不同文档类型应用不同分块策略。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "正确，保留元数据可提升准确性。"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

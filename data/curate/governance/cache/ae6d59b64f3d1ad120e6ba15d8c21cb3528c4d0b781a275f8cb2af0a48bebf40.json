@@ -1,0 +1,206 @@
+{
+  "3-0098": {
+    "qid": "3-0098",
+    "classification": "unsure",
+    "chapter": 3,
+    "quality": "remove",
+    "reason": "题干表述模糊，选项与RAG核心知识无关，无考查价值。",
+    "answer": [],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "原文未提及embedding_models字典。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "与定义测试模型无关。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "与定义测试模型无关。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "与定义测试模型无关。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-0099": {
+    "qid": "3-0099",
+    "classification": "unsure",
+    "chapter": 3,
+    "quality": "remove",
+    "reason": "题干表述模糊，选项与RAG核心知识无关，无考查价值。",
+    "answer": [],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "原文未提及compare_embeddings函数。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "与比较模型相似度无关。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "与比较模型相似度无关。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "与比较模型相似度无关。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-0105": {
+    "qid": "3-0105",
+    "classification": "unsure",
+    "chapter": 3,
+    "quality": "remove",
+    "reason": "题干表述模糊，选项与RAG核心知识无关，无考查价值。",
+    "answer": [],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "原文未提及embedding_models字典。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "与字典作用无关。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "与字典作用无关。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "与字典作用无关。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-0140": {
+    "qid": "3-0140",
+    "classification": "unsure",
+    "chapter": 3,
+    "quality": "remove",
+    "reason": "题干表述模糊，选项与RAG核心知识无关，无考查价值。",
+    "answer": [],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "原文未提及compare_embedding_models函数。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "与函数作用无关。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "与函数作用无关。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "与函数作用无关。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-0192": {
+    "qid": "3-0192",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "考查向量存储选型知识，符合RAG章节内容。",
+    "answer": [
+      "A",
+      "B"
+    ],
+    "supported": true,
+    "quote": "开发测试可用 LlamaIndex 内置的内存向量库；生产环境可选用云服务（如阿里云 DashVector）或自建开源库（Milvus、Qdrant）。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "原文明确内存向量库用于开发测试。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "小规模应用可适用内存存储。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "生产环境应选用云服务或自建库。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "大规模应用不适用内存存储。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-0215": {
+    "qid": "3-0215",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "考查向量存储选型知识，符合RAG章节内容。",
+    "answer": [
+      "A",
+      "B"
+    ],
+    "supported": true,
+    "quote": "开发测试可用 LlamaIndex 内置的内存向量库；生产环境可选用云服务（如阿里云 DashVector）或自建开源库（Milvus、Qdrant）。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "小规模应用可适用本地数据库。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "原文明确内存向量库用于开发测试。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "生产环境应选用云服务或自建库。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "大规模应用不适用本地数据库。"
+      }
+    ],
+    "duplicate_of": "3-0192"
+  }
+}

@@ -1,0 +1,107 @@
+{
+  "new-6-6-0": {
+    "qid": "new-6-6-0",
+    "classification": "own",
+    "chapter": 6,
+    "quality": "ok",
+    "reason": "考查部署选型决策，结合数据合规、性能要求、运维能力等关键条件。",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "PAI-EAS（企业级模型在线服务平台）...支持自定义/私有模型上线、实时推理、需弹性与灰度...弹性扩缩容、蓝绿/灰度发布、版本控制",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "EAS内置蓝绿发布、模型预热和自动弹性，满足灰度发布、秒级回滚和运维负担轻的要求。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "ECS+vLLM虽可深度调优，但题干强调团队有运维能力且EAS特性更匹配企业级需求。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "题干未指定使用千问模型，且“专属加速TTFT天然优于自建”说法绝对，无原文支持。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "EAS支持自定义模型部署与参数配置，并非无法满足TTFT指标。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-6-6-2": {
+    "qid": "new-6-6-2",
+    "classification": "own",
+    "chapter": 6,
+    "quality": "ok",
+    "reason": "考查TPOT性能瓶颈诊断，关联Decode阶段特征与GPU利用率分析。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "Decode（解码阶段）...是显存带宽密集型，决定了TPOT（Time Per Output Token，每生成一个token的时间）",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "TPOT高而GPU利用率低，问题在Decode阶段，而非Prefill的计算瓶颈。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "TPOT高由显存带宽瓶颈导致，KV Cache过大是常见原因，与低GPU利用率现象吻合。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "网络传输延迟通常影响整体RT，而非特指TPOT指标，且与GPU利用率低关联弱。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "权重加载IO问题影响服务启动或首请求，不会持续导致TPOT高而GPU利用率低。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-6-6-4": {
+    "qid": "new-6-6-4",
+    "classification": "own",
+    "chapter": 6,
+    "quality": "ok",
+    "reason": "考查vLLM并发控制参数调整对性能指标的影响，基于压测现象推理。",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "并发过高已经超过了服务处理能力...应通过压测找到最优并发阈值并做限流",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "降低最大并发数可减轻负载，减少排队和超时，从而降低RT，但QPS可能下降。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "降低并发上限应能显著改善超时问题，而非“超时仍存在”。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "降低并发数不会导致QPS上升和RT进一步升高，与缓解过载的目标相反。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "降低并发数应有助于降低RT和减少超时，而非导致RT升高和超时增多。"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

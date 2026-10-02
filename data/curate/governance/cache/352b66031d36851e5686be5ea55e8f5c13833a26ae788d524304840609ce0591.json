@@ -1,0 +1,212 @@
+{
+  "3-0451": {
+    "qid": "3-0451",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "考查向量数据库在RAG中的核心职责，属于本章核心知识。",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "向量数据库用近似最近邻（ANN）索引（如 HNSW、IVF）实现毫秒级检索。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "RAG主要处理文本，非图像数据。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "向量数据库核心是向量相似搜索，非全文检索。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "向量数据库存储向量并提供相似性搜索，是RAG核心。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "关系型数据非RAG向量数据库职责。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-0657": {
+    "qid": "3-0657",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "考查RAG处理长文档的核心流程，属于切片与检索应用。",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "RAG（Retrieval-Augmented Generation，检索增强生成）的核心思路可以用四个字概括：“开卷考试”。不让模型凭记忆答题，而是在它回答前，先从企业知识库里检索出最相关的几段资料，连同问题一起交给模型，让它“看着资料作答”。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "放弃回答不符合RAG解决问题思路。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "强行输入会超出上下文窗口，效果差。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "切分并检索相关片段生成答案，是RAG标准流程。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "让模型想象内容会导致幻觉，违背RAG原则。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-0686": {
+    "qid": "3-0686",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "考查高事实准确性场景下RAG的优势，属于核心价值判断。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "RAG（Retrieval-Augmented Generation，检索增强生成）的核心思路可以用四个字概括：“开卷考试”。不让模型凭记忆答题，而是在它回答前，先从企业知识库里检索出最相关的几段资料，连同问题一起交给模型，让它“看着资料作答”。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "纯生成模型易产生幻觉，事实准确性低。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "RAG通过检索外部知识提供依据，提高事实准确性。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "微调主要适配行为风格，不解决知识不足。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "提高温度增加随机性，降低事实准确性。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-0690": {
+    "qid": "3-0690",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "考查RAG技术的核心作用，属于本章开篇核心定义。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "RAG 主要解决什么问题——答案是大模型知识不足/私有知识接入/知识时效性。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "RAG不涉及训练过程，不提升训练效率。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "RAG核心是扩展知识边界，解决知识过时和缺失。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "RAG可能增加延迟，非其核心作用。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "RAG主要处理文本知识，非多模态能力。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-0727": {
+    "qid": "3-0727",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "考查检索相关性低的优化措施，属于切片策略调整。",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "切片之所以关键，是因为它直接决定了检索的“颗粒度”。工程上通常会设置重叠（overlap）——相邻 chunk 之间保留一小段重复文字，防止一句话正好被从中间切断。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "降低阈值会引入更多无关内容，恶化问题。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "减少文本段数量可能降低召回，非针对相关性。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "优化分块策略（如粒度、重叠）可提升检索相关性。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "增加推理步骤数不解决检索端问题。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-0731": {
+    "qid": "3-0731",
+    "classification": "cross",
+    "chapter": -1,
+    "quality": "review",
+    "reason": "题目描述智能推荐系统，核心是向量相似检索，但属于RAG技术原理的跨领域应用。教材未明确涵盖此场景，需review。",
+    "answer": [
+      "B"
+    ],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "纯生成不依赖外部数据，无法实现相似商品匹配。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "向量数据库存储特征向量并通过相似度检索，符合需求。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "大模型无外部知识无法输出具体商品列表。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "不考虑实时行为，不符合实时推荐要求。"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

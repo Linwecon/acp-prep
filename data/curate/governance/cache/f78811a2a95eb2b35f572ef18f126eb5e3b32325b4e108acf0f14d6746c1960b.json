@@ -1,0 +1,215 @@
+{
+  "new-7-18-0": {
+    "qid": "new-7-18-0",
+    "classification": "own",
+    "chapter": 7,
+    "quality": "ok",
+    "reason": "考查RAGAS指标定位问题能力，需结合指标变化判断优化方向。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "Context Recall从0.62升至0.91，但Answer Correctness仅从0.43微升至0.45，且Faithfulness下降0.18。Precision低（Recall高）说明找回来了但噪声多、排得靠后，应加Rerank",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "Context Recall已大幅提升，说明检索已较全，非知识库缺失。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "Recall高但Precision低（隐含）导致Faithfulness下降，是噪声稀释注意力。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "Faithfulness下降可能因噪声导致，非首要排查提示词约束。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "ground_truth标注问题非RAGAS指标变化直接指向的优化环节。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-7-18-1": {
+    "qid": "new-7-18-1",
+    "classification": "own",
+    "chapter": 7,
+    "quality": "ok",
+    "reason": "考查评测集构建铁律，需识别违反真实用户问题和专家标注原则的选项。",
+    "answer": [
+      "B",
+      "D"
+    ],
+    "supported": true,
+    "quote": "标准答案来自领域专家；技术人员能判断‘系统有没有检索到相关内容’，但只有业务专家才知道‘这个答案在业务上是否正确’",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "从真实用户提问抽样，符合铁律。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "ground_truth应由领域专家而非算法工程师编写。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "构造对抗性question覆盖边界场景，未违反铁律。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "用模型输出作ground_truth，违反专家标注原则。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-7-18-2": {
+    "qid": "new-7-18-2",
+    "classification": "own",
+    "chapter": 7,
+    "quality": "ok",
+    "reason": "考查Agent评测方法选择，区分客观硬指标与主观评分适用场景。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "确定性检查（规则/断言）用代码规则直接判断，结果确定；适合客观项：代码能否运行",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "长度偏见存在，但非根本问题。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "代码可执行性是客观硬指标，需确定性检查而非主观评分。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "校准阈值重要，但未触及方法选择根本。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "工具调用序列评测相关，但非代码可执行性问题的直接根本。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-7-18-3": {
+    "qid": "new-7-18-3",
+    "classification": "own",
+    "chapter": 7,
+    "quality": "ok",
+    "reason": "考查Answer Relevancy偏低且其他指标正常时的优化措施选择。",
+    "answer": [
+      "A",
+      "C"
+    ],
+    "supported": true,
+    "quote": "Answer Relevancy低：答案跑题或回避，查提示词与意图理解；在系统提示词中增加约束：‘不得使用“我不确定”“可能”等模糊表述’",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "约束模糊表述直接针对Answer Relevancy低的回避问题。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "其他检索指标正常，扩大Top K非首要优化。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "先复述问题再作答可强化意图锚定，改善相关性。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "修改ground_truth不影响模型生成的Relevancy。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-7-18-4": {
+    "qid": "new-7-18-4",
+    "classification": "own",
+    "chapter": 7,
+    "quality": "ok",
+    "reason": "考查公开基准与自建评测集差异的核心原因。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "公开基准只反映通用能力，和你的业务题型、语言分布、领域知识可能完全不同",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "数据污染可能，但非题干落差的最核心原因。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "公开基准测通用知识，业务需特定领域知识，是核心原因。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "配置未冻结影响可比性，但非最核心的通用与领域差异。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "C-Eval是中文评测，题干未提语言问题。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-7-18-5": {
+    "qid": "new-7-18-5",
+    "classification": "own",
+    "chapter": 7,
+    "quality": "ok",
+    "reason": "考查防止跷跷板效应的具体EDD做法。",
+    "answer": [
+      "A",
+      "B"
+    ],
+    "supported": true,
+    "quote": "跷跷板效应；应建立回归评测机制：冻结一份覆盖各类题型的评测集，每次改动后用同一套题、同一配置重新跑分",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "用冻结评测集对比细分分数变化，可发现跷跷板效应。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "建立自动回归流水线，是防止效应的工程化手段。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "分层覆盖是评测集设计要点，非直接防止效应。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "小样本验证改动方向，未涉及防止整体回归。"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

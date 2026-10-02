@@ -1,0 +1,154 @@
+{
+  "items": [
+    {
+      "type": 0,
+      "stem": "某团队将Qwen3-0.6B模型量化为AWQ INT4后部署于vLLM，观测到：①显存占用下降58%；②TPOT降低22%；③TTFT无明显变化；④在代码补全任务上BLEU分数下降1.3分。以下哪项结论可被教材原文直接支持？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "TPOT降低证明AWQ INT4量化必然加速Decode阶段"
+        },
+        {
+          "option_label": "B",
+          "option_text": "BLEU下降1.3分说明INT4量化在所有任务上都会导致显著精度损失"
+        },
+        {
+          "option_label": "C",
+          "option_text": "TTFT无明显变化符合AWQ作为PTQ方法不改变Prefill计算图的特性"
+        },
+        {
+          "option_label": "D",
+          "option_text": "显存下降58%验证了INT4相对FP16体积降为1/4的理论值"
+        }
+      ],
+      "answer": "C",
+      "analysis": "依据6.4节原文：'AWQ（Activation-aware Weight Quantization）：依据激活值的显著性，保护那些对结果影响大的权重通道，在低比特（INT4）下通常更稳、更快'；且明确指出GPTQ/AWQ均属PTQ（训练后量化），即仅修改权重存储与计算方式，不重构计算图或引入新参数。Prefill阶段是纯前向计算，其延迟TTFT主要取决于输入长度、计算强度与调度开销，而AWQ量化不改变网络结构、不引入额外校准层或动态路由，因此TTFT不变符合PTQ本质。A错误：原文强调'能否加速取决于推理框架/硬件是否有对应的低比特算子'，TPOT降低是结果而非必然性结论；B错误：原文指出'INT4在敏感任务上可能掉点更明显，需用业务评测集验证'，'可能'非'必然'，且'所有任务'过度泛化；D错误：原文表中对比基准是FP32（1×），INT4为1/8，FP16为1/2；Qwen3-0.6B FP16权重约1.2GB，INT4理论应≈0.15GB（降幅87.5%），58%实测降幅受KV Cache、运行时开销等干扰，不能反推验证理论比例。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 0,
+      "stem": "在诊断一个突然出现高TTFT（>8s）的线上vLLM服务时，监控显示GPU利用率正常、KV Cache占用率仅30%、无429错误。此时最应优先检查的日志线索是？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "vLLM启动日志中是否包含'PagedAttention enabled'提示"
+        },
+        {
+          "option_label": "B",
+          "option_text": "请求日志中prompt token数是否异常增长（如超32K）"
+        },
+        {
+          "option_label": "C",
+          "option_text": "CUDA OOM报错或显存分配失败堆栈"
+        },
+        {
+          "option_label": "D",
+          "option_text": "模型加载日志中是否成功加载AWQ量化权重文件"
+        }
+      ],
+      "answer": "B",
+      "analysis": "依据6.2节原理：'Prefill是计算密集型，处理完后吐出第一个token，决定了TTFT'；6.3节明确'长prompt会让等很久才开口（Prefill变慢）'；6.6节指出'KV Cache随序列长度×并发数线性增长'，但本题KV Cache占用仅30%，排除显存瓶颈；GPU利用率正常说明未卡死在计算单元。因此TTFT飙升必源于Prefill阶段计算量剧增——即输入prompt过长。A错误：PagedAttention默认启用，且影响的是KV Cache管理而非Prefill；C错误：OOM会直接崩溃或报错，与'GPU利用率正常'矛盾；D错误：若AWQ权重加载失败，服务无法启动或首token即报错，不会表现为TTFT延迟。教材6.2节'Prefill决定TTFT'与'长prompt导致TTFT升高'构成直接因果链。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 1,
+      "stem": "某企业需上线内部合规问答机器人，要求：①全部业务数据严禁出域；②日均稳定请求2000+，P95 TTFT需<1.2s；③支持灰度发布与秒级故障回滚。运维团队具备GPU调优能力，但无专职SRE。以下部署方案中，哪些完全满足全部约束？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "PAI-EAS部署，配置GPU资源组+蓝绿发布+模型预热"
+        },
+        {
+          "option_label": "B",
+          "option_text": "ECS自建vLLM服务，搭配SLB负载均衡与ESS弹性伸缩"
+        },
+        {
+          "option_label": "C",
+          "option_text": "函数计算FC部署，启用预留实例与HTTP触发器"
+        },
+        {
+          "option_label": "D",
+          "option_text": "百炼MaaS私有化部署（需单独采购）"
+        }
+      ],
+      "answer": "AB",
+      "analysis": "依据6.12四步决策法：①数据不出域→排除百炼公有MaaS（D错误，原文6.7明确'百炼上的数据会发到平台侧处理'，私有化部署非标准选项且未在教材中定义）；②P95 TTFT<1.2s→需避免冷启动，FC（C）存在冷启动问题（6.10.1风险栏），即使预留实例也难保P95达标；③灰度发布与秒级回滚→PAI-EAS原生支持蓝绿/灰度/版本控制（6.10.2概念栏），ECS自建虽无内置灰度，但可通过SLB权重切换+多版本服务实现（6.9架构图隐含多实例部署能力）；A正确：PAI-EAS满足数据不出域（私有部署）、TTFT稳定（无冷启动+预热）、灰度回滚完备；B正确：ECS完全可控，可深度调优vLLM参数保障TTFT，SLB+多实例支持灰度切换；C错误：FC冷启动不可控，教材6.10.1明确'实时性要求高不适合FC'；D错误：百炼公有云版不满足数据不出域，私有化部署未在教材中作为可行选项描述。",
+      "difficulty_label": "挑战"
+    },
+    {
+      "type": 0,
+      "stem": "压测发现当并发从16增至32时，vLLM服务QPS仅提升12%，而平均RT翻倍、429错误率升至8%。此时最应优先执行的操作是？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "立即扩容GPU实例数量"
+        },
+        {
+          "option_label": "B",
+          "option_text": "检查vLLM启动参数--max-num-seqs是否超过显存承载上限"
+        },
+        {
+          "option_label": "C",
+          "option_text": "启用AWQ量化并重试压测"
+        },
+        {
+          "option_label": "D",
+          "option_text": "调整客户端重试策略为指数退避"
+        }
+      ],
+      "answer": "B",
+      "analysis": "依据6.3节'高频误区'：'超出并发限制通常直接返回错误（如429）'；6.6节显存账：'KV Cache随序列长度×并发数线性增长'，而--max-num-seqs正是vLLM控制最大并发请求数的核心参数（对应教材6.5 vLLM命令示例的隐含参数）。RT翻倍+429激增表明系统已超载，根本原因是并发请求超出显存容量，导致请求被拒绝而非排队。A错误：盲目扩容不解决参数配置失当问题，且教材6.9强调'弹性伸缩需提前规划'；C错误：量化是长期优化手段，无法解决当前瞬时超限；D错误：重试策略是客户端应对措施，但根源在服务端过载，教材6.11.1明确'先通过压测确定最优并发阈值'。原文6.3风险栏'必须通过压测确定最优并发阈值'与6.6节'并发数翻倍→KV Cache显存翻倍'构成直接依据。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 1,
+      "stem": "开发者在FC上部署AI助手后，发现工作日早9点流量高峰时首个请求延迟达3.2s，其余请求正常。夜间低峰期再次调用又重现该现象。以下哪些分析与应对路径符合教材建议？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "根因是FC冷启动：无流量时实例回收，新请求需重新拉起并加载模型"
+        },
+        {
+          "option_label": "B",
+          "option_text": "应配置预留实例，使实例常驻以消除冷启动"
+        },
+        {
+          "option_label": "C",
+          "option_text": "应改用ECS自建服务，彻底规避冷启动"
+        },
+        {
+          "option_label": "D",
+          "option_text": "教材建议优先采用'预留实例/预热'缓解，但需权衡持续资源费用"
+        }
+      ],
+      "answer": "ABD",
+      "analysis": "依据6.10.1 FC风险栏：'冷启动延迟：无流量时实例被回收，新请求到来要重新拉起、可能还要加载模型，首个响应明显变慢。可通过预留实例/预热缓解，但会重新产生持续资源费用'；6.7比较表明确FC核心边界是'冷启动'。A正确：现象（周期性首个请求延迟）与冷启动定义完全吻合；B正确：教材明确'可通过预留实例/预热缓解'；D正确：完整复述教材'但会重新产生持续资源费用'的成本权衡；C错误：教材6.12场景表指出'低频事件选FC'，且6.10.1强调FC适合'轻量、低频、事件触发'，改为ECS属于过度设计，违背'按需选型'原则。教材未建议'彻底规避'，而是'缓解+权衡'。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 0,
+      "stem": "当使用函数计算FC部署AI助手时，观察到首次请求耗时显著高于后续请求，且日志显示模型加载耗时占总延迟70%。此时最符合教材建议的根因分析与应对路径是？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "模型过大导致加载缓慢，应改用更小模型或量化压缩"
+        },
+        {
+          "option_label": "B",
+          "option_text": "这是FC冷启动典型表现，教材建议通过预留实例或预热缓解"
+        },
+        {
+          "option_label": "C",
+          "option_text": "vLLM未启用PagedAttention，应添加--enable-paged-attn参数"
+        },
+        {
+          "option_label": "D",
+          "option_text": "FC内存配置不足，应升级函数内存规格"
+        }
+      ],
+      "answer": "B",
+      "analysis": "依据6.10.1 FC概念栏：'Serverless GPU能力，秒级自动扩缩容'；风险栏明确'冷启动延迟：无流量时实例被回收，新请求到来需要重新拉起实例、加载模型，导致首个请求明显变慢'，且'可通过预留实例/预热缓解'。题干'首次请求耗时高+模型加载占70%'是冷启动的黄金特征，教材未将模型大小、PagedAttention或内存规格列为FC冷启动主因。A错误：教材6.10.1指出FC有'资源与时长限制'，但冷启动根源是实例生命周期管理，非模型大小；C错误：PagedAttention是vLLM特性，FC部署通常不直接运行vLLM（教材6.10.1未提FC集成vLLM）；D错误：内存升级可能缓解加载速度，但无法消除冷启动本质——实例回收机制不变。教材6.10.1风险栏原文构成唯一直接依据。",
+      "difficulty_label": "入门"
+    }
+  ]
+}

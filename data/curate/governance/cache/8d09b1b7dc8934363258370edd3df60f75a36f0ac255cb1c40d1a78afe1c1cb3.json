@@ -1,0 +1,227 @@
+{
+  "1-1002": {
+    "qid": "1-1002",
+    "classification": "own",
+    "chapter": 1,
+    "quality": "ok",
+    "reason": "考查减少输出等待时间的工程实践，与上下文窗口、模型选型相关。",
+    "answer": [
+      "A",
+      "C",
+      "D"
+    ],
+    "supported": true,
+    "quote": "上下文缓存：对重复前缀（如固定的 system prompt）复用计算结果，降延迟、降成本。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "上下文缓存可复用计算结果，降低延迟。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "参数更大的模型通常推理延迟更高。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "提前生成和复用内容可减少实时生成时间。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "减少输入Token数量可缩短推理时间。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "1-1194": {
+    "qid": "1-1194",
+    "classification": "unsure",
+    "chapter": 1,
+    "quality": "remove",
+    "reason": "考查Python基础语法，与大模型知识无关，无考查价值。",
+    "answer": [
+      "B"
+    ],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "query是元组，直接传入函数可能出错。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "正确取用元组第二个元素（问题文本）。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "将ID（整数）传入意图分类函数不合理。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "feedback_list[i]是元组，未提取问题文本。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "1-1326": {
+    "qid": "1-1326",
+    "classification": "unsure",
+    "chapter": 1,
+    "quality": "review",
+    "reason": "考查ms-swift框架特点，教材未提及，需确认是否超纲。",
+    "answer": [
+      "A",
+      "C",
+      "D"
+    ],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "框架特点，支持多模型训练。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "仅适用于文本生成任务说法过于绝对。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "框架通常提供评测和部署功能。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "开源且易扩展是常见框架特点。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "1-1469": {
+    "qid": "1-1469",
+    "classification": "own",
+    "chapter": 1,
+    "quality": "ok",
+    "reason": "考查大模型处理客户反馈的任务组合，属于应用场景题。",
+    "answer": [
+      "A",
+      "B",
+      "C"
+    ],
+    "supported": true,
+    "quote": "从用户反馈中抽取产品名、问题类型、严重程度等结构化字段",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "提取联系方式属于命名实体识别。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "判断问题类型和满意度属于文本分类。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "生成统计报表属于文本摘要或生成。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "信息抽取与文本分类有重叠，非最佳独立选项。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "1-1471": {
+    "qid": "1-1471",
+    "classification": "cross",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "考查RAG中文本切片与语义完整性，属于文档解析策略。",
+    "answer": [
+      "B",
+      "C"
+    ],
+    "supported": true,
+    "quote": "文本切片策略与重叠机制",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "不同处理方式有助于保持语义独立。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "合并段落可能破坏原有语义单元边界。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "过度扩写可能引入噪声，破坏数据完整性。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "确保边界和上下文有助于保持完整性。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "1-0697": {
+    "qid": "1-0697",
+    "classification": "own",
+    "chapter": 1,
+    "quality": "ok",
+    "reason": "考查幻觉规避措施，直接对应能力边界与缓解手段。",
+    "answer": [
+      "A",
+      "B",
+      "C",
+      "D"
+    ],
+    "supported": true,
+    "quote": "幻觉（Hallucination）...用 RAG 提供可核查的资料、在提示词中要求“只依据资料回答”",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "提示词约束可减少模型编造。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "RAG提供真实文档依据，减少虚构。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "事实校验可验证生成信息真伪。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "少样本示例可引导模型识别幻觉。"
+      },
+      {
+        "label": "E",
+        "selected": false,
+        "why": "参数大小与幻觉率无直接关系。"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

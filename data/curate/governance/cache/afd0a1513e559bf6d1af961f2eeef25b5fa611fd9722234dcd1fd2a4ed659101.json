@@ -1,0 +1,215 @@
+{
+  "new-5-12-0": {
+    "qid": "new-5-12-0",
+    "classification": "own",
+    "chapter": 5,
+    "quality": "ok",
+    "reason": "考查LoRA合并后推理开销与部署实践",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "推理零开销：训练完成后，可以把 W₀ + B·A 合并回普通权重，得到一个和原模型结构完全一样的模型。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "合并后应无额外开销，延迟高说明可能未合并"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "题干明确是学生模型推理延迟"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "合并操作与导出格式无关"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "0.6B模型应比大模型API轻量"
+      }
+    ],
+    "duplicate_of": "5-5124"
+  },
+  "new-5-12-1": {
+    "qid": "new-5-12-1",
+    "classification": "own",
+    "chapter": 5,
+    "quality": "ok",
+    "reason": "考查数据质量过滤规则的理解与计算",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "质量过滤：逐条校验——JSON 能否解析、5 个必填字段是否齐全、字段值是否在合法范围内，不合格直接丢弃",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "有样本因字段值非法被剔除"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "17条是缺失字段，非取值违规"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "28条样本的'urgency'字段值含非法字符"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "45条是两类违规总数，非仅取值"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-5-12-2": {
+    "qid": "new-5-12-2",
+    "classification": "own",
+    "chapter": 5,
+    "quality": "ok",
+    "reason": "考查蒸馏能力边界与问题排查",
+    "answer": [
+      "A",
+      "C"
+    ],
+    "supported": true,
+    "quote": "不适合蒸馏及替代方案：需要实时知识（如政策查询） | 原因：知识固化在训练时刻 | 替代方案：蒸馏做意图识别 + RAG 提供知识",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "实时知识场景应优先RAG"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "教材强调知识时效问题非数据量"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "教师不稳应先优化教师"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "教材未将此列为首要排查方向"
+      }
+    ],
+    "duplicate_of": "5-5117"
+  },
+  "new-5-12-3": {
+    "qid": "new-5-12-3",
+    "classification": "own",
+    "chapter": 5,
+    "quality": "ok",
+    "reason": "考查蒸馏数据合成阶段温度设计目的",
+    "answer": [
+      "D"
+    ],
+    "supported": true,
+    "quote": "生成多样化提问：用高温度（如 temperature=0.9）让教师批量造问...教师标注：用精确的 system prompt 约束输出 JSON，低温度（temperature=0.1）保证标注一致性",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "低温度确保标注一致性"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "高温度提升提问多样性"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "低温度降低随机性防截断"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "使用同一套prompt与温度设计无关"
+      }
+    ],
+    "duplicate_of": "5-5127"
+  },
+  "new-5-12-4": {
+    "qid": "new-5-12-4",
+    "classification": "own",
+    "chapter": 5,
+    "quality": "ok",
+    "reason": "考查LoRA实现高效的核心条件",
+    "answer": [
+      "A",
+      "B",
+      "C"
+    ],
+    "supported": true,
+    "quote": "LoRA 冻结了原权重，只为那一对小矩阵计算梯度和优化器状态，因此显存随训练参数量骤降。推理零开销：训练完成后，可以把 W₀ + B·A 合并回普通权重",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "冻结原权重是省显存前提"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "r远小于d是参数高效关键"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "仅优化小矩阵减少状态存储"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "推理应合并权重，无需保持适配器"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-5-12-5": {
+    "qid": "new-5-12-5",
+    "classification": "own",
+    "chapter": 5,
+    "quality": "ok",
+    "reason": "考查数据质量四维度中一致性的应用",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "一致性：所有样本的输出 schema、字段名、模板完全统一",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "统一system prompt确保输出一致性"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "对应多样性要求"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "对应无重复要求"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "违反测试集独立原则"
+      }
+    ],
+    "duplicate_of": "5-5122"
+  }
+}

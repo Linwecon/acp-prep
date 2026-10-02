@@ -1,0 +1,219 @@
+{
+  "11-0601": {
+    "qid": "11-0601",
+    "classification": "own",
+    "chapter": 11,
+    "quality": "ok",
+    "reason": "四选项均属多模态，但仅A、D需跨模态转换或推理。",
+    "answer": [
+      "A",
+      "D"
+    ],
+    "supported": true,
+    "quote": "多模态AI指能联合理解、生成两种及以上模态信息，并建立它们之间关联的模型与系统",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "TTS是语音↔文本跨模态转换"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "物体检测是单模态图像内任务"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "音频分析是单模态语音内任务"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "Image Captioning是图↔文跨模态推理"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "11-0615": {
+    "qid": "11-0615",
+    "classification": "own",
+    "chapter": 11,
+    "quality": "ok",
+    "reason": "A、B、C是原文明确列出的多模态整合关键步骤。",
+    "answer": [
+      "A",
+      "B",
+      "C"
+    ],
+    "supported": true,
+    "quote": "多模态表征、多模态对齐、多模态融合是整合和协调不同模态信息的关键步骤",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "原文明确列为关键步骤"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "原文明确列为关键步骤"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "原文明确列为关键步骤"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "原文未提‘协同学习’术语"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "11-0618": {
+    "qid": "11-0618",
+    "classification": "own",
+    "chapter": 11,
+    "quality": "ok",
+    "reason": "A、B、C是原文支持的时序对齐方法；D无依据。",
+    "answer": [
+      "A",
+      "B",
+      "C"
+    ],
+    "supported": true,
+    "quote": "视频理解的标准处理方式：抽关键帧、提取音轨、字幕/文本对齐；图文统一=编码器+对齐+大模型",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "注意力机制可匹配跨模态关键信息"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "跨模态相似度学习支撑对齐"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "时间戳/位置标签保障时序一致性"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "原文强调需主动对齐，非自然对齐"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "11-0709": {
+    "qid": "11-0709",
+    "classification": "own",
+    "chapter": 11,
+    "quality": "ok",
+    "reason": "C、D符合原文原理描述；A、B无依据或错误。",
+    "answer": [
+      "C",
+      "D"
+    ],
+    "supported": true,
+    "quote": "图文多模态模型的工作原理：编码器+投影对齐+大语言模型；视觉编码器把图像切成patch，每个patch转成向量",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "原文未提尺寸需重训练"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "原文未提算力与时间负相关"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "图像需切patch转为视觉Token"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "方言合成需建立音素映射关系"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "11-0764": {
+    "qid": "11-0764",
+    "classification": "own",
+    "chapter": 11,
+    "quality": "ok",
+    "reason": "题干要求‘语音输入→文本回复’，B完整覆盖ASR+LLM两步。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "个性化语音助手端到端链路：ASR语音识别→意图理解→检索/工具→LLM生成文字回复",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "缺少ASR环节"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "含ASR转文本+LLM生成"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "纯文本LLM无法直接处理语音"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "输出是文本，无需TTS"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "11-0882": {
+    "qid": "11-0882",
+    "classification": "own",
+    "chapter": 11,
+    "quality": "ok",
+    "reason": "A、B是图文理解必要组件；C、D非技术必需。",
+    "answer": [
+      "A",
+      "B"
+    ],
+    "supported": true,
+    "quote": "多模态模型的工作原理：编码器+投影对齐+大语言模型；Qwen-VL这类多模态模型才能看图作答",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "图像需转文本描述供LLM理解"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "LLM处理图文混合信息生成回答"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "存储服务非多模态技术组件"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "纯文本模型无法处理图像输入"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

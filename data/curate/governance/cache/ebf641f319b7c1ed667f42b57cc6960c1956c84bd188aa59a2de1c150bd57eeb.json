@@ -1,0 +1,37 @@
+{
+  "new-6-54-0": {
+    "qid": "new-6-54-0",
+    "classification": "own",
+    "chapter": 6,
+    "quality": "ok",
+    "reason": "题目考查KV Cache显存瓶颈与PagedAttention作用，属于部署优化核心考点。",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "PagedAttention（分页注意力）...把 KV Cache 切成一个个固定大小的块（block），按需分配...消除碎片...大幅提升吞吐",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "题干描述KV Cache占用高但GPU利用率低，符合PagedAttention解决的显存碎片与预分配浪费问题。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "权重体积固定，与并发波动导致的KV Cache占用率波动无直接关系。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "题干未提及多实例或负载不均，且告警是持续触发而非局部。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "95%占用率且并发波动大，属于异常需排查，非正常范围。"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

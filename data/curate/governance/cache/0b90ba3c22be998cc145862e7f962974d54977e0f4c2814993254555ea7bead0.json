@@ -1,0 +1,215 @@
+{
+  "1-0186": {
+    "qid": "1-0186",
+    "classification": "own",
+    "chapter": 7,
+    "quality": "ok",
+    "reason": "题目考查对评测函数核心作用的理解，符合本章主题。",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "自动化评估的核心是‘让机器批量阅卷’：用固定的评测集运行待测系统，收集输出，再用规则或大模型逐项打分。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "evaluate函数用于自动化评估，核心是评估答案质量。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "评测不增加训练数据。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "评测不减少推理时间。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "评测不增加模型参数。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "1-0280": {
+    "qid": "1-0280",
+    "classification": "own",
+    "chapter": 7,
+    "quality": "ok",
+    "reason": "题目考查对Answer Correctness指标核心作用的掌握。",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "Answer Correctness：答案与标准答案的整体一致程度",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "该指标用于评估答案的准确度。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "评测指标不增加训练数据。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "评测指标不减少推理时间。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "评测指标不增加模型参数。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "2-1468": {
+    "qid": "2-1468",
+    "classification": "own",
+    "chapter": 7,
+    "quality": "ok",
+    "reason": "题目考查根据指标组合定位问题并选择优化措施的能力。",
+    "answer": [
+      "A",
+      "B",
+      "D"
+    ],
+    "supported": true,
+    "quote": "检索指标都好（Recall、Precision 高），但 Faithfulness / Correctness 低 → 问题在生成阶段",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "调整Prompt可优化生成质量。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "降低温度可减少随机性，提高正确性。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "Context Recall高说明检索已全，无需补充。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "更换更强模型可改善生成。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-1397": {
+    "qid": "3-1397",
+    "classification": "own",
+    "chapter": 7,
+    "quality": "fixable",
+    "reason": "题目考查医疗场景的评估重点，但选项C和D教材未明确提及为最重要指标。",
+    "answer": [
+      "B",
+      "D"
+    ],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "预测速度非医疗评估首要指标。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "准确率和召回率是核心评估指标。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "数据集多样性非评估指标。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "医疗诊断需可解释性以追责。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-0281": {
+    "qid": "3-0281",
+    "classification": "own",
+    "chapter": 7,
+    "quality": "ok",
+    "reason": "题目考查Answer Correctness计算中观点列表的生成者。",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "LLM 把 answer 和 ground_truth 各自分解为观点列表",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "观点列表由大模型分解生成。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "Embedding模型用于计算相似度。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "与训练数据无关。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "与推理时间无关。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-0535": {
+    "qid": "3-0535",
+    "classification": "own",
+    "chapter": 7,
+    "quality": "ok",
+    "reason": "题目考查Answer Correctness中语义相似度的计算方法。",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "用 Embedding 模型（text-embedding-v3）分别编码 answer 与 ground_truth，计算余弦相似度",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "官方使用余弦相似度。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "欧氏距离非官方方法。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "曼哈顿距离非官方方法。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "与训练数据无关。"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

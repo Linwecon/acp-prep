@@ -1,0 +1,215 @@
+{
+  "new-4-24-0": {
+    "qid": "new-4-24-0",
+    "classification": "own",
+    "chapter": 4,
+    "quality": "ok",
+    "reason": "考查多Agent设计四原则，事故描述与原文原则对应清晰。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "①违反独立凭据原则：不同 Agent 应使用各自最小权限凭据，共用高权限 Key 会导致越权与风险横向扩散；②违反避免全量注入：把全部 Agent 知识塞进主 Prompt 会造成上下文膨胀、注意力稀释、token 成本上升，应按需加载/调度。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "事故1是权限问题，非职责不清；事故2是上下文膨胀，非调度问题。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "事故1违反独立凭据；事故2违反避免全量注入。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "事故1非调度问题；事故2非职责问题。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "事故1是独立凭据，非避免全量注入。"
+      }
+    ],
+    "duplicate_of": "4-5161"
+  },
+  "new-4-24-1": {
+    "qid": "new-4-24-1",
+    "classification": "own",
+    "chapter": 4,
+    "quality": "ok",
+    "reason": "考查Skill渐进式披露的核心设计目标。",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "Skill：Agent 启动时只看到所有 Skill 的 description（很短），由模型判断当前任务要不要激活；激活后才读 SKILL.md，执行到具体步骤时再读对应子文件——这就是渐进式披露（Progressive Disclosure）。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "主要目的非降低延迟，而是避免污染上下文。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "版本管理是附带好处，非分阶段加载的核心目标。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "渐进式披露防止无关知识污染当前任务上下文。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "分阶段加载与验证器独立运行无直接关系。"
+      }
+    ],
+    "duplicate_of": "4-5157"
+  },
+  "new-4-24-2": {
+    "qid": "new-4-24-2",
+    "classification": "own",
+    "chapter": 4,
+    "quality": "ok",
+    "reason": "考查规划策略（ReAct、Plan-and-Execute、外部反馈）应对流程卡死。",
+    "answer": [
+      "A",
+      "C",
+      "D"
+    ],
+    "supported": true,
+    "quote": "ReAct = Reasoning（推理）+ Action（行动）。它让模型把'想'和'做'显式交替：先基于当前状态思考（Thought）下一步，再行动（Action）调用工具，随后读入观察（Observation）结果，继续思考，直到产出最终答案。Plan-and-Execute（规划-执行）让 Agent 围绕用户的高阶目标（Goal），先生成一份包含多步骤的计划（Plan），再逐项执行；遇到障碍时重新规划。外部反馈（External Feedback）：用工具真实执行/校验，把报错、日志、截图喂回模型。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "ReAct模式可动态决策，符合最佳实践。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "固化为Skill预设分支，仍属固定工作流，不够灵活。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "Plan-and-Execute生成含条件分支计划，符合最佳实践。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "外部反馈用工具验证连通性，符合最佳实践。"
+      }
+    ],
+    "duplicate_of": "4-5158"
+  },
+  "new-4-24-3": {
+    "qid": "new-4-24-3",
+    "classification": "own",
+    "chapter": 4,
+    "quality": "ok",
+    "reason": "考查MCP协议与Function Calling的互补关系。",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "MCP（Model Context Protocol，模型上下文协议）是 Anthropic 提出的开源标准化协议，用来统一 Agent 接入外部工具与数据源的方式。它的核心思想是'谁提供工具，谁定义工具'——把工具 Schema 的维护职责从 Agent（消费方）转移到工具服务（提供方）。Function Calling 解决'模型会不会、怎么调用工具'（调用机制）；MCP 解决'工具怎么被发现、被管理、被复用'（接入标准化）。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "MCP解决工具发现与管理，与Function Calling互补。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "Function Calling本身不解决工具发现，优化Schema不治本。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "网关转换Schema是工程方案，非教材推荐根治技术。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "ReAct不解决工具Schema动态发现与维护问题。"
+      }
+    ],
+    "duplicate_of": "4-5165"
+  },
+  "new-4-24-4": {
+    "qid": "new-4-24-4",
+    "classification": "own",
+    "chapter": 4,
+    "quality": "ok",
+    "reason": "考查Memory组合策略根治关键偏好丢失问题。",
+    "answer": [
+      "A",
+      "C"
+    ],
+    "supported": true,
+    "quote": "引入向量化长期记忆：把风格偏好等关键信息持久化到向量库，每次按当前任务语义检索相关记忆再注入，从根本上摆脱窗口限制。有选择地记：记忆不是越多越好，低价值噪声会污染检索；建立写入准入机制（用户显式要求'请记住…'或重要性超阈值才写）。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "向量库长期记忆按需检索，能根治问题。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "滚动摘要可能丢失早期关键信息，非根治方案。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "写入准入机制确保关键偏好被持久化，符合组合策略。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "QWEN.md是Harness配置，非Memory策略。"
+      }
+    ],
+    "duplicate_of": "4-5166"
+  },
+  "new-4-24-5": {
+    "qid": "new-4-24-5",
+    "classification": "own",
+    "chapter": 4,
+    "quality": "ok",
+    "reason": "考查反思策略中外部反馈的稳妥处理方式。",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "外部反馈（External Feedback）：用工具真实执行/校验，把报错、日志、截图喂回模型。外部反馈的关键是'让事实说话'——代码解释器的报错、Pydantic 的校验错误、图表渲染截图，都比模型自认为'看起来合理'可靠得多。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "调用工具提取结构化条款并作为Observation，属外部反馈，最稳妥。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "自我反馈易有相同偏差，不如外部反馈可靠。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "直接调用API获取结论，但未将结果作为Observation输入模型进行综合判断。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "HITL虽稳妥，但非教材4.6.1节反思策略的首选。"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

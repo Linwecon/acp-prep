@@ -1,0 +1,243 @@
+{
+  "2-0541": {
+    "qid": "2-0541",
+    "classification": "unsure",
+    "chapter": 2,
+    "quality": "review",
+    "reason": "函数名ask_llm_route未在原文出现，无任何流程描述依据",
+    "answer": [],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "原文未提reviewed_prompt"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "原文未提ra ask"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "原文未提translate_prompt"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "原文未定义路由失败逻辑"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "2-0633": {
+    "qid": "2-0633",
+    "classification": "own",
+    "chapter": 2,
+    "quality": "ok",
+    "reason": "四选项均符合提示工程优化实践",
+    "answer": [
+      "A",
+      "C",
+      "D",
+      "E"
+    ],
+    "supported": true,
+    "quote": "提示工程的价值可以概括为三点：低成本高收益；可控可复用；是一切上层能力的地基",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "对应六要素完整设计"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "增加数据量非提示工程手段"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "符合迭代优化流程"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "多模型对比属工程实践"
+      },
+      {
+        "label": "E",
+        "selected": true,
+        "why": "模板化是提示工程核心"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "2-0645": {
+    "qid": "2-0645",
+    "classification": "own",
+    "chapter": 2,
+    "quality": "ok",
+    "reason": "ABCD均符合提示工程最佳实践，E违反质量原则",
+    "answer": [
+      "A",
+      "B",
+      "C",
+      "D"
+    ],
+    "supported": true,
+    "quote": "提示工程的价值可以概括为三点：低成本高收益；可控可复用；是一切上层能力的地基",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "System Prompt职责分离"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "上下文窗口约束需截断"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "多轮对话属Memory管理"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "意图分类即自动路由"
+      },
+      {
+        "label": "E",
+        "selected": false,
+        "why": "幻觉/知识截止必然存在"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "2-0661": {
+    "qid": "2-0661",
+    "classification": "own",
+    "chapter": 2,
+    "quality": "ok",
+    "reason": "ABCDE均符合客服场景提示工程设计",
+    "answer": [
+      "A",
+      "B",
+      "C",
+      "D",
+      "E"
+    ],
+    "supported": true,
+    "quote": "意图分类解决“先分流”——这是哪类请求；RAG解决“找知识”——检索相关资料；Function Calling解决“抽参数执行动作”",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "模板化适配多场景"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "RAG知识库支撑政策查询"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "情绪识别属角色设定"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "转人工是标准兜底机制"
+      },
+      {
+        "label": "E",
+        "selected": true,
+        "why": "Memory管理对话历史"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "2-0741": {
+    "qid": "2-0741",
+    "classification": "own",
+    "chapter": 2,
+    "quality": "ok",
+    "reason": "CoT能显式输出推理步骤并分析错误原因",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "思维链（Chain-of-Thought, CoT）：引导模型在给出最终答案前，显式输出中间推理步骤",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "无法分析错误原因"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "CoT支持分步推导与归因"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "Few-shot不解决归因"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "仅验证结果无归因"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "2-0759": {
+    "qid": "2-0759",
+    "classification": "own",
+    "chapter": 2,
+    "quality": "ok",
+    "reason": "ABCD均提升风险报告准确性和可解释性",
+    "answer": [
+      "A",
+      "B",
+      "C",
+      "D"
+    ],
+    "supported": true,
+    "quote": "RAG核心思想：开卷考试；CoT原理与适用场景；LLM-as-Judge原理；Faithfulness与Correctness辨析",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "CoT保障过程可解释"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "RAG提供权威知识源"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "交叉验证提升准确性"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "引用来源增强可信度"
+      },
+      {
+        "label": "E",
+        "selected": false,
+        "why": "忽略过程违反可解释性"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

@@ -1,0 +1,215 @@
+{
+  "new-4-12-0": {
+    "qid": "new-4-12-0",
+    "classification": "own",
+    "chapter": 4,
+    "quality": "ok",
+    "reason": "题目考察Memory组合管理原则，C选项符合教材推荐的向量化长期记忆方案。",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "将首轮约束作为高优先级事实存入长期记忆向量库，并在每轮规划前按语义检索注入",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "摘要会丢失细节，且未解决长期记忆问题。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "单纯扩窗口会稀释注意力，且无法根治。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "符合向量化长期记忆按需检索原则。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "强制重申是临时补救，非根本性管理策略。"
+      }
+    ],
+    "duplicate_of": "4-5166"
+  },
+  "new-4-12-1": {
+    "qid": "new-4-12-1",
+    "classification": "own",
+    "chapter": 4,
+    "quality": "ok",
+    "reason": "题目考察自主规划本质，C选项体现动态生成新计划应对变化。",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "让Agent基于当前目标（完成评估）和实时Observation（征信超时），动态生成新计划",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "仍是固定流水线分支，非自主规划。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "预设备用方案仍是硬编码，缺乏动态性。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "体现Plan-and-Execute基于实时反馈动态调整。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "初始化决策仍是静态，未体现动态重规划。"
+      }
+    ],
+    "duplicate_of": "4-5158"
+  },
+  "new-4-12-2": {
+    "qid": "new-4-12-2",
+    "classification": "own",
+    "chapter": 4,
+    "quality": "ok",
+    "reason": "题目考察Skill加载原则，B选项“渐进式披露”是教材核心设计原则。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "Skill：Agent 启动时只看到所有 Skill 的 description（很短），由模型判断当前任务要不要激活；激活后才读 SKILL.md",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "是区别描述，非加载行为体现的原则。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "分阶段加载正是渐进式披露的体现。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "是评测方法，非Skill加载原则。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "是多Agent原则，非Skill加载原则。"
+      }
+    ],
+    "duplicate_of": "4-5157"
+  },
+  "new-4-12-3": {
+    "qid": "new-4-12-3",
+    "classification": "own",
+    "chapter": 4,
+    "quality": "ok",
+    "reason": "题目考察外部反馈与闭环工程，A、C选项符合要求。",
+    "answer": [
+      "A",
+      "C"
+    ],
+    "supported": true,
+    "quote": "外部反馈：用工具真实执行/校验，把报错、日志、截图喂回模型；标准-验证-记录-写回闭环",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "调用工具比对是典型外部反馈。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "是自我反馈，非外部反馈。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "触发人工审核并记录，符合验证-记录-写回。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "无依据回复，不符合验证原则。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-4-12-4": {
+    "qid": "new-4-12-4",
+    "classification": "own",
+    "chapter": 4,
+    "quality": "ok",
+    "reason": "题目考察多Agent设计原则，B、C、D选项被直接违反。",
+    "answer": [
+      "B",
+      "C",
+      "D"
+    ],
+    "supported": true,
+    "quote": "独立凭据：不同 Agent 不得共用同一套账号/API 凭据；中央调度：设置 Planner / Leader Agent 统一判断；避免全量注入：不要把所有 Agent 的知识/工具清单一次性写进主 Prompt",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "职责明确，未违反。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "共用数据库账号违反独立凭据。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "Worker间直接互调违反中央调度。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "全量注入Worker提示词违反此原则。"
+      }
+    ],
+    "duplicate_of": "4-5174"
+  },
+  "new-4-12-5": {
+    "qid": "new-4-12-5",
+    "classification": "own",
+    "chapter": 4,
+    "quality": "ok",
+    "reason": "题目考察探索-固化混合模式，B选项符合动态探索后固化的实践。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "探索阶段：新出现、流程不明的任务，派自主规划 Agent 去试错、找路径；固化阶段：一旦某条路径被反复验证稳定，就把它抽象成固定工作流 / Skill",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "硬编码预设，非探索-固化模式。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "动态探索后抽象为Skill，符合混合模式。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "要求用户指定，未体现自主探索。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "单一函数封装，未体现探索过程。"
+      }
+    ],
+    "duplicate_of": "4-5163"
+  }
+}

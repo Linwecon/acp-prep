@@ -1,0 +1,212 @@
+{
+  "5-0065": {
+    "qid": "5-0065",
+    "classification": "own",
+    "chapter": 5,
+    "quality": "ok",
+    "reason": "考查微调数据质量四维度，原文明确要求正确性、多样性、一致性、无重复",
+    "answer": [
+      "B",
+      "C",
+      "D"
+    ],
+    "supported": true,
+    "quote": "质量从四个维度把关，其重要性远高于数量：1. 正确性 2. 多样性 3. 一致性 4. 无重复",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "'大量'违背质量>数量原则"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "覆盖多种思路即多样性要求"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "统一格式即一致性要求"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "分步推导保障正确性"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "5-0293": {
+    "qid": "5-0293",
+    "classification": "own",
+    "chapter": 5,
+    "quality": "ok",
+    "reason": "考查LoRA原理，原文明确冻结原权重",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "LoRA 不直接更新原始权重矩阵 W₀，而是在它旁边'挂'一对小矩阵来学习变化量 ΔW",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "原文称'训练快、显存省'"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "原文称'冻结原权重'"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "原文称'主流'且流程清晰"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "合并权重即零开销可回退"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "5-0299": {
+    "qid": "5-0299",
+    "classification": "beyond",
+    "chapter": 5,
+    "quality": "remove",
+    "reason": "硬件指标属部署章节，非本章考点",
+    "answer": [],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "GPU属部署评估维度"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "存储属部署基础设施"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "带宽属部署网络要求"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "UI美观与微调无关"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "5-0323": {
+    "qid": "5-0323",
+    "classification": "cross",
+    "chapter": 5,
+    "quality": "review",
+    "reason": "RLHF在本章未提及，但属微调常见方法需确认是否跨章覆盖",
+    "answer": [
+      "B"
+    ],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "泛化能力非RLHF目标"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "人类偏好是RLHF核心目标"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "RLHF不增参数"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "RLHF不加速训练"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "5-0383": {
+    "qid": "5-0383",
+    "classification": "cross",
+    "chapter": 5,
+    "quality": "review",
+    "reason": "预训练描述涉及三阶段对比，但本章仅聚焦微调阶段",
+    "answer": [
+      "D"
+    ],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "原文有预训练定义"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "SFT在5.1节提及"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "RLHF在5.1节对比表中出现"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "预训练不教自主创新"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "5-0417": {
+    "qid": "5-0417",
+    "classification": "own",
+    "chapter": 5,
+    "quality": "ok",
+    "reason": "考查微调基本流程，原文强调'在已有权重上继续更新'",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "微调（Fine-tuning）：在已经预训练好的模型权重基础上，用一批'指令—回答'样本继续做梯度下降",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "数据集选择是第一步"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "必须基于预训练权重"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "再训练是微调本质"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "评测是SOP最后环节"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

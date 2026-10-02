@@ -1,0 +1,154 @@
+{
+  "items": [
+    {
+      "type": 0,
+      "stem": "某团队使用 RAGAS 进行自动化评测时，发现同一组问题在不同日期运行后 Answer Correctness 分数波动达 ±0.15，而系统代码、提示词、模型版本均未变更。经排查，评委 LLM 的 temperature 参数被设为 0.8 且未冻结。该现象最直接违反教材中哪项核心原则？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "评测先行原则：未先建基线即开展多轮对比"
+        },
+        {
+          "option_label": "B",
+          "option_text": "控制变量要求：未冻结评测配置导致分数不可比"
+        },
+        {
+          "option_label": "C",
+          "option_text": "领域专家铁律：ground_truth 未由 HR 专家审定"
+        },
+        {
+          "option_label": "D",
+          "option_text": "指标分层原则：混淆了算法指标与业务指标目标"
+        }
+      ],
+      "answer": "B",
+      "analysis": "依据教材7.2.4节'控制变量：让分数可比'明确指出：'回归评测的前提是除了待测改动，其他一切都冻结：评测集版本、评测脚本、推理参数（temperature、seed）、模型版本……否则分数变化无法归因'；并特别强调'不要频繁更换评测用的 LLM 与 Embedding 模型'。temperature=0.8 引入非确定性采样，直接破坏分数稳定性，使同一输入多次运行结果不可复现，违背'可比性'这一回归评测根基。A 项虽属高频考点，但题干未涉及'是否先建基线'的时间顺序问题；C、D 项与参数未冻结无直接因果关系。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 1,
+      "stem": "在实施 LLM-as-Judge 时，若观察到评委对'张伟是教研部的'（简洁正确）打分显著低于'张伟是教研部的一名资深工程师，负责课程设计与教师培训……'（冗长但含无关细节），该现象可能同时体现哪些教材明确指出的固有偏见？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "长度偏见"
+        },
+        {
+          "option_label": "B",
+          "option_text": "位置偏见"
+        },
+        {
+          "option_label": "C",
+          "option_text": "自我偏好"
+        },
+        {
+          "option_label": "D",
+          "option_text": "风格偏见"
+        }
+      ],
+      "answer": "ACD",
+      "analysis": "教材7.8.1节表格明确定义：'长度偏见'表现为'倾向认为更长更详细的答案更完整'，直接对应题干中冗长答案得分更高；'自我偏好'指'偏爱与自己风格一致的输出'，评委模型若训练数据中长文本占优，会天然偏好同类风格；'风格偏见'指'偏好某种行文风格而低估同样正确的其他风格'，简洁vs详述即典型风格差异。B项'位置偏见'特指'对比多个候选时偏爱开头或结尾选项'，题干未涉及多候选排序场景，故排除。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 0,
+      "stem": "当 RAGAS 评测显示 Context Recall = 1.0、Context Precision = 0.3，且 Faithfulness 仅 0.25 时，日志确认检索片段中包含完整正确信息（如'张伟是教研部的'），但该信息位于第15位，前14位均为无关内容。此时若仅调整生成端提示词（如增加'严格依据前3个context回答'），最可能产生的根本性后果是？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "Answer Correctness 短期微升，但因关键信息被截断导致长期幻觉加剧"
+        },
+        {
+          "option_label": "B",
+          "option_text": "Context Precision 指标失真，因强制截断违反其官方计算口径"
+        },
+        {
+          "option_label": "C",
+          "option_text": "Faithfulness 计算失效，因评委无法访问被截断的上下文"
+        },
+        {
+          "option_label": "D",
+          "option_text": "触发'跷跷板效应'，报销类问题改善但年假类问题答非所问"
+        }
+      ],
+      "answer": "A",
+      "analysis": "教材7.4.2节明确Context Precision计算需'按顺序读取contexts中每个片段'，其低分本质是'相关片段排在后面'（Lost in the Middle）。若强行在生成端截断context数量（如只喂前3个），虽可能让模型聚焦于靠前片段，但因真实相关片段在第15位，截断后模型将失去正确依据，被迫编造答案——这直接导致Faithfulness下降（教材7.4.3节定义：答案陈述能否由contexts直接推断），即幻觉加剧。B项错误：Precision计算基于原始contexts列表，截断是生成端行为，不改变评测时输入的contexts字段；C项错误：Faithfulness计算依赖评测时传入的完整contexts，截断发生在生成阶段，不影响评委输入；D项是现象而非根本后果，且未体现'根本性'。",
+      "difficulty_label": "挑战"
+    },
+    {
+      "type": 1,
+      "stem": "以下哪些操作会同时破坏 RAGAS 评测中 Answer Correctness 指标的计算有效性与业务可信度？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "使用训练数据中的用户问题作为评测集 question 字段"
+        },
+        {
+          "option_label": "B",
+          "option_text": "由AI工程师编写 ground_truth，未经过HRBP专家审定"
+        },
+        {
+          "option_label": "C",
+          "option_text": "在计算语义相似度时，将 answer 和 ground_truth 同时输入同一LLM进行重写后再编码"
+        },
+        {
+          "option_label": "D",
+          "option_text": "为提升效率，对所有评测样本统一使用 temperature=1.0 运行待测系统"
+        }
+      ],
+      "answer": "AB",
+      "analysis": "A项违反教材7.8.2节'防止数据泄漏'：'绝不能用训练数据当评测集，否则分数虚高、毫无参考价值'，导致Correctness无法反映真实泛化能力；B项违反7.2.1节'评测集构建的两条铁律'：'ground_truth必须由业务领域专家编写/审定'，HR政策中'试用期年假规则'等细节仅专家能判定对错，工程师编写必然导致Correctness失去业务锚点。C项虽影响相似度计算，但教材7.4.4节明确语义相似度使用Embedding模型（text-embedding-v3）编码，非LLM重写；D项影响answer生成稳定性，但Correctness计算的是最终answer与ground_truth的匹配，不直接破坏其计算逻辑，属次要风险。",
+      "difficulty_label": "挑战"
+    },
+    {
+      "type": 0,
+      "stem": "某团队将 RAGAS 评委模型从 qwen-plus 更换为 gpt-4-turbo 后，同一组评测样本的 Answer Correctness 平均分从 0.72 升至 0.85，但人工抽检发现：原评分较低的简洁答案（如'张伟是教研部的'）新评委打分显著提高，而原高分的冗长解释型答案打分反而下降。此现象最直接暴露的评测体系缺陷是？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "未执行黄金集校准，导致评委'品味'漂移"
+        },
+        {
+          "option_label": "B",
+          "option_text": "违反控制变量原则，使回归评测失效"
+        },
+        {
+          "option_label": "C",
+          "option_text": "未采用多评委投票机制"
+        },
+        {
+          "option_label": "D",
+          "option_text": "未冻结评测集版本"
+        }
+      ],
+      "answer": "B",
+      "analysis": "教材7.2.4节强调：'回归评测必须冻结评测集与配置（temperature/seed/模型版本）'，并指出'否则分数变化无法归因——你不知道是系统变好了，还是评委今天心情不同'。题干中评委模型版本变更属于核心配置变动，直接导致分数不可比，使'0.72→0.85'的提升无法证明系统优化有效。A项'黄金集校准'是缓解偏见的手段，但题干焦点是'版本变更导致分数不可比'这一更基础的控制变量失效；C、D项与现象无直接因果关系。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 0,
+      "stem": "在构建新人答疑机器人评测集时，技术团队从线上日志抽取100个高频问题，并由AI工程师编写标准答案。上线后自动化评测分数虚高，但人工抽检发现多处业务违规（如将'试用期可休年假'答为'不可休'）。该问题的根本原因直接违反教材中哪条不可妥协的铁律？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "评测先行原则：未先建基线即开展优化"
+        },
+        {
+          "option_label": "B",
+          "option_text": "评测集构建铁律：ground_truth 必须由领域专家提供"
+        },
+        {
+          "option_label": "C",
+          "option_text": "指标分层原则：算法指标不能替代业务指标"
+        },
+        {
+          "option_label": "D",
+          "option_text": "控制变量要求：未冻结评测配置"
+        }
+      ],
+      "answer": "B",
+      "analysis": "教材7.2.1节'评测集构建的两条铁律'第一条即'问题来自真实用户场景'（题干满足），第二条明确'标准答案来自领域专家'，并强调'技术人员能判断检索是否相关，但只有业务专家才知道答案在业务上是否正确、完整、合规'。题干中'AI工程师编写标准答案'直接违反此铁律，导致ground_truth本身存在业务错误（如年假规则误判），使Answer Correctness等指标完全失去业务意义。A、C、D项虽属重要原则，但非本题'根本原因'——即使基线已建、指标分层清晰、配置冻结，若ground_truth错误，整个评测体系即崩塌。",
+      "difficulty_label": "入门"
+    }
+  ]
+}

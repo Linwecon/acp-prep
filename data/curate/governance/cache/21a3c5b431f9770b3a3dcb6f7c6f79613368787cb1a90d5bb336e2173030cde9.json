@@ -1,0 +1,154 @@
+{
+  "items": [
+    {
+      "type": 0,
+      "stem": "某企业采用OpenAI兼容接口接入通义千问，代码中已正确配置base_url为'https://dashscope.aliyuncs.com/compatible-mode/v1'，但调用时持续返回401 Unauthorized。经排查API Key未泄露、环境变量加载正常。此时最应优先验证的兼容接口必要条件是？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "客户端SDK版本是否≥1.0.0（旧版不支持兼容模式）"
+        },
+        {
+          "option_label": "B",
+          "option_text": "请求头中Authorization字段是否为'Bearer <key>'格式（而非'API-Key'）"
+        },
+        {
+          "option_label": "C",
+          "option_text": "model参数值是否为平台支持的Qwen系列模型名（如'qwen-plus'）"
+        },
+        {
+          "option_label": "D",
+          "option_text": "messages数组中是否至少包含一条role='user'的消息"
+        }
+      ],
+      "answer": "B",
+      "analysis": "依据原文9.2节原理：'client.chat.completions.create(...)底层是一个POST请求'，且9.1节明确'鉴权失败通常返回401'；而OpenAI兼容接口要求严格遵循OpenAI协议的鉴权方式——即HTTP Header中必须为'Authorization: Bearer <api_key>'。DashScope兼容模式不接受'API-Key'等非标准头（教材未提及其他头格式）。选项A错误：SDK版本兼容性属部署问题，非接口协议层必要条件；选项C和D虽影响400错误，但401专指鉴权失败，与model或messages内容无关。教材9.1节'exam'框明确将401归因为'API Key错误、过期、未激活'，而'错误'在此语境下包含格式错误。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 1,
+      "stem": "开发团队在实现Function Calling时，模型首次返回tool_calls，但第二次调用后最终回答未体现工具结果。经检查代码已执行工具函数并获取结果。以下哪些环节的遗漏可能导致此故障？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "未将首次调用的完整response_message追加到messages中"
+        },
+        {
+          "option_label": "B",
+          "option_text": "回传tool消息时未携带tool_call_id字段"
+        },
+        {
+          "option_label": "C",
+          "option_text": "tools参数中function.description描述含糊，导致参数提取失败"
+        },
+        {
+          "option_label": "D",
+          "option_text": "第二次调用时未在messages中保留system角色消息"
+        }
+      ],
+      "answer": "AB",
+      "analysis": "依据原文9.7节'API视角的四个关键字段'及'risk'框：'❌ 忘了把response_message追加进messages'会导致模型丢失决策上下文，无法关联后续tool结果（A正确）；'❌ 回传结果时漏tool_call_id'会使模型无法匹配tool调用与结果（B正确）。C错误：description含糊影响的是首次tool_calls生成，而非第二次响应缺失结果；D错误：system消息缺失会导致角色设定失效，但不会直接导致工具结果不被采纳，且教材9.5节强调system应固定在开头，但未将其列为Function Calling闭环的必要条件。",
+      "difficulty_label": "挑战"
+    },
+    {
+      "type": 0,
+      "stem": "某批量摘要任务使用Batch API提交500份请求，次日发现输出JSONL文件比输入少23行，且部分摘要内容错位（如A课程摘要出现在B课程位置）。该故障最根本的技术原因是什么？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "Batch任务未启用stream_options={'include_usage': True}，导致结果解析失败"
+        },
+        {
+          "option_label": "B",
+          "option_text": "输入JSONL文件中缺少唯一request_id字段，导致结果行与输入行无法对齐"
+        },
+        {
+          "option_label": "C",
+          "option_text": "客户端轮询间隔过短，未等待任务状态变为'completed'即拉取结果"
+        },
+        {
+          "option_label": "D",
+          "option_text": "输出JSONL文件未按RFC 8259规范进行UTF-8编码，引发解析截断"
+        }
+      ],
+      "answer": "B",
+      "analysis": "依据原文9.10节'principle'：'必须校验输入输出行数、请求ID是否一一对应，防止错位或丢失'；且'risk'框明确指出'结果文件不用校验直接用'是误区。Batch API依赖request_id实现输入/输出行级映射，若输入JSONL未定义request_id（或重复），平台无法保证结果顺序与输入一致，必然导致错位和丢失（B正确）。A错误：include_usage仅影响usage字段，不改变行结构；C错误：状态未完成会返回空或错误，不会导致错位；D错误：编码问题通常引发解析异常而非错位，且教材未将编码列为Batch核心约束。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 1,
+      "stem": "新人答疑机器人上线后，员工连续追问'那怎么申请账号'时，机器人回答通用注册流程而非Jira账号。代码中每次调用均构造全新messages列表，仅含当前user消息。为根本解决此问题，必须满足以下哪些条件？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "客户端维护一个跨请求的conversation_history列表"
+        },
+        {
+          "option_label": "B",
+          "option_text": "每次调用前将上一轮assistant回复追加到conversation_history"
+        },
+        {
+          "option_label": "C",
+          "option_text": "system消息需动态注入当前时间戳以提升时效性"
+        },
+        {
+          "option_label": "D",
+          "option_text": "messages数组中user消息必须位于assistant消息之后"
+        }
+      ],
+      "answer": "AB",
+      "analysis": "依据原文9.5节'concept'：'大模型API是无状态的...所谓多轮对话能力，本质是客户端把历史消息按角色组织好，每次调用都完整地放进messages里再传一遍'；且教程代码明确展示'conversation_history.append(...)'和'conversation_history.append(...)'的双向追加逻辑（A、B正确）。C错误：教材9.9节'principle'指出动态时间戳会破坏缓存前缀，且与多轮连贯性无关；D错误：教材9.5节示例中user总在assistant之后，但这是约定而非强制顺序，且'role'字段本身已定义语义，顺序不影响解析。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 0,
+      "stem": "某企业微信机器人在早高峰持续返回429错误，监控显示RPM配额为100次/分钟，实际请求峰值达280次/分钟。此时前端未做限流，后端直接透传请求。根据本章工程原则，根因定位与首步修复应聚焦于？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "立即在客户端实施令牌桶限流，将并发请求数压至≤100次/分钟"
+        },
+        {
+          "option_label": "B",
+          "option_text": "升级API Key配额至300次/分钟，并增加重试次数"
+        },
+        {
+          "option_label": "C",
+          "option_text": "在服务端增加指数退避+抖动重试，缓解瞬时压力"
+        },
+        {
+          "option_label": "D",
+          "option_text": "将所有请求路由至备用模型qwen-turbo以降低TPM消耗"
+        }
+      ],
+      "answer": "A",
+      "analysis": "依据原文9.8节'best'：'主动控并发：用令牌桶/信号量限制同时发出的请求数，而不是把所有请求一股脑打给服务端'；且'exam'框强调'429是限流，正确做法是指数退避+抖动后重试，而不是立即重试'，但退避是应对已发生的429，而根治需从源头控流。选项A直接解决'请求峰值超配额'这一物理根源，符合'预防优于补救'的工程原则。B错误：提额不解决设计缺陷，且可能掩盖并发失控问题；C错误：退避是429发生后的补救，不能阻止429产生；D错误：qwen-turbo单价低但RPM配额独立，不解决请求频次超限问题。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 0,
+      "stem": "财务部门发现本月Token费用异常增长300%，分析显示每次多轮对话均将全部历史（含50轮闲聊）原样传入，且system prompt长达800字。根据第9章'成本控制的优先级'，以下哪项措施对降低输入Token成本最直接有效？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "启用stream_options={'include_usage': True}精确统计每轮Token用量"
+        },
+        {
+          "option_label": "B",
+          "option_text": "将system prompt压缩至200字以内，并移除冗余修饰词"
+        },
+        {
+          "option_label": "C",
+          "option_text": "为每轮对话设置max_tokens=100，强制截断长回答"
+        },
+        {
+          "option_label": "D",
+          "option_text": "切换至qwen-turbo模型以降低单Token单价"
+        }
+      ],
+      "answer": "B",
+      "analysis": "依据原文9.9节'cost'：'成本控制的优先级'第一条即'先选对模型档位'，第二条'控制输入长度'，并明确'系统提示词、历史消息...都计入输入Token'；且'principle'指出'system prompt长度每次都作为输入计费'。选项B直接削减固定开销（800→200字），效果立竿见影。A错误：统计用量不减少用量；C错误：max_tokens限制输出，对输入Token无影响；D错误：虽降低单价，但未解决输入Token暴增的根源，且qwen-turbo能力可能不足。",
+      "difficulty_label": "进阶"
+    }
+  ]
+}

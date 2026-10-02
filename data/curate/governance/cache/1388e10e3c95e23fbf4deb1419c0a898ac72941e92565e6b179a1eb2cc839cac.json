@@ -1,0 +1,212 @@
+{
+  "3-0182": {
+    "qid": "3-0182",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "考查检索召回阶段增强全面性的方法",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "问题扩写：通过增加更多信息让检索结果更全面",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "原文明确将问题扩写列为增强全面性的方法"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "问题改写用于消代词，非增强全面性"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "重排序是精排，非召回阶段增强"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "增加训练数据属模型训练，非检索阶段"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-0183": {
+    "qid": "3-0183",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "考查文档结构组织性优化方法",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "Markdown 因层次分明（`#`/`##`/`###`）、语法简单，被推荐作为 RAG 文档的中间格式",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "原文明确推荐Markdown提升结构组织性"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "增加训练数据不改变文档结构"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "推理时间与结构组织无关"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "参数数量不影响文档结构"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-0187": {
+    "qid": "3-0187",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "考查load_index_from_storage作用",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "把'向量 + 原文 + 元数据'存进向量数据库，建立索引",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "加载document是解析阶段操作"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "该方法专用于加载已建索引"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "向量化是建库时独立步骤"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "提问引擎需as_query_engine创建"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-0193": {
+    "qid": "3-0193",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "考查混合检索支持方案",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "生产环境可选用云服务（如阿里云 DashVector）或自建开源库（Milvus、Qdrant）",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "云服务如DashVector支持混合检索"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "内存库无混合检索能力"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "本地库未提混合检索支持"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "训练数据与存储方案无关"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-0201": {
+    "qid": "3-0201",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "考查HyDE技术定义",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "HyDE（假设文档嵌入）：先让 LLM 编一段'假想答案'，用假想答案的向量去检索真实文档",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "原文明确定义HyDE为假设文档增强"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "重排序是交叉编码打分"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "滑动窗口未在原文出现"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "训练数据与检索技术无关"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-0203": {
+    "qid": "3-0203",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "考查问题改写中大模型作用",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "查询改写：先用 LLM 把含代词的问题改写成完整问题（如'他的主管是谁'→'张伟的主管是谁'）再检索",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "原文明确用LLM生成完整问题"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "重排序不参与问题改写"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "滑动窗口未在原文出现"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "训练数据与问题改写无关"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

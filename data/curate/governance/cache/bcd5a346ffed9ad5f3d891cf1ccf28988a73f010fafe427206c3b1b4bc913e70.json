@@ -1,0 +1,215 @@
+{
+  "3-5042": {
+    "qid": "3-5042",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "考查语义切分核心特征，原文明确其原理与代价",
+    "answer": [
+      "A",
+      "B",
+      "C"
+    ],
+    "supported": true,
+    "quote": "语义切片：用模型判断语义边界，在话题转换处切；成本更高",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "原文定义语义切片在话题转换处切"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "语义边界切分天然保持语义完整"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "原文注明语义切片成本更高"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "重叠是通用实践，语义切分不保证无重叠"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-5043": {
+    "qid": "3-5043",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "考查重叠设计目的，原文有直接说明",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "防止一句话正好被从中间切断。正确做法是根据文档类型反复试验，取平衡点",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "原文明确防句子被切断"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "重叠增加存储而非减少"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "重叠不影响检索速度"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "重叠为保语义，非增噪声"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-5044": {
+    "qid": "3-5044",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "考查chunk粒度与任务匹配，原文有对应场景描述",
+    "answer": [
+      "A",
+      "C"
+    ],
+    "supported": true,
+    "quote": "切片之所以关键，是因为它直接决定了检索的'颗粒度'；切得太大混主题，太小语义被截断",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "精确引用短句需高颗粒度"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "整章脉络需大块上下文"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "定位条款需精准命中短文本"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "跨段落推理需更大上下文"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-5045": {
+    "qid": "3-5045",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "考查切分过大问题对策，原文有明确排错指导",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "切得太大：一个 chunk 里混了好几个主题，向量被'平均'得没有重点，检索时容易'沾边但不精准'，还浪费 token、引入噪声",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "增大chunk加剧噪声"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "原文建议减小切片长度"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "关键词匹配无法解决语义问题"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "标题信息不足支撑回答"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-5046": {
+    "qid": "3-5046",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "考查切分策略基本原则，原文有总结性陈述",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "切片选型与排错经验：初学先用默认的句子切片；文档有标题层级→优先 Markdown 切片",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "原文强调按任务和窗口选型"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "原文反对切片越大越好"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "原文指出太小会丢上下文"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "原文强调必须加重叠"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-5052": {
+    "qid": "3-5052",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "考查Faithfulness定义，原文有明确定义和示例",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "Faithfulness（忠实度）：答案是否忠于检索资料，有没有脱离资料编造",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "原文定义忠实度即忠于资料"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "网络延迟非RAGAS指标"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "向量维度非评估指标"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "文档数量非RAGAS指标"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

@@ -1,0 +1,154 @@
+{
+  "items": [
+    {
+      "type": 0,
+      "stem": "某团队对新人答疑机器人实施切片优化后，RAGAS评测显示Context Recall从0.62升至0.89，但Answer Correctness仅微升0.02，且Faithfulness下降0.15；日志确认检索返回的contexts中完整包含'张伟是教研部的'等关键信息。此时若要验证是否因控制变量失效导致分数失真，最应优先核查哪项配置？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "评测集question字段是否从线上日志重新抽样更新"
+        },
+        {
+          "option_label": "B",
+          "option_text": "评委LLM（qwen-plus）的temperature参数是否在两次评测中保持一致"
+        },
+        {
+          "option_label": "C",
+          "option_text": "ground_truth是否由同一组HR专家在两次评测前联合审定"
+        },
+        {
+          "option_label": "D",
+          "option_text": "answer字段是否使用相同随机seed生成以确保输出确定性"
+        }
+      ],
+      "answer": "B",
+      "analysis": "依据教材7.2.4节'控制变量：让分数可比'，回归评测必须冻结'评测脚本、推理参数（temperature/seed）、模型版本、甚至当评委的大模型版本'，否则分数变化无法归因。题干明确指出'同一组评测样本'，说明评测集（question/ground_truth）已固定；而Faithfulness和Answer Correctness均由评委LLM计算，其输出受temperature直接影响（温度高则随机性增强，打分波动大）。选项B直指'评委LLM的temperature参数是否一致'，这是控制变量中最易被忽略、却对LLM-as-Judge分数影响最直接的必要条件。A错误：评测集必须冻结，不得更新；C虽重要，但ground_truth本身不随temperature变化，且题干未暗示其变更；D中seed影响的是被测系统answer生成，但Faithfulness不依赖answer的随机性（它只判断已有answer与contexts的关系），且题干未提answer不稳定，核心矛盾在评委打分漂移。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 1,
+      "stem": "为防止'按下葫芦浮起瓢'，在实施回归评测时，以下哪些措施能同时满足教材7.1节'防止回归'用途与7.2.4节'控制变量'要求？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "每次优化后，使用完全相同的冻结评测集（含question/ground_truth/contexts）运行待测系统"
+        },
+        {
+          "option_label": "B",
+          "option_text": "将评测脚本、评委LLM版本、Embedding模型版本、temperature及seed全部纳入CI/CD流水线配置并版本化"
+        },
+        {
+          "option_label": "C",
+          "option_text": "在评测报告中标注本次运行所用的评测集Git commit hash与模型镜像ID"
+        },
+        {
+          "option_label": "D",
+          "option_text": "当发现某类问题分数下降时，立即人工复核该问题对应的contexts是否仍有效"
+        }
+      ],
+      "answer": "A,B,C",
+      "analysis": "教材7.1节明确'防止回归'的手段是'每次改动后跑同一套题'，7.2.4节强调'除了待测改动，其他一切都冻结'。A项直接对应'同一套题'（冻结评测集），是防止回归的基石；B项将所有可变要素（评委LLM、Embedding、参数）版本化，是控制变量的工程化落地，确保'其他一切冻结'；C项通过commit hash与镜像ID实现可追溯性，是控制变量可验证性的必要实践，支撑分数可归因。D项属于故障诊断后的补救动作，非预防性控制措施，且'contexts有效性'属数据运维范畴，不在7.2.4节定义的'冻结配置'范围内，故不选。",
+      "difficulty_label": "挑战"
+    },
+    {
+      "type": 0,
+      "stem": "团队使用RAGAS评测发现：Context Recall=0.95、Context Precision=0.32、Faithfulness=0.28、Answer Correctness=0.31。日志确认检索片段中包含完整正确信息（如'张伟是教研部的'），但该信息位于第15个context中，前14个均为无关内容。此时若仅优化生成端（如强化提示词约束），最可能产生的后果是？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "Answer Correctness小幅提升，但Faithfulness无改善，因根本瓶颈在检索排序"
+        },
+        {
+          "option_label": "B",
+          "option_text": "Context Precision进一步下降，因提示词强化可能加剧模型对噪声的依赖"
+        },
+        {
+          "option_label": "C",
+          "option_text": "Answer Relevancy显著升高，因模型更聚焦于回答问题而非解释原因"
+        },
+        {
+          "option_label": "D",
+          "option_text": "整体指标停滞，因生成端无法克服'Lost in the Middle'导致的注意力稀释"
+        }
+      ],
+      "answer": "D",
+      "analysis": "教材7.4.2节明确Context Precision低（0.32）且Recall高（0.95）表明'正确片段存在但排在后面'，直接对应'Lost in the Middle'现象；7.5节'黄金法则'指出：'Precision低（Recall高）→ 病根在检索端，应加Rerank'。此时若仅优化生成端（如改提示词），无法解决模型注意力被前14个无关context严重稀释的根本问题——教材7.4.2节公式直觉指出Precision惩罚'无关内容塞在前面'，而生成模型在如此信噪比下必然失效。D项'整体指标停滞'准确描述了'治标不治本'的后果，且'Lost in the Middle'是教材原文术语。A项错误：Faithfulness低正是因模型在噪声中编造，提示词强化无法逆转注意力机制缺陷；B、C无教材依据，属臆测。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 1,
+      "stem": "在构建新人答疑机器人评测集时，以下哪些操作同时违反教材7.2.1节'评测集构建的两条铁律'及7.2.2节'指标分层'原则？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "技术团队编写100个模拟用户问题，并用ChatGLM生成标准答案作为ground_truth"
+        },
+        {
+          "option_label": "B",
+          "option_text": "从客服工单抽取问题后，仅用BLEU分数筛选出与历史答案相似度>0.8的样本构成评测集"
+        },
+        {
+          "option_label": "C",
+          "option_text": "将线上用户投诉'答案太啰嗦'的问题单独归类，但未在ground_truth中体现'简洁性'业务要求"
+        },
+        {
+          "option_label": "D",
+          "option_text": "评测集覆盖报销、年假、入职三类场景，但所有ground_truth均由同一AI工程师编写"
+        }
+      ],
+      "answer": "A,B,D",
+      "analysis": "教材7.2.1节'两条铁律'：①问题来自真实用户（A、B违反，A是模拟问题，B用BLEU筛选属技术指标替代真实场景）；②ground_truth必须由领域专家提供（A、D违反，A用模型生成，D由AI工程师而非HR专家编写）。7.2.2节'指标分层'强调'算法指标是手段，业务指标才是目标'，B项用BLEU（算法指标）代替业务目标（用户真实问题分布）构建评测集，本末倒置；D项虽覆盖多场景，但ground_truth非专家编写，导致算法指标无法对齐业务目标，破坏分层根基。C项未违反：'简洁性'是业务要求，但题干未说ground_truth未体现，仅说'单独归类'，不构成违反。",
+      "difficulty_label": "挑战"
+    },
+    {
+      "type": 0,
+      "stem": "某团队将RAGAS评委模型从qwen-plus更换为gpt-4-turbo后，同一组评测样本的Answer Correctness平均分从0.72升至0.85。但人工抽检发现：原qwen-plus评分较低的'张伟是教研部的'等简洁答案，新评委打分显著提高；而原评分较高的冗长解释型答案，新评委打分反而下降。此现象最直接违反教材7.2.4节关于回归评测的哪项核心要求？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "评测配置必须冻结，包括当评委的大模型版本"
+        },
+        {
+          "option_label": "B",
+          "option_text": "评测集必须源自真实用户问题并冻结版本"
+        },
+        {
+          "option_label": "C",
+          "option_text": "ground_truth必须由业务领域专家编写/审定"
+        },
+        {
+          "option_label": "D",
+          "option_text": "自动化评测需定期抽样校验与人工判断的一致性"
+        }
+      ],
+      "answer": "A",
+      "analysis": "教材7.2.4节明确指出：'回归评测的前提是除了待测改动，其他一切都冻结：……当评委的大模型版本都要固定。否则分数变化无法归因'。题干中'同一组评测样本'（评测集冻结）、'人工抽检'（校验一致性）均存在，但核心变量'评委LLM版本'被主动更换，直接导致分数变化无法归因于被测系统优化，而是评委'品味'改变（教材7.8.1节称其为'自我偏好'偏见）。A项是原文直引，精准对应。B、C、D虽相关，但题干未涉及评测集更新、ground_truth非专家编写或未校验一致性，故非'最直接违反'。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 1,
+      "stem": "在实施评测驱动开发（EDD）时，以下哪些做法能同时满足‘防止回归’与‘定位问题’双重目标？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "建立覆盖各业务场景的冻结评测集，并按题型（如报销/年假/入职）对指标进行细分分析"
+        },
+        {
+          "option_label": "B",
+          "option_text": "每次优化后，不仅报告Answer Correctness总分，还同步输出Context Recall、Faithfulness等分项指标"
+        },
+        {
+          "option_label": "C",
+          "option_text": "将评测结果与线上用户满意度NPS数据做周度关联分析"
+        },
+        {
+          "option_label": "D",
+          "option_text": "对分数下降的题型，自动触发该题型下所有样本的contexts日志回溯分析"
+        }
+      ],
+      "answer": "A,B,D",
+      "analysis": "教材7.1节'防止回归'要求'每次改动后跑同一套题'，A项'冻结评测集'满足此要求；'按题型细分'则支撑7.5节'定位问题'（如发现'年假'类分数骤降，可定向排查）。B项同步输出分项指标，是教材7.5节'黄金法则'的基础——仅看总分无法定位（'检索病还是生成病'），必须结合Context Recall/Faithfulness等分项。D项'自动触发contexts日志回溯'，是教材7.2.1节'contexts字段作用'的延伸应用：通过分析具体失败样本的检索结果，可快速区分是知识库缺失（Recall低）还是排序差（Precision低）。C项关联NPS属长期业务验证，非EDD流程内'防止回归/定位问题'的即时手段，且NPS滞后、噪声大，无法支撑快速迭代。",
+      "difficulty_label": "挑战"
+    }
+  ]
+}

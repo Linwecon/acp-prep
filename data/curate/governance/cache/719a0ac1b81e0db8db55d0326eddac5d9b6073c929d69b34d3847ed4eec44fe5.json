@@ -1,0 +1,162 @@
+{
+  "items": [
+    {
+      "type": 0,
+      "stem": "某课程审查Skill已封装validate_code.py脚本用于确定性验证代码可执行性，并返回结构化JSON。当Agent首次收到'请审查这份Pandas教程代码'请求时，仅加载SKILL.md的YAML frontmatter（含name/description），未立即读取code-quality.md或执行脚本。这种分阶段加载行为主要体现了本章强调的哪一核心设计原则？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "RAG的检索-注入范式：按语义相关性动态加载知识片段"
+        },
+        {
+          "option_label": "B",
+          "option_text": "渐进式披露（Progressive Disclosure）：主文件精简，按需展开子资源"
+        },
+        {
+          "option_label": "C",
+          "option_text": "固定工作流的流水线模式：严格按预设顺序执行每一步"
+        },
+        {
+          "option_label": "D",
+          "option_text": "Memory的滚动摘要策略：用LLM压缩历史以节省上下文"
+        }
+      ],
+      "answer": "B",
+      "analysis": "题干描述完全对应教材4.9节‘Skill’小节中‘渐进式披露’的定义与实践：Skill通过YAML frontmatter（极短description）实现初始判断，仅在激活后才按需加载正文及子文档/脚本，避免无关内容污染上下文、撑爆token预算。A错误：RAG是‘检索-注入’，所有相关片段一次性塞入；而Skill是‘选择-展开’，有明确的触发与分层加载逻辑（教材原文：‘Agent启动时只看到所有Skill的description（很短），由模型判断当前任务要不要激活；激活后才读SKILL.md，执行到具体步骤时再读对应子文件——这就是渐进式披露’）。C错误：流水线是固定工作流的一种，不涉及按需加载机制；D错误：滚动摘要是Memory管理策略，与Skill结构无关。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 0,
+      "stem": "一个报销查询Agent的get_reimbursement工具JSON-Schema中，parameters定义了user_id（required）和month（required），但未设置default值。当用户提问'帮我查我的报销单'而未提供月份时，Agent未主动追问，而是传入空字符串调用工具并失败。该行为违背了教材强调的哪一条关于JSON-Schema与执行流程的核心原则？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "Schema必须清晰声明required字段，否则参数提取必然失败"
+        },
+        {
+          "option_label": "B",
+          "option_text": "参数可在多轮对话中逐步收集，缺参时Agent应主动追问而不是瞎猜"
+        },
+        {
+          "option_label": "C",
+          "option_text": "工具结果必须由程序作为role='tool'消息回传，模型才'知道'发生了什么"
+        },
+        {
+          "option_label": "D",
+          "option_text": "工具必须以JSON-Schema描述自己，让模型知道'有什么可用、怎么用'"
+        }
+      ],
+      "answer": "B",
+      "analysis": "题干聚焦于‘缺参时未追问’这一典型故障，直接对应教材4.3节‘Function Calling’风险提示中的第三条：‘❌ 参数必须一轮提取完 → ✅ 参数可以在多轮对话中逐步收集，缺参时 Agent 应主动追问而不是瞎猜’。这是对Function Calling人机协作本质的深刻理解——模型不是万能解析器，而是需要与用户协同补全信息的智能体。A错误：required字段声明正确，问题在于模型未遵循‘缺参追问’原则；C错误：此选项描述的是结果回传机制，与缺参处理无关；D错误：Schema已正确定义，问题出在执行流程而非Schema存在性。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 0,
+      "stem": "某团队将'课程代码审查'流程固化为Skill，但将全部检查规则（可执行性、依赖完整性、异常覆盖率）硬编码进主系统提示词。上线后发现：新员工修改提示词时误删关键检查项，且不同项目间规则难以复用。该做法最直接违背教材4.9节Skill设计的哪一核心原则？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "Skill应模块化、可版本化，写入Git走PR→Review→CI评测→部署流程"
+        },
+        {
+          "option_label": "B",
+          "option_text": "Skill要解决'怎么做'的SOP，而非'知道什么'的事实性知识"
+        },
+        {
+          "option_label": "C",
+          "option_text": "写好指令三原则：简洁、自由度匹配风险、渐进式披露"
+        },
+        {
+          "option_label": "D",
+          "option_text": "判断值不值得做：有专家直觉、足够复杂、会反复执行"
+        }
+      ],
+      "answer": "A",
+      "analysis": "题干中‘硬编码进主系统提示词’导致‘误删’和‘难以复用’，正是教材4.9节‘best’部分强调的反模式：Skill必须进入Git，走标准化的Skills-as-Code生命周期（PR→Review→CI→部署），由领域团队拥有与维护。A选项完整对应原文‘Skill 可进入 Git，走 PR → Review → CI 评测 → 部署 的 Skills-as-Code 生命周期，并由最懂业务的领域团队拥有与维护’。B错误：该原则区分Skill与RAG，但题干问题不在知识类型混淆；C错误：‘渐进式披露’是结构原则，非版本管理；D错误：题干已确认该流程‘值得做’，问题在于实现方式。",
+      "difficulty_label": "挑战"
+    },
+    {
+      "type": 1,
+      "stem": "某金融Agent需完成‘评估客户A的贷款申请’任务，涉及调用征信查询、收入验证、风控模型三个工具。当前采用固定流水线工作流：征信→收入→风控。但近期因征信API临时不可用，整个流程卡死。为提升鲁棒性，以下哪些调整符合本章‘规划策略’的最佳实践？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "将征信查询工具替换为本地缓存数据，确保第一步永不失败"
+        },
+        {
+          "option_label": "B",
+          "option_text": "引入Plan-and-Execute策略：Agent先生成包含备选路径的计划（如征信失败则启用人工审核通道），再执行"
+        },
+        {
+          "option_label": "C",
+          "option_text": "在征信工具调用前增加确定性健康检查，失败则跳过该步骤直接进入收入验证"
+        },
+        {
+          "option_label": "D",
+          "option_text": "将固定流水线升级为ReAct模式，允许Agent基于Observation（如征信超时）动态决定下一步（重试、换工具或求助用户）"
+        },
+        {
+          "option_label": "E",
+          "option_text": "为每个工具添加重试逻辑与降级方案（如征信失败则调用备用HRIS接口获取信用分）"
+        }
+      ],
+      "answer": "BDE",
+      "analysis": "题干核心是‘固定流程卡死’，教材4.6.3节明确指出其致命问题是‘卡不起’，解决方案是‘Plan-and-Execute’（B）和‘ReAct’（D），二者均支持动态调整；同时4.2节‘关键约定’强调‘要给模型失败出口：工具超时、报错时能重试或换方案’（E）。A错误：用缓存替代真实API违背‘解决实时信息’的本质，且未解决根本的流程僵化问题；C错误：‘跳过征信直接收入验证’违反风控逻辑，教材未主张无条件跳过必要步骤，而是强调‘换方案’（如换工具、求助用户），非简单跳过。",
+      "difficulty_label": "挑战"
+    },
+    {
+      "type": 0,
+      "stem": "某企业报销查询Agent在工具调用失败（如网络超时）后，未重试、未切换方案、也未向用户澄清，而是直接生成模糊回答：“系统暂未返回结果”。该行为最根本违反Harness/Loop闭环中哪一环节的必要性？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "标准（Standard）：未定义工具失败时的响应规范"
+        },
+        {
+          "option_label": "B",
+          "option_text": "验证（Validate）：未建立对工具调用结果的确定性检查"
+        },
+        {
+          "option_label": "C",
+          "option_text": "记录（Record）：未将失败案例落盘留存供后续分析"
+        },
+        {
+          "option_label": "D",
+          "option_text": "写回（Write-back）：未将失败教训转化为可复用规则"
+        }
+      ],
+      "answer": "A",
+      "analysis": "Harness/Loop闭环四步中，‘标准’是起点和依据。教材4.11节明确：‘标准（Standard）：定义‘好’长什么样（Rubric、规范、QWEN.md、Skill）’。题干中Agent的模糊响应，根源在于缺乏‘工具失败时必须重试/降级/澄清’这一基础标准。没有标准，后续验证、记录、写回均无从谈起。B、C、D虽相关，但都是在标准缺失前提下的衍生问题；教材强调‘问题出现时，按这个顺序判断该改什么’，首问即‘好坏判不清、标准缺失 → 补/细化标准’。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 1,
+      "stem": "一个课程审查Agent持续给出'建议增加注释'等泛泛而谈反馈，却漏掉团队特有规范如'禁止使用eval()函数'、'必须用pandas.DataFrame.copy()避免链式赋值'。开发团队决定将这些规范固化。相比简单存入长期记忆，最符合本章Skill设计原则的做法是？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "将规范写入SKILL.md的YAML frontmatter中，作为Skill的description"
+        },
+        {
+          "option_label": "B",
+          "option_text": "将规范拆解为结构化检查项，写入code-quality.md子文档，并关联validate_code.py脚本执行"
+        },
+        {
+          "option_label": "C",
+          "option_text": "将规范作为高优先级文本注入长期记忆向量库，每次审查前强制检索"
+        },
+        {
+          "option_label": "D",
+          "option_text": "将规范写入QWEN.md全局配置文件，要求所有Agent强制遵守"
+        },
+        {
+          "option_label": "E",
+          "option_text": "将规范封装为独立Tool，由Agent在审查时显式调用"
+        }
+      ],
+      "answer": "BE",
+      "analysis": "教材4.9节定义Skill是‘把“在什么场景下、按什么流程、用什么标准、调用什么工具”打包成的模块化、可复用、可版本化的能力单元’，核心是‘方法/SOP’而非零散事实。B正确：将规范拆解为检查项（SOP）并关联确定性脚本（Tool），完美体现Skill‘配好工具’原则（教材4.9节‘五步编写法’第4步）。E正确：封装为Tool是Skill的常见形态，符合‘调用什么工具’的定义。A错误：YAML frontmatter仅用于‘要不要用’的判断，不能承载具体执行标准；C错误：长期记忆用于‘事实’（如用户偏好），而规范是‘怎么做’的流程，属Skill范畴；D错误：QWEN.md是Coding Agent的三级配置，非通用Skill载体，且全局配置违背‘按需加载’原则。",
+      "difficulty_label": "挑战"
+    }
+  ]
+}

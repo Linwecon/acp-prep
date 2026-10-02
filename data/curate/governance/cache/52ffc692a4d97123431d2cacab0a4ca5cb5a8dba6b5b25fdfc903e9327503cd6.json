@@ -1,0 +1,105 @@
+{
+  "9-5101": {
+    "qid": "9-5101",
+    "classification": "own",
+    "chapter": 9,
+    "quality": "ok",
+    "reason": "考查百炼Assistant API中多用户上下文隔离机制",
+    "answer": [
+      "A"
+    ],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "Thread专用于隔离多用户会话上下文"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "Assistant是全局配置，不隔离会话"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "Run表示单次执行，非上下文容器"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "Message是单条消息，无法承载多轮"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "9-5155": {
+    "qid": "9-5155",
+    "classification": "own",
+    "chapter": 9,
+    "quality": "ok",
+    "reason": "考查Assistant instructions配置作用",
+    "answer": [
+      "A"
+    ],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "instructions定义角色与行为规则"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "API配置不修改模型权重"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "不涉及机房位置配置"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "不影响内容安全能力"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "9-1176": {
+    "qid": "9-1176",
+    "classification": "misplaced",
+    "chapter": 12,
+    "quality": "review",
+    "reason": "代码片段属LlamaIndex文档处理，非第9章内容",
+    "answer": [],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "无关层级结构"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "LlamaIndex切分逻辑未在原文提及"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "标点识别准确率未被讨论"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "中文含量非关注点"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

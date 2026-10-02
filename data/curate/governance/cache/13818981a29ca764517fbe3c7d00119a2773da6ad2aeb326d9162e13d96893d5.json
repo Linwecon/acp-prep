@@ -1,0 +1,212 @@
+{
+  "3-0223": {
+    "qid": "3-0223",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "考查RAG中query_engine核心作用，原文明确其为在线问答阶段入口",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "RAG 由两个阶段组成……第二阶段：在线问答（Retrieval & Generation，每次请求都执行）",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "加载document是SimpleDirectoryReader职责"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "as_query_engine创建提问引擎，对应在线问答阶段"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "向量化在离线建库阶段完成"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "存储索引是入库步骤，非query_engine功能"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-0228": {
+    "qid": "3-0228",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "考查文档解析基础工具，原文直接给出SimpleDirectoryReader代码示例",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "在 LlamaIndex 中，最基础的加载器是 `SimpleDirectoryReader`，一行代码读入整个目录",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "原文明确定义其为文档加载器"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "分段是文本切片环节，非加载器功能"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "向量化在建库阶段独立执行"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "存储索引是后续入库步骤"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-0232": {
+    "qid": "3-0232",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "考查向量存储选型，原文明确云服务支持按量付费与自动扩容",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "生产环境可选用云服务（如阿里云 DashVector）或自建开源库（Milvus、Qdrant）",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "云服务天然支持按量付费与自动扩容"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "内存存储无自动扩容能力"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "本地数据库需手动运维扩容"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "增加训练数据属微调范畴，非存储方案"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-0234": {
+    "qid": "3-0234",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "考查向量存储运维特性，原文指出云服务适用于生产环境",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "开发测试可用 LlamaIndex 内置的内存向量库；生产环境可选用云服务（如阿里云 DashVector）",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "云服务免运维且自动扩容"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "内存存储需自行管理生命周期"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "本地数据库需DBA运维"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "训练数据与存储方案无关"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-0235": {
+    "qid": "3-0235",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "考查切片策略选型，原文将语义切片列为高价值场景方案",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "语义切片：用模型判断语义边界，在话题转换处切；高价值、结构复杂的文档（成本更高）",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "原文明确语义切片适配专业文档"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "Token切片适用于长度受限场景"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "句子切片为通用默认策略"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "句子窗口用于检索后扩窗，非切片方法"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-0238": {
+    "qid": "3-0238",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "考查HyDE技术定义，原文表格中明确其原理",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "HyDE（假设文档嵌入）：先让 LLM 编一段'假想答案'，用假想答案的向量去检索真实文档",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "原文明确定义HyDE为生成假想文档"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "重排序是交叉编码精排"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "滑动窗口即句子窗口检索"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "增加训练数据属微调范畴"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

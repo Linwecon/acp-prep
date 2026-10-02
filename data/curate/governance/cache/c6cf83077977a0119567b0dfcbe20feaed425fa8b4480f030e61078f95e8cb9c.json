@@ -1,0 +1,214 @@
+{
+  "5-0120": {
+    "qid": "5-0120",
+    "classification": "own",
+    "chapter": 2,
+    "quality": "ok",
+    "reason": "考查提示工程适用场景，区分模型能力边界。",
+    "answer": [
+      "A",
+      "B"
+    ],
+    "supported": true,
+    "quote": "提示工程（Prompt Engineering）：通过精心设计输入文本（提示词），引导大模型稳定生成符合预期输出的技术。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "文档审查是提示工程典型应用。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "内部知识查询可通过RAG实现。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "增加训练数据属于微调范畴。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "减少推理时间属部署优化。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "8-0894": {
+    "qid": "8-0894",
+    "classification": "own",
+    "chapter": 2,
+    "quality": "ok",
+    "reason": "考查角色设定在提示词中的关键作用。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "角色激活模型在训练中见过的角色模式（工程师 vs 小学老师，对同一问题的措辞深度完全不同）",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "任务不明确，无角色。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "明确角色与任务，最有效。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "指令模糊，未指定安全。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "任务过于宽泛。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "10-1269": {
+    "qid": "10-1269",
+    "classification": "own",
+    "chapter": 2,
+    "quality": "ok",
+    "reason": "考查提示工程迭代优化方法。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "工程化的提示词优化流程：明确任务 → 起草提示词 → 小样本测试 → 分析失败案例 → 迭代优化",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "直接翻译质量不可控。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "迭代优化是有效方法。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "长度与质量无直接关系。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "长度与质量无直接关系。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "10-1337": {
+    "qid": "10-1337",
+    "classification": "own",
+    "chapter": 2,
+    "quality": "ok",
+    "reason": "考查提升输出质量的工程化方法。",
+    "answer": [
+      "A",
+      "C"
+    ],
+    "supported": true,
+    "quote": "工程化的提示词优化流程：明确任务 → 起草提示词 → 小样本测试 → 分析失败案例 → 迭代优化",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "生成-评估-优化是迭代方法。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "输入长度非质量决定因素。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "具体领域术语可补充上下文。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "教材未提及此功能。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "10-0820": {
+    "qid": "10-0820",
+    "classification": "own",
+    "chapter": 2,
+    "quality": "ok",
+    "reason": "考查任务、上下文、输出格式的明确性。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "六要素：任务目标、上下文、角色、受众、样例、输出格式——本质是给模型补足决策信息",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "任务与格式不明确。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "明确任务、格式、上下文。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "未指定Marp格式。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "指令模糊，非Markdown。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "10-1054": {
+    "qid": "10-1054",
+    "classification": "own",
+    "chapter": 2,
+    "quality": "ok",
+    "reason": "考查如何通过详细描述明确任务目标。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "任务目标（Object）：明确要完成什么，让模型聚焦",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "请求模糊，仅附加示例。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "详细描述目标与内容，最合适。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "拆分请求导致内容不连贯。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "关键词过于宽泛。"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

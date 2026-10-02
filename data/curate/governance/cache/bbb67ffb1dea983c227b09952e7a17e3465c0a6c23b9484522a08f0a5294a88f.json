@@ -1,0 +1,72 @@
+{
+  "new-4-12-0": {
+    "qid": "new-4-12-0",
+    "classification": "own",
+    "chapter": 4,
+    "quality": "ok",
+    "reason": "题干描述Skill加载行为，考查渐进式披露原则，与原文知识点完全对应。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "Skill：Agent 启动时只看到所有 Skill 的 description（很短），由模型判断当前任务要不要激活；激活后才读 SKILL.md，执行到具体步骤时再读对应子文件——这就是渐进式披露（Progressive Disclosure）。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "题干是Skill加载，非RAG检索。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "原文明确Skill采用渐进式披露。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "题干是分阶段加载，非固定顺序。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "题干是Skill资源加载，非记忆摘要。"
+      }
+    ],
+    "duplicate_of": "4-5157"
+  },
+  "new-4-12-1": {
+    "qid": "new-4-12-1",
+    "classification": "own",
+    "chapter": 4,
+    "quality": "ok",
+    "reason": "题干描述Agent缺参时未追问而失败，考查Function Calling中参数收集原则。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "参数可以在多轮对话中逐步收集，缺参时 Agent 应主动追问而不是瞎猜。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "题干已声明required，但考查重点是缺参处理。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "原文明确缺参时应主动追问。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "题干未涉及程序执行与回传结果。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "题干未涉及minLength等约束。"
+      }
+    ],
+    "duplicate_of": "4-5186"
+  }
+}

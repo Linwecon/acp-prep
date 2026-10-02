@@ -1,0 +1,179 @@
+{
+  "new-10-54-0": {
+    "qid": "new-10-54-0",
+    "classification": "own",
+    "chapter": 10,
+    "quality": "ok",
+    "reason": "考查DashScope API Key权限与百炼/DashScope关系，有原文依据。",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "百炼是应用层、DashScope是其底层模型API，二者共用一套API Key",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "原文强调共用API Key，但未提需单独开启模型权限，此选项最合理。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "原文明确百炼与DashScope共用API Key，不是独立体系。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "原文未提及region参数是鉴权失败原因。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "401错误通常与鉴权相关，网络代理非根本原因。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-10-54-1": {
+    "qid": "new-10-54-1",
+    "classification": "own",
+    "chapter": 10,
+    "quality": "ok",
+    "reason": "考查429限流处理与重试机制，有原文依据。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "遇429用指数退避+抖动重试，控制并发、必要时降级到更小模型",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "固定延迟重试主要问题是同步到达，非线程池耗尽。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "固定延迟导致重试请求同步到达，加剧限流峰值。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "429是限流错误，请求未成功处理，不应重复计费。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "原文未提兼容接口不支持重试，且重试是通用机制。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-10-54-2": {
+    "qid": "new-10-54-2",
+    "classification": "own",
+    "chapter": 10,
+    "quality": "ok",
+    "reason": "考查数据不出域、私有化部署的产品组合，有原文依据。",
+    "answer": [
+      "A",
+      "D"
+    ],
+    "supported": true,
+    "quote": "开源模型的价值集中在三点：① 数据隐私与合规（数据不出域）；② 可深度定制（任意微调/改结构）",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "使用开源模型在PAI微调部署，符合数据不出域和私有化要求。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "百炼调用API，数据需上送云端，违反不出域要求。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "DashScope API调用，即使通过VPC，数据仍上送托管服务。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "在PAI-DSW验证后EAS部署，全程在PAI平台，符合私有化部署。"
+      }
+    ],
+    "duplicate_of": "10-5162"
+  },
+  "new-10-54-3": {
+    "qid": "new-10-54-3",
+    "classification": "own",
+    "chapter": 10,
+    "quality": "ok",
+    "reason": "考查PAI-DSW成本管理原则，有原文依据。",
+    "answer": [
+      "D"
+    ],
+    "supported": true,
+    "quote": "DSW实例按'计算时'计费，关闭浏览器不等于停止实例，不学了必须回控制台停止或删除",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "未关闭实例是问题，但题干强调'验证推理效果'，D更直接。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "DSW实例本身不提供弹性伸缩，但非成本管理核心。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "vLLM HTTP接口兼容OpenAI标准，此说法错误。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "DSW按计算时计费，长期运行vLLM服务成本远超临时调试需求。"
+      }
+    ],
+    "duplicate_of": "10-5163"
+  },
+  "new-10-54-4": {
+    "qid": "new-10-54-4",
+    "classification": "own",
+    "chapter": 10,
+    "quality": "ok",
+    "reason": "考查成本控制原则，有原文直接对应。",
+    "answer": [
+      "A",
+      "B"
+    ],
+    "supported": true,
+    "quote": "控制输入：RAG只塞最相关的片段，不要每次把整本手册塞进上下文；限制输出：用max_tokens给输出设上限",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "上传整份PDF作为system prompt，违反控制输入原则。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "未设置max_tokens，违反限制输出原则。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "题干未提及模型选型错误，是输入输出控制问题。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "题干操作未利用缓存，但未直接违反缓存原则。"
+      }
+    ],
+    "duplicate_of": "10-5174"
+  }
+}

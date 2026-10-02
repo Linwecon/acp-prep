@@ -1,0 +1,215 @@
+{
+  "new-1-18-0": {
+    "qid": "new-1-18-0",
+    "classification": "own",
+    "chapter": 1,
+    "quality": "ok",
+    "reason": "考查采样随机性导致输出不一致的根本原因，属于核心知识点。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "采样本身具有随机性，属正常现象；要稳定就调低 temperature / 固定 seed。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "推理阶段参数冻结是事实，但非导致三次调用结果不同的直接原因。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "未指定seed时，采样随机性导致每次从概率分布中选出不同Token。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "题干未提及上下文窗口超限，且短问题不会导致截断。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "同一问题分词结果应一致，不会导致输出差异。"
+      }
+    ],
+    "duplicate_of": "1-1471"
+  },
+  "new-1-18-1": {
+    "qid": "new-1-18-1",
+    "classification": "own",
+    "chapter": 1,
+    "quality": "ok",
+    "reason": "综合考查长上下文稀释注意力（幻觉）与窗口预算（性能）两个核心点。",
+    "answer": [
+      "A",
+      "C"
+    ],
+    "supported": true,
+    "quote": "过长的无关上下文会稀释注意力、引入噪声（'Lost in the Middle'现象），又慢又贵。输入 + 输出共享预算。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "长上下文稀释注意力，关键约束被淹没，符合Lost in the Middle现象。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "知识截止是模型固有属性，不会因文档过时而“失效”。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "1200 Token输入挤占窗口预算，压缩生成空间，导致延迟增加。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "计算缺陷是LLM边界，但非幻觉加剧（如top_p=1.5）的主因。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-1-18-2": {
+    "qid": "new-1-18-2",
+    "classification": "own",
+    "chapter": 1,
+    "quality": "ok",
+    "reason": "考查LLM不擅精确计算的本质边界，通过temperature影响稳定性来印证。",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "不擅精确计算：自回归逐 Token 生成，缺乏真正的符号运算机制，多位数进位、大数乘除很容易出错。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "幻觉是编造看似合理但错误的内容，但题干是精确计算不稳定。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "知识截止指模型无法学习新知识，与计算稳定性无关。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "自回归生成无法保证符号运算准确性，temperature影响采样稳定性。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "题干未提及上下文窗口不足或截断。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-1-18-3": {
+    "qid": "new-1-18-3",
+    "classification": "own",
+    "chapter": 1,
+    "quality": "ok",
+    "reason": "考查针对幻觉边界的缓解措施，需符合“对症下药”且不依赖模型自觉。",
+    "answer": [
+      "B",
+      "C",
+      "D"
+    ],
+    "supported": true,
+    "quote": "幻觉无法 100% 消除，只能缓解：用 RAG 提供可核查的资料、在提示词中要求'只依据资料回答'、让模型标注引用、再配合人工抽检。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "依赖模型自觉判断“不确定”，不符合“不依赖模型自身‘自觉’修正”。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "RAG提供可核查资料，针对知识截止/私域信息缺失的幻觉边界。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "标注引用来源可追溯核查，是缓解幻觉的工程化手段。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "调用外部工具获取权威信息，针对模型不擅精确计算/知识截止。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-1-18-4": {
+    "qid": "new-1-18-4",
+    "classification": "own",
+    "chapter": 1,
+    "quality": "ok",
+    "reason": "通过模型表现差异考查Scaling Law中参数规模与能力上限的关系。",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "Scaling Law（缩放定律）指在合理范围内，模型效果随参数量、训练数据量、计算量三者近似幂律增长而稳定提升。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "Plus参数更大能力更强（细节丰富），但可能过拟合（虚构）；Turbo参数小能力有限但稳定。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "上下文窗口是共享约束，但未解释两模型能力差异的根本原因。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "原文未提及不同模型架构对幻觉敏感度有固有差异。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "说法绝对，小模型可处理复杂任务，但能力上限相对较低。"
+      }
+    ],
+    "duplicate_of": "1-1481"
+  },
+  "new-1-18-5": {
+    "qid": "new-1-18-5",
+    "classification": "own",
+    "chapter": 1,
+    "quality": "ok",
+    "reason": "考查上下文窗口被无关信息稀释（Lost in the Middle）的风险。",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "过长的无关上下文会稀释注意力、引入噪声（'Lost in the Middle'现象），又慢又贵。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "chunk数量翻倍可能导致低相关chunk稀释注意力，抬高token成本。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "知识截止是模型固有属性，不会因输入过长而“拒绝处理”。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "分词器切分是确定性的，不会导致token计数“失真”。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "temperature影响生成随机性，与输入token消耗突增无直接关系。"
+      }
+    ],
+    "duplicate_of": "1-1482"
+  }
+}

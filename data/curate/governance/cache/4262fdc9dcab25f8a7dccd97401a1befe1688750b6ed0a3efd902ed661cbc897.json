@@ -1,0 +1,145 @@
+{
+  "new-6-12-0": {
+    "qid": "new-6-12-0",
+    "classification": "own",
+    "chapter": 6,
+    "quality": "ok",
+    "reason": "典型部署选型场景题，考查四步决策法应用。",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "企业要把内部微调后的私有模型上线为实时在线服务，要求数据不出域、支持灰度发布和弹性伸缩，最合适的方案是？PAI-EAS（或数据不出域前提下的 ECS+vLLM 自建）。私有自定义模型、实时在线、弹性 + 灰度/版本管理是 EAS 的典型场景",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "百炼MaaS数据出域，违反约束①。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "FC有冷启动，不适合实时高吞吐场景。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "EAS支持私有模型、灰度发布、弹性伸缩，符合全部约束。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "ECS+vLLM虽可控，但灰度发布等企业级能力需自建，不如EAS直接。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-6-12-2": {
+    "qid": "new-6-12-2",
+    "classification": "own",
+    "chapter": 6,
+    "quality": "ok",
+    "reason": "考查量化技术效果与教材论述的匹配。",
+    "answer": [
+      "A",
+      "B",
+      "D"
+    ],
+    "supported": true,
+    "quote": "量化（Quantization）：把模型参数从高精度压缩到低精度，以可控的精度损失换取显存占用下降、显存带宽压力减小、推理速度提升。INT4 比 INT8 压缩更狠但精度损失风险更大。量化省显存通常也能因显存带宽下降而加速",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "INT4相对FP16体积约1/4，显存下降65%符合预期。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "QPS提升源于显存带宽减小，符合教材论述。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "TPOT升高非必然，且教材未建议避免低比特。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "准确率微降属可控损失，需业务评测验证。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-6-12-4": {
+    "qid": "new-6-12-4",
+    "classification": "own",
+    "chapter": 6,
+    "quality": "ok",
+    "reason": "考查部署选型决策法在具体场景的应用。",
+    "answer": [
+      "A",
+      "C"
+    ],
+    "supported": true,
+    "quote": "部署选型四步决策法：1. 数据能否出域？2. 流量形态如何？3. 有无 GPU 运维能力？4. 成本模型？百炼 MaaS：零运维、一键部署、按量付费最快上线。PAI-EAS：企业级模型服务，支持私有模型部署、蓝绿发布与预热",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "百炼免运维、支持弹性，适合波动流量和无专职运维。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "FC有冷启动，不适合长文档实时流式输出。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "EAS支持弹性伸缩和预热，适合波动流量和长上下文。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "ECS需自运维，与无专职运维人员要求不符。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-6-12-5": {
+    "qid": "new-6-12-5",
+    "classification": "own",
+    "chapter": 6,
+    "quality": "ok",
+    "reason": "考查推理服务性能瓶颈诊断。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "KV Cache 随序列长度 × 并发数线性增长，长上下文、高并发时 KV Cache 往往成为显存大头。PagedAttention（分页注意力）解决的是 KV Cache 的显存碎片与预分配浪费",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "显存占用高但计算利用率低，非精度问题。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "高显存占用、低计算利用率、TPOT高，符合KV Cache瓶颈特征。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "TPOT高与Decode相关，非Prefill计算不足。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "TPOT是模型生成速度，与网络IO无关。"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

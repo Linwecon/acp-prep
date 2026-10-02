@@ -1,0 +1,223 @@
+{
+  "8-0758": {
+    "qid": "8-0758",
+    "classification": "own",
+    "chapter": 8,
+    "quality": "ok",
+    "reason": "考查数据安全合规必要措施，需结合脱敏、部署、RAG、输出控制等多维度",
+    "answer": [
+      "A",
+      "B",
+      "D"
+    ],
+    "supported": true,
+    "quote": "数据脱敏（去标识化）是在数据进入训练、评测、RAG 链路之前，对姓名、手机号、证件号、地址、银行卡号等个人可识别信息（PII）做掩码、替换、泛化或删除。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "征信文本含PII，必须脱敏"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "敏感数据应避免公有云传输"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "RAG非数据安全必要措施"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "限制输出可防数据泄露"
+      },
+      {
+        "label": "E",
+        "selected": false,
+        "why": "原始文本上传违反最小必要"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "8-5135": {
+    "qid": "8-5135",
+    "classification": "own",
+    "chapter": 8,
+    "quality": "ok",
+    "reason": "考查安全组配置原则，核心是入方向白名单+端口最小开放",
+    "answer": [
+      "D"
+    ],
+    "supported": true,
+    "quote": "安全组决定'包能不能进机器'，但看不懂包里是不是 SQL 注入；默认拒绝、最小开放：只放行 80/443 等必要端口，源限白名单 IP/安全组",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "全开放违反最小权限"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "出方向放行不控入向访问"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "关闭安全组等于裸奔"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "符合安全组最小开放原则"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "8-5136": {
+    "qid": "8-5136",
+    "classification": "own",
+    "chapter": 8,
+    "quality": "ok",
+    "reason": "考查安全组设计四原则，A/B/D均符合，C明显错误",
+    "answer": [
+      "A",
+      "B",
+      "D"
+    ],
+    "supported": true,
+    "quote": "安全组：默认拒绝、最小开放：只放行 80/443 等必要端口，源限白名单 IP/安全组；用源 IP、协议和端口做细粒度限制；最小权限，只开放业务必需访问",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "默认拒绝是基础原则"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "细粒度限制是关键手段"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "长期全开严重违规"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "最小权限是核心要求"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "8-5137": {
+    "qid": "8-5137",
+    "classification": "own",
+    "chapter": 8,
+    "quality": "ok",
+    "reason": "考查WAF定位，明确其为应用层Web攻击防护",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "WAF（Web 应用防火墙）：拦 SQL 注入、XSS、CC、恶意爬虫、漏洞利用；统一流量入口，与安全组互补",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "WAF不提升GPU性能"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "WAF专防Web层攻击"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "WAF不参与模型训练"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "WAF不保证生成准确"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "8-5138": {
+    "qid": "8-5138",
+    "classification": "own",
+    "chapter": 8,
+    "quality": "ok",
+    "reason": "考查DDoS应对，核心是清洗+策略调整",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "DDoS 防护（高防）：挡 SYN Flood、UDP Flood 等流量洪峰，以及针对 AI 的资源耗尽型 DDoS（高耗 token/GPU 请求打爆算力）",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "删权重无法缓解流量"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "开更多端口扩大暴露面"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "DDoS高防是标准应对"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "关监控破坏审计能力"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "8-5139": {
+    "qid": "8-5139",
+    "classification": "own",
+    "chapter": 8,
+    "quality": "ok",
+    "reason": "考查身份与网络隔离最佳实践，A/B/D均正确，C明显错误",
+    "answer": [
+      "A",
+      "B",
+      "D"
+    ],
+    "supported": true,
+    "quote": "RAM 子账号/角色最小权限；独立凭据；MFA；AK 不硬编码、定期轮换；VPC 隔离；安全组默认拒绝、最小开放；数据库/后台不暴露公网",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "RAM临时凭证更安全"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "VPC内网通信防渗透"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "全暴露公网严重违规"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "密钥轮换+最小权限"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

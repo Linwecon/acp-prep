@@ -1,0 +1,214 @@
+{
+  "new-11-12-0": {
+    "qid": "new-11-12-0",
+    "classification": "own",
+    "chapter": 11,
+    "quality": "ok",
+    "reason": "考查扫描件PDF处理缺失OCR环节的核心问题",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "扫描件 PDF 本质是图片，普通文本加载器读不出文字、直接切到的是空白/乱码。首要动作是先做文档智能解析（OCR + 版面分析 + 表格转 Markdown）",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "图文混合检索非根本缺失，根本是文字未提取"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "扫描件需OCR识别文字，否则文本加载器输入为空"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "端到端模型非必须，缺失OCR是根本"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "切片长度非根本，文字未识别是关键"
+      }
+    ],
+    "duplicate_of": "11-5166"
+  },
+  "new-11-12-1": {
+    "qid": "new-11-12-1",
+    "classification": "own",
+    "chapter": 11,
+    "quality": "ok",
+    "reason": "考查OCR识别错误后的工程处理原则",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "ASR 识别错误会沿链路放大，专有名词多的场景要配置热词或在识别后纠错；意图不清时优先澄清反问",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "LLM纠错非首选，低置信度应触发澄清"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "强制重拍不符合工程要点，应容错"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "低置信度标记并澄清，符合ASR错误处理类比"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "跳过OCR不合理，多模态模型仍需OCR"
+      }
+    ],
+    "duplicate_of": "11-5179"
+  },
+  "new-11-12-2": {
+    "qid": "new-11-12-2",
+    "classification": "own",
+    "chapter": 11,
+    "quality": "ok",
+    "reason": "考查语音助手意图识别错误归因",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "意图不清时优先澄清反问，避免错误调用工具（如真的提交了请假）",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "ASR识别准确，非其缺陷"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "意图理解缺乏低置信度追问，导致误判"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "RAG约束非主因，意图误判触发工具"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "TTS合成在故障后，非归因环节"
+      }
+    ],
+    "duplicate_of": "11-5185"
+  },
+  "new-11-12-3": {
+    "qid": "new-11-12-3",
+    "classification": "own",
+    "chapter": 11,
+    "quality": "ok",
+    "reason": "考查多模态安全对图片检测的完整要求",
+    "answer": [
+      "A",
+      "B"
+    ],
+    "supported": true,
+    "quote": "图像检测不仅要看画面，还要审‘图里的字’——攻击者可以把违规文字写进图片里绕过文本过滤",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "必须同步检测截图画面内容"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "OCR后文字需文本敏感词过滤"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "纯文本模型无法直接处理图片"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "image_moderation已含文字检测，无需额外"
+      }
+    ],
+    "duplicate_of": "11-5170"
+  },
+  "new-11-12-4": {
+    "qid": "new-11-12-4",
+    "classification": "own",
+    "chapter": 11,
+    "quality": "ok",
+    "reason": "考查文生图评测中自动指标的局限性",
+    "answer": [
+      "A",
+      "C"
+    ],
+    "supported": true,
+    "quote": "图文一致性、指令跟随等需人工评测校准兜底；原文明确指出‘图文一致性靠人工/多模态审核兜底，自动指标不可靠’",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "文本指标无法评估视觉一致性"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "绝对化，自动指标部分适用但不可靠"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "原文明确自动指标不可靠"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "BLEU不依赖向量化，说法错误"
+      }
+    ],
+    "duplicate_of": "11-5173"
+  },
+  "new-11-12-5": {
+    "qid": "new-11-12-5",
+    "classification": "own",
+    "chapter": 11,
+    "quality": "ok",
+    "reason": "考查视频理解受上下文窗口限制的根本约束",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "视频理解受上下文窗口限制，长视频信息被截断丢弃；不能假设模型‘能读任意长度视频’，超出上下文窗口的内容会被丢弃",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "未抽帧是操作问题，非根本约束"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "上下文窗口有限，长视频信息被丢弃"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "对齐问题非根本，窗口限制是主因"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "多模态Embedding非视频理解根本约束"
+      }
+    ],
+    "duplicate_of": "11-5189"
+  }
+}

@@ -1,0 +1,154 @@
+{
+  "items": [
+    {
+      "type": 0,
+      "stem": "某团队构建新人答疑机器人评测集时，技术负责人从线上工单抽取100个高频问题，但标准答案由AI工程师基于知识库片段自动生成，未经过HRBP审核。上线后自动化评测分数达0.89，而人工抽检发现32%的答案存在业务违规（如将'试用期可休年假'答为'不可休'）。该故障最根本违反教材7.2.1节哪条铁律？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "问题未来自真实用户场景"
+        },
+        {
+          "option_label": "B",
+          "option_text": "标准答案未由领域专家提供"
+        },
+        {
+          "option_label": "C",
+          "option_text": "未冻结评测配置"
+        },
+        {
+          "option_label": "D",
+          "option_text": "未覆盖边界情况"
+        }
+      ],
+      "answer": "B",
+      "analysis": "依据教材7.2.1节'评测集构建的两条铁律'：第一条是'问题来自真实用户场景'（本题中已满足），第二条是'标准答案必须由业务领域专家编写/审定'——原文明确强调'技术人员能判断检索是否相关，但只有业务专家才知道答案在业务上是否正确、完整、合规'。本题中AI工程师生成ground_truth且未经HRBP审核，直接导致业务违规答案被自动评测误判为正确，印证了'缺少领域专家参与是评测系统失败的关键'（见7.2.1节best practice与7.8.2节'专业领域代价极高，必须由领域专家参与评测'）。A项错误：问题确实来自线上工单；C、D项虽属重要实践，但非本题故障的根源性违反。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 1,
+      "stem": "在RAGAS自动化评测中，某样本的Context Recall=1.0、Context Precision=0.3，Faithfulness=0.25，Answer Correctness=0.28。日志确认contexts列表包含完整正确信息（如'张伟是教研部的'），但该片段位于第15位，前14位均为无关内容。若要根治此问题，以下哪些操作符合教材7.5节'定位问题的黄金法则'及7.2.4节'控制变量'要求？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "增加Rerank模块对检索结果重排序"
+        },
+        {
+          "option_label": "B",
+          "option_text": "调大Top K值至50以提升召回覆盖"
+        },
+        {
+          "option_label": "C",
+          "option_text": "在评测脚本中冻结temperature=0.1和seed=42"
+        },
+        {
+          "option_label": "D",
+          "option_text": "更换Embedding模型为text-embedding-v3"
+        }
+      ],
+      "answer": "A,C",
+      "analysis": "根据教材7.5节黄金法则：Recall=1.0说明检索找全了（病根不在知识库或Embedding），Precision=0.3低表明'相关片段排得靠后、噪声多'，应'加Rerank保Precision'（原文明确指出'Precision低（Recall高）→加Rerank、缩小Top K、相似度阈值过滤'）；A正确。C项符合7.2.4节'回归评测必须冻结推理参数（temperature/seed）'，确保分数变化可归因于系统改动而非随机性，是根治的前提。B错误：调大Top K会加剧噪声，使Precision进一步恶化（教材7.5节风险提醒'一味调大Top K→Precision跟着掉'）；D错误：Recall=1.0已证明Embedding能覆盖关键信息，更换无必要，且违反'先修检索排序、再动底层组件'的优化顺序（7.5节价值框）。",
+      "difficulty_label": "挑战"
+    },
+    {
+      "type": 0,
+      "stem": "团队使用qwen-plus作为RAGAS评委计算Answer Correctness时，发现对简洁答案（如'张伟是教研部的'）打分偏低，而对冗长解释（如'根据资料，张伟是教研部的一名工程师...'）打分偏高。该现象最直接对应教材7.8.1节所列哪类LLM-as-Judge固有偏见？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "位置偏见"
+        },
+        {
+          "option_label": "B",
+          "option_text": "长度偏见"
+        },
+        {
+          "option_label": "C",
+          "option_text": "自我偏好"
+        },
+        {
+          "option_label": "D",
+          "option_text": "风格偏见"
+        }
+      ],
+      "answer": "B",
+      "analysis": "教材7.8.1节明确定义'长度偏见'为'倾向认为更长更详细的答案更完整，惩罚简洁但切题的答案'，并给出缓解手段'评分细则中明确冗余扣分'。本题现象完全匹配该定义。A项位置偏见指对比多个候选时偏爱首尾选项，与单答案打分无关；C项自我偏好指偏爱与自己风格一致的输出，但题干未涉及风格对比；D项风格偏见针对代码/行文风格，而本题是简洁vs冗长的长度维度。教材7.8.1节表格与原理描述均将长度偏见列为首要偏见类型。",
+      "difficulty_label": "入门"
+    },
+    {
+      "type": 1,
+      "stem": "某Agent端到端评测得分为4.3/5，但用户持续反馈'生成的Python代码示例无法运行'。依据教材7.6节Agent评测框架，以下哪些措施属于'白盒评测'且能精准定位该故障？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "对Agent执行trace进行解析，检查工具调用序列是否符合SOP"
+        },
+        {
+          "option_label": "B",
+          "option_text": "单独构建代码生成组件评测集，用确定性检查器验证代码能否通过Python解释器执行"
+        },
+        {
+          "option_label": "C",
+          "option_text": "增加LLM-as-Judge对最终答案的'代码可执行性'主观评分"
+        },
+        {
+          "option_label": "D",
+          "option_text": "在端到端评测中增加'代码是否含语法错误'的规则断言"
+        }
+      ],
+      "answer": "B,D",
+      "analysis": "教材7.6节明确定义白盒评测为'深入链路，对关键组件/中间步骤单独打分'，并举例'单独测代码生成组件，检查代码能否被解释器执行'（7.6节compare表）。B项完全符合该定义，是典型白盒。D项'增加规则断言'属于教材7.6.1节'确定性检查（规则/断言）'，其特点是'用代码规则直接判断，结果确定'，且明确适用于'代码能否运行'等客观项，故属白盒。A项虽涉及trace解析，但'检查SOP合规性'属于Agent Skill特有维度（7.6.1节），非本题'代码无法运行'的直接定位；C项LLM-as-Judge属主观语义评价，无法确定性验证可执行性，且教材强调其需校准，不满足'精准定位'要求。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 0,
+      "stem": "在实施评测驱动开发（EDD）时，团队发现优化后'报销流程'问题解决率上升，但'入职手续'问题投诉激增。若仅依赖Accuracy作为唯一评估指标，最可能掩盖的系统性风险是什么？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "类别不平衡导致Accuracy失真"
+        },
+        {
+          "option_label": "B",
+          "option_text": "未冻结评测集版本"
+        },
+        {
+          "option_label": "C",
+          "option_text": "未区分检索端与生成端故障"
+        },
+        {
+          "option_label": "D",
+          "option_text": "未建立基线分数"
+        }
+      ],
+      "answer": "A",
+      "analysis": "教材7.2.3节'高频误区'明确指出：'只看Accuracy就够了'是错误的，'类别不平衡时Accuracy会失真（99%负样本时全猜负也有99%），应看P/R/F1和混淆矩阵'。本题中'报销流程'问题解决率上升（正样本增多）但'入职手续'投诉激增（负样本增多），暗示两类问题分布不均，Accuracy会掩盖局部恶化。B、D项虽属EDD基础要求（7.1节'评测先行'强调先建基线、冻结评测集），但非Accuracy指标本身的固有缺陷；C项是RAGAS定位方法，与Accuracy失真无直接关联。教材7.2.3节风险框是本题唯一直接依据。",
+      "difficulty_label": "入门"
+    },
+    {
+      "type": 1,
+      "stem": "某团队对新人答疑机器人执行切片优化后，RAGAS评测显示Context Recall从0.62升至0.89，但Answer Correctness仅微升0.02，且Faithfulness下降0.15；日志确认检索返回的contexts中明确包含'张伟是教研部的'等完整事实。此时若要验证是否因控制变量失效导致分数失真，最应优先核查以下哪些配置？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "评测脚本中LLM评委模型版本是否冻结"
+        },
+        {
+          "option_label": "B",
+          "option_text": "评测集question字段是否与优化前完全一致"
+        },
+        {
+          "option_label": "C",
+          "option_text": "ground_truth是否由同一组HRBP重新审定"
+        },
+        {
+          "option_label": "D",
+          "option_text": "answer字段收集时temperature参数是否固定"
+        }
+      ],
+      "answer": "A,D",
+      "analysis": "教材7.2.4节'控制变量'原则明确要求：'回归评测的前提是除了待测改动，其他一切都冻结：评测集版本、评测脚本、推理参数（temperature/seed）、模型版本、甚至当评委的大模型版本都要固定'。本题故障表现为'检索提升但生成质量反降'，若评委模型（A）或temperature（D）未冻结，则分数变化无法归因于切片优化本身。B项'question字段一致'是评测集冻结的基本要求，但题干未提示question变更，且7.2.4节将'评测集版本'列为整体冻结项，非优先核查点；C项ground_truth由领域专家提供是7.2.1节铁律，但'重新审定'会破坏评测集一致性，教材强调'冻结评测集'，故不应变动ground_truth。A、D是7.2.4节原文明确列出的必须冻结项，且直接关联生成端指标（Faithfulness/Answer Correctness）的稳定性。",
+      "difficulty_label": "挑战"
+    }
+  ]
+}

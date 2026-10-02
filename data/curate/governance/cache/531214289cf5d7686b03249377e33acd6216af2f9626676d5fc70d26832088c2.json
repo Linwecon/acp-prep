@@ -1,0 +1,214 @@
+{
+  "12-5075": {
+    "qid": "12-5075",
+    "classification": "own",
+    "chapter": 12,
+    "quality": "ok",
+    "reason": "考查LlamaIndex中NodeParser的核心职责，属于本章核心知识点。",
+    "answer": [
+      "A",
+      "B",
+      "D"
+    ],
+    "supported": true,
+    "quote": "NodeParser 的核心数据流是每个考生都应该能默写的一条链：Document -> NodeParser -> Node -> Index -> Retriever -> QueryEngine -> Response",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "NodeParser负责将文档切分为Node。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "NodeParser可为Node注入元数据。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "向量嵌入计算由Embedding模型负责。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "NodeParser可对nodes进行后处理。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "12-5077": {
+    "qid": "12-5077",
+    "classification": "own",
+    "chapter": 12,
+    "quality": "fixable",
+    "reason": "题干描述Dify功能，但教材未明确提及“知识库强制模式”开关。",
+    "answer": [
+      "B"
+    ],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "引用溯源不直接禁止模型自由发挥。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "符合题干“严格限定于知识库”的意图。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "temperature设为0不能保证不自由发挥。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "数据格式不直接控制模型生成行为。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "12-5078": {
+    "qid": "12-5078",
+    "classification": "own",
+    "chapter": 12,
+    "quality": "ok",
+    "reason": "考查百炼平台提供的LlamaIndex组件的设计定位。",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "课程 `course_core/chatbot/rag.py` 展示了最精简的 LlamaIndex 用法：用百炼 Embedding 建向量索引",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "教材提及DashScope Embedding与Qwen的适配。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "百炼组件不提供可视化索引构建。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "百炼组件兼容原生LlamaIndex API。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "教材未提及一键导出Python脚本功能。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "12-5081": {
+    "qid": "12-5081",
+    "classification": "own",
+    "chapter": 12,
+    "quality": "review",
+    "reason": "题干考查按章节标题分割PDF，教材未明确提及HierarchicalNodeParser。",
+    "answer": [
+      "B"
+    ],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "教材未提及HierarchicalNodeParser。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "MarkdownNodeParser可解析带标题层级的文档。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "PDFMinerNodeParser不专门按章节分割。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "SentenceSplitter按长度而非章节切分。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "12-5084": {
+    "qid": "12-5084",
+    "classification": "own",
+    "chapter": 12,
+    "quality": "ok",
+    "reason": "考查LangChain提示模板动态注入多个上下文的方法。",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "LCEL（LangChain Expression Language）是 LangChain 0.3 推荐的组链方式：基于 `Runnable` 协议，用 Python 的管道符 `|` 把组件声明式地串起来。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "单变量无法动态注入多个片段。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "f-string拼接不符合框架最佳实践。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "PromptTemplate配合input_variables可控制多个变量。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "直接传入list不符合提示模板规范。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "12-5086": {
+    "qid": "12-5086",
+    "classification": "own",
+    "chapter": 12,
+    "quality": "ok",
+    "reason": "考查本地快速验证RAG全链路的最轻量技术栈选型。",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "需要离线跑开源模型做调试 → **Ollama / LM Studio + Transformers** | 本地一键运行 + 标准模型加载库",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "全本地组件，符合不依赖云服务要求。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "依赖百炼API，不符合本地要求。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "OpenAIEmbeddings可能依赖云服务。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "百炼可视化工作流依赖云平台。"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

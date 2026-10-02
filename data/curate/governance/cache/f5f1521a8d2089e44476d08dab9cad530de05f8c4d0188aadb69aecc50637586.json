@@ -1,0 +1,72 @@
+{
+  "new-7-18-0": {
+    "qid": "new-7-18-0",
+    "classification": "own",
+    "chapter": 7,
+    "quality": "ok",
+    "reason": "考查RAGAS指标组合定位故障能力，符合第7章核心考点。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "Context Recall从0.62升至0.91，但Answer Correctness仅从0.43微升至0.45，且Faithfulness下降0.18。检索指标都好（Recall、Precision高），但Faithfulness / Correctness低 → 问题在生成阶段",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "Context Recall已大幅提升，说明检索已较全，非知识库缺失。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "Recall高但Correctness/Faithfulness低，提示检索噪声多，模型注意力被稀释。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "Faithfulness下降可能因噪声导致，非单纯提示词约束问题。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "ground_truth标注问题非当前指标组合所指向的优先排查环节。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-7-18-2": {
+    "qid": "new-7-18-2",
+    "classification": "own",
+    "chapter": 7,
+    "quality": "ok",
+    "reason": "考查Agent评测中客观硬指标与主观评测方法的选择，符合章节知识。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "代码可执行性属于客观硬指标，需确定性检查而非主观判断。确定性检查（规则/断言）用代码规则直接判断，结果确定",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "长度偏见存在，但非忽视的根本问题。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "代码可执行性是客观事实，应用确定性检查而非主观LLM评分。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "校准阈值有助稳定，但未解决根本方法选择错误。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "工具调用序列评测相关，但题干聚焦代码可执行性这一具体问题。"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

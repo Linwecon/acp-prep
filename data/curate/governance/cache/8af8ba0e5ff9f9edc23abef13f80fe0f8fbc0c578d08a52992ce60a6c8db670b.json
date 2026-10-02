@@ -1,0 +1,224 @@
+{
+  "1-0803": {
+    "qid": "1-0803",
+    "classification": "misplaced",
+    "chapter": 1,
+    "quality": "remove",
+    "reason": "题干要求判断个性化适配策略有效性，但第1章原文未涉及教育系统、年龄分层、学习风格、学习进度等个性化教学方法；所有选项均属于教育AI应用设计或人机交互工程实践范畴，超出了本章'大模型基础'的知识边界（如LLM本质、五阶段流程、Token、上下文窗口、temperature等）。无任何原文依据支持任一选项。",
+    "answer": [],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "原文未提及语言复杂度调整与年龄的关系，不属于第1章知识。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "原文未定义或讨论学习进度、内容难度动态调整机制。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "原文未将'统一内容'列为有效或无效策略；且该选项明显违背个性化原则，但本章不考查教学法优劣。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "原文未涉及学习风格分类（如视觉型/听觉型）及对应解释方式，属教育心理学范畴。"
+      },
+      {
+        "label": "E",
+        "selected": false,
+        "why": "原文未主张'不进行个性化适配'，亦未否定个性化价值；本章聚焦模型能力边界而非产品设计取舍。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "1-0804": {
+    "qid": "1-0804",
+    "classification": "misplaced",
+    "chapter": 1,
+    "quality": "remove",
+    "reason": "题干考查情绪识别与客服响应策略，属于AI伦理、用户体验或Agent行为设计范畴；第1章原文仅在1.2节提及'幻觉/知识截止/计算缺陷三边界'和'模型无状态'，未涉及情绪建模、安抚语言、人工转接规则等。所有选项均无原文支撑。",
+    "answer": [],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "原文未定义情绪识别技术或回应策略调整机制。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "原文未讨论语言情感效价（如安抚性）对模型输出的影响。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "原文未将'坚持标准流程'列为正确策略；且该选项与本章核心概念无关。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "原文未涉及人工客服分配逻辑或优先级规则。"
+      },
+      {
+        "label": "E",
+        "selected": false,
+        "why": "原文未主张忽略用户情绪；本章不处理服务设计中的情绪维度。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "1-0818": {
+    "qid": "1-0818",
+    "classification": "own",
+    "chapter": 1,
+    "quality": "ok",
+    "reason": "题干考查JSON格式输出的可靠性保障，属于第1章'生成参数与输出控制'延伸——原文1.7节明确'结构化输出（JSON Mode）与约束控制'为第2章提示工程知识，但1.9节'流式输出'和1.7.4调参建议中隐含对输出格式稳定性的关注；更重要的是，原文1.2节'幻觉'风险指出'模型不会说我不知道'，1.7.4明确'调低temperature/top_p可提升结构化抽取稳定性'，且1.12误区表强调'提示词约束是抑制幻觉的手段之一'。但最直接依据来自1.2节对比表：'稳定的语气 / 格式 → 提示词约束或微调'，而JSON是典型格式约束需求。选项B是工程实践中最可靠方案，但原文未明确推荐解析库；A是提示词约束，符合1.2节'只依据资料回答+引用溯源'的补位逻辑；C明显错误；D无关。需严格按原文判断：原文未提Output Parsing库，故B unsupported；A在1.2节'正确手段'中对应'提示词约束'，supported；C和D无依据。",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "稳定的语气 / 格式 | 正确手段 | 提示词约束或微调",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "原文1.2节明确将'稳定的语气 / 格式'归因于'提示词约束'，且1.12误区表强调'用提示词要求只依据资料回答'可缓解幻觉，JSON格式属于典型格式约束，符合本章知识。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "原文未提及'输出解析库'或'强制格式检查'，该方案属于框架层（第12章）或工程实践，超出第1章范围。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "原文1.2节明确指出模型会'编出看似合理但错误的答案'，1.12误区表强调'流畅≠正确'，故C与原文直接矛盾。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "原文未讨论XML格式，且JSON是更主流的结构化输出格式，D无依据且偏离考点。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "1-0858": {
+    "qid": "1-0858",
+    "classification": "beyond",
+    "chapter": 1,
+    "quality": "remove",
+    "reason": "题干考查扩展上下文处理能力的技术，但第1章原文仅定义'上下文窗口是输入输出共用预算'（1.6节）和'自注意力不限制序列长度'（1.4节），未提及滑动窗口注意力、层次化注意力、线性近似等具体技术实现；知识库中'扩展上下文'属于模型架构创新（如FlashAttention、Ring Attention），不在本章'基础'范畴内。知识条目中无任何相关描述。",
+    "answer": [],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "原文未定义滑动窗口注意力，该技术属于高效Transformer变体，超出第1章基础。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "原文未提及层次化注意力机制，属高级模型架构知识。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "知识蒸馏在第5章'模型微调与训练'中定义，与扩展上下文无关。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "线性注意力近似是计算优化技术，原文未涉及，属第6章部署优化范畴。"
+      },
+      {
+        "label": "E",
+        "selected": false,
+        "why": "模型量化在第6章定义，用于降低显存占用，不扩展上下文长度。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "1-0925": {
+    "qid": "1-0925",
+    "classification": "misplaced",
+    "chapter": 1,
+    "quality": "remove",
+    "reason": "题干考查大模型项目管理关键要素，属于AI工程管理或MLOps范畴；第1章原文聚焦技术原理（如五阶段流程、Token、temperature），未涉及项目管理方法论、团队协作、迭代流程等软性要素。所有选项均无原文依据，且知识条目中无相关内容。",
+    "answer": [],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "原文未讨论问题定义或成功标准，属项目管理知识。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "原文提及'数据'是Scaling Law三要素之一，但未展开'高质量数据准备和管理'，属第5章数据合成范畴。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "原文未定义迭代式开发流程，'评测先行'在第7章。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "原文未涉及跨职能团队协作，属组织工程范畴。"
+      },
+      {
+        "label": "E",
+        "selected": false,
+        "why": "原文虽提'三类能力边界'，但'清醒认识'属项目管理意识，非本章考查点。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "1-0972": {
+    "qid": "1-0972",
+    "classification": "own",
+    "chapter": 1,
+    "quality": "ok",
+    "reason": "题干考查temperature参数作用，完全对应第1章1.7节核心内容。原文1.7.1明确'温度越小→输出越确定'，1.7.4调参建议指出'事实问答/代码生成/结构化抽取应调低temperature'，1.12误区表强调'调高temperature不能让模型更聪明'。选项C直接对应原文'事实准确性任务建议低temperature'，A、B表述相反，D否认影响与原文矛盾。",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "事实问答 / 代码生成 / 结构化抽取：低 temperature（如 0.1–0.3）+ 低 top_p，必要时固定 seed，追求稳定可复现",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "原文1.7.1明确'温度越小输出越确定'，A将'越高'与'保守'关联，与原文'温度越大分布越平坦、输出越发散'矛盾。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "原文1.7.1指出'温度越大输出越发散'，B将'越低'与'多样'关联，方向错误。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "原文1.7.4调参建议明确'事实问答...应低temperature'，且1.12误区表强调'调高temperature不能增加知识'，故低temperature利于事实准确性。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "原文1.7.1-1.7.4全篇论述temperature直接影响输出确定性，D称'没有影响'与全文主旨直接冲突。"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

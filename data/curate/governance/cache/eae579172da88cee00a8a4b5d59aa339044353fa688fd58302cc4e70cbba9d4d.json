@@ -1,0 +1,211 @@
+{
+  "1-0496": {
+    "qid": "1-0496",
+    "classification": "own",
+    "chapter": 4,
+    "quality": "ok",
+    "reason": "题目考查Agent优化后可能的多功能输出，符合Agent章节的“工具调用”和“多步任务”考点。",
+    "answer": [
+      "A",
+      "B",
+      "C",
+      "D"
+    ],
+    "supported": true,
+    "quote": "Agent 是由大模型驱动、具备自主感知、规划、调用工具并根据反馈迭代能力的应用。它的本质不是'更能聊的模型'，而是一个 LLM 驱动的闭环执行系统。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "文档审查是Agent可执行的任务类型。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "查询内部文档是Agent调用工具的典型场景。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "内容翻译是Agent可具备的功能之一。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "未能识别问题类型是合理的兜底输出。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "2-0951": {
+    "qid": "2-0951",
+    "classification": "own",
+    "chapter": 4,
+    "quality": "ok",
+    "reason": "题目考查处理复杂规则时Agent与规则引擎的分工，符合“工具调用”和“模型只提议、程序才执行”原则。",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "模型只输出结构化的'调用哪个工具、传什么参数'；工具必须以 JSON-Schema 描述自己（名称、参数、用途），让模型知道'有什么可用、怎么用'。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "完全依赖模型不可靠，复杂规则应交由专门工具。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "提示词编码复杂规则易出错，非最可靠方法。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "规则引擎处理规则，模型处理异常，分工明确可靠。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "人工处理所有排班不切实际，非智能体方案。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "2-0869": {
+    "qid": "2-0869",
+    "classification": "cross",
+    "chapter": -1,
+    "quality": "review",
+    "reason": "题目涉及RAG检索时信息不足的处理，但题干和选项均未明确提及Agent的规划或工具调用能力，主要考点更接近RAG的查询处理。",
+    "answer": [],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "HyDE生成假想文档是RAG技术，但非最合理做法。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "向用户反问是合理做法，但需结合Agent能力判断。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "问题改写是RAG技术，但非最合理做法。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "返回所有信息信息过载，不合理。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "2-1437": {
+    "qid": "2-1437",
+    "classification": "cross",
+    "chapter": -1,
+    "quality": "remove",
+    "reason": "题目问特定函数返回值，但函数ask_llm_route未在教材中定义，属于代码细节题，无考查价值且条件缺失。",
+    "answer": [],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "无依据判断。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "无依据判断。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "无依据判断。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "无依据判断。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-1390": {
+    "qid": "3-1390",
+    "classification": "cross",
+    "chapter": -1,
+    "quality": "review",
+    "reason": "题目问检索召回阶段的方法，但“思考并规划多次检索”的描述接近ReAct的规划-行动-观察循环，然而选项A与题干文字重复，存在歧义。",
+    "answer": [
+      "A"
+    ],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "题干描述即为“思考并规划多次检索”。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "增加训练数据非检索阶段方法。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "问题改写是检索前处理，非规划多次检索。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "重排序是检索后处理，非规划多次检索。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-1142": {
+    "qid": "3-1142",
+    "classification": "own",
+    "chapter": 4,
+    "quality": "ok",
+    "reason": "题目考查Agent长期记忆功能的应用场景与成本权衡，符合Memory章节的“长期记忆”和“低成本”考量。",
+    "answer": [
+      "D"
+    ],
+    "supported": true,
+    "quote": "Memory（记忆）分两类：短期记忆：当前会话的对话历史与中间结果；长期记忆：跨会话持久化的用户偏好、业务事实、经验教训，按需检索。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "构建独立知识库成本高，非低成本方案。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "硬编码无法动态积累偏好，不满足诉求。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "检索常见忌口信息，未针对用户个性化。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "使用长期记忆功能可低成本积累用户偏好。"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

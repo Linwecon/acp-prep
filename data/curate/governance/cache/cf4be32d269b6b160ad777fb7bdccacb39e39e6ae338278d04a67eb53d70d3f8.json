@@ -1,0 +1,107 @@
+{
+  "new-6-24-0": {
+    "qid": "new-6-24-0",
+    "classification": "own",
+    "chapter": 6,
+    "quality": "ok",
+    "reason": "题干明确给出KV Cache瓶颈，考查优化措施优先级。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "压测发现单卡A10（24GB）在并发>60时KV Cache显存占用达92%，TPOT劣化明显。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "张量并行增加卡间通信开销，非优先解。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "量化降显存，PagedAttention提吞吐，直接针对KV Cache瓶颈。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "FC有冷启动和时长限制，不适合高并发实时服务。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "TGI无PagedAttention，对KV Cache瓶颈改善有限。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-6-24-3": {
+    "qid": "new-6-24-3",
+    "classification": "own",
+    "chapter": 6,
+    "quality": "ok",
+    "reason": "考查高并发下性能劣化调优，符合SLO与压测场景。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "并发从50增至100后，QPS仅提升12%而平均RT飙升45%，且错误率从0.2%升至3.8%。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "强制增大batch可能加剧显存压力，恶化延迟。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "降低max-model-len可减KV Cache，缓解显存瓶颈。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "压榨显存利用率可能引发OOM，风险高。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "客户端重试是容错手段，不解决服务端瓶颈。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-6-24-5": {
+    "qid": "new-6-24-5",
+    "classification": "own",
+    "chapter": 6,
+    "quality": "ok",
+    "reason": "考查TTFT指标差异与用户感知延迟的关系。",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "百炼API的P95 TTFT为620ms，而ECS服务为380ms。但业务方实测用户感知延迟差异不明显。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "GQA是模型结构特性，与部署平台无关。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "流式输出影响TPOT感知，不解释TTFT差异。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "公网RTT计入TTFT，但流式输出可掩盖感知延迟。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "chunked prefill可能增加TTFT，不会隐藏。"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

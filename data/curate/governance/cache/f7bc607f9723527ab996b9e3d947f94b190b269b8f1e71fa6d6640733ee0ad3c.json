@@ -1,0 +1,37 @@
+{
+  "new-1-6-0": {
+    "qid": "new-1-6-0",
+    "classification": "own",
+    "chapter": 1,
+    "quality": "ok",
+    "reason": "题目考查多轮对话中模型‘失忆’的根本原因，属于本章核心知识点。",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "大模型 API 是无状态（Stateless）的：每次 HTTP 请求相互独立，服务端不会因为你上次调过就‘记得’你。所谓‘多轮对话’，本质是客户端把历史消息拼进 messages，每次重新发一遍。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "temperature过高影响随机性，但题干已排查总Token远低于窗口，且上下文细节未被忽略。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "模型参数冻结是事实，但非此场景‘失忆’的直接原因，题干已包含历史消息。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "最可能原因是assistant回复文本未完整放入messages，导致模型无法获知‘Jira’指代。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "top_p扩大候选集影响多样性，但题干已说明总Token数远低于窗口，非根本原因。"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

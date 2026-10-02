@@ -1,0 +1,226 @@
+{
+  "new-10-132-0": {
+    "qid": "new-10-132-0",
+    "classification": "own",
+    "chapter": 10,
+    "quality": "ok",
+    "reason": "考查PAI-EAS部署模型时对模型文件格式的要求，属于部署实践细节。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "日志显示'Failed to load model: tokenizer_config.json not found'。最可能的根本原因及教材依据是？",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "GPU配额不足通常导致资源等待，而非文件缺失。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "错误信息直接指向模型文件格式问题，符合部署常识。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "OSS权限问题通常导致拉取失败，而非特定文件缺失。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "权重未合并可能导致模型性能差，但不会导致tokenizer文件缺失。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-10-132-1": {
+    "qid": "new-10-132-1",
+    "classification": "own",
+    "chapter": 10,
+    "quality": "ok",
+    "reason": "考查百炼调用PAI-EAS私有模型的具体技术条件，属于平台集成实践。",
+    "answer": [
+      "A",
+      "B",
+      "C",
+      "E"
+    ],
+    "supported": true,
+    "quote": "百炼应用也可以调用部署在PAI-EAS上的私有模型。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "网络连通是调用的基础前提。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "接口兼容是百炼工作流能够解析响应的关键。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "调用外部服务通常需要鉴权。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "原文未提及百炼控制台需注册EAS模型。"
+      },
+      {
+        "label": "E",
+        "selected": true,
+        "why": "OpenAI兼容格式要求包含此标准字段。"
+      }
+    ],
+    "duplicate_of": "10-5192"
+  },
+  "new-10-132-2": {
+    "qid": "new-10-132-2",
+    "classification": "own",
+    "chapter": 10,
+    "quality": "ok",
+    "reason": "考查PAI-DLC分布式训练任务启动失败的可能原因，属于训练平台操作细节。",
+    "answer": [
+      "D"
+    ],
+    "supported": true,
+    "quote": "任务状态长期卡在'Initializing'且日志无有效输出，最应优先核查的必要条件是？",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "输入路径合法性影响数据读取，但非任务初始化卡住的主因。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "vLLM是推理库，训练任务初始化不依赖它。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "镜像预装软件影响运行时，但非初始化阶段主因。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "权限不足是导致任务无法启动读取数据的常见原因。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-10-132-3": {
+    "qid": "new-10-132-3",
+    "classification": "own",
+    "chapter": 10,
+    "quality": "ok",
+    "reason": "考查防止PAI-DSW实例意外计费的正确操作，属于成本管理要点。",
+    "answer": [
+      "A",
+      "C"
+    ],
+    "supported": true,
+    "quote": "关闭浏览器不等于停止实例，必须回控制台停止或删除实例。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "直接停止实例是根本解决方法。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "原文未提及‘空闲自动停止’策略。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "通过API主动停止符合自动化管理原则。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "降级规格不能防止计费，只能降低单价。"
+      },
+      {
+        "label": "E",
+        "selected": false,
+        "why": "强制终止进程不等于停止实例，实例可能仍在计费。"
+      }
+    ],
+    "duplicate_of": "10-5171"
+  },
+  "new-10-132-4": {
+    "qid": "new-10-132-4",
+    "classification": "own",
+    "chapter": 10,
+    "quality": "ok",
+    "reason": "考查选择开源模型方案的关键决策因素，属于模型选型逻辑。",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "开源模型的价值集中在三点：① 数据隐私与合规（数据不出域）；② 可深度定制（任意微调/改结构）；③ 大规模稳定流量下的长期成本可控",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "自建服务器是另一种私有化方式，非PAI-EAS方案增强因素。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "OCR处理是文档解析需求，与开源模型核心价值关联弱。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "深度结构改造是开源模型可定制的核心优势。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "低调用量预算有限更适合托管API，而非增强自托管方案。"
+      }
+    ],
+    "duplicate_of": "10-5178"
+  },
+  "new-10-132-5": {
+    "qid": "new-10-132-5",
+    "classification": "own",
+    "chapter": 10,
+    "quality": "ok",
+    "reason": "考查处理API限流429错误时的正确原则，属于成本与稳定性管理。",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "遇 429 用指数退避 + 抖动重试，控制并发、必要时降级到更小模型或申请提升配额；切忌无间隔死循环重试，那会加剧限流、推高成本。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "无间隔重试直接违反‘指数退避+抖动’原则。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "模型路由是预防策略，非处理429时的直接违规。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "控制输入是降本策略，非处理429时的直接违规。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "限制输出是降本策略，非处理429时的直接违规。"
+      }
+    ],
+    "duplicate_of": "10-5188"
+  }
+}

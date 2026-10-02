@@ -24,6 +24,8 @@
         let h = esc(s);
         h = h.replace(/`([^`]+)`/g, '<code>$1</code>');
         h = h.replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>');
+        // 图片（教程 Notebook 的截图 / 示意图）：![alt](url)
+        h = h.replace(/!\[([^\]]*)\]\(([^)]+)\)/g, '<img src="$2" alt="$1" loading="lazy">');
         h = h.replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2">$1</a>');
         // 处理 Markdown 反斜杠转义（如 \_ \* \# 等），去掉反斜杠保留原字符
         h = h.replace(/\\([\\`*_{}\[\]()#+\-.!|>~])/g, '$1');

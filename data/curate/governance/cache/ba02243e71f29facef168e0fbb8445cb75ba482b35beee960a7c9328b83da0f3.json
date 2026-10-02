@@ -1,0 +1,215 @@
+{
+  "new-9-18-0": {
+    "qid": "new-9-18-0",
+    "classification": "own",
+    "chapter": 9,
+    "quality": "ok",
+    "reason": "考查Batch API输入文件格式错误的影响，符合本章知识点。",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "必须校验输入输出行数、请求 ID 是否一一对应，防止错位或丢失",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "原文未提缺失字段会导致整批被拒。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "原文提‘按行独立处理’，一般不会整批终止。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "ID缺失导致结果无法对齐，符合校验原则。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "原文无平台自动补全字段的描述。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-9-18-1": {
+    "qid": "new-9-18-1",
+    "classification": "own",
+    "chapter": 9,
+    "quality": "ok",
+    "reason": "考查Batch API适用场景判断，符合选型原则。",
+    "answer": [
+      "B",
+      "D"
+    ],
+    "supported": true,
+    "quote": "Batch API是把大量请求打包成一个异步离线任务提交给平台，平台在后台调度处理",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "延迟风险是Batch特性，但非核心不适合理由。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "任务非模型生成，不满足Batch核心前提。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "校验成本是通用风险，非本场景特有。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "应调用原生计费接口，而非用模型生成。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-9-18-2": {
+    "qid": "new-9-18-2",
+    "classification": "own",
+    "chapter": 9,
+    "quality": "ok",
+    "reason": "考查Batch结果错位根本原因，符合校验对齐原则。",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "必须校验输入输出行数、请求 ID 是否一一对应，防止错位或丢失",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "原文未提网络抖动导致行丢失。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "原文未提相同ID会导致去重合并。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "ID缺失导致无法对齐，是根本原因。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "原文未提内容安全拦截会静默丢弃。"
+      }
+    ],
+    "duplicate_of": "9-5170"
+  },
+  "new-9-18-3": {
+    "qid": "new-9-18-3",
+    "classification": "own",
+    "chapter": 9,
+    "quality": "ok",
+    "reason": "考查Batch任务确保准确性的必须实践。",
+    "answer": [
+      "A",
+      "B",
+      "D"
+    ],
+    "supported": true,
+    "quote": "必须校验输入输出行数、请求 ID 是否一一对应，防止错位或丢失",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "设置唯一ID是校验对齐的前提。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "下载后逐行比对ID是必须的校验步骤。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "检查finish_reason是好的，但非原文强调的必须实践。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "预先语法校验确保输入合法，是必要步骤。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-9-18-4": {
+    "qid": "new-9-18-4",
+    "classification": "own",
+    "chapter": 9,
+    "quality": "ok",
+    "reason": "考查Batch任务延迟的工程解决措施。",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "Batch任务调度依赖后台GPU资源池，当同一租户并发提交多个Batch任务时，后提交任务会等待前序任务释放资源",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "拆分任务并行提交可减少单个任务资源占用时间。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "原文未提供查询GPU资源占用率的API。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "TPM配额是每分钟Token数，不直接解决GPU资源等待。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "改用同步调用不符合Batch成本最优场景。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-9-18-5": {
+    "qid": "new-9-18-5",
+    "classification": "own",
+    "chapter": 9,
+    "quality": "ok",
+    "reason": "考查Batch任务单行失败的处理原则。",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "必须校验输入输出行数、请求 ID 是否一一对应，防止错位或丢失",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "空对象表明未生成有效结果，需定位重试，符合校验对齐原则。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "单行失败未必丧失经济性，且非原文核心原则。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "Batch适用于大批量场景，格式错误是通用风险。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "原文未比较Batch与同步API的schema校验强度。"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

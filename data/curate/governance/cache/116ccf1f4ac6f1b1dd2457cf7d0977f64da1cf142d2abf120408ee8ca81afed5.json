@@ -1,0 +1,179 @@
+{
+  "3-5046": {
+    "qid": "3-5046",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "考查文本切片策略的核心原则，选项设置合理，有明确正确项。",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "切片之所以关键，是因为它直接决定了检索的'颗粒度'：切得太大……检索时容易'沾边但不精准'；切得太小……即使检索命中也信息不全。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "正确，需结合任务和模型窗口选择。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "错误，太大会混入噪声。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "错误，太小会信息不全。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "错误，重叠可防语义截断。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-5052": {
+    "qid": "3-5052",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "考查RAGAS核心指标Faithfulness的定义，题干描述典型。",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "Faithfulness（忠实度）……答案是否忠于检索资料，有没有脱离资料编造。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "正确，答案与检索资料相反。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "错误，非RAGAS指标。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "错误，非RAGAS指标。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "错误，非RAGAS指标。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-5060": {
+    "qid": "3-5060",
+    "classification": "cross",
+    "chapter": -1,
+    "quality": "review",
+    "reason": "考点为Dify平台操作，教材未提及，需review是否超出范围。",
+    "answer": [
+      "A",
+      "B",
+      "D"
+    ],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "合理，是知识库管理核心操作。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "合理，需根据数据特点配置。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "不合理，不导入内容无法检索。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "合理，召回测试是必要检查。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-5023": {
+    "qid": "3-5023",
+    "classification": "cross",
+    "chapter": -1,
+    "quality": "review",
+    "reason": "题干为‘自动修订合同’，属于长文档处理，但非RAG典型问答场景，需review。",
+    "answer": [
+      "B"
+    ],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "错误，可能超出上下文窗口。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "合理，分块并携带上下文。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "错误，信息不足。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "错误，图片无法直接处理文本。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-0149": {
+    "qid": "3-0149",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "考查RAG典型应用场景，选项区分度好。",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "RAG（Retrieval-Augmented Generation，检索增强生成）的核心思路……'开卷考试'……不让模型凭记忆答题，而是……从企业知识库里检索出最相关的几段资料。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "正确，RAG用于私域知识查询。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "错误，非RAG典型应用。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "错误，RAG不改变训练数据。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "错误，RAG可能增加推理时间。"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

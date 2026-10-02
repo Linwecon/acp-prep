@@ -1,0 +1,214 @@
+{
+  "new-11-6-0": {
+    "qid": "new-11-6-0",
+    "classification": "own",
+    "chapter": 11,
+    "quality": "ok",
+    "reason": "考查通义万相产品能力边界，符合本章产品定位知识点。",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "通义万相：图像/视频生成 | 文生图、图生图、文生视频",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "原文明确通义万相支持文生视频，但题干暗示当前版本可能未开放。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "VAE编码器用于压缩图像，不涉及时序建模分支。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "文生视频从噪声生成，无需初始参考帧。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "文生视频是生成任务，Qwen-VL是理解模型。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-11-6-1": {
+    "qid": "new-11-6-1",
+    "classification": "own",
+    "chapter": 11,
+    "quality": "ok",
+    "reason": "考查生成类风险与评测原则，符合本章知识点。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "图文一致性：模型可能生成'看起来对但细节错'的内容，自动指标很难评判，必须靠人工抽检或多模态审核模型兜底",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "题干未提及采样步数，且CLIP分数高说明模型认为已对齐。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "CLIP Score仅评估整体相似度，无法捕捉局部细节对齐。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "'亚洲'与'蓝色'无语义冲突，是常见组合。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "可能是原因，但原文强调自动指标不可靠，需人工兜底。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-11-6-2": {
+    "qid": "new-11-6-2",
+    "classification": "own",
+    "chapter": 11,
+    "quality": "ok",
+    "reason": "考查扩散模型在数字人生成中的应用场景。",
+    "answer": [
+      "B",
+      "C"
+    ],
+    "supported": true,
+    "quote": "文生图/视频主流基于扩散模型：从噪声出发，在文本条件引导下逐步去噪采样得到画面",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "TTS是语音合成，通常基于声码器，非扩散模型。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "生成匹配口型的动画帧序列属于视频生成，可能用到扩散模型。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "渲染背景图是文生图任务，依赖扩散模型。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "意图分类是文本理解任务，通常由LLM完成。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-11-6-3": {
+    "qid": "new-11-6-3",
+    "classification": "own",
+    "chapter": 11,
+    "quality": "ok",
+    "reason": "考查高负载下扩散模型生成失真的技术根因。",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "多模态成本与延迟特征：视频要抽大量帧，token消耗随帧数线性增长",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "CFG Scale过高可能失真，但题干强调高并发与高显存占用。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "VAE解码器精度降级可能，但更直接原因是采样步骤被跳过。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "显存不足可能导致采样器跳过步骤，使生成结果偏离。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "提示词问题不会因高并发而集中出现，且CLIP分数高。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-11-6-4": {
+    "qid": "new-11-6-4",
+    "classification": "own",
+    "chapter": 11,
+    "quality": "ok",
+    "reason": "考查文生图任务的核心技术前提。",
+    "answer": [
+      "A",
+      "B"
+    ],
+    "supported": true,
+    "quote": "文生图（通义万相）：核心是扩散模型（Diffusion）——从一张随机噪声图出发，在文本条件引导下一步步'去噪'",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "文本编码器将提示词转为条件向量，是引导去噪的必要前提。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "扩散模型在潜空间执行多步去噪迭代，是生成图像的核心过程。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "视觉编码器用于图像理解任务，文生图无需参考图编码。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "VAE编码器用于压缩原始图像，文生图从噪声开始，无需此步骤。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-11-6-5": {
+    "qid": "new-11-6-5",
+    "classification": "own",
+    "chapter": 11,
+    "quality": "ok",
+    "reason": "考查文生视频与文生图在模型架构上的根本差异。",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "文生视频/图生视频：文字/图片 → 视频 | 通义万相视频生成能力",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "视频生成需在UNet主干中扩展时间维度，处理帧间连贯性。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "现代文生视频模型是端到端生成，非先抽帧再分别去噪。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "视频潜空间维度未必更高，关键是时间维度的建模。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "ASR用于语音转写，文生视频无需此模块。"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

@@ -1,0 +1,232 @@
+{
+  "1-0457": {
+    "qid": "1-0457",
+    "classification": "own",
+    "chapter": 5,
+    "quality": "ok",
+    "reason": "考查微调相对于预训练的核心优势，考点明确。",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "微调之所以成本可控、收敛快，是因为模型底层的语言规律已经学到了",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "错误。微调成本低于预训练。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "错误。微调训练时间通常更短。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "正确。微调复用预训练学到的通用知识。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "错误。微调主要适配特定任务行为。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "1-0823": {
+    "qid": "1-0823",
+    "classification": "own",
+    "chapter": 5,
+    "quality": "ok",
+    "reason": "考查在资源受限环境下减少显存需求的方案。",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "知识蒸馏（Knowledge Distillation）……最终目的是降低生产环境的推理成本、提升推理速度",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "错误。微调通常增加训练时显存需求。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "错误。扩大输入长度会增加显存需求。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "正确。蒸馏小模型可减少推理时显存需求。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "错误。提高批量任务数量可能增加显存需求。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "1-1052": {
+    "qid": "1-1052",
+    "classification": "own",
+    "chapter": 5,
+    "quality": "ok",
+    "reason": "考查微调相比从头训练的主要优势，与1-0457考点相同。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "微调之所以成本可控、收敛快，是因为模型底层的语言规律已经学到了",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "错误。微调训练时间更短。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "正确。微调利用预训练学到的通用知识。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "错误。微调需要更少计算资源。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "错误。微调通常能提升特定任务表现。"
+      }
+    ],
+    "duplicate_of": "1-0457"
+  },
+  "1-1048": {
+    "qid": "1-1048",
+    "classification": "own",
+    "chapter": 5,
+    "quality": "ok",
+    "reason": "考查训练循环中计算输出与标签差异的步骤。",
+    "answer": [
+      "D"
+    ],
+    "supported": true,
+    "quote": "训练循环仍是那四步：前向传播算出预测 → 对比标准答案算损失",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "错误。梯度更新是优化参数。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "错误。参数初始化在训练开始前。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "错误。反向传播是计算梯度。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "正确。正向传播计算模型输出。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "1-1037": {
+    "qid": "1-1037",
+    "classification": "own",
+    "chapter": 5,
+    "quality": "ok",
+    "reason": "考查训练循环的核心必要步骤。",
+    "answer": [
+      "C",
+      "D",
+      "F"
+    ],
+    "supported": true,
+    "quote": "训练循环仍是那四步：前向传播算出预测 → 对比标准答案算损失 → 反向传播求梯度 → 优化器更新参数",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "错误。梯度裁剪不是必须步骤。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "错误。模型保存不是训练循环必须步骤。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "正确。正向传播是必须步骤。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "正确。反向传播是必须步骤。"
+      },
+      {
+        "label": "E",
+        "selected": false,
+        "why": "错误。超参数调整不是训练循环内步骤。"
+      },
+      {
+        "label": "F",
+        "selected": true,
+        "why": "正确。梯度更新是必须步骤。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "1-1172": {
+    "qid": "1-1172",
+    "classification": "misplaced",
+    "chapter": 1,
+    "quality": "remove",
+    "reason": "考查文本序列化和标准化的代码实现，与微调章节核心知识无关，且教材未提供判断依据。",
+    "answer": [],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "无教材依据判断。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "无教材依据判断。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "无教材依据判断。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "无教材依据判断。"
+      },
+      {
+        "label": "E",
+        "selected": false,
+        "why": "无教材依据判断。"
+      },
+      {
+        "label": "F",
+        "selected": false,
+        "why": "无教材依据判断。"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

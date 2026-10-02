@@ -1,0 +1,154 @@
+{
+  "items": [
+    {
+      "type": 0,
+      "stem": "某团队实施评测驱动开发（EDD）后，发现切片优化使Context Recall提升至0.92，但Answer Correctness仅微升0.03，且Faithfulness下降0.19；日志确认检索片段中明确包含'张伟是教研部的'等完整事实。此时若仅冻结评测集而未冻结评委LLM的temperature参数，导致两次评测使用不同随机性配置，最可能造成哪类归因失效？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "误判为生成端故障，实际是控制变量失效导致分数不可比"
+        },
+        {
+          "option_label": "B",
+          "option_text": "误将跷跷板效应归因为知识库缺失，实为Rerank未启用"
+        },
+        {
+          "option_label": "C",
+          "option_text": "误认为ground_truth标注错误，实为问题抽样偏离真实用户分布"
+        },
+        {
+          "option_label": "D",
+          "option_text": "误将Answer Relevancy低诊断为提示词回避问题，实为上下文拼装逻辑缺陷"
+        }
+      ],
+      "answer": "A",
+      "analysis": "依据教材7.2.4节'控制变量：让分数可比'，回归评测必须冻结'推理参数（temperature/seed）'，否则分数变化无法归因——'你不知道是系统变好了，还是评委今天心情不同'。本题中temperature未冻结，直接破坏'可比性'前提，导致所有指标变化均不可信，A项准确指出该归因失效本质。B项混淆了Precision低与Recall高的典型场景（应加Rerank），但题干未提Precision；C项违反'问题来自真实用户'铁律，但题干明确日志确认事实存在，非抽样问题；D项对应Relevancy低的定位（7.5节），但题干未提供Relevancy值，且Faithfulness下降指向幻觉而非回避。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 1,
+      "stem": "在构建新人答疑机器人评测集时，以下哪些操作同时违反教材7.2.1节'评测集构建的两条铁律'及7.1节'评测先行'原则？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "技术团队先用自编测试题验证切片效果，再根据结果调整切片策略"
+        },
+        {
+          "option_label": "B",
+          "option_text": "从线上工单抽取问题后，由AI工程师编写ground_truth，未邀请HRBP审定"
+        },
+        {
+          "option_label": "C",
+          "option_text": "为快速上线，在未建立基线分数前即部署新模型版本"
+        },
+        {
+          "option_label": "D",
+          "option_text": "将训练数据中的客服对话直接作为question字段纳入评测集"
+        }
+      ],
+      "answer": "A,B,C,D",
+      "analysis": "A项违反'评测先行'：'先验证再调整'属于'先改、再看看效果'，教材明确反对（7.1节'❌先优化，效果好了再补评测'）；B项违反'标准答案来自领域专家'铁律（7.2.1节），HRBP是业务专家；C项违反'评测先行'核心顺序（7.1节'先建评测集、拿到基线分数，再动手优化'），无基线则无法判断改动是否有效；D项违反'防止数据泄漏'（7.8.2节'绝不能用训练数据当评测集'），导致分数虚高。四项均严格对应教材明令禁止行为，无一符合规范。",
+      "difficulty_label": "挑战"
+    },
+    {
+      "type": 0,
+      "stem": "团队使用RAGAS评测发现：Context Recall=0.95、Context Precision=0.32、Faithfulness=0.28、Answer Correctness=0.31。日志确认正确信息'张伟是教研部的'位于第15个context中，前14个均为无关内容。若此时仅调大Top K以进一步提升Recall至0.98，最可能加剧的系统性风险是？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "触发'Lost in the Middle'现象，导致模型更难关注关键信息"
+        },
+        {
+          "option_label": "B",
+          "option_text": "引发跷跷板效应，使原本答对的'年假天数'类问题准确率下降"
+        },
+        {
+          "option_label": "C",
+          "option_text": "造成数据泄漏，使评测集污染训练数据"
+        },
+        {
+          "option_label": "D",
+          "option_text": "降低Answer Relevancy，因模型被迫处理更多无关上下文"
+        }
+      ],
+      "answer": "A",
+      "analysis": "教材7.4.2节明确指出Context Precision低（0.32）源于'正确片段排在后面'，并直接关联'Lost in the Middle'现象；7.5节风险提示'❌ Context Recall低就一味调大Top K → 噪声暴涨，Precision跟着掉，掉进Lost in the Middle'。A项精准对应此因果链：增大Top K会引入更多无关片段，进一步稀释关键信息位置权重，加剧模型注意力分散。B项属跷跷板效应，但题干未提及其他题型表现，且该效应需回归评测验证，非直接风险；C项数据泄漏需评测集被用于训练，与调Top K无关；D项虽合理，但教材7.4.5节强调Relevancy主要治'答非所问/含糊'，而本题根本矛盾是信息淹没，A项更直接、更根本。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 1,
+      "stem": "某Agent端到端评测得分为4.3/5，但用户投诉'生成的Python代码示例全部无法运行'。依据教材7.6节Agent评测框架，以下哪些措施属于'白盒评测'且能精准定位该故障？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "对Agent执行trace进行解析，检查工具调用序列中code_generation组件的输出是否符合Python语法"
+        },
+        {
+          "option_label": "B",
+          "option_text": "用确定性检查器运行生成代码，验证其能否通过预设的单元测试"
+        },
+        {
+          "option_label": "C",
+          "option_text": "用LLM-as-Judge评估代码示例的'教学有效性'和'理论深度'"
+        },
+        {
+          "option_label": "D",
+          "option_text": "在Rubric量表中增加'代码可执行性'维度，并要求评委输出JSON格式评分"
+        }
+      ],
+      "answer": "A,B",
+      "analysis": "教材7.6节定义白盒评测为'深入链路，对关键组件/中间步骤单独打分'，优势是'信号清晰无干扰、定位精准'。A项解析trace检查code_generation组件输出，属典型白盒（7.6.1节'单独测代码生成组件'）；B项用确定性检查验证代码可执行性，是'客观项：代码能否运行'的直接实现（7.6.1节表格）。C项属LLM-as-Judge，是端到端主观评价，无法定位具体组件；D项虽用Rubric，但'教学有效性'是主观语义指标，且要求JSON输出是为稳定评分，非白盒定位。教材7.6节强调'端到端看不出、需要白盒'，A、B直击代码执行环节，C、D仍停留在输出层面。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 0,
+      "stem": "团队用qwen-plus作为RAGAS评委计算Answer Correctness，但发现对简洁答案（如'张伟是教研部的'）打分偏低，而对冗长解释打分偏高。依据教材7.8.1节LLM-as-Judge偏见分析，应优先采取哪项校准动作？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "在评分提示词中明确加入'冗余内容扣分'条款，并提供简洁答案的few-shot示例"
+        },
+        {
+          "option_label": "B",
+          "option_text": "将同一组候选答案随机打乱顺序多次评分后取平均"
+        },
+        {
+          "option_label": "C",
+          "option_text": "更换为gpt-4-turbo作为评委，因其更擅长理解简洁表达"
+        },
+        {
+          "option_label": "D",
+          "option_text": "增加人工抽检频次，用黄金集校准所有评分阈值"
+        }
+      ],
+      "answer": "A",
+      "analysis": "题干描述'简洁答案打分偏低、冗长答案打分偏高'，精准对应教材7.8.1节'长度偏见'定义（'倾向认为更长更详细的答案更完整'）。A项'明确加入冗余内容扣分条款+few-shot示例'是教材7.8.1节'校准LLM评委的标准动作'中'评分提示词明确维度、量表、提供few-shot样例'的直接应用，且针对长度偏见专项治理。B项'交换顺序'是缓解位置偏见（7.8.1节），与长度无关；C项更换评委可能引入新偏见，教材强调'用与被测模型不同的评委'而非盲目升级；D项人工校准是长期机制，但题干要求'优先采取'，A项是成本最低、最直接的提示词级干预，符合'标准动作'优先级。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 1,
+      "stem": "在实施评测驱动开发（EDD）时，以下哪些实践能同时满足教材7.1节'防止回归'用途与7.2.4节'控制变量'要求？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "每次优化后，使用同一冻结版本的评测集、固定temperature=0.0、相同seed运行三次取平均分"
+        },
+        {
+          "option_label": "B",
+          "option_text": "将评测脚本、Embedding模型版本、评委LLM版本全部纳入Git仓库并打标签"
+        },
+        {
+          "option_label": "C",
+          "option_text": "建立黄金测试集，由HRBP每月复核一次ground_truth准确性"
+        },
+        {
+          "option_label": "D",
+          "option_text": "在CI/CD流水线中集成DeepEval，对每次PR自动运行回归评测"
+        }
+      ],
+      "answer": "A,B,D",
+      "analysis": "教材7.1节'防止回归'指'确保修好A、没弄坏B'，依赖'同一套题、同一配置'；7.2.4节'控制变量'要求'除了待测改动，其他一切都冻结'。A项'同一评测集+固定temperature+相同seed'是教材7.2.4节'冻结评测集与配置（temperature/seed/模型版本）'的完整实现，直接支撑回归；B项'脚本、Embedding、LLM版本入仓打标签'是工程化冻结配置的实践，确保环境可复现；D项'CI/CD集成DeepEval'是教材7.9节'把评测体系固化为可复用的评测集，才能支撑长期迭代'的落地，自动化保障回归。C项'黄金集复核'属质量保障，但'每月复核'破坏冻结性（ground_truth变动），且不直接约束评测执行时的变量控制，不符合'同时满足'要求。",
+      "difficulty_label": "挑战"
+    }
+  ]
+}

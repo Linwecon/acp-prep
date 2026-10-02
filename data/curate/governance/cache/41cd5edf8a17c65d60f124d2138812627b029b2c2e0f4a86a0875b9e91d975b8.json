@@ -1,0 +1,217 @@
+{
+  "new-10-78-0": {
+    "qid": "new-10-78-0",
+    "classification": "own",
+    "chapter": 10,
+    "quality": "ok",
+    "reason": "场景题考查平台选型逻辑，符合本章核心考点。",
+    "answer": [
+      "D"
+    ],
+    "supported": true,
+    "quote": "开源模型的价值集中在三点：① 数据隐私与合规（数据不出域）；② 可深度定制（任意微调/改结构）……开源版……部署到自建 GPU 或 PAI，数据可不出域、可自由微调……PAI 三件套：DSW 调试开发、DLC 分布式训练、EAS 在线部署弹性伸缩",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "DashScope调用数据需上送，违反数据不出域要求。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "包含DLC分布式训练，但题干无大规模训练需求，且未明确提及开源模型下载。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "DashScope调用数据需上送，违反数据不出域要求。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "使用开源模型在PAI上微调并部署，满足数据不出域和定制需求。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-10-78-1": {
+    "qid": "new-10-78-1",
+    "classification": "own",
+    "chapter": 10,
+    "quality": "ok",
+    "reason": "考查平台最佳实践与改造成本权衡，符合本章内容。",
+    "answer": [
+      "A",
+      "B",
+      "C"
+    ],
+    "supported": true,
+    "quote": "百炼既能可视化搭，也能发布成 API 被代码调用……DashScope 提供原生 SDK……OpenAI 兼容模式的价值：把 base_url 指向 DashScope 兼容地址……原本基于 OpenAI Python SDK 写的程序几乎不用改就能调用通义千问",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "百炼生成API供微服务调用，是低改造成本实践。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "直接集成SDK调用轻量模型，符合最小改造成本。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "OpenAI兼容模式迁移成本低，生态工具可复用。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "训练专属模型改造成本高，非最小化成本实践。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-10-78-2": {
+    "qid": "new-10-78-2",
+    "classification": "own",
+    "chapter": 10,
+    "quality": "ok",
+    "reason": "考查对限流机制和成本控制的理解，符合本章计费要点。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "省成本的工程手段：选对模型尺寸：简单任务用 turbo/小模型，复杂任务才上 max……控制输出：用 max_tokens 给输出设上限……遇 429 用指数退避 + 抖动重试，必要时降级到更小模型",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "固定延迟重试非指数退避最佳实践，且未解决根本。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "切换至低成本模型并限制输出，直接降低TPM消耗。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "缓存可降本，但无法直接应对突发流量导致的TPM超限。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "部署自托管模型是长期方案，非针对突发TPM超限的应急措施。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-10-78-3": {
+    "qid": "new-10-78-3",
+    "classification": "own",
+    "chapter": 10,
+    "quality": "ok",
+    "reason": "考查对产品分层定位的理解，是本章核心内容。",
+    "answer": [
+      "A",
+      "C",
+      "D"
+    ],
+    "supported": true,
+    "quote": "百炼是应用开发层……DashScope 是模型服务 API 平台……百炼是应用层、DashScope 是其底层模型 API，二者共用 API Key……OSS 存放企业文档 → DataWorks/MaxCompute 做清洗加工 → 百炼知识库",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "准确描述了百炼与DashScope的调用关系。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "ModelScope是开源社区，不属于训练部署层。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "准确描述了数据底座层对上层AI服务的支撑。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "准确描述了DashScope的MaaS定位及与百炼的关系。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-10-78-4": {
+    "qid": "new-10-78-4",
+    "classification": "own",
+    "chapter": 10,
+    "quality": "ok",
+    "reason": "场景题考查平台选型，综合评估需求与约束。",
+    "answer": [
+      "D"
+    ],
+    "supported": true,
+    "quote": "百炼（Model Studio）是一站式大模型应用开发平台……提供选模型 → 调 Prompt → 建知识库 → 搭智能体/工作流 → 评测观测 → 一键发布的完整链路……通义法睿 / 点金 / 仁心是法律 / 金融 / 医疗垂类模型",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "涉及GPU资源训练部署，与无GPU资源要求矛盾。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "通义万相是图像生成模型，非PDF解析与法律垂类模型。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "需自行构建RAG和部署前端，非最快速上线路径。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "百炼集成文档解析、知识库、垂类模型和工作流，满足快速上线需求。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-10-78-5": {
+    "qid": "new-10-78-5",
+    "classification": "own",
+    "chapter": 10,
+    "quality": "ok",
+    "reason": "考查数据不出域RAG的技术实现方案，符合本章内容。",
+    "answer": [
+      "A",
+      "D"
+    ],
+    "supported": true,
+    "quote": "开源模型的价值集中在三点：① 数据隐私与合规（数据不出域）……开源版……部署到自建 GPU 或 PAI，数据可不出域、可自由微调……PAI 三件套：DSW 调试开发、DLC 训练、EAS 部署",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "使用开源模型在PAI环境内完成全流程，数据不出域。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "教材未提及百炼知识库有自动同步至VPC内PAI-EAS的功能。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "DashScope Embedding API调用需数据上送，违反不出域要求。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "在PAI环境内微调并部署开源模型，满足数据不出域要求。"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

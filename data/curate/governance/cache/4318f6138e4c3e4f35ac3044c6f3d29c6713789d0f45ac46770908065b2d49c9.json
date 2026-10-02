@@ -1,0 +1,212 @@
+{
+  "2-0287": {
+    "qid": "2-0287",
+    "classification": "own",
+    "chapter": 2,
+    "quality": "ok",
+    "reason": "考查CoT核心作用，题干明确限定'复杂任务中'，选项A精准对应原文'显式输出中间推理步骤''把复杂问题分解为若干子问题逐步求解'，其余选项均属常识性干扰且与提示工程无关。",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "思维链（Chain-of-Thought, CoT）：引导模型在给出最终答案前，显式输出中间推理步骤，把复杂问题分解为若干子问题逐步求解。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "原文明确定义CoT是'显式输出中间推理步骤，把复杂问题分解为若干子问题逐步求解'，'逐步推导出正确答案'即该定义的准确转述。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "CoT不涉及模型训练，原文强调'不改变模型参数'，'增加训练数据'属于微调范畴，与提示工程本质冲突。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "原文指出CoT会'增加成本'，Self-Consistency明确说明'延迟和成本成倍增加'，CoT必然增加推理时间而非减少。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "提示工程所有技术均不改变模型参数，原文多处强调'不改动模型参数''不改变模型参数'，此选项违背本章最基础结论。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "2-0312": {
+    "qid": "2-0312",
+    "classification": "own",
+    "chapter": 2,
+    "quality": "ok",
+    "reason": "考查Few-shot设计原则，题干问'不是建议'，需识别错误项。C选项'依赖于模型的归纳能力'与原文'Few-shot之所以有效，是因为示例让模型通过上下文学习对齐'相悖，上下文学习非归纳而是模式匹配。",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "Few-shot之所以有效，是因为示例让模型通过上下文学习对齐'输出什么格式、什么口吻'；示例不在多而在精，2~5个高质量范例通常足够。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "原文强调'示例不在多而在精，2~5个高质量范例通常足够'，'精选代表性样本'是明确建议。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "原文模板设计要点要求'固定部分写规则，变化部分用变量'，结构一致性是工程化核心，属正确建议。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "原文定义Few-shot有效性源于'上下文学习（In-Context Learning）隐式模仿'，而非依赖模型归纳能力；归纳是模型自身能力，提示工程应主动提供锚点而非被动依赖。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "原文明确指出'示例不在多而在精，2~5个高质量范例通常足够'，'避免提供过多示例'是直接建议。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "2-0321": {
+    "qid": "2-0321",
+    "classification": "own",
+    "chapter": 2,
+    "quality": "ok",
+    "reason": "考查CoT应用方法，题干问'如何优化推理能力和逻辑性'，B选项完全对应原文'引导模型在给出最终答案前，显式输出中间推理步骤'，其余选项均为反面典型错误。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "思维链（Chain-of-Thought, CoT）：引导模型在给出最终答案前，显式输出中间推理步骤，把复杂问题分解为若干子问题逐步求解。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "原文'高频踩坑'明确反对'只写任务，漏掉其余要素'，'仅提供简短提示'属于典型错误，会导致输出跑偏。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "原文定义CoT即'引导模型在给出最终答案前，显式输出中间推理步骤'，直接对应'引导模型逐步展示其推理步骤'，是唯一正向方法。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "原文强调'给模型补足决策信息'，'忽略上下文信息'与六要素中'上下文（Context）'作用完全相悖，属严重错误。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "原文'CoT为什么有效'指出'把高难度概率判断拆成多个低难度小步骤'，'不关心过程'直接否定CoT价值，属根本性错误。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "2-0327": {
+    "qid": "2-0327",
+    "classification": "own",
+    "chapter": 2,
+    "quality": "ok",
+    "reason": "考查风格控制要素，题干问'不是必要'，C选项'要求模型忽略上下文信息'与原文'上下文（Context）提供背景、事实、范围'直接矛盾，属明显错误。",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "上下文（Context）：提供背景、事实、范围",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "原文'角色（Role）激活模型在训练中见过的角色模式'，'具体定义'是激活前提，属必要。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "原文'受众（Audience）直接决定内容深度'，形容词/短语是定义风格的常用手段，属必要。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "原文明确'上下文（Context）提供背景、事实、范围'，'忽略上下文'将导致模型失去关键决策依据，与风格控制目标背道而驰。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "原文'角色（Role）定义身份、语气、写作风格'，'语言习惯和情绪状态'是角色定义的核心维度，属必要。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "2-0331": {
+    "qid": "2-0331",
+    "classification": "own",
+    "chapter": 2,
+    "quality": "ok",
+    "reason": "考查角色设定要素，题干问'不是需要考虑的因素'，B选项'物理外观'未在原文六要素或任何角色描述中出现，属于无关干扰项。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "角色（Role）：定义身份、语气、写作风格",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "原文'受众（Audience）指定为谁而写，约束内容深度'，年龄阶段是受众定义的关键属性，影响内容深度。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "原文所有关于角色的描述均聚焦'身份、语气、写作风格、专业知识、情绪状态'，从未提及物理外观，该因素与LLM文本生成无关。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "原文'角色（Role）激活模型在训练中见过的角色模式'，专业知识是角色模式的核心组成部分，属必要因素。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "原文'角色（Role）定义身份、语气、写作风格'，情绪状态直接影响语气和风格，属必要因素。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "2-0337": {
+    "qid": "2-0337",
+    "classification": "own",
+    "chapter": 2,
+    "quality": "ok",
+    "reason": "考查Few-shot适用场景，题干问'不是应用场景'，B选项'需要深度专业知识的任务'与原文'知识不足时上RAG'矛盾，Few-shot无法弥补知识缺口，应由RAG解决。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "提示工程主要解决什么问题？——把模糊需求转成清晰、稳定、可复用的输入，引导模型输出符合预期，不是'扩展模型知识'（那是 RAG 的事）。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "原文'Few-shot适用于格式/风格敏感、需稳定结构的任务'，数据稀缺时快速适配新任务是典型场景。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "原文明确'提示工程不是扩展模型知识，那是RAG的事'，深度专业知识属于知识缺口，Few-shot无法解决，必须用RAG。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "原文'Few-shot示例让模型通过上下文学习对齐'，快速原型设计需快速验证格式与风格，是标准应用场景。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "原文'Few-shot适用于格式/风格敏感的任务'，创造性写作需稳定风格与结构，属典型应用场景。"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

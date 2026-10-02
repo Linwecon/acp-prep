@@ -1,0 +1,215 @@
+{
+  "3-1448": {
+    "qid": "3-1448",
+    "classification": "own",
+    "chapter": 8,
+    "quality": "ok",
+    "reason": "考查RAG权限过滤时机，原文明确流程",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "知识库访问控制的三步流程：1. 查用户权限；2. 比对知识条目的访问属性；3. 过滤后再送入模型。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "原文明确'过滤发生在检索之后、拼Prompt之前'"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "原文未提预先过滤，且会降低检索精度"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "违背最小权限原则，原文强调按职位过滤"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "原文强调'模型不是权限边界，必须应用层强制'"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-1102": {
+    "qid": "3-1102",
+    "classification": "own",
+    "chapter": 8,
+    "quality": "ok",
+    "reason": "考查隐私泄露防护，三措施均原文支持",
+    "answer": [
+      "A",
+      "B",
+      "D"
+    ],
+    "supported": true,
+    "quote": "数据脱敏（去标识化）是在数据进入训练、评测、RAG链路之前，对姓名、手机号、证件号等PII做掩码、替换",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "输入过滤可拦诱导性问题，属三层防御"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "输出审查是三层防御最后一道防线"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "多样性不解决隐私泄露，原文未提此法"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "脱敏是数据安全核心手段，原文明确定义"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-1152": {
+    "qid": "3-1152",
+    "classification": "own",
+    "chapter": 8,
+    "quality": "ok",
+    "reason": "考查知识库投毒根治，原文强调入库审批",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "知识库投毒：热心员工上传篡改过的报销指南；入库审批 + 入库前内容扫描 + 版本管理与回滚 + 来源校验",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "输出检测是兜底，非根本，原文未提静态分析"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "原文明确'知识库投毒'需'入库审批+扫描'"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "限制生成非根本，且影响正常功能"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "数字签名防篡改，但不防恶意内容本身"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "7-0595": {
+    "qid": "7-0595",
+    "classification": "cross",
+    "chapter": 7,
+    "quality": "ok",
+    "reason": "评测方法论属第7章，非本章核心考点",
+    "answer": [
+      "A",
+      "B"
+    ],
+    "supported": true,
+    "quote": "评测驱动开发（EDD）；评测先行（Eval First）；自动化评测四字段；控制变量保障可比性",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "风险类型定义是评测前提，属第7章基础"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "构建Benchmark是第7章核心评估方法"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "UI优化属工程实现，教材未列为评测步骤"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "增加算力是部署优化，非安全性评测步骤"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "10-1056": {
+    "qid": "10-1056",
+    "classification": "misplaced",
+    "chapter": 12,
+    "quality": "fixable",
+    "reason": "检测方法属框架工具选型，非安全核心",
+    "answer": [
+      "C"
+    ],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "识别错误不等于识别营销表达"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "自动修改非检测方法，且未提"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "逐条识别符合文本检测常规实践"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "一次性生成结果非检测方法，未提"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "10-0791": {
+    "qid": "10-0791",
+    "classification": "own",
+    "chapter": 8,
+    "quality": "ok",
+    "reason": "考查敏感问题识别，属输入过滤场景",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "输入过滤：用AI安全护栏/内容安全在Prompt进模型前检测角色扮演、指令覆盖、越狱话术",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "直接生成违反输入过滤原则"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "文本分类是输入过滤标准技术路径"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "回避回答不可靠，易被注入绕过"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "关键词黑名单原文明确'防不住'"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

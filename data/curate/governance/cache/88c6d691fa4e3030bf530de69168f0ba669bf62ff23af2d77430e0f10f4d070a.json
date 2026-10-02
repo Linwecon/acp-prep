@@ -1,0 +1,213 @@
+{
+  "1-0325": {
+    "qid": "1-0325",
+    "classification": "own",
+    "chapter": 1,
+    "quality": "ok",
+    "reason": "考查LLM本质是概率性文本生成器，根据概率分布选择下一个Token。",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "LLM 的本质是条件概率模型：给定上文，模型计算下一个词的概率分布 P(下一个词 | 上文)",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "模型根据概率分布选择最可能的Token。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "增加多样性非默认行为，需调参。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "模型一次只生成一个Token。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "默认解码策略非纯随机。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "1-0378": {
+    "qid": "1-0378",
+    "classification": "cross",
+    "chapter": -1,
+    "quality": "remove",
+    "reason": "题干模糊，选项与教材知识无关，无考查价值。",
+    "answer": [],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "教材未提及此方式。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "教材未提及此方式。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "教材未提及此方式。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "教材未提及此方式。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "1-0385": {
+    "qid": "1-0385",
+    "classification": "cross",
+    "chapter": -1,
+    "quality": "remove",
+    "reason": "考查AI子领域分类，超出本章范围，且与教材知识无关。",
+    "answer": [
+      "A"
+    ],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "深度学习是机器学习子集，非独立分支。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "描述正确。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "描述正确。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "描述正确。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "1-0387": {
+    "qid": "1-0387",
+    "classification": "cross",
+    "chapter": -1,
+    "quality": "remove",
+    "reason": "题干“代码解释器插件”定义不明，与教材知识无关。",
+    "answer": [],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "教材未提及此功能。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "教材未提及此功能。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "教材未提及此功能。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "教材未提及此功能。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "1-0403": {
+    "qid": "1-0403",
+    "classification": "cross",
+    "chapter": 2,
+    "quality": "ok",
+    "reason": "考查提示词任务指令的明确性，属于提示工程范畴。",
+    "answer": [
+      "C"
+    ],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "指令明确要求总结，适合生成摘要。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "提取关键词是摘要相关任务。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "翻译任务不直接生成摘要。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "指令明确要求压缩，适合生成摘要。"
+      },
+      {
+        "label": "E",
+        "selected": false,
+        "why": "指令明确要求概括，适合生成摘要。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "1-0428": {
+    "qid": "1-0428",
+    "classification": "cross",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "考查RAG中文本向量化的实现，属于RAG章节核心知识。",
+    "answer": [
+      "B"
+    ],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "numpy是通用库，非专用向量化工具。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "Sentence Transformer是常用文本向量化库。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "hashlib用于哈希，非语义向量。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "返回文本长度，非语义向量。"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

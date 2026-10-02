@@ -1,0 +1,154 @@
+{
+  "items": [
+    {
+      "type": 0,
+      "stem": "某团队对新人答疑机器人进行优化后，RAGAS评测显示：Context Recall从0.62升至0.91，Context Precision从0.35降至0.28，Faithfulness从0.74降至0.41，Answer Correctness从0.68降至0.52。用户反馈'能答的问题变多了，但答案更啰嗦且常带错误细节'。此时最应优先采取的工程动作是？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "扩大Top K并补充知识库文档"
+        },
+        {
+          "option_label": "B",
+          "option_text": "引入Rerank模块并对检索结果重排序"
+        },
+        {
+          "option_label": "C",
+          "option_text": "强化提示词中'仅依据上下文回答'的约束，并降低temperature"
+        },
+        {
+          "option_label": "D",
+          "option_text": "用领域专家重写全部ground_truth，提升标注质量"
+        }
+      ],
+      "answer": "B",
+      "analysis": "题干呈现典型‘Recall↑ + Precision↓ + Faithfulness↓’组合：Recall显著提升说明检索覆盖增强（可能因增大Top K或扩充知识库），但Precision骤降表明噪声激增、相关片段被埋没；Faithfulness同步下降印证模型在大量无关上下文中‘迷失’，导致幻觉增多（教材7.5节‘黄金法则’第1条及风险提醒：‘Recall低就一味调大Top K’是踩坑行为）。此时病根在检索端的信噪比与排序质量，而非生成端（若为生成问题，Recall/Precision应稳定而Faithfulness单独下降）。教材7.5明确指出：Precision低且Recall高时，‘应加Rerank、缩小Top K、相似度阈值过滤’（表格‘优化方向’栏）。A项会进一步恶化Precision；C项针对生成端，但根本矛盾未解决；D项ground_truth质量未被质疑，且Recall提升已证明其有效性。故B为唯一符合‘定位→开方’逻辑的优先动作。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 1,
+      "stem": "在构建新人答疑机器人的自动化评测集时，以下哪些操作违反了教材强调的‘评测先行’与‘领域专家主导’原则？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "开发工程师根据自身理解编写100道测试题，并设定标准答案"
+        },
+        {
+          "option_label": "B",
+          "option_text": "从线上客服工单中随机抽取500个问题作为question字段"
+        },
+        {
+          "option_label": "C",
+          "option_text": "将训练数据中的问答对直接拆解为question和answer，填充评测集"
+        },
+        {
+          "option_label": "D",
+          "option_text": "邀请HRBP和法务专员共同审定ground_truth，确保答案合规准确"
+        }
+      ],
+      "answer": "AC",
+      "analysis": "A项违反‘ground_truth必须由业务领域专家提供’（教材7.2.1铁律、7.2.1表格‘由谁提供’栏），工程师可写题但无权定义业务正确性；C项违反‘防止数据泄漏’铁律（教材7.8.2‘绝不能用训练数据当评测集’），会导致分数虚高、失去回归价值。B项符合‘问题来自真实用户场景’（教材7.2.1铁律），工单抽样是推荐做法；D项完全契合‘领域专家主导标准’（教材7.6.1最佳实践、7.8.2黄金集定义），是正确动作。因此AC为错误操作，构成多选答案。",
+      "difficulty_label": "中等"
+    },
+    {
+      "type": 0,
+      "stem": "某Agent在课程写作任务中端到端评测得分为4.3/5，但用户投诉‘生成的Python代码无法运行’。技术团队决定增加白盒评测，以下哪项指标设计最能精准定位该故障？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "使用LLM-as-Judge对代码示例的‘教学有效性’打分"
+        },
+        {
+          "option_label": "B",
+          "option_text": "定义确定性检查规则：执行代码并捕获异常，返回True/False"
+        },
+        {
+          "option_label": "C",
+          "option_text": "计算代码与参考答案的BLEU-4分数"
+        },
+        {
+          "option_label": "D",
+          "option_text": "用Rubric量表评估代码的‘变量命名规范性’和‘注释完整性’"
+        }
+      ],
+      "answer": "B",
+      "analysis": "题干核心矛盾是‘端到端总分高但具体功能失效’，教材7.6明确要求Agent评测需‘白盒’深入中间步骤（‘端到端看不出、需要白盒’），且‘确定性检查’专用于‘客观项：代码能否运行’（教材7.6.1表格）。B项通过实际执行验证可运行性，结果确定、无偏见、成本低，直击故障本质。A项属主观语义评价，无法判断运行错误；C项BLEU衡量字面相似，与可执行性无关（教材7.2.3风险：‘BLEU高≠翻译好’）；D项关注风格而非功能性，偏离用户投诉焦点。教材7.6.1案例‘课程写作Agent’亦以‘代码能否运行’为典型客观指标。",
+      "difficulty_label": "中等"
+    },
+    {
+      "type": 1,
+      "stem": "在使用RAGAS评估中文场景时，为提升Answer Correctness指标的业务可信度，以下哪些措施有教材依据且符合‘评测驱动开发’原则？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "将chinese_prompt.py中的提示词模板替换为适配中文业务术语的版本"
+        },
+        {
+          "option_label": "B",
+          "option_text": "仅依赖自动计算的Correctness分数，不再人工抽检"
+        },
+        {
+          "option_label": "C",
+          "option_text": "用同一套冻结评测集持续跟踪每次优化后的分数变化"
+        },
+        {
+          "option_label": "D",
+          "option_text": "当Correctness分数下降时，立即回滚所有改动"
+        }
+      ],
+      "answer": "AC",
+      "analysis": "A项有明确教材依据：教材7.4.4注明‘RAGAS的中文场景可替换chinese_prompt.py里的中文提示词模板’，这是适配本地化业务的关键动作；C项是‘评测先行/回归评测’的核心实践（教材7.1原理、7.2.4‘冻结评测集与配置’、7.5‘防止回归’用途），确保分数变化可归因于改动。B项违反教材7.8.2‘自动化评测再成熟也不能取代人工’及‘必须由领域专家参与评测’；D项过于机械，教材7.5强调‘根据分数定位问题+针对性优化’，而非简单回滚（如Correctness下降可能因检索或生成问题，需结合其他指标诊断）。故AC为正确选项。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 0,
+      "stem": "某团队发现LLM-as-Judge对长答案 consistently 给出更高Answer Relevancy分数，即使短答案更切题。为校准此偏见，以下哪项操作最符合教材推荐的‘标准动作’？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "在评分提示词中加入‘答案长度不得超过100字，超长则扣分’的硬性约束"
+        },
+        {
+          "option_label": "B",
+          "option_text": "使用同一评委对同一组候选答案多次打分，取平均值"
+        },
+        {
+          "option_label": "C",
+          "option_text": "在评分提示词中明确‘冗余内容不加分，简洁切题者优先’，并提供正反few-shot样例"
+        },
+        {
+          "option_label": "D",
+          "option_text": "更换为另一个参数量更大的LLM作为评委"
+        }
+      ],
+      "answer": "C",
+      "analysis": "题干描述的是‘长度偏见’（教材7.8.1表格首行），教材7.8.1‘校准标准动作’明确要求：①评分提示词明确维度与量表；②提供few-shot样例；③用黄金集校准。C项同时满足①（明确‘冗余不加分、简洁优先’）和②（提供正反样例），是直接、低成本、可复现的校准手段。A项虽提及长度，但‘硬性约束’非教材推荐（教材未提字数限制，而是强调‘评分细则中明确冗余扣分’）；B项未解决长度偏见，重复打分仍会一致高给；D项可能引入新偏见（‘自我偏好’），教材建议‘用与被测模型不同的评委’而非盲目换大模型。故C为最优解。",
+      "difficulty_label": "中等"
+    },
+    {
+      "type": 1,
+      "stem": "在对比两个RAG系统A和B的性能时，若仅依赖公开基准（如C-Eval）得分，可能产生哪些误导性结论？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "误判A系统业务表现优于B，因其C-Eval分数高5%，但A在真实用户问题上召回率低20%"
+        },
+        {
+          "option_label": "B",
+          "option_text": "忽略A系统在‘报销流程’类问题上的幻觉问题，因C-Eval不覆盖该业务场景"
+        },
+        {
+          "option_label": "C",
+          "option_text": "高估B系统的响应速度，因C-Eval不包含延迟指标"
+        },
+        {
+          "option_label": "D",
+          "option_text": "低估A系统的Faithfulness，因C-Eval未设计忠实度评估维度"
+        }
+      ],
+      "answer": "ABD",
+      "analysis": "教材7.7‘公开基准的三个坑’明确指出：①‘基准分高≠业务表现好’（A项对应）；②‘基准只反映通用能力，与业务题型、领域知识不同’（B项‘报销流程’是典型业务场景，C-Eval不覆盖）；③‘数据污染/刷分’风险（D项隐含：C-Eval无Faithfulness指标，无法评估RAG特有幻觉问题）。C项错误：响应速度属‘核心技术指标’（教材7.2.2表格），公开基准本就不评测性能指标，此非‘误导性结论’而是基准设计本意，教材未将其列为‘坑’。因此ABD为符合教材风险警示的正确选项。",
+      "difficulty_label": "进阶"
+    }
+  ]
+}

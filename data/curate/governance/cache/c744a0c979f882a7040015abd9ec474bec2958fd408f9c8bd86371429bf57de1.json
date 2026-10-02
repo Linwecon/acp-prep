@@ -1,0 +1,212 @@
+{
+  "2-0173": {
+    "qid": "2-0173",
+    "classification": "own",
+    "chapter": 2,
+    "quality": "ok",
+    "reason": "题干考查System Prompt的核心作用，与教材定义一致。",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "System Prompt（系统提示词 / 系统消息）是在对话开始时注入、用于设定模型全局行为（角色、规则、输出规范、安全边界）的特殊消息。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "教材明确System Prompt用于设定全局行为、规则和输出格式。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "用户输入格式不由System Prompt定义。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "提示工程不改变模型训练参数。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "检索流程是RAG范畴，非System Prompt作用。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "2-0275": {
+    "qid": "2-0275",
+    "classification": "own",
+    "chapter": 2,
+    "quality": "ok",
+    "reason": "考查分隔符的常见形式，教材有明确列举。",
+    "answer": [
+      "D"
+    ],
+    "supported": true,
+    "quote": "常见形式有：三引号 `\"\"\"...\"\"\"`、XML 标签 `<context>...</context>`、Markdown 代码块、分隔线 `---`/`-----`、方括号 `【】`、`<< >>`、`###` 等。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "方括号是教材列举的分隔符形式之一。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "XML标签是教材列举的分隔符形式之一。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "`##`类似教材列举的`###`，可作为分隔符。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "A、B、C选项均为教材认可的分隔符形式。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "2-0327": {
+    "qid": "2-0327",
+    "classification": "own",
+    "chapter": 2,
+    "quality": "ok",
+    "reason": "考查生成特定风格文档时提示词的必要要素。",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "六要素需要落成一个稳定的结构。推荐的通用结构是：角色 + 任务 + 上下文 + 示例 + 输出格式与约束",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "提供风格定义属于明确任务或约束。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "列举相关形容词或短语可辅助定义风格。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "要求忽略上下文信息通常不必要且有害。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "设定角色语言习惯和情绪状态是定义角色的一部分。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "2-0331": {
+    "qid": "2-0331",
+    "classification": "own",
+    "chapter": 2,
+    "quality": "ok",
+    "reason": "考查分配角色时需考虑的因素，教材强调角色定义内容。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "“角色”激活模型在训练中见过的角色模式（工程师 vs 小学老师，对同一问题的措辞深度完全不同）",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "年龄阶段影响措辞深度和内容，需要考虑。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "物理外观通常与文本生成任务无关。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "专业知识是定义角色专业背景的关键。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "情绪状态影响写作风格和语气，需要考虑。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "2-0339": {
+    "qid": "2-0339",
+    "classification": "own",
+    "chapter": 2,
+    "quality": "ok",
+    "reason": "考查CoT技术的适用场景，教材明确其提升推理准确率。",
+    "answer": [
+      "D"
+    ],
+    "supported": true,
+    "quote": "这对数学计算、逻辑推理、多约束规划等任务提升尤其明显。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "编程问题解决涉及逻辑推理，CoT适用。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "逻辑推理是CoT的典型适用领域。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "复杂决策支持涉及多步分析，CoT适用。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "情感分析侧重感知而非多步推理，CoT不直接。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "2-0345": {
+    "qid": "2-0345",
+    "classification": "own",
+    "chapter": 2,
+    "quality": "ok",
+    "reason": "考查提示词设计的基本原则，教材强调清晰明确。",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "提示词给得越清晰、约束越明确，正确答案的概率分布就越集中",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "简洁明确是确保模型理解意图的基础原则。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "生动形象不是提示词设计的核心原则。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "语言华丽可能引入歧义，非核心原则。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "内容详尽可能稀释注意力，需精准克制。"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

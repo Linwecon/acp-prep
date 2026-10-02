@@ -1,0 +1,210 @@
+{
+  "3-1272": {
+    "qid": "3-1272",
+    "classification": "beyond",
+    "chapter": 12,
+    "quality": "remove",
+    "reason": "题目考查Markdown工具Marp的具体使用技巧，与RAG核心知识无关，属于框架与工具章节的特定工具使用，无考查价值。",
+    "answer": [],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "题干与RAG无关，无法判断。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "题干与RAG无关，无法判断。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "题干与RAG无关，无法判断。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "题干与RAG无关，无法判断。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-6002": {
+    "qid": "3-6002",
+    "classification": "cross",
+    "chapter": -1,
+    "quality": "remove",
+    "reason": "题目描述的是商品推荐系统集成，涉及向量数据库、API、行为分析等多组件，但未明确考查RAG核心流程或概念，属于综合性场景，考点模糊，无明确考查价值。",
+    "answer": [],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "场景综合性过强，无法基于RAG知识判断。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "场景综合性过强，无法基于RAG知识判断。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "场景综合性过强，无法基于RAG知识判断。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "场景综合性过强，无法基于RAG知识判断。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-1466": {
+    "qid": "3-1466",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "题目考查提升Context Recall的方法，属于RAG评估与优化核心考点。",
+    "answer": [
+      "A",
+      "B",
+      "C"
+    ],
+    "supported": true,
+    "quote": "具体优化方向：Recall 低：补充知识库、换更强的 Embedding、做查询改写",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "补充知识库可直接增加相关信息被检索到的可能性。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "更换更优的Embedding模型能提升语义匹配能力，有助于召回。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "查询改写可使问题表述更接近知识库内容，提升召回。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "重排序主要提升精确率，对召回率影响有限。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-1467": {
+    "qid": "3-1467",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "题目考查提升Context Precision的方法，属于RAG评估与优化核心考点。",
+    "answer": [
+      "A",
+      "B",
+      "D"
+    ],
+    "supported": true,
+    "quote": "Precision 低：上述措施 + 加 Rerank。检索质量差的三大根因：① Embedding 模型不够好 ② 切片策略不当 ③ 文档格式丢失了结构信息。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "重排序可对候选重新精排，将相关项提前，提升精确率。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "优化查询语句可使问题向量更精准，提升检索相关性。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "增加生成答案长度与检索精确率无直接关系。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "更换更好的Embedding模型可提升语义匹配精度。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-0062": {
+    "qid": "3-0062",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "题目考查RAG系统中召回噪声问题的优化措施，涉及检索与生成端权衡。",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "Top K 调小 → 结果更“干净”，但可能漏掉关键文档。放宽阈值是 召回率 ↑、精确率 ↓。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "降低相似度阈值会放宽检索条件，可能引入更多噪声，与提升效果目标相悖。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "优化Prompt主要约束生成端，但问题根源在检索端召回了无关信息。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "微调用于行为风格适配，非解决知识检索噪声的首选方案。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "剔除相关内容可能损害其他查询的召回，非治本之策。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-0513": {
+    "qid": "3-0513",
+    "classification": "misplaced",
+    "chapter": -1,
+    "quality": "remove",
+    "reason": "题目考查一个特定函数`compare_embeddings`的参数，属于代码细节，无通用考查价值，且与RAG核心概念无关。",
+    "answer": [],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "题干函数无定义，无法判断。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "题干函数无定义，无法判断。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "题干函数无定义，无法判断。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "题干函数无定义，无法判断。"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

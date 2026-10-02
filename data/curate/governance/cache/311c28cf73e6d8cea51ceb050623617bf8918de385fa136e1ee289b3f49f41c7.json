@@ -1,0 +1,212 @@
+{
+  "7-0072": {
+    "qid": "7-0072",
+    "classification": "own",
+    "chapter": 7,
+    "quality": "ok",
+    "reason": "考查RAGAS指标优化方向，题干明确问提升context recall的方法。",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "Recall 低 | 该找的没找全 | 补充/检查知识库、换更强 Embedding、做查询改写、调大 Top K",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "查询改写是提升召回率的优化方向。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "增加训练数据属于微调，非RAG优化手段。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "减少推理时间与召回准确率无关。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "增加参数数量属于模型训练，非RAG优化手段。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "7-0092": {
+    "qid": "7-0092",
+    "classification": "own",
+    "chapter": 7,
+    "quality": "ok",
+    "reason": "考查RAGAS指标优化方向，题干明确问提升answer correctness的方法。",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "Correctness 低、其余高 | 资料对、但答案与标准答案不符 | 优化提示词、调生成超参、换更强模型",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "调整temperature等超参是优化生成答案的方法。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "增加训练数据属于微调，非RAG优化手段。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "减少推理时间与答案准确度无关。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "增加参数数量属于模型训练，非RAG优化手段。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "7-0122": {
+    "qid": "7-0122",
+    "classification": "own",
+    "chapter": 7,
+    "quality": "ok",
+    "reason": "考查Answer Correctness指标的计算构成。",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "Answer Correctness = 0.25 × 语义相似度 + 0.75 × 事实准确度",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "事实准确度衡量事实描述差异。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "语义相似度衡量向量空间距离。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "增加训练数据与指标计算无关。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "减少推理时间与指标计算无关。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "7-0165": {
+    "qid": "7-0165",
+    "classification": "own",
+    "chapter": 7,
+    "quality": "ok",
+    "reason": "考查RAGAS Faithfulness指标的定义。",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "Faithfulness（忠实度） | 生成端 | 答案是否忠于检索资料，有没有脱离资料编造（幻觉）",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "衡量答案与检索资料的事实一致性。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "准确度由Answer Correctness衡量。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "相关性由Answer Relevancy衡量。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "召回数量由Context Recall衡量。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "7-0204": {
+    "qid": "7-0204",
+    "classification": "own",
+    "chapter": 7,
+    "quality": "ok",
+    "reason": "考查RAGAS Context Precision指标的定义。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "Context Precision | 检索端 | 召回的片段中，相关项是否排名靠前、占比高（信噪比）",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "整体质量由Answer Correctness评估。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "评估相关文本段是否排名靠前。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "答案与文本段相关性由Faithfulness衡量。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "答案与提问相关性由Answer Relevancy衡量。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "7-0218": {
+    "qid": "7-0218",
+    "classification": "own",
+    "chapter": 7,
+    "quality": "fixable",
+    "reason": "题干与选项B描述不符，选项B描述的是Context Precision。",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "Context Recall | 检索端 | 标准答案需要的信息，有多少被检索到了（找得全不全）",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "衡量contexts与ground_truth的事实一致性。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "此描述对应Context Precision指标。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "增加训练数据与指标定义无关。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "减少推理时间与指标定义无关。"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

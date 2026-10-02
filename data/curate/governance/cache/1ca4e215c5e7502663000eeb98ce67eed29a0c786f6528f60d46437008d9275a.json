@@ -1,0 +1,232 @@
+{
+  "9-0928": {
+    "qid": "9-0928",
+    "classification": "own",
+    "chapter": 9,
+    "quality": "ok",
+    "reason": "考查API调用核心优势，D项与API本质矛盾",
+    "answer": [
+      "D"
+    ],
+    "supported": true,
+    "quote": "大模型 API 调用，就是应用程序通过 HTTP 请求，把\"提示词 + 上下文 + 生成参数\"发给云端模型服务",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "API免运维，成本更低"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "API由云厂商托管基础设施"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "云服务自动更新模型版本"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "API无法物理控制权重"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "9-0592": {
+    "qid": "9-0592",
+    "classification": "own",
+    "chapter": 9,
+    "quality": "ok",
+    "reason": "考查API处理问卷的典型流程",
+    "answer": [
+      "A",
+      "B",
+      "D"
+    ],
+    "supported": true,
+    "quote": "批量生成（Batch API）是把大量请求打包成一个异步离线任务提交给平台",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "需预处理为messages格式"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "需设定标准评估输出"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "API可自动化分析问卷"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "适合用Batch批量分析"
+      },
+      {
+        "label": "E",
+        "selected": false,
+        "why": "需先解析再传入模型"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "9-0693": {
+    "qid": "9-0693",
+    "classification": "own",
+    "chapter": 9,
+    "quality": "ok",
+    "reason": "考查API核心参数作用",
+    "answer": [
+      "A",
+      "B",
+      "C",
+      "D"
+    ],
+    "supported": true,
+    "quote": "`max_tokens` 限制生成长度上限；`temperature` 控制随机性；`top_p` 核采样；`stop` 命中即停止",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "控制输出长度上限"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "影响随机性与创新性"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "控制候选词汇范围"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "设置生成终止条件"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "9-0717": {
+    "qid": "9-0717",
+    "classification": "own",
+    "chapter": 9,
+    "quality": "ok",
+    "reason": "考查Token超限直接解法",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "上下文窗口是输入输出共用预算；超了会报错或被截断",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "更大模型窗口未必更大"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "减少输入或拆分调用最直接"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "并发不解决Token超限"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "超时与Token限制无关"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "9-0760": {
+    "qid": "9-0760",
+    "classification": "own",
+    "chapter": 9,
+    "quality": "ok",
+    "reason": "考查API失败通用排查点",
+    "answer": [
+      "A",
+      "B",
+      "C",
+      "D"
+    ],
+    "supported": true,
+    "quote": "一次调用在服务端要走完五关：客户端构造请求→鉴权→配额/限流检查→模型推理→返回响应",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "鉴权失败返回401"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "参数错误返回400"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "网络不通导致连接失败"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "服务中断属平台侧问题"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "9-0854": {
+    "qid": "9-0854",
+    "classification": "own",
+    "chapter": 9,
+    "quality": "ok",
+    "reason": "考查Function Calling适用场景",
+    "answer": [
+      "A",
+      "C",
+      "D"
+    ],
+    "supported": true,
+    "quote": "Function Calling是API内置能力：告诉模型有哪些工具可用，模型按需返回tool_calls",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "需调用外部天气API"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "纯生成无需工具调用"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "需调用Excel解析API"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "需调用航班API"
+      },
+      {
+        "label": "E",
+        "selected": false,
+        "why": "纯文本总结无需工具"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

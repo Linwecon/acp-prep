@@ -1,0 +1,210 @@
+{
+  "3-0108": {
+    "qid": "3-0108",
+    "classification": "unsure",
+    "chapter": 3,
+    "quality": "remove",
+    "reason": "题干术语‘custom_chat_history’未在原文定义，选项与RAG核心知识无关，无考查价值。",
+    "answer": [],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "原文未定义该术语，且存储历史信息是多轮对话通用功能，非RAG特有。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "RAG不涉及增加模型训练数据。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "原文未提及该作用。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "RAG不改变模型参数数量。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-0113": {
+    "qid": "3-0113",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "考查切片策略选型，原文有明确建议。",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "初学先用默认的**句子切片**；",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "原文建议初学者优先使用默认的句子切片。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "Token切片适用于有长度硬要求的场景，非初学者首选。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "句子窗口切片是进阶技术，用于解决精准与上下文的矛盾。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "语义切片成本更高，适用于高价值复杂文档。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-0115": {
+    "qid": "3-0115",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "考查句子窗口切片的核心特征，原文有明确定义。",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "**句子窗口检索（Sentence Window Retrieval）**：建索引时以“单个句子”为可检索单元...同时在每个句子的元数据里存下它“前后各 N 句”组成的窗口；",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "句子窗口切片的核心就是包含周围句子作为上下文。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "Token切片按固定长度切，不专门包含周围句子。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "句子切片以句子为边界聚合，不专门扩展窗口。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "语义切片按话题转换切，不专门包含周围句子。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-0116": {
+    "qid": "3-0116",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "考查查询改写的作用，原文有明确说明。",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "**查询改写**：多轮对话中“他/这个”指代不清 | 先用 LLM 把含代词的问题改写成完整问题...再检索",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "问题改写用于还原用户真实意图，提高检索准确性。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "重排序是对已检索结果进行精排，非检索前还原意图。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "滑动窗口检索是句子窗口切片的一部分，用于扩展上下文。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "增加训练数据与检索前还原意图无关。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-0119": {
+    "qid": "3-0119",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "考查本地向量数据库的适用场景，属于RAG部署知识。",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "开发测试可用 LlamaIndex 内置的内存向量库；生产环境可选用云服务...",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "本地向量数据库（如内存库）适合小规模应用和开发测试。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "本地部署仍需关注运维，并非无需关注。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "自动扩容通常是云服务的特性。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "完善的监控管理工具更可能是云服务提供的。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-0123": {
+    "qid": "3-0123",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "考查RAG两阶段流程中离线建库的核心步骤。",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "**第一阶段：离线建库（Indexing，一次做好、多次复用）**...3. **向量化**：用 Embedding 模型把每个 chunk 转成一串数字（向量）；4. **入库**：把“向量 + 原文 + 元数据”存进向量数据库，建立索引。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "该阶段明确包含向量化和存储到向量数据库。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "文档解析与切片是向量化之前的步骤。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "检索召回是在线问答阶段，发生在存储之后。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "生成答案是在线问答的最后阶段。"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

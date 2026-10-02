@@ -1,0 +1,212 @@
+{
+  "3-0027": {
+    "qid": "3-0027",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "大模型参与Query改写与生成，不参与向量检索。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "必要时先做查询改写（消代词、补全指代）；LLM依据资料生成答案，并标注引用来源。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "漏掉Query改写步骤"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "原文明确大模型参与改写与生成"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "检索用Embedding模型，非大模型"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "缺少生成步骤"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-0041": {
+    "qid": "3-0041",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "精确率低需重排提升相关片段排名。",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "用重排序模型对候选逐篇精细打分、重新排序，只把最相关的少数交给大模型。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "放宽阈值会降低精确率"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "知识库已充足，无需新增"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "Rerank专治Precision低"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "并发量不影响精确率"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-0043": {
+    "qid": "3-0043",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "医疗专家提供ground_truth验证答案。",
+    "answer": [
+      "D"
+    ],
+    "supported": true,
+    "quote": "领域专家提供ground_truth；RAGAS评估需要标准答案由业务领域专家提供。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "非必需，不提供ground_truth"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "不负责答案准确性验证"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "不定义临床正确性"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "必须由领域专家提供ground_truth"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-0083": {
+    "qid": "3-0083",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "用户画像扩展上下文用于问题扩写。",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "查询改写：先用LLM把含代词的问题改写成完整问题；其他检索增强技术未提用户画像。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "用户画像属上下文扩展手段"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "问题改写不依赖用户画像"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "重排序不扩写问题"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "训练数据与召回无关"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-0085": {
+    "qid": "3-0085",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "检索与生成核心是拼装上下文输入模型。",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "把检索到的资料与问题拼装进提示词模板；LLM依据资料生成答案。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "原文明确拼装后输入模型"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "RAG不修改训练数据"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "非RAG阶段目标"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "与参数无关"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-0087": {
+    "qid": "3-0087",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "反向追问是获取用户信息的主动方式。",
+    "answer": [
+      "A"
+    ],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "反向追问可补充缺失信息"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "问题改写是模型自动完成"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "重排序不涉及用户交互"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "训练数据与召回无关"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

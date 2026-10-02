@@ -1,0 +1,214 @@
+{
+  "new-10-72-0": {
+    "qid": "new-10-72-0",
+    "classification": "own",
+    "chapter": 10,
+    "quality": "ok",
+    "reason": "题目考察在数据不出域、需微调、高并发场景下，对PAI三件套和ModelScope组合的正确应用。",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "开源模型的价值集中在三点：① 数据隐私与合规（数据不出域）；② 可深度定制（任意微调/改结构）...PAI 三件套：DSW 调试开发、DLC 分布式训练、EAS 在线部署弹性伸缩",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "完整覆盖开源模型下载、微调开发、分布式训练、高并发部署全链路，满足数据不出域和性能要求。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "百炼RAG使用托管API，数据需上送，违反数据不出内网要求。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "DashScope API调用数据需上送云端，违反数据不出内网要求。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "函数计算FC不适合高并发实时响应，且部署方式非PAI-EAS标准。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-10-72-1": {
+    "qid": "new-10-72-1",
+    "classification": "own",
+    "chapter": 10,
+    "quality": "ok",
+    "reason": "题目考察在百炼应用架构下，通过其原生功能（如Function Calling）增强动态能力的正确方式。",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "百炼的核心能力可以理解为把前几章的技术'产品化'了...插件/工具 Function Calling 接入搜索、内部 API、插件市场扩展能力",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "利用百炼原生Function Calling插件接入外部API，符合平台定位且不改变架构。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "迁移到PAI-DSW重写违背'不改变现有百炼应用架构'前提。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "DashScope专属模型定制服务非百炼平台标准增强方式，且成本高。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "硬编码参数无法应对动态竞品知识，且非工程化解决方案。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-10-72-2": {
+    "qid": "new-10-72-2",
+    "classification": "cross",
+    "chapter": -1,
+    "quality": "review",
+    "reason": "题目涉及多模态（OCR、图像理解）与公文处理，考点超出第10章平台选型范畴，需结合第11章知识判断。",
+    "answer": [
+      "A",
+      "C"
+    ],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "组合覆盖图像理解、工作流编排和自研OCR部署，理论上可满足多模态处理和不出云要求。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "通义听悟用于语音转写，与扫描PDF处理场景不符；OSS存储可能涉及数据出域。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "组合覆盖OCR微调、多模态模型下载和端到端部署，符合数据不出云和处理要求。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "百炼知识库和qwen-long主要处理文本，未涉及扫描PDF中的公章与手写签名解析。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-10-72-3": {
+    "qid": "new-10-72-3",
+    "classification": "own",
+    "chapter": 10,
+    "quality": "ok",
+    "reason": "题目考察对API限流（429）和成本控制（输出Token费用）问题的综合解决能力。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "429 表示触发了限流（RPM/TPM 配额）。正确做法是指数退避 + 随机抖动重试、控制并发...省成本的工程手段：用 max_tokens 给输出设上限",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "提升配额不治本，且增大max_tokens会进一步推高输出Token费用。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "防抖和退避解决429，限制max_tokens直接控制输出成本，标本兼治。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "切换模型和关闭stream可能影响体验，但未直接解决并发请求和输出长度问题。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "部署私有模型成本高且周期长，非解决当前API调用问题的直接措施。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-10-72-4": {
+    "qid": "new-10-72-4",
+    "classification": "own",
+    "chapter": 10,
+    "quality": "ok",
+    "reason": "题目考察对百炼、DashScope、PAI平台核心能力（文档解析、工作流、结构化输出等）的准确判断。",
+    "answer": [
+      "A",
+      "C"
+    ],
+    "supported": true,
+    "quote": "百炼的核心能力...知识库（RAG） 第3章 RAG 内置文档解析、切片、向量化、检索...工作流编排 Workflow 拖拽节点把'检索→改写→生成→审核'串成稳定流程",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "完整利用百炼知识库、工作流和JSON Schema约束，符合其应用开发平台定位。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "TextReRank用于重排序，非课件解析；qwen-long用于长文本，但未提及结构化输出。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "在PAI-DSW中训练专用模型，使用开源基座，符合PAI训练部署平台定位。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "将全文塞入prompt非最佳实践，且未提及课件解析过程。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-10-72-5": {
+    "qid": "new-10-72-5",
+    "classification": "own",
+    "chapter": 10,
+    "quality": "ok",
+    "reason": "题目考察对百炼平台数据合规风险（数据上送云端）的准确理解。",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "商业版（turbo/plus/max/long 等）：通过百炼/DashScope 以 API 方式使用...但数据要上送",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "百炼知识库处理需上传文档至阿里云服务器，违反医疗数据不出域要求。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "成本问题非CTO否决的核心合规依据。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "百炼支持API输出，可对接外部系统，非主要合规风险。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "上下文窗口不足是性能问题，非核心合规风险。"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

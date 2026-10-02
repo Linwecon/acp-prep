@@ -1,0 +1,154 @@
+{
+  "items": [
+    {
+      "type": 0,
+      "stem": "某团队将Qwen3-0.6B模型部署于vLLM，压测发现：当并发从16增至32时，QPS仅提升12%，平均RT翻倍，429错误率达8%。此时若仅通过调整--max-num-seqs参数（限制最大并发请求数）来应对，最符合SLO驱动权衡逻辑的操作是？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "将--max-num-seqs设为32，强制承载更高并发以提升吞吐"
+        },
+        {
+          "option_label": "B",
+          "option_text": "将--max-num-seqs设为16，使系统稳定在已验证的吞吐-延迟平衡点"
+        },
+        {
+          "option_label": "C",
+          "option_text": "将--max-num-seqs设为24，尝试在吞吐与延迟间寻找新平衡"
+        },
+        {
+          "option_label": "D",
+          "option_text": "禁用--max-num-seqs，交由vLLM自动调度以最大化资源利用率"
+        }
+      ],
+      "answer": "B",
+      "analysis": "依据原文6.3节'风险'部分：'超出并发上限通常直接返回错误（如429），需要客户端重试与降级配合'；且'必须通过压测确定最优并发阈值'。题干中并发16时服务尚可，32时RT劣化、错误率飙升，说明16已是当前配置下SLO（TTFT/TPOT/错误率）约束下的临界点。SLO驱动的核心是保障用户可承诺的服务质量，而非盲目追求吞吐——教材明确警示'QPS越高服务越好'是高频误区（6.3节）。选项B主动退守至已验证的SLO达标区间，体现'以SLO为约束进行性能权衡'的本质。A和D违背SLO刚性约束，C缺乏压测依据，属经验主义试探，不符合教材强调的'基于压测确定阈值'方法论。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 0,
+      "stem": "运维人员监控到vLLM服务KV Cache显存占用率持续95%以上，但GPU总显存占用仅60%，且无429错误。此时若仅调整PagedAttention相关参数，以下哪项操作最可能立即缓解该现象？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "增大--block-size参数，使每个KV块容纳更多token"
+        },
+        {
+          "option_label": "B",
+          "option_text": "减小--block-size参数，增加块数量以提升分配粒度"
+        },
+        {
+          "option_label": "C",
+          "option_text": "启用--enable-prefix-caching，复用公共前缀KV块"
+        },
+        {
+          "option_label": "D",
+          "option_text": "调高--max-model-len，允许更长序列但加剧碎片"
+        }
+      ],
+      "answer": "A",
+      "analysis": "依据原文6.5节'PagedAttention'原理：'把KV Cache切成固定大小的块（block），按需分配'；其核心价值是'消除碎片'与'按需分配'。题干矛盾现象（KV占用率95%但总显存仅60%）表明存在大量小块未被有效利用的显存碎片，即'高占用率低利用率'。增大--block-size可减少块总数、降低页表开销、提升单块利用率，从而在相同物理显存下降低逻辑占用率（因碎片减少）。原文6.5明确指出PagedAttention'消除碎片'，而6.6节强调'KV Cache随序列长度×并发数线性增长'，故问题根源是分配粒度与请求长度不匹配导致的碎片。B会加剧碎片；C虽能降本但不解决当前碎片问题，且需请求前缀高度一致；D会恶化碎片。只有A直击'碎片导致高占用率'这一教材定义的PagedAttention核心优化场景。",
+      "difficulty_label": "挑战"
+    },
+    {
+      "type": 1,
+      "stem": "某金融企业上线Qwen3-0.6B答疑机器人后，监控持续触发'KV Cache显存占用率>95%'告警，但GPU计算利用率仅42%，且无429错误。已知请求平均序列长度稳定在2K，但并发请求数波动剧烈（5–48）。以下哪些根本原因符合教材对KV Cache瓶颈的分析？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "并发峰值48远超当前GPU显存所能支撑的KV Cache容量上限"
+        },
+        {
+          "option_label": "B",
+          "option_text": "请求序列长度方差大，导致PagedAttention块分配不均，产生显存内部碎片"
+        },
+        {
+          "option_label": "C",
+          "option_text": "模型权重未量化，FP16权重占用过多显存，挤压KV Cache空间"
+        },
+        {
+          "option_label": "D",
+          "option_text": "vLLM未启用连续批处理，导致Decode阶段GPU空转，KV Cache被无效占用"
+        }
+      ],
+      "answer": "AB",
+      "analysis": "依据原文6.6节'推理时GPU显存主要由三部分构成'：权重（一份）、KV Cache（随序列长度×并发数线性增长）、运行时开销；并强调'长上下文+高并发下，KV Cache常是显存大头、是并发瓶颈'。题干中'并发波动剧烈（5–48）'与'平均序列长度2K'结合，说明峰值并发48时KV Cache需求暴增，A正确对应'并发是KV Cache线性变量'这一教材硬约束。B正确：原文6.5节指出PagedAttention解决'预分配浪费'和'碎片'，而'序列长度参差不齐'正是导致碎片的直接原因（6.5节'实际生成长度参差不齐，预分配的空间大量闲置'）。C错误：权重是一份且固定，不会因并发波动而变化，题干现象是'占用率波动剧烈'，与权重无关；D错误：连续批处理影响的是GPU计算利用率（提升吞吐），与KV Cache占用率无直接因果关系——原文6.5明确'连续批处理'解决'GPU空转'，而题干中GPU利用率已低至42%，矛盾点在KV Cache管理而非计算调度。",
+      "difficulty_label": "挑战"
+    },
+    {
+      "type": 0,
+      "stem": "当vLLM服务处理一批混合长度请求（128/2048/16384 tokens）时，PagedAttention相比传统连续内存分配，其显存节省效果主要来源于以下哪一机制？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "将长请求的KV Cache压缩为低秩表示，降低单token存储开销"
+        },
+        {
+          "option_label": "B",
+          "option_text": "为每个请求按最大可能长度预分配连续显存块，避免重复分配"
+        },
+        {
+          "option_label": "C",
+          "option_text": "将KV Cache切分为固定大小块，按实际生成长度动态分配，消除预分配浪费"
+        },
+        {
+          "option_label": "D",
+          "option_text": "复用所有请求的公共系统提示词KV块，减少重复缓存"
+        }
+      ],
+      "answer": "C",
+      "analysis": "依据原文6.5节对PagedAttention的定义：'把KV Cache切成一个个固定大小的块（block），按需分配'；并明确其好处是'消除碎片'、'按需分配，不再按最大长度预分配浪费'。题干中'混合长度请求'正是教材描述的典型场景（'实际生成长度参差不齐'），传统方案需为最长请求（16384 tokens）预分配，造成短请求（128 tokens）大量浪费；PagedAttention则只为各请求实际生成的token数分配块，实现精准按需。A描述的是MLA（6.6节），非PagedAttention；B是传统方案的缺陷，非PagedAttention机制；D是'上下文缓存/前缀复用'（6.6节），属于独立优化手段，非PagedAttention固有特性。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 0,
+      "stem": "某团队在vLLM中启用连续批处理后，观测到GPU计算单元（SM）利用率从62%提升至94%，但单请求TTFT反而上升了18%。以下哪项最可能是根本原因？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "连续批处理增加了Prefill阶段的跨请求数据依赖，导致计算串行化"
+        },
+        {
+          "option_label": "B",
+          "option_text": "连续批处理使不同长度请求在Prefill阶段被迫对齐，引入padding开销"
+        },
+        {
+          "option_label": "C",
+          "option_text": "连续批处理将Prefill与Decode混合调度，降低了Prefill的并行度"
+        },
+        {
+          "option_label": "D",
+          "option_text": "连续批处理本身不优化Prefill，TTFT上升源于并发增加导致Prefill排队延长"
+        }
+      ],
+      "answer": "D",
+      "analysis": "依据原文6.5节：'连续批处理（Continuous Batching）'解决的是'Decode阶段GPU空转'问题，其机制是'请求完成即可返回、新请求立即补位'，核心优化对象是Decode阶段的GPU利用率。而TTFT（首token延迟）完全由Prefill阶段决定（6.2节），且Prefill是'计算密集型'（6.2节）。原文6.3节明确指出：'延迟一旦升高，同等并发下吞吐就会下降'，并给出压测案例——并发增加导致RT升高。题干中SM利用率提升证明Decode效率优化成功，但TTFT上升必源于Prefill环节：当并发增加（连续批处理允许更高并发），Prefill请求排队时间延长（6.3节'排队时长'影响TTFT），这是SLO权衡的典型表现。A/B/C均错误：教材从未提及连续批处理影响Prefill并行度或引入padding，其调度粒度是'每步Decode'，Prefill仍按请求独立执行。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 1,
+      "stem": "在诊断一个突然出现高TTFT（>8s）的线上vLLM服务时，监控显示GPU利用率正常、KV Cache占用率仅30%、无429错误。此时最应优先检查的日志线索，哪些符合教材故障诊断逻辑？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "Prefill阶段CUDA kernel启动日志，确认是否发生显存OOM导致fallback到CPU"
+        },
+        {
+          "option_label": "B",
+          "option_text": "请求队列等待时间日志，确认是否存在上游限流或负载均衡调度延迟"
+        },
+        {
+          "option_label": "C",
+          "option_text": "模型加载日志，确认是否因冷启动导致首次请求延迟"
+        },
+        {
+          "option_label": "D",
+          "option_text": "Prompt长度统计日志，确认是否突增超长prompt触发Prefill计算爆炸"
+        }
+      ],
+      "answer": "BD",
+      "analysis": "依据原文6.2节：TTFT由'Prefill速度、排队时长、prompt长度'共同决定；6.3节强调'长prompt会让等很久才开口'。题干排除了GPU算力瓶颈（利用率正常）、KV Cache瓶颈（占用率低）、并发超限（无429），故问题必在Prefill输入侧或调度侧。B正确：'排队时长'是TTFT直接组成部分（6.3节表格），负载均衡或上游限流会导致请求在进入vLLM前排队；D正确：'prompt长度'是TTFT关键影响因子（6.2节'长prompt让等很久才开口'），突发长prompt是典型根因。A错误：显存OOM会导致服务崩溃或报错，而非TTFT单一指标异常；C错误：冷启动影响的是'首个请求'，题干是'突然出现高TTFT'，属持续性问题，且vLLM常驻服务无冷启动（6.7节对比FC时强调ECS'无冷启动'）。",
+      "difficulty_label": "挑战"
+    }
+  ]
+}

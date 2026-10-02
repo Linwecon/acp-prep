@@ -1,0 +1,143 @@
+{
+  "12-5090": {
+    "qid": "12-5090",
+    "classification": "own",
+    "chapter": 12,
+    "quality": "ok",
+    "reason": "考查LangChain中rerank集成方式，原文明确推荐专用reranker链",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "LangChain 的 Retriever 是'检索接口'，不要求必须用某种向量库——这是它能兼容 Milvus/Qdrant/FAISS 等的关键。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "BM25非官方推荐最轻量方式"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "原文推荐专用reranker链"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "提示词排序非官方推荐"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "向量相似度非重排序"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "12-5091": {
+    "qid": "12-5091",
+    "chapter": 12,
+    "classification": "own",
+    "quality": "ok",
+    "reason": "考查LlamaIndex NodeParser结构感知能力，HierarchicalNodeParser明确支持标题层级切分",
+    "answer": [
+      "A",
+      "B"
+    ],
+    "supported": true,
+    "quote": "LlamaIndex 的核心数据流是每个考生都应该能默写的一条链：Document -> NodeParser -> Node -> Index -> Retriever -> QueryEngine -> Response",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "HierarchicalNodeParser专为结构设计"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "MarkdownNodeParser保留标题层级"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "SentenceSplitter按句子切分"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "JSONNodeParser处理JSON结构"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "12-5092": {
+    "qid": "12-5092",
+    "chapter": 12,
+    "classification": "own",
+    "quality": "ok",
+    "reason": "考查百炼平台RAG实体抽取能力，DashScope NER API是标准封装方式",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "DashScopeParse：阿里云百炼文档智能解析（`llama-index-readers-dashscope==0.5.0`）——OCR + 版面分析 + 表格识别，扫描件/复杂 PDF 输出结构化 Markdown",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "百炼知识库无内置NER开关"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "百炼工作流无NER节点"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "DashScope NER API可封装工具"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "提示词抽取非平台能力"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "12-0107": {
+    "qid": "12-0107",
+    "chapter": 12,
+    "classification": "own",
+    "quality": "ok",
+    "reason": "考查Dataset.from_dict基础功能，属框架数据加载常识",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "RAGAS 是主流的开源 RAG 评估框架（课程使用 `ragas==0.1.9`）。它不是编排框架，而是评测框架",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "标准数据集构建方法"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "不用于训练数据增广"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "不影响推理时间"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "不改变模型参数"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

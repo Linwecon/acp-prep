@@ -1,0 +1,162 @@
+{
+  "items": [
+    {
+      "type": 0,
+      "stem": "某金融企业需上线内部合规问答系统，要求：①全部业务数据严禁出域；②日均稳定请求2000+，P95 TTFT需<1.2s；③支持灰度发布与秒级故障回滚；④运维团队具备GPU调优能力。在百炼MaaS、函数计算FC、PAI-EAS、GPU ECS四者中，最符合全量需求的部署形态是？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "百炼MaaS：开箱即用，API直连，免运维成本最低"
+        },
+        {
+          "option_label": "B",
+          "option_text": "函数计算FC：按调用付费，自动弹性，无闲置成本"
+        },
+        {
+          "option_label": "C",
+          "option_text": "PAI-EAS：提供模型预热、蓝绿发布、版本回滚，且支持私有模型部署"
+        },
+        {
+          "option_label": "D",
+          "option_text": "GPU ECS + vLLM：完全可控，可深度调优TTFT，但需自建SLB/ESS/监控"
+        }
+      ],
+      "answer": "D",
+      "analysis": "依据教材6.12节“部署选型四步决策法”：①数据不能出域→排除百炼（6.7/6.8）；②稳定高吞吐+TTFT敏感→FC冷启动不可接受（6.10.1风险）；③灰度与回滚需求虽EAS支持（6.10.2），但EAS本质是平台托管，其资源组与弹性仍受限于PAI体系，而题干明确“运维团队具备GPU调优能力”，且要求“完全控制CUDA环境与常驻进程”（6.9场景），这正是ECS自建的核心优势（6.9 exam）；④ECS可结合vLLM连续批处理与PagedAttention精准优化TTFT（6.5 exam），并自主配置SLB+ESS+ARMS实现企业级高可用（6.11.1）。EAS虽满足③但无法满足①④的强合规与强控制诉求，故D为唯一同时满足全部四点的选项。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 0,
+      "stem": "压测发现：当并发从8提升至16时，QPS从42.3升至58.7（+39%），但平均RT从382ms飙升至917ms（+140%），且错误率从0.1%跃升至4.8%。此时最应优先执行的诊断动作是？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "立即扩容GPU实例数量，分摊负载"
+        },
+        {
+          "option_label": "B",
+          "option_text": "检查GPU显存占用与KV Cache使用率，确认是否已达瓶颈"
+        },
+        {
+          "option_label": "C",
+          "option_text": "调整vLLM的--max-num-seqs参数，限制单批最大请求数"
+        },
+        {
+          "option_label": "D",
+          "option_text": "启用AWQ量化，将权重从FP16转为INT4以释放显存"
+        }
+      ],
+      "answer": "B",
+      "analysis": "教材6.3节明确指出：'并发过高导致RT飙升、错误率上升，本质是超出了服务处理能力'；6.6节强调'KV Cache随序列长度×并发数线性增长，长上下文高并发下常成显存大头与并发瓶颈'；6.3风险栏警示'超出并发上限通常直接返回429错误，而非排队'——本题错误率骤升正印证此现象。因此首要诊断必须定位瓶颈根源：若显存（尤其KV Cache）已打满，则扩容或量化才有意义（6.6 cost）；若未满，则可能是调度策略或网络问题。A、C、D均为干预措施，但教材6.11.1要求'先观测再管控'（6.11.2 best），必须先通过监控确认显存/KV Cache占用（6.3 exam），否则盲目操作可能加剧问题。故B是符合教材诊断逻辑的起点。",
+      "difficulty_label": "高阶"
+    },
+    {
+      "type": 1,
+      "stem": "某团队使用vLLM部署Qwen3-0.6B模型，观察到TPOT稳定在180ms，但TTFT高达4.2s。以下哪些优化手段能直接降低TTFT？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "启用PagedAttention，减少KV Cache碎片"
+        },
+        {
+          "option_label": "B",
+          "option_text": "对输入prompt进行精简，删除冗余系统提示词"
+        },
+        {
+          "option_label": "C",
+          "option_text": "将模型权重从FP16量化为INT4"
+        },
+        {
+          "option_label": "D",
+          "option_text": "增加vLLM的--tensor-parallel-size参数"
+        },
+        {
+          "option_label": "E",
+          "option_text": "启用连续批处理（Continuous Batching）"
+        }
+      ],
+      "answer": "B,D",
+      "analysis": "教材6.2节明确定义：TTFT由Prefill阶段决定，而Prefill是'并行处理整个输入prompt的计算密集型过程'；6.3表指出TTFT受'prompt长度'直接影响。故B正确：缩短prompt直接减少Prefill计算量。D正确：tensor parallelism将模型权重切分到多卡并行计算Prefill（6.6 exam），加速首token生成。A错误：PagedAttention优化的是KV Cache管理，针对Decode阶段（6.5 principle）；C错误：量化主要降低权重体积与显存带宽压力，对Prefill计算量影响微弱（6.4 concept）；E错误：连续批处理优化的是Decode阶段GPU利用率，不影响单个请求的Prefill（6.5 concept）。因此仅B、D能直接作用于Prefill从而降低TTFT。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 0,
+      "stem": "开发者在FC上部署AI助手后，发现工作日早9点流量高峰时首个请求延迟达3.2s，其余请求正常。夜间低峰期再次调用又重现该现象。最根本的原因及对应教材依据是？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "函数代码存在内存泄漏，导致实例老化；依据6.10.1 FC风险中'调试监控更难'"
+        },
+        {
+          "option_label": "B",
+          "option_text": "FC实例被回收后需重新拉起并加载模型，引发冷启动；依据6.7 compare中'为什么会有冷启动？'"
+        },
+        {
+          "option_label": "C",
+          "option_text": "HTTP触发器配置了过长的超时时间，阻塞了实例复用；依据6.10.1 FC风险中'资源与时长限制'"
+        },
+        {
+          "option_label": "D",
+          "option_text": "模型权重过大，FC默认内存不足导致OOM重启；依据6.10.1 FC风险中'代码包/镜像大小限制'"
+        }
+      ],
+      "answer": "B",
+      "analysis": "题干关键特征：'首个请求延迟高，后续正常'+'低峰后再次调用重现'——这是冷启动的典型指纹（6.7 compare）。教材6.7明确解释：'Serverless为省成本，无流量时回收实例；请求到来需重新拉起、加载模型，导致首个请求明显变慢'；6.10.1风险栏再次强调'冷启动延迟'是FC核心边界。A错误：内存泄漏会导致持续恶化，非仅首请求；C错误：超时设置影响的是单次请求终止，不导致'首请求慢、后续快'；D错误：OOM会直接失败而非延迟，且题干未提错误码。B完全匹配教材定义与现象，是根本原因。",
+      "difficulty_label": "基础"
+    },
+    {
+      "type": 1,
+      "stem": "某企业需部署70B参数模型用于实时客服，要求数据不出域、P95 TTFT<800ms、支持AB测试。以下哪些技术组合能同时满足性能、合规与可运维性要求？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "GPU ECS + vLLM + PagedAttention"
+        },
+        {
+          "option_label": "B",
+          "option_text": "PAI-EAS + 模型预热 + 蓝绿发布"
+        },
+        {
+          "option_label": "C",
+          "option_text": "函数计算FC + 预留实例 + 自定义容器镜像"
+        },
+        {
+          "option_label": "D",
+          "option_text": "百炼MaaS + 私有化部署版 + VPC网络隔离"
+        },
+        {
+          "option_label": "E",
+          "option_text": "ACK集群 + GPU节点 + vLLM Operator"
+        }
+      ],
+      "answer": "A,E",
+      "analysis": "题干三要素：①数据不出域→排除百炼（6.7 compare）、FC（6.10.1）；②70B大模型+TTFT<800ms→需高性能推理框架与硬件控制，FC冷启动与资源限制（6.10.1）及EAS托管限制（6.10.2）均不满足；③AB测试→需底层可控的流量分发能力。A正确：ECS+vLLM完全满足①②，且可通过SLB+自定义路由实现AB（6.9架构）；E正确：ACK是K8s容器化方案（6.7表），GPU节点提供硬件，vLLM Operator实现自动化部署与扩缩容（6.7表），完全可控且支持AB；B错误：EAS虽支持蓝绿，但其模型部署仍依赖PAI平台，数据出域风险未消除（6.7 compare）；C错误：FC无法满足70B实时推理（6.7 exam）；D错误：百炼私有化版非标准MaaS，且教材未提及VPC隔离能解决数据出域问题（6.8 risk强调'数据会发到平台侧'）。故仅A、E符合。",
+      "difficulty_label": "高阶"
+    },
+    {
+      "type": 0,
+      "stem": "监控告警显示某vLLM服务的KV Cache显存占用率持续95%以上，且并发数无法提升。此时若强行增大--max-num-seqs参数，最可能发生的后果是？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "QPS显著提升，因更多请求被纳入批处理"
+        },
+        {
+          "option_label": "B",
+          "option_text": "GPU OOM崩溃，服务中断"
+        },
+        {
+          "option_label": "C",
+          "option_text": "TPOT下降，因KV Cache压缩算法生效"
+        },
+        {
+          "option_label": "D",
+          "option_text": "TTFT降低，因Prefill阶段获得更大并行度"
+        }
+      ],
+      "answer": "B",
+      "analysis": "教材6.6节明确：'KV Cache与序列长度×并发数成正比'，且'是随并发线性膨胀的部分'；6.6 compare表指出'限制最大序列长度'是缓解KV Cache的手段之一；6.3风险栏强调'超出并发上限通常直接返回错误（如429）'，但前提是显存未耗尽。本题中KV Cache已占95%显存，此时增大并发参数（--max-num-seqs）将直接导致KV Cache显存需求超过物理上限，触发CUDA OOM（6.6 principle），服务崩溃。A错误：QPS不会提升，因显存不足导致新请求无法接纳；C错误：vLLM默认不启用KV Cache量化（6.6 compare），且压缩需额外配置；D错误：--max-num-seqs控制的是批处理规模，但Prefill计算量由prompt长度决定，与并发数无直接关系（6.2 principle）。故B是教材显存约束逻辑下的必然结果。",
+      "difficulty_label": "进阶"
+    }
+  ]
+}

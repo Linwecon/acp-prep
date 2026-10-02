@@ -1,0 +1,154 @@
+{
+  "items": [
+    {
+      "type": 0,
+      "stem": "某团队将Qwen3-0.6B模型量化为AWQ INT4后部署于vLLM，压测发现：①显存占用下降58%；②TPOT降低22%；③TTFT无明显变化；④在代码补全任务上BLEU分数下降1.3分。依据教材第6章，以下哪项结论可被原文直接支持？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "TPOT降低证明INT4量化必然加速Decode阶段"
+        },
+        {
+          "option_label": "B",
+          "option_text": "TTFT无变化说明量化对Prefill阶段计算无影响"
+        },
+        {
+          "option_label": "C",
+          "option_text": "BLEU下降1.3分表明AWQ INT4在代码任务上精度损失不可接受"
+        },
+        {
+          "option_label": "D",
+          "option_text": "显存下降58%与INT4相对FP16体积降为1/4的理论值基本吻合，符合量化核心价值"
+        }
+      ],
+      "answer": "D",
+      "analysis": "教材6.4节明确指出：INT4相对FP32体积为1/8，相对FP16为1/4；并强调量化'主要省显存'，且'INT4在低比特下精度损失更明显，需用业务评测集验证'（非绝对不可接受）。选项A错误——教材6.4'compare'框强调'能否加速取决于推理框架是否有对应低比特算子'，非'必然加速'；选项B错误——TTFT由Prefill决定，而Prefill主要受prompt长度和计算带宽影响，教材未断言量化对TTFT'无影响'，且实际中权重加载带宽改善可能轻微影响TTFT，原文未作此因果断言；选项C错误——教材6.4明确'INT4损失略大，取决于方法与任务'，'需验证'不等于'不可接受'，BLEU下降1.3分是否可接受须结合业务SLO判断，原文未设阈值；选项D正确——FP16下0.6B模型权重约1.2GB，INT4理论值约0.3GB，下降约75%，但实际含KV Cache、运行时开销等，58%下降在工程合理范围内，且教材6.4表格与'量化主要省显存'的定性描述完全支撑该结论。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 0,
+      "stem": "压测发现某vLLM服务在并发从8提升至16时，QPS仅增长15%，但平均RT飙升40%且错误率升至3%。此时若仅调整--max-num-seqs参数（最大并发请求数），最可能产生的效果是？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "QPS进一步提升，RT继续恶化，429错误率显著增加"
+        },
+        {
+          "option_label": "B",
+          "option_text": "RT回落至合理区间，QPS小幅下降，错误率归零"
+        },
+        {
+          "option_label": "C",
+          "option_text": "系统进入稳定高吞吐状态，QPS与RT同步优化"
+        },
+        {
+          "option_label": "D",
+          "option_text": "RT改善有限，但429错误率因限流生效而下降"
+        }
+      ],
+      "answer": "D",
+      "analysis": "教材6.3节'risk'框明确指出：'超出并发上限通常直接返回错误（如429）'，且'必须通过压测确定最优并发阈值'；6.11.1节强调'限流'是保障稳定性的关键手段。--max-num-seqs是vLLM控制并发的核心参数，其作用是硬性限制同时处理的请求数，超限即返回429。题干现象（RT飙升+错误率出现）表明当前并发已超服务承载能力，此时降低--max-num-seqs相当于主动限流，可立即减少排队请求，使429错误率下降，但RT改善程度取决于原瓶颈（如显存或算力饱和），不会自动'回落至合理区间'（B错），更不会提升QPS（A错）或实现'同步优化'（C错）。教材6.3'exam'框亦要求监控'错误率'与'RT'并重，印证限流是应对超载的直接干预手段。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 0,
+      "stem": "当使用函数计算FC部署AI助手时，观察到首次请求耗时显著高于后续请求，且日志显示模型加载耗时占总延迟70%。此时最符合教材建议的根因分析与应对路径是？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "根因是GPU驱动未预装，应手动配置自定义镜像安装驱动"
+        },
+        {
+          "option_label": "B",
+          "option_text": "根因是冷启动导致实例拉起与模型加载，应按教材6.7建议配置预留实例或预热"
+        },
+        {
+          "option_label": "C",
+          "option_text": "根因是网络DNS解析慢，应配置内网VPC访问百炼API"
+        },
+        {
+          "option_label": "D",
+          "option_text": "根因是模型权重过大，应改用INT4量化并重新打包"
+        }
+      ],
+      "answer": "B",
+      "analysis": "教材6.7节'为什么会有冷启动？'明确解释：'Serverless为了省成本，无流量时会回收实例；请求突然到来需要重新拉起实例、加载模型，导致首个请求明显变慢'；并给出缓解办法'配置预留实例/预热'。6.10.1节'risk'框再次强调'冷启动延迟'是FC边界，且'可通过预留实例/预热缓解'。选项A错误——FC提供托管GPU环境，驱动由平台维护，非用户配置范畴；选项C错误——题干为FC内部模型加载耗时，非调用外部API；选项D错误——量化可减小加载体积，但教材未将其列为冷启动根治方案，且'预热'是教材指定的首选缓解手段。B项完整复现教材原文逻辑与对策。",
+      "difficulty_label": "入门"
+    },
+    {
+      "type": 1,
+      "stem": "某金融企业需上线内部合规问答机器人，要求：①全部业务数据严禁出域；②日均稳定请求2000+，P95 TTFT需<1.2s；③支持灰度发布与秒级故障回滚。运维团队具备GPU调优能力，但无专职SRE。以下部署方案中，哪些完全满足全部约束？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "PAI-EAS：数据不出域（私有VPC）、弹性伸缩保障TTFT、原生支持蓝绿/灰度与版本回滚"
+        },
+        {
+          "option_label": "B",
+          "option_text": "GPU ECS + vLLM：数据不出域、无冷启动保障TTFT、通过Ansible脚本实现灰度与回滚"
+        },
+        {
+          "option_label": "C",
+          "option_text": "百炼MaaS：虽数据出域，但开启VPC Endpoint可满足合规要求"
+        },
+        {
+          "option_label": "D",
+          "option_text": "函数计算FC：通过预留实例消除冷启动，支持AB测试实现灰度"
+        }
+      ],
+      "answer": "A",
+      "analysis": "教材6.12'选型四步法'第一步即'数据能否出域？不能→排除百炼等公有MaaS'，故C错（VPC Endpoint无法改变百炼平台侧处理数据的本质，教材6.8'risk'框明确'数据会发到平台侧处理'）；D错——教材6.10.1'risk'框强调FC'冷启动明显'，且'调试监控更难'，'实时性要求高...不适合FC'，无法保障P95 TTFT<1.2s；B错——教材6.9明确ECS自建需'自运维'，'灰度/版本管理'需自行实现，而题干'无专职SRE'，Ansible脚本不属于'原生支持'，不满足'秒级故障回滚'的工程可靠性要求；A正确——教材6.10.2定义PAI-EAS为'企业级在线推理平台'，'提供蓝绿/灰度发布、版本控制、资源监控'，6.7'compare'框指出PAI-EAS适用于'自定义模型上线、需弹性与灰度'，且'数据不出域'可通过私有VPC部署实现（教材6.7表格'定位'列明'企业级模型在线服务平台'，隐含私有化能力），完全匹配三项约束。",
+      "difficulty_label": "挑战"
+    },
+    {
+      "type": 0,
+      "stem": "在诊断一个突然出现高TTFT（>8s）的线上vLLM服务时，监控显示GPU利用率正常、KV Cache占用率仅30%、无429错误。此时最应优先检查的日志线索是？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "vLLM启动日志中是否包含'PagedAttention enabled'提示"
+        },
+        {
+          "option_label": "B",
+          "option_text": "请求日志中prompt token数是否突增至16K以上"
+        },
+        {
+          "option_label": "C",
+          "option_text": "SLB访问日志中是否存在大量重试请求"
+        },
+        {
+          "option_label": "D",
+          "option_text": "CUDA OOM错误是否被静默捕获"
+        }
+      ],
+      "answer": "B",
+      "analysis": "教材6.2节明确：TTFT由Prefill阶段决定，而Prefill是'计算密集型'，'处理完后吐出第一个token'，且'长prompt会让等很久才开口'；6.3节表格指出TTFT'受prompt长度影响'。题干中GPU利用率正常（排除算力瓶颈）、KV Cache占用低（排除Decode阶段显存瓶颈）、无429（排除并发超限），唯一未被监控覆盖的TTFT决定因子就是prompt长度。当prompt突增（如用户提交长文档），Prefill计算量指数级上升，直接导致TTFT飙升，且该现象无需显存或并发告警即可发生。A项（PagedAttention启用）影响KV Cache管理，与TTFT无关；C项（重试）是结果而非原因；D项（OOM）与GPU利用率正常矛盾。教材6.2'principle'框是本题唯一直接依据。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 1,
+      "stem": "运维人员观察到vLLM服务在高并发下KV Cache占用率持续95%以上，但GPU显存总占用仅60%。此时若仅调整PagedAttention相关参数，以下哪些操作最可能立即缓解该现象？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "增大--block-size参数，使每个KV块容纳更多token"
+        },
+        {
+          "option_label": "B",
+          "option_text": "启用--enable-prefix-caching，复用相同前缀的KV块"
+        },
+        {
+          "option_label": "C",
+          "option_text": "减小--max-model-len，强制截断输入序列长度"
+        },
+        {
+          "option_label": "D",
+          "option_text": "禁用--enable-chunked-prefill，改用传统Prefill"
+        }
+      ],
+      "answer": "B,C",
+      "analysis": "教材6.5节定义PagedAttention'按需分配'KV Cache块，'消除碎片'；6.6节指出KV Cache'随序列长度×并发数线性增长'，是'并发瓶颈'；6.6'compare'表明确'限制最大序列长度'和'上下文缓存/前缀复用'是缓解KV压力的有效手段。B项正确——'prefix caching'直接复用相同前缀（如系统提示词）的KV块，减少重复分配，教材6.6'compare'表第二行明确列出；C项正确——'限制最大序列长度'是教材6.6'compare'表最后一行推荐手段，直接削减单请求KV需求。A项错误——增大block-size不减少总块数，反而可能因内部碎片加剧浪费，教材未提此调优方式；D项错误——禁用chunked prefill会削弱Prefill效率，与KV Cache占用无关，且可能恶化TTFT。教材6.6'compare'表是本题唯一直接依据。",
+      "difficulty_label": "挑战"
+    }
+  ]
+}

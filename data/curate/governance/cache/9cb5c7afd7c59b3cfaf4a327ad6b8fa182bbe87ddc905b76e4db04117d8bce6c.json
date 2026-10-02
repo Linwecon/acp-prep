@@ -1,0 +1,215 @@
+{
+  "new-11-18-0": {
+    "qid": "new-11-18-0",
+    "classification": "own",
+    "chapter": 11,
+    "quality": "ok",
+    "reason": "考查扫描件PDF处理，正确指向文档智能解析OCR+版面分析+表格结构化",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "扫描件 PDF 本质是图片，普通文本加载器读不出文字、直接切到的是空白/乱码。首要动作是先做文档智能解析（OCR + 版面分析 + 表格转 Markdown）",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "Qwen-VL是多模态理解模型，但PDF需先解析为结构化文本"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "扫描件必须先OCR+版面分析+表格结构化，才能被RAG检索"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "通用文本加载器无法读取图片中的文字，增大chunk_size无效"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "后处理无法解决源头检索不到文字的问题"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-11-18-1": {
+    "qid": "new-11-18-1",
+    "classification": "own",
+    "chapter": 11,
+    "quality": "ok",
+    "reason": "考查语音链路ASR识别错误是源头问题，后续环节会放大",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "ASR 识别错误会沿链路放大，专有名词多的场景要配置热词或在识别后纠错",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "TTS合成阶段不负责语义校验，它只是文字转语音"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "LLM事实核查无法纠正ASR源头输入错误"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "ASR识别错误是源头，应在该环节拦截或纠错"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "多模态Embedding与语音识别错误无关"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-11-18-2": {
+    "qid": "new-11-18-2",
+    "classification": "own",
+    "chapter": 11,
+    "quality": "ok",
+    "reason": "考查文生图质量评估，图文一致性需人工或多模态审核兜底",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "图文一致性、指令跟随等需人工评测校准兜底",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "图文一致性自动指标不可靠，需人工或多模态审核"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "生成前无需调用Qwen-VL进行对齐验证"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "文生图不依赖OCR模块校验生成文字"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "内容安全检测是必须的，但不是违背的核心原则"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-11-18-3": {
+    "qid": "new-11-18-3",
+    "classification": "own",
+    "chapter": 11,
+    "quality": "ok",
+    "reason": "考查教育行业多模态应用合规与风险措施",
+    "answer": [
+      "A",
+      "C"
+    ],
+    "supported": true,
+    "quote": "对所有学生上传的板书视频，在生成纪要前调用video_moderation异步检测，轮询task_id获取结果；在AI解题反馈中嵌入'本解答由AI生成，建议结合教师讲解理解'的标识",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "视频内容需异步审核，符合多模态安全要求"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "Qwen-VL是多模态模型，但拍照题目仍需OCR解析文字"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "AI生成内容需加标识，符合合规要求"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "仅文本过滤无法覆盖语音内容安全"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-11-18-4": {
+    "qid": "new-11-18-4",
+    "classification": "own",
+    "chapter": 11,
+    "quality": "ok",
+    "reason": "考查医疗AI案例技术链路与风险点，强调医生复核",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "CT影像经专用医学影像模型分析→结构化输出→医生复核确认→最终报告加盖电子签名",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "不能仅由Qwen-VL直接生成结论，需医生复核"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "专用模型分析+结构化输出+医生复核，符合案例要求"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "CT影像不是文字，OCR识别不适用"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "风格迁移不适用于医学诊断"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-11-18-5": {
+    "qid": "new-11-18-5",
+    "classification": "own",
+    "chapter": 11,
+    "quality": "ok",
+    "reason": "考查多模态故障诊断，对应文生视频、视频理解、音画同步",
+    "answer": [
+      "A",
+      "B",
+      "C"
+    ],
+    "supported": true,
+    "quote": "文生视频能力是否启用（对应通义万相视频生成）；视频理解链路中关键帧抽取与物体识别模型是否集成；TTS与数字人驱动模块的时间轴对齐机制",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "生成vlog背景需文生视频能力，而非文生图"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "无法识别冲浪板，需检查视频理解与物体识别"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "语音与动画不同步，需检查TTS与驱动对齐"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "ASR热词配置与物体识别、音画同步无关"
+      }
+    ],
+    "duplicate_of": "11-1100"
+  }
+}

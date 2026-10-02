@@ -1,0 +1,212 @@
+{
+  "3-0113": {
+    "qid": "3-0113",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "原文明确推荐初学者用句子切片",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "初学先用默认的句子切片",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "原文直接推荐"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "需严格控长时才用"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "进阶技术，非初学"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "成本更高，非初学"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-0115": {
+    "qid": "3-0115",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "句子窗口切片明确定义含周围句子",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "建索引时以单个句子为可检索单元，同时在每个句子的元数据里存下它前后各N句组成的窗口",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "定义即含上下文"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "按固定token切"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "仅以句子为单位"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "按语义边界切"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-0116": {
+    "qid": "3-0116",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "查询改写用于还原真实意图",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "查询改写（消代词、补全指代）",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "原文定义匹配"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "重排是精筛候选"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "非标准术语"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "与检索无关"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-0117": {
+    "qid": "3-0117",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "原文明确开发测试用内存向量库",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "开发测试可用 LlamaIndex 内置的内存向量库",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "原文直接指定"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "未提本地数据库"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "云服务属生产环境"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "训练数据无关"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-0118": {
+    "qid": "3-0118",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "多轮对话需查询改写还原意图",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "先用 LLM 把含代词的问题改写成完整问题（如他的主管是谁→张伟的主管是谁）再检索",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "更新知识库即可"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "原文明确方案"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "非解决指代问题"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "参数不解决意图"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-0119": {
+    "qid": "3-0119",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "本地向量数据库适合小规模应用",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "开发测试可用 LlamaIndex 内置的内存向量库；生产环境可选用云服务或自建开源库（Milvus、Qdrant）",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "开发测试对应小规模"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "自建需运维"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "云服务才自动扩容"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "云服务提供监控"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

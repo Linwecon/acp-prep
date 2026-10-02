@@ -1,0 +1,154 @@
+{
+  "items": [
+    {
+      "type": 0,
+      "stem": "某vLLM服务在压测中发现：当并发请求数从16增至32时，QPS仅提升12%，平均RT翻倍且429错误率升至8%。此时监控显示GPU显存占用率达98%，KV Cache占比94%。以下哪项操作最符合教材推荐的根因定位与应对路径？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "立即扩容GPU实例数量，因显存已打满，必须增加物理资源"
+        },
+        {
+          "option_label": "B",
+          "option_text": "检查请求平均序列长度是否异常增长，并结合PagedAttention页表碎片率判断是否因长上下文导致KV Cache实际利用率超预期"
+        },
+        {
+          "option_label": "C",
+          "option_text": "调高--max-model-len参数以支持更长输入，避免因截断引发重试放大流量"
+        },
+        {
+          "option_label": "D",
+          "option_text": "关闭连续批处理，改用静态批处理以降低调度开销，缓解显存压力"
+        }
+      ],
+      "answer": "B",
+      "analysis": "依据原文6.5节与6.6节：KV Cache是显存瓶颈主因，其占用随'序列长度×并发数'线性增长（6.5明确指出'KV Cache随序列长度×并发数线性增长'；6.6强调'长上下文+高并发下KV Cache常是显存大头、是并发瓶颈'）。教材明确要求监控'KV Cache占用率'（6.3风险提示），并指出PagedAttention虽消除碎片，但页表映射效率受序列长度分布影响（6.5：'块可不连续，但逻辑位置到物理块映射需维护'）。选项A违背教材'先压测确定最优并发阈值'原则（6.3风险）；C中--max-model-len增大将加剧KV Cache膨胀，与'限制最大序列长度换并发'的缓解策略（6.6 compare）相悖；D错误，连续批处理是vLLM提吞吐的核心，关闭会恶化GPU空转（6.5原理图对比）。B项紧扣'序列长度'与'KV Cache占用率'双要素，符合教材'必须通过压测确定最优并发阈值'及'显存账要算清权重+KV Cache+运行时'的诊断逻辑。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 0,
+      "stem": "运维人员观察到vLLM服务在高并发下KV Cache占用率持续95%以上，但GPU总显存占用仅60%。此时若仅调整PagedAttention相关参数，以下哪项操作最可能立即缓解该现象？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "增大--block-size参数，使每个KV Cache块容纳更多token，减少页表条目数"
+        },
+        {
+          "option_label": "B",
+          "option_text": "减小--block-size参数，增加块数量以提升碎片复用率"
+        },
+        {
+          "option_label": "C",
+          "option_text": "启用--kv-cache-dtype fp8，对KV Cache本身进行低精度存储"
+        },
+        {
+          "option_label": "D",
+          "option_text": "禁用PagedAttention，改用传统连续内存分配以释放未使用块"
+        }
+      ],
+      "answer": "A",
+      "analysis": "依据原文6.5节：PagedAttention将KV Cache切分为固定大小的'块（block）'，页表记录逻辑位置到物理块映射（6.5概念）。块大小直接影响页表效率与显存利用率——过大则单块浪费多（如短请求占整块），过小则页表膨胀。当KV Cache占用率高但总显存占用低，说明大量块被低效占用（如长块存短序列），此时增大--block-size可降低页表管理开销、提升单块利用率（教材未明说但符合'消除预分配浪费'设计目标）。选项B与原理矛盾：减小block-size会加剧碎片，恶化利用率；C中KV Cache量化（6.6 compare）虽存在，但vLLM默认不启用且需框架支持，非'仅调整PagedAttention参数'范畴；D直接违背6.5核心价值——禁用PagedAttention将回归预分配浪费，加剧问题。A是唯一符合'分页机制内在调优'且能缓解'高KV占用率/低总占用'矛盾的操作。",
+      "difficulty_label": "挑战"
+    },
+    {
+      "type": 1,
+      "stem": "某团队将Qwen3-0.6B模型量化为AWQ INT4后部署于vLLM，观测到：①显存占用下降58%；②TPOT降低22%；③TTFT无明显变化；④代码补全任务BLEU分数下降1.3分。以下哪些结论可被教材原文直接支持？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "显存下降源于INT4权重体积降为FP16的1/4（相对FP32为1/8）"
+        },
+        {
+          "option_label": "B",
+          "option_text": "TPOT降低是因为Decode阶段显存带宽压力减小，且vLLM支持INT4算子"
+        },
+        {
+          "option_label": "C",
+          "option_text": "TTFT无变化说明Prefill阶段未受益于量化，因其计算密集型特征未改变"
+        },
+        {
+          "option_label": "D",
+          "option_text": "BLEU下降1.3分证明INT4量化必然导致显著精度损失，应避免在代码任务中使用"
+        }
+      ],
+      "answer": "A,B,C",
+      "analysis": "依据原文6.4节与6.5节：A正确——6.4表格明确'INT4相对FP32体积为1/8'，而FP16为1/2，故INT4是FP16的1/4，显存下降符合此比例（教材未限定基准，但FP16是推理常用基线）；B正确——6.4 compare指出'量化通常也加速...因Decode是显存带宽密集型，读权重字节数变少'，且强调'需框架算子支持'，vLLM原生支持AWQ INT4，故TPOT降低有依据；C正确——6.2 principle明确'Prefill计算密集、决定TTFT'，量化主要缓解带宽瓶颈而非计算瓶颈，TTFT不变符合原理；D错误——6.4 exam明确'INT4损失略大，取决于方法与任务'，且6.4 compare强调'需用业务评测集验证'，'必然导致显著损失'违背教材'可控精度损失'定性（6.4概念），'应避免'属过度推论。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 0,
+      "stem": "当vLLM服务处理一批混合长度请求（128/2048/16384 tokens）时，PagedAttention相比传统连续内存分配，其显存节省主要来源于以下哪一机制？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "允许不同请求的KV Cache块在显存中非连续存放，从而复用被短请求释放的碎片空间"
+        },
+        {
+          "option_label": "B",
+          "option_text": "将所有请求的KV Cache统一压缩为低秩表示，大幅降低单token缓存体积"
+        },
+        {
+          "option_label": "C",
+          "option_text": "动态合并相同前缀请求的KV Cache，实现跨请求共享"
+        },
+        {
+          "option_label": "D",
+          "option_text": "在Decode阶段跳过历史token的K/V重计算，仅缓存新token增量"
+        }
+      ],
+      "answer": "A",
+      "analysis": "依据原文6.5节：PagedAttention核心是'把KV Cache切成固定大小的块，按需分配，用页表映射逻辑位置到物理块'（6.5 concept），其解决的痛点是'传统框架为每个请求按最大可能长度预分配连续显存，导致闲置和碎片'（6.5 principle）。选项A精准对应'消除碎片'与'按需分配'两大收益（6.5 concept），是教材唯一明确描述的机制；B描述的是MLA（6.6 compare），非PagedAttention；C描述的是'上下文缓存/前缀复用'（6.6 compare），虽vLLM支持但非PagedAttention本体功能；D描述的是KV Cache基本作用（6.5 principle），与内存管理方式无关。教材从未将PagedAttention与压缩或前缀共享绑定，A是唯一原文直引答案。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 1,
+      "stem": "在诊断一个突然出现高TTFT（>8s）的线上vLLM服务时，监控显示GPU利用率正常、KV Cache占用率仅30%、无429错误。此时最应优先检查的日志线索是？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "Prefill阶段CUDA kernel启动耗时是否异常增长"
+        },
+        {
+          "option_label": "B",
+          "option_text": "请求队列中等待Prefill的请求数是否激增"
+        },
+        {
+          "option_label": "C",
+          "option_text": "模型权重加载日志中是否存在IO阻塞或校验失败"
+        },
+        {
+          "option_label": "D",
+          "option_text": "PagedAttention页表初始化是否因并发突增触发大量块分配"
+        }
+      ],
+      "answer": "A,B",
+      "analysis": "依据原文6.2节与6.3节：TTFT由Prefill速度与排队时长共同决定（6.2 principle：'TTFT = Prefill速度 + 排队时长'；6.3表格：'受Prefill速度、排队时长、prompt长度影响'）。GPU利用率正常排除算力瓶颈，KV Cache占用低排除Decode阶段显存问题，故问题必在Prefill或排队环节。A正确——Prefill是计算密集型，CUDA kernel耗时异常直接拖慢TTFT；B正确——'排队时长'是TTFT组成项，队列积压是典型原因（6.3 risk：'并发过高超过处理能力'）；C中权重加载属启动阶段问题，不会导致'突然出现'的TTFT升高（服务已运行）；D中页表初始化在服务启动时完成，且PagedAttention设计目标正是降低分配开销，非TTFT主因。教材强调TTFT分析必须区分'计算慢'与'排队久'，A、B覆盖这两大必要条件。",
+      "difficulty_label": "挑战"
+    },
+    {
+      "type": 0,
+      "stem": "某团队在vLLM中启用连续批处理后，观测到GPU计算单元（SM）利用率从62%提升至94%，但单请求TTFT反而上升了18%。以下哪项最可能是根本原因？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "连续批处理导致Prefill阶段无法并行处理多个请求的prompt，必须串行执行"
+        },
+        {
+          "option_label": "B",
+          "option_text": "新请求持续补入batch，使长prompt请求的Prefill被短请求抢占，造成其TTFT劣化"
+        },
+        {
+          "option_label": "C",
+          "option_text": "连续批处理增加了调度器开销，消耗了本可用于Prefill计算的GPU资源"
+        },
+        {
+          "option_label": "D",
+          "option_text": "PagedAttention页表查询延迟在高并发下累积，拖慢了首个token生成"
+        }
+      ],
+      "answer": "B",
+      "analysis": "依据原文6.5节：连续批处理是'请求动态进出，每步Decode后调度，谁完成谁先返回，新请求立即补位'（6.5 concept），其优化对象是Decode阶段GPU空转，**不改变Prefill的执行方式**。教材明确Prefill是'一次性并行处理输入prompt'（6.2 principle），且连续批处理调度粒度是'Decode每一步'（6.5 chart），Prefill仍按请求独立执行。选项B指出'长prompt请求Prefill被短请求抢占'——这符合连续批处理本质：新请求补位不区分阶段，若短请求快速完成Decode并退出，调度器会立即填入新请求，但长prompt的Prefill仍在执行，其TTFT不受影响；然而，若系统采用混合batch策略（vLLM实际支持），长prompt Prefill可能因资源竞争延后启动。教材虽未明说抢占细节，但6.5 chart强调'静态批处理必须等最长请求完成'，反向印证连续批处理通过解耦请求生命周期提升吞吐，但可能牺牲单请求TTFT稳定性。A错误——连续批处理不限制Prefill并行；C、D无教材依据，调度开销与页表延迟均非TTFT主因（6.2 principle）。B是唯一符合'连续批处理优化Decode、不优化Prefill'且能解释TTFT上升的合理推论。",
+      "difficulty_label": "挑战"
+    }
+  ]
+}

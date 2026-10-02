@@ -1,0 +1,154 @@
+{
+  "items": [
+    {
+      "type": 0,
+      "stem": "某企业微信答疑机器人在早高峰突现大量429错误，监控显示重试请求在每分钟整点后第3秒高度集中爆发。代码中对429错误采用固定3秒延迟、最多重试3次的策略。该设计违反本章强调的哪项核心工程原则？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "未区分错误类型：429应退避重试，而401不应重试"
+        },
+        {
+          "option_label": "B",
+          "option_text": "未实现指数退避 + 抖动，导致重试请求同步化，加剧服务端压力"
+        },
+        {
+          "option_label": "C",
+          "option_text": "未设置最大重试次数，存在无限重试风险"
+        },
+        {
+          "option_label": "D",
+          "option_text": "未主动控制客户端并发，依赖服务端限流兜底"
+        }
+      ],
+      "answer": "B",
+      "analysis": "依据原文9.8节‘指数退避 + 抖动（Exponential Backoff with Jitter）’定义：‘在等待时间上加一个随机抖动，避免大量客户端踩点同时重试把服务再次打爆’；并明确指出‘429是限流，正确做法是指数退避 + 抖动后重试，而不是立即重试’。题干中‘固定3秒延迟’且‘整点后第3秒集中爆发’，正是缺乏抖动（jitter）导致重试同步化的典型表现。A项虽正确但非本题最直接违反点（题干已限定针对429）；C项‘最多重试3次’说明已设上限；D项属稳定性checklist内容，但非本错误现象的直接成因。教材依据：9.8节原理框与exam栏。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 0,
+      "stem": "财务部门发现本月Token费用异常飙升300%，分析日志发现：每次多轮对话均将全部历史消息（含50轮闲聊及3天前的会议纪要）原样传入，且system prompt中嵌入了动态时间戳（如‘当前日期：2024-06-15’）。根据9.9节成本控制优先级，以下哪项优化措施对降低输入Token成本最直接有效？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "将system prompt中的动态时间戳移除，改用静态描述（如‘请基于当前上下文回答’）"
+        },
+        {
+          "option_label": "B",
+          "option_text": "启用上下文缓存功能，确保相同前缀命中缓存降价"
+        },
+        {
+          "option_label": "C",
+          "option_text": "对历史消息实施滑动窗口截断，仅保留最近5轮对话"
+        },
+        {
+          "option_label": "D",
+          "option_text": "将模型从qwen-max降级为qwen-plus以降低单价"
+        }
+      ],
+      "answer": "A",
+      "analysis": "原文9.9节明确指出：‘要享受到缓存，关键是保持前缀稳定——把容易变化的内容（用户问题、时间戳）放在请求靠后位置，而不是每次都让前缀变来变去’；并强调‘system prompt长度影响每次调用输入Token’。动态时间戳导致system prompt每轮都不同，彻底破坏缓存前缀稳定性，使本可缓存的固定提示词无法享受缓存优惠，属于‘输入Token浪费’的根源性问题。A项直击此病灶，移除动态字段即可恢复前缀稳定性，是成本控制优先级中‘先保证前缀稳定’的体现。C项虽合理但属‘控制输入长度’次级手段；B项是结果而非措施；D项未解决输入Token暴涨主因。教材依据：9.9节‘上下文缓存为什么能省钱’段落及‘成本控制的优先级’表格。",
+      "difficulty_label": "挑战"
+    },
+    {
+      "type": 1,
+      "stem": "开发团队实现Function Calling时，模型返回了tool_calls，但最终回答中未体现工具结果。经排查，代码已执行工具函数并获取结果，但最终响应仍为空白。以下哪些环节遗漏可能导致此现象？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "未将第一次调用返回的response_message追加到messages中"
+        },
+        {
+          "option_label": "B",
+          "option_text": "回传tool结果时未携带tool_call_id字段"
+        },
+        {
+          "option_label": "C",
+          "option_text": "将tool结果作为role='user'消息追加，而非role='tool'"
+        },
+        {
+          "option_label": "D",
+          "option_text": "未在第二次调用时传入包含tool消息的完整messages数组"
+        }
+      ],
+      "answer": "ABCD",
+      "analysis": "依据原文9.7节‘API视角的四个关键字段’及‘API层最常见的错误’：A项对应‘❌ 忘了把 response_message 追加进 messages —— 第二次调用时模型不知道自己之前决策了什么’；B项对应‘❌ 回传结果时漏 tool_call_id —— 模型无法把结果和之前的调用对应起来’；C项对应‘role=\"tool\"’是强制要求，若用user角色则模型无法识别为工具执行结果；D项是整个流程闭环前提，若第二次调用未传入更新后的messages（含tool消息），则模型无上下文生成答案。四者均为9.7节明确列出的‘常见错误’，缺一不可。教材依据：9.7节‘API层最常见的错误’风险框及principle框。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 0,
+      "stem": "新人答疑机器人需支持三种场景：①员工在企微群@机器人实时提问（要求首字响应<800ms）；②HR夜间批量生成500份培训摘要（次日8点前完成）；③财务系统每日定时拉取前一日Token用量报表（需完整准确）。根据9.6与9.10节对比，以下关于调用方式选型的判断，哪一项完全符合本章工程实践？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "场景①用流式输出，场景②用Batch API，场景③用同步调用"
+        },
+        {
+          "option_label": "B",
+          "option_text": "场景①用同步调用，场景②用流式输出，场景③用Batch API"
+        },
+        {
+          "option_label": "C",
+          "option_text": "场景①用Batch API，场景②用同步调用，场景③用流式输出"
+        },
+        {
+          "option_label": "D",
+          "option_text": "场景①用流式输出，场景②用同步调用，场景③用Batch API"
+        }
+      ],
+      "answer": "A",
+      "analysis": "依据原文9.6节：‘在线对话、聊天机器人等面向用户的场景默认开启流式，显著降低TTFT、提升体感速度’；9.10节：‘Batch API是异步离线大批量任务……适合夜间跑批’；而Token用量报表需精确、完整、结构化数据，同步调用可确保单次请求返回完整usage字段（见9.2节响应结构），且无需异步轮询。A项完全匹配：①流式（低TTFT）→9.6；②Batch（大批量离线）→9.10；③同步（需确定性响应+完整usage）→9.2/9.9。B项错在场景②用流式无意义（批量不需TTFT）；C项错在场景①用Batch（完全违背实时性）；D项错在场景②用同步（成本高、易限流）。教材依据：9.6节best框、9.10节concept框、9.2节响应结构说明。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 1,
+      "stem": "前端工程师将DASHSCOPE_API_KEY硬编码在React组件中并提交至GitHub公开仓库，次日账单激增。根据9.3节‘API Key安全的五条军规’，以下应急处置步骤中，哪些符合教材推荐的黄金顺序？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "立即在阿里云控制台禁用或轮换该API Key"
+        },
+        {
+          "option_label": "B",
+          "option_text": "检查阿里云配额使用记录与调用日志，定位异常调用源"
+        },
+        {
+          "option_label": "C",
+          "option_text": "从Git历史中彻底删除密钥（如git filter-repo）并重新提交"
+        },
+        {
+          "option_label": "D",
+          "option_text": "在.gitignore中补充密钥文件路径，并通知团队更新本地配置"
+        }
+      ],
+      "answer": "AB",
+      "analysis": "原文9.3节‘exam’栏明确给出泄漏后应急顺序：‘立即禁用/轮换 Key → 检查近期调用记录 → 评估损失’；且‘API Key安全的五条军规’第一条即‘环境变量/密钥服务托管’，第二条‘不提交Git’。A项对应‘立即禁用/轮换’，是止损第一步；B项对应‘检查调用记录’，是溯源第二步。C项‘从Git历史删除’虽重要，但教材未将其列为黄金顺序前两位（因Git历史已泄露，删除无法撤回已扫描的Key）；D项属长期预防，非紧急处置。因此AB是教材明示的黄金顺序前两步。教材依据：9.3节exam栏‘泄漏后的应急顺序’。",
+      "difficulty_label": "入门"
+    },
+    {
+      "type": 0,
+      "stem": "开发团队在实现Function Calling时，模型返回tool_calls后，程序执行工具并获取结果，但第二次调用时收到400错误，提示‘tool_call_id not found in previous message’。该错误最根本的原因是违反了9.7节强调的哪条API层关键约束？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "未在第一次调用后将response_message追加至messages"
+        },
+        {
+          "option_label": "B",
+          "option_text": "回传tool结果时未使用role='tool'角色"
+        },
+        {
+          "option_label": "C",
+          "option_text": "回传tool结果时未携带与tool_calls中完全一致的tool_call_id"
+        },
+        {
+          "option_label": "D",
+          "option_text": "tools参数中function的parameters schema定义缺失required字段"
+        }
+      ],
+      "answer": "C",
+      "analysis": "题干错误信息‘tool_call_id not found in previous message’直指ID匹配失败。原文9.7节‘API视角的四个关键字段’表明确‘role=\"tool\"’消息必须带‘tool_call_id’；且‘API层最常见的错误’第一条即‘❌ 回传结果时漏 tool_call_id —— 模型无法把结果和之前的调用对应起来’。C项精准对应此约束。A项会导致更严重的上下文缺失错误（如400或逻辑错误），但不会触发ID not found；B项若未用tool角色，服务端可能直接拒绝而非ID not found；D项会导致tool_calls提取失败，不会进入第二次调用。教材依据：9.7节‘API层最常见的错误’风险框及principle框。",
+      "difficulty_label": "挑战"
+    }
+  ]
+}

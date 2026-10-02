@@ -1,0 +1,252 @@
+{
+  "8-1355": {
+    "qid": "8-1355",
+    "classification": "own",
+    "chapter": 8,
+    "quality": "ok",
+    "reason": "四选项均属安全体系要素，原文明确列出RAM、审计日志、传输加密",
+    "answer": [
+      "B",
+      "C",
+      "D"
+    ],
+    "supported": true,
+    "quote": "RAM（访问控制）...审计日志...传输中：HTTPS/TLS 加密传输",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "未在安全体系中提及"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "RAM最小权限是云安全四件套之一"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "审计日志是合规刚需和安全防线"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "传输加密是数据安全三件套之一"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "8-1372": {
+    "qid": "8-1372",
+    "classification": "own",
+    "chapter": 8,
+    "quality": "ok",
+    "reason": "Query与Response风险识别构成输入输出双向审查，原文强调三层防御",
+    "answer": [
+      "A",
+      "C"
+    ],
+    "supported": true,
+    "quote": "三层实时防御：输入过滤、运行监控、输出审查",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "Query识别即输入过滤环节"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "RAG增强不直接降低违规输出"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "Response识别即输出审查环节"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "预置回答未被列为标准措施"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "8-1447": {
+    "qid": "8-1447",
+    "classification": "own",
+    "chapter": 8,
+    "quality": "ok",
+    "reason": "AB符合RAG权限控制场景，C属质量治理，D属NLP任务",
+    "answer": [
+      "A",
+      "B"
+    ],
+    "supported": true,
+    "quote": "按职位/部门/密级过滤 Top-K...普通员工可能通过提问检索到只有经理、CEO 才能看的薪酬、绩效文档",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "典型越权检索场景"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "部门隔离是权限维度之一"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "过期文件属知识库运维非权限控制"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "错别字修正属文本处理非安全控制"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "8-0583": {
+    "qid": "8-0583",
+    "classification": "own",
+    "chapter": 8,
+    "quality": "ok",
+    "reason": "ACE符合个人用户防护要求，BDF无依据或错误",
+    "answer": [
+      "A",
+      "C",
+      "E"
+    ],
+    "supported": true,
+    "quote": "增强安全意识...参与安全反馈...保护个人信息",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "原文首条安全原则"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "传播知识非用户防护措施"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "反馈机制是合规要求"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "忽略输出违反安全审查原则"
+      },
+      {
+        "label": "E",
+        "selected": true,
+        "why": "隐私保护是数据安全基础"
+      },
+      {
+        "label": "F",
+        "selected": false,
+        "why": "依赖单一模型增加风险"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "8-0584": {
+    "qid": "8-0584",
+    "classification": "own",
+    "chapter": 8,
+    "quality": "ok",
+    "reason": "ABDE符合内容治理要求，CF违背安全原则",
+    "answer": [
+      "A",
+      "B",
+      "D",
+      "E"
+    ],
+    "supported": true,
+    "quote": "明确使用目标与生成内容范围...设置内容过滤机制...符合社会伦理标准和法律法规",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "提示工程六要素之一"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "多轮审查是内容治理实践"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "自由生成违背安全对齐"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "内容过滤是三层防御环节"
+      },
+      {
+        "label": "E",
+        "selected": true,
+        "why": "合规要求必须遵守"
+      },
+      {
+        "label": "F",
+        "selected": false,
+        "why": "忽略审核违反输出审查原则"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "8-0600": {
+    "qid": "8-0600",
+    "classification": "own",
+    "chapter": 8,
+    "quality": "ok",
+    "reason": "AC符合隐私保护措施，BD未提，EF错误",
+    "answer": [
+      "A",
+      "C"
+    ],
+    "supported": true,
+    "quote": "数据脱敏（去标识化）...存储中：静态加密 + KMS 托管密钥",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "脱敏是数据收集阶段防护"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "身份验证非隐私保护核心措施"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "加密是存储中防护手段"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "混杂处理未在原文出现"
+      },
+      {
+        "label": "E",
+        "selected": false,
+        "why": "开源加剧隐私泄露风险"
+      },
+      {
+        "label": "F",
+        "selected": false,
+        "why": "参数提升不保护隐私"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

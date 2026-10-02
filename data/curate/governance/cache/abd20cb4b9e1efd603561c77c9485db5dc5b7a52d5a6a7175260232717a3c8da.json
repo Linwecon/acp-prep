@@ -1,0 +1,162 @@
+{
+  "items": [
+    {
+      "type": 0,
+      "stem": "某ReAct Agent在处理报销查询任务时，连续三轮调用同一工具（get_reimbursement）且参数完全相同，Observation均返回'接口超时'，但Agent未切换工具、未修改参数、也未向用户澄清。该行为最根本违反了ReAct的哪一条铁律？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "ReAct必须设置最大迭代轮数/超时/预算上限，防止死循环与成本失控"
+        },
+        {
+          "option_label": "B",
+          "option_text": "Observation可能含噪声或恶意内容，模型不能盲目信任外部返回"
+        },
+        {
+          "option_label": "C",
+          "option_text": "简单任务不应使用ReAct，应直接回答以节省token"
+        },
+        {
+          "option_label": "D",
+          "option_text": "工具结果必须由程序作为role='tool'消息回传，否则模型无法感知"
+        }
+      ],
+      "answer": "A",
+      "analysis": "依据教材4.4节'风险'部分明确指出：'ReAct不是无限循环：必须设置最大迭代轮数/超时/token预算上限，超限要主动收尾或向用户澄清，否则会陷入死循环并烧光预算'。题干中Agent在连续失败后仍机械重试，未触发任何终止或降级机制，直接违背该铁律。B项虽为正确原则，但题干未体现模型对Observation的盲目信任（如直接采纳错误数据），而是完全未响应失败信号；C项是设计建议，非执行铁律；D项是Function Calling基础流程，与本题中已成功调用工具但缺乏反馈响应无关。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 0,
+      "stem": "一个Agent被要求完成'查明天北京天气并判断是否带伞'。若其仅输出一长串内部推理（如'北京天气通常干燥，降水概率低，因此不用带伞'）而未调用任何天气工具，该行为本质上属于哪种模式？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "ReAct：因Observation缺失导致规划中断"
+        },
+        {
+          "option_label": "B",
+          "option_text": "CoT：仅依赖模型内部知识进行纯推理"
+        },
+        {
+          "option_label": "C",
+          "option_text": "Plan-and-Execute：计划阶段未完成即执行"
+        },
+        {
+          "option_label": "D",
+          "option_text": "固定工作流：预设流程中遗漏工具调用节点"
+        }
+      ],
+      "answer": "B",
+      "analysis": "教材4.4节'Compare'表格明确定义：CoT是'只在脑子里推理，不调工具'，信息来源'仅模型内部知识'；而ReAct必须包含Action（调用工具）和Observation（读取外部结果）。题干中Agent未调用工具、仅凭内部知识推理，完全符合CoT特征。A项错误——ReAct必须有Action环节，无Action即非ReAct；C项Plan-and-Execute本质仍是ReAct变体，必然包含工具调用；D项工作流是架构设计，与是否调用工具无必然因果关系。",
+      "difficulty_label": "入门"
+    },
+    {
+      "type": 1,
+      "stem": "以下哪些现象能作为判断一个系统采用ReAct而非CoT的关键证据？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "系统输出中出现显式的'Thought'/'Action'/'Observation'标签分隔"
+        },
+        {
+          "option_label": "B",
+          "option_text": "系统在单次响应中同时生成推理链和最终答案"
+        },
+        {
+          "option_label": "C",
+          "option_text": "系统在工具调用失败后，基于Observation结果调整参数并重试"
+        },
+        {
+          "option_label": "D",
+          "option_text": "系统响应耗时显著长于普通对话，且存在多次API往返"
+        },
+        {
+          "option_label": "E",
+          "option_text": "系统提示词中明确要求'请逐步思考，每步后调用工具'"
+        }
+      ],
+      "answer": "ACD",
+      "analysis": "依据教材4.4节核心定义：ReAct本质是Thought-Action-Observation多轮闭环。A项是ReAct典型外显形态（教材示例轨迹）；C项体现'用事实修正想法'的核心能力（对比CoT无法获取外部反馈）；D项是ReAct技术实现必然结果（多轮API调用）。B项是CoT典型特征（一次性输出长推理链），排除；E项是提示工程手段，非运行证据——即使提示要求，若实际未执行Action/Observation循环，仍非ReAct。教材强调'本质区别在于是否动手'，故必须以实际行为（A/C/D）为判据。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 0,
+      "stem": "某团队将报销查询工具接入Agent时，JSON-Schema中month字段定义为{'type': 'string', 'pattern': '^\\\\d{4}-\\\\d{2}$'}，required=['user_id']。测试中模型向month传入'2024-7'（缺少前导零）导致工具报错。该故障最直接暴露的Schema设计缺陷是？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "未声明default值，导致缺参时传入空字符串"
+        },
+        {
+          "option_label": "B",
+          "option_text": "required字段未包含month，使模型认为该参数可选"
+        },
+        {
+          "option_label": "C",
+          "option_text": "pattern正则表达式未启用严格匹配（如缺少^$锚点），允许部分匹配"
+        },
+        {
+          "option_label": "D",
+          "option_text": "description缺失，未说明'月份必须为YYYY-MM格式，如2024-07需补零为2024-07'"
+        }
+      ],
+      "answer": "D",
+      "analysis": "教材4.3节'风险'明确指出：'Schema字段名含糊、描述缺失，会直接导致参数提取错误'。题干中pattern本身正确（^\\d{4}-\\d{2}$），但模型仍传入'2024-7'，说明其未理解格式要求——根源在于description未清晰说明'必须补零'这一业务约束。A项错误：题干未提缺参场景；B项错误：required=['user_id']正确，month本就应为可选；C项错误：pattern已含^$锚点，'2024-7'不满足\\d{2}故不匹配，问题不在正则本身而在模型未获充分语义指导。",
+      "difficulty_label": "挑战"
+    },
+    {
+      "type": 1,
+      "stem": "当用户提问'帮我查我上个月报销单进度'，ReAct Agent首次响应未调用工具，而是回答'一般3–5个工作日'。该行为同时违反了哪两个本章核心概念？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "Agent的本质是'规划-行动-观察'闭环"
+        },
+        {
+          "option_label": "B",
+          "option_text": "ReAct必须有轮数上限"
+        },
+        {
+          "option_label": "C",
+          "option_text": "Function Calling中模型只提议、程序才执行"
+        },
+        {
+          "option_label": "D",
+          "option_text": "ReAct与CoT的本质区别在于是否调用工具"
+        },
+        {
+          "option_label": "E",
+          "option_text": "Agent解决的是'做什么、怎么做'，而非'知道什么'"
+        }
+      ],
+      "answer": "ADE",
+      "analysis": "题干行为是典型'伪Agent'：用CoT式回答替代真实行动。A项直指Agent定义核心（教材4.1节'Agent是...闭环执行系统'）；D项是ReAct与CoT辨析关键（教材4.4节表格：ReAct'会调用外部工具'，CoT'不调工具'）；E项对应Agent vs RAG/普通对话本质（教材4.1节表格：Agent解决'做什么、怎么做'，普通对话解决'回答问题'）。B项是ReAct执行约束，与'未行动'无直接关联；C项是Function Calling流程，题干未涉及执行环节。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 0,
+      "stem": "某金融Agent采用ReAct模式执行'查询信用分→判断放贷→生成报告'。当信用分查询工具超时返回空结果时，Agent未重试、未切换方案、也未向用户澄清，而是直接生成模糊回答。该故障最根本违反了教材4.2节关于组件协作的哪一关键约定？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "工具返回结果必须回灌到上下文，否则模型等于'做完就忘'"
+        },
+        {
+          "option_label": "B",
+          "option_text": "要给模型'失败出口'：工具超时、报错时能重试或换方案，而不是整轮崩溃"
+        },
+        {
+          "option_label": "C",
+          "option_text": "Planner决定'先做什么、再做什么'，LLM负责生成下一步动作"
+        },
+        {
+          "option_label": "D",
+          "option_text": "组件职责尽量解耦，出问题才好定位"
+        }
+      ],
+      "answer": "B",
+      "analysis": "教材4.2节'关键约定'原文：'要给模型\"失败出口\"：工具超时、报错时能重试或换方案，而不是整轮崩溃'。题干中Agent面对超时既不重试也不降级，直接放弃任务，正是对'失败出口'约定的彻底违背。A项是上下文管理基础，但题干未体现结果未回传；C项是组件分工，与故障无关；D项是设计原则，非执行约定。",
+      "difficulty_label": "入门"
+    }
+  ]
+}

@@ -1,0 +1,208 @@
+{
+  "5-1120": {
+    "qid": "5-1120",
+    "classification": "cross",
+    "chapter": -1,
+    "quality": "remove",
+    "reason": "题干条件缺失，无法确定‘大数计算表现不佳’的具体原因，各选项均可能有效，无唯一答案。",
+    "answer": [],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "改进提示词可能有效，但非必然提升最大。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "微调使用插件可能有效，但非必然提升最大。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "提供样例可能有效，但非必然提升最大。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "微调逻辑推理可能有效，但非必然提升最大。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "5-1216": {
+    "qid": "5-1216",
+    "classification": "own",
+    "chapter": 5,
+    "quality": "ok",
+    "reason": "考查训练超参数对学习速度的影响，学习率是关键。",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "学习率（lr）：每次参数更新的步长。太大 → 震荡/不收敛甚至 loss 飙升；太小 → 收敛极慢。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "学习率直接控制参数更新步长，影响收敛速度。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "正则化系数主要防过拟合，不直接决定学习速度。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "批大小影响梯度稳定性，不直接决定学习速度。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "训练轮数是迭代次数，不直接决定每步学习速度。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "5-1218": {
+    "qid": "5-1218",
+    "classification": "cross",
+    "chapter": -1,
+    "quality": "remove",
+    "reason": "题干不完整，选项与‘生成插图提示词’任务关联不明确，考查价值低。",
+    "answer": [],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "过于简单，非最佳提示词。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "过于宽泛，非最佳提示词。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "描述相对具体，但题干未提供比较标准。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "过于简单，非最佳提示词。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "5-1241": {
+    "qid": "5-1241",
+    "classification": "cross",
+    "chapter": -1,
+    "quality": "ok",
+    "reason": "考查技术团队在微调落地中的职责认知，选项B描述不准确。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "准确，团队需掌握相关技术。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "不准确，技术团队通常需关注部署维护。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "准确，负责技术细节调整优化。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "准确，参与评估并调整策略。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "5-1320": {
+    "qid": "5-1320",
+    "classification": "own",
+    "chapter": 5,
+    "quality": "ok",
+    "reason": "考查LoRA核心特点，即通过低秩矩阵间接调整。",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "LoRA（Low-Rank Adaptation，低秩适配）不直接更新原始权重矩阵 W₀，而是在它旁边'挂'一对小矩阵来学习变化量 ΔW。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "错误，LoRA适用于多种任务。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "错误，LoRA冻结原权重，不直接修改。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "正确，通过低秩矩阵间接调整行为。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "错误，LoRA数据需求相对较少。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "5-1346": {
+    "qid": "5-1346",
+    "classification": "own",
+    "chapter": 5,
+    "quality": "ok",
+    "reason": "考查PEFT技术范畴，Adapter Tuning属于PEFT。",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "PEFT（Parameter-Efficient Fine-Tuning，参数高效微调）是 LoRA、Prefix Tuning 等'只更新极少参数'方法的总称。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "错误，全量微调不属于PEFT。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "错误，随机初始化训练不属于PEFT。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "正确，Adapter Tuning是PEFT技术。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "错误，数据增强不属于PEFT技术。"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

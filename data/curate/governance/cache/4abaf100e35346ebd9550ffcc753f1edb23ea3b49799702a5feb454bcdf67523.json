@@ -1,0 +1,154 @@
+{
+  "items": [
+    {
+      "type": 0,
+      "stem": "某企业报销查询Agent在工具调用失败（如网络超时）后，未重试、未切换方案、也未向用户澄清，而是直接生成模糊回答：“系统暂未返回结果”。该行为最根本违反Harness/Loop闭环中哪一环节的必要性？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "标准（Standard）缺失：未定义工具失败时的响应规范"
+        },
+        {
+          "option_label": "B",
+          "option_text": "验证（Validate）失效：未设置对工具调用结果的确定性校验逻辑"
+        },
+        {
+          "option_label": "C",
+          "option_text": "记录（Record）不足：未将失败轨迹存入日志供后续分析"
+        },
+        {
+          "option_label": "D",
+          "option_text": "写回（Write-back）延迟：未将故障模式沉淀为Skill或验证器"
+        }
+      ],
+      "answer": "B",
+      "analysis": "依据教材4.11节Harness/Loop闭环定义，'验证'环节的核心是“用确定性检查 + LLM Judge + 客观证据判断执行是否符合预期”。题干中Agent面对工具超时返回空结果，既未触发重试（违反确定性重试策略），也未校验返回值非空/格式合规（如HTTP状态码、业务code），更未进入降级路径——这表明验证逻辑完全缺位。教材明确指出：“错误没被自动发现 → 补验证器/检查项”（4.11节表格），且Function Calling风险提示强调“要给模型‘失败出口’：工具超时、报错时能重试或换方案，而不是整轮崩溃”（4.2节）。A项虽相关，但标准缺失是根源性问题，而题干强调的是“已发生失败却无响应”，属于验证机制未生效；C、D属事后处理，不解决“当下未拦截失败”的即时性缺陷。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 0,
+      "stem": "一个课程审查Skill已封装‘代码可执行性检查’为validate_code.py脚本，并返回结构化JSON。当评测该Skill的SOP合规性时，发现Agent在未运行该脚本的情况下就给出了‘代码可运行’结论。为精准定位此环节失效，应优先采用哪种评测手段？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "端到端黑盒评测：仅检查最终输出是否包含‘可运行’字样"
+        },
+        {
+          "option_label": "B",
+          "option_text": "LLM-as-Judge：用大模型评估结论是否合理"
+        },
+        {
+          "option_label": "C",
+          "option_text": "确定性检查：解析执行trace，验证是否调用validate_code.py及接收其tool消息"
+        },
+        {
+          "option_label": "D",
+          "option_text": "Rubric评分：按‘步骤完整性’维度人工打分"
+        }
+      ],
+      "answer": "C",
+      "analysis": "题干要求“精准定位Skill SOP合规性失效”，即需确认Agent是否真实执行了Skill规定的动作（调用脚本）。教材4.10节明确区分评测类型：确定性检查用于“该发生的步骤有没有发生”，结果确定、可调试，适合客观项（如“是否调了报销工具”“输出是否符合JSON Schema”）；而LLM-as-Judge和Rubric适用于主观判断，无法可靠验证执行轨迹。教材示例直接指出：“加白盒评测，单独检查代码生成环节是否可执行”（4.10节QA解析）。A项端到端评测会掩盖过程缺陷；B、D无法追溯执行链路。故C是唯一能通过解析tool_calls和role='tool'消息序列来确证脚本是否被调用的手段。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 1,
+      "stem": "某团队将报销查询工具接入Agent时，JSON-Schema中parameters定义如下：{ 'user_id': {'type': 'string'}, 'month': {'type': 'string', 'pattern': '^\\d{4}-\\d{2}$'} }，且required=['user_id']。测试中发现模型仍向month传入'2024-7'（缺少前导零）。该故障最直接暴露了JSON-Schema定义中的哪些缺陷？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "month字段未设为required，导致模型可选择性忽略格式约束"
+        },
+        {
+          "option_label": "B",
+          "option_text": "pattern正则表达式未启用全局匹配（缺少^和$锚点），实际未生效"
+        },
+        {
+          "option_label": "C",
+          "option_text": "Schema中未提供清晰的description说明month必须为'YYYY-MM'格式"
+        },
+        {
+          "option_label": "D",
+          "option_text": "required数组遗漏'month'，使模型认为该参数非必需"
+        }
+      ],
+      "answer": "A,C,D",
+      "analysis": "依据教材4.3节Function Calling原则：“Schema质量（名称、描述、必填项是否清晰）决定参数提取准不准”。A正确：虽pattern存在，但因month非required，模型在用户未明确提供时可能随意填充（如'2024-7'），教材强调“缺参时Agent应主动追问”，前提是Schema明确定义required；C正确：description缺失导致模型无法理解格式意图，教材指出“Schema字段名含糊、描述缺失，会直接导致参数提取错误”；D正确：required=['user_id']明确排除month，使其成为可选参数，与业务强约束矛盾。B错误：pattern中已含^和$，锚点完整；且教材未提及正则全局匹配配置问题，该选项属技术细节干扰，无教材依据。",
+      "difficulty_label": "挑战"
+    },
+    {
+      "type": 0,
+      "stem": "某金融风控Agent需执行'查询客户信用分→判断是否放贷→生成报告→邮件发送'。近期出现两起故障：①信用分查询超时后Agent直接崩溃；②邮件发送失败但未通知用户。依据教材4.2节组件职责与4.11节Harness原则，应强化哪些环节？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "增强Tool组件的容错能力：为每个工具实现超时重试与降级返回"
+        },
+        {
+          "option_label": "B",
+          "option_text": "强化Memory组件的上下文管理：确保失败信息被完整注入下一轮"
+        },
+        {
+          "option_label": "C",
+          "option_text": "完善Harness验证环节：为每步添加确定性检查（如HTTP状态码、业务code校验）"
+        },
+        {
+          "option_label": "D",
+          "option_text": "重构Planner组件逻辑：将邮件发送设为可选步骤以提升成功率"
+        }
+      ],
+      "answer": "C",
+      "analysis": "题干故障①（超时崩溃）和②（失败不通知）本质都是“未对工具结果进行有效性验证”，导致异常未被捕获、流程中断。教材4.2节强调：“工具返回结果必须回灌到上下文，否则模型等于做完就忘”，但前提是要有结果可灌；而4.11节Harness闭环明确要求“验证”环节用确定性检查捕捉失败（如“是否调了工具”“输出是否符合Schema”）。A项属Tool实现细节，但教材未要求Tool自身重试（而是由应用层根据验证结果决策重试）；B项Memory管理依赖于先有有效结果，而故障点在于结果未被校验；D项规避问题而非解决问题。教材4.11节表格直指：“错误没被自动发现 → 补验证器/检查项”，且4.3节风险提示：“要给模型‘失败出口’”，验证是触发出口的前提。故C是根本解法。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 1,
+      "stem": "在Harness/Loop闭环的'写回（Write-back）'环节，以下哪些操作符合教材4.11节定义的'可复用经验回写'要求？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "将本次报销查询超时故障的修复方案，更新至QWEN.md的全局配置项"
+        },
+        {
+          "option_label": "B",
+          "option_text": "把新发现的'身份证号明文日志'风险，加入长期记忆的敏感词过滤列表"
+        },
+        {
+          "option_label": "C",
+          "option_text": "将'征信API不可用时切换至缓存数据'的处理逻辑，固化为Plan-and-Execute工作流的分支节点"
+        },
+        {
+          "option_label": "D",
+          "option_text": "把本次失败的完整执行trace存入数据库，供工程师手动分析"
+        }
+      ],
+      "answer": "A,C",
+      "analysis": "教材4.11节定义写回是“把可复用经验回写到Skill / 验证器 / 标准”，并举例：“把教训写进Skill / QWEN.md”“补验证器”。A正确：QWEN.md是教材明确的“标准”载体（4.11节），全局配置属于标准范畴；C正确：将动态策略固化为工作流分支，符合“探索-固化”混合模式（4.6.3节）及“把教训写进Skill/工作流”的写回要求。B错误：敏感词过滤属隐私治理，教材要求“敏感信息不应进入长期记忆”，且过滤列表非“可复用经验”；D错误：存trace是“记录”环节（4.11节闭环第一步），非“写回”——写回强调“转化为可复用资产”，而非原始数据存储。",
+      "difficulty_label": "挑战"
+    },
+    {
+      "type": 0,
+      "stem": "某团队对报销查询Agent进行白盒评测时，发现其在工具调用失败后未触发重试或降级逻辑，而是直接生成模糊回答。评测脚本成功捕获了该问题：解析执行轨迹发现'get_reimbursement'调用后无重试tool_calls，且最终回复中缺失关键状态字段。这种评测方式最核心依赖的是哪一方法？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "LLM-as-Judge：用大模型分析轨迹语义并打分"
+        },
+        {
+          "option_label": "B",
+          "option_text": "Rubric：按预设量表逐项判定轨迹合规性"
+        },
+        {
+          "option_label": "C",
+          "option_text": "确定性检查：用代码解析tool_calls序列与字段存在性"
+        },
+        {
+          "option_label": "D",
+          "option_text": "端到端评测：对比用户输入与最终输出的语义匹配度"
+        }
+      ],
+      "answer": "C",
+      "analysis": "题干明确描述评测脚本“解析执行轨迹”“发现无重试tool_calls”“缺失关键字段”，这完全符合教材4.10节对“确定性检查”的定义：“用代码/脚本判断‘该发生的步骤有没有发生’”，例如“是否调了报销查询工具”“输出是否符合JSON Schema”。该方法结果确定、可调试，专为白盒评测设计。A、B依赖主观判断，无法保证“无重试”的绝对判定；D是黑盒方法，无法观察中间步骤。教材4.10节QA解析直接对应：“加白盒评测，单独检查代码生成环节是否可执行”，此处同理——检查重试环节是否发生。",
+      "difficulty_label": "进阶"
+    }
+  ]
+}

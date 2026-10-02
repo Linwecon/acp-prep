@@ -1,0 +1,119 @@
+{
+  "new-12-6-1": {
+    "qid": "new-12-6-1",
+    "classification": "own",
+    "chapter": 12,
+    "quality": "ok",
+    "reason": "题目考察框架组合选型，符合本章核心考点，有明确考查价值。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "一种非常常见的生产架构是：LlamaIndex 负责‘数据层’……LangChain / LangGraph 负责‘编排层’……用 LlamaIndex 建好向量索引、封装成一个 Retriever，再把这个 Retriever 作为 Tool 挂到 LangChain 的 Agent 上",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "原文反对重复建索引，提倡组合使用。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "符合原文描述的常见组合架构，各司其职。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "场景为单Agent多工具，AgentScope的多Agent协作非必需。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "Dify是低代码平台，不适合深度定制和代码开发场景。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-12-6-2": {
+    "qid": "new-12-6-2",
+    "classification": "own",
+    "chapter": 12,
+    "quality": "ok",
+    "reason": "题目考察文档解析工具选型，条件清晰，符合本章知识点。",
+    "answer": [
+      "B",
+      "E"
+    ],
+    "supported": true,
+    "quote": "需要完全离线、多格式统一分区，或百炼不满足合规 → 评估 Unstructured 或 PyMuPDF；内部专有格式 → 自定义 Reader。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "DashScopeParse是云端服务，不符合‘离线’和‘拒绝云服务’要求。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "Unstructured支持离线分区解析，可保留表格与标题结构。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "SimpleDirectoryReader对扫描件、复杂表格处理有限。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "PyMuPDF对扫描件无效，不符合扫描版合同要求。"
+      },
+      {
+        "label": "E",
+        "selected": true,
+        "why": "自定义Reader可针对专有格式做最贴合解析，符合要求。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-12-6-4": {
+    "qid": "new-12-6-4",
+    "classification": "own",
+    "chapter": 12,
+    "quality": "ok",
+    "reason": "题目考察技术栈分层与解耦原则，故障场景典型，有考查价值。",
+    "answer": [
+      "B",
+      "E"
+    ],
+    "supported": true,
+    "quote": "Gradio 只负责界面，不承载业务逻辑。RAG、Agent、提示词这些应放在下层可独立测试的模块里，UI 只调用它们的接口。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "Gradio和FastAPI属于不同层次，不应强制共享实例。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "故障揭示了UI层与服务层应解耦，业务逻辑需下沉。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "RAGAS是评估框架，与FastAPI集成非必须，也非本题关键。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "虽是选型原则，但非本题故障直接揭示的具体分层原则。"
+      },
+      {
+        "label": "E",
+        "selected": true,
+        "why": "业务逻辑与UI绑定导致无法复用，是故障直接原因。"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

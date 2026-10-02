@@ -1,0 +1,37 @@
+{
+  "new-10-192-1": {
+    "qid": "new-10-192-1",
+    "classification": "own",
+    "chapter": 10,
+    "quality": "ok",
+    "reason": "考查DashScope限流应对，属本章核心考点",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "遇 429 用**指数退避 + 抖动**重试，必要时降级到更小模型",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "随机偏移不解决集中请求问题"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "令牌桶可均匀分布请求，根治集中超限"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "降级缓存不解决RPM超限根源"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "关闭stream不改变RPM配额限制"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

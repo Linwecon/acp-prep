@@ -1,0 +1,230 @@
+{
+  "2-1086": {
+    "qid": "2-1086",
+    "classification": "own",
+    "chapter": 2,
+    "quality": "ok",
+    "reason": "考查提示词优化方法，符合工程化实践。",
+    "answer": [
+      "A",
+      "B"
+    ],
+    "supported": true,
+    "quote": "可用固定测试集 + 人工打分或 LLM-as-Judge 量化每次迭代的收益",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "邀请专家审核是工程化实践。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "Meta Prompting让模型优化提示词。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "自己理解有限，易引入错误。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "简单提示词易导致输出跑偏。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "2-1167": {
+    "qid": "2-1167",
+    "classification": "own",
+    "chapter": 2,
+    "quality": "ok",
+    "reason": "考查提升用户体验的提示工程措施。",
+    "answer": [
+      "A",
+      "C",
+      "E"
+    ],
+    "supported": true,
+    "quote": "System Prompt（系统提示词 / 系统消息）是在对话开始时注入、用于设定模型全局行为",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "定义系统提示词是基础。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "限制长度非必要，可分段处理。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "多轮对话是交互优化。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "模型有幻觉，需反馈机制。"
+      },
+      {
+        "label": "E",
+        "selected": true,
+        "why": "意图分类是前置分流环节。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "2-1407": {
+    "qid": "2-1407",
+    "classification": "cross",
+    "chapter": 11,
+    "quality": "ok",
+    "reason": "考查多模态提示词设计要素，属多模态章节。",
+    "answer": [
+      "A",
+      "B",
+      "D",
+      "E"
+    ],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "颜色是视觉生成关键要素。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "详细程度影响生成可控性。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "文件大小非提示词设计因素。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "编号和位置是结构化要求。"
+      },
+      {
+        "label": "E",
+        "selected": true,
+        "why": "场景对象具体性提升准确性。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "2-1429": {
+    "qid": "2-1429",
+    "classification": "own",
+    "chapter": 2,
+    "quality": "ok",
+    "reason": "考查复杂任务中提示工程与相关技术应用。",
+    "answer": [
+      "A",
+      "C",
+      "D"
+    ],
+    "supported": true,
+    "quote": "思维链（Chain-of-Thought, CoT）：引导模型在给出最终答案前，显式输出中间推理步骤",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "CoT提升复杂推理准确性。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "身份验证属安全，非提示工程。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "标准模板是提示词工程化实践。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "NLU是意图分类的基础。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "2-1460": {
+    "qid": "2-1460",
+    "classification": "own",
+    "chapter": 2,
+    "quality": "ok",
+    "reason": "考查Zero-shot定义及与其他技巧对比。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "Zero-shot（零样本）：不给示例，直接提问",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "训练时需数据，定义错误。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "符合Zero-shot定义。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "准确率不一定高于Few-shot。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "主流大模型都支持。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "2-0032": {
+    "qid": "2-0032",
+    "classification": "own",
+    "chapter": 2,
+    "quality": "ok",
+    "reason": "考查提示工程在优化链中的优先顺序。",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "标准优化顺序（务必记住，高频考点）：提示词优化 → RAG → （仍不满足才考虑）微调",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "微调是最后手段。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "换小模型非优先策略。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "提示词优化是第一手段。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "调参是微调，非优先。"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

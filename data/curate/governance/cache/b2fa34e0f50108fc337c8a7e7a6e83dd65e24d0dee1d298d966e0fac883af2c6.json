@@ -1,0 +1,253 @@
+{
+  "3-0754": {
+    "qid": "3-0754",
+    "classification": "cross",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "需RAG接入知识库+OCR+CoT+API调用，跨多章但RAG是核心",
+    "answer": [
+      "A",
+      "B",
+      "C",
+      "D"
+    ],
+    "supported": true,
+    "quote": "RAG 是上下文工程四大手段之一——在正确的时间把最相关的信息加载进上下文窗口。另外三个是提示词（Prompt）、工具（Tool）、记忆（Memory）",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "OCR属文档解析前置步骤，原文提扫描PDF需OCR"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "CoT是提示工程核心，原文明确列为上下文工程手段"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "调用API生成题目属工具调用，原文列工具为上下文工程手段"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "RAG接入学科知识库确保题目关联性，是本章核心目标"
+      },
+      {
+        "label": "E",
+        "selected": false,
+        "why": "违背RAG'有据可查'原则，原文强调答案需溯源"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-0787": {
+    "qid": "3-0787",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "页码定位属文档解析与元数据管理，本章明确要求保留结构",
+    "answer": [
+      "A",
+      "B",
+      "C",
+      "D"
+    ],
+    "supported": true,
+    "quote": "文档解析（Document Parsing）是把 PDF、Word、Markdown 等格式的文档，加载并转换为大模型可读文本的过程。它看似简单，却是 RAG 质量的'地基'",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "原文要求解析不同格式文档，PyPDF2等属基础解析工具"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "原文强调保留标题/表格等结构，页码是关键元数据"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "向量化是RAG建库必经步骤，原文明确列为第二阶段"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "检索返回页码是溯源要求，原文强调'引用溯源输出'"
+      },
+      {
+        "label": "E",
+        "selected": false,
+        "why": "原文指出模型无法直接读原始格式，必须解析"
+      }
+    ],
+    "duplicate_of": "3-1461"
+  },
+  "3-1026": {
+    "qid": "3-1026",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "表格处理是文档解析重点，原文专节强调结构保留",
+    "answer": [
+      "B",
+      "C",
+      "D",
+      "E"
+    ],
+    "supported": true,
+    "quote": "表格若被当成普通文字按固定长度切碎，行列关系会被打散，后面问'违约金比例''对比数值'就会答错。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "关键词提取非本章方案，未在原文提及"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "原文要求保留表格结构，行列信息是关键元数据"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "JSON Loader可结构化加载，符合'结构化中间格式'要求"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "原文指出扫描PDF需OCR，表格图片同理"
+      },
+      {
+        "label": "E",
+        "selected": true,
+        "why": "Embedding质量是检索三要素之一，原文明确列出"
+      },
+      {
+        "label": "F",
+        "selected": false,
+        "why": "微调不解决知识截止问题，原文强调RAG才是知识更新方案"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-1204": {
+    "qid": "3-1204",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "fixable",
+    "reason": "代码存在重排数超召回数、阈值过高、方法名错误三处硬伤",
+    "answer": [
+      "A",
+      "B",
+      "C"
+    ],
+    "supported": true,
+    "quote": "query_engine.retrieval(\"需求分析使用的工具是什么？\") response.print_response_strea",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "LlamaIndex中正确方法是retrieve，非retrieval"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "top_n=8 > similarity_top_k=3，重排数不能超召回数"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "similarity_cutoff=1为满分阈值，实际不可能达到"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "原文明确支持流式响应，如'streaming=True'"
+      }
+    ],
+    "duplicate_of": "3-1465"
+  },
+  "3-1461": {
+    "qid": "3-1461",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "页码定位是文档解析核心能力，本章明确要求结构保留",
+    "answer": [
+      "A",
+      "B",
+      "C",
+      "D"
+    ],
+    "supported": true,
+    "quote": "文档解析（Document Parsing）是把 PDF、Word、Markdown 等格式的文档，加载并转换为大模型可读文本的过程。它看似简单，却是 RAG 质量的'地基'",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "解析多格式是文档解析基础，原文列PyPDF2为示例"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "保留页码元数据是溯源前提，原文强调结构保留"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "向量化入库是RAG建库标准流程，原文全景图明确"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "返回页码是溯源输出要求，原文强调'引用溯源输出'"
+      },
+      {
+        "label": "E",
+        "selected": false,
+        "why": "原文指出模型无法直接读原始格式，必须解析"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-1465": {
+    "qid": "3-1465",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "fixable",
+    "reason": "代码存在方法名错误、重排数超召回、阈值过高三处硬伤",
+    "answer": [
+      "A",
+      "B",
+      "C"
+    ],
+    "supported": true,
+    "quote": "response = query_engine.retrieve(\"需求分析使用的工具是什么？\") response.print_response_stream()",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "LlamaIndex中正确方法是retrieve，非retrieval"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "top_n=8 > similarity_top_k=3，重排数不能超召回数"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "similarity_cutoff=1为满分阈值，实际不可能达到"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "原文明确支持流式，如'streaming=True'配置"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

@@ -1,0 +1,215 @@
+{
+  "new-6-18-0": {
+    "qid": "new-6-18-0",
+    "classification": "own",
+    "chapter": 6,
+    "quality": "ok",
+    "reason": "考查vLLM默认上下文长度设置，题干条件清晰，选项有明确正误。",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "未显式设置 --max-model-len，vLLM 默认按模型 config.json 中 max_position_embeddings 截断输入",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "错误与显存无关，是长度超限。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "enforce-eager与PagedAttention动态分配无关。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "正确，vLLM默认使用模型配置中的最大长度。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "SLB与上下文长度校验无关。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-6-18-1": {
+    "qid": "new-6-18-1",
+    "classification": "own",
+    "chapter": 6,
+    "quality": "ok",
+    "reason": "考查PagedAttention的block-size参数影响，结合显存瓶颈场景。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "PagedAttention（分页注意力）...把 KV Cache 切成一个个固定大小的块（block），按需分配",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "增大block-size不会降低KV Cache占用。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "正确，更大block可承载更长序列，减少块数量需求。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "block-size主要影响KV Cache管理，不直接影响Prefill并行度。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "TPOT主要受带宽影响，block-size影响不直接。"
+      }
+    ],
+    "duplicate_of": "6-5145"
+  },
+  "new-6-18-2": {
+    "qid": "new-6-18-2",
+    "classification": "own",
+    "chapter": 6,
+    "quality": "ok",
+    "reason": "考查vLLM启动参数与请求体model字段匹配问题，多选。",
+    "answer": [
+      "A",
+      "B"
+    ],
+    "supported": true,
+    "quote": "启动后即可用标准 OpenAI 接口调用（与官方教程一致，`model` 字段传模型本地路径）",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "正确，启动命令与请求体model字段需一致。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "正确，可用--served-model-name指定别名。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "前缀缓存与模型识别无关。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "信任远程代码与模型找不到错误无关。"
+      }
+    ],
+    "duplicate_of": "6-5150"
+  },
+  "new-6-18-3": {
+    "qid": "new-6-18-3",
+    "classification": "own",
+    "chapter": 6,
+    "quality": "ok",
+    "reason": "考查高并发下性能劣化时，使用max-num-seqs限流的正确操作。",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "超出并发上限通常直接返回错误（如 429）...应通过压测找到最优并发阈值并做限流",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "正确，调低并发限制可避免超载。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "调高会加剧问题，导致更多错误。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "设为0并非标准做法，教材未提及。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "移除参数改用其他控制，非教材建议的优先操作。"
+      }
+    ],
+    "duplicate_of": "6-5135"
+  },
+  "new-6-18-4": {
+    "qid": "new-6-18-4",
+    "classification": "own",
+    "chapter": 6,
+    "quality": "ok",
+    "reason": "考查ECS自建与PAI-EAS托管方案的能力差异，多选。",
+    "answer": [
+      "A",
+      "B",
+      "D"
+    ],
+    "supported": true,
+    "quote": "PAI-EAS...提供弹性扩缩容、蓝绿/灰度发布、版本控制、资源监控等企业级能力。提供模型预热",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "正确，EAS提供预热，ECS需自实现。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "正确，蓝绿/灰度发布是EAS原生能力。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "SLB负载均衡ECS也可配置，非EAS独有。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "正确，GPU实例弹性伸缩策略ECS需自配。"
+      }
+    ],
+    "duplicate_of": "6-5151"
+  },
+  "new-6-18-5": {
+    "qid": "new-6-18-5",
+    "classification": "own",
+    "chapter": 6,
+    "quality": "ok",
+    "reason": "考查PagedAttention消除内存碎片的核心机制。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "PagedAttention...把 KV Cache 切成一个个固定大小的块（block），按需分配，再用一张页表记录逻辑位置到物理块的映射。消除碎片",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "PagedAttention本身不进行量化。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "正确，非连续存放消除碎片是核心节省来源。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "前缀复用是额外优化，非核心节省来源。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "拆batch并行处理非PagedAttention核心机制。"
+      }
+    ],
+    "duplicate_of": "6-5147"
+  }
+}

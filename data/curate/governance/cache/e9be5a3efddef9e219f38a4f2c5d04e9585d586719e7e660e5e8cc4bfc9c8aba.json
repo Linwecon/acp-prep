@@ -1,0 +1,215 @@
+{
+  "new-10-24-0": {
+    "qid": "new-10-24-0",
+    "classification": "own",
+    "chapter": 10,
+    "quality": "ok",
+    "reason": "考查PAI三件套分工流程，符合章节知识",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "典型流程是：在 PAI-DSW 的 GPU 实例里写代码、用 ms-swift 做 LoRA 微调（DSW 提供交互式环境与课程预置镜像）；大规模/分布式训练可提交到 DLC；得到合并后的模型，用 vLLM 本地起服务验证；要稳定对外提供高并发服务时，再用 PAI-EAS 部署",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "部署到ECS非PAI-EAS，不符合推荐流程"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "符合DSW开发、DLC训练、EAS部署的规范流程"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "本地训练不符合PAI三件套分工，且未用EAS"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "百炼自动微调不符合完全可控、数据不出VPC要求"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-10-24-1": {
+    "qid": "new-10-24-1",
+    "classification": "own",
+    "chapter": 10,
+    "quality": "ok",
+    "reason": "考查EAS预热机制与延迟根因分析",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "EAS 服务未开启实例预热，冷启动时首次请求需加载模型权重+初始化CUDA上下文，造成高延迟抖动",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "题干未提及模型体积和内存带宽问题"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "符合EAS未预热导致冷启动延迟的典型场景"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "题干未提及格式不兼容和重编译"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "题干未提及弹性伸缩配置错误"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-10-24-2": {
+    "qid": "new-10-24-2",
+    "classification": "own",
+    "chapter": 10,
+    "quality": "ok",
+    "reason": "考查DSW验证推理效果的正确路径与成本控制",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "得到合并后的模型，用 vLLM 本地起服务验证（其 HTTP 接口本身兼容 OpenAI API）；要稳定对外提供高并发服务时，再用 PAI-EAS 部署。DSW 实例按“计算时”计费，关闭浏览器不等于停止实例，不学了必须回控制台停止或删除",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "在DSW中启动vLLM服务非推荐路径，且未提成本控制"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "导出ONNX并提交DLC压测不符合典型验证流程"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "单样本推理验证逻辑后立即停止实例，符合推荐路径和成本提醒"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "跳过本地验证直接部署风险高，不符合推荐路径"
+      }
+    ],
+    "duplicate_of": "10-5163"
+  },
+  "new-10-24-3": {
+    "qid": "new-10-24-3",
+    "classification": "own",
+    "chapter": 10,
+    "quality": "ok",
+    "reason": "考查开源模型私有化部署与PAI三件套组合应用",
+    "answer": [
+      "A",
+      "B",
+      "C"
+    ],
+    "supported": true,
+    "quote": "开源模型的价值集中在三点：① 数据隐私与合规（数据不出域）；② 可深度定制（任意微调/改结构）；③ 大规模稳定流量下的长期成本可控。PAI 的三件套对应模型生命周期的三个阶段：DSW 调试开发、DLC 训练、EAS 在线部署弹性伸缩",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "从ModelScope下载开源模型是私有化前提"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "在DSW中开发在线微调模块符合实时微调要求"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "部署至EAS并配置高可用符合生产级要求"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "DashScope API调用数据需上送公网，违反数据不出内网约束"
+      }
+    ],
+    "duplicate_of": "10-5177"
+  },
+  "new-10-24-4": {
+    "qid": "new-10-24-4",
+    "classification": "own",
+    "chapter": 10,
+    "quality": "ok",
+    "reason": "考查PAI-DSW费用提醒的具体内容",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "DSW 实例按“计算时”计费，关闭浏览器不等于停止实例，不学了必须回控制台停止或删除",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "直接对应原文关于关闭浏览器不等于停止实例的警示"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "对比表说明需管GPU，但未直接警示计费风险"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "误区澄清针对免费额度，非本题现象"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "口诀是分工原则，非费用警示"
+      }
+    ],
+    "duplicate_of": "10-5171"
+  },
+  "new-10-24-5": {
+    "qid": "new-10-24-5",
+    "classification": "own",
+    "chapter": 10,
+    "quality": "ok",
+    "reason": "考查百炼快速搭建应用与选型决策",
+    "answer": [
+      "A",
+      "B"
+    ],
+    "supported": true,
+    "quote": "百炼的价值在于把复杂的工程链路封装成可视化操作。要快速验证业务想法、做 Demo 或内部工具；应用形态以知识库问答、智能体、多步工作流为主，且希望低代码/零代码",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "使用百炼知识库上传HTML符合HR自行操作要求"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "搭建智能体集成插件符合快速交付MVP要求"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "写代码调用API不符合HR零代码操作要求"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "微调模型不符合3天内快速交付要求"
+      }
+    ],
+    "duplicate_of": "10-5170"
+  }
+}

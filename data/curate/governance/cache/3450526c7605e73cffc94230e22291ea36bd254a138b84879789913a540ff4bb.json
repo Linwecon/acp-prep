@@ -1,0 +1,255 @@
+{
+  "2-0476": {
+    "qid": "2-0476",
+    "classification": "own",
+    "chapter": 2,
+    "quality": "ok",
+    "reason": "四选项均属提示工程可调手段，原文明确提示词→RAG→微调优化顺序及超参调控",
+    "answer": [
+      "A",
+      "B",
+      "C",
+      "D"
+    ],
+    "supported": true,
+    "quote": "提示词优化 → RAG → （仍不满足才考虑）微调",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "提示工程核心手段"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "temperature属生成超参"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "模型能力直接影响正确性"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "微调是优化链最后手段"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "2-0603": {
+    "qid": "2-0603",
+    "classification": "own",
+    "chapter": 2,
+    "quality": "ok",
+    "reason": "CoT效果提升要素需紧扣原文定义与使用要点",
+    "answer": [
+      "A",
+      "B",
+      "F"
+    ],
+    "supported": true,
+    "quote": "引导模型在给出最终答案前，显式输出中间推理步骤",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "背景提供推理前提"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "中间步骤是CoT本质"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "语言简洁非关键因素"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "无关信息会干扰推理"
+      },
+      {
+        "label": "E",
+        "selected": false,
+        "why": "难度增加反降低效果"
+      },
+      {
+        "label": "F",
+        "selected": true,
+        "why": "逻辑连贯保障推理链"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "2-0669": {
+    "qid": "2-0669",
+    "classification": "own",
+    "chapter": 2,
+    "quality": "ok",
+    "reason": "任务表现需依据LLM本质与提示工程适用场景判断",
+    "answer": [
+      "A",
+      "B",
+      "C",
+      "E"
+    ],
+    "supported": true,
+    "quote": "大模型本质是在预测下一个最可能的词，是一个概率过程",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "文本处理是LLM强项"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "代码是常见训练语料"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "多轮对话依赖上下文学习"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "精确计算非概率模型强项"
+      },
+      {
+        "label": "E",
+        "selected": true,
+        "why": "复杂推理可用CoT提升"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "2-0753": {
+    "qid": "2-0753",
+    "classification": "own",
+    "chapter": 2,
+    "quality": "ok",
+    "reason": "客服系统优化需结合意图分类、模板化与兜底机制",
+    "answer": [
+      "A",
+      "C",
+      "D"
+    ],
+    "supported": true,
+    "quote": "意图分类解决'先分流'——这是哪类请求",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "模板适配不同场景"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "统一模板无法覆盖多类型"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "意图分类是分诊台"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "人工转接是必要兜底"
+      },
+      {
+        "label": "E",
+        "selected": false,
+        "why": "通用能力无法保障质量"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "2-0822": {
+    "qid": "2-0822",
+    "classification": "own",
+    "chapter": 2,
+    "quality": "ok",
+    "reason": "结构化数据提取需约束格式与降低随机性",
+    "answer": [
+      "A",
+      "C"
+    ],
+    "supported": true,
+    "quote": "要求严格按 JSON 等格式输出，配合 Schema 校验",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "低temperature保稳定"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "两步操作增加幻觉风险"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "JSON格式是结构化输出"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "示例非必需，格式约束更关键"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "2-1016": {
+    "qid": "2-1016",
+    "classification": "own",
+    "chapter": 2,
+    "quality": "ok",
+    "reason": "上下文要素需提供背景事实与业务范围",
+    "answer": [
+      "A",
+      "E",
+      "F"
+    ],
+    "supported": true,
+    "quote": "上下文（Context）：提供背景、事实、范围",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "用户偏好属背景事实"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "数量要求属任务目标"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "格式属输出要求"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "角色属身份设定"
+      },
+      {
+        "label": "E",
+        "selected": true,
+        "why": "行程安排是业务范围"
+      },
+      {
+        "label": "F",
+        "selected": true,
+        "why": "北京一周是具体背景"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

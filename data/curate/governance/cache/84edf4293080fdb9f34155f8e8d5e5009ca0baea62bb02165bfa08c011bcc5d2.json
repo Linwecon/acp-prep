@@ -1,0 +1,154 @@
+{
+  "items": [
+    {
+      "type": 0,
+      "stem": "某算法团队在PAI-DSW中完成Qwen2-1.5B的LoRA微调后，需验证模型推理效果。根据教材10.4节原理与10.5节最佳实践，以下哪项操作最符合推荐的验证路径？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "直接将DSW中训练好的模型权重上传至百炼平台，在知识库中配置为自定义模型进行在线测试"
+        },
+        {
+          "option_label": "B",
+          "option_text": "在DSW实例内本地启动vLLM服务（HTTP接口兼容OpenAI），用curl或Python脚本发起单次/小批量请求验证输出质量与格式"
+        },
+        {
+          "option_label": "C",
+          "option_text": "立即提交DLC任务进行全量数据重训，以确认收敛性；再导出模型至EAS部署后通过压测验证"
+        },
+        {
+          "option_label": "D",
+          "option_text": "将模型导出为ONNX格式，上传至ModelScope Notebook运行推理，利用其免费GPU资源做压力测试"
+        }
+      ],
+      "answer": "B",
+      "analysis": "依据原文10.4节'principle'框：'典型流程是：1. 在PAI-DSW的GPU实例里写代码、用ms-swift做LoRA微调；2. 大规模训练可提交到DLC；3. 得到合并后的模型，用vLLM本地起服务验证（其HTTP接口本身兼容OpenAI API）；4. 要稳定对外提供高并发服务时，再用PAI-EAS部署……'。选项B完全复现该路径——DSW内本地vLLM验证是教材明确推荐的轻量、快速、低成本验证方式，且兼容OpenAI接口便于后续无缝迁移到EAS。A错误：百炼不支持直接接入用户自训模型权重（仅支持平台内微调或对接EAS服务）；C错误：验证阶段无需重训，违背'先验证再生产'工程原则；D错误：ModelScope Notebook有运行时长限制（原文10.7'exam'框），且非生产级验证环境，无法替代DSW内可控验证。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 0,
+      "stem": "运维工程师发现PAI-DSW GPU实例持续运行72小时后产生高额费用，而业务方声称'只是关掉了浏览器标签页'。该现象最直接违反原文哪项成本管理提醒？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "PAI-DSW费用按'计算时'计费，关闭浏览器不等于停止实例，必须回控制台主动停止或删除"
+        },
+        {
+          "option_label": "B",
+          "option_text": "GPU实例消耗额度远快于CPU，课程仅在微调和部署两节建议使用GPU"
+        },
+        {
+          "option_label": "C",
+          "option_text": "免费额度有有效期与计算时上限，用尽后按量计费"
+        },
+        {
+          "option_label": "D",
+          "option_text": "是否启用免费试用以控制台实际页面为准，不可凭经验假设"
+        }
+      ],
+      "answer": "A",
+      "analysis": "原文10.4节'cost'框首句即明确警示：'DSW实例按\"计算时\"计费，**关闭浏览器不等于停止实例**，不学了必须回控制台**停止或删除**'。题干中'关掉浏览器标签页'却产生高额费用，正是对该条提醒的精准反例。B、C、D虽同属成本要点，但均未直接解释'关闭浏览器仍计费'这一核心故障原因：B讲GPU/CPU选型建议，C讲额度有效期，D讲额度获取方式，均不涉及实例生命周期管理责任归属。只有A项直指问题本质——用户误以为关闭前端即终止资源，而教材强制要求显式操作。",
+      "difficulty_label": "入门"
+    },
+    {
+      "type": 0,
+      "stem": "某医疗AI初创公司计划构建临床指南问答系统，技术负责人提出采用'ModelScope下载Qwen2-7B开源模型 + PAI-EAS部署'方案。根据原文10.7节对开源模型价值的阐述，以下哪项因素会显著增强该方案的合理性？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "团队已采购多台A10服务器，希望复用现有硬件降低初期投入"
+        },
+        {
+          "option_label": "B",
+          "option_text": "项目需满足等保三级认证要求，且所有患者对话日志必须加密存储于本地私有云"
+        },
+        {
+          "option_label": "C",
+          "option_text": "当前API调用量较低，DashScope免费额度足以覆盖全部测试流量"
+        },
+        {
+          "option_label": "D",
+          "option_text": "团队缺乏Python开发经验，希望使用低代码界面快速搭建原型"
+        }
+      ],
+      "answer": "B",
+      "analysis": "原文10.7节'value'框明确指出开源模型三大价值：'① 数据隐私与合规（数据不出域）；② 可深度定制（任意微调/改结构）；③ 大规模稳定流量下的长期成本可控'。选项B中'等保三级认证'和'患者对话日志加密存于本地私有云'直接对应价值①'数据隐私与合规'，且'本地私有云'即实现'数据不出域'——这正是ModelScope+PAI-EAS组合的核心优势（开源模型可私有化部署，PAI-EAS支持私有VPC部署）。A错误：题干未提硬件复用需求，且PAI是云服务，与自购A10无关；C错误：免费额度充足反而削弱自托管必要性；D错误：低代码需求应选百炼，而非PAI。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 1,
+      "stem": "当百炼应用需要调用部署在PAI-EAS上的私有模型时，以下哪些条件是必须同时满足的？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "PAI-EAS服务需配置为公网可访问（即开启公网SLB或绑定EIP）"
+        },
+        {
+          "option_label": "B",
+          "option_text": "百炼应用所在工作空间与PAI-EAS服务需处于同一阿里云地域（Region）"
+        },
+        {
+          "option_label": "C",
+          "option_text": "PAI-EAS服务需启用API鉴权（如Token或AK/SK），并在百炼应用中配置对应凭证"
+        },
+        {
+          "option_label": "D",
+          "option_text": "百炼应用必须通过'自定义模型'功能，在模型广场中手动注册EAS服务的Endpoint地址"
+        }
+      ],
+      "answer": "B,C",
+      "analysis": "依据原文10.1节末尾链路描述：'百炼应用再去调用EAS上的私有模型'，及10.5节'三者可组合'说明。B正确：跨地域网络调用存在延迟与安全策略限制，阿里云服务间调用（尤其VPC内）强烈要求同地域，这是基础网络前提；C正确：EAS服务默认受鉴权保护（原文10.4节EAS定位为'生产级服务'，含监控告警），百炼调用必须携带合法凭证，否则401拒绝。A错误：EAS支持VPC内网调用（原文10.4节'数据不出域'场景），百炼与EAS同VPC时无需公网暴露，更安全；D错误：百炼无'手动注册EAS Endpoint'功能，其调用私有模型需通过API集成（即在百炼工作流/智能体中配置HTTP请求节点，传入EAS地址及鉴权信息），非模型广场注册。",
+      "difficulty_label": "挑战"
+    },
+    {
+      "type": 1,
+      "stem": "开发团队在ModelScope Notebook中成功运行了Qwen3-0.6B的推理Demo，但当尝试执行LoRA微调时遭遇OOM（内存溢出）。以下哪些选项准确指出了根本故障原因及对应教材依据？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "ModelScope Notebook免费GPU资源（如T4）显存不足，无法支撑微调所需梯度计算与优化器状态，而PAI-DSW提供更高配GPU实例"
+        },
+        {
+          "option_label": "B",
+          "option_text": "ModelScope Notebook单次运行时长限制（如4小时）导致训练中断，而PAI-DSW实例可长期保留"
+        },
+        {
+          "option_label": "C",
+          "option_text": "ModelScope Notebook预置环境未安装ms-swift等微调框架，而PAI-DSW提供课程预置镜像"
+        },
+        {
+          "option_label": "D",
+          "option_text": "ModelScope Notebook仅支持推理，不开放训练算力权限，而PAI-DLC专为分布式训练设计"
+        }
+      ],
+      "answer": "A,C",
+      "analysis": "依据原文10.7节'exam'框：'ModelScope Notebook免费但通常有连续运行时长限制（如单次4小时自动关闭）；PAI-DSW实例可保留但需主动管理计费'——此条仅说明时长限制，非OOM主因（B排除）。原文10.4节'principle'框明确：'在PAI-DSW的GPU实例里写代码、用ms-swift做LoRA微调（DSW提供交互式环境与课程预置镜像）'，暗示DSW环境已适配微调工具链；而ModelScope Notebook定位为'体验在线Demo、免费Notebook'（10.7节'concept'），其资源规格（T4显存16GB）远低于微调所需（Qwen3-0.6B LoRA需≥24GB显存），且预置环境侧重推理（A、C正确）。D错误：ModelScope Notebook理论上可执行训练代码，但受限于资源而非权限禁止。",
+      "difficulty_label": "挑战"
+    },
+    {
+      "type": 0,
+      "stem": "HR希望零代码搭建新人答疑机器人，上传员工手册后能回答'年假几天'等问题，并发布到钉钉群。若在PAI-DSW中创建Jupyter Notebook编写RAG流水线代码实现该功能，此做法最根本的问题在于？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "PAI-DSW不支持文档解析与向量化，无法实现RAG所需的切片与检索能力"
+        },
+        {
+          "option_label": "B",
+          "option_text": "违背'谁该用控制台、谁该写代码、谁必须训模型'的分层选型原则：该需求属于应用层问题，应由百炼解决"
+        },
+        {
+          "option_label": "C",
+          "option_text": "PAI-DSW实例需手动管理计费，而百炼提供按调用量计费模式，成本更低"
+        },
+        {
+          "option_label": "D",
+          "option_text": "Qwen系列模型在PAI-DSW中无法调用Embedding服务，导致知识库构建失败"
+        }
+      ],
+      "answer": "B",
+      "analysis": "原文10.5节'best'框明确给出选型决策树：'要快速搭知识库问答/智能体/工作流并发布→百炼'；10.2节'best'框强调百炼价值：'HR不懂编程，但她最懂公司制度……全程不写一行代码'；10.1节分层表定义百炼为'应用开发层'，PAI为'训练与部署层'。题干需求（零代码、上传文档、发布钉钉）是教材贯穿案例的原生场景，PAI-DSW编码实现属于严重错层——用训练部署层工具解决应用层问题，违背本章最核心的'分层定位'原则。A、D错误：PAI-DSW可调用DashScope Embedding API（原文10.3节DashScope为底层能力）；C是成本次级因素，非'最根本'问题。",
+      "difficulty_label": "进阶"
+    }
+  ]
+}

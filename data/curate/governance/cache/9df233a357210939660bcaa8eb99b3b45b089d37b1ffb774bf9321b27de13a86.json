@@ -1,0 +1,232 @@
+{
+  "1-0457": {
+    "qid": "1-0457",
+    "classification": "own",
+    "chapter": 5,
+    "quality": "ok",
+    "reason": "考查微调核心优势，原文明确其复用预训练知识降低成本",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "微调之所以成本可控、收敛快，是因为模型底层的语言规律已经学到了，微调主要调整的是上层行为。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "微调成本低于预训练，原文称'成本可控、收敛快'"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "训练时间短，原文称'收敛快'"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "原文明确'复用预训练知识，降低训练成本'"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "'所有任务'绝对化，微调仅适配特定行为"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "1-0823": {
+    "qid": "1-0823",
+    "classification": "own",
+    "chapter": 5,
+    "quality": "ok",
+    "reason": "考查资源受限下的降显存方案，蒸馏是明确手段",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "知识蒸馏：把大模型的判断'复制'给小模型，其最终目的是降低生产环境的推理成本、提升推理速度。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "微调本身不降显存，LoRA/QLoRA才降"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "扩大输入长度会增加显存占用"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "蒸馏训练小模型直接降低显存需求"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "增大batch size会显著增加显存"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "1-1052": {
+    "qid": "1-1052",
+    "classification": "own",
+    "chapter": 5,
+    "quality": "ok",
+    "reason": "考查微调本质优势，原文强调复用预训练知识",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "微调之所以成本可控、收敛快，是因为模型底层的语言规律已经学到了，微调主要调整的是上层行为。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "训练时间更短，原文称'收敛快'"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "原文明确'复用预训练学到的通用知识'"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "计算资源更少，原文称'成本可控'"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "表现更好，原文称'更稳定、更贴合业务'"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "1-1048": {
+    "qid": "1-1048",
+    "classification": "own",
+    "chapter": 5,
+    "quality": "ok",
+    "reason": "考查训练循环基础步骤，损失计算在正向传播后",
+    "answer": [
+      "D"
+    ],
+    "supported": true,
+    "quote": "训练循环仍是那四步：前向传播算出预测 → 对比标准答案算损失 → 反向传播求梯度 → 优化器更新参数。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "梯度更新是参数调整步骤"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "参数初始化在训练开始前完成"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "反向传播计算梯度，非损失值"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "正向传播输出预测，用于算损失"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "1-1037": {
+    "qid": "1-1037",
+    "classification": "own",
+    "chapter": 5,
+    "quality": "ok",
+    "reason": "考查训练循环必要步骤，正向传播和反向传播必含",
+    "answer": [
+      "C",
+      "D",
+      "F"
+    ],
+    "supported": true,
+    "quote": "训练循环仍是那四步：前向传播算出预测 → 对比标准答案算损失 → 反向传播求梯度 → 优化器更新参数。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "梯度裁剪是可选防爆梯度手段"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "模型保存非训练循环必需步骤"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "正向传播是循环第一步"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "反向传播是循环第二步"
+      },
+      {
+        "label": "E",
+        "selected": false,
+        "why": "超参调整在训练前完成"
+      },
+      {
+        "label": "F",
+        "selected": true,
+        "why": "梯度更新即优化器更新参数"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "1-1172": {
+    "qid": "1-1172",
+    "classification": "misplaced",
+    "chapter": 12,
+    "quality": "review",
+    "reason": "文本序列化属框架工具链，非微调核心考点",
+    "answer": [],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "分词序列化属NLP预处理，非本章重点"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "padding属数据标准化，框架层操作"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "词表构建非微调环节"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "截断属数据预处理，非本章内容"
+      },
+      {
+        "label": "E",
+        "selected": false,
+        "why": "文本清洗属数据准备，但本章未提"
+      },
+      {
+        "label": "F",
+        "selected": false,
+        "why": "embedding矩阵构建属模型初始化"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

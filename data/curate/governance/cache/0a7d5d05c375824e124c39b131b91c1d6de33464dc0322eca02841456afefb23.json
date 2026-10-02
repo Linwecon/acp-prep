@@ -1,0 +1,210 @@
+{
+  "2-0699": {
+    "qid": "2-0699",
+    "classification": "own",
+    "chapter": 2,
+    "quality": "ok",
+    "reason": "考查Zero-shot定义，选项清晰，教材有明确说明。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "Zero-shot（零样本）不给示例，直接提问",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "训练时使用数据，不是零个。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "符合教材对Zero-shot的定义。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "不一定高于，取决于任务。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "大模型普遍支持Zero-shot。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "2-0743": {
+    "qid": "2-0743",
+    "classification": "own",
+    "chapter": 2,
+    "quality": "ok",
+    "reason": "考查结构化提示与Few-shot选择，教材有相关原则。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "格式/风格敏感、需稳定结构的任务用Few-shot",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "信息不全，易生成泛泛问题。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "结构化提示明确模块与格式，最适配。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "Few-shot有效，但B更结构化、针对性更强。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "多一步总结，可能冗余且增加成本。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "2-0845": {
+    "qid": "2-0845",
+    "classification": "cross",
+    "chapter": -1,
+    "quality": "review",
+    "reason": "考点涉及RAG中模型知识边界与幻觉处理，教材未明确提及此场景的具体技术手段。",
+    "answer": [],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "忽略检索文档违反RAG核心思想，易致幻觉。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "允许结合自身知识可能引入幻觉，需谨慎评估。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "强制基于错误文档回答不合理。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "修改查询匹配旧内容可能答非所问。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "2-0869": {
+    "qid": "2-0869",
+    "classification": "cross",
+    "chapter": 4,
+    "quality": "ok",
+    "reason": "考查Agent或交互系统中对模糊查询的处理，符合“失败出口与重试机制设计”原则。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "低置信度必须澄清或兜底",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "HyDE用于生成假想查询，非解决信息不足。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "信息不足时反问澄清是合理交互。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "多步骤查询未解决岗位不明确的核心问题。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "返回所有信息冗余且未解决用户意图。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "2-0891": {
+    "qid": "2-0891",
+    "classification": "own",
+    "chapter": 2,
+    "quality": "ok",
+    "reason": "考查Few-shot与Zero-shot对比，教材有明确比较。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "Few-shot之所以有效，是因为示例让模型通过上下文学习对齐",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "少样本学习需要示例。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "提供范例通常能提升准确率。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "不一定比微调好，微调可改变行为。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "不能避免模型偏见。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "2-0933": {
+    "qid": "2-0933",
+    "classification": "own",
+    "chapter": 2,
+    "quality": "ok",
+    "reason": "考查提示词中明确约束的有效性，符合输出格式与约束原则。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "输出格式把自然语言输出约束成程序可解析的结构",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "事后检查非最有效预防手段。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "在提示词中明确要求是最直接有效的引导。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "依赖模型不可靠，需明确约束。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "人工重构成本高，非有效方法。"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

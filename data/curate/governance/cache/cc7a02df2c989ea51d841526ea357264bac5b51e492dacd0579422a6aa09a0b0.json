@@ -1,0 +1,37 @@
+{
+  "new-9-48-0": {
+    "qid": "new-9-48-0",
+    "classification": "own",
+    "chapter": 9,
+    "quality": "ok",
+    "reason": "题干明确指向第9.3节五条军规，需定位最直接违反项。",
+    "answer": [
+      "D"
+    ],
+    "supported": true,
+    "quote": "硬编码进代码后提交 Git——GitHub 上有专门的爬虫 7×24 小时扫描；",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "最小权限非首要问题，题干未提权限设置。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "前端放Key与题干私有GitLab场景不符。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "环境变量托管是正解，但题干行为是硬编码而非托管。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "硬编码提交Git直接违反第二条军规。"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

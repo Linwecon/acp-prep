@@ -1,0 +1,154 @@
+{
+  "items": [
+    {
+      "type": 0,
+      "stem": "某金融企业需上线内部合规问答机器人，明确要求：①全部业务数据严禁出域；②日均稳定请求2000+，P95 TTFT需<1.2s；③支持灰度发布与秒级故障回滚；④运维团队具备vLLM调优能力但无专职SRE。在PAI-EAS与GPU ECS两种方案中，若选择ECS自建，则必须额外自行实现而EAS原生支持的关键能力是？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "模型预热（服务上线即就绪，消除首次请求延迟）"
+        },
+        {
+          "option_label": "B",
+          "option_text": "蓝绿/灰度发布与一键版本回滚"
+        },
+        {
+          "option_label": "C",
+          "option_text": "基于SLB的负载均衡与自动健康检查"
+        },
+        {
+          "option_label": "D",
+          "option_text": "KV Cache显存占用率实时监控与告警"
+        }
+      ],
+      "answer": "B",
+      "analysis": "依据原文6.10.2节明确指出：PAI-EAS提供‘蓝绿部署、版本控制、回滚’能力，便于灰度验证；微调模型上线标准链路包含‘灰度/AB验证→全量上线，保留回滚版本’。而ECS自建方案中，教材6.9节仅提及‘需搭配SLB+ESS+监控告警’，所有高可用能力（含灰度、回滚）均需用户自行设计实现（如通过Nginx权重调度、CI/CD流水线管理多版本实例），EAS则原生内置。选项A虽EAS也支持预热，但ECS可通过vLLM启动后主动发送warmup请求模拟实现；选项C为通用云基础设施能力，非EAS独有；选项D属ARMS可观测性范畴，与部署形态无关。故B是EAS原生支持而ECS必须额外构建的核心企业级能力。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 0,
+      "stem": "压测发现某vLLM服务在并发从8提升至16时，QPS仅增长15%，但平均RT飙升40%且错误率升至3%。此时若仅调整--max-num-seqs参数（最大并发请求数），最可能产生的效果是？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "降低错误率，但TTFT和TPOT均无改善"
+        },
+        {
+          "option_label": "B",
+          "option_text": "显著提升QPS，同时降低平均RT"
+        },
+        {
+          "option_label": "C",
+          "option_text": "使RT回归正常范围，但QPS可能下降"
+        },
+        {
+          "option_label": "D",
+          "option_text": "消除429错误，但TPOT会因KV Cache竞争加剧而恶化"
+        }
+      ],
+      "answer": "C",
+      "analysis": "依据原文6.3节‘高频误区’及6.12节决策逻辑：超并发导致RT劣化和错误（429）的根本原因是资源（显存/KV Cache）已达瓶颈，而非调度策略缺陷。--max-num-seqs直接限制vLLM允许的最大并发数，本质是实施限流——将并发强制压回服务最优处理区间（如8），可立即缓解排队、降低RT并消除超时错误，但必然牺牲部分吞吐（QPS下降）。原文6.3明确警示‘超出并发上限通常直接返回错误（如429），而非排队’，且6.11.1指出‘限流’是保障稳定性的核心手段。选项A错误：TTFT受Prefill计算影响，限流不改变其计算路径；选项B违背Little定律，限流会抑制QPS；选项D错误：限流减少并发，KV Cache竞争必然减弱而非加剧。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 0,
+      "stem": "当使用函数计算FC部署AI助手时，观察到首次请求耗时显著高于后续请求，且日志显示模型加载耗时占总延迟70%。此时最符合教材建议的根因分析与应对路径是？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "冷启动导致模型加载延迟，应配置预留实例或预热，但需权衡持续资源成本"
+        },
+        {
+          "option_label": "B",
+          "option_text": "模型量化不足，应升级为AWQ INT4以加速加载"
+        },
+        {
+          "option_label": "C",
+          "option_text": "FC实例规格过小，应升级GPU型号以提升PCIe带宽"
+        },
+        {
+          "option_label": "D",
+          "option_text": "代码存在内存泄漏，需用profiler工具定位"
+        }
+      ],
+      "answer": "A",
+      "analysis": "依据原文6.7节‘为什么会有冷启动？’明确解释：‘Serverless为了省成本，无流量时会回收实例；请求突然到来需要重新拉起实例、加载模型，导致首个请求明显变慢’；6.10.1节进一步指出‘可通过预留实例/预热缓解，但会重新产生持续资源费用’。这与题干现象（首次延迟高、模型加载占比大）完全吻合。选项B错误：量化主要影响推理阶段显存与Decode速度，对冷启动加载耗时不构成主导影响；选项C错误：FC的GPU规格由平台抽象，用户无法直接升级，且冷启动本质是实例生命周期问题而非硬件带宽；选项D错误：内存泄漏会导致持续性性能劣化，而非仅首次请求异常。教材6.10.1将冷启动列为FC‘必须记牢的边界’，故A是唯一符合原文依据的诊断路径。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 1,
+      "stem": "某团队将Qwen3-0.6B模型量化为AWQ INT4后部署于vLLM，观测到：①显存占用下降58%；②TPOT降低22%；③TTFT无明显变化；④在代码补全任务上BLEU分数下降1.3分。以下哪些结论可被教材原文直接支持？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "INT4量化能显著降低显存占用（对应①）"
+        },
+        {
+          "option_label": "B",
+          "option_text": "量化通常能加速Decode阶段（对应②）"
+        },
+        {
+          "option_label": "C",
+          "option_text": "量化对Prefill阶段计算无影响（对应③）"
+        },
+        {
+          "option_label": "D",
+          "option_text": "INT4量化在敏感任务上可能带来精度损失（对应④）"
+        }
+      ],
+      "answer": "ABD",
+      "analysis": "依据原文6.4节：表中明确列出INT4相对FP32体积为1/8，‘显存账’逻辑支持①；‘量化通常也加速’段落指出‘Decode阶段是显存带宽密集型，从显存读权重的字节数变少了’，且‘需框架算子支持’，②符合此逻辑；‘INT4在敏感任务上可能掉点更明显’直接支持④。选项C错误：原文从未断言量化‘对Prefill无影响’——Prefill同样需读取权重，INT4量化后权重加载和计算开销理论上降低，但TTFT还受prompt长度、计算单元调度等影响，教材未将TTFT不变归因为量化无效，故C属于过度推断，无原文直接依据。",
+      "difficulty_label": "挑战"
+    },
+    {
+      "type": 1,
+      "stem": "在诊断一个突然出现高TTFT（>8s）的线上vLLM服务时，监控显示GPU利用率正常、KV Cache占用率仅30%、无429错误。此时最应优先检查的日志线索是？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "vLLM启动日志中是否报错'Failed to load model'或权重文件路径权限异常"
+        },
+        {
+          "option_label": "B",
+          "option_text": "客户端请求中的prompt长度是否突增至64K tokens以上"
+        },
+        {
+          "option_label": "C",
+          "option_text": "系统日志中是否存在CUDA out of memory或OOM Killer进程终止记录"
+        },
+        {
+          "option_label": "D",
+          "option_text": "vLLM日志中是否出现大量'Waiting for request'或排队超时警告"
+        }
+      ],
+      "answer": "AB",
+      "analysis": "依据原文6.2节：TTFT由Prefill阶段决定，而Prefill是‘计算密集型’，直接受prompt长度影响（‘长prompt会让等很久才开口’）；6.5节强调vLLM启动需正确指定模型路径，且6.9节指出ECS部署需确保‘模型权重路径真实存在且权限正确’。题干中GPU利用率正常排除算力瓶颈，KV Cache低占用排除Decode阶段显存压力，无429说明未超并发限——故问题必在Prefill输入侧。选项A对应模型加载失败导致服务降级为CPU fallback（极慢）；选项B对应长prompt直接拖慢Prefill计算。选项C错误：OOM会触发GPU利用率骤降或服务崩溃，与题干‘GPU利用率正常’矛盾；选项D错误：排队超时会伴随429错误或RT飙升，但题干明确‘无429’，且排队主要影响RT而非TTFT。",
+      "difficulty_label": "挑战"
+    },
+    {
+      "type": 1,
+      "stem": "某企业需将自研的Qwen3-0.6B蒸馏模型部署为实时客服接口，要求数据不出域、P95 TTFT<1.2s、支持灰度发布与故障秒级回滚，且运维团队具备vLLM调优能力但无专职SRE。在满足全部约束的前提下，以下哪些部署方案组合是可行的？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "PAI-EAS：利用其私有模型部署、模型预热、蓝绿发布能力，规避数据出域风险"
+        },
+        {
+          "option_label": "B",
+          "option_text": "GPU ECS + vLLM + SLB + 自研灰度网关：通过权重路由实现灰度，vLLM预热脚本模拟首请求"
+        },
+        {
+          "option_label": "C",
+          "option_text": "函数计算FC：启用预留GPU实例并配置预热，满足TTFT与数据不出域"
+        },
+        {
+          "option_label": "D",
+          "option_text": "百炼MaaS：上传自定义模型并启用专属实例，隔离数据处理环境"
+        }
+      ],
+      "answer": "AB",
+      "analysis": "依据原文6.12节四步决策法：①数据不出域→排除百炼MaaS（6.8节明确‘数据会发到平台侧处理，涉及敏感/合规数据需先评估’），故D错误；②FC方案中，6.7节指出‘FC是事件驱动的Serverless’，6.10.1强调‘冷启动延迟’且‘实时性要求高、需要复杂监控调试的大模型推理，不适合FC’，即使预留实例也无法保证P95 TTFT<1.2s（因冷启动抖动不可控），且FC无法满足‘数据不出域’（6.7节对比表明确FC数据经平台中转），故C错误。选项A正确：PAI-EAS定位为‘企业级模型在线服务平台’，6.10.2节说明其支持‘自定义模型挂载’，且部署在用户VPC内，满足数据不出域；其‘模型预热’保障TTFT，‘蓝绿发布’满足灰度与回滚。选项B正确：ECS自建完全可控，6.9节明确适用于‘数据不出域、稳定高吞吐、深度定制’场景；通过SLB实现负载均衡，自研灰度网关（如基于OpenResty）可实现流量切分，vLLM预热脚本（发送测试请求）可模拟warmup，符合教材‘可深度优化’的定位。",
+      "difficulty_label": "挑战"
+    }
+  ]
+}

@@ -1,0 +1,215 @@
+{
+  "12-5075": {
+    "qid": "12-5075",
+    "classification": "own",
+    "chapter": 12,
+    "quality": "ok",
+    "reason": "NodeParser职责在12.3节明确定义",
+    "answer": [
+      "A",
+      "B",
+      "D"
+    ],
+    "supported": true,
+    "quote": "LlamaIndex 的核心数据流是每个考生都应该能默写的一条链：Document -> NodeParser -> Node -> Index -> Retriever -> QueryEngine -> Response",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "原文明确NodeParser负责切分Document为Node"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "Node需带元数据，属切片后注入环节"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "向量嵌入属Embedding组件职责"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "切片后去重过滤是NodeParser常见操作"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "12-5076": {
+    "qid": "12-5076",
+    "classification": "own",
+    "chapter": 12,
+    "quality": "ok",
+    "reason": "SimpleDirectoryReader是课程默认入口",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "课程 2.5 节的真实做法是：把 `DashScopeParse` 包成一个 `SilentDashScopeParse`，在 `SimpleDirectoryReader` 中作为 `file_extractor` 传入",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "SimpleDirectoryReader一行代码读多格式"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "自研不满足轻量开箱即用"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "LangChain+Unstructured非最轻量"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "Dify部署非本地轻量原型"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "12-5077": {
+    "qid": "12-5077",
+    "classification": "own",
+    "chapter": 12,
+    "quality": "ok",
+    "reason": "Dify知识库强制模式对应防幻觉",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "Dify 可视化配置工具与推理策略...可替代第 4 章；'用了 Dify 就不需要懂提示词和 RAG' → ❌。可视化只是降低门槛，效果仍由提示词、切片、检索质量决定",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "引用溯源不控制生成范围"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "LLM回退关闭+强制模式禁自由发挥"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "temperature=0不能限定知识源"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "JSON数据源不保证答案受限"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "12-5078": {
+    "qid": "12-5078",
+    "classification": "own",
+    "chapter": 12,
+    "quality": "ok",
+    "reason": "百炼LlamaIndex组件定位为适配封装",
+    "answer": [
+      "A",
+      "D"
+    ],
+    "supported": true,
+    "quote": "课程 `course_core/chatbot/rag.py` 展示了最精简的 LlamaIndex 用法：用百炼 Embedding 建向量索引...生成流式查询引擎，底层用 qwen-plus",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "原文明确DashScopeEmbedding与qwen适配"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "LlamaIndex无可视化构建能力"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "课程强调兼容社区代码"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "百炼组件支持导出标准Python脚本"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "12-5079": {
+    "qid": "12-5079",
+    "classification": "own",
+    "chapter": 12,
+    "quality": "ok",
+    "reason": "BufferMemory默认内存存储",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "Memory 选型对应第 4 章：短对话用 BufferMemory，长对话用 SummaryMemory 或向量检索记忆",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "Redis需显式配置"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "BufferMemory默认进程内dict存储"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "SQLite需指定storage参数"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "百炼会话服务非LangChain默认"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "12-5080": {
+    "qid": "12-5080",
+    "classification": "own",
+    "chapter": 12,
+    "quality": "ok",
+    "reason": "Tool Calling依赖JSON Schema声明",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "Tool 的参数必须用 **JSON Schema** 声明，直接呼应 Function Calling 考点",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "Function Calling要求JSON Schema定义"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "HTTP配置属基础调试项"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "白名单非调用失败主因"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "异步开关不影响首次调用"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

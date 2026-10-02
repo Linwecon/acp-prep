@@ -32,6 +32,8 @@
             el.classList.toggle('active', S.ui.view === 'chapter' && el.dataset.ch === S.ui.ch && !S.ui.customTitle);
         });
         const c = document.getElementById('contentInner');
+        // 教程页画布更宽（目录 + 正文两栏），其它视图恢复默认宽度
+        c.classList.toggle('is-nb-wide', S.ui.view === 'tutorial');
         c.innerHTML = '';
         if (!ACP.DATA_READY) {
             ACP.setCrumb('题库加载失败', '请检查 quiz_categorized.js');
@@ -46,6 +48,7 @@
         }
         if (S.ui.view === 'dashboard') ACP.renderDashboard(c);
         else if (S.ui.view === 'study') ACP.renderStudy(c);
+        else if (S.ui.view === 'tutorial') ACP.renderTutorialView(c);
         else if (S.ui.view === 'chapter') renderChapter(c);
         else if (S.ui.view === 'exam') ACP.renderExam(c);
         else if (S.ui.view === 'wrong') renderGroup(c, 'wrong');

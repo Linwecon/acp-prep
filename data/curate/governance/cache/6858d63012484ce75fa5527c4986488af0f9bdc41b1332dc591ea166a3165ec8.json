@@ -1,0 +1,140 @@
+{
+  "11-5163": {
+    "qid": "11-5163",
+    "classification": "own",
+    "chapter": 11,
+    "quality": "ok",
+    "reason": "考查多模态冲突处理原则，原文强调意图不清时应澄清反问",
+    "answer": [
+      "D"
+    ],
+    "supported": true,
+    "quote": "意图不清时优先澄清反问，而不是硬答",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "无条件信文本违背多模态对齐原理"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "无条件信图片忽略文本语义"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "随机选择违反工程确定性原则"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "原文明确要求澄清反问"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "11-5164": {
+    "qid": "11-5164",
+    "classification": "own",
+    "chapter": 11,
+    "quality": "ok",
+    "reason": "考查多模态生成/转换定义，原文明确三类主线",
+    "answer": [
+      "A",
+      "B",
+      "C"
+    ],
+    "supported": true,
+    "quote": "理解：图/音/视频 → 文本；生成：文本→图/音/视频；转换：语音↔文本",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "原文列为生成主线"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "原文列为理解主线"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "原文列为生成主线"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "纯文本处理非多模态"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "11-1375": {
+    "qid": "11-1375",
+    "classification": "beyond",
+    "chapter": 11,
+    "quality": "remove",
+    "reason": "电影py属第三方工具，超纲且原文未提及",
+    "answer": [],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "电影py参数非本章知识"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "电影py参数非本章知识"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "电影py参数非本章知识"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "电影py参数非本章知识"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "11-1376": {
+    "qid": "11-1376",
+    "classification": "beyond",
+    "chapter": 11,
+    "quality": "remove",
+    "reason": "电影py函数属第三方工具，超纲且原文未提及",
+    "answer": [],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "电影py函数非本章知识"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "电影py函数非本章知识"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "电影py函数非本章知识"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "电影py函数非本章知识"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

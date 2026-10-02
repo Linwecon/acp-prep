@@ -1,0 +1,179 @@
+{
+  "7-5051": {
+    "qid": "7-5051",
+    "classification": "own",
+    "chapter": 7,
+    "quality": "ok",
+    "reason": "四选项均符合RAGAS评测实践",
+    "answer": [
+      "A",
+      "B",
+      "C"
+    ],
+    "supported": true,
+    "quote": "RAGAS（RAG Assessment）是主流的开源 RAG 评测框架，核心思想是'让大模型当评委'",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "原文明确要求question/ground_truth/contexts四字段"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "原文指出'调用一个LLM阅读问题、检索片段和生成答案'"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "原文强调'算法指标是手段，业务指标才是目标'"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "原文警示'不要为了刷高Recall而优化'"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "7-5049": {
+    "qid": "7-5049",
+    "classification": "own",
+    "chapter": 7,
+    "quality": "ok",
+    "reason": "Faithfulness定义与原文完全一致",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "Faithfulness（忠实度）：答案是否忠于检索资料，有没有脱离资料编造（幻觉）",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "原文未提句子优美度"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "响应速度属技术指标层"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "原文明确定义为'忠于检索资料'"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "文档数量非Faithfulness考量"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "7-5047": {
+    "qid": "7-5047",
+    "classification": "own",
+    "chapter": 7,
+    "quality": "ok",
+    "reason": "RAGAS定位描述准确",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "RAGAS（RAG Assessment）是主流的开源 RAG 评测框架，核心思想是'让大模型当评委'",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "原文首句即定义其为RAG评测框架"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "训练模型属第5章范畴"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "向量库管理属第3章实施细节"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "前端页面属工程部署范畴"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "7-5050": {
+    "qid": "7-5050",
+    "classification": "own",
+    "chapter": 7,
+    "quality": "ok",
+    "reason": "Context Precision定义精准匹配",
+    "answer": [
+      "D"
+    ],
+    "supported": true,
+    "quote": "Context Precision：召回的片段中，相关项是否排名靠前、占比高（信噪比）",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "语法正确率非RAGAS指标"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "界面美观属UI设计范畴"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "损失值属模型训练阶段"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "原文明确定义为'相关项是否排名靠前'"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "7-5015": {
+    "qid": "7-5015",
+    "classification": "cross",
+    "chapter": 7,
+    "quality": "review",
+    "reason": "意图分类属第2章提示工程范畴，但评测视角切入合理",
+    "answer": [
+      "D"
+    ],
+    "supported": true,
+    "quote": "评测集构建的两条铁律：问题来自真实用户场景；标准答案来自领域专家",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "GPU运行属第6章部署问题"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "标点符号属基础文本处理"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "网络延迟属第6章性能指标"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "类别定义不清导致误判需评测集校准"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

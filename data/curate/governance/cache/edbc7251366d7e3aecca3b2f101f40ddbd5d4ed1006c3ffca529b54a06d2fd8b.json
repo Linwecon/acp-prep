@@ -1,0 +1,190 @@
+{
+  "2-0704": {
+    "qid": "2-0704",
+    "classification": "cross",
+    "chapter": 2,
+    "quality": "ok",
+    "reason": "考点横跨微调与提示工程，需对比二者本质差异",
+    "answer": [
+      "A",
+      "B",
+      "C"
+    ],
+    "supported": true,
+    "quote": "微调：在已经预训练好的模型权重基础上...继续做梯度下降；提示词和 RAG 都不改变模型参数",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "原文明确微调更新参数，提示词不改参数"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "微调需标注样本，提示词零成本适配小数据"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "微调固化行为，提示工程每次需输入上下文"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "微调成本远高于提示工程"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-1053": {
+    "qid": "3-1053",
+    "classification": "beyond",
+    "chapter": 5,
+    "quality": "remove",
+    "reason": "标签编码是传统机器学习概念，原文未提及且非大模型微调核心知识",
+    "answer": [],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "无关文本标准化"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "词嵌入非标签处理"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "特征缩放不适用分类标签"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "原文未涉及标签编码概念"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "6-1190": {
+    "qid": "6-1190",
+    "classification": "beyond",
+    "chapter": 5,
+    "quality": "remove",
+    "reason": "Keras pad_sequences属传统深度学习框架操作，原文未提及且非大模型微调核心技能",
+    "answer": [],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "Keras非本章内容"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "无关摘要生成"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "无关特征缩放"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "无关文本向量化"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "7-0828": {
+    "qid": "7-0828",
+    "classification": "cross",
+    "chapter": 5,
+    "quality": "ok",
+    "reason": "早停法是训练过程关键控制手段，原文明确验证loss监控",
+    "answer": [
+      "A",
+      "B",
+      "F"
+    ],
+    "supported": true,
+    "quote": "验证 loss 先降后升 = 过拟合的铁证；部署应选验证集表现最优的 checkpoint",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "原文明确验证loss连续不降触发早停"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "预设阈值是常见早停条件"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "训练loss增非早停依据"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "验证准确率非本章指标"
+      },
+      {
+        "label": "E",
+        "selected": false,
+        "why": "训练准确率非监控重点"
+      },
+      {
+        "label": "F",
+        "selected": true,
+        "why": "迭代上限是基础早停条件"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "8-0613": {
+    "qid": "8-0613",
+    "classification": "cross",
+    "chapter": 8,
+    "quality": "ok",
+    "reason": "数据安全合规是微调项目实施前提，需结合AI安全章节",
+    "answer": [
+      "A",
+      "B",
+      "C",
+      "D"
+    ],
+    "supported": true,
+    "quote": "数据脱敏/传输加密/存储加密/审计日志；最小权限原则；《生成式人工智能服务管理暂行办法》核心要求",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "合法授权是合规前提"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "数据脱敏属安全基础措施"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "审计机制保障可追溯"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "加密技术覆盖全链路"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

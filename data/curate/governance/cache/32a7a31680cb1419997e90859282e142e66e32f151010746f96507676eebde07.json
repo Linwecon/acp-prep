@@ -1,0 +1,143 @@
+{
+  "new-1-24-0": {
+    "qid": "new-1-24-0",
+    "classification": "own",
+    "chapter": 1,
+    "quality": "ok",
+    "reason": "题目考察多轮对话中模型“失忆”的根因，即API无状态特性，需客户端维护历史消息。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "大模型 API 是无状态（Stateless）的：每次 HTTP 请求相互独立，服务端不会因为你上次调过就“记得”你。所谓“多轮对话”，本质是客户端把历史消息拼进 messages，每次重新发一遍。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "system消息通常只设一次，遗漏不是主因。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "若将assistant回复误标为user角色，模型无法识别历史回复，导致失忆。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "流式输出只改传输方式，不影响messages内容完整性。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "启用搜索会引入外部信息，但非导致遗忘历史的主因。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-1-24-1": {
+    "qid": "new-1-24-1",
+    "classification": "own",
+    "chapter": 1,
+    "quality": "ok",
+    "reason": "题目综合考查抑制幻觉和稳定输出的核心手段，涉及生成参数和提示词约束。",
+    "answer": [
+      "A",
+      "B"
+    ],
+    "supported": true,
+    "quote": "事实问答 / 代码生成 / 结构化抽取：低 temperature（如 0.1–0.3）+ 低 top_p，追求稳定可复现；在提示词中要求“只依据资料回答”、让模型标注引用。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "调低temperature和top_p可减少采样随机性，稳定输出。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "强制JSON格式是提示词约束，有助于结构化输出一致性。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "RAG用于补充私域/最新知识，但本题未提及需要外部知识。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "推理模式增强思考过程，但不直接抑制幻觉或保障输出一致性。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-1-24-2": {
+    "qid": "new-1-24-2",
+    "classification": "own",
+    "chapter": 1,
+    "quality": "ok",
+    "reason": "题目通过模型表现差异印证Scaling Law中参数规模与能力上限的关系。",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "Scaling Law（缩放定律）指在合理范围内，模型效果随参数量、训练数据量、计算量三者近似幂律增长而稳定提升。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "Plus参数更大，能力上限高，细节丰富但可能虚构；Turbo参数小，能力有限但准确简洁。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "上下文窗口约束是Token预算问题，与模型能力差异无直接关系。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "LLM本质是概率生成器，但未直接解释不同模型的能力差异现象。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "自注意力不限长是机制特性，与模型参数规模导致的能力差异无关。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-1-24-3": {
+    "qid": "new-1-24-3",
+    "classification": "own",
+    "chapter": 1,
+    "quality": "ok",
+    "reason": "题目考查上下文窗口被无关信息稀释的风险，即“Lost in the Middle”现象。",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "窗口越大效果越好 → 过长的无关上下文会稀释注意力、引入噪声（“Lost in the Middle”现象），又慢又贵。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "chunk数量翻倍可能注入无关信息，稀释注意力，导致模型性能下降。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "Token换算误差是固定比例，不会因chunk数量变化导致消耗突增。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "temperature影响采样随机性，不直接导致Token消耗突增。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "流式输出解码开销是传输问题，与Token消耗量无直接关系。"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

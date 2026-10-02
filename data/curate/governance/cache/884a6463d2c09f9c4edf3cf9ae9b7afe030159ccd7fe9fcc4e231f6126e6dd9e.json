@@ -1,0 +1,108 @@
+{
+  "new-11-42-0": {
+    "qid": "new-11-42-0",
+    "classification": "own",
+    "chapter": 11,
+    "quality": "ok",
+    "reason": "考查扫描件PDF在RAG中处理不当的根因与首要修复动作，符合本章文档智能解析知识点。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "扫描件PDF本质是图片，普通文本加载器读不出文字、直接切到的是空白/乱码。首要动作是先做文档智能解析（OCR + 版面分析 + 表格转Markdown）",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "Qwen-VL用于看图作答，但无法解决知识库建库时扫描件内容提取问题。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "扫描件必须先OCR和结构化，才能被正确切片和向量化，这是首要修复动作。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "通用文本加载器无法读取扫描件图像中的文字，增大chunk_size无效。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "多模态Embedding用于图片检索，但无法解决扫描件文字提取和结构化问题。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-11-42-3": {
+    "qid": "new-11-42-3",
+    "classification": "own",
+    "chapter": 11,
+    "quality": "ok",
+    "reason": "考查文生视频生成质量问题的根因与原文核心原理的对应关系。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "图文/视频一致性风险需人工抽检或多模态审核兜底，自动指标不可靠",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "文生视频是生成任务，使用通义万相正确，非理解任务。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "负责人将问题归因于采样步数，违背了原文关于一致性风险需人工审核兜底的原理。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "题干讨论生成质量问题，非合规标识问题，判断不违背此原理。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "文生视频是扩散模型生成，此原理正确，但负责人判断未违背此点。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-11-42-4": {
+    "qid": "new-11-42-4",
+    "classification": "own",
+    "chapter": 11,
+    "quality": "ok",
+    "reason": "综合考查医疗多模态案例的技术链路与安全合规要求，选项覆盖全面。",
+    "answer": [
+      "B",
+      "C"
+    ],
+    "supported": true,
+    "quote": "患者隐私（脱敏、授权）；AI结论仅作辅助，医疗决策必须由医生做出；多模态安全 = 文本 + 图像 + 音频 + 视频四类检测，缺一不可",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "原文案例链路包含LLM结构化输出与问答，非直接生成描述。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "符合患者隐私脱敏要求，是预处理必要步骤。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "符合AI辅助、医生复核原则，需明确标注AI生成内容仅供参考。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "违背多模态安全要求，CT影像画面也必须审核。"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

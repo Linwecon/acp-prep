@@ -1,0 +1,223 @@
+{
+  "7-1158": {
+    "qid": "7-1158",
+    "classification": "own",
+    "chapter": 7,
+    "quality": "ok",
+    "reason": "考点明确，原文清晰区分检索端与生成端指标",
+    "answer": [
+      "A",
+      "C"
+    ],
+    "supported": true,
+    "quote": "RAGAS 的五大核心指标按评价对象分为两类：Context Precision / Context Recall 评价对象是检索端",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "Context Precision评价检索端"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "Answer Relevancy属生成端"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "Context Recall评价检索端"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "Faithfulness属生成端"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "7-1184": {
+    "qid": "7-1184",
+    "classification": "own",
+    "chapter": 7,
+    "quality": "ok",
+    "reason": "考察data_samples字段构成，原文明确四字段要求",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "每条评测样本都围绕四个字段组织：question / ground_truth / answer / contexts",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "缺ground_truth字段"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "含全部四字段且格式正确"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "缺ground_truth字段"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "DataFrame非字典格式"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "7-1232": {
+    "qid": "7-1232",
+    "classification": "own",
+    "chapter": 7,
+    "quality": "ok",
+    "reason": "对比BLEU/ROUGE，原文表格明确任务与侧重",
+    "answer": [
+      "B",
+      "C",
+      "D"
+    ],
+    "supported": true,
+    "quote": "BLEU：机器翻译，侧重精确率；ROUGE：文本摘要，侧重召回率；均基于n-gram重合度",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "原文未提SQL评估"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "BLEU用于翻译，ROUGE用于摘要"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "BLEU重精确率，ROUGE重召回率"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "两者均基于n-gram重叠"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "7-1414": {
+    "qid": "7-1414",
+    "classification": "own",
+    "chapter": 7,
+    "quality": "ok",
+    "reason": "Answer Correctness公式原文明确两部分",
+    "answer": [
+      "A",
+      "C"
+    ],
+    "supported": true,
+    "quote": "Answer Correctness = 0.25 × 语义相似度（余弦）+ 0.75 × 事实 F1",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "语义相似度是组成部分"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "不使用contexts计算"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "事实F1是组成部分"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "长度不参与计算"
+      },
+      {
+        "label": "E",
+        "selected": false,
+        "why": "不使用query计算"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "7-1463": {
+    "qid": "7-1463",
+    "classification": "own",
+    "chapter": 7,
+    "quality": "ok",
+    "reason": "embedding作用原文明确指向语义相似度计算",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "语义相似度：用 Embedding 模型分别编码 answer 与 ground_truth，计算余弦相似度",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "用于answer与ground_truth相似度"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "原文未提剔除离群点"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "Faithfulness不用embedding"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "Answer Relevancy用LLM反向生成"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "7-5048": {
+    "qid": "7-5048",
+    "classification": "own",
+    "chapter": 7,
+    "quality": "ok",
+    "reason": "RAGAS五大指标原文完整列出",
+    "answer": [
+      "A",
+      "B",
+      "C"
+    ],
+    "supported": true,
+    "quote": "RAGAS 的五大核心指标：Context Precision / Recall、Faithfulness、Answer Correctness / Relevancy",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "Faithfulness是核心指标"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "Answer Relevancy是核心指标"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "Context Precision/Recall是核心指标"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "参数总量非RAGAS指标"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

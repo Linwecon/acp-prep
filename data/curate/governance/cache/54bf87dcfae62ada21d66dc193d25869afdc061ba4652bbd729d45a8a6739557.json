@@ -1,0 +1,72 @@
+{
+  "new-6-150-0": {
+    "qid": "new-6-150-0",
+    "classification": "own",
+    "chapter": 6,
+    "quality": "ok",
+    "reason": "题目考查高并发下性能瓶颈与vLLM限流参数调整效果，属于部署优化核心知识。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "超出并发上限通常直接返回错误（如 429），需要客户端重试与降级配合。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "并发已超限，仅调参数无法显著提升QPS或降低RT。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "限制并发可避免KV Cache溢出与调度争抢，但可能使RT恶化、错误率升高。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "TTFT由Prefill决定，与调整并发限制参数无直接关系。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "限制并发数不会直接降低KV Cache占用或提升GPU利用率。"
+      }
+    ],
+    "duplicate_of": "6-5135"
+  },
+  "new-6-150-2": {
+    "qid": "new-6-150-2",
+    "classification": "own",
+    "chapter": 6,
+    "quality": "ok",
+    "reason": "题目考查量化效果与教材原文支持的结论，属于量化核心知识。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "量化通常也加速：因为Decode阶段是显存带宽密集型，从显存读权重的字节数变少了。但能否加速取决于推理框架/硬件是否有对应的低比特算子",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "原文指出INT4损失可能更明显，但非‘必然’，且需业务验证。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "TPOT降低因显存带宽压力减小，但需框架算子支持，与原文一致。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "TTFT由Prefill计算密集度决定，原文未断言量化对其‘无任何影响’。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "58%下降与理论1/4（75%降幅）不符，原文未直接支持此验证。"
+      }
+    ],
+    "duplicate_of": "6-5136"
+  }
+}

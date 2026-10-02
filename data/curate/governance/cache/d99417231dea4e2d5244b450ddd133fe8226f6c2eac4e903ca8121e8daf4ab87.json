@@ -1,0 +1,107 @@
+{
+  "5-5114": {
+    "qid": "5-5114",
+    "classification": "own",
+    "chapter": 5,
+    "quality": "ok",
+    "reason": "考查数据质量检查要点，符合本章知识",
+    "answer": [
+      "A",
+      "B",
+      "C"
+    ],
+    "supported": true,
+    "quote": "质量从四个维度把关，其重要性远高于数量：1. 正确性：答案/标注无误。2. 多样性：覆盖各种问法、意图组合、风格和边界情况。3. 一致性：所有样本的输出 schema、字段名、模板完全统一。4. 无重复：重复低质样本会放大过拟合",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "检查标签与答案一致性对应质量维度中的正确性"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "去除重复和噪声对应质量维度中的无重复"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "确认覆盖业务分布对应质量维度中的多样性"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "原文强调质量优于数量，噪声多有害"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "5-5115": {
+    "qid": "5-5115",
+    "classification": "own",
+    "chapter": 5,
+    "quality": "ok",
+    "reason": "考查过拟合现象识别，符合本章知识",
+    "answer": [
+      "D"
+    ],
+    "supported": true,
+    "quote": "训练 loss 下降，验证 loss 先降后升 → 过拟合：模型在'背题'，减轮次/补数据/加正则",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "学习率过小通常导致收敛慢，而非验证损失上升"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "训练集样本量大不是过拟合的直接原因"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "参数量小可能导致欠拟合，而非过拟合"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "训练损失低而验证损失上升是过拟合的典型表现"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "5-5116": {
+    "qid": "5-5116",
+    "classification": "own",
+    "chapter": 5,
+    "quality": "fixable",
+    "reason": "题干提及RLHF，但本章原文未涉及，无法确定正确选项",
+    "answer": [],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "SFT和RLHF都需要数据，说法错误"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "SFT能改变输出风格，说法错误"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "RLHF通常在SFT之后，说法错误"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "描述符合常识，但本章原文无依据"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

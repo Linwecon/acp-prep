@@ -1,0 +1,250 @@
+{
+  "8-0813": {
+    "qid": "8-0813",
+    "classification": "own",
+    "chapter": 8,
+    "quality": "ok",
+    "reason": "考点为偏见治理，原文明确偏见根治在数据与对齐",
+    "answer": [
+      "A",
+      "B",
+      "C"
+    ],
+    "supported": true,
+    "quote": "偏见则来自训练数据的分布偏差，模型只是忠实地学到了这些统计规律",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "原文指出偏见源于训练数据分布偏差"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "去偏见算法属模型侧对齐治理"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "公平性评估是偏见治理必要环节"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "忽略专业技能违反业务本质"
+      },
+      {
+        "label": "E",
+        "selected": false,
+        "why": "忽略人口统计信息不解决偏见"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "8-0846": {
+    "qid": "8-0846",
+    "classification": "misplaced",
+    "chapter": 8,
+    "quality": "remove",
+    "reason": "交互原则属UI/UX设计，非本章安全合规范畴",
+    "answer": [],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "界面设计非本章考点"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "语音交互非安全内容"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "广告推送属产品逻辑"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "交互反馈非安全防护"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "8-0905": {
+    "qid": "8-0905",
+    "classification": "own",
+    "chapter": 8,
+    "quality": "ok",
+    "reason": "企业级应用需覆盖安全、集成、维护、体验、成本五维",
+    "answer": [
+      "A",
+      "B",
+      "C",
+      "D",
+      "E"
+    ],
+    "supported": true,
+    "quote": "大模型应用安全是覆盖内容、数据、模型、应用、基础设施、合规六个维度的体系工程",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "数据隐私是安全核心维度"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "系统集成属应用层安全考量"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "可维护性影响安全更新能力"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "体验差导致绕过安全机制"
+      },
+      {
+        "label": "E",
+        "selected": true,
+        "why": "TCO影响安全投入可持续性"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "8-0906": {
+    "qid": "8-0906",
+    "classification": "own",
+    "chapter": 8,
+    "quality": "ok",
+    "reason": "行业应用挑战直指合规、数据、流程三大安全痛点",
+    "answer": [
+      "A",
+      "B",
+      "C",
+      "E"
+    ],
+    "supported": true,
+    "quote": "RAG 知识库按职位/部门做 Top-K 过滤的流程，解释为什么应用层访问控制 + 加密要双保险",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "术语理解影响幻觉风险"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "行业合规是本章核心要求"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "流程整合涉及权限边界"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "接受度属用户教育范畴"
+      },
+      {
+        "label": "E",
+        "selected": true,
+        "why": "领域数据质量决定RAG安全"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "8-0941": {
+    "qid": "8-0941",
+    "classification": "own",
+    "chapter": 8,
+    "quality": "ok",
+    "reason": "安全合规五要素均在原文纵深防御体系中",
+    "answer": [
+      "A",
+      "B",
+      "D",
+      "E"
+    ],
+    "supported": true,
+    "quote": "大模型应用安全是覆盖内容、数据、模型、应用、基础设施、合规六个维度的体系工程",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "数据隐私是安全基础"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "内容过滤属三层防御"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "确定性非安全合规要求"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "权限管理是RAM核心职责"
+      },
+      {
+        "label": "E",
+        "selected": true,
+        "why": "审计日志是合规刚需"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "8-0957": {
+    "qid": "8-0957",
+    "classification": "cross",
+    "chapter": 7,
+    "quality": "review",
+    "reason": "质量评估属第7章，但安全维度与本章交叉",
+    "answer": [
+      "A",
+      "B",
+      "C",
+      "D"
+    ],
+    "supported": true,
+    "quote": "Faithfulness与Correctness辨析",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "流畅性是基础质量维度"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "相关性是RAG评估核心"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "事实一致性即Faithfulness"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "安全性是合规评估指标"
+      },
+      {
+        "label": "E",
+        "selected": false,
+        "why": "创造性非质量评估维度"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

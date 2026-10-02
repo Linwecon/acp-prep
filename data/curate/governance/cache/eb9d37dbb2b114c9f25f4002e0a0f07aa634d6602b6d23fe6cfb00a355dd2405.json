@@ -1,0 +1,220 @@
+{
+  "1-0387": {
+    "qid": "1-0387",
+    "classification": "unsure",
+    "chapter": 1,
+    "quality": "review",
+    "reason": "考点为代码解释器插件功能，教材未提及，需确认是否属于大模型基础能力边界",
+    "answer": [
+      "B"
+    ],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "代码解释器能执行代码，不止建议"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "代码解释器核心是执行代码并返回结果"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "通常无权修改外部程序源代码"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "不提供完整的代码编辑器界面"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "1-0403": {
+    "qid": "1-0403",
+    "classification": "own",
+    "chapter": 1,
+    "quality": "ok",
+    "reason": "考查提示词任务与指令匹配，区分摘要与翻译",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "提示词六要素（角色/任务/上下文/受众/样例/输出格式）",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "明确要求总结，适合摘要"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "提取关键词是摘要的常见形式"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "翻译是语言转换，非摘要任务"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "压缩字数属于摘要任务"
+      },
+      {
+        "label": "E",
+        "selected": false,
+        "why": "一句话概括是摘要的典型指令"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "1-0428": {
+    "qid": "1-0428",
+    "classification": "cross",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "考查RAG中文本向量化的具体实现，核心考点在RAG章",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "Embedding语义向量化原理",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "numpy是数学库，不直接生成语义向量"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "SentenceTransformer是常用文本向量化库"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "hashlib生成哈希值，非语义向量"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "返回文本长度，非向量表示"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "1-0462": {
+    "qid": "1-0462",
+    "classification": "own",
+    "chapter": 1,
+    "quality": "ok",
+    "reason": "考查对大模型优势（语言理解与生成）的判断",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "语言理解、文本生成、知识问答、代码编写、总结改写、一定的推理分析",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "是numpy标准计算，非大模型优势"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "调用大模型进行情感分析，体现其语言理解优势"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "是统计库计算相关性，非大模型优势"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "是基础求和运算，非大模型优势"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "1-0470": {
+    "qid": "1-0470",
+    "classification": "own",
+    "chapter": 1,
+    "quality": "ok",
+    "reason": "考查对大模型五阶段工作流程中推理阶段的理解",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "第三阶段：大模型推理（Forward Pass）",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "Token向量化是第二阶段，非推理"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "大模型推理是第三阶段，涉及模型计算"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "输出Token是解码结果，非推理过程"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "输出文本是最终阶段，非推理过程"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "1-0496": {
+    "qid": "1-0496",
+    "classification": "unsure",
+    "chapter": 1,
+    "quality": "review",
+    "reason": "题目描述模糊，优化后机器人具体能力未定义，选项合理性存疑",
+    "answer": [
+      "A",
+      "B",
+      "C",
+      "D"
+    ],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "文档审查是可能的输出类型"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "内部文档查询是可能的输出类型"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "内容翻译是可能的输出类型"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "未能识别问题类型是可能的输出"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

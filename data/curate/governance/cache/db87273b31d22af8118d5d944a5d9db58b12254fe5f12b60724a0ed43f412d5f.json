@@ -1,0 +1,154 @@
+{
+  "items": [
+    {
+      "type": 0,
+      "stem": "某RAG应用在调试中出现模型回答完全偏离用户问题，且日志显示检索返回的上下文片段均含'年假5天'，但知识库最新政策明确为'司龄满3年10天'。进一步检查QueryEngine生成的完整提示词，发现其中'{context_str}'被错误替换为用户原始输入文本，而'{query_str}'反而注入了旧政策片段。依据第12章12.3节对LlamaIndex默认提示词模板的定义，该故障最根本的语义错位在于：",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "混淆了检索动作与生成动作的职责边界，导致Retriever未被触发"
+        },
+        {
+          "option_label": "B",
+          "option_text": "破坏了QueryEngine的输入契约：{context_str}本应承载检索结果，却被赋值为query输入"
+        },
+        {
+          "option_label": "C",
+          "option_text": "违反了LCEL的Runnable协议，使prompt组件无法正确序列化"
+        },
+        {
+          "option_label": "D",
+          "option_text": "导致NodeParser误将用户问题解析为Document，触发了错误的索引重建"
+        }
+      ],
+      "answer": "B",
+      "analysis": "依据原文12.3节明确指出：'`context_str` 是检索到的上下文，不是用户问题'，并强调'默认的 QA 提示词模板里，`{context_str}` 注入的是从向量库召回的资料，用户问题由 `{query_str}` 注入'；同时原文用加粗和❌符号警示'`context_str` 表示用户输入的问题'是典型错误选项。选项B精准对应这一核心定义——当`{context_str}`被错误赋值为用户输入时，模型实际接收的是'问题作为上下文、旧政策作为问题'的颠倒输入，直接导致语义逻辑崩溃，这是提示词层最基础的契约破坏。A错误：Retriever是否触发取决于QueryEngine调用逻辑，与模板变量赋值无关；C错误：LCEL协议不参与QueryEngine内部模板渲染；D错误：NodeParser仅作用于Document加载阶段，与运行时提示词注入无因果关系。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 0,
+      "stem": "在LlamaIndex的QueryEngine执行流程中，`context_str`的值必须满足一项关键必要条件才能保证RAG语义正确性。该条件是：",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "必须由Retriever在QueryEngine调用前异步预加载并缓存"
+        },
+        {
+          "option_label": "B",
+          "option_text": "必须严格来源于Index的检索结果，且与当前query_str存在语义相关性"
+        },
+        {
+          "option_label": "C",
+          "option_text": "必须经过Postprocessor的Rerank处理，否则不能注入提示词"
+        },
+        {
+          "option_label": "D",
+          "option_text": "必须与NodeParser输出的Node元数据格式完全一致，否则触发Schema校验失败"
+        }
+      ],
+      "answer": "B",
+      "analysis": "原文12.3节定义`context_str`为'检索到的上下文'，其本质是Retriever从Index中召回的Node内容经ResponseSynthesizer聚合后的字符串；该定义隐含两个刚性约束：1）来源唯一性——必须来自Index检索（非用户输入/硬编码/外部API）；2）语义关联性——检索结果需与当前query_str匹配，否则RAG失去意义。选项B完整涵盖这两点。A错误：Retriever是同步执行的，且无'预加载缓存'机制；C错误：Rerank是可选后处理，非`context_str`生成的必要条件（原文'Postprocessor（如句子窗口替换、Rerank、相似度过滤）'明确列为可选）；D错误：`context_str`是纯字符串，不进行Schema校验，Node元数据仅用于检索过程。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 1,
+      "stem": "当开发者在LlamaIndex中自定义QueryEngine的prompt_template时，若要确保`context_str`与`query_str`的语义区分不被破坏，以下哪些操作是必须遵守的约束？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "必须保留`{context_str}`占位符，且其位置需在提示词中明确标识为'参考信息'区域"
+        },
+        {
+          "option_label": "B",
+          "option_text": "必须通过`ResponseSynthesizer`的`response_mode`参数显式指定`context_str`的拼接方式"
+        },
+        {
+          "option_label": "C",
+          "option_text": "必须确保`{query_str}`占位符独立存在，且不能与`{context_str}`内容发生字符串拼接或覆盖"
+        },
+        {
+          "option_label": "D",
+          "option_text": "必须在`SimpleDirectoryReader`中配置`file_extractor`以保证`context_str`包含表格结构化数据"
+        }
+      ],
+      "answer": "AC",
+      "analysis": "原文12.3节给出的默认模板范例为：'以下是参考信息。\\n---------------------\\n{context_str}\\n---------------------\\n问题：{query_str}\\n回答：'，这确立了两项不可妥协的约束：A项——`{context_str}`必须存在且语义定位为'参考信息'（教材原文'以下是参考信息'），删除或重命名将导致上下文丢失；C项——`{query_str}`必须独立存在，若与`{context_str}`拼接（如`{context_str}{query_str}`）会混淆二者边界，使模型无法区分'资料'与'问题'。B错误：`response_mode`控制合成策略（如'compact'/'tree_summarize'），不涉及占位符语义；D错误：`file_extractor`影响Document质量，但`context_str`是检索后产物，与解析器无直接绑定关系。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 0,
+      "stem": "某团队将LlamaIndex的QueryEngine封装为LangChain Tool供Agent调用，但Agent始终返回'未找到相关信息'。经调试发现，Tool执行后返回的字符串中包含大量'问题：xxx'字样，且与用户原始query高度重复。根据第12章12.3节对`context_str`的定义及QueryEngine工作流，此现象最可能的根本原因是：",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "Tool的`args_schema`未声明`query_str`字段，导致LangChain自动将用户输入映射到`context_str`"
+        },
+        {
+          "option_label": "B",
+          "option_text": "QueryEngine的`response_synthesizer`被错误配置为`Refine`模式，将query重复注入上下文"
+        },
+        {
+          "option_label": "C",
+          "option_text": "开发者在自定义prompt时，将`{query_str}`误写为`{context_str}`，导致用户问题被当作上下文注入"
+        },
+        {
+          "option_label": "D",
+          "option_text": "Retriever的`similarity_top_k=0`，强制返回空结果，QueryEngine用query填充`context_str`作为fallback"
+        }
+      ],
+      "answer": "C",
+      "analysis": "原文12.3节明确警示：'考试常把二者互换作为错误选项'，并给出模板中`{context_str}`与`{query_str}`的严格分工。当Tool返回内容含'问题：xxx'且与用户query重复，说明模型将用户问题当作了上下文处理——这正是`{query_str}`被错误注入`{context_str}`位置的直接证据（如模板写成'参考信息：{query_str}'）。C项直指此核心错误。A错误：`args_schema`影响参数校验，不改变模板变量注入逻辑；B错误：`Refine`模式是多轮合成，不会将query注入context；D错误：`similarity_top_k=0`会返回空列表，QueryEngine通常报错而非用query填充。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 1,
+      "stem": "在LlamaIndex的RAG链路中，`context_str`的生成时机与依赖关系必须满足特定顺序约束。以下哪些陈述符合原文12.3节描述的执行顺序？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "`context_str`的值在Retriever执行完成后才确定，早于QueryEngine的ResponseSynthesizer处理"
+        },
+        {
+          "option_label": "B",
+          "option_text": "Index的构建必须先于任何QueryEngine调用，否则`context_str`无法从空索引中检索"
+        },
+        {
+          "option_label": "C",
+          "option_text": "`context_str`的最终字符串形式由ResponseSynthesizer根据检索到的Node内容动态生成"
+        },
+        {
+          "option_label": "D",
+          "option_text": "NodeParser的切片结果直接影响`context_str`的粒度，因此必须在Index创建前完成"
+        }
+      ],
+      "answer": "ABCD",
+      "analysis": "原文12.3节链路图' Document → NodeParser → Node → Index → Retriever → QueryEngine → Response '明确规定了全序依赖：D项——NodeParser产出Node是Index构建的前提；B项——Index是Retriever的基础；A项——Retriever输出Node列表后，QueryEngine的ResponseSynthesizer才将其聚合成`context_str`（原文'QueryEngine = Retriever + ResponseSynthesizer'）；C项——ResponseSynthesizer负责将检索结果转化为字符串，即`context_str`的最终形态。四项均严格对应原文链路描述，构成完整的因果链条。",
+      "difficulty_label": "挑战"
+    },
+    {
+      "type": 0,
+      "stem": "某RAG服务上线后出现批量故障：所有回答均以'根据问题：xxx，...'开头，且答案内容与问题无关。运维日志显示QueryEngine的`synthesizer`组件被替换为自定义类。根据第12章12.3节对`context_str`与`query_str`的语义区分要求，此故障最可能的技术根源是：",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "自定义ResponseSynthesizer错误地将`query_str`作为`context_str`返回，违反了QueryEngine的输出契约"
+        },
+        {
+          "option_label": "B",
+          "option_text": "DashScopeEmbedding模型返回的向量维度与Index不匹配，导致Retriever召回失效，`context_str`回退为query"
+        },
+        {
+          "option_label": "C",
+          "option_text": "StorageContext未持久化，每次查询重建Index时`context_str`被初始化为空字符串"
+        },
+        {
+          "option_label": "D",
+          "option_text": "SimpleDirectoryReader的`filename_as_id`参数为False，导致Node元数据丢失，`context_str`无法定位有效片段"
+        }
+      ],
+      "answer": "A",
+      "analysis": "故障现象'根据问题：xxx'表明模型将用户问题当作了上下文处理，这与原文12.3节定义的`context_str`语义（检索到的资料）完全相悖。自定义ResponseSynthesizer是`context_str`的直接生产者（原文'QueryEngine = Retriever + ResponseSynthesizer'），若其实现错误地将query输入原样返回为context输出，则彻底破坏语义契约。A项精准定位此根源。B错误：向量维度不匹配会导致检索失败或随机召回，但不会系统性将query注入context；C错误：Index重建影响检索质量，但`context_str`仍来自检索结果，不会自动变为query；D错误：元数据丢失影响检索精度，不改变`context_str`的语义来源。",
+      "difficulty_label": "挑战"
+    }
+  ]
+}

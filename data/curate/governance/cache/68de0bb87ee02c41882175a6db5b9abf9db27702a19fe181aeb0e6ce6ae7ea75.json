@@ -1,0 +1,268 @@
+{
+  "8-1450": {
+    "qid": "8-1450",
+    "classification": "own",
+    "chapter": 8,
+    "quality": "ok",
+    "reason": "考查《生成式人工智能服务管理暂行办法》中面向公众提供服务必须备案的要求。",
+    "answer": [
+      "D",
+      "F"
+    ],
+    "supported": true,
+    "quote": "面向境内公众提供生成式 AI 服务须依法备案；未备案有下架风险",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "未备案上线有下架风险，不合规。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "备案是上线前提，非审核后补。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "非必要，可备案后合规上线。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "咨询并提交备案是正确合规流程。"
+      },
+      {
+        "label": "E",
+        "selected": false,
+        "why": "面向公众服务必须备案。"
+      },
+      {
+        "label": "F",
+        "selected": true,
+        "why": "先备案后上线是法规核心要求。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "8-0649": {
+    "qid": "8-0649",
+    "classification": "own",
+    "chapter": 8,
+    "quality": "ok",
+    "reason": "考查算法备案的适用范围，区分面向公众与内部/个人使用。",
+    "answer": [
+      "A",
+      "B",
+      "D",
+      "F"
+    ],
+    "supported": true,
+    "quote": "面向境内公众提供生成式 AI 服务须依法备案",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "面向公众的生成式AI工具需备案。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "图像生成属AIGC，面向公众需备案。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "内部数据分析工具，非面向公众AIGC。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "智能客服属面向公众AIGC服务。"
+      },
+      {
+        "label": "E",
+        "selected": false,
+        "why": "个人研究使用，非面向公众服务。"
+      },
+      {
+        "label": "F",
+        "selected": true,
+        "why": "集成API的问答小程序属公众服务。"
+      }
+    ],
+    "duplicate_of": "8-1300"
+  },
+  "8-1168": {
+    "qid": "8-1168",
+    "classification": "cross",
+    "chapter": -1,
+    "quality": "remove",
+    "reason": "选项与AI安全防护核心手段（如注入检测、内容审核）无关，考查价值低。",
+    "answer": [],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "替换emoji不解决安全风险。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "转小写无关安全清洗。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "长度限制非主要安全手段。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "去HTML标签防XSS，但非AI安全重点。"
+      },
+      {
+        "label": "E",
+        "selected": false,
+        "why": "替换URL非AI安全核心。"
+      },
+      {
+        "label": "F",
+        "selected": false,
+        "why": "翻译不提升安全性。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "8-1287": {
+    "qid": "8-1287",
+    "classification": "cross",
+    "chapter": -1,
+    "quality": "remove",
+    "reason": "考查通用编程而非AI安全知识，且选项E明显错误，无考查价值。",
+    "answer": [],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "仅按空格分词，不完整。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "子串匹配，可能误判。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "大小写处理，仍不完善。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "使用NLTK分词，非AI安全核心。"
+      },
+      {
+        "label": "E",
+        "selected": false,
+        "why": "完全匹配，明显错误。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "8-1300": {
+    "qid": "8-1300",
+    "classification": "own",
+    "chapter": 8,
+    "quality": "ok",
+    "reason": "考查算法备案适用范围，区分面向公众与内部/个人场景。",
+    "answer": [
+      "A",
+      "B",
+      "C",
+      "E"
+    ],
+    "supported": true,
+    "quote": "面向境内公众提供生成式 AI 服务须依法备案",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "集成API的问答小程序属公众服务。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "智能客服属面向公众AIGC服务。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "面向公众的生成式AI工具需备案。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "个人研究使用，非面向公众服务。"
+      },
+      {
+        "label": "E",
+        "selected": true,
+        "why": "图像生成属AIGC，面向公众需备案。"
+      },
+      {
+        "label": "F",
+        "selected": false,
+        "why": "内部数据分析工具，非面向公众AIGC。"
+      }
+    ],
+    "duplicate_of": "8-0649"
+  },
+  "8-0758": {
+    "qid": "8-0758",
+    "classification": "own",
+    "chapter": 8,
+    "quality": "ok",
+    "reason": "综合考查金融场景下数据安全合规的必要措施。",
+    "answer": [
+      "A",
+      "B",
+      "C",
+      "D"
+    ],
+    "supported": true,
+    "quote": "对姓名、手机、证件号、地址、银行卡号等个人可识别信息（PII）做掩码、替换、泛化或删除",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "征信文本含PII，必须脱敏。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "私有化部署可避免敏感数据出域。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "RAG接入关键词库提升准确性。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "限制输出内容符合最小必要原则。"
+      },
+      {
+        "label": "E",
+        "selected": false,
+        "why": "直接上传原始文本违反数据安全。"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

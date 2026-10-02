@@ -1,0 +1,214 @@
+{
+  "new-6-24-0": {
+    "qid": "new-6-24-0",
+    "classification": "own",
+    "chapter": 6,
+    "quality": "ok",
+    "reason": "题目考查PagedAttention机制的核心优化对象与局限，符合本章知识。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "Prefill（预填充阶段）：把用户输入的整段 prompt 一次性喂进去，并行计算所有输入 token 的表示。这一步是计算密集型，处理完后吐出第一个 token，决定了 TTFT",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "PagedAttention正是为了解决KV Cache碎片化问题。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "TTFT由Prefill阶段决定，与KV Cache管理无关。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "连续批处理解决GPU空转，是另一机制。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "模型权重加载延迟非PagedAttention优化对象。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-6-24-1": {
+    "qid": "new-6-24-1",
+    "classification": "own",
+    "chapter": 6,
+    "quality": "ok",
+    "reason": "题目考查PagedAttention显存利用率提升效果的边界条件，符合本章知识。",
+    "answer": [
+      "A",
+      "C"
+    ],
+    "supported": true,
+    "quote": "PagedAttention（分页注意力）：借鉴操作系统的虚拟内存分页思想，把 KV Cache 切成一个个固定大小的块（block），按需分配，再用一张“页表”记录逻辑位置到物理块的映射。带来的好处：消除碎片；按需分配；天然支持共享；大幅提升吞吐",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "共享前缀会复用block，减少新分配，利用率提升效果减弱。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "KV Cache量化是另一优化手段，不影响PagedAttention机制本身。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "硬编码远超实际长度，违背按需分配原则，浪费显存。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "长度离散且无共享，正是PagedAttention消除碎片、按需分配的优势场景。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-6-24-2": {
+    "qid": "new-6-24-2",
+    "classification": "own",
+    "chapter": 6,
+    "quality": "ok",
+    "reason": "题目考查高并发下KV Cache占用率高问题的PagedAttention参数调整，符合本章知识。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "KV Cache：与“层数 × 序列长度 × 并发数”成正比，是随并发线性膨胀的部分。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "增大block size可能加剧碎片，不直接缓解高占用。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "减小最大并发序列数，直接降低KV Cache总需求。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "启用前缀缓存是优化手段，但非立即缓解高占用的最直接操作。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "调整GPU内存利用率阈值不直接管理KV Cache分配。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-6-24-3": {
+    "qid": "new-6-24-3",
+    "classification": "own",
+    "chapter": 6,
+    "quality": "ok",
+    "reason": "题目考查基于PagedAttention机制分析OOM故障的根因，符合本章知识。",
+    "answer": [
+      "A",
+      "B"
+    ],
+    "supported": true,
+    "quote": "PagedAttention（分页注意力）：把 KV Cache 切成一个个固定大小的块（block），按需分配。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "序列超长会导致无法分配新block，符合按需分配机制。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "block池耗尽导致新请求无法分配，是PagedAttention管理下的典型OOM。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "模型权重占用是固定部分，非PagedAttention管理的动态KV Cache部分。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "连续批处理未启用导致GPU空转，不直接导致KV Cache OOM。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-6-24-4": {
+    "qid": "new-6-24-4",
+    "classification": "own",
+    "chapter": 6,
+    "quality": "ok",
+    "reason": "题目考查PagedAttention在vLLM架构中的核心地位，符合本章知识。",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "vLLM 高吞吐的两大核心：PagedAttention（分页管理 KV Cache、消除碎片）+ 连续批处理",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "连续批处理与PagedAttention是并列的两大核心，非深度耦合。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "流式响应不依赖页表机制，是API层功能。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "PagedAttention是vLLM实现KV Cache管理的强制抽象层和基础。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "前缀复用是优化特性，非禁用导致启动失败的根本原因。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-6-24-5": {
+    "qid": "new-6-24-5",
+    "classification": "own",
+    "chapter": 6,
+    "quality": "ok",
+    "reason": "题目考查PagedAttention相比传统分配方式的显存节省机制，符合本章知识。",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "按需分配：生成多长用多少，不再按最大长度预分配浪费",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "按实际生成长度分配，避免预分配浪费，是主要节省来源。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "非连续存放消除碎片是手段，但节省主要来自按需分配。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "复用相同前缀是优化，非主要节省机制。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "压缩block内KV值是量化等手段，非PagedAttention核心。"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

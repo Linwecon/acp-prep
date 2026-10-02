@@ -1,0 +1,37 @@
+{
+  "new-6-60-0": {
+    "qid": "new-6-60-0",
+    "classification": "own",
+    "chapter": 6,
+    "quality": "ok",
+    "reason": "场景题考查部署选型四步决策法，结合数据出域、流量、运维、企业级能力等约束进行判断。",
+    "answer": [
+      "D"
+    ],
+    "supported": true,
+    "quote": "数据能否出域？不能（敏感/合规）→ 排除百炼等公有 MaaS；私有微调模型上线，需弹性伸缩与灰度发布 → PAI-EAS",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "百炼MaaS数据需出域，违反约束①。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "FC有冷启动和时长限制，不适合实时高吞吐场景。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "ECS自建可控但运维要求高，且无内置灰度/回滚企业级能力。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "PAI-EAS支持私有部署、弹性伸缩、模型预热与蓝绿发布，满足全部约束。"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

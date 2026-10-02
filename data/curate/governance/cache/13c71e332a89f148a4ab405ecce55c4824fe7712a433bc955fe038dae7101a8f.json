@@ -1,0 +1,227 @@
+{
+  "new-8-0-0": {
+    "qid": "new-8-0-0",
+    "classification": "own",
+    "chapter": 8,
+    "quality": "ok",
+    "reason": "考查RAG权限过滤的执行顺序，教材有明确依据。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "关键在于：过滤发生在'检索之后、拼 Prompt 之前'，而不是靠模型'自觉不回答'。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "检索前预授权检查无法解决检索后越权问题。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "教材明确权限过滤应在检索后、拼Prompt前进行。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "模型不是权限边界，不能依赖提示词约束。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "加密是数据层防护，与执行顺序缺陷无关。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-8-0-1": {
+    "qid": "new-8-0-1",
+    "classification": "own",
+    "chapter": 8,
+    "quality": "ok",
+    "reason": "考查间接提示注入防护失效的根本原因，教材有明确原理。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "模型并不真正区分'指令'与'数据'。System Prompt、用户输入、检索回来的文档，在模型看来都是一串上下文 Token。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "分隔符本身是结构标记，教材未强调需特殊Token。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "教材指出模型不真正区分指令与数据，需语义声明。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "Base64编码是绕开黑名单的手段，非分隔符失效主因。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "检索模块检测是必要措施，但非题干所述失效的根本原因。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-8-0-2": {
+    "qid": "new-8-0-2",
+    "classification": "own",
+    "chapter": 8,
+    "quality": "ok",
+    "reason": "考查针对间接提示注入攻击的防护组合，教材有多处依据。",
+    "answer": [
+      "A",
+      "B",
+      "C"
+    ],
+    "supported": true,
+    "quote": "间接注入危害更大。它藏在用户根本看不到的文档或网页里；一旦被 RAG 检索进上下文，模型可能被诱导去调用工具。工具权限越大，破坏越大。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "按职位过滤Top-K是RAG访问控制的核心措施。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "对检索内容做注入检测是防御间接注入的必要手段。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "工具账号最小权限是防止恶意工具调用的关键。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "提示词约束不是机制保证，易被注入覆盖。"
+      },
+      {
+        "label": "E",
+        "selected": false,
+        "why": "加密存储是数据层防护，对阻止本次攻击非必要。"
+      }
+    ],
+    "duplicate_of": "8-5164"
+  },
+  "new-8-0-3": {
+    "qid": "new-8-0-3",
+    "classification": "own",
+    "chapter": 8,
+    "quality": "ok",
+    "reason": "考查资源耗尽型DDoS与网络层DDoS的区别，教材有明确分类。",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "资源耗尽型 DDoS 是 AI 应用的新风险：攻击者不需要打满带宽，只要提交大量'分析公司五年财报并写 5000 字报告'这类高计算请求，就能让 GPU 100%、账单飙升。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "教材明确区分了资源耗尽型DDoS与网络层洪水攻击。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "攻击目标仍是基础设施（GPU算力），非应用层。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "题干未涉及提示或指令注入。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "题干现象是可用性攻击，非数据或内容安全风险。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-8-0-4": {
+    "qid": "new-8-0-4",
+    "classification": "own",
+    "chapter": 8,
+    "quality": "ok",
+    "reason": "考查RAG权限过滤代码逻辑的充分条件，教材有代码示例。",
+    "answer": [
+      "A",
+      "B",
+      "C",
+      "D"
+    ],
+    "supported": true,
+    "quote": "for _, row in topK_position_table.iterrows(): position_ids = ast.literal_eval(row['position_ids']) if user_position_id in position_ids: matching_kb_ids.append(row['kb_id']) filtered = kb_topK_table[kb_topK_table['kb_id'].isin(matching_kb_ids)]",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "用户position_id正确是过滤的前提。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "表关联成功是获取权限元数据的前提。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "正确解析position_ids列表是进行成员检查的关键。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "过滤后的结果被正确赋值给Prompt，逻辑才完整。"
+      },
+      {
+        "label": "E",
+        "selected": false,
+        "why": "系统提示词不是权限边界，教材明确反对依赖模型判断。"
+      }
+    ],
+    "duplicate_of": "8-5165"
+  },
+  "new-8-0-5": {
+    "qid": "new-8-0-5",
+    "classification": "own",
+    "chapter": 8,
+    "quality": "ok",
+    "reason": "考查提示词泄漏攻击中，输入过滤失效的可能原因。",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "越狱为什么能绕过对齐？安全对齐训练主要覆盖'直接提问'这类常见模式。角色扮演、虚构场景、语言转换、Base64 等编码混淆，把有害请求包装成'无害的创作/教学任务'，让有害意图在语义上'隐形'。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "越狱话术需语义级检测，通用文本审核模型可能漏检。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "题干未提及PDF是图片格式，假设不成立。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "分隔符隔离是缓解措施，非输入过滤失效的根本原因。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "text_moderation是内容安全接口，但服务参数需适配场景。"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

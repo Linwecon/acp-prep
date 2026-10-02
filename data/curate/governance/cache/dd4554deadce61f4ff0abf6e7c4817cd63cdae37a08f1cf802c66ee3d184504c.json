@@ -1,0 +1,212 @@
+{
+  "11-0332": {
+    "qid": "11-0332",
+    "classification": "own",
+    "chapter": 11,
+    "quality": "ok",
+    "reason": "选项A完全匹配原文模态定义与对比表格",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "模态（Modality）指信息的存在形式，常见的有文本、图像、音频、视频。多模态AI指能联合理解、生成两种及以上模态信息，并建立它们之间关联的模型与系统",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "精准复现原文模态定义"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "'功能完全不重叠'错误，LLM是多模态基础"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "原文未提多模态文本能力更强"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "CV/音频模型不属于LLM范畴"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "11-0360": {
+    "qid": "11-0360",
+    "classification": "own",
+    "chapter": 11,
+    "quality": "ok",
+    "reason": "C项体现图文+地理多模态协同，符合原文'信息互补'价值",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "多模态的核心价值可以概括为三点：降低表达门槛、获取文本没有的信息、产出更丰富的载体",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "纯文本任务不涉及多模态"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "单模态语音识别非协同学习"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "图文+位置信息互补协同"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "单模态图像识别"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "11-0376": {
+    "qid": "11-0376",
+    "classification": "own",
+    "chapter": 11,
+    "quality": "ok",
+    "reason": "A项文生图是典型多模态转化，原文明确归类为生成主线",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "生成：文本（+参考图）→ 图/音/视频；文生图/视频扩散模型、TTS",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "符合生成主线定义"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "物体识别属理解非转化"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "纯文本分析无模态转化"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "语音控制属转换但未体现模态转化"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "11-0380": {
+    "qid": "11-0380",
+    "classification": "own",
+    "chapter": 11,
+    "quality": "ok",
+    "reason": "B项'辅助或引导'对应原文CLIP对比学习对齐机制",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "关键是对匹配的图文向量在空间中拉近、不匹配的推远。训完后，'一只橘猫'这句话和橘猫照片的向量就会挨得很近",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "原文强调对齐而非简单合并"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "对应CLIP对齐原理"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "违背信息互补原则"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "原文强调模态间关联"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "11-0790": {
+    "qid": "11-0790",
+    "classification": "own",
+    "chapter": 11,
+    "quality": "ok",
+    "reason": "B项完整覆盖文档智能解析链路，原文强调OCR+版面+结构化",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "文档智能解析链路：OCR→版面分析→结构化还原→进入常规RAG",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "扫描件PDF需先OCR"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "完整复现解析链路"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "违背降低表达门槛价值"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "PDF需解析不能直接输入"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "11-0795": {
+    "qid": "11-0795",
+    "classification": "own",
+    "chapter": 11,
+    "quality": "ok",
+    "reason": "A项符合原文多模态安全四类检测要求，qwen-vl可理解图文",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "内容审核必须覆盖文本、图像、音频、视频全部模态，只做文本过滤等于给大门上锁却开着窗",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "qwen-VL支持图文理解"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "关键词库无法处理图片内容"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "违背实时性要求"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "增加用户负担且不可靠"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

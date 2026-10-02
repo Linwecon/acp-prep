@@ -1,0 +1,154 @@
+{
+  "items": [
+    {
+      "type": 0,
+      "stem": "某团队优化新人答疑机器人后，RAGAS评测显示Context Recall=1.0、Context Precision=0.35，Faithfulness=0.22，Answer Correctness=0.24。日志确认检索片段中包含完整正确信息（如'张伟是教研部的'），但该片段排在第12位，前11位均为行政制度、考勤规则等无关内容。若仅调高temperature以增强生成多样性，最可能产生的后果是？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "Faithfulness小幅提升，因模型更倾向从靠前无关片段中提取细节"
+        },
+        {
+          "option_label": "B",
+          "option_text": "Answer Correctness显著改善，因高温激发模型推理能力弥补排序缺陷"
+        },
+        {
+          "option_label": "C",
+          "option_text": "Context Precision进一步下降，因高温导致模型对上下文相关性判断更不稳定"
+        },
+        {
+          "option_label": "D",
+          "option_text": "Answer Relevancy升高，因模型更愿意承认知识边界而增加noncommittal表达"
+        }
+      ],
+      "answer": "A",
+      "analysis": "依据教材7.4.2节Context Precision官方口径：Precision惩罚'无关内容排在前面'，其计算依赖各片段位置与相关性判定，与temperature无直接关联（C错误）；教材7.5节明确指出'Precision低（Recall高）→病根在检索端排序，应加Rerank而非调生成参数'；教材7.4.3节Faithfulness定义强调'答案陈述能否由contexts直接推断'，当模型被迫从大量无关前置片段中采样时，更易提取错误细节并编造（如将'考勤打卡时间'误关联为'部门归属'），导致Faithfulness表面微升但实质幻觉加剧（A正确）。B错误：教材7.2.3节指出PPL/temperature影响输出确定性，但无法解决'Lost in the Middle'导致的注意力稀释；D错误：Answer Relevancy下降才对应noncommittal（教材7.4.5节），且temperature升高通常削弱回避倾向。",
+      "difficulty_label": "挑战"
+    },
+    {
+      "type": 1,
+      "stem": "在构建Context Precision指标所需的评测样本时，以下哪些条件缺失将直接导致该指标失去诊断价值？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "未提供ground_truth，仅提供question和contexts"
+        },
+        {
+          "option_label": "B",
+          "option_text": "未冻结评测用LLM版本，每次运行随机切换qwen-plus/gpt-4-turbo"
+        },
+        {
+          "option_label": "C",
+          "option_text": "contexts字段为空列表，但question和ground_truth完整"
+        },
+        {
+          "option_label": "D",
+          "option_text": "question来自人工编造而非线上工单，但ground_truth由HR专家编写"
+        }
+      ],
+      "answer": "A,B,C",
+      "analysis": "A正确：教材7.4.2节明确Context Precision计算需依据question与ground_truth联合判断每个context是否相关（'依据question与ground_truth判断它是否相关'），缺ground_truth则无法定义'相关'，指标失效；B正确：教材7.2.4节强调'回归评测必须冻结评委LLM版本'，否则分数变化无法归因于系统改动，Precision值失去可比性；C正确：教材7.2.1节表格指出contexts缺失将'无法评估检索质量'，而Precision本质是检索端指标，空列表导致分母为0或全0计算，完全丧失信噪比诊断意义；D错误：question来源影响的是业务代表性（教材7.2.1节铁律），但不破坏Precision数学定义——只要question存在，仍可计算排序质量，只是结果无法反映真实场景瓶颈。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 0,
+      "stem": "当Context Precision从0.41骤降至0.22，而Context Recall保持0.95不变时，若要验证是否因Embedding模型升级导致向量空间畸变，最应检查的原始数据证据是？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "对比新旧Embedding模型对同一question的top-k相似度分布直方图"
+        },
+        {
+          "option_label": "B",
+          "option_text": "统计新旧模型下contexts列表中首个相关片段的平均排名位置"
+        },
+        {
+          "option_label": "C",
+          "option_text": "人工标注新旧模型召回的contexts中相关片段的绝对数量"
+        },
+        {
+          "option_label": "D",
+          "option_text": "测量新旧模型对ground_truth中关键实体（如'教研部'）的embedding余弦相似度"
+        }
+      ],
+      "answer": "B",
+      "analysis": "Context Precision核心是'相关片段是否排得靠前'（教材7.4.2节公式：分子为'该片段及之前的相关数之和'，分母为排位），Recall不变说明相关片段总量未减少（C错误），问题在于排序劣化。B选项直接对应Precision定义中的关键变量——相关片段排名位置，若新模型下首个相关片段平均从第3位退至第8位，则完美解释Precision下降（教材7.4.2例：'张伟 教研部工程师'排第2时Precision=0.5，若排第15则大幅降低）。A错误：相似度分布不反映排序结果；D错误：实体相似度与跨文档排序无直接因果；教材7.5节'Precision低→加Rerank'的优化方向也隐含'排序机制异常'的诊断逻辑，B是最直接证据。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 1,
+      "stem": "以下哪些现象同时满足：① Context Precision必然低于Context Recall；② 该差异能被RAGAS准确量化；③ 教材明确将此作为'Lost in the Middle'的典型信号？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "contexts中仅1个相关片段，且位于第20位"
+        },
+        {
+          "option_label": "B",
+          "option_text": "contexts中10个相关片段，但前15位均为无关内容"
+        },
+        {
+          "option_label": "C",
+          "option_text": "contexts中相关片段按语义相似度降序排列，但question改写引入噪声"
+        },
+        {
+          "option_label": "D",
+          "option_text": "contexts中相关片段全部位于后50%，且总数占总片段数不足10%"
+        }
+      ],
+      "answer": "A,B,D",
+      "analysis": "教材7.4.2节定义Precision=各片段precision分之和/相关片段总数，而Recall=被支撑观点数/ground_truth总观点数。A满足：Recall=1（1个观点被找到），Precision=(0+...+0+1/20)/1=0.05<1；B满足：Recall=10/10=1，Precision分子累加缓慢（前15位贡献0），分母大导致值低；D满足：Recall取决于是否覆盖观点，与位置无关，而Precision因相关片段集中靠后必然偏低。三者均被教材7.4.2节'正确片段存在但排在后面→Precision会低'及7.5节'Lost in the Middle现象直接对应'明确覆盖。C错误：'按语义相似度降序'本身即保证相关片段靠前，Precision不会必然低于Recall；教材未将'query改写噪声'列为Lost in the Middle主因。",
+      "difficulty_label": "挑战"
+    },
+    {
+      "type": 0,
+      "stem": "某团队发现Context Precision在连续3次切片优化后从0.38→0.42→0.35→0.49，波动剧烈但Context Recall稳定在0.92±0.01。此时若忽略控制变量原则，最可能掩盖的真实故障是？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "评测用Embedding模型在测试期间发生自动版本更新"
+        },
+        {
+          "option_label": "B",
+          "option_text": "切片策略实际未生效，波动源于评测集question抽样偏差"
+        },
+        {
+          "option_label": "C",
+          "option_text": "Rerank模块因并发请求超时被旁路，导致原始排序暴露"
+        },
+        {
+          "option_label": "D",
+          "option_text": "ground_truth编写标准在迭代中被HR专家动态调整"
+        }
+      ],
+      "answer": "C",
+      "analysis": "Precision对排序敏感（教材7.4.2节），Recall稳定说明检索覆盖无问题，波动必源于排序机制异常。C选项'Rerank旁路'直接导致原始低质排序暴露，符合'Precision波动大+Recall稳'的故障特征（教材7.5节'Precision低→加Rerank'反向印证其关键作用）。A错误：Embedding更新会影响Recall（教材7.5节'换Embedding→查Recall'），但Recall稳定排除此因；B错误：question抽样偏差会影响所有指标，不会仅扰动Precision；D错误：ground_truth变动主要影响Correctness/Faithfulness（教材7.2.1节），与Precision计算无关（其依赖question+contexts+ground_truth联合判断相关性，但ground_truth变化不改变已召回片段的位置关系）。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 1,
+      "stem": "在诊断Context Precision异常时，以下哪些分析步骤严格遵循教材7.5节'定位问题的黄金法则'与7.4.2节官方计算逻辑？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "检查contexts列表中每个片段是否被LLM评委标记为'相关'，并记录其原始位置索引"
+        },
+        {
+          "option_label": "B",
+          "option_text": "对比同一question下新旧版本系统返回的contexts中首个相关片段的排名差值"
+        },
+        {
+          "option_label": "C",
+          "option_text": "计算所有样本的Precision均值后，直接归因于Embedding模型性能不足"
+        },
+        {
+          "option_label": "D",
+          "option_text": "当Precision<0.5时，强制要求所有优化必须先部署Rerank模块再测试"
+        }
+      ],
+      "answer": "A,B",
+      "analysis": "A正确：教材7.4.2节Precision计算第一步即'按顺序读取contexts，依据question与ground_truth判断是否相关'，记录位置是公式必需（分子分母均依赖位置）；B正确：教材7.4.2节示例通过'第2位相关→Precision=0.5'直观展示位置决定性，对比排名差值是定位排序劣化的直接手段。C错误：教材7.5节强调'先看指标组合再归因'，Precision低可能因Rerank缺失/Top K过大/查询改写失败等，不能武断归因Embedding；D错误：教材7.5节'优化方向'是建议而非强制流程，'加Rerank'是常见解但非唯一解（如也可缩小Top K+阈值过滤），且未达0.5未必需立即部署（需结合业务容忍度）。",
+      "difficulty_label": "进阶"
+    }
+  ]
+}

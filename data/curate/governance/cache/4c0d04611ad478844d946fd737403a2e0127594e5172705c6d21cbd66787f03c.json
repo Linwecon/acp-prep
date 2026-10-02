@@ -1,0 +1,213 @@
+{
+  "new-9-72-0": {
+    "qid": "new-9-72-0",
+    "classification": "own",
+    "chapter": 9,
+    "quality": "ok",
+    "reason": "考查temperature=0时输出非绝对确定的风险，原文有明确依据。",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "temperature=0 不等于‘绝对确定’，这是常考的易错判断。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "原文指出temperature=0不等于绝对确定，应降至0.0并启用seed。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "top_p=0.95确实过大，但根本原因在于temperature=0仍有随机性。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "原文建议固定一个调另一个，但本题主因是temperature=0的随机性。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "stop参数用于截断，与术语表述差异的根本原因无关。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-9-72-1": {
+    "qid": "new-9-72-1",
+    "classification": "own",
+    "chapter": 9,
+    "quality": "ok",
+    "reason": "考查top_p机制，原文有明确定义和实验说明。",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "top_p（核采样）：把候选按概率从高到低累加，直到累积概率达到p，只在这个‘核心集合’内采样。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "原文定义top_p为累积概率达p的候选集合，p越小集合越窄。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "temperature=0时top_p仍有效，实验证明p值变化影响结果。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "原文未提及temperature=0时top_p会破坏其确定性。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "p=0.8允许低频token，但现象主要说明p值缩小使输出收敛。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-9-72-2": {
+    "qid": "new-9-72-2",
+    "classification": "own",
+    "chapter": 9,
+    "quality": "ok",
+    "reason": "考查场景化参数选型，原文有明确建议表格。",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "事实问答、代码生成、信息抽取：0 ~ 0.3，低；文案、头脑风暴、起名：0.8 ~ 1.2，0.9。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "模式①参数低且稳定，模式②在创意建议区间内。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "模式②temperature=0.9尚可，但top_p=0.95略高，非最佳。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "模式②temperature=1.2略超建议上限1.2，且top_p=0.8非典型。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "模式①参数尚可，但模式②temperature=0.85略低于建议下限0.8。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-9-72-3": {
+    "qid": "new-9-72-3",
+    "classification": "own",
+    "chapter": 9,
+    "quality": "ok",
+    "reason": "考查输入过长和max_tokens设置不当的影响，原文有提及。",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "输入 + 输出受上下文窗口限制，过大会报错且增加成本。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "top_p过大可能导致多样性，但非‘啰嗦重复’主因。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "temperature=0.6适中，且问题核心是输出冗余而非循环生成。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "输入已占70%窗口，max_tokens过大易导致模型为填满而冗余。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "双高可能影响多样性，但题干现象是‘啰嗦重复’，非逻辑连贯性。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-9-72-4": {
+    "qid": "new-9-72-4",
+    "classification": "own",
+    "chapter": 9,
+    "quality": "ok",
+    "reason": "考查temperature=0的非绝对确定性，原文有明确风险提示。",
+    "answer": [
+      "A",
+      "C"
+    ],
+    "supported": true,
+    "quote": "temperature=0 不等于‘绝对确定’，这是常考的易错判断。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "原文指出temperature=0不等于绝对确定，系统差异可能导致微变。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "原文未提及服务端在高负载时会主动放宽采样约束。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "原文‘risk’框强调‘temperature=0 输出绝对一致’是高频误区。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "原文未提及网络抖动会导致top_p阈值计算偏差。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-9-72-5": {
+    "qid": "new-9-72-5",
+    "classification": "own",
+    "chapter": 9,
+    "quality": "ok",
+    "reason": "考查参数双高失控及‘固定一个、调另一个’原则，原文有明确建议。",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "为什么不能同时把两个都拉高：temperature 和 top_p 都会扩大候选范围，叠加使用会让输出失控。课程明确建议：固定一个、调另一个。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "新参数在建议区间内，但核心依据是原方案双高失控。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "top_p扩大候选集，但调整核心是遵循‘固定一个调另一个’。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "原文强调双高叠加会失控，建议固定一个调另一个。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "temperature=1.5在[0,2)范围内，非非法参数。"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

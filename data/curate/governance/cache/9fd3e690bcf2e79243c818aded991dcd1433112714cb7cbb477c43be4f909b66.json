@@ -1,0 +1,154 @@
+{
+  "items": [
+    {
+      "type": 0,
+      "stem": "某团队对新人答疑机器人实施切片优化后，RAGAS评测显示Context Recall从0.62升至0.89，但Faithfulness下降0.15且Answer Correctness仅微升0.02；日志确认检索返回的contexts中完整包含'张伟是教研部的'等关键信息。此时若要验证是否因控制变量失效导致分数失真，最应优先核查哪项配置？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "评测集是否从线上日志抽样并覆盖边界场景"
+        },
+        {
+          "option_label": "B",
+          "option_text": "评委LLM（qwen-plus）的temperature与seed是否在前后两次评测中保持一致"
+        },
+        {
+          "option_label": "C",
+          "option_text": "ground_truth是否由HRBP专家审定而非AI工程师编写"
+        },
+        {
+          "option_label": "D",
+          "option_text": "contexts字段是否在两次评测中均通过相同Embedding模型（text-embedding-v3）生成"
+        }
+      ],
+      "answer": "B",
+      "analysis": "依据教材7.2.4节'控制变量：让分数可比'，回归评测前提必须是'除了待测改动，其他一切都冻结'，明确要求'推理参数（temperature、seed）、模型版本、当评委的大模型版本都要固定'，否则分数变化无法归因——'你不知道是系统变好了，还是评委今天心情不同'。本题中Faithfulness与Answer Correctness异常波动（尤其Faithfulness反向下降），而检索端已确认有效，最可能干扰源即生成端随机性扰动：temperature/seed不一致会导致同一输入下LLM-as-Judge打分漂移，直接破坏分数可比性。A、C、D虽重要，但属于评测集构建或数据来源问题，其失效通常表现为系统性偏差（如全量分数虚高），而非单次优化后指标矛盾性波动；且题干已明确'日志确认contexts含关键信息'，说明检索链路稳定，问题聚焦在评测执行层。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 1,
+      "stem": "在实施评测驱动开发（EDD）时，以下哪些实践能同时满足‘防止回归’与‘定位问题’双重目标？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "每次优化后运行同一套冻结的评测集，并按题型（如年假/报销/入职）细分分析各指标变化"
+        },
+        {
+          "option_label": "B",
+          "option_text": "将Answer Correctness作为唯一总分，仅当总分提升时才认为优化成功"
+        },
+        {
+          "option_label": "C",
+          "option_text": "在自动化评测流程中强制采集question/ground_truth/answer/contexts四字段，并分别计算Context Recall、Faithfulness等分项指标"
+        },
+        {
+          "option_label": "D",
+          "option_text": "用MMLU基准替代自建评测集进行回归测试，因其具有跨模型可比性"
+        }
+      ],
+      "answer": "AC",
+      "analysis": "A正确：教材7.1节强调'防止回归'需'每次改动后跑同一套题'，而7.5节'定位问题的黄金法则'要求'按题型、难度、类别细分找短板'，A项同时满足冻结评测集（防回归）与分维度分析（定位）。C正确：教材7.2.1节明确四字段是自动化评测基础，7.3节指出RAGAS通过拆解为检索端（Recall/Precision）与生成端（Faithfulness/Correctness）指标实现精准定位，C项正是该机制的落地。B错误：教材7.5节'踩坑提醒'明确'只看Answer Correctness一个总分→分不清是检索还是生成的锅'，违背定位原则；D错误：教材7.7节'公开基准的三个坑'强调'MMLU等仅用于选型初筛，业务决策必须用自建评测集'，用其做回归测试违反防回归前提（题目脱离真实场景）。",
+      "difficulty_label": "挑战"
+    },
+    {
+      "type": 0,
+      "stem": "某团队上线新版答疑机器人后，RAGAS评测显示：Context Recall=0.92、Context Precision=0.85、Faithfulness=0.41、Answer Correctness=0.38、Answer Relevancy=0.96。用户反馈中高频出现'答非所问但语气很肯定'类投诉。此时最应优先排查的环节和依据是？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "检索端知识库覆盖度不足，因Context Recall未达1.0"
+        },
+        {
+          "option_label": "B",
+          "option_text": "生成端提示词缺乏'不得回避问题'约束，因Answer Relevancy高而Faithfulness低"
+        },
+        {
+          "option_label": "C",
+          "option_text": "生成端存在幻觉，因Faithfulness低且Answer Correctness低，但Answer Relevancy高表明答案切题"
+        },
+        {
+          "option_label": "D",
+          "option_text": "评测集ground_truth标注错误，因所有指标矛盾无法解释"
+        }
+      ],
+      "answer": "C",
+      "analysis": "依据教材7.5节'定位问题的黄金法则'：'检索指标都好（Recall、Precision高），但Faithfulness/Correctness低→问题在生成阶段'；结合7.4.5节Answer Relevancy定义'专门治答非所问和含糊回避'，其高分（0.96）证明答案未回避、未含糊，但Faithfulness仅0.41（远低于阈值）说明答案中大量陈述无法从contexts推导→即'语气肯定但内容编造'，这正是幻觉典型表现。A错误：Recall=0.92已属高位，且题干无证据指向知识库缺失；B错误：Answer Relevancy高已排除'答非所问/含糊'，问题不在回避而在虚构；D错误：教材7.2.1节强调ground_truth'必须由领域专家提供'，但题干未质疑其权威性，且指标组合符合幻觉特征，无需归因于标注错误。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 1,
+      "stem": "为防止'按下葫芦浮起瓢'，在实施回归评测时，以下哪些措施能同时满足教材7.1节'防止回归'用途与7.2.4节'控制变量'要求？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "使用同一版本的评测脚本、固定temperature=0.0与seed=42"
+        },
+        {
+          "option_label": "B",
+          "option_text": "将评测集按业务场景（如HR/IT/行政）分层抽样，并确保每层样本数恒定"
+        },
+        {
+          "option_label": "C",
+          "option_text": "每次运行前校验评测用LLM（qwen-plus）API响应一致性"
+        },
+        {
+          "option_label": "D",
+          "option_text": "在CI/CD流水线中集成DeepEval，对每次PR触发自动化回归测试"
+        }
+      ],
+      "answer": "ACD",
+      "analysis": "A正确：教材7.2.4节'控制变量'明确要求'温度、种子、模型版本冻结'，A项完全对应；C正确：'校验API响应一致性'是控制变量的实操延伸，确保评委LLM输出稳定（避免服务端更新导致隐性变更）；D正确：教材7.9节指出DeepEval'便于接入CI/CD做自动化回归'，而7.1节'防止回归'核心即'每次改动后跑同一套题'，D项实现该闭环。B错误：分层抽样是评测集构建质量要求（教材7.8.2节'分层/分难度覆盖'），但'确保每层样本数恒定'不等于'冻结评测集'——若每次回归测试动态重抽样，仍会导致题目漂移，违背'冻结评测集'这一防回归铁律。",
+      "difficulty_label": "挑战"
+    },
+    {
+      "type": 0,
+      "stem": "团队使用RAGAS评测发现：Context Recall=0.95、Context Precision=0.32、Faithfulness=0.28、Answer Correctness=0.31。日志确认检索片段中包含完整正确信息（如'张伟是教研部的'），但该信息位于第15个context中，前14个均为无关内容。此时若仅优化生成端（如强化提示词约束），最可能产生的后果是？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "Answer Correctness小幅提升，但Context Precision持续恶化"
+        },
+        {
+          "option_label": "B",
+          "option_text": "Faithfulness显著改善，因提示词约束可抑制幻觉"
+        },
+        {
+          "option_label": "C",
+          "option_text": "Answer Correctness无明显改善，因模型注意力被前14条无关内容稀释"
+        },
+        {
+          "option_label": "D",
+          "option_text": "Context Recall下降，因生成端优化影响检索模块调用"
+        }
+      ],
+      "answer": "C",
+      "analysis": "依据教材7.5节'定位问题的黄金法则'：'Context Recall高但Precision低→问题在检索端排序'；7.4.2节明确Context Precision低源于'正确片段排在后面'，导致模型'Lost in the Middle'。教材7.5节'价值'强调'上下文是RAG的生命线'，并指出'检索质量决定上限'，因此当相关片段深埋噪声中时，再强的生成端优化也无法让模型'看见'正确信息。C项直指本质：生成端无从利用被淹没的关键上下文，故Answer Correctness难提升。A错误：生成端优化不影响Precision计算（其输入为contexts列表顺序）；B错误：Faithfulness低主因是'答案无法从contexts推导'，而contexts中虽有正确信息但被遮蔽，提示词无法解决信息可见性问题；D错误：生成端优化不改变检索模块逻辑，Recall由检索本身决定。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 1,
+      "stem": "在构建新人答疑机器人评测集时，以下哪些操作同时违反教材7.2.1节'评测集构建的两条铁律'及7.2.2节'指标分层'原则？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "技术团队从GitHub开源项目中爬取100个HR问答作为question，用ChatGLM生成答案作为ground_truth"
+        },
+        {
+          "option_label": "B",
+          "option_text": "为快速上线，直接复用MMLU中文子集的多选题作为评测集"
+        },
+        {
+          "option_label": "C",
+          "option_text": "抽取客服工单中的真实问题，但由算法工程师根据模型输出反向编写ground_truth"
+        },
+        {
+          "option_label": "D",
+          "option_text": "仅用Accuracy指标评估整体效果，未设计Context Recall等算法指标"
+        }
+      ],
+      "answer": "ABCD",
+      "analysis": "A违反两条铁律：'问题来自真实用户场景'（GitHub非真实工单）、'ground_truth由领域专家提供'（ChatGLM生成非HRBP审定）；B违反'问题来自真实用户场景'（MMLU是通用知识题，非企业HR政策问答），且7.7节明确'公开基准仅用于初筛，不能替代自建评测集'，违背指标分层中'算法指标是手段，业务指标才是目标'原则；C违反'ground_truth必须由领域专家提供'（算法工程师非业务专家），且'反向编写'导致ground_truth与模型输出耦合，丧失客观基准；D违反指标分层：教材7.2.2节强调'算法指标是手段'，仅用Accuracy（尤其在类别不平衡时失真）无法支撑'定位问题'，7.2.3节'高频误区'明确'类别不平衡别只看Accuracy'，且缺失Context Recall等RAG专用指标，无法区分检索/生成故障。",
+      "difficulty_label": "挑战"
+    }
+  ]
+}

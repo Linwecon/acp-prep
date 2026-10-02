@@ -1,0 +1,154 @@
+{
+  "items": [
+    {
+      "type": 0,
+      "stem": "某企业升级报销查询Agent时，严格按教材要求用JSON-Schema定义工具：name='get_reimbursement'，description='根据用户ID和月份查询报销单状态'，parameters中仅声明user_id（string, required）和month（string, required）。但实际调用中，模型频繁在month字段传入'上个月'等自然语言而非ISO格式日期。该问题最根本违反了JSON-Schema定义的哪一必要条件？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "缺少对参数语义的约束（如pattern或enum），导致模型自由发挥"
+        },
+        {
+          "option_label": "B",
+          "option_text": "未设置additionalProperties: false，允许模型传入非法字段"
+        },
+        {
+          "option_label": "C",
+          "option_text": "description未明确month必须为'YYYY-MM'格式字符串"
+        },
+        {
+          "option_label": "D",
+          "option_text": "required数组遗漏了必填字段，造成参数校验失效"
+        }
+      ],
+      "answer": "A",
+      "analysis": "依据4.2节'关键约定'及4.3节'风险'：JSON-Schema的质量直接决定参数提取准确性；教材强调'description需清晰'，但更核心的是schema本身要具备**语义约束能力**——仅靠自然语言描述无法阻止模型生成模糊值。选项A直指本质：缺少pattern/enum/format等约束字段，使模型将'上个月'等非结构化表达视为合法输入。选项C是description层面的不足，但教材明确指出'参数提取准不准，取决于三件事：Schema质量、模型能力、上下文清晰度'，而Schema质量首要指结构化约束（如pattern），非仅文字描述；选项B虽是常见错误，但本题现象是参数值非法而非多传字段；选项D与题干'已声明user_id和month为required'矛盾。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 1,
+      "stem": "在实现Function Calling时，以下哪些情况会导致工具调用失败，且其根本原因可追溯至JSON-Schema定义缺陷？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "工具定义中parameters.type为'object'，但未声明properties，导致模型无法生成任何参数"
+        },
+        {
+          "option_label": "B",
+          "option_text": "description中将工具用途写为'查报销'，但实际功能是'查审批流'，造成模型误判调用时机"
+        },
+        {
+          "option_label": "C",
+          "option_text": "required数组包含'invoice_id'，但parameters.properties中未定义该字段，导致参数校验失败"
+        },
+        {
+          "option_label": "D",
+          "option_text": "schema中未设置maximumProperties，当模型返回超长参数对象时触发API解析异常"
+        }
+      ],
+      "answer": "AC",
+      "analysis": "依据4.2节'关键约定'（工具必须以JSON-Schema描述）及4.3节'风险'（Schema字段名含糊、描述缺失会直接导致参数提取错误）：A正确——properties缺失使schema不完整，模型无依据生成参数，属结构性缺陷；C正确——required字段未在properties中定义，违反JSON-Schema规范，必然导致下游校验失败；B错误——description偏差影响的是模型'是否调用'的决策（意图识别），属于提示词工程问题，非schema执行层缺陷；D错误——maximumProperties非Function Calling标准schema必需字段，且主流API（如DashScope/OpenAI）不依赖此字段做解析，失败主因是模型输出超限或API配置，非schema定义缺陷。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 0,
+      "stem": "一个ReAct Agent被设计用于处理报销查询任务。其工具get_reimbursement的JSON-Schema中，parameters定义了user_id（required）和month（required），但未设置default值。当用户提问'帮我查我的报销单'而未提供月份时，Agent未主动追问，而是传入空字符串调用工具并失败。该行为违背了教材强调的哪一条关于JSON-Schema与执行流程的核心原则？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "工具必须支持缺参时由程序主动追问，而非模型硬性填充默认值"
+        },
+        {
+          "option_label": "B",
+          "option_text": "Schema应通过default字段预设安全兜底值，避免空参调用"
+        },
+        {
+          "option_label": "C",
+          "option_text": "模型只提议，程序才执行——程序层应拦截空参并触发追问逻辑"
+        },
+        {
+          "option_label": "D",
+          "option_text": "required字段必须配合minLength等约束，防止空字符串通过校验"
+        }
+      ],
+      "answer": "C",
+      "analysis": "依据4.3节'完整流程四步'及'风险'框：'模型只输出调用意图，执行工具的是应用代码'；'参数可以在多轮对话中逐步收集，缺参时Agent应主动追问而不是瞎猜'。选项C精准对应教材铁律——程序层（非模型）承担参数校验与交互责任，空参应由应用代码拦截并触发追问，而非放行至工具执行。选项A混淆主体，'支持追问'是程序逻辑，非schema职责；选项B错误，default字段用于提供默认值，但教材明确反对'瞎猜'，追问才是正解；选项D是schema增强手段，但根本问题在于执行流程未遵循'程序拦截-追问'机制。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 1,
+      "stem": "以下JSON-Schema定义片段中，哪些违反了教材对工具Schema的必要性要求，可能导致Function Calling在生产环境不可靠？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "{ \"name\": \"search_db\", \"description\": \"查数据库\", \"parameters\": { \"type\": \"object\", \"properties\": { \"query\": { \"type\": \"string\" } }, \"required\": [\"query\"] } }"
+        },
+        {
+          "option_label": "B",
+          "option_text": "{ \"name\": \"send_email\", \"description\": \"发邮件给用户\", \"parameters\": { \"type\": \"object\", \"properties\": { \"to\": { \"type\": \"string\" }, \"body\": { \"type\": \"string\" } }, \"required\": [\"to\", \"body\"] } }"
+        },
+        {
+          "option_label": "C",
+          "option_text": "{ \"name\": \"calculate_tax\", \"description\": \"计算税额\", \"parameters\": { \"type\": \"object\", \"properties\": { \"amount\": { \"type\": \"number\", \"minimum\": 0 }, \"rate\": { \"type\": \"number\", \"minimum\": 0, \"maximum\": 1 } }, \"required\": [\"amount\", \"rate\"] } }"
+        },
+        {
+          "option_label": "D",
+          "option_text": "{ \"name\": \"upload_file\", \"description\": \"上传文件到OSS\", \"parameters\": { \"type\": \"object\", \"properties\": { \"file_path\": { \"type\": \"string\", \"description\": \"本地文件绝对路径，需以/home/开头\" } }, \"required\": [\"file_path\"] } }"
+        }
+      ],
+      "answer": "ABD",
+      "analysis": "依据4.2节'关键约定'（工具必须以JSON-Schema描述）及4.3节'风险'（Schema字段名含糊、描述缺失会直接导致参数提取错误）：A错误——description'查数据库'过于宽泛，未说明表/字段/条件，且properties中query无具体约束（如pattern限制SQL注入），违反'描述清晰、约束明确'；B错误——description'发邮件给用户'未指定收件人范围/内容安全要求，properties中to/body无格式约束（如email pattern、maxLength），易导致越权或溢出；D错误——description要求'绝对路径以/home/开头'，但schema未用pattern强制校验，模型可能生成非法路径；C正确——具备type/minimum/maximum等完备数值约束，符合教材'Schema质量'要求。",
+      "difficulty_label": "挑战"
+    },
+    {
+      "type": 0,
+      "stem": "某团队将报销查询工具接入Agent时，JSON-Schema中parameters定义如下：{ 'user_id': {'type': 'string'}, 'month': {'type': 'string', 'pattern': '^\\d{4}-\\d{2}$'} }，且required=['user_id']。测试中发现模型仍向month传入'2024-7'（缺少前导零）。该故障最直接暴露了JSON-Schema定义中的哪一缺陷？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "pattern正则表达式未覆盖'2024-7'格式，需增强为'^\\\\d{4}-(0[1-9]|1[0-2])$'"
+        },
+        {
+          "option_label": "B",
+          "option_text": "month字段未声明为required，导致模型认为可选而随意填充"
+        },
+        {
+          "option_label": "C",
+          "option_text": "缺少additionalProperties: false，允许模型添加非法字段干扰解析"
+        },
+        {
+          "option_label": "D",
+          "option_text": "description未强调'月份必须为YYYY-MM格式'，削弱模型理解"
+        }
+      ],
+      "answer": "A",
+      "analysis": "题干明确给出pattern为'^\\\\d{4}-\\\\d{2}$'，而'2024-7'不匹配此正则（因'7'非两位数），故根本缺陷是pattern规则本身不严谨。选项A直接指出正则需增强以匹配合法月份（01-12），符合教材'参数提取准不准取决于Schema质量'——此处即pattern精度不足。选项B错误，题干未提required缺失，且即使非required，模型也不应传入非法值；选项C与故障现象无关（'2024-7'是字段值非法，非多传字段）；选项D是辅助性描述，非schema执行层缺陷。",
+      "difficulty_label": "挑战"
+    },
+    {
+      "type": 0,
+      "stem": "在调试一个失败的报销查询Agent时，发现工具执行代码已正确解析model输出的tool_calls，但调用内部服务后返回'Invalid month format'。经检查，JSON-Schema中month字段定义为{'type': 'string', 'pattern': '^\\\\d{4}-\\\\d{2}$'}，而模型传入的参数是'2024-07'。此时最应优先排查的环节是？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "工具服务端的输入校验逻辑是否过度严格，与Schema定义不一致"
+        },
+        {
+          "option_label": "B",
+          "option_text": "模型是否因上下文噪声误解了月份格式要求"
+        },
+        {
+          "option_label": "C",
+          "option_text": "应用代码在执行前是否对参数进行了二次清洗或转换"
+        },
+        {
+          "option_label": "D",
+          "option_text": "JSON-Schema的pattern是否被API服务商忽略，未生效于参数提取"
+        }
+      ],
+      "answer": "A",
+      "analysis": "依据4.3节'完整流程'：Schema用于模型参数提取，而工具服务端校验是独立环节。题干确认模型传入'2024-07'（符合pattern），工具执行代码解析正确，但服务端报错，说明问题在**工具服务自身**——其校验逻辑（如正则/类型转换）与Schema定义的约束不一致。教材4.3强调'参数提取准不准取决于Schema质量'，但此处提取正确，故障发生在执行层，故A是根因。选项D错误，pattern作用于模型侧提取，不影响服务端；选项B/C与题干'参数已正确解析且值合规'矛盾。",
+      "difficulty_label": "进阶"
+    }
+  ]
+}

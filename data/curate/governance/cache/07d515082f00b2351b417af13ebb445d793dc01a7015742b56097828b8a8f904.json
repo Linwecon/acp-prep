@@ -1,0 +1,74 @@
+{
+  "new-1-30-0": {
+    "qid": "new-1-30-0",
+    "classification": "own",
+    "chapter": 1,
+    "quality": "ok",
+    "reason": "考查分词器与词表差异，属于本章Token知识点，题干条件清晰，有考查价值。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "同一段文字在**不同模型上 Token 数可能不同**，因为词表不同。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "题干明确未超窗，与窗口大小无关。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "不同模型词表独立，BPE分词策略导致同一文本Token数不同。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "教材未提及token压缩优化，属臆测。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "教材未提及Unicode预处理导致重复编码。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-1-30-3": {
+    "qid": "new-1-30-3",
+    "classification": "own",
+    "chapter": 1,
+    "quality": "ok",
+    "reason": "考查temperature对输出稳定性的影响及LLM不擅计算的根本特性，题干条件清晰。",
+    "answer": [
+      "A",
+      "B",
+      "D"
+    ],
+    "supported": true,
+    "quote": "temperature（温度）对模型输出的原始分数（logits）做缩放后再 softmax。**T 越小** → 概率越集中在高概率 Token 上，输出越确定。**不擅精确计算**：自回归逐 Token 生成，缺乏真正的符号运算机制。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "现象直接体现LLM不擅精确计算的根本特性。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "temperature调高正确率下降，印证其只改变随机性。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "题干未涉及上下文不足，与幻觉无关。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "正确率差异源于自回归生成缺乏符号运算机制。"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

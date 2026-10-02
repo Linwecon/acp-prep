@@ -1,0 +1,73 @@
+{
+  "new-7-48-0": {
+    "qid": "new-7-48-0",
+    "classification": "own",
+    "chapter": 7,
+    "quality": "ok",
+    "reason": "考查RAGAS指标组合定位故障能力，符合本章核心考点",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "检索指标都好（Recall、Precision 高），但 Faithfulness / Correctness 低 → 问题在生成阶段；检索、生成都还行，但 Answer Relevancy 低 → 答案跑题或回避，查提示词与意图理解",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "Context Recall高，说明知识库已覆盖"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "检索指标高但Relevancy低，说明意图理解偏差召回错误上下文"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "Faithfulness高，说明生成未发散"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "提示词约束是手段，但病根在检索意图理解"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-7-48-3": {
+    "qid": "new-7-48-3",
+    "classification": "own",
+    "chapter": 7,
+    "quality": "ok",
+    "reason": "考查根据指标表现选择优化措施，符合定位问题原则",
+    "answer": [
+      "A",
+      "C"
+    ],
+    "supported": true,
+    "quote": "检索指标都好（Recall、Precision 高），但 Faithfulness / Correctness 低 → 问题在生成阶段；优化的总体顺序仍是：先检索（知识库/Embedding/切片/Rerank）→ 再生成（提示词/参数/模型）",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "检索指标高但Correctness低，应优先强化生成约束"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "Context Precision已高位，无需加Rerank"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "调整生成参数和指令，符合生成阶段优化"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "Context Recall已高位，无需扩充知识库"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

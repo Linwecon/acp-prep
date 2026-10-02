@@ -1,0 +1,107 @@
+{
+  "new-6-48-0": {
+    "qid": "new-6-48-0",
+    "classification": "own",
+    "chapter": 6,
+    "quality": "ok",
+    "reason": "典型部署选型场景题，综合考查数据合规、性能要求、运维能力和企业级功能需求。",
+    "answer": [
+      "D"
+    ],
+    "supported": true,
+    "quote": "数据能否出域？不能（敏感/合规）→排除百炼等公有MaaS；企业私有知识问答，数据严禁出域、流量稳定→ECS+vLLM或PAI-EAS；私有微调模型上线，需弹性伸缩与灰度发布→PAI-EAS",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "百炼MaaS数据需出域，不符合严禁出域要求。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "FC有冷启动和时长限制，不适合稳定高吞吐的实时在线服务。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "ECS自建需较强运维能力，题干提到无专职SRE，非最优。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "PAI-EAS支持数据不出域、模型预热、蓝绿发布，匹配企业级实时服务需求。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-6-48-2": {
+    "qid": "new-6-48-2",
+    "classification": "own",
+    "chapter": 6,
+    "quality": "ok",
+    "reason": "考查KV Cache成为显存瓶颈时的优化策略有效性判断。",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "KV Cache随序列长度×并发数线性增长；权重只占一份，与并发无关；量化主要省显存（权重体积成倍下降）",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "当前瓶颈是KV Cache（占82%），量化权重对提升并发效果最有限。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "KV Cache量化可直接减少其显存占用，可能有效。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "限制输出长度可减少Decode步数和KV Cache增长，可能有效。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "PagedAttention是vLLM核心，旨在提高KV Cache管理效率，应已启用。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-6-48-4": {
+    "qid": "new-6-48-4",
+    "classification": "own",
+    "chapter": 6,
+    "quality": "ok",
+    "reason": "考查根据性能指标（TPOT高、GPU利用率低、显存占用高）定位推理瓶颈的能力。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "Decode（解码阶段）是显存带宽密集型，决定了TPOT；长上下文、高并发下KV Cache往往成为显存大头",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "驱动问题通常导致服务异常，与当前指标特征关联度低。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "TPOT高、GPU利用率低、显存占用高，符合KV Cache导致的显存带宽瓶颈特征。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "Prefill影响TTFT，而题干问题是TPOT高。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "流式响应影响用户体验，不改变模型生成速度（TPOT）。"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

@@ -1,0 +1,73 @@
+{
+  "new-11-48-0": {
+    "qid": "new-11-48-0",
+    "classification": "own",
+    "chapter": 11,
+    "quality": "ok",
+    "reason": "考查视频理解受上下文窗口限制的核心约束",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "视频要抽大量帧，token 消耗随帧数线性增长，长视频必须抽帧/截断/分段；不能假设模型'能读任意长度视频'，超出上下文窗口的内容会被丢弃。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "流式ASR影响延迟，非遗漏关键帧根本原因"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "上下文窗口有限，超长视频信息被丢弃"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "TTS合成不影响理解阶段的语义定位"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "OCR字幕识别非视频理解核心约束"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-11-48-3": {
+    "qid": "new-11-48-3",
+    "classification": "own",
+    "chapter": 11,
+    "quality": "ok",
+    "reason": "考查语音助手链路工程实践，符合章节最佳实践",
+    "answer": [
+      "A",
+      "C"
+    ],
+    "supported": true,
+    "quote": "语音链路对延迟敏感，实时通话要做流式 ASR/TTS 与首包优化；TTS 语音合成（文字→语音，CosyVoice）音色、语速、情绪一致性；可做个性化音色",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "流式ASR降低延迟，符合实时交互要求"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "意图不清时应澄清反问，避免错误"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "SSML控制发音细节，属TTS个性化实践"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "存储全部语音文件不符合隐私与存储约束"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

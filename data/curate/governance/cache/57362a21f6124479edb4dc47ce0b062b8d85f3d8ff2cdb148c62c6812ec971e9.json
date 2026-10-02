@@ -1,0 +1,110 @@
+{
+  "new-7-48-3": {
+    "qid": "new-7-48-3",
+    "classification": "own",
+    "chapter": 7,
+    "quality": "ok",
+    "reason": "考点为Agent白盒评测三法，原文明确支持A/C/B选项判断依据。",
+    "answer": [
+      "A",
+      "C"
+    ],
+    "supported": true,
+    "quote": "确定性检查（规则/断言）用代码规则直接判断；Rubric评分量表把模糊目标拆成多条可检查细则；LLM-as-Judge引导另一个大模型按指标打分",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "符合确定性检查定义"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "OCR比对非白盒评测"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "Rubric锚点精准覆盖"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "LLM-as-Judge非白盒"
+      }
+    ],
+    "duplicate_of": "7-5059"
+  },
+  "new-7-48-4": {
+    "qid": "new-7-48-4",
+    "classification": "own",
+    "chapter": 7,
+    "quality": "ok",
+    "reason": "考点为公开基准局限性，原文明确指出其仅适用于选型初筛。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "❌ '基准分高 = 业务表现好' → 基准只反映通用能力，和你的业务题型、语言分布、领域知识可能完全不同；✅ 正确定位：公开基准仅用于选型初筛",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "未提数据污染"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "直指通用与业务不一致"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "未提C-Eval优先"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "未提ground_truth必要性"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-7-48-5": {
+    "qid": "new-7-48-5",
+    "classification": "own",
+    "chapter": 7,
+    "quality": "ok",
+    "reason": "考点为EDD中防止回归与定位问题的双重实践，原文明确支持A/B/D。",
+    "answer": [
+      "A",
+      "B",
+      "D"
+    ],
+    "supported": true,
+    "quote": "防止回归：每次改动后跑同一套题，确保'修好A、没弄坏B'；定位问题：结合Context Recall与Faithfulness判断病根在检索端或生成端；按题型细分分析各指标变化",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "满足防止回归+定位"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "满足定位问题黄金法则"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "样本量不足无法回归"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "满足防止回归机制"
+      }
+    ],
+    "duplicate_of": "7-5058"
+  }
+}

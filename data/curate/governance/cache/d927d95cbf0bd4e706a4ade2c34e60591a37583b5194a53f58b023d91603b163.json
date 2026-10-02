@@ -1,0 +1,239 @@
+{
+  "3-1340": {
+    "qid": "3-1340",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "六选项均在原文有依据，覆盖RAG全链路影响因素",
+    "answer": [
+      "A",
+      "B",
+      "D",
+      "F"
+    ],
+    "supported": true,
+    "quote": "检索质量三要素：Embedding 质量、切片策略、文档结构",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "查询表达影响改写与向量化效果"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "切片策略是检索质量三要素之一"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "预训练模型属生成端，非RAG性能主因"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "向量数据库类型影响检索速度与精度"
+      },
+      {
+        "label": "E",
+        "selected": false,
+        "why": "硬件限制未在原文RAG性能因素中提及"
+      },
+      {
+        "label": "F",
+        "selected": true,
+        "why": "文档质量数量直接影响检索效果"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-1399": {
+    "qid": "3-1399",
+    "classification": "misplaced",
+    "chapter": 3,
+    "quality": "remove",
+    "reason": "原文未提Compare_embedding_models函数",
+    "answer": [],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "原文无该函数定义"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "原文无该函数定义"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "原文无该函数定义"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "原文无该函数定义"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-1441": {
+    "qid": "3-1441",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "ABEF在原文解析章节有明确依据",
+    "answer": [
+      "A",
+      "B",
+      "E",
+      "F"
+    ],
+    "supported": true,
+    "quote": "文档解析（Document Parsing）是把 PDF、Word、Markdown、网页等格式的文档，加载并转换为大模型可读文本的过程。它看似简单，却是 RAG 质量的\"地基\"",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "原文称解析是RAG质量的地基"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "不同格式导致解析差异在原文提及"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "原文明确PDF扫描件需OCR更难"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "原文强调结构化对业务问答关键"
+      },
+      {
+        "label": "E",
+        "selected": true,
+        "why": "原文称解析是RAG质量的地基"
+      },
+      {
+        "label": "F",
+        "selected": true,
+        "why": "原文指出在线文档需OCR处理"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-1445": {
+    "qid": "3-1445",
+    "classification": "beyond",
+    "chapter": 3,
+    "quality": "remove",
+    "reason": "多模态视频音频整合属第11章内容",
+    "answer": [],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "属第11章多模态内容"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "属第11章多模态内容"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "属第11章多模态内容"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "属第11章多模态内容"
+      },
+      {
+        "label": "E",
+        "selected": false,
+        "why": "属第11章多模态内容"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-1453": {
+    "qid": "3-1453",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "B项在Embedding小节明确提及",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "阿里云百炼提供 `text-embedding-v3` 等 Embedding 模型，可同时用于建库与查询",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "原文未提成本降低"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "原文称v3用于建库与查询提升效果"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "原文未提格式支持扩展"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "原文未提图片处理能力"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-1454": {
+    "qid": "3-1454",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "A项与HyDE定义完全一致",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "HyDE（假设文档嵌入）：先让 LLM 编一段\"假想答案\"，用假想答案的向量去检索真实文档",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "与原文HyDE定义完全一致"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "原文明确HyDE需先生成假想答案"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "原文未提标签过滤"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "原文将滑动窗口归为句子窗口技术"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

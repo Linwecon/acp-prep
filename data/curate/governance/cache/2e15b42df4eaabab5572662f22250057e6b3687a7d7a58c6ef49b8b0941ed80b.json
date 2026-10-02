@@ -1,0 +1,215 @@
+{
+  "1-0940": {
+    "qid": "1-0940",
+    "classification": "beyond",
+    "chapter": 1,
+    "quality": "remove",
+    "reason": "题干涉及跨语言应用的文化适配性、本地化、法律法规等，属于国际化工程实践或合规领域，原文第1章未覆盖文化适配、本地化示例、禁忌、法规符合性等内容；所有选项均无原文支持。",
+    "answer": [],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "原文未提及本地化示例、比喻使用等文化适配手段。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "原文未涉及文化敏感性或禁忌避免相关内容。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "法律法规符合性属于AI安全与合规（第8章）或企业治理范畴，第1章未覆盖。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "原文明确反对‘仅确保语言准确翻译’的片面做法（如1.2节强调幻觉/知识截止/计算缺陷三边界，1.12误区表指出‘大模型是概率性文本生成器，不是数据库’），但本题问‘哪些考虑重要’，D为反向干扰项，且无原文依据其错误性在此语境下被定义。"
+      },
+      {
+        "label": "E",
+        "selected": false,
+        "why": "统一全球内容策略与第1章核心无关，原文未讨论内容策略层级问题。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "1-1002": {
+    "qid": "1-1002",
+    "classification": "own",
+    "chapter": 1,
+    "quality": "ok",
+    "reason": "题干考查减少输出等待时间的方法，对应第1章中上下文窗口、推理延迟、模型选型、缓存等知识点。A、C、D均可在原文找到直接或强推导依据；B与原文相悖。",
+    "answer": [
+      "A",
+      "C",
+      "D"
+    ],
+    "supported": true,
+    "quote": "上下文缓存：对重复前缀（如固定的 system prompt）复用计算结果，降延迟、降成本。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "原文1.6节明确提到‘上下文缓存’可‘降延迟、降成本’，直接支持减少等待时间。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "原文1.10节指出‘大参数模型’具有‘推理延迟高’特性，增大参数会增加而非减少等待时间。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "原文1.6节‘长文本应用要把内容塞进窗口’提及‘摘要压缩’，1.11节‘选型口诀’隐含预计算思想；提前生成复用属工程优化，符合‘降低TTFT/TPOT’逻辑，且不违背原文原则。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "原文1.6节强调‘上下文窗口是输入输出共用预算’，减少输入Token可释放更多输出空间并缩短prefill阶段耗时，直接降低首字延迟（TTFT）。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "1-1070": {
+    "qid": "1-1070",
+    "classification": "own",
+    "chapter": 1,
+    "quality": "ok",
+    "reason": "题干明确考查‘让模型每次都尽最大可能返回相同结果’的参数，原文1.7.3节专述seed作用，且明确使用‘尽最大努力’‘尽力复现’表述，完全匹配题干语义。",
+    "answer": [
+      "D"
+    ],
+    "supported": true,
+    "quote": "seed：在每次调用时传入相同 seed 且其他参数不变，模型会尽最大努力返回相同结果；",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "stream控制输出传输方式，不影响结果一致性（1.9节明确‘只改体验，不改质量’）。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "max_token限制生成长度，与结果复现性无关。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "api_key是认证凭证，不影响模型输出确定性。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "原文1.7.3节明确定义seed为‘尽力复现’机制，且题干‘尽最大可能’与原文‘尽最大努力’严格对应。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "1-1194": {
+    "qid": "1-1194",
+    "classification": "beyond",
+    "chapter": 1,
+    "quality": "remove",
+    "reason": "题干考查Python列表遍历与元组解包语法，属于编程基础能力，非大模型原理或应用开发考点；原文第1章未涉及任何代码语法、feedback list结构或classify_intent函数定义。",
+    "answer": [],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "feedback_list元素为元组(1,'问题1')，query直接传入classify_intent会传入整个元组，而意图分类应基于字符串，语法错误且无原文依据。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "query[1]正确提取字符串，但选项缺少冒号和缩进，Python语法错误；且原文未定义classify_intent接口。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "item[0]是ID而非问题文本，classify_intent(item[0])将ID作为输入，逻辑错误；原文未涉及此函数。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "feedback_list[i]仍为元组，未解包，classify_intent接收元组而非字符串，逻辑错误；原文未覆盖Python语法。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "1-1326": {
+    "qid": "1-1326",
+    "classification": "beyond",
+    "chapter": 1,
+    "quality": "remove",
+    "reason": "ms-swift是第三方微调框架，原文第1章未提及任何框架名称、支持模型数量、功能模块或开源属性；该题属于第5章（模型微调）或第12章（框架与工具）范畴，且原文目录中无ms-swift相关知识条目。",
+    "answer": [],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "原文第1章未列出任何框架支持模型数量，且‘350+ LLM’属ms-swift宣传口径，非本章知识。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "原文未限定ms-swift适用任务类型，且该说法与事实不符（ms-swift支持多任务），但本章无依据判断。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "评测和部署功能属于第5章微调或第6章部署范畴，第1章未覆盖。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "开源与扩展性属工程属性，原文第1章未描述任何框架的许可证或架构特征。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "1-1469": {
+    "qid": "1-1469",
+    "classification": "cross",
+    "chapter": 1,
+    "quality": "review",
+    "reason": "题干要求识别‘需组合实现’的任务类型，涉及信息抽取、分类、摘要等NLP子任务，原文第1章虽未直接定义NER/分类/摘要术语，但在1.2节‘能力边界’表格、1.12误区表及1.11选型中隐含任务类型适配思想（如‘结构化抽取’‘事实问答’），但具体任务类型命名（如NER）未出现；需确认是否属于第7章（评估）或第12章（框架）交叉考点，因原文未明确定义这些术语，故标记review。",
+    "answer": [
+      "A",
+      "B",
+      "D"
+    ],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "‘提取联系方式’属于结构化信息抽取，原文1.2节‘能力边界’表格中‘知识问答、总结改写、一定的推理分析’及1.7.4调参建议中‘结构化抽取’均指向此类任务，且‘联系方式’是典型实体，虽未用NER术语，但任务本质一致。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "‘判断问题类型、客户满意度’属于文本分类，原文1.2节‘擅长’列表含‘知识问答’，1.12误区表提及‘简单任务用小模型’，隐含任务类型适配逻辑，且分类是基础NLP任务，与大模型能力边界直接相关。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "‘生成统计报表’是结构化输出或聚合任务，非传统文本摘要（summary of content）；原文1.2节未提‘摘要’用于报表生成，1.7.4仅提‘结构化抽取’，且‘统计报表’需数值聚合，超出第1章覆盖范围。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "‘提取问题类型、满意度标签’属于信息抽取，原文1.7.4明确将‘结构化抽取’列为典型任务，且1.2节‘擅长’列表包含‘知识问答’，抽取是问答前置步骤，逻辑连贯。"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

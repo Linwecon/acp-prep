@@ -1,0 +1,73 @@
+{
+  "new-6-66-0": {
+    "qid": "new-6-66-0",
+    "classification": "own",
+    "chapter": 6,
+    "quality": "ok",
+    "reason": "综合考查部署选型决策，涉及数据出域、延迟、运维、灰度发布等关键约束。",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "PAI-EAS（Elastic Algorithm Service）是阿里云PAI平台的模型在线服务，可把开源社区模型或自训练/微调模型部署为在线服务，提供弹性扩缩容、蓝绿/灰度发布、资源组管理、版本控制、资源监控等企业级能力。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "百炼MaaS数据会出域，违反约束①。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "FC有冷启动延迟，难以稳定保证TTFT<800ms。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "PAI-EAS支持私有模型、弹性、灰度发布，且免运维，符合全部约束。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "ECS自建需额外运维人力，违反约束。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-6-66-2": {
+    "qid": "new-6-66-2",
+    "classification": "own",
+    "chapter": 6,
+    "quality": "ok",
+    "reason": "考查KV Cache显存优化措施，选项均基于教材原理。",
+    "answer": [
+      "B",
+      "C"
+    ],
+    "supported": true,
+    "quote": "量化（INT8/INT4、GPTQ/AWQ）各自解决什么问题、代价是什么；上下文缓存/前缀复用：相同前缀（系统提示词、知识库）的KV结果复用。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "vLLM默认开启PagedAttention，非优化措施。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "量化权重可减少显存占用，为KV Cache腾出空间。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "前缀缓存复用相同KV块，可减少KV Cache占用。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "关闭连续批处理会降低GPU利用率，可能劣化性能。"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

@@ -1,0 +1,212 @@
+{
+  "3-0269": {
+    "qid": "3-0269",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "题干问检索生成阶段，原文明确分两阶段，该阶段含检索与生成",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "第二阶段：在线问答（Retrieval & Generation，每次请求都执行）",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "原文定义该阶段为Retrieval & Generation"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "属离线建库阶段"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "属离线建库阶段"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "解析属建库，检索属问答"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-0272": {
+    "qid": "3-0272",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "题干问精确控制Token数量的切片法，原文明确Token切片按固定token数切",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "Token 切片：按固定 token 数切（如每 100 token、重叠 20）",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "原文明确定义"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "按句子聚合"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "以句子为单位建索引"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "用模型判断语义边界"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-0278": {
+    "qid": "3-0278",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "题干问Markdown文档优化切片法，原文明确Markdown切片按标题层级切",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "Markdown 切片：按标题层级（`#`/`##`/`###`）切",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "原文明确定义"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "按token数切"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "按句子聚合"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "用模型判断语义边界"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-0279": {
+    "qid": "3-0279",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "题干问建立索引阶段步骤，原文全景图明确列出四步",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "1.文档收集 2.文档解析 3.文本切片 4.向量化 Embedding 5.写入向量库",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "原文建库四步完全匹配"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "检索生成属问答阶段"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "缺解析，混入问答步骤"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "缺向量化，混入问答步骤"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-0282": {
+    "qid": "3-0282",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "题干问完善监控管理的向量存储，原文提云服务用于生产环境",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "生产环境可选用云服务（如阿里云 DashVector）或自建开源库",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "云服务提供监控管理"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "内存库仅用于开发测试"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "本地库需自行运维"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "非向量存储方案"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-0285": {
+    "qid": "3-0285",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "题干问建立索引目的，原文定义为把知识整理好放进书架",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "建库是'把知识整理好放进书架'，问答是'每次现查现用'",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "原文比喻精准对应"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "RAG不改变训练数据"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "不直接提升推理速度"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "不改变模型参数"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

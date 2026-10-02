@@ -1,0 +1,129 @@
+{
+  "items": [
+    {
+      "type": 0,
+      "stem": "某教育公司调试新人答疑机器人时发现：输入相同system prompt和user query（'我们公司项目管理应该用什么工具？'），在Qwen-Max上tokenize后为42个Token，而在本地部署的Qwen2.5-7B上tokenize后为51个Token。两次调用均未超窗、参数一致、输出内容语义相同。该现象最根本的技术原因是什么？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "Qwen-Max使用RoPE位置编码，Qwen2.5-7B使用绝对位置编码，导致分词器对空格和标点处理不同"
+        },
+        {
+          "option_label": "B",
+          "option_text": "不同模型采用独立训练的分词器，词表构建差异导致同一文本切分出的子词片段数量不同"
+        },
+        {
+          "option_label": "C",
+          "option_text": "Qwen-Max启用了动态上下文压缩，自动合并相邻高频Token，而Qwen2.5-7B未启用该优化"
+        },
+        {
+          "option_label": "D",
+          "option_text": "API网关对Qwen-Max请求做了预处理Token归一化，将中文标点统一映射为单Token，而本地模型无此逻辑"
+        }
+      ],
+      "answer": "B",
+      "analysis": "依据原文1.5节《Token与分词》核心论述：'Token是模型处理文本的最小单位'；'同一段文字在不同模型上Token数可能不同，因为词表不同'；'分词器按词表把文本切成Token，常见词/常见字常是1个Token，生僻词可能被拆成多个子词'；并明确指出'发送长文本前可用对应模型的tokenizer先统计长度'。选项B直接对应原文'词表不同→Token数不同'这一本质原理。A错误：位置编码影响的是Embedding阶段，不改变分词结果；C错误：原文未提及'动态Token合并'机制，且该操作会破坏自回归生成逻辑；D错误：原文强调分词是模型本地行为（'可用对应模型的tokenizer先统计'），网关预处理违背Token作为'最小处理单位'的定义，且教材从未提及其存在。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 0,
+      "stem": "开发团队为RAG系统配置检索增强时，将15段技术文档（共8600 Token）全部拼入messages，但模型开始频繁产生与文档矛盾的事实性错误，且响应延迟激增。经检查，模型上下文窗口为32K，输入+输出预算充足。最应优先排查的Token相关约束条件是什么？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "检索到的文档片段中包含大量重复术语，导致自注意力计算时出现'注意力稀释'，削弱关键信息权重"
+        },
+        {
+          "option_label": "B",
+          "option_text": "过长的无关上下文触发'Lost in the Middle'现象，中间关键段落Token在注意力权重中被边缘化"
+        },
+        {
+          "option_label": "C",
+          "option_text": "所有文档片段未经去重和摘要压缩，实际Token消耗远超8600（如含冗余HTML标签、换行符等隐式Token）"
+        },
+        {
+          "option_label": "D",
+          "option_text": "分词器将技术文档中的英文缩写（如API、SDK）拆分为多Token，使有效信息密度低于预期"
+        }
+      ],
+      "answer": "C",
+      "analysis": "依据原文1.5节'高频误区'：'❌ 上下文/计费按字数算 → 全部按Token计'；1.6节'上下文窗口'强调'它是输入（system/user消息、历史对话、检索资料）与输出共用的Token预算'；以及1.12节风险汇总：'计费/窗口按\"字数\"算 → 一律按Token算'。题干明确'输入+输出预算充足'，说明窗口未超限，但错误仍发生——此时必须回归Token本质：实际Token数≠人工估算数。选项C直指原文1.5节隐含前提：'空格、标点也可能占用Token'，且技术文档常含不可见字符（如\\n、\\t、HTML实体），这些在人工计数时易被忽略，却真实消耗Token预算并污染上下文。A、B虽合理，但属于注意力机制层面问题，非'Token最小单位'这一知识点的直接考查；D是子词切分现象，但不会导致'频繁矛盾错误'，仅影响表达粒度。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 1,
+      "stem": "某团队在调试流式输出的答疑机器人时观察到：用户提问'Jira账号如何申请？'，前端逐字显示为'请参'→'考公'→'司IT'→'门户'→'注册'。该现象涉及Token处理的哪些必要条件？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "分词器将'公司'切分为'公'+'司'两个独立Token"
+        },
+        {
+          "option_label": "B",
+          "option_text": "模型输出阶段执行了实时解码（Detokenization），将Token ID序列还原为字符串"
+        },
+        {
+          "option_label": "C",
+          "option_text": "流式传输中服务端每生成1个Token即解码推送，而非等待完整句子"
+        },
+        {
+          "option_label": "D",
+          "option_text": "中文Token化采用BPE算法，导致常见双字词被拆解为单字Token"
+        }
+      ],
+      "answer": "ABCD",
+      "analysis": "依据原文1.3节第四阶段'解码与自回归'：'Logits经softmax变成概率分布，再按策略选出一个Token，把它追加到输入末尾...循环直到EOS'；第五阶段'输出文本（Detokenization）'：'把生成的Token ID序列还原成人可读的字符串。若开启流式输出，服务端每生成若干Token就立刻解码并推送'；1.5节'Token与分词'：'主流模型使用BPE等子词算法...常见词/常见字常是1个Token，生僻词可能被拆成多个子词'，并举例'一个中文字≈1–2个Token'；1.9节'流式输出'：'服务端每生成若干Token就解码并增量发送'。选项A、D共同解释'公司'被拆为'公''司'（BPE子词切分特性）；B是Detokenization的明确定义；C是流式输出的核心机制（'每生成若干Token就解码推送'）。四者缺一不可：若非BPE切分（A/D），则不会出现单字蹦出；若无实时解码（B），则无法显示；若非流式逐Token推送（C），则不会分段显示。所有选项均有原文直接支撑。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 0,
+      "stem": "当用户向答疑机器人提交含1200个汉字的长篇问题（如员工手册条款咨询）时，系统报错'context length exceeded'。开发者确认messages中仅含当前user消息，无历史对话或system prompt。最可能的根本故障原因是？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "模型将1200个汉字全部视为1200个Token，超出8K窗口限制"
+        },
+        {
+          "option_label": "B",
+          "option_text": "分词器对中文标点（如《》、【】）和全角空格进行了额外Token化，使实际Token数远超汉字数"
+        },
+        {
+          "option_label": "C",
+          "option_text": "用户输入中混入了不可见Unicode控制字符（如U+200B零宽空格），被分词器识别为独立Token"
+        },
+        {
+          "option_label": "D",
+          "option_text": "模型推理时自动将user消息复制一份作为assistant回复的占位Token，导致输入Token翻倍"
+        }
+      ],
+      "answer": "B",
+      "analysis": "依据原文1.5节'中英Token换算'：'一个中文字≈1–2个Token'；'高频误区：❌ 1个汉字=1个Token → 只是粗略近似，实际可能更多'；并明确'空格、标点也可能占用Token'。题干中'1200个汉字'是人工计数，但错误源于Token计数逻辑。选项B精准对应原文'标点占用Token'及'汉字≠1Token'的警示。A错误：原文明确'≈1–2个Token'，1200汉字理论最大约2400Token，远低于8K，不可能直接超窗；C虽技术上可能，但原文未提及Unicode控制字符，属过度引申，且'不可见字符'非教材强调的典型Token风险；D完全虚构，原文1.3节明确'自回归是选Token→追加→再预测'，无'自动复制占位'机制。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 0,
+      "stem": "在验证Token作为最小处理单位时，工程师对比两组实验：① 输入'ACP'（3字母）；② 输入'ACP '（3字母+1空格）。发现二者Token数不同，且模型对②的回答在末尾多出一个无关句。该现象最能印证原文中关于Token的哪一核心论断？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "Token是模型处理文本的最小单位，空格等符号同样参与建模和生成"
+        },
+        {
+          "option_label": "B",
+          "option_text": "分词器使用BPE算法，导致连续字符比带空格的相同字符序列更易被合并为单Token"
+        },
+        {
+          "option_label": "C",
+          "option_text": "上下文窗口限制的是Token总数，而非字符数，因此空格计入预算"
+        },
+        {
+          "option_label": "D",
+          "option_text": "模型的自回归生成依赖于完整Token序列，任意Token缺失都会导致后续预测偏移"
+        }
+      ],
+      "answer": "A",
+      "analysis": "题干核心是'ACP'与'ACP '（带空格）Token数不同且输出异常，证明空格作为独立Token参与了整个处理流程。原文1.5节开宗明义：'Token是模型处理文本的最小单位'；并专门强调'空格、标点也可能占用Token'；1.3节五阶段流程中，第一阶段'文本分词'即把'文本切成一个个Token'，第二阶段'Token向量化'将每个Token映射为向量，第三阶段'推理'基于这些向量计算。选项A直接复述原文定义，并点明'空格等符号同样参与建模和生成'，完美覆盖题干现象。B错误：BPE确实会合并高频片段，但'ACP'本身极短，是否合并与空格无关，且原文未将BPE与空格处理做因果关联；C是事实但非'核心论断'，它描述约束而非处理本质；D是自回归特性，但题干未体现'缺失'，而是'多出空格Token'导致的偏移，根源在Token定义本身。",
+      "difficulty_label": "进阶"
+    }
+  ]
+}

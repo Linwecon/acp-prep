@@ -1,0 +1,212 @@
+{
+  "3-0241": {
+    "qid": "3-0241",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "Context Precision低需提升检索相关性排序",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "Context Precision 低 → 加 Rerank 提升相关片段排名",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "Rerank可精排提升相关片段排名"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "训练数据属微调范畴，不改RAG检索"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "推理时间与指标无直接因果"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "参数数量影响模型能力，非RAG优化点"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-0243": {
+    "qid": "3-0243",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "句子窗口切片兼顾精准命中与上下文完整",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "句子窗口检索：建索引时以单个句子为可检索单元，同时存下前后各N句组成的窗口",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "以句子为单元再扩窗保上下文"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "Token切片不保证语义完整"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "句子切片无自动扩窗机制"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "语义切片成本高且未提上下文保障"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-0246": {
+    "qid": "3-0246",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "similarity_top_k直接控制召回切片数量",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "Top K：每次检索返回的最相关 chunk 数量；K 调大 → 召回率↑",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "top_k参数定义即召回数量"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "训练数据属微调阶段"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "推理时间非top_k调控目标"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "参数数量与检索配置无关"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-0247": {
+    "qid": "3-0247",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "Context Recall低需确保知识库覆盖测试样本",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "Context Recall 低：有遗漏，查知识库/Embedding/改写",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "对比可发现知识库缺失项"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "训练数据无法补充私域知识"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "推理时间不影响知识完备性"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "参数数量不解决知识覆盖问题"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-0248": {
+    "qid": "3-0248",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "小规模应用适用内存向量存储",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "开发测试可用 LlamaIndex 内置的内存向量库；生产环境可选用云服务",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "本地数据库需部署维护"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "内存库适合开发测试小规模"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "云服务面向生产环境"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "训练数据与存储方案无关"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-0249": {
+    "qid": "3-0249",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "文档解析后立即进行文本切片",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "第一阶段：离线建库（Indexing）：1.文档解析 2.文档解析 3.文本切片 4.向量化",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "切片是离线建库第二步"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "向量存储在切片之后"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "检索召回属在线阶段"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "生成答案属在线最后环节"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

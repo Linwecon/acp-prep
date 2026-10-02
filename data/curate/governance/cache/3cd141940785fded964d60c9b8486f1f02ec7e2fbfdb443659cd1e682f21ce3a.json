@@ -1,0 +1,121 @@
+{
+  "1-0632": {
+    "qid": "1-0632",
+    "classification": "unsure",
+    "chapter": 1,
+    "quality": "remove",
+    "reason": "题目考查的abstract_generator函数未在教材中定义，无法判断其实现细节和输出格式。",
+    "answer": [],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "教材未定义此函数，无法判断其实现。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "教材未定义此函数，无法判断其输入。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "教材未定义此函数，无法判断其输出格式。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "教材未提及TextRank算法。"
+      },
+      {
+        "label": "E",
+        "selected": false,
+        "why": "教材未定义此函数，无法判断其要求。"
+      }
+    ],
+    "duplicate_of": "1-1379"
+  },
+  "1-1379": {
+    "qid": "1-1379",
+    "classification": "unsure",
+    "chapter": 1,
+    "quality": "remove",
+    "reason": "题目考查的abstract_generator函数未在教材中定义，无法判断其实现细节和输出格式。",
+    "answer": [],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "教材未提及TextRank算法。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "教材未定义此函数，无法判断其实现。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "教材未定义此函数，无法判断其输入。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "教材未定义此函数，无法判断其输出格式。"
+      },
+      {
+        "label": "E",
+        "selected": false,
+        "why": "教材未定义此函数，无法判断其要求。"
+      }
+    ],
+    "duplicate_of": "1-0632"
+  },
+  "1-1393": {
+    "qid": "1-1393",
+    "classification": "cross",
+    "chapter": -1,
+    "quality": "remove",
+    "reason": "题目考查敏感词检测的代码实现，属于通用编程或安全过滤，与第1章大模型基础核心考点无关。",
+    "answer": [],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "代码逻辑错误，检查整个文本是否等于敏感词。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "仅按空格分词，不处理标点或子串。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "检查子串且忽略大小写，但教材无依据。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "检查子串，但教材无依据。"
+      },
+      {
+        "label": "E",
+        "selected": false,
+        "why": "使用nltk分词，但教材无依据。"
+      },
+      {
+        "label": "F",
+        "selected": false,
+        "why": "使用正则匹配，但教材无依据。"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

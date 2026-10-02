@@ -1,0 +1,70 @@
+{
+  "new-10-36-0": {
+    "qid": "new-10-36-0",
+    "classification": "own",
+    "chapter": 10,
+    "quality": "ok",
+    "reason": "综合考查平台选型逻辑，结合数据不出域、深度推理、无运维等约束，选项C符合PAI开源模型微调部署路径。",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "开源模型的价值集中在三点：① 数据隐私与合规（数据不出域）；② 可深度定制（任意微调/改结构）；③ 大规模稳定流量下的长期成本可控。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "百炼在线问答数据需上送，不符合数据不出内网要求。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "DashScope API调用数据需上送，不符合数据不出内网要求。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "开源模型下载、PAI微调部署满足数据不出域和深度定制需求。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "DashScope API调用数据需上送，不符合数据不出内网要求。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-10-36-4": {
+    "qid": "new-10-36-4",
+    "classification": "own",
+    "chapter": 10,
+    "quality": "fixable",
+    "reason": "题干要求模型通过FDA认证，但原文未提及任何模型通过FDA认证，无法依据原文确定答案。",
+    "answer": [],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "原文未提及qwen-vl-plus通过FDA认证。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "原文未提及通义万相或qwen-plus通过FDA认证。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "原文未提及Qwen-VL通过FDA认证。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "原文未提及百炼平台或相关模型通过FDA认证。"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

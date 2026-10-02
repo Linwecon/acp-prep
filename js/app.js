@@ -31,7 +31,7 @@
         const landing = document.getElementById('landing');
         if (!landing || landing.classList.contains('hide')) return;
         landing.classList.add('hide');
-        ACP.go(mode === 'study' ? 'study' : 'dashboard');
+        ACP.go(mode === 'study' ? 'study' : (mode === 'tutorial' ? 'tutorial' : 'dashboard'));
         setTimeout(() => landing.remove(), 460);
     }
 
@@ -122,12 +122,26 @@
             quizDesc.innerHTML = `${ACP.TOTAL} 题章节练习 · 模拟考试<br>错题本 · 收藏夹`;
         }
 
-        // deep link: #study / #quiz / #exam (可带参数如 #study?ch=0) 跳过落地页
+        // 教程数量徽标
+        const tutBadge = document.getElementById('tutBadge');
+        if (tutBadge) {
+            if (window.NOTEBOOK_INDEX && window.NOTEBOOK_INDEX.count) {
+                tutBadge.textContent = window.NOTEBOOK_INDEX.count + '篇';
+            } else {
+                tutBadge.style.display = 'none';
+            }
+        }
+
+        // deep link: #study / #quiz / #exam / #tutorial (可带参数如 #study?ch=0) 跳过落地页
         const hash = location.hash;
-        if (hash.startsWith('#study') || hash.startsWith('#quiz') || hash.startsWith('#exam')) {
+        if (hash.startsWith('#study') || hash.startsWith('#quiz') || hash.startsWith('#exam')
+            || hash.startsWith('#tutorial')) {
             const landing = document.getElementById('landing');
             if (landing) landing.remove();
-            ACP.go(hash.startsWith('#study') ? 'study' : (hash.startsWith('#exam') ? 'exam' : 'dashboard'));
+            if (hash.startsWith('#study')) ACP.go('study');
+            else if (hash.startsWith('#exam')) ACP.go('exam');
+            else if (hash.startsWith('#tutorial')) ACP.go('tutorial');
+            else ACP.go('dashboard');
             return;
         }
 

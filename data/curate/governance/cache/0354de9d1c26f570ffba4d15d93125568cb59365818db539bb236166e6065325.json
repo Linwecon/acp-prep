@@ -1,0 +1,220 @@
+{
+  "3-1286": {
+    "qid": "3-1286",
+    "classification": "own",
+    "chapter": 12,
+    "quality": "fixable",
+    "reason": "选项A、B、D无代码依据，C正确；题干未提供代码，无法判断功能，需补充代码或删减选项。",
+    "answer": [
+      "C"
+    ],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "原文未提乱码清洗，代码缺失无法验证"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "标点转换逻辑未在题干代码中体现"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "SimpleDirectoryReader.load_data()标准功能"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "代码缺失，无法确认合并操作"
+      }
+    ],
+    "duplicate_of": "3-0638"
+  },
+  "3-0638": {
+    "qid": "3-0638",
+    "classification": "own",
+    "chapter": 12,
+    "quality": "ok",
+    "reason": "代码明确调用SimpleDirectoryReader.load_data()和Document合并，B标点替换无实际作用（src=dst），D乱码清洗无依据。",
+    "answer": [
+      "A",
+      "C"
+    ],
+    "supported": true,
+    "quote": "documents = SimpleDirectoryReader(path).load_data()",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "load_data()标准加载文档对象"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "replacements中src与dst相同，无转换效果"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "document = Document(text=...join...)执行合并"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "代码无乱码检测或清洗逻辑"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "4-0305": {
+    "qid": "4-0305",
+    "classification": "misplaced",
+    "chapter": 4,
+    "quality": "remove",
+    "reason": "ModelScope-Agent未在第12章提及，属第4章Agent范畴，且原文无此框架描述。",
+    "answer": [],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "第12章未提ModelScope-Agent预训练模型"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "第12章未提ModelScope-Agent角色描述搭建"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "第12章未提ModelScope-Agent接口设计"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "第12章未提ModelScope-Agent工具集"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "4-0310": {
+    "qid": "4-0310",
+    "classification": "misplaced",
+    "chapter": 4,
+    "quality": "remove",
+    "reason": "MetaGPT属第4章Agent实践案例，第12章未提及其软件开发文档套件功能。",
+    "answer": [
+      "C"
+    ],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "斯坦福小镇未在第12章出现"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "虚拟动物社区未在第12章出现"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "MetaGPT软件开发产出未在第12章描述"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "AutoGen聊天室未在第12章出现"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "4-0617": {
+    "qid": "4-0617",
+    "classification": "misplaced",
+    "chapter": 4,
+    "quality": "remove",
+    "reason": "Agentscope分布式能力在第12章有描述，但斯坦福小镇、MetaGPT、AutoGen均未在第12章提及，超纲。",
+    "answer": [
+      "B",
+      "D"
+    ],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "斯坦福小镇未在第12章出现"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "Agentscope分布式能力在12.6.1有描述"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "MetaGPT未在第12章出现"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "AutoGen未在第12章出现"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "4-1203": {
+    "qid": "4-1203",
+    "classification": "beyond",
+    "chapter": 12,
+    "quality": "remove",
+    "reason": "AgentModule基类设计属Python面向对象编程通用知识，第12章未涉及此类抽象设计原理。",
+    "answer": [],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "Python多继承支持，非必须基类"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "Python支持多继承"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "第12章未提query方法设计"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "私有属性非第12章考点"
+      },
+      {
+        "label": "E",
+        "selected": false,
+        "why": "第12章未提call方法统一调用"
+      },
+      {
+        "label": "F",
+        "selected": false,
+        "why": "第12章未提代理模块接口共享"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

@@ -1,0 +1,216 @@
+{
+  "new-10-6-0": {
+    "qid": "new-10-6-0",
+    "classification": "own",
+    "chapter": 10,
+    "quality": "ok",
+    "reason": "综合考查阿里云平台分层、数据不出域、微调、部署等核心知识点，符合本章定位。",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "开源模型的价值集中在三点：① 数据隐私与合规（数据不出域）；② 可深度定制（任意微调/改结构）；③ 大规模稳定流量下的长期成本可控。PAI 三件套对应模型生命周期的三个阶段：DSW 开发、DLC 训练、EAS 部署。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "符合数据本地处理、模型微调、高可用API的全部约束，链路完整。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "百炼知识库处理可能不满足‘本地VPC内处理’的强约束。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "DashScope API调用数据需上送云端，不满足本地处理要求。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "未涉及模型微调，且最终调用DashScope不满足数据本地化。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-10-6-1": {
+    "qid": "new-10-6-1",
+    "classification": "own",
+    "chapter": 10,
+    "quality": "ok",
+    "reason": "考查快速上线与工程扩展性的平台选型，涉及百炼与DashScope的适用场景。",
+    "answer": [
+      "A",
+      "D"
+    ],
+    "supported": true,
+    "quote": "百炼的价值在于把复杂的工程链路封装成可视化操作。百炼既能可视化搭，也能发布成API被代码调用。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "使用百炼可快速搭建并发布API，满足快速上线和后续集成需求。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "训练模型周期长，不满足3天内交付MVP的快速上线要求。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "虽可行，但未利用百炼的快速可视化搭建优势，上线可能较慢。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "先在百炼调试，再集成SDK，兼顾快速原型和工程扩展。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-10-6-2": {
+    "qid": "new-10-6-2",
+    "classification": "own",
+    "chapter": 10,
+    "quality": "ok",
+    "reason": "考查DashScope计费机制和成本控制手段，紧扣输出Token计费更贵的知识点。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "调用费用取决于消耗的Token量，输入/输出分别计价，输出通常更贵。用max_tokens给输出设上限，避免模型‘刹不住车’。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "降低单价但未解决输出Token量大的根本问题，控制力弱。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "强制限制max_tokens可直接减少输出Token，从源头控成本。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "缓存主要针对输入，对已超标的输出Token无效。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "前端限制非强制，且主要影响输入，对输出控制间接。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-10-6-3": {
+    "qid": "new-10-6-3",
+    "classification": "own",
+    "chapter": 10,
+    "quality": "ok",
+    "reason": "考查百炼平台的具体能力边界，如知识库解析、模型选型、Prompt调试和API集成。",
+    "answer": [
+      "A",
+      "C",
+      "D"
+    ],
+    "supported": true,
+    "quote": "百炼知识库（RAG）：内置文档解析、切片、向量化、检索，上传文档即可问答。Prompt调试：可视化调提示词、管理版本。百炼既能可视化搭，也能发布成API被代码调用。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "原文明确百炼知识库内置文档解析等能力，无需开发。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "‘必须选用qwen-max’过于绝对，模型选型需权衡。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "Prompt调试支持管理版本，符合保存和切换的描述。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "与外部系统集成需通过API，控制台操作无法直接同步。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-10-6-4": {
+    "qid": "new-10-6-4",
+    "classification": "own",
+    "chapter": 10,
+    "quality": "ok",
+    "reason": "考查PAI-DSW计费风险的具体防范措施，是原文明确警示的高频考点。",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "DSW实例按‘计算时’计费，关闭浏览器不等于停止实例，不学了必须回控制台停止或删除。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "原文未提及此自动停止功能，推荐的是手动停止。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "改用CPU不能解决实例未停止导致的计费问题。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "直接对应原文明确警示的操作，最能防止计费风险。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "提高额度不能消除风险，且原文强调不要凭经验假设免费。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-10-6-5": {
+    "qid": "new-10-6-5",
+    "classification": "own",
+    "chapter": 10,
+    "quality": "ok",
+    "reason": "考查对阿里云AI产品矩阵分层关系的准确理解，涉及多个核心概念。",
+    "answer": [
+      "A",
+      "D"
+    ],
+    "supported": true,
+    "quote": "百炼与DashScope共用一套API Key。百炼是应用层、DashScope是接口层。百炼应用也可以调用部署在PAI-EAS上的私有模型。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "原文明确二者共用API Key，是应用层与接口层关系。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "ModelScope是开源社区，DashScope是商业API，不构成竞争。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "数据底座可参与大模型链路，如OSS存文档供知识库使用。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "原文指出百炼应用可调用PAI-EAS服务，实现融合。"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

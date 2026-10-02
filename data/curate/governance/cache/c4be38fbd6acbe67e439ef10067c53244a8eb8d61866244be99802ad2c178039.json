@@ -1,0 +1,154 @@
+{
+  "items": [
+    {
+      "type": 0,
+      "stem": "某团队上线新版答疑机器人后，RAGAS评测显示：Context Recall=0.92、Context Precision=0.85、Faithfulness=0.96，但Answer Correctness仅0.41，且Answer Relevancy为0.38。用户反馈中高频出现'答非所问'和'我问年假，它讲报销流程'。此时最应优先排查的环节是？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "知识库缺失年假相关政策文档"
+        },
+        {
+          "option_label": "B",
+          "option_text": "检索模块对问题意图理解偏差，导致召回了报销类上下文而非年假类"
+        },
+        {
+          "option_label": "C",
+          "option_text": "生成模型temperature过高，导致答案发散"
+        },
+        {
+          "option_label": "D",
+          "option_text": "提示词未约束'必须严格回应原始问题主题'"
+        }
+      ],
+      "answer": "D",
+      "analysis": "依据教材7.5节'定位问题的黄金法则'：Answer Relevancy低（0.38）直接指向'答非所问/含糊回避'，而Context Recall（0.92）和Precision（0.85）均高，说明检索端已正确召回年假相关资料；Faithfulness（0.96）高说明答案未幻觉，即生成内容忠于上下文——矛盾点在于：上下文正确，答案也忠于上下文，却仍答非所问。这暴露的是**意图对齐失效**：模型将年假问题误关联到报销上下文并据此作答，本质是提示词缺乏对'问题主题一致性'的强约束（教材7.4.5明确Answer Relevancy专治'反向生成问题与原题不匹配'）。A、B选项会导致Recall/Precision下降，与数据矛盾；C选项影响Faithfulness或Correctness，但不会系统性导致Relevancy极低。教材7.5表'按指标组合定位故障'中'Answer Relevancy低'对应优化方向为'查意图识别、改写问题、约束不得回避问题'，D项精准对应。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 1,
+      "stem": "在构建新人答疑机器人的评测集时，以下哪些做法符合教材强调的'评测先行'与'领域专家主导'原则？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "从近3个月客服工单中抽取高频问题（如'年假怎么休''转正流程'），覆盖简单/边界/对抗场景"
+        },
+        {
+          "option_label": "B",
+          "option_text": "由HRBP编写ground_truth，确保答案符合公司最新制度、合规要求及表述口径"
+        },
+        {
+          "option_label": "C",
+          "option_text": "使用线上日志中的用户原始提问作为question字段，不进行任何标准化改写"
+        },
+        {
+          "option_label": "D",
+          "option_text": "将训练数据中已有的问答对直接复用为评测集样本，以保证分布一致"
+        }
+      ],
+      "answer": "AB",
+      "analysis": "A正确：教材7.2.1'评测集构建的两条铁律'明确'问题来自真实用户场景'，并强调'覆盖主要业务场景与边界情况'，A项完全符合；B正确：教材7.2.1表格及'best'框强调'标准答案必须由业务领域专家编写/审定'，HRBP作为HR领域专家，其编写ground_truth符合'领域专家深度参与'的核心要求；C错误：教材7.2.1'best'框要求问题'来自真实用户'，但未禁止标准化改写；而教材7.8.2'防止数据泄漏'和'分层覆盖'原则隐含需对原始日志做去噪、归一化处理，纯原始提问可能含无效字符、错别字，影响评测稳定性；D错误：教材7.8.2'防止数据泄漏'明确指出'绝不能用训练数据当评测集'，否则导致分数虚高，是'评估大忌'。因此AB为唯一符合双原则的选项。",
+      "difficulty_label": "中等"
+    },
+    {
+      "type": 0,
+      "stem": "某Agent在课程写作任务中端到端评测得分为4.3/5，但用户投诉'生成的Python代码示例无法运行'。技术团队决定增加白盒评测，单独测试代码生成组件。此时最应采用的评测方法是？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "用qwen-plus作为LLM-as-Judge，根据'代码是否准确实现需求'打1-5分"
+        },
+        {
+          "option_label": "B",
+          "option_text": "编写确定性检查脚本，尝试执行代码并捕获异常，返回pass/fail"
+        },
+        {
+          "option_label": "C",
+          "option_text": "使用ROUGE-L计算生成代码与参考代码的相似度"
+        },
+        {
+          "option_label": "D",
+          "option_text": "人工抽检100个案例，由开发工程师标注可执行性"
+        }
+      ],
+      "answer": "B",
+      "analysis": "依据教材7.6节'Agent评测'：'确定性检查（规则/断言）'专门用于评价'客观项：代码能否运行、是否含必需章节、字数/格式'，其特点是'确定、可调试、成本低'（教材7.6.1表格）。B项'编写确定性检查脚本执行代码并捕获异常'正是该方法的标准实践。A项虽属LLM-as-Judge，但教材7.6.1指出其适用于'主观项'，而'能否运行'是绝对客观的硬指标，LLM判断不可靠且成本高；C项ROUGE-L用于文本摘要/翻译，对代码语法结构无意义，教材7.2.3明确其适用任务为'文本摘要'；D项人工抽检虽有效，但教材7.6强调白盒评测需'信号清晰无干扰、迭代快'，确定性检查比人工更高效稳定。教材7.6.1'课程写作Agent'案例中'客观指标包括代码可执行性'，直接对应确定性检查。",
+      "difficulty_label": "基础"
+    },
+    {
+      "type": 1,
+      "stem": "在使用RAGAS评估时，发现Answer Correctness得分显著低于基线，而Context Recall和Context Precision均保持高位。以下哪些优化措施符合教材推荐的'先检索后生成'总体顺序与'定位问题'原则？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "强化提示词中'仅基于提供的上下文回答，禁止编造信息'的约束"
+        },
+        {
+          "option_label": "B",
+          "option_text": "增加Rerank模块，提升相关片段排序权重"
+        },
+        {
+          "option_label": "C",
+          "option_text": "调整生成阶段temperature=0.3，并添加'答案需与标准答案事实一致'的指令"
+        },
+        {
+          "option_label": "D",
+          "option_text": "扩充知识库中关于该问题领域的文档数量"
+        }
+      ],
+      "answer": "AC",
+      "analysis": "依据教材7.5节'定位问题的黄金法则'：'Answer Correctness低+检索指标高'→'问题在生成阶段'，应'优化提示词、调生成超参、换更强模型'（教材7.5表格）。A项'强化提示词约束'和C项'调整temperature+添加事实一致性指令'均直接针对生成端优化，符合定位。B项'增加Rerank'是解决Precision低的方案（教材7.5表格），但题干中Precision高位，故不适用；D项'扩充知识库'是解决Recall低的方案（教材7.5表格），同样与题干矛盾。教材7.5'价值'框强调'上下文是RAG的生命线'，但明确指出优化顺序为'先检索→再生成→仍不满足才微调'，本题已排除检索问题，故AC是唯一直接有效的生成端优化。教材7.4.4'exam'框亦指出Correctness低时'需结合上面指标定位'，此处已明确定位至生成端。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 0,
+      "stem": "某团队用LLM-as-Judge评测Agent生成的SOP报告，发现评委对'冗长但细节丰富的报告' consistently 给出更高分。经分析，这是典型的哪种偏见？应采取何种校准动作？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "长度偏见；在评分提示词中明确'冗余内容扣分'并设定字数阈值"
+        },
+        {
+          "option_label": "B",
+          "option_text": "位置偏见；随机打乱多个候选报告的输入顺序后取平均分"
+        },
+        {
+          "option_label": "C",
+          "option_text": "自我偏好；更换为与被测Agent不同架构的评委模型"
+        },
+        {
+          "option_label": "D",
+          "option_text": "风格偏见；提供多样few-shot样例覆盖不同行文风格"
+        }
+      ],
+      "answer": "A",
+      "analysis": "题干描述'对冗长但细节丰富的报告 consistently 给出更高分'，精准对应教材7.8.1表格中'长度偏见'的定义：'倾向认为更长更详细的答案更完整，惩罚简洁但切题的答案'。A项'长度偏见'及校准措施'明确冗余内容扣分+字数阈值'，完全匹配教材7.8.1'缓解手段'第一条。B项位置偏见针对'对比多个候选时偏爱开头/结尾'，题干未提多候选对比；C项自我偏好指'偏爱与自己风格一致的输出'，题干未提风格匹配；D项风格偏见指'偏好某种代码/行文风格'，题干强调的是'长度/细节'而非风格。教材7.8.1'principle'框明确校准动作需'评分提示词明确维度、量表'，A项正是此原则的体现。",
+      "difficulty_label": "中等"
+    },
+    {
+      "type": 1,
+      "stem": "在设计自动化评测流程时，为确保回归评测结果可比、能准确归因于系统改动，以下哪些配置必须冻结？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "评测集版本（含question/ground_truth/contexts）"
+        },
+        {
+          "option_label": "B",
+          "option_text": "推理参数（temperature=0.5, seed=42）"
+        },
+        {
+          "option_label": "C",
+          "option_text": "作为评委的LLM版本（如qwen-plus）"
+        },
+        {
+          "option_label": "D",
+          "option_text": "Embedding模型版本（如text-embedding-v3）"
+        }
+      ],
+      "answer": "ABCD",
+      "analysis": "依据教材7.2.4'控制变量：让分数可比'：'回归评测的前提是除了待测改动，其他一切都冻结：评测集版本、评测脚本、推理参数（temperature/seed）、模型版本、甚至当评委的大模型版本都要固定'。A项'评测集版本'是核心，教材7.1'principle'框强调'没有冻结的评测集，无法判断分数变化来自改动还是题目本身'；B项'推理参数'明确列为必须冻结项；C项'评委LLM版本'在教材7.4代码示例中作为关键参数传入，且7.2.4'特别建议不要频繁更换评测用的LLM'；D项'Embedding模型版本'同理，教材7.4代码中作为embeddings参数传入，且7.4.4'Answer Correctness'计算依赖其语义相似度，版本变更直接影响分数。教材7.2.4'否则分数变化无法归因'的结论，要求ABCD全部冻结才能确保可比性。",
+      "difficulty_label": "基础"
+    }
+  ]
+}

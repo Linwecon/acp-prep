@@ -1,0 +1,154 @@
+{
+  "items": [
+    {
+      "type": 0,
+      "stem": "某金融公司需构建合规问答系统，要求：① 所有客户合同与监管文件必须在本地VPC内处理；② 模型需针对《证券投资基金法》微调；③ 对外提供高可用API供APP调用。以下技术选型链路最符合阿里云平台分层逻辑且满足全部约束的是？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "ModelScope下载Qwen2-7B开源模型 → PAI-DSW开发LoRA微调代码 → PAI-DLC提交分布式训练 → PAI-EAS部署为弹性服务"
+        },
+        {
+          "option_label": "B",
+          "option_text": "百炼控制台上传PDF知识库 → 配置RAG智能体 → 一键发布为API → 开启VPC私网访问"
+        },
+        {
+          "option_label": "C",
+          "option_text": "DashScope OpenAI兼容接口调用qwen-max → 在应用层做规则过滤 → 将响应结果缓存至OSS"
+        },
+        {
+          "option_label": "D",
+          "option_text": "MaxCompute清洗合同文本 → DataWorks调度 → 百炼工作流调用DashScope Embedding+生成模型"
+        }
+      ],
+      "answer": "A",
+      "analysis": "本题考查‘分层定位+数据不出域+定制化训练’三重条件权衡。依据原文10.4节PAI定义：'PAI面向算法工程师的机器学习全流程平台，覆盖模型开发、分布式训练、在线推理部署'，且10.7节明确'开源版可从ModelScope下载，部署到自建GPU或PAI，数据可不出域'；10.5节对比表指出'PAI支持自研/开源/微调模型全流程'，而百炼（B）和DashScope（C）均为托管MaaS服务，数据需上送云端，违反①；D选项中百炼调用DashScope模型仍属公有云API调用，不满足数据不出域。A选项完整对应：ModelScope（开源模型获取）→ DSW（交互式开发）→ DLC（训练）→ EAS（生产级部署），完全匹配原文10.4原理图与10.7价值主张。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 1,
+      "stem": "某电商团队需上线促销文案生成助手，要求：① 3天内交付MVP；② 支持上传商品详情页HTML并生成多版本文案；③ 后续需接入内部CMS系统。以下组合中，既满足快速上线又保留工程扩展性的正确做法是？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "使用百炼知识库上传商品文档 → 搭建Prompt模板 → 通过工作流编排生成逻辑 → 发布为API供CMS调用"
+        },
+        {
+          "option_label": "B",
+          "option_text": "在PAI-DSW中编写爬虫解析HTML → 训练轻量文案生成模型 → 用EAS部署 → 对接CMS"
+        },
+        {
+          "option_label": "C",
+          "option_text": "调用DashScope qwen-plus API → 在自有后端封装HTML解析+Prompt组装 → 流式返回文案"
+        },
+        {
+          "option_label": "D",
+          "option_text": "在百炼中调试Prompt与知识库 → 导出API调用代码 → 将SDK集成至CMS后端服务"
+        }
+      ],
+      "answer": "A,D",
+      "analysis": "本题考查‘快速验证’与‘后续集成’的平衡。原文10.2节强调百炼价值：'把复杂的工程链路封装成可视化操作'，且'非工程人员能独立搭原型，工程人员也能用它加速、再通过API集成进自有系统'；10.5节最佳实践明确'要快速搭知识库问答/智能体/工作流并发布→百炼'，且'百炼应用可回调PAI-EAS服务'，说明其API输出能力是设计原生支持的。A选项符合'零代码搭原型+工作流编排+发布API'全链路，D选项则体现'先可视化调试→再导出集成'的渐进式开发路径，二者均被原文10.2价值框与10.5对比表认可。B选项违背'3天交付'要求（PAI训练需环境搭建、调试、部署周期）；C选项虽可行但丢失了百炼提供的'HTML文档解析、切片、向量化'等RAG内置能力（10.2表格），需自行实现解析逻辑，增加风险且不符合'快速验证'目标。",
+      "difficulty_label": "中阶"
+    },
+    {
+      "type": 0,
+      "stem": "运维同学发现生产环境DashScope API调用量突增300%，排查日志发现大量请求的output_tokens远超预期。经分析，前端未限制max_tokens且用户频繁提交长文本提问。以下哪项措施对成本控制最直接有效且符合阿里云计费机制？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "将所有请求路由至qwen-turbo模型以降低单价"
+        },
+        {
+          "option_label": "B",
+          "option_text": "在API网关层配置max_tokens=512的强制参数注入"
+        },
+        {
+          "option_label": "C",
+          "option_text": "启用DashScope上下文缓存功能，复用系统提示词Token"
+        },
+        {
+          "option_label": "D",
+          "option_text": "在前端增加输入字数限制，并提示用户精简问题"
+        }
+      ],
+      "answer": "B",
+      "analysis": "本题聚焦故障诊断与成本优化的精准干预。原文10.8节明确'控制输出：用max_tokens给输出设上限，避免模型刹不住车'，且'输入/输出分别计价，输出通常更贵'——问题根源是output_tokens失控，B选项直接在网关层强制截断输出长度，从源头杜绝超额Token消耗，符合'省成本的工程手段'第一条。A选项错误：turbo单价虽低但无法解决output_tokens过长问题，反而可能因效果差导致重试增多；C选项针对输入缓存，对output_tokens无影响；D选项依赖用户自觉，不可控且不具技术强制性，不如B项直接可靠。原文10.8成本要点强调'工程手段'需具备确定性，B是唯一可编程强约束方案。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 1,
+      "stem": "某教育机构计划构建AI备课助手，需支持：① 解析教师上传的PPT/PDF课件；② 基于课件内容生成课堂提问与随堂测验；③ 支持教师在百炼控制台调整Prompt风格（如'小学五年级口语化'）。以下关于平台能力边界的判断，哪些符合原文描述？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "百炼知识库可自动解析PPT/PDF并完成向量化，无需额外开发"
+        },
+        {
+          "option_label": "B",
+          "option_text": "生成测验题目属于复杂推理任务，必须选用qwen-max模型"
+        },
+        {
+          "option_label": "C",
+          "option_text": "Prompt调试功能允许教师保存多个风格版本并在不同班级间切换"
+        },
+        {
+          "option_label": "D",
+          "option_text": "若需将生成结果同步至学校教务系统，必须通过百炼API而非控制台操作"
+        }
+      ],
+      "answer": "A,C,D",
+      "analysis": "本题考查对百炼能力边界的精确理解。A项依据10.2节'知识库（RAG）'能力说明：'内置文档解析、切片、向量化、检索，上传文档即可问答'，PPT/PDF属明确支持格式；C项对应10.2表格中'Prompt调试：可视化调提示词、管理版本'，'保存多个版本'是版本管理的应有之义；D项符合10.2价值框'工程人员也能用它加速、再通过API集成进自有系统'，控制台仅用于调试，生产集成必走API。B项错误：原文10.6强调'按任务难度分级路由'，生成测验未必需max，plus已足够（课程默认模型），且'无脑上max是常见误区'，原文明确反对此做法。",
+      "difficulty_label": "中阶"
+    },
+    {
+      "type": 0,
+      "stem": "团队在PAI-DSW中调试微调代码时，发现GPU实例费用持续增长。检查发现浏览器已关闭但实例仍在运行。以下哪项操作最能防止此类计费风险，且符合原文明确警示？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "在DSW实例详情页设置'空闲10分钟自动停止'"
+        },
+        {
+          "option_label": "B",
+          "option_text": "将训练脚本改为使用CPU实例执行"
+        },
+        {
+          "option_label": "C",
+          "option_text": "每次实验结束立即回控制台停止或删除实例"
+        },
+        {
+          "option_label": "D",
+          "option_text": "申请提高免费额度以覆盖实验时段"
+        }
+      ],
+      "answer": "C",
+      "analysis": "本题直击PAI-DSW典型运维陷阱。原文10.4节'PAI-DSW费用提醒'用加粗强调：'关闭浏览器不等于停止实例，不学了必须回控制台停止或删除'；10.9误区澄清再次确认'关掉浏览器PAI-DSW就停止计费了→❌'。C选项是原文唯一指定的正确动作。A选项虽合理但原文未提及该功能，属过度引申；B选项错误：CPU无法满足微调需求，且原文10.4明确'只有微调和部署两节才建议GPU'，CPU替代不可行；D选项违背原文'免费额度有有效期与计算时上限'的警示，不能解决根本问题。",
+      "difficulty_label": "基础"
+    },
+    {
+      "type": 1,
+      "stem": "关于阿里云AI产品矩阵的分层关系，以下哪些陈述严格符合原文10.1节'产品全景'表格与10.5节对比表的定义？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "百炼与DashScope共用同一套API Key，体现应用层与接口层的协同关系"
+        },
+        {
+          "option_label": "B",
+          "option_text": "ModelScope提供按Token计费的商业API服务，与DashScope形成竞争"
+        },
+        {
+          "option_label": "C",
+          "option_text": "OSS、MaxCompute、DataWorks属于数据底座层，不参与大模型推理链路"
+        },
+        {
+          "option_label": "D",
+          "option_text": "PAI-EAS部署的服务可通过百炼应用直接调用，实现私有模型与公共应用的融合"
+        }
+      ],
+      "answer": "A,C,D",
+      "analysis": "本题检验对核心分层框架的准确记忆。A项对应10.3节'百炼与DashScope并非两套互不相干的系统...二者共用一套API Key'及10.1概念框'MaaS形态'；C项源自10.1表格'数据底座层'定义，且10.1 exam提示'这组数据三件套常作为干扰项'，说明其定位独立于模型层；D项明确见于10.1段末：'百炼应用再去调用EAS上的私有模型'。B项错误：10.7节清晰区分'ModelScope是开源模型社区/Hub'，'DashScope（灵积）才是API服务'，且10.7 exam强调'ModelScope不是按Token计费的API服务'，二者非竞争关系而是互补（开源模型下载→PAI部署→百炼调用）。",
+      "difficulty_label": "中阶"
+    }
+  ]
+}

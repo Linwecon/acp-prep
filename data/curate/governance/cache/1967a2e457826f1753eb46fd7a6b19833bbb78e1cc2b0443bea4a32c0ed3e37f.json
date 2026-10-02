@@ -1,0 +1,154 @@
+{
+  "items": [
+    {
+      "type": 0,
+      "stem": "某团队在vLLM服务中启用PagedAttention后，长上下文（64K tokens）请求的并发数从3提升至8，但单请求TTFT未改善。以下哪项最准确解释该现象？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "PagedAttention仅优化KV Cache显存分配效率，不影响Prefill阶段的计算密集型负载"
+        },
+        {
+          "option_label": "B",
+          "option_text": "TTFT主要受网络延迟影响，与PagedAttention无关"
+        },
+        {
+          "option_label": "C",
+          "option_text": "vLLM默认关闭Prefill优化，需手动启用--enable-prefill-optimization参数"
+        },
+        {
+          "option_label": "D",
+          "option_text": "64K长度已超出GPU显存上限，PagedAttention无法缓解OOM导致的TTFT劣化"
+        }
+      ],
+      "answer": "A",
+      "analysis": "根据教材6.5节明确指出：'PagedAttention（分页注意力）……解决的是KV Cache的显存碎片与预分配浪费'；而6.2节强调：'Prefill是计算密集型，决定TTFT'，且'KV Cache是Decode加速基础'。PagedAttention作用于Decode阶段的KV Cache管理，对Prefill阶段无影响——TTFT由Prompt长度、计算能力、排队时长决定，与KV Cache分配方式无关。选项B错误：网络延迟非教材定义的TTFT主因（教材表6.3明确TTFT受'Prefill速度、排队时长、prompt长度'影响）；选项C错误：vLLM无此参数，教材未提Prefill专用优化开关；选项D错误：题干已说明并发数提升（即未OOM），且教材6.6节指出PagedAttention正是为解决长上下文下的显存利用率问题，而非无法缓解。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 0,
+      "stem": "压测发现当并发从16增至32时，vLLM服务QPS仅提升12%，而平均RT翻倍、429错误率升至8%。此时最应优先执行的操作是？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "立即扩容GPU实例数量，增加总显存容量"
+        },
+        {
+          "option_label": "B",
+          "option_text": "通过压测确定当前最优并发阈值，并配置限流策略防止超载"
+        },
+        {
+          "option_label": "C",
+          "option_text": "将模型从FP16量化为INT4，降低单请求显存占用"
+        },
+        {
+          "option_label": "D",
+          "option_text": "启用连续批处理并调大--max-num-batched-tokens参数"
+        }
+      ],
+      "answer": "B",
+      "analysis": "教材6.3节'高频误区'明确警示：'并发越高吞吐越高'是错误认知，'必须通过压测确定最优并发阈值'；且'超出并发上限通常直接返回错误（如429）'。题干现象（RT飙升+429错误）正是超阈值典型表现，首要动作是回归根本方法论——压测定界、限流防护。选项A属盲目扩容，教材6.3节'风险'指出'延迟一旦升高，同等并发下吞吐就会下降'，扩容不解决阈值误设问题；选项C虽有效（教材6.4节），但属中长期优化，非故障诊断第一响应；选项D错误：连续批处理是vLLM默认启用的核心特性（6.5节），无需额外启用，且调大token batch可能加剧显存压力。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 0,
+      "stem": "当vLLM服务处理一批混合长度请求（128/2048/16384 tokens）时，PagedAttention相比传统连续内存分配，其显存节省主要来源于以下哪一机制？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "将KV Cache切分为固定大小块，按需分配，消除因最大长度预分配导致的闲置空间"
+        },
+        {
+          "option_label": "B",
+          "option_text": "对每个KV块进行INT4量化，降低单块存储体积"
+        },
+        {
+          "option_label": "C",
+          "option_text": "复用相同前缀的KV块，减少重复缓存"
+        },
+        {
+          "option_label": "D",
+          "option_text": "压缩历史token的Key/Value向量维度，降低单token缓存开销"
+        }
+      ],
+      "answer": "A",
+      "analysis": "教材6.5节对PagedAttention的定义精准对应：'把KV Cache切成一个个固定大小的块（block），按需分配……不再按最大长度预分配浪费'；并强调其核心价值是'消除碎片'与'按需分配'。选项A完全复现原文逻辑。选项B错误：量化是独立技术（6.4节），PagedAttention本身不包含量化；选项C描述的是'上下文缓存/前缀复用'（6.6节），属应用层优化，非PagedAttention机制；选项D错误：教材未提维度压缩，MLA/GQA等是其他技术（6.6节），PagedAttention仅管理内存布局。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 1,
+      "stem": "在诊断一个突然出现高TTFT（>8s）的线上vLLM服务时，监控显示GPU利用率正常、KV Cache占用率仅30%、无429错误。此时最应优先检查的日志线索是？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "Prefill阶段的CUDA kernel执行耗时日志"
+        },
+        {
+          "option_label": "B",
+          "option_text": "请求排队队列长度及等待时间日志"
+        },
+        {
+          "option_label": "C",
+          "option_text": "模型权重加载与初始化日志"
+        },
+        {
+          "option_label": "D",
+          "option_text": "网络I/O延迟与SSL握手日志"
+        }
+      ],
+      "answer": "B,C",
+      "analysis": "教材6.2节明确定义TTFT = '首token延迟'，并指出其'受Prefill速度、排队时长、prompt长度影响'；6.3节进一步说明'排队时长'是TTFT关键因子。题干排除了GPU算力瓶颈（利用率正常）、KV Cache瓶颈（占用率低）、限流瓶颈（无429），故根源必在'排队'或'Prefill准备'环节。选项B直接对应'排队时长'，是教材明确列出的TTFT影响因素；选项C对应模型加载——若服务重启或冷启动，权重加载会阻塞Prefill，教材6.7节指出FC冷启动'首个请求明显变慢'，ECS虽无冷启动但异常重启仍会发生，且6.9节强调ECS部署需关注'模型权重加载'环节。选项A错误：GPU利用率正常说明计算未卡住，kernel耗时非首要怀疑点；选项D错误：网络延迟属基础设施层，教材所有TTFT分析均聚焦服务内部（Prefill/排队），且监控指标中未提网络异常。",
+      "difficulty_label": "挑战"
+    },
+    {
+      "type": 1,
+      "stem": "某团队将Qwen3-0.6B模型量化为AWQ INT4后部署于vLLM，观测到：①显存占用下降58%；②TPOT降低22%；③TTFT无明显变化；④在代码补全任务上BLEU分数下降1.3分。以下哪些结论可被教材原文直接支持？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "量化主要省显存，且通常也加速（因显存带宽压力减小）"
+        },
+        {
+          "option_label": "B",
+          "option_text": "量化对TTFT无显著影响，因其不改变Prefill阶段的计算密集特性"
+        },
+        {
+          "option_label": "C",
+          "option_text": "INT4量化在敏感任务上可能掉点更明显，需用业务评测集验证"
+        },
+        {
+          "option_label": "D",
+          "option_text": "AWQ在低比特下通常比GPTQ更稳，因此该掉点属于异常现象"
+        }
+      ],
+      "answer": "A,C",
+      "analysis": "选项A直接对应教材6.4节'量化……换取显存占用下降、显存带宽压力减小、推理速度提升'及'量化通常也加速……因为Decode阶段是显存带宽密集型'；选项C对应教材6.4节'INT4在低比特下通常更稳、更快'及'INT4在敏感任务上可能掉点更明显，需要用业务评测集验证'。选项B虽合理，但教材未明确断言'量化对TTFT无影响'——TTFT受Prefill速度影响，而量化可能间接影响（如权重加载速度），教材未讨论此关联；选项D错误：教材6.4节仅说'AWQ在低比特下通常更稳'，未承诺'不掉点'，更未将1.3分BLEU下降定义为'异常'，且'更稳'指相对误差分布，非绝对精度。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 0,
+      "stem": "团队使用 curl 调用 vLLM 的 /v1/chat/completions 接口时，始终收到 400 Bad Request 错误，响应体为 '{\"error\":{\"message\":\"model not found\",\"type\":\"invalid_request_error\"}}'。已确认模型路径 '/mnt/workspace/model/Qwen3-0.6B' 在服务器上真实存在且权限正确。最可能被忽略的必要条件是？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "客户端请求中未指定model字段，或model值与vLLM启动时加载的模型标识不一致"
+        },
+        {
+          "option_label": "B",
+          "option_text": "vLLM服务未启用--served-model-name参数显式声明模型名"
+        },
+        {
+          "option_label": "C",
+          "option_text": "服务器未安装safetensors库，导致模型格式解析失败"
+        },
+        {
+          "option_label": "D",
+          "option_text": "请求头缺少Content-Type: application/json"
+        }
+      ],
+      "answer": "A",
+      "analysis": "教材6.5节vLLM启动命令示例明确显示：'vllm serve \"/mnt/workspace/model/Qwen3-0.6B\"'，且curl调用示例中'data'包含'model'字段值为'/mnt/workspace/model/Qwen3-0.6B'。vLLM要求客户端请求中的model字段必须与服务端加载的模型路径（或--served-model-name指定的别名）严格匹配，否则报'model not found'（官方文档行为）。选项A直击该契约关系。选项B错误：--served-model-name是可选参数，用于自定义API中model字段的值，非必需；未设置时默认以路径为model名，题干路径存在即满足；选项C错误：safetensors是常见格式，但报错为'model not found'而非格式解析错误；选项D错误：缺少Content-Type通常导致400但错误信息不同（如'invalid json'），且教材curl示例未强调此头，非核心依赖。",
+      "difficulty_label": "进阶"
+    }
+  ]
+}

@@ -1,0 +1,210 @@
+{
+  "3-1318": {
+    "qid": "3-1318",
+    "classification": "misplaced",
+    "chapter": 3,
+    "quality": "remove",
+    "reason": "合规检测属安全领域，原文未提规则匹配在RAG中的应用",
+    "answer": [],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "情感识别属NLP任务，非RAG合规检测"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "品牌广告检测需语义理解，非纯规则匹配"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "违禁词检测是规则匹配典型场景，但属第8章安全范畴"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "深层含义理解属模型能力，非RAG合规检测"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-1350": {
+    "qid": "3-1350",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "原文明确推荐语义切片用于高价值复杂文档",
+    "answer": [
+      "D"
+    ],
+    "supported": true,
+    "quote": "语义切片：用模型判断语义边界，在话题转换处切；高价值、结构复杂的文档（成本更高）",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "Token切片适用于长度受限场景"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "句子切片是通用默认策略"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "句子窗口用于精准命中+上下文完整"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "语义切片适配逻辑强专业文档"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-1363": {
+    "qid": "3-1363",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "原文指出查询改写解决指代不清问题",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "查询改写：消代词、补全指代；多轮对话中'他/这个'指代不清",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "改写不减少推理时间"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "关键词缺上下文需改写"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "改写不增加训练数据"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "改写不改变模型参数"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-1365": {
+    "qid": "3-1365",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "原文明确切片过短导致信息截断",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "切得太小：语义被截断（一句话被切成两半），即使检索命中也信息不全，模型无法据此回答",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "过短不引入干扰"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "信息被截断致上下文不全"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "过短降低检索精度"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "过短增加token消耗"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-1385": {
+    "qid": "3-1385",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "原文定义向量数据库用于相似性搜索",
+    "answer": [
+      "D"
+    ],
+    "supported": true,
+    "quote": "向量数据库用近似最近邻（ANN）索引实现毫秒级检索",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "不存储图像数据"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "非关系型数据库"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "不提供全文检索"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "专用于向量相似搜索"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-1386": {
+    "qid": "3-1386",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "原文说明句子窗口兼顾精准与完整",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "句子窗口检索：建索引时以'单个句子'为可检索单元（小块，便于精准命中），同时在每个句子的元数据里存下它'前后各 N 句'组成的窗口",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "未提及改善注意力机制"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "不提高生成速度"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "精准命中且保证上下文完整"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "窗口增大存储需求"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

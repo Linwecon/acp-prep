@@ -1,0 +1,200 @@
+{
+  "1-1312": {
+    "qid": "1-1312",
+    "classification": "beyond",
+    "chapter": 1,
+    "quality": "remove",
+    "reason": "题干涉及'机器学习'与'知识库应用'，但章节目录和原文均未覆盖机器学习基础定义、知识库工程实现方式（微调是否适用）、生成式AI在机器学习中的定位等跨领域概念；选项D中'对数据量没有太大要求'与原文1.10节Scaling Law明确强调'参数×数据×算力'三者需同步放大直接矛盾，但其他选项如A/B/C均超出本章知识范围，无法仅凭第1章内容判断正误。",
+    "answer": [],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "深度学习是机器学习分支属于通用AI基础知识，原文未提及，无法验证。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "知识库工程是否可用微调实现，原文1.2节明确指出'微调解决行为适配而非知识更新'，且RAG才是开卷考试式知识库方案，但题干未限定技术路径，'可以微调'表述模糊，原文无直接否定依据。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "生成式AI与机器学习的从属关系属于学科分类常识，原文未定义，无法验证。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "原文1.10节明确'模型效果随参数量、训练数据量、计算量三者近似幂律增长'，'对数据量没有太大要求'明显错误，但因其他选项均超出本章范围，整题考点错位。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "1-1322": {
+    "qid": "1-1322",
+    "classification": "misplaced",
+    "chapter": 1,
+    "quality": "remove",
+    "reason": "语义切片是RAG章节核心知识点（3.3节'文本切片策略与重叠机制'），原文第1章未提及任何切片相关内容；所有选项均需RAG上下文理解，无法用第1章知识判断。",
+    "answer": [],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "文档逻辑性强是否适合语义切片，需RAG中'句子窗口检索'或'重排序'知识，第1章未涉及。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "专业复杂内容切片依赖RAG的'文档解析与结构保留'，第1章无此内容。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "Token数量控制属于第1章Token概念，但语义切片本身是RAG技术，本题混淆考点。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "简单对话文本通常无需语义切片，但判断依据来自RAG场景分析，第1章未覆盖。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "1-1329": {
+    "qid": "1-1329",
+    "classification": "beyond",
+    "chapter": 1,
+    "quality": "remove",
+    "reason": "版权风险属于AI安全与合规章节（8.1节'AI安全护栏'及8.13节《生成式人工智能服务管理暂行办法》），原文第1章完全未涉及法律与版权相关内容；所有选项均需外部法律知识，无法用本章内容验证。",
+    "answer": [],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "未经授权训练数据的版权问题属于法律合规范畴，第1章只提'知识截止'不涉及数据来源合法性。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "内容相似性版权判定需法律标准，第1章仅讨论'幻觉'而非侵权。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "水印标识是内容安全技术，原文第1章未提及。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "用户授权场景属于数据合规要求，第1章知识边界为技术原理，不覆盖法律义务。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "1-1354": {
+    "qid": "1-1354",
+    "classification": "beyond",
+    "chapter": 1,
+    "quality": "remove",
+    "reason": "音频审核异步流程属于多模态AI章节（11.6节'ASR→LLM→TTS管道式架构'）或AI安全章节（8.4节'输入过滤/运行监控/输出审查'），原文第1章未涉及任何音频处理、异步任务、轮询机制等内容；所有选项均超出本章知识范围。",
+    "answer": [],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "实时返回结果属于同步处理特征，第1章未定义异步流程。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "波形图生成是信号处理技术，第1章未涉及音频底层处理。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "提交检测任务是异步API通用步骤，但第1章仅讲'五阶段工作流程'，未覆盖任务调度。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "轮询获取结果属于分布式系统实践，第1章未提及。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "1-1380": {
+    "qid": "1-1380",
+    "classification": "beyond",
+    "chapter": 1,
+    "quality": "remove",
+    "reason": "多模态时空一致性属于第11章'多模态AI'核心内容（11.5节'视频理解=抽帧+ASR+时序对齐'、11.2节'编码器-对齐-大模型架构'），原文第1章仅定义'模态'概念，未涉及对齐方法；所有选项均需多模态专业知识，无法用第1章验证。",
+    "answer": [],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "自然对齐属于多模态基础假设，第1章未讨论对齐机制。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "注意力机制匹配关键信息是多模态对齐技术，第1章自注意力仅针对文本。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "跨模态相似度学习是11章专属知识，第1章未扩展。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "时间戳对齐是视频/音频处理标准方法，第1章未覆盖。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "1-1404": {
+    "qid": "1-1404",
+    "classification": "beyond",
+    "chapter": 1,
+    "quality": "remove",
+    "reason": "多模态情感分析属于第11章'多模态AI'（11.13节'行业落地风险点'及11.7节'多模态RAG知识形态扩展'），原文第1章仅定义'模态'概念，未涉及情感分析方法论；所有选项均需多模态融合技术知识，无法用本章内容判断。",
+    "answer": [],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "注意力机制整合多模态信息是11章技术细节，第1章自注意力仅限文本。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "仅依赖文本违背多模态设计原则，但第1章未定义多模态系统评估标准。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "多样化数据集是通用机器学习原则，第1章未涉及数据集构建。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "参数数量与准确性关系需模型架构知识，第1章Scaling Law只讨论参数规模与能力正相关。"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

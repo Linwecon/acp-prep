@@ -1,0 +1,219 @@
+{
+  "10-0320": {
+    "qid": "10-0320",
+    "classification": "unsure",
+    "chapter": 10,
+    "quality": "remove",
+    "reason": "题干描述模糊，考点不明。‘列表增加记忆’非教材明确概念，选项B与常识矛盾，无考查价值。",
+    "answer": [
+      "B"
+    ],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "符合对话历史管理常识。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "自动清除与‘增加记忆’目的矛盾，不正确。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "是常见上下文传递方式。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "是使用对话历史的目的。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "10-0444": {
+    "qid": "10-0444",
+    "classification": "own",
+    "chapter": -1,
+    "quality": "remove",
+    "reason": "考点错放。Qwen-Max是文本模型，题干操作均非其核心能力，属多模态或工具调用范畴，无考查价值。",
+    "answer": [
+      "B"
+    ],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "Qwen-Max是文本模型，不直接设计图像。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "生成文案是文本模型的合理应用。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "视频剪辑非文本模型核心能力。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "执行代码需工具调用，非直接执行。"
+      }
+    ],
+    "duplicate_of": "10-1055"
+  },
+  "10-0587": {
+    "qid": "10-0587",
+    "classification": "unsure",
+    "chapter": 10,
+    "quality": "remove",
+    "reason": "题干概念‘列表方法增加记忆’模糊，非教材明确知识点。选项C与‘增加记忆’矛盾，题目整体无考查价值。",
+    "answer": [
+      "A",
+      "B",
+      "D"
+    ],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "符合管理对话历史的常识。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "是使用上下文记忆的常见方式。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "自动清空与‘增加记忆’目的相悖。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "手动编辑符合记忆管理灵活性。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "10-0591": {
+    "qid": "10-0591",
+    "classification": "unsure",
+    "chapter": 10,
+    "quality": "remove",
+    "reason": "题干‘上下文记忆提升交互质量’宽泛，策略属通用工程实践，非第10章平台特定知识，无明确考查点。",
+    "answer": [
+      "A",
+      "B",
+      "C"
+    ],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "是管理长上下文的合理策略。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "选择性更新有助于保持相关性。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "智能筛选可提升效率。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "不共享信息会降低连续性，不合理。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "10-0596": {
+    "qid": "10-0596",
+    "classification": "own",
+    "chapter": 10,
+    "quality": "fixable",
+    "reason": "考查百炼平台知识库支持的数据格式，但教材未明确列举，需修正为教材提及的典型格式或标记unsupported。",
+    "answer": [
+      "A",
+      "B",
+      "C",
+      "D"
+    ],
+    "supported": false,
+    "quote": "百炼知识库（RAG）内置文档解析",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "PDF是常见文档格式，应支持。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "HTML是常见网页格式，应支持。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "DOCX是常见办公格式，应支持。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "CSV是常见表格格式，应支持。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "10-1055": {
+    "qid": "10-1055",
+    "classification": "own",
+    "chapter": -1,
+    "quality": "remove",
+    "reason": "与10-0444高度重复，考点错放。考查Qwen-Max文本模型的能力边界，非第10章平台知识核心。",
+    "answer": [
+      "B"
+    ],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "执行代码需工具调用，非直接执行。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "生成脚本是文本模型的合理应用。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "视频剪辑非文本模型核心能力。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "图像设计非文本模型核心能力。"
+      }
+    ],
+    "duplicate_of": "10-0444"
+  }
+}

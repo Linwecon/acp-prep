@@ -1,0 +1,154 @@
+{
+  "items": [
+    {
+      "type": 0,
+      "stem": "某团队在压测vLLM服务时发现：当并发请求数从16增至32，TTFT从420ms升至890ms，而TPOT保持稳定（112±5ms）。监控显示GPU计算利用率未达瓶颈（仅68%），KV Cache显存占用率从72%升至94%，且无429错误。此时最应优先诊断的根本原因是？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "Prefill阶段计算资源不足，需升级GPU算力"
+        },
+        {
+          "option_label": "B",
+          "option_text": "请求排队导致首token等待时间延长，需检查调度器或限流配置"
+        },
+        {
+          "option_label": "C",
+          "option_text": "KV Cache显存接近饱和引发内存分配延迟，影响Prefill阶段内存准备"
+        },
+        {
+          "option_label": "D",
+          "option_text": "Decode阶段带宽争用加剧，需启用GQA或MLA优化"
+        }
+      ],
+      "answer": "C",
+      "analysis": "根据教材6.3节'关键性能指标'与6.6节'GPU显存构成'：TTFT由Prefill阶段决定，而Prefill需为整个prompt分配显存（含权重+临时激活+KV Cache预分配空间）；当KV Cache显存占用率达94%，系统在为新请求分配Prefill所需连续/分页内存块时将出现显著延迟（教材6.5节明确PagedAttention虽消除碎片，但高占用率下块查找与映射开销仍上升）。选项A错误——GPU计算利用率仅68%说明算力未瓶颈；选项B错误——无429错误且未提及排队日志，教材6.3节强调'超出并发上限通常直接返回429'，而非隐式排队；选项D错误——TPOT稳定说明Decode带宽未劣化，且GQA/MLA属模型结构级优化，非运行时可调参数。教材6.6节案例指出'DeepSeek-R1在64K长度下并发仅4个'，印证KV Cache是TTFT的隐性制约因素。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 0,
+      "stem": "开发者将Qwen3-0.6B模型量化为AWQ INT4后部署于vLLM，观测到TPOT降低22%、TTFT无明显变化、显存占用下降58%。以下哪项结论可被教材原文直接支持？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "AWQ量化通过保护显著性权重通道，在INT4下比GPTQ更稳，因此TPOT改善更明显"
+        },
+        {
+          "option_label": "B",
+          "option_text": "TPOT降低源于Decode阶段显存带宽压力减小，因INT4权重读取字节数减少"
+        },
+        {
+          "option_label": "C",
+          "option_text": "TTFT不变是因为Prefill阶段计算密集型特征未改变，量化对矩阵乘法加速有限"
+        },
+        {
+          "option_label": "D",
+          "option_text": "显存下降58%符合INT4相对FP16体积降为1/4的理论值（25%）"
+        }
+      ],
+      "answer": "B",
+      "analysis": "教材6.4节'量化'明确指出：'量化通常也加速...因为Decode阶段是显存带宽密集型，从显存读权重的字节数变少了'；并强调'能否加速取决于推理框架/硬件是否有对应的低比特算子'——本题中vLLM已支持AWQ INT4算子，故TPOT降低可直接归因于带宽压力下降。选项A虽符合教材对AWQ的描述（'AWQ在低比特下通常更稳'），但'更稳'不等于'TPOT改善更明显'，教材未提供GPTQ与AWQ的TPOT对比数据；选项C中'TTFT不变'现象合理，但教材未断言'Prefill量化加速有限'，反而在6.4节指出量化'主要省显存'，对计算密集型阶段的加速效果未作定论；选项D错误——58%下降远超理论25%（INT4/FP16=4/16=25%），教材6.6节显存账例证'量化后显存下降幅度受运行时开销、KV Cache占比等综合影响'，不能反推理论值。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 1,
+      "stem": "在诊断一个突然出现高TTFT（>8s）的线上vLLM服务时，监控显示GPU利用率正常、KV Cache占用率仅30%、无429错误。以下哪些日志线索最应优先检查？（多选）",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "vLLM启动日志中是否包含'PagedAttention enabled'确认信息"
+        },
+        {
+          "option_label": "B",
+          "option_text": "Prefill阶段CUDA kernel launch耗时是否异常增长"
+        },
+        {
+          "option_label": "C",
+          "option_text": "请求队列等待时间（queue_time）是否显著增加"
+        },
+        {
+          "option_label": "D",
+          "option_text": "模型权重加载日志中是否存在IO阻塞或磁盘慢速警告"
+        }
+      ],
+      "answer": "C,D",
+      "analysis": "教材6.3节明确TTFT = 'Prefill速度 + 排队时长 + prompt长度'，且'排队时长'是TTFT的独立构成项；当GPU利用率正常、KV Cache占用低、无429时，排除显存/算力瓶颈，高TTFT必源于'排队'或'Prefill前置依赖'。选项C直接对应排队时长，教材6.3节'高频误区'强调'并发过高导致排队'是TTFT劣化的常见原因；选项D对应Prefill前置条件——权重加载失败或缓慢会阻塞整个Prefill流程，教材6.9节ECS部署强调'实例选型需考虑磁盘IO能力'，且6.10.1节FC冷启动分析指出'模型加载耗时占总延迟70%'。选项A错误——PagedAttention启用与否不影响TTFT根本机制，教材6.5节说明其主要优化KV Cache管理；选项B错误——GPU利用率正常已排除kernel执行问题，且教材未将kernel耗时列为常规诊断项。",
+      "difficulty_label": "挑战"
+    },
+    {
+      "type": 0,
+      "stem": "某企业需部署Qwen3-0.6B答疑机器人，要求P95 TTFT<1.2s。当前vLLM服务在ECS上实测P95 TTFT为1.8s，监控显示GPU计算利用率峰值仅52%，KV Cache占用率65%，无排队日志。若仅调整vLLM启动参数，以下哪项操作最可能直接改善TTFT？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "增大--max-num-seqs以提升并发，利用GPU空闲算力"
+        },
+        {
+          "option_label": "B",
+          "option_text": "减小--max-model-len以限制最大序列长度，降低Prefill内存分配压力"
+        },
+        {
+          "option_label": "C",
+          "option_text": "启用--enable-prefix-caching复用系统提示词KV块"
+        },
+        {
+          "option_label": "D",
+          "option_text": "增加--gpu-memory-utilization至0.95以压榨显存"
+        }
+      ],
+      "answer": "B",
+      "analysis": "教材6.3节定义TTFT受'Prefill速度、排队时长、prompt长度'影响；6.6节指出'限制最大序列长度'可'直接约束单次请求可占用的KV Cache'，而Prefill需为整个prompt分配显存，长prompt显著增加内存准备时间。当前GPU利用率低（52%）、KV占用中等（65%）、无排队，说明瓶颈在Prefill内存分配效率，而非算力或显存总量。选项B通过限制--max-model-len，直接缩短prompt处理长度，降低Prefill阶段内存分配与计算量，符合教材6.6节'限制最大序列长度'的显存账指导。选项A错误——增大并发会加剧排队，教材6.3节'高频误区'警示'并发越高吞吐越高'是错误认知；选项C错误——前缀缓存主要优化Decode阶段重复计算，对TTFT无直接影响，教材6.5节明确其作用于'相同前缀的KV块共享'；选项D错误——提高显存利用率可能加剧内存碎片，反而恶化Prefill分配延迟，教材6.5节PagedAttention设计初衷正是解决高占用率下的碎片问题。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 1,
+      "stem": "当vLLM服务处理一批混合长度请求（128/2048/16384 tokens）时，PagedAttention相比传统连续内存分配，其显存节省效果主要依赖以下哪些必要条件？（多选）",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "请求实际生成长度远小于预分配的最大长度"
+        },
+        {
+          "option_label": "B",
+          "option_text": "KV Cache块大小（block size）设置为256 tokens"
+        },
+        {
+          "option_label": "C",
+          "option_text": "存在多个请求共享相同前缀（如系统提示词）"
+        },
+        {
+          "option_label": "D",
+          "option_text": "GPU显存物理容量大于单请求最大KV Cache需求"
+        }
+      ],
+      "answer": "A,C",
+      "analysis": "教材6.5节'PagedAttention'明确其两大核心价值：'按需分配'（解决预分配浪费）和'天然支持共享'（解决重复存储）。选项A直接对应'按需分配'——传统方案为每个请求预分配16384长度空间，而实际请求仅用128/2048，浪费严重；PagedAttention按实际使用块数分配，节省显存。选项C对应'共享'——相同前缀的KV块可被多个请求复用，教材6.5节'带来的好处'第三条明确列出。选项B错误——块大小是实现细节，教材未指定256为必要值，且不同块大小影响碎片率但非节省前提；选项D错误——显存容量足够是运行基础，但'节省效果'体现于利用率提升，与绝对容量无关，教材6.6节案例显示即使显存充足，KV Cache浪费仍存在。",
+      "difficulty_label": "挑战"
+    },
+    {
+      "type": 0,
+      "stem": "某团队在vLLM中启用连续批处理后，观测到GPU计算单元（SM）利用率从62%提升至94%，但单请求TTFT反而上升了18%。以下哪项最可能是根本原因？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "连续批处理导致请求调度粒度变细，Prefill阶段CPU-GPU通信开销增加"
+        },
+        {
+          "option_label": "B",
+          "option_text": "高SM利用率引发显存带宽争用，拖慢Prefill阶段权重加载"
+        },
+        {
+          "option_label": "C",
+          "option_text": "连续批处理使短prompt请求需等待长prompt请求完成Prefill，增加首token等待"
+        },
+        {
+          "option_label": "D",
+          "option_text": "Decode阶段KV Cache访问冲突加剧，导致每步解码延迟上升"
+        }
+      ],
+      "answer": "A",
+      "analysis": "教材6.5节'连续批处理'定义其核心是'请求动态进出'、'调度粒度从整批细化到每一步解码'，这必然增加CPU端调度决策频次及CPU-GPU间控制指令传输。TTFT由Prefill决定，而Prefill需CPU协调GPU kernel launch，当调度开销增大，会直接延长TTFT。教材6.5节对比图明确'静态批处理'中所有请求同步进入Prefill，而连续批处理需为每个新请求单独触发Prefill流程。选项B错误——显存带宽争用主要影响TPOT（Decode阶段），教材6.2节明确'Prefill计算密集、Decode显存带宽密集'；选项C错误——连续批处理恰恰避免'等待'，教材6.5节强调'谁完成谁先返回'；选项D错误——KV Cache访问冲突属Decode阶段问题，影响TPOT而非TTFT。",
+      "difficulty_label": "挑战"
+    }
+  ]
+}

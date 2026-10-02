@@ -1,0 +1,212 @@
+{
+  "2-0815": {
+    "qid": "2-0815",
+    "classification": "own",
+    "chapter": 2,
+    "quality": "ok",
+    "reason": "考查提示词中明确约束输出格式与长度的能力，属于提示工程核心实践。",
+    "answer": [
+      "D"
+    ],
+    "supported": true,
+    "quote": "输出格式（Output Format）... 指定格式、枚举值、禁止项... 把自然语言输出约束成程序可解析的结构。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "API参数，非提示工程方法。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "指令模糊，效果不稳定。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "约束过强，可能遗漏信息。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "明确具体约束，最有效。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "2-0826": {
+    "qid": "2-0826",
+    "classification": "own",
+    "chapter": 2,
+    "quality": "ok",
+    "reason": "考查角色设定在提示词中的具体写法，是六要素应用。",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "角色（Role）... 定义身份、语气、写作风格... 角色激活模型在训练中见过的角色模式。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "角色定义过于宽泛。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "仅说明任务，未设定角色。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "具体设定了严格数学老师的角色。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "是任务指令，非角色设定。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "2-0842": {
+    "qid": "2-0842",
+    "classification": "own",
+    "chapter": 2,
+    "quality": "ok",
+    "reason": "考查提示词工程在特定分类任务（情绪识别）中的应用价值。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "意图分类（Intent Classification）... 在处理用户请求前，先把输入归入预定义的意图清单... 分类提示词必须包含的三要素。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "成本高，非提示工程首选。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "符合提示词工程低成本高收益原则。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "用户体验差，非技术方案。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "忽略关键上下文，效果差。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "2-0901": {
+    "qid": "2-0901",
+    "classification": "own",
+    "chapter": 2,
+    "quality": "ok",
+    "reason": "考查提示词六要素（角色、任务、具体约束）的综合应用。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "六要素需要落成一个稳定的结构... 角色 + 任务 + 上下文 + 示例 + 输出格式与约束。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "任务模糊，缺乏具体指导。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "设定了角色、具体任务和量化约束。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "指令过于模糊，不具体。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "任务宽泛，未指定具体分析目标。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "2-0910": {
+    "qid": "2-0910",
+    "classification": "own",
+    "chapter": 2,
+    "quality": "ok",
+    "reason": "考查针对生成内容遗漏问题的提示词优化策略。",
+    "answer": [
+      "D"
+    ],
+    "supported": true,
+    "quote": "思维链（Chain-of-Thought, CoT）... 引导模型在给出最终答案前，显式输出中间推理步骤... 把复杂问题分解为若干子问题逐步求解。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "调参可能影响多样性，非根本解。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "指令仍较模糊，未强制分步。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "增加长度未必解决遗漏问题。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "CoT分步思考，最可能识别关键点。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "2-0915": {
+    "qid": "2-0915",
+    "classification": "own",
+    "chapter": 2,
+    "quality": "ok",
+    "reason": "考查多轮对话中保持上下文一致性的核心方法。",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "上下文工程的核心是'在正确的时间，把最相关、最精准的信息加载进上下文窗口'。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "丢失历史，无法保持一致性。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "固定角色不解决历史信息记忆。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "将历史作为上下文传递是标准做法。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "用户体验差，非技术方案。"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

@@ -1,0 +1,79 @@
+{
+  "new-10-18-0": {
+    "qid": "new-10-18-0",
+    "classification": "own",
+    "chapter": 10,
+    "quality": "ok",
+    "reason": "考查平台选型与约束匹配，需结合分层逻辑和数据不出域要求判断。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "开源模型的价值集中在三点：① 数据隐私与合规（数据不出域）；② 可深度定制（任意微调/改结构）；③ 大规模稳定流量下的长期成本可控。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "百炼调用托管API，数据需上送，违反数据不出本地私有云要求。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "开源模型+PAI微调部署，数据可不出域，满足全部约束。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "DashScope API调用数据需上送云端，违反数据不出本地要求。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "仅涉及数据处理与调度，未解决模型部署与深度语义匹配的核心需求。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-10-18-2": {
+    "qid": "new-10-18-2",
+    "classification": "own",
+    "chapter": 10,
+    "quality": "ok",
+    "reason": "考查私有化部署与微调场景下的产品组合，需匹配客户自主管理权重与生产级服务要求。",
+    "answer": [
+      "A",
+      "B",
+      "C"
+    ],
+    "supported": true,
+    "quote": "开源模型的价值集中在三点：① 数据隐私与合规（数据不出域）；② 可深度定制（任意微调/改结构）；③ 大规模稳定流量下的长期成本可控。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "提供开源模型权重，客户可自主管理。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "提供微调开发环境，支持客户基于自有数据微调。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "提供生产级推理服务，支持弹性伸缩、蓝绿发布。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "百炼是托管应用平台，客户无法自主管理模型权重与数据。"
+      },
+      {
+        "label": "E",
+        "selected": false,
+        "why": "DashScope是商业API托管服务，不符合私有化部署要求。"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

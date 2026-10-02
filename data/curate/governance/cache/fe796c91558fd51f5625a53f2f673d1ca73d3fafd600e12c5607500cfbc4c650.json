@@ -1,0 +1,212 @@
+{
+  "1-0318": {
+    "qid": "1-0318",
+    "classification": "unsure",
+    "chapter": 8,
+    "quality": "review",
+    "reason": "题干考查“信用机制”，属于AI安全与合规范畴，但具体措施“AIGC声明”教材未提及。",
+    "answer": [
+      "C"
+    ],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "提高参数不直接增强信用机制。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "增加训练轮数与信用机制无关。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "添加AIGC声明是常见合规做法。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "优化界面不直接建立信用。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "1-0335": {
+    "qid": "1-0335",
+    "classification": "unsure",
+    "chapter": 8,
+    "quality": "review",
+    "reason": "考查内容责任归属，属于AI安全与合规，但教材未明确提及此具体描述。",
+    "answer": [
+      "C"
+    ],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "忽略合法性不合理。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "仅关注创意性不全面。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "用户应对内容合法性负责。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "服务商不负责内容合法性。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "1-0342": {
+    "qid": "1-0342",
+    "classification": "unsure",
+    "chapter": 8,
+    "quality": "review",
+    "reason": "考查提高信任的措施，“提供依据链接”与RAG引用相关，但教材未直接提及。",
+    "answer": [
+      "B"
+    ],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "增加数据量不直接提高信任。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "提供依据链接可增强可信度。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "复杂算法与信任无直接关系。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "减少参数不提高信任。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "1-0362": {
+    "qid": "1-0362",
+    "classification": "unsure",
+    "chapter": 8,
+    "quality": "review",
+    "reason": "考查个人信息处理人员变更的合规操作，属于安全与合规，但教材未提及。",
+    "answer": [
+      "A"
+    ],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "人员变更需重新取得同意。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "数据备份非首要执行项。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "通知机构非首要执行项。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "更改存储路径非首要项。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "1-0397": {
+    "qid": "1-0397",
+    "classification": "own",
+    "chapter": 1,
+    "quality": "ok",
+    "reason": "考查大模型能力边界，明确其不擅精确计算与图像处理。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "不擅精确计算：自回归逐 Token 生成，缺乏真正的符号运算机制，多位数进位、大数乘除很容易出错。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "计算标准差属精确计算，非擅长。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "检测异常值属分析推理，可胜任。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "图像像素分割属多模态，非纯文本LLM擅长。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "训练复杂模型非LLM任务。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "1-0457": {
+    "qid": "1-0457",
+    "classification": "cross",
+    "chapter": 5,
+    "quality": "ok",
+    "reason": "考查微调与全训练对比，核心是复用预训练知识降低成本。",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "微调解决行为适配而非知识更新；提示词→RAG→微调三级评估顺序；LoRA低秩分解原理与显存节省机制。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "微调所需资源少于全训练。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "微调时间通常更短。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "微调复用预训练知识，降低成本。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "微调不能使模型完成所有任务。"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

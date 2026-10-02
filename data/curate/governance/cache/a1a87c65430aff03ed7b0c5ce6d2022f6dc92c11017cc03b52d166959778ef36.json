@@ -1,0 +1,224 @@
+{
+  "8-1230": {
+    "qid": "8-1230",
+    "classification": "beyond",
+    "chapter": 8,
+    "quality": "remove",
+    "reason": "题干问多语言策略，但第8章全文未出现'多语言''跨语言''翻译''语种'等关键词，属本章完全未覆盖内容",
+    "answer": [],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "本章未提模型训练"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "本章未提翻译转换"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "本章未提多语言知识库"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "内容审核不解决多语言一致性"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "8-1448": {
+    "qid": "8-1448",
+    "classification": "own",
+    "chapter": 8,
+    "quality": "ok",
+    "reason": "上下文污染在8.1节攻击面表格中明确定义为多用户共享时的干扰",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "攻击大模型应用：劫持对话、诱导输出、操纵 Agent",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "窗口超限是技术限制，非污染定义"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "原文明确'多用户共享模型服务时'的干扰"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "原文未限定部署方式"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "原文未提参数数量影响"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "8-1451": {
+    "qid": "8-1451",
+    "classification": "own",
+    "chapter": 8,
+    "quality": "ok",
+    "reason": "视频检测需抽帧、音视频、图文多模态审查，8.4.3节明确要求",
+    "answer": [
+      "B",
+      "C",
+      "E",
+      "F"
+    ],
+    "supported": true,
+    "quote": "视频检测：先 video_moderation 提交拿 task_id，再轮询 video_moderation_result；图像审核既能审画面，也能识别图中文字；音频/视频是异步任务",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "用户评论非检测步骤"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "视频分段抽帧是预处理必要步骤"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "音频检测是视频合规必含环节"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "编码格式非合规检测步骤"
+      },
+      {
+        "label": "E",
+        "selected": true,
+        "why": "图像审核需识别图中文字"
+      },
+      {
+        "label": "F",
+        "selected": true,
+        "why": "字幕和转录文本需文本检测"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "8-0056": {
+    "qid": "8-0056",
+    "classification": "own",
+    "chapter": 8,
+    "quality": "ok",
+    "reason": "环境变量配置密钥在8.5节密钥管理四件事中明确要求",
+    "answer": [
+      "B",
+      "D"
+    ],
+    "supported": true,
+    "quote": "放环境变量/KMS，不硬编码；用 RAM 子账号 AK，不用主账号 AK；定期轮换；配异常调用监控与最小权限",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "环境变量不影响模型速度"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "避免硬编码泄露风险"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "环境变量不改变准确率"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "环境变量便于代码复用"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "8-0121": {
+    "qid": "8-0121",
+    "classification": "own",
+    "chapter": 8,
+    "quality": "ok",
+    "reason": "设置环境变量在8.5节示例代码中直接体现",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "代码里也是从环境变量 ALIBABA_CLOUD_ACCESS_KEY_ID/SECRET 读取，而不是硬编码",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "os.environ是设置非加载"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "内存存储非标准表述"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "os.environ[key]=val是标准设置语法"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "不创建新密钥"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "8-0259": {
+    "qid": "8-0259",
+    "classification": "own",
+    "chapter": 8,
+    "quality": "ok",
+    "reason": "获取环境变量在8.5节示例代码中直接使用",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "代码里也是从环境变量 ALIBABA_CLOUD_ACCESS_KEY_ID/SECRET 读取，而不是硬编码",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "os.getenv是标准获取环境变量方法"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "与temperature无关"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "与temperature无关"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "与max_tokens无关"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

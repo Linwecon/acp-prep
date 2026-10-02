@@ -1,0 +1,210 @@
+{
+  "5-0708": {
+    "qid": "5-0708",
+    "classification": "unsure",
+    "chapter": 1,
+    "quality": "remove",
+    "reason": "考点属于大模型基础概念，与微调训练章节无关。题干描述宽泛，选项存在绝对化表述（如‘一定’），考查价值低。",
+    "answer": [],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "大模型微调也需要标注数据。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "泛化能力描述相对合理，但非本章考点。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "推理速度不一定更快。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "两者都需要特征工程。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "5-0723": {
+    "qid": "5-0723",
+    "classification": "own",
+    "chapter": 5,
+    "quality": "ok",
+    "reason": "考查微调失败原因分析，属于本章核心知识点。",
+    "answer": [
+      "D"
+    ],
+    "supported": true,
+    "quote": "微调之所以成本可控、收敛快，是因为模型底层的语言规律已经学到了，微调主要调整的是上层行为。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "数据少可能导致过拟合，是可能原因。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "数据噪声有害，是可能原因。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "学习率不当可能导致震荡，是可能原因。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "使用相同预训练数据是微调前提，不会导致性能下降。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "5-0829": {
+    "qid": "5-0829",
+    "classification": "own",
+    "chapter": 5,
+    "quality": "ok",
+    "reason": "考查学习率基本概念，是训练过程关键超参数。",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "学习率（lr）：每次参数更新的步长。太大 → 震荡/不收敛甚至 loss 飙升；太小 → 收敛极慢。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "学习率控制参数更新步长大小。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "梯度计算频率由batch等决定。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "更新方向由梯度决定。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "梯度大小由损失函数决定。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "5-0976": {
+    "qid": "5-0976",
+    "classification": "own",
+    "chapter": 5,
+    "quality": "ok",
+    "reason": "考查验证集核心作用，是数据划分与训练监控基础。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "训练/验证/测试三者必须相互独立。验证集（调参/选 checkpoint）。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "训练集用于模型训练。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "验证集用于调参和监控过拟合。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "测试集用于最终性能评估。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "数据预处理在划分前进行。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "5-0979": {
+    "qid": "5-0979",
+    "classification": "own",
+    "chapter": 5,
+    "quality": "ok",
+    "reason": "考查训练瓶颈分析与解决策略，涉及超参数、数据质量和RAG定位。",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "微调前置评估：先提示词，再 RAG，最后才微调。微调主要调整的是上层行为。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "调整学习率或优化器可能有效。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "清洗数据噪声可能提升质量。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "显著增加模型规模可能过拟合，且非微调常规做法。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "RAG可提供外部知识，但非改变模型参数。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "5-0982": {
+    "qid": "5-0982",
+    "classification": "own",
+    "chapter": 5,
+    "quality": "ok",
+    "reason": "考查防止过拟合的常用技术，是训练过程关键知识点。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "过拟合（Overfitting）...对策：提高数据多样性、增加正则（weight decay / dropout）、控制训练轮数。验证 loss 先降后升 = 过拟合的铁证，应回退到验证 loss 最低的 checkpoint。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "增加参数可能加剧过拟合。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "早停是防止过拟合的典型方法。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "更小学习率影响收敛速度。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "增加轮次可能加剧过拟合。"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

@@ -1,0 +1,29 @@
+{
+  "items": [
+    {
+      "type": 0,
+      "stem": "某新人答疑机器人优化后，RAGAS评测显示Context Recall=1.0、Context Precision=0.35，Faithfulness=0.28，Answer Correctness=0.31。日志确认检索返回的contexts中包含完整正确信息（如'张伟是教研部的'），但模型生成答案为'张伟在人事部工作'。此时若仅依据Faithfulness与Correctness的差异进行故障归因，最应优先验证的必要条件是：",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "answer中所有陈述是否均能在contexts中被直接推断（Faithfulness计算前提）"
+        },
+        {
+          "option_label": "B",
+          "option_text": "ground_truth是否由HR领域专家编写并审定（Answer Correctness计算前提）"
+        },
+        {
+          "option_label": "C",
+          "option_text": "contexts是否按相关性降序排列且无无关片段干扰（Context Precision低的成因）"
+        },
+        {
+          "option_label": "D",
+          "option_text": "question是否来自真实用户工单抽样（评测集构建铁律）"
+        }
+      ],
+      "answer": "A",
+      "analysis": "本题聚焦Faithfulness与Correctness的**本质区别与必要条件约束**，考查实际故障诊断中对指标底层逻辑的精准把握。依据教材7.3节‘易混指标辨析’：Faithfulness衡量‘答案是否忠于检索资料’，其计算**仅需question/answer/contexts，不依赖ground_truth**；而Answer Correctness衡量‘答案与标准答案的一致程度’，**必须依赖ground_truth**。题干中Faithfulness极低（0.28）但Recall=1.0，说明资料完备，问题出在生成端——答案中存在大量无法从contexts推出的陈述（即幻觉）。此时归因核心是验证Faithfulness的计算前提是否成立：即answer是否被正确分解为独立陈述，且每个陈述是否严格满足‘能由contexts直接推断’（教材7.4.3节明确要求：‘如果可以根据上下文直接推断出该陈述则返回1，否则返回0’）。选项A直指该指标的**唯一必要条件**，是定位幻觉故障的起点。选项B虽为Answer Correctness的必要前提，但题干已给出Correctness低的结果，归因需先区分是资料问题（Recall低）还是生成问题（Faithfulness低），而Recall=1.0已排除资料问题，故B非当前优先验证项；选项C解释Precision低的原因，但Precision低影响的是模型注意力分配，与‘生成错误答案’无直接因果（教材7.5节指出Precision低常导致答案啰嗦或遗漏，而非事实性幻觉）；选项D属评测集构建原则，与本次具体故障诊断无直接关联。因此，A是唯一符合‘必要条件验证’且紧扣Faithfulness定义的选项。",
+      "difficulty_label": "进阶"
+    }
+  ]
+}

@@ -1,0 +1,219 @@
+{
+  "4-1370": {
+    "qid": "4-1370",
+    "classification": "own",
+    "chapter": 4,
+    "quality": "ok",
+    "reason": "题目考查Agent测试的必要步骤，属于本章Agent评测知识点。",
+    "answer": [
+      "B",
+      "C",
+      "D"
+    ],
+    "supported": true,
+    "quote": "课程把评测分为两类：端到端评测（黑盒）...白盒化评测...关键组件/中间步骤（工具调用序列、参数、轨迹）",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "向量数据库存储路径是部署细节，非测试必要步骤。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "Planner任务分配是白盒评测的关键环节。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "验证工具函数映射是确定性检查的一部分。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "评估最终回答准确性是端到端评测的核心。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "4-0055": {
+    "qid": "4-0055",
+    "classification": "own",
+    "chapter": 4,
+    "quality": "ok",
+    "reason": "题目考查如何为现有问答系统集成新功能，涉及Agent调用工具。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "Agent 则反复执行下面这个循环，直到任务完成或触达停止条件：感知（读入任务/工具结果）→ 规划（决定下一步）→ 行动（调用工具）",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "写死列表无法应对动态资源查询，不灵活。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "使用专门Agent调用API符合Agent调用工具解决问题的模式。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "仅靠提示推测无法获取实时可用教室信息。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "提供备用数据无法解决实时查询和预定需求。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "4-0302": {
+    "qid": "4-0302",
+    "classification": "own",
+    "chapter": 4,
+    "quality": "ok",
+    "reason": "题目考查多路径策略规划时避免冲突和浪费的方法，属于多Agent设计原则。",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "多 Agent 设计四原则（每条都是考点）：1. 明确职责：每个 Agent 有清晰、不重叠的职责边界",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "建立中心化协调机制是有效方法，符合中央调度原则。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "采用博弈论模型预测冲突是有效的解决策略。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "强制所有Agent采用相同逻辑和目标，违背明确职责和异构性原则，不能有效避免冲突。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "自适应学习算法让Agent自我调整是有效方法。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "4-0393": {
+    "qid": "4-0393",
+    "classification": "own",
+    "chapter": 4,
+    "quality": "ok",
+    "reason": "题目考查多Agent系统的优势，属于多Agent设计知识点。",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "多 Agent 设计四原则（每条都是考点）：1. 明确职责：每个 Agent 有清晰、不重叠的职责边界",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "模拟独立决策过程是多Agent的优势。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "通过竞争与合作反映市场动态是多Agent的优势。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "单Agent处理所有策略简化设计不是多Agent的优势，而是其要解决的问题。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "利用异构性探索多元策略是多Agent的优势。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "4-0585": {
+    "qid": "4-0585",
+    "classification": "cross",
+    "chapter": -1,
+    "quality": "review",
+    "reason": "题目涉及ModelScope-Agent框架具体特性，但本章原文未提及此框架，无法判断选项准确性。",
+    "answer": [],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "原文未提及该框架是否自动分解任务。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "原文未提及该框架是否自动处理依赖关系。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "原文未提及该框架是否支持多步骤任务。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "原文未提及该框架是否需要手动编写调度逻辑。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "4-0899": {
+    "qid": "4-0899",
+    "classification": "own",
+    "chapter": 4,
+    "quality": "ok",
+    "reason": "题目考查多Agent系统设计原则，属于本章核心知识点。",
+    "answer": [
+      "A",
+      "B",
+      "D"
+    ],
+    "supported": true,
+    "quote": "多 Agent 设计四原则（每条都是考点）：1. 明确职责...2. 独立凭据...3. 中央调度...4. 避免全量注入",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "明确的角色和责任划分是设计原则之一。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "有效的通信机制是协作的基础。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "集中式决策控制并非总是必要，有时需要去中心化协作。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "能力的专门化和互补性是设计原则的体现。"
+      },
+      {
+        "label": "E",
+        "selected": false,
+        "why": "统一处理所有Agent违背了明确职责和异构性原则。"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

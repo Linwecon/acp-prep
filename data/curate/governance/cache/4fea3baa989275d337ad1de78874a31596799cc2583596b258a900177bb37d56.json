@@ -1,0 +1,214 @@
+{
+  "new-10-84-0": {
+    "qid": "new-10-84-0",
+    "classification": "own",
+    "chapter": 10,
+    "quality": "ok",
+    "reason": "综合考查阿里云平台选型，符合分层定位与组合应用逻辑。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "开源模型的价值集中在三点：① 数据隐私与合规（数据不出域）；② 可深度定制（任意微调/改结构）；③ 大规模稳定流量下的长期成本可控。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "DashScope API调用数据需上送，违反数据不出域要求。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "PAI全链路满足私有化、微调、高并发部署，百炼应用调用实现服务化。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "DashScope调用数据出域，且未涉及微调能力。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "函数计算FC不适合高并发、低延迟的实时API服务场景。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-10-84-1": {
+    "qid": "new-10-84-1",
+    "classification": "own",
+    "chapter": 10,
+    "quality": "ok",
+    "reason": "考查成本控制原则，原文有明确对应。",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "控制输入：RAG 只塞最相关的片段，不要每次把整本手册塞进上下文；",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "题干未涉及模型选型路由问题。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "题干问题在于输入内容过多，而非计价方式本身。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "原文明确指出应控制输入，避免塞入整本手册。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "题干未提及限流或429错误。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-10-84-2": {
+    "qid": "new-10-84-2",
+    "classification": "own",
+    "chapter": 10,
+    "quality": "ok",
+    "reason": "考查DashScope核心特性与应用场景匹配。",
+    "answer": [
+      "A",
+      "C"
+    ],
+    "supported": true,
+    "quote": "OpenAI 兼容模式的价值：把 base_url 指向 DashScope 兼容地址、把 api_key 换成阿里云的 Key，原本基于 OpenAI Python SDK 写的程序几乎不用改就能调用通义千问。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "OpenAI兼容模式满足快速集成、兼容LangChain、避免大量代码修改。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "TextReRank是重排序服务，与题干核心集成需求无关。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "stream=True支持流式响应，降低用户等待感。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "PAI-EAS部署自定义模型与DashScope特性无关。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-10-84-3": {
+    "qid": "new-10-84-3",
+    "classification": "own",
+    "chapter": 10,
+    "quality": "ok",
+    "reason": "考查PAI-DSW计费管理的关键提醒。",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "DSW 实例按'计算时'计费，关闭浏览器不等于停止实例，不学了必须回控制台停止或删除；",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "直接对应原文关于关闭浏览器不等于停止实例的提醒。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "题干未涉及GPU与CPU实例的选择问题。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "题干焦点是实例未停止，而非免费额度用尽。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "题干未涉及模型选型问题。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-10-84-4": {
+    "qid": "new-10-84-4",
+    "classification": "own",
+    "chapter": 10,
+    "quality": "ok",
+    "reason": "考查开源模型私有化部署的价值与应用场景。",
+    "answer": [
+      "A",
+      "C"
+    ],
+    "supported": true,
+    "quote": "开源模型的价值集中在三点：① 数据隐私与合规（数据不出域）；② 可深度定制（任意微调/改结构）；③ 大规模稳定流量下的长期成本可控。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "从ModelScope下载开源模型权重，是私有化部署的前提。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "DashScope API调用数据需上送，违反数据不出域要求。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "PAI-EAS部署自托管模型服务，满足数据不出域和高可用要求。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "百炼工作流编排可能涉及平台托管，数据控制程度不如私有化部署。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-10-84-5": {
+    "qid": "new-10-84-5",
+    "classification": "own",
+    "chapter": 10,
+    "quality": "ok",
+    "reason": "考查DashScope API限流错误码的处理常识。",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "限流（RPM/TPM、QPM）：每分钟请求数/Token 数有配额，超限返回 429；",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "base_url设置错误通常导致连接失败，而非429。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "max_tokens过小导致截断，不会返回429状态码。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "429状态码直接对应RPM/TPM配额超限。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "单价差异是成本问题，与429错误无关。"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

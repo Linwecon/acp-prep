@@ -1,0 +1,37 @@
+{
+  "new-6-54-0": {
+    "qid": "new-6-54-0",
+    "classification": "own",
+    "chapter": 6,
+    "quality": "ok",
+    "reason": "题目考查PagedAttention优化范围，区分Prefill与Decode阶段影响，符合本章知识。",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "Prefill（预填充阶段）...是计算密集型，处理完后吐出第一个token，决定了TTFT。PagedAttention...解决的是KV Cache的显存碎片与预分配浪费。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "PagedAttention优化KV Cache管理，不改变Prefill计算负载，TTFT由Prefill决定。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "TTFT主要受Prefill计算速度影响，非网络延迟。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "原文未提及此参数，且TTFT由Prefill本质决定。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "PagedAttention能缓解OOM，但TTFT未改善非OOM导致。"
+      }
+    ],
+    "duplicate_of": "6-5143"
+  }
+}

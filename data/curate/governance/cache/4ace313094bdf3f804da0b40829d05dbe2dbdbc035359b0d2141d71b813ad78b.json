@@ -1,0 +1,154 @@
+{
+  "items": [
+    {
+      "type": 0,
+      "stem": "某团队在调试LlamaIndex RAG应用时发现：QueryEngine返回的答案中频繁出现'根据资料，年假有5天'，但知识库最新文档明确写有'司龄满3年员工年假10天'。日志显示检索阶段返回的Node内容包含大量过期政策片段，而新文档未被召回。根据第12.3节关于索引持久化的要求，该故障最根本的技术原因是什么？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "NodeParser切片时未启用元数据过滤，导致旧文档节点未被剔除"
+        },
+        {
+          "option_label": "B",
+          "option_text": "索引未持久化，每次服务重启后重建索引时遗漏了新增/更新的文档"
+        },
+        {
+          "option_label": "C",
+          "option_text": "Retriever配置了similarity_top_k=1，仅返回最高分节点，无法覆盖多版本政策"
+        },
+        {
+          "option_label": "D",
+          "option_text": "QueryEngine未启用Rerank，导致向量相似度排序未能区分新旧政策语义差异"
+        }
+      ],
+      "answer": "B",
+      "analysis": "依据第12.3节原文：'索引需要持久化，避免每次重建。通过StorageContext.from_defaults(persist_dir=...) + index.storage_context.persist(...)把索引落到本地；新增/修改文档后必须重新走解析→切片→建索引流程'。题干中'新文档未被召回'且'每次查询均重建索引'（隐含于'服务重启后重建'），直接对应'未持久化导致重建时遗漏更新文档'这一核心错误。A项错误：元数据过滤属于Postprocessor职责，与召回缺失无因果；C项错误：similarity_top_k影响数量不决定是否包含新文档；D项错误：Rerank优化排序质量，但无法解决根本未召回的问题。本题考查索引生命周期管理这一关键约束条件。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 1,
+      "stem": "在将LlamaIndex的VectorStoreIndex封装为LangChain Tool供Agent调用时，开发者观察到Agent反复调用该Tool却始终返回高度相似、与用户问题无关的context_str。依据第12.3节对context_str的定义及默认提示词机制，以下哪些选项可能是根本原因？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "Tool的invoke方法未正确传递用户query_str，导致Retriever执行空查询或默认查询"
+        },
+        {
+          "option_label": "B",
+          "option_text": "QueryEngine的默认提示词模板中{context_str}与{query_str}变量被互换，造成检索逻辑失效"
+        },
+        {
+          "option_label": "C",
+          "option_text": "Retriever未绑定到正确的Index实例，实际检索的是空索引或历史索引"
+        },
+        {
+          "option_label": "D",
+          "option_text": "NodeParser对文档切片时丢失了关键元数据（如文档更新时间），导致检索无法按版本过滤"
+        }
+      ],
+      "answer": "AC",
+      "analysis": "依据第12.3节原文：'context_str是检索到的上下文，不是用户问题'；'默认QA提示词模板中{context_str}注入检索资料，{query_str}注入用户问题'；'索引需要持久化，新增/修改文档后必须重新建索引'。A正确：Tool调用需将用户输入映射为query_str传入Retriever，若缺失则触发空查询，必然返回固定无关结果；C正确：Retriever必须关联有效Index，若绑定错误（如未初始化/指向旧存储）则检索失效。B错误：变量互换会导致模型生成阶段答非所问，但不会使Retriever返回'高度相似无关内容'——这是检索层问题而非提示词注入问题；D错误：元数据丢失影响过滤能力，但题干现象是'反复返回相似内容'，更符合检索源错误（空索引/错误索引）而非过滤失效。本题聚焦链路执行顺序中的依赖传递与组件绑定约束。",
+      "difficulty_label": "挑战"
+    },
+    {
+      "type": 0,
+      "stem": "某教育公司新人答疑机器人初期仅需单轮问答，工程师用20行SDK代码快速上线。两周后需求演进为RAG知识库+多轮对话+调用三个内部系统+效果评测+前端API接入，代码膨胀至600行，充斥手动拼接messages、重复检索逻辑和硬编码历史管理。根据第12章12.1节'框架的本质价值'论述，导致此困境的根本原因是什么？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "未及时升级模型版本，导致单轮问答能力无法支撑复杂场景"
+        },
+        {
+          "option_label": "B",
+          "option_text": "缺乏对共性工程模式的抽象，导致重复实现提示词拼装、记忆管理、检索逻辑等脏活"
+        },
+        {
+          "option_label": "C",
+          "option_text": "选择了错误的框架（如用LlamaIndex替代LangChain），造成生态不匹配"
+        },
+        {
+          "option_label": "D",
+          "option_text": "文档解析质量差，导致RAG检索结果不可靠，被迫用硬编码逻辑补偿"
+        }
+      ],
+      "answer": "B",
+      "analysis": "依据第12.1节原文：'框架的本质价值是把大模型应用中反复出现的工程模式抽象成可组合的组件'，并明确列出'提示词拼装、多轮对话历史、文档加载切片向量化检索、多步骤流程编排、工具调用与Agent循环'等共性脏活。题干中'手动拼接messages、重复检索逻辑、硬编码历史管理'正是这些未被抽象的共性问题的具体表现。A错误：模型能力非本题焦点；C错误：题干未涉及框架选型，而是裸调SDK后的维护困境；D错误：解析质量是第12.5节考点，与代码膨胀无直接因果。本题直击框架存在的根本动因——工程化抽象缺失。",
+      "difficulty_label": "入门"
+    },
+    {
+      "type": 1,
+      "stem": "在构建一个需同时满足'高精度合同条款问答'和'动态调用法务审批系统API'的智能助手时，技术选型需兼顾RAG深度检索与复杂Agent状态机。根据第12.4节'LangChain vs LlamaIndex：定位、对比与组合'的官方建议，以下哪些实践符合课程推荐的'各司其职'原则？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "用LlamaIndex构建VectorStoreIndex并暴露为Retriever，再将其注册为LangChain的Tool供Agent调用"
+        },
+        {
+          "option_label": "B",
+          "option_text": "在LlamaIndex的QueryEngine中直接集成HTTP请求Tool，通过自定义ResponseSynthesizer调用审批API"
+        },
+        {
+          "option_label": "C",
+          "option_text": "用LangChain的RetrievalQAChain统一处理检索与API调用，放弃LlamaIndex专用索引能力"
+        },
+        {
+          "option_label": "D",
+          "option_text": "用LlamaIndex完成文档解析/切片/索引/检索全流程，LangChain负责Agent规划、Memory管理和多工具协调"
+        }
+      ],
+      "answer": "AD",
+      "analysis": "依据第12.4节原文：'二者不是互斥，而是可以组合'，并给出典型架构图——'LlamaIndex负责数据层（解析/索引/检索），LangChain负责编排层（Agent/工具/记忆）'；'一种非常常见的生产架构是：LlamaIndex建好向量索引、封装成Retriever，再把这个Retriever作为Tool挂到LangChain的Agent上'。A正确：完全复现原文推荐模式；D正确：是对原文'数据层vs编排层'分工的精准转述。B错误：LlamaIndex的QueryEngine设计目标是端到端RAG，强行嵌入外部API违背其'以数据为中心'定位；C错误：LangChain的RetrievalQAChain虽能工作，但放弃LlamaIndex丰富的索引类型（树/摘要/图）和检索后处理（句子窗口/Rerank）属于能力降级，不符合'各司其职'最优解。本题考查组合约束与能力边界。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 0,
+      "stem": "运维团队收到告警：某基于LlamaIndex的RAG服务响应延迟突增300%，日志显示索引重建耗时异常。经排查，代码中每次用户查询均执行'VectorStoreIndex.from_documents(documents, embed_model=...)'。此问题根源及最优解最直接对应第12章哪一知识点？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "12.3节'索引需要持久化，避免每次重建'——应使用StorageContext持久化索引"
+        },
+        {
+          "option_label": "B",
+          "option_text": "12.5节'文档解析选型'——应改用DashScopeParse提升PDF解析速度"
+        },
+        {
+          "option_label": "C",
+          "option_text": "12.2节'LCEL声明式组链'——应改用LangChain管道减少对象创建开销"
+        },
+        {
+          "option_label": "D",
+          "option_text": "12.7节'FastAPI服务层'——应增加Uvicorn并发配置提升吞吐"
+        }
+      ],
+      "answer": "A",
+      "analysis": "题干明确指出'每次用户查询均执行VectorStoreIndex.from_documents'，这直接违反第12.3节原文：'索引需要持久化，避免每次重建'，并给出解决方案：'通过StorageContext.from_defaults(persist_dir=...) + index.storage_context.persist(...)把索引落到本地'。A项完全匹配该知识点。B项错误：解析速度影响初始加载，不解释'每次查询重建'的延迟；C项错误：LCEL是LangChain概念，与LlamaIndex索引重建无关；D项错误：并发配置缓解压力但无法消除重复重建的根本开销。本题考查必要条件约束——索引必须持久化是LlamaIndex生产部署的硬性前提。",
+      "difficulty_label": "入门"
+    },
+    {
+      "type": 1,
+      "stem": "某团队计划将'新人答疑机器人'上线为正式服务，需同时满足：内部员工通过网页聊天界面试用、外部HR系统通过HTTP API集成、运维团队需监控调用量与延迟。根据第12章12.7节'配套工具层'与12.8节'技术栈分层'，以下哪些部署策略符合'分层解耦、各司其职'原则？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "用Gradio提供Web界面，FastAPI暴露HTTP API，二者共享同一套LlamaIndex QueryEngine实例"
+        },
+        {
+          "option_label": "B",
+          "option_text": "将Gradio界面与FastAPI服务合并为单一Flask应用，统一处理所有请求"
+        },
+        {
+          "option_label": "C",
+          "option_text": "用FastAPI暴露API并集成Prometheus监控，Gradio仅作为独立Demo服务运行"
+        },
+        {
+          "option_label": "D",
+          "option_text": "在Gradio的answer函数中直接调用FastAPI接口，形成UI→API→RAG的三层调用"
+        }
+      ],
+      "answer": "AC",
+      "analysis": "依据第12.7节原文：'Gradio只负责界面，不承载业务逻辑'；'FastAPI适合给系统调的服务'；'Gradio适合给人用的Demo，FastAPI适合给系统调的服务——二者常常同时存在'；第12.7.3节强调'同一份RAG能力可以同时被Gradio（人用）和FastAPI（系统调用）复用'。A正确：体现分层（Gradio UI层/FastAPI服务层）且解耦（共享QueryEngine业务逻辑）；C正确：FastAPI承载服务与监控，Gradio独立做Demo，符合'各司其职'。B错误：合并为Flask违背分层原则，且Flask非课程推荐栈；D错误：Gradio调用FastAPI造成冗余网络调用，违背'Gradio应直接调用下层模块'的推荐做法（见12.7.2节）。本题考查技术栈分层的实践约束与组合合理性。",
+      "difficulty_label": "进阶"
+    }
+  ]
+}

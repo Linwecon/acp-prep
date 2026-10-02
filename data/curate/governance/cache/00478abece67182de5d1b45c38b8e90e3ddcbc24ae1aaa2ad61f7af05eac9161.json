@@ -1,0 +1,215 @@
+{
+  "1-1380": {
+    "qid": "1-1380",
+    "classification": "cross",
+    "chapter": 11,
+    "quality": "ok",
+    "reason": "考点是多模态对齐技术，属于第11章多模态AI知识范畴。",
+    "answer": [
+      "B",
+      "C",
+      "D"
+    ],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "仅依赖自然对齐不可靠，不是确保一致性的方法。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "注意力机制可匹配关键信息，有助于对齐。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "跨模态相似度学习是常见对齐方法。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "利用时间戳或位置标签是精确对齐手段。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "1-1404": {
+    "qid": "1-1404",
+    "classification": "cross",
+    "chapter": 11,
+    "quality": "ok",
+    "reason": "考点是多模态情感分析优化方法，属于第11章多模态AI。",
+    "answer": [
+      "A",
+      "C"
+    ],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "注意力机制整合多模态信息可提高准确性。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "仅依赖文本数据无法利用多模态信息，不利准确性。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "更多样化数据集有助于提升模型泛化能力。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "减少参数可能降低模型容量，不利准确性。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "1-1457": {
+    "qid": "1-1457",
+    "classification": "own",
+    "chapter": 1,
+    "quality": "ok",
+    "reason": "考点是上下文窗口的定义与特性，属于第1章核心知识。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "上下文窗口（Context Window）是模型一次能“看到”的最大 Token 数。它是输入（system/user 消息、历史对话、检索资料）与输出（模型生成）共用 的 Token 预算。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "窗口越大，计算量通常越大，推理速度可能变慢。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "上下文窗口大小决定了模型能处理的最大输入文本长度。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "不同模型的上下文窗口大小不同，且可通过技术扩展。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "上下文窗口影响模型对输入的理解和生成能力。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "1-0026": {
+    "qid": "1-0026",
+    "classification": "own",
+    "chapter": 1,
+    "quality": "ok",
+    "reason": "考点是temperature参数对概率分布的影响，属于第1章生成参数知识。",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "temperature（温度）对模型输出的原始分数（logits）做缩放后再 softmax：$p_i = \\dfrac{e^{z_i/T}}{\\sum_j e^{z_j/T}}$。T 越大 → 分布越平坦，低概率 Token 也有机会被选中，输出越发散；",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "温度越高，概率分布越平坦，随机性越高。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "温度越高，概率值差距变小，不是变大。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "温度高使低概率Token有机会被选中，但不会超过高概率Token的概率值。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "温度高适合创意场景，技术报告等需要低温度以稳定。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "1-0357": {
+    "qid": "1-0357",
+    "classification": "cross",
+    "chapter": -1,
+    "quality": "review",
+    "reason": "考点是处理时间相关问题的插件选择，教材未明确提及具体插件分类。",
+    "answer": [
+      "C"
+    ],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "代码审查插件不直接处理时间相关问题。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "天气查询插件用于天气，不一定是时间。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "时间插件最可能用于处理与时间相关的问题。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "翻译插件用于语言转换，不处理时间。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "1-0435": {
+    "qid": "1-0435",
+    "classification": "cross",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "考点是RAG应用中保证数据语义独立性与完整性的做法，属于第3章RAG知识。",
+    "answer": [
+      "A"
+    ],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "合成段落可能破坏标题的独立语义和边界。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "扩写单元格数据有助于保持语义完整性。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "确保语义单元边界清晰有助于独立性与完整性。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "对不同数据类型区别处理有助于保持各自完整性。"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

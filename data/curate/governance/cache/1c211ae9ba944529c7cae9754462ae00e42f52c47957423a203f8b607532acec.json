@@ -1,0 +1,215 @@
+{
+  "new-6-30-0": {
+    "qid": "new-6-30-0",
+    "classification": "own",
+    "chapter": 6,
+    "quality": "ok",
+    "reason": "题目考察连续批处理对TTFT的影响，符合本章性能优化考点。",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "连续批处理（Continuous Batching，又称动态/持续批处理）：请求不再“整批齐步走”，而是完成一个就立刻返回、新请求立刻补进 batch。GPU 调度粒度从“整批”细化到“每一步解码”",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "连续批处理动态调度可能引入对齐开销，增加Prefill延迟，导致TTFT上升。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "KV Cache分页表查询影响Decode，而TTFT由Prefill决定。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "连续批处理特点是动态进出，不会强制所有请求共享同一prefill batch。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "权重加载位置与连续批处理启用无直接因果关系。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-6-30-1": {
+    "qid": "new-6-30-1",
+    "classification": "own",
+    "chapter": 6,
+    "quality": "fixable",
+    "reason": "选项B、C、D均涉及PagedAttention失效或配置不当，但题干问“连续批处理失效”，考点有偏差。",
+    "answer": [
+      "B",
+      "C",
+      "D"
+    ],
+    "supported": true,
+    "quote": "PagedAttention（分页注意力）：借鉴操作系统的虚拟内存分页思想，把 KV Cache 切成一个个固定大小的块（block），按需分配。连续批处理（Continuous Batching）：请求动态进出，GPU 全程不空转。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "输出长度超限会导致生成停止，但不一定导致连续批处理失效。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "未启用PagedAttention处理超长prompt，会导致KV Cache管理低效，影响批处理。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "block-size远小于序列长度，PagedAttention无法有效管理，导致批处理失效。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "分配失败和高碎片化表明PagedAttention失效，直接影响连续批处理的资源调度。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-6-30-2": {
+    "qid": "new-6-30-2",
+    "classification": "own",
+    "chapter": 6,
+    "quality": "ok",
+    "reason": "考察vLLM并发限制参数调整的效果，符合部署优化考点。",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "超出并发上限通常直接返回错误（如 429），需要客户端重试与降级配合。压测确定最优并发阈值。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "调低--max-num-seqs会限制并发，减少429错误，但可能降低QPS。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "该参数限制并发，解除的是上限而非调度瓶颈，QPS不会提升至理论值。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "TPOT下降与batch size减少无直接关系，且参数主要影响并发数而非batch size。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "TTFT由Prefill决定，该参数不改变调度优先级。"
+      }
+    ],
+    "duplicate_of": "6-5135"
+  },
+  "new-6-30-3": {
+    "qid": "new-6-30-3",
+    "classification": "own",
+    "chapter": 6,
+    "quality": "ok",
+    "reason": "考察连续批处理收益受限的场景，属于性能优化理解。",
+    "answer": [
+      "A",
+      "B"
+    ],
+    "supported": true,
+    "quote": "连续批处理（Continuous Batching）：请求不再“整批齐步走”，而是完成一个就立刻返回、新请求立刻补进 batch。GPU 调度粒度从“整批”细化到“每一步解码”。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "请求高度一致时，静态批处理已高效，连续批处理动态调度收益不大。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "超长任务Decode阶段长，请求动态进出收益有限，GPU仍可能被长任务占用。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "禁用CUDA Graph影响kernel启动开销，但不改变连续批处理的核心收益机制。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "AWQ量化降低带宽压力，可能提升性能，不会显著降低连续批处理收益。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-6-30-4": {
+    "qid": "new-6-30-4",
+    "classification": "own",
+    "chapter": 6,
+    "quality": "ok",
+    "reason": "考察PagedAttention内存泄漏故障，属于vLLM原理与运维。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "PagedAttention（分页注意力）：把 KV Cache 切成一个个固定大小的块（block），按需分配，再用一张“页表”记录逻辑位置到物理块的映射。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "page table内存泄漏非原文所述PagedAttention典型故障。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "连续批处理未释放已完成请求的KV Cache block，导致block泄露，符合现象。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "模型权重碎片化非KV Cache占用率升高的主因。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "客户端连接未关闭可能导致资源占用，但与KV Cache block持续减少现象关联弱。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-6-30-5": {
+    "qid": "new-6-30-5",
+    "classification": "own",
+    "chapter": 6,
+    "quality": "ok",
+    "reason": "考察连续批处理提升并发的核心机制，属于vLLM原理。",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "PagedAttention（分页注意力）带来的好处：消除碎片；按需分配；大幅提升吞吐：同样的显存能塞下更多并发请求。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "PagedAttention消除KV Cache预分配浪费，使同显存支持更高并发。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "CUDA Graph优化减少kernel开销，但不是提升并发数的直接依赖机制。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "异步调度器降低延迟，但提升并发数直接依赖PagedAttention的显存管理。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "AWQ量化提升带宽利用率，但非连续批处理提升并发的直接底层机制。"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

@@ -1,0 +1,222 @@
+{
+  "3-1115": {
+    "qid": "3-1115",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "题干明确要求'分步骤查询'，原文3.6.3表格中'多步查询'未列出，但LlamaIndex官方支持MultiStepQueryEngine，属RAG进阶检索技术",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "其他检索增强 | 技术 | 解决的问题 | 一句话原理",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "ReRank解决排序精度，非分步逻辑"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "MultiStepQueryEngine专为分步查询设计"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "SimpleDirectoryReader仅用于文档加载"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "HyDE解决查询表述差异，非分步"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-1138": {
+    "qid": "3-1138",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "原文明确将'句子切片'列为保持句子完整性的默认策略",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "句子切片 | 以句子为边界，按长度聚合（默认策略） | 通用文本，保持句子完整",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "Markdown切片保结构，非保句子完整"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "原文明确其保持句子完整"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "随机切片无语义保障"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "语义切片成本高，非保句子"
+      },
+      {
+        "label": "E",
+        "selected": false,
+        "why": "字符切片易切断句子"
+      },
+      {
+        "label": "F",
+        "selected": false,
+        "why": "Token切片可能截断句子"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-1141": {
+    "qid": "3-1141",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "向量化核心目的是支撑语义相似度计算，原文3.5节明确说明",
+    "answer": [
+      "D"
+    ],
+    "supported": true,
+    "quote": "Embedding（向量化 / 嵌入）是把一段文本转换成一串数字（高维向量，如 1024 维）。它的核心性质是：语义相近的文本，向量在空间中的距离也近",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "向量不用于前端显示"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "向量存储开销更大"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "向量不可读"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "原文明确语义距离近即相似"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-1260": {
+    "qid": "3-1260",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "Context Recall低说明相关知识未被检索到，原文3.8指出应检查知识库、Embedding或查询改写",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "Recall 低：补充知识库、换更强的 Embedding、做查询改写",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "推理时间与召回无关"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "原文明确知识库缺失导致Recall低"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "训练数据属微调范畴"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "参数数量影响模型能力，非召回"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-1265": {
+    "qid": "3-1265",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "原文3.3节强调表格解析失败需OCR/文档智能解析，对应改进解析器",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "PDF 是扫描图片怎么办 → 需要 OCR / 文档智能解析",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "生成模型不解决解析问题"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "原文明确OCR解决表格解析"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "切片长度不修复解析失败"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "默认策略无法处理表格"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-1273": {
+    "qid": "3-1273",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "DashScopeRerank在原文3.6.2中明确定义为重排序组件",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "Rerank（重排序）：第一阶段向量检索快速'海选'出较多候选（如 Top 20），第二阶段用更强的重排序模型对候选逐篇精细打分、重新排序",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "HyDE负责假想文档"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "原文定义Rerank为重排序"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "解析由DashScopeParse完成"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "压缩维度非Rerank功能"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

@@ -1,0 +1,214 @@
+{
+  "new-10-12-0": {
+    "qid": "new-10-12-0",
+    "classification": "own",
+    "chapter": 10,
+    "quality": "ok",
+    "reason": "题目考查对成本控制手段的理解，符合章节知识。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "省成本的工程手段：...控制输入：RAG只塞最相关的片段，不要每次把整本手册塞进上下文；限制输出：用 `max_tokens` 给输出设上限，避免模型'刹不住车'",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "切换模型是降本手段，但非最直接针对冗长输出的措施。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "直接针对输出Token过多问题，符合限制输出的核心要求。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "缓存针对重复输入，不解决输出冗长问题。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "自托管是长期降本选项，非最直接工程手段。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-10-12-1": {
+    "qid": "new-10-12-1",
+    "classification": "own",
+    "chapter": 10,
+    "quality": "ok",
+    "reason": "考查对限流机制及重试风险的理解，符合章节知识。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "生产环境必须考虑重试、退避与降级，不能假设无限并发。...遇 429 用**指数退避 + 抖动**重试",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "原文未提重试会触发TPM限流。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "无间隔重试会加剧RPM超限，形成雪崩。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "原文未提重试影响缓存命中率。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "原文未提兼容模式会因此降级。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-10-12-2": {
+    "qid": "new-10-12-2",
+    "classification": "own",
+    "chapter": 10,
+    "quality": "ok",
+    "reason": "考查对配额共享场景下需双维度管控的理解。",
+    "answer": [
+      "A",
+      "D"
+    ],
+    "supported": true,
+    "quote": "限流（RPM/TPM、QPM）：每分钟请求数/Token 数有配额，超限返回 **429**",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "多线程并发且独立重试易触发配额超限，需管控。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "流式输出与配额管控无必然因果关系。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "混合使用模型本身不要求必须实现双维度降级。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "共享配额时，任一服务都可能耗尽配额，必须全局感知。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-10-12-3": {
+    "qid": "new-10-12-3",
+    "classification": "own",
+    "chapter": 10,
+    "quality": "ok",
+    "reason": "考查对RAG中控制输入原则的理解。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "控制输入：RAG只塞最相关的片段，不要每次把整本手册塞进上下文",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "故障主因是切片无效，非缓存问题。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "机械分割导致无关文本挤占窗口，违反控制输入原则。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "输出冗余是表现，非根本原因。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "RPM限流未配置非此故障主因。"
+      }
+    ],
+    "duplicate_of": "10-5186"
+  },
+  "new-10-12-4": {
+    "qid": "new-10-12-4",
+    "classification": "own",
+    "chapter": 10,
+    "quality": "ok",
+    "reason": "考查对TPM限流触发场景的辨析。",
+    "answer": [
+      "A",
+      "B"
+    ],
+    "supported": true,
+    "quote": "限流（RPM/TPM、QPM）：每分钟请求数/Token 数有配额，超限返回 **429**",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "单次输入Token巨大，易触发TPM限流。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "并发请求输出Token总量大，易触发TPM限流。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "连接堆积主要影响连接数，非直接触发TPM。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "短请求更可能触发RPM限流。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-10-12-5": {
+    "qid": "new-10-12-5",
+    "classification": "own",
+    "chapter": 10,
+    "quality": "fixable",
+    "reason": "题目设计有猜测性，但考点（计费差异分析）符合平台知识。",
+    "answer": [
+      "A"
+    ],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "模型版本不同可能导致分词差异，是合理推测。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "缓存影响计费，但波动主因更可能是分词差异。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "编码格式影响字符数，但分词器以Token计。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "网络延迟不影响分词结果，只影响响应时间。"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

@@ -1,0 +1,166 @@
+{
+  "items": [
+    {
+      "type": 0,
+      "stem": "某企业将新人答疑机器人升级为报销进度查询助手。用户提问后，模型输出包含tool_calls的结构化响应，但系统未返回最终答案，而是报错'No tool result in context'。根据第4章Function Calling流程，最可能的根本原因是什么？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "模型未正确识别工具调用意图，导致未生成tool_calls"
+        },
+        {
+          "option_label": "B",
+          "option_text": "应用代码未解析tool_calls并执行对应函数"
+        },
+        {
+          "option_label": "C",
+          "option_text": "工具执行结果未以role='tool'消息格式回传至上下文"
+        },
+        {
+          "option_label": "D",
+          "option_text": "JSON-Schema中parameters定义缺失required字段"
+        }
+      ],
+      "answer": "C",
+      "analysis": "依据4.3节Function Calling流程第四步明确指出：'结果回传：带着工具结果再次调用模型，模型据此生成最终回复'，且教材强调'结果必须由程序作为role=\"tool\"消息追加回上下文，模型才\"知道\"发生了什么'（4.3风险栏）。选项C直接对应该铁律失效——即使工具被成功执行，若未按规范封装为tool角色消息注入上下文，模型在下一轮感知时无法读取Observation，导致闭环断裂。A、B虽属前置环节错误，但题干已明确'模型输出包含tool_calls'，排除A；B错误会导致无执行，但不会触发'No tool result in context'这类上下文缺失报错；D影响参数提取准确性，不导致结果不可见。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 1,
+      "stem": "某金融Agent需处理'查询张三近三个月交易流水并判断是否存在异常大额转账'任务。当前采用ReAct模式，但出现以下问题：连续5轮调用bank_api后均返回空数据，Agent仍未终止或切换策略。根据第4章ReAct原则，应从哪些维度修正设计？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "为ReAct循环设置最大迭代轮数上限"
+        },
+        {
+          "option_label": "B",
+          "option_text": "在Planner组件中增加对工具返回空结果的分支判断逻辑"
+        },
+        {
+          "option_label": "C",
+          "option_text": "将bank_api工具替换为MCP Server以提升发现能力"
+        },
+        {
+          "option_label": "D",
+          "option_text": "在Memory中强制注入'空结果即失败'的元规则"
+        },
+        {
+          "option_label": "E",
+          "option_text": "为工具调用添加超时机制并在超时后触发重试"
+        }
+      ],
+      "answer": "ABE",
+      "analysis": "依据4.4节ReAct铁律第一条：'ReAct不是无限循环：必须设置最大迭代轮数/超时/token预算上限'（A正确）；第二条指出'Observation可能含噪声'，要求模型能基于反馈调整决策，故Planner需具备对空结果等异常Observation的显式处理逻辑（B正确）；E对应铁律中的'超时'约束，是防死循环的工程实践。C错误：MCP解决工具发现与管理，不解决ReAct循环控制；D错误：'元规则'属于提示词硬编码，违背4.2节'组件解耦'原则，且教材强调'失败出口'应由Planner或程序层实现，非靠记忆注入（4.2原则栏）。",
+      "difficulty_label": "高阶"
+    },
+    {
+      "type": 0,
+      "stem": "某团队开发多Agent客服系统，其中Billing Agent负责处理账单查询，Support Agent处理技术问题。测试中发现：当用户问'我的账单为什么有这笔费用？'时，Billing Agent调用了Support Agent的故障诊断工具。该设计违反了第4章多Agent哪项硬性原则？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "明确职责"
+        },
+        {
+          "option_label": "B",
+          "option_text": "独立凭据"
+        },
+        {
+          "option_label": "C",
+          "option_text": "中央调度"
+        },
+        {
+          "option_label": "D",
+          "option_text": "避免全量注入"
+        }
+      ],
+      "answer": "C",
+      "analysis": "依据4.7节多Agent四原则第三条：'中央调度：设置Planner/Leader Agent统一判断\"何时调哪个Agent\"，避免Agent之间无序互调、循环等待（死锁）'。题干中Billing Agent直接调用Support Agent工具，属于Worker间越级互调，破坏了中央调度机制，易引发死锁与职责混乱。A（明确职责）虽相关，但问题本质是调度失控而非职责定义不清；B涉及权限隔离，与工具调用无关；D指Prompt注入膨胀，与运行时调用行为无关。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 1,
+      "stem": "某教育Agent需长期记住学生'偏好图形化解释、数学基础薄弱'。当前使用固定窗口截断，30轮后该偏好丢失。根据第4.8节Memory策略，以下哪些改进符合教材推荐的最佳实践？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "将偏好信息写入向量数据库，每次对话前按语义检索并注入上下文"
+        },
+        {
+          "option_label": "B",
+          "option_text": "扩大截断窗口至100轮，确保首轮偏好不被丢弃"
+        },
+        {
+          "option_label": "C",
+          "option_text": "为记忆写入设置准入机制，仅当用户显式说'请记住我的偏好'时才持久化"
+        },
+        {
+          "option_label": "D",
+          "option_text": "用LLM将30轮历史压缩成摘要，替换原始对话记录"
+        },
+        {
+          "option_label": "E",
+          "option_text": "将偏好作为长期记忆存入Mem0LongTermMemory模块"
+        }
+      ],
+      "answer": "ACE",
+      "analysis": "依据4.8节：A对应'向量化召回'策略，教材明确其'摆脱窗口限制、海量记忆按需取用'（适用描述）；C符合'有选择地记'原则，'建立写入准入机制（用户显式要求...才写）'（4.8 best栏）；E直接引用教材'通过Mem0LongTermMemory等模块开箱即用'（4.8节末）。B错误：教材警示'单纯扩窗口只是延后爆炸'，且会加剧'注意力稀释/中间迷失'；D属滚动摘要，适用于短期记忆压缩，但题干需求是跨会话长期记忆，摘要无法保证关键偏好持久性。",
+      "difficulty_label": "中阶"
+    },
+    {
+      "type": 0,
+      "stem": "某公司希望固化'课程代码审查'流程：必须检查可执行性、依赖完整性、异常处理覆盖率。现有方案是将全部检查规则写入主系统提示词。根据第4.9节Skill原则，该做法的主要缺陷是什么？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "未实现渐进式披露，导致无关任务也被注入冗余规则"
+        },
+        {
+          "option_label": "B",
+          "option_text": "违反RAG与Skill的本质区别，混淆了事实补全与方法固化"
+        },
+        {
+          "option_label": "C",
+          "option_text": "未配置确定性检查脚本，过度依赖LLM主观判断"
+        },
+        {
+          "option_label": "D",
+          "option_text": "未使用YAML frontmatter声明Skill激活条件"
+        }
+      ],
+      "answer": "A",
+      "analysis": "依据4.9节Skill与RAG对比：'Skill采用渐进式披露（Progressive Disclosure）——启动时只看到description（很短），激活后才读SKILL.md'。题干中'将全部规则写入主系统提示词'属于反模式，直接违反此原则，造成'污染无关任务、撑爆上下文'（4.9 principle栏）。B虽提及区别，但题干未混淆RAG；C、D是Skill实施细节，但核心缺陷在于披露方式而非脚本或YAML缺失。",
+      "difficulty_label": "中阶"
+    },
+    {
+      "type": 1,
+      "stem": "某电商Agent上线后，端到端评测显示'订单查询成功率95%'，但客服反馈'用户常抱怨查到的物流状态过时'。为精准定位问题，应优先采用哪些白盒化评测手段？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "解析执行轨迹，验证是否调用最新版物流API工具"
+        },
+        {
+          "option_label": "B",
+          "option_text": "用LLM-as-Judge评估最终回答的语言流畅度"
+        },
+        {
+          "option_label": "C",
+          "option_text": "检查工具返回的物流时间戳是否在5分钟内"
+        },
+        {
+          "option_label": "D",
+          "option_text": "用Rubric拆解'时效性'指标为'数据新鲜度≥95%、延迟≤2min'等细则"
+        },
+        {
+          "option_label": "E",
+          "option_text": "人工抽检100个案例，比对API返回原始数据与最终回答一致性"
+        }
+      ],
+      "answer": "ACD",
+      "analysis": "依据4.10节：白盒评测聚焦'关键组件/中间步骤'（如工具调用序列、参数、轨迹）。A直接检查工具调用正确性（4.10 principle）；C是确定性检查的典型应用——'用代码/脚本判断该发生的步骤有没有发生'（4.10 principle）；D体现Rubric价值——'把模糊目标拆成逐条可判定的细则'（4.10 principle）。B属端到端主观评测，无法定位过程问题；E是人工验证，非自动化白盒评测手段，且效率低，不符合'精准定位瓶颈、快速迭代'目标。",
+      "difficulty_label": "高阶"
+    }
+  ]
+}

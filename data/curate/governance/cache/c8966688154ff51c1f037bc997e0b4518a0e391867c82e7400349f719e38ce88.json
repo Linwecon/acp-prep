@@ -1,0 +1,107 @@
+{
+  "new-6-18-0": {
+    "qid": "new-6-18-0",
+    "classification": "own",
+    "chapter": 6,
+    "quality": "ok",
+    "reason": "考查vLLM并发控制参数对性能的影响，符合本章核心考点。",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "并发数：同时在处理的请求数 | 显存（KV Cache）容量、调度策略",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "降低并发可缓解显存压力，稳定KV Cache分配，改善延迟和错误率。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "vLLM会返回错误（如429），而非静默丢弃请求。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "TTFT主要受Prefill速度影响，与并发控制参数关系不大。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "TPOT主要由Decode效率决定，调整并发数不会直接降低TPOT。"
+      }
+    ],
+    "duplicate_of": "6-5135"
+  },
+  "new-6-18-2": {
+    "qid": "new-6-18-2",
+    "classification": "own",
+    "chapter": 6,
+    "quality": "ok",
+    "reason": "考查不同部署方案对数据合规、性能、运维要求的满足情况。",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "PAI-EAS（Elastic Algorithm Service）是阿里云PAI平台的模型在线服务，可把开源社区模型或自训练/微调模型部署为在线服务，提供弹性扩缩容、蓝绿/灰度发布、资源组管理、版本控制、资源监控等企业级能力。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "PAI-EAS支持私有部署、模型预热、蓝绿发布，满足全部约束。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "ECS方案需手动维护灰度脚本，不符合“无专职SRE”的运维约束。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "FC有冷启动和时长限制，不适合实时大模型推理，且灰度能力弱。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "百炼MaaS数据会出域，违反“数据严禁出域”的核心约束。"
+      }
+    ],
+    "duplicate_of": "6-5138"
+  },
+  "new-6-18-5": {
+    "qid": "new-6-18-5",
+    "classification": "own",
+    "chapter": 6,
+    "quality": "ok",
+    "reason": "考查KV Cache成为瓶颈时的针对性优化措施。",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "上下文缓存 / 前缀复用：相同前缀（系统提示词、知识库）的 KV 结果复用 | 命中率高时显著降本提速",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "上下文缓存直接减少重复KV存储，针对性缓解KV Cache压力。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "量化权重主要节省权重显存，对已占90%的KV Cache压力缓解不直接。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "增加序列长度会进一步增加KV Cache占用，加剧问题。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "关闭PagedAttention会加剧显存碎片，是倒退措施。"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

@@ -1,0 +1,209 @@
+{
+  "4-0751": {
+    "qid": "4-0751",
+    "classification": "own",
+    "chapter": 4,
+    "quality": "ok",
+    "reason": "考查Agent核心能力——用工具保证准确性",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "Agent解决'做什么、怎么做'。工具必须以JSON-Schema描述，程序执行后结果回灌上下文。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "模型无法通过阅读文档自行学习规则，无状态且不更新知识"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "调用代码/SQL等外部工具可确保实时准确，符合Agent本质"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "自然语言描述易歧义、超窗、被忽略，非可靠方案"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "训练模型记忆规则属微调范畴，非Agent解法，且不解决时效性"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "4-1107": {
+    "qid": "4-1107",
+    "classification": "own",
+    "chapter": 4,
+    "quality": "ok",
+    "reason": "考查Planner组件职责与多Agent调度原则",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "Planner决定何时调哪个工具/Agent；中央调度是多Agent四原则之一。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "Planner应判断复杂度并路由，符合中央调度原则"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "训练小模型属微调，违背提示词→RAG→微调三级顺序"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "工具描述示例不解决任务分发逻辑，非Planner职责"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "Summary Agent非本章组件，且未提及其在调度中的作用"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "4-1129": {
+    "qid": "4-1129",
+    "classification": "cross",
+    "chapter": 10,
+    "quality": "review",
+    "reason": "考查百炼平台能力，需验证第10章原文",
+    "answer": [],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "百炼不绕过API限制，属合规服务"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "百炼不提供底层训练控制"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "百炼不自带网络搜索工具，需用户集成"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "参数灵活性非其核心优势，且原文未提"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "4-1313": {
+    "qid": "4-1313",
+    "classification": "own",
+    "chapter": 4,
+    "quality": "ok",
+    "reason": "考查多Agent设计原则与工程权衡",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "多Agent设计四条硬原则：明确职责、独立凭据、中央调度、避免全量注入。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "符合明确职责原则，是优势"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "符合分工协作，提升覆盖率是优势"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "拼接输出非智能体价值，易导致质量失控，非优势"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "分担任务可防过载，是优势"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "4-1323": {
+    "qid": "4-1323",
+    "classification": "own",
+    "chapter": 4,
+    "quality": "ok",
+    "reason": "考查Multi-Agent适用场景判断",
+    "answer": [
+      "A",
+      "C"
+    ],
+    "supported": true,
+    "quote": "多Agent适用目标明确、可拆解为并行子任务；或开放创意问题。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "查询+申请属典型多步可拆解任务"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "简单问答无需多Agent，违反‘简单任务不上’原则"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "复杂请求需拆解，符合分层规划适用场景"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "单次写入属原子操作，无需多Agent协同"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "4-1325": {
+    "qid": "4-1325",
+    "classification": "cross",
+    "chapter": 11,
+    "quality": "review",
+    "reason": "考查多模态技术结合，需验证第11章原文",
+    "answer": [],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "视觉标注属多模态范畴，但原文未提与Agent结合"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "NLP是Agent基础，但非‘结合’技术点"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "ML优化非本章知识，原文未覆盖"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "区块链加密属安全层，第8章未提与Agent结合"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

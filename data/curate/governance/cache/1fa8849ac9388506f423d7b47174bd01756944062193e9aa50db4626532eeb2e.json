@@ -1,0 +1,37 @@
+{
+  "new-5-18-0": {
+    "qid": "new-5-18-0",
+    "classification": "own",
+    "chapter": 5,
+    "quality": "ok",
+    "reason": "题干描述符合微调适用场景：RAG解决知识准确，但输出格式不稳定，提示词优化后仍不足。",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "微调擅长的是稳定的风格、语气、输出格式、领域行为习惯；知识时效与可溯源交给 RAG。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "全参微调成本高，非最优先；且题干未强调必须用全参。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "RAG已解决知识准确，升级检索与格式不稳定问题无关。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "格式不稳定是微调适用场景；蒸馏用教师生成数据训练小模型，符合题干需求。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "题干已提示词优化后仍不足，再强化提示词非最有效措施。"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

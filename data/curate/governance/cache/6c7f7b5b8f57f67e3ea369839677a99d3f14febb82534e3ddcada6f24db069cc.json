@@ -1,0 +1,109 @@
+{
+  "new-10-18-0": {
+    "qid": "new-10-18-0",
+    "classification": "own",
+    "chapter": 10,
+    "quality": "ok",
+    "reason": "考查百炼知识库RAG链路中检索失效的根因定位",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "百炼知识库（底层调用 DashScope 的 Embedding/生成模型）完成问答",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "语义分块影响切片信息完整性，是检索失败首要排查项"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "Embedding模型切换非必要条件，百炼默认可用"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "重排序非必需环节，基础检索已失败"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "CORS与知识库向量化无关，属前端资源加载问题"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-10-18-1": {
+    "qid": "new-10-18-1",
+    "classification": "own",
+    "chapter": 10,
+    "quality": "ok",
+    "reason": "考查百炼RAG功能启用的最小必要条件组合",
+    "answer": [
+      "A",
+      "C",
+      "D"
+    ],
+    "supported": true,
+    "quote": "百炼知识库（底层调用 DashScope 的 Embedding/生成模型）完成问答",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "文档上传或OSS关联是知识库数据源前提"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "百炼内置Embedding服务，无需自训部署"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "Embedding和LLM权限是调用底层模型的必需"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "API Key需同时授权百炼与DashScope服务"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-10-18-4": {
+    "qid": "new-10-18-4",
+    "classification": "own",
+    "chapter": 10,
+    "quality": "ok",
+    "reason": "考查私有化RAG中向量维度一致性要求",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "ModelScope（魔搭社区）是阿里云主导的开源模型与数据集社区",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "Embedding与LLM可跨系列，非强制同源"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "分词器一致性非向量维度匹配的直接条件"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "FAISS维度必须与Embedding输出严格一致"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "版本号一致非向量维度匹配的充要条件"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

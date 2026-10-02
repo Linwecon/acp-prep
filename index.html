@@ -74,6 +74,7 @@ window.__copyLinkFallback = function (text) {
       </button>
     </div>
     <div class="landing-loading" id="landingTip" style="display:none;">⏳ 题库加载中，请稍候…</div>
+    <button class="landing-tut-link" onclick="__enter('tutorial')">📓 官方实战教程文档 →</button>
     <div class="landing-notes">
       <details class="ln-details">
         <summary class="ln-summary">📌 使用注意事项</summary>
@@ -111,6 +112,10 @@ window.__copyLinkFallback = function (text) {
       </button>
       <button class="nav-item" data-nav="dashboard" onclick="ACP.go('dashboard')">
         <span class="nav-ico">📊</span> 学习总览
+      </button>
+      <button class="nav-item" data-nav="tutorial" onclick="ACP.go('tutorial')">
+        <span class="nav-ico">📓</span> 官方实战教程
+        <span class="nav-badge" id="tutBadge">24篇</span>
       </button>
       <button class="nav-item" data-nav="exam" onclick="ACP.go('exam')">
         <span class="nav-ico">📝</span> 模拟考试
@@ -359,8 +364,10 @@ window.__copyLinkFallback = function (text) {
 </div>
 
 <script defer src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-<script defer src="data/quiz_categorized.min.js?v=20261002-1"></script>
+<script defer src="data/quiz_categorized.min.js?v=govern-0e3811f50daf"></script>
 <script defer src="data/knowledge.js"></script>
+<script defer src="data/notebooks.js"></script>
+   <script defer src="data/quiz_qid_migration.js"></script>
 <script defer src="js/acp.js"></script>
 <script defer src="js/utils.js"></script>
 <script defer src="js/store.js"></script>
@@ -369,6 +376,7 @@ window.__copyLinkFallback = function (text) {
 <script defer src="js/dashboard.js"></script>
 <script defer src="js/chapter.js"></script>
 <script defer src="js/study.js"></script>
+<script defer src="js/notebook.js"></script>
 <script defer src="js/exam.js"></script>
 <script defer src="js/search.js"></script>
 <script defer src="js/ai.js"></script>

@@ -1,0 +1,225 @@
+{
+  "new-4-90-0": {
+    "qid": "new-4-90-0",
+    "classification": "own",
+    "chapter": 4,
+    "quality": "ok",
+    "reason": "题目考察MCP协议规范与风险处理，符合本章知识点。",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "MCP（模型上下文协议）是 Anthropic 提出的开源标准化协议，用来统一 Agent 接入外部工具与数据源的方式。它的核心思想是 \"谁提供工具，谁定义工具\"",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "A项符合MCP动态发现和隐私处理原则。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "硬编码违反MCP动态发现原则。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "重写FC和关闭日志均不合理。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "强制指定路径违反动态发现，加密非根本解决。"
+      }
+    ],
+    "duplicate_of": "4-5156"
+  },
+  "new-4-90-1": {
+    "qid": "new-4-90-1",
+    "classification": "own",
+    "chapter": 4,
+    "quality": "ok",
+    "reason": "题目考察Skill的渐进式披露设计原则，是本章核心知识点。",
+    "answer": [
+      "A",
+      "B",
+      "C"
+    ],
+    "supported": true,
+    "quote": "Skill：Agent 启动时只看到所有 Skill 的 `description`（很短），由模型判断当前任务要不要激活；激活后才读 `SKILL.md`，执行到具体步骤时再读对应子文件——这就是**渐进式披露（Progressive Disclosure）**。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "描述了渐进式披露的核心过程。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "避免一次性加载全部内容，符合避免全量注入。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "体现了Skill与RAG在信息补全方式上的本质区别。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "Function Calling是工具调用机制，非本题核心。"
+      },
+      {
+        "label": "E",
+        "selected": false,
+        "why": "MCP三原语是工具接入标准，非Skill设计原则。"
+      }
+    ],
+    "duplicate_of": "4-5157"
+  },
+  "new-4-90-2": {
+    "qid": "new-4-90-2",
+    "classification": "own",
+    "chapter": 4,
+    "quality": "ok",
+    "reason": "题目考察Plan-and-Execute策略应对流程卡死的根本改进。",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "**Plan-and-Execute（规划-执行）** 让 Agent 围绕用户的高阶**目标（Goal）**，先生成一份包含多步骤的**计划（Plan）**，再逐项执行；遇到障碍时**重新规划**，而不是死守预设流程图。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "封装为Resource未解决动态重规划问题。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "预置分支仍是固定工作流，非根本改进。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "动态生成新工具体现了自主规划应对变化的本质。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "配置独立Schema和超时未改变固定流程本质。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-4-90-3": {
+    "qid": "new-4-90-3",
+    "classification": "own",
+    "chapter": 4,
+    "quality": "ok",
+    "reason": "题目考察Function Calling参数提取失败时的排查思路。",
+    "answer": [
+      "A",
+      "C"
+    ],
+    "supported": true,
+    "quote": "参数提取准不准，取决于三件事：**Schema 质量**（名称、描述、必填项是否清晰）、**模型能力**、**上下文清晰度**",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "模型可能忽略pattern校验，是常见原因。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "pattern定义正确，转义非问题。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "工具执行层二次校验可能更严格，需排查。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "题干未提及MCP，无需排查。"
+      },
+      {
+        "label": "E",
+        "selected": false,
+        "why": "Observation截断可能导致误判，但非参数格式问题主因。"
+      }
+    ],
+    "duplicate_of": "4-5188"
+  },
+  "new-4-90-4": {
+    "qid": "new-4-90-4",
+    "classification": "own",
+    "chapter": 4,
+    "quality": "ok",
+    "reason": "题目考察多Agent设计四条硬原则的识别。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "**多 Agent 设计四原则（每条都是考点）**：1. **明确职责**：每个 Agent 有清晰、不重叠的职责边界；2. **独立凭据**：不同 Agent **不得共用同一套账号/API 凭据**；3. **中央调度**：设置 Planner / Leader Agent 统一判断\"何时调哪个 Agent\"；4. **避免全量注入**：**不要把所有 Agent 的知识/工具清单一次性写进主 Prompt**",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "明确职责和中央调度未涵盖全部违规点。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "共用账号违反独立凭据；全量提示词注入违反避免全量注入。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "中央调度和避免全量注入未涵盖独立凭据违规。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "独立凭据和中央调度未涵盖避免全量注入违规。"
+      }
+    ],
+    "duplicate_of": "4-5174"
+  },
+  "new-4-90-5": {
+    "qid": "new-4-90-5",
+    "classification": "own",
+    "chapter": 4,
+    "quality": "ok",
+    "reason": "题目考察固化团队规范时Skill与Memory的本质区别。",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "**Skill（技能）** 是把\"在什么场景下、按什么流程、用什么标准、调用什么工具\"打包成的**模块化、可复用、可版本化**的能力单元。它解决的不是\"模型不知道某个事实\"（那是 RAG 的活），而是\"模型不知道该**怎么做**某类专业任务\"。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "全局配置加载仍是零散记忆，非结构化SOP。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "MCP Prompt原语是提示词模板，非固化执行流程。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "Skill将规范编码为可执行的检查流程，是本质解决方案。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "新增工具函数未形成结构化、可复用的知识单元。"
+      }
+    ],
+    "duplicate_of": "4-5171"
+  }
+}

@@ -1,0 +1,162 @@
+{
+  "items": [
+    {
+      "type": 0,
+      "stem": "某HR系统已接入RAG查询最新制度条文，但员工提问'小蜜，帮我查下年假怎么休'时，模型有时输出JSON工单、有时输出自然语言段落，且字段缺失率高。此时最应优先采取的优化路径是？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "立即启动全参微调，用1000条人工标注样本训练"
+        },
+        {
+          "option_label": "B",
+          "option_text": "优化system prompt，强制要求所有回答必须以指定JSON schema格式输出"
+        },
+        {
+          "option_label": "C",
+          "option_text": "将RAG知识库升级为向量数据库并增加chunk重排序"
+        },
+        {
+          "option_label": "D",
+          "option_text": "切换至知识蒸馏方案，用qwen3.6-plus生成数据训练0.6B学生模型"
+        }
+      ],
+      "answer": "B",
+      "analysis": "题干明确描述问题为'输出格式不稳定、字段缺失'——属于典型的风格/行为问题，且RAG已解决知识性需求（能查到制度）。依据5.2节'前置评估三原则'，必须严格遵循'提示词→RAG→微调'顺序；5.1节强调微调是最后手段，而提示词优化是零成本、可即时验证的第一步。选项B直接针对格式不一致这一核心缺陷，通过强化system prompt约束输出结构，符合教材'先把角色、规则、输出格式在提示词里讲清楚'的要求。A跳过提示词直接微调，违反SOP；C针对知识检索而非格式问题；D虽属本章案例，但蒸馏是更高阶、更重的方案，仅在提示词和RAG均失效后才考虑，不符合'优先'要求。",
+      "difficulty_label": "基础"
+    },
+    {
+      "type": 1,
+      "stem": "在知识蒸馏流程中，以下哪些操作属于'离线数据合成阶段（教师侧）'的必要环节？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "用temperature=0.1让教师模型低温度生成结构化JSON标注"
+        },
+        {
+          "option_label": "B",
+          "option_text": "将合格样本格式化为ms-swift要求的messages(JSONL)结构"
+        },
+        {
+          "option_label": "C",
+          "option_text": "在A10 GPU上对Qwen3-0.6B基座模型执行LoRA训练"
+        },
+        {
+          "option_label": "D",
+          "option_text": "设计包含intents/department/urgency等5个字段的稳定输出schema"
+        },
+        {
+          "option_label": "E",
+          "option_text": "使用验证集loss曲线选择最优checkpoint并合并LoRA权重"
+        }
+      ],
+      "answer": "ABD",
+      "analysis": "依据5.4节'数据合成蒸馏全流程'及'离线数据合成阶段（教师侧）'定义：A正确，教材明确要求'教师标注用低温度（temperature=0.1）保证一致性'；B正确，'格式化为messages(JSONL)'是合成阶段最后一步，属于数据准备范畴；D正确，'设计schema'是第一步，教材强调'先定义稳定的输出结构'。C和E属于'在线训练与验证阶段（学生侧）'，C是训练动作，E是训练后处理，均非教师侧操作。教材5.4节图表清晰划分两阶段，且5.5节指出JSONL格式化是数据准备环节，而非训练环节。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 0,
+      "stem": "训练一个用于'请求理解'任务的LoRA蒸馏模型时，观察到训练loss持续下降但验证loss在第3 epoch后开始上升。此时若强行继续训练至5 epoch，最可能导致的后果是？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "模型在测试集上的JSON合规率显著提升，因训练更充分"
+        },
+        {
+          "option_label": "B",
+          "option_text": "模型泛化能力下降，上线后路由准确率低于验证集最优checkpoint"
+        },
+        {
+          "option_label": "C",
+          "option_text": "LoRA增量矩阵B·A的秩r自动降低，缓解过拟合"
+        },
+        {
+          "option_label": "D",
+          "option_text": "基座模型的灾难性遗忘被消除，旧能力全面恢复"
+        }
+      ],
+      "answer": "B",
+      "analysis": "题干现象'训练loss降、验证loss先降后升'是5.7节明确定义的'过拟合铁证'。教材指出过拟合导致'模型在背题，泛化能力下降'，且5.8节强调'部署应选验证集表现最优的checkpoint，而不是最后一个'。选项B直接对应此结论：继续训练会使模型在验证集上表现恶化，上线后实际效果必然劣于最优checkpoint。A错误，JSON合规率属于格式指标，过拟合主要损害判断类指标（如F1、route准确率），且5.9节显示格式问题需靠数据统一而非单纯加轮次；C错误，r是超参数，训练中不会自动变化；D错误，LoRA虽缓解遗忘但无法'消除'，且过拟合与遗忘无直接因果关系。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 1,
+      "stem": "某团队计划用QLoRA微调一个7B模型，但受限于单卡3090（24GB显存）。以下哪些措施符合教材推荐的资源优化策略？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "将lora_rank从16降至4，以减少可训练参数量"
+        },
+        {
+          "option_label": "B",
+          "option_text": "启用梯度检查点（gradient checkpointing）以降低激活内存"
+        },
+        {
+          "option_label": "C",
+          "option_text": "增大per_device_train_batch_size至32，以加速收敛"
+        },
+        {
+          "option_label": "D",
+          "option_text": "将max_length从2048缩短至512，匹配训练数据P95长度"
+        },
+        {
+          "option_label": "E",
+          "option_text": "关闭warmup阶段，直接使用最大学习率启动训练"
+        }
+      ],
+      "answer": "ABD",
+      "analysis": "依据5.6节LoRA原理及5.8节超参指南：A正确，教材5.6节指出'r越小容量越小、成本越低'，且5.8节说明'lora_rank可降为4应对数据极少场景'；B正确，梯度检查点是显存优化通用技术，教材5.10排错表虽未明写，但'显存不足'对策中'开梯度累积'逻辑同源，属合理延伸；D正确，5.8节强调'max_length应由数据token长度P95决定'，缩短可显著降显存。C错误，5.7节指出'batch太大需配套调大lr'，盲目增大batch易致OOM且未调lr会震荡；E错误，5.7节明确'warmup防止一开始大步震荡'，关闭会增加训练失败风险，违背教材原则。",
+      "difficulty_label": "应用"
+    },
+    {
+      "type": 0,
+      "stem": "对'请求理解'任务进行三方评测时，发现蒸馏模型的JSON合规率已达100%，但intents F1仅为52%，远低于教师模型的83.9%。此时最应优先采取的改进措施是？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "增加训练epoch数至10，让模型学习更充分"
+        },
+        {
+          "option_label": "B",
+          "option_text": "补充多意图、易混淆意图（如'考勤请假'与'制度咨询'共现）的真实业务样本"
+        },
+        {
+          "option_label": "C",
+          "option_text": "将lora_rank从8提升至16，增强模型表达能力"
+        },
+        {
+          "option_label": "D",
+          "option_text": "在system prompt中增加'请务必识别全部意图'的指令"
+        }
+      ],
+      "answer": "B",
+      "analysis": "题干现象'JSON合规率100%但F1低'是5.9节明确定义的'判断病'（非'格式病'）。教材5.9节'按指标定位问题'指出：'合规但F1/路由低 → 判断病：多意图、边界意图、相似意图样本覆盖不足，应补充这些样本而非盲目加轮次'。选项B完全对应此诊断与处置建议。A错误，5.7节强调'验证loss上升时加轮次会加剧过拟合'，且F1低主因是数据覆盖不足而非训练不足；C错误，5.8节说明'lora_rank应由任务复杂度决定'，当前r=8已满足5字段联合映射，F1低是数据缺陷而非容量瓶颈；D错误，提示词对已微调模型影响有限，且教材5.1节强调微调解决的是'参数层面的行为适配'，提示词无法修复已学偏的判断逻辑。",
+      "difficulty_label": "应用"
+    },
+    {
+      "type": 0,
+      "stem": "以下关于知识蒸馏与普通监督微调（SFT）的对比，哪一项表述完全符合教材原文？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "蒸馏必须使用白盒教师模型（需访问教师权重），而SFT只能用黑盒API"
+        },
+        {
+          "option_label": "B",
+          "option_text": "蒸馏的目标是提升学生模型的知识时效性，SFT则专注于输出格式稳定性"
+        },
+        {
+          "option_label": "C",
+          "option_text": "二者训练流程几乎完全相同，唯一区别是训练数据来源不同"
+        },
+        {
+          "option_label": "D",
+          "option_text": "蒸馏中学生模型的能力上限由基座模型决定，与教师无关"
+        }
+      ],
+      "answer": "C",
+      "analysis": "选项C直接引用5.4节原文：'二者的训练流程几乎完全相同（都是准备数据 → SFT 训练），唯一区别是训练数据的来源'。A错误，教材5.4节明确区分'数据合成蒸馏（黑盒，只需API）'与'白盒KD（需教师权重）'，且本章实操采用黑盒；B错误，5.4节强调蒸馏目标是'降低推理成本、提升速度'，知识时效性由RAG保障；D错误，5.4节'学生能力上限受教师约束'及5.10节'学生无法超过教师'均明确指出上限由教师决定。C是教材最核心的辨析点，精准对应'唯一区别'这一关键命题。",
+      "difficulty_label": "基础"
+    }
+  ]
+}

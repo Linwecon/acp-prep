@@ -1,0 +1,114 @@
+{
+  "new-4-30-0": {
+    "qid": "new-4-30-0",
+    "classification": "own",
+    "chapter": 4,
+    "quality": "ok",
+    "reason": "考查Function Calling流程中工具执行失败后的标准处理步骤。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "程序执行：**由你的应用代码**解析 `tool_calls`、真正执行对应函数，并把结果包装成 `role=\"tool\"` 的消息",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "未遵循Function Calling结果回传流程，模型无法基于反馈调整。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "符合Function Calling四步流程：程序执行工具后，结果必须以role='tool'消息回传，模型再生成新响应。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "盲目重试参数不变，未考虑模型可能调整参数或策略。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "未将失败结果反馈给模型，擅自切换工具不符合ReAct闭环逻辑。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-4-30-2": {
+    "qid": "new-4-30-2",
+    "classification": "own",
+    "chapter": 4,
+    "quality": "ok",
+    "reason": "考查MCP协议解决工具Schema动态发现与管理的核心价值。",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "MCP（Model Context Protocol，模型上下文协议）是 Anthropic 提出的开源标准化协议，用来统一 Agent 接入外部工具与数据源的方式。它的核心思想是 **\"谁提供工具，谁定义工具\"**",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "MCP标准化工具发现与管理，工具Schema由Server提供，Agent动态加载，与Function Calling互补。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "ReAct是执行模式，不解决Schema频繁变更和手动更新的根本问题。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "Skill封装SOP，主要用于固化方法，不直接解决工具Schema动态发现。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "Harness是工程闭环，用于持续改进，不直接解决工具Schema的接入标准化。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-4-30-5": {
+    "qid": "new-4-30-5",
+    "classification": "own",
+    "chapter": 4,
+    "quality": "ok",
+    "reason": "考查多Agent设计四原则（明确职责、独立凭据、中央调度、避免全量注入）的应用。",
+    "answer": [
+      "A",
+      "B",
+      "D"
+    ],
+    "supported": true,
+    "quote": "多 Agent 设计四原则（每条都是考点）：1. **明确职责**：每个 Agent 有清晰、不重叠的职责边界；2. **独立凭据**：不同 Agent **不得共用同一套账号/API 凭据**；3. **中央调度**：设置 Planner / Leader Agent 统一判断\"何时调哪个 Agent\"；4. **避免全量注入**：**不要把所有 Agent 的知识/工具清单一次性写进主 Prompt**",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "符合'独立凭据'原则，按最小权限分别授权。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "符合'中央调度'原则，Leader统一拆解和分派任务。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "违反'避免全量注入'原则，会导致上下文膨胀和注意力稀释。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "符合'明确职责'原则，Worker仅处理分配的子任务，信息隔离。"
+      },
+      {
+        "label": "E",
+        "selected": false,
+        "why": "共享缓存未直接违反原则，但未体现四原则中的任何一条。"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

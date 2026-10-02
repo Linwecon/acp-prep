@@ -1,0 +1,215 @@
+{
+  "2-0546": {
+    "qid": "2-0546",
+    "classification": "own",
+    "chapter": 2,
+    "quality": "remove",
+    "reason": "题干不完整，ask_llm_route函数及对应提示词未提供，无法判断选项。",
+    "answer": [],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "无原文支持，无法判断。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "无原文支持，无法判断。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "无原文支持，无法判断。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "无原文支持，无法判断。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "2-0548": {
+    "qid": "2-0548",
+    "classification": "own",
+    "chapter": 2,
+    "quality": "ok",
+    "reason": "考查提示词六要素，根据教材，六要素是完整框架，但题干问“必要”需结合上下文。",
+    "answer": [
+      "A",
+      "B",
+      "C",
+      "D"
+    ],
+    "supported": true,
+    "quote": "官方教程给出的提示词框架包含六个基本要素，它们共同构成一份完整的‘上下文蓝图’",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "任务目标是基本要素。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "上下文是基本要素。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "角色是基本要素。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "受众是基本要素。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "2-0660": {
+    "qid": "2-0660",
+    "classification": "own",
+    "chapter": 2,
+    "quality": "ok",
+    "reason": "考查通过补充角色、受众、上下文等要素改进提示词。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "这些要素的本质是给模型补足决策信息：‘角色’激活模型在训练中见过的角色模式；‘受众’直接决定内容深度",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "仅要求变长，未解决通用问题。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "补充了角色、受众、具体任务，符合改进原则。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "仅列出参数，未生成营销描述。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "改变语言未解决内容通用问题。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "2-0673": {
+    "qid": "2-0673",
+    "classification": "own",
+    "chapter": 2,
+    "quality": "ok",
+    "reason": "考查纠正事实性错误的方法，区分有效与无效手段。",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "temperature调节输出确定性；RAG核心思想：开卷考试；思维链（CoT）原理与适用场景",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "RAG可提供准确知识纠正错误。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "要求自我验证是可行方法。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "增加温度提高随机性，不直接纠正事实。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "思维链引导推理，有助于发现错误。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "2-0704": {
+    "qid": "2-0704",
+    "classification": "cross",
+    "chapter": 5,
+    "quality": "ok",
+    "reason": "考查微调与提示工程的区别，主要考点在微调章节。",
+    "answer": [
+      "A",
+      "B",
+      "C"
+    ],
+    "supported": true,
+    "quote": "微调解决行为适配而非知识更新；提示工程不改变模型参数；微调对数据量要求较高",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "正确，微调改参数，提示工程不改。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "正确，微调需大量数据，提示工程可小样本。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "正确，微调保留知识，提示工程需每次输入。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "错误，微调资源消耗通常更高。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "2-0713": {
+    "qid": "2-0713",
+    "classification": "own",
+    "chapter": 2,
+    "quality": "ok",
+    "reason": "考查通过提供上下文（大纲）来获得更结构化内容。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "上下文（Context）：提供背景、事实、范围 | 附上参考资料、业务规则",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "改变语言不解决内容泛泛问题。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "提供大纲作为上下文，可引导结构化输出。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "限制长度不解决内容深度问题。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "重复生成不改变提示词本身缺陷。"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

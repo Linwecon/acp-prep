@@ -1,0 +1,35 @@
+{
+  "10-1208": {
+    "qid": "10-1208",
+    "classification": "own",
+    "chapter": -1,
+    "quality": "remove",
+    "reason": "题干与选项均未在提供的第8章原文中出现，无法确定答案。",
+    "answer": [],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "原文未提及音频审核的自定义标签字段。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "RiskLevel是通用字段，但未指定为自定义标签。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "Description是描述字段，未提及为自定义标签。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "Confidence是置信度字段，与自定义标签无关。"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

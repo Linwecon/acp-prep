@@ -1,0 +1,212 @@
+{
+  "9-1383": {
+    "qid": "9-1383",
+    "classification": "own",
+    "chapter": 9,
+    "quality": "ok",
+    "reason": "考查上下文窗口超限的直接解决措施，属于API调用核心知识。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "输入 + 输出受上下文窗口限制，过大会报错且增加成本",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "更换模型不解决Token超限问题。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "减少输入长度或拆分调用是直接解决窗口超限的方法。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "增加并发数可能加剧限流，不解决Token超限。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "延长超时时间不解决Token超限的根本问题。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "9-5005": {
+    "qid": "9-5005",
+    "classification": "own",
+    "chapter": 9,
+    "quality": "ok",
+    "reason": "考查批量任务轮询策略，属于API调用工程实践。",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "轮询/回调：查询任务状态（排队中 → 运行中 → 已完成/失败）",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "无限循环请求会浪费资源，不合理。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "极短间隔持续请求会给服务端带来不必要压力。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "指数退避或合理间隔是标准轮询策略，避免打爆服务。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "不查询直接假设完成不可靠，可能导致任务丢失。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "9-5059": {
+    "qid": "9-5059",
+    "classification": "cross",
+    "chapter": 12,
+    "quality": "ok",
+    "reason": "考查Dify框架统一配置模型的价值，属于框架抽象能力。",
+    "answer": [
+      "B"
+    ],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "与多模型接入能力目的相反。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "统一配置和切换模型，减少业务代码与具体提供方的耦合。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "接入模型提供方不替代模型训练。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "与GPU时钟频率无关，是应用层配置。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "9-5101": {
+    "qid": "9-5101",
+    "classification": "cross",
+    "chapter": -1,
+    "quality": "review",
+    "reason": "考查百炼Assistant API对象职责，但教材未提供百炼API细节。",
+    "answer": [
+      "A"
+    ],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "Thread通常用于隔离用户会话上下文。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "Assistant定义通用指令和工具，不隔离用户会话。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "Run表示单次执行，不承载多轮上下文。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "Message是单条消息，不承载多轮上下文。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "9-5155": {
+    "qid": "9-5155",
+    "classification": "cross",
+    "chapter": -1,
+    "quality": "review",
+    "reason": "考查百炼Assistant API中instructions作用，但教材未提供百炼API细节。",
+    "answer": [
+      "A"
+    ],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "instructions通常用于定义助手角色和行为规则。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "instructions不直接修改模型权重。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "与服务器机房位置无关。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "关闭内容安全能力通常不是instructions的目的。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "9-1176": {
+    "qid": "9-1176",
+    "classification": "misplaced",
+    "chapter": 12,
+    "quality": "fixable",
+    "reason": "考查LlamaIndex文档预处理，但题干代码片段不完整，选项表述模糊。",
+    "answer": [
+      "B"
+    ],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "替换标点不直接使文本更有层级。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "替换标点可能影响句子切分，防止句子过大。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "替换为相同字符不提高识别准确率。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "替换标点不降低中文含量。"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

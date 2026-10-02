@@ -1,0 +1,221 @@
+{
+  "10-1446": {
+    "qid": "10-1446",
+    "classification": "beyond",
+    "chapter": 11,
+    "quality": "remove",
+    "reason": "题干涉及视频/音频/字幕同步，属多模态工程实践，原文第11章未提ffmpeg/moviepy/CosyVoice/Marp等工具",
+    "answer": [],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "原文未提ffmpeg"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "原文未提moviepy"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "原文未提CosyVoice"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "原文未提Marp"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "10-1460": {
+    "qid": "10-1460",
+    "classification": "own",
+    "chapter": 10,
+    "quality": "ok",
+    "reason": "考阿里云大模型生态核心产品，原文明确列出百炼/DashScope/PAI/ModelScope四层",
+    "answer": [
+      "A",
+      "B",
+      "E"
+    ],
+    "supported": true,
+    "quote": "| **应用开发层** | 把模型能力组装成可发布的应用 | **百炼（Model Studio）** | | **模型服务层（MaaS）** | 把通义千问等模型封装成标准 API | **DashScope（灵积）** | | **训练与部署层** | 自己开发、训练、部署模型 | **PAI**（DSW/DLC/EAS） | | **开源模型社区** | 下载/开源模型、数据集 | **ModelScope（魔搭）** |",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "通义千问是基础大模型，原文列为MaaS核心"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "PAI-EAS是PAI三件套之一，原文明确为部署层"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "PAI-Studio未在原文出现，只提DSW/DLC/EAS"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "向量数据库非阿里云大模型生态核心产品"
+      },
+      {
+        "label": "E",
+        "selected": true,
+        "why": "OSS是数据底座层，原文表格列为数据三件套"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "10-0447": {
+    "qid": "10-0447",
+    "classification": "own",
+    "chapter": 10,
+    "quality": "fixable",
+    "reason": "API调用格式需匹配DashScope兼容模式，原文给出标准示例",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "response = client.chat.completions.create(\n    model=\"qwen-plus\",\n    messages=[{\"role\": \"user\", \"content\": \"年假有几天？\"}],\n    stream=True,  # 流式逐 Token 返回，对话类应用标配\n)",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "chat.create非标准接口，原文用completions.create"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "完全匹配原文OpenAI兼容模式代码示例"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "records参数名错误，原文用messages"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "records参数名错误且缺少messages"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "10-0692": {
+    "qid": "10-0692",
+    "classification": "own",
+    "chapter": 10,
+    "quality": "ok",
+    "reason": "考PAI平台功能，原文明确DSW/DLC/EAS三件套及定位",
+    "answer": [
+      "A",
+      "B"
+    ],
+    "supported": true,
+    "quote": "PAI（Platform for AI，人工智能平台）是阿里云面向算法工程师的机器学习全流程平台，覆盖模型开发、分布式训练、在线推理部署。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "原文说DLC支持分布式训练，DSW支持微调"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "EAS是模型在线服务，支持API调用"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "原文未提PAI集成数据清洗标注工具"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "原文说PAI支持开源模型，如Qwen系列"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "10-1363": {
+    "qid": "10-1363",
+    "classification": "own",
+    "chapter": 10,
+    "quality": "ok",
+    "reason": "考PAI-EAS高并发部署能力，原文明确其弹性伸缩特性",
+    "answer": [
+      "A",
+      "B",
+      "D"
+    ],
+    "supported": true,
+    "quote": "**EAS**：Elastic Algorithm Service，模型在线服务 | 把训练好的模型一键部署为在线推理服务，支持弹性伸缩、蓝绿发布、版本管理、监控告警",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "EAS支持容器化部署，原文明确"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "EAS支持弹性伸缩，原文明确"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "PAI-Studio未在原文出现，微调用DSW/DLC"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "EAS支持监控告警，原文明确"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "10-1440": {
+    "qid": "10-1440",
+    "classification": "own",
+    "chapter": 10,
+    "quality": "ok",
+    "reason": "考多轮对话机制，原文强调messages角色化结构和无状态性",
+    "answer": [
+      "B",
+      "D"
+    ],
+    "supported": true,
+    "quote": "messages角色化结构",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "模型无状态，不保存历史"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "需将assistant回复加入messages列表"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "LLM天然支持多轮对话"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "新提问需添加user message到列表"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

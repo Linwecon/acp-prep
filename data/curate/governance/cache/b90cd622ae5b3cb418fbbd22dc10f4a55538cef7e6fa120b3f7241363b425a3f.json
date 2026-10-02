@@ -1,0 +1,37 @@
+{
+  "new-4-72-0": {
+    "qid": "new-4-72-0",
+    "classification": "own",
+    "chapter": 4,
+    "quality": "ok",
+    "reason": "题目考查Function Calling流程中工具结果回传的关键步骤，是本章核心考点。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "结果必须由程序作为 `role=\"tool\"` 消息追加回上下文，模型才'知道'发生了什么。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "题干明确工具已成功执行，非循环等待问题。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "工具结果未以role='tool'消息回传，模型无法生成最终答案。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "模型已返回tool_calls，说明已理解调用意图。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "题干明确工具调用成功，非超时失败问题。"
+      }
+    ],
+    "duplicate_of": "4-5159"
+  }
+}

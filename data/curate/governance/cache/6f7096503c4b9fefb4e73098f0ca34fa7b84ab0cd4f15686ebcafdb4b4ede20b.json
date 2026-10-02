@@ -1,0 +1,154 @@
+{
+  "items": [
+    {
+      "type": 0,
+      "stem": "某团队将Qwen3-0.6B模型量化为AWQ INT4后部署于vLLM，观测到：①显存占用下降58%；②TPOT降低22%；③TTFT无明显变化；④在代码补全任务上BLEU分数下降1.3分。以下哪项结论可被教材原文直接支持？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "AWQ在INT4下精度损失更小，因此BLEU下降仅1.3分属于预期内波动"
+        },
+        {
+          "option_label": "B",
+          "option_text": "TPOT降低证明量化必然加速推理，因显存带宽压力减小"
+        },
+        {
+          "option_label": "C",
+          "option_text": "TTFT未改善说明AWQ对Prefill阶段无优化作用，符合其设计聚焦Decode阶段的原理"
+        },
+        {
+          "option_label": "D",
+          "option_text": "显存下降58%验证了INT4相对FP16体积降为1/4的理论值（25%），误差源于KV Cache未量化"
+        }
+      ],
+      "answer": "C",
+      "analysis": "教材6.4节明确指出：'AWQ（Activation-aware Weight Quantization）：依据激活值的显著性，保护那些\\\"对结果影响大\\\"的权重通道，在低比特（INT4）下通常更稳、更快'；同时强调'量化主要省显存'，且'能否加速取决于推理框架/硬件是否有对应的低比特算子'——即TPOT降低是可能结果但非必然（B错误）；教材未断言AWQ精度损失'更小'，仅对比GPTQ称其'在低比特下通常更稳'，且未提供BLEU阈值判断依据（A无原文支撑）；教材表中INT4相对FP32为1/8，相对FP16应为1/4（25%），但实际下降58%含权重+KV Cache整体优化，D将原因武断归于'KV Cache未量化'属过度推断；而C项完全对应教材核心原理：AWQ本质是权重量化，Prefill阶段计算依赖完整权重并行处理，其延迟由计算密度主导，与KV Cache无关，故TTFT不变——这正印证了'AWQ聚焦优化Decode阶段显存带宽瓶颈'的设计意图，原文6.4节'量化通常也加速'及6.2节'Prefill计算密集、Decode显存带宽密集'构成直接依据。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 0,
+      "stem": "在诊断一个突然出现高TTFT（>8s）的线上vLLM服务时，监控显示GPU利用率正常、KV Cache占用率仅30%、无429错误。此时最应优先检查的日志线索是？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "vLLM启动日志中是否包含'Using AWQ kernel'或'Using GPTQ kernel'提示"
+        },
+        {
+          "option_label": "B",
+          "option_text": "请求日志中prompt token数是否突增至超长长度（如>8K），触发Prefill计算超载"
+        },
+        {
+          "option_label": "C",
+          "option_text": "CUDA初始化日志是否报错'out of memory'或驱动版本不兼容"
+        },
+        {
+          "option_label": "D",
+          "option_text": "PagedAttention页表分配日志是否出现'block allocation failed'"
+        }
+      ],
+      "answer": "B",
+      "analysis": "教材6.2节明确定义：'Prefill（预填充阶段）把用户输入的整段prompt一次性喂进去，并行计算...决定TTFT'；6.3节强调'TTFT受prompt长度影响'，并举例'长prompt会让等很久才开口'；6.6节指出'KV Cache占用率仅30%'说明显存非瓶颈，GPU利用率正常排除算力不足，无429说明未超并发限——三者共同指向Prefill阶段计算负载异常。而prompt长度激增是导致Prefill计算量爆炸的最常见、最直接原因（如用户提交整篇PDF文本），符合'故障诊断'要求的首要排查路径。A项涉及量化内核加载，属启动期问题，若未加载成功服务根本无法启动，与'突然出现'矛盾；C项OOM会直接导致服务崩溃或启动失败，与监控显示'GPU利用率正常'冲突；D项PagedAttention分配失败会引发KV Cache相关错误（如OOM或panic），但KV占用率仅30%已排除该可能。教材6.2节'Prefill决定TTFT'与6.3节'prompt长度影响TTFT'构成唯一直接依据。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 0,
+      "stem": "压测发现当并发从16增至32时，vLLM服务QPS仅提升12%，而平均RT翻倍、429错误率升至8%。此时最应优先执行的操作是？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "立即扩容GPU实例数量，通过横向扩展分担负载"
+        },
+        {
+          "option_label": "B",
+          "option_text": "调低--max-num-seqs参数，强制限制最大并发请求数"
+        },
+        {
+          "option_label": "C",
+          "option_text": "启用AWQ量化并重试压测，降低单请求显存占用"
+        },
+        {
+          "option_label": "D",
+          "option_text": "检查客户端是否配置指数退避重试，避免雪崩式重试"
+        }
+      ],
+      "answer": "B",
+      "analysis": "教材6.3节'高频误区'明确警示：'❌ 并发越高吞吐越高 → 超过显存/算力上限后，请求排队、RT飙升甚至报错'；6.11.1节指出'限流、重试与降级熔断'是保障稳定性的核心手段，且'超出并发上限通常直接返回错误（如429）'；6.3节案例显示：并发从1提至10时RT涨30%并出现超时，结论是'必须通过压测确定最优并发阈值'。当前现象（RT翻倍+429错误率8%）正是典型超阈值表现，首要动作是立即限流止损，而非盲目扩容（A）或引入新变量（C）。D项虽重要，但429错误本身已是限流生效信号，根因是服务端过载，非客户端重试策略问题。教材6.3节'超出并发限制会直接返回错误'与6.11.1节'限流是稳定性第一道防线'构成直接依据。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 1,
+      "stem": "某团队在vLLM中启用PagedAttention后，发现长上下文（64K tokens）请求的并发数从3提升至8，但单请求TTFT未改善。以下哪些选项正确解释了该现象？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "PagedAttention仅优化KV Cache内存管理，不影响Prefill阶段的计算密集型运算"
+        },
+        {
+          "option_label": "B",
+          "option_text": "TTFT由Prefill阶段决定，而Prefill不依赖KV Cache，故PagedAttention对其无作用"
+        },
+        {
+          "option_label": "C",
+          "option_text": "64K tokens的Prefill计算量过大，已超出GPU计算单元峰值性能，PagedAttention无法加速计算"
+        },
+        {
+          "option_label": "D",
+          "option_text": "vLLM默认关闭Prefill阶段的FlashAttention优化，需手动启用才能改善TTFT"
+        }
+      ],
+      "answer": "AB",
+      "analysis": "教材6.2节定义：'Prefill：把用户输入的整段prompt一次性喂进去，并行计算所有输入token的表示...决定TTFT'；6.5节说明：'PagedAttention...把KV Cache切成块...解决KV Cache的显存碎片与预分配浪费'；6.5节明确'PagedAttention解决的是KV Cache的显存碎片与预分配浪费'。因此A、B均正确：PagedAttention专为KV Cache（Decode阶段）设计，Prefill阶段无KV Cache参与，其计算密度由GPU算力决定，与内存管理无关。C项错误：教材未提及'超出峰值性能'概念，且TTFT未改善的根本原因是PagedAttention不作用于Prefill，而非算力瓶颈；D项错误：教材6.5节未要求手动启用FlashAttention，且该优化与PagedAttention机制无关，属额外特性。教材6.2节'Prefill决定TTFT'与6.5节'PagedAttention解决KV Cache显存问题'构成AB项的双重依据。",
+      "difficulty_label": "挑战"
+    },
+    {
+      "type": 1,
+      "stem": "开发者尝试在vLLM中禁用PagedAttention（通过--disable-visual-batch等非标准参数），发现服务启动失败并报错'PagedAttention is required for vLLM v0.4+'。以下哪些选项准确解释该现象？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "vLLM v0.4+架构已深度耦合PagedAttention，其连续批处理调度器依赖页表进行块级请求管理"
+        },
+        {
+          "option_label": "B",
+          "option_text": "禁用PagedAttention会导致KV Cache无法按需分配，触发显存预分配逻辑崩溃"
+        },
+        {
+          "option_label": "C",
+          "option_text": "教材6.5节指出PagedAttention是vLLM高吞吐的两大核心之一，v0.4+版本已移除传统连续内存分配路径"
+        },
+        {
+          "option_label": "D",
+          "option_text": "该报错表明vLLM强制要求使用分页机制以保证多请求间KV Cache共享功能"
+        }
+      ],
+      "answer": "AC",
+      "analysis": "教材6.5节明确：'vLLM高吞吐的两大核心：PagedAttention（分页管理KV Cache、消除碎片）+ 连续批处理'；6.5节进一步说明'PagedAttention借鉴操作系统的虚拟内存分页思想，把KV Cache切成块...天然支持共享'；6.5节图表标题'静态批处理 vs 连续批处理'隐含连续批处理与PagedAttention的协同设计。A项正确：连续批处理需动态调度不同长度请求，依赖PagedAttention的块级地址映射实现高效复用；C项正确：教材将PagedAttention列为'两大核心之一'，且v0.4+版本演进趋势是架构整合，'移除传统路径'符合工程实践逻辑。B项错误：'显存预分配逻辑崩溃'属臆测，教材未描述该机制；D项错误：KV Cache共享是PagedAttention的'好处'而非'强制要求'，报错根源是架构依赖，非功能强制。教材6.5节'两大核心'定义与'分页管理KV Cache'原理构成AC项直接依据。",
+      "difficulty_label": "挑战"
+    },
+    {
+      "type": 0,
+      "stem": "团队使用 curl 调用 vLLM 的 /v1/chat/completions 接口时，始终收到 400 Bad Request 错误，响应体为 '{\"error\":{\"message\":\"model not found\",\"type\":\"invalid_request_error\"}}'。已确认模型路径 '/mnt/workspace/model/Qwen3-0.6B' 在服务器上真实存在且权限正确。最可能被忽略的必要条件是？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "客户端请求中未指定model字段，或model值与vLLM启动时加载的模型标识不一致"
+        },
+        {
+          "option_label": "B",
+          "option_text": "vLLM启动命令未添加--served-model-name参数，导致内部模型注册名为空"
+        },
+        {
+          "option_label": "C",
+          "option_text": "模型目录下缺少tokenizer.json文件，导致vLLM无法初始化分词器"
+        },
+        {
+          "option_label": "D",
+          "option_text": "curl请求未设置Content-Type: application/json头"
+        }
+      ],
+      "answer": "A",
+      "analysis": "教材6.5节vLLM启动示例命令：'vllm serve \"/mnt/workspace/model/Qwen3-0.6B\"...'，并强调'启动后即可用标准OpenAI接口调用（与官方教程一致，`model`字段传模型本地路径）'；6.5节curl示例明确包含'data'中'model': \"/mnt/workspace/model/Qwen3-0.6B\"。OpenAI兼容协议要求请求体中`model`字段必须与服务端加载的模型路径或注册名严格匹配。400错误中'model not found'直指模型标识解析失败，而路径存在且权限正确，说明问题在请求端`model`字段缺失或值不匹配（如服务端用别名注册，客户端却传路径）。B项错误：--served-model-name为可选参数，未设置时默认使用路径作为model名；C项缺失tokenizer会触发启动失败，非运行时400；D项缺Content-Type通常返回415 Unsupported Media Type，非400 model not found。教材6.5节'vLLM提供OpenAI兼容接口'及curl示例中显式包含model字段构成A项直接依据。",
+      "difficulty_label": "进阶"
+    }
+  ]
+}

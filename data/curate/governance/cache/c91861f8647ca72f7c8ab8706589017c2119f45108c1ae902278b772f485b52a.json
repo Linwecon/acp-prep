@@ -1,0 +1,252 @@
+{
+  "4-1175": {
+    "qid": "4-1175",
+    "classification": "own",
+    "chapter": 4,
+    "quality": "ok",
+    "reason": "代码明确执行tool call并提交结果",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "get the function name, run and return the function output to the server",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "代码执行函数并提交输出"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "未涉及用户query提交"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "无等待逻辑"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "不获取assistant回复"
+      },
+      {
+        "label": "E",
+        "selected": false,
+        "why": "未创建新assistant"
+      },
+      {
+        "label": "F",
+        "selected": false,
+        "why": "未创建新thread"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "4-0002": {
+    "qid": "4-0002",
+    "classification": "own",
+    "chapter": 4,
+    "quality": "ok",
+    "reason": "符合多Agent四原则",
+    "answer": [
+      "A",
+      "C"
+    ],
+    "supported": true,
+    "quote": "明确职责、独立凭据、中央调度、避免全量注入",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "符合明确职责原则"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "违反独立凭据原则"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "符合中央调度原则"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "违反避免全量注入"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "4-0070": {
+    "qid": "4-0070",
+    "classification": "own",
+    "chapter": 4,
+    "quality": "ok",
+    "reason": "工具误调需优化Planner决策",
+    "answer": [
+      "A",
+      "C"
+    ],
+    "supported": true,
+    "quote": "设置 Planner / Leader Agent 统一判断'何时调哪个 Agent'",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "明确功能边界可减少误调"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "删除工具非根本解法"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "精细化路由提升准确性"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "代码库学习不解决路由问题"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "4-1015": {
+    "qid": "4-1015",
+    "classification": "own",
+    "chapter": 4,
+    "quality": "ok",
+    "reason": "字典支持动态调用与扩展",
+    "answer": [
+      "A",
+      "C",
+      "D",
+      "E",
+      "F"
+    ],
+    "supported": true,
+    "quote": "工具必须以 JSON-Schema 描述自己（名称、参数、用途），让模型知道'有什么可用、怎么用'",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "字典键名匹配函数名"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "Python支持多类型参数"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "满足不同用户需求"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "新增函数无需改结构"
+      },
+      {
+        "label": "E",
+        "selected": true,
+        "why": "键值对存储函数信息"
+      },
+      {
+        "label": "F",
+        "selected": true,
+        "why": "键值对支持参数动态传入"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "4-1286": {
+    "qid": "4-1286",
+    "classification": "own",
+    "chapter": 4,
+    "quality": "ok",
+    "reason": "基类提供统一接口和灵活性",
+    "answer": [
+      "A",
+      "C",
+      "E",
+      "F"
+    ],
+    "supported": true,
+    "quote": "单 Agent 四大组件（LLM / Planner / Tool / Memory）的职责与协作",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "__init__统一初始化"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "Python支持多重继承"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "子类重写query方法"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "无私有属性定义"
+      },
+      {
+        "label": "E",
+        "selected": true,
+        "why": "__call__提供统一调用入口"
+      },
+      {
+        "label": "F",
+        "selected": true,
+        "why": "统一接口实现复用"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "4-5102": {
+    "qid": "4-5102",
+    "classification": "own",
+    "chapter": 4,
+    "quality": "ok",
+    "reason": "符合Function Calling四步流程",
+    "answer": [
+      "A",
+      "C"
+    ],
+    "supported": true,
+    "quote": "模型只输出调用意图，执行工具的是应用代码",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "工具登记是第一步"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "虚构结果违反真实执行"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "应用侧执行是第三步"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "禁用工具违背Agent本质"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

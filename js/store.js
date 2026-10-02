@@ -17,7 +17,50 @@
         s.p = s.p || {};
         s.fav = s.fav || [];
         s.exams = s.exams || [];
+        migrateMovedQids(s);
         return s;
+    }
+
+    /* 移章题号迁移：治理移章后旧 `章-seq` 记录按台账映射迁移到新编号。
+       只迁移、合并，不清空任何记录；无映射的记录原样保留。幂等。 */
+    function migrateMovedQids(s) {
+        const map = (typeof window !== 'undefined' && window.ACP_QID_MIGRATION) || null;
+        if (!map) return;
+        let changed = false;
+        Object.keys(s.p).forEach(oldId => {
+            const newId = map[oldId];
+            if (!newId || newId === oldId) return;
+            const oldRec = s.p[oldId];
+            if (!ACP.ID_MAP[newId]) return;   // 新题号不存在（数据版本较旧），保留原记录
+            const newRec = s.p[newId];
+            if (!newRec) {
+                s.p[newId] = oldRec;          // 原样迁移，保留全部历史
+            } else {
+                // 两边都有记录：作答次数/错误次数取较大值，最近作答优先
+                const newer = ((oldRec.t || 0) > (newRec.t || 0)) ? oldRec : newRec;
+                s.p[newId] = {
+                    d: Math.max(oldRec.d || 0, newRec.d || 0),
+                    w: Math.max(oldRec.w || 0, newRec.w || 0),
+                    c: newer.c || 0,
+                    t: Math.max(oldRec.t || 0, newRec.t || 0)
+                };
+                if (newer.a) s.p[newId].a = newer.a;
+            }
+            delete s.p[oldId];
+            changed = true;
+        });
+        s.fav = (s.fav || []).map(id => (map[id] && ACP.ID_MAP[map[id]]) ? map[id] : id);
+        s.fav = Array.from(new Set(s.fav));
+        if (s.last && s.last.id && map[s.last.id] && ACP.ID_MAP[map[s.last.id]]) {
+            s.last.id = map[s.last.id];
+            const q = ACP.ID_MAP[s.last.id];
+            if (q) s.last.ch = q.ch;
+            changed = true;
+        }
+        if (changed) {
+            try { localStorage.setItem(ACP.STORE_KEY, JSON.stringify(s)); } catch (e) {}
+        }
+        return changed;
     }
 
     function saveStore() {
@@ -100,6 +143,7 @@
 
     ACP.loadStore = loadStore;
     ACP.saveStore = saveStore;
+    ACP.migrateMovedQids = migrateMovedQids;
     ACP.prog = prog;
     ACP.isDone = isDone;
     ACP.isWrong = isWrong;

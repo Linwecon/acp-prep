@@ -1,0 +1,233 @@
+{
+  "2-0896": {
+    "qid": "2-0896",
+    "classification": "own",
+    "chapter": 2,
+    "quality": "ok",
+    "reason": "考查提示词设计中对输出格式和约束的明确要求。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "输出格式（Output Format）指定格式、枚举值、禁止项",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "要求模糊，不如B具体明确。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "明确要求添加详细注释，符合输出格式约束原则。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "非提示工程方法，是事后补救。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "非提示工程方法，是外部工具。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "2-0946": {
+    "qid": "2-0946",
+    "classification": "own",
+    "chapter": 2,
+    "quality": "ok",
+    "reason": "考查Zero-shot分类提示词的设计，明确意图清单。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "意图分类（Intent Classification）...意图清单...输出格式",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "数据过多，不符合零样本快速验证。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "列出类别名称，是零样本分类的标准做法。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "微调不是零样本验证。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "数据不完整，无法验证所有类别。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "2-0968": {
+    "qid": "2-0968",
+    "classification": "own",
+    "chapter": 2,
+    "quality": "ok",
+    "reason": "考查提示词中对输出格式和约束的具体化要求。",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "输出格式（Output Format）指定格式、枚举值、禁止项",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "要求过于模糊，无具体约束。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "强调高效，未提及可读性和注释。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "明确要求可读性和注释，约束具体。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "仅指定语言，未提可读性和注释。"
+      }
+    ],
+    "duplicate_of": "2-0896"
+  },
+  "2-1025": {
+    "qid": "2-1025",
+    "classification": "own",
+    "chapter": 2,
+    "quality": "ok",
+    "reason": "考查提示词六要素中“样例”的作用。",
+    "answer": [
+      "D"
+    ],
+    "supported": true,
+    "quote": "样例（Sample）给 1~3 个范例对齐格式与风格",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "确定目标用户是“受众”要素的作用。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "样例不保证生成单一答案。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "限制回答长度是输出格式或约束。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "样例提供有指导性的案例，对齐格式风格。"
+      },
+      {
+        "label": "E",
+        "selected": false,
+        "why": "设定情感色彩是“角色”要素的作用。"
+      },
+      {
+        "label": "F",
+        "selected": false,
+        "why": "抽象实现方案不是样例的核心作用。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "2-1027": {
+    "qid": "2-1027",
+    "classification": "own",
+    "chapter": 2,
+    "quality": "ok",
+    "reason": "考查输出格式要素的正确描述。",
+    "answer": [
+      "D",
+      "E"
+    ],
+    "supported": true,
+    "quote": "输出格式（Output Format）指定格式、枚举值、禁止项",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "错误，输出格式直接影响模型应答。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "错误，应明确不期望输出的内容。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "使用案例是样例的作用，非输出格式本身。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "正确，应明确指出枚举值的范围。"
+      },
+      {
+        "label": "E",
+        "selected": true,
+        "why": "正确，应明确提供要输出的内容类型。"
+      },
+      {
+        "label": "F",
+        "selected": false,
+        "why": "错误，样例常与输出格式结合使用。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "2-1128": {
+    "qid": "2-1128",
+    "classification": "own",
+    "chapter": 2,
+    "quality": "ok",
+    "reason": "考查Few-shot提示词在特定术语翻译中的应用。",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "Few-shot（少样本）给 2~5 个示例让模型模仿",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "提供全部术语示例，确保翻译准确性最高。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "示例不足，可能无法覆盖所有术语。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "直接翻译可能无法正确处理内部术语。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "网络搜索可能无法获取内部术语。"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

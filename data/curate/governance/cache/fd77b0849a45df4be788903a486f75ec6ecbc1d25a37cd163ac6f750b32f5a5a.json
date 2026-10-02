@@ -1,0 +1,213 @@
+{
+  "9-5002": {
+    "qid": "9-5002",
+    "classification": "own",
+    "chapter": 9,
+    "quality": "ok",
+    "reason": "考点明确，选项B精准对应Batch异步特性",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "批量生成（Batch API）是把大量请求打包成一个异步离线任务提交给平台，平台在后台调度处理，完成后统一产出结果文件。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "原文未提模型版本强度"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "原文明确'异步离线任务'和'完成后统一产出'"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "原文指出Batch延迟更高"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "原文未限定输入类型"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "9-5003": {
+    "qid": "9-5003",
+    "classification": "own",
+    "chapter": 9,
+    "quality": "ok",
+    "reason": "考点为批处理容错设计，D符合工程实践",
+    "answer": [
+      "D"
+    ],
+    "supported": true,
+    "quote": "批内单行失败通常不影响其他行，可只重试失败行，注意幂等与去重，不要整批重跑。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "原文明确'一般按行独立处理'"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "原文要求'记录失败原因'"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "原文反对'整批重跑'"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "原文要求记录失败原因并继续处理"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "9-5004": {
+    "qid": "9-5004",
+    "classification": "own",
+    "chapter": 9,
+    "quality": "ok",
+    "reason": "多选题考点为Batch适用场景，AC符合定义",
+    "answer": [
+      "A",
+      "C"
+    ],
+    "supported": true,
+    "quote": "批量生成（Batch API）是把大量请求打包成一个异步离线任务提交给平台，平台在后台调度处理，完成后统一产出结果文件。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "'数十万会员'符合大批量离线特征"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "在线对话需低延迟，应选流式"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "'夜间离线'是典型Batch场景"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "毫秒级判断需实时调用"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "9-5005": {
+    "qid": "9-5005",
+    "classification": "own",
+    "chapter": 9,
+    "quality": "ok",
+    "reason": "轮询策略考点，C符合防雪崩原则",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "轮询/回调：查询任务状态（排队中 → 运行中 → 已完成/失败）；要监控任务状态，失败要能告警，不要等第二天才发现没跑出来",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "无限循环会加剧服务压力"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "极短间隔易触发限流"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "原文要求'监控任务状态'并设超时"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "原文强调需轮询查状态"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "9-5006": {
+    "qid": "9-5006",
+    "classification": "own",
+    "chapter": 9,
+    "quality": "ok",
+    "reason": "成本考点，B准确反映Batch经济性",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "它的优势不是'更快返回单个结果'，而是更高吞吐、更低单价地处理大批量、对实时性不敏感的任务。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "原文未提质量下降"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "原文明确'更低单价'和'更高吞吐'"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "原文指出Batch延迟更高"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "原文说明超配额仍返回429"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "9-5059": {
+    "qid": "9-5059",
+    "classification": "cross",
+    "chapter": 12,
+    "quality": "review",
+    "reason": "Dify属第12章框架工具，非API层能力",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "低代码平台Dify的原型验证价值",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "Dify支持多模型切换"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "Dify实现模型解耦，属框架抽象价值"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "Dify不替代训练"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "与GPU硬件无关"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

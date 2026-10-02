@@ -1,0 +1,44 @@
+{
+  "items": [
+    {
+      "qid": "new-9-18-1",
+      "duplicate_of": "",
+      "reason": "考点相同但关键条件不同，候选题强调system prompt优化"
+    },
+    {
+      "qid": "new-9-18-2",
+      "duplicate_of": "",
+      "reason": "考点不同，新题为多选且考查messages结构操作"
+    },
+    {
+      "qid": "new-9-18-4",
+      "duplicate_of": "",
+      "reason": "考点相同但题型不同，新题为多选"
+    },
+    {
+      "qid": "new-9-18-5",
+      "duplicate_of": "",
+      "reason": "考点相同但选项顺序不同，考查应急操作顺序"
+    },
+    {
+      "qid": "new-9-24-0",
+      "duplicate_of": "new-9-12-0",
+      "reason": "考点、关键条件、解题路径完全相同"
+    },
+    {
+      "qid": "new-9-24-2",
+      "duplicate_of": "new-9-18-4",
+      "reason": "考点、关键条件、解题路径完全相同"
+    },
+    {
+      "qid": "new-9-24-5",
+      "duplicate_of": "new-9-18-5",
+      "reason": "考点、关键条件、解题路径完全相同"
+    },
+    {
+      "qid": "new-9-30-0",
+      "duplicate_of": "new-9-12-0",
+      "reason": "考点、关键条件、解题路径完全相同"
+    }
+  ]
+}

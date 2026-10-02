@@ -1,0 +1,214 @@
+{
+  "new-9-60-0": {
+    "qid": "new-9-60-0",
+    "classification": "own",
+    "chapter": 9,
+    "quality": "ok",
+    "reason": "考查OpenAI兼容接口鉴权头格式，是核心工程细节。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "鉴权失败通常返回 401，参数错误返回 400，限流返回 429——这三个错误码是高频考点。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "原文未提及SDK版本是兼容模式必要条件。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "401错误需检查鉴权头格式，Bearer是标准。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "model错误更可能导致400而非401。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "user消息缺失导致400，与401无关。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-9-60-1": {
+    "qid": "new-9-60-1",
+    "classification": "own",
+    "chapter": 9,
+    "quality": "ok",
+    "reason": "考查Function Calling完整流程中遗漏关键步骤的故障点。",
+    "answer": [
+      "A",
+      "B"
+    ],
+    "supported": true,
+    "quote": "拿到 tool_calls 就以为工具已经执行——模型只是“提议”，执行工具的是你自己的代码；忘了把 response_message 追加进 messages——第二次调用时模型不知道自己之前决策了什么",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "未追加response_message会导致模型失忆。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "回传结果时漏 tool_call_id 模型无法对应。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "描述含糊影响参数提取，但工具已执行。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "保留system消息是常规操作，非故障主因。"
+      }
+    ],
+    "duplicate_of": "9-5165"
+  },
+  "new-9-60-2": {
+    "qid": "new-9-60-2",
+    "classification": "own",
+    "chapter": 9,
+    "quality": "ok",
+    "reason": "考查Batch API结果对齐的关键工程实践。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "必须校验输入输出行数、请求 ID 是否一一对应，防止错位或丢失",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "include_usage用于统计Token，与行数对齐无关。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "缺少唯一ID导致结果与输入无法对齐。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "轮询间隔短不影响最终结果文件内容。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "编码问题可能导致乱码，但不会导致行数减少和错位。"
+      }
+    ],
+    "duplicate_of": "9-5170"
+  },
+  "new-9-60-3": {
+    "qid": "new-9-60-3",
+    "classification": "own",
+    "chapter": 9,
+    "quality": "ok",
+    "reason": "考查多轮对话失忆的根本原因及修复方法。",
+    "answer": [
+      "A",
+      "B"
+    ],
+    "supported": true,
+    "quote": "多轮对话能力，本质是客户端把历史消息按角色组织好，每次调用都完整地放进 messages 里再传一遍",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "必须维护跨请求的历史列表。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "需将上一轮assistant回复追加到历史中。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "动态时间戳与解决失忆问题无关。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "消息顺序由历史决定，非固定user在assistant后。"
+      }
+    ],
+    "duplicate_of": "9-5164"
+  },
+  "new-9-60-4": {
+    "qid": "new-9-60-4",
+    "classification": "own",
+    "chapter": 9,
+    "quality": "ok",
+    "reason": "考查超限流（429）的根因定位与主动控制措施。",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "主动控并发：用令牌桶/信号量限制同时发出的请求数，而不是把所有请求一股脑打给服务端",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "客户端主动限流是解决超配额的根本措施。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "升级配额是后续方案，非首步修复。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "重试策略用于处理已发生的429，非预防。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "切换模型不解决RPM超限问题。"
+      }
+    ],
+    "duplicate_of": "9-5172"
+  },
+  "new-9-60-5": {
+    "qid": "new-9-60-5",
+    "classification": "own",
+    "chapter": 9,
+    "quality": "ok",
+    "reason": "考查成本控制优先级，输入长度优化最直接。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "控制输入长度——压缩历史、过滤无关检索结果、精简 system prompt",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "精确统计用量是监控，非成本控制措施。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "精简system prompt直接减少每次输入Token。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "限制输出长度针对输出Token，非输入主因。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "切换模型降单价优先级低于控制输入长度。"
+      }
+    ],
+    "duplicate_of": "9-5159"
+  }
+}

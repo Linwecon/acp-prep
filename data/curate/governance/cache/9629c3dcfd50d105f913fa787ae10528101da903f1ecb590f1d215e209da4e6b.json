@@ -1,0 +1,217 @@
+{
+  "new-7-42-0": {
+    "qid": "new-7-42-0",
+    "classification": "own",
+    "chapter": 7,
+    "quality": "ok",
+    "reason": "考查检索噪声下生成参数调整对指标的影响，定位明确",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "检索回来的片段中，相关项是否排名靠前、占比高（信噪比）……检索到了正确资料，模型却答'张伟是人事部门的' → Faithfulness / Correctness 低",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "Answer Relevancy已高，且调temperature不直接导致跑题"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "噪声多时调高temperature会加剧幻觉，Faithfulness会下降"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "Context Precision是检索端指标，不受生成参数直接影响"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "Answer Correctness可能下降，但最直接加剧的是Faithfulness"
+      }
+    ],
+    "duplicate_of": "7-5083"
+  },
+  "new-7-42-1": {
+    "qid": "new-7-42-1",
+    "classification": "own",
+    "chapter": 7,
+    "quality": "ok",
+    "reason": "综合考查评测集构建铁律和指标计算前提，考点清晰",
+    "answer": [
+      "A",
+      "B",
+      "C"
+    ],
+    "supported": true,
+    "quote": "标准答案来自领域专家……问题来自真实用户场景……Answer Relevancy……判断答案是否模棱两可（noncommittal）",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "违反铁律：ground_truth未由领域专家审定"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "违反铁律：问题非真实用户场景；且刻意模糊问题影响Relevancy计算"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "违反铁律：改写后非真实用户问题；且结构化指令影响Relevancy计算"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "未标注noncommittal负例违反计算前提，但未同时违反两条铁律"
+      }
+    ],
+    "duplicate_of": "7-5080"
+  },
+  "new-7-42-2": {
+    "qid": "new-7-42-2",
+    "classification": "own",
+    "chapter": 7,
+    "quality": "ok",
+    "reason": "考查回归评测中控制变量的核心原则，场景典型",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "回归评测的前提是除了待测改动，其他一切都冻结：评测集版本、评测脚本、推理参数、模型版本、甚至当评委的大模型版本都要固定",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "更换评委模型直接违反冻结配置原则"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "题干未提及问题来源不真实"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "题干未提及ground_truth来源问题"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "与题干描述的分数失真现象无直接关系"
+      }
+    ],
+    "duplicate_of": "7-5084"
+  },
+  "new-7-42-3": {
+    "qid": "new-7-42-3",
+    "classification": "own",
+    "chapter": 7,
+    "quality": "ok",
+    "reason": "考查Answer Relevancy低与其它指标的关联，定位明确",
+    "answer": [
+      "A",
+      "B",
+      "C"
+    ],
+    "supported": true,
+    "quote": "答案中高频出现‘我不确定’‘建议咨询财务部’等noncommittal表述……检索指标都好（Recall、Precision高），但Faithfulness / Correctness低",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "Relevancy低可能因模型回避，检索本身可能正常"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "模型说‘无法确定’是忠实于无答案的contexts，Faithfulness可能高"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "回避性答案与标准答案语义不相似，事实F1为0"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "主动过滤所有contexts是极端情况，非必然同步出现"
+      }
+    ],
+    "duplicate_of": "7-5072"
+  },
+  "new-7-42-4": {
+    "qid": "new-7-42-4",
+    "classification": "own",
+    "chapter": 7,
+    "quality": "ok",
+    "reason": "考查控制变量失效的排查，结合具体指标变化",
+    "answer": [
+      "D"
+    ],
+    "supported": true,
+    "quote": "Answer Correctness = 0.25 × 语义相似度 + 0.75 × 事实 F1……语义相似度用Embedding模型分别编码answer与ground_truth",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "temperature影响生成，但Faithfulness下降主因可能是检索噪声"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "评测集版本应冻结，但题干未暗示抽样版本变化"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "ground_truth审定是构建要求，非运行间控制变量"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "Embedding模型版本影响Answer Correctness计算，需优先核查"
+      }
+    ],
+    "duplicate_of": "7-5089"
+  },
+  "new-7-42-5": {
+    "qid": "new-7-42-5",
+    "classification": "own",
+    "chapter": 7,
+    "quality": "ok",
+    "reason": "综合考查EDD实践与控制变量要求，选项设计合理",
+    "answer": [
+      "A",
+      "C"
+    ],
+    "supported": true,
+    "quote": "防止回归……每次改动后跑同一套题，确保'修好A、没弄坏B'……回归评测的前提是除了待测改动，其他一切都冻结",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "冻结所有配置运行全量评测，同时满足两项要求"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "黄金集用于校准，不直接满足防止回归和控制变量"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "CI/CD集成自动化回归，且默认会冻结配置，满足两项"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "实时补充评测集违反控制变量中的评测集冻结要求"
+      }
+    ],
+    "duplicate_of": "7-5090"
+  }
+}

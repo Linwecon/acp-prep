@@ -1,0 +1,200 @@
+{
+  "1-0184": {
+    "qid": "1-0184",
+    "classification": "own",
+    "chapter": -1,
+    "quality": "remove",
+    "reason": "题干表述模糊，\"知识信息干扰大模型推理\"含义不清，选项A与题干逻辑关系牵强，缺乏明确考查点。",
+    "answer": [],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "题干逻辑不清，无法判断"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "题干逻辑不清，无法判断"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "题干逻辑不清，无法判断"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "题干逻辑不清，无法判断"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "1-0186": {
+    "qid": "1-0186",
+    "classification": "cross",
+    "chapter": 7,
+    "quality": "remove",
+    "reason": "题干孤立提及\"evaluate函数\"，未提供上下文，无法确定其具体指代，选项均不合理，无考查价值。",
+    "answer": [],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "题干信息不足，无法判断"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "题干信息不足，无法判断"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "题干信息不足，无法判断"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "题干信息不足，无法判断"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "1-0219": {
+    "qid": "1-0219",
+    "classification": "own",
+    "chapter": -1,
+    "quality": "remove",
+    "reason": "题干表述模糊，\"节省答疑机器人的资源消耗\"目标宽泛，选项A与题干逻辑关系牵强，缺乏明确考查点。",
+    "answer": [],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "题干逻辑不清，无法判断"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "题干逻辑不清，无法判断"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "题干逻辑不清，无法判断"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "题干逻辑不清，无法判断"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "1-0237": {
+    "qid": "1-0237",
+    "classification": "cross",
+    "chapter": 12,
+    "quality": "remove",
+    "reason": "题干孤立提及\"index.as_query_engine\"方法，未提供上下文，无法确定其具体指代，选项均不合理，无考查价值。",
+    "answer": [],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "题干信息不足，无法判断"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "题干信息不足，无法判断"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "题干信息不足，无法判断"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "题干信息不足，无法判断"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "1-0268": {
+    "qid": "1-0268",
+    "classification": "cross",
+    "chapter": 12,
+    "quality": "remove",
+    "reason": "题干孤立提及\"OpenAILike类\"，未提供上下文，无法确定其具体指代，选项均不合理，无考查价值。",
+    "answer": [],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "题干信息不足，无法判断"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "题干信息不足，无法判断"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "题干信息不足，无法判断"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "题干信息不足，无法判断"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "1-0280": {
+    "qid": "1-0280",
+    "classification": "cross",
+    "chapter": 7,
+    "quality": "remove",
+    "reason": "题干孤立提及\"answer_correctness指标\"，未提供上下文，无法确定其具体指代，选项均不合理，无考查价值。",
+    "answer": [],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "题干信息不足，无法判断"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "题干信息不足，无法判断"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "题干信息不足，无法判断"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "题干信息不足，无法判断"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

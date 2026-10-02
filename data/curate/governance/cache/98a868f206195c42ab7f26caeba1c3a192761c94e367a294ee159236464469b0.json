@@ -1,0 +1,238 @@
+{
+  "11-1246": {
+    "qid": "11-1246",
+    "classification": "own",
+    "chapter": 11,
+    "quality": "ok",
+    "reason": "考查多模态内容安全技术手段，原文明确图像检测需OCR审图中字、PHash/目标检测/CNN用于合规分类",
+    "answer": [
+      "B",
+      "C",
+      "D",
+      "E"
+    ],
+    "supported": true,
+    "quote": "图像检测不仅要看画面，还要审'图里的字'——攻击者可以把违规文字写进图片里绕过文本过滤",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "原文指出图像检测必须审图中字，水印品牌属合规检查范畴"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "原文明确图像检测要OCR审图中字"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "PHash是图像指纹比对的通用版权检测技术"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "目标检测可识别武器等敏感物品，属合规检测"
+      },
+      {
+        "label": "E",
+        "selected": true,
+        "why": "CNN可用于暴力等内容分类，原文提及其在图像检测应用"
+      },
+      {
+        "label": "F",
+        "selected": false,
+        "why": "原文强调AI安全护栏支持图像同步检测，非仅人工"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "11-1409": {
+    "qid": "11-1409",
+    "classification": "beyond",
+    "chapter": 11,
+    "quality": "remove",
+    "reason": "FFmpeg/MoviePy属工具链操作，原文未提及具体工具能力",
+    "answer": [],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "工具能力未在原文出现"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "工具能力未在原文出现"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "工具能力未在原文出现"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "工具能力未在原文出现"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "11-1410": {
+    "qid": "11-1410",
+    "classification": "cross",
+    "chapter": 11,
+    "quality": "ok",
+    "reason": "考查图文内容提炼策略，原文强调降低表达门槛、获取文本外信息、丰富产出载体",
+    "answer": [
+      "C",
+      "D",
+      "E"
+    ],
+    "supported": true,
+    "quote": "多模态的核心价值可以概括为三点：降低表达门槛；获取文本没有的信息；产出更丰富的载体",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "违背多模态降低门槛原则，应简洁"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "未体现多模态信息互补价值"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "符合聚焦要点的多模态表达原则"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "符合避免冗长、突出关键信息原则"
+      },
+      {
+        "label": "E",
+        "selected": true,
+        "why": "图文结合体现多模态产出丰富载体价值"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "11-1414": {
+    "qid": "11-1414",
+    "classification": "own",
+    "chapter": 11,
+    "quality": "ok",
+    "reason": "考查多模态应用必要组件，原文管道式架构明确需图像理解+LLM",
+    "answer": [
+      "A",
+      "B"
+    ],
+    "supported": true,
+    "quote": "先用专用模型完成模态转换（ASR/OCR/视觉编码），再由LLM做语义理解与生成",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "图像识别模型是专用模态转换组件"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "大模型是管道中语义理解与生成核心"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "存储服务非技术组件，原文未要求"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "纯文本模型无法处理图像，违背多模态前提"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "11-0643": {
+    "qid": "11-0643",
+    "classification": "own",
+    "chapter": 11,
+    "quality": "ok",
+    "reason": "考查TTS质量保障，原文强调TTS音色克隆与语速情绪控制",
+    "answer": [
+      "A",
+      "B",
+      "D"
+    ],
+    "supported": true,
+    "quote": "TTS（文字→语音）：把文字合成语音播报，如CosyVoice；音色、语速、情绪一致性；可做个性化音色",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "环境安静保障录音质量基础"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "文本优化提升TTS自然度，原文提风格设定"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "原文未提多模型比较策略"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "参数调整对应音色语速情绪控制"
+      },
+      {
+        "label": "E",
+        "selected": false,
+        "why": "音量非自然度核心参数，原文未提及"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "11-1100": {
+    "qid": "11-1100",
+    "classification": "own",
+    "chapter": 11,
+    "quality": "ok",
+    "reason": "考查多模态故障归因，原文明确文生图与文生视频原理不同、视频需抽帧对齐",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "文生图（通义万相）：核心是扩散模型（Diffusion）——从一张随机噪声图出发，在文本条件引导下一步步'去噪'",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "时间轴非原文提及故障点"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "原文未提训练数据不足问题"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "文生图不能生成视频，违反原理差异"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "音画不同步主因是对齐而非采样率"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

@@ -1,0 +1,212 @@
+{
+  "3-1471": {
+    "qid": "3-1471",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "考查向量数据库选型，属于RAG部署与运维考量。",
+    "answer": [
+      "A",
+      "B",
+      "C"
+    ],
+    "supported": true,
+    "quote": "开发测试可用 LlamaIndex 内置的内存向量库；生产环境可选用云服务（如阿里云 DashVector）或自建开源库（Milvus、Qdrant）。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "云服务通常提供自动运维与弹性扩容。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "云服务通常提供完善的监控管理工具。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "云服务按量付费是常见优势。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "绝对高于本地不成立，安全取决于具体配置。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-0035": {
+    "qid": "3-0035",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "考查RAG应用场景判断与优化策略选择。",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "RAG 是私域知识问答的**首选方案**。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "禁止RAG会失去私域知识优势。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "加入公开文档可能引入噪声，非优先。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "意图识别可优化检索触发，提高效率。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "调整温度主要影响生成随机性，不解决检索问题。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-0063": {
+    "qid": "3-0063",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "考查解决切片上下文缺失的合理措施。",
+    "answer": [
+      "A",
+      "B",
+      "C"
+    ],
+    "supported": true,
+    "quote": "句子窗口检索（Sentence Window Retrieval）...检索命中某句后，后处理器自动把内容**替换成整个窗口**再交给模型。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "句子窗口检索可扩出上下文，解决片段化。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "增大重叠可防止语义被切断。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "调大Top K可能召回更多上下文。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "避免切片不现实，会超出上下文窗口。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-0106": {
+    "qid": "3-0106",
+    "classification": "cross",
+    "chapter": -1,
+    "quality": "remove",
+    "reason": "题目提及的compare_embeddings函数在教材中无定义，无法确定其用途。",
+    "answer": [],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "无原文支持。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "无原文支持。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "无原文支持。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "无原文支持。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-0112": {
+    "qid": "3-0112",
+    "classification": "cross",
+    "chapter": -1,
+    "quality": "remove",
+    "reason": "考查具体厂商模型名称，教材未提及OpenAI模型，无法确定答案。",
+    "answer": [],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "教材未提及OpenAI模型。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "教材未提及OpenAI模型。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "选项与题干无关。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "选项与题干无关。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-0281": {
+    "qid": "3-0281",
+    "classification": "cross",
+    "chapter": 7,
+    "quality": "ok",
+    "reason": "考查RAGAS评估中Answer Correctness的计算细节，属于模型评估章节。",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "RAGAS（RAG Assessment）...核心思想是“让大模型当评委”。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "RAGAS使用大模型作为评委生成观点列表。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "Embedding模型用于向量化，不生成观点。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "选项与题干无关。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "选项与题干无关。"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

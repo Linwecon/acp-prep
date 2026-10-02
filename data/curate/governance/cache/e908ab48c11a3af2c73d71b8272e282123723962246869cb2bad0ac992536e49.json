@@ -1,0 +1,39 @@
+{
+  "new-10-12-4": {
+    "qid": "new-10-12-4",
+    "classification": "own",
+    "chapter": 10,
+    "quality": "ok",
+    "reason": "考查DashScope限流机制中TPM与RPM的触发条件区分，属本章核心计费规则",
+    "answer": [
+      "A",
+      "B",
+      "D"
+    ],
+    "supported": true,
+    "quote": "限流（RPM/TPM、QPM）每分钟请求数/Token 数有配额，超限返回 429",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "单次高Token请求直接耗尽TPM配额"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "10并发×高输出Token易超TPM阈值"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "stream堆积不改变Token总量，不触TPM"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "50次短请求累计Token超TPM限额"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

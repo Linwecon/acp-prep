@@ -1,0 +1,214 @@
+{
+  "new-9-90-0": {
+    "qid": "new-9-90-0",
+    "classification": "own",
+    "chapter": 9,
+    "quality": "ok",
+    "reason": "题干描述固定延迟重试导致请求集中爆发，直接对应原文‘指数退避+抖动’原则。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "指数退避 + 抖动（Exponential Backoff with Jitter）是处理 429/5xx 的标准做法：在等待时间上加一个随机抖动，避免大量客户端‘踩点同时重试’把服务再次打爆",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "题干已明确是429错误，非4xx与5xx区分问题。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "固定延迟导致重试风暴，违反退避加抖动原则。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "题干已说明重试3次，非无限重试。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "题干明确是429错误，且已重试，非误判放弃。"
+      }
+    ],
+    "duplicate_of": "9-5158"
+  },
+  "new-9-90-1": {
+    "qid": "new-9-90-1",
+    "classification": "own",
+    "chapter": 9,
+    "quality": "ok",
+    "reason": "考查Batch API结果校验与对齐的工程实践，原文有明确要求。",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "校验对齐：必须校验输入输出行数、请求 ID 是否一一对应，防止错位或丢失",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "符合原文‘必须校验输入输出行数、请求 ID 是否一一对应’要求。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "原文强调校验对齐，而非直接丢弃。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "仅按行号硬绑定不校验ID，违反校验对齐原则。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "原文建议轮询/回调监控状态，非固定等待。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-9-90-2": {
+    "qid": "new-9-90-2",
+    "classification": "own",
+    "chapter": 9,
+    "quality": "ok",
+    "reason": "考查Function Calling中tool消息必须携带tool_call_id的关键约束。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "回传结果时漏 tool_call_id——模型无法把结果和之前的调用对应起来",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "题干未提及未追加response_message。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "缺少tool_call_id导致模型无法关联结果与调用。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "题干问题在于回传消息格式，非Schema定义。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "模型已返回tool_calls，说明触发成功。"
+      }
+    ],
+    "duplicate_of": "9-5161"
+  },
+  "new-9-90-3": {
+    "qid": "new-9-90-3",
+    "classification": "own",
+    "chapter": 9,
+    "quality": "ok",
+    "reason": "考查成本控制措施，需结合上下文缓存和输入长度优化。",
+    "answer": [
+      "A",
+      "B"
+    ],
+    "supported": true,
+    "quote": "保持前缀稳定——把容易变化的内容（用户问题、时间戳）放在请求靠后位置；压缩历史、过滤无关检索结果、精简 system prompt",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "静态化时间戳可稳定前缀，提升缓存命中率。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "滑动窗口截断可直接减少输入Token数量。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "调低temperature不影响输入Token成本。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "降低单价非直接降低输入Token数量。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-9-90-4": {
+    "qid": "new-9-90-4",
+    "classification": "own",
+    "chapter": 9,
+    "quality": "ok",
+    "reason": "考查API无状态特性及多轮对话必须传全历史的核心概念。",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "大模型 API 是无状态的——每次 HTTP 请求之间相互独立，服务端不会保存任何对话历史。所谓‘多轮对话能力’，本质是客户端把历史消息按角色组织好，每次调用都完整地放进 messages 里再传一遍",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "故障因未传全历史，违反API无状态原则。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "失忆与流式输出及TTFT无关。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "题干未涉及Function Calling工具调用。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "题干未提及错误码分类问题。"
+      }
+    ],
+    "duplicate_of": "9-5167"
+  },
+  "new-9-90-5": {
+    "qid": "new-9-90-5",
+    "classification": "own",
+    "chapter": 9,
+    "quality": "ok",
+    "reason": "考查API Key泄露后的应急处理流程，原文有明确顺序。",
+    "answer": [
+      "A",
+      "C"
+    ],
+    "supported": true,
+    "quote": "泄漏后的应急顺序：立即禁用/轮换 Key → 检查近期调用记录 → 评估损失",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "符合应急顺序第一步：立即禁用/轮换Key。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "强制删除Git历史非应急首要步骤。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "符合应急顺序第二步：检查调用记录。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "前端混淆非应急措施，且不能解决已泄露问题。"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

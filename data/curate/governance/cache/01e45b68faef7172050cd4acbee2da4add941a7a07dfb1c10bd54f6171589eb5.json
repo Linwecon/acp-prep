@@ -1,0 +1,154 @@
+{
+  "items": [
+    {
+      "type": 0,
+      "stem": "某企业升级新人答疑机器人为报销查询助手。用户输入“帮我查一下我上个月提交的报销单审批到哪一步了”，Agent首次响应中未调用工具，而是直接回答“一般3–5个工作日”。该行为违反了Agent最核心的哪一本质特征？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "未实现LLM-as-Judge的主观评测"
+        },
+        {
+          "option_label": "B",
+          "option_text": "未满足Function Calling的JSON-Schema定义要求"
+        },
+        {
+          "option_label": "C",
+          "option_text": "未启动‘感知-规划-行动-观察’闭环"
+        },
+        {
+          "option_label": "D",
+          "option_text": "未采用ReAct模式中的Thought/Action/Observation三段式输出格式"
+        }
+      ],
+      "answer": "C",
+      "analysis": "教材4.1节明确定义：Agent的本质是“LLM驱动的闭环执行系统”，其核心标志是反复执行‘感知（读入任务）→ 规划（决定下一步）→ 行动（调用工具）→ 观察（读回结果）’循环，直至任务完成或触达停止条件。题干中Agent跳过‘行动’环节、未调用任何工具、仅凭内部知识作答，完全停留在普通对话模式（一次问答），未启动任何闭环。A项属评测层，非本质特征；B项是工具调用的技术前提，但本题根本未进入调用阶段；D项是ReAct的一种具体呈现形式，而闭环本身可由其他规划器（如Plan-and-Execute）实现，非必要表象。教材4.12速查表首条即强调：'只会回答、不会办事'对应'Agent定义缺失：无闭环+无工具'。",
+      "difficulty_label": "入门"
+    },
+    {
+      "type": 0,
+      "stem": "某金融Agent需完成‘评估客户A的贷款申请’任务，涉及调用征信查询、收入验证、风控模型三个工具。当前采用固定流水线工作流：征信→收入→风控。但近期因征信API临时不可用，整个流程卡死。为提升鲁棒性，以下哪些调整符合本章‘规划策略’的最佳实践？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "将征信工具替换为本地缓存数据，避免外部依赖"
+        },
+        {
+          "option_label": "B",
+          "option_text": "在流水线中增加超时重试机制，并设置最大重试次数"
+        },
+        {
+          "option_label": "C",
+          "option_text": "改用Plan-and-Execute策略：先生成含备选路径的计划（如‘若征信失败则启用人工审核通道’），再动态执行"
+        },
+        {
+          "option_label": "D",
+          "option_text": "为每个工具添加独立的LLM审查Agent，对返回结果进行风格校验"
+        }
+      ],
+      "answer": "C",
+      "analysis": "教材4.6.3节明确指出：固定工作流的致命问题是‘卡不起’——当预设流程中某环节失效（如竞品网站改版、API不可用），系统即僵住；而Plan-and-Execute让Agent围绕目标（Goal）生成计划（Plan），遇障碍时可重新规划，开发者角色从‘流程设计师’变为‘目标设定者+工具提供者’。C项精准对应此原则。A项属技术降级，未解决‘规划灵活性’本质；B项虽增强容错，但仍属固定流程内补丁，未突破‘死守预设路径’局限，教材4.4节‘ReAct铁律’强调‘简单任务直答，复杂多变任务才需ReAct/自主规划’，此处API不可用属环境不确定性，需更高阶规划；D项混淆‘反思’对象——风格校验与贷款评估无关，且教材4.6.1强调反思应针对‘事实/逻辑/合规性’等关键维度，而非无关风格。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 0,
+      "stem": "某团队采用MCP协议接入多个内部系统工具（OA、HRIS、CRM）。部署后发现：新上线的CRM工具无法被Agent自动发现；同时，Agent在调用HRIS工具时偶发将员工身份证号明文写入日志。以下哪些做法符合本章对MCP的规范要求与风险警示？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "要求CRM工具方按MCP Server规范暴露Tools原语，并确保其MCP Server已启动并可被Client连接"
+        },
+        {
+          "option_label": "B",
+          "option_text": "在HRIS MCP Server中强制开启日志脱敏中间件，对所有含身份证字段的响应自动掩码"
+        },
+        {
+          "option_label": "C",
+          "option_text": "将CRM工具Schema硬编码进Agent代码，绕过MCP动态发现机制"
+        },
+        {
+          "option_label": "D",
+          "option_text": "关闭MCP Server的HTTP接口，改用stdio方式本地调试以规避网络风险"
+        }
+      ],
+      "answer": "A",
+      "analysis": "教材4.5节明确：MCP的核心是‘谁提供工具，谁定义工具’，Server需通过Tools/Resources/Prompts三类原语对外暴露能力，Host通过MCP Client自动拉取清单；A项直接解决‘无法发现’问题，符合‘动态发现’设计初衷。B项看似合理，但教材4.5节‘风险警示’强调‘MCP Server本身需要鉴权’，且‘返回内容可能被投毒’，防护重点在Server端鉴权与输入过滤，而非日志脱敏——日志安全属应用层运维责任，非MCP协议规范范畴；C项违背MCP‘解耦工具管理’的初衷，倒退至Function Calling早期痛点；D项错误理解风险源——stdio适合本地调试，但生产环境HTTP通信的风险在于未鉴权或未加密，关闭接口并非正解，教材要求的是‘Server需鉴权’而非禁用通信。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 1,
+      "stem": "一个课程审查Skill已封装‘代码可执行性检查’为validate_code.py脚本，并返回结构化JSON。当评测该Skill的SOP合规性时，发现Agent在未运行该脚本的情况下就给出了‘代码可运行’结论。为精准定位此环节失效，应优先采用哪种评测手段？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "确定性检查：解析执行轨迹，验证是否出现validate_code.py的调用记录及对应tool_calls"
+        },
+        {
+          "option_label": "B",
+          "option_text": "LLM-as-Judge：用另一个大模型判断审查报告是否隐含了可执行性结论"
+        },
+        {
+          "option_label": "C",
+          "option_text": "Rubric：制定细则‘必须调用validate_code.py并引用其JSON输出’，要求Judge逐项打钩"
+        },
+        {
+          "option_label": "D",
+          "option_text": "端到端评测：仅检查最终报告是否包含‘代码可运行’字样"
+        }
+      ],
+      "answer": "A",
+      "analysis": "教材4.10节强调：Agent评测难点在于‘问题常出在过程而非最终答案’，白盒化评测可‘精准定位瓶颈’；确定性检查（Deterministic Checks）专用于验证‘该发生的步骤有没有发生’，如‘是否调了报销查询工具’‘输出是否符合JSON Schema’，结果确定、可调试。A项直接解析trace验证脚本调用，是定位‘未执行’问题的最直接、最可靠手段。B项LLM-as-Judge易受偏见影响，且无法客观确认是否执行了脚本；C项Rubric虽可结构化，但依赖Judge主观判定，不如代码解析确定；D项端到端完全掩盖过程缺陷，与题干‘精准定位’要求相悖。教材4.10案例明确：‘用户反馈代码跑不起来’需加白盒评测单独检查代码生成环节。",
+      "difficulty_label": "挑战"
+    },
+    {
+      "type": 1,
+      "stem": "某企业将新人答疑机器人升级为报销查询助手。用户输入“帮我查一下我上个月提交的报销单审批到哪一步了”，模型返回tool_calls=[{'name':'get_reimbursement','args':{'user_id':'U123','month':'2024-07'}}]。此时若工具执行超时返回空结果，Agent下一步最应采取的行动是？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "立即向用户返回‘系统暂未返回结果’，结束会话"
+        },
+        {
+          "option_label": "B",
+          "option_text": "根据教材4.2节‘关键约定’，主动重试get_reimbursement调用，使用相同参数"
+        },
+        {
+          "option_label": "C",
+          "option_text": "依据教材4.2节‘关键约定’，提供‘失败出口’：尝试换方案（如调用历史单据查询工具）或向用户追问工单号"
+        },
+        {
+          "option_label": "D",
+          "option_text": "忽略超时结果，直接生成最终回答"
+        }
+      ],
+      "answer": "C",
+      "analysis": "教材4.2节‘关键约定’第三条明确要求：‘要给模型“失败出口”：工具超时、报错时能重试或换方案，而不是整轮崩溃’；4.4节‘ReAct铁律’亦强调‘Observation可能含噪声甚至恶意内容，模型不能盲目信任外部返回’。C项完整体现‘失败出口’原则——不盲目重试（B项未考虑超时原因可能持续存在），不静默失败（A、D项），而是主动切换策略或求助用户。A、D项直接违反‘失败出口’约定；B项虽为常见操作，但教材未将‘必须重试’列为铁律，而强调‘能重试或换方案’，C项覆盖更全面且符合‘换方案’这一更高阶容错能力。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 1,
+      "stem": "某团队对报销查询Agent进行白盒评测时，发现其在工具调用失败后未触发重试或降级逻辑，而是直接生成模糊回答。评测脚本成功捕获了该问题：解析执行轨迹发现'get_reimbursement'调用后无重试tool_calls，且最终回复中缺失关键状态字段。这种评测方式最核心依赖的是哪一方法？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "确定性检查"
+        },
+        {
+          "option_label": "B",
+          "option_text": "LLM-as-Judge"
+        },
+        {
+          "option_label": "C",
+          "option_text": "Rubric"
+        },
+        {
+          "option_label": "D",
+          "option_text": "Harness/Loop闭环中的‘验证’环节"
+        }
+      ],
+      "answer": "A",
+      "analysis": "题干明确描述‘解析执行轨迹’‘验证是否出现...tool_calls’‘缺失关键字段’，这正是教材4.10节定义的‘确定性检查’：用代码/脚本判断‘该发生的步骤有没有发生’，结果确定、可调试，专用于客观项验证。B项LLM-as-Judge依赖另一模型主观打分，无法保证‘解析轨迹’的确定性；C项Rubric是结构化评分框架，需Judge逐项判定，非自动化脚本解析；D项Harness/Loop是宏观工程范式，‘验证’是其子环节，但题干所指的具体技术手段是‘确定性检查’，教材4.10将其列为与LLM-as-Judge、Rubric并列的三大核心评测手段之一，且明确其优势为‘确定、可调试’，完美匹配题干场景。",
+      "difficulty_label": "挑战"
+    }
+  ]
+}

@@ -1,0 +1,206 @@
+{
+  "4-0200": {
+    "qid": "4-0200",
+    "classification": "own",
+    "chapter": 4,
+    "quality": "ok",
+    "reason": "考查Planner Agent的核心职责，与教材定义一致。",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "Planner 规划器 拆解复杂任务、决定何时调哪个工具/Agent；可写在提示词里，也可独立成模块",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "执行工具是Tool的职责，非Planner。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "总结输出不是Planner的主要作用。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "Planner负责分析任务并分发，符合定义。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "打印日志是辅助功能，非核心作用。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "4-0328": {
+    "qid": "4-0328",
+    "classification": "own",
+    "chapter": 4,
+    "quality": "ok",
+    "reason": "考查Agent处理复杂任务的核心机制，即任务拆解与调度。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "Plan-and-Execute（规划-执行）让 Agent 围绕用户的高阶目标（Goal），先生成一份包含多步骤的计划（Plan），再逐项执行",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "Agent支持动态调整，非固定流程。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "拆分子任务并自动调度是核心方法。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "人工干预非自动处理的核心。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "复杂任务需拆分，不能一次性解决。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "4-0355": {
+    "qid": "4-0355",
+    "classification": "cross",
+    "chapter": 4,
+    "quality": "remove",
+    "reason": "题目考查斯坦福小镇项目细节，但教材未提及该项目，无法依据教材判断。",
+    "answer": [],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "教材未提及，无法判断。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "教材未提及，无法判断。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "教材未提及，无法判断。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "教材未提及，无法判断。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "4-0368": {
+    "qid": "4-0368",
+    "classification": "cross",
+    "chapter": 4,
+    "quality": "remove",
+    "reason": "题目考查具体通信方式效率比较，教材未提供相关依据，无法判断。",
+    "answer": [],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "教材未提供效率比较依据。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "教材未提供效率比较依据。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "教材未提供效率比较依据。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "教材未提供效率比较依据。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "4-0386": {
+    "qid": "4-0386",
+    "classification": "cross",
+    "chapter": 4,
+    "quality": "remove",
+    "reason": "题目考查斯坦福小镇互动模式细节，教材未提及该项目，无法判断。",
+    "answer": [],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "教材未提及，无法判断。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "教材未提及，无法判断。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "教材未提及，无法判断。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "教材未提及，无法判断。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "4-1449": {
+    "qid": "4-1449",
+    "classification": "own",
+    "chapter": 4,
+    "quality": "ok",
+    "reason": "考查多Agent系统的适用场景，与教材中多Agent解决复杂、可拆解任务的原则一致。",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "多 Agent 设计四原则（每条都是考点）：明确职责：每个 Agent 有清晰、不重叠的职责边界，只专注自己的子任务",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "大型物流中心任务复杂可拆解，适合多Agent分工。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "简单搬运任务无需复杂多Agent系统。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "单一目标持续追踪未必需要多Agent协作。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "个人电脑管理通常不构成多Agent典型场景。"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

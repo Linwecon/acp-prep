@@ -1,0 +1,216 @@
+{
+  "new-10-102-0": {
+    "qid": "new-10-102-0",
+    "classification": "own",
+    "chapter": 10,
+    "quality": "ok",
+    "reason": "考查DashScope成本控制，原文有计费规则和优化手段",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "善用缓存：对重复的系统提示词、知识库前缀利用上下文缓存折扣",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "原文未提固定哈希映射，非直接降本手段"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "启用上下文缓存可直接对重复内容应用折扣"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "改用turbo可能影响效果，非直接降本"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "限制输入长度未针对输出成本，且原文未提"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-10-102-1": {
+    "qid": "new-10-102-1",
+    "classification": "own",
+    "chapter": 10,
+    "quality": "ok",
+    "reason": "考查限流原因与应对，原文有RPM/TPM和429处理",
+    "answer": [
+      "A",
+      "B",
+      "D"
+    ],
+    "supported": true,
+    "quote": "RPM/TPM限流，超限返回429；遇429用指数退避+抖动重试，必要时降级",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "RPM超限，请求合并符合控制并发原则"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "TPM接近上限，检查max_tokens符合限制输出原则"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "高频重试违反指数退避原则，会加剧限流"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "合并轻量查询可减少RPM，符合请求聚合思路"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-10-102-2": {
+    "qid": "new-10-102-2",
+    "classification": "own",
+    "chapter": 10,
+    "quality": "ok",
+    "reason": "考查RAG成本控制原则，原文有控制输入片段",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "控制输入：RAG只塞最相关的片段，不要每次把整本手册塞进上下文",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "固定切片导致检索不准，违反控制输入原则"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "未涉及模型选型，是检索质量问题"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "未涉及缓存使用问题"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "未涉及输出长度控制"
+      }
+    ],
+    "duplicate_of": "10-5186"
+  },
+  "new-10-102-3": {
+    "qid": "new-10-102-3",
+    "classification": "own",
+    "chapter": 10,
+    "quality": "fixable",
+    "reason": "考查微调部署差异，但部分选项依赖未提及技术细节",
+    "answer": [
+      "A",
+      "B"
+    ],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "stop_sequences影响生成长度，是合理技术因素"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "微调数据影响模型生成倾向，是合理因素"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "speculative decoding原文未提及，无法确认"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "计费包含格式化符号原文未提及，属猜测"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-10-102-4": {
+    "qid": "new-10-102-4",
+    "classification": "own",
+    "chapter": 10,
+    "quality": "ok",
+    "reason": "考查限制输出降本原则，原文有明确指导",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "限制输出：用max_tokens给输出设上限，避免模型'刹不住车'",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "明确指令限制字数，直接压缩输出Token"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "格式转换未直接解决输出冗长问题"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "提升配额不降低单次请求成本"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "换更强模型可能更贵，且不保证减少冗余"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-10-102-5": {
+    "qid": "new-10-102-5",
+    "classification": "own",
+    "chapter": 10,
+    "quality": "ok",
+    "reason": "考查百炼调用EAS条件，原文有组合关系说明",
+    "answer": [
+      "A",
+      "B"
+    ],
+    "supported": true,
+    "quote": "百炼应用也可以调用部署在PAI-EAS上的私有模型",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "需兼容OpenAI API格式才能被百炼调用"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "需配置正确Endpoint和密钥才能建立连接"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "EAS可部署开源模型，不限于商业版"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "原文未提必须在同一地域"
+      }
+    ],
+    "duplicate_of": "10-5192"
+  }
+}

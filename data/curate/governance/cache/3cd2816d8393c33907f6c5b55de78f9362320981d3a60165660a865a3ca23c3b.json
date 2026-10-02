@@ -1,0 +1,154 @@
+{
+  "items": [
+    {
+      "type": 0,
+      "stem": "某企业采用MCP协议接入OA、HRIS、CRM三类内部系统工具。部署后发现：CRM工具未出现在Agent的可用工具列表中；同时，HRIS工具调用日志中明文记录了员工身份证号。根据第4章4.5节MCP规范与风险警示，以下哪项措施组合最符合教材要求？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "为CRM Server配置正确的stdiO启动方式，并在HRIS Server端增加敏感字段脱敏逻辑"
+        },
+        {
+          "option_label": "B",
+          "option_text": "检查CRM Server是否正确实现/mcp/tools端点并返回有效Schema，且HRIS Server必须启用鉴权并禁止明文日志输出"
+        },
+        {
+          "option_label": "C",
+          "option_text": "重启MCP Client进程以强制重连所有Server，并在Agent Host层添加日志过滤规则"
+        },
+        {
+          "option_label": "D",
+          "option_text": "将CRM工具Schema手动注入Agent代码，同时在HRIS工具调用前由Planner Agent执行参数清洗"
+        }
+      ],
+      "answer": "B",
+      "analysis": "依据原文4.5节：MCP Server需通过标准端点（如/mcp/tools）主动暴露工具清单，CRM未被发现说明其Server未正确实现该端点或返回无效Schema（教材明确‘Agent通过MCP Client自动连接并拉取工具清单’）；而HRIS日志明文泄露身份证号，直接违反‘MCP Server本身需要鉴权’及‘要防提示注入’的风险警示——鉴权是基础防护，但日志脱敏属于Server自身安全责任，教材强调‘Server对外暴露能力’，其返回内容与运行时行为（含日志）均由Server方管控。A错在stdiO是本地调试传输方式，与发现失败无关；C属临时规避，未解决Server端根本缺陷；D违背MCP‘动态发现’设计初衷，退回Function Calling硬编码模式。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 1,
+      "stem": "一个报销查询Agent基于ReAct模式构建，其get_reimbursement工具JSON-Schema定义中，parameters包含user_id（required）和month（required），但未声明default值。当用户提问‘帮我查我的报销单’而未提供月份时，Agent传入空字符串调用工具并失败。该故障涉及哪些教材强调的核心约束？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "违反Function Calling中‘参数可在多轮中逐步收集，缺参时应主动追问’原则"
+        },
+        {
+          "option_label": "B",
+          "option_text": "违反ReAct‘必须设置最大迭代轮数/超时上限’铁律"
+        },
+        {
+          "option_label": "C",
+          "option_text": "违反MCP三类原语中Tools原语的Schema定义质量要求"
+        },
+        {
+          "option_label": "D",
+          "option_text": "违反4.2节‘工具必须以JSON-Schema描述，名称、描述、必填项需清晰’原则"
+        }
+      ],
+      "answer": "A,D",
+      "analysis": "A正确：原文4.3节‘高频考点与误区’明确指出‘参数可以在多轮对话中逐步收集，缺参时Agent应主动追问而不是瞎猜’，此处未追问即属违规；D正确：原文4.2节‘关键约定’强调‘工具必须以JSON-Schema描述自己（名称、参数、用途），让模型知道有什么可用、怎么用’，而required字段缺失清晰描述（如‘请用户提供报销单提交年月，格式为YYYY-MM’）导致模型无法理解缺参含义，属于Schema质量缺陷；B错误：轮数上限用于防死循环，与此处缺参逻辑无关；C错误：MCP不定义Schema细节，其Tools原语仅指‘可被调用的操作’这一抽象类别，具体Schema质量要求归属Function Calling机制（原文4.5节明确‘MCP与FC互补’，FC管‘怎么调’，MCP管‘怎么被发现’）。",
+      "difficulty_label": "挑战"
+    },
+    {
+      "type": 0,
+      "stem": "某团队将课程审查流程封装为Skill，目录含SKILL.md（含YAML frontmatter）、code-quality.md及validate_code.py。当Agent首次收到‘审查Pandas教程代码’请求时，仅加载YAML中的name/description，未读子文档或执行脚本。这种分阶段加载行为主要体现教材强调的哪一核心设计原则？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "渐进式披露（Progressive Disclosure）"
+        },
+        {
+          "option_label": "B",
+          "option_text": "避免全量注入"
+        },
+        {
+          "option_label": "C",
+          "option_text": "独立凭据"
+        },
+        {
+          "option_label": "D",
+          "option_text": "滚动摘要"
+        }
+      ],
+      "answer": "A",
+      "analysis": "原文4.9节明确将Skill与RAG对比，指出‘Skill是渐进式披露（Progressive Disclosure）’：Agent启动时只看到所有Skill的description（极短），由模型判断是否激活；激活后才读SKILL.md，执行到具体步骤时再按需读子文件。这直接对应题干‘仅加载YAML、未读子文档’的行为。B‘避免全量注入’针对多Agent场景中将全部Worker提示词拼入Leader Prompt的反模式（4.7节），与Skill加载无关；C属多Agent凭据管理原则；D是Memory策略，用于压缩历史对话。",
+      "difficulty_label": "入门"
+    },
+    {
+      "type": 1,
+      "stem": "某金融Agent执行‘评估客户贷款申请’任务，当前采用固定流水线：征信→收入→风控。因征信API临时不可用，流程卡死。为提升鲁棒性，以下哪些调整符合第4章4.6.3节‘Plan-and-Execute’与‘探索-固化’混合模式的最佳实践？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "为征信工具添加备用方案（如缓存数据查询），并在Planner中预设fallback分支"
+        },
+        {
+          "option_label": "B",
+          "option_text": "移除固定流水线，改用Plan-and-Execute：Agent先生成含条件判断的JSON计划（如‘若征信超时则跳过，用历史分替代’），再逐项执行"
+        },
+        {
+          "option_label": "C",
+          "option_text": "将当前稳定路径（征信→收入→风控）抽象为固定工作流Skill，同时为征信失败场景新建一个独立Skill"
+        },
+        {
+          "option_label": "D",
+          "option_text": "在ReAct循环中增加Observation校验：若征信返回‘服务不可用’，则触发重新规划并切换至备用工具"
+        }
+      ],
+      "answer": "B,C,D",
+      "analysis": "B正确：原文4.6.3节定义Plan-and-Execute为‘围绕目标生成多步骤计划，遇障碍时重新规划’，JSON计划含条件判断正是其典型实现；C正确：原文4.6.3节‘探索-固化’混合模式明确‘新任务派自主规划Agent试错→路径稳定后抽象为固定工作流/Skill’，将主路径固化+失败路径单独Skill，完美契合；D正确：ReAct本质是‘思考-行动-观察’闭环，原文4.4节‘ReAct的三条铁律’强调‘Observation可能含噪声，模型需基于事实修正想法’，此处利用Observation触发重规划，符合ReAct动态性；A错误：预设fallback分支仍属固定工作流（4.6.2节‘分支Branching’模式），未达到‘Plan-and-Execute’所要求的‘动态生成计划’层级，且未体现‘探索-固化’中对新路径的沉淀。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 0,
+      "stem": "某多Agent客服系统中，Leader Agent将工单分派给Worker A（查订单）和Worker B（查物流）。审计发现：Worker A与B共用同一数据库账号；二者完整系统提示词被拼入Leader初始Prompt；且Worker A曾直接调用Worker B的工具。这些设计最直接违反教材4.7节哪两条硬原则？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "明确职责、避免全量注入"
+        },
+        {
+          "option_label": "B",
+          "option_text": "独立凭据、避免全量注入"
+        },
+        {
+          "option_label": "C",
+          "option_text": "独立凭据、中央调度"
+        },
+        {
+          "option_label": "D",
+          "option_text": "中央调度、避免全量注入"
+        }
+      ],
+      "answer": "C",
+      "analysis": "原文4.7节‘多Agent设计四原则’：‘独立凭据’明确要求‘不同Agent不得共用同一套账号/API凭据’，共用数据库账号直接违反此条；‘中央调度’要求‘设置Planner/Leader Agent统一判断何时调哪个Agent，避免Agent之间无序互调、循环等待’，Worker A直接调用Worker B工具即属‘无序互调’，破坏中央调度权威。‘避免全量注入’指不把所有Agent知识拼入主Prompt，题干‘拼入Leader初始Prompt’确属违反，但题干问‘最直接违反哪两条’，而‘共用账号’和‘Worker互调’是更根源性、教材明确点名的硬性红线（原文用‘❌’标注），‘全量注入’虽错，但非本题现象中最直接对应的两条；A、B、D均未同时命中‘独立凭据’与‘中央调度’这两大核心冲突点。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 0,
+      "stem": "某团队对报销查询Agent进行白盒评测，脚本解析执行轨迹发现：get_reimbursement调用后无重试tool_calls，且最终回复缺失关键状态字段。该评测能精准捕获问题，其核心依赖的是教材4.10节提出的哪种评测方法？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "LLM-as-Judge"
+        },
+        {
+          "option_label": "B",
+          "option_text": "Rubric评分量表"
+        },
+        {
+          "option_label": "C",
+          "option_text": "确定性检查（Deterministic Checks）"
+        },
+        {
+          "option_label": "D",
+          "option_text": "端到端黑盒评测"
+        }
+      ],
+      "answer": "C",
+      "analysis": "原文4.10节明确定义‘确定性检查’为‘用代码/脚本判断该发生的步骤有没有发生’，例如‘是否调了报销查询工具’‘输出是否符合JSON Schema’，其结果‘确定、可调试’。题干中‘解析执行轨迹’‘验证有无重试tool_calls’‘检查字段缺失’正是典型确定性检查操作。A（LLM-as-Judge）依赖另一模型主观打分，无法保证‘确定性’；B（Rubric）需结构化打分项，题干未提评分细则；D（端到端）只看最终输出，无法定位中间步骤缺失。",
+      "difficulty_label": "入门"
+    }
+  ]
+}

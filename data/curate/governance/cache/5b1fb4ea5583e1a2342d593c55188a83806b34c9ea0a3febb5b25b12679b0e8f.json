@@ -1,0 +1,248 @@
+{
+  "5-1452": {
+    "qid": "5-1452",
+    "classification": "own",
+    "chapter": 5,
+    "quality": "ok",
+    "reason": "考查微调的核心目的，属于本章基础概念。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "微调主要调整的是上层行为。微调擅长的是稳定的风格、语气、输出格式、领域行为习惯",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "推理延迟非微调核心目的，属部署优化范畴。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "微调让模型在特定任务上的输出行为更稳定、更贴合业务。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "上下文窗口大小由模型架构决定，微调不改变。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "微调不减少参数数量，LoRA等方法增加少量参数。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "5-0003": {
+    "qid": "5-0003",
+    "classification": "own",
+    "chapter": 5,
+    "quality": "ok",
+    "reason": "考查微调前置评估顺序，是本章核心原则。",
+    "answer": [
+      "A",
+      "B",
+      "C"
+    ],
+    "supported": true,
+    "quote": "标准的优化顺序：提示词优化 → RAG → （仍不满足才考虑）微调。数据规模上，领域微调通常几千到几万条高质量样本即可",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "优先优化提示词，成本最低。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "知识不足或需最新事实时优先RAG。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "需评估数据量是否满足微调要求。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "采购显卡非优先评估事项，属资源准备。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "5-0377": {
+    "qid": "5-0377",
+    "classification": "cross",
+    "chapter": -1,
+    "quality": "remove",
+    "reason": "题干与选项均未涉及微调或训练，考查API批量调用，属于第9章内容，且选项设计不合理。",
+    "answer": [
+      "C"
+    ],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "手工处理效率低，非最佳方式。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "Excel操作非批量处理上万个问卷的最佳方式。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "代码调用大模型可实现自动化批量处理。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "训练模型成本高周期长，不适用于此场景。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "5-0641": {
+    "qid": "5-0641",
+    "classification": "own",
+    "chapter": 5,
+    "quality": "ok",
+    "reason": "考查微调通用步骤，属于本章基础内容。",
+    "answer": [
+      "A",
+      "C",
+      "D",
+      "E",
+      "F"
+    ],
+    "supported": true,
+    "quote": "微调（Fine-tuning）：在已经预训练好的模型权重基础上，用一批指令—回答样本继续做梯度下降。准备数据（清洗/去重/格式校验，划分训练/验证/测试）→ 选方法 → 设超参（按数据分布选 r/lr/epochs/batch/max_length）→ 训练并监控双 loss 曲线 → 测试集评测",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "微调需选定预训练模型作为基座。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "微调不减少模型层数，改变的是参数。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "需构建特定任务数据集。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "需调整优化器和学习率等超参数。"
+      },
+      {
+        "label": "E",
+        "selected": true,
+        "why": "在特定数据上训练模型是核心步骤。"
+      },
+      {
+        "label": "F",
+        "selected": true,
+        "why": "训练后需评估模型性能。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "5-0670": {
+    "qid": "5-0670",
+    "classification": "own",
+    "chapter": 5,
+    "quality": "ok",
+    "reason": "考查微调相比预训练的优势，属于本章对比知识点。",
+    "answer": [
+      "C",
+      "D",
+      "F"
+    ],
+    "supported": true,
+    "quote": "微调之所以成本可控、收敛快，是因为模型底层的语言规律已经学到了，微调主要调整的是上层行为。数据：海量无标注文本 vs 少量高质量标注/生成样本",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "修正模型偏差非微调特有优势，预训练也可涉及。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "微调仍需考虑泛化能力，防止过拟合。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "微调依赖少量高质量数据，无需海量无标注数据。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "微调让模型在特定任务上输出行为更贴合业务。"
+      },
+      {
+        "label": "E",
+        "selected": false,
+        "why": "微调仍需计算资源，但相比预训练需求小。"
+      },
+      {
+        "label": "F",
+        "selected": true,
+        "why": "因底层能力已具备，微调收敛更快。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "5-0689": {
+    "qid": "5-0689",
+    "classification": "cross",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "考查RAG技术优势，属于第3章核心内容，但题干未要求与微调对比，可保留。",
+    "answer": [
+      "A",
+      "B",
+      "C",
+      "D"
+    ],
+    "supported": true,
+    "quote": "RAG核心思想：开卷考试。RAG与微调的本质区别。私域知识实时更新优势。幻觉根因：知识截止/无私域/生成机制",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "RAG支持最新/领域特定数据，扩展知识边界。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "基于检索数据生成，减少幻觉。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "无需通过微调更新知识，降低知识更新成本。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "可追溯回答来源，提升可解释性。"
+      },
+      {
+        "label": "E",
+        "selected": false,
+        "why": "RAG通常增加检索步骤，可能降低推理速度。"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

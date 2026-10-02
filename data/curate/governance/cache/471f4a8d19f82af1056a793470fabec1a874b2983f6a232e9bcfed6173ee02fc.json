@@ -1,0 +1,154 @@
+{
+  "items": [
+    {
+      "type": 0,
+      "stem": "某金融公司需构建内部合规问答系统，要求：① 所有员工手册与监管文件严禁出域；② 通用千问模型对'穿透式监管'等术语回答不准；③ 团队有2名算法工程师但无专职运维。应采用哪组阿里云产品组合并严格对应开发阶段？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "百炼（知识库上传+Prompt调试）→ DashScope（调qwen-plus API）→ OSS（存文档）"
+        },
+        {
+          "option_label": "B",
+          "option_text": "ModelScope下载Qwen3-7B → PAI-DSW微调 → PAI-DLC分布式训练 → PAI-EAS部署"
+        },
+        {
+          "option_label": "C",
+          "option_text": "DashScope OpenAI兼容接口调用 → 百炼工作流编排 → DataWorks调度RAG流水线"
+        },
+        {
+          "option_label": "D",
+          "option_text": "PAI-DSW开发LoRA微调代码 → ModelScope下载开源基座模型 → PAI-EAS部署为私有API服务"
+        }
+      ],
+      "answer": "D",
+      "analysis": "题干核心约束是'数据不出域'（排除所有需上送API的方案A/C）、'需定制模型能力'（排除仅调用通用API的B中DashScope部分）、'有算法无运维'（排除自建ECS）。依据10.4节'PAI三件套'定义：DSW是交互式开发环境（对应'开发LoRA微调代码'），ModelScope是开源模型下载渠道（10.7节明确'开源版可自行部署，满足数据不出域'），EAS是弹性在线服务（10.4节'上线选EAS'）。选项B错误在于将DLC列为必需——小规模LoRA微调在DSW即可完成，DLC适用于大规模分布式训练（10.4原理说明）；选项A/C均依赖DashScope API，违反'数据不出域'前提。教材依据：10.4（DSW/DLC/EAS分工）、10.7（开源模型+PAI实现私有化）、10.5选型决策第4条（'要数据完全不出域、强私有化→开源模型+PAI/EAS'）。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 1,
+      "stem": "某电商中台团队需为客服系统接入大模型能力，当前架构已使用Spring Cloud微服务。以下哪些做法符合阿里云平台最佳实践且能最小化改造成本？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "在百炼控制台配置知识库和智能体，生成API端点，由Java服务通过RestTemplate调用"
+        },
+        {
+          "option_label": "B",
+          "option_text": "直接在Java代码中集成dashscope SDK，调用qwen-turbo进行实时意图识别"
+        },
+        {
+          "option_label": "C",
+          "option_text": "使用OpenAI兼容模式，将base_url指向DashScope地址，复用现有LangChain逻辑"
+        },
+        {
+          "option_label": "D",
+          "option_text": "在PAI-DSW中训练专属意图分类模型，通过PAI-EAS暴露gRPC接口供Java服务调用"
+        }
+      ],
+      "answer": "A,C",
+      "analysis": "题干关键约束是'最小化改造成本'和'已用Spring Cloud'。选项A符合10.2节'百炼价值'：可视化搭应用后'一键发布为API'，Java服务仅需标准HTTP调用，零代码改造；选项C直接对应10.3节'OpenAI兼容模式价值'：'改两行代码就迁移'，LangChain等生态工具可直接复用，是课程强调的首选方案。选项B虽可行，但dashscope原生SDK需重写调用逻辑（10.3对比说明'兼容接口迁移成本更低'），不符合'最小改造'；选项D需训练/部署自有模型，违背'最小成本'原则（10.5选型决策第1条：'只想写代码调模型→DashScope'）。教材依据：10.2（百炼发布API）、10.3（兼容模式降低迁移成本）、10.5（选型决策表中'调接口→DashScope'）。",
+      "difficulty_label": "中等"
+    },
+    {
+      "type": 0,
+      "stem": "生产环境出现突发流量导致API调用频繁返回429错误，监控显示TPM（Tokens Per Minute）持续超限。以下哪项措施最能体现对阿里云计费与限流机制的深度理解？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "立即申请提升TPM配额，并在代码中增加固定1秒延迟重试"
+        },
+        {
+          "option_label": "B",
+          "option_text": "将长文档问答任务从qwen-long切换至qwen-plus，同时设置max_tokens=512限制输出长度"
+        },
+        {
+          "option_label": "C",
+          "option_text": "启用百炼知识库的上下文缓存功能，对重复的系统提示词自动享受折扣"
+        },
+        {
+          "option_label": "D",
+          "option_text": "在PAI-EAS中部署vLLM服务，将高频请求路由至自托管模型"
+        }
+      ],
+      "answer": "B",
+      "analysis": "题干聚焦'429错误'与'TPM超限'，需精准匹配10.8节'计费与成本要点'。选项B直击要害：qwen-long因支持超长上下文，单次请求Token消耗远高于qwen-plus（10.6对比表），切换模型可立竿见影降低TPM；同时设置max_tokens限制输出（10.8省成本手段第3条）双重控量。选项A错误：固定延迟重试违反'指数退避+抖动'规范（10.8成本要点），且盲目提配额未解决根本消耗问题；选项C中'上下文缓存'针对输入Token折扣（10.8说明），但429是TPM总量超限，非缓存能解决；选项D属长期优化（10.8降本顺序第6条），但无法即时缓解TPM超限。教材依据：10.6（模型规格与Token消耗关系）、10.8（控制输出长度降本、429处理原则）。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 1,
+      "stem": "以下关于阿里云AI产品分层定位的描述中，哪些准确反映了10.1节'产品全景'的核心思想？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "百炼属于应用开发层，其知识库能力底层实际调用DashScope的Embedding和生成模型"
+        },
+        {
+          "option_label": "B",
+          "option_text": "ModelScope与PAI同属训练部署层，区别仅在于ModelScope提供免费Notebook而PAI需付费实例"
+        },
+        {
+          "option_label": "C",
+          "option_text": "OSS、MaxCompute、DataWorks构成数据底座层，为百炼知识库和PAI训练提供数据支撑"
+        },
+        {
+          "option_label": "D",
+          "option_text": "DashScope作为MaaS（模型即服务）代表，与百炼共同构成'应用层+接口层'一体化能力"
+        }
+      ],
+      "answer": "A,C,D",
+      "analysis": "依据10.1节'产品全景'表格及概念框：选项A正确，原文明确'百炼知识库（底层调用 DashScope 的 Embedding/生成模型）'；选项C正确，'数据底座层'定义包含OSS/MaxCompute/DataWorks，且案例链路说明'OS存放企业文档→DataWorks清洗→百炼知识库'；选项D正确，'MaaS'概念框定义DashScope为MaaS，且10.5表强调'百炼管应用，DashScope管接口'，二者一体两面。选项B错误：ModelScope被明确定义为'开源模型社区'（10.1层次表第四行），而PAI是'训练与部署层'（第三行），二者分属不同层次，非同一层的子类。教材依据：10.1层次表、10.1概念框（MaaS）、10.5'三者关系表'。",
+      "difficulty_label": "中等"
+    },
+    {
+      "type": 0,
+      "stem": "一个初创团队计划开发面向律师的合同审查助手，要求：① 支持上传PDF合同并提取关键条款；② 基于法律垂类知识生成风险提示；③ 首版需两周内上线且无GPU资源。最合理的平台选型路径是？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "用ModelScope下载Qwen2.5-7B法律微调版 → 在PAI-DSW中加载PDF解析代码 → 部署到PAI-EAS"
+        },
+        {
+          "option_label": "B",
+          "option_text": "在百炼中创建知识库上传法律条文 → 配置智能体调用通义万相解析PDF → 发布为钉钉小程序"
+        },
+        {
+          "option_label": "C",
+          "option_text": "用DashScope OpenAI兼容接口调用qwen-max → 结合LlamaIndex构建RAG → 通过函数计算FC部署前端"
+        },
+        {
+          "option_label": "D",
+          "option_text": "在百炼中上传PDF合同与法律条文 → 启用内置文档解析与知识库 → 搭建工作流调用通义法睿模型 → 一键发布API"
+        }
+      ],
+      "answer": "D",
+      "analysis": "题干约束：'两周上线'（需低代码）、'无GPU'（排除需训练/部署的A/C）、'法律垂类'（需专业模型）。选项D完美匹配：百炼10.2节'知识库'能力支持PDF上传与解析（'内置文档解析、切片、向量化'），'工作流编排'可串联'检索→调用通义法睿'（10.6表明确法睿为法律垂类模型），'一键发布API'满足快速交付。选项A需GPU且周期长；选项B错误：通义万相是图像生成模型（10.6表），不负责PDF文本解析；选项C中函数计算FC有冷启动，不适合实时合同审查，且'无GPU'下无法运行LlamaIndex本地向量库。教材依据：10.2（百炼PDF解析与工作流）、10.6（法睿为法律垂类）、10.5选型决策第2条（'搭知识库/工作流→百炼'）。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 1,
+      "stem": "当需要在阿里云生态中实现'数据不出域'的RAG应用时，以下哪些技术组合是教材明确支持的可行方案？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "使用ModelScope下载开源Embedding模型 → 在PAI-DSW中完成向量化 → 将向量存入自建Redis → 调用PAI-EAS部署的Qwen开源模型"
+        },
+        {
+          "option_label": "B",
+          "option_text": "在百炼知识库中上传敏感文档 → 开启'私有化部署'开关 → 自动将知识库同步至VPC内PAI-EAS服务"
+        },
+        {
+          "option_label": "C",
+          "option_text": "通过DashScope Embedding API生成向量 → 存入OSS → 用百炼知识库直接读取OSS向量索引"
+        },
+        {
+          "option_label": "D",
+          "option_text": "在PAI-DSW中使用ms-swift微调Qwen3-0.6B → 用vLLM封装为OpenAI兼容API → 部署至PAI-EAS并配置VPC网络策略"
+        }
+      ],
+      "answer": "A,D",
+      "analysis": "题干核心是'数据不出域'，需确保原始文档、向量、模型全部在客户可控环境。选项A符合：ModelScope下载开源模型（10.7节）、PAI-DSW本地处理（10.4节）、自建Redis存储向量（完全私有）、PAI-EAS部署模型（10.4节'上线选EAS'）。选项D同样满足：DSW微调（10.4）、vLLM封装（课程4.2实践）、EAS部署（10.4），且VPC策略保障网络隔离。选项B错误：百炼知识库无'私有化部署开关'，其数据始终托管在阿里云（10.5表'数据与模型控制'栏明确百炼为'平台托管'）；选项C中DashScope Embedding API需上送文本（违反不出域），且百炼知识库不支持直接读取OSS向量索引（10.2节仅支持上传原始文档）。教材依据：10.4（PAI三件套私有化能力）、10.7（开源模型+PAI实现数据不出域）、10.5表（百炼数据控制为'平台托管'）。",
+      "difficulty_label": "高阶"
+    }
+  ]
+}

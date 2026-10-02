@@ -1,0 +1,154 @@
+{
+  "items": [
+    {
+      "type": 0,
+      "stem": "某团队在vLLM中启用PagedAttention后，长上下文（64K tokens）请求的并发数从3提升至8，但单请求TTFT未改善。以下哪项是PagedAttention机制本身无法直接优化的根本原因？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "PagedAttention未减少Prefill阶段的计算量，而TTFT主要由Prefill决定"
+        },
+        {
+          "option_label": "B",
+          "option_text": "KV Cache块分配延迟掩盖了Prefill计算时间"
+        },
+        {
+          "option_label": "C",
+          "option_text": "分页机制导致GPU显存带宽竞争加剧，拖慢首token生成"
+        },
+        {
+          "option_label": "D",
+          "option_text": "PagedAttention仅作用于Decode阶段，对Prefill无任何影响"
+        }
+      ],
+      "answer": "A",
+      "analysis": "根据教材6.5节明确原理：'Prefill（预填充阶段）……决定TTFT（首token延迟）'；'PagedAttention……解决的是KV Cache的显存碎片与预分配浪费'；且6.5节图示与文字反复强调其作用对象是Decode阶段的KV Cache管理。TTFT由Prefill计算密集性决定，与KV Cache内存布局无关——PagedAttention不改变输入prompt的并行计算逻辑、不减少矩阵乘法量、不加速FlashAttention内核。选项D表述绝对化（'无任何影响'），而教材未排除其间接影响（如缓解显存争抢可能微幅改善调度），故A更精准、有原文支撑；B/C为无依据臆测，教材从未提及分页引入额外延迟或带宽竞争；D错误在于忽略PagedAttention通过提升并发密度可间接降低排队延迟（但排队非TTFT主因），且教材6.5节明确其设计目标是'大幅提升吞吐'而非'降低TTFT'。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 0,
+      "stem": "运维人员观察到vLLM服务在高并发下KV Cache占用率持续95%以上，但GPU显存总占用仅60%。此时若仅调整PagedAttention相关参数，以下哪项操作最可能立即缓解该现象？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "增大--block-size参数，使每个KV块容纳更多token"
+        },
+        {
+          "option_label": "B",
+          "option_text": "减小--block-size参数，增加块数量以提升分配粒度"
+        },
+        {
+          "option_label": "C",
+          "option_text": "启用--enable-prefix-caching复用公共前缀KV块"
+        },
+        {
+          "option_label": "D",
+          "option_text": "调大--max-num-seqs限制最大并发请求数"
+        }
+      ],
+      "answer": "D",
+      "analysis": "教材6.5节指出PagedAttention核心价值是'按需分配'和'消除碎片'，但其前提是存在足够物理块空间；而6.6节明确'KV Cache显存占用率'是监控关键指标，且'并发数翻倍→KV Cache显存翻倍'。题干中'KV Cache占用率95%'表明KV Cache已逼近容量上限，但'总显存占用仅60%'说明权重+运行时开销余量充足——矛盾根源是当前并发请求数超出KV Cache物理块池承载能力。教材6.5节'大幅提高吞吐'的前提是'同样显存能塞下更多并发'，但该提升有上限；当KV Cache块池耗尽，新请求将触发OOM或限流。此时最直接有效动作是降低并发上限（--max-num-seqs），符合教材6.3节'必须通过压测确定最优并发阈值'及'超出并发限制通常直接返回429'的故障处理逻辑。A/B会恶化问题：增大block-size降低灵活性，易加剧内部碎片；减小block-size增加元数据开销，不解决总量超限；C虽有效但属长期优化，且依赖请求前缀相似性，无法'立即'缓解已发生的高占用；D是唯一符合'立即缓解'且教材明确推荐的管控手段。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 1,
+      "stem": "在vLLM服务中，以下哪些条件同时满足时，PagedAttention的显存利用率提升效果会显著减弱？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "所有请求的序列长度高度一致（如均为2048 tokens）"
+        },
+        {
+          "option_label": "B",
+          "option_text": "请求间存在大量重复前缀（如相同system prompt）"
+        },
+        {
+          "option_label": "C",
+          "option_text": "KV Cache块大小（block-size）设置过大，远超平均序列长度"
+        },
+        {
+          "option_label": "D",
+          "option_text": "模型启用GQA（分组查询注意力），KV头数显著减少"
+        }
+      ],
+      "answer": "A,C",
+      "analysis": "教材6.5节定义PagedAttention价值在于'消除碎片'和'按需分配'，其收益取决于内存分配模式的离散程度。A正确：当所有请求长度高度一致时，传统连续分配也能高效利用显存（无内部碎片），PagedAttention的碎片消除优势消失；教材6.5节'预分配浪费'场景特指'实际生成长度参差不齐'，A直接否定该前提。C正确：block-size过大导致单个块无法被短序列充分利用，产生严重内部碎片（如block-size=4096但请求仅需512 tokens，则7/8空间浪费），教材6.5节'固定大小的块'隐含需合理配置，过大则违背'按需'原则。B错误：重复前缀正是PagedAttention'天然支持共享'的优势场景（教材6.5节原文），会提升利用率；D错误：GQA减少KV头数直接降低KV Cache总量，与PagedAttention是否启用无关，反而使其管理的总量变小，不削弱其利用率提升效果。",
+      "difficulty_label": "挑战"
+    },
+    {
+      "type": 0,
+      "stem": "开发人员尝试在vLLM中禁用PagedAttention（通过--disable-visual-batch等非标准参数），发现服务启动失败并报错'PagedAttention is required for vLLM v0.4+'.以下哪项最准确解释该现象？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "vLLM v0.4+将PagedAttention作为KV Cache管理的强制抽象层，连续内存分配路径已被移除"
+        },
+        {
+          "option_label": "B",
+          "option_text": "禁用后框架无法解析safetensors格式模型权重"
+        },
+        {
+          "option_label": "C",
+          "option_text": "该错误是客户端curl命令参数错误导致的误报"
+        },
+        {
+          "option_label": "D",
+          "option_text": "PagedAttention与连续批处理强耦合，禁用前者必然导致后者失效"
+        }
+      ],
+      "answer": "A",
+      "analysis": "教材6.5节明确'vLLM之所以快，核心是两项发明：PagedAttention和连续批处理'，并强调'PagedAttention是vLLM的标志性创新'；6.5节末尾'vLLM的OpenAI兼容服务'示例命令未提供任何禁用选项，暗示其为默认且必需。更重要的是，教材6.5节将PagedAttention定位为'借鉴操作系统虚拟内存分页思想'的底层内存管理范式，而非可选优化模块——这与vLLM官方设计一致：自v0.4起，PagedAttention已成为KV Cache内存分配的唯一实现，传统连续分配路径被彻底重构移除。A项准确反映该架构演进，且'强制抽象层'表述契合教材'解决显存碎片与预分配浪费'的根本定位。B/C无教材依据；D错误：连续批处理依赖的是请求调度逻辑，与KV Cache内存管理方式解耦，教材6.5节图示中二者为并列核心技术，非强耦合。",
+      "difficulty_label": "挑战"
+    },
+    {
+      "type": 0,
+      "stem": "当vLLM服务处理一批混合长度请求（128/2048/16384 tokens）时，PagedAttention相比传统连续内存分配，其显存节省主要来源于以下哪一机制？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "为每个请求按实际需要的最小块数分配，避免按最大长度预分配造成的浪费"
+        },
+        {
+          "option_label": "B",
+          "option_text": "通过共享相同前缀的KV块，减少重复存储"
+        },
+        {
+          "option_label": "C",
+          "option_text": "采用INT4量化压缩每个KV块的数据"
+        },
+        {
+          "option_label": "D",
+          "option_text": "动态回收已完成请求的KV块并立即复用于新请求"
+        }
+      ],
+      "answer": "A",
+      "analysis": "教材6.5节直击痛点：'传统框架为每个请求按最大可能长度预分配一段连续显存……实际生成长度参差不齐，预分配的空间大量闲置'；'PagedAttention……按需分配，不再按最大长度预分配浪费'。A项完全复现教材原文，是PagedAttention最基础、最普适的显存节省机制，适用于所有混合长度场景。B项虽正确（教材6.5节'天然支持共享'），但'共享前缀'需请求内容高度相似，非混合长度场景的必然条件；C项错误：量化是独立技术（见6.4节），PagedAttention本身不涉及数值精度压缩；D项描述的是连续批处理的调度行为（教材6.5节'完成一个就立刻返回、新请求立刻补进batch'），与PagedAttention的内存管理无关。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 1,
+      "stem": "某团队将Qwen3-0.6B模型量化为AWQ INT4后部署于vLLM，观测到：①显存占用下降58%；②TPOT降低22%；③TTFT无明显变化；④在代码补全任务上BLEU分数下降1.3分。以下哪些结论可被教材原文直接支持？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "量化主要省显存，INT4压缩比约为FP16的1/4"
+        },
+        {
+          "option_label": "B",
+          "option_text": "量化通常也加速，因Decode阶段显存带宽压力减小"
+        },
+        {
+          "option_label": "C",
+          "option_text": "TTFT由Prefill阶段决定，与KV Cache管理方式无关"
+        },
+        {
+          "option_label": "D",
+          "option_text": "INT4量化在敏感任务上可能掉点更明显，需用业务评测集验证"
+        }
+      ],
+      "answer": "A,B,D",
+      "analysis": "A项对应教材6.4节表格：'INT4 | 4 bit | 1/8 | 压缩最大，低比特下精度损失更明显'（相对FP32），而FP16是1/2，故INT4相对FP16为1/4，且'显存占用下降58%'符合该比例预期；B项源自6.4节'量化通常也加速……因为Decode阶段是显存带宽密集型，从显存读权重的字节数变少了'；D项直接引用6.4节原文'INT4在敏感任务上可能掉点更明显，需要用业务评测集验证'。C项错误：教材6.5节明确TTFT由Prefill决定，但Prefill需读取权重，INT4量化后权重读取带宽下降理论上可加速Prefill，教材未断言'无关'，且6.4节'量化通常也加速'未限定阶段，故C超出教材支持范围。",
+      "difficulty_label": "进阶"
+    }
+  ]
+}

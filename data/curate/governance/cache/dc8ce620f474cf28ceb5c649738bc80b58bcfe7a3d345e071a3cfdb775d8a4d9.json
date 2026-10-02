@@ -1,0 +1,162 @@
+{
+  "items": [
+    {
+      "type": 0,
+      "stem": "某企业将新人答疑机器人升级为报销查询助手。用户提问'帮我查一下我上个月提交的报销单审批到哪一步了'，模型正确输出tool_calls结构，但系统最终未返回任何结果，日志显示工具执行成功且返回了JSON格式状态数据。根据第4章4.2节组件协作原则，最可能的根本原因是什么？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "Planner未将工具返回结果写入Memory，导致下一轮LLM无法感知Observation"
+        },
+        {
+          "option_label": "B",
+          "option_text": "Tool组件未按JSON-Schema定义参数，导致调用被内部服务拒绝"
+        },
+        {
+          "option_label": "C",
+          "option_text": "LLM在首轮即生成最终答案，未进入规划-行动-观察闭环"
+        },
+        {
+          "option_label": "D",
+          "option_text": "ReActAgent未设置最大轮数上限，触发了无限等待机制"
+        }
+      ],
+      "answer": "A",
+      "analysis": "依据4.2节'各组件如何协作'明确指出：'Tool真正执行动作并返回结果；Memory把这一轮的动作和结果记下来，喂给下一轮'；且4.3节风险强调：'工具结果模型自己看不到——结果必须由程序作为role=\"tool\"消息追加回上下文，模型才\"知道\"发生了什么'。本题中工具执行成功、结果已生成，但LLM未生成后续响应，说明Observation未被注入上下文，违反Memory的核心职责。B选项属Schema定义问题（4.3节），但题干明确'返回了JSON格式状态数据'，说明调用已成功抵达服务端；C选项描述的是Agent未启动闭环，与题干'模型正确输出tool_calls'矛盾；D选项涉及ReAct超限机制（4.4节），但题干无死循环迹象，且'未返回任何结果'更符合信息断链而非卡死。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 1,
+      "stem": "在Agent与RAG的互补关系中，以下哪些场景体现了RAG作为Agent的一个工具被封装调用，而非独立替代Agent？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "用户问'公司最新差旅政策是什么'，Agent先调用RAG检索知识库，再基于检索结果生成合规回答"
+        },
+        {
+          "option_label": "B",
+          "option_text": "用户问'帮我查我的报销单进度'，Agent调用报销查询API获取实时状态，再调用RAG检索历史相似案例辅助解释"
+        },
+        {
+          "option_label": "C",
+          "option_text": "用户问'Transformer模型原理'，系统直接启用RAG从技术文档库检索并生成答案，全程未调用任何外部API或数据库"
+        },
+        {
+          "option_label": "D",
+          "option_text": "用户问'张三上季度绩效是否达标'，Agent先调用HRIS API获取原始数据，再调用RAG检索绩效计算规则文档以验证逻辑"
+        },
+        {
+          "option_label": "E",
+          "option_text": "用户问'下周北京天气如何'，Agent跳过RAG直接调用天气API，因该信息需实时性而非静态知识"
+        }
+      ],
+      "answer": "ABD",
+      "analysis": "依据4.1节对比表：'RAG解决“知道什么”，Agent解决“做什么、怎么做”'；且原文明确'把检索器封装成Agent的一个工具，Agent就能在需要时自主检索'。A项：RAG作为工具被主动调用以支撑任务执行（查政策），符合互补；B项：RAG用于辅助解释API返回的实时数据，是工具链一环；D项：RAG提供规则文档以验证API数据，体现知识+行动协同。C项：纯RAG问答，无工具调用、无规划闭环，属于RAG独立应用，非Agent组成部分；E项：未使用RAG，与互补关系无关。本题聚焦'RAG作为Agent工具'的动态调用场景，排除纯RAG或完全不用RAG的情形。",
+      "difficulty_label": "挑战"
+    },
+    {
+      "type": 0,
+      "stem": "某金融Agent需完成'评估客户A贷款申请'任务，当前采用固定流水线工作流（征信→收入→风控）。因征信API临时不可用，整个流程卡死。若改用Plan-and-Execute策略，其核心改进应体现在哪个环节？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "在Plan阶段生成包含备选路径的结构化计划，如'若征信失败则启用人工审核通道'"
+        },
+        {
+          "option_label": "B",
+          "option_text": "将所有工具Schema硬编码进Planner提示词，提升参数提取准确率"
+        },
+        {
+          "option_label": "C",
+          "option_text": "为每个工具增加超时重试逻辑，由Tool组件自动处理"
+        },
+        {
+          "option_label": "D",
+          "option_text": "在Memory中持久化征信失败记录，供下次会话参考"
+        }
+      ],
+      "answer": "A",
+      "analysis": "依据4.6.3节'Plan-and-Execute'定义：'让Agent围绕用户的高阶目标，先生成一份包含多步骤的计划，再逐项执行；遇到障碍时重新规划'。其本质是将刚性流程转化为可动态调整的目标导向计划。A项直接对应'Plan阶段生成备选路径'，是Plan-and-Execute应对不确定性的核心能力。B项属Function Calling优化（4.3节），不解决流程僵化；C项是Tool层容错（4.2节'失败出口'），但无法改变'必须按序执行征信'的流程约束；D项属长期记忆应用（4.8节），解决跨会话问题，而非单次任务中的流程弹性。教材强调'Plan-and-Execute让开发者从流程设计师变成目标设定者'，A项正是此转变的体现。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 1,
+      "stem": "当RAG与Agent组合使用时，以下哪些设计违反了第4章强调的'必要条件'或'组合约束'？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "将RAG检索到的全部文档切片一次性拼入Agent初始Prompt，作为长期记忆注入"
+        },
+        {
+          "option_label": "B",
+          "option_text": "为Agent配置RAG工具时，未在JSON-Schema中声明其description字段，仅提供name和parameters"
+        },
+        {
+          "option_label": "C",
+          "option_text": "用户提问'我的报销单状态'，Agent优先调用RAG检索历史报销FAQ，而非直接调用报销查询API"
+        },
+        {
+          "option_label": "D",
+          "option_text": "在Skill中定义'课程审查'流程时，将RAG检索到的教学规范文档全文写入SKILL.md正文"
+        },
+        {
+          "option_label": "E",
+          "option_text": "Agent调用RAG工具后，将检索结果作为role='tool'消息回传，供LLM生成下一步决策"
+        }
+      ],
+      "answer": "ABCD",
+      "analysis": "依据教材多处约束：A项违反4.7节'避免全量注入'原则（上下文膨胀）及4.8节'注意力稀释'风险；B项违反4.3节'Function Calling铁律'——Schema中description缺失会导致模型无法理解工具用途，参数提取错误；C项违反4.1节本质区分：'RAG解决知道什么，Agent解决做什么'，报销单状态是需实时操作的任务，非静态知识，应调用API而非RAG；D项违反4.9节'Skill渐进式披露'原则——RAG检索内容应按需加载，而非全文硬塞进Skill主文件，破坏模块化与可维护性；E项正确，符合4.3节'结果必须以role=\"tool\"回传'，故不选。本题聚焦组合时的典型误用，紧扣'必要条件'（如Schema完整性）与'组合约束'（如注入方式、工具选型逻辑）。",
+      "difficulty_label": "挑战"
+    },
+    {
+      "type": 0,
+      "stem": "某团队将'课程代码审查'流程封装为Skill，但将全部检查规则硬编码进主系统提示词。上线后出现新员工误删关键检查项、不同项目间规则难以复用等问题。该做法最直接违背第4章4.9节关于Skill的哪一核心设计原则？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "Skill应通过YAML frontmatter实现'选择-展开'，而非'检索-注入'"
+        },
+        {
+          "option_label": "B",
+          "option_text": "Skill必须配好工具，让脚本确定判断而非模型猜测"
+        },
+        {
+          "option_label": "C",
+          "option_text": "Skill应模块化、可版本化，入口为SKILL.md，子资源扁平链接"
+        },
+        {
+          "option_label": "D",
+          "option_text": "编写Skill前需建立裸跑基线，验证改进有效性"
+        }
+      ],
+      "answer": "C",
+      "analysis": "依据4.9节'五步编写法'第二步：'提取隐性知识...用Template和Examples代替空泛描述'及第三步：'指令三原则：简洁、自由度匹配风险、渐进式披露（主文件精简、扁平链接、避免深层嵌套）'；并明确'Skill就是一个目录，入口是SKILL.md'，子文档如code-quality.md独立存放。题干中'将全部检查规则硬编码进主系统提示词'，直接破坏了Skill的模块化结构（非目录化）、不可版本化（混入主提示词）、且无法扁平链接子资源。A项描述的是Skill与RAG的本质区别（4.9节'选择-展开 vs 检索-注入'），虽相关但非本题'硬编码主提示词'的直接违背；B项属工具配置要求，题干未提脚本；D项是验证方法，非结构原则。C项直指Skill的物理组织与工程实践根基。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 0,
+      "stem": "一个ReAct Agent被设计用于处理报销查询任务。其工具get_reimbursement的JSON-Schema中，parameters定义了user_id（required）和month（required），但未设置default值。当用户提问'帮我查我的报销单'而未提供月份时，Agent未主动追问，而是传入空字符串调用工具并失败。该行为最根本违反了第4章4.3节关于Function Calling的哪一条核心约定？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "模型只提议、程序才执行"
+        },
+        {
+          "option_label": "B",
+          "option_text": "参数可以在多轮对话中逐步收集，缺参时Agent应主动追问"
+        },
+        {
+          "option_label": "C",
+          "option_text": "Schema字段名含糊、描述缺失，会直接导致参数提取错误"
+        },
+        {
+          "option_label": "D",
+          "option_text": "工具结果必须由程序作为role=\"tool\"消息回传"
+        }
+      ],
+      "answer": "B",
+      "analysis": "依据4.3节'高频考点与误区'明确指出：'❌ 参数必须一轮提取完 → ✅ 参数可以在多轮对话中逐步收集，缺参时Agent应主动追问'。本题中用户未提供month（必填参数），Agent未追问而强行调用，直接违反此条约定。A项是Function Calling基本分工（模型提议/程序执行），题干未质疑执行主体；C项针对Schema质量，但题干未提Schema描述缺失；D项是结果回传要求，与参数缺失无关。教材强调'Agent应追问而不是瞎猜'，B项精准对应此设计准则，是保障工具调用鲁棒性的关键实践。",
+      "difficulty_label": "进阶"
+    }
+  ]
+}

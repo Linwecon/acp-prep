@@ -1,0 +1,108 @@
+{
+  "new-6-60-0": {
+    "qid": "new-6-60-0",
+    "classification": "own",
+    "chapter": 6,
+    "quality": "ok",
+    "reason": "场景题考查部署选型四步决策法，结合数据出域、流量、运维、功能需求综合判断。",
+    "answer": [
+      "D"
+    ],
+    "supported": true,
+    "quote": "数据能否出域？不能（敏感/合规）→排除百炼等公有MaaS；私有微调模型上线，需弹性伸缩与灰度发布→PAI-EAS",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "数据严禁出域，百炼MaaS数据会发到平台侧，不符合约束。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "FC有冷启动和时长限制，不适合日均2000+的稳定实时请求。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "ECS自建可控，但无专职SRE，运维能力与‘无专职SRE’描述有矛盾，且灰度发布需额外实现。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "PAI-EAS支持私有部署、弹性伸缩、模型预热与蓝绿发布，最匹配所有约束。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-6-60-1": {
+    "qid": "new-6-60-1",
+    "classification": "own",
+    "chapter": 6,
+    "quality": "ok",
+    "reason": "考查性能瓶颈分析，结合并发提升后QPS增长非线性、TPOT上升、显存占满等指标定位问题。",
+    "answer": [
+      "A",
+      "B"
+    ],
+    "supported": true,
+    "quote": "KV Cache随序列长度×并发数线性增长；PagedAttention解决显存碎片与预分配浪费；连续批处理让GPU不空转",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "显存占用达92%，TPOT上升，KV Cache可能是瓶颈，需排查分页效率。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "QPS增长非线性，需分析连续批处理是否生效，避免GPU空转。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "TTFT劣化主要影响首token延迟，题干未提TTFT问题，且TPOT上升是主要现象。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "量化是优化手段，但题干未提供当前精度信息，且‘评估’非最优先排查动作。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-6-60-2": {
+    "qid": "new-6-60-2",
+    "classification": "own",
+    "chapter": 6,
+    "quality": "ok",
+    "reason": "考查故障诊断与限流策略，结合错误率、显存占用、GPU利用率等指标判断根因并执行动作。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "KV Cache显存占用达98%；超出并发上限通常直接返回错误（如429）；应通过压测确定最优并发阈值并做限流",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "扩容非立即动作，且GPU利用率仅65%，显存是瓶颈，扩容前需先限流。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "KV Cache显存占满导致429错误，应立即限流降至可支撑并发。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "检查GQA/MLA是长期优化，非最应立即执行的故障诊断动作。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "重启可能中断服务，且未证实内存泄漏，非首选诊断动作。"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

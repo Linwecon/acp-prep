@@ -1,0 +1,215 @@
+{
+  "new-10-204-0": {
+    "qid": "new-10-204-0",
+    "classification": "own",
+    "chapter": 10,
+    "quality": "ok",
+    "reason": "考查百炼工作流节点间数据传递配置，属于平台使用细节。",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "工作流中未正确配置节点间的数据传递路径（如未将②的输出字段映射为③的输入字段）",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "工作流节点间数据传递配置错误是常见故障。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "turbo模型支持基本推理，非根本原因。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "向量缓存影响检索，与节点间数据传递无关。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "公网权限影响调用，但单独调试正常，非此因。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-10-204-1": {
+    "qid": "new-10-204-1",
+    "classification": "own",
+    "chapter": 10,
+    "quality": "ok",
+    "reason": "考查百炼智能体编排的常见配置错误，属于平台实践。",
+    "answer": [
+      "B",
+      "C"
+    ],
+    "supported": true,
+    "quote": "在'知识库检索'节点后接入'大模型生成'节点，但未将检索结果字段绑定至生成节点的prompt输入；为'工具调用'节点配置了内部API插件，但该API未在百炼控制台完成OAuth鉴权",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "使用long模型未限制tokens可能导致成本高，但不会无法执行。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "未绑定检索结果会导致生成节点无输入，产生非预期行为。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "API未完成鉴权会导致工具调用失败，工作流无法执行。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "未启用分词可能影响判断精度，但不一定导致无法执行。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-10-204-2": {
+    "qid": "new-10-204-2",
+    "classification": "own",
+    "chapter": 10,
+    "quality": "ok",
+    "reason": "考查百炼智能体中知识库与工作流路由逻辑配置。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "工作流的'触发条件'是否被配置为'始终执行'，覆盖了知识库路由逻辑",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "阈值过高可能导致知识库不触发，但题干是跳过知识库。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "触发条件配置错误会直接覆盖路由逻辑，导致描述现象。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "工具调用关闭影响API，但题干是跳过知识库直接走工作流。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "turbo模型兼容基本格式，非最优先检查项。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-10-204-3": {
+    "qid": "new-10-204-3",
+    "classification": "own",
+    "chapter": 10,
+    "quality": "ok",
+    "reason": "考查百炼工作流调用PAI-EAS服务的必要条件。",
+    "answer": [
+      "A",
+      "B",
+      "C"
+    ],
+    "supported": true,
+    "quote": "PAI-EAS服务已发布为公网可访问的HTTPS Endpoint；百炼工作流中'HTTP请求'节点的认证方式配置为Bearer Token，且Token具有EAS服务调用权限；EAS服务的输入/输出JSON Schema与工作流节点的请求体/响应解析配置严格一致",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "网络可达是调用的基础前提。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "正确的认证配置是调用成功的必要条件。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "接口协议一致才能正确解析请求和响应。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "EAS服务使用自身Token，非DashScope Key。"
+      }
+    ],
+    "duplicate_of": "10-5192"
+  },
+  "new-10-204-4": {
+    "qid": "new-10-204-4",
+    "classification": "own",
+    "chapter": 10,
+    "quality": "ok",
+    "reason": "考查百炼工作流调用外部服务超时的可能技术原因。",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "百炼工作流节点默认超时时间为30秒，而EAS法律模型推理耗时达45秒",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "工作流节点超时时间短于服务耗时是直接原因。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "文本过长可能导致错误，但题干是超时而非报错。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "异步模式影响并发，但同步等待超时是现象非根本瓶颈。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "CPU使用率高可能影响，但单独调用正常，非服务端瓶颈。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-10-204-5": {
+    "qid": "new-10-204-5",
+    "classification": "own",
+    "chapter": 10,
+    "quality": "ok",
+    "reason": "考查百炼智能体知识库覆盖与模型内置知识冲突问题。",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "所选qwen-plus模型内置了训练时的监管知识，无法被知识库完全覆盖",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "切片截断可能导致信息不全，但不会引入旧规外部知识。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "联网搜索插件启用会引入外部知识，但题干要求已禁止，非根本原因。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "模型内置知识与知识库冲突是幻觉根因，符合描述。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "未强制引用可能导致不引用，但不会引入旧规内容。"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

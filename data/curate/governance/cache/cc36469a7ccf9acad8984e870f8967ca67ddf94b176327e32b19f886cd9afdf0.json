@@ -1,0 +1,212 @@
+{
+  "6-1275": {
+    "qid": "6-1275",
+    "classification": "own",
+    "chapter": 6,
+    "quality": "ok",
+    "reason": "考查wrk压测参数，属部署性能验证实践",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "官方教程的压测实验很直观：用 wrk 把并发从 1 提到 10，QPS 从 3.30 提升到约 20.08（约 6 倍），但平均延迟从 324.61ms 涨到 426.84ms",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "-c参数控制并发连接数"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "-d参数指定持续压测时间"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "-R参数控制每秒请求数"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "-t参数指定线程数"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "6-1359": {
+    "qid": "6-1359",
+    "classification": "own",
+    "chapter": 6,
+    "quality": "ok",
+    "reason": "考查云部署核心价值，原文明确强调弹性与资源灵活性",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "部署的价值，是在性能、成本、稳定性、安全合规、可运维性之间找到平衡：让多用户能同时调用（并发、吞吐）；让单次请求足够快（延迟）；让资源用得值（弹性、按量、不浪费）",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "云端可能因网络引入额外延迟"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "原文明确指出弹性与资源灵活是核心价值"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "云端数据通常出域，非本地存储"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "云端部署必须依赖网络"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "6-0825": {
+    "qid": "6-0825",
+    "classification": "own",
+    "chapter": 6,
+    "quality": "ok",
+    "reason": "考查评测优先级，应先保障基础功能正确性",
+    "answer": [
+      "D"
+    ],
+    "supported": true,
+    "quote": "评测驱动开发（EDD）、评测先行（Eval First）——这是本章及第7章反复强调的核心原则。质量四维标准：正确/多样/一致/无重复",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "界面设计属前端，非模型部署核心"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "高峰期处理属SLO验证，非初步阶段"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "响应时间是性能指标，需先保证正确性"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "意图理解准确率决定生成质量，是基础"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "6-0873": {
+    "qid": "6-0873",
+    "classification": "own",
+    "chapter": 6,
+    "quality": "ok",
+    "reason": "考查延迟优化手段，量化降低显存带宽压力从而加速Decode",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "量化（Quantization）：把模型参数从高精度压缩到低精度，以可控的精度损失换取显存占用下降、显存带宽压力减小、推理速度提升",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "量化减小显存带宽压力，加速Decode阶段"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "增加层数会增大计算和显存开销"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "提高max_tokens会延长总延迟"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "复杂解码策略通常增加计算开销"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "6-0879": {
+    "qid": "6-0879",
+    "classification": "own",
+    "chapter": 6,
+    "quality": "ok",
+    "reason": "考查动态批处理本质，即连续批处理提升GPU利用率",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "连续批处理（Continuous Batching）：请求不再'整批齐步走'，而是完成一个就立刻返回、新请求立刻补进 batch。GPU 调度粒度从'整批'细化到'每一步解码'，因此 GPU 几乎全程满载，吞吐量显著提升",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "动态批处理不改变模型参数"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "请求动态进出使GPU全程满载，提升吞吐"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "单次请求延迟由TTFT/TPOT决定，非批处理直接优化"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "幻觉由模型能力与知识边界决定"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "6-0880": {
+    "qid": "6-0880",
+    "classification": "own",
+    "chapter": 6,
+    "quality": "ok",
+    "reason": "考查模型并行作用，原文明确其解决单设备显存不足",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "张量并行能把单卡放不下的权重切到多卡，但每步需要卡间通信，并非'卡越多越快'",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "模型并行不减少参数总量"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "将大模型拆分到多设备，解决单卡显存不足"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "模型并行用于推理部署，不涉及训练数据"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "模型并行需卡间通信，可能降低速度"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

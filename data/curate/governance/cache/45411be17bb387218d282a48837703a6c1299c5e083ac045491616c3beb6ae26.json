@@ -1,0 +1,154 @@
+{
+  "items": [
+    {
+      "type": 0,
+      "stem": "某金融企业需将自研的Qwen3-0.6B蒸馏模型部署为实时客服接口，要求：①全部业务数据严禁出域；②P95 TTFT<1.2s；③支持灰度发布与秒级故障回滚。运维团队具备vLLM调优能力但无专职SRE。若最终选择GPU ECS自建方案，则必须自行实现而PAI-EAS原生支持的关键能力是？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "模型预热（服务上线前完成权重加载与KV Cache初始化）"
+        },
+        {
+          "option_label": "B",
+          "option_text": "OpenAI兼容API接口（/v1/chat/completions）"
+        },
+        {
+          "option_label": "C",
+          "option_text": "基于SLB的负载均衡与健康检查"
+        },
+        {
+          "option_label": "D",
+          "option_text": "vLLM连续批处理调度器"
+        }
+      ],
+      "answer": "A",
+      "analysis": "依据原文6.10.2节明确指出：PAI-EAS提供‘模型预热’，服务上线前就把模型加载好，‘上线即进入正常服务状态（缓解首次请求慢）’；而ECS自建需用户自行编写启动脚本、管理进程生命周期、实现预热逻辑（如预发请求触发加载），教材未提及ECS默认支持该能力。选项B错误——vLLM本身提供OpenAI兼容接口（6.5节命令示例及‘vLLM提供OpenAI兼容服务’原文），非EAS特有；选项C错误——SLB是独立云产品，ECS与EAS均可挂载，非EAS原生能力；选项D错误——连续批处理是vLLM框架内核特性（6.5节），与部署平台无关。本题聚焦‘EAS原生支持而ECS必须自建’的差异化能力，预热是典型企业级托管价值点。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 0,
+      "stem": "压测发现某vLLM服务在并发从8提升至16时，QPS仅增长15%，但平均RT飙升40%且错误率升至3%。此时若仅调整--max-num-seqs参数（最大并发请求数），最可能产生的效果是？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "降低错误率，但QPS进一步下降，RT可能小幅改善"
+        },
+        {
+          "option_label": "B",
+          "option_text": "QPS显著提升，RT和错误率同步下降"
+        },
+        {
+          "option_label": "C",
+          "option_text": "错误率归零，但RT恶化更严重，QPS基本不变"
+        },
+        {
+          "option_label": "D",
+          "option_text": "对QPS、RT、错误率均无明显影响"
+        }
+      ],
+      "answer": "A",
+      "analysis": "依据原文6.3节‘高频误区’明确指出：‘超出并发上限通常直接返回错误（如429）’，且‘并发越高吞吐越高’是错误认知；6.11.1节强调‘应通过压测找到最优并发阈值并做限流’。--max-num-seqs正是vLLM控制并发上限的核心参数（限制同时处理请求数）。当当前并发已超服务承载极限（RT飙升+错误率出现），降低该参数即主动限流，可减少排队和超时，使错误率下降；但因拒绝部分请求，QPS必然下降，RT因负载减轻而改善。选项B违背‘吞吐与延迟制约关系’（Little定律思想）；选项C错误——限流不解决RT恶化根源（如显存瓶颈），但能防止雪崩；选项D忽略参数本质作用。本题考查对限流机制与性能权衡的深度理解。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 1,
+      "stem": "当使用函数计算FC部署AI助手时，观察到工作日早9点首次调用延迟达3.2s，夜间低峰后再次调用仍重现该现象。监控显示冷启动期间GPU显存占用从0%突增至85%，且模型加载耗时占总延迟70%。以下哪些结论可被教材原文直接支持？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "该延迟属于典型的Serverless冷启动现象"
+        },
+        {
+          "option_label": "B",
+          "option_text": "根本原因是FC实例在无流量时被回收，新请求需重新拉起并加载模型"
+        },
+        {
+          "option_label": "C",
+          "option_text": "可通过配置预留实例或预热完全消除该延迟"
+        },
+        {
+          "option_label": "D",
+          "option_text": "此现象印证了FC不适合实时性要求高的对话类场景"
+        }
+      ],
+      "answer": "ABD",
+      "analysis": "依据原文6.7节‘为什么会有冷启动？’明确说明：‘Serverless为了省成本，无流量时会回收实例；请求突然到来需要重新拉起实例、加载模型，导致首个请求明显变慢’；6.10.1节‘FC的边界’指出：‘实时性要求高、需要复杂监控调试的大模型推理，不适合FC’；6.7节对比表中FC核心边界为‘冷启动’。因此A、B、D均有直接原文支撑。选项C错误——原文6.7节指出‘缓解办法是配置预留实例/预热……但这又会重新占用资源、回到近似常驻的成本’，即预热只能缓解不能‘完全消除’，且代价是成本上升，教材未承诺‘完全消除’。本题严格依据原文措辞，排除过度推断。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 0,
+      "stem": "某团队将Qwen3-0.6B模型量化为AWQ INT4后部署于vLLM，观测到：①显存占用下降58%；②TPOT降低22%；③TTFT无明显变化；④在代码补全任务上BLEU分数下降1.3分。以下哪项结论可被教材原文直接支持？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "量化主要节省显存，且INT4在敏感任务上精度损失更明显"
+        },
+        {
+          "option_label": "B",
+          "option_text": "TPOT降低证明量化必然加速推理"
+        },
+        {
+          "option_label": "C",
+          "option_text": "TTFT不变说明量化对Prefill阶段无任何影响"
+        },
+        {
+          "option_label": "D",
+          "option_text": "显存下降58%验证了INT4相对FP16体积降为1/4"
+        }
+      ],
+      "answer": "A",
+      "analysis": "依据原文6.4节‘量化的几个关键判断’：‘量化主要省显存’；‘INT4在低比特下通常更稳、更快’（但未保证必然加速）；‘INT4在敏感任务上可能掉点更明显’（对应BLEU下降）。原文6.4节表格明确INT4相对FP32为1/8，而非FP16的1/4，故D错误；B错误——原文强调‘能否加速取决于推理框架/硬件是否有对应的低比特算子’，TPOT降低是结果，非‘必然’结论；C错误——TTFT受Prefill计算影响，量化虽不改变计算逻辑，但低比特算子可能影响计算路径，原文未断言‘无任何影响’。只有A完全匹配原文‘主要省显存’+‘INT4精度损失风险更大’的双重表述，且‘敏感任务’与‘代码补全’场景吻合。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 1,
+      "stem": "在诊断一个突然出现高TTFT（>8s）的线上vLLM服务时，监控显示GPU利用率正常、KV Cache占用率仅30%、无429错误。此时最应优先检查的日志线索是？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "vLLM启动日志中是否报错模型加载失败或权重格式不匹配"
+        },
+        {
+          "option_label": "B",
+          "option_text": "客户端请求的prompt长度是否异常增长（如误传整份PDF文本）"
+        },
+        {
+          "option_label": "C",
+          "option_text": "SLB/ALB层是否存在请求排队或连接超时"
+        },
+        {
+          "option_label": "D",
+          "option_text": "系统级日志中GPU驱动或CUDA版本是否与vLLM要求不兼容"
+        }
+      ],
+      "answer": "AB",
+      "analysis": "依据原文6.2节原理：TTFT由Prefill阶段决定，而Prefill是‘计算密集型’，受‘prompt长度’直接影响（‘长prompt会让等很久才开口’）；6.5节vLLM启动命令示例强调load-format参数，且6.4节指出量化模型需匹配加载格式。当GPU利用率正常（排除算力瓶颈）、KV Cache占用低（排除Decode阶段显存瓶颈）、无429（排除并发超限），则问题必在Prefill输入侧或模型加载环节。A对应模型加载失败导致请求阻塞在初始化；B对应prompt过长直接拖慢Prefill计算。C错误——SLB排队影响整体RT，但不会单独抬高TTFT；D属底层环境问题，通常导致服务无法启动或GPU利用率异常，与当前监控矛盾。本题紧扣‘TTFT专属影响因素’，考查故障定位的精准性。",
+      "difficulty_label": "挑战"
+    },
+    {
+      "type": 0,
+      "stem": "开发者在FC上部署AI助手后，发现工作日早9点流量高峰时首个请求延迟达3.2s，其余请求正常。夜间低峰期再次调用又重现该现象。最根本的原因及对应教材依据是？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "FC实例在无流量时段被自动回收，新请求触发冷启动加载模型；依据6.7节‘Serverless为了省成本，无流量时会回收实例’"
+        },
+        {
+          "option_label": "B",
+          "option_text": "vLLM未启用PagedAttention导致KV Cache分配失败；依据6.5节‘PagedAttention解决KV Cache碎片’"
+        },
+        {
+          "option_label": "C",
+          "option_text": "模型权重未量化，显存占用过高；依据6.4节‘量化主要省显存’"
+        },
+        {
+          "option_label": "D",
+          "option_text": "SLB健康检查失败导致流量分发异常；依据6.9节‘ECS要搭配SLB负载均衡’"
+        }
+      ],
+      "answer": "A",
+      "analysis": "题干描述‘首个请求延迟高，后续正常’且‘低峰后重现’，是冷启动的典型指纹。原文6.7节明确解释冷启动成因：‘Serverless为了省成本，无流量时会回收实例；请求突然到来需要重新拉起实例、加载模型，导致首个请求明显变慢’。选项B、C、D均与现象无关：PagedAttention影响KV Cache效率（Decode阶段），不导致首个请求延迟；量化影响显存占用，但不会造成‘仅首请求慢’；SLB问题会导致持续性异常，而非单次抖动。本题直击FC核心边界，要求排除干扰项，锁定唯一因果链。",
+      "difficulty_label": "入门"
+    }
+  ]
+}

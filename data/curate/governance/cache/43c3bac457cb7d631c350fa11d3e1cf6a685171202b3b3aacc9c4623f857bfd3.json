@@ -1,0 +1,166 @@
+{
+  "items": [
+    {
+      "type": 0,
+      "stem": "某企业升级其新人答疑机器人为可办事Agent。用户输入“帮我查一下我上个月提交的报销单审批到哪一步了”，系统成功返回真实状态。但在一次测试中，报销查询工具因网络超时返回空结果，Agent却未重试也未追问工单号，而是直接生成模糊回答：“系统暂未返回结果”。该故障最根本违反了本章强调的哪一条核心设计约定？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "ReAct 必须设置轮数上限"
+        },
+        {
+          "option_label": "B",
+          "option_text": "工具返回结果必须回灌到上下文"
+        },
+        {
+          "option_label": "C",
+          "option_text": "要给模型‘失败出口’：工具超时、报错时能重试或换方案"
+        },
+        {
+          "option_label": "D",
+          "option_text": "Planner 应解耦于 LLM，独立决策调用逻辑"
+        }
+      ],
+      "answer": "C",
+      "analysis": "依据原文4.2节【principle】框明确指出：‘要给模型“失败出口”：工具超时、报错时能重试或换方案，而不是整轮崩溃。’题干中Agent在工具超时后既未重试、也未换方案（如切换至人工工单号采集流程）、更未向用户澄清，而是输出无意义模糊响应，直接违背此铁律。A项虽为ReAct重要约束，但题干未体现无限循环或超限问题；B项是正确操作要求，但题干故障发生在‘未处理失败’而非‘未回灌结果’；D项属架构最佳实践，但原文未将其列为‘必须遵守的约定’，且故障根源不在Planner是否解耦，而在对失败场景的兜底策略缺失。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 1,
+      "stem": "某团队采用MCP协议接入多个内部系统工具（OA、HRIS、CRM）。部署后发现：新上线的CRM工具无法被Agent自动发现；同时，Agent在调用HRIS工具时偶发将员工身份证号明文写入日志。以下哪些做法符合本章对MCP的规范要求与风险警示？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "检查CRM Server是否已正确实现MCP标准接口并注册到服务发现中心"
+        },
+        {
+          "option_label": "B",
+          "option_text": "为HRIS Server配置OAuth 2.0鉴权，并在Server端对敏感字段做脱敏处理"
+        },
+        {
+          "option_label": "C",
+          "option_text": "在Agent Host端硬编码CRM工具Schema，绕过MCP动态发现机制"
+        },
+        {
+          "option_label": "D",
+          "option_text": "将HRIS工具调用日志全部关闭，避免敏感信息泄露"
+        },
+        {
+          "option_label": "E",
+          "option_text": "在MCP Client与HRIS Server间增加代理层，统一拦截并过滤含PII的日志字段"
+        }
+      ],
+      "answer": "ABE",
+      "analysis": "A正确：依据4.5节，MCP核心是‘动态发现’，CRM未被发现必然是Server未按协议暴露能力或Client未正确拉取，需排查标准实现（原文：‘Agent启动时客户端自动连接并拉取工具清单’）。B正确：原文4.5节【risk】明确‘MCP Server本身需要鉴权’，且敏感数据治理属基本安全实践，符合‘隐私过滤’原则（4.8节）。E正确：代理层过滤日志是生产环境常见且合规的PII防护手段，不破坏MCP协议，且优于简单关闭日志（D错误，会丧失可观测性）。C错误：硬编码Schema直接违背MCP‘即插即用’初衷（原文：‘让工具方主动接入，而非被动等开发者发现’）；D错误：关闭日志牺牲运维能力，原文4.5节【risk】强调的是‘防提示注入’而非日志管理，且4.11节Harness明确要求‘记录’轨迹，故应治理而非禁用。",
+      "difficulty_label": "高阶"
+    },
+    {
+      "type": 0,
+      "stem": "一个用于代码审查的Skill目录已编写完成，包含SKILL.md、code-quality.md及validate_code.py脚本。当Agent首次收到‘请审查这份Pandas教程代码’请求时，它仅加载了SKILL.md中的YAML frontmatter（含name/description），并未立即读取子文档或执行脚本。这种分阶段加载行为主要体现了本章强调的哪一核心设计原则？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "渐进式披露（Progressive Disclosure）"
+        },
+        {
+          "option_label": "B",
+          "option_text": "避免全量注入"
+        },
+        {
+          "option_label": "C",
+          "option_text": "确定性检查优先"
+        },
+        {
+          "option_label": "D",
+          "option_text": "探索-固化混合模式"
+        }
+      ],
+      "answer": "A",
+      "analysis": "依据4.9节【principle】框明确指出：‘Skill与RAG的关键区别……这就是渐进式披露（Progressive Disclosure）’，并解释其价值为‘不重复交代、不污染无关任务、不撑爆上下文’。题干中Agent仅加载短描述判断是否激活Skill，激活后才按需读取子文档，完全符合该定义。B项‘避免全量注入’针对多Agent场景下主Prompt不应拼入所有Agent知识（4.7节），与Skill加载粒度无关；C项属评测方法（4.10节），非加载策略；D项是工程演进模式（4.6.3节），描述的是Skill从自主规划中沉淀的过程，而非加载行为本身。",
+      "difficulty_label": "基础"
+    },
+    {
+      "type": 1,
+      "stem": "某金融Agent需完成‘评估客户A的贷款申请’任务，涉及调用征信查询、收入验证、风控模型三个工具。当前采用固定流水线工作流：征信→收入→风控。但近期因征信API临时不可用，整个流程卡死。为提升鲁棒性，以下哪些调整符合本章‘规划策略’的最佳实践？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "将征信工具替换为备用的第三方征信API，并更新工作流"
+        },
+        {
+          "option_label": "B",
+          "option_text": "引入ReAct Agent，允许在征信失败时自动尝试备用API或转为人工审核入口"
+        },
+        {
+          "option_label": "C",
+          "option_text": "为每个工具添加超时熔断和降级逻辑（如征信失败则跳过，用历史数据估算）"
+        },
+        {
+          "option_label": "D",
+          "option_text": "改用Plan-and-Execute模式，让Agent先生成含备选路径的计划（如‘若征信失败，则启用备用API或触发HITL’），再执行"
+        },
+        {
+          "option_label": "E",
+          "option_text": "将三个工具合并为一个复合工具，由后端统一编排"
+        }
+      ],
+      "answer": "BCD",
+      "analysis": "B正确：ReAct本质是‘边想边做、用事实修正想法’（4.4节），其‘思考-行动-观察’循环天然支持失败时动态调整（原文：‘工具失败、数据异常时，它能换工具、改参数、求助用户’）。C正确：原文4.2节【principle】强调‘要给模型失败出口’，熔断降级是典型工程化兜底，符合‘避免整轮崩溃’要求。D正确：Plan-and-Execute的核心是‘围绕目标生成计划，遇障碍重新规划’（4.6.3节），题干中‘含备选路径的计划’正是其典型应用。A错误：虽解决当前问题，但仍是‘卡不起’的固定工作流思维，未提升系统自适应能力（原文：‘固定工作流的致命问题是卡不起’）；E错误：合并工具违背‘解耦’原则（4.2节），且将编排逻辑移至后端，削弱Agent自主性，不符合本章‘LLM驱动闭环’本质。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 0,
+      "stem": "在评测一个报销进度查询Agent时，发现其端到端准确率高达92%，但业务方反馈‘常把审批中状态误判为已通过’。进一步分析执行轨迹发现：Agent在调用报销工具后，对返回的JSON字段status值解析错误（如将‘pending_review’映射为‘approved’）。为精准定位并修复此类问题，最应优先采用本章推荐的哪种评测方法？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "LLM-as-Judge，用另一个大模型对最终回答打分"
+        },
+        {
+          "option_label": "B",
+          "option_text": "Rubric评分量表，拆解‘状态准确性’为独立检查项"
+        },
+        {
+          "option_text": "C",
+          "option_label": "确定性检查，解析工具调用trace并校验status字段映射逻辑"
+        },
+        {
+          "option_label": "D",
+          "option_text": "黄金集人工标注，建立100个样本的基准测试集"
+        }
+      ],
+      "answer": "C",
+      "analysis": "依据4.10节【principle】：‘确定性检查……验证‘是否调了报销查询工具’‘输出是否符合JSON Schema’‘必填字段是否齐全’’，其优势是‘确定、可调试’，专治客观环节错误。题干故障是明确的‘字段解析错误’，属于可编程验证的客观缺陷，用代码解析trace并比对status映射规则即可100%复现和修复。A、B、D均属主观或统计型评测，无法精确定位到‘status字段映射’这一具体代码逻辑错误；B的Rubric虽可拆解指标，但若未强制结构化输出（如JSON），仍需人工判定，不如确定性检查直接高效。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 1,
+      "stem": "某客服Agent使用滚动摘要策略管理长期记忆，但近期出现‘用户反复询问同一问题，Agent每次均重新生成冗长解答，未复用历史优质回复’。经排查，摘要模块将用户提问和Agent回答压缩为‘用户咨询报销进度’，丢失了关键细节。以下哪些改进措施符合本章4.8节对Memory的工程最佳实践？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "在摘要提示词中明确要求保留‘原始问答对’及‘用户确认的满意答案’"
+        },
+        {
+          "option_label": "B",
+          "option_text": "将高频优质问答对单独存入向量库，设置高权重检索"
+        },
+        {
+          "option_label": "C",
+          "option_text": "取消滚动摘要，改用固定窗口截断并扩大N值"
+        },
+        {
+          "option_label": "D",
+          "option_text": "为摘要模块增加人工审核环节，确保关键信息不丢失"
+        },
+        {
+          "option_label": "E",
+          "option_text": "建立摘要质量评估指标（如信息保真度F1），自动淘汰低质摘要"
+        }
+      ],
+      "answer": "ABDE",
+      "analysis": "A正确：原文4.8节【best】强调‘有选择地记’，摘要提示词定向优化是直接提升信息保真度的有效手段。B正确：向量召回适合‘海量记忆按需取用’（4.8节），将优质问答作为长期记忆资源，完美匹配题干需求。D正确：人工审核是‘持续治理’（4.8节）的体现，确保摘要质量。E正确：‘定期清理过时信息、合并重复、校验事实’（4.8节）隐含质量评估机制，自动化评估符合工程化要求。C错误：原文明确指出‘单纯扩窗口只是延后爆炸’，且‘注意力稀释/中间迷失’问题会加剧，违背‘避免上下文膨胀’原则（4.8节）。",
+      "difficulty_label": "高阶"
+    }
+  ]
+}

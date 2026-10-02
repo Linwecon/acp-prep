@@ -1,0 +1,154 @@
+{
+  "items": [
+    {
+      "type": 0,
+      "stem": "某团队使用 vLLM 部署 Qwen3-0.6B 模型，启动命令中未指定 --max-model-len，服务上线后在处理长 prompt（>4K tokens）时频繁返回 400 错误，错误信息为 'context length exceeded'。此时最根本的缺失条件是？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "未启用 AWQ 量化，导致显存不足无法容纳长上下文"
+        },
+        {
+          "option_label": "B",
+          "option_text": "未配置 --enforce-eager，导致 PagedAttention 无法动态分配 KV 块"
+        },
+        {
+          "option_label": "C",
+          "option_text": "未显式设置 --max-model-len，vLLM 默认按模型 config.json 中 max_position_embeddings 截断输入"
+        },
+        {
+          "option_label": "D",
+          "option_text": "未挂载 SLB 负载均衡，导致单实例请求堆积触发上下文校验失败"
+        }
+      ],
+      "answer": "C",
+      "analysis": "依据原文 6.5 节：vLLM 启动时若未显式指定 --max-model-len，将默认采用模型 config.json 中的 max_position_embeddings 值作为最大上下文长度上限；超出该长度的 prompt 会在 Prefill 阶段被前端校验拦截并返回 400 'context length exceeded'（教材未明写但属 vLLM 官方行为，且原文强调 'vLLM 提供 OpenAI 兼容接口'，而兼容性要求严格遵循上下文长度约束）。选项 A 错误：量化影响显存占用，但不改变长度校验逻辑；B 错误：--enforce-eager 仅禁用 CUDA Graph 优化，与 PagedAttention 分配无关；D 错误：SLB 属于高可用层，不影响单实例内部的上下文长度校验。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 0,
+      "stem": "运维人员发现 vLLM 服务在高并发下 GPU 显存总占用率仅 65%，但 KV Cache 占用率持续 98%，且 QPS 不再随并发提升。此时若仅调整 --block-size 参数（如从 16 改为 32），最可能产生的直接影响是？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "KV Cache 实际显存占用下降，因更大 block 减少了页表元数据开销"
+        },
+        {
+          "option_label": "B",
+          "option_text": "并发请求数上限提升，因单 block 可承载更长序列，减少块数量需求"
+        },
+        {
+          "option_label": "C",
+          "option_text": "TTFT 显著降低，因 Prefill 阶段可并行处理更多 token"
+        },
+        {
+          "option_label": "D",
+          "option_text": "TPOT 下降，因 Decode 阶段读取更大连续内存块提升带宽利用率"
+        }
+      ],
+      "answer": "B",
+      "analysis": "依据原文 6.5 节 'PagedAttention' 定义：KV Cache 被切分为固定大小的 block，页表记录逻辑位置到物理块映射；--block-size 决定每个 block 的 token 数量。增大 block size（如 16→32）意味着单个 block 可容纳更长的序列片段，在相同平均序列长度下，所需 block 总数减少，从而在同等显存下支持更高并发（因显存碎片减少、有效容量提升）。原文明确指出 PagedAttention '大幅提升吞吐：同样的显存能塞下更多并发请求'。A 错误：页表元数据开销占比极小，非主要影响；C 错误：TTFT 由 Prefill 计算决定，与 block size 无关；D 错误：TPOT 受显存带宽和 KV Cache 访问模式影响，block size 增大可能反而因跨块访问增加延迟。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 1,
+      "stem": "某开发者在 ECS 上部署 vLLM 服务，通过 curl 调用 /v1/chat/completions 接口时始终返回 400 Bad Request，响应体为 '{\"error\":{\"message\":\"model not found\",\"type\":\"invalid_request_error\"}}'。已确认模型路径 '/mnt/workspace/model/Qwen3-0.6B' 在服务器上真实存在且权限正确。以下哪些条件同时缺失会导致该错误？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "启动命令未包含 --model 参数，或 --model 值与请求体中 'model' 字段不一致"
+        },
+        {
+          "option_label": "B",
+          "option_text": "未在启动命令中指定 --served-model-name，且请求体中 'model' 字段未匹配实际加载的模型路径"
+        },
+        {
+          "option_label": "C",
+          "option_text": "未启用 --enable-prefix-caching，导致无法识别模型标识符"
+        },
+        {
+          "option_label": "D",
+          "option_text": "未配置 --trust-remote-code，而模型权重含自定义模块"
+        }
+      ],
+      "answer": "AB",
+      "analysis": "依据原文 6.5 节示例命令：'vllm serve \"/mnt/workspace/model/Qwen3-0.6B\" --port 8000'，并强调 'curl ... -d '{\"model\": \"/mnt/workspace/model/Qwen3-0.6B\", ...}' ——说明 vLLM 默认将启动时传入的模型路径作为服务注册的 model name，请求体中的 'model' 字段必须严格匹配该路径（A 正确）。若使用 --served-model-name 显式指定别名（如 --served-model-name qwen3-0.6b），则请求体中 'model' 必须为该别名（B 正确）。C 错误：prefix caching 是性能优化，与模型发现无关；D 错误：--trust-remote-code 缺失会导致加载失败（进程崩溃），而非 400 model not found 错误。",
+      "difficulty_label": "挑战"
+    },
+    {
+      "type": 0,
+      "stem": "压测中发现 vLLM 服务在并发从 16 增至 32 时，QPS 仅微增 12%，但平均 RT 翻倍且 429 错误率达 8%。此时若仅执行 '调整 --max-num-seqs 参数'，最符合教材故障诊断逻辑的操作是？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "调低 --max-num-seqs，强制限制并发数，使 RT 和错误率回归基线水平"
+        },
+        {
+          "option_label": "B",
+          "option_text": "调高 --max-num-seqs，以触发连续批处理更充分的 GPU 利用率"
+        },
+        {
+          "option_label": "C",
+          "option_text": "将 --max-num-seqs 设为 0，交由 vLLM 自动根据显存动态调度"
+        },
+        {
+          "option_label": "D",
+          "option_text": "移除 --max-num-seqs 参数，改用 --max-num-batched-tokens 控制资源"
+        }
+      ],
+      "answer": "A",
+      "analysis": "依据原文 6.3 节 '高频误区'：'超出并发上限通常直接返回错误（如 429）'，且 '必须通过压测确定最优并发阈值'；原文 6.5 节明确 --max-num-seqs 是 '最大并发请求数' 的硬性限制。当出现 RT 飙升+429 错误，表明当前并发已超服务承载能力，首要动作是限流保稳——调低 --max-num-seqs 是最直接、最符合教材 '限流降级' 原则的干预（A 正确）。B 错误：继续提高并发会加剧恶化；C 错误：vLLM 无 --max-num-seqs=0 的自动模式；D 错误：--max-num-batched-tokens 控制的是 batch 内 token 总数，不解决请求级并发过载问题。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 1,
+      "stem": "某金融企业需将 Qwen3-0.6B 蒸馏模型部署为实时客服接口，要求数据不出域、P95 TTFT<1.2s、支持灰度发布与秒级回滚。若选择 ECS+vLLM 自建方案，则以下哪些能力必须由团队自行实现，而 PAI-EAS 原生提供？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "模型预热（warmup）：服务启动后自动加载权重并执行 dummy inference，避免首请求延迟"
+        },
+        {
+          "option_label": "B",
+          "option_text": "蓝绿/灰度发布：新版本流量按比例渐进切换，支持一键回滚至旧版本"
+        },
+        {
+          "option_label": "C",
+          "option_text": "基于 SLB 的负载均衡与健康检查集成"
+        },
+        {
+          "option_label": "D",
+          "option_text": "GPU 实例弹性伸缩（ESS）策略配置"
+        }
+      ],
+      "answer": "AB",
+      "analysis": "依据原文 6.10.2 节 PAI-EAS 描述：'提供模型预热，服务上线前就把模型加载好，上线即进入正常服务状态'（A 正确）；'支持蓝绿部署、版本控制、回滚'（B 正确）。C 错误：SLB 是云基础设施，ECS 和 EAS 均需额外配置，非 EAS 原生能力；D 错误：ESS 是独立云服务，EAS 和 ECS 均可对接，非 EAS 特有。原文 6.9 节明确 ECS 自建需 '自行实现监控告警、负载均衡、弹性伸缩'，反向印证 AB 是 EAS 的差异化企业级能力。",
+      "difficulty_label": "挑战"
+    },
+    {
+      "type": 0,
+      "stem": "当 vLLM 服务处理一批混合长度请求（128/2048/16384 tokens）时，PagedAttention 相比传统连续内存分配，其显存节省效果最核心的来源是？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "对 KV Cache 进行 INT4 量化，直接降低每个 token 的存储字节数"
+        },
+        {
+          "option_label": "B",
+          "option_text": "允许不同请求的 KV 块在显存中非连续存放，消除因长度差异导致的内存碎片"
+        },
+        {
+          "option_label": "C",
+          "option_text": "复用相同系统提示词的 KV 块，减少重复缓存"
+        },
+        {
+          "option_label": "D",
+          "option_text": "将长序列请求拆分为多个小 batch 并行处理，提升 GPU 利用率"
+        }
+      ],
+      "answer": "B",
+      "analysis": "依据原文 6.5 节 'PagedAttention' 定义：'借鉴操作系统的虚拟内存分页思想，把 KV Cache 切成一个个固定大小的块...按需分配'，并明确指出好处之一是'消除碎片：块可以不连续，显存利用率接近打满'。这是 PagedAttention 解决的核心痛点（传统框架为每个请求预分配最大长度连续内存，造成大量闲置）。A 错误：量化是独立技术，非 PagedAttention 机制本身；C 错误：前缀复用是高级优化，依赖内容相似性，非 PagedAttention 的基础能力；D 错误：拆分 batch 属于连续批处理范畴，与 PagedAttention 的内存管理无关。",
+      "difficulty_label": "进阶"
+    }
+  ]
+}

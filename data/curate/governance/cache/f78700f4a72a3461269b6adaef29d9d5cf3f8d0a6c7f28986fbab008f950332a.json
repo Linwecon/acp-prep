@@ -1,0 +1,162 @@
+{
+  "items": [
+    {
+      "type": 0,
+      "stem": "某企业将新人答疑机器人升级为报销进度查询助手。用户输入“帮我查一下我上个月提交的报销单审批到哪一步了”，模型正确输出tool_calls，但工具执行后返回“未找到匹配单据”。此时Agent未追问工单号、未切换查询方式（如按日期范围重试）、未向用户澄清模糊点，而是直接生成“系统暂未返回结果”。该行为最根本违反本章关于Planner解耦与轻重场景权衡的哪一核心设计约定？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "Planner未与LLM解耦，导致失败时无法触发独立重规划逻辑"
+        },
+        {
+          "option_label": "B",
+          "option_text": "未遵循‘简单任务直答、复杂任务闭环’的轻重权衡原则，对工具失败这一关键异常场景未配置必要兜底路径"
+        },
+        {
+          "option_label": "C",
+          "option_text": "Memory未将工具失败事件写入上下文，导致Planner缺乏决策依据"
+        },
+        {
+          "option_label": "D",
+          "option_text": "Tool组件未实现幂等与优雅降级，导致Planner无可用备选动作"
+        }
+      ],
+      "answer": "B",
+      "analysis": "题干聚焦‘工具失败后无任何应对’这一典型轻重失衡现象。教材4.4节‘ReAct的三条铁律’明确指出：ReAct不是无限循环，但必须设置失败出口——‘工具超时、报错时能重试或换方案，而不是整轮崩溃’；4.2节‘关键约定’强调：‘要给模型失败出口’；4.6.3节进一步说明：自主规划的价值正在于‘遇到障碍时重新规划’。选项B精准指向‘轻重权衡’本质——报销查询是中等复杂度任务（需调工具），但‘查不到’属于高频异常分支，必须在架构层面预设轻量级兜底（如追问ID/改用日期范围/提示人工介入），而非依赖重规划或重写LLM提示词。A错误：Planner解耦是手段，非本题故障根源；C错误：Memory是否写入失败结果属执行细节，但题干已明确‘未追问、未切换、未澄清’，说明Planner根本未启动新决策，问题在规划策略缺失而非记忆传递；D错误：Tool降级是执行层能力，但题干中Planner连‘换方案’意图都未产生，责任在规划侧未定义必要条件，而非Tool实现缺陷。教材依据：4.2节‘关键约定’+4.4节‘ReAct铁律’+4.6.3节‘Plan-and-Execute’适用前提。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 1,
+      "stem": "在规划-执行（Plan-and-Execute）模式下，为保障轻重场景权衡的鲁棒性，以下哪些组合约束是Planner必须显式建模的必要条件？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "工具调用的前置依赖关系（如：必须先获取工单号，才能调用报销查询）"
+        },
+        {
+          "option_label": "B",
+          "option_text": "各工具的SLA指标（如：报销查询API P95延迟≤800ms，超时则自动降级）"
+        },
+        {
+          "option_label": "C",
+          "option_text": "用户原始请求中隐含的强约束（如：“上个月”对应具体年月范围，不可模糊处理）"
+        },
+        {
+          "option_label": "D",
+          "option_text": "Planner自身推理的token预算上限（如：单次规划输出不得超过200 token）"
+        },
+        {
+          "option_label": "E",
+          "option_text": "所有可用工具的JSON-Schema完整字段列表（含非必填参数默认值）"
+        }
+      ],
+      "answer": "A,B,C",
+      "analysis": "本题考查Planner在轻重权衡中需建模的‘必要条件’——即不满足则必然导致任务失败或体验劣化的硬约束。A正确：教材4.6.3节指出Plan-and-Execute需围绕目标生成多步骤计划，而前置依赖是步骤间逻辑正确性的基石，缺失则出现‘无ID调查询’等无效动作；B正确：4.4节‘ReAct铁律’强调必须设超时/轮数上限，SLA是超时决策的量化依据，是轻重权衡的核心参数（轻：快速失败；重：重试）；C正确：4.3节‘参数提取准不准’指出‘用户表述含糊时Agent应追问而不是瞎猜’，隐含强约束（如时间范围）是触发追问的必要条件，否则直接传空参导致失败。D错误：token预算是执行层资源限制，由框架或API控制，非Planner需建模的业务逻辑约束；E错误：Schema列表是工具发现阶段输入，Planner只需使用已注入的Schema，无需掌握全部字段细节，且‘非必填参数默认值’在Schema中未定义时恰是触发追问的信号（见4.3节‘参数可多轮收集’）。教材依据：4.3节‘参数提取三要素’+4.4节‘ReAct铁律’+4.6.3节‘Plan-and-Execute’执行顺序要求。",
+      "difficulty_label": "挑战"
+    },
+    {
+      "type": 0,
+      "stem": "某金融Agent需完成‘评估客户A的贷款申请’，涉及征信查询、收入验证、风控模型三个工具。当前采用固定流水线：征信→收入→风控。但征信API临时不可用时，整个流程卡死。工程师决定改用Plan-and-Execute模式，并在Planner中预置两条备选路径：①若征信失败，则用历史信用分+人工补充材料替代；②若收入验证失败，则调用社保接口二次验证。这种设计主要体现了Planner解耦与轻重场景权衡中的哪一关键价值？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "将‘异常处理逻辑’从LLM提示词中剥离，交由独立Planner模块按预设规则决策，提升故障诊断可追溯性"
+        },
+        {
+          "option_label": "B",
+          "option_text": "通过预置轻量级备选路径，在工具失效时以最小代价维持服务连续性，避免重规划带来的高延迟与高token消耗"
+        },
+        {
+          "option_label": "C",
+          "option_text": "利用Planner的独立状态管理能力，隔离各工具执行失败对其他步骤上下文的污染"
+        },
+        {
+          "option_label": "D",
+          "option_text": "使Planner能动态加载不同工具Schema，解决MCP Server未及时同步新工具的问题"
+        }
+      ],
+      "answer": "B",
+      "analysis": "题干核心是‘预置两条备选路径’应对特定工具失效，本质是轻重权衡：征信失败是高频轻量异常，用低成本替代方案（历史分+人工）快速兜底，而非启动重规划（耗时/耗token）。教材4.6.3节‘探索-固化混合模式’明确：‘新出现、流程不明的任务派自主规划；一旦路径被反复验证稳定，就固化为固定工作流/Skill’。此处‘预置备选路径’正是将已验证的轻量异常处理固化为Planner内建逻辑，体现‘轻场景用轻方案’原则。A错误：解耦价值在于定位问题，但题干未涉及故障诊断；C错误：上下文污染是Memory职责，非Planner核心价值；D错误：动态加载Schema属MCP Client职责，与Planner备选路径无关。教材依据：4.6.3节‘探索-固化混合模式’+4.2节‘组件解耦’目的（‘出问题才好定位’）中，本题定位的是‘如何让问题影响最小化’而非‘如何定位问题’。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 1,
+      "stem": "在调试一个报销查询Agent时，发现其Planner在工具失败后未触发重试，经检查：① JSON-Schema中month字段定义为{'type':'string','pattern':'^\\\\d{4}-\\\\d{2}$'}；② 模型传入'2024-07'；③ 工具服务返回'Invalid month format'。以下哪些原因可能构成Planner轻重权衡失效的深层故障链？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "Schema中未声明month为required，导致Planner未将格式校验视为必要前置条件"
+        },
+        {
+          "option_label": "B",
+          "option_text": "Planner未集成正则pattern解析能力，无法在调用前本地校验参数合法性"
+        },
+        {
+          "option_label": "C",
+          "option_text": "工具执行代码未将服务端错误码映射为Planner可识别的失败类型（如TIMEOUT/FORMAT_ERROR）"
+        },
+        {
+          "option_label": "D",
+          "option_text": "Memory未将本次失败的Observation（'Invalid month format'）结构化存储，导致Planner无法基于历史学习规避"
+        },
+        {
+          "option_label": "E",
+          "option_text": "LLM在生成tool_calls时未遵循Schema pattern，暴露了提示词对参数格式约束的弱引导"
+        }
+      ],
+      "answer": "A,C,E",
+      "analysis": "本题考查故障诊断的多层归因，聚焦Planner轻重权衡失效的‘组合约束’断裂。A正确：教材4.3节强调Schema需明确定义required字段，若month非required，Planner会认为‘传任意字符串均可’，失去格式校验的触发前提，属必要条件缺失；C正确：4.2节‘关键约定’要求‘工具返回结果必须回灌到上下文’，但若错误码未被结构化映射，Planner收到的Observation是模糊文本而非可编程信号，无法触发重试逻辑，属执行-规划接口缺陷；E正确：4.3节‘参数提取准不准’指出‘Schema质量’是首要因素，若提示词未强化pattern约束，LLM易忽略格式要求，属LLM与Planner协同失效。B错误：Planner无需解析正则，校验应在工具执行层或专用验证器（见4.10节‘确定性检查’）；D错误：Memory存储失败是长期优化，但题干是单次失败未响应，根本在Planner未设计针对FORMAT_ERROR的即时响应策略。教材依据：4.2节‘工具返回必须回灌’+4.3节‘Schema质量决定参数提取’+4.10节‘确定性检查’用于预防此类错误。",
+      "difficulty_label": "挑战"
+    },
+    {
+      "type": 0,
+      "stem": "某团队将‘课程代码审查’流程固化为Skill，但将全部检查规则（可执行性、依赖完整性、异常覆盖率）硬编码进主系统提示词。上线后发现：新员工修改提示词时误删关键检查项，且不同项目间规则难以复用。该做法最直接违背教材4.9节关于Planner解耦与轻重场景权衡的哪一核心原则？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "未实现‘渐进式披露’，导致Planner在非审查任务中仍加载冗余规则，稀释注意力"
+        },
+        {
+          "option_label": "B",
+          "option_text": "将‘方法论’与‘执行体’耦合，使Planner无法按需激活轻量级子流程（如仅检查可执行性），丧失轻重权衡灵活性"
+        },
+        {
+          "option_label": "C",
+          "option_text": "违反‘Skill与RAG区别’，把本应选择展开的方法论当事实检索注入"
+        },
+        {
+          "option_label": "D",
+          "option_text": "未将确定性检查脚本（如validate_code.py）作为独立Tool注册，导致Planner无法调度验证动作"
+        }
+      ],
+      "answer": "B",
+      "analysis": "题干核心是‘硬编码全部规则’导致维护难、复用差，本质是Planner失去了按场景轻重裁剪能力。教材4.9节‘Skill与RAG区别’强调‘渐进式披露’：Agent启动时只看description（轻量判断），激活后才读SKILL.md及子文件（按需展开）。硬编码全部规则等于强制Planner在每次任务中加载全部重量级逻辑，无法根据任务轻重（如用户只要求‘检查能否运行’）激活子集，彻底丧失轻重权衡能力。A是渐进式披露的表象，但题干问题在‘无法按需裁剪’，B更精准指向Planner的调度灵活性；C错误：混淆了Skill与RAG的本质差异，但题干未涉及检索；D错误：脚本注册是Tool层实现，非本题‘硬编码规则’的根源。教材依据：4.9节‘Skill与RAG的关键区别’+‘渐进式披露’定义+4.6.2节‘工作流价值是分而治之’。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 0,
+      "stem": "在ReAct Agent处理报销查询任务时，Planner生成的执行顺序为：Thought→Action（get_reimbursement）→Observation（空结果）→Thought→？。根据教材4.4节ReAct铁律与4.2节组件协作原则，下一步最应发生的动作是？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "LLM生成新Thought，提议调用备用工具（如get_reimbursement_by_date）"
+        },
+        {
+          "option_label": "B",
+          "option_text": "Planner基于Observation触发重规划，生成包含追问用户工单号的新Action"
+        },
+        {
+          "option_label": "C",
+          "option_text": "Memory将空Observation写入上下文，等待LLM自发生成下一步"
+        },
+        {
+          "option_label": "D",
+          "option_text": "Tool组件自动重试get_reimbursement，无需Planner干预"
+        }
+      ],
+      "answer": "B",
+      "analysis": "题干明确‘Planner生成的执行顺序’，考查Planner在ReAct闭环中的主动权。教材4.2节‘各组件如何协作’指出：‘Planner决定何时调哪个工具/Agent’；4.4节‘ReAct铁律’强调‘Observation可能含噪声，模型不能盲目信任’，且必须有失败出口。空Observation是明确失败信号，Planner应主动介入重规划（如追问ID或切路径），而非等待LLM自发行动（C错误）或依赖Tool自动重试（D错误，违背‘程序执行’原则）。A错误：LLM提议是Function Calling环节，但题干已进入ReAct循环，Planner需主导决策；B正确：Planner作为独立模块，应基于Observation触发新规划，体现解耦与权衡（轻：追问；重：换工具）。教材依据：4.2节‘Planner决定何时调哪个工具’+4.4节‘ReAct铁律：工具失败时能重试或换方案’。",
+      "difficulty_label": "入门"
+    }
+  ]
+}

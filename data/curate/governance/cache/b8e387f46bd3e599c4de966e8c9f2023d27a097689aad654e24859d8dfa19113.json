@@ -1,0 +1,154 @@
+{
+  "items": [
+    {
+      "type": 0,
+      "stem": "某金融公司需构建合规问答系统，要求：① 所有客户合同与监管文件严禁出域；② 通用千问模型对'穿透式尽调'等术语回答不准；③ 需支持1000+并发实时响应。技术团队决定基于Qwen2-7B开源模型微调后部署。以下哪组阿里云产品组合最符合全链路需求？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "ModelScope下载模型 → PAI-DSW开发微调代码 → PAI-DLC执行分布式训练 → PAI-EAS部署为高并发服务"
+        },
+        {
+          "option_label": "B",
+          "option_text": "百炼知识库上传合同 → DashScope调用qwen-max → 开启流式输出并设置max_tokens=512"
+        },
+        {
+          "option_label": "C",
+          "option_text": "OSS存储合同PDF → DataWorks做OCR清洗 → 百炼工作流调用DashScope Embedding + qwen-plus生成答案"
+        },
+        {
+          "option_label": "D",
+          "option_text": "通义万相生成合同摘要 → ModelScope调用qwen-turbo API → 通过函数计算FC封装为HTTP服务"
+        }
+      ],
+      "answer": "A",
+      "analysis": "依据原文10.1分层定位表及10.4节PAI三件套定义：'严禁出域'排除所有需上送数据的托管服务（B/C/D均依赖DashScope或百炼，数据需经阿里云API网关）；'微调'必须使用PAI-DSW（开发）+ DLC（训练）；'1000+并发实时响应'明确指向EAS弹性推理服务（10.4节'类比：模型对外服务的门面'）。ModelScope仅提供开源模型下载（10.7节），是必要前置动作，但非执行层。B选项违反数据不出域（DashScope为托管API）；C选项仍走百炼→DashScope链路，数据上送；D选项混用多模态与文本模型，且FC无法保障低延迟高并发。教材依据：10.1表'训练与部署层→PAI'、10.4口诀'调试选DSW、训练选DLC、上线选EAS'、10.7节'开源版可私有化部署但要自己承担GPU与运维成本'。",
+      "difficulty_label": "挑战"
+    },
+    {
+      "type": 0,
+      "stem": "运维工程师发现生产环境DashScope API调用频繁返回429错误，日志显示RPM（每分钟请求数）持续超限。此时最应优先执行的操作是？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "立即申请提升RPM配额，并同步在前端增加请求队列"
+        },
+        {
+          "option_label": "B",
+          "option_text": "检查是否遗漏指数退避重试逻辑，并验证当前重试策略是否含随机抖动"
+        },
+        {
+          "option_label": "C",
+          "option_text": "将所有qwen-plus调用切换为qwen-turbo以降低单次Token消耗"
+        },
+        {
+          "option_label": "D",
+          "option_text": "在代码中强制添加time.sleep(1)实现固定间隔重试"
+        }
+      ],
+      "answer": "B",
+      "analysis": "原文10.8节'处理限流'明确要求'遇429用指数退避+抖动重试'，且10.9误区表强调'切忌无间隔死循环重试'。B项直指故障根因——429是限流信号，首要动作是验证重试机制是否符合规范（指数退避+抖动），而非盲目提配额（A）或粗暴降级（C）。C虽能间接缓解TPM压力，但RPM超限本质是并发请求数问题，与模型选择无关；D违反'随机抖动'原则，易引发雪崩。教材依据：10.8节'处理限流：遇429用指数退避+抖动重试'、10.9风险提示'不能假设无限并发'。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 0,
+      "stem": "课程实验中，学生在PAI-DSW GPU实例运行微调脚本后关闭浏览器，次日发现账单异常高昂。最可能的根本原因及依据是？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "GPU实例未停止，持续计费；依据：10.4节'关闭浏览器不等于停止实例，必须回控制台停止或删除'"
+        },
+        {
+          "option_label": "B",
+          "option_text": "微调脚本触发了DLC分布式训练任务，产生额外算力费用；依据：10.4节'DLC用于大规模训练'"
+        },
+        {
+          "option_label": "C",
+          "option_text": "模型权重自动同步至OSS产生存储费用；依据：10.1节'OSS存放企业文档'"
+        },
+        {
+          "option_label": "D",
+          "option_text": "DSW实例默认开启自动续费，导致按月计费；依据：10.4节'3个月有效期不等于无限免费'"
+        }
+      ],
+      "answer": "A",
+      "analysis": "原文10.4节'PAI-DSW费用提醒'三次强调：'关闭浏览器不等于停止实例'、'必须回控制台停止或删除'、'GPU实例消耗额度远快于CPU'。A项完全匹配该核心警示。B项错误——DLC需显式提交任务，DSW中运行脚本默认在本地实例执行；C项无依据，OSS同步需主动配置；D项混淆概念，'3个月有效期'指免费额度时效，非实例自动续费。教材依据：10.4节'PAI-DSW费用提醒'原文。",
+      "difficulty_label": "入门"
+    },
+    {
+      "type": 1,
+      "stem": "当百炼应用需要调用部署在PAI-EAS上的私有模型时，以下哪些条件是必须同时满足的？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "PAI-EAS服务已启用公网访问或VPC内网互通"
+        },
+        {
+          "option_label": "B",
+          "option_text": "百炼应用配置了正确的EAS服务Endpoint和认证密钥"
+        },
+        {
+          "option_label": "C",
+          "option_text": "EAS服务接口需兼容OpenAI API标准（如/chat/completions）"
+        },
+        {
+          "option_label": "D",
+          "option_text": "PAI-EAS部署的模型必须是通义千问商业版"
+        }
+      ],
+      "answer": "A,B,C",
+      "analysis": "依据原文10.1全景链路描述：'百炼应用再去调用EAS上的私有模型'，说明二者需网络连通（A正确）；10.5节'三者可组合'强调百炼可回调PAI-EAS服务，必然涉及Endpoint与鉴权（B正确）；10.4节原理指出vLLM本地服务'其HTTP接口本身兼容OpenAI API'，而百炼作为标准化应用平台，调用外部模型必须遵循统一协议（C正确）。D错误——原文10.7节明确'商业版走托管API；要私有化用开源版'，EAS部署开源模型是标准路径。教材依据：10.1节链路描述、10.4节'vLLM本地起服务验证（其HTTP接口本身兼容OpenAI API）'、10.7节'开源版可从ModelScope下载，部署到自建GPU或PAI'。",
+      "difficulty_label": "挑战"
+    },
+    {
+      "type": 0,
+      "stem": "某电商团队上线智能客服，初期日调用量约5000次，用户反馈响应延迟高、偶发429错误。运维团队排查发现：前端未做请求限流，且每次请求均将整份《售后服务政策》（12万字）作为system prompt传入。以下哪些成本优化措施符合原文10.8节'省成本的工程手段'？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "启用RAG知识库，仅传入检索出的相关片段，替代整本手册"
+        },
+        {
+          "option_label": "B",
+          "option_text": "为所有API调用设置max_tokens=256，防止输出过长"
+        },
+        {
+          "option_label": "C",
+          "option_text": "将qwen-plus全部替换为qwen-turbo以降低单价"
+        },
+        {
+          "option_label": "D",
+          "option_text": "在前端添加请求队列，限制每秒最大并发数"
+        }
+      ],
+      "answer": "A,B,D",
+      "analysis": "原文10.8节'省成本的工程手段'明确列出：'控制输入：RAG只塞最相关的片段'（A正确）、'限制输出：用max_tokens设上限'（B正确）、'处理限流：遇429用指数退避+抖动重试'隐含需前端限流（D正确，队列是限流基础实现）。C错误——'选对模型尺寸'针对任务难度，'简单任务用turbo'，但客服问答属通用场景，强行替换可能导致效果下降，且原文强调'按任务难度分级路由'，非一刀切降级。教材依据：10.8节'控制输入'、'限制输出'、'处理限流'三项具体措施。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 1,
+      "stem": "开发团队在ModelScope Notebook中成功运行了Qwen3-0.6B的推理Demo，但当尝试执行LoRA微调时遭遇OOM（内存溢出）。以下最根本的故障原因及对应教材依据是？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "ModelScope免费Notebook内存资源有限，不支持训练负载；依据：10.7节'ModelScope Notebook免费但通常有连续运行时长限制'"
+        },
+        {
+          "option_label": "B",
+          "option_text": "LoRA微调需更高显存，而ModelScope Notebook未提供GPU实例；依据：10.4节'PAI-DSW提供GPU实例与预置镜像'"
+        },
+        {
+          "option_label": "C",
+          "option_text": "Qwen3-0.6B模型权重格式不兼容LoRA微调框架；依据：10.6节'模型版本会持续迭代，以官方文档为准'"
+        },
+        {
+          "option_label": "D",
+          "option_text": "ModelScope社区仅提供推理Demo，不支持训练功能；依据：10.7节'ModelScope是开源模型社区/Hub，可下载模型自行部署'"
+        }
+      ],
+      "answer": "A,B,D",
+      "analysis": "原文10.7节明确ModelScope Notebook定位为'免费体验在线Demo'，且'有连续运行时长限制'（A正确）；10.4节指出PAI-DSW才提供'GPU实例与预置镜像'，暗示ModelScope Notebook无GPU资源（B正确）；10.7节定义ModelScope为'模型仓库'，'自行部署'意味着训练需在自有环境（如PAI）完成，社区本身不提供训练能力（D正确）。C错误——模型格式兼容性属技术细节，原文未提及，且Qwen系列开源模型天然支持LoRA。教材依据：10.7节'免费Notebook'限制、10.4节'PAI-DSW提供GPU实例'、10.7节'自行部署'定义。",
+      "difficulty_label": "挑战"
+    }
+  ]
+}

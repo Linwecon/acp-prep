@@ -1,0 +1,107 @@
+{
+  "new-5-0-0": {
+    "qid": "new-5-0-0",
+    "classification": "own",
+    "chapter": 5,
+    "quality": "ok",
+    "reason": "题干符合微调前置评估场景，考查优化顺序与适用场景判断。",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "风格/格式不稳定属行为问题，是微调的适用域；但应先走‘提示词→RAG→微调’顺序",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "全参微调成本高，非最优先措施。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "题干已说明提示词反复优化仍不稳定。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "风格格式问题属微调适用域，蒸馏LoRA是合理方案。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "成本过高，未优先考虑降本增效。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-5-0-2": {
+    "qid": "new-5-0-2",
+    "classification": "own",
+    "chapter": 5,
+    "quality": "ok",
+    "reason": "考查过拟合现象识别与后果判断，符合教材内容。",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "验证 loss 先降后升 = 过拟合的铁证，应回退到验证 loss 最低的 checkpoint",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "过拟合导致泛化能力下降，F1低于最优checkpoint。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "OOM与过拟合无直接因果关系。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "过拟合不会提升泛化能力，反超教师不合理。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "权重合并错误与过拟合无关。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-5-0-5": {
+    "qid": "new-5-0-5",
+    "classification": "own",
+    "chapter": 5,
+    "quality": "ok",
+    "reason": "考查按指标定位问题并选择改进策略的能力。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "合规但 F1/路由低 → 判断病：多意图、边界意图、相似意图样本覆盖不足",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "质量与多样性优先，非单纯增加数量。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "F1低属判断病，需补充多意图等样本。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "JSON合规率已达标，非格式问题。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "全参微调不一定优于LoRA，且非最有效策略。"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

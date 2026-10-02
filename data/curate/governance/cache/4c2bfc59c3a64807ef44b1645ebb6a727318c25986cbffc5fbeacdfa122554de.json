@@ -1,0 +1,258 @@
+{
+  "2-0927": {
+    "qid": "2-0927",
+    "classification": "cross",
+    "chapter": 2,
+    "quality": "ok",
+    "reason": "题目考查提示词工程化实践，属于本章知识范畴。",
+    "answer": [
+      "A",
+      "B",
+      "C",
+      "D",
+      "E"
+    ],
+    "supported": true,
+    "quote": "工程化的提示词优化流程（与代码调试同理）：明确任务 → 起草提示词 → 小样本测试 → 分析失败案例（Bad Case） → 迭代优化 → 版本固化 → 回归验证",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "属于提示词版本管理实践。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "CI/CD是工程化实践的一部分。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "A/B测试是迭代优化方法。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "监控告警是保障线上行为可控。"
+      },
+      {
+        "label": "E",
+        "selected": true,
+        "why": "收集反馈是迭代优化的基础。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "2-0966": {
+    "qid": "2-0966",
+    "classification": "own",
+    "chapter": 2,
+    "quality": "ok",
+    "reason": "题目考查提示词设计原则，属于本章核心知识。",
+    "answer": [
+      "A",
+      "B",
+      "D",
+      "E"
+    ],
+    "supported": true,
+    "quote": "六要素的本质是给模型补足决策信息：角色、受众、样例、输出格式把自然语言输出约束成程序可解析的结构。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "清晰明确是基本要求。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "任务说明和约束是核心要素。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "应避免复杂术语导致歧义。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "Few-shot是有效技巧。"
+      },
+      {
+        "label": "E",
+        "selected": true,
+        "why": "输出格式是六要素之一。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "2-0969": {
+    "qid": "2-0969",
+    "classification": "own",
+    "chapter": 2,
+    "quality": "ok",
+    "reason": "题目考查数据分析场景的提示词技巧，属于本章应用范畴。",
+    "answer": [
+      "A",
+      "B",
+      "C",
+      "D",
+      "E"
+    ],
+    "supported": true,
+    "quote": "结构化输出（JSON Mode）要求严格按JSON等格式输出，配合Schema校验；输出约束限定字段取值范围。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "多角度分析是合理引导。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "明确指标是具体约束。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "表格图表是结构化输出。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "提供上下文是补充信息。"
+      },
+      {
+        "label": "E",
+        "selected": true,
+        "why": "行动建议是任务延伸。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "2-1024": {
+    "qid": "2-1024",
+    "classification": "cross",
+    "chapter": -1,
+    "quality": "ok",
+    "reason": "题目考查大模型通用局限性，非本章专属，但属于合理知识。",
+    "answer": [
+      "A",
+      "C",
+      "D",
+      "E"
+    ],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "人工复审是必要保障。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "表述绝对，与局限性矛盾。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "专业术语易误解是常见局限。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "查询表述影响结果是常识。"
+      },
+      {
+        "label": "E",
+        "selected": true,
+        "why": "需明确指示是模型特性。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "2-1030": {
+    "qid": "2-1030",
+    "classification": "own",
+    "chapter": 2,
+    "quality": "ok",
+    "reason": "题目考查提示词六要素中的样例，属于本章知识。",
+    "answer": [
+      "B",
+      "C",
+      "E"
+    ],
+    "supported": true,
+    "quote": "样例（Sample）给 1~3 个范例对齐格式与风格；Few-shot 示例让模型通过上下文学习隐式模仿。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "这是角色定义，非样例。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "输入输出对是典型样例。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "模拟对话是有效样例。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "这是输出格式，非样例。"
+      },
+      {
+        "label": "E",
+        "selected": true,
+        "why": "输入输出对是典型样例。"
+      },
+      {
+        "label": "F",
+        "selected": false,
+        "why": "这是任务说明，非样例。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "2-1042": {
+    "qid": "2-1042",
+    "classification": "own",
+    "chapter": 2,
+    "quality": "ok",
+    "reason": "题目考查System Prompt的正确用法，属于本章知识。",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "System Prompt用于设定模型全局行为（角色、规则、输出规范、安全边界）；用户消息（User Message）则承载每一轮的具体任务。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "限制输出行为是正确用法。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "设定背景目标是正确用法。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "直接回答问题应由用户消息触发。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "提供领域知识是合理用法。"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

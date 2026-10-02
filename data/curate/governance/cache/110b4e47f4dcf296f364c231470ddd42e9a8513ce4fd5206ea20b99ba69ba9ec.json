@@ -1,0 +1,214 @@
+{
+  "3-0623": {
+    "qid": "3-0623",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "题目考查RAG索引性能提升技术，选项涉及句子滑窗、混合检索、嵌入模型，符合本章知识。",
+    "answer": [
+      "A",
+      "D"
+    ],
+    "supported": true,
+    "quote": "句子窗口检索（Sentence Window Retrieval）……检索命中某句后，后处理器自动把内容替换成整个窗口再交给模型。|混合检索（Hybrid）……关键词检索（BM25）+ 向量检索融合，各取所长|Embedding（向量化 / 嵌入）是把一段文本转换成一串数字……语义相近的文本，向量在空间中的距离也近",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "句子滑窗是本章介绍的进阶检索技术，用于平衡精准命中与上下文完整。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "原文未提及“自动合并检索结果以减少冗余”作为提升索引性能的核心技术。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "TF-IDF是关键词匹配，但本章强调向量语义检索，未将其列为提升索引性能的技术。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "使用更好的嵌入模型（如BGE）是提升语义相似度计算精度、改善检索质量的关键手段。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-0721": {
+    "qid": "3-0721",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "题目考查向量数据库建库的核心步骤，即文档向量化后存储，属于RAG基础概念。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "向量化：用 Embedding 模型把每个 chunk 转成一串数字（向量）；入库：把“向量 + 原文 + 元数据”存进向量数据库，建立索引。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "错误。向量数据库存储的是向量，而非直接存储原文。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "正确。将文档转换为向量（Embedding）后存储是向量数据库的核心步骤。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "错误。存储分词结果是传统全文检索，而非向量数据库的核心。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "错误。转换为PDF格式与向量数据库存储无关。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-0746": {
+    "qid": "3-0746",
+    "classification": "cross",
+    "chapter": 3,
+    "quality": "review",
+    "reason": "题目场景是代码文档生成不准，但选项均非典型RAG解决方案，考点模糊，需专家复核。",
+    "answer": [
+      "B"
+    ],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "重写代码非RAG改进措施，且不现实。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "基于代码分析生成文档，可视为利用外部知识（代码）增强生成，近似RAG思想。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "仅靠提示词约束难以确保准确性，非最有效措施。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "人工校对成本高，非技术改进措施。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-0847": {
+    "qid": "3-0847",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "题目考查文本分块（切片）的关键原则，选项C明显错误，符合本章知识。",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "切片之所以关键，是因为它直接决定了检索的“颗粒度”……因此工程上通常会设置重叠（overlap）——相邻 chunk 之间保留一小段重复文字，防止一句话正好被从中间切断。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "正确。分块过大会引入冗余信息，降低相关性。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "正确。分块过小会导致上下文丢失，信息不全。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "错误。文档类型不同，应采用不同的分块策略，而非相同大小。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "正确。保留元数据（如章节名）有助于提升检索准确性。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-0987": {
+    "qid": "3-0987",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "题目考查混合检索（Hybrid）解决特定查询场景问题，属于本章进阶检索知识。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "混合检索（Hybrid）……关键词检索（BM25）+ 向量检索融合，各取所长",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "错误。完全替换会丧失向量检索的语义理解优势。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "正确。混合检索能兼顾向量语义检索和关键词字面匹配的优势。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "错误。增加向量维度不能直接解决实体名称匹配问题。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "错误。要求用户改变查询方式不现实，非技术改进。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-0999": {
+    "qid": "3-0999",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "题目考查RAG与开卷考试的类比，核心是引入外部知识，选项A、C符合。",
+    "answer": [
+      "A",
+      "C"
+    ],
+    "supported": true,
+    "quote": "RAG（Retrieval-Augmented Generation，检索增强生成）的核心思路可以用四个字概括：“开卷考试”。不让模型凭记忆答题，而是在它回答前，先从企业知识库里检索出最相关的几段资料",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "正确。两者都是通过引入外部知识来增强输出/回答。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "错误。RAG不改变模型权重参数，这是与微调的本质区别。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "正确。都需要对知识进行标记（如切片、向量化）以帮助检索。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "错误。两者都需要对问题本身进行理解才能有效检索和回答。"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

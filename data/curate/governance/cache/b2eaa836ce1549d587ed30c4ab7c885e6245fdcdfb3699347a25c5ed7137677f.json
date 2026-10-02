@@ -1,0 +1,72 @@
+{
+  "new-9-54-0": {
+    "qid": "new-9-54-0",
+    "classification": "own",
+    "chapter": 9,
+    "quality": "ok",
+    "reason": "考查429错误本质与重试策略，属本章核心考点",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "429 是限流（Too Many Requests）——超 RPM/TPM/并发配额；对 429/5xx 用指数退避 + 抖动重试，而不是立即重试",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "上下文连贯性属messages管理，非429错误根源"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "429是确定性配额拒绝，非临时抖动"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "对话状态维护与429无直接因果"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "delta解析错误属流式开发坑，非429约束"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-9-54-2": {
+    "qid": "new-9-54-2",
+    "classification": "own",
+    "chapter": 9,
+    "quality": "ok",
+    "reason": "考查无状态性下的Token成本推论，属本章计费重点",
+    "answer": [
+      "D"
+    ],
+    "supported": true,
+    "quote": "要享受到缓存，关键是保持前缀稳定——把容易变化的内容（用户问题、时间戳）放在请求靠后位置，而不是每次都让前缀变来变去",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "压缩非根本推论，题干强调动态时间戳"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "线性增长是现象，非无状态性推论"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "缓存失效才是成本异常根本原因"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "动态时间戳破坏前缀稳定性致缓存失效"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

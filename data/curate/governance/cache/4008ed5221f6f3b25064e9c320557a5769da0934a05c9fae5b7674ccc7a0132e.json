@@ -1,0 +1,154 @@
+{
+  "items": [
+    {
+      "type": 0,
+      "stem": "某团队在压测vLLM服务时发现：当并发从16提升至32，TTFT从420ms骤增至1850ms，而TPOT仅微增3%，GPU利用率稳定在78%。监控显示KV Cache占用率始终低于40%，无排队日志。此时最应优先检查的执行环节是？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "Prefill阶段是否因prompt过长或未启用FlashAttention导致计算瓶颈"
+        },
+        {
+          "option_label": "B",
+          "option_text": "Decode阶段KV Cache是否发生显存带宽争用"
+        },
+        {
+          "option_label": "C",
+          "option_text": "连续批处理调度器是否因请求长度差异过大导致无效等待"
+        },
+        {
+          "option_label": "D",
+          "option_text": "模型权重是否未加载到GPU显存，触发CPU-GPU频繁拷贝"
+        }
+      ],
+      "answer": "A",
+      "analysis": "TTFT由Prefill阶段决定（教材6.2节明确：'Prefill...决定TTFT'），其骤增且与GPU利用率不匹配（78%说明算力未饱和），排除Decode（B）和调度空转（C）；KV Cache占用率低（<40%）且无排队，说明非显存带宽或调度问题；D选项中权重未加载会导致整体卡顿，但会伴随GPU利用率骤降而非稳定78%，且教材6.6节指出权重只占一份、启动即常驻，不会在压测中动态拷贝。A项符合根本逻辑：TTFT敏感于Prefill计算效率，长prompt或缺少FlashAttention等优化会直接拖慢首token生成，教材6.2节强调'Prefill是计算密集型'，6.5节提及vLLM默认启用FlashAttention加速Prefill，若未正确配置则暴露此瓶颈。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 0,
+      "stem": "运维人员诊断一个TPOT异常升高的vLLM服务时，发现单请求输出token数固定为128，但TPOT从110ms飙升至390ms，KV Cache占用率从65%升至92%，GPU显存带宽利用率超95%。此时最可能的根本故障原因是？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "模型量化参数损坏，导致Decode阶段被迫回退至FP16权重计算"
+        },
+        {
+          "option_label": "B",
+          "option_text": "PagedAttention页表索引错误，引发KV Cache重复加载"
+        },
+        {
+          "option_label": "C",
+          "option_text": "并发请求数超过显存容量，触发系统级OOM Killer终止进程"
+        },
+        {
+          "option_label": "D",
+          "option_text": "客户端未启用流式响应，强制服务缓存全部token后一次性返回"
+        }
+      ],
+      "answer": "A",
+      "analysis": "TPOT由Decode阶段决定（教材6.2节：'Decode...决定TPOT'），其飙升且伴随显存带宽利用率超95%，指向Decode阶段的显存读取压力剧增——这正是量化失效的典型表现：当INT4量化权重损坏，框架可能fallback至FP16计算，使每次读取字节数变为4倍（教材6.4节：INT4相对FP32体积为1/8，FP16为1/2，故FP16读取量是INT4的4倍），直接导致带宽瓶颈和TPOT恶化。B选项页表错误会导致服务崩溃而非TPOT渐进升高；C选项OOM会直接报错或进程退出，不会表现为TPOT升高；D选项影响RT但不影响TPOT（TPOT是每token生成时间，与返回方式无关，教材6.3节公式明确TPOT独立于输出模式）。教材6.4节明确'量化通常也加速...但需框架算子支持'，反向印证算子失效即失去加速收益。",
+      "difficulty_label": "挑战"
+    },
+    {
+      "type": 1,
+      "stem": "以下哪些条件同时成立时，会导致TTFT指标完全无法满足SLO（如>5s），且该问题无法通过调整并发数或启用PagedAttention解决？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "用户prompt平均长度达32K tokens，且模型未启用FlashAttention"
+        },
+        {
+          "option_label": "B",
+          "option_text": "vLLM服务配置了--max-num-seqs=100，但实际并发稳定在20"
+        },
+        {
+          "option_label": "C",
+          "option_text": "Prefill阶段输入序列被分块处理，但块间存在强数据依赖"
+        },
+        {
+          "option_label": "D",
+          "option_text": "模型权重以FP16加载，但GPU显存带宽受限于PCIe 4.0 x8"
+        }
+      ],
+      "answer": "AC",
+      "analysis": "TTFT由Prefill阶段决定（教材6.2节），其本质是计算密集型任务。A项：32K长prompt的Prefill计算量呈O(n²)增长，若无FlashAttention等优化（教材6.5节指出vLLM默认启用），计算耗时必然超SLO，且PagedAttention仅优化KV Cache（Decode阶段），对Prefill无作用；C项：Prefill本应并行处理所有输入token，若分块且块间强依赖，则破坏并行性，退化为串行计算，直接摧毁TTFT性能，此为算法层约束，非工程调优可解。B项：并发远低于上限，与TTFT无关（TTFT受单请求计算量影响，非并发）；D项：FP16权重加载属启动阶段，不影响运行时TTFT，且PCIe带宽影响的是权重加载速度，Prefill计算在GPU显存内完成，不经过PCIe（教材6.6节显存构成明确权重为'一份'，加载后即驻留）。教材6.2节强调'Prefill是计算密集型'，故根本瓶颈必在计算本身。",
+      "difficulty_label": "挑战"
+    },
+    {
+      "type": 0,
+      "stem": "某团队将Qwen3-0.6B模型部署于vLLM，启用AWQ INT4量化。压测发现TPOT降低22%，但TTFT无变化。这一现象最能直接印证教材中关于TTFT与TPOT的哪一核心区分？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "TTFT由Prefill阶段决定，TPOT由Decode阶段决定"
+        },
+        {
+          "option_label": "B",
+          "option_text": "量化主要节省显存，对计算密集型任务加速有限"
+        },
+        {
+          "option_label": "C",
+          "option_text": "Prefill阶段权重读取量小，Decode阶段KV Cache读取量大"
+        },
+        {
+          "option_label": "D",
+          "option_text": "AWQ针对激活值优化，对Prefill计算路径无影响"
+        }
+      ],
+      "answer": "A",
+      "analysis": "题干现象（TPOT降、TTFT不变）是Prefill/Decode两阶段解耦的直接证据：量化降低权重精度，主要收益在Decode阶段——因Decode是显存带宽密集型，读取低比特权重更快（教材6.4节：'量化...显存带宽压力减小、推理速度提升'）；而TTFT由Prefill（计算密集型）主导，其计算量取决于prompt长度和模型结构，与权重精度关系较弱（教材6.2节：'Prefill...计算密集'，6.4节：'INT8损失很小'说明精度损失未显著影响计算路径）。A项是教材6.2节最基础、最核心的区分，其他选项均为推论而非根本依据。B、C、D均未在教材中作为TTFT/TPOT区分的首要定义出现，属于次级解释。",
+      "difficulty_label": "入门"
+    },
+    {
+      "type": 1,
+      "stem": "当vLLM服务出现TPOT持续高于SLO（如>200ms）时，以下哪些排查动作符合教材推荐的'先定位阶段、再查根因'诊断逻辑？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "检查GPU显存带宽利用率是否超90%，确认是否为Decode阶段带宽瓶颈"
+        },
+        {
+          "option_label": "B",
+          "option_text": "验证模型是否启用GQA或MLA等KV压缩技术，评估其对TPOT的影响"
+        },
+        {
+          "option_label": "C",
+          "option_text": "测量单请求prompt长度分布，判断是否因Prefill过长导致TPOT误判"
+        },
+        {
+          "option_label": "D",
+          "option_text": "查看vLLM日志中decode_step耗时统计，分离Prefill与Decode阶段耗时"
+        }
+      ],
+      "answer": "ABD",
+      "analysis": "教材6.2节明确定义TPOT由Decode阶段决定，诊断必须聚焦Decode。A项：显存带宽是Decode瓶颈主因（教材6.2节：'Decode是显存带宽密集型'），带宽超限直接导致TPOT升高；B项：GQA/MLA是教材6.6节明确列出的'缓解KV Cache压力'手段，直接影响Decode效率；D项：日志分离阶段耗时是教材6.11.2节'可观测性'要求的链路追踪（Traces）实践，符合'定位阶段'前提。C项错误：prompt长度影响TTFT（Prefill），与TPOT无直接关系（教材6.2节公式：总延迟=TTFT+TPOT×输出长度），混淆阶段是根本逻辑错误。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 0,
+      "stem": "某企业上线答疑机器人后，监控显示TTFT P95为3.8s，略超SLO（<3.5s），而TPOT稳定在142ms。此时若仅增加GPU实例数量进行横向扩展，最可能产生的效果是？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "TTFT无改善，QPS提升，但单实例TPOT可能因负载下降而略微降低"
+        },
+        {
+          "option_label": "B",
+          "option_text": "TTFT和TPOT同步降低，因计算资源总量增加"
+        },
+        {
+          "option_label": "C",
+          "option_text": "TTFT显著降低，因Prefill计算可分布式并行"
+        },
+        {
+          "option_label": "D",
+          "option_text": "TPOT大幅降低，因KV Cache压力被多卡分摊"
+        }
+      ],
+      "answer": "A",
+      "analysis": "TTFT由单次Prefill计算决定（教材6.2节），其耗时取决于单GPU的算力和prompt长度，横向扩展（加实例）仅增加并发处理能力（提升QPS），不加速单个Prefill计算（教材6.7节：'张量并行能把单卡放不下的权重切到多卡，但每步需要卡间通信'，而Prefill并行需模型并行，非简单加实例）。TPOT虽与Decode相关，但多实例分摊的是请求，并非单请求的KV Cache——单请求仍在一个实例上完成Decode，故TPOT不变；但若原实例负载高，新实例分担后原实例负载下降，TPOT可能因资源宽松而微降（教材6.3节：'延迟一旦升高，同等并发下吞吐就会下降'，反向推导负载下降利于延迟）。B、C、D均错误假设横向扩展能加速单请求内部阶段，违背教材6.2节两阶段本质区分。",
+      "difficulty_label": "进阶"
+    }
+  ]
+}

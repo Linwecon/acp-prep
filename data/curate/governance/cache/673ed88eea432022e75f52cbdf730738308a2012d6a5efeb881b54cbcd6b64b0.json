@@ -1,0 +1,180 @@
+{
+  "new-12-60-0": {
+    "qid": "new-12-60-0",
+    "classification": "own",
+    "chapter": 12,
+    "quality": "ok",
+    "reason": "考查框架选型决策主线，符合务实演进路径",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "一条务实的选型主线（也是课程案例的真实演进路径）：1. 能用：先用 SDK 把核心问答跑通；2. 好用：私域知识多 → 上 LlamaIndex 做 RAG",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "预埋所有扩展点违背务实原则，增加负担"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "符合教材推荐的务实演进路径"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "当前仅需单轮问答，立即部署Dify过早"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "多Agent协作非当前需求，过度设计"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-12-60-1": {
+    "qid": "new-12-60-1",
+    "classification": "own",
+    "chapter": 12,
+    "quality": "ok",
+    "reason": "考查文档解析工具链选型，针对表格结构问题",
+    "answer": [
+      "A",
+      "C"
+    ],
+    "supported": true,
+    "quote": "文档是扫描件、截图、复杂表格、图文混排 PDF → 上 DashScopeParse（OCR + 版面结构化）",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "DashScopeParse能保留表格结构"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "扩大窗口不解决表格结构丢失问题"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "Unstructured可提升表格识别精度"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "Rerank不解决解析阶段结构丢失"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-12-60-2": {
+    "qid": "new-12-60-2",
+    "classification": "own",
+    "chapter": 12,
+    "quality": "ok",
+    "reason": "考查context_str定义及提示词机制",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "context_str 是检索到的上下文，不是用户问题。用户问题由 query_str 注入",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "缺失llm参数不影响检索结果"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "JSON Schema错误会导致调用失败"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "提示词中变量写反导致检索错误"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "索引未持久化不影响单次检索逻辑"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-12-60-3": {
+    "qid": "new-12-60-3",
+    "classification": "own",
+    "chapter": 12,
+    "quality": "ok",
+    "reason": "考查多步Agent系统框架组合选型",
+    "answer": [
+      "A",
+      "B",
+      "D"
+    ],
+    "supported": true,
+    "quote": "LlamaIndex 负责知识库检索（数据层），封装为 Retriever/Tool；LangChain（或 LangGraph）负责 Agent 编排、工具调用",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "LlamaIndex擅长文档索引与检索"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "LangChain LCEL适合串联多步流程"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "单Agent多工具场景无需MsgHub广播"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "FastAPI适合封装为生产级HTTP API"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-12-60-4": {
+    "qid": "new-12-60-4",
+    "classification": "own",
+    "chapter": 12,
+    "quality": "ok",
+    "reason": "考查Dify能力边界及安全合规实践",
+    "answer": [
+      "D"
+    ],
+    "supported": true,
+    "quote": "私有部署只解决数据出域；内容安全、权限、审计仍需自行配置",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "教材未提及Dify有‘严格模式’"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "迁移平台不解决输出内容审核问题"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "RAGAS用于离线评估，非实时校验"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "配置独立内容审核服务符合安全实践"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

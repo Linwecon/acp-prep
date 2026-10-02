@@ -1,0 +1,227 @@
+{
+  "6-1365": {
+    "qid": "6-1365",
+    "classification": "own",
+    "chapter": 6,
+    "quality": "ok",
+    "reason": "五选项均需独立判断是否属推理速度优化措施",
+    "answer": [
+      "A",
+      "B",
+      "D"
+    ],
+    "supported": true,
+    "quote": "使用轻量化模型（如 3B 参数模型替代 13B 模型）；对模型进行量化（如 FP16 转为 INT8）；减少上下文窗口大小（在满足需求的前提下）",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "轻量化模型降低计算量，提升推理速度"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "量化降低显存带宽压力，常加速Decode"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "并行技术用于训练，非推理速度优化"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "减小上下文可降低Prefill与KV Cache开销"
+      },
+      {
+        "label": "E",
+        "selected": false,
+        "why": "迭代次数属训练概念，推理无迭代"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "6-1366": {
+    "qid": "6-1366",
+    "classification": "own",
+    "chapter": 6,
+    "quality": "ok",
+    "reason": "Context Cache核心价值是复用前缀降本",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "上下文缓存复用公共前缀降本提速；如千问系列缓存 token 单价约为输入 token 的 40%",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "复用前缀降低Token消耗和成本"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "非直接提升推理速度的主因"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "不扩展窗口大小，仅复用已有内容"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "不改变模型参数数量"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "6-1367": {
+    "qid": "6-1367",
+    "classification": "own",
+    "chapter": 6,
+    "quality": "ok",
+    "reason": "BatchAPI适用于离线、时效要求低场景",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "批量推理适合离线、时效要求低的任务",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "实时对话需低延迟，不适用Batch"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "离线批量分析符合Batch特性"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "直播翻译需实时性，不适用Batch"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "代码补全需低延迟，不适用Batch"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "6-0960": {
+    "qid": "6-0960",
+    "classification": "own",
+    "chapter": 6,
+    "quality": "ok",
+    "reason": "性能评估应关注QPS/TTFT/TPOT等技术指标",
+    "answer": [
+      "A",
+      "B"
+    ],
+    "supported": true,
+    "quote": "用吞吐（QPS）、延迟（TTFT / TPOT）、并发、显存四类指标评估一个推理服务",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "响应延迟即RT/TTFT/TPOT，属核心指标"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "吞吐即QPS/TPS，属核心指标"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "准确率属质量评估，非性能指标"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "可用性属高可用范畴，非性能指标"
+      },
+      {
+        "label": "E",
+        "selected": false,
+        "why": "成本属经济性指标，非性能指标"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "6-1382": {
+    "qid": "6-1382",
+    "classification": "own",
+    "chapter": 6,
+    "quality": "ok",
+    "reason": "PAI-EAS专为高并发在线推理设计",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "PAI-EAS（Elastic Algorithm Service）是阿里云 PAI 平台的模型在线服务，可把开源社区模型或自训练/微调模型部署为在线服务，提供弹性扩缩容、蓝绿/灰度发布、资源组管理、版本控制、资源监控等企业级能力",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "单机部署无弹性与高可用保障"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "EAS支持自动扩缩容应对高并发"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "内网穿透不稳定且无弹性"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "前端无法直接加载大模型权重"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "6-1099": {
+    "qid": "6-1099",
+    "classification": "own",
+    "chapter": 6,
+    "quality": "ok",
+    "reason": "多轮对话降本需平衡上下文长度与复用",
+    "answer": [
+      "A",
+      "B",
+      "D"
+    ],
+    "supported": true,
+    "quote": "上下文缓存复用公共前缀降本提速；精简输入输出 token：去除冗余上下文、用提示词引导简洁回答",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "长上下文缓存复用可降本"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "精简历史降低token消耗"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "硬截断可能破坏语义完整性"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "总结压缩历史更可控降本"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

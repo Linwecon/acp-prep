@@ -1,0 +1,219 @@
+{
+  "2-0517": {
+    "qid": "2-0517",
+    "classification": "own",
+    "chapter": 2,
+    "quality": "ok",
+    "reason": "考查提示词模板中处理用户问题的步骤，需依据原文模板结构判断。",
+    "answer": [
+      "A",
+      "C"
+    ],
+    "supported": true,
+    "quote": "你是公司的客服小蜜，你需要简明扼要的回答用户的问题\n【注意事项】：\n1. 依据上下文信息来回答用户问题。\n2. 你只需要回答用户的问题，不要输出其他信息",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "原文明确要求'依据上下文信息来回答用户问题'"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "安全红线属系统级约束，非模板内处理步骤"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "原文明确要求'只回答用户的问题，不要输出其他信息'"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "提示工程不改变模型参数或训练数据"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "2-0522": {
+    "qid": "2-0522",
+    "classification": "own",
+    "chapter": 2,
+    "quality": "ok",
+    "reason": "考查文档审阅提示词中的任务要求，需匹配原文示例。",
+    "answer": [
+      "A",
+      "B",
+      "C"
+    ],
+    "supported": true,
+    "quote": "【任务要求】\n你将看到一句话或一段话。你需要审查这段话中有没有错别字。\n如果出现了错别字，你要指出错误，并给出解释。\n\"的\"和\"地\"混淆不算错别字，没有错误。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "原文首句即定义任务目标"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "原文第二句明确要求指出错误并解释"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "原文第三句明确排除'的/地'混淆"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "提示工程不增加训练数据"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "2-0524": {
+    "qid": "2-0524",
+    "classification": "own",
+    "chapter": 2,
+    "quality": "ok",
+    "reason": "考查ask_llm_route函数对应的角色背景，需结合上下文纠错任务推断。",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "【任务要求】\n你将看到一句话或一段话。你需要审查这段话中有没有错别字。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "任务聚焦错别字审查，对应文档纠错专家"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "原文未涉及翻译任务"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "提示工程不改变模型参数"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "角色设定不直接影响推理时间"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "2-0542": {
+    "qid": "2-0542",
+    "classification": "own",
+    "chapter": 2,
+    "quality": "ok",
+    "reason": "考查分隔符作用，需匹配原文三大作用描述。",
+    "answer": [
+      "A",
+      "B"
+    ],
+    "supported": true,
+    "quote": "分隔符看起来是\"排版小事\"，实则承担三个关键作用：\n| 作用 | 说明 |\n|------|------|\n| **结构化** | 指令与数据边界清晰，模型能抓住目标，不混淆\"要求\"和\"被处理的文本\" |\n| **防注入** | 把用户输入 / 检索内容包裹为\"数据\"而非\"指令\"，降低提示注入风险 |\n| **易解析** | 程序可按标记提取输出、按区块拼装模板 |",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "原文明确'模型能抓住目标'"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "结构化可减少无关信息干扰"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "分隔符不增加训练数据"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "分隔符不影响推理时间"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "2-0546": {
+    "qid": "2-0546",
+    "classification": "own",
+    "chapter": 2,
+    "quality": "ok",
+    "reason": "考查ask_llm_route函数对应的任务要求，需匹配错别字审查场景。",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "【任务要求】\n你将看到一句话或一段话。你需要审查这段话中有没有错别字。\n如果出现了错别字，你要指出错误，并给出解释。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "错别字审查需言简意赅回复"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "无翻译任务描述"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "不增加训练数据"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "任务要求不控制推理时间"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "2-0548": {
+    "qid": "2-0548",
+    "classification": "own",
+    "chapter": 2,
+    "quality": "ok",
+    "reason": "考查提示词六要素必要性，需依据原文表格与考点总结。",
+    "answer": [
+      "A",
+      "B",
+      "C",
+      "D"
+    ],
+    "supported": true,
+    "quote": "官方教程给出的提示词框架包含六个基本要素，它们共同构成一份完整的\"上下文蓝图\"。\n| 要素 | 作用 | 示例 |\n|------|------|------|\n| **任务目标（Object）** | 明确要完成什么，让模型聚焦 | \"审查这段话有没有错别字\" |\n| **上下文（Context）** | 提供背景、事实、范围 | 附上参考资料、业务规则 |\n| **角色（Role）** | 定义身份、语气、写作风格 | \"你是一名耐心的入职伙伴\" |\n| **受众（Audience）** | 指定为谁而写，约束内容深度 | \"面向零编程基础的新员工\" |",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "原文表格首项即任务目标"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "原文表格第二项即上下文"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "原文表格第三项即角色"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "原文表格第四项即受众"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

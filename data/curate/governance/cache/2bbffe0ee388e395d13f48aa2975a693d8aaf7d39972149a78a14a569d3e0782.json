@@ -1,0 +1,215 @@
+{
+  "11-1039": {
+    "qid": "11-1039",
+    "classification": "own",
+    "chapter": 11,
+    "quality": "ok",
+    "reason": "B破坏语义边界，与原文'保留表格结构'原则冲突",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "❌ 把表格当普通文本切碎 → 行列关系打散，\"对比数值/违约金比例\"必然答错",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "符合分模态处理原则"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "合并破坏表格语义完整性"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "扩写增强语义完整性"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "符合清晰边界要求"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "11-1051": {
+    "qid": "11-1051",
+    "classification": "own",
+    "chapter": 11,
+    "quality": "ok",
+    "reason": "D对应原文视觉理解模型方案",
+    "answer": [
+      "D"
+    ],
+    "supported": true,
+    "quote": "用多模态 Embedding 把图片向量化，做\"以文搜图/以图搜图\"",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "非自动化方案"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "OCR仅识文字，不解决理解"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "放弃不符合工程实践"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "对应视觉理解模型"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "11-1277": {
+    "qid": "11-1277",
+    "classification": "own",
+    "chapter": 11,
+    "quality": "ok",
+    "reason": "ABD均在原文视频检测链路中明确提及",
+    "answer": [
+      "A",
+      "B",
+      "D"
+    ],
+    "supported": true,
+    "quote": "视频理解的标准处理方式：1. 抽关键帧 2. 提取音轨 3. 字幕/文本对齐",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "原文明确关键帧提取"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "音轨需ASR转写分析"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "分帧率转换未提及"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "字幕OCR是标准环节"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "11-1295": {
+    "qid": "11-1295",
+    "classification": "misplaced",
+    "chapter": 1,
+    "quality": "remove",
+    "reason": "GPT基础原理属第1章大模型基础",
+    "answer": [],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "属第1章知识"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "属第1章知识"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "属第1章知识"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "属第1章知识"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "11-1408": {
+    "qid": "11-1408",
+    "classification": "own",
+    "chapter": 11,
+    "quality": "ok",
+    "reason": "ABCD均为TTS常见挑战，原文明确提及音色/语速/情绪",
+    "answer": [
+      "A",
+      "B",
+      "C",
+      "D"
+    ],
+    "supported": true,
+    "quote": "TTS（文字→语音）：把文字合成语音播报，如 CosyVoice；音色、语速、情绪一致性",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "音质属TTS核心挑战"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "发音准确是基本要求"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "语调自然度关键指标"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "语言支持范围受限"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "11-0010": {
+    "qid": "11-0010",
+    "classification": "own",
+    "chapter": 11,
+    "quality": "ok",
+    "reason": "B符合ASR→LLM→TTS管道架构",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "个性化语音助手端到端链路：ASR语音识别→LLM生成文字→TTS语音合成",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "CosyVoice是TTS非ASR"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "完全匹配管道架构"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "MoviePy非会议处理主干"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "Qwen-VL用于图像非视频"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

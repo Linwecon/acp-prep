@@ -1,0 +1,221 @@
+{
+  "2-1263": {
+    "qid": "2-1263",
+    "classification": "own",
+    "chapter": 2,
+    "quality": "ok",
+    "reason": "考查提示词六要素中任务目标与输出格式的明确性，选项对比清晰。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "任务目标（Object）明确要完成什么，让模型聚焦；输出格式（Output Format）指定格式、枚举值、禁止项",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "仅要求阅读，未明确任务目标。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "明确任务（总结成要点）和输出格式（每页一个要点）。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "任务目标过于模糊，未提供上下文。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "指定了工具而非任务目标，模型无法执行。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "2-1437": {
+    "qid": "2-1437",
+    "classification": "unsure",
+    "chapter": 2,
+    "quality": "remove",
+    "reason": "题干提及函数ask_llm_route，但未提供其定义或上下文，无法判断其行为。选项含义不明，无法解题。",
+    "answer": [],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "无资料支持。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "无资料支持。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "无资料支持。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "无资料支持。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "2-1444": {
+    "qid": "2-1444",
+    "classification": "own",
+    "chapter": 2,
+    "quality": "ok",
+    "reason": "考查结构化输出、Few-shot和思维链（CoT）在复杂任务中的应用选择。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "结构化输出（JSON Mode）要求严格按 JSON 等格式输出，配合 Schema 校验；Few-shot（少样本）给 2~5 个示例让模型模仿",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "仅写任务，信息不全，易输出泛泛问题。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "结构化输出明确格式，约束生成方向，最适配。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "Few-shot有效，但不如结构化输出对复杂任务约束强。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "隐含CoT，但未明确输出格式，程序解析不便。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "2-1448": {
+    "qid": "2-1448",
+    "classification": "own",
+    "chapter": 2,
+    "quality": "ok",
+    "reason": "直接考查提示词六要素中“样例”的作用。",
+    "answer": [
+      "D"
+    ],
+    "supported": true,
+    "quote": "样例（Sample）给 1~3 个范例对齐格式与风格；样例提供输出格式与风格的锚点",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "确定目标用户是“受众”要素的作用。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "样例是提供参考，不保证生成单一答案。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "限制回答长度是输出格式或约束的作用。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "样例提供有指导性的案例，对齐格式与风格。"
+      },
+      {
+        "label": "E",
+        "selected": false,
+        "why": "设定情感色彩是“角色”要素可能涉及的部分。"
+      },
+      {
+        "label": "F",
+        "selected": false,
+        "why": "抽象出实现方案不是样例的核心作用。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "2-0033": {
+    "qid": "2-0033",
+    "classification": "own",
+    "chapter": 2,
+    "quality": "ok",
+    "reason": "考查结构化输出（JSON Mode）在分类任务中便于程序解析的优势。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "结构化输出（JSON Mode）要求严格按 JSON 等格式输出，配合 Schema 校验；下游程序可直接解析",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "只输出结果，但未指定结构化格式，解析不便。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "明确要求JSON格式输出，便于程序解析，最合理。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "要求思考过程（CoT），但简单分类任务不必，且输出格式不明确。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "自定义符号分隔，不如JSON标准且易解析。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "2-0061": {
+    "qid": "2-0061",
+    "classification": "own",
+    "chapter": 2,
+    "quality": "ok",
+    "reason": "考查提示词设计需业务领域专家参与，而非仅技术角色。",
+    "answer": [
+      "B",
+      "C"
+    ],
+    "supported": true,
+    "quote": "实际落地时常让领域专家共同设计提示词；产品经理（定义用户场景和业务流程）、客服部门主管（熟悉用户高频问题和政策细节）",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "负责界面实现，不深度参与提示词设计。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "产品经理定义场景流程，是领域专家。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "客服主管熟悉政策细节，是领域专家。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "擅长模型调优，但提示工程不改变参数。"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

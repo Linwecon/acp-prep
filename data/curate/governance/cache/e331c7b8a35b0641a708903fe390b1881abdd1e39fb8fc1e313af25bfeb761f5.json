@@ -1,0 +1,214 @@
+{
+  "new-6-144-0": {
+    "qid": "new-6-144-0",
+    "classification": "own",
+    "chapter": 6,
+    "quality": "ok",
+    "reason": "题目考查TTFT骤增的根因分析，需结合Prefill阶段特性判断。",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "Prefill（预填充阶段）：把用户输入的整段 prompt 一次性喂进去，并行计算所有输入 token 的表示。这一步是计算密集型，处理完后吐出第一个 token，决定了 TTFT",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "TTFT由Prefill决定，骤增提示计算瓶颈，与GPU利用率稳定、KV Cache占用低相符。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "TPOT仅微增，且KV Cache占用率低，非Decode带宽瓶颈。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "连续批处理主要影响吞吐和GPU空转，与TTFT骤增关联弱。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "权重未加载到GPU会导致所有阶段极慢，与TPOT微增、GPU利用率稳定矛盾。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-6-144-1": {
+    "qid": "new-6-144-1",
+    "classification": "own",
+    "chapter": 6,
+    "quality": "ok",
+    "reason": "题目考查TPOT升高与显存带宽的关联，符合Decode阶段特性。",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "Decode（解码阶段）：从第一个 token 开始，一次生成一个新 token，每一步都要读取全部历史 token 的 KV Cache。这一步是显存带宽密集型",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "量化损坏回退FP16，会大幅增加Decode带宽压力，与指标变化吻合。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "PagedAttention索引错误会导致性能下降，但未必直接导致带宽利用率超95%。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "OOM Killer终止进程会导致服务中断，而非TPOT缓慢升高。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "流式响应影响客户端感知，不改变服务端Decode计算与带宽消耗。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-6-144-2": {
+    "qid": "new-6-144-2",
+    "classification": "own",
+    "chapter": 6,
+    "quality": "ok",
+    "reason": "题目考查导致TTFT超SLO的硬件或计算瓶颈，需多选。",
+    "answer": [
+      "A",
+      "D"
+    ],
+    "supported": true,
+    "quote": "Prefill（预填充阶段）：把用户输入的整段 prompt 一次性喂进去，并行计算所有输入 token 的表示。这一步是计算密集型，处理完后吐出第一个 token，决定了 TTFT",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "长prompt且无FlashAttention优化，Prefill计算耗时必然长，直接影响TTFT。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "并发未达上限，调整并发或PagedAttention可能改善资源调度。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "分块处理的数据依赖是工程实现问题，非教材所述Prefill本质瓶颈。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "GPU显存带宽受限是硬件瓶颈，影响Prefill数据读取，无法通过软件配置解决。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-6-144-3": {
+    "qid": "new-6-144-3",
+    "classification": "own",
+    "chapter": 6,
+    "quality": "ok",
+    "reason": "题目通过量化实验现象验证TTFT与TPOT的核心区分。",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "推理两阶段：1. Prefill（预填充阶段）...决定了 TTFT。2. Decode（解码阶段）...决定了 TPOT",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "量化加速Decode（TPOT降），但不影响Prefill（TTFT不变），直接印证阶段区分。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "表述片面，量化也可通过省带宽加速Decode，但非本题核心印证点。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "描述正确，但未直接解释TTFT不变的现象。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "AWQ特性描述，但教材未明确其对Prefill无影响，非最直接印证。"
+      }
+    ],
+    "duplicate_of": "6-5136"
+  },
+  "new-6-144-4": {
+    "qid": "new-6-144-4",
+    "classification": "own",
+    "chapter": 6,
+    "quality": "ok",
+    "reason": "题目考查TPOT高的诊断逻辑，需区分Prefill与Decode。",
+    "answer": [
+      "A",
+      "D"
+    ],
+    "supported": true,
+    "quote": "Decode（解码阶段）...每一步都要读取全部历史 token 的 KV Cache。这一步是显存带宽密集型，决定了 TPOT",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "检查显存带宽符合Decode阶段瓶颈定位逻辑。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "评估KV压缩技术是优化手段，非问题定位的优先诊断动作。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "prompt长度影响TTFT，与TPOT误判无关，逻辑错误。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "分离阶段耗时是定位TPOT问题属于Decode阶段的直接诊断动作。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-6-144-5": {
+    "qid": "new-6-144-5",
+    "classification": "own",
+    "chapter": 6,
+    "quality": "ok",
+    "reason": "题目考查横向扩展对TTFT和TPOT的影响，基于阶段特性。",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "Prefill（预填充阶段）...决定了 TTFT。Decode（解码阶段）...决定了 TPOT",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "TTFT由单请求Prefill决定，加实例不加速单次计算；负载分摊可提QPS，可能微降TPOT。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "TTFT不由多实例并行Prefill决定，TPOT也不直接因资源总量增加而降低。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "Prefill计算在单次请求内无法分布式并行到多卡。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "KV Cache压力属于单请求Decode阶段，多卡无法分摊。"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

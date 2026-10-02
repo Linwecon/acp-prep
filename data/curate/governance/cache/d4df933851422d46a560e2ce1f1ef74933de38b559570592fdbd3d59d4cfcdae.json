@@ -1,0 +1,154 @@
+{
+  "items": [
+    {
+      "type": 0,
+      "stem": "某企业报销查询Agent在工具调用失败（如网络超时）后，未重试、未切换方案、也未向用户澄清，而是直接生成模糊回答：“系统暂未返回结果”。该行为最根本违反Harness/Loop闭环中哪一环节的必要性？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "标准（Standard）缺失：未明确定义工具失败时的响应规范"
+        },
+        {
+          "option_label": "B",
+          "option_text": "验证（Validate）缺位：未设置对工具调用结果的确定性校验与失败路径覆盖"
+        },
+        {
+          "option_label": "C",
+          "option_text": "记录（Record）不足：未持久化失败轨迹，导致无法复盘根因"
+        },
+        {
+          "option_label": "D",
+          "option_text": "写回（Write-back）滞后：未将历史失败经验沉淀为重试策略或兜底话术"
+        }
+      ],
+      "answer": "B",
+      "analysis": "依据教材4.11节Harness/Loop闭环定义，'验证'环节的核心是建立客观、可执行的检查机制——不仅验证最终输出，更要验证关键中间步骤（如工具是否成功调用、结果是否非空、是否含error字段）。题干中Agent对超时返回的空结果未做任何结构化判断（如检查response.status != 'success'或result is None），即跳过验证直接生成，导致闭环在第二步断裂。A项属标准层问题，但题干明确是'已部署运行中发生故障'，说明标准存在但未被验证执行；C、D是闭环后续环节，其前提必须是B已触发并确认失败；教材原文强调：'验证是闭环的闸门，没有它，记录与写回便失去依据'。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 0,
+      "stem": "在Harness工程实践中，当一个Skill（如课程审查Skill）被激活后，Agent仅加载SKILL.md中的YAML frontmatter（name/description），待执行到具体检查步骤时才按需读取code-quality.md或执行validate_code.py。这种设计主要服务于Harness闭环中哪一环节的优化目标？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "标准：确保Skill描述与实际能力严格一致"
+        },
+        {
+          "option_label": "B",
+          "option_text": "验证：降低脚本执行前的上下文污染风险"
+        },
+        {
+          "option_label": "C",
+          "option_text": "记录：便于按模块粒度追踪各子文档调用日志"
+        },
+        {
+          "option_label": "D",
+          "option_text": "写回：支持对单个子文档进行独立迭代与版本控制"
+        }
+      ],
+      "answer": "B",
+      "analysis": "教材4.9节明确指出，Skill的'渐进式披露'本质是工程权衡：主文件精简（仅description）用于快速决策是否激活，子资源按需加载以避免'无关信息注入'。这直接服务于'验证'环节——若提前加载全部子文档，会污染当前推理上下文，导致模型在参数提取、错误诊断等验证动作中受噪声干扰。教材强调：'验证的可靠性依赖于输入的纯净性，渐进式披露是保障验证信噪比的关键约束'。A项涉及标准一致性，但YAML描述本身不参与验证执行；C、D属于记录与写回的衍生收益，非该设计的首要目标。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 1,
+      "stem": "某金融风控Agent采用ReAct模式执行'征信查询→收入验证→风控模型'三步流水线，但因征信API临时不可用导致流程卡死。为提升鲁棒性，以下哪些调整符合教材4.6节'规划策略'与4.11节Harness原则？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "将固定流水线改为Plan-and-Execute模式，允许Agent在征信失败后自主规划替代路径（如调用备用信用分API）"
+        },
+        {
+          "option_label": "B",
+          "option_text": "在Harness中增加确定性检查：对每步工具返回添加status_code==200校验，失败则触发预设重试逻辑"
+        },
+        {
+          "option_label": "C",
+          "option_text": "将征信查询工具封装为MCP Server，由Agent动态发现并自动降级至本地缓存数据"
+        },
+        {
+          "option_label": "D",
+          "option_text": "在ReAct循环中为每轮设置最大重试次数（如征信最多重试2次），超限后主动终止并提示用户"
+        }
+      ],
+      "answer": "ABD",
+      "analysis": "A正确：教材4.6.3节明确'Plan-and-Execute'适用于环境多变场景，'遇到障碍时重新规划'是其核心价值；B正确：教材4.10节'确定性检查'定义为'用代码/脚本判断该发生的步骤有没有发生'，status_code校验是典型应用，且4.11节Harness强调'验证是闭环的闸门'；D正确：教材4.4节'ReAct铁律'第三条明确'必须设置最大迭代轮数/超时/预算上限'，超限收尾是防死循环的硬约束。C错误：MCP解决的是工具'接入与发现标准化'（教材4.5节），不提供自动降级能力；降级逻辑需在Harness验证层或Planner中实现，MCP Server本身无此职责。",
+      "difficulty_label": "挑战"
+    },
+    {
+      "type": 0,
+      "stem": "某团队将'课程代码审查'流程固化为Skill，但将全部检查规则（可执行性、依赖完整性、异常覆盖率）硬编码进主系统提示词。上线后发现：新员工修改提示词时误删关键检查项，且不同项目间规则难以复用。该做法最直接违背教材4.9节Skill设计的哪一核心原则？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "渐进式披露：未按需加载子资源，导致上下文膨胀"
+        },
+        {
+          "option_label": "B",
+          "option_text": "模块化与可版本化：规则未解耦为独立可管理单元"
+        },
+        {
+          "option_label": "C",
+          "option_text": "技能与RAG区分：将SOP混同为事实检索，未体现方法论封装"
+        },
+        {
+          "option_label": "D",
+          "option_text": "五步编写法：未先建立失败基线即强行封装"
+        }
+      ],
+      "answer": "B",
+      "analysis": "教材4.9节开篇定义Skill为'模块化、可复用、可版本化的能力单元'，并强调'一个Skill就是一个目录'，包含SKILL.md、子文档、脚本等独立文件。题干中'硬编码进主系统提示词'的做法，使规则丧失独立性：无法单独测试、无法Git版本管理、无法跨项目引用（违背'可复用'），且修改风险集中（违背'可版本化'）。A项虽相关，但题干焦点是'规则管理方式'而非加载时机；C项混淆了Skill与RAG的本质区别，但题干未涉及检索行为；D项是开发流程问题，非架构原则违背。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 1,
+      "stem": "在Harness/Loop闭环的'写回（Write-back）'环节，以下哪些操作符合教材4.11节定义的'可复用经验回写'要求？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "将某次报销查询工具超时失败的完整trace存入日志系统供人工审计"
+        },
+        {
+          "option_label": "B",
+          "option_text": "将'工具超时后应重试2次再切换备用API'的策略写入QWEN.md全局配置"
+        },
+        {
+          "option_label": "C",
+          "option_text": "将'课程审查中必须校验pandas.DataFrame.copy()调用'的规范新增至course-review/SKILL.md的checklist"
+        },
+        {
+          "option_label": "D",
+          "option_text": "将用户投诉'回答太啰嗦'的原始消息加入训练集微调模型"
+        }
+      ],
+      "answer": "BC",
+      "analysis": "教材4.11节明确'写回'是'把可复用经验回写到Skill / 验证器 / 标准'，强调经验转化为系统性资产。B正确：QWEN.md是教材4.11节提及的'三级配置'中的全局标准，将策略写入即固化为标准；C正确：SKILL.md是Skill的入口文件，新增checklist是将经验沉淀为可复用SOP。A错误：日志存档属于'记录'环节，未转化为可执行资产；D错误：微调模型违背教材'Agent不改模型参数'基本原则（4.1节exam），且训练集不属于Harness闭环的写回范畴。",
+      "difficulty_label": "挑战"
+    },
+    {
+      "type": 0,
+      "stem": "某电商比价Agent端到端评测得分92分，但业务方发现其多次遗漏'杠杆率超阈值'的合规检查。为精准定位该缺陷，应优先采用哪种评测手段？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "LLM-as-Judge：用另一个大模型对最终报告打分，重点评估合规性"
+        },
+        {
+          "option_label": "B",
+          "option_text": "Rubric：拆解'合规检查'为'是否调用风控工具''是否解析杠杆率字段''是否对比阈值'三项并逐项判定"
+        },
+        {
+          "option_label": "C",
+          "option_text": "确定性检查：解析执行trace，验证是否出现'leverage_ratio > 0.8'的条件判断语句"
+        },
+        {
+          "option_label": "D",
+          "option_text": "白盒化评测：在风控工具调用后插入断点，捕获其返回的杠杆率数值并校验是否被引用"
+        }
+      ],
+      "answer": "D",
+      "analysis": "教材4.10节强调'白盒化评测'针对'关键组件/中间步骤'，而题干缺陷明确发生在'风控工具调用后'这一中间环节——即工具返回了杠杆率，但Agent未使用它。D项通过断点捕获数值并校验引用，直接定位该环节失效，符合'精准定位瓶颈'要求。C项错误：'leverage_ratio > 0.8'是代码逻辑，但Agent可能用自然语言描述（如'杠杆率过高'），确定性检查无法覆盖；B项Rubric适用于主观评判，但'是否被引用'是客观可验证行为；A项LLM-as-Judge易受评委偏见影响，且无法定位到具体步骤缺失。",
+      "difficulty_label": "进阶"
+    }
+  ]
+}

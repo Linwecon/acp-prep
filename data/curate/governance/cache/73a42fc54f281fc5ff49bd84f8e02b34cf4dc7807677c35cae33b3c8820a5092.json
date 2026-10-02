@@ -1,0 +1,144 @@
+{
+  "new-9-96-0": {
+    "qid": "new-9-96-0",
+    "classification": "own",
+    "chapter": 9,
+    "quality": "ok",
+    "reason": "考查批量离线任务选型与数据完整性校验，符合第9章工程实践。",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "批量生成（Batch API）是把大量请求打包成一个异步离线任务提交给平台，平台在后台调度处理，完成后统一产出结果文件。它的优势不是'更快返回单个结果'，而是更高吞吐、更低单价地处理大批量、对实时性不敏感的任务。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "同步逐次调用效率低，不适合大批量离线任务。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "流式用于在线对话，不适用于账单数据导出。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "异步批量导出适合离线、大批量、高完整性要求的任务。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "应用层缓存可能丢失数据，且未做校验，可靠性不足。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-9-96-1": {
+    "qid": "new-9-96-1",
+    "classification": "own",
+    "chapter": 9,
+    "quality": "ok",
+    "reason": "考查成本控制优化措施，选项均对应原文提及的输入Token优化手段。",
+    "answer": [
+      "A",
+      "B",
+      "C"
+    ],
+    "supported": true,
+    "quote": "要享受到缓存，关键是保持前缀稳定——把容易变化的内容（用户问题、时间戳）放在请求靠后位置，而不是每次都让前缀变来变去。历史越长，输入Token越多、费用越高、延迟越大。控制Top K、Rerank后只留最相关的。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "稳定前缀可提升缓存命中率，降低输入Token成本。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "移除冗余历史消息可直接减少输入Token。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "减少RAG检索片段数量可直接降低输入Token。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "降级模型影响输出质量，非直接优化输入Token成本。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-9-96-2": {
+    "qid": "new-9-96-2",
+    "classification": "own",
+    "chapter": 9,
+    "quality": "ok",
+    "reason": "考查429错误处理原则，重试无抖动易引发重试风暴。",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "指数退避 + 抖动（Exponential Backoff with Jitter）是处理429/5xx的标准做法：在等待时间上加一个随机抖动，避免大量客户端'踩点同时重试'把服务再次打爆。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "重试无抖动，违反了指数退避+抖动的核心原则。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "主动控制并发是预防措施，但题干描述的是重试行为违规。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "429是限流错误，无需立即禁用Key。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "切换模型不能解决重试策略不当的问题。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-9-96-3": {
+    "qid": "new-9-96-3",
+    "classification": "own",
+    "chapter": 9,
+    "quality": "ok",
+    "reason": "考查Function Calling流程中messages结构完整性，缺失assistant消息导致上下文断裂。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "忘了把response_message追加进messages——第二次调用时模型不知道自己之前决策了什么，会报上下文错误。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "题干已说明回传了role='tool'消息，暗示了tool_call_id存在。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "未追加assistant_msg，导致模型缺失决策上下文。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "system_msg在开头是标准做法，非错误原因。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "题干未提及user_msg内容为空。"
+      }
+    ],
+    "duplicate_of": "9-5165"
+  }
+}

@@ -1,0 +1,139 @@
+{
+  "12-5087": {
+    "qid": "12-5087",
+    "classification": "own",
+    "chapter": 12,
+    "quality": "ok",
+    "reason": "考查LangChain核心抽象Memory的定义与作用，题干清晰，选项区分度高。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "Memory 分短期/长期与管理策略；Memory 管\"对话历史怎么留、怎么压缩、怎么按需取\"",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "Memory不用于缓存结果提速，而是管理对话历史。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "Memory用于存储对话历史并注入上下文，支持多轮对话。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "Memory不管理向量数据库连接池，那是Retrieval模块职责。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "临时保存中间变量不是Memory的主要设计目的。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "12-5089": {
+    "qid": "12-5089",
+    "classification": "cross",
+    "chapter": -1,
+    "quality": "remove",
+    "reason": "题干提及“百炼平台「可视化工作流」”，但本章原文未描述其具体节点类型与功能，无法确定答案。",
+    "answer": [],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "资料未提及百炼可视化工作流中条件分支节点是否适合意图识别。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "资料未提及百炼可视化工作流中是否存在“工具调用节点”。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "资料未提及百炼可视化工作流中LLM节点加提示词是否为优先选择。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "资料未提及百炼可视化工作流中文本处理节点是否适合意图识别。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "12-5091": {
+    "qid": "12-5091",
+    "classification": "own",
+    "chapter": 12,
+    "quality": "ok",
+    "reason": "考查LlamaIndex中NodeParser对文档结构切分的支持，属于RAG数据处理的合理考点。",
+    "answer": [
+      "A",
+      "B"
+    ],
+    "supported": true,
+    "quote": "HierarchicalNodeParser；MarkdownNodeParser；按\"分区（partition）\"识别标题、段落、表格、列表",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "HierarchicalNodeParser支持基于层级结构的智能切分。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "MarkdownNodeParser能解析Markdown结构（如标题）进行切分。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "SentenceSplitter按句子切分，不基于文档标题层级。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "JSONNodeParser解析JSON结构，非通用文档标题层级。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "12-5092": {
+    "qid": "12-5092",
+    "classification": "cross",
+    "chapter": -1,
+    "quality": "remove",
+    "reason": "题干涉及“百炼平台构建RAG应用”的具体功能（实体识别、高亮过滤），但本章原文未描述百炼知识库或工作流的此类内置能力。",
+    "answer": [],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "资料未提及百炼知识库是否有内置实体识别开关。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "资料未提及百炼可视化工作流是否有“实体抽取（NER）内置节点”。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "资料未提及DashScope NER API或将其封装为工具是否最符合需求。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "资料未提及在提示词中要求JSON输出实体是否为最符合需求的做法。"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

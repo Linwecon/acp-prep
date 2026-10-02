@@ -1,0 +1,214 @@
+{
+  "3-0506": {
+    "qid": "3-0506",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "考查查询改写等检索前意图还原技术，属于RAG核心知识。",
+    "answer": [
+      "A",
+      "B"
+    ],
+    "supported": true,
+    "quote": "查询改写必要性；查询改写（消代词、补全指代）；HyDE（假设文档嵌入）先让 LLM 编一段'假想答案'，用假想答案的向量去检索真实文档",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "问题改写是查询改写的核心手段。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "问题扩写如HyDE，可还原意图。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "用户画像扩展上下文非检索前标准技术。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "提取标签是元数据过滤，非意图还原。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-0508": {
+    "qid": "3-0508",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "考查多轮对话中影响检索的因素，属于RAG实践要点。",
+    "answer": [
+      "A",
+      "B"
+    ],
+    "supported": true,
+    "quote": "多轮对话中'他/这个'指代不清；多轮对话里后续问题检索不准' → 应先结合历史改写问题",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "长文本处理不当影响检索质量。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "历史对话信息指代不清影响检索。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "模型参数数量非多轮对话检索影响因素。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "训练数据量非多轮对话检索影响因素。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-0511": {
+    "qid": "3-0511",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "考查元数据标签在索引和检索中的应用，属于RAG进阶知识。",
+    "answer": [
+      "A",
+      "B"
+    ],
+    "supported": true,
+    "quote": "元数据过滤：权限、时效、部门隔离 → 检索前按来源/时间/部门等标签先过滤候选集",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "建索引时可提取文档标签。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "检索时可用问题标签过滤。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "用户问题非建索引时标签来源。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "文档切片标签非检索时提取对象。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-0514": {
+    "qid": "3-0514",
+    "classification": "cross",
+    "chapter": -1,
+    "quality": "remove",
+    "reason": "题目表述宽泛，选项与RAG核心考点关联弱，无明确考查价值。",
+    "answer": [],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "GraphRAG教材未提及，非本章核心。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "可视化工作流非RAG高级课题重点。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "智能体编排属第4章，非RAG核心。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "LlamaIndex组件是工具，非高级课题。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-0518": {
+    "qid": "3-0518",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "考查RAG两阶段核心组成，是基础考点。",
+    "answer": [
+      "A",
+      "B"
+    ],
+    "supported": true,
+    "quote": "RAG 两阶段全景：离线建库 + 在线问答；第一阶段：离线建库；第二阶段：在线问答",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "建立索引是离线建库阶段。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "检索与生成是在线问答阶段。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "模型训练非RAG应用组成部分。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "模型推理已包含在生成阶段。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-0527": {
+    "qid": "3-0527",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "fixable",
+    "reason": "考查余弦相似度计算，但选项C、D明显无关，题目设计有瑕疵。",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "余弦相似度：两个向量的方向夹角；点积：方向 + 长度",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "余弦相似度计算向量夹角。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "点积是另一种度量，非余弦计算。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "增加训练数据非计算方法。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "减少推理时间非计算方法。"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

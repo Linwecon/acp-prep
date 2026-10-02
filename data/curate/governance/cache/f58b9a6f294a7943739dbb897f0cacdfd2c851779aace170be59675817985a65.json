@@ -1,0 +1,166 @@
+{
+  "items": [
+    {
+      "type": 0,
+      "stem": "某金融企业需构建合规问答系统，要求：① 所有客户合同与监管文件严禁出域；② 通用千问模型对'穿透式尽调'等术语回答不准；③ 需支持1000+并发实时响应。技术团队决定基于Qwen2-7B开源模型微调后部署。以下哪组阿里云产品组合最符合全链路需求？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "ModelScope下载模型 → PAI-DSW开发微调代码 → PAI-DLC分布式训练 → PAI-EAS部署服务"
+        },
+        {
+          "option_label": "B",
+          "option_text": "百炼知识库上传合同 → DashScope调用qwen-max → 百炼工作流编排 → 发布为API"
+        },
+        {
+          "option_label": "C",
+          "option_text": "OSS存储合同 → DataWorks清洗 → DashScope Embedding + Rerank → 百炼智能体"
+        },
+        {
+          "option_label": "D",
+          "option_text": "ModelScope Notebook微调 → DashScope原生SDK部署 → EAS弹性扩缩容"
+        }
+      ],
+      "answer": "A",
+      "analysis": "依据原文10.1分层定位表及10.4节PAI三件套定义：'数据不出域'排除所有需上送API的方案（B、C、D均依赖DashScope托管服务，违反10.5/10.7节'商业版走托管API，私有化必须用开源版+PAI'）；'微调+高并发部署'对应PAI完整生命周期——DSW用于交互式开发（10.4概念）、DLC用于大规模训练（10.4表格明确'分布式训练'由DLC承担）、EAS用于生产级在线服务（10.4表格'弹性伸缩、蓝绿发布'）。D选项错误在于ModelScope Notebook仅限轻量体验（10.7注：'免费但有时长限制'），且DashScope SDK不能部署自定义模型（10.3节明确DashScope是'接口层'，非部署平台）。A项完全匹配10.5选型决策第3条'要自己训练、微调、蒸馏，或部署开源模型→PAI'及10.7节'开源模型价值：数据不出域、可深度定制'。",
+      "difficulty_label": "挑战"
+    },
+    {
+      "type": 1,
+      "stem": "运维工程师发现生产环境DashScope API调用频繁返回429错误，日志显示RPM（每分钟请求数）持续超限。此时应采取哪些符合原文10.8节成本与稳定性原则的措施？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "立即在客户端实现指数退避+随机抖动重试机制"
+        },
+        {
+          "option_label": "B",
+          "option_text": "将高频简单问答任务路由至qwen-turbo模型以降低单次Token消耗"
+        },
+        {
+          "option_label": "C",
+          "option_text": "申请提升DashScope RPM配额，同时配置前端请求限流"
+        },
+        {
+          "option_label": "D",
+          "option_text": "关闭百炼知识库的自动向量化功能，改用本地缓存"
+        },
+        {
+          "option_label": "E",
+          "option_text": "将全部请求切换至PAI-EAS自托管模型，彻底规避限流"
+        }
+      ],
+      "answer": "A,C",
+      "analysis": "原文10.8节'处理限流'明确要求'遇429用指数退避+抖动重试'（A正确）；'规模化后算账'前提为'高频稳定调用'，而当前是突发超限，直接切自托管（E）违背'初期用托管API最划算'原则（10.7价值分析），且EAS部署无法解决RPM问题（EAS是独立服务，不共享DashScope配额）；C项中'申请提升配额'是官方允许的运维动作（10.8未禁止），'前端限流'是10.8场景题隐含要求（'有人把整本手册塞进提示词、限流没做重试导致前端狂点'）；B项虽属降本策略，但RPM超限是请求数问题，非Token数问题（10.8明确RPM/TPM是两类独立限流），qwen-turbo无法减少请求数；D项'百炼知识库向量化'属后台异步任务，与API调用RPM无直接关联（10.2知识库能力描述未提其触发DashScope请求），且关闭该功能会破坏RAG效果。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 0,
+      "stem": "算法团队在PAI-DSW中完成Qwen2-1.5B模型微调后，需验证推理效果。以下哪种操作最符合教材推荐的验证路径？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "直接在DSW中加载微调后模型权重，用vLLM启动HTTP服务并调用OpenAI兼容接口测试"
+        },
+        {
+          "option_label": "B",
+          "option_text": "将模型导出至OSS，通过DataWorks调度DashScope Embedding API进行批量验证"
+        },
+        {
+          "option_label": "C",
+          "option_text": "在DSW中编写Python脚本调用dashscope.TextGeneration.call()传入微调模型名"
+        },
+        {
+          "option_label": "D",
+          "option_text": "使用百炼控制台创建新应用，选择'自定义模型'并指向DSW中的模型文件路径"
+        }
+      ],
+      "answer": "A",
+      "analysis": "原文10.4节'principle'明确给出验证路径：'得到合并后的模型，用vLLM本地起服务验证（其HTTP接口本身兼容OpenAI API）'——A项完全复现该描述；B项错误：DashScope API只能调用平台预置模型（10.3节'调用的是同一批模型'指DashScope已上线模型），无法验证自定义微调模型；C项错误：dashscope SDK不支持传入本地模型路径（10.3节原生SDK示例仅调用qwen3-rerank等预置模型）；D项错误：百炼'自定义模型'功能仅支持平台内微调（10.2表格'模型调优/微调'指平台能力范围内），不支持接入DSW外部模型（10.5对比表明确'能否用自定义/私有模型'一栏，百炼为'可在平台能力范围内调优'，PAI为'支持自研/开源/微调模型全流程'）。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 1,
+      "stem": "当百炼应用需要调用部署在PAI-EAS上的私有模型时，以下哪些条件是必须同时满足的？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "PAI-EAS服务需配置公网访问地址或VPC内网互通"
+        },
+        {
+          "option_label": "B",
+          "option_text": "百炼应用中需在工作流节点配置HTTP请求调用EAS服务端点"
+        },
+        {
+          "option_label": "C",
+          "option_text": "EAS服务的API接口需兼容OpenAI标准格式（如/chat/completions）"
+        },
+        {
+          "option_label": "D",
+          "option_text": "百炼与PAI需在同一阿里云地域（Region）下"
+        },
+        {
+          "option_label": "E",
+          "option_text": "EAS服务必须启用DashScope API Key认证"
+        }
+      ],
+      "answer": "A,B,C",
+      "analysis": "原文10.1末尾全链路描述：'百炼应用再去调用EAS上的私有模型'，隐含网络连通性（A必要）；百炼工作流能力（10.2表格）支持HTTP节点调用外部服务（B必要）；10.4节'vLLM本地起服务验证...其HTTP接口本身兼容OpenAI API'说明EAS部署的模型服务需遵循OpenAI格式才能被百炼工作流统一集成（C必要）；D非必须：跨地域VPC对等连接或云企业网可互通（教材未限定同地域）；E错误：EAS服务认证由自身配置（如Token/白名单），与DashScope Key无关（10.3节强调DashScope Key仅用于DashScope API调用）。",
+      "difficulty_label": "挑战"
+    },
+    {
+      "type": 0,
+      "stem": "课程实验中，学生在PAI-DSW GPU实例运行微调脚本后关闭浏览器，次日发现账单异常高昂。最可能的根本原因及依据是？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "GPU实例未停止，持续计费；依据：10.4节'PAI-DSW费用提醒：关闭浏览器不等于停止实例，必须回控制台停止或删除'"
+        },
+        {
+          "option_label": "B",
+          "option_text": "微调脚本触发了DLC分布式训练任务，产生额外计算费用；依据：10.4节'DLC用于大规模训练'"
+        },
+        {
+          "option_label": "C",
+          "option_text": "模型权重自动同步至OSS产生存储费用；依据：10.1节'OSS存放企业文档'"
+        },
+        {
+          "option_label": "D",
+          "option_text": "百炼知识库自动索引DSW中的模型文件；依据：10.2节'知识库内置文档解析、向量化'"
+        }
+      ],
+      "answer": "A",
+      "analysis": "原文10.4节'PAI-DSW费用提醒'三条明确警示：'关闭浏览器不等于停止实例'、'GPU实例消耗额度远快于CPU'、'必须回控制台停止或删除'——A项完全对应；B项错误：题干明确'在DSW中运行微调脚本'，DSW是交互式环境（10.4表格'调试选DSW'），未提及提交DLC任务；C、D项无教材依据：OSS存储需显式调用（10.1数据底座层独立存在），百炼知识库无法自动发现DSW文件（10.2知识库能力描述为'上传文档'，非自动扫描）。",
+      "difficulty_label": "入门"
+    },
+    {
+      "type": 1,
+      "stem": "某医疗AI初创公司计划构建临床指南问答系统，技术负责人提出采用‘ModelScope下载Qwen2-7B开源模型 + PAI-EAS部署’方案。根据原文10.7节对开源模型价值的阐述，以下哪些因素会显著增强该方案的合理性？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "公司已通过等保三级认证，需确保患者病历数据全程不出本地机房"
+        },
+        {
+          "option_label": "B",
+          "option_text": "团队具备GPU运维能力，且已有闲置A10显卡服务器"
+        },
+        {
+          "option_label": "C",
+          "option_text": "指南文本长达200页PDF，需支持整篇向量化检索"
+        },
+        {
+          "option_label": "D",
+          "option_text": "预计日均调用量将突破50万次，长期API账单已超GPU采购成本"
+        },
+        {
+          "option_label": "E",
+          "option_text": "需要快速验证业务想法，两周内交付MVP原型"
+        }
+      ],
+      "answer": "A,D",
+      "analysis": "原文10.7节'开源模型的价值集中在三点'：①数据隐私与合规（A直接对应'数据不出域'）；②可深度定制（题干未提定制需求，排除）；③大规模稳定流量下的长期成本可控（D明确'日均50万次'与'API账单超GPU成本'，完美匹配第三点）；B项'已有闲置服务器'削弱云服务必要性，且教材强调PAI优势是'免运维'（10.4概念），非替代自建；C项'200页PDF'属于长文本场景，应优先选qwen-long（10.6节），非开源模型必要条件；E项'两周MVP'恰恰是百炼适用场景（10.2'HR希望自己就能上传...全程不写一行代码'），与开源方案矛盾。",
+      "difficulty_label": "进阶"
+    }
+  ]
+}

@@ -1,0 +1,209 @@
+{
+  "1-0626": {
+    "qid": "1-0626",
+    "classification": "misplaced",
+    "chapter": 1,
+    "quality": "remove",
+    "reason": "题干问'属于机器学习范畴'，但'无监督学习''监督学习''强化学习'是通用机器学习基础概念，不在本章知识列表中；'超监督学习'为虚构术语。本章聚焦LLM本质、五阶段流程、Token、上下文窗口等，不覆盖ML范式分类。",
+    "answer": [],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "无监督学习是经典机器学习范式，但本章知识列表未包含任何机器学习范式定义，属超纲内容。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "'超监督学习'在原文及所有章节知识列表中均未出现，系错误术语，无考查价值。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "监督学习是通用ML概念，非本章考点；本章知识列表仅提'监督微调（SFT）'在第5章，且明确限定为微调范式。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "强化学习未在本章或全目录知识列表中出现；Agent章讲ReAct/Function Calling，但未提RL。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "1-0757": {
+    "qid": "1-0757",
+    "classification": "own",
+    "chapter": 1,
+    "quality": "ok",
+    "reason": "题干直指本章核心边界问题：'不擅精确计算'。原文1.2节明确指出'不擅精确计算'是三大天然局限之一，并在'遇到问题该用什么补位？'表格中给出正解：'精确计算 → 工具调用（计算器、代码）'；选项C'分步展示计算过程'对应CoT，但原文强调'应交给工具'而非依赖模型推理。",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "不擅精确计算：自回归逐 Token 生成，缺乏真正的符号运算机制，多位数进位、大数乘除很容易出错。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "原文明确指出'要求模型“仔细计算”'是错误手段，因模型无符号运算机制，提示词无法改变其计算缺陷。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "提供示例属Few-shot提示工程（第2章），但原文1.2节'补位对比表'强调计算错误必须用工具，非示例可解决。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "原文1.2节指出'算不好数学'时应'交给计算器/代码工具'，而'分步展示计算过程'是ReAct/CoT思路，但本章1.2节明确将'精确计算'列为必须工具调用的场景，且1.7.4调参建议未提CoT对计算的改善。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "简化语言描述不能解决模型内在计算机制缺陷，原文未提及此方法，且'不擅计算'根因是架构限制，非语言表述问题。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "1-1003": {
+    "qid": "1-1003",
+    "classification": "own",
+    "chapter": 1,
+    "quality": "ok",
+    "reason": "题干考查'控制输出长度'这一典型工程实践，本章1.6节明确'上下文窗口是输入输出共用预算'，1.7.4参数表列明max_tokens为控制生成长度的核心API参数；1.9节流式输出说明中亦提及'max_tokens'为终止条件之一。选项C直接对应原文'达到最大生成长度'这一标准终止条件。",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "停止生成的三个条件：EOS / 达到 max_tokens / 命中停用词。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "提示词约束属第2章提示工程范畴，本章未将其列为控制长度的首选手段；原文1.7.4调参建议强调'参数控制'优先于提示词，且'100字以内'是模糊约束，不如max_token精确。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "微调属第5章内容，本章1.2节明确'微调解决行为适配而非知识更新'，且1.7.4未提微调用于长度控制；成本高、周期长，非本章推荐的即时控制手段。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "原文1.3节第四阶段明确'达到最大生成长度'为停止条件，1.7.4参数表虽未列max_tokens，但1.3节流程图和1.6节上下文窗口描述均隐含该参数为标准API控制项，且符合'输入输出共用预算'逻辑。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "后处理属工程实现细节，本章未涉及；原文强调'模型本身无状态'和'流式输出不改变答案质量'，但未提后处理作为长度控制方案，且破坏端到端可控性。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "1-1185": {
+    "qid": "1-1185",
+    "classification": "own",
+    "chapter": 1,
+    "quality": "ok",
+    "reason": "题干考查'大模型优势'，本章1.1节开篇即定义LLM本质为'概率性文本生成器'，擅长'语言理解、文本生成、知识问答、代码编写、总结改写、一定的推理分析'；选项B的'sentiment analysis'属于典型NLP任务，且需语言理解与生成能力，而其他选项均为确定性程序计算（统计、求和、标准差），属传统编程范畴，非LLM优势。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "✅ 擅长 | 语言理解、文本生成、知识问答、代码编写、总结改写、一定的推理分析",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "Pearson相关系数计算是确定性数学运算，由scipy库完成，无需LLM参与；本章1.2节明确'不擅精确计算'，故非LLM优势。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "情感分析需语言理解与语义判断，原文1.1节'擅长'列表首项即'语言理解'，且贯穿案例'新人答疑机器人'即为此类应用，体现LLM核心优势。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "sum()是Python内置确定性函数，执行精确计算，LLM不擅长此领域，原文1.2节明确列为边界。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "numpy.std()是数值计算库函数，属传统编程能力，LLM无此原生能力，原文未将其列入擅长范畴。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "1-1195": {
+    "qid": "1-1195",
+    "classification": "beyond",
+    "chapter": 1,
+    "quality": "remove",
+    "reason": "题干为纯Python编程题，考查字典计数、列表遍历、索引访问等基础语法，与本章任何知识点（LLM本质、Token、上下文窗口等）均无关联；所有选项均未涉及大模型调用或AI特性，属通用编程能力测试，超出ACP考试范围。",
+    "answer": [],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "代码存在KeyError风险（未初始化intent_counts[intent]），但这是Python基础错误，与LLM无关。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "同A，属语法正确性判断，本章未涉及任何编程语法教学。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "逻辑错误（初始化为0而非1），但仍是编程题，与大模型原理无关。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "返回列表而非字典计数，功能错误，但纯属代码实现问题，无LLM考点。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "1-1310": {
+    "qid": "1-1310",
+    "classification": "own",
+    "chapter": 1,
+    "quality": "ok",
+    "reason": "题干考查分词化（Tokenization）核心概念，本章1.5节标题即'Token 与分词'，知识列表明确'分词器与BPE子词原理'；原文1.3节第一阶段'文本分词（Tokenization）'详细描述'切成一个个Token'并'映射为词表里的整数ID'，1.5节强调'Token是模型处理文本的最小单位'，且BPE原理即'按词表把文本切成Token'。",
+    "answer": [
+      "A",
+      "B"
+    ],
+    "supported": true,
+    "quote": "分词器（Tokenizer）把文本切成一个个 Token，并映射为词表里的整数 ID。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "原文1.3节明确'分词器把文本切成Token，并映射为词表里的整数ID'，符合'分词化结束→Token转ID'流程。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "原文1.5节定义'Token是模型处理文本的最小单位'，且1.3节称'计算机读不懂文字。分词器把文本切成一个个Token'，即'更小的管理单元'。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "原文1.5节指出BPE子词算法适用于'任何文本'，未限定英语；且中文同样使用BPE（如Qwen分词器），'词粒度分词'非本章概念，知识列表仅提'BPE子词原理'。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "原文1.3节明确Token需'映射为词表里的整数ID'，而非直接用字符串标识；ID才是词表唯一索引，字符串可能重复（如不同子词相同拼写）。"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

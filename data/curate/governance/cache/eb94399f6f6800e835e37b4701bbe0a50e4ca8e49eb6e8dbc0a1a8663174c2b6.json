@@ -1,0 +1,213 @@
+{
+  "6-1017": {
+    "qid": "6-1017",
+    "classification": "misplaced",
+    "chapter": 6,
+    "quality": "remove",
+    "reason": "文本预处理属NLP基础，非部署优化考点",
+    "answer": [],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "无关部署优化"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "非本章知识范畴"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "分类非部署任务"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "翻译非部署任务"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "6-1088": {
+    "qid": "6-1088",
+    "classification": "own",
+    "chapter": 6,
+    "quality": "ok",
+    "reason": "降级策略属高可用核心手段",
+    "answer": [
+      "B",
+      "C",
+      "D"
+    ],
+    "supported": true,
+    "quote": "限流、重试与降级熔断：超并发返回 429 时，客户端做指数退避重试；检测到模型异常（准确率骤降、延迟超限）时，自动降级到上一稳定版本或规则兜底",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "扩容是扩容非降级"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "规则引擎是典型降级"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "备份模型属降级策略"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "关功能是降级手段"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "6-1119": {
+    "qid": "6-1119",
+    "classification": "cross",
+    "chapter": 4,
+    "quality": "review",
+    "reason": "工具调用属Agent章节，非部署",
+    "answer": [
+      "D"
+    ],
+    "supported": true,
+    "quote": "工具必须JSON-Schema定义",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "资源限制非主因"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "输入非根本原因"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "函数变化非主因"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "参数描述不足致偏差"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "6-1328": {
+    "qid": "6-1328",
+    "classification": "own",
+    "chapter": 6,
+    "quality": "ok",
+    "reason": "vLLM参数属部署实操考点",
+    "answer": [
+      "A",
+      "B"
+    ],
+    "supported": true,
+    "quote": "USE_TF=0 vllm serve \"/mnt/workspace/model/Qwen3-0.6B\" --load-format \"safetensors\" --port 8000",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "原文明确含--port"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "原文明确含--load-format"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "原文未提--model-name"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "原文未提--gpu-memory"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "6-1360": {
+    "qid": "6-1360",
+    "classification": "own",
+    "chapter": 6,
+    "quality": "ok",
+    "reason": "模型并行属显存优化关键手段",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "张量并行能把单卡放不下的权重切到多卡，但每步需要卡间通信，并非卡越多越快",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "并行不减参数"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "解决单设备显存不足"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "与数据量无关"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "与显存强相关"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "6-1361": {
+    "qid": "6-1361",
+    "classification": "own",
+    "chapter": 6,
+    "quality": "ok",
+    "reason": "动态批处理即连续批处理",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "连续批处理（Continuous Batching，又称动态/持续批处理）：请求不再整批齐步走，而是完成一个就立刻返回、新请求立刻补进 batch",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "不减参数"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "提升GPU利用率"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "不降低单次延迟"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "与幻觉无关"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

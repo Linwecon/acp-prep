@@ -1,0 +1,212 @@
+{
+  "7-1258": {
+    "qid": "7-1258",
+    "classification": "own",
+    "chapter": 7,
+    "quality": "ok",
+    "reason": "题干明确询问Perplexity指标特点，属于模型评估章节知识点。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "Perplexity（困惑度 PPL）...模型对文本的“惊讶程度”，越低越好",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "原文指出困惑度越低越好，数值高表示效果差。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "原文定义困惑度反映模型预测的惊讶程度，即不确定性。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "原文未提及用于图像分类，它是语言模型评估指标。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "困惑度不依赖参考文本对比，是模型自身概率评估。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "7-1319": {
+    "qid": "7-1319",
+    "classification": "own",
+    "chapter": 7,
+    "quality": "ok",
+    "reason": "题干询问BLEU分数典型应用场景，属于传统自动指标内容。",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "BLEU...适用任务：机器翻译",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "原文明确列出BLEU适用于机器翻译任务。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "原文未提及BLEU用于图像生成。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "原文未提及BLEU用于文本分类。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "原文未提及BLEU用于语音合成。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "7-1321": {
+    "qid": "7-1321",
+    "classification": "own",
+    "chapter": 7,
+    "quality": "ok",
+    "reason": "题干询问ROUGE分数核心计算方式，属于传统自动指标内容。",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "ROUGE...基于 n-gram 与最长公共子序列（LCS）",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "原文明确指出ROUGE基于n-gram计算。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "原文未提及基于句法树匹配。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "原文未提及基于语义向量相似度。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "原文未提及基于编辑距离。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "7-1458": {
+    "qid": "7-1458",
+    "classification": "own",
+    "chapter": 7,
+    "quality": "ok",
+    "reason": "题干询问ROUGE-L分数主要评估任务，属于传统自动指标内容。",
+    "answer": [
+      "D"
+    ],
+    "supported": true,
+    "quote": "ROUGE...适用任务：文本摘要",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "原文未提及用于图像分类。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "原文未提及用于目标检测。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "原文未提及用于语音识别。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "原文明确ROUGE适用于文本摘要等生成任务。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "7-0139": {
+    "qid": "7-0139",
+    "classification": "own",
+    "chapter": 7,
+    "quality": "ok",
+    "reason": "题干询问RAGAS的Answer Correctness指标评估内容，属于核心知识点。",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "Answer Correctness...答案与标准答案的整体一致程度",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "原文定义该指标衡量答案与标准答案的整体一致程度，即准确度。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "评估答案与问题相关性的是Answer Relevancy指标。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "评估答案与检索资料事实一致性的是Faithfulness指标。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "评估相关参考资料被检索到数量的是Context Recall指标。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "7-0872": {
+    "qid": "7-0872",
+    "classification": "own",
+    "chapter": 7,
+    "quality": "ok",
+    "reason": "题干询问评估模型通用知识和推理能力的基准，属于公开基准内容。",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "MMLU...涵盖 STEM、人文、社科等 57 个学科的英文多选题，检验知识广度",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "原文明确MMLU检验知识广度，即通用知识和推理能力。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "BLEU是机器翻译评估指标，不评估通用能力。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "ROUGE是文本摘要评估指标，不评估通用能力。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "Perplexity是语言模型困惑度指标，不直接评估通用推理能力。"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

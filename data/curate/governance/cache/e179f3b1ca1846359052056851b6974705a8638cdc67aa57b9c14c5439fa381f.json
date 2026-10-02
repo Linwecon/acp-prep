@@ -1,0 +1,179 @@
+{
+  "10-5153": {
+    "qid": "10-5153",
+    "classification": "own",
+    "chapter": 10,
+    "quality": "ok",
+    "reason": "百炼能力覆盖模型API、知识库、应用编排，不支持本地训练",
+    "answer": [
+      "A",
+      "B",
+      "C"
+    ],
+    "supported": true,
+    "quote": "百炼的核心能力可以理解为把前几章的技术'产品化'了：模型广场、Prompt调试、应用（智能体/Agent）、工作流编排、知识库（RAG）、插件/工具、模型调优/微调、评测与观测、一键发布",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "百炼提供模型广场和托管推理服务"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "知识库是百炼核心能力之一"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "工作流编排和对话配置属百炼能力"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "百炼不提供本地大模型训练"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "10-5156": {
+    "qid": "10-5156",
+    "classification": "own",
+    "chapter": 10,
+    "quality": "ok",
+    "reason": "Assistant API使用Thread、Run、工具结果提交，不能改instructions训练",
+    "answer": [
+      "A",
+      "B",
+      "C"
+    ],
+    "supported": true,
+    "quote": "百炼应用（智能体/Agent）配置角色、工具、知识库，低代码搭智能体；工作流编排拖拽节点把'检索→改写→生成→审核'串成稳定流程",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "Thread用于会话上下文管理"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "Run驱动执行并轮询状态"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "工具调用后由应用提交结果"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "instructions不可用于训练模型"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "10-5132": {
+    "qid": "10-5132",
+    "classification": "own",
+    "chapter": 10,
+    "quality": "ok",
+    "reason": "托管API用百炼/DashScope，自定义部署用PAI-EAS",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "百炼是应用层、DashScope是接口层；PAI面向模型训练与推理部署；百炼应用可回调PAI-EAS服务",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "前者托管服务，后者EAS部署"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "ECS非首选托管方案"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "非必须手动部署"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "角色颠倒"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "10-5054": {
+    "qid": "10-5054",
+    "classification": "cross",
+    "chapter": 12,
+    "quality": "review",
+    "reason": "Dify属框架工具，教材仅提及其原型价值",
+    "answer": [],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "教材未明确提及"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "教材未明确提及"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "教材未明确提及"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "教材未明确提及"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "10-5131": {
+    "qid": "10-5131",
+    "classification": "own",
+    "chapter": 10,
+    "quality": "ok",
+    "reason": "PAI-EAS提供托管、弹性扩缩容和在线推理",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "EAS：Elastic Algorithm Service，模型在线服务；把训练好的模型一键部署为在线推理服务，支持弹性伸缩、蓝绿发布、版本管理、监控告警",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "EAS专为在线推理设计"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "EAS支持自动弹性扩容"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "EAS提供托管与弹性推理"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "EAS提供REST API"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

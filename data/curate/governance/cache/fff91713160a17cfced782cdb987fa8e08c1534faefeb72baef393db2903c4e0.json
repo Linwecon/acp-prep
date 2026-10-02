@@ -1,0 +1,166 @@
+{
+  "items": [
+    {
+      "type": 0,
+      "stem": "某企业升级新人答疑机器人为可办事的Agent，用户问'帮我查一下我上个月提交的报销单审批到哪一步了'。系统首次调用模型后，模型返回tool_calls=[{'name':'get_reimbursement','args':{'user_id':'U123','month':'2024-07'}}]。此时下一步必须由谁执行该函数？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "模型自身立即执行该函数并返回结果"
+        },
+        {
+          "option_label": "B",
+          "option_text": "前端界面自动解析参数并调用内部API"
+        },
+        {
+          "option_label": "C",
+          "option_text": "应用程序代码解析tool_calls，调用对应函数并将结果以role='tool'消息回传"
+        },
+        {
+          "option_label": "D",
+          "option_text": "Planner组件根据工具Schema生成SQL语句后交由数据库执行"
+        }
+      ],
+      "answer": "C",
+      "analysis": "依据4.3节Function Calling流程铁律：模型只负责输出结构化tool_calls（提议），执行必须由应用代码完成（教材原文：'由你的应用代码解析tool_calls、真正执行对应函数'）；执行结果必须包装为role='tool'消息回传至上下文（原文：'结果必须由程序作为role=\"tool\"消息追加回上下文，模型才\"知道\"发生了什么'）。A错误——模型从不执行；B错误——前端无权访问内部报销服务且未体现role='tool'回传机制；D错误——Planner不直接生成SQL，工具执行是独立模块职责，且报销查询是业务API非SQL直连。",
+      "difficulty_label": "基础"
+    },
+    {
+      "type": 1,
+      "stem": "在排查一个ReAct Agent反复失败的故障时，发现其轨迹中Thought步骤逻辑合理，但Action调用的工具始终返回空结果。以下哪些措施符合教材4.4节ReAct铁律与4.3节Function Calling原则？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "检查工具Schema中parameters字段是否缺失required声明，导致模型未提取必填参数"
+        },
+        {
+          "option_label": "B",
+          "option_text": "在Observation环节增加对工具返回内容的交叉验证，例如用另一工具重试或人工校验"
+        },
+        {
+          "option_label": "C",
+          "option_text": "移除所有轮数限制，允许Agent无限重试直到成功"
+        },
+        {
+          "option_label": "D",
+          "option_text": "将工具返回的空结果直接丢弃，让模型基于原始输入继续下一轮Thought"
+        },
+        {
+          "option_label": "E",
+          "option_text": "验证工具执行代码是否将结果正确封装为JSON格式并注入role='tool'消息"
+        }
+      ],
+      "answer": "ABE",
+      "analysis": "A正确——4.3节明确指出'Schema字段名含糊、描述缺失，会直接导致参数提取错误'，required缺失是典型Schema质量问题；B正确——4.4节ReAct铁律强调'Observation可能含噪声甚至恶意内容，模型不能盲目信任外部返回，必要时交叉验证'；E正确——4.3节强调'结果必须由程序作为role=\"tool\"消息追加回上下文'，若封装失败则模型无法感知结果；C错误——4.4节铁律第一条即'必须设置最大迭代轮数/超时/token预算上限，超限要主动收尾'，无限循环违反核心安全约束；D错误——4.2节原则要求'工具返回结果必须回灌到上下文'，丢弃结果等于破坏闭环，模型将失去关键反馈。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 0,
+      "stem": "某团队需接入OA、CRM、BI看板等15个内部系统，当前每个Agent都硬编码各系统工具Schema。当CRM接口变更时，所有Agent均需修改部署。为根治此问题，应优先引入哪项技术？其与Function Calling的关系是？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "MCP协议；它定义工具如何被发现和管理，Function Calling负责具体调用机制，二者互补"
+        },
+        {
+          "option_label": "B",
+          "option_text": "ReAct框架；它通过Thought-Action-Observation循环解决工具调用不确定性，替代Function Calling"
+        },
+        {
+          "option_label": "C",
+          "option_text": "Skill系统；将各系统接入逻辑封装为可复用技能，通过渐进式披露加载"
+        },
+        {
+          "option_label": "D",
+          "option_text": "向量化长期记忆；持久化各系统API文档，按需检索注入上下文"
+        }
+      ],
+      "answer": "A",
+      "analysis": "题干核心矛盾是'工具多、Schema维护分散、变更成本高'，4.5节MCP场景明确对应'十几个Agent都要硬编码工具Schema；工具方改参数所有Agent重部署'，解决方案正是MCP（原文：'让工具作为独立Server暴露，Agent通过标准协议动态发现，新增工具无需改Agent代码'）。关系上，4.5节对比表指出'MCP解决工具怎么被发现、被管理、被复用；Function Calling解决模型会不会、怎么调用工具'，二者是'互补，不是替代'。B错误——ReAct解决的是执行过程中的动态调整，不解决Schema集中管理；C错误——Skill固化的是SOP流程，非工具接入标准化；D错误——向量记忆用于知识召回，无法解决工具Schema动态发现与协议统一问题。",
+      "difficulty_label": "基础"
+    },
+    {
+      "type": 1,
+      "stem": "某多Agent客服系统设计中，Leader Agent将'查订单'任务分派给Worker A，'查物流'分派给Worker B。审计发现：Worker A与Worker B共用同一套数据库账号；所有Worker的完整系统提示词被拼入Leader的初始Prompt；且Worker间存在直接互调现象。这些设计违反了教材4.7节哪些多Agent硬原则？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "明确职责"
+        },
+        {
+          "option_label": "B",
+          "option_text": "独立凭据"
+        },
+        {
+          "option_label": "C",
+          "option_text": "中央调度"
+        },
+        {
+          "option_label": "D",
+          "option_text": "避免全量注入"
+        },
+        {
+          "option_label": "E",
+          "option_text": "分层规划模式适用性"
+        }
+      ],
+      "answer": "BCD",
+      "analysis": "B正确——'共用同一套数据库账号'直接违反'独立凭据'原则（原文：'不同Agent不得共用同一套账号/API凭据，按最小权限分别授权'）；C正确——'Worker间存在直接互调'破坏中央调度，4.7节原则3明确要求'设置Planner/Leader Agent统一判断何时调哪个Agent，避免Agent之间无序互调、循环等待（死锁）'；D正确——'所有Worker的完整系统提示词被拼入Leader初始Prompt'是典型'全量注入'（原文：'不要把所有Agent的知识/工具清单一次性写进主Prompt，应按需加载'）；A错误——职责划分本身未体现重叠，题干中'查订单'与'查物流'职责清晰；E错误——分层规划模式本身适用，问题在于实施细节违反原则，非模式选择错误。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 0,
+      "stem": "一个课程审查Agent连续处理12轮对话后，开始忽略用户最初要求的'用初中生能懂的语言解释'这一风格约束。当前采用固定窗口截断保留最近5轮。最符合教材4.8节Memory策略的改进方案是？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "将窗口大小从5轮扩大到20轮，确保首轮约束始终在上下文中"
+        },
+        {
+          "option_label": "B",
+          "option_text": "启用滚动摘要，在窗口满时用LLM将前7轮压缩为'用户要求语言通俗易懂'的摘要"
+        },
+        {
+          "option_label": "C",
+          "option_text": "建立向量化长期记忆，将'语言风格偏好'作为关键事实存入向量库，每次新任务按语义检索注入"
+        },
+        {
+          "option_label": "D",
+          "option_text": "在每轮响应末尾强制追加'请保持初中生语言风格'的指令"
+        }
+      ],
+      "answer": "C",
+      "analysis": "题干本质是'关键约束随会话延长丢失'，4.8节明确指出固定截断的缺陷：'早期关键信息（如首轮目标）会被丢'，并给出解法：'引入向量化长期记忆...把关键偏好持久化、按需检索'（原文例题解析）。C完全匹配。A错误——4.8节警告'单纯扩窗口只是延后爆炸'，且长上下文引发注意力稀释；B虽优于A，但4.8节指出'摘要质量决定效果'，而风格约束抽象难压缩，易失真；D错误——属于无效指令堆砌，违背4.9节Skill原则'简洁（每句话值回token成本）'，且无法保证模型遵守。",
+      "difficulty_label": "中等"
+    },
+    {
+      "type": 1,
+      "stem": "某金融Agent生成投资建议后，端到端评测得分92分，但用户反馈'推荐的ETF组合实际无法买入，因部分产品已下架'。为精准定位此问题，应采用教材4.10节哪些白盒化评测手段？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "确定性检查：解析执行轨迹，验证是否调用了'ETF实时状态查询'工具"
+        },
+        {
+          "option_label": "B",
+          "option_text": "LLM-as-Judge：用另一个模型评估'建议的可行性'，并给出主观评分"
+        },
+        {
+          "option_label": "C",
+          "option_text": "Rubric：拆解'可行性'为'产品存在性''交易渠道可用性''合规性'三项，逐项判定"
+        },
+        {
+          "option_label": "D",
+          "option_text": "向量化召回：检索历史相似案例，比对过往下架产品处理方式"
+        },
+        {
+          "option_label": "E",
+          "option_text": "确定性检查：用脚本调用ETF查询API，校验建议中产品ID是否返回有效状态"
+        }
+      ],
+      "answer": "AE",
+      "analysis": "题干问题聚焦'产品下架导致不可执行'，属客观、可验证的中间步骤失败。A正确——4.10节定义确定性检查为'用代码/脚本判断该发生的步骤有没有发生'，验证工具调用是白盒定位第一步；E正确——同属确定性检查，'用脚本调用API校验'是教材强调的'外部反馈'式验证（4.6.1节），直接命中'产品是否存在'这一客观事实；B错误——LLM-as-Judge适合主观项（如'解释是否易懂'），对'产品下架'这种客观事实判断不可靠且成本高；C错误——Rubric用于结构化打分，但'产品存在性'是二元判断，无需拆解细则；D错误——向量召回用于知识检索，非评测手段，且无法验证实时状态。",
+      "difficulty_label": "中等"
+    }
+  ]
+}

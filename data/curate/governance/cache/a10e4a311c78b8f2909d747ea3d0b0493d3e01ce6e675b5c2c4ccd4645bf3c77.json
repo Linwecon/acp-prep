@@ -1,0 +1,216 @@
+{
+  "new-4-36-0": {
+    "qid": "new-4-36-0",
+    "classification": "own",
+    "chapter": 4,
+    "quality": "ok",
+    "reason": "考查Function Calling核心流程，模型只提议，程序才执行。",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "模型只输出结构化的‘调用哪个工具、传什么参数’；由你的应用代码解析 tool_calls、真正执行对应函数",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "模型不执行函数，只输出调用意图。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "前端非必须，后端应用代码负责执行。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "应用代码解析并执行，结果以role='tool'回传。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "Memory模块不负责执行工具。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-4-36-1": {
+    "qid": "new-4-36-1",
+    "classification": "own",
+    "chapter": 4,
+    "quality": "ok",
+    "reason": "考查工具调用参数提取失败的高频风险点，教材有明确依据。",
+    "answer": [
+      "A",
+      "B"
+    ],
+    "supported": true,
+    "quote": "Schema 质量（名称、描述、必填项是否清晰）；用户表述含糊时 Agent 应追问而不是瞎猜",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "Schema缺少required声明会导致参数提取错误。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "模糊表述时Agent应主动追问，而非强行生成。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "Observation结果必须标注role='tool'，但题干是参数为空。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "轮数上限设为1是限制，但非参数为空的直接原因。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-4-36-2": {
+    "qid": "new-4-36-2",
+    "classification": "own",
+    "chapter": 4,
+    "quality": "ok",
+    "reason": "考查MCP协议解决工具动态发现，与Function Calling互补关系。",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "MCP 解决‘工具怎么被发现、被管理、被复用’（接入标准化）；Function Calling 解决‘模型会不会、怎么调用工具’（调用机制）",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "MCP不替代FC，两者互补。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "ReAct是执行循环，不解决工具发现标准化。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "MCP标准化接入发现，FC负责调用触发。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "Skill固化SOP，不解决工具Schema硬编码问题。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-4-36-3": {
+    "qid": "new-4-36-3",
+    "classification": "own",
+    "chapter": 4,
+    "quality": "ok",
+    "reason": "考查多Agent设计四条硬原则，教材有明确列举。",
+    "answer": [
+      "A",
+      "B",
+      "C"
+    ],
+    "supported": true,
+    "quote": "独立凭据：不同 Agent 不得共用同一套账号/API 凭据；避免全量注入：不要把所有 Agent 的知识/工具清单一次性写进主 Prompt",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "违反独立凭据原则。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "违反避免全量注入原则。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "违反中央调度原则，应通过Leader调度。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "符合分层规划和中央调度原则。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-4-36-4": {
+    "qid": "new-4-36-4",
+    "classification": "own",
+    "chapter": 4,
+    "quality": "ok",
+    "reason": "考查长期记忆机制，向量化召回可持久化关键偏好。",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "长期记忆：跨会话持久化的用户偏好、业务事实、经验教训，按需检索；向量化召回：摆脱窗口限制、海量记忆按需取用",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "扩大窗口延后问题，会注意力稀释。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "滚动摘要可行，但非最根本方案。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "向量化长期记忆可持久化并按需检索，最根本。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "强制追加是临时补救，非机制改进。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-4-36-5": {
+    "qid": "new-4-36-5",
+    "classification": "own",
+    "chapter": 4,
+    "quality": "ok",
+    "reason": "考查白盒化评测与确定性检查组合定位具体环节问题。",
+    "answer": [
+      "A",
+      "D"
+    ],
+    "supported": true,
+    "quote": "白盒化评测：关键组件/中间步骤（工具调用序列、参数、轨迹）；确定性检查：用代码/脚本判断‘该发生的步骤有没有发生’",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "确定性检查可验证参数格式是否符合规则。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "LLM-as-Judge适合主观评估，非精准定位格式错误。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "Rubric拆解细则，但不如代码检查直接客观。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "白盒化评测可单独检查参数生成过程。"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

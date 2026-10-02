@@ -1,0 +1,210 @@
+{
+  "6-0954": {
+    "qid": "6-0954",
+    "classification": "misplaced",
+    "chapter": 6,
+    "quality": "remove",
+    "reason": "对话质量属模型评估（ch7）或提示工程（ch2），非部署优化考点",
+    "answer": [],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "属评估维度"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "属任务型评测"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "单轮响应时间是部署性能指标，但多轮对话质量不依赖此"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "属用户体验评估"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "6-1103": {
+    "qid": "6-1103",
+    "classification": "own",
+    "chapter": 6,
+    "quality": "ok",
+    "reason": "考成本优化中Spot实例适用场景",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "抢占式实例 Spot（非关键业务、追求极致成本，最高可比按量省 90%，但可能被回收，需配合重试容错）",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "按量付费无闲置成本优势"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "Spot适合非实时批处理且可容错"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "本地服务器无弹性成本高"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "包年包月适合稳定长期负载"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "6-1270": {
+    "qid": "6-1270",
+    "classification": "own",
+    "chapter": 6,
+    "quality": "ok",
+    "reason": "考vLLM命令行参数细节",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "USE_TF=0 vllm serve \"/mnt/workspace/model/Qwen3-0.6B\" --load-format \"safetensors\" --port 8000",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "vLLM无--model-path参数"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "--port是端口参数"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "模型路径为位置参数"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "--load-format指定格式非路径"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "6-1274": {
+    "qid": "6-1274",
+    "classification": "own",
+    "chapter": 6,
+    "quality": "ok",
+    "reason": "考vLLM启动命令准确性",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "USE_TF=0 vllm serve \"/mnt/workspace/model/Qwen3-0.6B\" --load-format \"safetensors\" --port 8000",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "缺少--load-format参数"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "与原文命令完全一致"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "vllm无start子命令"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "vllm无deploy子命令"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "6-0770": {
+    "qid": "6-0770",
+    "classification": "own",
+    "chapter": 6,
+    "quality": "ok",
+    "reason": "考PAI-EAS企业级部署能力",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "PAI-EAS（Elastic Algorithm Service）是阿里云 PAI 平台的模型在线服务，可把开源社区模型或自训练/微调模型部署为在线服务，提供弹性扩缩容、蓝绿/灰度发布、资源组管理、版本控制、资源监控等企业级能力",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "单机无法支持高并发"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "EAS原生支持弹性扩缩容"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "内网穿透不稳定不安全"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "前端不可直接加载模型权重"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "6-0774": {
+    "qid": "6-0774",
+    "classification": "own",
+    "chapter": 6,
+    "quality": "ok",
+    "reason": "考模型选型四维评估（速度/能力/长文本/成本）",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "模型选型四维评估（速度/能力/长文本/成本）",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "13B本地部署延迟难控<500ms"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "70B API调用延迟高且成本高"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "3B轻量化模型满足低延迟要求"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "通用模型未适配电商场景"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

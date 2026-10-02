@@ -1,0 +1,217 @@
+{
+  "3-5030": {
+    "qid": "3-5030",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "父子块设计是RAG进阶检索技术，原文虽未直接命名但涵盖其原理",
+    "answer": [
+      "A",
+      "B",
+      "C",
+      "D"
+    ],
+    "supported": true,
+    "quote": "句子窗口检索：建索引时以'单个句子'为可检索单元（小块，便于精准命中），同时在每个句子的元数据里存下它'前后各 N 句'组成的窗口",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "对应父子块中子块与父块并存结构"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "子块为最小检索单元，确保精度"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "需通过元数据关联实现命中后扩展"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "最终拼装上下文需含完整父级信息"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-5031": {
+    "qid": "3-5031",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "父子块核心是层级化组织与结构化合并",
+    "answer": [
+      "D"
+    ],
+    "supported": true,
+    "quote": "句子窗口检索：建索引时以'单个句子'为可检索单元（小块，便于精准命中），同时在每个句子的元数据里存下它'前后各 N 句'组成的窗口",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "句子窗口才强调语法切分"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "适用通用文本，非仅表格"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "仍需分块，只是多粒度"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "父子块本质是预定义层级合并"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-5032": {
+    "qid": "3-5032",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "父子块依赖元数据关联，缺失则无法补全",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "句子窗口检索：建索引时以'单个句子'为可检索单元（小块，便于精准命中），同时在每个句子的元数据里存下它'前后各 N 句'组成的窗口",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "关联断裂导致上下文丢失"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "无关速度提升"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "父块标识缺失则无法扩展上下文"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "模型不生成缺失父块"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-5033": {
+    "qid": "3-5033",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "句子窗口专为条文定位+上下文需求设计",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "句子窗口检索：建索引时以'单个句子'为可检索单元（小块，便于精准命中），同时在每个句子的元数据里存下它'前后各 N 句'组成的窗口",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "精准命中条文并提供上下文"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "属ASR管道，非RAG检索"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "属多模态CV任务"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "属模型训练范畴"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-5034": {
+    "qid": "3-5034",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "多粒度索引、扩展合并、重排序均为原文推荐方案",
+    "answer": [
+      "A",
+      "B",
+      "C"
+    ],
+    "supported": true,
+    "quote": "句子窗口检索：建索引时以'单个句子'为可检索单元（小块，便于精准命中），同时在每个句子的元数据里存下它'前后各 N 句'组成的窗口",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "对应多粒度索引策略"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "对应句子窗口扩窗机制"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "原文明确推荐Rerank"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "整篇检索违反切片原则"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-5035": {
+    "qid": "3-5035",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "标题改写提升检索相关性是原文明确策略",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "主题接近的内容互相混淆 → 扩写标题（把'注意事项'改成'需求分析 > 注意事项'）、加元数据标签",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "非存储优化目的"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "非美观需求"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "扩写标题提升召回相关性"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "不改变原始观点"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

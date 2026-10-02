@@ -1,0 +1,154 @@
+{
+  "items": [
+    {
+      "type": 0,
+      "stem": "某团队使用 DashScope OpenAI 兼容模式调用 qwen-plus，代码中已正确设置 base_url 和 api_key，但请求始终返回 401 Unauthorized。经核查 API Key 有效且未过期，网络连通性正常。最可能的根本原因是什么？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "OpenAI 兼容模式要求使用 DashScope 专属的 access_token 而非 API Key"
+        },
+        {
+          "option_label": "B",
+          "option_text": "base_url 中路径应为 '/v1' 而非 '/compatible-mode/v1'"
+        },
+        {
+          "option_label": "C",
+          "option_text": "OpenAI SDK 版本低于 1.0.0，不兼容 DashScope 兼容模式认证协议"
+        },
+        {
+          "option_label": "D",
+          "option_text": "API Key 未在阿里云控制台开通 DashScope 服务权限"
+        }
+      ],
+      "answer": "D",
+      "analysis": "依据原文 10.3 节明确指出：'百炼与 DashScope 并不是两套互不相干的系统……二者共用一套 API Key'，且强调'登录百炼控制台即可使用 DashScope 的全部模型能力'——这意味着 API Key 必须在控制台显式开通 DashScope 服务权限才能生效。教材未提及 access_token（A 错）；base_url 正确值为 'https://dashscope.aliyuncs.com/compatible-mode/v1'（B 错，原文代码示例直接使用该路径）；OpenAI SDK v1+ 是兼容前提，但 401 是认证失败而非协议不识别，SDK 版本低通常导致 ImportError 或 400（C 错）。D 项对应教材隐含必要条件：API Key 需绑定服务权限，这是实际故障中最常见却被忽略的准入条件。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 0,
+      "stem": "开发团队将原有 LangChain 应用从 OpenAI 迁移至 DashScope，仅修改 base_url 和 api_key 后，发现重排序（Rerank）功能失效。以下哪项是必须采取的修正措施？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "改用 dashscope 原生 SDK 调用 TextReRank，因 OpenAI 兼容模式不支持重排序类服务"
+        },
+        {
+          "option_label": "B",
+          "option_text": "在 OpenAI SDK 中注册自定义 Rerank 模型名称，如 model='qwen3-rerank'"
+        },
+        {
+          "option_label": "C",
+          "option_text": "升级 LangChain 到 v0.2.0+，其内置 DashScope Rerank 工具链"
+        },
+        {
+          "option_label": "D",
+          "option_text": "将重排序逻辑改为调用 chat.completions.create 并提示词模拟"
+        }
+      ],
+      "answer": "A",
+      "analysis": "原文 10.3 节 'DashScope 原生接口 vs OpenAI 兼容接口' 明确对比：'兼容接口迁移成本低、生态好……原生接口能用上部分平台特有参数/能力（如特定多模态、重排序服务）'；并给出重排序模块的代码示例——必须使用 dashscope.TextReRank.call()。这说明重排序属于 DashScope 特有服务，不在 OpenAI 标准 API 规范内，因此兼容模式无法覆盖（A 正确）。B 错：OpenAI SDK 的 chat.completions.create 不接受 rerank 类模型；C 错：LangChain 官方未提供 DashScope 专属 Rerank 工具链，教材示例中重排序是独立调用原生 SDK；D 错：提示词模拟无法替代真实向量重排，违背 RAG 基础原理且无教材依据。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 1,
+      "stem": "在使用 DashScope OpenAI 兼容模式时，以下哪些条件同时成立时，会导致 stream=True 参数失效或行为异常？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "调用模型为 qwen-long，且输入文本超过 8192 token"
+        },
+        {
+          "option_label": "B",
+          "option_text": "HTTP 客户端未设置超时时间，且网络存在间歇性抖动"
+        },
+        {
+          "option_label": "C",
+          "option_text": "响应头中缺少 'content-type: text/event-stream' 字段"
+        },
+        {
+          "option_label": "D",
+          "option_text": "使用了 OpenAI Python SDK v0.28.1（旧版）"
+        }
+      ],
+      "answer": "C,D",
+      "analysis": "依据原文 10.3 节代码示例及 'value' 段落：'stream=True 是对话类应用降低等待感的标配'，其底层依赖 SSE（Server-Sent Events）协议，要求响应头包含 'content-type: text/event-stream'（C 正确，缺失则流式解析失败）；教材明确使用 OpenAI SDK v1+（课程代码隐含版本要求），而 v0.28.1 属于旧版 openai 包（非 openai>=1.0.0），其 stream 实现与新协议不兼容（D 正确）。A 错：qwen-long 支持长上下文，流式输出与长度无关；B 错：网络抖动可能导致连接中断，但不导致 stream 参数本身失效，属稳定性问题而非协议失效。",
+      "difficulty_label": "挑战"
+    },
+    {
+      "type": 0,
+      "stem": "某企业通过百炼构建知识库问答应用，后端需调用 DashScope API 实现高级检索增强。当尝试在百炼工作流中嵌入 DashScope 兼容模式调用时，请求被拒绝。最可能的技术约束原因是？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "百炼工作流节点不支持 HTTP 外部调用，仅允许内置组件"
+        },
+        {
+          "option_label": "B",
+          "option_text": "DashScope 兼容模式 base_url 的域名白名单未包含百炼工作流执行环境 IP"
+        },
+        {
+          "option_label": "C",
+          "option_text": "百炼工作流运行在阿里云 VPC 内网，而兼容模式 endpoint 为公网地址且未配置代理"
+        },
+        {
+          "option_label": "D",
+          "option_text": "百炼工作流默认禁用 stream=True，而 DashScope 兼容模式强制要求流式"
+        }
+      ],
+      "answer": "C",
+      "analysis": "原文 10.2 节指出百炼工作流可'拖拽节点把检索→改写→生成→审核串成稳定流程'，且 10.5 节强调'百炼应用可回调 PAI-EAS 服务'，证明其支持外部调用（A 错）。教材未提域名白名单机制（B 无依据）。关键约束在于网络可达性：原文 10.1 节全景图明确百炼为'应用开发层'，其工作流执行环境默认部署在阿里云托管 VPC 内，而 DashScope 兼容模式 endpoint 'https://dashscope.aliyuncs.com/...' 是公网地址；若未配置 VPC NAT 网关或代理，内网环境无法直连公网 endpoint（C 正确，属典型生产环境网络隔离故障）。D 错：stream 是可选参数，非强制。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 1,
+      "stem": "以下哪些场景中，必须放弃 DashScope OpenAI 兼容模式，转而采用原生 SDK？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "需要调用 TextReRank 服务对检索结果进行相关性重排序"
+        },
+        {
+          "option_label": "B",
+          "option_text": "需在请求中传入 dashscope-specific 的 top_k 参数以控制 embedding 返回向量数"
+        },
+        {
+          "option_label": "C",
+          "option_text": "使用 vLLM 部署的私有模型服务，其 API 兼容 OpenAI 标准"
+        },
+        {
+          "option_label": "D",
+          "option_text": "需获取模型调用的 trace_id 用于全链路监控埋点"
+        }
+      ],
+      "answer": "A,B,D",
+      "analysis": "原文 10.3 节明确：'原生接口能用上部分平台特有参数/能力（如特定多模态、重排序服务）'，并给出 TextReRank 示例（A 正确）；'dashscope-specific 的 top_k' 属于平台特有参数，OpenAI 标准 API 无此字段（B 正确）；trace_id 是阿里云内部监控必需字段，仅原生 SDK 响应中透出（D 正确）。C 错：vLLM 私有服务与 DashScope 无关，其兼容 OpenAI 标准正说明无需切换 SDK。",
+      "difficulty_label": "挑战"
+    },
+    {
+      "type": 0,
+      "stem": "运维团队发现 DashScope OpenAI 兼容模式调用频繁出现 429 错误，但监控显示 RPM（每分钟请求数）未超配额。进一步分析发现，同一用户会话中连续发送 10 条消息，每条均携带完整历史对话作为 messages 数组。该现象最根本违反了原文哪项设计原则？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "未遵循 '按 Token 计费' 原则，导致输入 Token 暴增"
+        },
+        {
+          "option_label": "B",
+          "option_text": "违反 '输入/输出分别计价' 规则，错误地将输出 Token 当作输入计费"
+        },
+        {
+          "option_label": "C",
+          "option_text": "违背 '控制输入' 的省成本手段，未对上下文做增量更新"
+        },
+        {
+          "option_label": "D",
+          "option_text": "触犯 'TPM（每分钟 Token 数）限流'，而非 RPM 限流"
+        }
+      ],
+      "answer": "D",
+      "analysis": "原文 10.8 节明确：'有 RPM/TPM 限流，超限返回 429'，并强调'输入 Token 与输出 Token 单价不同'。题干关键线索是'RPM 未超但 429 频发'，结合'每条消息携带完整历史'——这导致单次请求输入 Token 急剧增加，迅速耗尽 TPM 配额（D 正确）。A 描述现象但未指出限流类型本质；C 是优化建议，但题干问的是'最根本违反的原则'，429 直接对应 TPM 限流规则（D 比 C 更精准）；B 错：计价规则不影响限流触发逻辑。",
+      "difficulty_label": "进阶"
+    }
+  ]
+}

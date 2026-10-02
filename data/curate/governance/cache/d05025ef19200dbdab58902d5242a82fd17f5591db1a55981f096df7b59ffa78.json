@@ -1,0 +1,153 @@
+{
+  "items": [
+    {
+      "type": 0,
+      "stem": "某教育公司新人答疑机器人初期仅需单轮问答，两周后需支持RAG知识库、多轮对话、调用三个内部系统、链路追踪与前端API接入。此时工程师发现代码迅速膨胀至数百行，messages手工拼接、历史重复维护、检索逻辑处处复现。依据第12章，该现象最根本地揭示了什么问题？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "模型API响应延迟过高，需框架引入异步调度优化性能"
+        },
+        {
+          "option_label": "B",
+          "option_text": "裸调SDK缺乏对共性工程模式的抽象，导致重复造轮子和维护熵增"
+        },
+        {
+          "option_label": "C",
+          "option_text": "qwen-plus模型在多轮场景下上下文理解能力不足，必须升级为qwen-max"
+        },
+        {
+          "option_label": "D",
+          "option_text": "团队未及时采用LangChain的LCEL语法，导致函数嵌套过深难以调试"
+        }
+      ],
+      "answer": "B",
+      "analysis": "题干精准复现原文12.1节‘scenario’段落：从单轮脚本到复杂需求演进中，裸调SDK暴露的正是‘共性脏活’（提示词拼装、历史维护、检索逻辑等）需重复手写的问题。原文明确指出：‘框架的本质价值是把大模型应用中反复出现的工程模式抽象成可组合的组件’，而‘到处是拼接messages、手工维护历史、重复写检索逻辑’正是缺乏抽象的直接表现。A项属性能误区，原文未提延迟；C项混淆框架与模型能力，原文强调‘框架不提升模型智力’；D项以偏概全，LCEL只是LangChain一种组链方式，非根本解——即使不用LCEL，Memory/Retriever等抽象本身已解决核心痛点。依据12.1节‘value’框与‘exam’要点。",
+      "difficulty_label": "基础"
+    },
+    {
+      "type": 1,
+      "stem": "某团队为内部制度问答机器人选型：文档含大量扫描件PDF与复杂表格，HR需自助上传/更新文档，IT仅提供百炼API Key。根据第12章12.5节与12.6.2节，以下哪些工具组合符合‘按需分层、各司其职’原则？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "Dify平台作为主入口，配置知识库并启用其内置OCR解析能力"
+        },
+        {
+          "option_label": "B",
+          "option_text": "自研PyMuPDF解析器处理所有PDF，再接入LlamaIndex构建索引"
+        },
+        {
+          "option_label": "C",
+          "option_text": "使用DashScopeParse作为SimpleDirectoryReader的file_extractor，专用于扫描件PDF"
+        },
+        {
+          "option_label": "D",
+          "option_text": "在Dify中配置DashScopeParse为后端解析服务，实现结构化Markdown输出"
+        }
+      ],
+      "answer": "A,C,D",
+      "analysis": "A正确：原文12.6.2节明确‘HR想自己搭制度问答机器人，IT只提供API Key → Dify是最优选’，且Dify内置文档解析支持OCR（呼应12.5节DashScopeParse能力）。C正确：原文12.5节‘best’实践指出‘把DashScopeParse包成SilentDashScopeParse，在SimpleDirectoryReader中作为file_extractor传入’，实现按文件类型分派解析器。D正确：Dify可集成百炼能力，DashScopeParse输出结构化Markdown正满足RAG对语义边界的需要（12.5节强调‘保留标题层级与表格结构’）。B错误：PyMuPDF对扫描件无能为力（12.5节‘局限’），且自研解析违背‘按需分层’原则——HR自助需求应由Dify承载，而非让IT开发解析器。依据12.5节选型路径与12.6.2节Dify定位。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 0,
+      "stem": "在调试一个基于LlamaIndex的RAG应用时，发现模型回答总与用户问题无关，且返回内容明显基于错误文档片段。检查提示词模板发现：‘{query_str}’被误置于‘参考信息’区域，而‘{context_str}’被放在问题位置。依据第12章12.3节，此错误最可能导致的现象是？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "模型因输入token超限被截断，返回空响应"
+        },
+        {
+          "option_label": "B",
+          "option_text": "模型将用户问题当作检索上下文，将真实上下文当作问题，导致答非所问"
+        },
+        {
+          "option_label": "C",
+          "option_text": "向量检索模块报错‘context_str not found’，流程中断"
+        },
+        {
+          "option_label": "D",
+          "option_text": "QueryEngine自动降级为纯LLM生成，忽略所有检索结果"
+        }
+      ],
+      "answer": "B",
+      "analysis": "原文12.3节‘两个高频考点细节’第1点明确：‘{context_str}是检索到的上下文，不是用户问题’，并给出标准模板示例。若二者互换，模型接收的输入变为‘参考信息：[用户问题]’+‘问题：[真实上下文]’，必然导致模型基于错误前提推理。A项无依据，token截断与变量名无关；C项错误，context_str是模板占位符，非运行时变量名；D项错误，QueryEngine不会自动降级，而是严格按模板注入。原文‘qa’自测题第3问直接对应此场景，解析指出‘把问题当资料、把资料当问题，几乎必然答非所问’。依据12.3节模板说明及‘qa’解析。",
+      "difficulty_label": "基础"
+    },
+    {
+      "type": 1,
+      "stem": "某金融风控团队需构建智能体：先查客户征信报告（RAG），再根据风险等级决定是否调用反洗钱API、是否触发人工审核，并在多轮对话中持续跟踪客户ID与历史决策。依据第12章12.4节与12.2节，以下关于框架组合的判断，哪些符合‘各司其职、避免抽象冗余’原则？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "用LlamaIndex构建征信知识库索引，并将其Retriever封装为LangChain Tool供Agent调用"
+        },
+        {
+          "option_label": "B",
+          "option_text": "在LlamaIndex中直接使用ReActAgent完成全部流程，避免引入LangChain"
+        },
+        {
+          "option_text": "用AgentScope实现多Agent协作，让征信Agent、反洗钱Agent、审核Agent通过MsgHub广播消息"
+        },
+        {
+          "option_label": "D",
+          "option_text": "用LangChain Memory管理客户ID与决策历史，用LangGraph编排条件分支与工具调用"
+        }
+      ],
+      "answer": "A,D",
+      "analysis": "A正确：原文12.4节‘二者不是互斥’图示明确‘LlamaIndex负责数据层→返回结构化上下文，LangChain负责编排层’，且‘exam’题指出‘LlamaIndex建索引+LangChain做Agent编排是典型正解’。D正确：LangChain Memory专管对话历史（12.2节四层抽象），LangGraph专管复杂状态机（12.2节‘LangGraph适合复杂多步Agent’），完全匹配需求。B错误：原文12.4节‘compare’指出LlamaIndex的Agent‘不是主战场’，其生态广度弱于LangChain，无法可靠支撑‘根据风险等级决定是否调用API’的复杂条件分支。C错误：AgentScope适用于‘多Agent之间如何说话、由谁发言’（12.6.1节），但本题是单Agent多工具决策，非多角色协同，强行用MsgHub属过度设计。依据12.4节组合原则与12.2节LangChain强项。",
+      "difficulty_label": "高阶"
+    },
+    {
+      "type": 0,
+      "stem": "某团队在生产环境上线RAGAS评估时，发现Faithfulness指标分数异常偏低。经排查，评估所用LLM（qwen-plus）与被测RAG系统使用的同一模型，但RAGAS评测时未配置任何Memory或Retriever。依据第12章12.7.1节，此现象最可能的根本原因是？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "RAGAS要求被测系统必须使用LangChain封装，否则无法获取中间结果"
+        },
+        {
+          "option_label": "B",
+          "option_text": "Faithfulness指标依赖大模型作为评委判断答案是否忠实于上下文，未配置Memory不影响该指标计算"
+        },
+        {
+          "option_label": "C",
+          "option_text": "RAGAS评估的是RAG系统输出质量，与被测系统内部是否使用Memory无关，但需确保评测数据集包含ground_truth"
+        },
+        {
+          "option_label": "D",
+          "option_text": "未配置Retriever导致RAGAS无法获取检索到的contexts，而Faithfulness需比对答案与contexts的一致性"
+        }
+      ],
+      "answer": "C",
+      "analysis": "原文12.7.1节强调：RAGAS是‘评测框架’，其输入是冻结的数据集（question/ground_truth/answer/contexts），输出是指标分数。Faithfulness计算依赖大模型评委比对answer与contexts，但contexts由评测数据集提供，非实时从RAG系统获取（见evaluate.py示例中dataset参数）。原文‘qa’解析明确‘评估还需要一份冻结版本的数据集，否则分数不可比’。A错误：RAGAS可评估任意RAG系统，只要提供标准数据集；B虽表述正确但未触及根本——分数低是因数据集质量或模型能力，非Memory缺失；D错误：RAGAS不调用被测系统Retriever，它只消费数据集中的contexts字段。C项直指核心：指标计算依赖数据集完整性，与被测系统内部实现无关。依据12.7.1节定位及‘qa’解析。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 1,
+      "stem": "某医疗SaaS厂商需为医院部署本地化AI助手：支持病历RAG问答、医生多轮会诊记录、调用PACS系统查看影像、生成结构化诊断报告，并满足等保三级对数据不出域与操作审计要求。依据第12章12.8节‘七大常见误区’与‘选型表’，以下哪些实践能规避典型风险？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "选用FastAPI封装服务接口，配合Prometheus埋点实现调用监控与审计日志"
+        },
+        {
+          "option_label": "B",
+          "option_text": "使用Dify私有部署，认为‘数据不出域’即满足等保全部安全要求"
+        },
+        {
+          "option_label": "C",
+          "option_text": "用LlamaIndex构建病历知识库，用LangChain LangGraph编排PACS调用与报告生成工作流"
+        },
+        {
+          "option_label": "D",
+          "option_text": "为降低复杂度，放弃RAGAS评测，仅通过人工抽查判断效果"
+        }
+      ],
+      "answer": "A,C",
+      "analysis": "A正确：原文12.7.3节指出FastAPI用于‘生产级HTTP服务’，且‘prometheus-fastapi-instrumentator用于埋点监控’，符合等保审计要求。C正确：原文12.8节选型表明确‘RAG+Agent都要且复杂 → LlamaIndex做数据+LangChain做编排’，且12.2节指出LangGraph适合‘复杂多步Agent’。B错误：原文12.6.2节‘cost’与12.8节‘误区’第6条强调‘私有部署≠自动合规’，等保还需内容审核、权限分级等。D错误：原文12.8节‘best’主线要求‘好用→可靠’，RAGAS是量化效果的必要手段，‘放弃评测’违背工程化原则。依据12.7.3节服务层、12.8节选型表及‘误区’清单。",
+      "difficulty_label": "高阶"
+    }
+  ]
+}

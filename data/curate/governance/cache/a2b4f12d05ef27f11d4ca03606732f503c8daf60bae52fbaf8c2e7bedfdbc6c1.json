@@ -1,0 +1,218 @@
+{
+  "11-5160": {
+    "qid": "11-5160",
+    "classification": "own",
+    "chapter": 11,
+    "quality": "ok",
+    "reason": "考查多模态交互设计的合理原则，符合本章知识",
+    "answer": [
+      "A",
+      "B",
+      "D"
+    ],
+    "supported": true,
+    "quote": "管道式架构（Pipeline）是绝大多数多模态应用的骨架：先用专用模型完成模态转换（语音转文字、图片转文字/特征），再由 LLM 做语义理解与生成",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "合理，需识别不同输入模态并路由处理"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "合理，多模态模型需对齐不同模态特征"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "不合理，强制使用全部模态不现实"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "合理，需考虑终端兼容性提供降级"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "11-5162": {
+    "qid": "11-5162",
+    "classification": "own",
+    "chapter": 11,
+    "quality": "ok",
+    "reason": "考查语音合成提升自然度的合理做法",
+    "answer": [
+      "A",
+      "B",
+      "C"
+    ],
+    "supported": true,
+    "quote": "TTS（文字转语音）把文字合成语音播报，如 CosyVoice。音色、语速、情绪一致性；可做个性化音色",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "合理，选择匹配音色可提升自然度"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "合理，文本规范化和节奏控制有助自然"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "合理，调整语速韵律可改善听感"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "不合理，忽略文本规范会降低质量"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "11-5163": {
+    "qid": "11-5163",
+    "classification": "own",
+    "chapter": 11,
+    "quality": "ok",
+    "reason": "考查多模态输入冲突时的稳妥处理策略",
+    "answer": [
+      "D"
+    ],
+    "supported": true,
+    "quote": "意图理解识别用户想做什么（查制度/办报销/闲聊）。低置信度要追问澄清，而不是硬答",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "不合理，无条件相信文本可能出错"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "不合理，无条件相信图片可能出错"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "不合理，随机选择不专业"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "合理，冲突时澄清是稳妥策略"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "11-5164": {
+    "qid": "11-5164",
+    "classification": "own",
+    "chapter": 11,
+    "quality": "ok",
+    "reason": "考查多模态生成或转换能力的典型类型",
+    "answer": [
+      "A",
+      "B",
+      "C"
+    ],
+    "supported": true,
+    "quote": "多模态生成：文生图、文生视频与数字人。文生图/视频主流基于扩散模型",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "是典型多模态生成能力"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "图生文是典型多模态理解能力"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "文生视频是典型多模态生成能力"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "纯文本字符统计不是多模态"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "11-1375": {
+    "qid": "11-1375",
+    "classification": "beyond",
+    "chapter": 11,
+    "quality": "remove",
+    "reason": "考查电影py库具体参数，与多模态AI核心知识无关，无考查价值",
+    "answer": [
+      "A"
+    ],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "fps是帧率参数"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "bitrate是码率"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "duration是时长"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "resolution是分辨率"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "11-1376": {
+    "qid": "11-1376",
+    "classification": "beyond",
+    "chapter": 11,
+    "quality": "remove",
+    "reason": "考查电影py库具体函数，与多模态AI核心知识无关，无考查价值",
+    "answer": [
+      "A"
+    ],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "合并视频片段常用拼接函数"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "VideoClip是视频类"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "add_text是添加文字"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "write_videofile是写入文件"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

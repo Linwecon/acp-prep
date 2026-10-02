@@ -1,0 +1,154 @@
+{
+  "items": [
+    {
+      "type": 0,
+      "stem": "某团队用qwen3.6-plus作为教师模型，为'请求理解'任务生成1000条蒸馏数据。质量过滤后仅保留620条合格样本。过滤时发现大量样本存在'字段值超出预定义枚举范围'（如urgency字段出现'紧急+'而非'高/中/低'）。该问题最可能源于哪个环节的执行偏差？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "教师模型调用时temperature设置过高（如0.9），导致输出不稳定"
+        },
+        {
+          "option_label": "B",
+          "option_text": "教师标注阶段未使用低temperature（如0.1）约束输出一致性"
+        },
+        {
+          "option_label": "C",
+          "option_text": "schema设计阶段未明确定义urgency字段的合法取值集合"
+        },
+        {
+          "option_label": "D",
+          "option_text": "质量过滤脚本未配置字段值枚举校验逻辑"
+        }
+      ],
+      "answer": "C",
+      "analysis": "依据原文5.4节'离线数据合成阶段'原则：'1. 设计 schema：先定义稳定的输出结构。本课工单含 intents/department/urgency/entities/route 五个字段及取值范围'。若schema本身未明确定义urgency的合法枚举（如'高/中/低'），则后续所有环节（包括低temperature标注、过滤脚本）均无法识别该错误——因为系统无参照标准。A和B影响的是输出稳定性，但若schema已限定取值，即使temperature高，也应通过system prompt强制约束；D是执行层问题，但根源在schema缺失定义。教材明确强调'先定义schema'是流水线第一步，是质量过滤的前提依据。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 0,
+      "stem": "在知识蒸馏流程中，团队完成LoRA训练后合并权重，部署学生模型。但线上监控发现：相同输入下，学生模型推理延迟比教师API高15%，且GPU显存占用未下降。最可能的根本原因是什么？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "训练时未冻结教师模型参数，导致学生模型继承了冗余计算路径"
+        },
+        {
+          "option_label": "B",
+          "option_text": "LoRA权重未正确合并，推理时仍在动态加载B·A增量矩阵"
+        },
+        {
+          "option_label": "C",
+          "option_text": "学生基座模型（0.6B）本身比教师API的底层引擎更重"
+        },
+        {
+          "option_label": "D",
+          "option_text": "部署时误将训练用的LoRA适配器与基座分离运行，未执行合并操作"
+        }
+      ],
+      "answer": "D",
+      "analysis": "原文5.6节明确指出：'训练完成后，可以把 W₀ + B·A 合并回普通权重，得到一个和原模型结构完全一样的模型'，且'推理时不增加任何额外计算或延迟'。若未执行合并（即仍以LoRA适配器方式加载），则推理需实时计算B·A并叠加，必然引入额外开销和显存占用。A错误：教师模型不参与学生训练；B是合并失败的表现，但根本原因是未执行合并步骤；C错误：0.6B学生模型必然比qwen3.6-plus轻量。教材5.8节SOP强调'合并LoRA权重'是部署前必经步骤，否则无法实现'降推理成本'的核心目标。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 1,
+      "stem": "某团队尝试对0.6B学生模型进行知识蒸馏，但训练后JSON合规率仅从48%提升至52%。排查发现训练数据中约35%的assistant内容包含Markdown代码块（如```json{...}```）。根据教材5.4-5.5节，以下哪些措施能直接解决该问题？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "在质量过滤阶段增加正则表达式校验，剔除含```代码块标记的样本"
+        },
+        {
+          "option_label": "B",
+          "option_text": "修改system prompt，要求教师模型直接输出纯JSON字符串，不加代码块包裹"
+        },
+        {
+          "option_label": "C",
+          "option_text": "训练时启用ms-swift的output_format='json'参数自动解析"
+        },
+        {
+          "option_label": "D",
+          "option_text": "在数据格式化为messages时，对assistant字段做后处理：提取```json```内纯文本"
+        }
+      ],
+      "answer": "ABD",
+      "analysis": "原文5.4节强调'教师标注：用精确的system prompt约束输出JSON，低temperature保证一致性'；5.5节指出'正确性'是质量第一维度，且'JSON能否解析'是基础门槛。A直接对应质量过滤要求（原文5.4'质量过滤：逐条校验——JSON能否解析'）；B是源头治理，符合5.4'用system prompt约束输出JSON'的规范；D是数据清洗的合理后处理，确保assistant字段为可解析JSON（5.5节'格式化为messages'需保证内容合法）。C错误：ms-swift无此参数，且自动解析无法解决训练数据本身含噪声的问题，教材强调'质量从源头把关'。三者均直指'格式病'根因，符合5.9节'JSON合规率低→格式病'的归因逻辑。",
+      "difficulty_label": "挑战"
+    },
+    {
+      "type": 0,
+      "stem": "团队用教师模型生成蒸馏数据时，刻意混入30%多意图问题（如'帮我查年假政策，再看看IT报修流程'），但蒸馏后学生模型在多意图场景的intents F1显著低于单意图场景。此时若仅增加训练epoch数，最可能违反教材哪项核心原则？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "数据质量 > 数据数量（5.5节）"
+        },
+        {
+          "option_label": "B",
+          "option_text": "过拟合时应减epochs而非加（5.7节）"
+        },
+        {
+          "option_label": "C",
+          "option_text": "按指标定位问题：F1低属'判断病'，需补针对性样本（5.9节）"
+        },
+        {
+          "option_label": "D",
+          "option_text": "蒸馏上限由教师决定（5.10节）"
+        }
+      ],
+      "answer": "C",
+      "analysis": "原文5.9节明确划分：'JSON合规率低→格式病；合规但F1/路由低→判断病'，并给出对策'多意图、边界意图、相似意图样本覆盖不足，应补充这些样本而非盲目加轮次'。题干中F1差异暴露的是多意图识别能力缺陷，本质是训练数据中虽有30%多意图样本，但可能覆盖不全（如缺乏易混淆组合、真实业务长尾case），属于'判断病'。盲目加epoch会加剧过拟合（5.7节），但根本错误在于违背'按指标定位问题→针对性补数据'这一诊断原则。A、B、D虽相关，但C最精准对应教材'问题-归因-对策'的闭环逻辑。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 1,
+      "stem": "在知识蒸馏的'离线数据合成阶段'，以下哪些操作是教材5.4节明确要求的必要环节？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "用高temperature（如0.9）让教师批量生成多样化提问"
+        },
+        {
+          "option_label": "B",
+          "option_text": "用低temperature（如0.1）让教师对提问进行结构化标注"
+        },
+        {
+          "option_label": "C",
+          "option_text": "将合格样本格式化为ms-swift要求的messages(JSONL)格式"
+        },
+        {
+          "option_label": "D",
+          "option_text": "在教师API调用中注入思维链（Chain-of-Thought）提示以提升标注质量"
+        }
+      ],
+      "answer": "ABC",
+      "analysis": "原文5.4节'离线数据合成阶段'明确列出四步：'1.设计schema；2.教师生成多样化提问；3.教师低温度标注；4.质量过滤；5.格式化为messages(JSONL)'。A对应第2步（'用高温度让教师批量造问，覆盖8类意图×4部门、正式/口语/含糊等风格'）；B对应第3步（'用精确system prompt约束输出JSON，低temperature保证标注一致性'）；C对应第5步（'把合格样本写成ms-swift的messages格式'）。D错误：教材5.4节明确区分三条蒸馏路径，'推理压缩'才需要思维链轨迹，而本案例是'数据合成（黑盒）蒸馏'，只需API输出结果，无需思维链（原文：'数据合成蒸馏：只需教师API'）。ABC均为教材白纸黑字的必要环节。",
+      "difficulty_label": "入门"
+    },
+    {
+      "type": 0,
+      "stem": "团队发现蒸馏后的0.6B模型在测试集上route准确率为77%，但人工抽检发现：当用户提问含模糊表述（如'这事急不急？'）时，模型常将route误判为'rag_query'而非'human_handover'。此时最应优先检查哪个环节？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "教师模型在模糊提问下的原始标注是否一致且正确"
+        },
+        {
+          "option_label": "B",
+          "option_text": "训练数据中模糊表述样本的占比是否低于5%"
+        },
+        {
+          "option_label": "C",
+          "option_text": "验证loss曲线是否显示过拟合"
+        },
+        {
+          "option_label": "D",
+          "option_text": "LoRA rank是否设置为8（当前值）"
+        }
+      ],
+      "answer": "A",
+      "analysis": "原文5.4节指出：'学生能力上限受教师约束——教师本身不稳，学生不可能更好'；5.10节'高频误区'强调'学生能超过教师→❌'。题干中'模糊表述'是典型边界case，若教师模型在此类问题上标注不一致（如有时标'rag_query'有时标'human_handover'），则学生必然学习到矛盾信号，导致泛化失败。这是蒸馏的固有局限，必须首先确认教师侧质量。B是数据覆盖问题，但前提是教师标注正确；C和D是训练过程问题，但若教师标注本身错误，优化训练无法解决根本缺陷。教材5.10节'蒸馏的能力边界'明确要求'教师本身表现稳定且错误有规律'，否则应'先优化教师prompt或换更强教师'。",
+      "difficulty_label": "挑战"
+    }
+  ]
+}

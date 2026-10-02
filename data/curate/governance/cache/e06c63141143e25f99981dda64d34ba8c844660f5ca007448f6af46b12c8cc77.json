@@ -1,0 +1,222 @@
+{
+  "9-1393": {
+    "qid": "9-1393",
+    "classification": "own",
+    "chapter": 9,
+    "quality": "ok",
+    "reason": "考查temperature和top_p参数的核心概念，选项设计合理。",
+    "answer": [
+      "B",
+      "C"
+    ],
+    "supported": true,
+    "quote": "temperature 越高，高分 token 被放得越大、分布越尖锐，输出越确定；T 越大，分布越平坦，输出越多样。top_p（核采样）：把候选按概率从高到低累加，直到累积概率达到 p，只在这个“核心集合”内采样。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "temperature越高，输出越发散，而非固定。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "top_p=0.9时，从累积概率达0.9的候选集中采样，可能随机选择。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "temperature=0时，分布最尖锐，输出由最高概率Token决定。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "课程建议固定一个调另一个，叠加极低值可能过度限制。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "9-0554": {
+    "qid": "9-0554",
+    "classification": "own",
+    "chapter": 9,
+    "quality": "ok",
+    "reason": "考查temperature参数在不同任务场景下的应用选择。",
+    "answer": [
+      "A",
+      "B"
+    ],
+    "supported": true,
+    "quote": "事实问答、代码生成、信息抽取要稳定、少随机，temperature建议0~0.3。文案、头脑风暴、起名要多样性，temperature建议0.8~1.2。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "生成代码需要稳定，适合低temperature。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "提取数据结构需要稳定，适合低temperature。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "生成广告文案需要创意，适合较高temperature。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "创作诗歌需要多样性，适合较高temperature。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "9-0555": {
+    "qid": "9-0555",
+    "classification": "own",
+    "chapter": 9,
+    "quality": "ok",
+    "reason": "考查创建提问引擎（即API调用）时可设置的核心参数。",
+    "answer": [
+      "A",
+      "B",
+      "C"
+    ],
+    "supported": true,
+    "quote": "关键字段有三个：model、messages、生成参数（如temperature、stream等）。API Key是调用模型服务的身份凭证，通过环境变量读取。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "stream参数控制是否流式输出。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "model字段指定调用哪个模型。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "API Key是身份凭证，必须设置。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "文本分段属于RAG知识库处理，非API调用参数。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "9-0693": {
+    "qid": "9-0693",
+    "classification": "own",
+    "chapter": 9,
+    "quality": "ok",
+    "reason": "考查影响模型输出效果的API生成参数。",
+    "answer": [
+      "A",
+      "B",
+      "C",
+      "D"
+    ],
+    "supported": true,
+    "quote": "max_tokens限制生成长度上限；temperature控制随机性；top_p核采样：只从累积概率达 p 的候选中采样；stop命中指定字符串即停止。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "max_tokens控制生成文本的最大长度。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "temperature控制生成内容的随机性。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "top_p控制生成时选择词汇的范围。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "stop设置生成终止词。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "9-0717": {
+    "qid": "9-0717",
+    "classification": "own",
+    "chapter": 9,
+    "quality": "ok",
+    "reason": "考查“Token超出限制”错误的直接解决措施。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "输入 + 输出受上下文窗口限制，过大会报错且增加成本。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "更换更大参数模型不解决Token超限问题。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "减少输入长度或拆分调用是直接解决Token超限的方法。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "增加并发数可能加剧限流，不解决Token超限。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "延长超时时间不解决Token超限问题。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "9-0760": {
+    "qid": "9-0760",
+    "classification": "own",
+    "chapter": 9,
+    "quality": "ok",
+    "reason": "考查API调用失败的通用排查方向。",
+    "answer": [
+      "A",
+      "B",
+      "C",
+      "D"
+    ],
+    "supported": true,
+    "quote": "鉴权失败通常返回 401，参数错误返回 400，限流返回 429。检查网络连接、服务状态是通用排查步骤。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "API密钥错误、过期或权限不足会导致调用失败。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "请求参数不符合要求（如Token数量、格式）会导致错误。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "网络连接异常或无法访问服务地址会导致调用失败。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "模型维护或服务中断会导致调用失败。"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

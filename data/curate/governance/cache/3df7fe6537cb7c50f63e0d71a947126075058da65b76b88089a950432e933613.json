@@ -1,0 +1,144 @@
+{
+  "new-10-126-0": {
+    "qid": "new-10-126-0",
+    "classification": "own",
+    "chapter": 10,
+    "quality": "ok",
+    "reason": "考查百炼与DashScope API Key共用机制及权限边界",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "百炼是\"应用层\"，DashScope 是\"接口层\"，二者共用一套 API Key",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "原文明确共用API Key"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "Key共用但权限需显式授权"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "原生SDK不依赖base_url"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "控制台生成Key即主账号级"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-10-126-1": {
+    "qid": "new-10-126-1",
+    "classification": "own",
+    "chapter": 10,
+    "quality": "ok",
+    "reason": "考查百炼应用对外集成的正确调用路径与权限约束",
+    "answer": [
+      "B",
+      "C",
+      "D"
+    ],
+    "supported": true,
+    "quote": "百炼应用需先发布为 API 服务，获取其专属 endpoint 和 token",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "兼容接口非必须"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "必须发布为API服务"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "需modelstudio:InvokeApp权限"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "插件凭据须百炼侧配置"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-10-126-2": {
+    "qid": "new-10-126-2",
+    "classification": "own",
+    "chapter": 10,
+    "quality": "ok",
+    "reason": "考查DashScope限流机制中内外部通道配额差异",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "百炼控制台调用走的是内部通道，享有更高配额；而外部 SDK 调用走公网，受更严格的默认 RPM/TPM 限制",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "SDK连接池非限流主因"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "内外通道配额不同"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "头信息非429主因"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "兼容模式默认开启"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-10-126-4": {
+    "qid": "new-10-126-4",
+    "classification": "own",
+    "chapter": 10,
+    "quality": "ok",
+    "reason": "考查百炼知识库切片策略与长文档语义完整性",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "知识库（RAG）：内置文档解析、切片、向量化、检索，上传文档即可问答",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "默认切片破坏章节语义"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "Embedding权限非首要排查点"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "qwen-long已支持"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "OCR非默认启用条件"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

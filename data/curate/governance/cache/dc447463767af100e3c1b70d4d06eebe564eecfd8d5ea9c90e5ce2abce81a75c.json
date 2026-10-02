@@ -1,0 +1,75 @@
+{
+  "4-5061": {
+    "qid": "4-5061",
+    "classification": "cross",
+    "chapter": 12,
+    "quality": "ok",
+    "reason": "LangChain属框架工具，非Agent专属",
+    "answer": [
+      "D"
+    ],
+    "supported": true,
+    "quote": "框架的本质是工程化编排而非提升模型能力",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "LangChain不专用于向量存储"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "不用于训练大模型"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "不用于设计前端界面"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "提供链/Agent/组件抽象"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "4-5057": {
+    "qid": "4-5057",
+    "classification": "cross",
+    "chapter": 12,
+    "quality": "ok",
+    "reason": "Dify属低代码平台，非Agent核心",
+    "answer": [
+      "A",
+      "B",
+      "C",
+      "D"
+    ],
+    "supported": true,
+    "quote": "低代码平台Dify的原型验证价值",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "LLM节点是基础能力"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "知识检索是常见节点"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "条件分支支持流程控制"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "变量赋值是标准节点"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

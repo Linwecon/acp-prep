@@ -1,0 +1,212 @@
+{
+  "7-0188": {
+    "qid": "7-0188",
+    "classification": "own",
+    "chapter": 7,
+    "quality": "ok",
+    "reason": "考查RAGAS中Context Recall计算步骤，原文明确描述核验逻辑",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "LLM 逐条判断每个观点能否在 `contexts` 中找到依据",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "原文明确该步用于核验观点覆盖"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "训练数据与Recall计算无关"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "推理时间不影响核验逻辑"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "参数数量不参与Recall计算"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "7-0872": {
+    "qid": "7-0872",
+    "classification": "own",
+    "chapter": 7,
+    "quality": "ok",
+    "reason": "考查公开基准定位，MMLU明确用于通用知识和推理能力评估",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "MMLU：涵盖 STEM、人文、社科等 57 个学科的英文多选题，检验知识广度",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "原文定义MMLU检验知识广度"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "BLEU是翻译指标"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "ROUGE是摘要指标"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "PPL是语言模型指标"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "7-0959": {
+    "qid": "7-0959",
+    "classification": "own",
+    "chapter": 7,
+    "quality": "ok",
+    "reason": "考查传统指标定义，BLEU明确衡量n-gram重合度",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "BLEU：生成文本与参考译文的 n-gram 重合度，侧重精确率",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "ROUGE侧重召回率"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "原文定义BLEU测n-gram重合"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "PPL测概率把握程度"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "F1是分类指标"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "7-1116": {
+    "qid": "7-1116",
+    "classification": "own",
+    "chapter": 7,
+    "quality": "ok",
+    "reason": "考查评测集构建铁律，原文强调ground_truth必须由领域专家提供",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "必须由业务领域专家编写/审定",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "最强模型不等于领域专家"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "原文明确要求领域专家"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "数据工程师非业务专家"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "算法工程师非业务专家"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "7-1367": {
+    "qid": "7-1367",
+    "classification": "own",
+    "chapter": 7,
+    "quality": "ok",
+    "reason": "考查Answer Correctness本质，原文定义其为RAG整体综合指标",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "Answer Correctness：语义相似度 + 事实 F1（官方加权）",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "与训练数据无关"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "混淆Faithfulness定义"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "原文称其为RAG整体回答质量综合指标"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "与推理时间无关"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "7-1368": {
+    "qid": "7-1368",
+    "classification": "own",
+    "chapter": 7,
+    "quality": "ok",
+    "reason": "考查Context Precision定义，原文明确其衡量相关片段排名",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "Context Precision：召回的片段中，相关项是否排名靠前、占比高",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "原文明确定义该作用"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "与训练数据无关"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "与推理时间无关"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "混淆Faithfulness定义"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

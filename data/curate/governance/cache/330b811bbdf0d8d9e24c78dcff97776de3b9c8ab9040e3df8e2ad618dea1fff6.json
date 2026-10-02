@@ -1,0 +1,215 @@
+{
+  "11-0618": {
+    "qid": "11-0618",
+    "classification": "own",
+    "chapter": 11,
+    "quality": "remove",
+    "reason": "题干考查‘时序一致性’超出教材范围，教材未提及此概念。",
+    "answer": [],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "教材未提及注意力机制用于时序对齐。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "教材未提及跨模态相似度学习用于时序对齐。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "教材未提及预定义时间戳或位置标签。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "教材未提及依赖数据先后顺序自然对齐。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "11-0709": {
+    "qid": "11-0709",
+    "classification": "own",
+    "chapter": 11,
+    "quality": "review",
+    "reason": "选项涉及技术细节，部分超出教材明确范围，需专家复核。",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "图文多模态模型的工作原理可以用一个公式概括：编码器 + 投影对齐 + 大语言模型。视觉编码器（如 ViT）：把图像切成若干固定大小的小块（patch），每个 patch 经编码器转成一个向量，即“视觉 Token”。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "教材未提及文生图模型生成不同尺寸需重新训练。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "教材未提及视频合成时间与算力负相关。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "教材说明图像需切分成patch（类似分词）再处理。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "教材未提及方言语音合成需建立音素映射关系。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "11-0764": {
+    "qid": "11-0764",
+    "classification": "own",
+    "chapter": 11,
+    "quality": "ok",
+    "reason": "考查语音助手管道式架构，教材有明确对应链路。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "语音助手是典型的管道式架构，由多个各司其职的模型串成，“ASR 和 TTS 是同一个模型”是常见误解。链路为：语音输入 → ASR 语音识别（语音→文字）→ LLM 生成文字回复。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "纯文本模型无法处理语音输入。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "符合教材描述的ASR+LLM管道架构。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "纯文本大模型无法直接处理语音数据。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "缺少ASR将语音转文本的关键步骤。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "11-0882": {
+    "qid": "11-0882",
+    "classification": "own",
+    "chapter": 11,
+    "quality": "ok",
+    "reason": "考查图文多模态应用的必要技术组件，教材有对应原理。",
+    "answer": [
+      "A",
+      "B"
+    ],
+    "supported": true,
+    "quote": "图文多模态模型的工作原理可以用一个公式概括：编码器 + 投影对齐 + 大语言模型。视觉编码器把图像切成若干固定大小的小块（patch），经编码器转成向量，即“视觉 Token”。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "需要视觉编码器将图像转为模型可处理的形式。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "需要大模型处理联合的文本与视觉信息。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "存储服务非核心处理技术组件。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "纯文本模型无法处理图像信息。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "11-1277": {
+    "qid": "11-1277",
+    "classification": "own",
+    "chapter": 11,
+    "quality": "ok",
+    "reason": "考查视频合规检测技术，教材有多模态安全对应内容。",
+    "answer": [
+      "A",
+      "B",
+      "D"
+    ],
+    "supported": true,
+    "quote": "视频检测是异步任务（video_moderation 提交 + 轮询结果）：抽帧审画面 + 音轨审语音。图像检测不仅要看画面，还要审“图里的字”——攻击者可以把违规文字写进图片里绕过文本过滤。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "教材明确视频检测需抽帧审画面。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "教材明确音轨需审语音（音频转录分析）。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "教材未提及视频分帧率转换是关键技术。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "教材说明需审图里的字（字幕OCR识别）。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "11-1295": {
+    "qid": "11-1295",
+    "classification": "cross",
+    "chapter": 1,
+    "quality": "ok",
+    "reason": "考查GPT模型基本原理，属于大模型基础章考点。",
+    "answer": [
+      "A",
+      "B",
+      "D"
+    ],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "GPT是典型的自回归语言模型。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "自回归模型通过预测下一个词生成文本。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "GPT支持多种语言，不只英语。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "最新GPT版本已集成多模态功能。"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

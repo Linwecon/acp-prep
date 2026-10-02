@@ -161,6 +161,9 @@
             if (!store.fav.includes(r.question_id)) store.fav.push(r.question_id);
         });
 
+        // 云端记录可能仍用移章前的旧题号：合并后统一迁移到新编号（保留记录，不清空云端）
+        if (ACP.migrateMovedQids) ACP.migrateMovedQids(store);
+
         const lastRow = (metaR.data || []).find(r => r.key === 'last');
         if (lastRow && lastRow.value && typeof lastRow.value === 'object') {
             const cloudT = lastRow.value.t || 0;

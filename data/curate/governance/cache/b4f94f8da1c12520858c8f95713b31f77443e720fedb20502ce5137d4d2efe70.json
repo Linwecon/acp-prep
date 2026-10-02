@@ -1,0 +1,39 @@
+{
+  "new-6-42-1": {
+    "qid": "new-6-42-1",
+    "classification": "own",
+    "chapter": 6,
+    "quality": "ok",
+    "reason": "题目考查PagedAttention核心机制，属于本章重点，有原文支持。",
+    "answer": [
+      "A",
+      "B",
+      "D"
+    ],
+    "supported": true,
+    "quote": "PagedAttention（分页注意力）：借鉴操作系统的虚拟内存分页思想，把 KV Cache 切成一个个固定大小的块（block），按需分配，再用一张“页表”记录逻辑位置到物理块的映射。带来的好处：消除碎片；按需分配；天然支持共享",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "按需分配避免预分配浪费，是核心机制。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "共享相同前缀KV块，减少重复存储。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "PagedAttention本身不涉及量化存储。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "消除碎片提升利用率，是核心机制。"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

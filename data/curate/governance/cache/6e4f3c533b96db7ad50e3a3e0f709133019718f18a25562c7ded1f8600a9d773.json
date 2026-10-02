@@ -1,0 +1,210 @@
+{
+  "3-0205": {
+    "qid": "3-0205",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "题干问问题改写中分解复杂问题的方法，原文明确提及查询改写解决多轮指代问题，但未提分解子问题；选项A最贴近改写本质",
+    "answer": [
+      "A"
+    ],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "改写即重构查询，是问题分解的直接体现"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "重排序属检索后处理，非问题改写"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "滑动窗口是切片策略，非改写方法"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "增加训练数据属微调范畴，非改写"
+      }
+    ],
+    "duplicate_of": "3-0217"
+  },
+  "3-0214": {
+    "qid": "3-0214",
+    "classification": "beyond",
+    "chapter": 3,
+    "quality": "review",
+    "reason": "GraphRAG未在原文出现，属超纲内容",
+    "answer": [],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "QFS未在原文定义"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "NLP过于宽泛，非RAG特有"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "QFS和ML均未提及"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "NLP和ML均未在RAG上下文中讨论"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-0216": {
+    "qid": "3-0216",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "原文明确列出语义切片为一种策略，且描述其按语义边界切分",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "语义切片：用模型判断语义边界，在话题转换处切",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "原文明确定义语义切片"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "Token切片按固定长度，非语义"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "句子切片以句为界，非自适应"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "句子窗口是检索策略，非切片方法"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-0217": {
+    "qid": "3-0217",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "与3-0205重复，题干、选项完全一致，仅qid不同",
+    "answer": [
+      "A"
+    ],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "改写即重构查询，是问题分解的直接体现"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "扩充问题非分解子问题"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "HyDE生成假设文档，非分解"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "重排序属检索后处理"
+      }
+    ],
+    "duplicate_of": "3-0205"
+  },
+  "3-0220": {
+    "qid": "3-0220",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "原文强调解析阶段需适配PDF/Word/Markdown等多格式，对应开发专用解析器",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "把 PDF / Word / Markdown 等加载并解析成纯文本",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "原文要求多格式解析适配"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "增训练数据属微调范畴"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "推理时间属部署优化"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "参数数量属模型架构"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-0222": {
+    "qid": "3-0222",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "原文在3.5节明确余弦相似度为向量检索首选度量",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "余弦相似度是向量检索首选相似度。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "原文明确指定余弦相似度"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "欧氏距离被提及但非首选"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "曼哈顿距离未在原文出现"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "增训练数据与相似度无关"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

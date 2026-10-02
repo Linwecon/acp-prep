@@ -1,0 +1,212 @@
+{
+  "3-0264": {
+    "qid": "3-0264",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "考查Embedding模型选择依据，原文明确指出模型更新对检索质量影响",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "检索质量差的三大根因（要背）：① Embedding 模型不够好 ② 切片策略不当 ③ 文档格式丢失了结构信息。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "原文指出Embedding模型不够好是检索质量差的首要根因"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "旧模型通常性能较差"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "训练数据非直接可调参数"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "推理时间与检索效果无直接关系"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-0286": {
+    "qid": "3-0286",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "考查RAGAS评估函数作用，原文明确其用于展示评估结果",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "RAGAS（RAG Assessment） 是主流的开源 RAG 评估框架，它把 RAG 链路拆成'检索端'和'生成端'分别打分",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "display函数用于可视化评估结果"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "召回数量由similarity_top_k控制"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "重排序数量由top_n参数控制"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "相似度阈值由similarity_cutoff控制"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-0354": {
+    "qid": "3-0354",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "考查RAG能力边界，原文强调RAG不处理元数据统计类问题",
+    "answer": [
+      "D"
+    ],
+    "supported": true,
+    "quote": "RAG（Retrieval-Augmented Generation，检索增强生成） 的核心思路可以用四个字概括：'开卷考试'。不让模型凭记忆答题，而是在它回答前，先从企业知识库里检索出最相关的几段资料，连同问题一起交给模型，让它'看着资料作答'。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "病假工资属制度内容，RAG可处理"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "薪酬制度属私域知识，RAG适用"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "处罚制度属文档内容，RAG可覆盖"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "字数统计属元数据计算，非RAG检索目标"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-0409": {
+    "qid": "3-0409",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "考查切片方法分类，原文列出四种策略含语义切片但无词性分割",
+    "answer": [
+      "D"
+    ],
+    "supported": true,
+    "quote": "常见切片策略：Token 切片 / 句子切片 / Markdown 切片 / 语义切片 / 句子窗口切片",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "按字符分割属基础切片方式"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "Token切片是原文明确策略"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "语义切片在原文表格中列出"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "词性分割未在原文切片策略中出现"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-0434": {
+    "qid": "3-0434",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "考查表格处理最佳实践，原文强调结构化保留重要性",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "表格若被当成普通文字按固定长度切碎，行列关系会被打散，后面问'违约金比例''对比数值'就会答错。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "纯文本会丢失行列结构"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "图片无法被向量化检索"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "KV形式可结构化保留单元格语义"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "忽略表格导致关键信息缺失"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-0722": {
+    "qid": "3-0722",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "考查余弦相似度原理，原文明确其衡量方向相似性",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "余弦相似度：两个向量的方向夹角；最常用，只看方向、不受长度影响",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "向量大小差异用欧氏距离"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "原文明确余弦相似度看方向"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "关键词重合属BM25算法"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "异常值检测非相似度功能"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

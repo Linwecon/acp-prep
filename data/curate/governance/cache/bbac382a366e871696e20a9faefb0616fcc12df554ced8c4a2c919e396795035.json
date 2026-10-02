@@ -1,0 +1,73 @@
+{
+  "new-12-18-0": {
+    "qid": "new-12-18-0",
+    "classification": "own",
+    "chapter": 12,
+    "quality": "ok",
+    "reason": "考查框架价值核心观点，题干与原文场景高度一致",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "框架的本质价值是'把大模型应用中反复出现的工程模式抽象成可组合的组件'。它不提升模型本身的智力，而是降低拼装复杂度、统一接口约定、沉淀最佳实践",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "未提及版本兼容性"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "题干困境是工程模式，非模型能力"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "裸调SDK无法复用共性工程模式，导致重复造轮子"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "题干未涉及向量数据库性能"
+      }
+    ],
+    "duplicate_of": "12-5093"
+  },
+  "new-12-18-3": {
+    "qid": "new-12-18-3",
+    "classification": "own",
+    "chapter": 12,
+    "quality": "ok",
+    "reason": "考查技术栈分层与解耦原则，选项覆盖典型方案",
+    "answer": [
+      "B",
+      "D"
+    ],
+    "supported": true,
+    "quote": "Gradio适合'给人用的Demo'，FastAPI适合'给系统调的服务'——二者常常同时存在：内部演示用Gradio，线上业务通过FastAPI走正式链路",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "全部封装在一个应用违反分层解耦"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "Gradio做界面，FastAPI做API，RAGAS独立评测"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "禁用外部评测工具不符合效果监控需求"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "核心逻辑独立，界面和服务复用，符合解耦原则"
+      }
+    ],
+    "duplicate_of": "12-5102"
+  }
+}

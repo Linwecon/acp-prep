@@ -1,0 +1,220 @@
+{
+  "3-1293": {
+    "qid": "3-1293",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "四选项均属文档解析阶段问题，原文明确提及格式支持、结构保留、表格图片处理等",
+    "answer": [
+      "A",
+      "B",
+      "D"
+    ],
+    "supported": true,
+    "quote": "PDF 是扫描图片怎么办 → 需要 OCR / 文档智能解析；表格若被当成普通文字按固定长度切碎，行列关系会被打散",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "Keynote非标准RAG支持格式"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "原文指出表格图片提取易丢失"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "切片是后续阶段非解析阶段"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "原文强调目录层级混乱影响结构"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-1308": {
+    "qid": "3-1308",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "C属于在线问答阶段，原文明确区分两阶段流程",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "第一阶段：离线建库（Indexing，一次做好、多次复用）：1.文档解析 2.文本切片 3.向量化 4.入库",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "属建库第一环节"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "属建库第二环节"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "问题向量化属在线问答阶段"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "文本向量化属建库第三环节"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-1331": {
+    "qid": "3-1331",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "B、C、D均为原文明确列出的检索后处理技术",
+    "answer": [
+      "B",
+      "C",
+      "D"
+    ],
+    "supported": true,
+    "quote": "Rerank重排；句子窗口检索；相似度阈值过滤",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "问题扩写属查询改写，非后处理"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "原文列为后处理核心方法"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "句子窗口即滑动窗口上下文"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "原文明确为后处理过滤手段"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-1333": {
+    "qid": "3-1333",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "B、C、D均为原文表格明确列出的切片策略",
+    "answer": [
+      "B",
+      "C",
+      "D"
+    ],
+    "supported": true,
+    "quote": "常见切片策略：Token切片/语义切片/Markdown切片",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "原文未提图片切片"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "原文表格首项策略"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "原文表格第四项策略"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "原文表格第三项策略"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-1334": {
+    "qid": "3-1334",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "A、B、D均为原文指出的切片过长负面影响",
+    "answer": [
+      "A",
+      "B",
+      "D"
+    ],
+    "supported": true,
+    "quote": "切得太大：一个chunk里混了好几个主题，向量被平均得没有重点，还浪费token、引入噪声",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "原文明确说引入噪声"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "原文说降低回答准确性"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "切片长反而降低效率"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "原文说浪费token增加成本"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-1347": {
+    "qid": "3-1347",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "A是原文推荐的基础解析方式，其他选项存在明显缺陷",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "在LlamaIndex中，最基础的加载器是SimpleDirectoryReader，一行代码读入整个目录",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "原文推荐的标准解析库"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "OCR仅用于扫描件PDF"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "手动操作不可工程化"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "正则无法处理复杂结构"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

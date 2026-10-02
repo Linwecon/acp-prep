@@ -1,0 +1,154 @@
+{
+  "items": [
+    {
+      "type": 0,
+      "stem": "某教育公司新人答疑机器人初期仅需单轮问答，两周后需支持RAG知识库、多轮对话、调用三个内部系统、效果评测及前端集成。此时工程师发现代码从20行膨胀至400行，充斥手动拼接messages、重复检索逻辑和历史维护。根据第12章核心观点，导致此困境的根本原因是什么？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "未选用最新版LangChain，导致API不兼容"
+        },
+        {
+          "option_label": "B",
+          "option_text": "缺乏对模型能力的持续微调，使输出不稳定"
+        },
+        {
+          "option_label": "C",
+          "option_text": "裸调SDK无法抽象共性工程模式，导致重复造轮子"
+        },
+        {
+          "option_label": "D",
+          "option_text": "未及时将提示词迁移到Dify平台进行可视化管理"
+        }
+      ],
+      "answer": "C",
+      "analysis": "依据12.1节‘为什么需要框架’：原文明确指出，真实应用中反复出现‘提示词拼装、多轮记忆、文档检索、流程编排、工具调用、流式回调’等共性脏活，裸调SDK需手工实现，而框架价值在于‘把大模型应用中反复出现的工程模式抽象成可组合的组件’。题干中‘手动拼接messages、重复写检索逻辑、手工维护历史’正是裸调SDK下缺乏Memory/Retriever/Chain抽象的典型表现。A、D属过度设计（初期无需框架），B错误——框架不提升模型智力（12.1节‘exam’强调‘框架解决工程化编排，而非模型能力’）。",
+      "difficulty_label": "基础"
+    },
+    {
+      "type": 1,
+      "stem": "某团队为客服机器人选型框架，需求包括：① 接入扫描件PDF合同与复杂表格；② 支持HR非技术人员上传并更新文档；③ 问答结果需严格基于知识库，禁止自由发挥；④ 后续可能扩展调用请假审批API。根据第12章12.5节与12.6.2节，以下哪些技术选型组合符合‘务实分层’原则？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "使用DashScopeParse解析扫描件PDF"
+        },
+        {
+          "option_label": "B",
+          "option_text": "采用Dify平台构建知识库与工作流"
+        },
+        {
+          "option_label": "C",
+          "option_text": "在Dify中启用‘仅知识库回答’开关"
+        },
+        {
+          "option_label": "D",
+          "option_text": "用AgentScope实现合同解析Agent与审批Agent协作"
+        }
+      ],
+      "answer": "ABC",
+      "analysis": "A正确：12.5节明确‘扫描件/复杂表格→上DashScopeParse（OCR+版面结构化）’；B正确：12.6.2节指出Dify适合‘业务/运营同学自助搭建、内部工具’，且‘HR希望自己上传维护文档’完全匹配；C正确：12.6.2节‘cost’部分虽未直接命名开关，但12.8节‘误区’强调‘效果仍由提示词、切片、检索质量决定’，而Dify产品化能力必然包含知识库约束机制（呼应12.6.2表中‘知识库’能力），且题干‘严格限定于知识库内容’是Dify核心场景；D错误：AgentScope用于‘多Agent消息协作’（12.6.1节），而题干当前阶段仅需‘接入知识库+未来可能扩展API’，属于单Agent多工具场景，应优先LangChain（12.4节‘场景题’正解为LlamaIndex+LangChain），强行上AgentScope违反‘不要为用框架而用框架’原则（12.8节风险）。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 0,
+      "stem": "开发人员在调试LlamaIndex RAG应用时发现：用户问‘年假天数’，模型却回答‘根据《员工手册》第3.2条，年假天数为5天’，但实际手册中该条款位于第5.1条。经检查，检索返回的context_str内容准确，但生成答案时引用了错误条款编号。根据第12章12.3节，最可能的根本原因是什么？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "QueryEngine未配置streaming=True，导致上下文截断"
+        },
+        {
+          "option_label": "B",
+          "option_text": "NodeParser切片过粗，导致条款编号与正文分离"
+        },
+        {
+          "option_label": "C",
+          "option_text": "误将query_str当作context_str注入提示词模板"
+        },
+        {
+          "option_label": "D",
+          "option_text": "未使用StorageContext持久化索引，导致每次重建索引"
+        }
+      ],
+      "answer": "B",
+      "analysis": "依据12.3节：LlamaIndex链路为Document→Node→Index→Retriever→QueryEngine，其中Node是‘切片后带元数据的最小检索单元’。若切片过粗（如按固定长度切），可能导致标题‘第5.1条 年假’与正文‘5天’被分到不同Node，检索仅召回正文Node，模型因缺乏条款编号上下文而幻觉生成‘第3.2条’。A错误：streaming影响输出方式，不改变内容准确性；C错误：12.3节明确‘{context_str}是检索到的上下文，{query_str}是用户问题’，若互换会导致答非所问（如用问题当资料），而非条款编号错位；D错误：索引重建影响性能，不导致语义错位。12.5节‘场景题’亦佐证：‘合同/报表数值类问题总答错’病根常是‘解析阶段表格被打散’，本质即Node结构破坏。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 1,
+      "stem": "某金融风控团队需构建一个能‘分析财报PDF→提取关键指标→对比行业均值→生成风险摘要→调用内部风控API触发预警’的Agent。团队有Python开发能力，但要求链路可观测、可调试、可灰度发布。根据第12章12.2、12.4、12.6.1节，以下哪些框架组合与理由符合‘各司其职’原则？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "用LlamaIndex处理财报PDF解析、切片与向量索引，因其RAG主链路更专注数据接入"
+        },
+        {
+          "option_label": "B",
+          "option_text": "用LangChain+LangGraph编排Agent工作流，因其Tool/Memory/状态机生态最完整"
+        },
+        {
+          "option_label": "C",
+          "option_text": "用AgentScope实现财报分析Agent与风控API Agent的Blackboard协作，因其消息广播机制更高效"
+        },
+        {
+          "option_label": "D",
+          "option_text": "用Dify可视化配置整个流程，因其支持HTTP请求节点与条件分支"
+        }
+      ],
+      "answer": "AB",
+      "analysis": "A正确：12.4节对比表明确LlamaIndex‘最强项是文档接入、索引类型、检索与后处理’，且12.5节强调财报PDF需结构化解析（DashScopeParse或Unstructured），LlamaIndex天然适配；B正确：12.4节‘场景题’明确‘以RAG为主但需多工具Agent’应选‘LlamaIndex做检索+LangChain/LangGraph做Agent编排’，且12.2节‘best’指出LangChain适合‘多工具、多步流程、状态机’；C错误：AgentScope适用于‘多Agent角色协作、消息广播’（12.6.1节），但本题是单Agent执行多步骤（分析→对比→生成→调用），属‘单Agent多工具’，非‘多Agent协同’，用AgentScope属过度设计；D错误：Dify适合‘非工程人员自助’（12.6.2节），而题干明确‘团队有Python开发能力’且要求‘可观测、可调试、可灰度’，Dify的可视化抽象会增加调试黑盒（12.1节‘risk’），违背‘先看需求复杂度再选工具’原则（12.1节‘exam’）。",
+      "difficulty_label": "高阶"
+    },
+    {
+      "type": 0,
+      "stem": "在评估RAG应用效果时，团队使用RAGAS计算context_recall指标得分为0.3。根据第12章12.7.1节及第7章关联，该低分直接反映的问题是？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "模型生成的答案与标准答案语义相似度低"
+        },
+        {
+          "option_label": "B",
+          "option_text": "检索出的上下文未能覆盖标准答案所需的所有关键信息点"
+        },
+        {
+          "option_label": "C",
+          "option_text": "FastAPI服务并发处理能力不足，导致响应延迟高"
+        },
+        {
+          "option_label": "D",
+          "option_text": "Gradio界面未启用流式输出，用户体验差"
+        }
+      ],
+      "answer": "B",
+      "analysis": "依据12.7.1节：RAGAS是‘评测框架’，‘用大模型当评委，对检索端（Context Precision/Recall）和生成端（Faithfulness/Answer Correctness）分别打分’。context_recall是检索端指标，定义为‘检索到的上下文覆盖标准答案关键信息点的比例’（第7章）。得分0.3说明检索结果严重缺失必要信息。A描述的是answer_correctness（生成端）；C、D属于服务层与UI层问题（12.7.2-12.7.3节），与RAGAS评估无关。12.7.1节明确RAGAS定位是‘评估器’，不涉及服务性能。",
+      "difficulty_label": "基础"
+    },
+    {
+      "type": 0,
+      "stem": "某团队在引入LangChain后，发现原本100ms响应的单轮问答变慢至800ms，且栈追踪长达50行。查阅日志发现框架自动注入了额外system prompt并执行了两次嵌套回调。根据第12章12.1节‘risk’，这体现了框架引入的哪类典型负担？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "学习成本过高，成员需重新培训"
+        },
+        {
+          "option_label": "B",
+          "option_text": "抽象泄漏与调试黑盒"
+        },
+        {
+          "option_label": "C",
+          "option_text": "版本依赖冲突导致初始化失败"
+        },
+        {
+          "option_label": "D",
+          "option_text": "为用框架而用框架的误区"
+        }
+      ],
+      "answer": "B",
+      "analysis": "依据12.1节‘risk’：明确列出四类负担——‘学习成本、版本依赖、抽象泄漏和调试黑盒’。题干中‘栈追踪长达50行’‘自动注入额外system prompt’‘需翻源码定位’正是‘抽象泄漏’（框架内部行为不可见）与‘调试黑盒’（错误难以快速定位）的典型表现。A、C虽属风险列表，但题干未提培训或版本报错；D是原则性误区，但题干描述的是已引入后的技术现象，非决策错误。12.1节‘risk’原文：‘框架封装越深，出错时栈追踪越长，为什么框架多塞了一段system prompt / 多调了一次模型常常要翻源码’，与题干严丝合缝。",
+      "difficulty_label": "进阶"
+    }
+  ]
+}

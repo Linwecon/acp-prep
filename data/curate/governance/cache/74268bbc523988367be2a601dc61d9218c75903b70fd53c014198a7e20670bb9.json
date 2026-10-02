@@ -1,0 +1,107 @@
+{
+  "new-4-12-0": {
+    "qid": "new-4-12-0",
+    "classification": "own",
+    "chapter": 4,
+    "quality": "ok",
+    "reason": "考查Function Calling流程中工具结果回传的关键步骤，是本章核心考点。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "结果必须由程序作为 `role=\"tool\"` 消息追加回上下文，模型才\"知道\"发生了什么。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "tool_choice设置影响是否调用，但已调用且成功，非根本原因。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "工具结果未以role='tool'消息回传，模型无法生成最终答案。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "原文未提及Pydantic校验丢弃结果，属无关猜测。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "temperature影响随机性，不抑制生成能力，非静默原因。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-4-12-2": {
+    "qid": "new-4-12-2",
+    "classification": "own",
+    "chapter": 4,
+    "quality": "ok",
+    "reason": "考查多Agent设计四条硬原则的具体应用，是本章重点。",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "独立凭据：不同 Agent **不得共用同一套账号/API 凭据**；避免全量注入：**不要把所有 Agent 的知识/工具清单一次性写进主 Prompt**",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "共用API Key违反独立凭据；全量注入导致上下文膨胀延迟升高。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "中央调度和明确职责非问题直接原因，与描述不符。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "问题1是凭据问题，非注入问题；问题2是注入问题，非凭据问题。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "职责和调度非问题直接原因，与描述不符。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-4-12-4": {
+    "qid": "new-4-12-4",
+    "classification": "own",
+    "chapter": 4,
+    "quality": "ok",
+    "reason": "考查Agent评测中确定性检查与LLM-as-Judge的适用场景辨析。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "确定性检查（Deterministic Checks）：用代码/脚本判断\"该发生的步骤有没有发生\"。结果**确定、可调试**，适合客观项。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "评委偏见存在，但非导致检测失效与故障率无关的根本原因。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "空指针检测是客观项，需脚本验证实际定位，而非主观打分。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "Rubric可细化，但仍属主观评分，不解决客观验证的根本问题。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "白盒评测追踪轨迹有助，但核心是缺少对检测结果本身的客观验证。"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

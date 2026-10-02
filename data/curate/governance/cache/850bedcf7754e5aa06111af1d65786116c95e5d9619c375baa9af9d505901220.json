@@ -1,0 +1,218 @@
+{
+  "3-5032": {
+    "qid": "3-5032",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "考查父子块检索机制，属于RAG切片与上下文完整性范畴。",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "句子窗口检索（Sentence Window Retrieval）：建索引时以‘单个句子’为可检索单元（小块，便于精准命中），同时在每个句子的元数据里存下它‘前后各 N 句’组成的窗口；检索命中某句后，后处理器自动把内容替换成整个窗口再交给模型。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "缺少父块标识会影响上下文补全，检索结果会受影响。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "检索速度与父子块标识无关，不会因此提升。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "子块缺少父块标识，无法扩展上下文，答案可能不完整。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "模型不会自动生成父块内容，需依赖检索。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-5033": {
+    "qid": "3-5033",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "考查句子窗口检索的适用场景，属于RAG进阶检索技术。",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "句子窗口检索（Sentence Window Retrieval）：建索引时以‘单个句子’为可检索单元（小块，便于精准命中），同时在每个句子的元数据里存下它‘前后各 N 句’组成的窗口；检索命中某句后，后处理器自动把内容替换成整个窗口再交给模型。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "定位具体条文并带上下文，正是句子窗口检索的设计目标。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "语音转写与RAG句子窗口检索无关。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "物体识别是多模态任务，非RAG句子窗口检索范畴。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "训练图像分类模型与RAG句子窗口检索无关。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-5034": {
+    "qid": "3-5034",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "考查兼顾召回精度与上下文完整性的合理做法，属于RAG切片与检索策略。",
+    "answer": [
+      "A",
+      "B",
+      "C"
+    ],
+    "supported": true,
+    "quote": "句子窗口检索（Sentence Window Retrieval）：建索引时以‘单个句子’为可检索单元（小块，便于精准命中），同时在每个句子的元数据里存下它‘前后各 N 句’组成的窗口；检索命中某句后，后处理器自动把内容替换成整个窗口再交给模型。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "维护不同粒度索引是合理策略，可兼顾精度与完整性。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "先用小块检索再扩展上下文，是句子窗口检索的核心思想。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "重排序可提升相关片段排名，有助于兼顾精度与完整性。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "整篇文档作为一个块会降低检索精度，噪声大。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-5036": {
+    "qid": "3-5036",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "考查文档标题改写的合理目标，属于RAG文档解析与增强检索范畴。",
+    "answer": [
+      "A",
+      "B",
+      "C"
+    ],
+    "supported": true,
+    "quote": "对 token 长度有硬要求 → Token 切片 + 重叠；出现以下问题时这样调：主题接近的内容互相混淆 → 扩写标题（把‘注意事项’改成‘需求分析 > 注意事项’）、加元数据标签；",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "补充实体和范围可增强标题语义，利于检索。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "消除指代歧义是改写合理目标，提升检索准确性。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "不改变原意增强可检索性是改写的核心目的。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "编造不存在结论违背忠实原则，不合理。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-5037": {
+    "qid": "3-5037",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "考查表格数据在RAG中的语义增强方式，属于RAG文档解析与结构化保留。",
+    "answer": [
+      "D"
+    ],
+    "supported": true,
+    "quote": "表格若被当成普通文字按固定长度切碎，行列关系会被打散，后面问‘违约金比例’‘对比数值’就会答错。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "只保留数值丢失上下文，语义不完整。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "删除表头会丢失关键信息，破坏表格结构。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "截图保存为图片不利于文本检索，非合理增强方式。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "结合表头与行列上下文补全语义，是保留表格结构的最佳方式。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-5038": {
+    "qid": "3-5038",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "考查RAG中处理表格数据以保留语义的合理做法，属于文档解析与结构化保留。",
+    "answer": [
+      "A",
+      "B",
+      "C"
+    ],
+    "supported": true,
+    "quote": "表格若被当成普通文字按固定长度切碎，行列关系会被打散，后面问‘违约金比例’‘对比数值’就会答错。Markdown 因层次分明（#/##/###）、语法简单，被推荐作为 RAG 文档的中间格式；",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "保留表头与行列关系是保持表格语义的基础。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "使用Markdown或结构化文本可有效保留表格结构。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "组合表头与单元格内容可形成完整语义片段，利于检索。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "只存储数字列不保留表头会丢失语义，不合理。"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

@@ -1,0 +1,154 @@
+{
+  "items": [
+    {
+      "type": 0,
+      "stem": "某团队使用RAGAS评测发现：Context Recall=0.98、Context Precision=0.31，Faithfulness=0.24，Answer Correctness=0.27。日志确认检索片段中明确包含完整正确信息（如'张伟是教研部的'），但该信息位于第18个context中，前17个均为无关内容。此时若仅调高生成端temperature并强化'请严格依据上下文作答'提示词，最可能违反教材哪项根本性原则？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "违背'上下文是RAG的生命线'——未解决知识浓度低的根本瓶颈"
+        },
+        {
+          "option_label": "B",
+          "option_text": "违背'评测驱动开发'中'能被度量的才能被有效改进'原则"
+        },
+        {
+          "option_label": "C",
+          "option_text": "违背'指标分层'中'算法指标是手段，业务指标才是目标'原则"
+        },
+        {
+          "option_label": "D",
+          "option_text": "违背'LLM-as-Judge需校准'中'位置偏见靠交换顺序缓解'的要求"
+        }
+      ],
+      "answer": "A",
+      "analysis": "依据教材7.5节'定位问题的黄金法则'及7.5节末尾价值强调：'上下文是RAG的生命线'——检索质量决定上限；当Recall高而Precision极低（0.31）时，表明相关片段被大量无关内容稀释（'Lost in the Middle'），模型注意力被严重干扰，此时生成端再强也无法可靠利用正确信息。教材明确指出优化总体顺序为'先检索→再生成→仍不满足才微调'，且7.5节风险提醒：'检索指标都好还去改知识库'是踩坑，反向推知'检索指标差却只改生成'更是本末倒置。选项B、C虽为教材原则，但与本题故障归因无直接因果；D涉及评委偏见，本题未使用多候选对比，不触发位置偏见场景。",
+      "difficulty_label": "挑战"
+    },
+    {
+      "type": 1,
+      "stem": "在实施LLM-as-Judge时，为确保Answer Correctness指标计算结果稳定可信，以下哪些操作同时满足教材7.4.4节官方口径要求与7.8.1节偏见校准原则？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "使用text-embedding-v3计算语义相似度子项，并对所有answer强制截断至200字以消除长度偏见"
+        },
+        {
+          "option_label": "B",
+          "option_text": "在计算事实F1前，用qwen-plus将answer和ground_truth分别分解为独立陈述，且每个陈述不含代词"
+        },
+        {
+          "option_label": "C",
+          "option_text": "对同一question的多个候选answer，每次调用评委前随机打乱顺序并取三次打分均值"
+        },
+        {
+          "option_label": "D",
+          "option_text": "将Answer Correctness权重设为0.75×事实F1+0.25×语义相似度，并用黄金集校准F1阈值"
+        }
+      ],
+      "answer": "B,C,D",
+      "analysis": "A错误：教材7.4.4节明确语义相似度基于原始answer与ground_truth计算，截断会破坏事实完整性，且'消除长度偏见'应通过评分细则约束（7.8.1节），而非粗暴截断；B正确：7.4.4节事实F1计算要求'LLM把answer和ground_truth各自分解为观点列表'，且7.4.3节Faithfulness定义中强调'不含代词、独立可理解的简单陈述'，此逻辑迁移至Correctness的分解步骤有教材依据；C正确：7.8.1节明确'交换候选顺序多次打分取平均以抵消位置偏见'，是校准标准动作；D正确：7.4.4节给出官方加权公式'0.25×语义相似度+0.75×事实F1'，且7.8.1节强调'定期用人工标注校准阈值'，黄金集即为此目的服务。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 0,
+      "stem": "某Agent端到端评测得分为4.4/5，但用户持续反馈'生成的报销流程图无法打开'。开发团队决定增加白盒评测，以下哪项指标设计最能精准定位该故障，且严格对应教材7.6.1节对Agent特有维度的定义？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "定义结构化输出Schema，要求流程图必须为base64编码的PNG格式，并用确定性检查器验证MIME头与解码可读性"
+        },
+        {
+          "option_label": "B",
+          "option_text": "用LLM-as-Judge对流程图描述文本打分，评估其与报销政策的一致性"
+        },
+        {
+          "option_label": "C",
+          "option_text": "在Rubric量表中增设'视觉呈现质量'维度，由设计师人工评分"
+        },
+        {
+          "option_label": "D",
+          "option_text": "统计Agent调用'生成流程图'工具的次数，并与历史均值对比"
+        }
+      ],
+      "answer": "A",
+      "analysis": "教材7.6.1节明确Agent评测需关注'过程是否符合SOP'及'触发是否正确'，并强调'确定性检查（规则/断言）用于客观项：代码能否运行、是否含必需章节、格式、工具是否被调用'。'流程图无法打开'是典型的格式/编码类客观故障，A项通过Schema约束+确定性检查（MIME头+解码验证）直接命中'格式检查'这一教材明确定义的客观硬指标。B项属主观语义评价，无法诊断文件损坏；C项依赖人工且非客观可验证；D项仅统计调用频次，不验证输出有效性，无法定位'生成了但打不开'的核心问题。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 1,
+      "stem": "在构建新人答疑机器人评测集时，以下哪些操作同时违反教材7.2.1节'评测集构建的两条铁律'与7.2.4节'控制变量'原则？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "从线上日志抽取问题后，由AI工程师编写ground_truth，且每次评测时动态调用最新版qwen-plus生成answer"
+        },
+        {
+          "option_label": "B",
+          "option_text": "使用不同版本的text-embedding-v3模型计算Context Recall，且未记录embedding版本号"
+        },
+        {
+          "option_label": "C",
+          "option_text": "将客服工单中的问题按热度抽样，但ground_truth由实习生根据网络搜索结果编写"
+        },
+        {
+          "option_label": "D",
+          "option_text": "评测脚本中temperature参数未固定，每次运行随机取值0.3~0.7"
+        }
+      ],
+      "answer": "A,B,C,D",
+      "analysis": "A违反两条铁律：'问题来自真实用户'（√）但'ground_truth必须由领域专家提供'（×，AI工程师非HR专家），且'answer由系统自动收集'（√）但'评测配置必须冻结'（×，动态调用最新模型）；B违反'控制变量'：7.2.4节强调'Embedding模型版本要固定'，且未记录版本号导致不可复现；C违反'ground_truth必须由领域专家提供'（实习生非专家，网络搜索不可信）；D违反'控制变量'：7.2.4节明确'temperature/seed/模型版本都要固定'，随机temperature导致分数不可比。四项均同时触犯核心铁律与控制变量要求。",
+      "difficulty_label": "挑战"
+    },
+    {
+      "type": 0,
+      "stem": "团队将RAGAS评委模型从qwen-plus更换为gpt-4-turbo后，同一组样本的Answer Correctness平均分从0.72升至0.85。但人工抽检发现：原qwen-plus评分较低的简洁答案（如'张伟是教研部的'）得分显著提高，而冗长解释型答案得分下降。此现象最直接违反教材7.2.4节关于回归评测的哪项核心要求？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "评测配置必须冻结，否则分数变化无法归因于系统改动"
+        },
+        {
+          "option_label": "B",
+          "option_text": "不要频繁更换评测用的LLM与Embedding模型"
+        },
+        {
+          "option_label": "C",
+          "option_text": "定期抽样校验自动评测结果与人工判断的一致性"
+        },
+        {
+          "option_label": "D",
+          "option_text": "评测集版本、评测脚本、推理参数都要固定"
+        }
+      ],
+      "answer": "A",
+      "analysis": "教材7.2.4节核心论断：'回归评测的前提是除了待测改动，其他一切都冻结...否则分数变化无法归因——你不知道是系统变好了，还是评委今天心情不同'。本题中'评委模型更换'属于评测配置变更，直接导致分数跃升，但该变化与被测系统无关，因此分数提升无法归因为系统优化，彻底破坏回归评测的归因能力。A项直指'无法归因'这一根本缺陷；B、D是A的具体表现，但A是原理层面的最高要求；C是校验动作，非'违反要求'的直接表述。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 1,
+      "stem": "某团队对新人答疑机器人执行切片优化后，RAGAS评测显示Context Recall从0.62升至0.89，但Answer Correctness仅微升0.02，且Faithfulness下降0.15。日志确认检索返回的contexts中完整包含'张伟是教研部的'等关键信息。此时若要验证是否因控制变量失效导致分数失真，以下哪些配置是教材7.2.4节明确要求必须核查的？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "评测脚本中temperature参数是否固定为0.0"
+        },
+        {
+          "option_label": "B",
+          "option_text": "作为评委的qwen-plus模型版本号是否与基线评测一致"
+        },
+        {
+          "option_label": "C",
+          "option_text": "评测集中的question字段是否被重新采样"
+        },
+        {
+          "option_label": "D",
+          "option_text": "计算Answer Correctness时使用的text-embedding-v3模型版本是否冻结"
+        }
+      ],
+      "answer": "A,B,D",
+      "analysis": "教材7.2.4节明确要求'评测脚本、推理参数（temperature/seed）、模型版本、甚至当评委的大模型版本都要固定'，并强调'Embedding模型版本也要固定'。A项temperature是核心推理参数，必须固定（教材示例中常设0.0保证确定性）；B项评委模型版本是回归评测关键变量；D项embedding版本直接影响Answer Correctness的语义相似度子项计算。C项错误：评测集必须冻结，question字段绝不能重新采样，否则失去回归意义，但'是否被重新采样'是违规行为本身，而非'核查配置'——核查对象应是当前配置状态（如'question字段来源是否为冻结评测集'），C项表述模糊且易误解为允许重采样，不符合教材'冻结评测集'铁律。",
+      "difficulty_label": "进阶"
+    }
+  ]
+}

@@ -1,0 +1,161 @@
+{
+  "items": [
+    {
+      "type": 0,
+      "stem": "某团队上线新版答疑机器人后，RAGAS评测显示：Context Recall=0.92、Context Precision=0.85、Faithfulness=0.41、Answer Correctness=0.38、Answer Relevancy=0.96。用户反馈中高频出现'答非所问但语气很肯定'类投诉。此时最应优先排查的环节和依据是？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "检索端——Context Recall未达1.0，说明知识库存在关键信息缺失，需补充教研部组织架构文档"
+        },
+        {
+          "option_label": "B",
+          "option_text": "生成端——Faithfulness显著低于其他指标，表明答案存在脱离上下文的编造，应强化提示词约束与temperature调优"
+        },
+        {
+          "option_label": "C",
+          "option_text": "意图理解层——Answer Relevancy高达0.96，说明问题被正确理解，故障不在前端，无需检查query改写模块"
+        },
+        {
+          "option_label": "D",
+          "option_text": "评测配置——所有指标均基于qwen-plus评委计算，需先更换为gpt-4-turbo重跑以排除评委偏见"
+        }
+      ],
+      "answer": "B",
+      "analysis": "依据教材7.5节'定位问题的黄金法则'：当检索指标（Recall/Precision）均处于高位（>0.8），而Faithfulness与Answer Correctness严重偏低时，病根明确在生成端（原则2）。'答非所问但语气很肯定'正是Faithfulness低的典型表现——模型未忠实依据contexts作答，而是自信编造（教材7.3节表格：Faithfulness低=有幻觉；7.4.3节强调其输入仅需question/answer/contexts，不依赖ground_truth）。A错误：Recall=0.92已接近上限，且教材7.5节风险提示'Recall低才补知识库'，此处非主因；C错误：Relevancy高仅说明切题，但'答非所问'在RAGAS中特指内容与ground_truth事实不符（教材7.3节辨析：Relevancy管是否跑题，Correctness管事实对错），二者不矛盾；D错误：教材7.8.1节明确要求'冻结评委模型做回归'，更换评委会破坏分数可比性，属违反控制变量原则（7.2.4节）。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 0,
+      "stem": "在构建新人答疑机器人评测集时，以下哪项操作最直接违背教材强调的'评测先行'原则？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "从线上工单抽取100个高频问题作为question，但暂未编写ground_truth，先用旧版机器人生成答案进行基线测试"
+        },
+        {
+          "option_label": "B",
+          "option_text": "邀请HRBP编写ground_truth后，发现其中3条与现行制度不符，立即组织法务复核并更新"
+        },
+        {
+          "option_label": "C",
+          "option_text": "将评测集按难度分层：简单题（部门查询）、中等题（报销流程）、困难题（跨部门协作SOP），每层20题"
+        },
+        {
+          "option_label": "D",
+          "option_text": "为覆盖边界场景，加入5条对抗样本：如'张伟是不是人事部的？'（实际在教研部）"
+        }
+      ],
+      "answer": "A",
+      "analysis": "教材7.1节'评测先行（Eval First）'明确定义正确顺序为：'先建评测集、拿到基线分数，再动手优化'，且强调'没有ground_truth，无法判断对错，自动评测失去基准'（7.2.1节表格）。A选项在无ground_truth情况下运行系统，本质是'先优化（旧版即基线），效果好了再补评测'，直接违反'评测先行'铁律（7.1节exam框）。B符合教材7.2.1节'ground_truth必须由业务领域专家编写/审定'及7.8.2节'黄金集需持续运营'；C、D均符合7.8.2节'分层/分难度覆盖'和'正例+负例'要求。本题考查对'评测先行'实操边界的精准把握，而非概念复述。",
+      "difficulty_label": "中等"
+    },
+    {
+      "type": 1,
+      "stem": "某Agent应用在端到端评测中总分达标，但用户投诉'生成的Python代码无法执行'。根据教材7.6节，以下哪些措施属于白盒评测的合理实践？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "使用pytest对Agent输出的代码片段执行单元测试，验证其能否通过预设断言"
+        },
+        {
+          "option_label": "B",
+          "option_text": "调用qwen-plus作为LLM-as-Judge，按'代码可执行性'维度对输出打分"
+        },
+        {
+          "option_label": "C",
+          "option_text": "分析Agent执行trace，检查工具调用序列中code_interpreter是否被正确触发且返回非空结果"
+        },
+        {
+          "option_label": "D",
+          "option_text": "在评测集中增加10道'代码生成'专项题，由开发人员人工验证输出代码的可运行性"
+        }
+      ],
+      "answer": [
+        "A",
+        "C"
+      ],
+      "analysis": "教材7.6节明确定义白盒评测为'深入链路，对关键组件/中间步骤单独打分'，并强调其优势是'信号清晰无干扰、迭代快、定位精准'。A项用确定性检查（pytest断言）直接验证代码执行结果，是白盒评测的经典方法（7.6.1节表格：确定性检查管'代码能否运行'）；C项分析执行trace检查工具调用路径，直击Agent过程性故障，符合'白盒看组件'核心思想（7.6节compare表）。B项属于LLM-as-Judge，教材归类为端到端主观评测方法（7.6.1节），且未深入组件内部；D项虽有人工验证，但仍是端到端视角（验证最终输出），未涉及中间步骤或组件级诊断，不符合白盒定义。本题聚焦'白盒'与'端到端'的本质区分，避免混淆评测层级。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 0,
+      "stem": "当使用RAGAS评估一个医疗问答系统时，发现Answer Correctness得分普遍高于行业基准，但临床专家抽检发现多处'看似合理实则危险'的答案（如推荐禁忌药物组合）。此现象最可能暴露的评测体系缺陷是？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "未冻结评测配置，导致不同批次评测使用了不同版本的embedding模型"
+        },
+        {
+          "option_label": "B",
+          "option_text": "ground_truth由AI工程师编写，未经过主治医师审核，存在专业性偏差"
+        },
+        {
+          "option_label": "C",
+          "option_text": "过度依赖Answer Correctness单一指标，未结合Faithfulness与Context Recall交叉验证"
+        },
+        {
+          "option_label": "D",
+          "option_text": "评测集问题全部来自模拟数据，未包含真实患者提问中的模糊表述和术语变体"
+        }
+      ],
+      "answer": "B",
+      "analysis": "教材7.2.1节'评测集构建的两条铁律'首条即强调：'标准答案必须由业务领域专家编写/审定'，并指出'技术人员能判断检索是否相关，但只有业务专家才知道答案在业务上是否正确、完整、合规'。医疗场景中'看似合理实则危险'正是专业性缺失的典型后果——工程师编写的ground_truth可能忽略临床禁忌，导致Answer Correctness虚高（该指标计算依赖ground_truth，教材7.4.4节）。A、D属配置与数据覆盖问题，但不会系统性导致'危险答案被误判正确'；C虽重要，但Correctness低分本身已能反映问题，此处是'高分却危险'，根源在ground_truth权威性失效。教材7.8.2节'专业领域代价极高'明确指出'必须由领域专家参与评测'，本题直击该原则的生死攸关性。",
+      "difficulty_label": "高阶"
+    },
+    {
+      "type": 1,
+      "stem": "在实施评测驱动开发（EDD）时，以下哪些做法符合教材7.1节提出的'三条环环相扣的原则'？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "将用户满意度（NPS）拆解为'问题一次解决率'和'回答易懂性'两个技术指标，并为每个指标设定阈值"
+        },
+        {
+          "option_label": "B",
+          "option_text": "每次模型微调后，用同一套冻结评测集运行，对比Answer Correctness变化幅度"
+        },
+        {
+          "option_label": "C",
+          "option_text": "为提升Context Precision，同时调整Top K、引入Rerank、并修改切片策略，再统一评测"
+        },
+        {
+          "option_label": "D",
+          "option_text": "在评测集构建阶段，邀请销售总监定义'客户异议处理质量'的评分细则，技术团队仅实现自动化打分"
+        }
+      ],
+      "answer": [
+        "A",
+        "B",
+        "D"
+      ],
+      "analysis": "教材7.1节'评测驱动开发'三条原则：①评测标准决定产品能力上限；②能被度量的才能被改进；③度量反馈越快越准，改进效率越高。A体现原则①：将业务目标（NPS）转译为可工程化指标，定义能力上限；B体现原则②③：用冻结评测集量化改进效果，实现快速反馈；D体现原则①：业务专家（销售总监）定义标准，确保评测标准对齐业务品味。C违反原则②：教材7.5节强调'优化顺序是先检索→再生成→最后微调'，且7.2.4节要求'控制变量'，同时调整多个参数会导致归因失败，无法判断哪个改动有效。本题考查EDD原则在工程实践中的具象化，而非抽象概念。",
+      "difficulty_label": "中等"
+    },
+    {
+      "type": 0,
+      "stem": "某团队使用BLEU评估机器翻译模型，发现新模型在测试集上BLEU提升2.1分，但人工评测显示其译文'更啰嗦且关键术语错误率上升'。此矛盾最能印证教材中关于传统自动指标的哪项警示？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "BLEU只认字面重合，同义改写会被误伤，且短译文有简洁惩罚（BP）"
+        },
+        {
+          "option_label": "B",
+          "option_text": "BLEU侧重精确率，无法反映召回率，可能导致漏译未被发现"
+        },
+        {
+          "option_label": "C",
+          "option_text": "BLEU无法衡量语义等价，换种说法就偏低，且PPL低≠回答正确"
+        },
+        {
+          "option_label": "D",
+          "option_text": "BLEU高≠翻译好，因其只反映n-gram重合度，不理解术语准确性和表达简洁性"
+        }
+      ],
+      "answer": "D",
+      "analysis": "教材7.2.3节'高频误区'明确指出：'❌ BLEU 高 = 翻译好'，并解释'BLEU 只认字面重合，同义改写会被误伤'；7.2.3节risk框进一步强调'❌ BLEU 高 = 翻译好'是误区。本题中'啰嗦'对应BLEU的BP惩罚失效（新模型可能通过冗余填充提升n-gram重合），'关键术语错误'则暴露BLEU完全不检验术语准确性——这正是教材警示的核心：BLEU作为字符串匹配指标，无法保障语义正确性与专业性。A、C部分正确但片面：A未提'术语错误'，C混入PPL（属另一指标）；B错误：BLEU不直接衡量召回率，ROUGE才侧重召回。本题考查对BLEU局限性的深度理解，紧扣教材原话警示。",
+      "difficulty_label": "中等"
+    }
+  ]
+}

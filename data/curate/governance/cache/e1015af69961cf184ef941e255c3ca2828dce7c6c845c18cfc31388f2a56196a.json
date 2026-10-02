@@ -1,0 +1,220 @@
+{
+  "3-0561": {
+    "qid": "3-0561",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "考查RAG检索阶段步骤，D属生成阶段",
+    "answer": [
+      "A",
+      "B",
+      "C"
+    ],
+    "supported": true,
+    "quote": "第二阶段：在线问答（Retrieval & Generation，每次请求都执行）\\n1. 用户提问；必要时先做查询改写；\\n2. 把问题也向量化；\\n3. 在向量库中检索与问题向量最相似的 Top K 个 chunk；",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "问题向量化是检索起点"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "语义相似度比较是检索核心"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "召回Top K是检索输出"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "生成属LLM阶段"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-0562": {
+    "qid": "3-0562",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "考查RAG离线建库四步，全正确",
+    "answer": [
+      "A",
+      "B",
+      "C",
+      "D"
+    ],
+    "supported": true,
+    "quote": "第一阶段：离线建库（Indexing，一次做好、多次复用）\\n1. 文档解析；2. 文本切片；3. 向量化 Embedding；4. 入库",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "文档解析是建库第一步"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "文本切片即文本分段"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "向量化是Embedding步骤"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "入库即存储索引"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-0564": {
+    "qid": "3-0564",
+    "classification": "misplaced",
+    "chapter": 3,
+    "quality": "remove",
+    "reason": "速度影响因素属项目管理，非RAG技术考点",
+    "answer": [],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "业务机会属项目管理"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "时间投入非技术要素"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "模型训练非RAG环节"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "存储需求非RAG核心"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-0567": {
+    "qid": "3-0567",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "切片过大应减小长度或换策略",
+    "answer": [
+      "A",
+      "B"
+    ],
+    "supported": true,
+    "quote": "出现以下问题时这样调：\\n- chunk 太大引入干扰 → 减小切片长度；\\n- chunk 太短、信息被截断 → 增大切片长度或改用句子窗口。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "减小长度直接解决"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "换策略是根本解法"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "训练数据无关切片"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "推理时间不相关"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-0569": {
+    "qid": "3-0569",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "Context Recall低需检查知识库完备性",
+    "answer": [
+      "A",
+      "B"
+    ],
+    "supported": true,
+    "quote": "Context Recall 低：补充知识库、换更强的 Embedding、做查询改写",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "知识库完备是前提"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "支持样本是Recall目标"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "训练数据非RAG环节"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "推理时间不相关"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-0574": {
+    "qid": "3-0574",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "考查RAG建库流程，同3-0562",
+    "answer": [
+      "A",
+      "B",
+      "C",
+      "D"
+    ],
+    "supported": true,
+    "quote": "第一阶段：离线建库（Indexing，一次做好、多次复用）\\n1. 文档解析；2. 文本切片；3. 向量化 Embedding；4. 入库",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "文档解析是首步"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "文本分段即切片"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "向量化是必经步骤"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "存储索引即入库"
+      }
+    ],
+    "duplicate_of": "3-0562"
+  }
+}

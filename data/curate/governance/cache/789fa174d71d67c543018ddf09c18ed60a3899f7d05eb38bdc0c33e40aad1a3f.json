@@ -1,0 +1,221 @@
+{
+  "10-0769": {
+    "qid": "10-0769",
+    "classification": "own",
+    "chapter": 10,
+    "quality": "ok",
+    "reason": "题干明确要求'高并发、低延迟、弹性扩展'，全部对应PAI-EAS核心能力",
+    "answer": [
+      "A",
+      "B",
+      "D"
+    ],
+    "supported": true,
+    "quote": "EAS：把训练好的模型一键部署为在线推理服务，支持弹性伸缩、蓝绿发布、版本管理、监控告警",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "EAS即弹性算法服务，容器化是其部署基础"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "自动扩缩容直接对应弹性扩展需求"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "PAI-Studio未在原文出现，属干扰项"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "监控告警保障高可用与低延迟SLA"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "10-0820": {
+    "qid": "10-0820",
+    "classification": "cross",
+    "chapter": 2,
+    "quality": "ok",
+    "reason": "考查提示词六要素中的输出格式与上下文，属提示工程核心",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "提示词六要素（角色/任务/上下文/受众/样例/输出格式）",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "未指定Marp格式与结构要求"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "明确输出格式+结构元素，符合六要素"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "未说明Marp及幻灯片结构"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "PPT非Markdown，指令冲突"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "10-0861": {
+    "qid": "10-0861",
+    "classification": "own",
+    "chapter": 10,
+    "quality": "ok",
+    "reason": "题干问'大模型生态核心产品'，需严格按原文分层定义判断",
+    "answer": [
+      "A",
+      "B",
+      "E"
+    ],
+    "supported": true,
+    "quote": "阿里云 AI 产品全景：应用开发层/模型服务层/训练与部署层/开源模型社区/数据底座层",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "通义千问是模型服务层核心基座"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "PAI-EAS属训练部署层三件套之一"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "PAI-Studio未在原文出现，原文只提DSW/DLC/EAS"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "向量数据库未列入五层架构"
+      },
+      {
+        "label": "E",
+        "selected": true,
+        "why": "OSS明确列为数据底座层代表产品"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "10-1054": {
+    "qid": "10-1054",
+    "classification": "cross",
+    "chapter": 2,
+    "quality": "ok",
+    "reason": "考查提示词六要素中'任务'与'上下文'的完整性，属提示工程基础",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "提示词六要素（角色/任务/上下文/受众/样例/输出格式）",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "含示例但未明确课程结构要求"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "完整定义任务+关键内容范围"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "多轮请求破坏上下文连贯性"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "关键词过泛，缺乏结构约束"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "10-1125": {
+    "qid": "10-1125",
+    "classification": "own",
+    "chapter": 10,
+    "quality": "ok",
+    "reason": "百炼知识库不解决实时天气，需联网能力，原文明确支持",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "百炼应用（智能体/Agent）...接入搜索、内部 API、插件市场扩展能力",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "话术预设无法应对未知天气查询"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "原文未提第三方搜索工程实现"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "enable_search是百炼智能体标准联网参数"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "规避问题不符合平台快速解决原则"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "10-1189": {
+    "qid": "10-1189",
+    "classification": "own",
+    "chapter": 10,
+    "quality": "ok",
+    "reason": "考查百炼API返回结构，原文代码示例明确展示字段路径",
+    "answer": [
+      "D"
+    ],
+    "supported": true,
+    "quote": "response = client.chat.completions.create(...); print(completion.choices[0].message.content)",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "message.content路径错误，无completion.message"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "缺少索引[0]和content字段"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "choices无message属性"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "与原文代码示例完全一致"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

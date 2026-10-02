@@ -1,0 +1,212 @@
+{
+  "10-1259": {
+    "qid": "10-1259",
+    "classification": "own",
+    "chapter": 10,
+    "quality": "ok",
+    "reason": "考查PAI-EAS核心定位，选项区分度好",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "PAI-EAS（Elastic Algorithm Service），模型在线服务。把训练好的模型一键部署为在线推理服务，支持弹性伸缩、蓝绿发布、版本管理、监控告警",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "临时任务非EAS核心场景"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "EAS定位在线推理服务，支持高并发弹性伸缩"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "数据存储非EAS功能"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "硬件测试非EAS设计目标"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "10-1269": {
+    "qid": "10-1269",
+    "classification": "cross",
+    "chapter": 2,
+    "quality": "fixable",
+    "reason": "题干问法模糊，未明确是Qwen-Turbo自身优化还是通用方法",
+    "answer": [
+      "B"
+    ],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "直接翻译质量可能不佳"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "生成-评估-优化是提升质量的通用迭代方法"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "增加长度不一定提高质量"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "减少长度也不一定提高质量"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "10-1278": {
+    "qid": "10-1278",
+    "classification": "own",
+    "chapter": 10,
+    "quality": "review",
+    "reason": "题干标注争议题，需结合教材明确Serverless GPU定义",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "PAI-EAS（Elastic Algorithm Service），模型在线服务。把训练好的模型一键部署为在线推理服务，支持弹性伸缩",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "ECS需自运维，非Serverless"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "FC支持Serverless但GPU支持有限"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "PAI-EAS提供弹性伸缩的GPU推理服务"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "百炼是应用平台，非底层部署服务"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "10-1457": {
+    "qid": "10-1457",
+    "classification": "own",
+    "chapter": 10,
+    "quality": "ok",
+    "reason": "考查PAI-EAS核心优势，选项明确",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "PAI-EAS（Elastic Algorithm Service），模型在线服务。把训练好的模型一键部署为在线推理服务，支持弹性伸缩、蓝绿发布、版本管理、监控告警",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "低成本托管非EAS核心优势"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "自动扩展和版本管理是EAS核心特性"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "EAS也支持CPU，非仅GPU"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "需要网络连接提供服务"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "10-0361": {
+    "qid": "10-0361",
+    "classification": "cross",
+    "chapter": -1,
+    "quality": "remove",
+    "reason": "题干过于宽泛，考查大模型通用优势，非阿里云平台特定知识",
+    "answer": [
+      "B"
+    ],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "无需大量人工编程"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "大模型核心优势是理解生成自然语言"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "能处理复杂文本分析"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "无需为每个任务单独训练"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "10-0388": {
+    "qid": "10-0388",
+    "classification": "cross",
+    "chapter": 11,
+    "quality": "ok",
+    "reason": "考查多模态模型能力边界，选项区分明确",
+    "answer": [
+      "D"
+    ],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "图像识别描述是多模态基本能力"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "图表转表格是文档智能常见功能"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "基于图像创作故事是生成能力"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "实时三维场景重建超出VL模型典型能力"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

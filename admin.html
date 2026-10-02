@@ -1,0 +1,563 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ACP 题库治理台</title>
+<style>
+    :root {
+        --bg: #f6f7f9; --card: #fff; --line: #e3e6ea; --txt: #23282e;
+        --sub: #6b7280; --accent: #2563eb; --danger: #dc2626; --warn: #d97706;
+        --ok: #059669; --mono: ui-monospace, Consolas, monospace;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font: 14px/1.6 -apple-system, "Segoe UI", "Microsoft YaHei", sans-serif; background: var(--bg); color: var(--txt); padding: 16px; }
+    h1 { font-size: 18px; margin-bottom: 4px; }
+    .meta { color: var(--sub); font-size: 12px; margin-bottom: 12px; }
+    .tabs { display: flex; gap: 6px; margin-bottom: 12px; flex-wrap: wrap; }
+    .tabs button { padding: 6px 14px; border: 1px solid var(--line); background: var(--card); border-radius: 6px; cursor: pointer; }
+    .tabs button.active { background: var(--accent); color: #fff; border-color: var(--accent); }
+    .bar { display: flex; gap: 8px; margin-bottom: 10px; flex-wrap: wrap; align-items: center; }
+    select, .bar input { padding: 5px 8px; border: 1px solid var(--line); border-radius: 6px; background: #fff; }
+    .btn { padding: 5px 12px; border-radius: 6px; border: 1px solid var(--line); background: #fff; cursor: pointer; }
+    .btn.primary { background: var(--accent); color: #fff; border-color: var(--accent); }
+    .btn.danger { background: var(--danger); color: #fff; border-color: var(--danger); }
+    .btn:disabled { opacity: .5; cursor: not-allowed; }
+    .layout { display: grid; grid-template-columns: 1fr 380px; gap: 12px; align-items: start; }
+    @media (max-width: 900px) { .layout { grid-template-columns: 1fr; } }
+    .card { background: var(--card); border: 1px solid var(--line); border-radius: 8px; }
+    table { width: 100%; border-collapse: collapse; font-size: 13px; }
+    th, td { text-align: left; padding: 6px 8px; border-bottom: 1px solid var(--line); vertical-align: top; }
+    th { background: #fafbfc; color: var(--sub); font-weight: 600; white-space: nowrap; }
+    tr:hover td { background: #f4f8ff; cursor: pointer; }
+    tr.sel td { background: #e8f0fe; }
+    .tag { display: inline-block; padding: 1px 8px; border-radius: 10px; font-size: 12px; white-space: nowrap; }
+    .t-misplaced, .t-remove, .t-fix { background: #fee2e2; color: var(--danger); }
+    .t-beyond { background: #ffedd5; color: var(--warn); }
+    .t-unsure, .t-fixable, .t-multi_answer { background: #fef9c3; color: var(--warn); }
+    .t-review, .t-insufficient { background: #e0e7ff; color: #4338ca; }
+    .t-own, .t-cross, .t-ok, .t-keep { background: #d1fae5; color: var(--ok); }
+    .preview { padding: 12px; position: sticky; top: 12px; max-height: calc(100vh - 40px); overflow: auto; }
+    .preview h3 { font-size: 14px; margin-bottom: 8px; }
+    .preview .stem { font-weight: 600; margin-bottom: 8px; }
+    .preview .opt { margin: 2px 0; }
+    .preview .opt.ans { color: var(--ok); font-weight: 600; }
+    .kv { margin: 8px 0; }
+    .kv b { color: var(--sub); font-weight: 600; margin-right: 6px; }
+    .ev { background: #f8fafc; border-left: 3px solid var(--accent); padding: 6px 10px; margin: 6px 0; font-size: 13px; white-space: pre-wrap; }
+    .warnbox { background: #fffbeb; border: 1px solid #fde68a; color: #92400e; padding: 8px 12px; border-radius: 6px; margin-bottom: 12px; font-size: 13px; }
+    .empty { color: var(--sub); padding: 24px; text-align: center; }
+    code { font-family: var(--mono); background: #eef1f4; padding: 1px 5px; border-radius: 4px; font-size: 12px; }
+    .summary { display: flex; gap: 14px; flex-wrap: wrap; margin-bottom: 10px; color: var(--sub); font-size: 13px; }
+</style>
+</head>
+<body>
+<h1>ACP 题库治理台</h1>
+<div class="meta">全库治理结果与题目预览 · 本机管理服务支持软删除、恢复和回滚；未确认的问题保留待复核。</div>
+<div class="warnbox" id="fetchWarn" hidden>
+    无法读取报告文件：请通过本地服务器访问（<code>python -m http.server 8080</code> 后打开
+    <code>http://localhost:8080/admin.html</code>），<code>file://</code> 协议下浏览器禁止 fetch JSON。
+</div>
+
+<div class="tabs">
+    <button data-tab="latest" class="active">本轮全库结果</button>
+    <button data-tab="chapter">章节错配原始报告</button>
+    <button data-tab="quality">低质量题</button>
+    <button data-tab="answers">答案异常</button>
+    <button data-tab="generate">补题结果</button>
+    <button data-tab="status">操作台账</button>
+</div>
+
+<div class="bar" id="filters">
+    <select id="fChapter"><option value="">全部章节</option></select>
+    <select id="fCategory"><option value="">全部分类</option></select>
+    <input id="fText" placeholder="搜索题干…" style="width:180px">
+    <button class="btn" id="btnSelAll">全选当页</button>
+    <button class="btn" id="btnSelNone">取消选择</button>
+    <span style="color:var(--sub)">已选 <b id="selCount">0</b> 题</span>
+    <button class="btn primary" id="btnExport" disabled>导出操作清单</button>
+    <button class="btn danger" id="btnDel" hidden>🗑 软删除所选</button>
+    <button class="btn" id="btnRestore" hidden>♻️ 恢复所选</button>
+    <button class="btn" id="btnMove" hidden>→ 移动到建议章</button>
+    <button class="btn" id="btnFix" hidden>✏️ 应用答案修正</button>
+    <button class="btn" id="btnRollback" hidden>⏪ 回滚批次</button>
+    <span id="modeBanner" style="color:var(--sub);font-size:12px"></span>
+    <span id="tabMeta" style="color:var(--sub);font-size:12px"></span>
+</div>
+
+<div class="layout">
+    <div class="card" id="listWrap"><div class="empty">加载中…</div></div>
+    <div class="card preview" id="preview"><div class="empty">点击左侧题目预览</div></div>
+</div>
+
+<script>
+(function () {
+    'use strict';
+
+    var BANK = null;            // quiz_categorized.json（预览用）
+    var TABS = {};              // tab -> {file, rows, categoryOf, opsOf, note, cmdOf}
+    var curTab = 'latest';
+    var curRows = [];
+    var sel = {};               // qid -> row
+    var opened = null;
+
+    function esc(s) { return String(s == null ? '' : s).replace(/[&<>"']/g, function (c) {
+        return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]; }); }
+    function $(id) { return document.getElementById(id); }
+
+    TABS.latest = {
+        file: 'data/curate/governance/latest.json',
+        note: '本轮实际结果：keep 已审核保留 / review 证据不足或待修复 / remove 已软删除 / move 已移章 / answer_fix 已修正 / new 已校验入库。模型建议经过最终复核；待复核不代表错误。',
+        cmdOf: function () { return 'python scripts/govern_bank.py report'; },
+        rowsOf: function (d) { return (d.items || []).map(function (c) {
+            return { qid: c.qid, chapter: c.chapter, stem: c.stem, _cat: c.status, catLabel: c.status,
+                reason: c.reason, evidence: c.evidence, ops: [] };
+        }); },
+        columns: [['状态', 'cat'], ['题号', 'qid'], ['当前章节', 'chName'], ['处理依据', 'reason'], ['题干', 'stem']]
+    };
+
+    TABS.chapter = {
+        file: 'data/curate/chapter_audit.json',
+        note: '分类含义：own 本章题 / cross 涉及前置知识（保留）/ misplaced 错放（可移动）/ beyond 超纲（建议软删除）/ unsure 待确认。阈值未经校准，仅供人工参考。',
+        cmdOf: function (rows) {
+            if (rows.some(function (r) { return r._cat === 'misplaced'; }))
+                return 'python scripts/quiz_curate.py move --from data/curate/move_ops.json --apply';
+            return 'python scripts/quiz_curate.py remove --from data/curate/remove_ops.json --apply';
+        },
+        rowsOf: function (d) { return (d.items || []).map(function (c) {
+            var cat = (c.llm && c.llm.category) || 'unsure';
+            return { qid: c.qid, chapter: c.chapter, stem: c.stem, _cat: cat,
+                catLabel: cat, reason: (c.llm && c.llm.reason) || (c.matched_keywords ? '规则: ' + c.matched_keywords.join(',') : ''),
+                evidence: (c.llm && c.llm.evidence) || '',
+                extra: (c.llm && c.llm.exam_knowledge) ? '考查: ' + c.llm.exam_knowledge : '',
+                ops: cat === 'misplaced' ? [{ type: 'move', to: c.llm.chapter }] :
+                     (cat === 'beyond' ? [{ type: 'remove' }] : []) }; }); },
+        columns: [['分类', 'cat'], ['题号', 'qid'], ['当前章', 'chName'], ['建议', 'sugg'], ['理由', 'reason'], ['题干', 'stem']]
+    };
+
+    TABS.quality = {
+        file: 'data/curate/quality_audit.json',
+        note: '四分类：ok 合格 / fixable 可修复 / remove 建议删除 / review 待复核。fatal_logic（严重逻辑错误）不会被其它维度高分掩盖。简单题不是低质题。',
+        cmdOf: function () { return 'python scripts/quiz_curate.py remove --from data/curate/remove_ops.json --apply'; },
+        rowsOf: function (d) { return (d.items || []).map(function (c) {
+            var v = (c.llm && c.llm.verdict) || 'review';
+            var defects = (c.llm && c.llm.defects || []).map(function (x) { return x.dim + ':' + x.evidence; }).join('；');
+            return { qid: c.qid, chapter: c.chapter, stem: c.stem, _cat: v, catLabel: v,
+                reason: defects || (c.signals || []).join('；') || (c.llm && c.llm.reason) || '',
+                evidence: (c.llm && c.llm.fix_suggestion) ? '修复建议: ' + c.llm.fix_suggestion : '',
+                extra: (c.llm && c.llm.fatal_logic) ? '⚠️ 严重逻辑错误' : '',
+                ops: v === 'remove' ? [{ type: 'remove' }] : [] }; }); },
+        columns: [['分类', 'cat'], ['题号', 'qid'], ['章节', 'chName'], ['严重错误', 'fatal'], ['缺陷/信号', 'reason'], ['题干', 'stem']]
+    };
+
+    TABS.answers = {
+        file: 'data/curate/answer_actions.json',
+        note: 'fix=答案错误（--apply 修正，旧答案自动存档可回滚）；multi_answer=多解/条件不足（修复题干或暂停使用，禁止强改答案）；insufficient=证据不足（人工复核）。',
+        cmdOf: function (rows) {
+            if (rows.some(function (r) { return r._cat === 'multi_answer'; }))
+                return 'python scripts/quiz_curate.py remove --from data/curate/remove_ops.json --apply（暂停使用清单）';
+            return 'python scripts/verify_disputed.py --apply';
+        },
+        rowsOf: function (d) {
+            var rows = [];
+            (d.fix || []).forEach(function (c) {
+                var st = (c.evidence || {}).evidence_state || 'vote_only';
+                rows.push({ qid: c.qid, chapter: c.chapter, stem: c.stem, _cat: 'fix', catLabel: 'fix',
+                    reason: '题库 ' + (c.bank_answer || []).join(',') + ' → 终裁 ' + (c.final || []).join(','),
+                    evidence: '证据状态: ' + st + (st === 'external' ? '（教材证据核对通过）' : '（仅投票/未通过，apply 将拒绝）'),
+                    evidenceState: st, ops: [{ type: 'answer_fix' }] }); });
+            (d.stale || []).forEach(function (c) {
+                rows.push({ qid: c.qid, chapter: c.chapter, stem: c.stem, _cat: 'insufficient', catLabel: 'stale',
+                    reason: c.stale_note || '题目内容已变化，校验结果失效', evidence: '', ops: [] }); });
+            (d.multi_answer || []).forEach(function (c) {
+                rows.push({ qid: c.qid, chapter: c.chapter, stem: c.stem, _cat: 'multi_answer', catLabel: 'multi_answer',
+                    reason: '疑似多解/条件不足', evidence: voteTxt(c.tally), ops: [{ type: 'remove' }] }); });
+            (d.insufficient || []).forEach(function (c) {
+                rows.push({ qid: c.qid, chapter: c.chapter, stem: c.stem, _cat: 'insufficient', catLabel: 'insufficient',
+                    reason: '证据不足，不修正', evidence: voteTxt(c.tally), ops: [] }); });
+            return rows;
+        },
+        columns: [['分类', 'cat'], ['题号', 'qid'], ['章节', 'chName'], ['差异/原因', 'reason'], ['票型证据', 'ev'], ['题干', 'stem']]
+    };
+
+    TABS.generate = {
+        file: 'scripts/_drafts/questions_auto_ch11.json',
+        fileAlt: ['scripts/_drafts/questions_auto_ch12.json'],
+        isDraft: true,
+        note: '补题草稿：已通过格式校验、语义查重、独立答案自检（自检结果见 gen_meta.self_check）。合入仍需人工审核：python scripts/merge_new_questions.py --drafts <文件名>',
+        cmdOf: function () { return 'python scripts/merge_new_questions.py --drafts questions_auto_chN.json'; },
+        rowsOf: function (d) { return (d.draft || []).map(function (q, i) {
+            return { qid: 'ch' + d.chapter + '-新' + (i + 1), chapter: d.chapter, stem: q.stem,
+                _cat: 'ok', catLabel: 'draft', reason: (q.gen_meta && q.gen_meta.knowledge_point) || '',
+                evidence: (q.gen_meta && q.gen_meta.self_check) || '', extra: '难度: ' + q.difficulty_label,
+                _draftQ: q, ops: [] }; }); },
+        columns: [['题号', 'qid'], ['难度', 'extra'], ['知识点', 'reason'], ['自检', 'ev'], ['题干', 'stem']]
+    };
+
+    TABS.status = { isStatus: true };
+
+    // ---------- 本机服务模式（可执行操作） ----------
+
+    var serverMode = false;
+    var statusData = null;
+    var sessionToken = '';
+
+    function detectServer() {
+        return fetch('/api/status').then(function (r) { return r.ok ? r.json() : null; })
+            .then(function (s) {
+                serverMode = !!s;
+                statusData = s;
+                if (serverMode) {
+                    // 获取写操作会话令牌（仅本机回环请求会拿到）
+                    fetch('/api/session').then(function (r) { return r.ok ? r.json() : null; })
+                        .then(function (t) { sessionToken = t ? t.token : ''; });
+                    $('modeBanner').innerHTML = s.bank_copy_mode
+                        ? '🟢 本机服务（<b>副本模式</b>：所有操作指向题库副本，正式题库不受影响）'
+                        : '🟢 本机服务已连接，以下操作将实际生效（写台账、可回滚）';
+                } else {
+                    $('modeBanner').innerHTML = '⚪ 只读模式 · 启动可执行服务：' +
+                        '<code>python scripts/admin_server.py</code>';
+                }
+                return s;
+            }).catch(function () {
+                $('modeBanner').innerHTML = '⚪ 只读模式 · 启动可执行服务：<code>python scripts/admin_server.py</code>';
+                return null;
+            });
+    }
+
+    function doOp(op, payload, confirmMsg) {
+        if (!serverMode) { alert('只读模式：请先启动本机服务 python scripts/admin_server.py'); return; }
+        if (!sessionToken) { alert('会话令牌未就绪，请刷新页面重试'); return; }
+        if (!confirm(confirmMsg)) return;
+        payload.apply = true;
+        fetch('/api/ops/' + op, { method: 'POST',
+            headers: { 'Content-Type': 'application/json', 'X-Session-Token': sessionToken },
+            body: JSON.stringify(payload) })
+            .then(function (r) { return r.json(); })
+            .then(function (res) {
+                if (res.error) { alert('失败: ' + res.error); return; }
+                var skipTxt = (res.skipped || []).slice(0, 5).map(function (s) {
+                    return s.qid + ': ' + s.why; }).join('\n');
+                alert('已应用 ' + (res.applied || 0) + ' 项' +
+                      (res.batch_id ? ('\n批次: ' + res.batch_id) : '') +
+                      (skipTxt ? ('\n跳过:\n' + skipTxt) : ''));
+                sel = {};
+                detectServer().then(function () { loadTab(curTab); });
+            })
+            .catch(function (e) { alert('请求失败: ' + e); });
+    }
+
+    function qidsOfSelected() { return Object.keys(sel); }
+
+    function opDelete() {
+        var qids = qidsOfSelected();
+        if (!qids.length) return;
+        doOp('remove', { qids: qids, reason: 'admin.html 治理软删除（' + curTab + '）' },
+            '确认软删除所选 ' + qids.length + ' 题？（数据保留，可恢复/回滚）');
+    }
+
+    function opRestore() {
+        var qids = qidsOfSelected();
+        if (!qids.length) return;
+        doOp('restore', { qids: qids }, '确认恢复所选 ' + qids.length + ' 题？');
+    }
+
+    function opMove() {
+        var items = [];
+        qidsOfSelected().forEach(function (qid) {
+            var r = findRow(qid);
+            if (r && r.ops && r.ops[0] && r.ops[0].type === 'move') {
+                items.push({ qid: qid, to: r.ops[0].to, reason: r.reason });
+            }
+        });
+        if (!items.length) { alert('所选题目中没有"错放(misplaced)"分类，无移动目标章。'); return; }
+        doOp('move', { items: items },
+            '确认移动 ' + items.length + ' 题到建议章节？（qid 会随章变化，旧进度记录中该题将失联）');
+    }
+
+    function opFix() {
+        var qids = qidsOfSelected();
+        if (!qids.length) return;
+        var bad = [];
+        qids.forEach(function (qid) {
+            var r = findRow(qid);
+            var st = r && r.evidenceState;
+            if (st !== 'external') bad.push(qid + '(' + (st || '无证据状态') + ')');
+        });
+        if (bad.length && !confirm('以下题目的修正未通过教材证据核对：\n' + bad.join(', ') +
+            '\n\n默认将拒绝这些题。是否继续（仅证据状态为 external 的题会被应用）？')) return;
+        doOp('answer_fix', { qids: qids },
+            '确认应用所选题的答案修正？（旧答案自动存档，可按批次回滚）');
+    }
+
+    function opRollback() {
+        var batch = prompt('输入要回滚的批次 ID（见下方台账）：');
+        if (!batch) return;
+        doOp('rollback', { batch: batch.trim() }, '确认回滚批次 ' + batch + ' 的全部变更？');
+    }
+
+    function voteTxt(tally) {
+        if (!tally) return '';
+        return Object.keys(tally).map(function (m) { return m + ':' + (tally[m] || []).join('') || '∅'; }).join(' / ');
+    }
+
+    // ---------- 数据加载 ----------
+
+    function fetchJson(url) {
+        return fetch(url).then(function (r) {
+            if (!r.ok) throw new Error(r.status);
+            return r.json();
+        });
+    }
+
+    function loadTab(tab) {
+        var t = TABS[tab];
+        if (t.isStatus) { renderStatus(); return; }
+        $('listWrap').innerHTML = '<div class="empty">加载中…</div>';
+        fetchJson(t.file).then(function (d) {
+            t.data = d;
+            t.rows = t.rowsOf(d);
+            renderList();
+        }).catch(function () {
+            $('listWrap').innerHTML = '<div class="empty">报告文件不存在或未生成：<code>' + t.file + '</code><br>' +
+                '请先运行对应检查命令（见 README「题库治理」）。</div>';
+            $('tabMeta').textContent = '';
+        });
+    }
+
+    function renderStatus() {
+        var build = function (batches, stat) {
+            var rows = (batches || []).map(function (b) {
+                return '<tr><td><code>' + esc(b.batch_id) + '</code></td><td>' + esc(b.at) + '</td><td>' +
+                    esc(b.kind) + '</td><td>' + b.count + '</td><td>' + esc(b.source) + '</td></tr>';
+            }).join('');
+            var head = stat ? ('<div class="summary" style="padding:10px">总 ' + stat.total +
+                ' · 在用 ' + stat.active + ' · 软删除 ' + stat.deleted +
+                ' · 含答案修正历史 ' + stat.answer_history + ' 题</div>') : '';
+            $('listWrap').innerHTML = head +
+                '<table><thead><tr><th>批次</th><th>时间</th><th>类型</th><th>条数</th><th>来源</th></tr></thead><tbody>' +
+                rows + '</tbody></table>' +
+                '<div style="padding:10px;color:var(--sub)">回滚命令：<code>python scripts/quiz_curate.py rollback --batch &lt;batch_id&gt; --apply</code></div>';
+            updateOpButtons();
+        };
+        if (serverMode && statusData) { build(statusData.batches, statusData); return; }
+        fetchJson('data/curate/ledger.json').then(function (led) {
+            build(led.batches || [], null);
+        }).catch(function () {
+            $('listWrap').innerHTML = '<div class="empty">暂无操作台账（尚未执行过批量操作）。</div>';
+        });
+    }
+
+    // ---------- 渲染 ----------
+
+    function renderList() {
+        var t = TABS[curTab];
+        var rows = t.rows;
+        var fc = $('fChapter').value, fg = $('fCategory').value, ft = $('fText').value.trim();
+        curRows = rows.filter(function (r) {
+            if (fc && String(r.chapter) !== fc) return false;
+            if (fg && r._cat !== fg) return false;
+            if (ft && r.stem.indexOf(ft) < 0) return false;
+            return true;
+        });
+        // 章节下拉
+        var chs = {}; rows.forEach(function (r) { chs[r.chapter] = 1; });
+        var sel0 = $('fChapter');
+        if (sel0.options.length <= 1) {
+            Object.keys(chs).sort(function (a, b) { return a - b; }).forEach(function (c) {
+                var o = document.createElement('option'); o.value = c; o.textContent = '第 ' + c + ' 章'; sel0.appendChild(o);
+            });
+        }
+        // 分类下拉
+        var cats = {}; rows.forEach(function (r) { cats[r.catLabel] = 1; });
+        var selg = $('fCategory');
+        if (selg.options.length <= 1) {
+            Object.keys(cats).sort().forEach(function (c) {
+                var o = document.createElement('option'); o.value = c; o.textContent = c; selg.appendChild(o);
+            });
+        }
+        var s = t.data.summary || {};
+        var sumTxt = Object.keys(s).map(function (k) { return k + ' ' + s[k]; }).join(' · ');
+        $('tabMeta').textContent = (t.data.generated_at ? ('生成于 ' + t.data.generated_at + ' · ') : '') + sumTxt;
+
+        if (!curRows.length) {
+            $('listWrap').innerHTML = '<div class="empty">无符合条件的记录</div>';
+            return;
+        }
+        var thead = '<tr><th></th>' + t.columns.map(function (c) { return '<th>' + c[0] + '</th>'; }).join('') + '</tr>';
+        var body = curRows.map(function (r) {
+            var chName = BANK && BANK.chapters ? (BANK.chapters[r.chapter] || '') : '';
+            var fatal = (r.extra || '').indexOf('严重') >= 0 ? '⚠️' : '';
+            var vals = {
+                cat: '<span class="tag t-' + esc(r._cat) + '">' + esc(r.catLabel) + '</span>',
+                qid: esc(r.qid),
+                chName: esc(chName),
+                sugg: esc(r.ops.length && r.ops[0].type === 'move' ? '→ 第' + r.ops[0].to + '章' : ''),
+                fatal: fatal,
+                reason: esc((r.reason || '').slice(0, 80)),
+                ev: esc((r.evidence || '').slice(0, 60)),
+                extra: esc(r.extra || ''),
+                stem: esc((r.stem || '').slice(0, 60))
+            };
+            return '<tr data-qid="' + esc(r.qid) + '"><td><input type="checkbox" class="rowcheck" data-qid="' +
+                esc(r.qid) + '"' + (sel[r.qid] ? ' checked' : '') + '></td>' +
+                t.columns.map(function (c) { return '<td>' + (vals[c[1]] || '') + '</td>'; }).join('') + '</tr>';
+        }).join('');
+        $('listWrap').innerHTML = '<table><thead>' + thead + '</thead><tbody>' + body + '</tbody></table>';
+        updateSelCount();
+    }
+
+    function findRow(qid) {
+        var rows = TABS[curTab].rows || [];
+        for (var i = 0; i < rows.length; i++) if (rows[i].qid === qid) return rows[i];
+        return null;
+    }
+
+    function bankQ(qid) {
+        if (!BANK) return null;
+        var parts = qid.split('-');
+        var qs = BANK.questions_by_chapter[parts[0]] || [];
+        for (var i = 0; i < qs.length; i++) {
+            if (String(qs[i].seq).zfill4() === parts[1]) return qs[i];
+        }
+        return null;
+    }
+
+    String.prototype.zfill4 = function () { var s = String(this); while (s.length < 4) s = '0' + s; return s; };
+
+    function renderPreview(qid) {
+        var t = TABS[curTab];
+        var r = findRow(qid);
+        if (!r) return;
+        opened = qid;
+        document.querySelectorAll('#listWrap tr').forEach(function (tr) {
+            tr.classList.toggle('sel', tr.getAttribute('data-qid') === qid);
+        });
+        var q = r._draftQ || bankQ(qid);
+        var html = '<h3>' + esc(qid) + ' <span class="tag t-' + esc(r._cat) + '">' + esc(r.catLabel) + '</span></h3>';
+        html += '<div class="stem">' + esc(q ? q.stem : r.stem) + '</div>';
+        if (q && q.options) {
+            var ansSet = {};
+            String(q.answer || '').split(',').forEach(function (a) { ansSet[a.trim()] = 1; });
+            html += q.options.map(function (o) {
+                var label = o.option_label || o.l, text = o.option_text || o.x;
+                return '<div class="opt' + (ansSet[label] ? ' ans' : '') + '">' + esc(label) + '. ' + esc(text) + '</div>';
+            }).join('');
+            html += '<div class="kv"><b>答案</b>' + esc(q.answer) + '</div>';
+            html += '<div class="kv"><b>解析</b>' + esc(q.analysis || '（无）') + '</div>';
+        }
+        if (r.extra) html += '<div class="kv"><b>标记</b>' + esc(r.extra) + '</div>';
+        if (r.reason) html += '<div class="kv"><b>理由</b>' + esc(r.reason) + '</div>';
+        if (r.evidence) html += '<div class="kv"><b>证据</b></div><div class="ev">' + esc(r.evidence) + '</div>';
+        if (r.ops && r.ops.length) {
+            html += '<div class="kv"><b>建议操作</b>' + r.ops.map(function (o) {
+                return o.type === 'move' ? ('移动到第 ' + o.to + ' 章') :
+                       o.type === 'remove' ? '软删除' :
+                       o.type === 'answer_fix' ? '应用答案修正（CLI）' : o.type;
+            }).join('、') + '</div>';
+        }
+        $('preview').innerHTML = html;
+    }
+
+    // ---------- 选择与导出 ----------
+
+    function updateSelCount() {
+        var n = Object.keys(sel).length;
+        $('selCount').textContent = n;
+        $('btnExport').disabled = n === 0;
+        updateOpButtons();
+    }
+
+    function updateOpButtons() {
+        var has = Object.keys(sel).length > 0 && serverMode;
+        var opBtns = { btnDel: false, btnRestore: false, btnMove: false, btnFix: false };
+        if (has) {
+            if (curTab === 'chapter' || curTab === 'quality' || curTab === 'latest') {
+                opBtns.btnDel = true;
+                opBtns.btnMove = curTab === 'chapter';
+            } else if (curTab === 'answers') {
+                opBtns.btnDel = true;   // 暂停使用（multi_answer）
+                opBtns.btnFix = true;
+                opBtns.btnRestore = true;
+            } else if (curTab === 'generate') {
+                opBtns.btnDel = false;
+            }
+        }
+        Object.keys(opBtns).forEach(function (id) { $(id).hidden = !opBtns[id]; });
+        $('btnRollback').hidden = !(serverMode && curTab === 'status');
+    }
+
+    function exportOps() {
+        var t = TABS[curTab];
+        var qids = Object.keys(sel);
+        var moveItems = [], removeItems = [];
+        qids.forEach(function (qid) {
+            var r = findRow(qid);
+            if (!r || !r.ops || !r.ops.length) return;
+            r.ops.forEach(function (o) {
+                if (o.type === 'move') moveItems.push({ qid: qid, to: o.to, reason: r.reason });
+                else if (o.type === 'remove') removeItems.push({ qid: qid, reason: (r.catLabel || '') + ' ' + (r.reason || '') });
+            });
+        });
+        var payload = { source: 'admin.html 导出（' + curTab + '）', generated_at: new Date().toISOString(),
+            move: moveItems, remove: removeItems, qids: qids };
+        var blob = new Blob([JSON.stringify(payload, null, 2)], { type: 'application/json' });
+        var a = document.createElement('a');
+        a.href = URL.createObjectURL(blob);
+        a.download = 'curate_ops_' + curTab + '.json';
+        a.click();
+        var hint = moveItems.length ? ('把 move 部分写入 data/curate/move_ops.json：' + t.cmdOf(moveItems)) :
+                   removeItems.length ? ('把 remove 部分写入 data/curate/remove_ops.json：' + t.cmdOf(removeItems)) : '';
+        alert('已导出 curate_ops_' + curTab + '.json\n\n' + (hint || '该分类无 CLI 操作（仅查看）。'));
+    }
+
+    // ---------- 事件 ----------
+
+    document.querySelectorAll('.tabs button').forEach(function (b) {
+        b.addEventListener('click', function () {
+            document.querySelectorAll('.tabs button').forEach(function (x) { x.classList.remove('active'); });
+            b.classList.add('active');
+            curTab = b.getAttribute('data-tab');
+            sel = {}; opened = null;
+            $('fChapter').innerHTML = '<option value="">全部章节</option>';
+            $('fCategory').innerHTML = '<option value="">全部分类</option>';
+            $('fText').value = '';
+            $('preview').innerHTML = '<div class="empty">点击左侧题目预览</div>';
+            loadTab(curTab);
+        });
+    });
+    ['fChapter', 'fCategory'].forEach(function (id) { $(id).addEventListener('change', renderList); });
+    $('fText').addEventListener('input', renderList);
+    $('listWrap').addEventListener('click', function (e) {
+        var ck = e.target.closest('.rowcheck');
+        if (ck) {
+            if (ck.checked) sel[ck.getAttribute('data-qid')] = 1; else delete sel[ck.getAttribute('data-qid')];
+            updateSelCount();
+            return;
+        }
+        var tr = e.target.closest('tr[data-qid]');
+        if (tr) renderPreview(tr.getAttribute('data-qid'));
+    });
+    $('btnSelAll').addEventListener('click', function () {
+        curRows.forEach(function (r) { sel[r.qid] = 1; });
+        document.querySelectorAll('.rowcheck').forEach(function (c) { c.checked = true; });
+        updateSelCount();
+    });
+    $('btnSelNone').addEventListener('click', function () {
+        sel = {};
+        document.querySelectorAll('.rowcheck').forEach(function (c) { c.checked = false; });
+        updateSelCount();
+    });
+    $('btnExport').addEventListener('click', exportOps);
+    $('btnDel').addEventListener('click', opDelete);
+    $('btnRestore').addEventListener('click', opRestore);
+    $('btnMove').addEventListener('click', opMove);
+    $('btnFix').addEventListener('click', opFix);
+    $('btnRollback').addEventListener('click', opRollback);
+
+    fetchJson('data/quiz_categorized.json').then(function (b) { BANK = b; }).catch(function () { BANK = null; });
+    detectServer().then(function () { loadTab('latest'); });
+})();
+</script>
+</body>
+</html>

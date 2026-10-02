@@ -1,0 +1,122 @@
+{
+  "10-1179": {
+    "qid": "10-1179",
+    "classification": "own",
+    "chapter": 12,
+    "quality": "ok",
+    "reason": "考察LlamaIndex Settings全局配置作用",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "Settings.embed(model_name=EMBED_MODEL) Settings.llm=LLM_MODEL",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "流式需在query_engine中显式设置"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "embedding不参与生成过程，仅用于检索"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "Settings全局配置后，后续Index/QueryEngine无需重复指定"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "定义变量是语法行为，非Settings核心目的"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "10-5054": {
+    "qid": "10-5054",
+    "classification": "own",
+    "chapter": 12,
+    "quality": "ok",
+    "reason": "Dify能力模块属本章明确考点",
+    "answer": [
+      "A",
+      "B",
+      "C",
+      "D"
+    ],
+    "supported": true,
+    "quote": "知识库→自动解析/切片/向量化→检索问答；工作流→拖拽节点：开始→意图分类→检索/工具→LLM→输出；模型接入→多家模型API；发布→一键发布为Web App、API",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "对应工作流拖拽编排"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "知识库构建与检索是Dify核心功能"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "支持多家模型API接入"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "Dify提供调试、日志与运营数据看板"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "11-1032": {
+    "qid": "11-1032",
+    "classification": "beyond",
+    "chapter": 11,
+    "quality": "ok",
+    "reason": "多模态处理库属第11章范畴",
+    "answer": [
+      "B",
+      "D",
+      "F"
+    ],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "numpy是通用数值计算库，非专用于视频图像"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "OpenCV专用于图像视频处理"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "pandas是数据分析库，不处理视频图像"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "TensorFlow支持图像视频建模"
+      },
+      {
+        "label": "E",
+        "selected": false,
+        "why": "requests是HTTP客户端，不处理媒体"
+      },
+      {
+        "label": "F",
+        "selected": true,
+        "why": "moviepy专用于视频编辑处理"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

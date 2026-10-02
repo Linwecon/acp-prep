@@ -1,0 +1,210 @@
+{
+  "1-1089": {
+    "qid": "1-1089",
+    "classification": "beyond",
+    "chapter": 1,
+    "quality": "remove",
+    "reason": "题目考查AI教育产品设计理念，与本章大模型基础知识点无关，属于泛化概念题，无考查价值。",
+    "answer": [],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "题干要求体现个性化、智能化、普惠教育，自适应学习符合，但无原文支持。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "VR降成本体现普惠，但无原文支持。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "方言识别辅助体现普惠与个性化，但无原文支持。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "自动判卷体现智能化，但无原文支持。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "1-1182": {
+    "qid": "1-1182",
+    "classification": "own",
+    "chapter": -1,
+    "quality": "fixable",
+    "reason": "考查system角色用法，但选项A、D的JSON字符串格式有误，需修正。",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "system：设定模型的人设、任务、规则、约束 通常 0 或 1 条，放在最前",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "正确使用system角色设定客服人设，但引号嵌套错误。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "assistant角色是模型回复，非设定人设。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "user角色是用户输入，非设定人设。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "system内容描述用户意图，非设定模型人设。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "1-1239": {
+    "qid": "1-1239",
+    "classification": "beyond",
+    "chapter": 1,
+    "quality": "remove",
+    "reason": "考查具体多模态视频模型技术细节，本章未提及，且选项涉及商业模型对比，无考查价值。",
+    "answer": [],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "模型级别对比无原文支持。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "模型质量描述无原文支持。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "运动控制能力无原文支持。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "架构依赖断言无原文支持。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "1-1262": {
+    "qid": "1-1262",
+    "classification": "own",
+    "chapter": -1,
+    "quality": "ok",
+    "reason": "考查OpenAI兼容接口获取回复内容的正确路径。",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "response = client.chat.completions.create(...) for chunk in response: print(chunk.choices[0].delta.content, end=\"\")",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "路径缺少message层级和索引。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "路径缺少choices索引。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "正确路径：choices列表第一项的message的content。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "返回整个choice对象，非文本内容。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "1-1467": {
+    "qid": "1-1467",
+    "classification": "own",
+    "chapter": 1,
+    "quality": "ok",
+    "reason": "考查解决大模型多轮对话遗忘问题的工程措施。",
+    "answer": [
+      "A",
+      "B",
+      "D"
+    ],
+    "supported": true,
+    "quote": "要让模型“记住”前文，就必须由你的程序维护对话历史...超长后需要截断、摘要或用长期记忆机制",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "正确，将历史记录传入模型是无状态API的标准做法。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "正确，摘要压缩是处理长上下文的常见手段。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "强制结束对话是规避而非解决问题。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "正确，会话状态管理工具可用于存储关键信息。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "1-0125": {
+    "qid": "1-0125",
+    "classification": "cross",
+    "chapter": 2,
+    "quality": "ok",
+    "reason": "考查response_format参数用于约束输出格式，属于提示工程的结构化输出知识点。",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "结构化输出（JSON Mode）与约束控制",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "正确，指定返回格式为JSON对象。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "XML非此参数支持的格式。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "文本是默认格式，非此参数指定。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "CSV非此参数支持的格式。"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

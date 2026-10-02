@@ -1,0 +1,212 @@
+{
+  "3-1006": {
+    "qid": "3-1006",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "考查查询改写技术，解决极简搜索检索失败问题。",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "用户提问；必要时先做查询改写（消代词、补全指代）",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "未解决检索问题，是知识库形式。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "回答时修改无效，应在检索前处理。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "查询改写可扩充问题，提升检索命中。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "非系统改进，依赖用户不合理。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-1040": {
+    "qid": "3-1040",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "考查向量数据库核心功能，区分其与模型训练职责。",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "向量数据库用近似最近邻（ANN）索引实现毫秒级检索。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "是向量数据库主要作用。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "构建索引以加速检索。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "训练Embedding模型非其职责。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "存储向量数据是基础功能。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-1058": {
+    "qid": "3-1058",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "考查RAG文档预处理的重要性，识别错误实践。",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "文档解析是把PDF、Word、Markdown等加载并转换为大模型可读文本的过程。它看似简单，却是RAG质量的“地基”。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "是合理的文档解析实践。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "针对图片的深度解析是可选优化。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "不进行预处理会丢失结构，是错误实践。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "润色目录层级是合理的优化。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-1065": {
+    "qid": "3-1065",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "考查RAG答非所问的根因排查，优先检查知识库覆盖。",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "若检索资料里压根没提张伟部门 → Context Recall 低",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "未提及，非首要检查项。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "温度影响创造性，非答非所问主因。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "知识库缺少相关文档是检索失败主因。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "资源不足通常导致性能问题，非内容错误。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-1106": {
+    "qid": "3-1106",
+    "classification": "own",
+    "chapter": -1,
+    "quality": "review",
+    "reason": "考点属于模型评估（第7章），但题干和选项均涉及RAG评估逻辑，存在跨章。",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "RAGAS把RAG链路拆成“检索端”和“生成端”分别打分",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "RAG中检索是基础，非仅优化生成。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "虽重要，但未体现分离评估的最佳实践。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "分离评估是RAGAS核心思想，利于定位。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "仅关注最终答案无法定位问题环节。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-1142": {
+    "qid": "3-1142",
+    "classification": "cross",
+    "chapter": 4,
+    "quality": "ok",
+    "reason": "考查Agent记忆功能实现方案的成本权衡，属于Agent章节。",
+    "answer": [
+      "D"
+    ],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "构建RAG知识库成本高，非低成本。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "硬编码不灵活，无法“不断积累”。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "检索常见信息，未针对用户个性化。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "Agent长期记忆功能可低成本积累用户偏好。"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

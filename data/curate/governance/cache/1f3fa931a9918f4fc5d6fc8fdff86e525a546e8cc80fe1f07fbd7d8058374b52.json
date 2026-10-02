@@ -1,0 +1,210 @@
+{
+  "3-0112": {
+    "qid": "3-0112",
+    "classification": "cross",
+    "chapter": 9,
+    "quality": "remove",
+    "reason": "题目考查具体API产品名称，属于工具使用细节，非RAG核心原理。选项C、D与题干无关，为干扰项，题目质量差。",
+    "answer": [],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "OpenAI提供此模型，但非本章考点。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "非OpenAI提供，且非本章考点。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "与Embedding模型无关，是干扰项。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "与Embedding模型无关，是干扰项。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-0281": {
+    "qid": "3-0281",
+    "classification": "cross",
+    "chapter": 7,
+    "quality": "remove",
+    "reason": "题目考查RAGAS评估的具体实现细节，属于模型评估章节内容。选项C、D为无关干扰项，题目质量差。",
+    "answer": [],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "可能正确，但非本章核心知识。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "Embedding模型不用于生成观点列表。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "与生成观点列表无关，是干扰项。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "与生成观点列表无关，是干扰项。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-0525": {
+    "qid": "3-0525",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "fixable",
+    "reason": "考点（查询改写提升Context Recall）正确，但选项C、D为无关干扰项，需修正。",
+    "answer": [
+      "A",
+      "B"
+    ],
+    "supported": true,
+    "quote": "查询改写必要性...多轮对话中'他/这个'指代不清...先用 LLM 把含代词的问题改写成完整问题再检索",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "改写使query更贴近知识库表述，提升召回准确率。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "改写可补全用户提问的缺失信息，利于检索。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "与查询改写的好处无关，是干扰项。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "与查询改写的好处无关，是干扰项。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-0535": {
+    "qid": "3-0535",
+    "classification": "cross",
+    "chapter": -1,
+    "quality": "remove",
+    "reason": "题目考查相似度计算的具体数学方法，超出教材明确范围。选项D为无关干扰项，题目质量差。",
+    "answer": [],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "余弦相似度是常用方法，但教材未明确其在Answer Correctness中的使用。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "欧氏距离是相似度计算方法，但教材未明确其在Answer Correctness中的使用。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "曼哈顿距离是相似度计算方法，但教材未明确其在Answer Correctness中的使用。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "与语义相似度计算无关，是干扰项。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-0589": {
+    "qid": "3-0589",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "考查RAG中提升问题理解的进阶技术，属于本章知识范畴，选项合理。",
+    "answer": [
+      "A",
+      "B",
+      "C"
+    ],
+    "supported": true,
+    "quote": "查询改写...HyDE（假设文档嵌入）...问题太短/口语化，与文档表述差太远...先让 LLM 编一段'假想答案'",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "Multi-query多路召回可从不同角度理解问题，提升召回。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "Step back问题摘要提炼核心意图，利于检索。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "Decomposition问题分解将复杂问题拆解，便于分步检索。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "使用GraphDB是知识图谱技术，非直接提升问题理解的方法。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-0622": {
+    "qid": "3-0622",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "考查相似度阈值对召回结果的影响，是RAG检索阶段核心概念，选项设计合理。",
+    "answer": [
+      "B",
+      "D"
+    ],
+    "supported": true,
+    "quote": "放宽阈值是召回率 ↑、精确率 ↓（必考）。...相似度阈值放宽后，Context Recall 和 Context Precision 分别如何变化？...Recall 升高、Precision 降低。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "阈值越高，要求越严，召回数量减少。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "阈值越高，只有高相似度文本被召回，数量减少。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "阈值越高，召回的文本更相关，无用知识减少。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "阈值越高，过滤掉低相似度文本，无用知识减少。"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

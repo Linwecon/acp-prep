@@ -1,0 +1,154 @@
+{
+  "items": [
+    {
+      "type": 0,
+      "stem": "某企业微信答疑机器人在早高峰（8:30–9:00）单日消耗输入Token达280万，远超预算。经分析，每次多轮对话均将全部历史（含5轮前已确认的Jira账号信息、3次闲聊问候及冗长system prompt）原样传入，且未做任何截断。根据第9.9节‘成本控制的优先级’与‘上下文就是钱’原则，以下哪项措施对降低单次调用输入Token成本最直接、可立即生效且不破坏对话连贯性？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "将system prompt从800字精简为120字，删除动态时间戳和重复角色声明"
+        },
+        {
+          "option_label": "B",
+          "option_text": "启用Batch API批量处理所有早高峰请求以摊薄单价"
+        },
+        {
+          "option_label": "C",
+          "option_text": "将模型从qwen-max降级为qwen-turbo，降低单位Token价格"
+        },
+        {
+          "option_label": "D",
+          "option_text": "在客户端增加指数退避重试，减少因429导致的重复请求"
+        }
+      ],
+      "answer": "A",
+      "analysis": "依据原文9.9节‘成本控制的优先级’明确排序：1. 先选对模型档位；2. **控制输入长度**（强调‘压缩历史、过滤无关检索结果、精简system prompt’）；3. 限制输出长度；4. 利用缓存与批量。题干中问题根源是‘冗长system prompt+全量历史’导致输入Token激增，而A项直击第二优先级——精简system prompt（原文指出‘system prompt长度每次都作为输入计费’，且‘避免重复啰嗦’），删除动态时间戳可确保前缀稳定以利缓存命中（9.9节‘保持前缀稳定’原则）。B错误：Batch适用于离线非实时场景（9.10节），早高峰是实时交互，不可用；C虽属第一优先级，但题干未说明当前模型档位过高，且qwen-turbo可能无法支撑答疑质量，非‘最直接’解法；D针对429重试风暴（9.8节），但题干现象是Token总量超标而非错误率高，属成本问题而非稳定性问题。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 1,
+      "stem": "财务部门发现本月Token费用异常增长300%，经审计发现：① 所有RAG增强问答均无条件召回Top-10文档片段并全量注入messages；② 每次多轮对话均保留全部历史（含20轮前与当前任务无关的闲聊）；③ system prompt中嵌入了每日动态生成的‘今日日期：2024-06-15’字符串。根据第9.9节‘影响单次成本的关键因素’与‘上下文缓存为什么能省钱’原理，以下哪些措施能同时满足‘降低输入Token’和‘提升缓存命中率’双重目标？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "将RAG召回Top K从10降至3，并对召回片段做关键句提取后再注入"
+        },
+        {
+          "option_label": "B",
+          "option_text": "采用滑动窗口策略，仅保留最近5轮对话历史参与构造messages"
+        },
+        {
+          "option_label": "C",
+          "option_text": "将system prompt中的动态日期字段移除，改用静态表述如‘请基于当前日期提供信息’"
+        },
+        {
+          "option_label": "D",
+          "option_text": "为所有请求统一添加固定前缀header字段，如{\\\"batch_id\\\":\\\"finance_june\\\"}"
+        }
+      ],
+      "answer": "A,B,C",
+      "analysis": "原文9.9节明确：输入Token成本受‘RAG检索片段’‘历史消息长度’‘system prompt长度’直接影响；缓存命中依赖‘保持前缀稳定’（即固定system prompt+稳定知识库切片）。A正确：降低Top K直接减少RAG注入Token，关键句提取进一步压缩输入，且稳定片段更易缓存；B正确：滑动窗口截断历史（原文‘生产环境通常需要滑动窗口截断’）显著降低输入Token，同时保留相关上下文，不破坏连贯性；C正确：移除动态日期使system prompt完全静态，确保前缀绝对稳定，是提升缓存命中的核心手段（原文‘把容易变化的内容放在请求靠后位置’）；D错误：添加自定义header字段（如batch_id）不属于messages结构，不影响API输入Token计费，也不构成‘前缀’（缓存前缀指messages数组开头的稳定内容），教材未提及此类字段影响缓存。",
+      "difficulty_label": "挑战"
+    },
+    {
+      "type": 0,
+      "stem": "某培训系统需每晚批量生成500份课程摘要，当前使用同步API逐条调用，耗时47分钟且触发多次429限流。技术负责人计划改用Batch API，但运维同事提出异议：‘Batch任务提交后无法实时监控单行失败原因，且结果文件下载后需人工校验ID对齐，反而增加运维负担’。该异议是否符合第9.10节对Batch API的工程定位？其根本矛盾点在于忽视了哪个关键前提？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "符合，因为Batch API确实不支持单行粒度监控；根本矛盾是未理解Batch适用于‘对实时性无要求’场景"
+        },
+        {
+          "option_label": "B",
+          "option_text": "不符合，因为9.10节明确要求‘必须校验输入输出行数、请求ID是否一一对应’，这本就是Batch标准流程而非负担"
+        },
+        {
+          "option_label": "C",
+          "option_text": "不符合，因为Batch任务状态可通过轮询/回调实时监控，单行失败可独立重试，无需人工干预"
+        },
+        {
+          "option_label": "D",
+          "option_text": "符合，因为Batch API本质是异步离线处理，其设计目标就是吞吐与成本，而非运维便捷性"
+        }
+      ],
+      "answer": "C",
+      "analysis": "原文9.10节‘Batch 任务的标准流程’明确包含：‘轮询/回调查询任务状态’‘失败重试：批内单行失败通常不影响其他行，可只重试失败行’‘必须校验输入输出行数、请求 ID 是否一一对应’。这说明：① 状态监控是内置能力（非‘无法监控’）；② 单行失败可程序化处理（非‘需人工校验’）；③ 校验是必要步骤但可通过代码自动完成（非‘人工负担’）。因此运维异议错误，C项准确指出其忽视了‘Batch支持程序化单行重试与自动化校验’这一前提。A、D将异议合理化，违背教材‘Batch优势在吞吐与成本’的定位；B虽提校验但未触及‘自动化’本质，未解决‘人工’误解的核心。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 1,
+      "stem": "开发团队在实现Function Calling时，观察到：第一次调用返回tool_calls后，程序执行工具并回传role='tool'消息，但第二次调用仍返回tool_calls而非最终答案。排查发现messages构造如下：[system, user_q1, assistant_a1, tool_result]。根据第9.7节‘API视角的四个关键字段’与‘Function Calling常见错误’，以下哪些环节的缺失可能导致此循环调用现象？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "未将第一次调用的response_message（含tool_calls）追加进messages"
+        },
+        {
+          "option_label": "B",
+          "option_text": "回传的role='tool'消息中缺失tool_call_id字段"
+        },
+        {
+          "option_label": "C",
+          "option_text": "第二次调用时未在请求中携带tools参数"
+        },
+        {
+          "option_label": "D",
+          "option_text": "system prompt中未声明‘当获得工具结果后，必须生成最终回答’"
+        }
+      ],
+      "answer": "A,B",
+      "analysis": "原文9.7节‘API层最常见的错误’明确列出：❌‘忘了把response_message追加进messages’→ 导致第二次调用时模型丢失决策上下文，可能再次决策调用工具；❌‘回传结果时漏tool_call_id’→ 模型无法关联工具结果与原始调用，视为无效输入，可能重试决策。A、B直接对应这两条。C错误：第二次调用是‘基于工具结果生成答案’，无需再提供tools（原文示例代码中final_response未传tools）；D错误：system prompt作用是设定角色，但Function Calling闭环由API协议强制（tool_calls→程序执行→role=tool→二次调用），非提示词能覆盖，教材未将此列为故障原因。",
+      "difficulty_label": "挑战"
+    },
+    {
+      "type": 0,
+      "stem": "某HR系统使用流式输出实现企微群实时答疑，但监控显示首Token延迟（TTFT）平均达1800ms，用户投诉‘卡顿’。开发团队检查发现：① 已开启stream=True；② messages中system prompt长达600字且含3个JSON Schema定义；③ 未启用任何缓存机制。根据第9.6节流式原理与第9.9节缓存机制，以下哪项优化对降低TTFT最有效？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "将system prompt拆分为多个小段，分批次通过流式发送"
+        },
+        {
+          "option_label": "B",
+          "option_text": "精简system prompt至150字以内，并移除JSON Schema，改用自然语言描述工具能力"
+        },
+        {
+          "option_label": "C",
+          "option_text": "为所有请求添加固定前缀（如‘HR-FAQ-v1’），确保system prompt稳定以提升缓存命中率"
+        },
+        {
+          "option_label": "D",
+          "option_text": "在客户端增加前端加载动画，掩盖TTFT感知"
+        }
+      ],
+      "answer": "C",
+      "analysis": "TTFT（首Token延迟）取决于模型开始生成第一个Token的时间，主要受输入处理（含system prompt解析）和缓存命中影响。原文9.6节指出流式‘不改变模型的思考过程’，故A错误（流式传输的是输出增量，不能拆分输入）；B虽精简prompt，但未触及核心——原文9.9节强调‘保持前缀稳定’可命中缓存，而缓存命中能显著加速输入处理（尤其对长system prompt），C项直接利用此机制，使600字prompt在首次请求后被缓存，后续请求TTFT大幅下降；D是体验优化，非工程根治。教材未将‘精简prompt’列为降低TTFT手段，而是归于成本控制（9.9节），故B非最有效。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 0,
+      "stem": "新人答疑机器人上线后，财务报表显示当月输出Token占比达总费用的68%，远高于行业均值50%。深入分析发现：① 所有回答均未设置max_tokens；② 针对简单问题（如‘公司邮箱格式’）模型常生成300+字解释；③ HR批量摘要任务中，模型对100字转写稿生成了800字摘要。根据第9.9节‘影响单次成本的关键因素’与‘成本控制优先级’，以下哪项措施对抑制输出Token失控最直接且符合工程规范？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "为所有接口配置max_tokens=256，并在业务逻辑中对超长输出做截断"
+        },
+        {
+          "option_label": "B",
+          "option_text": "将所有问答模型切换为qwen-turbo，因其输出Token单价更低"
+        },
+        {
+          "option_label": "C",
+          "option_text": "在system prompt中添加约束：‘请用不超过50字回答’"
+        },
+        {
+          "option_label": "D",
+          "option_text": "启用Batch API处理所有摘要任务，利用其低价优势对冲高输出成本"
+        }
+      ],
+      "answer": "A",
+      "analysis": "原文9.9节‘影响单次成本的关键因素’明确列出：‘max_tokens决定输出长度上限’；‘成本控制优先级’第三条为‘限制输出长度——合理设置max_tokens，避免模型刹不住’。A项直接应用此原则，硬性限制输出上限（256是合理阈值，覆盖多数场景），且‘业务逻辑截断’是兜底保障，符合工程规范。C项依赖提示词约束，但教材9.4节‘风险’指出‘模型版本升级、服务端实现变化都可能破坏复现性’，不如参数强制可靠；B虽降低单价，但未解决‘输出过长’本质问题，且qwen-turbo可能无法保证摘要质量；D针对特定任务，无法解决全量输出Token失控问题，且Batch不适用于实时问答。",
+      "difficulty_label": "进阶"
+    }
+  ]
+}

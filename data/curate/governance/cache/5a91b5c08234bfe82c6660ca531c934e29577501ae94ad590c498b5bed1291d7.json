@@ -1,0 +1,154 @@
+{
+  "items": [
+    {
+      "type": 0,
+      "stem": "某团队对新人答疑机器人实施切片优化后，RAGAS评测显示Context Recall从0.65升至0.93，但Answer Correctness仅微升0.02，且Faithfulness下降0.21；日志确认检索片段中明确包含'张伟是教研部的'等完整事实。此时若仅依据指标分层逻辑（业务/技术/算法三层）判断，该问题最根本的定位层级是？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "业务指标层：用户满意度未提升，说明优化方向偏离业务目标"
+        },
+        {
+          "option_label": "B",
+          "option_text": "技术指标层：响应时间或吞吐量异常导致生成质量劣化"
+        },
+        {
+          "option_label": "C",
+          "option_text": "算法指标层：生成端指标Faithfulness显著恶化，表明算法链路存在故障"
+        },
+        {
+          "option_label": "D",
+          "option_text": "算法指标层：检索端指标Context Recall提升，证明算法优化成功"
+        }
+      ],
+      "answer": "C",
+      "analysis": "题干明确要求依据'指标三层分层（业务/技术/算法）'逻辑定位。教材7.2.2节明确定义：业务指标（如满意度）、核心技术指标（如响应时间<2s）、算法指标（如Context Recall/Faithfulness）。本题中所有可观测数据均为RAGAS算法指标（Recall、Correctness、Faithfulness），无业务指标（如满意度）或技术指标（如延迟、Token成本）数据。Faithfulness是RAGAS五大算法指标之一，专用于评估生成端是否忠于检索资料（7.3节表格），其骤降0.21且与Recall提升并存，直接指向生成环节算法故障——即算法指标层内部的'生成端失准'。A选项虽提及业务指标，但题干未提供任何业务指标数据，属无依据推断；B选项的技术指标（响应时间等）在原文和题干中均未出现；D选项错误将Recall提升等同于整体成功，违背教材'算法指标是手段，业务指标才是目标'的核心原则（7.2.2节原理框）。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 1,
+      "stem": "在构建新人答疑机器人评测集时，以下哪些操作同时违反教材7.2.1节'评测集构建的两条铁律'及7.2.2节'指标分层'原则？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "由AI工程师编写ground_truth，未邀请HR部门专家审定"
+        },
+        {
+          "option_label": "B",
+          "option_text": "为提升自动化评测分数，将评测集question字段全部替换为模型训练时见过的合成问题"
+        },
+        {
+          "option_label": "C",
+          "option_text": "在评测脚本中固定temperature=0.3，但每次运行时动态切换评委LLM版本（qwen-plus→qwen-max）"
+        },
+        {
+          "option_label": "D",
+          "option_text": "将'用户满意度>90%'这一业务指标直接作为自动化评测的唯一打分依据"
+        }
+      ],
+      "answer": "ABD",
+      "analysis": "A项违反'铁律二：标准答案必须由领域专家提供'（7.2.1节表格及best框），且导致算法指标失去业务锚点，破坏'业务→技术→算法'分层传导（7.2.2节原理）；B项违反'铁律一：问题必须来自真实用户场景'（7.2.1节），且造成数据泄漏（7.8.2节exam框），使算法指标无法反映真实业务表现，混淆算法层与业务层边界；D项直接将业务指标'用户满意度'当作算法指标使用，严重违背'算法指标是手段，业务指标才是目标'的根本原则（7.2.2节principle框），属于层级错配。C项虽违反'控制变量'要求（7.2.4节），但仅影响算法指标的可比性，不涉及'两条铁律'或分层逻辑，故不选。",
+      "difficulty_label": "挑战"
+    },
+    {
+      "type": 0,
+      "stem": "当RAGAS评测显示Context Precision=0.32、Context Recall=0.89、Answer Correctness=0.41时，若需严格依据教材7.5节'定位问题的黄金法则'及7.2.2节指标分层逻辑，应优先将优化资源投入哪一层级？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "业务指标层：重新定义'好答案'的业务标准，例如增加'合规性'维度"
+        },
+        {
+          "option_label": "B",
+          "option_text": "核心技术指标层：优化系统架构以降低平均响应延迟"
+        },
+        {
+          "option_label": "C",
+          "option_text": "算法指标层：聚焦检索端排序优化，因Precision低表明相关片段信噪比不足"
+        },
+        {
+          "option_label": "D",
+          "option_text": "算法指标层：聚焦生成端提示词工程，因Correctness低是最终结果"
+        }
+      ],
+      "answer": "C",
+      "analysis": "教材7.5节'黄金法则'第一条明确：'Context Recall / Precision 低 → 问题在检索阶段'；题干中Precision=0.32（远低于Recall=0.89）正符合'召回全但噪声多、排得靠后'的典型特征（7.3节易混辨析），教材7.5节对应优化方向为'加Rerank、缩小Top K'等检索端措施。此判断完全基于算法指标组合，无需上升至业务或技术层。A项错误：业务标准应在评测先行阶段已确立（7.1节principle），此处是执行层故障诊断；B项错误：题干未提供任何技术指标（如延迟）数据，属无依据迁移；D项错误：Correctness低是结果，但'黄金法则'强调必须结合检索指标判断根源——此处检索端Precision已暴露瓶颈，按教材'先检索后生成'总体顺序（7.5节value框），应优先解决检索问题。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 1,
+      "stem": "以下哪些现象能同时体现'指标三层分层'中各层的必要条件缺失，且直接导致故障诊断失效？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "未冻结评测用Embedding模型版本，导致两次评测的Context Recall分数波动达±0.15"
+        },
+        {
+          "option_label": "B",
+          "option_text": "ground_truth由实习生编写，导致Answer Correctness计算时因标准答案错误而误判模型性能"
+        },
+        {
+          "option_label": "C",
+          "option_text": "将'问题解决率'这一业务指标直接映射为'answer字段非空'的代码规则进行自动化打分"
+        },
+        {
+          "option_label": "D",
+          "option_text": "在无业务目标定义的情况下，仅以BLEU分数提升作为优化成功的唯一依据"
+        }
+      ],
+      "answer": "BCD",
+      "analysis": "B项：ground_truth非专家提供→破坏算法指标基准（7.2.1节铁律），导致Correctness无法反映真实生成质量，使'定位问题'失效；C项：将业务指标'问题解决率'粗暴等价于技术实现'answer非空'，跳过技术指标设计（如意图识别准确率），造成指标分层断裂，无法诊断'答非所问'类故障（7.2.2节原理）；D项：用BLEU（算法指标）替代业务目标，违背'算法指标是手段'原则（7.2.2节principle），导致优化方向与业务脱钩，故障诊断失去业务标尺。A项仅影响算法指标可比性（7.2.4节控制变量），不破坏分层结构本身，故不选。",
+      "difficulty_label": "挑战"
+    },
+    {
+      "type": 0,
+      "stem": "某团队发现RAGAS评测中Answer Correctness持续低于0.5，但深入分析发现：其语义相似度子项均值为0.82，而事实F1子项均值仅为0.13。依据教材7.4.4节Answer Correctness官方口径及指标分层逻辑，该现象揭示的根本矛盾是？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "算法指标层内部失衡：模型过度追求字面相似，牺牲事实准确性"
+        },
+        {
+          "option_label": "B",
+          "option_text": "技术指标层缺陷：Embedding模型精度不足导致语义相似度计算失真"
+        },
+        {
+          "option_label": "C",
+          "option_text": "业务指标层偏差：用户实际更看重回答长度而非事实正确性"
+        },
+        {
+          "option_label": "D",
+          "option_text": "算法指标层输入错误：ground_truth字段未按规范由领域专家提供"
+        }
+      ],
+      "answer": "A",
+      "analysis": "教材7.4.4节明确Answer Correctness = 0.25×语义相似度 + 0.75×事实F1，且强调'权重0.75给了事实F1，说明更看重事实正确性'。题干中语义相似度高（0.82）但事实F1极低（0.13），导致总分被拉低，这直接暴露算法指标内部的结构性矛盾：模型在生成时倾向于复述或近义改写参考答案（提升语义相似度），却无法保证所述内容与ground_truth事实一致（事实F1低）。这属于算法指标层自身的设计与执行矛盾，与B项（Embedding精度属技术实现细节，非教材讨论重点）、C项（业务偏好需通过业务指标验证，题干未提供）、D项（ground_truth质量问题会导致F1普遍偏低，但不会特异性表现为'相似度高+F1低'的分离现象）均无直接关联。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 1,
+      "stem": "在实施评测驱动开发（EDD）过程中，以下哪些做法能同时满足'防止回归'与'定位问题'双重目标，且严格遵循教材7.2.2节指标分层原则？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "每次优化后，用同一套冻结评测集运行，对比Context Recall、Faithfulness等算法指标变化"
+        },
+        {
+          "option_label": "B",
+          "option_text": "建立覆盖'简单/中等/困难'三类难度的评测子集，并分别统计各子集的Answer Correctness"
+        },
+        {
+          "option_label": "C",
+          "option_text": "将线上用户投诉率作为核心业务指标，与算法指标变化做交叉归因分析"
+        },
+        {
+          "option_label": "D",
+          "option_text": "在评测脚本中强制要求temperature=0、seed=42，确保生成结果确定性"
+        }
+      ],
+      "answer": "ABC",
+      "analysis": "A项：'同一套冻结评测集'保障回归可比性（7.1节principle框），'对比Context Recall/Faithfulness等算法指标'直接支持定位（7.5节黄金法则），符合分层中算法层执行要求；B项：按难度分层评测（7.8.2节best框'分层/分难度覆盖'），使指标变化可归因到具体能力维度（如困难题Correctness骤降），既防回归又精确定位；C项：将业务指标（投诉率）与算法指标交叉分析（如投诉集中于Faithfulness低的题型），打通业务层与算法层，实现'用业务验证算法，用算法解释业务'的闭环（7.2.2节原理框'业务指标是目标'）；D项：虽提升可复现性（7.2.4节控制变量），但仅服务于'防止回归'，无助于'定位问题'（无法区分是检索还是生成故障），且temperature=0可能抑制多样性，不符合教材'固定配置'的本意（7.2.4节强调冻结而非极端参数），故不选。",
+      "difficulty_label": "挑战"
+    }
+  ]
+}

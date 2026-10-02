@@ -1,0 +1,212 @@
+{
+  "3-0994": {
+    "qid": "3-0994",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "考查检索器评估指标，属于RAG核心知识。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "向量检索：离线把每个 chunk 向量化存入库；在线把用户问题也向量化，找出与问题向量距离最近的若干 chunk。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "流畅度是生成端指标，非检索器评估。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "检索器核心是衡量文档与查询的相似度。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "答案长度与检索器效果无关。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "推理时间非检索器核心评估指标。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-1004": {
+    "qid": "3-1004",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "考查RAG离线建库流程，是本章核心考点。",
+    "answer": [
+      "D"
+    ],
+    "supported": true,
+    "quote": "第一阶段：离线建库（Indexing，一次做好、多次复用）1. 文档解析 2. 文本切片（Chunking） 3. 向量化 4. 入库",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "顺序错误，向量化应在分割之后。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "缺少文档加载步骤，流程不完整。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "缺少内容分割步骤，流程错误。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "顺序正确：加载、分割、向量化、存储。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-1069": {
+    "qid": "3-1069",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "考查查询改写解决多轮对话指代不清问题。",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "查询改写：多轮对话中“他/这个”指代不清，先用 LLM 把含代词的问题改写成完整问题再检索。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "增加召回数量无法解决部门信息混淆。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "减少召回数量可能遗漏正确信息。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "结合部门信息改写query，精准定位。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "重复检索不解决指代不清的根本问题。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-1081": {
+    "qid": "3-1081",
+    "classification": "cross",
+    "chapter": 2,
+    "quality": "remove",
+    "reason": "题干与RAG无关，属于提示工程或通用实践，且选项设计不合理。",
+    "answer": [
+      "D"
+    ],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "表述绝对且与题干逻辑不符。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "大模型漏错是可能原因，但非最佳解释。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "内容错误不需要处理，说法错误。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "信息过载是输出所有结果的常见问题。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-1108": {
+    "qid": "3-1108",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "考查召回率与精确率的权衡，是RAG核心概念。",
+    "answer": [
+      "D"
+    ],
+    "supported": true,
+    "quote": "K 调大 → 召回率（相关文档被找到的比例）↑，但无关噪声也增多、精确率 ↓、token 成本 ↑。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "召回率高意味着结果数量多，不会不足。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "召回率高意味着结果多，不会过少。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "过度追求召回率是放宽条件，不会更严格。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "召回率过高会引入大量无关信息，影响体验。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-1318": {
+    "qid": "3-1318",
+    "classification": "cross",
+    "chapter": 8,
+    "quality": "ok",
+    "reason": "考查规则匹配在AI安全合规中的应用，属于安全章节。",
+    "answer": [
+      "C"
+    ],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "复杂情感识别不适合简单规则匹配。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "特定品牌广告信息判断需语义理解。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "明确违禁词汇检测适合精确的规则匹配。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "理解深层含义不适合简单规则匹配。"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

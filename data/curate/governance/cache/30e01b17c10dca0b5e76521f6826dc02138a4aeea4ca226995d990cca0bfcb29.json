@@ -1,0 +1,214 @@
+{
+  "2-0581": {
+    "qid": "2-0581",
+    "classification": "own",
+    "chapter": 2,
+    "quality": "ok",
+    "reason": "考查提示词六要素中定义语气或写作风格的要素。",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "角色（Role）定义身份、语气、写作风格",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "角色定义语气和写作风格。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "受众约束内容深度，非语气。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "任务目标明确做什么，非语气。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "上下文提供背景事实，非语气。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "2-0660": {
+    "qid": "2-0660",
+    "classification": "own",
+    "chapter": 2,
+    "quality": "ok",
+    "reason": "考查通过补充角色、受众、具体任务来改进提示词。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "角色激活模型在训练中见过的角色模式（工程师 vs 小学老师，对同一问题的措辞深度完全不同）",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "仅要求长描述，未改进质量。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "补充角色、受众、具体任务，效果最佳。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "仅列出参数，非营销描述。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "改变语言，未解决通用性问题。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "2-0673": {
+    "qid": "2-0673",
+    "classification": "own",
+    "chapter": 2,
+    "quality": "ok",
+    "reason": "考查纠正事实错误的方法，识别无效选项。",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "事实/计算类任务追求稳定，用低 temperature",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "RAG可提供准确知识纠正错误。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "要求自我验证可能有助于纠正。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "增加温度使输出更随机，不纠正事实。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "思维链引导推理，可能纠正错误。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "2-0704": {
+    "qid": "2-0704",
+    "classification": "own",
+    "chapter": 2,
+    "quality": "ok",
+    "reason": "考查微调与提示工程的核心区别。",
+    "answer": [
+      "A",
+      "B",
+      "C"
+    ],
+    "supported": true,
+    "quote": "微调解决行为适配而非知识更新；提示工程不改变模型参数",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "微调修改参数，提示工程不修改。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "微调需大量数据，提示工程可小数据。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "微调长期保留知识，提示工程需每次输入。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "微调资源消耗通常更高。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "2-0713": {
+    "qid": "2-0713",
+    "classification": "own",
+    "chapter": 2,
+    "quality": "ok",
+    "reason": "考查通过提供上下文（大纲）获得结构化内容。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "上下文（Context）提供背景、事实、范围",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "改变语言不解决内容深度。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "提供大纲和关键点作为上下文最有效。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "限制长度不解决泛泛而谈。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "重复生成不保证内容深度。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "2-0896": {
+    "qid": "2-0896",
+    "classification": "own",
+    "chapter": 2,
+    "quality": "ok",
+    "reason": "考查通过明确约束（输出格式）确保代码包含注释。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "输出格式（Output Format）指定格式、枚举值、禁止项",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "要求模糊，效果不稳定。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "明确要求添加详细注释，约束最有效。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "手动添加非提示工程方法。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "审查工具是事后方法。"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

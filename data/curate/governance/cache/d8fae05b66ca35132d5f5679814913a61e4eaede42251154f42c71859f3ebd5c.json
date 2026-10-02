@@ -1,0 +1,154 @@
+{
+  "items": [
+    {
+      "type": 0,
+      "stem": "某金融系统后端需将通义千问能力嵌入现有Java微服务，要求零模型运维、支持流式响应、且能复用LangChain的OpenAI模块。开发团队仅修改base_url和API Key即完成迁移，但上线后发现重排序（Rerank）功能不可用。该故障最根本的原因是？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "DashScope原生重排序服务未提供OpenAI兼容接口，必须切换至dashscope SDK调用TextReRank"
+        },
+        {
+          "option_label": "B",
+          "option_text": "qwen-plus模型不支持重排序，需升级为qwen-max才能启用该能力"
+        },
+        {
+          "option_label": "C",
+          "option_text": "LangChain的OpenAI模块未适配阿里云重排序API，需自行封装HTTP客户端"
+        },
+        {
+          "option_label": "D",
+          "option_text": "重排序属于多模态能力，当前兼容模式仅支持chat.completions接口"
+        }
+      ],
+      "answer": "A",
+      "analysis": "依据原文10.3节':::compare'框内明确说明：'DashScope原生接口能用上部分平台特有参数/能力（如特定多模态、重排序服务）'，而'兼容接口迁移成本低、生态好，是应用开发的首选'——二者能力范围不同。重排序（TextReRank）是DashScope原生SDK专属能力，OpenAI兼容模式仅覆盖chat/completions、embeddings等标准OpenAI接口，不包含Rerank。选项B错误：重排序是独立服务（qwen3-rerank），非生成模型能力；C错误：LangChain可通过自定义LLM类扩展，但根本限制在于兼容模式本身不暴露该API；D错误：重排序属文本相关性计算，非多模态。教材依据：10.3节对比表及课程代码示例中TextReRank.call()必须使用dashscope原生包。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 1,
+      "stem": "在DashScope OpenAI兼容模式下，以下哪些条件同时成立时，必须放弃兼容模式，转而使用dashscope原生SDK？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "需要调用qwen3-rerank模型进行文档相关性重排"
+        },
+        {
+          "option_label": "B",
+          "option_text": "需对qwen-plus模型设置temperature=0.2与top_p=0.95的组合参数"
+        },
+        {
+          "option_label": "C",
+          "option_text": "需使用通义万相的文生图能力生成营销海报"
+        },
+        {
+          "option_label": "D",
+          "option_text": "需通过stream=True获取逐Token流式输出"
+        }
+      ],
+      "answer": "AC",
+      "analysis": "依据原文10.3节':::compare'：'原生接口能用上部分平台特有参数/能力（如特定多模态、重排序服务）'，而兼容模式仅覆盖OpenAI标准接口。A正确：qwen3-rerank是DashScope原生重排序服务，无OpenAI对应接口；C正确：通义万相（文生图）属多模态能力，OpenAI兼容模式仅支持文本类chat/completions，不涵盖图像生成；B错误：temperature/top_p是OpenAI标准参数，兼容模式完全支持；D错误：stream=True是OpenAI标准流式参数，原文10.3代码示例明确使用且标注为'对话类应用标配'。教材依据：10.3节对比说明及课程代码中client.chat.completions.create(..., stream=True)的合法使用。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 0,
+      "stem": "运维监控发现DashScope API调用持续返回429错误，日志显示TPM（每分钟Token数）已超限，但RPM（每分钟请求数）远低于配额。此时若仅增加重试间隔而不调整其他参数，最可能导致的后果是？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "TPM超限加剧，因重试请求仍消耗Token，形成恶性循环"
+        },
+        {
+          "option_label": "B",
+          "option_text": "触发RPM限流，因重试导致请求数激增"
+        },
+        {
+          "option_label": "C",
+          "option_text": "输出Token费用异常升高，因重试时重复发送长输入"
+        },
+        {
+          "option_label": "D",
+          "option_text": "模型响应质量下降，因重试时temperature参数被重置"
+        }
+      ],
+      "answer": "A",
+      "analysis": "依据原文10.8节':::cost'：'遇429用指数退避+抖动重试，必要时降级到更小模型'，并强调'切忌无间隔死循环重试，那会加剧限流、推高成本'。本题中TPM已超限，重试请求仍会发送完整输入/输出，持续消耗Token，使TPM超限更严重。选项B错误：题干明确RPM远低于配额，重试不会触发RPM限流；C错误：费用升高是结果而非直接后果，且'重复发送长输入'属输入控制问题，非重试本身导致；D错误：temperature是请求参数，重试时由客户端控制，DashScope不重置。教材依据：10.8节':::risk'框内'切忌无间隔死循环重试'的警示。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 1,
+      "stem": "某医疗系统需调用DashScope处理患者病历摘要，要求严格遵循HIPAA合规要求。以下哪些操作违反了DashScope作为MaaS服务的本质约束，导致数据出域风险？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "将原始PDF病历文件直接base64编码后作为messages.content传入qwen-long API"
+        },
+        {
+          "option_label": "B",
+          "option_text": "在百炼知识库中上传病历扫描件，通过百炼API调用其底层DashScope模型"
+        },
+        {
+          "option_label": "C",
+          "option_text": "使用DashScope原生SDK调用qwen-turbo，但将病历文本分段后并行发送10个请求"
+        },
+        {
+          "option_label": "D",
+          "option_text": "在PAI-DSW中下载ModelScope开源模型，本地解析病历后调用vLLM服务"
+        }
+      ],
+      "answer": "ABC",
+      "analysis": "依据原文10.1节':::concept'：MaaS（模型即服务）指'把模型像水电一样通过API提供，使用者无需自己部署模型、无需关心GPU运维，按调用量（Token）付费'，且10.7节强调'商业版走托管API；要私有化用开源版+自建/PAI'。A、B、C均通过DashScope API传输原始病历数据，必然上送至阿里云服务器，违反'数据不出域'；其中B虽经百炼，但原文10.1明确'百炼与DashScope共用API Key'，百炼知识库底层仍调用DashScope Embedding/生成模型，数据同样上送。D正确：PAI-DSW+ModelScope开源模型属自托管方案，数据可完全保留在客户私有环境。教材依据：10.1节MaaS定义、10.5节选型表'数据与模型控制'行、10.7节'商业版模型可以私有化部署吗'的❌结论。",
+      "difficulty_label": "挑战"
+    },
+    {
+      "type": 0,
+      "stem": "开发团队使用DashScope OpenAI兼容模式调用qwen-long处理一份150页合同，但账单显示输出Token费用远高于输入。经排查，模型返回内容包含大量重复段落与冗余解释。该现象最符合原文哪项计费规则与工程实践警示？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "违反'输入/输出分别计价、输出通常更贵'规则，且未设置max_tokens限制输出长度"
+        },
+        {
+          "option_label": "B",
+          "option_text": "违反'上下文缓存'机制，因输入前缀未标准化导致缓存未命中"
+        },
+        {
+          "option_label": "C",
+          "option_text": "违反'按Token计费'原则，因使用了非标准字符集导致Token统计异常"
+        },
+        {
+          "option_label": "D",
+          "option_text": "违反'RPM/TPM限流'，因高并发请求触发了隐式降级策略"
+        }
+      ],
+      "answer": "A",
+      "analysis": "依据原文10.8节':::cost'：'控制输出：用max_tokens给输出设上限，避免模型刹不住车'，以及'输入/输出分别计价，输出通常更贵'。qwen-long虽支持长上下文，但若未设max_tokens，模型可能生成冗长、重复的输出，直接推高更昂贵的输出Token费用。选项B错误：缓存影响成本但不导致输出冗余；C错误：Token统计由DashScope统一处理，非客户端可控；D错误：限流导致429，非输出质量下降。教材依据：10.8节'省成本的工程手段'第3条及':::exam'中'知道输入输出分别计价、输出更贵'的考点。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 1,
+      "stem": "当百炼应用需调用部署在PAI-EAS上的私有模型时，以下哪些条件是必须同时满足的？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "PAI-EAS服务已配置公网访问或VPC内网互通，且百炼工作流节点能发起HTTP请求"
+        },
+        {
+          "option_label": "B",
+          "option_text": "EAS服务的API接口需兼容OpenAI标准格式（如/chat/completions）"
+        },
+        {
+          "option_label": "C",
+          "option_text": "百炼平台已开通PAI产品权限，并在RAM中授予EAS调用策略"
+        },
+        {
+          "option_label": "D",
+          "option_text": "EAS部署的模型必须是通义千问系列，不能使用Qwen2-7B等开源模型"
+        }
+      ],
+      "answer": "AB",
+      "analysis": "依据原文10.1节末尾链路描述：'百炼应用再去调用EAS上的私有模型'，及10.5节'三者可组合'说明。A正确：网络连通是跨平台调用前提，原文虽未明说，但属基础设施必要条件；B正确：百炼工作流调用外部服务需标准协议，原文10.4节提到vLLM本地服务'其HTTP接口本身兼容OpenAI API'，说明EAS需提供兼容接口才能被百炼无缝集成；C错误：百炼与PAI权限独立，RAM策略非百炼调用EAS的必要条件（可通过通用HTTP调用）；D错误：原文10.4明确'PAI支持自研/开源/微调模型全流程'，且10.7节案例即用Qwen2-7B开源模型。教材依据：10.1节全链路描述'百炼应用再去调用EAS上的私有模型'及10.4节'vLLM本地起服务验证（其HTTP接口本身兼容OpenAI API）'。",
+      "difficulty_label": "挑战"
+    }
+  ]
+}

@@ -1,0 +1,248 @@
+{
+  "11-0784": {
+    "qid": "11-0784",
+    "classification": "own",
+    "chapter": 11,
+    "quality": "ok",
+    "reason": "考查多模态应用典型管道架构，选项清晰对应图像理解与文本生成环节。",
+    "answer": [
+      "A",
+      "B",
+      "C"
+    ],
+    "supported": true,
+    "quote": "管道式架构（Pipeline）是绝大多数多模态应用的骨架：先用专用模型完成模态转换（语音转文字、图片转文字/特征），再由 LLM 做语义理解与生成",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "图像识别提取特征是多模态理解第一步。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "大模型基于特征生成文案是核心生成环节。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "少样本提示可引导模型完成特定格式生成。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "题干未提相似产品复用，向量数据库非必须。"
+      },
+      {
+        "label": "E",
+        "selected": false,
+        "why": "要求上传图片，纯文本输入框不满足需求。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "11-1032": {
+    "qid": "11-1032",
+    "classification": "cross",
+    "chapter": 12,
+    "quality": "fixable",
+    "reason": "考查Python库用途，但考点更偏向通用工具而非多模态AI核心原理。",
+    "answer": [
+      "B",
+      "D",
+      "F"
+    ],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "numpy是数值计算库，不专门处理视频图像。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "OpenCV是计算机视觉库，专门处理图像视频。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "pandas是数据分析库，不专门处理视频图像。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "TensorFlow可用于图像处理与计算机视觉任务。"
+      },
+      {
+        "label": "E",
+        "selected": false,
+        "why": "requests是HTTP库，不专门处理视频图像。"
+      },
+      {
+        "label": "F",
+        "selected": true,
+        "why": "moviepy是视频编辑库，专门处理视频。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "11-0740": {
+    "qid": "11-0740",
+    "classification": "own",
+    "chapter": 11,
+    "quality": "ok",
+    "reason": "考查语音理解与文本生成的多模态管道，选项对应典型技术组件。",
+    "answer": [
+      "A",
+      "B",
+      "C"
+    ],
+    "supported": true,
+    "quote": "语音助手是典型的管道式架构，由多个各司其职的模型串成：ASR 语音识别（语音→文字）... LLM 生成文字回复",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "ASR将录音转文本是语音理解第一步。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "大模型总结文本生成结构化纪要是核心。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "信息抽取工具可提取待办事项等结构化信息。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "题干未提后续检索需求，向量数据库非必须。"
+      },
+      {
+        "label": "E",
+        "selected": false,
+        "why": "要求录音转文字，纯文本编辑器不满足需求。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "11-0786": {
+    "qid": "11-0786",
+    "classification": "own",
+    "chapter": 11,
+    "quality": "ok",
+    "reason": "考查多模态RAG中文档解析环节，选项覆盖各类格式及OCR需求。",
+    "answer": [
+      "A",
+      "B",
+      "C",
+      "D"
+    ],
+    "supported": true,
+    "quote": "文档智能解析链路：OCR（光学字符识别）... 版面分析... 结构化还原... 进入常规 RAG",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "PDF解析工具提取文本表格是基础。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "Word解析工具提取文本是基础。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "Excel解析工具提取结构化数据是基础。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "OCR处理扫描图片文字是文档智能关键。"
+      },
+      {
+        "label": "E",
+        "selected": false,
+        "why": "要求支持多种格式，纯文本编辑器不满足。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "11-5158": {
+    "qid": "11-5158",
+    "classification": "own",
+    "chapter": 11,
+    "quality": "ok",
+    "reason": "考查个性化语音助手核心管道组件，选项清晰对应ASR、LLM、TTS。",
+    "answer": [
+      "A",
+      "B",
+      "D"
+    ],
+    "supported": true,
+    "quote": "语音助手是典型的管道式架构：ASR 语音识别（语音→文字）... LLM 生成文字回复... TTS 语音合成（文字→语音）",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "ASR转写用户语音是输入环节。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "大模型进行语义理解与生成是核心。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "固定关键词匹配不符合“听懂指令”要求。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "TTS将回复转音频是输出环节。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "11-5159": {
+    "qid": "11-5159",
+    "classification": "own",
+    "chapter": 11,
+    "quality": "ok",
+    "reason": "考查多模态生成任务识别，需图像理解与跨模态编辑能力。",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "多模态 AI 指能联合理解、生成两种及以上模态信息，并建立它们之间关联的模型与系统",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "仅文本分类无法处理图片内容修改。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "音频识别与图片修改任务无关。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "需理解图片内容并生成修改后的新图片。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "数据库查询无法完成图片内容编辑。"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

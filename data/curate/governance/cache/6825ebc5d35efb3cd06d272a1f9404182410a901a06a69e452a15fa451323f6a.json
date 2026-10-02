@@ -1,0 +1,206 @@
+{
+  "1-0835": {
+    "qid": "1-0835",
+    "classification": "own",
+    "chapter": 1,
+    "quality": "ok",
+    "reason": "考查长文档处理效率与成本优化，属于上下文窗口工程实践。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "长文本应用要把内容‘塞进’窗口，常见手段：滑动窗口 / 摘要压缩",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "用户操作非技术优化手段。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "滑动窗口是减少计算复杂度的标准方法。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "增加参数会提升成本而非降低。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "丢弃信息会损害效果。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "1-0938": {
+    "qid": "1-0938",
+    "classification": "cross",
+    "chapter": -1,
+    "quality": "remove",
+    "reason": "题目涉及多语言翻译架构，主要考点属于多模态或工程实践，但教材目录无明确对应章节；且选项C/D明显不合理，无考查价值。",
+    "answer": [],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "未在教材中讨论。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "未在教材中讨论。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "不合理要求。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "不切实际。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "1-0948": {
+    "qid": "1-0948",
+    "classification": "cross",
+    "chapter": -1,
+    "quality": "remove",
+    "reason": "题目涉及语音生成情感控制，属于多模态领域，但教材目录无明确对应章节；且选项A/C明显不合理，无考查价值。",
+    "answer": [],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "回避问题非有效方法。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "未在教材中讨论。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "随机选择无效。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "用户选择非技术方法。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "1-1041": {
+    "qid": "1-1041",
+    "classification": "cross",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "考查句子窗口检索机制的优势，属于RAG章节核心知识。",
+    "answer": [
+      "A"
+    ],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "符合句子窗口检索设计目的。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "未改善注意力机制。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "不直接影响生成速度。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "不降低存储空间要求。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "1-1044": {
+    "qid": "1-1044",
+    "classification": "own",
+    "chapter": 1,
+    "quality": "ok",
+    "reason": "考查大模型能力边界，识别其不擅长的任务。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "不擅精确计算：自回归逐 Token 生成，缺乏真正的符号运算机制",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "文本分析是模型擅长任务。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "精确统计计算非模型所长。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "文本分类是模型擅长任务。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "模式检测可能可行。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "1-1045": {
+    "qid": "1-1045",
+    "classification": "misplaced",
+    "chapter": -1,
+    "quality": "remove",
+    "reason": "题目涉及‘线程ID’参数，教材未提及此概念；选项均无意义，严重无考查价值。",
+    "answer": [],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "教材未提及此参数。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "教材未提及此参数。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "content是消息内容非线程ID。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "assistant.id非线程ID。"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

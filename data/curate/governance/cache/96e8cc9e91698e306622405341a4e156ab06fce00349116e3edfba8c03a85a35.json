@@ -1,0 +1,154 @@
+{
+  "items": [
+    {
+      "type": 0,
+      "stem": "某团队对新人答疑机器人实施切片优化后，RAGAS评测显示Context Recall从0.62升至0.89，但Answer Correctness仅从0.71微升至0.73，且Faithfulness下降0.15。日志确认检索片段中包含完整答案信息（如'张伟是教研部的'）。此时最应优先排查的环节是？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "知识库内容缺失，需补充HR组织架构文档"
+        },
+        {
+          "option_label": "B",
+          "option_text": "Embedding模型召回能力不足，应更换为text-embedding-v3"
+        },
+        {
+          "option_label": "C",
+          "option_text": "生成阶段提示词未强制约束‘仅依据上下文回答’，导致模型引入幻觉"
+        },
+        {
+          "option_label": "D",
+          "option_text": "Top K设置过小，应调大至20以提升信息覆盖"
+        }
+      ],
+      "answer": "C",
+      "analysis": "根据教材7.5节‘定位问题的黄金法则’：当Context Recall与Context Precision均提升（Recall↑表明检索更全，Precision未提及但题干未恶化，可推定未显著下降），而Faithfulness↓、Answer Correctness↑微弱甚至停滞，说明问题已不在检索端，而在生成端——即模型虽拿到了正确资料，却未忠实使用，出现幻觉（教材7.4.3明确Faithfulness专治此病）。选项C直指生成端核心病因：提示词缺乏‘只依据资料’的强约束（教材7.5表‘优化方向’中‘Faithfulness低’对应‘强化提示词约束’）。A、B、D均为检索端优化措施，与Recall已提升的事实矛盾；D更会加剧Precision下降风险（教材7.5‘踩坑提醒’明确警示‘一味调大Top K’导致噪声暴涨）。本题考查‘指标组合变化→故障归因→精准开方’的闭环诊断能力，非单纯定义记忆。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 1,
+      "stem": "在实施评测驱动开发（EDD）时，以下哪些做法能同时满足‘防止回归’与‘定位问题’双重目标？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "每次优化后，仅运行修改模块对应的子集测试用例"
+        },
+        {
+          "option_label": "B",
+          "option_text": "冻结评测集版本、推理参数（temperature/seed）、评委LLM与Embedding模型版本"
+        },
+        {
+          "option_label": "C",
+          "option_text": "构建覆盖多类业务场景（如年假、报销、入职流程）及边界案例（如模糊提问、跨部门查询）的评测集"
+        },
+        {
+          "option_label": "D",
+          "option_text": "将RAGAS五大指标拆解为检索端（Context Recall/Precision）与生成端（Faithfulness/Answer Correctness/Relevancy）分别分析"
+        }
+      ],
+      "answer": "B,C,D",
+      "analysis": "‘防止回归’要求分数变化可归因于系统改动而非评测扰动，教材7.2.4强调‘回归评测必须冻结评测集与配置（temperature/seed/模型版本）’，B项完全符合；‘定位问题’需指标可分解、评测集有区分度：C项对应教材7.2.1‘评测集构建铁律’中‘覆盖主要业务场景与边界情况’，确保能暴露各类短板；D项直接源自教材7.3核心思想‘把RAG链路拆成检索端和生成端分别评价’及7.5‘黄金法则’，是定位‘病在哪里’的技术基础。A项错误：仅跑子集无法验证‘修好A是否弄坏B’，违背教材7.1‘无法回归’缺陷及7.5‘防止回归’用途，属典型回归测试失效。本题考查EDD流程中‘冻结变量’‘覆盖维度’‘指标分层’三要素的协同设计，避免孤立理解单个原则。",
+      "difficulty_label": "挑战"
+    },
+    {
+      "type": 0,
+      "stem": "某Agent端到端评测得分为4.3/5，但用户持续反馈‘生成的Python代码示例无法运行’。依据本章7.6节Agent评测框架，以下哪项指标设计最能精准定位该故障？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "在端到端评测中增加一条LLM-as-Judge主观评分：‘代码示例是否具备可执行性’"
+        },
+        {
+          "option_label": "B",
+          "option_text": "构建白盒评测组件，对Agent输出的代码段执行沙箱环境运行并捕获异常"
+        },
+        {
+          "option_label": "C",
+          "option_text": "扩大端到端评测集规模，增加1000条含代码需求的测试问题"
+        },
+        {
+          "option_label": "D",
+          "option_text": "在系统提示词中追加约束：‘所有代码必须通过Python 3.9解释器验证’"
+        }
+      ],
+      "answer": "B",
+      "analysis": "教材7.6明确指出：Agent问题‘往往在过程里’，‘光看最终答案发现不了’，必须结合‘端到端’与‘白盒’视角；白盒评测‘深入链路，对关键组件/中间步骤单独打分’，优势是‘信号清晰无干扰、定位精准’。B项‘沙箱运行并捕获异常’是典型的确定性检查（教材7.6.1），直接验证代码可执行性这一客观硬指标，完美匹配‘精准定位’要求。A项仍属端到端主观判断，LLM评委可能误判（教材7.8.1偏见）；C项扩大规模不解决‘定位’问题，仍是黑盒；D项是生成约束，非评测手段，且无法验证效果。本题紧扣教材7.6核心差异——Agent评测必须穿透最终答案，直击中间组件行为。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 1,
+      "stem": "在使用RAGAS评估中文HR问答系统时，为确保Answer Correctness指标计算准确，以下哪些配置或操作是教材7.4.4节明确要求或强烈建议的？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "使用text-embedding-v3模型计算answer与ground_truth的语义相似度"
+        },
+        {
+          "option_label": "B",
+          "option_text": "将chinese_prompt.py中的中文提示词模板注入评委LLM"
+        },
+        {
+          "option_label": "C",
+          "option_text": "在计算事实F1前，由领域专家人工校验ground_truth观点分解的合理性"
+        },
+        {
+          "option_label": "D",
+          "option_text": "固定评委LLM为qwen-plus，并在评测脚本中显式指定model_name参数"
+        }
+      ],
+      "answer": "A,B,D",
+      "analysis": "教材7.4.4‘Answer Correctness官方口径’明确要求：语义相似度部分‘用Embedding模型（text-embedding-v3）’计算（A正确）；‘RAGAS的中文场景可替换chinese_prompt.py里的中文提示词模板’（B正确）；7.2.4及7.4.4示例代码均指定‘llm=Tongyi(model_name=\"qwen-plus\")’，强调评委模型需固定（D正确）。C项虽合理，但教材未要求‘人工校验观点分解’——事实F1的分解由评委LLM自动完成（7.4.4原理描述），且7.8.2强调‘黄金集用于校准评委’而非干预其内部处理逻辑。本题严格依据教材原文细节，考查对‘官方口径’中技术实现要素的精准识别，排除经验性合理但无教材依据的选项。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 0,
+      "stem": "团队在优化RAG系统时观察到：Context Precision从0.35升至0.72，Context Recall却从0.88降至0.75，且Answer Correctness小幅下降。此时最合理的归因与应对策略是？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "检索排序质量提升但召回完整性受损，应优先加Rerank并同步增大Top K"
+        },
+        {
+          "option_label": "B",
+          "option_text": "生成模型对高Precision上下文过度依赖，应降低temperature增强确定性"
+        },
+        {
+          "option_label": "C",
+          "option_text": "知识库存在冗余信息，应清理无关文档并重新切片"
+        },
+        {
+          "option_label": "D",
+          "option_text": "评委LLM出现位置偏见，应交换候选顺序多次打分取平均"
+        }
+      ],
+      "answer": "A",
+      "analysis": "教材7.4.2明确Context Precision公式‘惩罚把无关内容塞在前面’，Precision↑通常源于Rerank或过滤；Recall↓则表明‘该找的没找全’（教材7.5表）。二者同现，典型矛盾是‘保精度牺牲了召回’（如Rerank过度过滤、相似度阈值过高）。教材7.5‘踩坑提醒’警示：‘Recall低就一味调大Top K’会掉入‘Lost in the Middle’，但此处Precision已提升，说明需在保持Precision前提下补召回——‘加Rerank并同步增大Top K’正是教材推荐的平衡策略（Rerank保Precision，适度增Top K保Recall）。B、C、D均未触及检索端根本矛盾：B混淆了生成与检索因果；C无依据（题干未提知识库冗余）；D针对的是评委偏见，而指标变化趋势一致，非随机波动。本题考查对检索端两大指标内在张力及教材推荐权衡方案的深度理解。",
+      "difficulty_label": "挑战"
+    },
+    {
+      "type": 1,
+      "stem": "在构建新人答疑机器人评测集时，以下哪些操作违反了教材强调的‘评测先行’与‘领域专家主导’原则？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "工程师先完成切片与提示词优化，再根据上线后用户反馈抽样构建评测集"
+        },
+        {
+          "option_label": "B",
+          "option_text": "技术团队编写全部ground_truth，未邀请HRBP参与审定"
+        },
+        {
+          "option_label": "C",
+          "option_text": "评测集question字段全部来自线上日志高频问题，但剔除了3条涉及敏感政策的工单"
+        },
+        {
+          "option_label": "D",
+          "option_text": "为加快进度，用大模型批量生成100条模拟question替代真实用户问题"
+        }
+      ],
+      "answer": "A,B,D",
+      "analysis": "教材7.1‘评测先行’原则明确定义：‘先建评测集、拿到基线分数，再动手优化’，A项‘先优化再建集’直接违背（教材7.1‘❌先优化，效果好了再补评测’）；教材7.2.1‘两条铁律’首条即‘标准答案必须由业务领域专家编写/审定’，B项‘技术团队编写全部ground_truth’违反此铁律；D项‘用大模型生成question’违背‘问题必须来自真实用户场景’（教材7.2.1），属典型脱离真实场景。C项虽剔除敏感工单，但教材7.2.1强调‘覆盖主要业务场景与边界情况’，剔除敏感问题可能影响覆盖度，但‘剔除’本身未否定‘来自真实工单’的本质，且教材未禁止合理筛选，故不构成原则性违反。本题聚焦‘原则性违规’，要求严格对照教材原文中的‘必须’‘严禁’‘铁律’等刚性表述，排除灰色地带操作。",
+      "difficulty_label": "进阶"
+    }
+  ]
+}

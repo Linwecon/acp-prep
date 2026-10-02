@@ -1,0 +1,212 @@
+{
+  "1-0237": {
+    "qid": "1-0237",
+    "classification": "own",
+    "chapter": 12,
+    "quality": "ok",
+    "reason": "考查LlamaIndex核心组件QueryEngine的作用，属于本章核心知识点。",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "QueryEngine：Retriever + ResponseSynthesizer，端到端回答",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "QueryEngine负责端到端生成回答。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "与训练数据无关。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "不直接减少推理时间。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "与模型参数无关。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "1-0268": {
+    "qid": "1-0268",
+    "classification": "unsure",
+    "chapter": 12,
+    "quality": "remove",
+    "reason": "题干“OpenAILike类”未在教材中定义，无法确定其作用，无考查价值。",
+    "answer": [],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "无法确定。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "无法确定。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "无法确定。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "无法确定。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "2-0830": {
+    "qid": "2-0830",
+    "classification": "own",
+    "chapter": 12,
+    "quality": "ok",
+    "reason": "考查LlamaIndex中修改默认提示词的具体步骤，属于工程实践。",
+    "answer": [
+      "A",
+      "B",
+      "D"
+    ],
+    "supported": true,
+    "quote": "LlamaIndex默认的QA提示词模板里，`{context_str}`注入的是从向量库召回的资料，用户问题由`{query_str}`注入",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "需用update_prompts方法同步新提示词。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "需定义新提示词字符串并预留变量位。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "修改源码不是必要或常规步骤。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "需初始化PromptTemplate对象。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-0254": {
+    "qid": "3-0254",
+    "classification": "own",
+    "chapter": 12,
+    "quality": "ok",
+    "reason": "考查LlamaIndex索引持久化方法的作用，属于核心操作。",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "通过`StorageContext.from_defaults(persist_dir=...)` + `index.storage_context.persist(...)`把索引落到本地",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "persist方法将索引保存到本地文件。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "这是SimpleDirectoryReader的作用。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "向量化由Embedding模型完成。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "这是as_query_engine的作用。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-0425": {
+    "qid": "3-0425",
+    "classification": "own",
+    "chapter": 12,
+    "quality": "ok",
+    "reason": "考查LlamaIndex核心数据流顺序，是本章重点。",
+    "answer": [
+      "D"
+    ],
+    "supported": true,
+    "quote": "Document -> NodeParser -> Node -> Index -> Retriever -> QueryEngine -> Response",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "顺序错误，Document应在Node前。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "顺序完全错误。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "Node应在Index前。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "正确顺序：Document→Node→Index→QueryEngine。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-1160": {
+    "qid": "3-1160",
+    "classification": "own",
+    "chapter": 12,
+    "quality": "ok",
+    "reason": "考查StorageContext.from_defaults方法的作用，属于索引持久化知识点。",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "通过`StorageContext.from_defaults(persist_dir=...)` + `index.storage_context.persist(...)`把索引落到本地",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "创建StorageContext并指定持久化目录。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "保存是persist方法的作用。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "加载是load_from_disk等方法的作用。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "persist_dir参数被使用，非忽略。"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

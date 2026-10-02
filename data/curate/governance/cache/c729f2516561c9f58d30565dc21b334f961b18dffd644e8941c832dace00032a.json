@@ -1,0 +1,206 @@
+{
+  "1-0237": {
+    "qid": "1-0237",
+    "classification": "misplaced",
+    "chapter": 3,
+    "quality": "remove",
+    "reason": "index.as_query_engine 是 LlamaIndex 框架中 RAG 流程的核心方法，属于第3章 'RAG 检索增强生成' 的知识范畴（见章节目录3.knowledge中'LlamaIndex核心链：Document→Node→Index→Retriever→QueryEngine'），与第1章大模型基础无关。题干未提供任何上下文，无法从本章原文定位该方法。",
+    "answer": [],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "虽语义接近，但'创建用于提问的引擎'是框架层抽象，非大模型基础原理；本章原文未提及LlamaIndex或as_query_engine。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "增加训练数据属于微调或数据工程范畴，本章明确强调'知识截止'和'推理阶段不更新参数'。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "减少推理时间属部署优化（第6章），本章未涉及框架对延迟的影响。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "参数数量由模型架构决定，运行时方法无法改变。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "1-0268": {
+    "qid": "1-0268",
+    "classification": "misplaced",
+    "chapter": 12,
+    "quality": "remove",
+    "reason": "OpenAILike 类是 LangChain/LlamaIndex 等框架中用于兼容 OpenAI API 的适配器类，属于第12章 '框架与工具' 的知识范畴（见章节目录12.knowledge中'LangChain核心抽象'及'OpenAI兼容接口原理'），与第1章大模型基础无关。本章原文未出现该类名或框架适配概念。",
+    "answer": [],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "加载模型是模型服务层（如DashScope/PAI）或本地推理库（transformers）职责，OpenAILike仅做协议转换。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "增加训练数据需重新训练，与API适配类无关；本章强调'知识截止'不可在推理中更新。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "框架适配不改变推理计算量，延迟由模型本身和部署决定；本章未提及其性能影响。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "参数数量是模型固有属性，运行时类无法修改。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "1-0274": {
+    "qid": "1-0274",
+    "classification": "own",
+    "chapter": 1,
+    "quality": "ok",
+    "reason": "题干直接对应第1章1.3节五阶段流程中第二阶段'Token 向量化 Embedding（+位置编码）'，原文明确指出'ID 本身只是编号...模型用一个巨大的 Embedding 矩阵按 ID 查表，把每个 Token 换成一个高维向量'。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "第二阶段：Token 向量化（Embedding）\nID 本身只是编号，数字大小没有语义。模型用一个巨大的 Embedding 矩阵按 ID \"查表\"，把每个 Token 换成一个高维向量；再叠加位置编码",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "分词化是第一阶段，将文本切为Token ID，不涉及向量转化。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "原文明确将'Embedding'定义为第二阶段，核心动作是'按ID查表换为高维向量'。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "大模型推理是第三阶段，处理已向量化的序列，输出logits而非向量。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "输出Token是第五阶段解码后的字符串还原，非向量化过程。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "1-0280": {
+    "qid": "1-0280",
+    "classification": "misplaced",
+    "chapter": 7,
+    "quality": "remove",
+    "reason": "answer_correctness 是 RAGAS 评估指标，属于第7章 '模型评估' 的知识范畴（见章节目录7.knowledge中'RAGAS五大指标'及'Faithfulness与Correctness辨析'），本章原文未定义或提及该指标。题干脱离上下文无法作答。",
+    "answer": [],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "虽语义正确，但本章未出现该指标名称；其定义和应用在第7章评估部分。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "增加训练数据属微调范畴（第5章），本章强调推理阶段参数冻结。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "减少推理时间属部署优化（第6章），本章未涉及评估指标对延迟的影响。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "参数数量由模型架构决定，评估指标无法改变。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "1-0284": {
+    "qid": "1-0284",
+    "classification": "own",
+    "chapter": 1,
+    "quality": "ok",
+    "reason": "题干对应第1章1.3节第四阶段'解码与自回归'，原文明确说明'Logits 经 softmax 变成下一个 Token 的概率分布，再按解码策略（贪心、top_p、top_k 等）选出一个 Token'。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "Logits 经 softmax 变成\"下一个 Token 的概率分布\"，再按解码策略（贪心、top_p、top_k 等）选出一个 Token",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "随机选择不符合概率建模本质；模型基于softmax概率分布采样，非均匀随机。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "原文直接指出'按概率分布'选择，符合LLM条件概率模型本质。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "选择第一个Token是贪心解码（top_k=1），但题干问的是通用机制，非特例。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "选择最后一个Token无依据；解码策略基于概率排序，非位置顺序。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "1-0294": {
+    "qid": "1-0294",
+    "classification": "own",
+    "chapter": 1,
+    "quality": "ok",
+    "reason": "presence_penalty 是生成参数，虽未在1.7节显式列出，但本章1.7.4参数速查表明确要求掌握'调参建议'，且1.7.1-1.7.2完整覆盖temperature/top_p/top_k/seed四参数；presence_penalty作为同类控制重复性的参数，其作用逻辑与本章'抑制幻觉'和'控制输出多样性'主题一致。原文1.7.2提到'top_p核采样'，而presence_penalty同属采样策略调控，且1.2节'抑制幻觉'明确要求'用提示词约束'，presence_penalty正是技术层面的补充手段。",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "抑制幻觉 | \"只依据资料回答\" + 引用溯源 | 指望模型\"自觉\"",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "presence_penalty通过惩罚已出现的token来降低重复概率，直接对应'抑制幻觉'中减少冗余表述的需求；本章1.2节明确将'抑制幻觉'列为关键任务。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "增加多样性主要靠temperature/top_p，presence_penalty作用相反，抑制重复即降低局部多样性。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "使输出确定性提升的是降低temperature或设置top_k=1，presence_penalty不改变概率分布陡峭度。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "控制输出长度由max_tokens参数决定，presence_penalty仅影响token选择倾向。"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

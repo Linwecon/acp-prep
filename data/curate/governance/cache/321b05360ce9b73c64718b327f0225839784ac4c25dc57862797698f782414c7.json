@@ -1,0 +1,154 @@
+{
+  "items": [
+    {
+      "type": 0,
+      "stem": "某金融企业需构建合规问答系统，要求：① 所有客户合同与监管文件严禁出域；② 通用千问模型对'穿透式尽调'等术语回答不准；③ 需支持1000+并发实时响应。技术团队决定基于Qwen2-7B开源模型微调后部署。以下哪组阿里云产品组合最符合全链路需求？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "ModelScope下载模型 → PAI-DSW开发微调代码 → PAI-DLC执行分布式训练 → PAI-EAS部署为高并发服务"
+        },
+        {
+          "option_label": "B",
+          "option_text": "百炼知识库上传合同 → DashScope调用qwen-max → 通过API网关限流后接入Java后端"
+        },
+        {
+          "option_label": "C",
+          "option_text": "OSS存储合同 → DataWorks清洗 → 百炼工作流编排 → 调用DashScope Embedding+生成"
+        },
+        {
+          "option_label": "D",
+          "option_text": "通义万相生成合同图解 → ModelScope调用QwQ推理 → PAI-EAS部署为异步任务服务"
+        }
+      ],
+      "answer": "A",
+      "analysis": "题干三重约束——'数据严禁出域'（排除所有需上送API的方案B/C）、'术语回答不准需微调'（排除仅用预置模型的B/C/D）、'1000+并发实时响应'（要求生产级弹性部署，EAS是唯一满足该能力的阿里云托管推理服务）。选项A严格对应教材10.4节PAI三件套分工：DSW用于交互式开发（10.4原理）、DLC用于训练（10.4表格明确'分布式训练'）、EAS用于高并发在线服务（10.4表格'弹性伸缩、蓝绿发布'）。ModelScope下载开源模型是10.7节明确规定的私有化前提（'开源版可从ModelScope下载，部署到PAI'）。B违反数据不出域（DashScope需上送）；C仍依赖DashScope API；D中通义万相/ QwQ与金融文本问答无关，且未覆盖微调+部署闭环。",
+      "difficulty_label": "挑战"
+    },
+    {
+      "type": 0,
+      "stem": "运维工程师发现生产环境DashScope API调用频繁返回429错误，日志显示RPM（每分钟请求数）持续超限。此时最应优先执行的操作是？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "立即申请提升RPM配额，并同步在前端增加请求队列"
+        },
+        {
+          "option_label": "B",
+          "option_text": "检查是否遗漏指数退避重试逻辑，并验证429触发时是否执行了降级策略"
+        },
+        {
+          "option_label": "C",
+          "option_text": "将所有qwen-plus调用替换为qwen-turbo以降低单次Token消耗"
+        },
+        {
+          "option_label": "D",
+          "option_text": "关闭监控告警，等待配额自然重置"
+        }
+      ],
+      "answer": "B",
+      "analysis": "教材10.8节'处理限流'明确要求：'遇429用指数退避+抖动重试，必要时降级到更小模型'，且10.9误区表强调'不能假设无限并发'。B项直指故障根因——429是限流信号，首要动作是验证重试与降级机制是否生效（工程健壮性），而非盲目提配额（A）或粗暴换模型（C，未解决并发量本身问题）。D完全违背运维规范。原文10.8风险提示'生产环境必须考虑重试、退避与降级'，B是唯一符合该原则的即时响应操作。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 0,
+      "stem": "课程实验中，学生在PAI-DSW GPU实例运行微调脚本后关闭浏览器，次日发现账单异常高昂。最可能的根本原因及依据是？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "GPU实例未停止，持续计费；教材10.4成本提醒：'关闭浏览器不等于停止实例，必须回控制台停止或删除'"
+        },
+        {
+          "option_label": "B",
+          "option_text": "微调过程写入OSS产生存储费用；教材未提及OSS与DSW的自动绑定计费"
+        },
+        {
+          "option_label": "C",
+          "option_text": "模型权重上传至ModelScope产生带宽费用；教材10.7明确ModelScope Notebook免费"
+        },
+        {
+          "option_label": "D",
+          "option_text": "DashScope API调用超出免费额度；但实验场景未涉及DashScope调用"
+        }
+      ],
+      "answer": "A",
+      "analysis": "题干核心事实是'关闭浏览器后账单飙升'，直接对应教材10.4节'PAI-DSW费用提醒'中加粗强调的警示：'关闭浏览器不等于停止实例，不学了必须回控制台停止或删除'。A项完整复现原文措辞与逻辑，且GPU实例按计算时计费（10.4成本提醒），是唯一能解释'异常高昂'的直接原因。B、C、D均无教材依据支撑：OSS存储需显式操作（10.1表格列为独立数据底座）、ModelScope Notebook免费且无上传计费说明（10.7）、实验场景明确是DSW本地微调，未触发API调用。",
+      "difficulty_label": "入门"
+    },
+    {
+      "type": 1,
+      "stem": "当百炼应用需要调用部署在PAI-EAS上的私有模型时，以下哪些条件是必须同时满足的？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "PAI-EAS服务已开启公网访问或配置VPC内网互通"
+        },
+        {
+          "option_label": "B",
+          "option_text": "百炼应用所在地域与PAI-EAS实例地域一致"
+        },
+        {
+          "option_label": "C",
+          "option_text": "PAI-EAS服务已配置兼容OpenAI API的HTTP接口（如vLLM）"
+        },
+        {
+          "option_label": "D",
+          "option_text": "百炼平台已通过RAM角色授权访问目标EAS服务"
+        }
+      ],
+      "answer": "A,C",
+      "analysis": "教材10.1全景图明确指出：'百炼应用再去调用EAS上的私有模型'，且10.5选型表强调'三者可组合'。实现调用的必要技术条件：A是网络连通性前提（EAS服务若无公网/VPC访问，百炼无法触达，属基础架构约束）；C是协议兼容性前提（百炼作为应用层平台，其工作流节点调用外部服务需标准HTTP接口，教材10.4原理提到'vLLM本地起服务验证（其HTTP接口本身兼容OpenAI API）'，这是百炼集成的典型方式）。B非必须：阿里云跨地域服务可通过云企业网CEN互通，教材未限定同地域；D非必须：百炼调用EAS是HTTP请求，不依赖RAM角色授权（RAM用于控制台权限管理，非服务间调用凭证）。因此A和C是技术链路上不可绕过的两个必要条件。",
+      "difficulty_label": "挑战"
+    },
+    {
+      "type": 1,
+      "stem": "某电商团队上线智能客服后，首月账单远超预期。排查发现：用户每次咨询都上传整份《售后服务政策V3.2.pdf》（86页）作为system prompt，且未设置max_tokens。该问题违反了原文哪几项成本控制原则？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "控制输入：RAG只塞最相关的片段，不要每次把整本手册塞进上下文"
+        },
+        {
+          "option_label": "B",
+          "option_text": "限制输出：用max_tokens给输出设上限，避免模型'刹不住车'"
+        },
+        {
+          "option_label": "C",
+          "option_text": "选对模型尺寸：简单任务用turbo，复杂任务才上max"
+        },
+        {
+          "option_label": "D",
+          "option_text": "善用缓存：对重复的系统提示词利用上下文缓存折扣"
+        }
+      ],
+      "answer": "A,B",
+      "analysis": "题干存在两个明确违规点：'上传整份86页PDF作为system prompt'——直接违反10.8节'控制输入'原则（A），因整本手册远超模型上下文窗口，导致大量无效Token消耗；'未设置max_tokens'——直接违反'限制输出'原则（B），模型可能生成冗长回复，推高更昂贵的输出Token费用。C与题干无关（未涉及模型选型错误）；D虽是优化手段，但题干未体现'重复系统提示词'场景，且'整本手册'本身不具备可缓存的固定前缀特征。教材10.8'省成本的工程手段'条目1和3分别对应A和B，是唯二被直接违反的原则。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 0,
+      "stem": "开发团队将原有基于 OpenAI GPT-4 的客服系统迁移到 DashScope，仅修改了 base_url 和 api_key。上线后发现：流式响应（stream=True）下，前端接收 Token 延迟显著增加，且部分长回复出现截断。最应优先检查的兼容性约束是？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "确认DashScope qwen-plus模型是否支持stream参数，以及其流式响应格式是否与OpenAI完全一致"
+        },
+        {
+          "option_label": "B",
+          "option_text": "检查前端是否正确解析DashScope返回的SSE（Server-Sent Events）事件流"
+        },
+        {
+          "option_label": "C",
+          "option_text": "验证api_key是否具有DashScope服务的调用权限"
+        },
+        {
+          "option_label": "D",
+          "option_text": "确认base_url指向的是'compatible-mode/v1'而非原生接口地址"
+        }
+      ],
+      "answer": "B",
+      "analysis": "题干现象'流式响应延迟增加+长回复截断'是典型的流式协议解析失败特征。教材10.3节明确DashScope OpenAI兼容模式'按Token流式返回'，但其底层SSE格式与OpenAI存在细微差异（如事件字段名、data前缀处理）。B项直指前端解析层，是迁移后最易出错且直接影响用户体验的环节。A虽相关，但教材10.3'exam'明确'core generation parameters (temperature, top_p, max_tokens, stream) 含义一致'，stream参数本身是支持的；C和D属于基础连通性检查，若失败则根本无法返回任何数据，而非'延迟增加+截断'。教材10.3价值段落强调'生态工具可直接复用'，但隐含前提是前端适配SSE解析，B是教材未明说但工程实践中必须验证的关键点。",
+      "difficulty_label": "进阶"
+    }
+  ]
+}

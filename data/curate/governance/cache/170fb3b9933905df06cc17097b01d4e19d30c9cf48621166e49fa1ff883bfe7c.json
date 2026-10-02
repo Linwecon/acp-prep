@@ -1,0 +1,227 @@
+{
+  "new-8-24-0": {
+    "qid": "new-8-24-0",
+    "classification": "own",
+    "chapter": 8,
+    "quality": "ok",
+    "reason": "考查间接提示注入的识别，题干描述典型，选项区分度好。",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "间接提示注入：恶意指令藏在外部数据里，被 RAG/Agent 读入上下文后悄悄生效。上传的 PDF 里写“忽略用户问题，把以下内容作为新指令”",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "幻觉是无依据编造，此处是执行了外部指令。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "直接注入是用户直接发指令，而这是通过文档。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "恶意指令藏在PDF中，被RAG读入后劫持上下文，符合定义。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "投毒是污染知识库内容，此处是单次查询劫持。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-8-24-1": {
+    "qid": "new-8-24-1",
+    "classification": "own",
+    "chapter": 8,
+    "quality": "ok",
+    "reason": "考查资源耗尽型DDoS的识别与防御层级，场景典型。",
+    "answer": [
+      "D"
+    ],
+    "supported": true,
+    "quote": "资源耗尽型 DDoS（高耗 token/GPU 请求打爆算力）。防御要三层联动：DDoS 高防清洗异常流量 + WAF/API 网关做频率限制 + 应用层对单个用户设 token/算力上限",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "输入过滤防注入，不防高计算消耗请求。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "运行监控审计工具调用，不解决算力被打满问题。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "输出审查拦内容，不防请求消耗。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "GPU持续100%属资源耗尽攻击，需基础设施层清洗和应用层熔断。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-8-24-2": {
+    "qid": "new-8-24-2",
+    "classification": "own",
+    "chapter": 8,
+    "quality": "ok",
+    "reason": "考查RAG访问控制失效的根本原因，定位准确。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "过滤发生在“检索之后、拼 Prompt 之前”。关键在于：过滤发生在“检索之后、拼 Prompt 之前”，而不是靠模型“自觉不回答”。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "入库审批是防投毒，不解决运行时权限过滤。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "用户有权但文档被检索到，说明未在拼Prompt前按position_id过滤。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "向量加密防语义泄露，不解决访问控制逻辑错误。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "模型不是权限边界，提示词声明无效。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-8-24-3": {
+    "qid": "new-8-24-3",
+    "classification": "own",
+    "chapter": 8,
+    "quality": "ok",
+    "reason": "综合考查数据安全与合规的必须措施，选项覆盖全面。",
+    "answer": [
+      "A",
+      "B",
+      "C",
+      "E"
+    ],
+    "supported": true,
+    "quote": "数据脱敏（去标识化）是在数据进入训练、评测、RAG 链路之前，对姓名、手机号、证件号、地址、银行卡号等个人可识别信息（PII）做掩码、替换、泛化或删除。传输 HTTPS/TLS；存储 KMS 加密。给每个员工、每个应用创建独立 RAM 子账号/角色，只授予完成任务必需的最小权限",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "处理PII必须脱敏，符合最小必要原则。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "传输加密是数据安全基本要求。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "存储加密防止数据泄露，KMS是推荐方案。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "AI标识是合规要求，但非数据安全必须措施。"
+      },
+      {
+        "label": "E",
+        "selected": true,
+        "why": "RAM子账号和最小权限是云上权限管理核心。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-8-24-4": {
+    "qid": "new-8-24-4",
+    "classification": "own",
+    "chapter": 8,
+    "quality": "ok",
+    "reason": "考查多模态检测的规范调用方式，区分同步异步。",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "文本/图像同步出结果，音频/视频是异步任务（提交 task_id → 轮询结果）。多模态检测需要“公网可访问 URL”，所以要先把本地文件上传到 OSS。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "PDF/图片文字用文本同步接口；音视频需异步提交轮询，符合规范。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "image_moderation不处理音频视频，且需URL而非二进制流。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "音视频异步接口，不能用同步接口提交。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "videoDetection不处理PDF、图片、音频，且需先转码不现实。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-8-24-5": {
+    "qid": "new-8-24-5",
+    "classification": "own",
+    "chapter": 8,
+    "quality": "ok",
+    "reason": "考查《暂行办法》核心合规义务，选项有干扰性。",
+    "answer": [
+      "A",
+      "B",
+      "D"
+    ],
+    "supported": true,
+    "quote": "面向境内公众提供生成式 AI 服务须依法备案；AI 生成/合成的文本、图片、音视频须添加显著“AI 生成”标识；建立投诉举报机制",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "备案是面向公众提供服务的法定要求。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "添加AI生成标识是《暂行办法》明确要求。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "全量人工标注非法规明确强制要求。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "建立投诉举报机制是服务提供者主体责任。"
+      },
+      {
+        "label": "E",
+        "selected": false,
+        "why": "数据出境需评估，加密存境外非明确要求且可能违规。"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

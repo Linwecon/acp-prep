@@ -1,0 +1,176 @@
+{
+  "3-1412": {
+    "qid": "3-1412",
+    "classification": "unsure",
+    "chapter": 9,
+    "quality": "remove",
+    "reason": "题干提及‘AssistantAPI’和‘Assistant实例’，本章原文未涉及此概念，属于未知API或框架。",
+    "answer": [],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "name是名称参数，非模型。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "model是模型参数，但题干概念未知。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "instructions是指令，非模型。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "description是描述，非模型。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "8-0341": {
+    "qid": "8-0341",
+    "classification": "own",
+    "chapter": 9,
+    "quality": "ok",
+    "reason": "考查API调用基本流程，选项C是人工逻辑，非API调用必要步骤。",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "一次调用在服务端要走完五关，任何一关出问题都会反映为错误码：客户端构造请求 → 鉴权（API Key）→ 配额/限流检查 → 模型推理 → 返回响应",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "安装依赖是必要前提。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "循环调用是处理问卷的必要步骤。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "人工判断逻辑非API调用必要步骤。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "设置API密钥是授权访问的必要步骤。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "8-1046": {
+    "qid": "8-1046",
+    "classification": "own",
+    "chapter": 9,
+    "quality": "ok",
+    "reason": "考查messages中assistant角色的定义，原文明确其代表模型回复。",
+    "answer": [
+      "D"
+    ],
+    "supported": true,
+    "quote": "assistant：模型回复 | 每轮把模型回答追加进历史",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "提供用户输入是user角色。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "监控安全性非assistant角色作用。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "设定背景信息是system角色。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "assistant代表模型生成的回复。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "10-1440": {
+    "qid": "10-1440",
+    "classification": "own",
+    "chapter": 9,
+    "quality": "ok",
+    "reason": "考查多轮对话实现，需将历史消息（含assistant回复）加入messages列表。",
+    "answer": [
+      "B",
+      "D"
+    ],
+    "supported": true,
+    "quote": "所谓‘多轮对话能力’，本质是客户端把历史消息按角色组织好，每次调用都完整地放进messages里再传一遍。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "仅指定模型无法保留历史。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "需将模型回复加入历史。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "大模型支持多轮对话。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "需将新的用户消息加入历史。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "12-1291": {
+    "qid": "12-1291",
+    "classification": "cross",
+    "chapter": 9,
+    "quality": "fixable",
+    "reason": "考查Python异常处理，属于编程基础，但本章涉及错误处理策略，可关联。",
+    "answer": [
+      "C"
+    ],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "finally块不能捕获异常。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "except未与try配对。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "正确使用try-except捕获并打印错误。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "if-else不能处理异常。"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

@@ -1,0 +1,154 @@
+{
+  "items": [
+    {
+      "type": 0,
+      "stem": "某金融公司需构建合规问答系统，要求：① 所有客户合同与监管文件不得出域；② 通用千问模型对'穿透式尽调'等术语回答不准；③ 需支持100+并发、毫秒级响应。团队无专职运维，但有2名算法工程师。应如何组合阿里云平台能力？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "仅使用百炼知识库上传文档，启用qwen-max模型，通过API发布服务"
+        },
+        {
+          "option_label": "B",
+          "option_text": "在ModelScope下载Qwen2-7B开源模型，在PAI-DSW中微调，用DLC训练后部署至PAI-EAS，并由百炼应用调用该EAS服务"
+        },
+        {
+          "option_label": "C",
+          "option_text": "直接调用DashScope的qwen-long API，将整份合同作为输入，设置max_tokens=4096"
+        },
+        {
+          "option_label": "D",
+          "option_text": "使用OSS存储合同PDF，DataWorks做OCR清洗，结果存入MaxCompute，再用DashScope Embedding+Rerank实现问答"
+        }
+      ],
+      "answer": "B",
+      "analysis": "依据原文10.4节PAI三件套定位及10.5选型原则：'数据不出域+需微调+高并发生产部署'明确指向PAI（DSW开发→DLC训练→EAS部署）；原文10.7强调'商业版不可私有化，必须用开源版+自托管'；而百炼（A）和DashScope（C）均为托管API，数据需上送，违反①；D选项混淆数据底座与AI层——OSS/MaxCompute/DataWorks属数据层（10.1表格），不解决模型微调与私有化部署问题。B项完整覆盖'开源模型下载（ModelScope）→交互式微调（DSW）→生产级部署（EAS）→应用集成（百炼可回调EAS）'全链路，且符合'算法工程师适用PAI、无运维可用EAS弹性伸缩'的人员匹配（10.4原理、10.5对比表）。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 1,
+      "stem": "某电商团队需上线促销文案生成助手，要求：① 3天内交付MVP；② 运营人员可自主调整提示词与示例；③ 支持接入企业微信；④ 成本敏感，日均调用量约500次。以下哪些平台能力组合符合原文'分层定位'与'成本权衡'原则？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "使用百炼平台：上传商品描述模板作为知识库，配置Prompt调试界面供运营调整，通过工作流编排生成逻辑，一键发布至企业微信"
+        },
+        {
+          "option_label": "B",
+          "option_text": "在PAI-DSW中编写LangChain脚本，调用DashScope qwen-plus API，将服务部署为FC函数并通过企业微信机器人接入"
+        },
+        {
+          "option_label": "C",
+          "option_text": "从ModelScope下载Qwen1.5-4B模型，在本地GPU服务器部署vLLM，用OpenAI兼容接口对接企业微信"
+        },
+        {
+          "option_label": "D",
+          "option_text": "调用DashScope原生SDK，用qwen-turbo模型实现基础生成，前端封装重试逻辑应对429限流"
+        }
+      ],
+      "answer": "A",
+      "analysis": "A正确：完全匹配原文10.2'百炼适用场景'——'快速验证、运营自主调整、零代码发布到渠道'，且qwen-turbo/plus在百炼中可选（10.6），成本可控（10.8省成本手段）；B错误：PAI-DSW用于开发而非MVP交付，且FC冷启动延迟高，不符合'3天交付'与'运营自主'（10.4成本提醒、10.5对比表）；C错误：自建GPU违背'无运维、低成本'约束，且ModelScope仅为下载源，非部署平台（10.7）；D错误：纯DashScope调用无法满足'运营自主调Prompt/知识库'需求（10.3强调DashScope管接口、百炼管应用），且未解决企业微信发布（10.2一键发布能力）。原文10.5最佳实践明确'三人团队、无运维、用千问、尽快上线→百炼'，本题条件高度吻合。",
+      "difficulty_label": "中等"
+    },
+    {
+      "type": 0,
+      "stem": "开发团队发现线上答疑机器人API费用超预期，排查日志发现：单次请求平均输入Token达12,000，输出Token达3,500，且频繁返回429状态码。根据原文10.8计费与限流规则，以下哪项措施对降本增效最直接有效？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "将模型从qwen-plus切换为qwen-max，利用其更强推理能力减少重试次数"
+        },
+        {
+          "option_label": "B",
+          "option_text": "启用RAG检索，将员工手册切片后仅传入Top-3相关片段，同时设置max_tokens=512限制输出长度"
+        },
+        {
+          "option_label": "C",
+          "option_text": "申请提升TPM配额，并在客户端增加固定间隔1秒的重试机制"
+        },
+        {
+          "option_label": "D",
+          "option_text": "改用ModelScope免费Notebook运行本地Qwen模型，规避所有Token计费"
+        }
+      ],
+      "answer": "B",
+      "analysis": "B正确：直击原文10.8'省成本工程手段'核心——'控制输入'（RAG只塞相关片段，避免整本手册）和'限制输出'（max_tokens设上限），同时降低输入Token（12k→~300）、输出Token（3.5k→512）可同步缓解429（因TPM按Token计）。A错误：qwen-max单价更高、延迟更大，会加剧成本与限流（10.6'能力越强越贵慢'）；C错误：固定间隔重试违反'指数退避+抖动'原则（10.8风险提示），且提配额不解决根本浪费；D错误：ModelScope Notebook有运行时长限制（10.7考试要点），且无法支撑生产级并发，违背'线上机器人'前提。原文明确'降本顺序：选对模型→控制上下文与max_tokens→缓存→限流重试'，B是第二步最直接执行。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 1,
+      "stem": "关于DashScope OpenAI兼容模式，以下哪些描述符合原文10.3技术细节与价值主张？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "兼容模式下，调用client.chat.completions.create()时，model参数必须使用DashScope原生模型名（如'dashscope-qwen-plus'）"
+        },
+        {
+          "option_label": "B",
+          "option_text": "只需修改base_url和api_key，原有基于OpenAI SDK的代码几乎无需改动即可迁移"
+        },
+        {
+          "option_label": "C",
+          "option_text": "兼容模式支持stream=True流式响应，适用于对话类应用降低用户等待感"
+        },
+        {
+          "option_label": "D",
+          "option_text": "兼容模式与原生SDK调用同一模型时，计费方式不同：前者按请求次数，后者按Token"
+        }
+      ],
+      "answer": "B,C",
+      "analysis": "B、C正确：原文10.3明确'把base_url指向DashScope兼容地址、api_key换成阿里云Key，原本基于OpenAI SDK写的程序几乎不用改就能调用'（价值主张），且'流式输出开stream=True是对话类应用标配'（技术细节）；A错误：原文示例中model=\"qwen-plus\"，即使用标准模型名，非DashScope前缀（10.3代码块）；D错误：原文10.3'compare'部分强调'两者调用同一批模型、同一份额度，计费一致'，均按Token。本题考查对兼容模式本质（封装适配器）与实操细节的精准理解，排除混淆概念选项。",
+      "difficulty_label": "中等"
+    },
+    {
+      "type": 0,
+      "stem": "某医疗AI初创公司需构建'医学指南解读助手'，要求：① 严格遵循HIPAA等合规要求，患者数据绝对不出私有云；② 指南文本长达200页PDF；③ 需支持医生用自然语言提问并返回带引用的精准答案。根据原文10.1分层与10.7开源模型逻辑，最优技术路径是？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "使用百炼知识库上传PDF，选择qwen-long模型，开启自动切片与引用溯源功能"
+        },
+        {
+          "option_label": "B",
+          "option_text": "在自有GPU集群部署Qwen2-72B-Instruct开源模型（ModelScope下载），结合LlamaIndex构建RAG服务"
+        },
+        {
+          "option_label": "C",
+          "option_text": "调用DashScope qwen-long API，将PDF全文Base64编码后作为system message传入"
+        },
+        {
+          "option_label": "D",
+          "option_text": "用PAI-EAS部署通义万相模型，对PDF进行图像识别后调用DashScope生成摘要"
+        }
+      ],
+      "answer": "B",
+      "analysis": "B正确：原文10.7明确'开源模型价值：①数据隐私与合规（数据不出域）；②可深度定制；③长期成本可控'，且ModelScope是'下载开源模型权重'的社区（10.7概念）；200页PDF需RAG处理，LlamaIndex是典型RAG框架，符合'自然语言提问+引用溯源'需求。A错误：百炼为托管服务，数据需上送阿里云，违反①（10.5对比表'数据与模型控制'栏）；C错误：DashScope为托管API，同样违反数据不出域（10.7误区澄清）；D错误：通义万相是文生图模型（10.6表格），不适用于PDF文本解析，且EAS是部署平台，非模型能力来源。原文10.5'选型决策'第4条直接对应：'要数据完全不出域、强私有化→开源模型+PAI/EAS或自建'，B即自建方案。",
+      "difficulty_label": "高阶"
+    },
+    {
+      "type": 1,
+      "stem": "某教育机构需为教师开发'教案智能生成器'，要求：① 教师可在浏览器中拖拽配置'学情分析→目标设定→活动设计→评价反馈'四步工作流；② 支持上传课标PDF构建知识库；③ 生成结果需符合新课标格式规范。以下哪些百炼平台能力被原文10.2明确列为'核心能力'？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "工作流编排"
+        },
+        {
+          "option_label": "B",
+          "option_text": "知识库（RAG）"
+        },
+        {
+          "option_label": "C",
+          "option_text": "模型调优/微调"
+        },
+        {
+          "option_label": "D",
+          "option_text": "插件/工具"
+        }
+      ],
+      "answer": "A,B",
+      "analysis": "A、B正确：原文10.2表格'核心能力'明确列出'工作流编排'（对应①拖拽四步流程）和'知识库（RAG）'（对应②上传课标PDF），且10.2'value'强调'知识库背后就是RAG的解析→切片→向量化→检索'；C错误：'模型调优/微调'虽在表格中，但原文10.2'best'指出'它不直接替代底层训练平台...大规模微调是PAI的活'，且本题场景未要求改造模型；D错误：'插件/工具'用于扩展能力（如搜索、内部API），但③'符合新课标格式'可通过Prompt工程或工作流节点实现，非必需插件。本题紧扣10.2能力表格与'适用场景'边界，排除超纲选项。",
+      "difficulty_label": "基础"
+    }
+  ]
+}

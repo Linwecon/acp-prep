@@ -1,0 +1,154 @@
+{
+  "items": [
+    {
+      "type": 0,
+      "stem": "某金融企业需上线内部合规问答系统，要求：①全部业务数据与提示词严禁出域；②日均稳定请求约8000次，P95 TTFT需≤1.2s；③支持灰度发布新模型版本并可秒级回滚。在不增加专职GPU运维团队的前提下，最符合全量约束的部署方案是？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "百炼MaaS：直接调用千问API，配置专属VPC网络隔离"
+        },
+        {
+          "option_label": "B",
+          "option_text": "函数计算FC：部署vLLM函数，启用预留实例避免冷启动"
+        },
+        {
+          "option_label": "C",
+          "option_text": "PAI-EAS：上传自研微调模型，配置弹性资源组+蓝绿发布+模型预热"
+        },
+        {
+          "option_label": "D",
+          "option_text": "GPU ECS：手动部署vLLM集群，自行配置SLB+ESS+ARMS监控"
+        }
+      ],
+      "answer": "C",
+      "analysis": "依据教材6.12节‘部署选型四步决策法’：①数据不能出域→排除百炼（6.7/6.8明确‘数据出域需评估’，且百炼为公有MaaS，无法满足‘严禁出域’）；②稳定高吞吐+TTFT敏感→排除FC（6.10.1强调FC‘有冷启动延迟’‘不适合实时性要求高的大模型推理’，且预留实例仅缓解而非消除冷启动，无法保障P95≤1.2s）；③需灰度/回滚→ECS需自建CI/CD与发布流程，而PAI-EAS原生支持‘蓝绿/灰度发布、版本控制、快速回滚’（6.10.2），且‘平台托管+用户配置’模式无需专职GPU运维（6.7对比表）。D虽满足技术约束但违反‘不增加专职GPU运维团队’前提（6.9明确‘需要GPU运维能力’）。故C是唯一同时满足数据合规、性能、企业级治理与低运维门槛的选项。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 1,
+      "stem": "在对Qwen3-0.6B模型进行vLLM部署压测时，发现当并发从16提升至32后，QPS仅增长15%，但平均RT飙升40%且出现3个429错误。此时应优先排查哪些根本原因？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "KV Cache显存已超限，导致部分请求被限流拒绝"
+        },
+        {
+          "option_label": "B",
+          "option_text": "Prefill阶段计算瓶颈，GPU算力已达饱和"
+        },
+        {
+          "option_label": "C",
+          "option_text": "Decode阶段显存带宽不足，TPOT显著劣化"
+        },
+        {
+          "option_label": "D",
+          "option_text": "连续批处理调度器未生效，实际仍为静态批处理"
+        }
+      ],
+      "answer": "A,C",
+      "analysis": "教材6.3节‘风险’明确指出：‘超出并发上限通常直接返回错误（如429）’，且‘并发越高吞吐越高’是误区，因‘超过显存/算力上限后，请求排队、RT飙升甚至报错’；6.6节指出KV Cache‘随序列长度×并发数线性增长’，是长上下文高并发下的‘真正瓶颈’；6.5节说明Decode是‘显存带宽密集型’，TPOT劣化会直接拉高RT。A正确：429错误是限流标志，而KV Cache超限是vLLM默认限流主因（显存满则拒绝新请求）。C正确：RT飙升主因是TPOT恶化，而Decode带宽瓶颈正是TPOT核心制约（6.2原理）。B错误：Prefill决定TTFT，但题干未提TTFT变化，且QPS增长说明计算尚有余量；D错误：vLLM默认启用连续批处理，若未生效属配置错误，但题干现象（RT飙升+429）更指向资源硬约束而非调度逻辑失效，教材未将调度器开关列为压测首要排查项。",
+      "difficulty_label": "高阶"
+    },
+    {
+      "type": 0,
+      "stem": "运维人员观察到生产环境vLLM服务的GPU显存占用率持续95%，但GPU利用率（SM Util）仅维持在40%左右。此时最应优先检查的指标组合是？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "KV Cache占用量与平均序列长度"
+        },
+        {
+          "option_label": "B",
+          "option_text": "TTFT与客户端请求排队时长"
+        },
+        {
+          "option_label": "C",
+          "option_text": "QPS与输出token总数"
+        },
+        {
+          "option_label": "D",
+          "option_text": "模型权重精度与FP16/INT4切换状态"
+        }
+      ],
+      "answer": "A",
+      "analysis": "教材6.6节明确：‘推理时GPU显存主要由三部分构成：权重（一份）、KV Cache（随序列长度×并发数线性增长）、运行时开销’；并强调‘长上下文高并发下，KV Cache往往是显存大头、是并发瓶颈’。题干中显存占用率高（95%）但GPU计算单元利用率低（40%），典型表现为‘显存带宽受限而非算力受限’——这正是Decode阶段KV Cache读取压力过大导致的特征（6.2原理：Decode是显存带宽密集型）。A项直指核心：KV Cache占用量直接反映显存消耗主体，平均序列长度是其关键驱动因子（6.6公式）。B项TTFT关联Prefill计算，与GPU利用率低无关；C项QPS和token数影响吞吐但非显存瓶颈主因；D项权重精度影响显存基线，但题干是‘持续95%’的动态占用，更可能由KV Cache膨胀导致，且教材6.4指出量化主要省权重显存，对KV Cache影响需额外配置（如KV Cache量化）。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 1,
+      "stem": "某团队使用AWQ量化后的Qwen3-0.6B模型在vLLM上部署，发现INT4版本相比FP16版本：①显存占用下降75%；②QPS提升约2.1倍；③但在代码补全场景下，生成准确率下降8%。以下哪些结论符合教材对量化的论述？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "显存下降符合INT4相对FP32体积降为1/8的理论值（6.4节表格）"
+        },
+        {
+          "option_label": "B",
+          "option_text": "QPS提升源于显存带宽压力减小，但需框架支持低比特算子（6.4节‘量化通常也加速’说明）"
+        },
+        {
+          "option_label": "C",
+          "option_text": "准确率下降证明AWQ在INT4下精度损失不可接受，应强制回退至INT8"
+        },
+        {
+          "option_label": "D",
+          "option_text": "该结果验证了教材指出的‘INT4在敏感任务上可能掉点更明显，需用业务评测集验证’（6.4节）"
+        }
+      ],
+      "answer": "A,B,D",
+      "analysis": "A正确：6.4节表格明确INT4相对FP32体积为1/8（即下降87.5%），题干75%下降在工程误差范围内，符合理论预期。B正确：6.4节‘量化通常也加速’说明‘显存带宽下降通常带来加速，但需框架算子支持’，vLLM支持AWQ INT4算子，故QPS提升合理。D正确：6.4节原文‘INT4在敏感任务上可能掉点更明显，需要用业务评测集验证’，代码补全是典型敏感任务（6.3节表格要求TPOT高），准确率下降正印证此论断。C错误：教材从未主张‘掉点即回退’，而是强调‘取舍’与‘业务验证’（6.4节‘不要把它当万能药’），且6.4节明确‘GPTQ/AWQ属于PTQ，AWQ在低比特下通常更稳’，回退决策需结合业务容忍度，非绝对规则。",
+      "difficulty_label": "高阶"
+    },
+    {
+      "type": 0,
+      "stem": "在诊断一个突然出现高TTFT（>8s）的线上vLLM服务时，监控显示GPU利用率正常、KV Cache占用率仅30%、无429错误。此时最应优先检查的日志线索是？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "Prefill阶段的CUDA kernel执行耗时与prompt token数量"
+        },
+        {
+          "option_label": "B",
+          "option_text": "Decode阶段的KV Cache page fault次数"
+        },
+        {
+          "option_label": "C",
+          "option_text": "HTTP请求队列等待时间与SLB健康检查失败记录"
+        },
+        {
+          "option_label": "D",
+          "option_text": "模型权重加载耗时与vLLM初始化日志中的block size配置"
+        }
+      ],
+      "answer": "A",
+      "analysis": "教材6.2节明确定义：‘Prefill阶段...并行处理所有输入token的表示...决定了TTFT’；6.3节强调‘TTFT受Prefill速度、排队时长、prompt长度影响’。题干中GPU利用率正常（排除算力瓶颈）、KV Cache占用低（排除Decode带宽瓶颈）、无429（排除限流排队），说明问题不在系统负载，而在Prefill自身。A项直指核心：Prefill耗时与prompt token数是TTFT的直接决定因素（长prompt导致‘等很久才开口’，6.2节场景）。B项page fault属PagedAttention底层机制，通常不影响TTFT（Prefill不依赖KV Cache）；C项队列等待对应排队时长，但无429且GPU正常，排队可能性低；D项权重加载属启动阶段，不会导致‘突然出现’的TTFT升高。",
+      "difficulty_label": "高阶"
+    },
+    {
+      "type": 0,
+      "stem": "某教育科技公司需为教师备课助手部署模型，要求支持128K上下文，但预算有限只能使用单张A10（24GB显存）。在保证首token延迟TTFT<3s的前提下，以下哪项技术组合最符合教材推荐的工程实践？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "采用AWQ INT4量化 + GQA注意力 + PagedAttention分页管理"
+        },
+        {
+          "option_label": "B",
+          "option_text": "启用TensorRT-LLM编译 + FP16精度 + 静态批处理"
+        },
+        {
+          "option_label": "C",
+          "option_text": "使用MLA压缩KV Cache + vLLM连续批处理 + FP16权重"
+        },
+        {
+          "option_label": "D",
+          "option_text": "配置上下文缓存复用 + 函数计算FC预留实例 + INT8量化"
+        }
+      ],
+      "answer": "A",
+      "analysis": "教材6.6节指出：长上下文下‘KV Cache才是限制并发的真正瓶颈’，需‘用量化/分页/前缀缓存等手段把KV Cache压下来’；6.4节推荐AWQ在INT4下‘更稳’；6.6节‘缓解KV Cache压力’表格明确列出GQA（‘KV头数成倍减少’）和PagedAttention（‘按需分配、消除碎片’）为关键手段。A项三者协同：AWQ INT4大幅降低权重显存（腾出空间给KV Cache），GQA直接削减KV Cache体积，PagedAttention最大化利用剩余显存，共同支撑128K上下文。B错误：TensorRT-LLM虽快但未解决KV Cache膨胀本质，且静态批处理（6.5节）不如连续批处理高效；C错误：MLA是DeepSeek专用技术，教材仅作为案例提及，非通用推荐；D错误：FC有冷启动（6.10.1），无法保障TTFT<3s，且上下文缓存需高命中率，不适用于教师个性化备课的长变长上下文。",
+      "difficulty_label": "进阶"
+    }
+  ]
+}

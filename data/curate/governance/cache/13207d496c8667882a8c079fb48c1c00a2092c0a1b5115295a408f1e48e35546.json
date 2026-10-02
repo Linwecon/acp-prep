@@ -1,0 +1,154 @@
+{
+  "items": [
+    {
+      "type": 0,
+      "stem": "某企业微信答疑机器人在早高峰连续收到200条提问，运维监控显示429错误率骤升至35%，且重试请求集中在每分钟整点后第2秒爆发。代码中对429采用固定1秒延迟、最多重试3次的策略。该设计违反本章强调的哪项核心工程原则？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "未区分错误类型：429应重试，但400/401不应重试"
+        },
+        {
+          "option_label": "B",
+          "option_text": "未实现指数退避+抖动，导致重试请求同频共振，加剧服务端压力"
+        },
+        {
+          "option_label": "C",
+          "option_text": "未校验tool_call_id，导致工具结果无法与模型决策正确关联"
+        },
+        {
+          "option_label": "D",
+          "option_text": "未将system消息置于messages数组开头，造成角色设定失效"
+        }
+      ],
+      "answer": "B",
+      "analysis": "依据原文9.8节‘指数退避 + 抖动（Exponential Backoff with Jitter）’明确指出：‘在等待时间上加一个随机抖动，避免大量客户端踩点同时重试把服务再次打爆’；并给出反例‘失败就立刻重试3次’会引发‘重试风暴’。题干中‘固定1秒延迟’‘整点后第2秒集中爆发’正是缺乏抖动的典型表现，直接违反该原则。A项虽为正确知识（见9.8错误码表），但题干现象聚焦于重试行为本身而非错误类型误判；C、D项分别对应9.7和9.5节内容，与429重试机制无关。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 1,
+      "stem": "开发Function Calling功能时，模型首次返回tool_calls，但最终回答未体现工具执行结果。经排查，程序已成功调用业务函数并获取JSON格式结果。以下哪些环节遗漏可能导致此现象？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "未将首次响应中的response_message追加到messages列表中"
+        },
+        {
+          "option_label": "B",
+          "option_text": "回传tool结果时未携带tool_call_id字段"
+        },
+        {
+          "option_label": "C",
+          "option_text": "将tool_result作为role='user'消息追加，而非role='tool'"
+        },
+        {
+          "option_label": "D",
+          "option_text": "未在第二次调用时启用stream=True参数"
+        }
+      ],
+      "answer": "ABC",
+      "analysis": "依据原文9.7节‘API层最常见的错误’：①‘忘了把response_message追加进messages’→A正确；②‘回传结果时漏tool_call_id’→B正确；③‘拿到tool_calls就以为工具已经执行’隐含执行后需按规范回传→C正确（role必须为'tool'，见9.5表及9.7代码示例中messages.append({...\"role\": \"tool\",...})）。D错误：Function Calling闭环与是否流式无关，第二次调用可同步/流式，原文9.7未要求必须流式，且9.6明确‘流式不改变答案质量’，故D无教材依据。",
+      "difficulty_label": "挑战"
+    },
+    {
+      "type": 0,
+      "stem": "财务部门发现本月Token费用异常增长300%，分析日志发现每次多轮对话均将全部历史（含50轮闲聊）原样传入，且system prompt长达800字并含动态时间戳。根据9.9节成本控制优先级，以下哪项措施对降低输入Token成本最直接有效？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "将temperature从0.7降至0.1以减少输出Token"
+        },
+        {
+          "option_label": "B",
+          "option_text": "启用Batch API替代同步调用"
+        },
+        {
+          "option_label": "C",
+          "option_text": "实施滑动窗口截断历史消息，并精简system prompt去除动态时间戳"
+        },
+        {
+          "option_label": "D",
+          "option_text": "切换至qwen-turbo模型以降低单价"
+        }
+      ],
+      "answer": "C",
+      "analysis": "原文9.9节‘成本控制的优先级’明确排序：‘1.先选对模型档位；2.控制输入长度；3.限制输出长度……’。题干问题根源是‘输入Token暴涨’（历史过长+system冗余），故第二优先级‘控制输入长度’的措施最直接。C项‘滑动窗口截断历史’和‘精简system prompt’双管齐下，直击输入Token膨胀主因，且‘去除动态时间戳’呼应原文‘保持前缀稳定’以利缓存（9.9）。A项影响输出非输入；B项Batch用于离线批量，不解决单次输入过长；D项属第一优先级但治标不治本——输入Token仍会持续飙升。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 1,
+      "stem": "新人答疑机器人需支持三种场景：①员工在企微群@机器人实时提问（要求秒级首字响应）；②HR夜间批量生成500份培训摘要（次日8点前完成即可）；③财务系统每日定时拉取前一日Token用量报表（需完整准确）。根据9.10与9.6节对比，以下关于调用方式选型的判断，哪些符合本章工程实践？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "场景①应使用stream=True的流式输出，以显著降低TTFT"
+        },
+        {
+          "option_label": "B",
+          "option_text": "场景②应使用Batch API，因其异步离线特性更经济且高吞吐"
+        },
+        {
+          "option_label": "C",
+          "option_text": "场景③应使用同步调用，因需立即获取完整、结构化报表数据"
+        },
+        {
+          "option_label": "D",
+          "option_text": "所有场景均应强制开启stream=True以保证用户体验"
+        }
+      ],
+      "answer": "ABC",
+      "analysis": "依据原文9.6节：‘在线对话、聊天机器人等面向用户的场景默认开启流式，显著降低TTFT’→A正确；9.10节：‘Batch API是把大量请求打包成异步离线任务……优势是更高吞吐、更低单价’‘题干出现夜间批量……选Batch API’→B正确；场景③需‘完整准确’的报表，属后端脚本二次加工（9.10对比表：同步适用‘后端脚本、二次加工’），且无低延迟要求，同步最稳妥→C正确。D错误：原文9.10明确‘Batch不适合在线对话’，流式也不适用于报表类离线任务，‘强制开启’违背按场景选型原则（9.11考点浓缩第10条）。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 0,
+      "stem": "开发团队实现多轮对话时，员工先问‘我们公司用什么项目管理工具？’，小蜜答‘Jira’；再问‘那怎么申请账号？’，却回答通用注册流程。检查发现第二轮调用的messages仅包含新问题。此故障最根本的原因及修复方式对应本章哪一核心概念？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "违反‘messages结构与多轮对话’原则：API无状态，必须每次全量传入system+user+assistant历史"
+        },
+        {
+          "option_label": "B",
+          "option_text": "违反‘Function Calling两次调用’原则：未执行工具即返回结果"
+        },
+        {
+          "option_label": "C",
+          "option_text": "违反‘API Key安全军规’：前端泄露Key导致服务异常"
+        },
+        {
+          "option_label": "D",
+          "option_text": "违反‘流式输出SSE原理’：delta.content未正确拼接"
+        }
+      ],
+      "answer": "A",
+      "analysis": "原文9.5节开篇场景完全复现题干：‘员工先问……小蜜回答Jira。员工接着问……结果小蜜开始讲通用账号注册流程’，并直接给出根因‘如果第二次调用时messages里只放用户问题，模型看到的就是这一句话，根本无法知道这个账号指的是上一轮的Jira’。9.5节核心概念即‘API无状态，多轮上下文必须由客户端每次传全’，且9.11故障排查地图明确将‘多轮对话失忆’归因为‘历史消息没放进messages’。B、C、D分别对应9.7、9.3、9.6节，与多轮指代失效无关。",
+      "difficulty_label": "入门"
+    },
+    {
+      "type": 1,
+      "stem": "开发团队在实现Function Calling时，模型首次返回的tool_calls参数为'{\"query\": \"Transformer paper\"}'，但程序执行工具后回传的role='tool'消息content为'{\"paper_id\": \"1706.03762\", \"url\": \"https://arxiv.org/abs/1706.03762\"}'，第二次调用后模型回答称‘未找到相关论文’。最可能的根本原因是什么？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "tools定义中parameters的required字段未声明query，导致模型提取参数失败"
+        },
+        {
+          "option_label": "B",
+          "option_text": "回传的tool消息中缺失tool_call_id，使模型无法关联决策与结果"
+        },
+        {
+          "option_label": "C",
+          "option_text": "system prompt未明确要求模型基于工具结果生成回答"
+        },
+        {
+          "option_label": "D",
+          "option_text": "第一次调用未设置tool_choice='auto'，导致模型未触发工具调用"
+        }
+      ],
+      "answer": "AB",
+      "analysis": "依据原文9.7节‘API层最常见的错误’：①‘Schema描述含糊……required漏标’→A正确（若required未标query，模型可能忽略该参数，导致tool_calls为空或无效，但题干已返回有效tool_calls，故A非主因；但若required漏标，参数提取可能不稳定，属潜在风险）；②‘回传结果时漏tool_call_id’→B正确且直接（9.7代码示例强调‘必须带tool_call_id’，缺失则模型无法匹配，必然导致‘未找到’）。C错误：system prompt作用是设定角色，不决定工具结果整合逻辑，该逻辑由API协议强制（9.7图示闭环）；D错误：题干已明确‘模型首次返回tool_calls’，证明tool_choice生效，D与事实矛盾。",
+      "difficulty_label": "挑战"
+    }
+  ]
+}

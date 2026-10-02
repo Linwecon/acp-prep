@@ -1,0 +1,154 @@
+{
+  "items": [
+    {
+      "type": 0,
+      "stem": "某企业微信答疑机器人在早高峰出现大量429错误，运维日志显示重试请求集中发生在整点后第1秒。代码中对429错误采用固定间隔1秒重试3次。该设计最核心的工程缺陷是什么？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "未区分429与503，统一重试策略导致误判"
+        },
+        {
+          "option_label": "B",
+          "option_text": "缺少指数退避机制，固定间隔引发重试风暴"
+        },
+        {
+          "option_label": "C",
+          "option_text": "未校验API Key有效性，导致鉴权失败被误判为限流"
+        },
+        {
+          "option_label": "D",
+          "option_text": "未设置最大重试次数，可能造成无限循环"
+        }
+      ],
+      "answer": "B",
+      "analysis": "依据原文9.8节‘指数退避 + 抖动’原则：'避免大量客户端踩点同时重试把服务再次打爆'；表格明确指出429应'✅ 退避后重试'，且公式强调'等待时间 = min(base × 2^attempt, max_wait) + random(0, jitter)'。选项A错误——429与503处置策略不同（429可重试，5xx也可重试但需退避），但题干明确是429；选项C错误——429是限流而非鉴权问题，401才对应Key失效；选项D虽提及重试次数，但题干已限定'重试3次'，非无限循环，且根本缺陷在于'固定间隔'而非次数上限。教材原文'重试风暴'案例直指本题现象。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 0,
+      "stem": "财务部门发现本月Token费用异常飙升，经分析发现每次多轮对话均将全部历史（含30轮前的闲聊）原样传入messages。以下哪项措施对成本控制最直接有效？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "将system prompt改用更低价模型qwen-turbo承载"
+        },
+        {
+          "option_label": "B",
+          "option_text": "启用上下文缓存并确保用户问题始终放在messages末尾"
+        },
+        {
+          "option_label": "C",
+          "option_text": "实施滑动窗口截断，仅保留最近5轮对话历史"
+        },
+        {
+          "option_label": "D",
+          "option_text": "为每条assistant消息添加stop=['\\n']参数强制截断"
+        }
+      ],
+      "answer": "C",
+      "analysis": "依据原文9.5节‘历史消息是把双刃剑’：'历史越长，输入 Token 越多、费用越高'；9.9节明确'历史对话不会自动免费——每轮都要作为输入重新传一遍并计费'；优化手段中首条即'滑动窗口截断——只保留最近N轮'。选项A错误——system prompt由model字段指定，不能'用turbo承载'，且system内容本身不因模型档位改变而降价；选项B错误——缓存需'保持前缀稳定'，但题干问题是历史过长而非前缀不稳定，且缓存仅降低单价不解决Token量级膨胀；选项D错误——stop参数控制生成终止，不影响输入Token数量，且'\\n'截断无法解决历史冗余。教材9.11故障地图'月底账单暴涨'对应'压缩输入'，而滑动窗口是9.5节明确推荐的生产实践。",
+      "difficulty_label": "中等"
+    },
+    {
+      "type": 0,
+      "stem": "开发团队为新人答疑机器人实现Function Calling，当模型返回tool_calls后，程序直接将工具执行结果拼接成字符串返回给前端。上线后用户收到'系统正在处理中...'而非最终答案。最可能的技术原因是什么？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "未在第二次调用时将第一次的response_message追加进messages"
+        },
+        {
+          "option_label": "B",
+          "option_text": "tools参数中JSON Schema的required字段缺失关键参数"
+        },
+        {
+          "option_label": "C",
+          "option_text": "未在回传tool结果时携带tool_call_id字段"
+        },
+        {
+          "option_label": "D",
+          "option_text": "tool_choice参数设为'none'导致模型拒绝调用工具"
+        }
+      ],
+      "answer": "A",
+      "analysis": "依据原文9.7节风险提示：'❌ 忘了把 response_message 追加进 messages —— 第二次调用时模型不知道自己之前决策了什么，会报上下文错误'；教程代码第4步明确'messages.append(response_message)'。若遗漏此步，第二次调用的messages中无模型决策记录，模型无法理解工具结果上下文，将无法生成最终回答（可能返回空或错误）。选项C虽重要（漏tool_call_id会导致结果无法关联），但原文9.7风险表第二条明确'漏tool_call_id'后果是'模型无法对应'，而题干现象是'无最终答案'，更符合完全缺失决策上下文的典型表现；选项B和D属于首次调用失败场景，与'已返回tool_calls'的前提矛盾。教材9.11故障地图'工具没生效'首条即指向'没执行/没回传'，而回传必须包含决策+结果双要素。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 1,
+      "stem": "某HR系统需批量处理500份培训录音转写稿生成摘要，要求次日9点前完成。技术负责人评估三种方案：① 同步接口逐个调用；② 流式接口逐个调用；③ Batch API异步提交。根据第9章原理，以下哪些判断是正确的？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "方案①因受RPM/TPM配额限制，实际耗时可能远超预期且成本最高"
+        },
+        {
+          "option_label": "B",
+          "option_text": "方案②虽能降低单次TTFT，但对批量任务无意义且增加解析复杂度"
+        },
+        {
+          "option_label": "C",
+          "option_text": "方案③需校验输入输出JSONL文件的行数与请求ID一一对应"
+        },
+        {
+          "option_label": "D",
+          "option_text": "方案③中单行失败将导致整批任务失败，必须整批重试"
+        }
+      ],
+      "answer": "ABC",
+      "analysis": "依据原文9.10节：'Batch优势不是更快返回单个结果，而是更高吞吐、更低单价'；对比表格明确'同步/流式用于实时，Batch用于离线大批量'；流程要求'必须校验输入输出行数、请求ID是否一一对应'；误区表指出'批内一行失败就整批失败'是❌误区，正解为'一般按行独立处理，失败行单独重试'。故A正确（同步受限于配额且单价高）；B正确（流式优化TTFT对离线任务无价值，且JSONL解析比SSE简单）；C正确（教材明确要求校验）；D错误（原文9.10风险表第二条直接否定此说法）。教材9.11选型判断第9条'夜间大批量用Batch'及9.10误区表构成完整依据。",
+      "difficulty_label": "中等"
+    },
+    {
+      "type": 0,
+      "stem": "前端工程师为调试方便，在React组件中通过fetch直接调用DashScope API，并将DASHSCOPE_API_KEY硬编码在JS文件里。测试通过后提交Git。该操作违反了API Key安全的哪条军规？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "环境变量/密钥服务托管"
+        },
+        {
+          "option_label": "B",
+          "option_text": "不提交Git"
+        },
+        {
+          "option_label": "C",
+          "option_text": "前端绝不放Key"
+        },
+        {
+          "option_label": "D",
+          "option_text": "最小权限+定期轮换"
+        }
+      ],
+      "answer": "C",
+      "analysis": "依据原文9.3节'API Key安全五条军规'：第三条明确'前端绝不放Key——浏览器端请求走后端代理，由后端附加Key'；场景描述中'前端React组件中fetch直接调用'正是军规所禁止的典型行为。虽然A、B也违规（硬编码违反A，提交Git违反B），但题干强调'前端调试'这一动作，教材9.3场景案例'有位同学为了图方便把api_key写在前端JS里'与本题完全一致，且'前端Key等于公开'是原文重点警示。D与权限轮换无关。教材9.3考试要点'高频判断题：为了方便前端联调，可以把API Key写在前端代码里→❌'直接对应本题。",
+      "difficulty_label": "基础"
+    },
+    {
+      "type": 1,
+      "stem": "某客服系统需支持员工在企业微信中@机器人提问，要求首字响应延迟低于800ms。当前使用同步调用，平均TTFT为2200ms。以下哪些措施符合第9章工程实践且能有效改善该指标？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "开启stream=True并迭代delta.content，利用SSE降低TTFT"
+        },
+        {
+          "option_label": "B",
+          "option_text": "将temperature从0.7降至0.3以加速模型推理"
+        },
+        {
+          "option_label": "C",
+          "option_text": "精简system prompt，减少输入Token以缩短服务端处理时间"
+        },
+        {
+          "option_label": "D",
+          "option_text": "升级至qwen-max模型，利用其更强算力缩短首Token生成时间"
+        }
+      ],
+      "answer": "AC",
+      "analysis": "依据原文9.6节：'在线对话默认开启流式，显著降低TTFT、提升体感速度'；原理表明确'流式→首Token延迟（TTFT）'，且'模型的思考过程和最终答案质量保持不变'；9.9节指出'输入Token越多...延迟越大'，优化手段含'精简system prompt'。故A正确（流式本质就是降低TTFT）；C正确（减少输入Token直接降低服务端处理负担）。B错误——temperature影响随机性而非推理速度，原文9.4明确'temperature只影响随机性，与模型能力无关'；D错误——模型档位影响质量与成本，原文9.2选型口诀未提速度，且9.11故障地图'首字等待很久'对应'未开流式'而非换模型。教材9.6最佳实践'在线对话默认开启流式'及9.9成本控制'精简system prompt'构成双重依据。",
+      "difficulty_label": "进阶"
+    }
+  ]
+}

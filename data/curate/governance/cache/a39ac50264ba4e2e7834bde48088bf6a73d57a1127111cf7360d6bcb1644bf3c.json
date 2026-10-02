@@ -1,0 +1,212 @@
+{
+  "3-0731": {
+    "qid": "3-0731",
+    "classification": "cross",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "考查向量检索原理，属RAG核心能力",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "向量检索与余弦相似度",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "未涉及商品匹配，不符题干要求"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "向量数据库支持相似商品检索"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "不依赖外部数据无法保证实时性"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "不考虑实时浏览违背题干要求"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-0767": {
+    "qid": "3-0767",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "知识库更新是RAG高频考点",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "知识库新增/修改文档后，必须重新走'解析→切片→向量化→入库'，否则新内容检索不到",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "原文明确要求重建索引"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "上下文窗口影响输入，非检索缺失"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "阈值过高导致召回不足，非完全无检索"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "分块不当影响精度，非完全不可见"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-0799": {
+    "qid": "3-0799",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "RAG解决知识截止问题",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "RAG（Retrieval-Augmented Generation，检索增强生成）的核心思路可以用四个字概括：'开卷考试'",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "模型内在知识有截止日期"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "RAG可接入最新新闻数据库"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "仅要求无法保障事实准确"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "人工审核非技术方案组合"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-0817": {
+    "qid": "3-0817",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "文本切片是RAG基础操作",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "文本切片（Chunking）是把解析后的长文档，切成若干长度合适、语义相对完整的小文本块",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "超长文档超出上下文窗口"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "切片是处理长文档的标准方法"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "用户提交摘要非系统处理策略"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "强制处理会失败"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-0900": {
+    "qid": "3-0900",
+    "classification": "cross",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "法律合同需私域知识支撑",
+    "answer": [
+      "D"
+    ],
+    "supported": true,
+    "quote": "RAG 的核心思路是'开卷考试'，不让模型凭记忆答题，而是在它回答前，先从企业知识库里检索出最相关的几段资料",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "纯模型生成易幻觉"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "模板填充缺乏法律依据"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "人工审核非技术方案"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "知识库提供法律依据"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-0902": {
+    "qid": "3-0902",
+    "classification": "cross",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "术语库属于结构化知识接入",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "RAG 是上下文工程四大手段之一——在正确的时间把最相关的信息加载进上下文窗口。另外三个是提示词（Prompt）、工具（Tool）、记忆（Memory）",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "重新生成无法保证一致性"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "术语库是结构化知识接入"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "模型无法自主保证术语一致"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "人工后期非实时技术方案"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

@@ -1,0 +1,252 @@
+{
+  "6-0768": {
+    "qid": "6-0768",
+    "classification": "own",
+    "chapter": 6,
+    "quality": "ok",
+    "reason": "四选项均需结合原文判断是否符合高并发+低延迟",
+    "answer": [
+      "A",
+      "B",
+      "C"
+    ],
+    "supported": true,
+    "quote": "PAI-EAS 提供弹性扩缩容、模型预热、蓝绿发布；量化省显存常加速；动态批处理即连续批处理，提升吞吐",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "EAS支持弹性扩缩容，保障高并发与低延迟"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "INT8量化降低显存带宽压力，常加速推理"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "动态批处理即连续批处理，提升GPU利用率"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "CPU实例无法满足大模型低延迟要求"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "6-0876": {
+    "qid": "6-0876",
+    "classification": "own",
+    "chapter": 6,
+    "quality": "ok",
+    "reason": "C属训练范畴，与部署优化无关",
+    "answer": [
+      "A",
+      "B",
+      "D",
+      "E"
+    ],
+    "supported": true,
+    "quote": "量化省显存也常加速；连续批处理提升GPU利用率；限流重试是高可用关键；上下文缓存复用公共前缀降本提速",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "量化减少内存占用并常降低延迟"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "动态批处理即连续批处理，提GPU利用率"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "持续预训练属训练阶段，非部署优化"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "超时重试是高可用核心手段"
+      },
+      {
+        "label": "E",
+        "selected": true,
+        "why": "缓存高频响应可显著降延迟与成本"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "6-0908": {
+    "qid": "6-0908",
+    "classification": "own",
+    "chapter": 6,
+    "quality": "ok",
+    "reason": "D和E违背运维原则",
+    "answer": [
+      "A",
+      "B",
+      "C"
+    ],
+    "supported": true,
+    "quote": "保障稳定性四类手段：弹性伸缩+负载均衡+限流降级+容灾回滚；保留多版本支持快速回滚",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "监控是可观测性基础"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "版本管理与回滚是高可用必备"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "自动扩展容错即弹性伸缩与熔断"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "模型更新需回归评测，非定期强制更新"
+      },
+      {
+        "label": "E",
+        "selected": false,
+        "why": "忽略监控违反可观测性基本原则"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "6-0967": {
+    "qid": "6-0967",
+    "classification": "own",
+    "chapter": 6,
+    "quality": "ok",
+    "reason": "D和E超出本章监控范围",
+    "answer": [
+      "A",
+      "B",
+      "C"
+    ],
+    "supported": true,
+    "quote": "监控推理服务必须同时看 QPS、RT/TTFT、错误率、GPU利用率与KV Cache占用，不能只看单一指标",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "响应时间与吞吐是核心SLO指标"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "错误率是服务质量关键指标"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "GPU等资源使用率决定瓶颈点"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "输出质量属第7章评估范畴"
+      },
+      {
+        "label": "E",
+        "selected": false,
+        "why": "用户行为分析属业务分析，非本章监控"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "6-0983": {
+    "qid": "6-0983",
+    "classification": "own",
+    "chapter": 6,
+    "quality": "ok",
+    "reason": "五项均符合成本优化实践",
+    "answer": [
+      "A",
+      "B",
+      "C",
+      "D",
+      "E"
+    ],
+    "supported": true,
+    "quote": "用更小的模型；限流（Rate Limit）；量化/剪枝/蒸馏；监控告警设定阈值；混合云部署平衡性能与成本",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "小模型推理更快单价更低"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "限流防超载，保障SLO"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "量化是主流成本优化手段"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "监控识别异常可防成本失控"
+      },
+      {
+        "label": "E",
+        "selected": true,
+        "why": "混合云可平衡性能与合规成本"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "6-0986": {
+    "qid": "6-0986",
+    "classification": "own",
+    "chapter": 6,
+    "quality": "ok",
+    "reason": "D和E会增加延迟",
+    "answer": [
+      "A",
+      "B",
+      "C"
+    ],
+    "supported": true,
+    "quote": "量化省显存通常带来加速；上下文缓存复用公共前缀；max_tokens作为安全阀防失控",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "量化降低显存带宽压力，常降延迟"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "响应缓存直接跳过推理环节"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "限制max_tokens防长响应拖慢整体"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "更复杂模型必然增加计算延迟"
+      },
+      {
+        "label": "E",
+        "selected": false,
+        "why": "过大batch会增排队延迟"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

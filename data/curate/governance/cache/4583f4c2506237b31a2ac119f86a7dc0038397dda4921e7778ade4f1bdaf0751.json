@@ -1,0 +1,143 @@
+{
+  "new-7-42-0": {
+    "qid": "new-7-42-0",
+    "classification": "own",
+    "chapter": 7,
+    "quality": "ok",
+    "reason": "考查RAGAS指标组合定位故障能力，符合第7章核心考点。",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "检索指标都好（Recall、Precision 高），但 Faithfulness / Correctness 低 → 问题在生成阶段",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "日志确认检索片段已包含完整答案信息，知识库覆盖度非主要问题。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "Context Recall大幅提升，说明检索排序噪声问题已缓解。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "检索指标好但Faithfulness下降，问题在生成端，提示词约束不足。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "题干未提示标注问题，且检索指标提升说明ground_truth有效。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-7-42-2": {
+    "qid": "new-7-42-2",
+    "classification": "own",
+    "chapter": 7,
+    "quality": "ok",
+    "reason": "考查Agent端到端与白盒评测分工，符合第7章Agent评测考点。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "端到端看整体、白盒定位组件——‘总分不错但某功能坏了’应加白盒评测",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "端到端分数已无法定位具体组件故障，扩大规模无助于定位。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "需白盒评测单独检查代码生成组件的可执行性以精准定位。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "提示词约束无法验证执行结果，非定位故障的有效方法。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "提高阈值无法解决具体功能故障，且会掩盖问题。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-7-42-3": {
+    "qid": "new-7-42-3",
+    "classification": "own",
+    "chapter": 7,
+    "quality": "ok",
+    "reason": "考查LLM-as-Judge偏见与评测集构建原则，符合第7章考点。",
+    "answer": [
+      "A",
+      "B"
+    ],
+    "supported": true,
+    "quote": "医疗、法律、金融等场景‘看似合理实则错误’的后果严重，必须由领域专家参与评测",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "LLM评委可能存在知识盲区，对专业错误也给出高分。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "ground_truth权威性不足会导致评测基准错误。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "题干未提供数据泄漏的任何线索，属于无依据猜测。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "Answer Correctness权重0.75给事实F1，语义相似度权重低。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-7-42-4": {
+    "qid": "new-7-42-4",
+    "classification": "own",
+    "chapter": 7,
+    "quality": "ok",
+    "reason": "考查检索端Precision与Recall权衡及跷跷板效应，符合第7章考点。",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "Context Recall / Precision 低 → 问题在检索阶段",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "Precision升Recall降，是检索端过度追求精度牺牲了召回。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "指标变化指向检索端，而非生成模型过拟合。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "无证据表明ground_truth有误，且Recall下降是检索问题。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "指标变化模式符合检索调整，非评委偏见所致。"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

@@ -1,0 +1,215 @@
+{
+  "new-11-12-0": {
+    "qid": "new-11-12-0",
+    "classification": "own",
+    "chapter": 11,
+    "quality": "ok",
+    "reason": "考查扫描件PDF在RAG中的处理流程，需先做文档智能解析。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "扫描件PDF本质是图片，普通文本加载器读不出文字、直接切到的是空白/乱码。首要动作是先做文档智能解析（OCR + 版面分析 + 表格转Markdown）",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "Qwen-VL用于看图作答，不解决检索命中问题。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "扫描件需先OCR和结构化，才能被文本检索命中。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "通用加载器读不出图片文字，增大chunk无效。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "多模态Embedding用于以文搜图，不解决文字提取问题。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-11-12-1": {
+    "qid": "new-11-12-1",
+    "classification": "own",
+    "chapter": 11,
+    "quality": "ok",
+    "reason": "考查语音助手链路中ASR错误处理机制，需澄清低置信度输入。",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "意图不清时优先澄清反问，避免错误调用工具（如真的提交了请假）",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "内容安全审核不解决ASR识别错误问题。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "热词库可能改善，但非根本缺陷；错误已发生。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "低置信度识别应触发澄清，防止错误流入下游。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "TTS是最后一步，不负责校验上游语义。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-11-12-2": {
+    "qid": "new-11-12-2",
+    "classification": "own",
+    "chapter": 11,
+    "quality": "ok",
+    "reason": "考查多模态生成评测局限，自动文本指标无法评估图文一致性。",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "图文一致性、指令跟随等需人工评测校准兜底",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "文本指标无法评估图像布局和文字渲染质量。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "OCR提取文字后计算指标仍无法评估空间布局。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "业务指标是另一维度，不解决技术评测缺陷。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "语音描述评测不相关，海报是静态图像。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-11-12-3": {
+    "qid": "new-11-12-3",
+    "chapter": 11,
+    "classification": "own",
+    "quality": "ok",
+    "reason": "考查教育场景多模态链路必备组件，需覆盖输入输出转换。",
+    "answer": [
+      "A",
+      "B",
+      "C"
+    ],
+    "supported": true,
+    "quote": "拍照/语音输入 → OCR/ASR → LLM 解题讲解/作文批改 → 个性化学习路径与（语音）反馈",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "看图理解公式图表需多模态模型。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "语音提问需ASR转为文本。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "输出语音反馈需TTS合成。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "通义灵码是代码助手，非此场景必需。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-11-12-4": {
+    "qid": "new-11-12-4",
+    "chapter": 11,
+    "classification": "own",
+    "quality": "ok",
+    "reason": "考查医疗AI合规要求，需医生复核、患者授权与隐私保护。",
+    "answer": [
+      "A",
+      "B"
+    ],
+    "supported": true,
+    "quote": "AI结论仅作辅助，医疗决策必须由医生做出；患者隐私（脱敏、授权）",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "AI辅助诊断，医生做最终决策。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "医疗影像涉及患者隐私，需脱敏和授权。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "生成模拟训练数据非合规强制要求。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "AI生成标识针对深度合成内容，诊断报告不适用。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-11-12-5": {
+    "qid": "new-11-12-5",
+    "chapter": 11,
+    "classification": "own",
+    "quality": "ok",
+    "reason": "考查多模态安全中音视频审核的异步任务模式，需轮询结果。",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "音视频检测是异步任务模式（提交task_id、轮询结果），图片可同步",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "视频审核异步，必须轮询task_id获取结果。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "描述不准确，抽帧是处理方式，非原则。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "音视频审核异步，不能统一为同步接口。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "提取音频是步骤，非审核模式原则。"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

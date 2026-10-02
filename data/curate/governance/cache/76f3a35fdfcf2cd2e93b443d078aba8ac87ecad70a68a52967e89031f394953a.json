@@ -1,0 +1,217 @@
+{
+  "3-1472": {
+    "qid": "3-1472",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "考查切片策略适用场景，选项与教材描述一致",
+    "answer": [
+      "A",
+      "B",
+      "C",
+      "D"
+    ],
+    "supported": true,
+    "quote": "Token切片：按固定token数切（如每100token、重叠20）|句子切片：以句子为边界，按长度聚合（默认策略）|语义切片：用模型判断语义边界，在话题转换处切|Markdown切片：按标题层级（#/##/###）切",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "教材明确Token切片适用上下文长度受限场景"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "教材称句子切片为默认策略，通用文本"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "教材说明语义切片用模型判断语义边界"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "教材说明Markdown切片按标题层级切"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-0004": {
+    "qid": "3-0004",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "考查复杂文档解析方案，选项A、B符合教材原则",
+    "answer": [
+      "A",
+      "B"
+    ],
+    "supported": true,
+    "quote": "对于扫描件PDF、含图片和复杂表格的文档，可以用阿里云百炼的文档智能解析（DashScopeParse）",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "自定义Reader是解析非标准格式的可行方案"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "转PDF后用DashScopeParse处理复杂内容，符合教材"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "调大召回数量是检索阶段策略，非解析环节"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "Keynote非标准格式，需特殊处理"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-0005": {
+    "qid": "3-0005",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "考查私域术语翻译的RAG应用，A、D方案有效",
+    "answer": [
+      "A",
+      "D"
+    ],
+    "supported": true,
+    "quote": "RAG（检索增强生成）的核心思路可以用四个字概括：“开卷考试”。不让模型凭记忆答题，而是在它回答前，先从企业知识库里检索出最相关的几段资料",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "手动整理术语作为提示词，是提供准确知识的直接方法"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "跳过术语无法满足翻译解释需求"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "仅靠3条示例推断其余，准确性无法保证"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "RAG接入术语数据库动态检索，是解决私域知识标准方案"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-0198": {
+    "qid": "3-0198",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "考查Rerank函数作用，选项A正确",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "Rerank（重排序）：第一阶段向量检索快速“海选”出较多候选（如Top20），第二阶段用更强的重排序模型对候选逐篇精细打分、重新排序，只把最相关的少数（如Top3）交给大模型",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "top_n=3即重排序后选择最相关的3条"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "设置相似度阈值是SimilarityPostprocessor功能"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "召回切片数量由similarity_top_k控制"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "model参数指定模型类型，非主要作用"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-0529": {
+    "qid": "3-0529",
+    "classification": "cross",
+    "chapter": -1,
+    "quality": "remove",
+    "reason": "考查特定函数参数，教材未提及此函数，无法确定答案",
+    "answer": [],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "教材未提及compare_embedding_models函数"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "教材未提及compare_embedding_models函数"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "教材未提及compare_embedding_models函数"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "教材未提及compare_embedding_models函数"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-0559": {
+    "qid": "3-0559",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "考查向量化基本概念，A、B、C正确",
+    "answer": [
+      "A",
+      "B",
+      "C"
+    ],
+    "supported": true,
+    "quote": "Embedding（向量化/嵌入）是把一段文本转换成一串数字（高维向量）|余弦相似度最常用，只看方向、不受长度影响|Embedding是怎么训练出来的：采用对比学习",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "教材明确Embedding将文本转换为数字向量"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "教材称余弦相似度为最常用度量"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "教材说明Embedding训练采用对比学习"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "教材未提及向量化能减少推理时间"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

@@ -1,0 +1,154 @@
+{
+  "items": [
+    {
+      "type": 0,
+      "stem": "某电商客服系统使用 DashScope qwen-plus API，监控发现单次请求平均消耗 12,800 输入 Token 和 3,200 输出 Token。若输出 Token 单价是输入的 2.5 倍，且未启用上下文缓存，以下哪项操作最能直接降低单位请求成本？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "将 system prompt 替换为固定哈希标识符，并在服务端维护映射表"
+        },
+        {
+          "option_label": "B",
+          "option_text": "启用 DashScope 的上下文缓存功能，对重复 system prompt 自动应用折扣"
+        },
+        {
+          "option_label": "C",
+          "option_text": "改用 qwen-turbo 模型并增大 max_tokens 以覆盖相同输出长度"
+        },
+        {
+          "option_label": "D",
+          "option_text": "在前端强制限制用户输入长度至 512 字符"
+        }
+      ],
+      "answer": "B",
+      "analysis": "依据原文 10.8 节‘省成本的工程手段’第4条：‘善用缓存：对重复的系统提示词、知识库前缀利用上下文缓存折扣’；同时‘计费规则’明确‘上下文缓存’可享受折扣。选项B直接对应该机制——system prompt 高度复用（如标准客服开场白），启用缓存后其输入 Token 可获折扣，而当前成本结构中输出更贵（单价2.5倍），但输入Token量（12,800）远超输出（3,200），故优化高量级输入项收益最大。A虽有缓存思想但非 DashScope 原生支持的‘上下文缓存’机制，属自建方案，原文未提及且不保证折扣；C会因模型能力下降导致回答质量不可控，且增大max_tokens反而可能增加输出Token，违背‘控制输出’原则；D仅减少输入但破坏用户体验，且未解决核心问题（重复system prompt的冗余计费），原文强调‘控制输入’指RAG只塞相关片段，而非粗暴截断。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 1,
+      "stem": "生产环境调用 DashScope API 时持续返回 HTTP 429 错误，日志显示 RPM（每分钟请求数）稳定在 600，TPM（每分钟 Token 数）为 180,000。已知当前配额为 RPM=500、TPM=200,000。以下哪些原因及应对措施符合原文 10.8 节对限流与成本控制的双重要求？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "RPM 超限主因是前端未做请求合并，大量短查询被拆分为独立请求；应实施客户端请求聚合"
+        },
+        {
+          "option_label": "B",
+          "option_text": "TPM 接近上限说明模型输出过长，需检查是否遗漏 max_tokens 限制，或存在未收敛的循环生成"
+        },
+        {
+          "option_label": "C",
+          "option_text": "429 是临时性限流，应立即采用无退避的高频重试直至成功，避免用户等待"
+        },
+        {
+          "option_label": "D",
+          "option_text": "当前 RPM 超限但 TPM 未满，说明请求粒度细、单次Token少，可评估将多个轻量查询合并为单次多轮 messages 请求"
+        }
+      ],
+      "answer": "ABD",
+      "analysis": "原文 10.8 明确：‘处理限流’必须用‘指数退避 + 抖动’重试（C错误，无退避重试会加剧限流并推高成本）；‘省成本’第3条强调‘限制输出：用 max_tokens 给输出设上限’（B正确）；第1条‘选对模型尺寸’和第5条‘处理限流’隐含对请求模式的优化——RPM 超限而 TPM 未满，表明请求过于碎片化（A正确），此时合并请求（D正确）既降低RPM消耗，又可能通过更优上下文减少总Token（如用system+user+assistant多轮替代多次单轮），符合‘按Token计费’本质。D中‘多轮messages请求’是OpenAI兼容接口原生支持的合法模式，且原文10.3示例代码即使用messages列表，属于合规优化。",
+      "difficulty_label": "挑战"
+    },
+    {
+      "type": 0,
+      "stem": "某金融合规系统使用百炼构建知识库问答，上传《反洗钱操作指引》PDF 后，用户提问‘客户尽职调查需留存哪些材料？’时，模型回答泛泛而谈且未引用具体条款。经排查，知识库切片设置为固定1024字符，未启用语义分块与嵌入重排序。该设计违反了原文 10.8 节哪项成本与效果协同原则？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "控制输入：RAG 只塞最相关的片段，不要每次把整本手册塞进上下文"
+        },
+        {
+          "option_label": "B",
+          "option_text": "选对模型尺寸：简单任务用 turbo，复杂任务才上 max"
+        },
+        {
+          "option_label": "C",
+          "option_text": "善用缓存：对重复的知识库前缀利用上下文缓存折扣"
+        },
+        {
+          "option_label": "D",
+          "option_text": "限制输出：用 max_tokens 给输出设上限"
+        }
+      ],
+      "answer": "A",
+      "analysis": "原文 10.8 ‘省成本的工程手段’第2条原文：‘控制输入：RAG 只塞最相关的片段，不要每次把整本手册塞进上下文’。固定长度切片（1024字符）会导致语义断裂（如条款被截断），使检索结果相关性低，百炼被迫将大量无关文本片段送入模型上下文，既浪费输入Token（成本），又稀释关键信息（效果）。而‘最相关的片段’依赖语义分块与重排序（原文10.2知识库能力描述），此题直指该原则的执行缺失。B、C、D均不涉及输入内容筛选机制，与切片策略无关。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 1,
+      "stem": "团队在 PAI-DSW 中微调 Qwen2-1.5B 后，导出模型并部署至 EAS。上线 DashScope 兼容 API 后，监控发现：同一请求在 EAS 服务与原 DashScope qwen-plus 上的输出 Token 数差异达 40%。以下哪些因素可能构成该现象的必要技术条件？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "EAS 部署时未配置与 DashScope 相同的 stop_sequences 参数，导致模型生成未及时终止"
+        },
+        {
+          "option_label": "B",
+          "option_text": "微调数据包含大量长文本样本，导致模型倾向于生成更详尽回复"
+        },
+        {
+          "option_label": "C",
+          "option_text": "EAS 服务启用了 vLLM 的 speculative decoding，但未同步调整 max_tokens"
+        },
+        {
+          "option_label": "D",
+          "option_text": "DashScope qwen-plus 的输出 Token 计费包含系统自动添加的格式化符号，而 EAS 服务无此逻辑"
+        }
+      ],
+      "answer": "AC",
+      "analysis": "原文 10.8 明确‘按 Token 计费’且‘输入/输出分别计价’，但未规定平台必须添加格式化符号（D无依据，属臆测）；B是模型行为倾向，但非‘必要条件’——微调未必改变输出长度分布，且原文未将此列为 Token 差异主因；A是关键：stop_sequences 控制生成终止，缺失则模型可能续写无关内容，直接增加输出Token，符合‘限制输出’原则的反面案例；C中 speculative decoding 是 vLLM 加速技术，若启用但 max_tokens 未相应收紧，可能因推测分支增多导致实际生成Token数波动，且原文10.4提到‘vLLM 本地起服务验证（其 HTTP 接口本身兼容 OpenAI API）’，说明 EAS 部署可集成 vLLM，此为真实技术约束。AC共同指向部署参数与原始API服务的不一致，是造成 Token 数差异的必要技术条件。",
+      "difficulty_label": "挑战"
+    },
+    {
+      "type": 0,
+      "stem": "某医疗 AI 系统使用 DashScope qwen-long 处理 150 页 PDF 指南，但账单显示输出 Token 费用占比达 78%，远高于同类项目。经分析，模型常生成大段解释性文字而非精准答案。以下哪项措施最符合原文 10.8 节‘限制输出’原则且能直接压缩该费用？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "在 Prompt 中明确指令：‘仅用不超过 120 字回答，禁止解释，直接给出结论和条款编号’"
+        },
+        {
+          "option_label": "B",
+          "option_text": "将 PDF 文档预处理为 Markdown 格式再上传知识库"
+        },
+        {
+          "option_label": "C",
+          "option_text": "申请提升 DashScope TPM 配额，避免因限流导致重试产生额外 Token"
+        },
+        {
+          "option_label": "D",
+          "option_text": "改用 qwen-max 模型，因其更强的指令遵循能力可减少冗余输出"
+        }
+      ],
+      "answer": "A",
+      "analysis": "原文 10.8 ‘省成本的工程手段’第3条原文：‘限制输出：用 max_tokens 给输出设上限’，并强调‘避免模型刹不住车’。选项A通过强约束性 Prompt 指令（字数限制+禁止解释+格式要求）直接实现对输出内容的精准裁剪，本质是‘软性 max_tokens’，比单纯设数值上限更可控，且完全符合‘限制输出’原则。B优化输入格式但不减少输出量；C解决限流但不解决输出冗余本质；D更换模型可能提升质量但无法保证输出更简短，且qwen-max单价更高，可能进一步推高费用，违背‘选对模型’原则。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 1,
+      "stem": "当百炼应用需调用部署在 PAI-EAS 上的私有模型时，以下哪些条件是原文 10.1 与 10.5 节明确指出的必要前提？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "PAI-EAS 服务必须启用 DashScope 兼容的 OpenAI API 格式（如 /v1/chat/completions）"
+        },
+        {
+          "option_label": "B",
+          "option_text": "百炼应用需配置正确的 EAS 服务 Endpoint 和认证密钥"
+        },
+        {
+          "option_label": "C",
+          "option_text": "EAS 部署的模型必须是通义千问商业版（如 qwen-plus）"
+        },
+        {
+          "option_label": "D",
+          "option_text": "百炼与 PAI 必须在同一阿里云地域（Region）内"
+        }
+      ],
+      "answer": "AB",
+      "analysis": "原文 10.1 明确‘一个典型的全链路’：‘百炼应用再去调用 EAS 上的私有模型’，且 10.5 ‘三者可组合’再次确认该能力；要实现调用，技术前提是 EAS 服务提供标准 API 接口（A正确，原文10.4提及‘vLLM 本地起服务验证（其 HTTP 接口本身兼容 OpenAI API）’，EAS 部署必然暴露此类接口）；以及百炼需知道如何访问它（B正确，Endpoint 和认证是任何 API 调用的基础）。C错误：原文10.7强调‘商业版走托管 API；要私有化用开源版’，EAS 部署的是开源模型；D非必要：跨地域调用 API 在技术上可行（虽有延迟），原文未将其列为前提，且 10.1 链路描述未限定地域。",
+      "difficulty_label": "进阶"
+    }
+  ]
+}

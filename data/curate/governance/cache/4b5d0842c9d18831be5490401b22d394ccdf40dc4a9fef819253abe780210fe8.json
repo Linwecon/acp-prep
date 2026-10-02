@@ -1,0 +1,39 @@
+{
+  "2-5024": {
+    "qid": "2-5024",
+    "classification": "own",
+    "chapter": 2,
+    "quality": "ok",
+    "reason": "三类任务均需明确边界、结构化输出和人工复核机制",
+    "answer": [
+      "B",
+      "C",
+      "D"
+    ],
+    "supported": true,
+    "quote": "意图分类必须含意图清单+输出格式+低置信度处理三要素；审阅要同时给出四样东西：维度定义+输出字段+严重度分级+引用原文定位；自动修订必须有依据、留痕、可回退",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "违背所有三类任务的约束性要求"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "三类任务均需明确定义任务范围"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "均要求JSON等结构化输出"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "三类任务均强调人工复核环节"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

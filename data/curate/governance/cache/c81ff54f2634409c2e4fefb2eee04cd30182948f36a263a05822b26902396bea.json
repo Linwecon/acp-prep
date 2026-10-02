@@ -1,0 +1,109 @@
+{
+  "new-4-60-0": {
+    "qid": "new-4-60-0",
+    "classification": "own",
+    "chapter": 4,
+    "quality": "ok",
+    "reason": "考查ReAct循环中工具失败后的处理策略，符合Agent核心能力。",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "工具失败时要能换方案；复杂任务要会拆解、会分工；ReAct 让模型把'想'和'做'显式交替：先基于当前状态思考下一步，再行动调用工具，随后读入观察结果，继续思考",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "直接终止不符合ReAct循环和错误处理原则。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "忽略超时，不基于真实观察调整，违背ReAct机制。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "将失败结果作为Observation回传，触发新一轮Thought，符合ReAct循环和错误处理逻辑。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "模型不自行重试，应由程序执行，且应向用户透明。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-4-60-2": {
+    "qid": "new-4-60-2",
+    "classification": "own",
+    "chapter": 4,
+    "quality": "ok",
+    "reason": "考查反思模式中自我反馈与外部反馈的区别及适用场景。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "外部反馈（External Feedback）：用工具真实执行/校验，把报错、日志、截图喂回模型；代码能否运行、计算是否正确、结构化输出是否合规",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "仅增加提示词约束无法解决模型漏检执行错误的问题。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "调用代码解释器真实执行并捕获异常，属于外部反馈，能提供确定性证据。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "更换模型无法从根本上解决自我反馈模式固有的偏差和漏检问题。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "写入记忆库无法直接验证代码可执行性，不是根本改进路径。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-4-60-5": {
+    "qid": "new-4-60-5",
+    "classification": "own",
+    "chapter": 4,
+    "quality": "ok",
+    "reason": "考查Memory管理策略中'有选择地记'与'持续治理'原则的具体应用。",
+    "answer": [
+      "A",
+      "B",
+      "C"
+    ],
+    "supported": true,
+    "quote": "有选择地记：记忆不是越多越好，低价值噪声会污染检索；建立写入准入机制；持续治理：定期清理过时信息、合并重复、校验事实",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "将结构化答题记录存入向量库并按需检索，符合'有选择地记'和高效利用原则。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "仅当用户显式要求时才写入，符合'写入准入机制'，避免噪声。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "定期合并重复记录、删除过时信息，符合'持续治理'原则。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "存储所有闲聊历史，未加选择，易引入噪声，不符合原则。"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

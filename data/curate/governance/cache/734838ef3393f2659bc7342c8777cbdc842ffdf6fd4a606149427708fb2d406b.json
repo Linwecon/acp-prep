@@ -1,0 +1,37 @@
+{
+  "new-6-90-0": {
+    "qid": "new-6-90-0",
+    "classification": "own",
+    "chapter": 6,
+    "quality": "ok",
+    "reason": "题目考查PagedAttention机制的作用边界，符合第6章知识。",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "Prefill（预填充阶段）：把用户输入的整段 prompt 一次性喂进去，并行计算所有输入 token 的表示。这一步是计算密集型，处理完后吐出第一个 token，决定了 TTFT（Time To First Token，首 token 延迟）",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "PagedAttention优化KV Cache管理，不减少Prefill计算量，而TTFT由Prefill决定。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "PagedAttention旨在消除分配延迟，而非掩盖时间。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "PagedAttention通过分页减少碎片，旨在优化而非加剧带宽竞争。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "PagedAttention主要作用于Decode，但并非对Prefill“无任何影响”。"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

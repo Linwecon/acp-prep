@@ -1,0 +1,214 @@
+{
+  "new-10-120-0": {
+    "qid": "new-10-120-0",
+    "classification": "own",
+    "chapter": 10,
+    "quality": "ok",
+    "reason": "题目考查模型选型四维评估，结合具体场景判断关键约束。",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "qwen-turbo 速度快、延迟低、成本低，适合高频、简单、对延迟敏感的任务；qwen-plus 能力与成本均衡；qwen-max 能力最强、效果最好；qwen-long 支持超长上下文窗口。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "原文未提及不同规格模型对LoRA微调的支持差异。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "题干未明确合同长度，且长文本约束更可能指向qwen-long。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "turbo能力定位为简单任务，无法理解复杂金融语义是放弃它的直接原因。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "成本是考量因素，但题干强调能力不足是首要决定因素。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-10-120-1": {
+    "qid": "new-10-120-1",
+    "classification": "own",
+    "chapter": 10,
+    "quality": "ok",
+    "reason": "题目考查成本维度评估，结合上下文缓存机制分析账单异常。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "上下文缓存：命中固定前缀（系统提示词、知识库片段）可能享受缓存折扣。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "题干未提及延迟升高或重试，焦点在费用。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "固定system prompt重复计费，未利用缓存导致成本失效。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "虽违反RAG实践，但非四维评估维度失效的直接描述。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "原文未比较long与plus在法律条文理解上的能力差异。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-10-120-2": {
+    "qid": "new-10-120-2",
+    "classification": "own",
+    "chapter": 10,
+    "quality": "ok",
+    "reason": "题目考查开源模型部署方案的可行性约束，需结合四维评估。",
+    "answer": [
+      "A",
+      "B"
+    ],
+    "supported": true,
+    "quote": "qwen-long 支持超长上下文窗口；PAI-EAS 把训练好的模型一键部署为在线推理服务，支持弹性伸缩。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "GPU显存不足无法处理长文档，是部署不可行的必要原因。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "模型上下文窗口过小无法覆盖文档，是方案不可行的核心原因。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "下载链接失效是临时运维问题，非方案固有的必要故障原因。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "题干未要求微调，仅部署，因此不支持微调不构成必要故障原因。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-10-120-3": {
+    "qid": "new-10-120-3",
+    "classification": "own",
+    "chapter": 10,
+    "quality": "ok",
+    "reason": "题目考查PAI-DSW成本控制要点，违反明确提醒。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "PAI-DSW 费用提醒：DSW 实例按'计算时'计费，关闭浏览器不等于停止实例，不学了必须回控制台停止或删除。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "原文未将速度维度与训练优化直接关联。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "实例未手动停止导致持续计费，违反费用提醒。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "原文未比较不同规格模型的训练收敛轮次。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "题干未提及数据切片增多。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-10-120-4": {
+    "qid": "new-10-120-4",
+    "classification": "own",
+    "chapter": 10,
+    "quality": "ok",
+    "reason": "题目考查针对具体问题的组合优化措施，需符合四维评估权衡。",
+    "answer": [
+      "B",
+      "D"
+    ],
+    "supported": true,
+    "quote": "qwen-turbo 速度快、延迟低、成本低，适合高频、简单、对延迟敏感的任务；省成本的工程手段：善用缓存：对重复的系统提示词、知识库前缀利用上下文缓存折扣。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "优化切片和精排主要解决答案不具体，对延迟改善有限。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "切换为turbo可直接降低推理延迟，解决响应慢问题。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "限制输出长度无法解决答案不具体和延迟高两个问题。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "缓存预生成答案可同时提升响应速度和答案准确性。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-10-120-5": {
+    "qid": "new-10-120-5",
+    "classification": "own",
+    "chapter": 10,
+    "quality": "ok",
+    "reason": "题目考查配额限流故障的根本原因分析，需结合平台关系。",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "百炼与 DashScope 并不是两套互不相干的系统：百炼是'应用层'，DashScope 是'接口层'，二者共用一套 API Key。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "EAS服务端QPS正常，说明非EAS扩缩容问题。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "429处理是手段，但根本原因是配额共用导致超限。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "百炼调用EAS可能仍计入DashScope总配额，导致超限。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "协议转换开销非导致429限流的根本原因。"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

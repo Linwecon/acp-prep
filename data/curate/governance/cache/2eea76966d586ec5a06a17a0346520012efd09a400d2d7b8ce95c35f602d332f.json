@@ -1,0 +1,154 @@
+{
+  "items": [
+    {
+      "type": 0,
+      "stem": "某教育公司上线新人答疑机器人后，用户连续提问：'我们项目管理用什么工具？'→'那怎么申请账号？'。第二轮回答未提及Jira，而是泛泛说明通用账号流程。经排查messages结构完整、temperature=0.1、窗口充足。最可能的根本原因是什么？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "模型在第二轮推理时未启用自注意力机制，导致无法关联前文"
+        },
+        {
+          "option_label": "B",
+          "option_text": "assistant角色的历史回复未被包含在第二轮messages中"
+        },
+        {
+          "option_label": "C",
+          "option_text": "top_p=0.95扩大了采样范围，使模型忽略上下文约束"
+        },
+        {
+          "option_label": "D",
+          "option_text": "流式输出开启导致上下文向量化阶段丢失位置编码"
+        }
+      ],
+      "answer": "B",
+      "analysis": "依据1.8.2节‘模型本身是无状态的’原理：API每次请求完全独立，模型不会自动记住历史；必须由客户端显式将全部历史（含前一轮assistant回复）拼入messages数组。题干明确‘messages结构完整’为干扰项，实则考查对‘无状态’本质的理解——若assistant消息缺失，则模型根本看不到‘Jira’这一关键指代锚点。A错误：自注意力是Transformer固有机制，不可能被‘未启用’；C错误：top_p影响采样多样性，但不破坏上下文可见性；D错误：流式仅改变传输方式（1.9节），不影响向量化或位置编码计算。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 1,
+      "stem": "某金融客服系统需生成合规、确定的账户冻结原因说明，要求每次输出严格一致。以下哪些参数组合与工程实践符合教材推荐？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "temperature=0.05，top_p=0.2"
+        },
+        {
+          "option_label": "B",
+          "option_text": "temperature=0，top_k=1"
+        },
+        {
+          "option_label": "C",
+          "option_text": "固定seed=12345，且所有调用使用同一模型版本与推理服务集群"
+        },
+        {
+          "option_label": "D",
+          "option_text": "启用stream=True并设置max_tokens=50"
+        }
+      ],
+      "answer": "AC",
+      "analysis": "依据1.7.4节‘调参建议’及1.7.3节‘seed’说明：A正确，低temperature+低top_p是教材明确推荐的事实类任务稳定方案；C正确，固定seed是‘尽力复现’的核心手段，且教材强调‘模型版本更新、分布式调度’可能引入差异，故限定同一服务集群是合理工程实践。B错误：temperature=0虽趋近贪心，但教材1.7.3明确‘无法100%保证完全一致’，且top_k=1未在官方取值表中列为默认推荐组合；D错误：stream只改传输，max_tokens限制长度但不增强稳定性，与题干‘严格一致’无关。",
+      "difficulty_label": "高阶"
+    },
+    {
+      "type": 0,
+      "stem": "开发团队发现RAG增强的答疑机器人在处理长政策文档时，答案质量反而下降。日志显示输入Token已占满8K窗口的7.8K，输出被强制截断。此时最应优先采取的符合教材原则的优化动作是？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "升级至qwen-max模型以扩大上下文窗口"
+        },
+        {
+          "option_label": "B",
+          "option_text": "对检索到的政策原文做摘要压缩，保留核心条款"
+        },
+        {
+          "option_label": "C",
+          "option_text": "增大temperature至1.5以提升模型对稀疏信息的敏感度"
+        },
+        {
+          "option_label": "D",
+          "option_text": "在system prompt中添加'请忽略无关段落'指令"
+        }
+      ],
+      "answer": "B",
+      "analysis": "依据1.6节‘上下文窗口’原理及1.2节‘补位策略’：B正确，教材明确‘长文本应用要把内容塞进窗口’，并首推‘摘要压缩’和‘RAG检索相关片段’（1.6原理），直接解决超窗与噪声问题。A错误：教材1.6风险指出‘窗口越大效果未必越好’，且升级模型成本高、延迟增，非优先解；C错误：temperature只控随机性，不解决信息过载（1.7.4风险）；D错误：指令无法强制模型忽略已加载的Token，教材1.2对比表强调‘抑制幻觉靠RAG+引用溯源’，而非模糊指令。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 1,
+      "stem": "某开发者调试时发现：同一段中文技术文档，在Qwen-Max和Llama-3上tokenize后数量相差35%。以下哪些解释符合教材1.5节关于Token的本质论述？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "不同模型使用不同的分词算法（如BPE vs WordPiece），导致子词切分粒度不同"
+        },
+        {
+          "option_label": "B",
+          "option_text": "中文字符在Qwen词表中多为单Token，而在Llama-3词表中常被拆分为字节级Token"
+        },
+        {
+          "option_label": "C",
+          "option_text": "模型参数规模差异导致Embedding矩阵维度不同，进而影响Token计数"
+        },
+        {
+          "option_label": "D",
+          "option_text": "同一汉字在不同词表中的ID映射不同，但Token数量由分词器决定而非ID值"
+        }
+      ],
+      "answer": "ABD",
+      "analysis": "依据1.5节‘Token与分词’概念：A正确，教材明确‘不同模型词表不同’（1.5 note）；B正确，BPE等算法对生僻词/字符的处理存在模型差异，符合‘中英换算为经验值’的弹性描述；D正确，Token数量取决于分词器切分结果，ID仅为查表索引，教材1.5概念强调‘Token是模型处理最小单位’。C错误：Embedding维度影响向量表示，但不改变分词器输出的Token数量，教材1.3阶段1明确‘分词先于向量化’。",
+      "difficulty_label": "高阶"
+    },
+    {
+      "type": 0,
+      "stem": "运维监控发现某对话服务API延迟突增300%，但GPU利用率仅40%。检查发现用户频繁发送含1000+字的会议纪要作为system prompt。此现象最直接违背教材哪一核心原则？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "上下文窗口输入与输出共用预算（1.6节）"
+        },
+        {
+          "option_label": "B",
+          "option_text": "长无关上下文会稀释注意力、引入噪声（1.6风险）"
+        },
+        {
+          "option_label": "C",
+          "option_text": "模型无状态，需客户端维护历史（1.8.2节）"
+        },
+        {
+          "option_label": "D",
+          "option_text": "自注意力不限制序列长度（1.4 exam）"
+        }
+      ],
+      "answer": "B",
+      "analysis": "依据1.6节‘风险’框：B正确，题干‘1000+字会议纪要作为system prompt’属于典型‘无关上下文’，教材明确警告其导致‘稀释注意力、引入噪声’，且直接关联‘又慢又贵’——完美对应延迟突增与GPU低利用率（计算效率低下）。A虽正确但属基础事实，不解释‘为何慢’；C是架构原则，与性能无关；D是常见误区澄清，与本题无关。",
+      "difficulty_label": "中阶"
+    },
+    {
+      "type": 0,
+      "stem": "某团队用qwen-turbo部署FAQ机器人，用户反馈‘回答太简短，缺乏细节’。工程师尝试调高temperature至1.0并增加top_p至0.95，但效果不佳且错误率上升。根据教材1.10与1.11节，最根本的问题在于？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "turbo模型参数量小，固有表达能力不足，无法生成详细回答"
+        },
+        {
+          "option_label": "B",
+          "option_text": "temperature与top_p同时调高加剧了采样随机性，掩盖了能力瓶颈"
+        },
+        {
+          "option_label": "C",
+          "option_text": "未启用联网搜索插件补充实时信息"
+        },
+        {
+          "option_label": "D",
+          "option_text": "system prompt未明确要求‘分点详述’"
+        }
+      ],
+      "answer": "A",
+      "analysis": "依据1.10节‘能力—成本—延迟权衡’与1.11节‘选型口诀’：A正确，教材表格明确turbo定位为‘速度优先’，能力上限低于plus/max，‘回答简短’是其设计特性，调参无法突破参数量限制。B是现象描述，非根本原因；C错误：联网搜索解决知识时效性，非细节丰富度；D错误：提示词可引导格式，但无法让小模型生成其不具备的细节深度，教材1.11强调‘简单任务别上Max’即因能力匹配原则。",
+      "difficulty_label": "高阶"
+    }
+  ]
+}

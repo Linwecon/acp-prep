@@ -1,0 +1,220 @@
+{
+  "3-1308": {
+    "qid": "3-1308",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "题目考查RAG两阶段划分，区分建库与问答步骤，属于核心概念。",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "第一阶段：离线建库（Indexing，一次做好、多次复用）...第二阶段：在线问答（Retrieval & Generation，每次请求都执行）...把问题也向量化",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "属于建库阶段的文档解析步骤。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "属于建库阶段的文本切片步骤。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "将用户问题向量化是在线问答阶段的步骤。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "属于建库阶段的向量化步骤。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-1331": {
+    "qid": "3-1331",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "题目考查检索后处理技术，属于RAG进阶检索内容。",
+    "answer": [
+      "B",
+      "C",
+      "D"
+    ],
+    "supported": true,
+    "quote": "句子窗口检索...检索命中某句后，后处理器自动把内容替换成整个窗口...重排序（Rerank）...用相似度阈值过滤",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "问题扩写属于检索前处理，非后处理。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "重排序是典型的检索后处理方法。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "滑动窗口补充上下文是句子窗口检索的后处理。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "相似度阈值过滤是后处理中的过滤方法。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-1333": {
+    "qid": "3-1333",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "题目考查文档切片策略，属于RAG核心知识点。",
+    "answer": [
+      "B",
+      "C",
+      "D"
+    ],
+    "supported": true,
+    "quote": "常见切片策略：Token 切片...句子切片...Markdown 切片...语义切片",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "图片切片未在教材切片策略中提及。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "Token切片是常见策略之一。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "语义切片是策略之一。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "Markdown切片是策略之一。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-1334": {
+    "qid": "3-1334",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "题目考查切片过长的影响，属于切片策略的权衡考量。",
+    "answer": [
+      "A",
+      "B",
+      "D"
+    ],
+    "supported": true,
+    "quote": "切得太大：一个 chunk 里混了好几个主题，向量被“平均”得没有重点，检索时容易“沾边但不精准”，还浪费 token、引入噪声",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "切片过长会混入无关信息（噪声）。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "噪声会稀释语义，降低生成准确性。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "切片过长通常不会提高检索效率。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "浪费token意味着增加计算成本。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-1360": {
+    "qid": "3-1360",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "fixable",
+    "reason": "题目考查云服务存储向量优势，但教材未直接列举，需基于常识推断，部分选项无证据。",
+    "answer": [
+      "A",
+      "B"
+    ],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "云服务通常按量付费，符合常识。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "自动扩容是云服务的典型优势。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "“无需任何配置”过于绝对，不符合实际。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "教材未提及云服务支持混合检索。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-1366": {
+    "qid": "3-1366",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "题目考查增强检索准确性的方法，涉及多种RAG技术。",
+    "answer": [
+      "A",
+      "B"
+    ],
+    "supported": true,
+    "quote": "HyDE（假设文档嵌入）...先让 LLM 编一段“假想答案”，用假想答案的向量去检索真实文档...元数据过滤...检索前按来源/时间/部门等标签先过滤候选集",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "提取结构化标签可视为元数据过滤，能增强准确性。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "HyDE是增强检索准确性的方法。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "减少切片数量不直接等同于增强准确性。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "结合用户画像扩展上下文教材未提及。"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

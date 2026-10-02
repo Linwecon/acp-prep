@@ -1,0 +1,244 @@
+{
+  "9-1031": {
+    "qid": "9-1031",
+    "classification": "beyond",
+    "chapter": 9,
+    "quality": "remove",
+    "reason": "Assistant API非本章内容，原文未提及Assistant类能力",
+    "answer": [],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "原文未提Assistant类"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "原文未提Assistant类"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "原文未提Assistant类"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "原文未提Assistant类"
+      },
+      {
+        "label": "E",
+        "selected": false,
+        "why": "原文未提Assistant类"
+      },
+      {
+        "label": "F",
+        "selected": false,
+        "why": "原文未提Assistant类"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "9-1163": {
+    "qid": "9-1163",
+    "classification": "beyond",
+    "chapter": 9,
+    "quality": "remove",
+    "reason": "Assistant API非本章内容，原文未提及Assistant类功能",
+    "answer": [],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "原文未提Assistant类"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "原文未提Assistant类"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "原文未提Assistant类"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "原文未提Assistant类"
+      },
+      {
+        "label": "E",
+        "selected": false,
+        "why": "原文未提Assistant类"
+      },
+      {
+        "label": "F",
+        "selected": false,
+        "why": "原文未提Assistant类"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "9-1387": {
+    "qid": "9-1387",
+    "classification": "beyond",
+    "chapter": 9,
+    "quality": "remove",
+    "reason": "Assistant API非本章内容，原文未提Assistant类操作",
+    "answer": [],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "原文未提Assistant类"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "原文未提Assistant类"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "原文未提Assistant类"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "原文未提Assistant类"
+      },
+      {
+        "label": "E",
+        "selected": false,
+        "why": "原文未提Assistant类"
+      },
+      {
+        "label": "F",
+        "selected": false,
+        "why": "原文未提Assistant类"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "9-0054": {
+    "qid": "9-0054",
+    "classification": "own",
+    "chapter": 9,
+    "quality": "ok",
+    "reason": "对应9.7节Function Calling工具描述要求",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "工具描述用 JSON Schema，`description` 写得越清晰，参数提取越准。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "匹配JSON Schema参数定义要求"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "辅助说明不解决参数提取"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "返回格式不影响参数生成"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "调用限制不解决参数错误"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "9-0995": {
+    "qid": "9-0995",
+    "classification": "beyond",
+    "chapter": 9,
+    "quality": "remove",
+    "reason": "Message类函数非本章内容，原文未提及",
+    "answer": [],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "原文未提Message类函数"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "原文未提Message类函数"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "原文未提Message类函数"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "原文未提Message类函数"
+      },
+      {
+        "label": "E",
+        "selected": false,
+        "why": "原文未提Message类函数"
+      },
+      {
+        "label": "F",
+        "selected": false,
+        "why": "原文未提Message类函数"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "9-1383": {
+    "qid": "9-1383",
+    "classification": "own",
+    "chapter": 9,
+    "quality": "ok",
+    "reason": "对应9.4/9.9节上下文窗口与Token限制",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "上下文窗口是输入输出共用预算",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "换大模型不解决Token超限"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "直接减少输入长度"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "并发数不影响单次Token"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "超时时间不解决Token限制"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

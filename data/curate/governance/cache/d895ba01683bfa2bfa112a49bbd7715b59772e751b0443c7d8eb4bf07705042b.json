@@ -1,0 +1,215 @@
+{
+  "1-0186": {
+    "qid": "1-0186",
+    "classification": "own",
+    "chapter": 7,
+    "quality": "ok",
+    "reason": "考察RAGAS evaluate函数作用，原文明确其为评测核心函数",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "from ragas import evaluate",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "evaluate是RAGAS评测核心函数"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "与训练数据无关"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "不涉及推理时间优化"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "不改变模型参数"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "1-0280": {
+    "qid": "1-0280",
+    "classification": "own",
+    "chapter": 7,
+    "quality": "ok",
+    "reason": "考察Answer Correctness指标定义，原文明确其衡量答案整体一致程度",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "Answer Correctness：答案与标准答案的整体一致程度",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "原文定义为整体一致程度"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "与训练数据无关"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "不涉及推理时间"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "不改变模型参数"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "2-1468": {
+    "qid": "2-1468",
+    "classification": "own",
+    "chapter": 7,
+    "quality": "ok",
+    "reason": "考察故障定位，原文明确检索好生成差时应优化生成端",
+    "answer": [
+      "A",
+      "B",
+      "D"
+    ],
+    "supported": true,
+    "quote": "检索指标都好（Recall、Precision 高），但 Faithfulness / Correctness 低 → 问题在生成阶段",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "提示词影响生成质量"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "降低temperature减少幻觉"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "Recall高说明知识库已全"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "换更强模型提升生成能力"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-1397": {
+    "qid": "3-1397",
+    "classification": "own",
+    "chapter": 7,
+    "quality": "ok",
+    "reason": "考察医疗场景评测重点，原文强调专业领域必须专家参与",
+    "answer": [
+      "B",
+      "D"
+    ],
+    "supported": true,
+    "quote": "医疗、法律、金融等场景'看似合理实则错误'的后果严重，必须由领域专家参与评测",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "速度非首要指标"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "准确率召回率保安全"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "训练数据非评测指标"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "可解释性助专家判断"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-0281": {
+    "qid": "3-0281",
+    "classification": "own",
+    "chapter": 7,
+    "quality": "ok",
+    "reason": "考察Answer Correctness计算流程，原文明确用LLM分解观点",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "LLM 把 answer 和 ground_truth 各自分解为观点列表",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "原文明确用LLM分解"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "Embedding只算相似度"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "无关训练数据"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "无关推理时间"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-0535": {
+    "qid": "3-0535",
+    "classification": "own",
+    "chapter": 7,
+    "quality": "ok",
+    "reason": "考察语义相似度计算方法，原文明确使用余弦相似度",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "语义相似度：用 Embedding 模型（text-embedding-v3）分别编码 answer 与 ground_truth，计算余弦相似度",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "原文明确余弦相似度"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "未提欧氏距离"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "未提曼哈顿距离"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "无关训练数据"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

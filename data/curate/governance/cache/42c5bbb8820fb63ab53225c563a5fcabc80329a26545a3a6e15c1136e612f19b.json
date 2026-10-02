@@ -1,0 +1,235 @@
+{
+  "2-0946": {
+    "qid": "2-0946",
+    "classification": "own",
+    "chapter": 2,
+    "quality": "ok",
+    "reason": "题目考查Zero-shot分类提示词设计，符合提示工程核心知识。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "Zero-shot（零样本）不给示例，直接提问，适用于简单、明确的任务",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "提供全部数据不符合零样本定义，且上下文过长。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "列出类别名称并要求分类，是零样本分类的标准做法。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "微调不符合快速验证零样本能力的要求。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "只用一个类别数据无法验证10个类别的分类能力。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "2-0968": {
+    "qid": "2-0968",
+    "classification": "own",
+    "chapter": 2,
+    "quality": "ok",
+    "reason": "题目考查通过提示词约束输出格式和风格，符合六要素中的输出格式。",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "输出格式把自然语言输出约束成程序可解析的结构",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "过于模糊，未指定可读性和注释要求。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "强调高效，但未明确要求可读性和注释。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "明确指定了语言、可读性和注释要求，最有助于实现目标。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "仅指定语言，未提可读性和注释。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "2-1025": {
+    "qid": "2-1025",
+    "classification": "own",
+    "chapter": 2,
+    "quality": "ok",
+    "reason": "题目考查提示词六要素中“样例”的作用，教材有明确说明。",
+    "answer": [
+      "D"
+    ],
+    "supported": true,
+    "quote": "样例提供输出格式与风格的锚点，模型通过上下文学习隐式模仿",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "确定目标用户是“受众”要素的作用。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "样例是提供参考，不保证生成单一答案。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "限制回答长度是“输出格式”或“约束”的作用。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "样例的作用是提供有指导性的案例供模型模仿。"
+      },
+      {
+        "label": "E",
+        "selected": false,
+        "why": "设定情感色彩更多由“角色”或“风格”决定。"
+      },
+      {
+        "label": "F",
+        "selected": false,
+        "why": "抽象实现方案不是样例的主要作用。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "2-1027": {
+    "qid": "2-1027",
+    "classification": "own",
+    "chapter": 2,
+    "quality": "ok",
+    "reason": "题目考查对“输出格式”要素的理解，教材有明确阐述。",
+    "answer": [
+      "C",
+      "D",
+      "E"
+    ],
+    "supported": true,
+    "quote": "输出格式把自然语言输出约束成程序可解析的结构。结构化输出（JSON Mode）要求严格按 JSON 等格式输出，配合 Schema 校验",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "输出格式直接影响大模型的应答。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "明确不期望输出的内容也是约束的一部分。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "可使用案例（Few-shot）来提示模型的输出格式和风格。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "输出约束/枚举可限定字段取值范围。"
+      },
+      {
+        "label": "E",
+        "selected": true,
+        "why": "明确输出内容类型是输出格式要素的核心。"
+      },
+      {
+        "label": "F",
+        "selected": false,
+        "why": "样例常用来明确输出格式和风格。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "2-1128": {
+    "qid": "2-1128",
+    "classification": "own",
+    "chapter": 2,
+    "quality": "ok",
+    "reason": "题目考查通过Few-shot示例确保翻译准确性，符合提示工程实践。",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "Few-shot（少样本）给 2~5 个示例让模型模仿，适用于格式/风格敏感、需稳定结构的任务",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "提供全部术语示例，能最准确确保翻译一致性。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "只提供部分示例，剩余条目可能处理不一致。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "直接翻译可能无法正确处理内部术语缩写。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "网络搜索无法保证内部术语的准确翻译。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "2-1243": {
+    "qid": "2-1243",
+    "classification": "own",
+    "chapter": 2,
+    "quality": "ok",
+    "reason": "题目考查CoT提示的设计原则，教材有明确指导。",
+    "answer": [
+      "B",
+      "C"
+    ],
+    "supported": true,
+    "quote": "CoT（思维链）要求展示推理步骤，适合复杂推理、数学、逻辑题。Zero-shot（零样本）不给示例，直接提问",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "不应忽略模型的归纳能力。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "保持问题深度广度平衡是良好设计。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "CoT常与零样本结合，直接要求模型一步步思考。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "CoT通常不依赖大量示例，而是引导推理过程。"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

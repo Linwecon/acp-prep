@@ -1,0 +1,215 @@
+{
+  "7-0472": {
+    "qid": "7-0472",
+    "classification": "own",
+    "chapter": 7,
+    "quality": "ok",
+    "reason": "考查RAGAS检索端指标，A、B均属检索评估",
+    "answer": [
+      "A",
+      "B"
+    ],
+    "supported": true,
+    "quote": "RAGAS 的五大核心指标按评价对象分为两类：Context Precision / Context Recall 评价检索端",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "Context Precision衡量检索相关性排序"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "Context Recall衡量检索覆盖完整性"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "非RAGAS指标，属训练优化手段"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "非RAGAS指标，属推理优化手段"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "7-0488": {
+    "qid": "7-0488",
+    "classification": "own",
+    "chapter": 7,
+    "quality": "ok",
+    "reason": "考查Context Recall计算步骤，A、B为官方口径明确步骤",
+    "answer": [
+      "A",
+      "B"
+    ],
+    "supported": true,
+    "quote": "1. LLM 把 ground_truth 分解成若干观点；2. LLM 逐条判断每个观点能否在 contexts 中找到依据",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "分解ground_truth是第一步"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "判断观点是否被contexts支撑"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "与计算步骤无关"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "与计算步骤无关"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "7-0595": {
+    "qid": "7-0595",
+    "classification": "misplaced",
+    "chapter": 7,
+    "quality": "review",
+    "reason": "风险评测属安全章节，本题未限定大模型风险评测场景",
+    "answer": [
+      "A",
+      "B"
+    ],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "定义风险类型是评测前提"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "构建基准是评测基础"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "UI优化不属评测范畴"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "算力增加不属评测步骤"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "7-0961": {
+    "qid": "7-0961",
+    "classification": "own",
+    "chapter": 7,
+    "quality": "ok",
+    "reason": "考查ROUGE用途，B为原文明确定义",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "ROUGE：文本摘要；衡量基于 n-gram 与最长公共子序列（LCS），默认侧重召回率",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "ROUGE不用于代码评测"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "ROUGE专用于摘要质量评估"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "ROUGE不处理图像"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "ROUGE不衡量推理速度"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "7-0997": {
+    "qid": "7-0997",
+    "classification": "own",
+    "chapter": 7,
+    "quality": "ok",
+    "reason": "考查自动化评测本质，D为原文强调前提",
+    "answer": [
+      "D"
+    ],
+    "supported": true,
+    "quote": "评测集构建的两条铁律：问题来自真实用户场景；标准答案来自领域专家",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "指标由人设计，非大模型制定"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "评测集需人工抽样，非大模型生成"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "自动化指批量运行+打分，非仅减人力"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "业务专家参与是自动化前提"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "7-1294": {
+    "qid": "7-1294",
+    "classification": "own",
+    "chapter": 7,
+    "quality": "ok",
+    "reason": "考查RAGAS指标依赖关系，B不依赖检索覆盖",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "Faithfulness：答案的每句话能否由资料推出；只对答案负责，不需要 ground_truth",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "依赖contexts排序"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "仅需answer和contexts"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "依赖contexts覆盖"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "依赖ground_truth比对"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

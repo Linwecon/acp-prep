@@ -1,0 +1,215 @@
+{
+  "new-4-78-0": {
+    "qid": "new-4-78-0",
+    "classification": "own",
+    "chapter": 4,
+    "quality": "ok",
+    "reason": "考查JSON-Schema设计缺陷，核心是description缺失导致模型不理解格式要求。",
+    "answer": [
+      "D"
+    ],
+    "supported": true,
+    "quote": "参数提取准不准，取决于三件事：Schema 质量（名称、描述、必填项是否清晰）",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "题干故障是格式错误，非缺失值。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "month非required，模型可传，但传错格式是理解问题。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "pattern已定义，不涉及大小写，是格式不符。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "description缺失，模型未理解YYYY-MM格式要求。"
+      }
+    ],
+    "duplicate_of": "4-5187"
+  },
+  "new-4-78-1": {
+    "qid": "new-4-78-1",
+    "classification": "own",
+    "chapter": 4,
+    "quality": "ok",
+    "reason": "考查白盒评测手段，确定性检查用于验证SOP步骤是否执行。",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "确定性检查（Deterministic Checks）：用代码/脚本判断'该发生的步骤有没有发生'",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "LLM-as-Judge评估主观质量，非验证步骤执行。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "黑盒评测只看最终输出，无法定位中间环节失效。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "解析轨迹验证是否调用脚本，是确定性检查。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "Rubric打分是评估标准，非验证具体调用行为。"
+      }
+    ],
+    "duplicate_of": "4-5179"
+  },
+  "new-4-78-2": {
+    "qid": "new-4-78-2",
+    "classification": "own",
+    "chapter": 4,
+    "quality": "ok",
+    "reason": "考查Agent核心设计约定，工具失败时需有重试或换方案的出口。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "要给模型'失败出口'：工具超时、报错时能重试或换方案，而不是整轮崩溃",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "结果回灌是流程要求，但故障根因是缺乏失败处理。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "工具超时直接崩溃，违反'失败出口'约定。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "JSON-Schema定义是基础，但非直接导致崩溃的原因。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "Planner职责是拆解任务，但失败处理是整体约定。"
+      }
+    ],
+    "duplicate_of": "4-5155"
+  },
+  "new-4-78-3": {
+    "qid": "new-4-78-3",
+    "classification": "own",
+    "chapter": 4,
+    "quality": "ok",
+    "reason": "考查Skill设计原则，硬编码提示词违反模块化、可版本化等核心原则。",
+    "answer": [
+      "A",
+      "B"
+    ],
+    "supported": true,
+    "quote": "Skill（技能）是把...打包成的模块化、可复用、可版本化的能力单元。渐进式披露（Progressive Disclosure）",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "硬编码提示词，违反模块化、可版本化原则。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "全部规则硬编码，未按需加载，违反渐进式披露。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "题干未涉及SKILL.md结构，是做法问题非格式问题。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "题干未提及工具配置问题，是封装方式错误。"
+      }
+    ],
+    "duplicate_of": "4-5184"
+  },
+  "new-4-78-4": {
+    "qid": "new-4-78-4",
+    "classification": "own",
+    "chapter": 4,
+    "quality": "ok",
+    "reason": "考查MCP规范与风险，涉及鉴权、动态发现和内容安全。",
+    "answer": [
+      "A",
+      "B",
+      "D"
+    ],
+    "supported": true,
+    "quote": "MCP Server 本身需要鉴权，不能裸奔；其返回内容也可能被投毒，要防提示注入。Agent 通过 MCP Client 发现工具",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "强制鉴权符合'MCP Server本身需要鉴权'的风险警示。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "动态拉取清单，无需改代码，符合MCP解决工具发现的目标。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "直接拼入主Prompt违反避免全量注入原则，且未提及向量召回。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "防提示注入过滤符合'其返回内容也可能被投毒'的风险警示。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-4-78-5": {
+    "qid": "new-4-78-5",
+    "classification": "own",
+    "chapter": 4,
+    "quality": "ok",
+    "reason": "考查Function Calling核心约定，缺参时Agent应主动追问而非瞎猜。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "参数可以在多轮对话中逐步收集，缺参时 Agent 应主动追问而不是瞎猜",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "模型提议、程序执行是流程，但题干是缺参处理逻辑。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "用户未提供ID，模型未追问而传空字符串，违反缺参追问约定。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "结果回灌是后续步骤，非缺参时的直接错误。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "required字段定义是前提，但未追问是行为错误。"
+      }
+    ],
+    "duplicate_of": "4-5181"
+  }
+}

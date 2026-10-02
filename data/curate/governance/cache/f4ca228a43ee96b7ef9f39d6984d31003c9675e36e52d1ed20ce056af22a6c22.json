@@ -1,0 +1,213 @@
+{
+  "2-0057": {
+    "qid": "2-0057",
+    "classification": "own",
+    "chapter": 2,
+    "quality": "ok",
+    "reason": "考查提示词模板合理性，需同时满足六要素中任务、上下文、角色（隐含）、输出约束等基本要求；A和D明确包含检索内容+用户问题+指令，结构完整；B仅含用户问题，缺失上下文与指令，无法支撑RAG回答；C仅含检索内容，缺失问题与指令，不构成完整模板。",
+    "answer": [
+      "A",
+      "D"
+    ],
+    "supported": true,
+    "quote": "提示词模板：把角色、规则、注意事项等固定内容预设好，把'每次变化的部分'抽象成变量",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "包含检索内容、用户问题、明确指令（结合信息给出准确简洁回答），符合RAG提示词模板基本结构，且隐含'准确简洁'的输出约束，是合理模板。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "仅提供用户问题，无检索内容、无指令、无角色、无输出格式约束，无法引导模型生成RAG所需答案，不符合模板定义。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "仅提供检索内容，无用户问题、无指令、无任务目标，无法构成有效提示，模型不知要做什么，不是完整模板。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "明确区分背景信息与问题，指令清晰（基于背景信息提供合理完整答案），含上下文、任务、输出质量要求（合理且完整），结构完整，是合理模板。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "2-0082": {
+    "qid": "2-0082",
+    "classification": "own",
+    "chapter": 2,
+    "quality": "ok",
+    "reason": "考查提示工程核心价值：提升答案准确度是其直接效果；其他选项（增加训练数据/减少推理时间/增加参数）均非提示工程作用范围，原文明确指出提示工程'不改动模型参数'、'低成本高收益'。",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "提示工程的价值可以概括为三点：- 低成本高收益：不改动模型参数、不重新训练，只优化输入就能显著提升效果",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "原文明确指出提示工程能'显著提升效果'，且'answer correctness'即答案准确度，是提示工程可直接优化的核心指标。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "增加训练数据属于微调或数据合成范畴，提示工程不涉及模型训练过程，原文强调'不重新训练'。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "提示工程不改变模型推理架构或计算路径，无法减少推理时间；TTFT/TPOT等延迟指标属第6章部署优化范畴。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "增加参数数量属于模型架构变更或全参微调，提示工程'不改变模型参数'，原文多次强调此本质区别。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "2-0127": {
+    "qid": "2-0127",
+    "classification": "own",
+    "chapter": 2,
+    "quality": "review",
+    "reason": "题干提及'ask_llm_route函数'及'文档审查'场景，但原文未出现该函数名或任何代码级实现细节；所有知识均围绕'文档审阅'概念、提示词骨架、四要素（维度/字段/严重度/定位）展开，未定义具体函数名或变量名。无法从给定材料确认'ask_llm_route'是否真实存在或其映射关系。",
+    "answer": [
+      "A"
+    ],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "虽原文未出现函数名，但'文档审查'场景唯一对应'reviewed_prompt'语义，且'ask_llm_route'字面含义为'路由到LLM'，结合上下文最可能调用审阅专用提示词。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "translate_prompt对应翻译场景，与文档审查无关，原文明确分场景讨论。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "query_engine是LlamaIndex框架概念，属第12章框架知识，非本章提示词命名惯例。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "'ra ask'疑似RAG相关缩写，但原文未定义该术语，且文档审查属审阅而非问答，不应使用通用问答提示。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "2-0141": {
+    "qid": "2-0141",
+    "classification": "own",
+    "chapter": 2,
+    "quality": "review",
+    "reason": "同2-0127，'ask_llm_route'函数名未在原文出现；但'内容翻译'场景在2.7进阶技巧表格中明确列为'多模态提示'之外的独立用途，且'翻译'与'translate_prompt'语义强匹配；其他选项均无翻译语义关联。",
+    "answer": [
+      "A"
+    ],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "语义完全匹配，'translate_prompt'直指翻译任务，原文2.7表格将'内容生成、固定格式写作'与'翻译'并列，是唯一合理选项。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "reviewed_prompt专用于文档审阅，与翻译无关。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "query_engine是框架层概念，非提示词命名，且不表翻译意图。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "'ra ask'无翻译语义，且原文未定义该术语。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "2-0207": {
+    "qid": "2-0207",
+    "classification": "own",
+    "chapter": 2,
+    "quality": "review",
+    "reason": "'ask_lm_route'函数名拼写错误（应为llm），且原文未定义该函数；但'公司内部文档查询'即RAG典型场景，'ra ask'最可能为'RAG ask'缩写，与2.1节'上下文工程四大手段：Prompt、RAG、Tool、Memory'及RAG贯穿案例一致；其他选项均为其他场景专用提示词。",
+    "answer": [
+      "A"
+    ],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "'ra ask'极可能指'RAG ask'，对应RAG问答场景；原文2.1明确RAG是上下文工程四大手段之一，且贯穿案例即'新人答疑机器人'接入制度知识库，完全匹配。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "reviewed_prompt用于审阅，非查询。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "translate_prompt用于翻译，无关。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "llm.invoke是底层SDK调用，非提示词模板，且原文强调'裸调SDK适用场景与边界'属第12章，非本章考点。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "2-0210": {
+    "qid": "2-0210",
+    "classification": "own",
+    "chapter": 2,
+    "quality": "review",
+    "reason": "函数名'ask_lm_route'拼写错误（应为llm），且原文未定义该函数；但2.8节意图分类明确要求'未匹配→兜底'，2.11排错表强调'清单外 / 无匹配 → 走兜底意图或转人工'，'未能识别问题类型'即意图未匹配，应返回兜底提示语，选项A完全符合此逻辑。",
+    "answer": [
+      "A"
+    ],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "符合2.8节意图分类流程中'未匹配→兜底'原则，且2.11排错表明确'清单外 / 无匹配 → 走兜底意图'，是唯一符合工程实践的兜底响应。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "reviewed_prompt是提示词模板名，非返回值；函数返回应为字符串响应，非模板名。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "translate_prompt同理，是模板名，非响应内容。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "'ra ask'是动作指令，非兜底响应文本；且原文未定义该术语。"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

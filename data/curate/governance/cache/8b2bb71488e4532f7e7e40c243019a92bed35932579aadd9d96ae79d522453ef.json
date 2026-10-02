@@ -1,0 +1,54 @@
+{
+  "items": [
+    {
+      "type": 0,
+      "stem": "某团队在vLLM中启用PagedAttention后，观测到长上下文（64K tokens）请求的并发数从3提升至8，但单请求TTFT未改善。以下哪项是PagedAttention机制本身无法直接优化的根本原因？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "TTFT由Prefill阶段计算密集型操作决定，而PagedAttention仅作用于Decode阶段的KV Cache管理"
+        },
+        {
+          "option_label": "B",
+          "option_text": "PagedAttention需额外页表查询开销，抵消了显存节省带来的计算收益"
+        },
+        {
+          "option_label": "C",
+          "option_text": "vLLM默认禁用Prefill阶段的FlashAttention优化，导致首token延迟瓶颈"
+        },
+        {
+          "option_label": "D",
+          "option_text": "64K长度超出GPU显存带宽上限，即使分页也无法缓解带宽瓶颈"
+        }
+      ],
+      "answer": "A",
+      "analysis": "依据教材6.5节明确指出：'Prefill（预填充阶段）……是计算密集型，处理完后吐出第一个 token，决定了TTFT'；而'PagedAttention……把KV Cache切成块……解决的是KV Cache的显存碎片与预分配浪费'——即PagedAttention仅针对Decode阶段缓存管理，与Prefill的计算负载完全无关。选项B错误：教材未提及页表查询带来显著开销，且其设计目标正是零额外计算成本；选项C错误：FlashAttention是否启用属框架实现细节，教材未将其列为PagedAttention的约束条件，且TTFT优化依赖Prefill算子而非分页机制；选项D错误：显存带宽影响TPOT（每token时间），非TTFT，教材6.3节强调'TTFT主要受Prefill速度、排队时长、prompt长度影响'，与带宽无直接因果。因此A是唯一被教材原理直接支持的根本原因。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 1,
+      "stem": "在诊断一个突然出现高TTFT（>8s）的线上vLLM服务时，监控显示GPU利用率正常、KV Cache占用率仅30%、无429错误。此时最应优先检查的日志线索是？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "vLLM启动日志中是否包含'Using PagedAttention'确认信息"
+        },
+        {
+          "option_label": "B",
+          "option_text": "请求日志中用户输入prompt的实际token数是否远超预期（如含冗余文档/重复系统提示）"
+        },
+        {
+          "option_label": "C",
+          "option_text": "CUDA初始化或模型加载阶段是否存在长时间阻塞（如OSS拉取超时、权重文件IO卡顿）"
+        },
+        {
+          "option_label": "D",
+          "option_text": "调度器日志中是否存在大量请求排队等待Prefill资源（如block table分配失败重试）"
+        }
+      ],
+      "answer": "B,C",
+      "analysis": "依据教材6.3节核心原理：'TTFT由Prefill速度、排队时长、prompt长度决定'，且6.5节强调'Prefill是计算密集型'。当前GPU利用率正常说明算力未瓶颈，KV Cache占用低排除Decode阶段缓存问题，无429说明未超并发限流——故问题必在Prefill自身或其前置环节。选项B正确：教材6.3节明确将'prompt长度'列为TTFT直接影响因素，超长prompt（如误传整份PDF）会直接拖慢Prefill，且监控无法体现输入内容质量；选项C正确：教材6.9节部署实践指出'ECS自建需关注模型加载、驱动、依赖'，而6.5节vLLM启动命令示例隐含'模型路径存在且可读'为前提，若权重加载卡顿（如网络存储超时），会导致首token前整体阻塞，符合'高TTFT+GPU空闲'现象。选项A错误：PagedAttention是否启用不影响TTFT，教材6.5节明确其仅优化KV Cache；选项D错误：'block table分配失败'属PagedAttention内部机制，但教材未将其与TTFT关联，且KV Cache占用率仅30%说明分页资源充足，排队更可能源于计算资源竞争而非内存分配失败。",
+      "difficulty_label": "进阶"
+    }
+  ]
+}

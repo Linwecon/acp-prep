@@ -1,0 +1,109 @@
+{
+  "new-10-54-0": {
+    "qid": "new-10-54-0",
+    "classification": "own",
+    "chapter": 10,
+    "quality": "ok",
+    "reason": "综合考查阿里云平台分层选型与约束匹配，需结合数据不出域、微调、高并发、少运维等条件判断。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "开源模型的价值集中在三点：① 数据隐私与合规（数据不出域）；② 可深度定制（任意微调/改结构）；③ 大规模稳定流量下的长期成本可控。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "百炼知识库数据托管，不满足‘数据不得出域’要求。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "开源模型微调部署于PAI，满足数据不出域、专业微调、高并发、少运维。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "DashScope API调用数据上送，违反数据不出域；全文本传入不经济。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "仍调用DashScope API，数据可能出域，且未解决模型理解不足问题。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-10-54-3": {
+    "qid": "new-10-54-3",
+    "classification": "own",
+    "chapter": 10,
+    "quality": "ok",
+    "reason": "考查限流（429）的正确应对措施，原文明确给出了处理原则。",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "遇 429 用**指数退避 + 抖动**重试，必要时降级到更小模型。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "仅申请配额被动等待，不符合主动应对原则。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "立即重试会加剧限流，原文反对无间隔死循环。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "符合指数退避+抖动重试及降级原则。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "批量调用不解决TPM配额耗尽问题，且可能增加延迟。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-10-54-4": {
+    "qid": "new-10-54-4",
+    "classification": "own",
+    "chapter": 10,
+    "quality": "ok",
+    "reason": "考查开源模型私有化部署的完整产品链路，需覆盖下载、开发、部署。",
+    "answer": [
+      "A",
+      "B",
+      "C"
+    ],
+    "supported": true,
+    "quote": "开源模型从 ModelScope 下载，在 PAI-DSW 里开发微调，最后用 PAI-EAS 部署为在线服务。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "ModelScope用于下载开源模型权重。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "PAI-DSW用于本地微调开发。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "PAI-EAS提供弹性伸缩、蓝绿发布的在线服务。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "DashScope是商业API服务，不符合私有化部署要求。"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

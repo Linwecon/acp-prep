@@ -1,0 +1,225 @@
+{
+  "7-0520": {
+    "qid": "7-0520",
+    "classification": "own",
+    "chapter": 7,
+    "quality": "ok",
+    "reason": "题目考查Answer Correctness计算中LLM的具体作用，属于RAGAS指标细节。",
+    "answer": [
+      "A",
+      "B"
+    ],
+    "supported": true,
+    "quote": "LLM 把 answer 和 ground_truth 各自分解为观点列表；比对后归入三类：TP（answer 中有且被 ground_truth 支持）、FP（answer 中有但 ground_truth 不支持，即多编/错编的）、FN（ground_truth 中有但 answer 漏掉的）",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "LLM需分解answer为观点列表。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "LLM需分解ground_truth为观点列表。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "与评测计算过程无关。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "与评测计算过程无关。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "7-0935": {
+    "qid": "7-0935",
+    "classification": "misplaced",
+    "chapter": 4,
+    "quality": "fixable",
+    "reason": "考点是对话历史管理，属于Agent的Memory组件，不在第7章。",
+    "answer": [
+      "A",
+      "B",
+      "C",
+      "D"
+    ],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "对话状态跟踪是记忆管理核心。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "关键信息提取是记忆管理内容。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "历史长度优化是管理策略。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "相关性评估是记忆管理手段。"
+      },
+      {
+        "label": "E",
+        "selected": false,
+        "why": "独立处理违背多轮对话需求。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "7-1237": {
+    "qid": "7-1237",
+    "classification": "own",
+    "chapter": 7,
+    "quality": "ok",
+    "reason": "考查传统自动指标ROUGE的定义与特性。",
+    "answer": [
+      "A",
+      "C"
+    ],
+    "supported": true,
+    "quote": "ROUGE 基于 n-gram 与最长公共子序列（LCS），默认侧重召回率",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "ROUGE-1基于unigram重叠。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "ROUGE主要用于摘要。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "ROUGE-L基于LCS。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "ROUGE-P不是精确率指标。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "7-1296": {
+    "qid": "7-1296",
+    "classification": "own",
+    "chapter": 7,
+    "quality": "review",
+    "reason": "考查SQL生成任务的评估指标选择，但教材未明确提及SQL生成专项指标。",
+    "answer": [
+      "A"
+    ],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "ROUGE-L基于LCS，可能评估结构完整性。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "BLEU侧重翻译精确率。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "Perplexity衡量语言模型概率。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "mAP用于检索排序任务。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "7-1332": {
+    "qid": "7-1332",
+    "classification": "own",
+    "chapter": 7,
+    "quality": "ok",
+    "reason": "考查文本生成任务的评测指标，属于传统自动指标范畴。",
+    "answer": [
+      "A",
+      "B",
+      "D"
+    ],
+    "supported": true,
+    "quote": "传统自动指标：机器阅卷的'老办法'...BLEU...ROUGE...Perplexity（困惑度 PPL）",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "Perplexity是语言模型评估指标。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "ROUGE是文本生成评估指标。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "mAP用于检索排序任务。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "BLEU是文本生成评估指标。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "7-1464": {
+    "qid": "7-1464",
+    "classification": "own",
+    "chapter": 7,
+    "quality": "ok",
+    "reason": "考查RAGAS指标按检索端和生成端的分类。",
+    "answer": [
+      "A",
+      "B"
+    ],
+    "supported": true,
+    "quote": "Faithfulness（忠实度）生成端...Answer Correctness生成端...Answer Relevancy（答案相关性）生成端",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "Answer Relevancy属于生成端指标。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "Faithfulness属于生成端指标。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "Context Precision属于检索端指标。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "Context Recall属于检索端指标。"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

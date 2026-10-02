@@ -1,0 +1,214 @@
+{
+  "new-11-36-0": {
+    "qid": "new-11-36-0",
+    "classification": "own",
+    "chapter": 11,
+    "quality": "ok",
+    "reason": "考查医疗案例中法律强制性合规动作，结合安全要求，选项明确。",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "医疗决策必须由医生做出，不可替代诊断；需可解释与留痕。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "AI辅助诊断必须由医生复核，法律强制。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "脱敏加密是安全要求，非法律强制动作。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "技术链路描述，非法律强制合规动作。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "二次确认是流程设计，非法律强制。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-11-36-1": {
+    "qid": "new-11-36-1",
+    "classification": "own",
+    "chapter": 11,
+    "quality": "ok",
+    "reason": "考查教育行业多模态应用的必要条件，选项涉及安全、解析、防依赖、ASR纠错。",
+    "answer": [
+      "B",
+      "D"
+    ],
+    "supported": true,
+    "quote": "OCR+版面分析解析手写错题图片，保留公式结构；对学生语音提问调用通义听悟ASR后，对低置信度词触发追问澄清",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "视频审核非教育场景必要条件，标识用于生成内容。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "手写错题需OCR和结构保留，是必要条件。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "防过度依赖是建议，非架构设计必要条件。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "ASR低置信度需追问澄清，保障意图准确。"
+      }
+    ],
+    "duplicate_of": "11-5182"
+  },
+  "new-11-36-2": {
+    "qid": "new-11-36-2",
+    "classification": "own",
+    "chapter": 11,
+    "quality": "ok",
+    "reason": "考查多模态安全原则，仅文本过滤违反全面审核要求。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "内容审核必须覆盖文本、图像、音频、视频全部模态，只做文本过滤等于给大门上锁却开着窗。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "语音审核是问题，但图片未审是更根本违反。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "仅文本过滤，未对展示图片做检测，根本违反。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "跨模态一致性校验非安全审核核心原则。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "未标识是合规问题，但安全审核缺失更根本。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-11-36-3": {
+    "qid": "new-11-36-3",
+    "classification": "own",
+    "chapter": 11,
+    "quality": "ok",
+    "reason": "考查视频理解中信息遗漏的优化参数，抽帧策略是关键。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "视频要抽大量帧，token消耗随帧数线性增长，长视频必须抽帧/截断/分段",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "ASR热词针对术语，不解决关键帧遗漏。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "增加抽帧密度可捕获更多信息，优先调整。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "提示词约束输出格式，不解决输入信息缺失。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "转写带时间戳是ASR功能，不解决视觉信息缺失。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-11-36-4": {
+    "qid": "new-11-36-4",
+    "classification": "own",
+    "chapter": 11,
+    "quality": "ok",
+    "reason": "考查扫描件PDF解析失败的正确修复动作，需OCR和表格结构化。",
+    "answer": [
+      "A",
+      "C"
+    ],
+    "supported": true,
+    "quote": "扫描件PDF本质是图片，普通文本加载器读不出文字、直接切到的是空白/乱码。首要动作是先做文档智能解析",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "扫描件需OCR和版面分析输出结构化文本。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "固定长度切片会破坏表格结构，不可取。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "表格需单独识别并保留行列关系。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "多模态Embedding用于图片检索，不适用于文本问答。"
+      }
+    ],
+    "duplicate_of": "11-5166"
+  },
+  "new-11-36-5": {
+    "qid": "new-11-36-5",
+    "classification": "own",
+    "chapter": 11,
+    "quality": "ok",
+    "reason": "考查语音助手意图理解错误的原因，低置信度追问机制缺失。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "意图理解...低置信度要追问澄清，而不是硬答",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "ASR识别结果正确，非热词问题。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "意图理解模块缺乏低置信度追问机制。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "RAG检索环节非意图理解错误主因。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "LLM提示词约束非意图理解环节问题。"
+      }
+    ],
+    "duplicate_of": "11-5181"
+  }
+}

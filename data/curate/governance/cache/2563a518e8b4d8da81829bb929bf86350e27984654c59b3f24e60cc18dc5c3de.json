@@ -1,0 +1,210 @@
+{
+  "1-1417": {
+    "qid": "1-1417",
+    "classification": "own",
+    "chapter": 1,
+    "quality": "ok",
+    "reason": "考查上下文窗口与输出长度的共用预算约束，属于本章核心概念。",
+    "answer": [
+      "D"
+    ],
+    "supported": true,
+    "quote": "上下文窗口（Context Window）是模型一次能\"看到\"的最大 Token 数。它是输入（system/user 消息、历史对话、检索资料）与输出（模型生成）共用的 Token 预算。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "原文未提‘信息量过大导致难以理解’；模型理解能力取决于参数和训练，非单次输出长度。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "‘注意力机制漏错’属过度引申；原文指出自注意力不限制长度，且‘漏错’非标准术语，未在1.4节归因为注意力机制缺陷。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "原文未提‘输出超时’；停止条件为EOS/max_tokens/停用词，超时属工程实现问题，非本章知识范畴。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "上下文窗口是输入+输出共用预算；一次返回所有结果会占用大量输出Token，挤占输入空间，增加总Token消耗，直接推高计费成本，符合1.6节‘共用预算’与1.5节‘计费按Token’原理。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "1-1436": {
+    "qid": "1-1436",
+    "classification": "own",
+    "chapter": 1,
+    "quality": "ok",
+    "reason": "考查分词化目的，对应1.5节‘Token是模型处理文本的最小单位’及‘计算机读不懂文字’的核心表述。",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "计算机读不懂文字。分词器（Tokenizer）把文本切成一个个 Token，并映射为词表里的整数 ID。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "原文未提‘改善阅读流畅性’；分词面向机器，非人类阅读。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "原文未涉及加密；分词是预处理步骤，与安全性无关。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "原文明确指出‘计算机读不懂文字’，需通过分词切为Token并映射ID，使模型能处理，完全匹配。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "原文未提存储空间；BPE分词可能增加Token数（如生僻词拆解），不必然精简。"
+      }
+    ],
+    "duplicate_of": "1-1456"
+  },
+  "1-1456": {
+    "qid": "1-1456",
+    "classification": "own",
+    "chapter": 1,
+    "quality": "ok",
+    "reason": "与1-1436考点完全相同：分词化目的；选项结构一致，仅题干措辞微调，属重复题。",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "计算机读不懂文字。分词器（Tokenizer）把文本切成一个个 Token，并映射为词表里的整数 ID。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "同1-1436，分词不服务于人类阅读性。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "同1-1436，无加密关联。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "同1-1436，原文直击核心：分词使计算机可处理文本。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "同1-1436，分词不以删减信息为目的。"
+      }
+    ],
+    "duplicate_of": "1-1436"
+  },
+  "1-0022": {
+    "qid": "1-0022",
+    "classification": "own",
+    "chapter": 1,
+    "quality": "ok",
+    "reason": "考查五阶段流程中第四阶段‘解码与自回归’的停止条件，属1.3节明确知识点。",
+    "answer": [
+      "D"
+    ],
+    "supported": true,
+    "quote": "停止生成的三个条件：**EOS / 达到 max_tokens / 命中停用词**。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "原文未提用户手动打断；停止由模型内部逻辑触发，非交互式中断。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "仅提‘达到最大生成长度’，但原文明确为三条件之一，非唯一条件。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "原文未提‘主题无关’作为停止依据；模型无主题判断能力，停止依赖硬性规则。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "原文明确列出‘EOS / 达到 max_tokens / 命中停用词’三条件，选项D完整覆盖‘阈值（max_tokens）’和‘特殊Token（EOS）’，且‘即“句子结束”标记’与原文‘<｜end▁of▁sentence｜>’等示例一致。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "1-0226": {
+    "qid": "1-0226",
+    "classification": "own",
+    "chapter": 1,
+    "quality": "ok",
+    "reason": "考查temperature作用，属1.7.1节核心内容，原文有公式与直观解释。",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "temperature（温度）对模型输出的原始分数（logits）做缩放后再 softmax：$p_i = \\dfrac{e^{z_i/T}}{\\sum_j e^{z_j/T}}$。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "原文公式及描述‘T越小→概率越集中’‘T越大→分布越平坦’直接说明其作用是调整概率分布形状。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "增加候选数量是top_p/top_k的作用，非temperature；temperature只缩放logits，不增删候选。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "同B，temperature不减少候选数量，仅改变各候选被选中的概率权重。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "temperature不固定顺序；它使高概率Token更突出或低概率Token更易被选，顺序本身由logits决定。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "1-0270": {
+    "qid": "1-0270",
+    "classification": "misplaced",
+    "chapter": 1,
+    "quality": "remove",
+    "reason": "考查分隔符用于区分对话轮次，属于提示工程中‘分隔符的结构化与防注入作用’，是第2章知识，原文1.8节仅提messages角色数组，未讨论分隔符设计。",
+    "answer": [],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "纯自然语言分隔，无结构化标识，原文未提及此类用法。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "双尖括号非标准分隔符，原文未讨论；且‘<<用户>>’易被模型误读为内容而非元标记。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "###是常见分隔符，但原文1.8节仅说明messages角色字段，未涉及自定义分隔符设计原则。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "XML标签是结构化分隔符，但原文1.8节未提及任何分隔符方案；该知识点属第2章‘分隔符的结构化与防注入作用’。"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

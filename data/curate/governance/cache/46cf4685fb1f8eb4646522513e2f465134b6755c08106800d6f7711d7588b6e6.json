@@ -1,0 +1,217 @@
+{
+  "new-7-24-0": {
+    "qid": "new-7-24-0",
+    "classification": "own",
+    "chapter": 7,
+    "quality": "ok",
+    "reason": "题目结合RAGAS指标变化与用户反馈，考查对指标含义及“Lost in the Middle”效应的理解，有考查价值。",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "Context Precision低说明相关片段被大量无关内容淹没、排名靠后（信噪比低），模型容易'Lost in the Middle'",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "Recall升Precision降，符合噪声增加、注意力分散的描述，与原文“Lost in the Middle”效应一致。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "题干未提及ground_truth变化，且指标变化模式不支持此推断。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "题干未提及评委模型版本变化，且Faithfulness稳定，不支持指标漂移。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "题干未提及提示词具体改动，且Answer Correctness微降，不支持被误判为质量提升。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-7-24-1": {
+    "qid": "new-7-24-1",
+    "classification": "own",
+    "chapter": 7,
+    "quality": "ok",
+    "reason": "题目考查评测集构建原则，符合原文强调的“评测先行”与“领域专家主导”。",
+    "answer": [
+      "A",
+      "B"
+    ],
+    "supported": true,
+    "quote": "问题来自真实用户场景：从线上用户问题、客服工单、投诉反馈中按频率和类型抽样；标准答案来自领域专家：必须由业务领域专家编写/审定",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "符合“问题来自真实用户场景”原则。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "符合“标准答案来自领域专家”原则。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "剔除敏感词可能破坏评测集真实性，不符合“覆盖主要业务场景与边界情况”。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "开发团队预设问题不符合“问题来自真实用户场景”原则。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-7-24-2": {
+    "qid": "new-7-24-2",
+    "classification": "own",
+    "chapter": 7,
+    "quality": "ok",
+    "reason": "题目考查Agent白盒评测方法选择，区分端到端与组件级评测，符合原文内容。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "确定性检查（规则/断言）：用代码规则直接判断，结果确定；适合评价客观项：代码能否运行",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "LLM-as-Judge评估教学有效性是主观评价，无法精准定位代码无法运行的客观故障。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "确定性检查直接验证代码可执行性，是白盒评测精准定位故障的方法。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "BLEU相似度衡量字面重合，不保证代码可运行，且HumanEval基准不适用此场景。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "Rubric评估代码完整性是主观评分，无法直接验证代码可执行性。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-7-24-3": {
+    "qid": "new-7-24-3",
+    "classification": "own",
+    "chapter": 7,
+    "quality": "ok",
+    "reason": "题目考查根据RAGAS指标组合定位问题及优化方向，是本章核心能力。",
+    "answer": [
+      "A",
+      "B",
+      "D"
+    ],
+    "supported": true,
+    "quote": "检索指标都好（Recall、Precision高），但Faithfulness / Correctness低 → 问题在生成阶段；Faithfulness低：检索到了却还在编造 → 强化'只依据资料回答'的提示词约束、改善上下文拼装",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "检索指标高但Faithfulness极低，符合生成端幻觉的病根判断。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "针对生成端幻觉，强化提示词约束和降低temperature是合理优化方向。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "Context Recall=0.91已属高值，不应优先补充知识库，病根在生成端。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "检查上下文拼装逻辑是改善生成端利用检索信息的合理方向。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-7-24-4": {
+    "qid": "new-7-24-4",
+    "classification": "own",
+    "chapter": 7,
+    "quality": "ok",
+    "reason": "题目考查Answer Relevancy低分的具体归因，需区分含糊回避、答非所问等情形。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "Answer Relevancy低：答非所问（反向生成的问题对不上原题）和'甩锅式'回答（noncommittal=1）",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "答案未使用'我不确定'等典型含糊回避表述。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "答案未说明具体操作路径，属于答非所问（反向生成问题不匹配）。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "Answer Relevancy衡量切题性，不直接衡量事实错误。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "Context Recall不足是检索端问题，与Answer Relevancy低分归因不同。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-7-24-5": {
+    "qid": "new-7-24-5",
+    "classification": "own",
+    "chapter": 7,
+    "quality": "ok",
+    "reason": "题目考查防止“跷跷板效应”的具体实践，符合评测驱动开发原则。",
+    "answer": [
+      "A",
+      "B",
+      "C"
+    ],
+    "supported": true,
+    "quote": "回归评测的前提是除了待测改动，其他一切都冻结：评测集版本、评测脚本、推理参数（temperature、seed）、模型版本",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "使用冻结评测集进行回归测试是防止跷跷板效应的核心手段。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "分层评测并按题型细分分析，有助于发现局部退化。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "将评测配置纳入CI/CD管理，确保回归测试的可复现性和可比性。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "公开基准题目与业务场景不一致，不能有效防止业务场景内的跷跷板效应。"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

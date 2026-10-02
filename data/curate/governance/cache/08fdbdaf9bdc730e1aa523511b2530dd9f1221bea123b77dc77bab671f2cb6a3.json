@@ -1,0 +1,154 @@
+{
+  "items": [
+    {
+      "type": 0,
+      "stem": "某金融公司需构建内部合规问答系统，要求：① 所有员工手册与监管文件数据严格不出域；② 通用千问模型对'穿透式监管'等术语回答不准；③ 需支持LoRA微调并部署为高可用API服务。团队无GPU运维能力，但有算法工程师。应优先选用哪组阿里云产品组合完成开发、训练与生产部署？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "百炼知识库 + DashScope API + ModelScope下载模型本地部署"
+        },
+        {
+          "option_label": "B",
+          "option_text": "PAI-DSW（开发）→ PAI-DLC（训练）→ PAI-EAS（部署）"
+        },
+        {
+          "option_label": "C",
+          "option_text": "DashScope原生SDK调用qwen-max + 百炼工作流编排"
+        },
+        {
+          "option_label": "D",
+          "option_text": "ModelScope免费Notebook微调 + OSS存储模型 + 自建Nginx反向代理"
+        }
+      ],
+      "answer": "B",
+      "analysis": "题干核心约束为'数据不出域+需微调+高可用部署+无GPU运维能力'。A错误：百炼知识库和DashScope均为托管服务，数据需上送，违反①；ModelScope Notebook非生产环境，无弹性伸缩与监控，不满足③。B正确：PAI三件套完整覆盖'开发（DSW）→训练（DLC）→部署（EAS）'全链路，EAS提供弹性伸缩、蓝绿发布、监控告警等生产级能力，且所有计算在用户VPC内，满足数据不出域（教材10.4节明确'PAI面向算法工程师，支持自研/开源/微调模型全流程'；10.5表强调PAI'数据与模型控制程度更高'）。C错误：DashScope是托管API，无法微调或私有化部署；百炼工作流无法替代模型训练环节。D错误：ModelScope Notebook有运行时长限制（教材10.7注），OSS仅存文件，无推理服务能力；自建Nginx无模型服务化能力（如vLLM集成、预热、自动扩缩容），违背'无GPU运维能力'前提。本题考查分层定位与实际约束权衡，非单纯功能罗列。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 0,
+      "stem": "某电商APP上线智能客服，首月账单异常飙升。排查发现：① 用户每次咨询均将整份《售后服务政策》PDF（约12万字）作为system prompt传入；② 未设置max_tokens；③ 调用qwen-plus时未启用流式响应。以下哪项措施对降低Token成本最直接有效？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "将PDF全文转为Embedding存入知识库，仅传入检索出的3个相关段落"
+        },
+        {
+          "option_label": "B",
+          "option_text": "改用qwen-turbo模型，因其单价更低"
+        },
+        {
+          "option_label": "C",
+          "option_text": "在API请求中添加max_tokens=200参数限制输出长度"
+        },
+        {
+          "option_label": "D",
+          "option_text": "启用stream=True，前端逐Token渲染"
+        }
+      ],
+      "answer": "A",
+      "analysis": "题干直指成本失控主因：输入Token爆炸（12万字PDF远超模型上下文窗口，且未切片）、输出无约束、流式仅优化体验非成本。A正确：教材10.8明确'控制输入'是首要省成本手段，RAG只塞最相关片段可指数级减少输入Token；百炼知识库底层即调用DashScope Embedding/生成模型（10.1全景图），此方案符合'应用层（百炼）→接口层（DashScope）'链路，且规避了整文档上传的浪费。B错误：qwen-turbo虽单价低，但若输入仍为12万字，总费用仍远高于合理RAG方案；且turbo能力弱，可能答错售后政策。C仅限制输出，对输入侧12万字无改善，成本节省有限。D提升用户体验，但不减少Token消耗量，与账单无关。本题考查计费规则的实际故障诊断，紧扣'输入/输出分别计价、输入通常占大头'的核心逻辑（教材10.8表）。",
+      "difficulty_label": "高阶"
+    },
+    {
+      "type": 1,
+      "stem": "某SaaS厂商需为客户提供可嵌入其自有系统的AI能力，要求：① 客户可自主选择调用通义千问或自托管开源模型；② 前端需支持流式响应降低等待感；③ 后端需兼容OpenAI生态以利客户快速集成。以下哪些技术选型符合教材推荐的最佳实践？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "使用DashScope OpenAI兼容模式（base_url指向compatible-mode/v1）作为默认接入点"
+        },
+        {
+          "option_label": "B",
+          "option_text": "在百炼平台配置智能体后，将其发布为标准REST API供客户调用"
+        },
+        {
+          "option_label": "C",
+          "option_text": "客户自托管模型时，要求其部署vLLM服务并启用OpenAI兼容API"
+        },
+        {
+          "option_label": "D",
+          "option_text": "强制所有客户使用PAI-EAS部署，统一管理模型版本"
+        }
+      ],
+      "answer": "A,C",
+      "analysis": "题干关键需求是'灵活切换模型源+流式+OpenAI兼容'。A正确：教材10.3明确DashScope OpenAI兼容模式'改两行代码就迁移'，且支持stream=True（课程代码示例），完美满足②③。C正确：教材10.4原理指出'vLLM本地起服务验证（其HTTP接口本身兼容OpenAI API）'，客户自托管时vLLM是标准方案，实现无缝切换。B错误：百炼发布的API是百炼应用层API，非底层模型API，客户无法用其调用自托管模型，违背①；且百炼API不保证OpenAI协议兼容性。D错误：强制PAI-EAS违背'客户自主选择'要求，且PAI是阿里云平台，客户无法在其环境部署；教材10.5强调'三者可组合'，而非强制绑定。本题考查多场景适配能力，需区分'平台托管API'与'客户自托管兼容API'两种路径。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 0,
+      "stem": "一个三人创业团队计划开发HR新人答疑机器人，目标：① 两周内上线MVP；② HR可自行上传制度文档并调整回答风格；③ 无专职算法/运维人员。以下哪种落地路径最符合教材'谁该用控制台、谁该写代码、谁必须训模型'的选型原则？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "在PAI-DSW中编写Python脚本，调用DashScope API实现RAG问答"
+        },
+        {
+          "option_label": "B",
+          "option_text": "使用百炼控制台创建知识库，上传员工手册，配置Prompt并一键发布到钉钉"
+        },
+        {
+          "option_label": "C",
+          "option_text": "从ModelScope下载Qwen-1.8B模型，在本地GPU服务器部署vLLM服务"
+        },
+        {
+          "option_label": "D",
+          "option_text": "用DashScope原生SDK开发后端服务，集成LangChain做RAG"
+        }
+      ],
+      "answer": "B",
+      "analysis": "题干三要素'快速上线+非技术人员操作+零运维'完全匹配百炼定位。B正确：教材10.2场景明确'HR不懂编程...希望自己上传员工手册、调一调口吻、试问到满意后发布到钉钉群——全程不写一行代码'；10.5最佳实践指出'三人团队、无运维、用千问、要尽快上线→百炼一键部署'。A错误：PAI-DSW需写代码且实例需主动管理计费（教材10.4成本提醒），违背'无运维'。C错误：本地GPU部署需硬件采购、环境搭建、服务运维，成本与复杂度远超MVP需求。D错误：开发后端服务需工程能力，LangChain集成需调试，不符合'HR可自行操作'。本题考查'使用者角色→平台选择'的精准映射，避免被技术名词干扰。",
+      "difficulty_label": "基础"
+    },
+    {
+      "type": 1,
+      "stem": "当生产环境DashScope API突发大量429错误时，依据教材10.8成本要点，以下哪些应对措施既符合工程规范又具成本效益？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "立即在客户端实现指数退避+随机抖动重试机制"
+        },
+        {
+          "option_label": "B",
+          "option_text": "将高频简单查询路由至qwen-turbo模型，降低单次Token消耗"
+        },
+        {
+          "option_label": "C",
+          "option_text": "申请提升TPM配额，并同步评估PAI-EAS自托管可行性"
+        },
+        {
+          "option_label": "D",
+          "option_text": "关闭所有流式响应，改为同步阻塞调用以减少并发数"
+        }
+      ],
+      "answer": "A,B,C",
+      "analysis": "429是RPM/TPM限流信号（教材10.8），需兼顾即时恢复与长期优化。A正确：教材10.8明确'遇429用指数退避+抖动重试'，这是标准容错方案。B正确：教材10.6强调'按任务难度分级路由'，简单查询用turbo可降低单次Token消耗，间接缓解TPM压力。C正确：短期提配额解燃眉之急，长期评估自托管（教材10.7指出'规模化后算账...蒸馏小模型+自托管是否更省'）符合成本优化路径。D错误：关闭流式仅改变响应方式，不减少请求数或Token量，且损害用户体验；教材10.3强调'stream=True是对话类应用标配'，禁用违背设计原则。本题考查故障诊断与多维度权衡，需结合限流机制、模型选型、成本演进综合判断。",
+      "difficulty_label": "高阶"
+    },
+    {
+      "type": 0,
+      "stem": "某医疗科技公司需构建临床指南问答系统，要求：① 模型必须通过专业医学数据微调；② 推理服务需满足三级等保对数据驻留的要求；③ 支持1000+并发请求。以下哪项产品组合能同时满足全部硬性约束？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "DashScope API + 百炼知识库 + OSS存储指南文档"
+        },
+        {
+          "option_label": "B",
+          "option_text": "ModelScope下载Qwen-Med模型 → PAI-DSW微调 → PAI-EAS部署"
+        },
+        {
+          "option_label": "C",
+          "option_text": "通义法睿API + DataWorks调度 + MaxCompute处理日志"
+        },
+        {
+          "option_label": "D",
+          "option_text": "百炼智能体调用DashScope qwen-max + 自定义插件对接医院HIS系统"
+        }
+      ],
+      "answer": "B",
+      "analysis": "题干三大约束：①'必须微调'→排除纯API方案（A、C、D）；②'数据驻留'→要求模型与数据在客户可控环境，DashScope/百炼/法睿均为托管服务，数据需上送；③'1000+并发'→需生产级服务化能力。B正确：ModelScope提供开源医学模型（教材10.7），PAI-DSW支持微调开发，PAI-EAS提供弹性伸缩与高并发在线服务（教材10.4表明确'EAS支持弹性伸缩、蓝绿发布'），且全部运行于客户VPC内，满足等保数据驻留要求。A错误：DashScope与百炼均为托管，数据出境风险；OSS仅存储，无微调能力。C错误：法睿是垂类API，不可微调；DataWorks/MaxCompute属数据底座，非模型层。D错误：百炼智能体本质调用DashScope API，无法微调，且插件对接不解决数据驻留问题。本题考查'强合规+强定制'场景下的产品矩阵深度应用，紧扣教材10.5对比表中PAI'数据与模型控制程度更高'的核心优势。",
+      "difficulty_label": "高阶"
+    }
+  ]
+}

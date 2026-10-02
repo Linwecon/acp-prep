@@ -1,0 +1,260 @@
+{
+  "8-0600": {
+    "qid": "8-0600",
+    "classification": "own",
+    "chapter": 8,
+    "quality": "ok",
+    "reason": "题目考查个人信息治理的隐私保护措施，属于数据安全与隐私脱敏范畴。",
+    "answer": [
+      "A",
+      "C",
+      "D"
+    ],
+    "supported": true,
+    "quote": "数据脱敏（去标识化）是在数据进入训练、评测、RAG 链路之前，对姓名、手机号、证件号、地址、银行卡号等个人可识别信息（PII）做掩码、替换、泛化或删除。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "数据去标识化是脱敏的一种，用于保护隐私。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "身份验证是访问控制，非直接隐私保护措施。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "数据加密是存储和传输中的核心防护手段。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "数据混杂处理可视为一种去标识化或泛化技术。"
+      },
+      {
+        "label": "E",
+        "selected": false,
+        "why": "数据开源处理会增加隐私泄露风险。"
+      },
+      {
+        "label": "F",
+        "selected": false,
+        "why": "提高模型参数与隐私保护无直接关系。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "8-0625": {
+    "qid": "8-0625",
+    "classification": "own",
+    "chapter": 8,
+    "quality": "ok",
+    "reason": "题目考查内容安全治理中阻断非法生成的机制，属于输入输出审核范畴。",
+    "answer": [
+      "B",
+      "E"
+    ],
+    "supported": true,
+    "quote": "输入过滤：Prompt 进模型前检测，拦截越狱、角色扮演、提示注入、知识库投毒等恶意指令；输出审查：最后一道防线，拦截有害言论、数据泄露、幻觉风险内容。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "标准回答预置非阻断机制，属质量优化。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "Query风险识别是输入过滤的核心。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "上传用户输入内容是数据收集，非阻断机制。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "搜索增强是RAG功能，非安全阻断机制。"
+      },
+      {
+        "label": "E",
+        "selected": true,
+        "why": "Response风险识别是输出审查的核心。"
+      },
+      {
+        "label": "F",
+        "selected": false,
+        "why": "增加训练轮数与实时阻断无关。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "8-0663": {
+    "qid": "8-0663",
+    "classification": "own",
+    "chapter": 8,
+    "quality": "ok",
+    "reason": "题目考查大模型存在的风险，属于内容安全与模型风险总纲。",
+    "answer": [
+      "A",
+      "B",
+      "C",
+      "D",
+      "E"
+    ],
+    "supported": true,
+    "quote": "模型自带的安全对齐只解决了一部分问题。对齐训练让模型学会拒绝“直接问出口的违法请求”，但它约束不了三类东西：用户精心构造的话术、RAG 检索回来的外部文档、智能体将要调用的工具。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "生成虚假或误导性信息是幻觉风险。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "泄露训练数据隐私是数据安全风险。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "产生偏见内容是训练数据偏差风险。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "被恶意利用生成有害内容是提示注入等风险。"
+      },
+      {
+        "label": "E",
+        "selected": true,
+        "why": "消耗大量计算资源是基础设施风险。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "8-0846": {
+    "qid": "8-0846",
+    "classification": "beyond",
+    "chapter": 8,
+    "quality": "remove",
+    "reason": "题目考查交互设计原则，与AI安全合规章节知识无关，属于错放题目。",
+    "answer": [],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "交互设计，非本章考点。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "交互设计，非本章考点。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "交互设计，非本章考点。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "交互设计，非本章考点。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "8-0905": {
+    "qid": "8-0905",
+    "classification": "cross",
+    "chapter": 8,
+    "quality": "ok",
+    "reason": "题目考查企业级应用构建的重点考虑因素，涉及安全合规、集成、成本等，与本章部分知识相关。",
+    "answer": [
+      "A",
+      "B",
+      "C",
+      "D",
+      "E"
+    ],
+    "supported": true,
+    "quote": "AI 应用安全是覆盖内容、数据、模型、应用、基础设施、合规六个维度的体系工程。它的核心思路是纵深防御（Defense in Depth）。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "数据隐私和安全合规是本章核心。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "集成能力涉及应用架构与安全边界。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "可维护性和扩展性是工程实践要求。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "用户体验涉及交互与安全提示设计。"
+      },
+      {
+        "label": "E",
+        "selected": true,
+        "why": "总体拥有成本涉及安全投入与资源消耗。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "8-0906": {
+    "qid": "8-0906",
+    "classification": "cross",
+    "chapter": 8,
+    "quality": "ok",
+    "reason": "题目考查行业大模型应用的常见挑战，涉及合规、数据安全、集成等，与本章知识有交叉。",
+    "answer": [
+      "A",
+      "B",
+      "C",
+      "D",
+      "E"
+    ],
+    "supported": true,
+    "quote": "数据脱敏（去标识化）是在数据进入训练、评测、RAG 链路之前，对姓名、手机号、证件号、地址、银行卡号等个人可识别信息（PII）做掩码、替换、泛化或删除。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "专业术语理解影响RAG检索与安全审核。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "行业合规性和数据安全是本章核心。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "工作流程整合涉及权限与工具调用安全。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "用户接受度影响安全策略部署与培训。"
+      },
+      {
+        "label": "E",
+        "selected": true,
+        "why": "数据获取和质量保障是安全治理基础。"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

@@ -1,0 +1,176 @@
+{
+  "3-1412": {
+    "qid": "3-1412",
+    "classification": "misplaced",
+    "chapter": 4,
+    "quality": "remove",
+    "reason": "题干提及'AssistantAPI'，但第9章全文未出现该术语，属概念混淆；正确考点应为Agent章节的Assistant角色或工具调用",
+    "answer": [],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "name是实例名称，非模型指定"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "第9章无AssistantAPI，model参数属chat.completions.create"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "instructions非9章内容，属Agent配置"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "description非模型指定参数"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "8-0341": {
+    "qid": "8-0341",
+    "classification": "own",
+    "chapter": 9,
+    "quality": "ok",
+    "reason": "考查API调用必要步骤，C选项人工判断逻辑与API调用无关",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "使用Python notebook调用大模型API处理调查问卷时，以下哪个步骤不是必要的？",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "安装依赖是调用前提"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "循环调用是批量处理必需"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "API调用本身不需人工判断逻辑"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "API密钥是鉴权必需"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "8-1046": {
+    "qid": "8-1046",
+    "classification": "own",
+    "chapter": 9,
+    "quality": "ok",
+    "reason": "直接考查messages中assistant角色定义",
+    "answer": [
+      "D"
+    ],
+    "supported": true,
+    "quote": "`messages` 是一个数组，每个元素是一条消息，核心字段是 `role` 和 `content`：| role | 含义 | 典型位置 ||------|------|----------|| `system` | 系统指令，设定角色、规则、输出格式 | 通常在数组最前，整轮对话保持稳定 || `user` | 用户输入 | 每轮用户发言追加一条 || `assistant` | 模型回复 | 每轮把模型回答追加进历史 |",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "user角色提供输入"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "安全性由其他机制保障"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "system角色设定背景"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "assistant代表模型生成回复"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "10-1440": {
+    "qid": "10-1440",
+    "classification": "own",
+    "chapter": 9,
+    "quality": "ok",
+    "reason": "考查多轮对话中messages维护逻辑",
+    "answer": [
+      "B",
+      "D"
+    ],
+    "supported": true,
+    "quote": "`conversation_history.append({\"role\": \"assistant\", \"content\": assistant_message})`...把用户问题追加进历史...把模型回复也追加进历史，供下一轮使用",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "模型名称不保存历史"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "必须添加assistant消息维持上下文"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "API支持多轮，需客户端维护"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "新提问需添加user消息"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "12-1291": {
+    "qid": "12-1291",
+    "classification": "beyond",
+    "chapter": 12,
+    "quality": "review",
+    "reason": "考查Python异常处理语法，属通用编程知识，非API特有",
+    "answer": [
+      "C"
+    ],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "finally无异常捕获功能"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "except位置错误，语法非法"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "try-except结构正确"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "if语句无法捕获异常"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

@@ -1,0 +1,154 @@
+{
+  "items": [
+    {
+      "type": 0,
+      "stem": "某企业升级新人答疑机器人为报销查询助手。用户输入'帮我查一下我上个月提交的报销单审批到哪一步了'，模型返回tool_calls=[{'name':'get_reimbursement','args':{'user_id':'U123','month':'2024-07'}}]。此时若工具执行超时返回空结果，Agent下一步最应采取的行动是？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "立即终止流程，向用户返回'系统繁忙，请稍后再试'"
+        },
+        {
+          "option_label": "B",
+          "option_text": "忽略超时，直接基于空结果生成'未查到报销单'的回答"
+        },
+        {
+          "option_label": "C",
+          "option_text": "将超时事件作为Observation回传，触发ReAct循环进入新Thought，决定重试、换工具或追问工单号"
+        },
+        {
+          "option_label": "D",
+          "option_text": "由LLM自行在后台重试三次，不向用户暴露失败过程"
+        }
+      ],
+      "answer": "C",
+      "analysis": "依据4.4节ReAct铁律：'要给模型“失败出口”：工具超时、报错时能重试或换方案，而不是整轮崩溃'；且4.4节明确指出'ReAct不是无限循环，但必须设置最大迭代轮数/超时/预算上限'——这意味着失败是闭环内可处理的正常状态，需通过Observation反馈并进入下一轮规划。选项A违反闭环原则（未尝试恢复）；B违背'模型不能盲目信任外部返回'的风险提示（4.4节）；D错误地将执行权赋予模型（4.3节强调'模型只提议，程序才执行'，重试逻辑必须由应用代码控制）。C项完整体现ReAct的'感知-规划-行动-观察'闭环本质，符合教材'关键约定'与'风险'双重要求。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 1,
+      "stem": "某金融风控团队需构建多Agent系统处理贷款申请：CreditAgent评估信用分，DocAgent核验材料真实性，RiskAgent综合决策。以下设计中，哪些严格违反本章'多Agent设计四条硬原则'？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "为简化开发，所有Agent共用同一套数据库读写权限凭证"
+        },
+        {
+          "option_label": "B",
+          "option_text": "将CreditAgent、DocAgent、RiskAgent的全部系统提示词拼接后一次性注入主Prompt"
+        },
+        {
+          "option_label": "C",
+          "option_text": "CreditAgent在收到材料后，主动调用DocAgent的验证接口进行交叉核验"
+        },
+        {
+          "option_label": "D",
+          "option_text": "RiskAgent作为中央Planner，根据CreditAgent输出分数动态决定是否触发DocAgent"
+        }
+      ],
+      "answer": "ABC",
+      "analysis": "依据4.7节'多Agent设计四条硬原则'：A违反'独立凭据'（原文：'不同Agent不得共用同一套账号/API凭据，按最小权限分别授权'）；B违反'避免全量注入'（原文：'不要把所有Agent的知识/工具清单一次性写进主Prompt，应按需加载'）；C违反'中央调度'（原文：'设置Planner/Leader Agent统一判断何时调哪个Agent，避免Agent之间无序互调、循环等待'），属于Worker间直接调用；D符合'中央调度'原则，RiskAgent作为Leader进行任务分派，是分层规划模式的正确实践。因此ABC均属违规，D为合规设计。",
+      "difficulty_label": "高阶"
+    },
+    {
+      "type": 0,
+      "stem": "某课程审核Agent需检查学员提交的Python代码示例是否可执行。当前采用纯LLM自我反思（Self Review）模式，但频繁漏检'import pandas as pd'缺失导致运行报错的问题。根据4.6.1节，最根本的改进路径是？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "增加更多关于pandas导入的提示词约束"
+        },
+        {
+          "option_label": "B",
+          "option_text": "改用外部反馈（External Feedback）：调用代码解释器真实执行并捕获异常"
+        },
+        {
+          "option_label": "C",
+          "option_text": "为审查Agent配置更强大的大模型"
+        },
+        {
+          "option_label": "D",
+          "option_text": "将pandas导入检查规则写入长期记忆向量库"
+        }
+      ],
+      "answer": "B",
+      "analysis": "依据4.6.1节对比表：'外部反馈（External Feedback）'定义为'用工具真实执行/校验，把报错、日志、截图喂回模型'，其适用场景明确标注为'代码能否运行、计算是否正确、结构化输出是否合规'；而'自我反馈'短板是'模型容易自证正确，带相同偏差'。题干中'漏检import缺失'正是LLM静态推理无法发现的执行层问题，必须依赖真实执行反馈。A和C属于强化LLM自身能力，无法突破'自我反馈'固有缺陷；D混淆了Memory用途（存储事实而非执行验证）。B项直击'让事实说话'的核心原则（4.6.1节），是教材唯一推荐的解决方案。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 1,
+      "stem": "某电商客服Agent需支持'查订单+退换货+预约上门'三类操作。当用户说'我上周买的耳机坏了，想换新的，顺便查下物流'时，系统应如何设计规划策略以兼顾稳定性与鲁棒性？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "采用固定工作流：强制按'查订单→退换货→查物流'顺序执行"
+        },
+        {
+          "option_label": "B",
+          "option_text": "采用Plan-and-Execute：先生成包含三步骤的JSON计划，再逐项执行，任一环节失败即重新规划"
+        },
+        {
+          "option_label": "C",
+          "option_text": "对'查订单'和'查物流'使用固定流水线，对'退换货'启用自主规划应对政策变更"
+        },
+        {
+          "option_label": "D",
+          "option_text": "全部交由单一ReAct Agent处理，不拆解步骤"
+        }
+      ],
+      "answer": "BC",
+      "analysis": "依据4.6.3节'探索-固化混合模式'：'新出现、流程不明的任务派自主规划Agent去试错；一旦路径被反复验证稳定，就抽象成固定工作流/Skill'。题干中'查订单''查物流'属高频稳定操作，适合固化（C）；'退换货'涉及政策变动（如保修期调整），需动态适应，适合自主规划（B、C）。A错误在于'强制顺序'忽视任务独立性（查物流无需依赖退换货结果），违反工作流设计原则；D虽可行但违背'分而治之'价值（4.6.2节：'让单个Agent在一个超长提示词里同时做多事会因注意力稀释而翻车'），且未体现策略组合思想。B和C共同构成教材倡导的'灵活探索→稳定复用'正向循环。",
+      "difficulty_label": "高阶"
+    },
+    {
+      "type": 0,
+      "stem": "某企业知识库Agent接入MCP Server后，新增了一个'内部财报分析'工具。开发团队未修改任何Agent代码，仅重启服务，所有Agent即自动获得该工具调用能力。这一能力实现所依赖的MCP核心机制是？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "MCP Client在启动时自动连接Server并拉取最新工具清单"
+        },
+        {
+          "option_label": "B",
+          "option_text": "MCP Server将工具Schema硬编码到Agent的系统提示词中"
+        },
+        {
+          "option_label": "C",
+          "option_text": "Agent通过Function Calling的tools参数动态注册新工具"
+        },
+        {
+          "option_label": "D",
+          "option_text": "MCP采用HTTP协议使工具调用延迟低于stdio方式"
+        }
+      ],
+      "answer": "A",
+      "analysis": "依据4.5节MCP架构描述：'MCP Client（客户端）由Host持有，与一个Server保持1:1连接，负责协议通信'；'Server对外暴露三类原语...Agent启动时客户端自动连接并拉取工具清单'。题干中'未修改Agent代码、重启即生效'正是MCP'动态发现'特性的直接体现（4.5节考试例题：'新增十几个内部系统工具...怎么解？→引入MCP，让Agent通过标准协议动态发现'）。B错误（MCP反对硬编码）；C混淆概念（FC的tools参数需手动注入，非自动发现）；D为传输方式比较，与'自动获得能力'无关。A项精准对应教材'主机-客户端-服务器'三层架构中Client的初始化行为。",
+      "difficulty_label": "基础"
+    },
+    {
+      "type": 1,
+      "stem": "某教育Agent需为学生生成个性化练习题，要求题目不超纲、难度匹配历史表现、且避免重复。以下Memory管理策略中，哪些符合4.8节'有选择地记'与'持续治理'原则？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "将学生每次答题记录（含错题、耗时、知识点标签）存入向量库，按语义检索相似题目"
+        },
+        {
+          "option_label": "B",
+          "option_text": "仅当学生显式说'请记住我的薄弱点是递归'时，才将该信息写入长期记忆"
+        },
+        {
+          "option_label": "C",
+          "option_text": "定期运行脚本，合并同一知识点的重复错题记录，并删除半年前的无效记录"
+        },
+        {
+          "option_label": "D",
+          "option_text": "把学生所有聊天历史（含闲聊）截断后存入短期记忆窗口"
+        }
+      ],
+      "answer": "ABC",
+      "analysis": "依据4.8节'best practice'：'有选择地记'指'建立写入准入机制（用户显式要求或重要性超阈值才写）'——B项符合；'持续治理'指'定期清理过时信息、合并重复、校验事实'——C项符合；向量召回是长期记忆标准策略（4.8节表格），且'按语义检索相似题目'体现精准按需调用，符合'摆脱窗口限制、海量记忆按需取用'优势——A项正确。D项违反'有选择地记'（闲聊属低价值噪声）及'避免注意力稀释'（4.8节：'单纯扩窗口只是延后爆炸'），属于教材明确反对的做法。",
+      "difficulty_label": "进阶"
+    }
+  ]
+}

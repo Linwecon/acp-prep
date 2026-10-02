@@ -1,0 +1,86 @@
+{
+  "new-4-54-1": {
+    "qid": "new-4-54-1",
+    "classification": "own",
+    "chapter": 4,
+    "quality": "ok",
+    "reason": "考查ReAct铁律与Function Calling原则的综合应用，选项设计合理。",
+    "answer": [
+      "A",
+      "B",
+      "E"
+    ],
+    "supported": true,
+    "quote": "Schema 质量（名称、描述、必填项是否清晰）...Observation 可能含噪声甚至恶意内容（提示注入），模型不能盲目信任外部返回，必要时交叉验证",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "符合Function Calling原则，Schema质量影响参数提取。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "符合ReAct铁律，Observation需交叉验证。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "违反ReAct铁律，必须设最大轮数上限。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "违反Function Calling原则，结果必须回传。"
+      },
+      {
+        "label": "E",
+        "selected": true,
+        "why": "符合Function Calling流程，结果需正确封装回传。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-4-54-3": {
+    "qid": "new-4-54-3",
+    "classification": "own",
+    "chapter": 4,
+    "quality": "ok",
+    "reason": "考查多Agent设计四原则，题干描述清晰对应原则。",
+    "answer": [
+      "B",
+      "C",
+      "D"
+    ],
+    "supported": true,
+    "quote": "独立凭据：不同 Agent 不得共用同一套账号/API 凭据...中央调度：设置 Planner / Leader Agent 统一判断...避免全量注入：不要把所有 Agent 的知识/工具清单一次性写进主 Prompt",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "题干未体现职责不明确。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "共用数据库账号违反独立凭据原则。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "Worker间直接互调违反中央调度原则。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "完整提示词拼入Leader Prompt违反避免全量注入。"
+      },
+      {
+        "label": "E",
+        "selected": false,
+        "why": "分层规划模式本身未被违反。"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

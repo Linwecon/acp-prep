@@ -1,0 +1,154 @@
+{
+  "items": [
+    {
+      "type": 0,
+      "stem": "某企业微信答疑机器人在早高峰首Token延迟（TTFT）高达1800ms，用户感知卡顿明显。监控显示模型推理耗时稳定在600ms，API网关平均RTT为200ms，鉴权与限流检查均在100ms内完成。此时最应优先排查的工程环节是？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "客户端未启用stream=True，导致服务端必须等待整段输出生成完毕才返回首个Token"
+        },
+        {
+          "option_label": "B",
+          "option_text": "messages中system prompt含动态时间戳，导致上下文缓存命中率低，重复计算前缀开销增大"
+        },
+        {
+          "option_label": "C",
+          "option_text": "temperature设置为1.5，引发模型采样路径发散，延长首Token决策时间"
+        },
+        {
+          "option_label": "D",
+          "option_text": "API Key配置错误触发401重试，重试请求叠加造成链路阻塞"
+        }
+      ],
+      "answer": "A",
+      "analysis": "依据原文9.6节：'流式输出（Streaming）是指模型每生成一个或几个 Token，就立刻通过 HTTP 长连接推送给客户端……开启流式只需加一个 stream=True'；且9.11节故障排查地图明确指出：'首字等待很久 → 未开流式 → 开启 stream=True 优化 TTFT'。题干中TTFT=1800ms远超模型推理耗时（600ms）+网络RTT（200ms）+服务端前置处理（≤100ms）之和（900ms），说明剩余900ms延迟来自非流式模式下的‘等待整段生成’行为——这是TTFT超高的根本性、必要性原因。B项影响的是整体成本与吞吐，不直接决定TTFT；C项temperature影响采样多样性，但原文9.4节强调其'不改变模型思考过程'，且首Token生成主要依赖logits计算而非采样路径长度；D项401不会导致高TTFT，而是直接返回错误响应（9.8节：401应立即终止重试）。因此A是唯一符合教材对TTFT成因定义的必要条件。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 0,
+      "stem": "开发团队为客服系统实现流式响应，已正确设置stream=True并迭代delta.content。但上线后发现前端偶尔出现文字乱序（如'您好请稍等'显示为'请稍等您好'）。经抓包确认SSE帧顺序完整，且每帧delta.content均为非空字符串。最可能违反的原文约束是？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "未处理delta.content为None的帧（如tool_calls或usage帧），导致拼接逻辑中断"
+        },
+        {
+          "option_label": "B",
+          "option_text": "客户端未按SSE协议规范解析data: {...}\\n\\n格式，误将多帧合并为单次JSON解析"
+        },
+        {
+          "option_label": "C",
+          "option_text": "未在每次迭代中校验chunk.choices[0].delta.role是否为'assistant'，导致system消息被混入输出"
+        },
+        {
+          "option_label": "D",
+          "option_text": "未对delta.content进行UTF-8编码标准化，导致中文字符截断错位"
+        }
+      ],
+      "answer": "A",
+      "analysis": "原文9.6节'流式开发的三个高频坑'第1条明确警示：'把流式响应当完整 JSON 解析 → ❌'；同时9.6节原理指出流式响应是'增量（delta）而不是完整结果'，且9.7节示例代码中delta.content可能为空（如tool_calls帧）。题干中'帧顺序完整但文字乱序'，说明不是传输层问题，而是客户端拼接逻辑缺陷：当遇到delta.content为None的帧（如包含tool_calls或usage的帧）时，若未跳过或置空处理，直接拼接会导致后续非空content插入位置错误。B项描述的是'当完整JSON解析'的错误，但题干已确认'抓包SSE帧顺序完整'，说明解析协议本身无误；C项role校验非原文要求（messages中role由客户端构造，流式响应delta不携带role字段）；D项UTF-8问题属底层编码，原文未提及且与乱序现象无直接因果。因此A是唯一被原文明确定义为高频坑且能导致该现象的选项。",
+      "difficulty_label": "挑战"
+    },
+    {
+      "type": 1,
+      "stem": "某批量摘要任务采用Batch API处理2000份录音转写稿，但交付时发现37份摘要内容缺失。运维日志显示所有任务状态均为'succeeded'。以下哪些操作符合原文9.10节对Batch结果可靠性的强制要求？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "比对输入JSONL与输出JSONL的行数，确认是否严格相等"
+        },
+        {
+          "option_label": "B",
+          "option_text": "校验每行输出中的custom_id字段是否与对应输入行的request_id完全一致"
+        },
+        {
+          "option_label": "C",
+          "option_text": "检查输出JSONL中是否存在finish_reason='length'的记录，定位截断样本"
+        },
+        {
+          "option_label": "D",
+          "option_text": "对缺失摘要的原始转写稿单独发起同步调用验证模型可用性"
+        }
+      ],
+      "answer": "AB",
+      "analysis": "原文9.10节'Batch 任务的标准流程'第5条强调：'必须校验输入输出行数、请求 ID 是否一一对应，防止错位或丢失'；且9.10节风险提示：'结果文件不用校验直接用 → ❌ 必须校验行数、ID 对齐'。A项对应'行数校验'，B项对应'请求ID一一对应'，二者均为原文明确规定的强制步骤。C项'finish_reason=length'属于同步/流式调用的诊断字段，Batch输出格式为JSONL，其每行结果结构与同步响应不同，且原文未要求校验此字段；D项属事后补救，原文9.10节明确'批内一行失败通常不影响其他行，可只重试失败行'，但前提是先通过AB项确认缺失位置——未做AB校验就盲目重试，违反'先对齐再修复'的工程原则。因此AB是唯二被原文直接规定为必需的操作。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 0,
+      "stem": "新人答疑机器人第二轮对话中，员工问'那怎么申请账号'，模型回答'请访问公司IT门户注册'。经调试发现messages结构为：[system_msg, {\"role\":\"user\",\"content\":\"我们公司用什么项目管理工具？\"}, {\"role\":\"assistant\",\"content\":\"Jira\"}, {\"role\":\"user\",\"content\":\"那怎么申请账号\"}]。此时TTFT正常（<500ms），但语义连贯性失效。该故障与TTFT无直接关联的根本原因是？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "未启用stream=True，导致模型无法实时感知用户输入节奏"
+        },
+        {
+          "option_label": "B",
+          "option_text": "messages中缺少role='assistant'的历史回复，使模型丢失关键指代锚点"
+        },
+        {
+          "option_label": "C",
+          "option_text": "temperature=0.8过高，削弱了模型对上下文指代关系的建模能力"
+        },
+        {
+          "option_label": "D",
+          "option_text": "system prompt未声明'需严格遵循历史对话指代关系'，导致模型忽略上下文"
+        }
+      ],
+      "answer": "B",
+      "analysis": "原文9.5节核心概念明确：'大模型 API 是无状态的……所谓多轮对话能力，本质是客户端把历史消息按角色组织好，每次调用都完整地放进messages里再传一遍'；且9.5节原理指出：'如果第二次调用时messages里只放{\"role\":\"user\",\"content\":\"怎么申请账号\"}，模型看到的就是这一句话，根本无法知道这个账号指的是上一轮的Jira'。题干中messages结构完整包含前一轮user/assistant消息，证明B项描述错误——实际已满足要求。但题干要求找出'根本原因'，而给出的messages结构是正确的（含assistant回复），因此故障不在B。重新审题：题干说'经调试发现messages结构为[...]，此时TTFT正常但语义连贯性失效'，说明messages构造无误，问题出在模型理解层面。原文9.4节场景化选型建议表明确：事实问答类任务应使用temperature=0~0.3，而题干未说明temperature值，但C项假设temperature=0.8过高——这正是9.4节'高频误区'中'事实查询也要高temperature防千篇一律'的反例，原文明确指出该做法错误，会导致'回答前后不一致'（9.11节现象表）。D项system prompt约束力原文未提及，属过度引申；A项stream与连贯性无关（9.5节：'流式输出不会让模型失忆'）。因此C是唯一符合原文对'事实类任务参数误配导致指代失效'的归因。",
+      "difficulty_label": "挑战"
+    },
+    {
+      "type": 1,
+      "stem": "以下哪些情况会导致首Token延迟（TTFT）显著升高，且该升高与模型自身推理能力无关，而是由API调用工程配置直接引发？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "客户端未设置stream=True，强制服务端执行完整生成后才返回首个Token"
+        },
+        {
+          "option_label": "B",
+          "option_text": "messages中system prompt包含当前时间戳，导致上下文缓存失效，重复计算前缀"
+        },
+        {
+          "option_label": "C",
+          "option_text": "API请求未配置读取超时（read timeout），导致网络抖动时客户端等待过久"
+        },
+        {
+          "option_label": "D",
+          "option_text": "temperature=0.1配合top_p=0.1，使模型采样空间过窄，延长首Token概率计算"
+        }
+      ],
+      "answer": "AC",
+      "analysis": "TTFT定义为'从请求发出到收到首个Token的时间'，原文9.6节明确其受'流式开关'直接影响，且9.11节故障地图将'首字等待很久'直接归因为'未开流式'（A正确）。C项：原文9.6节'流式开发的三个高频坑'第2条指出'读取超时设得太短→❌……要放宽，否则会被误判为超时断开'，反向推导即'读取超时未设或过长'会导致客户端在无数据时持续等待，直接拉高TTFT观测值（虽非服务端延迟，但属工程配置引发的用户感知TTFT升高）。B项：缓存失效影响的是整体token计费与吞吐，原文9.9节未提及对TTFT的影响；D项：原文9.4节强调temperature仅影响'随机性'，且'模型的思考过程和最终答案质量保持不变'（9.6节），首Token生成依赖logits计算而非采样，故D与TTFT无关。因此AC是唯二被原文直接关联到TTFT升高的工程配置项。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 0,
+      "stem": "某金融问答接口要求TTFT稳定低于300ms，当前使用qwen-plus模型，messages结构合规，stream=True已启用。压测发现TTFT在200-1200ms间剧烈波动，方差达±500ms。监控显示服务端推理耗时稳定在150ms，网络RTT稳定在50ms。此时最应检查的配置项是？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "客户端HTTP连接池配置，是否存在连接复用不足导致频繁TLS握手"
+        },
+        {
+          "option_label": "B",
+          "option_text": "max_tokens设置过大，导致服务端需预留更多内存资源，引发调度延迟"
+        },
+        {
+          "option_label": "C",
+          "option_text": "temperature=1.2，引发模型采样路径不可预测，增加首Token决策不确定性"
+        },
+        {
+          "option_label": "D",
+          "option_text": "API Key权限受限，触发服务端后台鉴权降级路径"
+        }
+      ],
+      "answer": "A",
+      "analysis": "TTFT = 客户端准备时间 + 网络传输时间 + 服务端前置处理（鉴权/限流） + 模型首Token生成时间。题干已排除服务端推理（150ms稳定）、网络RTT（50ms稳定），且stream=True已启用，说明服务端生成逻辑正常。TTFT剧烈波动（200-1200ms）表明存在非确定性延迟源。A项：HTTP连接池复用不足会导致每次请求新建TCP/TLS连接，TLS握手耗时在100-300ms量级且受网络抖动影响，完美解释波动特征——原文虽未直接提及连接池，但9.11节全链路图'1.发起HTTPS请求'隐含网络层基础配置，且这是工程实践中TTFT波动的首要排查项。B项max_tokens影响输出长度上限，不改变首Token生成时机；C项temperature影响采样多样性，但原文9.4节明确其不改变'思考过程'，首Token仍由最高logits决定；D项鉴权降级属服务端实现细节，原文9.1节仅说明鉴权在'五关'第二步且耗时<100ms，未提及其波动性。因此A是唯一能解释题干'剧烈波动'现象的合理选项。",
+      "difficulty_label": "挑战"
+    }
+  ]
+}

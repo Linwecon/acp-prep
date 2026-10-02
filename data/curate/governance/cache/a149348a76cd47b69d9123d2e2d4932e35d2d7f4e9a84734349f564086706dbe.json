@@ -1,0 +1,212 @@
+{
+  "5-0724": {
+    "qid": "5-0724",
+    "classification": "own",
+    "chapter": 5,
+    "quality": "ok",
+    "reason": "D选项最不可能，因微调不使用预训练数据",
+    "answer": [
+      "D"
+    ],
+    "supported": true,
+    "quote": "微调（Fine-tuning）：在已经预训练好的模型权重基础上，用一批\"指令—回答\"样本继续做梯度下降",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "数据少易过拟合，原文明确提及"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "错误标注导致学错，原文风险中强调"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "lr过高/epochs过多致震荡或过拟合，原文5.7节明确"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "微调用指令-回答样本，不用预训练语料"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "5-0811": {
+    "qid": "5-0811",
+    "classification": "own",
+    "chapter": 5,
+    "quality": "ok",
+    "reason": "B最灵活，属提示工程范畴，无需训练",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "提示词优化 → RAG → （仍不满足才考虑）微调",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "训多模型成本高，不灵活"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "示例即改风格，零成本最灵活"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "模板僵化，无法适配多风格"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "依赖用户输入，不稳定"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "5-0829": {
+    "qid": "5-0829",
+    "classification": "own",
+    "chapter": 5,
+    "quality": "ok",
+    "reason": "A正确，学习率即参数更新步幅",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "学习率（lr）：每次参数更新的步长",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "原文明确定义为步长"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "梯度频率非学习率作用"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "方向由梯度决定"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "梯度大小由前向传播决定"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "5-0834": {
+    "qid": "5-0834",
+    "classification": "own",
+    "chapter": 5,
+    "quality": "ok",
+    "reason": "B最稳定，微调可固化角色行为",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "微调（Fine-tuning）：在已经预训练好的模型权重基础上，用一批\"指令—回答\"样本继续做梯度下降",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "系统提示易受干扰，不稳定"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "微调固化行为，原文强调稳定性"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "用户指定不可控"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "自行推断易飘忽"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "5-0889": {
+    "qid": "5-0889",
+    "classification": "own",
+    "chapter": 5,
+    "quality": "ok",
+    "reason": "B正确，微调核心是适配任务行为",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "微调（Fine-tuning）：在已经预训练好的模型权重基础上，用一批\"指令—回答\"样本继续做梯度下降",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "降延迟靠蒸馏/量化，非微调目标"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "原文定义即适配特定任务"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "上下文窗口由架构决定"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "微调不减少参数量"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "5-0916": {
+    "qid": "5-0916",
+    "classification": "own",
+    "chapter": 5,
+    "quality": "ok",
+    "reason": "C最直接，微调专治领域行为不适配",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "微调擅长的是稳定的风格、语气、输出格式、领域行为习惯",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "通用数据不解决领域问题"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "CoT提升推理，不解决领域术语不准"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "原文明确微调适配领域行为"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "用户描述不能改变模型能力"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

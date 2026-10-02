@@ -1,0 +1,154 @@
+{
+  "items": [
+    {
+      "type": 0,
+      "stem": "某企业升级新人答疑机器人为报销查询助手。用户输入“帮我查一下我上个月提交的报销单审批到哪一步了”，模型返回包含 tool_calls 的结构化响应，但系统未返回最终答案，而是陷入静默。经排查，工具执行代码已正确解析参数并调用内部报销服务，结果也成功生成。最可能的根本原因是？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "Planner 组件未配置最大迭代轮数限制，导致 ReAct 循环无限等待"
+        },
+        {
+          "option_label": "B",
+          "option_text": "Memory 未将工具执行结果以 role=\"tool\" 消息回传至上下文，模型无法感知 Observation"
+        },
+        {
+          "option_label": "C",
+          "option_text": "LLM 组件未加载报销工具的 JSON-Schema 描述，无法理解调用意图"
+        },
+        {
+          "option_label": "D",
+          "option_text": "Tool 组件未实现超时重试逻辑，导致首次调用失败后无响应"
+        }
+      ],
+      "answer": "B",
+      "analysis": "依据教材4.2节'各组件如何协作'明确指出：'工具返回结果必须回灌到上下文，否则模型等于做完就忘'；4.3节'Function Calling 完整流程'第四步强调：'结果必须由程序作为 role=\"tool\" 消息回传'；4.3节风险提示中直接警示：'❌ 工具结果模型自己能看到 → ✅ 结果必须由程序作为 role=\"tool\" 消息追加回上下文，模型才\"知道\"发生了什么'。选项A错误——无限循环会导致持续调用而非静默；选项C错误——若Schema未加载，模型根本不会生成 tool_calls；选项D错误——工具失败应触发后续决策（重试/降级/追问），而非静默，静默表明模型未收到任何Observation，无法进入下一轮规划。本题聚焦'执行顺序与结果回传'这一关键必要条件，考查对闭环中'Observation'环节不可省略性的深度理解。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 0,
+      "stem": "一个课程审查Skill已封装‘代码可执行性检查’为validate_code.py脚本，并返回结构化JSON。当评测该Skill的SOP合规性时，发现Agent在未运行该脚本的情况下就给出了‘代码可运行’结论。为精准定位此环节失效，应优先采用哪种评测手段？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "LLM-as-Judge：让另一个大模型评估审查报告是否体现可执行性验证"
+        },
+        {
+          "option_label": "B",
+          "option_text": "确定性检查：解析执行轨迹，验证是否调用了 validate_code.py 工具"
+        },
+        {
+          "option_label": "C",
+          "option_text": "Rubric评分：按‘是否引用脚本输出’等细则打分"
+        },
+        {
+          "option_label": "D",
+          "option_text": "端到端人工评测：由专家判断最终结论是否合理"
+        }
+      ],
+      "answer": "B",
+      "analysis": "依据教材4.10节明确区分三类评测方法：'确定性检查（Deterministic Checks）'用于验证'该发生的步骤有没有发生'，例如'是否调了报销查询工具'；而'LLM-as-Judge'和'Rubric'适用于主观或结果层面评判。本题故障是'未执行关键工具'这一客观、可编程验证的白盒过程缺陷，确定性检查能直接解析trace日志，精准捕获'缺少 validate_code.py 调用记录'，符合教材'适合客观项'、'结果确定、可调试'的核心定义。选项A和C属于主观/结果导向，无法定位'未调用'这一动作缺失；选项D是端到端黑盒，无法揭示过程断点。本题考查'评测方法与故障类型'的严格匹配，避免常见误用。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 0,
+      "stem": "某金融Agent需完成‘评估客户A的贷款申请’任务，涉及调用征信查询、收入验证、风控模型三个工具。当前采用固定流水线工作流：征信→收入→风控。但近期因征信API临时不可用，整个流程卡死。为提升鲁棒性，以下哪些调整符合本章‘规划策略’的最佳实践？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "将三个工具合并为一个复合函数，由Planner统一调度"
+        },
+        {
+          "option_label": "B",
+          "option_text": "引入Plan-and-Execute模式，允许Agent在征信失败时动态选择替代方案（如调用备用征信源）或跳过非阻塞步骤"
+        },
+        {
+          "option_label": "C",
+          "option_text": "为每个工具增加更详细的JSON-Schema描述，提升参数提取准确率"
+        },
+        {
+          "option_label": "D",
+          "option_text": "在主Prompt中预置所有工具的完整文档，强化LLM对工具的理解"
+        }
+      ],
+      "answer": "B",
+      "analysis": "依据教材4.6.3节'Plan-and-Execute'概念：'让Agent围绕用户的高阶目标，先生成计划，再逐项执行；遇到障碍时重新规划，而不是死守预设流程图'；4.6节对比明确指出：'步骤明确、可预测、高频重复 → 固定工作流；环境多变、需要真实反馈动态调整 → ReAct / 自主规划'；4.2节原则强调'要给模型失败出口：工具超时、报错时能重试或换方案，而不是整轮崩溃'。选项B直接对应'自主规划'应对'环境多变'的场景，且'动态选择替代方案'完美契合'失败出口'要求。选项A错误——合并函数仍属固定流程，未解决单点故障；选项C和D均不解决流程僵化问题，属于Function Calling基础优化，与'规划策略'无关。本题考查'规划策略选型'与'实际故障场景'的精准映射。",
+      "difficulty_label": "挑战"
+    },
+    {
+      "type": 1,
+      "stem": "某团队采用MCP协议接入多个内部系统工具（OA、HRIS、CRM）。部署后发现：新上线的CRM工具无法被Agent自动发现；同时，Agent在调用HRIS工具时偶发将员工身份证号明文写入日志。以下哪些做法符合本章对MCP的规范要求与风险警示？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "确保CRM工具的MCP Server已启动并正确注册Tools原语，且Host端MCP Client已完成连接与清单拉取"
+        },
+        {
+          "option_label": "B",
+          "option_text": "在HRIS MCP Server的返回内容中增加敏感信息过滤逻辑，避免明文传输身份证号"
+        },
+        {
+          "option_label": "C",
+          "option_text": "将HRIS工具的MCP Server部署在内网，关闭公网访问，消除日志泄露风险"
+        },
+        {
+          "option_label": "D",
+          "option_text": "在Agent应用层对所有MCP Server返回内容进行统一脱敏处理，再注入上下文"
+        }
+      ],
+      "answer": "A,B,D",
+      "analysis": "依据教材4.5节MCP原理：'Server对外暴露三类原语（Tools/Resources/Prompts）'，'Agent通过MCP Client发现工具'，故A正确——CRM未被发现必然是Server未注册或Client未拉取清单；教材4.5节风险警示：'MCP Server本身需要鉴权，不能裸奔；其返回内容也可能被投毒，要防提示注入'，B和D均属对'返回内容风险'的主动治理，B在源头过滤，D在消费端防护，均符合'防提示注入'要求；C错误——内网部署解决鉴权问题，但无法防止'应用层日志明文记录'这一独立风险，教材未将网络隔离列为日志安全的解决方案。本题考查MCP三大原语、Server职责、风险应对的组合约束，避免将网络隔离与数据脱敏混为一谈。",
+      "difficulty_label": "挑战"
+    },
+    {
+      "type": 0,
+      "stem": "某企业报销查询Agent在工具调用失败（如网络超时）后，未重试、未切换方案、也未向用户澄清，而是直接生成模糊回答：“系统暂未返回结果”。该行为最根本违反Harness/Loop闭环中哪一环节的必要性？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "标准（Standard）：未定义工具失败时的响应规范"
+        },
+        {
+          "option_label": "B",
+          "option_text": "验证（Validate）：未设置失败路径的自动化检查"
+        },
+        {
+          "option_label": "C",
+          "option_text": "记录（Record）：未将失败案例落盘留存"
+        },
+        {
+          "option_label": "D",
+          "option_text": "写回（Write-back）：未将失败教训固化为Skill或验证规则"
+        }
+      ],
+      "answer": "A",
+      "analysis": "依据教材4.11节Harness/Loop闭环定义：'1.标准（Standard）：定义\"好\"长什么样（Rubric、规范、QWEN.md、Skill）'；4.2节'关键约定'明确要求：'要给模型失败出口：工具超时、报错时能重试或换方案，而不是整轮崩溃'；4.11节'现象-该改哪里'对照表指出：'Agent反复犯同类错 → 把教训写进Skill/QWEN.md'，但前提是'标准'中已定义'失败时该如何做'。本题中Agent完全无失败处理逻辑，根源在于'标准'缺失——未在规范中明确定义工具失败的响应契约（如'必须重试≤2次，否则追问用户'）。选项B、C、D均为后续改进动作，但'无标准则无验证/记录/写回'，A是根本前提。本题考查Harness闭环中'标准'作为起点的不可替代性，避免将因果倒置。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 1,
+      "stem": "一个用于代码审查的Skill目录已编写完成，包含SKILL.md、code-quality.md及validate_code.py脚本。当Agent首次收到‘请审查这份Pandas教程代码’请求时，它仅加载了SKILL.md中的YAML frontmatter（含name/description），并未立即读取子文档或执行脚本。这种分阶段加载行为主要体现了本章强调的哪一核心设计原则？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "渐进式披露（Progressive Disclosure）"
+        },
+        {
+          "option_label": "B",
+          "option_text": "避免全量注入"
+        },
+        {
+          "option_label": "C",
+          "option_text": "Skill与RAG的本质区别"
+        },
+        {
+          "option_label": "D",
+          "option_text": "组件职责解耦"
+        }
+      ],
+      "answer": "A,C",
+      "analysis": "依据教材4.9节'Principle'：'Skill与RAG的关键区别——\"选择-展开\" vs \"检索-注入\"'，并明确指出：'Agent启动时只看到所有Skill的description（很短），由模型判断当前任务要不要激活；激活后才读SKILL.md，执行到具体步骤时再读对应子文件——这就是渐进式披露'；该原则直接解释了'仅加载YAML frontmatter'的行为。选项C正确——'选择-展开'正是渐进式披露的实现机制，与RAG的'检索-注入'形成本质对比。选项B错误——'避免全量注入'针对多Agent场景中'把所有Agent知识拼进主Prompt'，而Skill加载是单Agent内部模块化，不属此范畴；选项D错误——解耦指LLM/Planner/Tool/Memory分离，与加载时机无关。本题考查Skill核心机制'渐进式披露'及其与RAG的根本性区分，紧扣教材原文定义。",
+      "difficulty_label": "进阶"
+    }
+  ]
+}

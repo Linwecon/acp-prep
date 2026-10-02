@@ -1,0 +1,216 @@
+{
+  "4-0443": {
+    "qid": "4-0443",
+    "classification": "own",
+    "chapter": 4,
+    "quality": "ok",
+    "reason": "考查Multi-Agent核心思想：分工协作。B选项违背'明确职责'原则。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "每个 Agent 有清晰、不重叠的职责边界，只专注自己的子任务",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "符合分工思想，解析与润色由不同组件处理"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "同一模型一次性完成多任务，违反职责分离"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "规则引擎与大模型分工，符合多Agent思想"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "按需选择模型，体现专业化分工"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "4-0445": {
+    "qid": "4-0445",
+    "classification": "own",
+    "chapter": 4,
+    "quality": "ok",
+    "reason": "考查多Agent优势。C选项是技术实现细节，非本质优势。",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "多 Agent 设计四原则（每条都是考点）：明确职责、独立凭据、中央调度、避免全量注入",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "专业检测是明确职责的直接体现"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "多专家覆盖更广错误类型"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "拼接输出是实现方式，非核心优势"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "分而治之降低单模型负载"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "4-0599": {
+    "qid": "4-0599",
+    "classification": "own",
+    "chapter": 4,
+    "quality": "ok",
+    "reason": "考查单Agent适用场景。C是纯训练任务，无需Agent闭环。",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "Agent（智能体）是...具备自主感知、规划、调用工具并根据反馈迭代能力的应用",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "需实时感知-规划-行动闭环"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "需动态资源调度与决策"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "无工具调用与反馈迭代，属训练范畴"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "需监控-决策-执行闭环"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "4-0610": {
+    "qid": "4-0610",
+    "classification": "own",
+    "chapter": 4,
+    "quality": "ok",
+    "reason": "考查Agent四大组件。ABCD均属标准能力。",
+    "answer": [
+      "A",
+      "B",
+      "C",
+      "D"
+    ],
+    "supported": true,
+    "quote": "支撑 Agent 闭环的三项核心能力：工具调用、多步推理与规划、记忆与上下文管理",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "Memory组件提供长期记忆"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "Planner组件提供规划能力"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "Tool组件即插件工具"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "LLM组件提供决策能力"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "4-0611": {
+    "qid": "4-0611",
+    "classification": "own",
+    "chapter": 4,
+    "quality": "ok",
+    "reason": "考查单Agent适用场景。ABCD均满足简单闭环需求。",
+    "answer": [
+      "A",
+      "B",
+      "C",
+      "D"
+    ],
+    "supported": true,
+    "quote": "最朴素的 Agent 是'单体'的：一个 LLM 加一组工具，配上记忆，独立完成一项任务",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "日程管理需简单感知-执行闭环"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "目标追踪需持续感知-决策"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "产线监控需状态感知-响应"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "导航需环境感知-路径规划"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "4-0614": {
+    "qid": "4-0614",
+    "classification": "cross",
+    "chapter": 4,
+    "quality": "review",
+    "reason": "斯坦福小镇属外部案例，原文未提及。需确认是否超纲。",
+    "answer": [],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "原文未提具体人数模式"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "原文未提社会互动研究"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "原文未提时间分层设计"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "原文未提框架易用性目标"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

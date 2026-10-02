@@ -1,0 +1,154 @@
+{
+  "items": [
+    {
+      "type": 0,
+      "stem": "某企业需将微调后的Qwen3-0.6B模型上线为客服对话服务，要求支持100+并发、TTFT<800ms、数据不出域，且运维团队仅2人。压测发现单卡A10（24GB）在并发>60时KV Cache显存占用达92%，TPOT劣化明显。此时最应优先采取的优化措施是？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "立即升级为双卡A10集群并配置张量并行"
+        },
+        {
+          "option_label": "B",
+          "option_text": "启用vLLM的PagedAttention与连续批处理，并将模型量化至INT4"
+        },
+        {
+          "option_label": "C",
+          "option_text": "改用函数计算FC部署，配置预留实例规避冷启动"
+        },
+        {
+          "option_label": "D",
+          "option_text": "在ECS上改用TGI框架替代vLLM，利用其内置流式压缩"
+        }
+      ],
+      "answer": "B",
+      "analysis": "题干明确指出瓶颈是KV Cache显存占用高（92%）导致TPOT劣化，且并发需求（100+）与硬件约束（单卡A10）并存。根据6.5节，PagedAttention直接解决KV Cache显存碎片与预分配浪费问题，使相同显存承载更高并发；连续批处理则消除GPU空转，提升吞吐——二者是vLLM应对该场景的原生设计。6.4节指出INT4量化可将权重体积降至FP16的1/4，腾出显存给KV Cache，且AWQ/GPTQ等PTQ方法在0.6B小模型上精度损失可控（教材6.4 exam强调INT4需验证但非必然掉点）。A错误：张量并行需卡间通信，增加延迟且未解决KV Cache线性膨胀本质问题（6.6 exam明确指出‘张量并行并非卡越多越快’）；C错误：FC有冷启动且不满足‘TTFT<800ms’实时性要求（6.7 compare强调FC适合低频非实时，6.12场景表明确‘实时客服对话’应选常驻服务）；D错误：TGI虽支持流式，但无PagedAttention（6.5 note对比指出vLLM核心优势即PagedAttention+连续批处理），且替换框架无法绕过KV Cache显存瓶颈。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 0,
+      "stem": "运维监控告警系统触发：过去5分钟内TPOT持续高于350ms（SLO阈值200ms），但TTFT稳定在420ms（<500ms达标），QPS下降18%，GPU显存占用率维持在75%。此时最应优先排查的环节是？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "客户端是否批量发送超长prompt导致Prefill阻塞"
+        },
+        {
+          "option_label": "B",
+          "option_text": "KV Cache是否因长上下文请求堆积导致显存带宽饱和"
+        },
+        {
+          "option_label": "C",
+          "option_text": "SLB负载均衡策略是否将流量错误导向故障实例"
+        },
+        {
+          "option_label": "D",
+          "option_text": "模型权重加载是否失败导致fallback至CPU推理"
+        }
+      ],
+      "answer": "B",
+      "analysis": "TPOT（每token生成时间）升高直接反映Decode阶段性能劣化，而Decode是显存带宽密集型（6.2 principle），其瓶颈必与KV Cache读取效率相关。题干中GPU显存占用率75%未达上限，排除显存总量不足；TTFT正常说明Prefill（计算密集）无问题，排除A；QPS下降是TPOT升高的结果而非原因；C和D会导致整体服务不可用或RT骤升，而非TPOT定向劣化。6.6节明确‘KV Cache随序列长度×并发数线性增长’，且‘长上下文+高并发下KV Cache常是显存大头、是并发瓶颈’；6.5节指出PagedAttention缓解此问题，反向印证其为关键排查点。因此B是唯一符合‘TPOT升高+显存占用中等+TTFT正常’三角关系的根因。",
+      "difficulty_label": "高阶"
+    },
+    {
+      "type": 1,
+      "stem": "某团队计划将蒸馏模型Qwen3-0.6B部署至生产环境，需满足：①数据绝对不出域；②支持灰度发布与AB测试；③夜间自动缩容至0实例以降本；④首token延迟敏感（TTFT<1s）。以下部署方案组合中，哪些能同时满足全部四条要求？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "PAI-EAS + 模型预热 + 弹性伸缩策略（0-8实例） + SLB"
+        },
+        {
+          "option_label": "B",
+          "option_text": "GPU ECS集群 + vLLM + 自研弹性伸缩脚本 + Nginx负载均衡"
+        },
+        {
+          "option_label": "C",
+          "option_text": "函数计算FC + Serverless GPU + 预留实例 + HTTP触发器"
+        },
+        {
+          "option_label": "D",
+          "option_text": "百炼MaaS私有化部署版 + 专属VPC + 灰度路由 + 自动扩缩容"
+        }
+      ],
+      "answer": "A,D",
+      "analysis": "A正确：PAI-EAS定位为‘企业级模型在线服务平台’（6.7表），明确支持‘模型预热’（解决TTFT）、‘蓝绿/灰度发布’（满足②）、‘弹性扩缩容’（6.10.2 cost指出EAS支持按需伸缩，可设最小实例数为0）、‘数据不出域’（6.7 compare强调PAI-EAS适用于私有模型部署，且阿里云私有化部署支持VPC隔离）；D正确：百炼MaaS私有化部署版（非公有云API）将平台能力部署于客户自有环境，天然满足①；6.8节指出MaaS提供‘版本控制、灰度发布’能力；6.9节说明私有化部署可配置自动扩缩容；TTFT由底层推理引擎保障，私有化版同样支持预热。B错误：ECS自建需自行开发弹性伸缩脚本实现‘缩容至0’，但ECS实例销毁后无法秒级恢复，违背Serverless弹性本质（6.7 compare指出ECS是‘常驻服务器’，6.10.1 risk强调FC的‘秒级弹性’是其核心优势）；C错误：FC虽支持缩容至0和HTTP触发，但‘预留实例’会持续计费，无法实现‘夜间缩容至0降本’（6.10.1 risk指出预留实例‘会重新产生持续资源费用’），且冷启动无法保障TTFT<1s（6.12场景表将FC排除在‘实时客服’外）。",
+      "difficulty_label": "高阶"
+    },
+    {
+      "type": 0,
+      "stem": "使用wrk对vLLM服务进行压测时，观察到并发从50增至100后，QPS仅提升12%而平均RT飙升45%，且错误率从0.2%升至3.8%。此时最合理的调优动作是？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "增大--max-num-seqs参数强制提升batch size"
+        },
+        {
+          "option_label": "B",
+          "option_text": "启用--enable-chunked-prefill并降低--max-model-len"
+        },
+        {
+          "option_label": "C",
+          "option_text": "调整--gpu-memory-utilization至0.95以压榨显存"
+        },
+        {
+          "option_label": "D",
+          "option_text": "在客户端实施指数退避重试并增加timeout"
+        }
+      ],
+      "answer": "B",
+      "analysis": "题干现象（QPS增幅远低于并发增幅、RT飙升、错误率上升）是典型过载信号，表明当前并发已突破服务最优处理能力（6.3 concept引用Little定律：并发↑→RT↑→QPS↓）。6.3 risk明确警示‘超出并发限制通常直接返回错误（如429）’，故首要动作是降低单请求资源消耗而非盲目扩容。B中--enable-chunked-prefill（分块Prefill）可缓解长prompt导致的TTFT恶化（6.5未详述但vLLM文档支持，属Prefill优化）；--max-model-len限制最大序列长度，直接削减KV Cache显存占用（6.6 cost强调‘限制最大序列长度是换并发的常用手段’），两者均从源头降低单请求压力。A错误：强制增大batch size可能加剧显存争抢，引发OOM（6.5指出连续批处理已动态优化batch，无需手动干预）；C错误：提高显存利用率至0.95会加剧碎片化风险，PagedAttention虽缓解但非无限（6.5 concept强调‘按需分配’而非压榨）；D是客户端容错措施，属事后补救，题干要求‘最合理调优动作’即服务端根本优化。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 1,
+      "stem": "某金融企业需部署合规审查模型，要求：①所有原始合同文本不得离开本地机房；②支持每秒处理200份文档摘要请求；③当模型准确率低于基线95%时自动回滚至前一版本；④审计日志需留存180天。以下哪些技术组件是实现该SLO必需的？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "ECS GPU实例集群部署vLLM服务"
+        },
+        {
+          "option_label": "B",
+          "option_text": "ARMS可观测平台接入OpenTelemetry探针"
+        },
+        {
+          "option_label": "C",
+          "option_text": "PAI-EAS的蓝绿发布与版本回滚功能"
+        },
+        {
+          "option_label": "D",
+          "option_text": "SLB负载均衡与ESS弹性伸缩"
+        }
+      ],
+      "answer": "A,B,C",
+      "analysis": "①数据不出域→必须自建（ECS或PAI-EAS私有化），A满足；②200 QPS高吞吐→需vLLM的PagedAttention+连续批处理（6.5 exam），A提供基础；③自动回滚→需版本管理与一键回滚能力，PAI-EAS明确支持‘蓝绿部署、版本控制、回滚’（6.10.2 concept），C满足；④审计日志→ARMS基于OpenTelemetry采集Logs，且支持长期存储（6.11.2 concept指出ARMS是‘一站式可观测平台’，6.11.2 best建议‘日志查根因’）。D中ESS弹性伸缩虽有益，但题干未提流量波动，200QPS稳定负载下非必需（6.9 cost指出ECS适合‘稳定高吞吐’场景）；SLB负载均衡是高可用标配，但题干SLO未明确要求多实例冗余，且单实例vLLM亦可满足200QPS（6.5示例Qwen3-0.6B在vLLM下吞吐显著提升），故D非‘必需’。",
+      "difficulty_label": "高阶"
+    },
+    {
+      "type": 0,
+      "stem": "在对比百炼MaaS与ECS自建vLLM部署同一Qwen3-0.6B模型时，发现百炼API的P95 TTFT为620ms，而ECS服务为380ms。但业务方实测用户感知延迟差异不明显。最可能的原因是？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "百炼采用GQA注意力机制，大幅降低Prefill计算量"
+        },
+        {
+          "option_label": "B",
+          "option_text": "ECS服务未启用流式输出，用户需等待完整响应才渲染"
+        },
+        {
+          "option_label": "C",
+          "option_text": "百炼的网络传输延迟（公网RTT）被计入TTFT，而ECS在内网调用"
+        },
+        {
+          "option_label": "D",
+          "option_text": "百炼对长prompt自动启用chunked prefill，隐藏了首token延迟"
+        }
+      ],
+      "answer": "C",
+      "analysis": "TTFT定义为‘Time To First Token’，即从请求发出到收到首个token的时间（6.2 principle）。百炼作为托管API，客户端需经公网调用，其TTFT必然包含DNS解析、TCP握手、TLS协商、网络传输等全链路耗时；而ECS自建服务若与业务系统同处VPC内网，网络RTT可忽略（<1ms）。6.7节明确百炼是‘通过API Key发HTTP请求’，6.9节ECS架构图显示‘客户端请求→SLB→ECS’，默认内网通信。A错误：GQA优化KV Cache而非Prefill（6.6 compare表）；B错误：流式输出影响的是用户感知‘响应速度’，但TTFT本身是首个token到达时间，与是否流式无关；D错误：chunked prefill是vLLM特性（6.5未提百炼支持），且其目的是改善长prompt TTFT，不会‘隐藏’延迟。",
+      "difficulty_label": "进阶"
+    }
+  ]
+}

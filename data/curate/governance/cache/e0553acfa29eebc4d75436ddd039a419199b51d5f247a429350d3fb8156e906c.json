@@ -1,0 +1,37 @@
+{
+  "new-10-0-0": {
+    "qid": "new-10-0-0",
+    "classification": "own",
+    "chapter": 10,
+    "quality": "ok",
+    "reason": "考查DashScope OpenAI兼容模式权限机制",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "百炼是\"应用层\"，DashScope 是\"接口层\"，二者共用一套 API Key",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "原文明确qwen-plus用于兼容模式示例"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "API Key需绑定DashScope专属权限"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "原文示例base_url无末尾斜杠仍有效"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "OpenAI SDK默认设Content-Type"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

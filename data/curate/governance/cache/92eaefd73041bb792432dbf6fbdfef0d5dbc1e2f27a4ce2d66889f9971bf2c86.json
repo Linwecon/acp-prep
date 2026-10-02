@@ -1,0 +1,226 @@
+{
+  "new-4-36-0": {
+    "qid": "new-4-36-0",
+    "classification": "own",
+    "chapter": 4,
+    "quality": "ok",
+    "reason": "题目考查白盒评测中确定性检查方法的应用场景，与教材内容一致。",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "确定性检查（Deterministic Checks）：用代码/脚本判断‘该发生的步骤有没有发生’。例如解析执行 trace，验证‘是否调了报销查询工具’",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "题干描述的是通过代码解析轨迹发现问题，非LLM打分。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "题干强调脚本解析轨迹验证行为，非评分量表。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "通过代码解析轨迹验证必有行为是否发生，是确定性检查。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "题干明确是脚本捕获问题，非人工抽检。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-4-36-1": {
+    "qid": "new-4-36-1",
+    "classification": "own",
+    "chapter": 4,
+    "quality": "ok",
+    "reason": "题目考查三种评测方法的互补性组合，符合教材对不同指标适用方法的论述。",
+    "answer": [
+      "A",
+      "B",
+      "C"
+    ],
+    "supported": true,
+    "quote": "三种核心评测手段：1. 确定性检查（客观/可调试）、2. LLM-as-Judge（主观但有偏见）、3. Rubric（拆细则、结构化打分）",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "工具调用路径正确性适合用代码解析trace的确定性检查。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "格式合规性可用LLM-as-Judge比对Schema判断。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "风险提示充分性适合用Rubric拆解细则并结构化判定。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "统一使用LLM-as-Judge不符合互补性要求。"
+      },
+      {
+        "label": "E",
+        "selected": false,
+        "why": "工具调用路径用Rubric让LLM比对流程，不如确定性检查可靠。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-4-36-2": {
+    "qid": "new-4-36-2",
+    "classification": "own",
+    "chapter": 4,
+    "quality": "ok",
+    "reason": "题目考查对SOP合规性失效环节的精准定位，应使用确定性检查。",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "确定性检查（Deterministic Checks）：用代码/脚本判断‘该发生的步骤有没有发生’。例如解析执行 trace",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "LLM-as-Judge是主观打分，非精准定位失效环节。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "Rubric是评分量表，非直接验证工具调用行为。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "解析执行轨迹验证是否存在对脚本的tool_calls，是确定性检查。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "人工回溯效率低，非优先采用的自动化评测手段。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-4-36-3": {
+    "qid": "new-4-36-3",
+    "classification": "own",
+    "chapter": 4,
+    "quality": "ok",
+    "reason": "题目考查提升Rubric评分稳定性的最佳实践，选项符合教材要求。",
+    "answer": [
+      "A",
+      "B",
+      "D"
+    ],
+    "supported": true,
+    "quote": "Rubric（评分量表）：把模糊目标拆成逐条可判定的细则，配合结构化 JSON 输出",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "将细则改为布尔型检查项可提升判定明确性。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "要求输出结构化JSON符合Rubric最佳实践。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "仅使用一个高参数模型不能解决模型自身偏见问题。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "由业务专家编码隐性知识是编写Rubric的关键。"
+      },
+      {
+        "label": "E",
+        "selected": false,
+        "why": "取消Rubric改用单一确定性检查，不符合题干提升稳定性的要求。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-4-36-4": {
+    "qid": "new-4-36-4",
+    "classification": "own",
+    "chapter": 4,
+    "quality": "ok",
+    "reason": "题目考查Function Calling中参数收集的核心约定，与教材内容直接对应。",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "参数可以在多轮对话中逐步收集，缺参时 Agent 应主动追问",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "题干现象是缺参处理问题，非Schema描述问题。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "模型提议程序执行是流程，非缺参处理约定。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "缺参时未主动追问而用默认值，违反参数收集约定。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "题干未涉及工具结果回灌问题。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-4-36-5": {
+    "qid": "new-4-36-5",
+    "classification": "own",
+    "chapter": 4,
+    "quality": "ok",
+    "reason": "题目考查LLM-as-Judge评分低相关性的根本原因，符合教材对偏见风险的警示。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "必须警惕评委模型自身的偏见：风格偏见、长度偏见、‘好好先生’偏见、位置偏见——可用打乱顺序、结构化打分、人工抽检来缓解",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "教材未强调微调是解决风格偏见的根本原因。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "未用黄金集校准导致评委模型的风格偏见未被纠正。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "样本量不足是表面原因，非教材指出的根本原因。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "题干已明确使用LLM-as-Judge，非确定性检查。"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

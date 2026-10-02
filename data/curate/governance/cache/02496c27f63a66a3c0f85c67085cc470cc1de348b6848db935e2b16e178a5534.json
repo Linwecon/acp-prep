@@ -1,0 +1,215 @@
+{
+  "4-5053": {
+    "qid": "4-5053",
+    "classification": "own",
+    "chapter": 12,
+    "quality": "ok",
+    "reason": "考查Dify核心定位，原文明确定义为低代码LLM应用开发平台",
+    "answer": [
+      "D"
+    ],
+    "supported": true,
+    "quote": "Dify 是一个开源的低代码 LLM 应用开发平台，用可视化界面把\"知识库（RAG）、工作流、Agent、模型接入、工具调用、发布\"串成一条流水线。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "向量数据库是Milvus/Qdrant等，非Dify"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "深度学习框架是PyTorch/TensorFlow"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "操作系统发行版如Ubuntu/CentOS"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "原文定义其为低代码LLM应用开发平台"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "4-5061": {
+    "qid": "4-5061",
+    "classification": "own",
+    "chapter": 12,
+    "quality": "ok",
+    "reason": "考查LangChain本质定位，原文强调其为通用编排框架",
+    "answer": [
+      "D"
+    ],
+    "supported": true,
+    "quote": "LangChain 是一个面向通用大模型应用编排的开源框架……把\"模型调用、提示词、记忆、检索、工具、Agent\"拆成标准组件，让你像搭积木一样把它们组装起来。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "向量数据库是Milvus/Qdrant等"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "训练框架是PyTorch/DeepSpeed"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "前端框架是React/Vue"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "原文明确其为编排大模型应用"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "4-5057": {
+    "qid": "4-5057",
+    "classification": "own",
+    "chapter": 12,
+    "quality": "ok",
+    "reason": "考查Dify工作流节点能力，原文列举了对应节点类型",
+    "answer": [
+      "A",
+      "B",
+      "C",
+      "D"
+    ],
+    "supported": true,
+    "quote": "Dify 中的形态：开始 → 意图分类 → 检索/工具 → LLM → 输出，支持条件分支；内置 HTTP 请求、代码节点、自定义工具；知识库：上传文档 → 自动解析/切片/向量化 → 检索问答",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "原文明确支持LLM节点"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "知识库即检索节点"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "支持条件分支"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "内置代码节点"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "6-1017": {
+    "qid": "6-1017",
+    "classification": "misplaced",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "正则清洗属文本预处理基础技能，非框架层考点",
+    "answer": [
+      "B"
+    ],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "词形还原需nltk/spacy"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "re.sub是典型文本去噪操作"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "分类需ML模型"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "翻译需调用API或模型"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "9-5059": {
+    "qid": "9-5059",
+    "classification": "own",
+    "chapter": 12,
+    "quality": "ok",
+    "reason": "考查Dify多模型接入价值，原文强调解耦与切换",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "Dify：多模型 API（含 OpenAI 兼容接口，如百炼）；模型接入：可替换底层模型；Dify 的能力边界：可私有部署解决数据出域",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "Dify支持多模型切换"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "原文强调统一配置和解耦"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "不替代训练过程"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "与GPU频率无关"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "9-1176": {
+    "qid": "9-1176",
+    "classification": "misplaced",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "标点替换属文档解析预处理，应归RAG章节",
+    "answer": [
+      "C"
+    ],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "未涉及层级结构"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "LlamaIndex切分用NodeParser"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "标点标准化提升识别准确率"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "不影响中文含量"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

@@ -1,0 +1,154 @@
+{
+  "items": [
+    {
+      "type": 0,
+      "stem": "某团队构建新人答疑机器人评测集时，从线上工单抽取120个真实问题，但由算法工程师根据模型输出反向编写ground_truth。上线后发现：自动化评测分数达0.92，而HR专家人工抽检中35%的答案存在业务违规（如将'试用期不可休年假'答为'可休'）。该故障最根本的成因违反了教材哪一条铁律？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "问题未来自真实用户场景"
+        },
+        {
+          "option_label": "B",
+          "option_text": "ground_truth未由领域专家提供"
+        },
+        {
+          "option_label": "C",
+          "option_text": "未冻结评测配置（如temperature/seed）"
+        },
+        {
+          "option_label": "D",
+          "option_text": "未覆盖边界与对抗样本"
+        }
+      ],
+      "answer": "B",
+      "analysis": "依据教材7.2.1节'评测集构建的两条铁律'：'问题来自真实用户场景'和'标准答案必须由业务领域专家编写/审定'。题干明确问题来自线上工单（满足第一条），但ground_truth由算法工程师'根据模型输出反向编写'——这直接违背第二条铁律。教材强调：'技术人员能判断检索是否相关，但只有业务专家才知道答案在业务上是否正确、完整、合规'；且7.8.2节指出，专业领域'看似合理实则错误'的后果严重，必须由领域专家参与评测。选项A错误（问题来源合规）；C、D虽属重要实践，但非本题故障的'最根本'成因——ground_truth失真导致整个评测基准崩塌，分数虚高即源于此。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 0,
+      "stem": "在一次RAGAS自动化评测中，某问题样本的Context Recall=1.0、Context Precision=0.3，Faithfulness=0.2，Answer Correctness=0.25。日志确认contexts列表包含完整正确信息（如'张伟是教研部的'），但该片段排在第15位，前14位均为无关内容。此时若仅提升Answer Correctness，以下哪项操作最可能事倍功半？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "优化提示词，强化'只依据前3个context回答'的约束"
+        },
+        {
+          "option_label": "B",
+          "option_text": "为生成模型增加temperature=0.1以降低随机性"
+        },
+        {
+          "option_label": "C",
+          "option_text": "在检索后插入Rerank模块，重排序contexts"
+        },
+        {
+          "option_label": "D",
+          "option_text": "将Top K从20调小至5，并配合相似度阈值过滤"
+        }
+      ],
+      "answer": "B",
+      "analysis": "教材7.5节'定位问题的黄金法则'明确：'Context Recall高但Precision低 → 问题在检索阶段'；7.4.2节指出Precision低本质是'相关片段被无关内容稀释、排名靠后'，对应'Lost in the Middle'现象。此时病根在检索端排序质量，而非生成端稳定性。选项B（调temperature）属于生成端超参优化，对'模型忽略第15位正确片段、专注前14位噪声'无实质改善，属治标不治本，故'事倍功半'。A、C、D均直击检索端：A通过提示词强制截断（临时缓解）、C（Rerank）和D（缩小Top K+阈值）是教材7.5节推荐的'Precision低'标准解法（见表格'优化方向'栏）。教材7.5节风险提示亦强调：'检索指标差就一味调大Top K'是误区，反向说明'调小Top K+Rerank'才是正解。",
+      "difficulty_label": "挑战"
+    },
+    {
+      "type": 1,
+      "stem": "某团队实施评测驱动开发（EDD）时，发现新版本上线后'报销流程'类问题Answer Correctness提升12%，但'年假计算'类问题下降18%。为系统性防止此类'修一个、坏一个'现象，以下哪些做法严格遵循教材7.1节'评测先行'原则及7.5节故障定位逻辑？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "每次优化前，先用冻结的全量评测集跑基线，确保改动前有可比参照"
+        },
+        {
+          "option_label": "B",
+          "option_text": "将评测集按业务场景分层（如报销/年假/入职），分别统计各子集指标变化"
+        },
+        {
+          "option_label": "C",
+          "option_text": "仅针对'报销流程'问题构建专项评测子集，优化后只验证该子集"
+        },
+        {
+          "option_label": "D",
+          "option_text": "当总分提升时，跳过对'年假计算'类问题的回归检查"
+        }
+      ],
+      "answer": "AB",
+      "analysis": "教材7.1节'评测先行'原则强调：'先建评测集、拿到基线分数，再动手优化'，且'没有基线无法判断改动是否有效'（A正确）；7.2.1节'评测集构建铁律'要求覆盖'主要业务场景与边界情况'，7.8.2节'评测集设计要点'明确'分层/分难度覆盖'，并指出'只含简单题会导致分数虚高'（B正确）。C错误：'仅针对报销问题构建子集'违背'覆盖各类题型'原则，无法发现对'年假'的负向影响，是'跷跷板效应'的根源；D错误：教材7.1节'无法回归'缺陷定义即'改完A没法确认B没被改坏'，且7.5节'防止回归'是评测五大用途之一，跳过检查直接违反EDD核心。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 0,
+      "stem": "在RAGAS自动化评测流程中，以下哪个字段的缺失会直接导致Context Recall和Context Precision两个指标均无法计算？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "question"
+        },
+        {
+          "option_label": "B",
+          "option_text": "ground_truth"
+        },
+        {
+          "option_label": "C",
+          "option_text": "contexts"
+        },
+        {
+          "option_label": "D",
+          "option_text": "answer"
+        }
+      ],
+      "answer": "C",
+      "analysis": "依据教材7.2.1节四字段作用表：Context Recall需'question / ground_truth / contexts'；Context Precision需'question / ground_truth / contexts'（见7.4.1-7.4.2节公式）。二者均依赖contexts作为评估对象——Recall需判断contexts能否支撑ground_truth观点，Precision需按顺序遍历contexts计算相关性。缺失contexts则无评估对象，两指标均无法启动。A（question）缺失影响所有指标输入；B（ground_truth）缺失使Recall无法分解观点、Precision无法判断相关性依据（因相关性需结合question与ground_truth）；但教材7.2.1表明确'缺contexts → 无法评估检索质量'，且7.3节对比表显示Recall/Precision输入字段均含contexts。D（answer）缺失仅影响生成端指标（Faithfulness/Correctness/Relevancy），与检索端指标无关。",
+      "difficulty_label": "入门"
+    },
+    {
+      "type": 1,
+      "stem": "某团队使用qwen-plus作为LLM-as-Judge计算Answer Correctness时，发现对简洁答案（如'张伟是教研部的'）打分偏低，而对冗长解释（如'根据资料，张伟是教研部的一名工程师...'）打分偏高。依据教材7.8.1节LLM-as-Judge偏见分析，以下哪些校准动作被明确推荐？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "在评分提示词中加入'答案应简洁准确，冗余内容不加分'的明确指令"
+        },
+        {
+          "option_label": "B",
+          "option_text": "对同一答案多次打分并取平均值"
+        },
+        {
+          "option_label": "C",
+          "option_text": "提供few-shot样例，展示简洁正确答案的高分范例"
+        },
+        {
+          "option_label": "D",
+          "option_text": "将评委模型切换为与被测模型同架构的模型"
+        }
+      ],
+      "answer": "AC",
+      "analysis": "题干描述的是典型'长度偏见'（教材7.8.1节首行定义）。教材明确给出缓解手段：'评分细则中明确冗余扣分'（A正确）；'提供参考答案与few-shot样例'（C正确）。B错误：'多次打分取平均'针对的是随机波动，而长度偏见是系统性倾向，重复打分无法消除；D错误：教材7.8.1节'自我偏好'缓解手段是'用与被测模型不同的评委'，而非'同架构'，且'切换模型'未被列为校准动作。教材7.8.1节'校准标准动作'四条中，A对应'评分提示词明确维度、量表'，C对应'提供参考答案与few-shot样例'。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 0,
+      "stem": "在构建新人答疑机器人评测集时，技术团队计划从历史对话日志中抽样。以下哪项操作最直接违背教材强调的'评测先行'原则？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "抽取最近7天高频问题，覆盖入职/报销/年假三类场景"
+        },
+        {
+          "option_label": "B",
+          "option_text": "在完成切片优化后，再根据新版本输出补全ground_truth"
+        },
+        {
+          "option_label": "C",
+          "option_text": "邀请HR专家对抽样问题进行业务合理性审核"
+        },
+        {
+          "option_label": "D",
+          "option_text": "将抽样问题与对应contexts存入固定版本数据集"
+        }
+      ],
+      "answer": "B",
+      "analysis": "教材7.1节'评测先行'原则明确定义：'先建评测集、拿到基线分数，再动手优化'，并强调'先优化、效果好了再补评测'是❌错误做法。选项B'在完成切片优化后，再根据新版本输出补全ground_truth'，本质是'先改、再补评测'，完全颠倒EDD流程——ground_truth必须在优化前由领域专家基于业务规则独立编写，而非依据模型输出反推，否则评测失去客观基准。A、C、D均符合教材要求：A满足'问题来自真实场景'（7.2.1节）；C执行'领域专家参与'（7.2.1节铁律）；D体现'冻结评测集'（7.2.4节控制变量）。",
+      "difficulty_label": "入门"
+    }
+  ]
+}

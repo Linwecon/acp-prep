@@ -1,0 +1,208 @@
+{
+  "3-1001": {
+    "qid": "3-1001",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "考查RAG核心思想与方案选型，A/C违反上下文窗口与知识截止限制，B属微调且成本高，D是标准RAG流程",
+    "answer": [
+      "D"
+    ],
+    "supported": true,
+    "quote": "RAG 的核心思路可以用四个字概括：'开卷考试'。不让模型凭记忆答题，而是在它回答前，先从企业知识库里检索出最相关的几段资料，连同问题一起交给模型，让它'看着资料作答'。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "超上下文窗口且稀释注意力"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "微调不解决知识时效性"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "忽略知识截止与私域缺失"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "符合RAG开卷考试本质"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-1053": {
+    "qid": "3-1053",
+    "classification": "misplaced",
+    "chapter": 3,
+    "quality": "remove",
+    "reason": "标签编码属传统机器学习预处理，非RAG知识范畴",
+    "answer": [],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "文本标准化非标签转换"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "词嵌入是语义向量化"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "特征缩放针对数值型特征"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "标签编码不在RAG知识列表"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-1063": {
+    "qid": "3-1063",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "考查向量检索原理，A准确对应Embedding与余弦相似度机制",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "Embedding（向量化 / 嵌入）是把一段文本转换成一串数字（高维向量，如 1024 维）。它的核心性质是：语义相近的文本，向量在空间中的距离也近。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "语义相似度是向量检索基础"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "历史对话不参与向量检索"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "字面匹配非RAG语义检索"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "模型不参与检索阶段决策"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-1132": {
+    "qid": "3-1132",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "考查LlamaIndex数据流，原文明确Document→Node→Index→QueryEngine链路",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "LlamaIndex核心链：Document→Node→Index→Retriever→QueryEngine",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "Node不能先于Document"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "符合LlamaIndex核心链顺序"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "Document必须在Node前"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "index需在Node后构建"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-1140": {
+    "qid": "3-1140",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "考查RAG评估先行原则，POC后需专家构建评测集验证效果",
+    "answer": [
+      "D"
+    ],
+    "supported": true,
+    "quote": "领域专家提供ground_truth",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "阈值调整需先有评测数据"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "界面优化非RAG核心链路"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "无基线无法判断优化方向"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "专家提供ground_truth是评估前提"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-1143": {
+    "qid": "3-1143",
+    "classification": "beyond",
+    "chapter": 3,
+    "quality": "remove",
+    "reason": "语音+UI操作属多模态与Agent交叉场景，RAG不解决视觉定位",
+    "answer": [],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "安全审核非RAG技术"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "视觉理解属多模态范畴"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "RAG不处理UI元素识别"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "提示词无法解决像素级定位"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

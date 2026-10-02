@@ -1,0 +1,154 @@
+{
+  "items": [
+    {
+      "type": 0,
+      "stem": "某团队完成切片优化后，RAGAS评测显示Context Recall从0.63升至0.94，但Answer Correctness仅微升0.01，且Faithfulness下降0.22；日志确认检索片段中明确包含'张伟是教研部的'等完整事实。此时若仅冻结评测集而未冻结评委LLM版本，后续分数变化最可能导致哪种归因失效？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "误将评委模型偏好变化归因为切片优化效果"
+        },
+        {
+          "option_label": "B",
+          "option_text": "误判Faithfulness下降源于提示词约束不足"
+        },
+        {
+          "option_label": "C",
+          "option_text": "误认为Context Recall提升未带来实际收益"
+        },
+        {
+          "option_label": "D",
+          "option_text": "误将Answer Correctness停滞归因于ground_truth标注偏差"
+        }
+      ],
+      "answer": "A",
+      "analysis": "依据教材7.2.4节'控制变量：让分数可比'，回归评测必须冻结'评测脚本、推理参数（temperature/seed）、模型版本、甚至当评委的大模型版本'，否则'分数变化无法归因——你不知道是系统变好了，还是评委今天心情不同'。本题中切片优化与评委LLM版本变更同时发生，若未冻结后者，则Answer Correctness与Faithfulness的异常波动极可能源于新评委的长度/风格偏见（7.8.1节），而非切片本身。选项B、D涉及生成端和标注问题，但题干已确认'检索片段含完整事实'且'Faithfulness下降'，其根因需结合控制变量排查，非直接归因；选项C是现象描述，非归因错误。教材7.2.4节明确指出：'不要频繁更换评测用的LLM与Embedding模型'，并强调'否则分数不可比'。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 1,
+      "stem": "在构建新人答疑机器人评测集时，以下哪些操作同时违反教材7.2.1节'评测集构建的两条铁律'及7.2.4节'控制变量'原则？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "从线上工单抽样问题，但由实习生编写ground_truth"
+        },
+        {
+          "option_label": "B",
+          "option_text": "使用同一组问题，但每次评测时动态调用最新版qwen-plus API作为评委"
+        },
+        {
+          "option_label": "C",
+          "option_text": "为覆盖更多场景，每轮优化后向评测集追加50个新问题"
+        },
+        {
+          "option_label": "D",
+          "option_text": "将训练数据中的用户提问直接复用为评测question字段"
+        }
+      ],
+      "answer": "A,B,C",
+      "analysis": "A违反'ground_truth必须由领域专家提供'（7.2.1节铁律二）；B违反'回归评测必须冻结评测用LLM版本'（7.2.4节）；C违反'冻结评测集做回归'（7.1节'评测先行'原则及7.2.4节'否则无法判断分数变化来自改动还是题目本身'）；D虽违反'防止数据泄漏'（7.8.2节），但题干要求'同时违反两条铁律+控制变量'，D仅触犯数据泄漏，未直接违背7.2.1两条铁律（问题来源真实但ground_truth未提，且控制变量未涉及）。教材7.2.1明确'标准答案必须由业务领域专家编写/审定'，7.2.4强调'除了待测改动，其他一切都冻结'，7.1节指出'没有冻结的评测集，无法判断分数变化来自改动还是题目本身'。",
+      "difficulty_label": "挑战"
+    },
+    {
+      "type": 0,
+      "stem": "团队发现RAGAS评测中Answer Correctness持续低于0.5，深入拆解发现：语义相似度子项均值0.81，事实F1子项均值仅0.12。若此时仅提升评委LLM的temperature以增加输出多样性，最可能加剧哪类故障？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "Faithfulness进一步下降，幻觉增多"
+        },
+        {
+          "option_label": "B",
+          "option_text": "Context Precision降低，无关片段排序更靠前"
+        },
+        {
+          "option_label": "C",
+          "option_text": "Answer Relevancy下降，答非所问比例上升"
+        },
+        {
+          "option_label": "D",
+          "option_text": "Context Recall下降，关键信息未被检索到"
+        }
+      ],
+      "answer": "A",
+      "analysis": "教材7.4.4节明确Answer Correctness = 0.25×语义相似度 + 0.75×事实F1，当前事实F1极低（0.12）说明答案存在大量FP（编造）或FN（遗漏），即生成端事实错误严重。而7.5节定位法则指出：'Faithfulness低→检索到了却还在编造'，优化方向是'强化只依据资料回答的提示词约束、降低temperature'。提高temperature会增强随机性，加剧模型脱离contexts自由发挥，直接恶化Faithfulness（7.3节定义：衡量答案是否忠于检索资料）。选项B、D属检索端指标，与temperature无直接因果；选项C虽可能受间接影响，但教材未建立temperature与Relevancy的强关联，而Faithfulness对temperature敏感性在7.5节'优化方向'中被明确提及。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 1,
+      "stem": "为诊断'按下葫芦浮起瓢'现象，团队实施回归评测。以下哪些配置冻结措施能同时满足教材7.1节'防止回归'用途与7.2.4节'控制变量'要求？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "固定评测集版本号（如v2.1.0）及所有样本的question/ground_truth/content字段"
+        },
+        {
+          "option_label": "B",
+          "option_text": "锁定评测脚本哈希值、qwen-plus模型版本号、text-embedding-v3嵌入模型版本"
+        },
+        {
+          "option_label": "C",
+          "option_text": "统一设置temperature=0.0、seed=42，并禁用top_p采样"
+        },
+        {
+          "option_label": "D",
+          "option_text": "要求每次运行前人工校验contexts字段是否与基线完全一致"
+        }
+      ],
+      "answer": "A,B,C",
+      "analysis": "教材7.1节'防止回归'用途要求'每次改动后跑同一套题，确保修好A、没弄坏B'；7.2.4节'控制变量'要求'除了待测改动，其他一切都冻结：评测集版本、评测脚本、推理参数（temperature/seed）、模型版本'。A对应评测集冻结（7.1节'冻结评测集'）；B对应模型与脚本冻结（7.2.4节'评委LLM与Embedding模型版本固定'）；C对应推理参数冻结（7.2.4节明确列出temperature/seed）；D虽意图良好，但'人工校验contexts'非教材要求的控制变量项，且contexts是系统运行时动态生成的输出，不应人为干预其一致性（应通过冻结输入和配置保证其稳定），故不符合教材依据。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 0,
+      "stem": "某Agent端到端评测得分为4.3/5，但用户投诉'生成的Python代码示例全部无法运行'。开发团队决定引入白盒评测，以下哪项指标设计最严格遵循教材7.6.1节'确定性检查'方法论？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "调用Python解释器执行生成代码，捕获SyntaxError/NameError等异常，返回布尔结果"
+        },
+        {
+          "option_label": "B",
+          "option_text": "使用qwen-plus对代码进行'能否运行'打分（1-5分）"
+        },
+        {
+          "option_label": "C",
+          "option_text": "人工抽检100条代码，记录可执行率"
+        },
+        {
+          "option_label": "D",
+          "option_text": "检查代码是否包含'print'或'input'关键字"
+        }
+      ],
+      "answer": "A",
+      "analysis": "教材7.6.1节明确定义'确定性检查（规则/断言）'为'用代码规则直接判断，结果确定'，适用'客观项：代码能否运行、是否含必需章节、字数/格式'，特点是'确定、可调试、成本低'。选项A通过解释器执行实现确定性判定（成功/失败），完全符合定义；B属于LLM-as-Judge（主观、非确定）；C是人工抽检，非自动化确定性检查；D是浅层规则，无法验证可执行性（如语法正确但逻辑错误仍会失败）。教材7.6节强调'Agent必须评过程'，而'代码能否运行'正是典型客观硬指标，需确定性检查保障信号清晰。",
+      "difficulty_label": "入门"
+    },
+    {
+      "type": 1,
+      "stem": "在实施评测驱动开发（EDD）时，以下哪些实践能同时满足教材7.1节'防止回归'与7.5节'定位问题'双重目标？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "每次优化后，用同一冻结评测集计算RAGAS全量指标，并按题型（年假/报销/入职）分组分析"
+        },
+        {
+          "option_label": "B",
+          "option_text": "建立黄金测试集，由HR专家标注'张伟部门'类问题的ground_truth，并定期用其校准自动评分"
+        },
+        {
+          "option_label": "C",
+          "option_text": "当Answer Correctness下降时，同步检查Context Recall与Faithfulness，依据组合模式判断病根"
+        },
+        {
+          "option_label": "D",
+          "option_text": "将评测集按难度分层（简单/中等/困难），确保各层样本在每次回归中占比恒定"
+        }
+      ],
+      "answer": "A,C",
+      "analysis": "A满足'防止回归'（同一冻结集横向对比）与'定位问题'（按题型分组可发现'年假类恶化而报销类改善'，即跷跷板效应）；C直接应用7.5节'定位问题的黄金法则'，通过指标组合（Recall/Faithfulness）归因，是定位核心能力；B侧重校准评委，支撑准确性但不直接实现'防止回归'（未提重复运行）或'定位问题'（未分析指标组合）；D是评测集设计最佳实践（7.8.2节'分层覆盖'），保障评估全面性，但未体现'回归对比'动作或'故障归因'逻辑。教材7.1节'防止回归'强调'每次改动后跑同一套题'，7.5节'定位问题'强调'根据分数确定优化方向'，A和C分别精准对应这两项目标。",
+      "difficulty_label": "挑战"
+    }
+  ]
+}

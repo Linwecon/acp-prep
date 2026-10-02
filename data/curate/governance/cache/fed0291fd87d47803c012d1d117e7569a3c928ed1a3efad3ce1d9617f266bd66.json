@@ -1,0 +1,109 @@
+{
+  "new-6-36-0": {
+    "qid": "new-6-36-0",
+    "classification": "own",
+    "chapter": 6,
+    "quality": "ok",
+    "reason": "考查部署选型决策，结合数据合规、性能、运维能力等条件。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "PAI-EAS（Elastic Algorithm Service）是阿里云PAI平台的模型在线服务，提供弹性扩缩容、蓝绿/灰度发布、资源组管理、版本控制",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "ECS方案需K8s经验，与题干‘缺乏K8s经验’冲突。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "PAI-EAS内置灰度发布和模型预热，免容器运维，满足要求。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "手动切流复杂，非‘秒级回滚’，且仍需K8s经验。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "VPC内网部署是基础，但未突出灰度发布和免运维优势。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-6-36-2": {
+    "qid": "new-6-36-2",
+    "classification": "own",
+    "chapter": 6,
+    "quality": "ok",
+    "reason": "考查函数计算FC的冷启动问题及优化措施。",
+    "answer": [
+      "A",
+      "C",
+      "D"
+    ],
+    "supported": true,
+    "quote": "函数计算FC存在冷启动延迟，新请求到来要重新拉起、可能还要加载模型，首个响应明显变慢。可通过预留实例/预热缓解",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "预留实例可缓解冷启动，确保GPU资源常驻。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "调高超时时间不解决冷启动延迟和GPU利用率低问题。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "定时预热可在流量高峰前准备实例，减少延迟。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "PAI-EAS模型预热能力可避免冷启动，提升利用率。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-6-36-5": {
+    "qid": "new-6-36-5",
+    "classification": "own",
+    "chapter": 6,
+    "quality": "ok",
+    "reason": "考查vLLM性能提升的核心技术归因，聚焦Decode阶段。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "连续批处理（Continuous Batching）使请求不再‘整批齐步走’，而是完成一个就立刻返回、新请求立刻补进batch，GPU几乎全程满载，吞吐量显著提升",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "PagedAttention主要优化显存利用率，非直接降低TPOT。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "连续批处理消除GPU空转，直接提升Decode阶段吞吐，降低TPOT。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "vLLM内置量化算子非其核心，且题干未提及量化。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "FlashAttention-2优化Prefill阶段，与TPOT无关。"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

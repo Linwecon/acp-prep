@@ -1,0 +1,231 @@
+{
+  "7-1465": {
+    "qid": "7-1465",
+    "classification": "own",
+    "chapter": 7,
+    "quality": "ok",
+    "reason": "考点明确，四选项均属RAGAS核心指标，原文有明确定义归属",
+    "answer": [
+      "A",
+      "B"
+    ],
+    "supported": true,
+    "quote": "RAGAS 的五大核心指标按评价对象分为两类：Context Precision / Context Recall 评价检索端",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "Context Precision 属于检索端指标"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "Context Recall 明确属于检索端指标"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "Answer Correctness 属生成端"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "Faithfulness 属生成端指标"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "7-0077": {
+    "qid": "7-0077",
+    "classification": "own",
+    "chapter": 7,
+    "quality": "ok",
+    "reason": "题干条件与原文“黄金法则”完全对应，选项A是原文明确推荐措施",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "检索指标都好（Recall、Precision 高），但 Faithfulness / Correctness 低 → 问题在生成阶段",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "原文明确建议优化提示词"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "微调不解决生成适配问题"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "推理时间非质量优化手段"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "换模型非首选，先调提示词"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "7-0538": {
+    "qid": "7-0538",
+    "classification": "own",
+    "chapter": 7,
+    "quality": "ok",
+    "reason": "三步计算流程原文完整描述，D明显无关",
+    "answer": [
+      "A",
+      "B",
+      "C"
+    ],
+    "supported": true,
+    "quote": "1. 按顺序读取 contexts 中的每个片段...2. 对每个片段算一个 precision 分；3. Context Precision = 各片段 precision 分之和 / 相关片段总数",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "原文第一步明确要求"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "原文第二步明确要求"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "原文第三步明确公式"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "训练数据与precision计算无关"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "7-0828": {
+    "qid": "7-0828",
+    "classification": "misplaced",
+    "chapter": 7,
+    "quality": "remove",
+    "reason": "早停法属模型训练阶段，第5章微调内容，本章未提及",
+    "answer": [],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "属第5章训练优化范畴"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "属第5章训练优化范畴"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "属第5章训练优化范畴"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "属第5章训练优化范畴"
+      },
+      {
+        "label": "E",
+        "selected": false,
+        "why": "属第5章训练优化范畴"
+      },
+      {
+        "label": "F",
+        "selected": false,
+        "why": "属第5章训练优化范畴"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "7-0650": {
+    "qid": "7-0650",
+    "classification": "own",
+    "chapter": 7,
+    "quality": "ok",
+    "reason": "Answer Correctness构成原文有精确公式，AB符合",
+    "answer": [
+      "A",
+      "B"
+    ],
+    "supported": true,
+    "quote": "Answer Correctness = 0.25 × 语义相似度（余弦）+ 0.75 × 事实 F1。事实 F1 = TP / (TP + 0.5×(FP+FN))",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "语义相似度是0.25权重部分"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "事实F1是0.75权重部分"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "不涉及answer与context相似度"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "不涉及answer与query一致性"
+      },
+      {
+        "label": "E",
+        "selected": false,
+        "why": "长度非Correctness构成项"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "7-1034": {
+    "qid": "7-1034",
+    "classification": "own",
+    "chapter": 7,
+    "quality": "ok",
+    "reason": "中文适配方法原文明确列出三项，ABC均被提及",
+    "answer": [
+      "A",
+      "B",
+      "C"
+    ],
+    "supported": true,
+    "quote": "RAGAS 的中文场景可替换 `chinese_prompt.py` 里的中文提示词模板...用中文能力更强的评委",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "原文明确建议用中文强模型"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "原文提替换chinese_prompt.py"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "原文提json.dumps返回中文"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "System prompt提醒未被提及"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

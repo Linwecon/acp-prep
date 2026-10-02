@@ -1,0 +1,154 @@
+{
+  "items": [
+    {
+      "type": 0,
+      "stem": "某企业需将自研的Qwen3-0.6B蒸馏模型部署为实时客服接口，要求数据不出域、P95 TTFT<1.2s、支持灰度发布与故障秒级回滚，且运维团队具备vLLM调优能力但无专职SRE。在PAI-EAS与GPU ECS两种方案中，若选择ECS自建，则必须额外自行实现而EAS原生支持的关键能力是？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "模型预热（服务上线即就绪，消除首请求延迟）"
+        },
+        {
+          "option_label": "B",
+          "option_text": "基于SLB的自动负载均衡与健康检查"
+        },
+        {
+          "option_label": "C",
+          "option_text": "按GPU利用率触发的ESS弹性伸缩策略"
+        },
+        {
+          "option_label": "D",
+          "option_text": "蓝绿发布、版本控制与一键回滚界面"
+        }
+      ],
+      "answer": "D",
+      "analysis": "依据原文6.10.2节：PAI-EAS明确提供“蓝绿/灰度发布、版本控制、回滚”等企业级能力，是其区别于纯IaaS（ECS）的核心价值；而A选项“模型预热”虽EAS原生支持，但ECS通过启动脚本+预热请求亦可实现，非ECS必须额外自建；B和C选项在ECS上需用户自行集成SLB+ESS，属于基础设施层能力，原文6.9节指出ECS需“搭配SLB+ESS”，说明其非原生内置；D选项的蓝绿/版本/回滚是PAI-EAS平台级抽象，原文6.10.2强调其“便于灰度验证”“保留回滚版本”，ECS无对应原生组件，必须自研CI/CD流水线与版本管理机制，故D为唯一ECS必须额外实现而EAS原生支持的能力。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 0,
+      "stem": "函数计算FC部署AI助手时，观察到工作日早9点首次调用延迟达3.2s，夜间低峰后再次调用仍重现该现象。若监控显示冷启动期间GPU显存占用从0%突增至85%，且模型加载耗时占总延迟70%，此时最根本的原因及教材依据是？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "FC实例被回收后需重新拉起并加载大模型权重，符合原文6.7节‘冷启动导致首个请求明显变慢’的定义"
+        },
+        {
+          "option_label": "B",
+          "option_text": "vLLM未启用PagedAttention，导致KV Cache预分配失败，依据6.5节PagedAttention解决显存碎片"
+        },
+        {
+          "option_label": "C",
+          "option_text": "模型量化精度不足引发重试，依据6.4节INT4精度损失风险"
+        },
+        {
+          "option_label": "D",
+          "option_text": "FC并发配置过低触发排队，依据6.3节‘超出并发限制直接返回429’"
+        }
+      ],
+      "answer": "A",
+      "analysis": "题干明确描述‘首次调用延迟高’‘低峰后再次调用重现’‘GPU显存从0%突增’‘模型加载耗时占比高’，完全匹配原文6.7节对冷启动的定义：“Serverless为了省成本，无流量时会回收实例；请求突然到来需要重新拉起实例、加载模型，导致首个请求明显变慢”。B选项错误：PagedAttention解决的是KV Cache显存碎片，与冷启动无关；C选项错误：量化精度问题表现为推理结果异常，而非固定延迟；D选项错误：429错误会返回HTTP状态码，题干未提错误率，且延迟高而非超时失败。原文6.10.1节进一步强调FC“冷启动延迟”是核心边界，故A为唯一符合教材定义的根本原因。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 1,
+      "stem": "某团队将Qwen3-0.6B模型量化为AWQ INT4后部署于vLLM，压测发现：①显存占用下降58%；②TPOT降低22%；③TTFT无明显变化；④代码补全任务BLEU分数下降1.3分。以下哪些结论可被教材原文直接支持？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "量化主要节省显存，且通常也加速——因Decode阶段显存带宽压力减小"
+        },
+        {
+          "option_label": "B",
+          "option_text": "AWQ属于训练后量化（PTQ），在低比特下通常比GPTQ更稳"
+        },
+        {
+          "option_label": "C",
+          "option_text": "TTFT由Prefill阶段决定，而量化主要影响Decode阶段的权重读取"
+        },
+        {
+          "option_label": "D",
+          "option_text": "INT4量化必然导致精度损失，且损失程度与任务敏感性相关"
+        }
+      ],
+      "answer": "A,B,C",
+      "analysis": "A项：原文6.4节明确‘量化主要省显存’‘通常也加速’，并解释‘Decode阶段是显存带宽密集型，从显存读权重的字节数变少了’，与①②现象一致；B项：原文6.4节对比表指出‘AWQ在低比特下通常更稳’，且归类为PTQ，与‘AWQ INT4’设定吻合；C项：原文6.2节定义Prefill决定TTFT、Decode决定TPOT，而量化作用于权重存储与计算，对Prefill（计算密集）影响小，对Decode（带宽密集）影响大，故TTFT不变而TPOT降，符合原文逻辑；D项错误：原文6.4节强调‘INT4在敏感任务上可能掉点更明显’，但‘必然导致精度损失’表述绝对化，原文用‘可能’‘需验证’等限定词，且未断言‘必然’，故D不可被直接支持。",
+      "difficulty_label": "挑战"
+    },
+    {
+      "type": 0,
+      "stem": "当使用vLLM部署服务时，压测发现并发从16增至32后，QPS仅提升12%，平均RT翻倍且429错误率达8%。此时若仅调整--max-num-seqs参数（最大并发请求数），最可能产生的效果是？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "降低429错误率，但RT仍居高不下，因KV Cache已超显存上限"
+        },
+        {
+          "option_label": "B",
+          "option_text": "QPS显著提升，因连续批处理效率随并发增加而优化"
+        },
+        {
+          "option_label": "C",
+          "option_text": "TTFT大幅改善，因Prefill阶段资源竞争缓解"
+        },
+        {
+          "option_label": "D",
+          "option_text": "TPOT下降，因单请求显存压力减小"
+        }
+      ],
+      "answer": "A",
+      "analysis": "原文6.3节明确指出：‘超出并发上限通常直接返回错误（如429）’，且‘并发过高已经超过了服务处理能力’会导致RT飙升；6.6节强调KV Cache‘随序列长度×并发数线性增长’，是并发瓶颈主因。--max-num-seqs直接限制vLLM允许的最大并发请求数，降低该值可减少KV Cache总量，从而避免显存溢出触发429，但无法解决已存在的显存争抢导致的RT劣化（因RT翻倍反映调度与显存带宽饱和）。B错误：连续批处理提升吞吐有上限，原文6.5节指出其消除GPU空转，但不解决显存瓶颈；C错误：TTFT由Prefill计算决定，与并发数无直接线性关系；D错误：TPOT取决于单token Decode效率，受显存带宽制约，单请求显存压力未因限并发而降低。故A为唯一符合原文‘超并发→429+RT劣化’逻辑的效果。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 1,
+      "stem": "在诊断一个突然出现高TTFT（>8s）的线上vLLM服务时，监控显示GPU利用率正常、KV Cache占用率仅30%、无429错误。此时最应优先检查的日志线索是？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "vLLM启动日志中是否包含'PagedAttention enabled'提示"
+        },
+        {
+          "option_label": "B",
+          "option_text": "请求日志中prompt长度是否异常增长（如超32K token）"
+        },
+        {
+          "option_label": "C",
+          "option_text": "系统日志中是否存在CUDA OOM或显存分配失败记录"
+        },
+        {
+          "option_label": "D",
+          "option_text": "vLLM调度器日志中prefill阶段的耗时统计"
+        }
+      ],
+      "answer": "B,D",
+      "analysis": "TTFT由Prefill阶段决定（原文6.2节），而Prefill是计算密集型，耗时与prompt长度强相关（原文6.2节‘长prompt会让等很久才开口’）。题干排除了KV Cache瓶颈（占用率低）、GPU算力瓶颈（利用率正常）、显存硬故障（无OOM/429），故根源必在Prefill输入侧。B项：prompt异常增长直接导致Prefill计算量暴增，是TTFT飙升的典型原因；D项：调度器日志中的prefill耗时是定位该阶段性能的直接证据，原文6.5节提及vLLM提供详细调度统计。A项错误：PagedAttention解决KV Cache碎片，与Prefill计算无关；C项错误：无OOM记录已排除显存硬故障。故B、D为最应优先检查的线索。",
+      "difficulty_label": "挑战"
+    },
+    {
+      "type": 0,
+      "stem": "某金融企业需上线内部合规问答机器人，要求：①全部业务数据严禁出域；②日均稳定请求2000+，P95 TTFT需<1.2s；③支持灰度发布与秒级故障回滚。运维团队具备GPU调优能力，但无专职SRE。在百炼、FC、PAI-EAS、GPU ECS四种方案中，最符合全量约束的是？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "PAI-EAS：满足数据不出域（私有部署）、实时推理保障TTFT、原生支持灰度与回滚"
+        },
+        {
+          "option_label": "B",
+          "option_text": "GPU ECS：完全可控、无冷启动，但灰度与回滚需自研，不符合‘无专职SRE’约束"
+        },
+        {
+          "option_label": "C",
+          "option_text": "函数计算FC：免运维但存在冷启动，无法保障P95 TTFT<1.2s"
+        },
+        {
+          "option_label": "D",
+          "option_text": "百炼MaaS：数据出域违反①，且不支持私有模型灰度"
+        }
+      ],
+      "answer": "A",
+      "analysis": "依据原文6.12节四步决策法：①数据不能出域→排除百炼（6.7节‘数据出域需评估’）；②稳定高吞吐+实时TTFT要求→排除FC（6.7节‘FC适合低频非实时’，6.10.1节‘冷启动延迟’无法保障P95 TTFT）；③灰度与回滚需求→ECS需自研（6.9节未提灰度能力），而PAI-EAS明确提供‘蓝绿/灰度发布’‘快速回滚’（6.10.2节）；④无专职SRE→ECS自运维门槛高（6.9节‘需自备GPU运维能力’），EAS为托管平台（6.7节‘平台托管+用户配置’）。A项完整覆盖所有约束：PAI-EAS支持私有模型部署（数据不出域）、实时推理（无冷启动）、原生灰度回滚、免底层运维，是唯一满足全部条件的方案。",
+      "difficulty_label": "挑战"
+    }
+  ]
+}

@@ -1,0 +1,262 @@
+{
+  "10-1301": {
+    "qid": "10-1301",
+    "classification": "own",
+    "chapter": 10,
+    "quality": "ok",
+    "reason": "考查DashScope Assistant API中Runs.wait方法的作用",
+    "answer": [
+      "D"
+    ],
+    "supported": true,
+    "quote": "run_status = dashscope.Runs.wait(message_run.id, thread_id=self.thread_id)",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "等待工具输出是过程，不是wait的直接作用"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "wait是同步阻塞，非异步机制"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "返回进度是附带功能，非主要作用"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "wait阻塞线程直到响应就绪"
+      },
+      {
+        "label": "E",
+        "selected": false,
+        "why": "消息处理存储是后台行为"
+      },
+      {
+        "label": "F",
+        "selected": false,
+        "why": "监听消耗资源是副作用"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "10-1388": {
+    "qid": "10-1388",
+    "classification": "own",
+    "chapter": 10,
+    "quality": "ok",
+    "reason": "考查Assistant API流程中与LLM交互的步骤",
+    "answer": [
+      "A",
+      "B",
+      "D",
+      "F"
+    ],
+    "supported": true,
+    "quote": "message_run = dashscope.Runs.create(self.thread_id, assistant_id=self.assistant_id)\nrun_status = dashscope.Runs.wait(message_run.id, thread_id=self.thread_id)\nif run_status.required_action:\n    self.forward_and_submit_outputs(run_status)\nrun_status = dashscope.Runs.wait(run_status.id, thread_id=self.thread_id)\nmsgs = dashscope.Messages.list(self.thread_id)",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "forward_and_submit_outputs提交工具结果给LLM"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "Runs.wait等待LLM处理完成"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "创建message是准备输入，非交互"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "Messages.list获取LLM生成的消息"
+      },
+      {
+        "label": "E",
+        "selected": false,
+        "why": "解析答案是对结果的后续处理"
+      },
+      {
+        "label": "F",
+        "selected": true,
+        "why": "Runs.create发起LLM执行请求"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "10-1415": {
+    "qid": "10-1415",
+    "classification": "own",
+    "chapter": 10,
+    "quality": "ok",
+    "reason": "考查阿里云多模态工具功能与协同流程",
+    "answer": [
+      "A",
+      "E",
+      "F"
+    ],
+    "supported": true,
+    "quote": "CosyVoice 可以将文本转换为音频。\nmoviepy 可以用来获取音频文件的持续时间，用于生成字幕。\n使用这三个工具的典型流程是，Qwen-Max -> CosyVoice -> moviepy。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "CosyVoice是语音合成模型"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "CosyVoice不用于视频剪辑"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "moviepy处理音视频，非文本转视频"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "Qwen-Max是文本模型，非专用于字幕"
+      },
+      {
+        "label": "E",
+        "selected": true,
+        "why": "moviepy可获取音频时长辅助字幕"
+      },
+      {
+        "label": "F",
+        "selected": true,
+        "why": "流程：文本生成→语音合成→视频处理"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "10-1426": {
+    "qid": "10-1426",
+    "classification": "own",
+    "chapter": 10,
+    "quality": "ok",
+    "reason": "考查Assistant API中Runs.wait方法的多重作用",
+    "answer": [
+      "B",
+      "F"
+    ],
+    "supported": true,
+    "quote": "Run_status =dashscope.Runs.wait(message_run.id,thread_id=self.thread.id,Callback=lambda progress:print(f\"Progress:{progress}%\"))",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "wait是同步阻塞，非异步机制"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "阻塞线程直到响应就绪"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "等待工具输出是过程，非直接作用"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "监听消耗资源是副作用"
+      },
+      {
+        "label": "E",
+        "selected": false,
+        "why": "消息处理存储是后台行为"
+      },
+      {
+        "label": "F",
+        "selected": true,
+        "why": "Callback返回实时进度用于调试"
+      }
+    ],
+    "duplicate_of": "10-1301"
+  },
+  "10-5153": {
+    "qid": "10-5153",
+    "classification": "own",
+    "chapter": 10,
+    "quality": "ok",
+    "reason": "考查百炼平台构建AI智能体的核心能力",
+    "answer": [
+      "A",
+      "B",
+      "C"
+    ],
+    "supported": true,
+    "quote": "百炼（Model Studio）是一站式大模型应用开发平台。它在浏览器里提供\"选模型 → 调 Prompt → 建知识库 → 搭智能体/工作流 → 评测观测 → 一键发布\"的完整链路",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "提供模型API或托管推理服务"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "内置知识库与文档管理能力"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "支持应用编排与对话配置"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "完全离线训练是PAI的职责"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "10-5156": {
+    "qid": "10-5156",
+    "classification": "own",
+    "chapter": 10,
+    "quality": "ok",
+    "reason": "考查百炼Assistant API的合理使用方式",
+    "answer": [
+      "A",
+      "B",
+      "C"
+    ],
+    "supported": true,
+    "quote": "用 Thread 保存会话上下文\n用 Run 驱动一次执行并轮询状态\n工具调用完成后由应用提交结果",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "Thread用于保存会话上下文"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "Run驱动执行并轮询状态"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "工具调用后由应用提交结果"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "修改instructions非训练模型"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

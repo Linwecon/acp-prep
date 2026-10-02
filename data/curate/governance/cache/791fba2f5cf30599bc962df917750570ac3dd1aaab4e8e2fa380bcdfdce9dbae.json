@@ -1,0 +1,154 @@
+{
+  "items": [
+    {
+      "type": 0,
+      "stem": "某团队在vLLM服务中启用PagedAttention后，长上下文（64K tokens）请求的并发数从3提升至8，但单请求TTFT未改善。以下哪项最准确解释该现象？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "PagedAttention仅优化KV Cache显存分配效率，不影响Prefill阶段的计算密集型负载"
+        },
+        {
+          "option_label": "B",
+          "option_text": "TTFT主要受网络传输延迟影响，与PagedAttention无关"
+        },
+        {
+          "option_label": "C",
+          "option_text": "vLLM默认禁用Prefill阶段的并行优化，需手动开启--enable-prefill-parallel"
+        },
+        {
+          "option_label": "D",
+          "option_text": "64K长度已超出GPU显存上限，PagedAttention无法缓解OOM导致的TTFT劣化"
+        }
+      ],
+      "answer": "A",
+      "analysis": "依据原文6.5节：'PagedAttention（分页注意力）……把KV Cache切成一个个固定大小的块……消除碎片、按需分配、天然支持共享'；6.2节明确指出：'Prefill是计算密集型，决定TTFT；Decode是显存带宽密集型，决定TPOT'；6.5节进一步强调PagedAttention解决的是'KV Cache的显存碎片与预分配浪费'——即仅作用于Decode阶段的KV Cache管理。TTFT由Prefill阶段主导，其性能取决于prompt长度、算力和排队时长，与KV Cache分配机制无关。选项B错误：网络延迟非教材讨论重点，且原文所有TTFT分析均聚焦Prefill计算；选项C错误：vLLM无此参数，教材未提Prefill并行开关；选项D错误：原文6.6节示例明确指出DeepSeek-R1在8×96GB卡上可支持64K长度请求，说明64K本身不必然OOM，且PagedAttention正是为缓解长上下文显存压力而设计。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 0,
+      "stem": "压测发现当并发从16增至32时，vLLM服务QPS仅提升12%，而平均RT翻倍、429错误率升至8%。此时最应优先执行的操作是？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "立即扩容GPU实例数量，增加总显存容量"
+        },
+        {
+          "option_label": "B",
+          "option_text": "通过压测确定当前最优并发阈值，并配置限流策略防止超载"
+        },
+        {
+          "option_label": "C",
+          "option_text": "将模型从FP16量化为INT4以降低单请求显存占用"
+        },
+        {
+          "option_label": "D",
+          "option_text": "启用连续批处理并调大--max-num-batched-tokens参数"
+        }
+      ],
+      "answer": "B",
+      "analysis": "依据原文6.3节'高频误区'：'并发越高吞吐越高'是错误认知；'超出并发限制会直接返回错误（如429），而非排队慢慢处理'；'必须通过压测确定最优并发阈值'。6.3节'Little定律思想'明确指出：'延迟一旦升高，同等并发下吞吐就会下降'，当前RT翻倍+429错误正是超阈值典型症状。选项A是事后补救，非'优先操作'，且扩容前需确认是否为显存瓶颈（原文6.6节强调需先算显存账）；选项C虽有效，但属长期优化，原文6.4节强调'量化需业务评测集验证'，不可盲目实施；选项D错误：连续批处理在vLLM中默认启用，--max-num-batched-tokens控制token级批处理上限，但当前问题本质是系统已过载，调参可能加剧恶化。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 1,
+      "stem": "在诊断一个突然出现高TTFT（>8s）的线上vLLM服务时，监控显示GPU利用率正常、KV Cache占用率仅30%、无429错误。此时应优先检查哪些日志线索？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "Prefill阶段的CUDA kernel执行耗时日志"
+        },
+        {
+          "option_label": "B",
+          "option_text": "请求排队队列长度及等待时间日志"
+        },
+        {
+          "option_label": "C",
+          "option_text": "KV Cache分页表内存分配失败日志"
+        },
+        {
+          "option_label": "D",
+          "option_text": "模型权重加载与初始化耗时日志"
+        }
+      ],
+      "answer": "AB",
+      "analysis": "依据原文6.2节：'TTFT由Prefill阶段决定，是用户感知的开口快慢'；6.3节明确TTFT受'Prefill速度、排队时长、prompt长度'三因素影响；6.5节指出PagedAttention解决KV Cache问题，而KV Cache占用率仅30%说明Decode阶段非瓶颈。因此高TTFT必源于Prefill计算慢或请求排队——对应A（计算层根因）和B（调度层根因）。选项C错误：KV Cache占用率低，分页表失败概率极低，且原文6.5节称PagedAttention'消除碎片'，非故障主因；选项D错误：权重加载属服务启动阶段，若已上线运行，初始化已完成，不会导致'突然'高TTFT，原文6.9节ECS部署强调'无冷启动'，但未将权重加载列为运行时TTFT变量。",
+      "difficulty_label": "挑战"
+    },
+    {
+      "type": 0,
+      "stem": "团队使用curl调用vLLM的/v1/chat/completions接口时，始终收到400 Bad Request错误，响应体为'{\"error\":{\"message\":\"model not found\",\"type\":\"invalid_request_error\"}}'。已确认模型路径'/mnt/workspace/model/Qwen3-0.6B'在服务器上真实存在且权限正确。最可能被忽略的必要条件是？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "客户端请求中未指定HTTP Header 'Authorization: Bearer <api_key>'"
+        },
+        {
+          "option_label": "B",
+          "option_text": "vLLM服务启动时未通过--model参数显式指定模型路径"
+        },
+        {
+          "option_label": "C",
+          "option_text": "请求JSON中'model'字段值未与vLLM启动时--model参数完全一致"
+        },
+        {
+          "option_label": "D",
+          "option_text": "服务器未安装safetensors库，导致模型格式解析失败"
+        }
+      ],
+      "answer": "C",
+      "analysis": "依据原文6.5节vLLM启动命令示例：'vllm serve \"/mnt/workspace/model/Qwen3-0.6B\" --load-format \"safetensors\"'；其OpenAI兼容接口调用示例中，请求体明确包含'model': '/mnt/workspace/model/Qwen3-0.6B'，且原文强调'vLLM提供OpenAI兼容接口，业务侧改个地址就能接入'。OpenAI API规范要求请求中的model字段必须与服务端注册的模型标识严格匹配。vLLM源码逻辑中，model字段用于路由到对应加载的模型实例，若不一致则触发'model not found'。选项A错误：vLLM默认不强制鉴权，原文未提API Key要求；选项B错误：启动命令已含模型路径，服务已运行，说明加载成功；选项D错误：safetensors是加载格式选项，若缺失会报加载失败而非'model not found'，且原文6.5节示例已指定--load-format，说明格式支持已配置。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 1,
+      "stem": "某团队将Qwen3-0.6B模型量化为AWQ INT4后部署于vLLM，观测到：①显存占用下降58%；②TPOT降低22%；③TTFT无明显变化；④在代码补全任务上BLEU分数下降1.3分。以下哪些结论可被教材原文直接支持？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "量化主要省显存，INT4相对FP16体积降为1/4"
+        },
+        {
+          "option_label": "B",
+          "option_text": "量化通常也加速，因Decode阶段显存带宽压力减小"
+        },
+        {
+          "option_label": "C",
+          "option_text": "TTFT不受量化影响，因其由Prefill计算密集型阶段决定"
+        },
+        {
+          "option_label": "D",
+          "option_text": "INT4量化在敏感任务上精度损失更明显，需用业务评测集验证"
+        }
+      ],
+      "answer": "ABD",
+      "analysis": "依据原文6.4节：'量化主要省显存'、'INT4用4位整数，相对FP32体积1/8'（A正确，虽FP16对比INT4为1/2，但原文表格以FP32为基准，且58%下降符合INT4量级）；'量化通常也加速……因为Decode阶段是显存带宽密集型，从显存读权重的字节数变少了'（B正确）；'INT4在敏感任务上可能掉点更明显，需要用业务评测集验证'（D正确）。选项C错误：原文6.2节仅说明TTFT由Prefill决定，Prefill是计算密集型，但未断言'量化不影响TTFT'——Prefill同样需读取权重，INT4减少权重读取字节数理论上可加速Prefill，原文未排除此可能性，故C非'教材直接支持'。",
+      "difficulty_label": "挑战"
+    },
+    {
+      "type": 0,
+      "stem": "开发者在FC上部署AI助手后，发现工作日早9点流量高峰时首个请求延迟达3.2s，其余请求正常。夜间低峰期再次调用又重现该现象。最根本的原因及对应教材依据是？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "FC实例被回收后冷启动，需重新拉起实例并加载模型；教材6.7节指出'Serverless为了省成本，无流量时会回收实例，导致首个请求明显变慢'"
+        },
+        {
+          "option_label": "B",
+          "option_text": "早9点网络拥塞导致HTTP连接建立延迟；教材未提及网络层对FC性能的影响"
+        },
+        {
+          "option_label": "C",
+          "option_text": "模型权重文件过大，FC冷启动时磁盘IO成为瓶颈；教材6.10.1节强调'资源与时长限制'但未分析IO细节"
+        },
+        {
+          "option_label": "D",
+          "option_text": "FC函数超时设置过短，触发重试机制；教材6.10.1节'风险'明确列出'函数超时'为边界，但未关联首次延迟"
+        }
+      ],
+      "answer": "A",
+      "analysis": "依据原文6.7节'为什么会有冷启动？'：'Serverless为了省成本，无流量时会回收实例；请求突然到来需要重新拉起实例、加载模型，导致首个请求明显变慢'；6.10.1节'FC的边界'再次强调'冷启动延迟：无流量时实例被回收，新请求到来要重新拉起、可能还要加载模型'。题干中'早9点高峰首个请求慢'+'夜间低峰后再次调用重现'，完美匹配冷启动特征（非持续负载，而是间歇性触发）。选项B、C、D均属合理推测，但原文未将其作为FC核心机制阐述，而A是教材明确定义的'根本原因'，且直接引用原文措辞。",
+      "difficulty_label": "入门"
+    }
+  ]
+}

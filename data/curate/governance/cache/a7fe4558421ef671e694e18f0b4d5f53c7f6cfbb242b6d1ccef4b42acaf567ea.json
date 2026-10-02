@@ -1,0 +1,194 @@
+{
+  "2-0704": {
+    "qid": "2-0704",
+    "classification": "own",
+    "chapter": 5,
+    "quality": "ok",
+    "reason": "题目考查微调与提示工程的核心区别，与本章知识点高度相关。",
+    "answer": [
+      "A",
+      "B",
+      "C"
+    ],
+    "supported": true,
+    "quote": "微调之所以成本可控、收敛快，是因为模型底层的语言规律已经学到了，微调主要调整的是上层行为。三者本质不同：提示词和 RAG 都不改变模型参数；微调改变模型参数。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "微调需更新参数，提示工程不改参数。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "微调需高质量标注数据，提示工程可零样本或少样本。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "微调将知识固化在参数中，提示工程需每次提供上下文。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "微调计算资源消耗远高于提示工程。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-1053": {
+    "qid": "3-1053",
+    "classification": "misplaced",
+    "chapter": 5,
+    "quality": "remove",
+    "reason": "考查传统机器学习数据预处理术语，与大模型微调无关，无考查价值。",
+    "answer": [
+      "D"
+    ],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "文本标准化是另一概念。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "词嵌入是文本表示方法。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "特征缩放用于数值特征。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "标签编码是分类标签数字化的标准术语。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "6-1190": {
+    "qid": "6-1190",
+    "classification": "misplaced",
+    "chapter": 5,
+    "quality": "remove",
+    "reason": "考查传统深度学习序列填充，与大模型微调无关，无考查价值。",
+    "answer": [
+      "A"
+    ],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "pad_sequences函数用于序列填充。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "与文本摘要无关。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "与特征缩放无关。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "与文本向量化无关。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "7-0828": {
+    "qid": "7-0828",
+    "classification": "own",
+    "chapter": 5,
+    "quality": "ok",
+    "reason": "考查早停法条件，与训练过程监控相关，有考查价值。",
+    "answer": [
+      "A",
+      "B",
+      "F"
+    ],
+    "supported": true,
+    "quote": "验证 loss 先降后升 = 过拟合的铁证，应回退到验证 loss 最低的 checkpoint。部署应选验证集表现最优的 checkpoint，而不是最后一个。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "验证损失不再下降是常见早停条件。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "验证损失达阈值可触发停止。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "训练损失增加可能因学习率不当，非典型早停条件。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "验证准确率连续提高是好事，不应停止。"
+      },
+      {
+        "label": "E",
+        "selected": false,
+        "why": "训练准确率参考价值低于验证集。"
+      },
+      {
+        "label": "F",
+        "selected": true,
+        "why": "达到最大迭代次数是硬性停止条件。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "8-0613": {
+    "qid": "8-0613",
+    "classification": "cross",
+    "chapter": 8,
+    "quality": "ok",
+    "reason": "考查微调项目中的数据安全与合规，属于AI安全章节内容。",
+    "answer": [
+      "A",
+      "B",
+      "C",
+      "D"
+    ],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "数据使用需合法授权是合规基础。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "脱敏和隐私保护是防止敏感信息泄露的关键。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "数据审计机制有助于追踪和问责。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "加密技术保护数据在传输和存储中的安全。"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

@@ -1,0 +1,242 @@
+{
+  "3-0525": {
+    "qid": "3-0525",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "题目考查查询改写对提升Context Recall的作用，属于RAG核心优化手段。",
+    "answer": [
+      "A",
+      "B"
+    ],
+    "supported": true,
+    "quote": "查询改写：多轮对话中'他/这个'指代不清，先用 LLM 把含代词的问题改写成完整问题再检索",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "改写使问题更完整，提升检索相关性，从而提高召回准确率。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "改写可补全用户提问中缺失的关键信息，利于检索。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "查询改写不涉及增加模型训练数据。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "改写需额外调用模型，可能增加而非减少推理时间。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-0535": {
+    "qid": "3-0535",
+    "classification": "cross",
+    "chapter": 7,
+    "quality": "ok",
+    "reason": "题目考查RAGAS评估中Answer Correctness的计算方法，属于模型评估章节知识。",
+    "answer": [
+      "A",
+      "B"
+    ],
+    "supported": true,
+    "quote": "余弦相似度是向量检索首选相似度。欧氏距离：空间中直线距离",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "余弦相似度是向量检索和语义相似度常用方法。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "欧氏距离是衡量向量距离（相似度）的经典方法。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "曼哈顿距离未在教材中提及用于RAGAS评估。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "增加训练数据与语义相似度计算方法无关。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-0589": {
+    "qid": "3-0589",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "题目考查提升RAG中问题理解能力的进阶检索技术，属于RAG核心内容。",
+    "answer": [
+      "A",
+      "B",
+      "C"
+    ],
+    "supported": true,
+    "quote": "查询改写、HyDE（假设文档嵌入）、混合检索（Hybrid）... 各取所长",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "Multi-query多路召回是提升检索覆盖面的典型方法。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "Step back问题摘要有助于提炼问题本质，提升理解。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "Decomposition问题分解可将复杂问题拆解，便于检索。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "使用GraphDB是知识图谱技术，非直接提升问题理解能力。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-0636": {
+    "qid": "3-0636",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "题目考查文档解析阶段的常见问题与挑战，属于RAG基础环节。",
+    "answer": [
+      "A",
+      "B",
+      "D",
+      "E"
+    ],
+    "supported": true,
+    "quote": "文档解析（Document Parsing）是把 PDF、Word、Markdown、网页等格式的文档，加载并转换为大模型可读文本的过程。它看似简单，却是 RAG 质量的'地基'",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "解析工具质量直接影响解析结果，工具问题可导致出错。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "不同格式（版本）的Word文档可能导致解析差异。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "PDF解析（尤其扫描件）通常比纯文本更复杂。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "在线文档动态特性（如JS渲染）增加解析难度。"
+      },
+      {
+        "label": "E",
+        "selected": true,
+        "why": "选择合适的解析工具和方法是提高质量的关键。"
+      },
+      {
+        "label": "F",
+        "selected": false,
+        "why": "解析问题也涉及业务需求（如保留表格结构）。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-0712": {
+    "qid": "3-0712",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "题目考查基于字符的文档切片方法的潜在缺点，属于文本切片核心知识。",
+    "answer": [
+      "B",
+      "F"
+    ],
+    "supported": true,
+    "quote": "切得太小：语义被截断（一句话被切成两半），即使检索命中也信息不全，模型无法据此回答。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "基于字符的切片方法实现简单，并非难以实现。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "按字符硬切可能切断完整语义单元。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "切片方法本身不直接影响存储空间需求。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "基于字符的切片计算复杂度通常不高。"
+      },
+      {
+        "label": "E",
+        "selected": false,
+        "why": "按固定字符数切片，大小通常是均匀的。"
+      },
+      {
+        "label": "F",
+        "selected": true,
+        "why": "硬切可能导致上下文信息丢失，影响回答完整性。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-0726": {
+    "qid": "3-0726",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "题目考查提升RAG检索精度的具体措施，属于检索质量优化核心内容。",
+    "answer": [
+      "A",
+      "B",
+      "C"
+    ],
+    "supported": true,
+    "quote": "加 Rerank 重排，把相关片段提前。优化提示词、调 temperature、换更强模型，必要时才考虑微调。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "提高相似度阈值可过滤低相关性结果，提升精度。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "按语义逻辑分块使向量更聚焦，提升检索相关性。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "对问题进行语义增强可使查询向量更准确。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "删除无文档可能降低召回率，不直接解决精度低问题。"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

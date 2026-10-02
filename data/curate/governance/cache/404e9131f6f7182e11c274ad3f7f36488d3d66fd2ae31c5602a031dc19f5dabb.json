@@ -1,0 +1,209 @@
+{
+  "9-0836": {
+    "qid": "9-0836",
+    "classification": "unsure",
+    "chapter": 9,
+    "quality": "remove",
+    "reason": "题干与本章核心考点无关，考查的是代码生成任务的上下文优化，属于提示工程或Agent工具调用范畴，且选项D荒谬。",
+    "answer": [],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "文件目录结构对代码生成帮助有限。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "相关代码实现有帮助，但非本章考点。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "开发者经验非API调用参数。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "硬件配置与API调用无关，荒谬。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "9-0028": {
+    "qid": "9-0028",
+    "classification": "own",
+    "chapter": 9,
+    "quality": "ok",
+    "reason": "直接考查temperature参数控制多样性的核心知识，选项明确。",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "temperature 控制随机性，越高越发散。temperature 只影响随机性，与模型能力无关。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "temperature控制输出随机性。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "max_token限制长度。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "stream控制返回方式。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "api_key用于鉴权。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "9-0053": {
+    "qid": "9-0053",
+    "classification": "cross",
+    "chapter": 4,
+    "quality": "ok",
+    "reason": "考查Agent通过Function Calling调用工具完成多步骤任务，是Agent核心能力。",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "Function Calling（函数调用）是API内置的能力。模型按需在响应里返回结构化的tool_calls；真正执行工具的是你的应用程序。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "自动指派接单人未体现工具调用。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "基于规则匹配，非大模型核心能力。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "通过提示词拆解任务并调用API，符合Function Calling流程。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "直接生成结果未调用系统，不满足需求。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "9-0719": {
+    "qid": "9-0719",
+    "classification": "own",
+    "chapter": 9,
+    "quality": "ok",
+    "reason": "考查temperature参数控制输出随机性（创新性）的核心应用。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "temperature 控制随机性，越高越发散。temperature 只影响随机性，与模型能力无关。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "max_tokens限制长度。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "temperature控制随机性，影响创新性。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "top_p也影响随机性，但题干问“最适配”，教材强调优先调temperature。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "stop用于停止生成。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "9-1188": {
+    "qid": "9-1188",
+    "classification": "unsure",
+    "chapter": 9,
+    "quality": "remove",
+    "reason": "题干提及‘Assistant API’非本章内容，选项为HTTP状态码判断，与本章API调用错误处理考点形式相似但实质不同，存在歧义。",
+    "answer": [],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "CREATED状态码非本章通用成功验证。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "BAD_REQUEST是错误码。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "语法错误，且OK状态码非本章强调。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "语法错误，NOT_FOUND是错误码。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "9-1392": {
+    "qid": "9-1392",
+    "classification": "own",
+    "chapter": 9,
+    "quality": "ok",
+    "reason": "多选题考查控制随机性的核心参数temperature和top_p。",
+    "answer": [
+      "A",
+      "B"
+    ],
+    "supported": true,
+    "quote": "temperature 控制随机性，越高越发散。top_p（核采样）：只从累积概率达 p 的候选中采样。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "temperature控制随机性。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "top_p通过核采样影响随机性。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "max_tokens限制长度。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "frequency_penalty教材未提及。"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

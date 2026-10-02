@@ -1,0 +1,154 @@
+{
+  "items": [
+    {
+      "type": 0,
+      "stem": "某团队在vLLM服务中启用PagedAttention后，长上下文（64K tokens）请求的并发数从3提升至8，但单请求TTFT未改善。以下哪项最准确解释该现象？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "PagedAttention仅优化KV Cache显存分配效率，不改变Prefill阶段的计算量与访存带宽需求"
+        },
+        {
+          "option_label": "B",
+          "option_text": "TTFT受连续批处理调度影响，而PagedAttention未参与Decode阶段之前的调度逻辑"
+        },
+        {
+          "option_label": "C",
+          "option_text": "64K长度请求触发了vLLM的自动序列截断机制，实际Prefill输入被压缩导致TTFT不变"
+        },
+        {
+          "option_label": "D",
+          "option_text": "KV Cache量化未同步启用，导致Prefill阶段仍需加载高精度权重"
+        }
+      ],
+      "answer": "A",
+      "analysis": "根据原文6.5节'PagedAttention（分页注意力）'定义：'它解决的是KV Cache的显存碎片与预分配浪费'；6.2节明确指出'TTFT由Prefill阶段决定，Prefill是计算密集型'；6.6节强调'KV Cache是Decode加速基础，但随序列长度×并发数线性增长'——即PagedAttention作用对象仅为Decode阶段的KV Cache管理，对Prefill的计算负载、内存带宽、矩阵乘规模无任何影响。选项B错误：连续批处理作用于Decode阶段，与TTFT无关；选项C无教材依据，vLLM默认不限制Prefill长度（需显式配置--max-model-len）；选项D混淆概念，KV Cache量化是独立技术，原文6.6节'缓解KV Cache压力的常用手段'将其与PagedAttention并列列出，非其前提条件。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 0,
+      "stem": "压测发现当并发从16增至32时，vLLM服务QPS仅提升12%，而平均RT翻倍、429错误率升至8%。此时最应优先执行的操作是？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "立即扩容GPU实例数量，增加总显存容量"
+        },
+        {
+          "option_label": "B",
+          "option_text": "通过监控确认KV Cache占用率是否已达显存瓶颈，并压测确定当前最优并发阈值"
+        },
+        {
+          "option_label": "C",
+          "option_text": "禁用连续批处理，改用静态批处理以降低调度开销"
+        },
+        {
+          "option_label": "D",
+          "option_text": "将模型从FP16量化为INT4，强制降低权重显存占比"
+        }
+      ],
+      "answer": "B",
+      "analysis": "原文6.3节'高频误区'明确警示：'并发越高吞吐越高'是错误认知，'必须通过压测确定最优并发阈值'；6.6节指出'KV Cache是并发瓶颈'，且'受显存限制，并发数大约只能到4个'；6.3节'风险'强调'超出并发上限通常直接返回429错误'。因此，429激增+RT劣化是典型显存超限信号，首要动作是验证KV Cache是否触顶（原文6.3节要求监控'KV Cache占用'），而非盲目扩容或修改架构。选项A违背'先诊断后扩容'原则；选项C错误：连续批处理是vLLM提吞吐的核心，禁用会恶化性能；选项D属过度干预，未验证是否权重占主导（原文6.6节指出长上下文下KV Cache才是大头）。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 1,
+      "stem": "在诊断一个突然出现高TTFT（>8s）的线上vLLM服务时，监控显示GPU利用率正常、KV Cache占用率仅30%、无429错误。此时最应优先检查的日志线索是？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "Prefill阶段CUDA kernel启动耗时（如'prefill_start'到'first_token'时间戳）"
+        },
+        {
+          "option_label": "B",
+          "option_text": "请求排队等待调度的时间（如'scheduler_wait_time'指标）"
+        },
+        {
+          "option_label": "C",
+          "option_text": "CPU侧prompt tokenization与embedding lookup耗时"
+        },
+        {
+          "option_label": "D",
+          "option_text": "网络层SSL握手或HTTP解析延迟"
+        }
+      ],
+      "answer": "B,C,D",
+      "analysis": "原文6.2节定义TTFT = '首token延迟'，并明确其构成：'TTFT ≈ Prefill速度 + 排队时长 + prompt长度'；6.3节表格指出TTFT'受Prefill速度、排队时长、prompt长度影响'；6.3节'风险'强调'并发过高会导致排队'，且'超出并发上限直接返回错误'——但本题无429，说明请求已进入调度队列但未被拒绝，排队时长成为关键变量。选项A虽属Prefill内部，但GPU利用率正常说明计算未卡顿，非首要怀疑点；选项B直接对应TTFT公式中的'排队时长'，是教材明确列出的影响因子；选项C和D属于推理服务全链路（原文6.2节'一次推理请求'流程图包含客户端POST→Prefill），且原文6.11.2节'可观测性'要求追踪'各环节耗时'，TTFT异常时必须排查非GPU环节（如CPU预处理、网络）。选项A错误：GPU利用率正常已排除Prefill计算瓶颈，无需优先查kernel耗时。",
+      "difficulty_label": "挑战"
+    },
+    {
+      "type": 0,
+      "stem": "开发者在FC上部署AI助手后，发现工作日早9点流量高峰时首个请求延迟达3.2s，其余请求正常。夜间低峰期再次调用又重现该现象。最根本的原因及对应教材依据是？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "FC实例因无流量被回收，新请求触发冷启动加载模型；教材6.7节指出'Serverless为省成本会回收实例，导致首个请求明显变慢'"
+        },
+        {
+          "option_label": "B",
+          "option_text": "早9点网络带宽拥塞导致HTTP请求传输延迟；教材未提及网络层为FC特有瓶颈"
+        },
+        {
+          "option_label": "C",
+          "option_text": "模型权重文件存储在OSS，首次访问触发远程拉取；教材6.10.1节未将OSS延迟列为FC核心边界"
+        },
+        {
+          "option_label": "D",
+          "option_text": "FC函数超时配置过短，导致模型加载被中断重试；教材6.10.1节'风险'仅提及时长限制，未关联冷启动"
+        }
+      ],
+      "answer": "A",
+      "analysis": "原文6.7节'为什么会有冷启动？'明确解释：'Serverless为了省成本，无流量时会回收实例；请求突然到来需要重新拉起实例、加载模型，导致首个请求明显变慢'；6.10.1节'FC的边界'再次强调'冷启动延迟'是核心约束。题干中'早9点高峰首个请求慢'+'夜间低峰后重现'完美匹配冷启动特征（非持续负载，而是每次空闲后首次触发）。选项B、C、D均无教材直接依据：B属通用网络问题，非FC特有；C中OSS拉取延迟未被教材列为FC主要瓶颈；D将超时配置与冷启动混为一谈，教材未建立此因果。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 1,
+      "stem": "某企业上线Qwen3-0.6B答疑机器人后，监控告警系统持续触发'KV Cache显存占用率>95%'告警，但GPU计算利用率仅42%，且无429限流错误。运维人员检查发现请求平均序列长度稳定在2K，但并发请求数波动剧烈（5–48）。此时最应优先排查的根本原因是什么？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "PagedAttention页表元数据本身占用显存过大，挤压有效KV块空间"
+        },
+        {
+          "option_label": "B",
+          "option_text": "存在大量长尾小请求未及时释放KV Cache，导致显存泄漏"
+        },
+        {
+          "option_label": "C",
+          "option_text": "并发数峰值（48）远超当前显存可支撑的理论上限，造成KV Cache持续高位占用"
+        },
+        {
+          "option_label": "D",
+          "option_text": "模型权重采用FP16加载，未启用量化，权重显存占比过高挤占KV Cache空间"
+        }
+      ],
+      "answer": "C,B",
+      "analysis": "原文6.6节核心结论：'KV Cache随序列长度×并发数线性增长'，且'长上下文高并发下KV Cache常是显存大头、是并发瓶颈'；6.3节'风险'指出'超出并发上限通常直接返回429'，但本题无429，说明请求被接受但显存持续高压——这正符合'并发动态波动，峰值突破显存承载能力，导致缓存无法及时回收'的场景（教材称'显存打满'）。选项C直接对应原文'并发数'与'KV Cache线性增长'的定量关系，是根本原因。选项B符合工程实操：vLLM虽有自动释放，但高波动并发下可能因调度延迟导致缓存堆积，原文6.5节'PagedAttention'提到'按需分配'，隐含'及时释放'是其设计目标，未释放即属异常，需优先排查。选项A错误：页表元数据开销极小，教材未将其列为显存瓶颈；选项D错误：Qwen3-0.6B在FP16下权重仅约1.2GB，而2K×48并发的KV Cache可达数十GB（原文6.6节DeepSeek-R1案例类比），权重非主因。",
+      "difficulty_label": "挑战"
+    },
+    {
+      "type": 0,
+      "stem": "团队使用 curl 调用 vLLM 的 /v1/chat/completions 接口时，始终收到 400 Bad Request 错误，响应体为 '{\"error\":{\"message\":\"model not found\",\"type\":\"invalid_request_error\"}}'。已确认模型路径 '/mnt/workspace/model/Qwen3-0.6B' 在服务器上真实存在且权限正确。最可能被忽略的必要条件是？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "客户端请求中未指定'model'字段，或字段值与vLLM启动时加载的模型标识不一致"
+        },
+        {
+          "option_label": "B",
+          "option_text": "vLLM服务未启用OpenAI兼容模式，需添加--enable-served-models参数"
+        },
+        {
+          "option_label": "C",
+          "option_text": "模型目录下缺少tokenizer.json文件，导致tokenization失败"
+        },
+        {
+          "option_label": "D",
+          "option_text": "curl请求未设置Content-Type: application/json头"
+        }
+      ],
+      "answer": "A",
+      "analysis": "原文6.5节vLLM启动命令示例明确：'vllm serve \"/mnt/workspace/model/Qwen3-0.6B\"'，且调用示例中'data'包含'model': \"/mnt/workspace/model/Qwen3-0.6B\"；6.2节强调'vLLM提供OpenAI兼容接口'，而OpenAI API规范要求请求体必须含'model'字段且值需匹配服务端加载模型。错误信息'model not found'直指模型标识匹配失败，非路径问题（题干已排除）。选项B错误：vLLM默认启用OpenAI兼容模式，无需额外参数；选项C属模型加载阶段错误，会导致服务启动失败，而非运行时400；选项D会导致415错误，非400。",
+      "difficulty_label": "进阶"
+    }
+  ]
+}

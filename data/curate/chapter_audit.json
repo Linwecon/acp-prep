@@ -1,830 +1,1294 @@
 {
-  "generated_at": "2026-10-02T12:45:17",
-  "mode": "llm",
+  "generated_at": "2026-10-02T15:33:26",
+  "mode": "llm-full+profiles",
+  "threshold_calibrated": false,
+  "threshold_note": "关键词初筛阈值未经人工标注样本校准，候选集仅用于缩小复核范围；full 模式跳过初筛逐题语义审核。",
+  "evidence_note": "evidence_check.verified=true 表示引用能在章节原文中定位（exact 精确 / overlap 近似）；false 表示不可追溯，需人工核实。",
   "summary": {
-    "scanned": 1644,
-    "candidates": 34,
-    "suggest_move": 29,
-    "suggest_remove": 1,
-    "keep": 4
+    "scanned": 58,
+    "candidates": 58,
+    "evidence_verified": 28,
+    "cat_own": 50,
+    "cat_cross": 1,
+    "cat_misplaced": 3,
+    "cat_beyond": 4,
+    "cat_unsure": 0
   },
   "items": [
     {
-      "qid": "3-5048",
-      "chapter": 3,
-      "chapter_name": "RAG 检索增强生成",
-      "seq": "5048",
-      "type": 1,
-      "answer": "A,B,C",
-      "stem": "RAGAS 评估体系中，通常关注以下哪些维度？",
-      "predicted_chapter": 7,
-      "predicted_chapter_name": "模型评估",
-      "current_score": 16,
-      "top_score": 69,
-      "matched_keywords": [
-        "精确率",
-        "评估体系",
-        "RAGAS",
-        "ragas",
-        "Faithfulness",
-        "faithfulness"
-      ],
-      "llm": {
-        "action": "move",
-        "chapter": 7,
-        "chapter_name": "模型评估",
-        "confidence": "high",
-        "reason": "考点为RAG系统评估指标，属模型评估章节"
-      }
-    },
-    {
-      "qid": "3-5052",
-      "chapter": 3,
-      "chapter_name": "RAG 检索增强生成",
-      "seq": "5052",
+      "qid": "11-0332",
+      "chapter": 11,
+      "chapter_name": "多模态 AI",
+      "seq": "0332",
       "type": 0,
       "answer": "A",
-      "stem": "某 RAG 系统生成的答案表述流畅，但引用了与检索上下文相反的数据。RAGAS 中哪项指标最可能显著偏低？",
-      "predicted_chapter": 7,
-      "predicted_chapter_name": "模型评估",
-      "current_score": 8,
-      "top_score": 44,
-      "matched_keywords": [
-        "RAGAS",
-        "ragas",
-        "Faithfulness",
-        "faithfulness"
-      ],
+      "stem": "以下哪项可以最准确地描述大语言模型与多模态模型之间的区别？",
       "llm": {
-        "action": "keep",
-        "chapter": null,
+        "category": "own",
+        "exam_knowledge": "LLM vs 多模态模型区别",
+        "chapter": 0,
         "chapter_name": null,
-        "confidence": "high",
-        "reason": "考点为RAG评估指标faithfulness，属RAG核心评估维度"
+        "evidence": "纯文本 LLM 的输入输出都只有文字；多模态模型则能处理\"图文混合\"\"语音进语音出\"等更贴近人类的交互。",
+        "reason": "题目直接考查本章核心知识‘LLM vs 多模态模型’对比，原文有明确定义和表格"
+      },
+      "_profile_stamp": "2026-10-02T14:37:19",
+      "evidence_check": {
+        "verified": true,
+        "mode": "exact"
       }
     },
     {
-      "qid": "3-5051",
-      "chapter": 3,
-      "chapter_name": "RAG 检索增强生成",
-      "seq": "5051",
-      "type": 1,
-      "answer": "A,B,C",
-      "stem": "使用 RAGAS 进行评测时，以下哪些做法是合理的？",
-      "predicted_chapter": 7,
-      "predicted_chapter_name": "模型评估",
-      "current_score": 0,
-      "top_score": 32,
-      "matched_keywords": [
-        "RAGAS",
-        "ragas"
-      ],
-      "llm": {
-        "action": "move",
-        "chapter": 7,
-        "chapter_name": "模型评估",
-        "confidence": "high",
-        "reason": "考点是RAG系统评测方法，属模型评估章节"
-      }
-    },
-    {
-      "qid": "3-5049",
-      "chapter": 3,
-      "chapter_name": "RAG 检索增强生成",
-      "seq": "5049",
+      "qid": "11-0360",
+      "chapter": 11,
+      "chapter_name": "多模态 AI",
+      "seq": "0360",
       "type": 0,
       "answer": "C",
-      "stem": "RAGAS 中的 faithfulness（忠实度）主要衡量什么？",
-      "predicted_chapter": 7,
-      "predicted_chapter_name": "模型评估",
-      "current_score": 3,
-      "top_score": 30,
-      "matched_keywords": [
-        "RAGAS",
-        "ragas",
-        "Faithfulness",
-        "faithfulness"
-      ],
+      "stem": "下列哪个场景最能体现多模态协同学习的优势？",
       "llm": {
-        "action": "move",
-        "chapter": 7,
-        "chapter_name": "模型评估",
-        "confidence": "high",
-        "reason": "faithfulness是RAG评估指标，属模型评估章节"
+        "category": "own",
+        "exam_knowledge": "多模态协同学习优势",
+        "chapter": 0,
+        "chapter_name": null,
+        "evidence": "多模态的核心价值可以概括为三点：\\n- **降低表达门槛**：用户不必把图片、语音\"翻译\"成文字，拍照、说话即可；\\n- **获取文本没有的信息**：影像、表单、图表、语气、画面动作；\\n- **产出更丰富的载体**：从\"给一段文字\"升级到",
+        "reason": "C选项涉及图像+地理位置两种模态协同，直接对应本章强调的'信息互补'与'获取文本没有的信息'"
+      },
+      "_profile_stamp": "2026-10-02T14:37:19",
+      "evidence_check": {
+        "verified": false,
+        "mode": "missing"
       }
     },
     {
-      "qid": "10-5154",
-      "chapter": 10,
-      "chapter_name": "阿里云 AI 平台",
-      "seq": "5154",
-      "type": 0,
-      "answer": "C",
-      "stem": "相比完全自行管理多轮对话状态和工具调用，使用百炼 Assistant API 构建 Agent 的主要优势是？",
-      "predicted_chapter": 4,
-      "predicted_chapter_name": "Agent 智能体",
-      "current_score": 5,
-      "top_score": 24,
-      "matched_keywords": [
-        "Agent",
-        "agent",
-        "工具调用",
-        "Agent 的"
-      ],
-      "llm": {
-        "action": "move",
-        "chapter": 4,
-        "chapter_name": "Agent 智能体",
-        "confidence": "high",
-        "reason": "考点是Agent构建中平台托管执行流程与工具闭环"
-      }
-    },
-    {
-      "qid": "6-5132",
-      "chapter": 6,
-      "chapter_name": "模型部署与推理优化",
-      "seq": "5132",
+      "qid": "11-0376",
+      "chapter": 11,
+      "chapter_name": "多模态 AI",
+      "seq": "0376",
       "type": 0,
       "answer": "A",
-      "stem": "某应用想直接调用平台托管的通用模型 API、降低运维成本；另一团队需要把自训练模型部署成自定义在线服务，最适合的组合是？",
-      "predicted_chapter": 10,
-      "predicted_chapter_name": "阿里云 AI 平台",
-      "current_score": 9,
-      "top_score": 28,
-      "matched_keywords": [
-        "百炼",
-        "PAI",
-        "模型服务"
-      ],
+      "stem": "多模态转化任务的一个实例是?",
       "llm": {
-        "action": "move",
-        "chapter": 10,
-        "chapter_name": "阿里云 AI 平台",
-        "confidence": "high",
-        "reason": "考点为阿里云平台服务选型（百炼、PAI-EAS）"
+        "category": "own",
+        "exam_knowledge": "多模态生成任务定义",
+        "chapter": 0,
+        "chapter_name": null,
+        "evidence": "生成：文本（+参考图）→ 图/音/视频",
+        "reason": "选项A对应‘生成’主线中文生图，属本章核心知识"
+      },
+      "_profile_stamp": "2026-10-02T14:37:19",
+      "evidence_check": {
+        "verified": false,
+        "mode": "missing"
       }
     },
     {
-      "qid": "3-5047",
-      "chapter": 3,
-      "chapter_name": "RAG 检索增强生成",
-      "seq": "5047",
-      "type": 0,
-      "answer": "A",
-      "stem": "RAGAS 主要用于解决哪类问题？",
-      "predicted_chapter": 7,
-      "predicted_chapter_name": "模型评估",
-      "current_score": 14,
-      "top_score": 32,
-      "matched_keywords": [
-        "RAGAS",
-        "ragas"
-      ],
-      "llm": {
-        "action": "move",
-        "chapter": 7,
-        "chapter_name": "模型评估",
-        "confidence": "high",
-        "reason": "考点是RAG系统评估，属模型评估章节"
-      }
-    },
-    {
-      "qid": "3-5050",
-      "chapter": 3,
-      "chapter_name": "RAG 检索增强生成",
-      "seq": "5050",
-      "type": 0,
-      "answer": "D",
-      "stem": "RAGAS 中的 context_precision（上下文精确率）最关注什么？",
-      "predicted_chapter": 7,
-      "predicted_chapter_name": "模型评估",
-      "current_score": 6,
-      "top_score": 22,
-      "matched_keywords": [
-        "精确率",
-        "RAGAS",
-        "ragas"
-      ],
-      "llm": {
-        "action": "move",
-        "chapter": 7,
-        "chapter_name": "模型评估",
-        "confidence": "high",
-        "reason": "context_precision是RAG评估指标，属模型评估章节"
-      }
-    },
-    {
-      "qid": "12-5060",
-      "chapter": 12,
-      "chapter_name": "框架与工具",
-      "seq": "5060",
-      "type": 1,
-      "answer": "A,B,D",
-      "stem": "在 Dify 中管理知识库时，以下哪些操作是合理的？",
-      "predicted_chapter": 3,
-      "predicted_chapter_name": "RAG 检索增强生成",
-      "current_score": 0,
-      "top_score": 14,
-      "matched_keywords": [
-        "知识库",
-        "召回"
-      ],
-      "llm": {
-        "action": "move",
-        "chapter": 3,
-        "chapter_name": "RAG 检索增强生成",
-        "confidence": "high",
-        "reason": "考点为RAG中知识库的构建与评估"
-      }
-    },
-    {
-      "qid": "2-5023",
-      "chapter": 2,
-      "chapter_name": "提示工程",
-      "seq": "5023",
+      "qid": "11-0380",
+      "chapter": 11,
+      "chapter_name": "多模态 AI",
+      "seq": "0380",
       "type": 0,
       "answer": "B",
-      "stem": "对一份很长的合同进行自动修订时，为避免模型遗漏后半部分内容，最稳妥的做法是？",
-      "predicted_chapter": 3,
-      "predicted_chapter_name": "RAG 检索增强生成",
-      "current_score": 0,
-      "top_score": 14,
-      "matched_keywords": [
-        "超长文档",
-        "长文档"
-      ],
+      "stem": "在多模态协同学习框架下，不同模态的数据如何协作以提升学习效果？",
       "llm": {
-        "action": "move",
-        "chapter": 3,
-        "chapter_name": "RAG 检索增强生成",
-        "confidence": "high",
-        "reason": "考查长文档处理中的分块与上下文保持，属RAG核心实践"
-      }
-    },
-    {
-      "qid": "9-5001",
-      "chapter": 9,
-      "chapter_name": "API 调用与工具使用",
-      "seq": "5001",
-      "type": 0,
-      "answer": "C",
-      "stem": "某内容团队每天需要对约 5 万条历史评论做情感分类，任务不要求实时返回，团队希望尽量降低单位调用成本并减少对并发请求的管理。以下哪种调用方式最合适？",
-      "predicted_chapter": 6,
-      "predicted_chapter_name": "模型部署与推理优化",
-      "current_score": 0,
-      "top_score": 14,
-      "matched_keywords": [
-        "并发",
-        "延迟"
-      ],
-      "llm": {
-        "action": "move",
-        "chapter": 6,
-        "chapter_name": "模型部署与推理优化",
-        "confidence": "high",
-        "reason": "考点是批量异步处理以优化推理成本与部署效率"
-      }
-    },
-    {
-      "qid": "12-5055",
-      "chapter": 12,
-      "chapter_name": "框架与工具",
-      "seq": "5055",
-      "type": 0,
-      "answer": "D",
-      "stem": "在 Dify 中构建一个“只依据企业知识库回答”的问答应用，核心配置思路是？",
-      "predicted_chapter": 3,
-      "predicted_chapter_name": "RAG 检索增强生成",
-      "current_score": 0,
-      "top_score": 12,
-      "matched_keywords": [
-        "知识库"
-      ],
-      "llm": {
-        "action": "move",
-        "chapter": 3,
-        "chapter_name": "RAG 检索增强生成",
-        "confidence": "high",
-        "reason": "考点是RAG中知识库接入与提示约束，属RAG检索增强生成"
-      }
-    },
-    {
-      "qid": "12-5053",
-      "chapter": 12,
-      "chapter_name": "框架与工具",
-      "seq": "5053",
-      "type": 0,
-      "answer": "D",
-      "stem": "关于 Dify 的产品定位，下列描述最准确的是？",
-      "predicted_chapter": 3,
-      "predicted_chapter_name": "RAG 检索增强生成",
-      "current_score": 4,
-      "top_score": 14,
-      "matched_keywords": [
-        "知识库",
-        "向量数据库"
-      ],
-      "llm": {
-        "action": "move",
-        "chapter": 4,
-        "chapter_name": "Agent 智能体",
-        "confidence": "high",
-        "reason": "Dify 是 Agent 应用开发与编排平台，核心属于 Agent 智能体章节"
-      }
-    },
-    {
-      "qid": "8-5146",
-      "chapter": 8,
-      "chapter_name": "AI 安全与合规",
-      "seq": "5146",
-      "type": 0,
-      "answer": "C",
-      "stem": "WAF 针对 CC 攻击的主要防护思路是？",
-      "predicted_chapter": 6,
-      "predicted_chapter_name": "模型部署与推理优化",
-      "current_score": 0,
-      "top_score": 10,
-      "matched_keywords": [
-        "限流",
-        "GPU"
-      ],
-      "llm": {
-        "action": "remove",
-        "chapter": null,
+        "category": "own",
+        "exam_knowledge": "多模态数据协作机制",
+        "chapter": 0,
         "chapter_name": null,
-        "confidence": "high",
-        "reason": "考查WAF和CC攻击，属传统网络安全，非AI安全与合规"
+        "evidence": "多模态模型指能联合理解、生成两种及以上模态信息，并建立它们之间关联的模型与系统——例如把图片里的\"猫\"和文本里的\"猫\"对应起来。",
+        "reason": "考查多模态核心定义中的模态关联，属本章核心知识"
+      },
+      "_profile_stamp": "2026-10-02T14:37:19",
+      "evidence_check": {
+        "verified": false,
+        "mode": "missing"
       }
     },
     {
-      "qid": "12-5061",
-      "chapter": 12,
-      "chapter_name": "框架与工具",
-      "seq": "5061",
+      "qid": "11-0790",
+      "chapter": 11,
+      "chapter_name": "多模态 AI",
+      "seq": "0790",
       "type": 0,
-      "answer": "D",
-      "stem": "关于 LangChain 的定位，下列描述最准确的是？",
-      "predicted_chapter": 4,
-      "predicted_chapter_name": "Agent 智能体",
-      "current_score": 20,
-      "top_score": 28,
-      "matched_keywords": [
-        "Agent",
-        "agent"
-      ],
+      "answer": "B",
+      "stem": "某企业开发智能办公助手，要求模型能解析用户上传的 PDF 文档（含表格、公式），并回答相关问题。以下哪种技术方案最完整？",
       "llm": {
-        "action": "move",
-        "chapter": 4,
-        "chapter_name": "Agent 智能体",
-        "confidence": "high",
-        "reason": "LangChain核心是Agent编排与抽象，属Agent智能体章节"
+        "category": "own",
+        "exam_knowledge": "文档智能解析链路",
+        "chapter": 0,
+        "chapter_name": null,
+        "evidence": "文档智能解析链路（OCR+版面+结构化）",
+        "reason": "题目考查PDF解析需OCR+结构化+RAG，属本章核心知识"
+      },
+      "_profile_stamp": "2026-10-02T14:37:19",
+      "evidence_check": {
+        "verified": false,
+        "mode": "missing"
       }
     },
     {
-      "qid": "8-5145",
-      "chapter": 8,
-      "chapter_name": "AI 安全与合规",
-      "seq": "5145",
+      "qid": "11-0795",
+      "chapter": 11,
+      "chapter_name": "多模态 AI",
+      "seq": "0795",
+      "type": 0,
+      "answer": "A",
+      "stem": "某社交平台需自动屏蔽违规评论，要求同时处理文字、图片。以下哪种方案更合理？",
+      "llm": {
+        "category": "own",
+        "exam_knowledge": "多模态内容安全检测",
+        "chapter": 0,
+        "chapter_name": null,
+        "evidence": "多模态内容安全检测、AI 安全护栏与内容安全服务",
+        "reason": "题目考查多模态场景下的内容安全，属本章核心知识"
+      },
+      "_profile_stamp": "2026-10-02T14:37:19",
+      "evidence_check": {
+        "verified": false,
+        "mode": "missing"
+      }
+    },
+    {
+      "qid": "11-0839",
+      "chapter": 11,
+      "chapter_name": "多模态 AI",
+      "seq": "0839",
+      "type": 0,
+      "answer": "C",
+      "stem": "一个多模态大模型应用需要处理用户上传的图片并回答相关问题。如果用户上传的是一张模糊不清的图片，以下哪种处理方式最符合用户体验原则？",
+      "llm": {
+        "category": "own",
+        "exam_knowledge": "多模态应用用户体验原则",
+        "chapter": 0,
+        "chapter_name": null,
+        "evidence": "多模态的核心价值可以概括为三点：- 降低表达门槛：用户不必把图片、语音\"翻译\"成文字，拍照、说话即可；",
+        "reason": "考查多模态场景下对用户输入（图片）的健壮响应，属本章'多模态应用'实践原则"
+      },
+      "_profile_stamp": "2026-10-02T14:37:19",
+      "evidence_check": {
+        "verified": true,
+        "mode": "exact"
+      }
+    },
+    {
+      "qid": "11-0936",
+      "chapter": 11,
+      "chapter_name": "多模态 AI",
+      "seq": "0936",
+      "type": 0,
+      "answer": "B",
+      "stem": "在开发多模态应用时，需要模型根据图像生成描述文字。以下哪种架构最合适？",
+      "llm": {
+        "category": "own",
+        "exam_knowledge": "多模态模型 vs 纯文本LLM",
+        "chapter": 0,
+        "chapter_name": null,
+        "evidence": "多模态模型则能处理\"图文混合\"\"语音进语音出\"等更贴近人类的交互。",
+        "reason": "题目考查图像→文本生成任务需专用多模态模型，属本章核心知识"
+      },
+      "_profile_stamp": "2026-10-02T14:37:19",
+      "evidence_check": {
+        "verified": true,
+        "mode": "exact"
+      }
+    },
+    {
+      "qid": "11-0949",
+      "chapter": 11,
+      "chapter_name": "多模态 AI",
+      "seq": "0949",
+      "type": 0,
+      "answer": "B",
+      "stem": "在开发语音助手时，需要将语音转换为文本后再处理。以下哪种架构最合理？",
+      "llm": {
+        "category": "own",
+        "exam_knowledge": "ASR→LLM→TTS管道式架构",
+        "chapter": 0,
+        "chapter_name": null,
+        "evidence": "ASR + LLM + TTS 管道",
+        "reason": "题目考查语音助手典型管道架构，属本章核心知识"
+      },
+      "_profile_stamp": "2026-10-02T14:37:19",
+      "evidence_check": {
+        "verified": true,
+        "mode": "exact"
+      }
+    },
+    {
+      "qid": "11-1252",
+      "chapter": 11,
+      "chapter_name": "多模态 AI",
+      "seq": "1252",
+      "type": 0,
+      "answer": "A",
+      "stem": "检测图片中的违规文字信息必须使用的技术组合是?",
+      "llm": {
+        "category": "own",
+        "exam_knowledge": "多模态内容安全检测",
+        "chapter": 0,
+        "chapter_name": null,
+        "evidence": "多模态内容安全检测、AI 安全护栏与内容安全服务",
+        "reason": "题目考查图片文字违规检测，属多模态内容安全，原文明确提及"
+      },
+      "_profile_stamp": "2026-10-02T14:37:19",
+      "evidence_check": {
+        "verified": false,
+        "mode": "missing"
+      }
+    },
+    {
+      "qid": "11-1267",
+      "chapter": 11,
+      "chapter_name": "多模态 AI",
+      "seq": "1267",
+      "type": 0,
+      "answer": "B",
+      "stem": "使用 CosyVoice 将课程文本转换为音频时，以下哪项是关键参数？",
+      "llm": {
+        "category": "own",
+        "exam_knowledge": "TTS语音合成模型选择",
+        "chapter": 0,
+        "chapter_name": null,
+        "evidence": "ASR → 意图 → 检索/工具 → LLM → TTS",
+        "reason": "题目考查多模态生成链路中TTS环节的关键参数，属本章11.2节管道式架构核心内容"
+      },
+      "_profile_stamp": "2026-10-02T14:37:19",
+      "evidence_check": {
+        "verified": true,
+        "mode": "exact"
+      }
+    },
+    {
+      "qid": "11-0319",
+      "chapter": 11,
+      "chapter_name": "多模态 AI",
+      "seq": "0319",
+      "type": 0,
+      "answer": "C",
+      "stem": "在图文检索任务中，哪种技术被用来结合图像内容和关联文本描述，以提高检索的准确性？",
+      "llm": {
+        "category": "own",
+        "exam_knowledge": "图文对比学习（CLIP范式）",
+        "chapter": 0,
+        "chapter_name": null,
+        "evidence": "关键是**对比学习（CLIP 范式）**：训练时给模型大量\"图文对\"，把匹配的图文向量在空间中拉近、不匹配的推远。",
+        "reason": "题目考查图文检索基础技术，CLIP范式明确属于本章核心知识"
+      },
+      "_profile_stamp": "2026-10-02T14:37:19",
+      "evidence_check": {
+        "verified": true,
+        "mode": "exact"
+      }
+    },
+    {
+      "qid": "11-0375",
+      "chapter": 11,
+      "chapter_name": "多模态 AI",
+      "seq": "0375",
+      "type": 0,
+      "answer": "B",
+      "stem": "一家新创公司计划开发一个创新的智能助手应用，该应用需要能够与用户自然地交流并理解多种类型的输入数据。若该公司只能选择一种技术作为其核心功能的基础，以下哪项最适合作为这个智能助手的基础？",
+      "llm": {
+        "category": "own",
+        "exam_knowledge": "多模态模型的核心价值与适用场景",
+        "chapter": 0,
+        "chapter_name": null,
+        "evidence": "多模态的核心价值可以概括为三点：\\n- **降低表达门槛**：用户不必把图片、语音\\\"翻译\\\"成文字，拍照、说话即可；\\n- **获取文本没有的信息**：影像、表单、图表、语气、画面动作；\\n- **产出更丰富的载体**：从\\\"给一段文字\\",
+        "reason": "题目核心考查多模态模型作为智能助手基础的必要性，紧扣本章‘降低表达门槛+获取文本外信息+产出多载体’三大价值"
+      },
+      "_profile_stamp": "2026-10-02T14:37:19",
+      "evidence_check": {
+        "verified": false,
+        "mode": "missing"
+      }
+    },
+    {
+      "qid": "11-0338",
+      "chapter": 11,
+      "chapter_name": "多模态 AI",
+      "seq": "0338",
+      "type": 0,
+      "answer": "C",
+      "stem": "用户希望大模型根据描述创造一幅画，这需要开启哪个插件来实现？",
+      "llm": {
+        "category": "own",
+        "exam_knowledge": "多模态生成能力选型",
+        "chapter": 0,
+        "chapter_name": null,
+        "evidence": "生成：文本（+参考图）→ 图/音/视频 | 营销海报、AI 剧本动画、数字人播报、语音播报 | 文生图/视频扩散模型、TTS",
+        "reason": "考查文生图属于多模态生成主线，对应本章11.2节核心内容"
+      },
+      "_profile_stamp": "2026-10-02T14:37:19",
+      "evidence_check": {
+        "verified": false,
+        "mode": "missing"
+      }
+    },
+    {
+      "qid": "11-0358",
+      "chapter": 11,
+      "chapter_name": "多模态 AI",
+      "seq": "0358",
+      "type": 0,
+      "answer": "B",
+      "stem": "在百炼中开启图像生成服务插件后，用户如何与大模型互动来获取图片？",
+      "llm": {
+        "category": "own",
+        "exam_knowledge": "多模态生成：文生图交互方式",
+        "chapter": 0,
+        "chapter_name": null,
+        "evidence": "生成：文本（+参考图）→ 图/音/视频",
+        "reason": "考查文生图场景下用户输入模态（文本描述）与交互本质，属本章11.2节核心内容"
+      },
+      "_profile_stamp": "2026-10-02T14:37:19",
+      "evidence_check": {
+        "verified": false,
+        "mode": "missing"
+      }
+    },
+    {
+      "qid": "11-0381",
+      "chapter": 11,
+      "chapter_name": "多模态 AI",
+      "seq": "0381",
+      "type": 0,
+      "answer": "B",
+      "stem": "多模态学习的核心目标之一是实现不同模态数据间的有效整合。以下哪个步骤不属于典型的多模态学习处理流程？",
+      "llm": {
+        "category": "own",
+        "exam_knowledge": "多模态处理流程核心步骤",
+        "chapter": 0,
+        "chapter_name": null,
+        "evidence": "图文多模态模型的工作原理可以用一个公式概括：编码器 + 投影对齐 + 大语言模型。",
+        "reason": "题干考查多模态典型流程，原文明确给出‘编码器+对齐+大模型’三阶段范式，B项‘特征降维’未被列为本章核心流程"
+      },
+      "_profile_stamp": "2026-10-02T14:37:19",
+      "evidence_check": {
+        "verified": true,
+        "mode": "exact"
+      }
+    },
+    {
+      "qid": "11-0590",
+      "chapter": 11,
+      "chapter_name": "多模态 AI",
+      "seq": "0590",
       "type": 1,
-      "answer": "A,B,D",
-      "stem": "面对 DDoS 攻击，以下哪些防护措施是合理的？",
-      "predicted_chapter": 6,
-      "predicted_chapter_name": "模型部署与推理优化",
-      "current_score": 0,
-      "top_score": 8,
-      "matched_keywords": [
-        "限流"
-      ],
+      "answer": "A,C",
+      "stem": "以下关于大语言模型与多模态模型的描述中，正确的是？",
       "llm": {
-        "action": "move",
-        "chapter": 8,
-        "chapter_name": "AI 安全与合规",
-        "confidence": "high",
-        "reason": "DDoS防护属于AI系统安全防护范畴，归属AI安全与合规"
+        "category": "own",
+        "exam_knowledge": "多模态模型定义与能力边界",
+        "chapter": 0,
+        "chapter_name": null,
+        "evidence": "多模态 AI 指能联合理解、生成两种及以上模态信息，并建立它们之间关联的模型与系统——例如把图片里的\"猫\"和文本里的\"猫\"对应起来。",
+        "reason": "选项C直接考查多模态模型核心定义，完全匹配本章核心知识"
+      },
+      "_profile_stamp": "2026-10-02T14:37:19",
+      "evidence_check": {
+        "verified": true,
+        "mode": "exact"
       }
     },
     {
-      "qid": "12-5054",
-      "chapter": 12,
-      "chapter_name": "框架与工具",
-      "seq": "5054",
+      "qid": "11-0598",
+      "chapter": 11,
+      "chapter_name": "多模态 AI",
+      "seq": "0598",
       "type": 1,
       "answer": "A,B,C,D",
-      "stem": "Dify 平台通常提供以下哪些能力模块？",
-      "predicted_chapter": 3,
-      "predicted_chapter_name": "RAG 检索增强生成",
-      "current_score": 0,
-      "top_score": 6,
-      "matched_keywords": [
-        "知识库"
-      ],
+      "stem": "以下哪些是多模态学习在实际应用中的例子？",
       "llm": {
-        "action": "move",
-        "chapter": 10,
-        "chapter_name": "阿里云 AI 平台",
-        "confidence": "high",
-        "reason": "Dify是阿里云AI平台生态工具，考点为平台能力模块归属"
+        "category": "own",
+        "exam_knowledge": "多模态应用场景识别",
+        "chapter": 0,
+        "chapter_name": null,
+        "evidence": "多模态应用看似五花八门，其实可以归到三类，分清类别是做场景题的第一步。",
+        "reason": "题目考查多模态实际应用判断，完全对应本章11.2节核心内容"
+      },
+      "_profile_stamp": "2026-10-02T14:37:19",
+      "evidence_check": {
+        "verified": true,
+        "mode": "exact"
       }
     },
     {
-      "qid": "12-5057",
-      "chapter": 12,
-      "chapter_name": "框架与工具",
-      "seq": "5057",
+      "qid": "11-0601",
+      "chapter": 11,
+      "chapter_name": "多模态 AI",
+      "seq": "0601",
+      "type": 1,
+      "answer": "A,D",
+      "stem": "以下哪些场景体现了多模态学习的应用，且需要跨模态的信息转换或推理?",
+      "llm": {
+        "category": "own",
+        "exam_knowledge": "多模态应用场景识别",
+        "chapter": 0,
+        "chapter_name": null,
+        "evidence": "多模态应用看似五花八门，其实可以归到三类，分清类别是做场景题的第一步。",
+        "reason": "题目考查多模态典型场景，A属转换主线，D属理解主线，均在11.2节明确覆盖"
+      },
+      "_profile_stamp": "2026-10-02T14:37:19",
+      "evidence_check": {
+        "verified": true,
+        "mode": "exact"
+      }
+    },
+    {
+      "qid": "11-0615",
+      "chapter": 11,
+      "chapter_name": "多模态 AI",
+      "seq": "0615",
       "type": 1,
       "answer": "A,B,C,D",
-      "stem": "在 Dify 可视化工作流中，以下哪些节点类型属于常见能力？",
-      "predicted_chapter": 3,
-      "predicted_chapter_name": "RAG 检索增强生成",
-      "current_score": 0,
-      "top_score": 6,
-      "matched_keywords": [
-        "知识检索"
-      ],
+      "stem": "多模态学习中，哪些流程是关键步骤，旨在整合和协调不同模态的信息？",
       "llm": {
-        "action": "move",
-        "chapter": 4,
-        "chapter_name": "Agent 智能体",
-        "confidence": "high",
-        "reason": "Dify工作流节点属于Agent智能体编排能力"
+        "category": "own",
+        "exam_knowledge": "多模态关键流程：表征/对齐/融合/协同",
+        "chapter": 0,
+        "chapter_name": null,
+        "evidence": "多模态 AI 指能联合理解、生成两种及以上模态信息，并建立它们之间关联的模型与系统",
+        "reason": "题干四选项均属多模态核心处理流程，原文明确强调'建立模态间关联'"
+      },
+      "_profile_stamp": "2026-10-02T14:37:19",
+      "evidence_check": {
+        "verified": true,
+        "mode": "exact"
       }
     },
     {
-      "qid": "12-5058",
-      "chapter": 12,
-      "chapter_name": "框架与工具",
-      "seq": "5058",
-      "type": 0,
-      "answer": "C",
-      "stem": "调试 Dify 知识库问答应用时，发现模型回答正确但没有显示引用来源。应优先检查？",
-      "predicted_chapter": 3,
-      "predicted_chapter_name": "RAG 检索增强生成",
-      "current_score": 0,
-      "top_score": 6,
-      "matched_keywords": [
-        "知识库"
-      ],
+      "qid": "11-0618",
+      "chapter": 11,
+      "chapter_name": "多模态 AI",
+      "seq": "0618",
+      "type": 1,
+      "answer": "A,B,C",
+      "stem": "在多模态对齐技术中，哪些方法可以用来确保不同模态数据间的时序一致性？",
       "llm": {
-        "action": "move",
+        "category": "own",
+        "exam_knowledge": "多模态对齐技术与时序一致性",
+        "chapter": 0,
+        "chapter_name": null,
+        "evidence": "视频理解=抽帧+ASR+时序对齐",
+        "reason": "题干考查的时序对齐是本章明确列出的核心知识"
+      },
+      "_profile_stamp": "2026-10-02T14:37:19",
+      "evidence_check": {
+        "verified": false,
+        "mode": "missing"
+      }
+    },
+    {
+      "qid": "11-0709",
+      "chapter": 11,
+      "chapter_name": "多模态 AI",
+      "seq": "0709",
+      "type": 1,
+      "answer": "C,D",
+      "stem": "关于多模态技术底层原理，正确的说法是？",
+      "llm": {
+        "category": "own",
+        "exam_knowledge": "多模态模型将图像分词化处理",
+        "chapter": 0,
+        "chapter_name": null,
+        "evidence": "把图像切成若干固定大小的小块（patch），每个 patch 经编码器转成一个向量，即\"视觉 Token\"",
+        "reason": "C项直击11.3节'把一切都变成 Token'核心原理；D项属语音合成个性化，对应本章'音色克隆+会话记忆'"
+      },
+      "_profile_stamp": "2026-10-02T14:37:19",
+      "evidence_check": {
+        "verified": true,
+        "mode": "exact"
+      }
+    },
+    {
+      "qid": "11-0764",
+      "chapter": 11,
+      "chapter_name": "多模态 AI",
+      "seq": "0764",
+      "type": 0,
+      "answer": "B",
+      "stem": "某开发者开发大模型应用时，需实现‘用户输入语音指令，模型生成文本回复’的功能。以下哪种技术组合最完整？",
+      "llm": {
+        "category": "own",
+        "exam_knowledge": "ASR→LLM管道式架构",
+        "chapter": 0,
+        "chapter_name": null,
+        "evidence": "画出个性化语音助手\"ASR → 意图 → 检索/工具 → LLM → TTS\"的端到端链路",
+        "reason": "题目考查多模态语音输入处理的核心管道，属本章11.2节核心内容"
+      },
+      "_profile_stamp": "2026-10-02T14:37:19",
+      "evidence_check": {
+        "verified": true,
+        "mode": "exact"
+      }
+    },
+    {
+      "qid": "11-0882",
+      "chapter": 11,
+      "chapter_name": "多模态 AI",
+      "seq": "0882",
+      "type": 1,
+      "answer": "A,B,C",
+      "stem": "在大模型多模态应用开发中（如文本 + 图像），以下哪些技术组件是必要的？",
+      "llm": {
+        "category": "own",
+        "exam_knowledge": "多模态应用必要技术组件",
+        "chapter": 0,
+        "chapter_name": null,
+        "evidence": "多模态应用看似五花八门，其实可以归到三类，分清类别是做场景题的第一步。",
+        "reason": "题目考查多模态应用架构要素，对应本章11.2节管道式架构与技术组合"
+      },
+      "_profile_stamp": "2026-10-02T14:37:19",
+      "evidence_check": {
+        "verified": true,
+        "mode": "exact"
+      }
+    },
+    {
+      "qid": "11-1039",
+      "chapter": 11,
+      "chapter_name": "多模态 AI",
+      "seq": "1039",
+      "type": 0,
+      "answer": "B",
+      "stem": "下列做法不能“保证关键数据的语义独立性与完整性”？",
+      "llm": {
+        "category": "misplaced",
+        "exam_knowledge": "文档解析中语义单元边界处理",
         "chapter": 3,
         "chapter_name": "RAG 检索增强生成",
-        "confidence": "high",
-        "reason": "考点是RAG中知识库检索与引用来源配置"
+        "evidence": "文档解析与结构保留",
+        "reason": "考查RAG中文档解析的语义切分原则，属第3章RAG核心知识"
+      },
+      "_profile_stamp": "2026-10-02T14:37:19",
+      "evidence_check": {
+        "verified": false,
+        "mode": "missing"
       }
     },
     {
-      "qid": "2-5015",
-      "chapter": 2,
-      "chapter_name": "提示工程",
-      "seq": "5015",
+      "qid": "11-1051",
+      "chapter": 11,
+      "chapter_name": "多模态 AI",
+      "seq": "1051",
       "type": 0,
       "answer": "D",
-      "stem": "某意图分类应用上线后出现大量误判。最应优先检查的是？",
-      "predicted_chapter": 6,
-      "predicted_chapter_name": "模型部署与推理优化",
-      "current_score": 0,
-      "top_score": 6,
-      "matched_keywords": [
-        "GPU",
-        "延迟"
-      ],
+      "stem": "如果一款大模型无法理解复杂图片中的信息，应该采取什么策略？",
       "llm": {
-        "action": "move",
-        "chapter": 7,
-        "chapter_name": "模型评估",
-        "confidence": "high",
-        "reason": "考点是分类任务误判根因，属模型评估中的错误分析"
+        "category": "own",
+        "exam_knowledge": "多模态模型理解图像信息",
+        "chapter": 0,
+        "chapter_name": null,
+        "evidence": "多模态模型则能处理\"图文混合\"\"语音进语音出\"等更贴近人类的交互。",
+        "reason": "考查多模态图像理解能力，属第11章核心知识"
+      },
+      "_profile_stamp": "2026-10-02T14:37:19",
+      "evidence_check": {
+        "verified": true,
+        "mode": "exact"
       }
     },
     {
-      "qid": "2-5022",
-      "chapter": 2,
-      "chapter_name": "提示工程",
-      "seq": "5022",
-      "type": 0,
-      "answer": "D",
-      "stem": "模型在自动修订时把未要求修改的段落也一并改写了。以下哪种控制手段最直接有效？",
-      "predicted_chapter": 1,
-      "predicted_chapter_name": "大模型基础",
-      "current_score": 2,
-      "top_score": 8,
-      "matched_keywords": [
-        "Token"
-      ],
-      "llm": {
-        "action": "move",
-        "chapter": 2,
-        "chapter_name": "提示工程",
-        "confidence": "high",
-        "reason": "考点是提示设计中的任务边界与约束控制，属提示工程核心"
-      }
-    },
-    {
-      "qid": "12-5059",
-      "chapter": 12,
-      "chapter_name": "框架与工具",
-      "seq": "5059",
-      "type": 0,
-      "answer": "B",
-      "stem": "Dify 支持接入多个模型提供方，这一能力的主要价值是？",
-      "predicted_chapter": 5,
-      "predicted_chapter_name": "模型微调与训练",
-      "current_score": 0,
-      "top_score": 5,
-      "matched_keywords": [
-        "训练过程",
-        "模型训练"
-      ],
-      "llm": {
-        "action": "move",
-        "chapter": 9,
-        "chapter_name": "API 调用与工具使用",
-        "confidence": "high",
-        "reason": "考查Dify作为工具对多模型提供方的API接入与管理能力"
-      }
-    },
-    {
-      "qid": "2-5009",
-      "chapter": 2,
-      "chapter_name": "提示工程",
-      "seq": "5009",
+      "qid": "11-1277",
+      "chapter": 11,
+      "chapter_name": "多模态 AI",
+      "seq": "1277",
       "type": 1,
-      "answer": "B,C,D",
-      "stem": "以下哪些是提示词中使用分隔符的常见作用？",
-      "predicted_chapter": 1,
-      "predicted_chapter_name": "大模型基础",
-      "current_score": 5,
-      "top_score": 10,
-      "matched_keywords": [
-        "幻觉",
-        "模型输出"
-      ],
+      "answer": "A,B,D",
+      "stem": "视频合规检测的关键技术包括?",
       "llm": {
-        "action": "keep",
-        "chapter": null,
+        "category": "own",
+        "exam_knowledge": "视频理解=抽帧+ASR+时序对齐",
+        "chapter": 0,
         "chapter_name": null,
-        "confidence": "high",
-        "reason": "考点为提示词设计技巧中的分隔符作用，属提示工程核心内容"
+        "evidence": "视频理解=抽帧+ASR+时序对齐",
+        "reason": "题干与选项均对应本章明确定义的视频理解技术链路"
+      },
+      "_profile_stamp": "2026-10-02T14:37:19",
+      "evidence_check": {
+        "verified": false,
+        "mode": "missing"
       }
     },
     {
-      "qid": "3-5025",
-      "chapter": 3,
-      "chapter_name": "RAG 检索增强生成",
-      "seq": "5025",
-      "type": 0,
-      "answer": "A",
-      "stem": "关于“句子窗口检索”，下列描述最准确的是？",
-      "predicted_chapter": 1,
-      "predicted_chapter_name": "大模型基础",
-      "current_score": 0,
-      "top_score": 5,
-      "matched_keywords": [
-        "上下文窗口"
-      ],
+      "qid": "11-1295",
+      "chapter": 11,
+      "chapter_name": "多模态 AI",
+      "seq": "1295",
+      "type": 1,
+      "answer": "A,B,D",
+      "stem": "下列关于大规模语言模型如 GPT 的陈述哪些是正确的的?",
       "llm": {
-        "action": "keep",
-        "chapter": null,
+        "category": "own",
+        "exam_knowledge": "多模态模型vs纯文本LLM",
+        "chapter": 0,
         "chapter_name": null,
-        "confidence": "high",
-        "reason": "考点为RAG中细粒度检索策略，属RAG核心方法"
+        "evidence": "多模态模型则能处理\"图文混合\"\"语音进语音出\"等更贴近人类的交互。",
+        "reason": "D选项考查GPT是否集成多模态功能，属本章核心对比知识"
+      },
+      "_profile_stamp": "2026-10-02T14:37:19",
+      "evidence_check": {
+        "verified": true,
+        "mode": "exact"
       }
     },
     {
-      "qid": "4-5101",
-      "chapter": 4,
-      "chapter_name": "Agent 智能体",
-      "seq": "5101",
-      "type": 0,
-      "answer": "A",
-      "stem": "在百炼 Assistant API 中，若同一个 Assistant 需要同时服务多个用户会话且互不串扰，应当使用以下哪个对象来承载并隔离每个用户的多轮上下文？",
-      "predicted_chapter": 10,
-      "predicted_chapter_name": "阿里云 AI 平台",
-      "current_score": 0,
-      "top_score": 5,
-      "matched_keywords": [
-        "百炼"
-      ],
+      "qid": "11-1408",
+      "chapter": 11,
+      "chapter_name": "多模态 AI",
+      "seq": "1408",
+      "type": 1,
+      "answer": "A,B,C,D",
+      "stem": "在使用 CosyVoice 将文本转化为语音的过程中，可能遇到哪些挑战？",
       "llm": {
-        "action": "move",
-        "chapter": 9,
-        "chapter_name": "API 调用与工具使用",
-        "confidence": "high",
-        "reason": "考查百炼 Assistant API 的核心对象使用，属 API 调用与工具使用"
+        "category": "own",
+        "exam_knowledge": "TTS语音合成挑战",
+        "chapter": 0,
+        "chapter_name": null,
+        "evidence": "ASR→LLM→TTS管道式架构",
+        "reason": "TTS属于多模态生成与转换核心环节，题干直指语音合成质量挑战"
+      },
+      "_profile_stamp": "2026-10-02T14:37:19",
+      "evidence_check": {
+        "verified": false,
+        "mode": "missing"
       }
     },
     {
-      "qid": "8-5137",
-      "chapter": 8,
-      "chapter_name": "AI 安全与合规",
-      "seq": "5137",
+      "qid": "11-0010",
+      "chapter": 11,
+      "chapter_name": "多模态 AI",
+      "seq": "0010",
       "type": 0,
       "answer": "B",
-      "stem": "在 AI Web 应用前部署 WAF，最主要的作用是？",
-      "predicted_chapter": 6,
-      "predicted_chapter_name": "模型部署与推理优化",
-      "current_score": 0,
-      "top_score": 5,
-      "matched_keywords": [
-        "GPU",
-        "推理速度"
-      ],
+      "stem": "你开发智能会议助手时遇到技术问题，“需要将会议记录转译为文字记录，并且自动生成带有重点标注的摘要，最后将摘要内容转换为语音播报”。以下技术组合中最合理的是？",
       "llm": {
-        "action": "move",
+        "category": "own",
+        "exam_knowledge": "ASR→LLM→TTS管道式架构",
+        "chapter": 0,
+        "chapter_name": null,
+        "evidence": "画出个性化语音助手\"ASR → 意图 → 检索/工具 → LLM → TTS\"的端到端链路",
+        "reason": "题目考查多模态语音交互管道，属本章核心知识"
+      },
+      "_profile_stamp": "2026-10-02T14:37:19",
+      "evidence_check": {
+        "verified": true,
+        "mode": "exact"
+      }
+    },
+    {
+      "qid": "11-0464",
+      "chapter": 11,
+      "chapter_name": "多模态 AI",
+      "seq": "0464",
+      "type": 1,
+      "answer": "A,B,D",
+      "stem": "在使用大模型提炼图文课程内容时，以下哪些内容组织原则是正确的？",
+      "llm": {
+        "category": "own",
+        "exam_knowledge": "多模态内容组织与呈现",
+        "chapter": 0,
+        "chapter_name": null,
+        "evidence": "产出更丰富的载体：从\"给一段文字\"升级到\"给一张图、一段语音、一条视频\"。",
+        "reason": "题干聚焦图文课程内容提炼，涉及图文协同呈现，属多模态生成与理解的实践原则"
+      },
+      "_profile_stamp": "2026-10-02T14:37:19",
+      "evidence_check": {
+        "verified": true,
+        "mode": "exact"
+      }
+    },
+    {
+      "qid": "11-0637",
+      "chapter": 11,
+      "chapter_name": "多模态 AI",
+      "seq": "0637",
+      "type": 1,
+      "answer": "A,B,D,F",
+      "stem": "关于智能体应用中的图片合规检查技术，下列说法正确的有哪些？",
+      "llm": {
+        "category": "misplaced",
+        "exam_knowledge": "图片合规检查技术选型",
         "chapter": 8,
         "chapter_name": "AI 安全与合规",
-        "confidence": "high",
-        "reason": "WAF属于AI系统外部安全防护，归属AI安全与合规"
+        "evidence": "多模态内容安全检测",
+        "reason": "题目核心考查图片内容安全检测技术，属第8章AI安全与合规范畴"
+      },
+      "_profile_stamp": "2026-10-02T14:37:19",
+      "evidence_check": {
+        "verified": false,
+        "mode": "missing"
       }
     },
     {
-      "qid": "8-5147",
-      "chapter": 8,
-      "chapter_name": "AI 安全与合规",
-      "seq": "5147",
-      "type": 0,
-      "answer": "D",
-      "stem": "大模型应用上线前的内容安全合规检查，最合适的做法是？",
-      "predicted_chapter": 3,
-      "predicted_chapter_name": "RAG 检索增强生成",
-      "current_score": 9,
-      "top_score": 14,
-      "matched_keywords": [
-        "知识库",
-        "检查知识库"
-      ],
+      "qid": "11-0675",
+      "chapter": 11,
+      "chapter_name": "多模态 AI",
+      "seq": "0675",
+      "type": 1,
+      "answer": "A,B,C,E",
+      "stem": "当大模型应用需要处理多模态信息（如图文结合）时，以下哪些方案是可行的？（）",
       "llm": {
-        "action": "keep",
-        "chapter": null,
+        "category": "own",
+        "exam_knowledge": "多模态处理方案选择",
+        "chapter": 0,
         "chapter_name": null,
-        "confidence": "high",
-        "reason": "考点为AI内容安全的全链路合规检查，属AI安全与合规核心内容"
+        "evidence": "多模态模型则能处理\"图文混合\"\"语音进语音出\"等更贴近人类的交互。",
+        "reason": "题目考查多模态信息处理的可行路径，完全对应本章核心知识"
+      },
+      "_profile_stamp": "2026-10-02T14:37:19",
+      "evidence_check": {
+        "verified": true,
+        "mode": "exact"
       }
     },
     {
-      "qid": "1-0107",
-      "chapter": 1,
-      "chapter_name": "大模型基础",
-      "seq": "0107",
-      "type": 0,
-      "answer": "A",
-      "stem": "Dataset.from_dict(data_samples) 的主要作用是什么？",
-      "predicted_chapter": 12,
-      "predicted_chapter_name": "框架与工具",
-      "current_score": 4,
-      "top_score": 7,
-      "matched_keywords": [
-        "Dataset.from_dict"
-      ],
+      "qid": "11-0897",
+      "chapter": 11,
+      "chapter_name": "多模态 AI",
+      "seq": "0897",
+      "type": 1,
+      "answer": "A,B,C,D,E",
+      "stem": "在构建对话系统时，以下哪些功能可以提升用户体验？",
       "llm": {
-        "action": "move",
+        "category": "cross",
+        "exam_knowledge": "多模态交互支持",
+        "chapter": 0,
+        "chapter_name": null,
+        "evidence": "用户不必把图片、语音\"翻译\"成文字，拍照、说话即可",
+        "reason": "C项明确属于本章核心价值（降低表达门槛），其余选项为通用对话系统能力"
+      },
+      "_profile_stamp": "2026-10-02T14:37:19",
+      "evidence_check": {
+        "verified": true,
+        "mode": "exact"
+      }
+    },
+    {
+      "qid": "11-1035",
+      "chapter": 11,
+      "chapter_name": "多模态 AI",
+      "seq": "1035",
+      "type": 1,
+      "answer": "A,C",
+      "stem": "以下关于 CosyVoice 的描述，哪些是正确的？",
+      "llm": {
+        "category": "own",
+        "exam_knowledge": "TTS模型能力边界",
+        "chapter": 0,
+        "chapter_name": null,
+        "evidence": "ASR → 意图 → 检索/工具 → LLM → TTS\"的端到端链路",
+        "reason": "题目考查TTS在多模态语音链路中的定位，属本章核心知识"
+      },
+      "_profile_stamp": "2026-10-02T14:37:19",
+      "evidence_check": {
+        "verified": true,
+        "mode": "exact"
+      }
+    },
+    {
+      "qid": "11-1159",
+      "chapter": 11,
+      "chapter_name": "多模态 AI",
+      "seq": "1159",
+      "type": 1,
+      "answer": "A,B,D,E,F",
+      "stem": "以下哪些任务可以使用 ffmpeg 完成?",
+      "llm": {
+        "category": "beyond",
+        "exam_knowledge": "ffmpeg音视频处理能力",
+        "chapter": 0,
+        "chapter_name": null,
+        "evidence": "无",
+        "reason": "ffmpeg属于通用音视频工具，不在任何章节知识画像范围内"
+      },
+      "_profile_stamp": "2026-10-02T14:37:19",
+      "evidence_check": {
+        "verified": null,
+        "mode": "none"
+      }
+    },
+    {
+      "qid": "11-1246",
+      "chapter": 11,
+      "chapter_name": "多模态 AI",
+      "seq": "1246",
+      "type": 1,
+      "answer": "B,C,D,E",
+      "stem": "关于智能体场景下图片合规检测的技术手段，下列说法正确的有哪些？",
+      "llm": {
+        "category": "own",
+        "exam_knowledge": "多模态内容安全检测",
+        "chapter": 0,
+        "chapter_name": null,
+        "evidence": "多模态内容安全检测、AI 安全护栏与内容安全服务",
+        "reason": "题干明确指向图片合规检测，属本章‘多模态内容安全检测’核心知识"
+      },
+      "_profile_stamp": "2026-10-02T14:37:19",
+      "evidence_check": {
+        "verified": false,
+        "mode": "missing"
+      }
+    },
+    {
+      "qid": "11-1409",
+      "chapter": 11,
+      "chapter_name": "多模态 AI",
+      "seq": "1409",
+      "type": 1,
+      "answer": "A,B,C",
+      "stem": "在使用 FFmpeg 和 MoviePy 进行视频处理时，下列哪几项操作是可以实现的？（多选）",
+      "llm": {
+        "category": "beyond",
+        "exam_knowledge": "FFmpeg/MoviePy视频处理操作",
+        "chapter": 0,
+        "chapter_name": null,
+        "evidence": "无",
+        "reason": "工具链细节超出所有章节范围，未在任何章画像中提及"
+      },
+      "_profile_stamp": "2026-10-02T14:37:19",
+      "evidence_check": {
+        "verified": null,
+        "mode": "none"
+      }
+    },
+    {
+      "qid": "11-1410",
+      "chapter": 11,
+      "chapter_name": "多模态 AI",
+      "seq": "1410",
+      "type": 1,
+      "answer": "C,D,E",
+      "stem": "在使用大模型提炼图文课程内容时，以下哪些表达策略是正确的？",
+      "llm": {
+        "category": "own",
+        "exam_knowledge": "多模态生成与内容安全强耦合",
+        "chapter": 0,
+        "chapter_name": null,
+        "evidence": "多模态生成与内容安全强耦合",
+        "reason": "题目考查图文结合的表达策略，属多模态生成实践要点"
+      },
+      "_profile_stamp": "2026-10-02T14:37:19",
+      "evidence_check": {
+        "verified": false,
+        "mode": "missing"
+      }
+    },
+    {
+      "qid": "11-1414",
+      "chapter": 11,
+      "chapter_name": "多模态 AI",
+      "seq": "1414",
+      "type": 2,
+      "answer": "A,B,C",
+      "stem": "在大模型多模态应用开发中（如文本 + 图像），以下哪些技术组件是必要的？（多选，4 个选项）",
+      "llm": {
+        "category": "own",
+        "exam_knowledge": "多模态模型架构与必要组件",
+        "chapter": 0,
+        "chapter_name": null,
+        "evidence": "多模态模型则能处理\"图文混合\"\"语音进语音出\"等更贴近人类的交互。",
+        "reason": "题目考查多模态应用必需组件，紧扣本章‘编码器-对齐-大模型’架构及模态协同本质"
+      },
+      "_profile_stamp": "2026-10-02T14:37:19",
+      "evidence_check": {
+        "verified": true,
+        "mode": "exact"
+      }
+    },
+    {
+      "qid": "11-0643",
+      "chapter": 11,
+      "chapter_name": "多模态 AI",
+      "seq": "0643",
+      "type": 1,
+      "answer": "A,B,D",
+      "stem": "在使用 CosyVoice 进行语音合成时，哪些做法有助于保证音频质量和自然度？",
+      "llm": {
+        "category": "own",
+        "exam_knowledge": "TTS合成质量影响因素",
+        "chapter": 0,
+        "chapter_name": null,
+        "evidence": "个性化语音助手=音色克隆+会话记忆",
+        "reason": "题干考查CosyVoice（TTS）质量保障，属本章「ASR→LLM→TTS管道式架构」及语音助手实践范畴"
+      },
+      "_profile_stamp": "2026-10-02T14:37:19",
+      "evidence_check": {
+        "verified": false,
+        "mode": "missing"
+      }
+    },
+    {
+      "qid": "11-1100",
+      "chapter": 11,
+      "chapter_name": "多模态 AI",
+      "seq": "1100",
+      "type": 1,
+      "answer": "A,B,C",
+      "stem": "你负责的短视频平台在接入多模态技术后出现故障。1: 用户输入“生成夏日海滩 vlog 背景”时，系统返回静态图片而非视频 2: 视频自动剪辑功能无法识别冲浪板等特定物体 3: 添加的 AI 解说语音与动画动作不同步需要重点检查的技术环节是?",
+      "llm": {
+        "category": "own",
+        "exam_knowledge": "多模态生成与视频理解技术边界",
+        "chapter": 0,
+        "chapter_name": null,
+        "evidence": "生成：文本（+参考图）→ 图/音/视频；文生图/视频扩散模型、TTS",
+        "reason": "题目考查文生图vs文生视频能力边界及视频理解要素，属本章核心知识"
+      },
+      "_profile_stamp": "2026-10-02T14:37:19",
+      "evidence_check": {
+        "verified": false,
+        "mode": "missing"
+      }
+    },
+    {
+      "qid": "11-1413",
+      "chapter": 11,
+      "chapter_name": "多模态 AI",
+      "seq": "1413",
+      "type": 1,
+      "answer": "A,B,E",
+      "stem": "在使用 CosyVoice 合成语音时，哪些方式有助于提升最终音频的自然度与质量？",
+      "llm": {
+        "category": "own",
+        "exam_knowledge": "语音合成质量优化方法",
+        "chapter": 0,
+        "chapter_name": null,
+        "evidence": "语音助手个性化=音色克隆+会话记忆",
+        "reason": "题干考查CosyVoice（TTS）质量优化，属本章「ASR→LLM→TTS管道式架构」及语音生成实践"
+      },
+      "_profile_stamp": "2026-10-02T14:37:19",
+      "evidence_check": {
+        "verified": false,
+        "mode": "missing"
+      }
+    },
+    {
+      "qid": "11-1441",
+      "chapter": 11,
+      "chapter_name": "多模态 AI",
+      "seq": "1441",
+      "type": 1,
+      "answer": "B",
+      "stem": "某开发者开发大模型应用时，需实现 “用户输入语音指令，模型生成文本回复” 的功能。以下哪种技术组合最完整？",
+      "llm": {
+        "category": "own",
+        "exam_knowledge": "ASR→LLM管道式架构",
+        "chapter": 0,
+        "chapter_name": null,
+        "evidence": "画出个性化语音助手\"ASR → 意图 → 检索/工具 → LLM → TTS\"的端到端链路",
+        "reason": "题目考查语音输入到文本回复的核心链路，对应本章11.2节管道式架构"
+      },
+      "_profile_stamp": "2026-10-02T14:37:19",
+      "evidence_check": {
+        "verified": true,
+        "mode": "exact"
+      }
+    },
+    {
+      "qid": "11-0784",
+      "chapter": 11,
+      "chapter_name": "多模态 AI",
+      "seq": "0784",
+      "type": 1,
+      "answer": "A,B,C",
+      "stem": "某企业开发大模型多模态应用，要求‘用户上传产品图片→模型识别产品特征→生成推广文案’。以下哪些技术组件需集成?",
+      "llm": {
+        "category": "own",
+        "exam_knowledge": "多模态应用技术组件选型",
+        "chapter": 0,
+        "chapter_name": null,
+        "evidence": "多模态应用看似五花八门，其实可以归到三类，分清类别是做场景题的第一步。",
+        "reason": "题目考查图像→文本→生成链路中的组件选型，属本章11.2节'理解→生成'主线与管道式架构核心内容"
+      },
+      "_profile_stamp": "2026-10-02T14:37:19",
+      "evidence_check": {
+        "verified": true,
+        "mode": "exact"
+      }
+    },
+    {
+      "qid": "11-1032",
+      "chapter": 11,
+      "chapter_name": "多模态 AI",
+      "seq": "1032",
+      "type": 1,
+      "answer": "A,B,D,F",
+      "stem": "以下哪些 Python 库可以用于处理视频或图像？",
+      "llm": {
+        "category": "misplaced",
+        "exam_knowledge": "Python图像视频处理库",
         "chapter": 12,
         "chapter_name": "框架与工具",
-        "confidence": "high",
-        "reason": "Dataset.from_dict是Hugging Face datasets库的工具方法，属框架与工具范畴"
+        "evidence": "无",
+        "reason": "考查第三方库功能，属工程工具链知识，对应第12章框架与工具"
+      },
+      "_profile_stamp": "2026-10-02T14:37:19",
+      "evidence_check": {
+        "verified": null,
+        "mode": "none"
       }
     },
     {
-      "qid": "10-1096",
-      "chapter": 10,
-      "chapter_name": "阿里云 AI 平台",
-      "seq": "1096",
+      "qid": "11-0740",
+      "chapter": 11,
+      "chapter_name": "多模态 AI",
+      "seq": "0740",
       "type": 1,
-      "answer": "B,D",
-      "stem": "你发现大量员工信息都存放在 PDF、Word 文档里，部分还包含表格和图片，RAG 无法正确提取关键信息。你可以怎么处理？",
-      "predicted_chapter": 11,
-      "predicted_chapter_name": "多模态 AI",
-      "current_score": 5,
-      "top_score": 8,
-      "matched_keywords": [
-        "OCR",
-        "图片"
-      ],
+      "answer": "A,B,C",
+      "stem": "某公司开发大模型智能办公助手，要求实现“会议录音转文字→生成会议纪要→提取待办事项”的功能。以下哪些技术组合可支撑该需求？（多选，5个选项，2-5个正确）",
       "llm": {
-        "action": "move",
-        "chapter": 3,
-        "chapter_name": "RAG 检索增强生成",
-        "confidence": "high",
-        "reason": "考点是RAG中非结构化文档的解析预处理"
+        "category": "own",
+        "exam_knowledge": "ASR→LLM→TTS管道式架构",
+        "chapter": 0,
+        "chapter_name": null,
+        "evidence": "画出个性化语音助手\"ASR → 意图 → 检索/工具 → LLM → TTS\"的端到端链路",
+        "reason": "题干考查会议录音转文字→纪要→待办的多模态管道链路，对应本章核心知识点"
+      },
+      "_profile_stamp": "2026-10-02T14:37:19",
+      "evidence_check": {
+        "verified": true,
+        "mode": "exact"
       }
     },
     {
-      "qid": "10-1122",
-      "chapter": 10,
-      "chapter_name": "阿里云 AI 平台",
-      "seq": "1122",
+      "qid": "11-0786",
+      "chapter": 11,
+      "chapter_name": "多模态 AI",
+      "seq": "0786",
+      "type": 1,
+      "answer": "A,B,C,D",
+      "stem": "某企业开发大模型文档问答系统，要求支持PDF、Word、Excel多种格式文档的上传与问答。以下哪些技术工具需集成?",
+      "llm": {
+        "category": "own",
+        "exam_knowledge": "文档智能解析链路",
+        "chapter": 0,
+        "chapter_name": null,
+        "evidence": "文档智能解析链路（OCR+版面+结构化）",
+        "reason": "题目考查多格式文档解析所需工具，对应本章核心知识中的文档智能解析链路"
+      },
+      "_profile_stamp": "2026-10-02T14:37:19",
+      "evidence_check": {
+        "verified": false,
+        "mode": "missing"
+      }
+    },
+    {
+      "qid": "11-5157",
+      "chapter": 11,
+      "chapter_name": "多模态 AI",
+      "seq": "5157",
       "type": 0,
       "answer": "C",
-      "stem": "某企业计划通过阿里云平台构建一个大模型应用，用于处理对实时性要求不高的任务（如离线招生成、批量内容摘要提取等）。为了在满足业务需求的同时降低运行成本，以下哪种措施可以最有效地优化成本？",
-      "predicted_chapter": 6,
-      "predicted_chapter_name": "模型部署与推理优化",
-      "current_score": 45,
-      "top_score": 48,
-      "matched_keywords": [
-        "Context Cache",
-        "上下文缓存",
-        "批量推理"
-      ],
+      "stem": "个性化语音助手需要长期保持同一音色，最关键的实现方式是？",
       "llm": {
-        "action": "move",
-        "chapter": 6,
-        "chapter_name": "模型部署与推理优化",
-        "confidence": "high",
-        "reason": "考点是批量推理服务的成本优化，属模型部署与推理优化"
+        "category": "own",
+        "exam_knowledge": "语音助手个性化=音色克隆+会话记忆",
+        "chapter": 0,
+        "chapter_name": null,
+        "evidence": "语音助手个性化=音色克隆+会话记忆",
+        "reason": "题干与选项直指本章明确列出的核心知识要点"
+      },
+      "_profile_stamp": "2026-10-02T14:37:19",
+      "evidence_check": {
+        "verified": false,
+        "mode": "missing"
       }
     },
     {
-      "qid": "10-5155",
-      "chapter": 10,
-      "chapter_name": "阿里云 AI 平台",
-      "seq": "5155",
-      "type": 0,
-      "answer": "A",
-      "stem": "在百炼 Assistant API 中，创建 Assistant 时配置的 instructions 主要用于？",
-      "predicted_chapter": 8,
-      "predicted_chapter_name": "AI 安全与合规",
-      "current_score": 5,
-      "top_score": 8,
-      "matched_keywords": [
-        "安全",
-        "内容安全"
-      ],
+      "qid": "11-5158",
+      "chapter": 11,
+      "chapter_name": "多模态 AI",
+      "seq": "5158",
+      "type": 1,
+      "answer": "A,B,D",
+      "stem": "构建一个能听懂指令并语音回复的个性化助手，以下哪些能力是核心组成？",
       "llm": {
-        "action": "move",
-        "chapter": 9,
-        "chapter_name": "API 调用与工具使用",
-        "confidence": "high",
-        "reason": "考查百炼Assistant API的instructions参数用途，属API调用与工具使用"
+        "category": "own",
+        "exam_knowledge": "语音助手ASR→LLM→TTS管道架构",
+        "chapter": 0,
+        "chapter_name": null,
+        "evidence": "画出个性化语音助手\"ASR → 意图 → 检索/工具 → LLM → TTS\"的端到端链路",
+        "reason": "题目直接考查本章明确列出的核心能力链路"
+      },
+      "_profile_stamp": "2026-10-02T14:37:19",
+      "evidence_check": {
+        "verified": true,
+        "mode": "exact"
       }
     },
     {
-      "qid": "3-1176",
-      "chapter": 3,
-      "chapter_name": "RAG 检索增强生成",
-      "seq": "1176",
-      "type": 0,
-      "answer": "B",
-      "stem": "replacements 的作用是： python ...def get_documents(path): # 读取目录下所有文档 documents = SimpleDirectoryReader(path).load_data() # ",
-      "predicted_chapter": 12,
-      "predicted_chapter_name": "框架与工具",
-      "current_score": 4,
-      "top_score": 7,
-      "matched_keywords": [
-        "SimpleDirectoryReader"
-      ],
-      "llm": {
-        "action": "move",
-        "chapter": 9,
-        "chapter_name": "API 调用与工具使用",
-        "confidence": "high",
-        "reason": "考点是Python字符串替换操作及LlamaIndex文本预处理，属API/工具使用细节"
-      }
-    },
-    {
-      "qid": "5-0149",
-      "chapter": 5,
-      "chapter_name": "模型微调与训练",
-      "seq": "0149",
-      "type": 0,
-      "answer": "A",
-      "stem": "以下哪种问题需要经过 RAG 链路？",
-      "predicted_chapter": 3,
-      "predicted_chapter_name": "RAG 检索增强生成",
-      "current_score": 2,
-      "top_score": 5,
-      "matched_keywords": [
-        "RAG"
-      ],
-      "llm": {
-        "action": "move",
-        "chapter": 3,
-        "chapter_name": "RAG 检索增强生成",
-        "confidence": "high",
-        "reason": "RAG链路用于检索增强生成，核心是外部知识检索，A选项典型适用"
-      }
-    },
-    {
-      "qid": "6-5131",
-      "chapter": 6,
-      "chapter_name": "模型部署与推理优化",
-      "seq": "5131",
+      "qid": "11-5159",
+      "chapter": 11,
+      "chapter_name": "多模态 AI",
+      "seq": "5159",
       "type": 0,
       "answer": "C",
-      "stem": "与自建 GPU ECS 相比，使用 PAI-EAS 部署模型服务的突出特点是？",
-      "predicted_chapter": 10,
-      "predicted_chapter_name": "阿里云 AI 平台",
-      "current_score": 15,
-      "top_score": 18,
-      "matched_keywords": [
-        "PAI",
-        "模型服务"
-      ],
+      "stem": "用户上传一张海报图片，要求“把图中的活动日期改成下周六”，这需要模型具备？",
       "llm": {
-        "action": "move",
-        "chapter": 10,
-        "chapter_name": "阿里云 AI 平台",
-        "confidence": "high",
-        "reason": "考查阿里云PAI-EAS平台特性，属阿里云AI平台章节"
+        "category": "own",
+        "exam_knowledge": "多模态理解与生成能力",
+        "chapter": 0,
+        "chapter_name": null,
+        "evidence": "多模态模型指能联合理解、生成两种及以上模态信息，并建立它们之间关联的模型与系统",
+        "reason": "题目考查图像+文本联合理解与编辑，属本章核心模态交互能力"
+      },
+      "_profile_stamp": "2026-10-02T14:37:19",
+      "evidence_check": {
+        "verified": false,
+        "mode": "missing"
+      }
+    },
+    {
+      "qid": "11-5160",
+      "chapter": 11,
+      "chapter_name": "多模态 AI",
+      "seq": "5160",
+      "type": 1,
+      "answer": "A,B,D",
+      "stem": "设计多模态交互应用时，以下哪些考虑是合理的？",
+      "llm": {
+        "category": "own",
+        "exam_knowledge": "多模态应用设计原则",
+        "chapter": 0,
+        "chapter_name": null,
+        "evidence": "多模态应用看似五花八门，其实可以归到三类，分清类别是做场景题的第一步。",
+        "reason": "题目考查模态路由、语义对齐、终端降级，均属本章核心知识"
+      },
+      "_profile_stamp": "2026-10-02T14:37:19",
+      "evidence_check": {
+        "verified": true,
+        "mode": "exact"
+      }
+    },
+    {
+      "qid": "11-5161",
+      "chapter": 11,
+      "chapter_name": "多模态 AI",
+      "seq": "5161",
+      "type": 0,
+      "answer": "A",
+      "stem": "语音助手在嘈杂环境中经常把指令识别错误，最应优先改进的是？",
+      "llm": {
+        "category": "own",
+        "exam_knowledge": "ASR鲁棒性与前端降噪",
+        "chapter": 0,
+        "chapter_name": null,
+        "evidence": "ASR → 意图 → 检索/工具 → LLM → TTS",
+        "reason": "考查多模态语音链路中ASR环节的工程优化，属本章11.2管道式架构核心内容"
+      },
+      "_profile_stamp": "2026-10-02T14:37:19",
+      "evidence_check": {
+        "verified": true,
+        "mode": "exact"
+      }
+    },
+    {
+      "qid": "11-5162",
+      "chapter": 11,
+      "chapter_name": "多模态 AI",
+      "seq": "5162",
+      "type": 1,
+      "answer": "A,B,C",
+      "stem": "使用 CosyVoice 等语音合成技术时，以下哪些做法有助于提升音频自然度？",
+      "llm": {
+        "category": "own",
+        "exam_knowledge": "语音合成TTS自然度优化",
+        "chapter": 0,
+        "chapter_name": null,
+        "evidence": "语音助手个性化=音色克隆+会话记忆",
+        "reason": "TTS自然度属多模态生成与语音助手核心考点"
+      },
+      "_profile_stamp": "2026-10-02T14:37:19",
+      "evidence_check": {
+        "verified": false,
+        "mode": "missing"
+      }
+    },
+    {
+      "qid": "11-5163",
+      "chapter": 11,
+      "chapter_name": "多模态 AI",
+      "seq": "5163",
+      "type": 0,
+      "answer": "D",
+      "stem": "多模态模型收到一张图片和一句相互矛盾的描述时，更稳妥的处理策略是？",
+      "llm": {
+        "category": "own",
+        "exam_knowledge": "多模态理解中的模态冲突处理",
+        "chapter": 0,
+        "chapter_name": null,
+        "evidence": "多模态模型则能处理\"图文混合\"等更贴近人类的交互。",
+        "reason": "考查多模态场景下图文矛盾时的鲁棒响应，属本章‘理解’主线与内容安全耦合范畴"
+      },
+      "_profile_stamp": "2026-10-02T14:37:19",
+      "evidence_check": {
+        "verified": false,
+        "mode": "missing"
+      }
+    },
+    {
+      "qid": "11-5164",
+      "chapter": 11,
+      "chapter_name": "多模态 AI",
+      "seq": "5164",
+      "type": 1,
+      "answer": "A,B,C",
+      "stem": "以下哪些属于典型的多模态生成或转换能力？",
+      "llm": {
+        "category": "own",
+        "exam_knowledge": "多模态生成与转换能力识别",
+        "chapter": 0,
+        "chapter_name": null,
+        "evidence": "多模态应用看似五花八门，其实可以归到三类……【理解】图/音/视频 → 文本/结构化结果；【生成】文本（+参考图）→ 图/音/视频；【转换/交互】语音 ↔ 文本",
+        "reason": "题目直接考查本章定义的生成/转换主线，匹配11.2节核心分类"
+      },
+      "_profile_stamp": "2026-10-02T14:37:19",
+      "evidence_check": {
+        "verified": false,
+        "mode": "missing"
+      }
+    },
+    {
+      "qid": "11-1375",
+      "chapter": 11,
+      "chapter_name": "多模态 AI",
+      "seq": "1375",
+      "type": 0,
+      "answer": "A",
+      "stem": "在电影py中，若需调整视频的帧率，应修改哪个参数？",
+      "llm": {
+        "category": "beyond",
+        "exam_knowledge": "视频帧率参数调整",
+        "chapter": 0,
+        "chapter_name": null,
+        "evidence": "无",
+        "reason": "题干涉及视频处理工具参数，属多媒体工程实践，教材未覆盖"
+      },
+      "_profile_stamp": "2026-10-02T14:37:19",
+      "evidence_check": {
+        "verified": null,
+        "mode": "none"
+      }
+    },
+    {
+      "qid": "11-1376",
+      "chapter": 11,
+      "chapter_name": "多模态 AI",
+      "seq": "1376",
+      "type": 0,
+      "answer": "A",
+      "stem": "在电影py中，若需合并多个视频片段，应使用以下哪个函数？",
+      "llm": {
+        "category": "beyond",
+        "exam_knowledge": "MoviePy视频处理函数用法",
+        "chapter": 0,
+        "chapter_name": null,
+        "evidence": "无",
+        "reason": "MoviePy库函数属于通用音视频编程工具，未在多模态AI章节中涉及"
+      },
+      "_profile_stamp": "2026-10-02T14:37:19",
+      "evidence_check": {
+        "verified": null,
+        "mode": "none"
       }
     }
   ]

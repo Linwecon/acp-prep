@@ -1,0 +1,179 @@
+{
+  "new-10-30-0": {
+    "qid": "new-10-30-0",
+    "classification": "own",
+    "chapter": 10,
+    "quality": "ok",
+    "reason": "题目考查长上下文模型qwen-long的适用场景与成本控制原则，符合第10章核心考点。",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "qwen-long仅优化上下文窗口，不替代RAG设计；控制输入：RAG只塞最相关的片段，不要每次把整本手册塞进上下文",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "题干描述将整份合同作为输入，违反长模型不替代RAG及控制输入原则。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "费用激增主因是输入Token过多，非单价或配额问题。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "数据不出域需用开源模型，但题干已用qwen-long，非根本原因。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "题干未提及使用百炼知识库，且问题核心是未切片。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-10-30-1": {
+    "qid": "new-10-30-1",
+    "classification": "own",
+    "chapter": 10,
+    "quality": "ok",
+    "reason": "题目考查在强合规约束下，如何组合阿里云产品实现数据不出域与私有化部署。",
+    "answer": [
+      "A",
+      "B",
+      "C"
+    ],
+    "supported": true,
+    "quote": "开源版可私有化部署、数据可不出域；DSW是交互式建模工作台；EAS支持弹性伸缩与生产级监控；开源模型+PAI实现数据不出域",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "数据不出域必须使用开源模型，ModelScope是下载渠道。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "私有环境需本地开发RAG流水线，DSW是合适的工作台。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "EAS部署可配置专有网络与合规镜像，满足生产要求。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "百炼运行在公共云，违反数据严禁出内网约束。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-10-30-2": {
+    "qid": "new-10-30-2",
+    "classification": "own",
+    "chapter": 10,
+    "quality": "ok",
+    "reason": "题目考查TPM限流处理与成本控制，涉及10.8节核心知识点。",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "指数退避 + 随机抖动重试、控制并发、必要时降级到更小模型或申请提升配额；切忌无间隔死循环重试",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "题干未提及重试未携带原始输入导致重复生成。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "费用上升主因是重试加剧TPM超限，非输出长度。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "未加抖动的重试导致请求集中，持续超限推高费用。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "题干未提及降级模型，且TPM超限非RPM问题。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-10-30-3": {
+    "qid": "new-10-30-3",
+    "classification": "own",
+    "chapter": 10,
+    "quality": "ok",
+    "reason": "题目考查微调后模型验证的推荐路径，属于10.4节PAI三件套应用场景。",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "得到合并后的模型，用 vLLM 本地起服务验证（其 HTTP 接口本身兼容 OpenAI API）",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "教材明确推荐用vLLM本地起服务验证，符合验证路径。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "百炼模型广场主要用于在线试用预置模型，非验证微调模型。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "DLC用于大规模训练，验证无需分布式计算。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "EAS用于生产部署，验证阶段无需此步骤。"
+      }
+    ],
+    "duplicate_of": "10-5163"
+  },
+  "new-10-30-4": {
+    "qid": "new-10-30-4",
+    "classification": "own",
+    "chapter": 10,
+    "quality": "ok",
+    "reason": "题目直接考查10.8节成本控制原则，与原文描述场景高度一致。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "控制输入：RAG只塞最相关的片段，不要每次把整本手册塞进上下文；限制输出：用 max_tokens 给输出设上限，避免模型'刹不住车'",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "选对模型尺寸未违反，题干未提及模型选型错误。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "整本手册作输入违反控制输入，未设max_tokens违反限制输出。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "题干未涉及缓存利用和限流处理问题。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "规模化后算账是优化手段，非题干描述的直接违规。"
+      }
+    ],
+    "duplicate_of": "10-5174"
+  }
+}

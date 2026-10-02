@@ -1,0 +1,224 @@
+{
+  "new-10-0-0": {
+    "qid": "new-10-0-0",
+    "classification": "own",
+    "chapter": 10,
+    "quality": "ok",
+    "reason": "考查DashScope OpenAI兼容模式使用细节，有实际排查价值。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "百炼和 DashScope 共用一套 API Key。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "兼容模式支持qwen-plus等模型，非仅turbo。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "API Key权限策略不匹配是401常见原因。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "路径格式问题通常导致404而非401。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "Content-Type通常由SDK自动设置。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-10-0-1": {
+    "qid": "new-10-0-1",
+    "classification": "own",
+    "chapter": 10,
+    "quality": "ok",
+    "reason": "考查OpenAI兼容模式与原生SDK的适用场景区别。",
+    "answer": [
+      "A",
+      "D"
+    ],
+    "supported": true,
+    "quote": "原生接口能用上部分平台特有参数/能力（如特定多模态、重排序服务）。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "TextReRank是DashScope特有服务。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "超时设置非必须使用原生SDK的理由。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "qwen-long可通过兼容模式调用。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "通义万相文生图需用原生接口。"
+      },
+      {
+        "label": "E",
+        "selected": false,
+        "why": "LangChain的OpenAI类支持兼容模式。"
+      }
+    ],
+    "duplicate_of": "10-5183"
+  },
+  "new-10-0-2": {
+    "qid": "new-10-0-2",
+    "classification": "own",
+    "chapter": 10,
+    "quality": "ok",
+    "reason": "考查迁移DashScope时流式响应的兼容性问题。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "控制输出用 `max_tokens` 给输出设上限，避免模型“刹不住车”。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "SSE格式与OpenAI一致，非主因。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "未设max_tokens可能导致服务端截断。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "字段名与OpenAI一致。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "429会导致连接失败而非延迟截断。"
+      }
+    ],
+    "duplicate_of": "10-5182"
+  },
+  "new-10-0-3": {
+    "qid": "new-10-0-3",
+    "classification": "own",
+    "chapter": 10,
+    "quality": "ok",
+    "reason": "考查OpenAI兼容模式无法工作的具体条件。",
+    "answer": [
+      "A",
+      "E"
+    ],
+    "supported": true,
+    "quote": "原生接口能用上部分平台特有参数/能力（如特定多模态、重排序服务）。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "qwen3-rerank是原生服务模型。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "长内容可能超窗口，但模式本身工作。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "temperature和top_p是通用参数。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "此endpoint正是兼容模式地址。"
+      },
+      {
+        "label": "E",
+        "selected": true,
+        "why": "未安装openai包SDK无法工作。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-10-0-4": {
+    "qid": "new-10-0-4",
+    "classification": "own",
+    "chapter": 10,
+    "quality": "ok",
+    "reason": "考查超上下文窗口导致400错误的故障诊断。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "一次请求能读入的 Token 有上限；超长内容要切片或换长上下文模型。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "TPM超限返回429，非400。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "turbo窗口小，超限致400。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "role类型非400主因，长度才是。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "应先诊断原因，而非直接降级重试。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-10-0-5": {
+    "qid": "new-10-0-5",
+    "classification": "own",
+    "chapter": 10,
+    "quality": "ok",
+    "reason": "考查百炼知识库与DashScope API集成的技术细节。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "百炼是应用层、DashScope 是其底层模型 API，二者共用一套 API Key。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "百炼知识库默认启用语义检索。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "兼容接口需传参关联知识库，否则调用纯模型。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "应用发布默认启用知识库。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "兼容模式支持知识库能力，需正确传参。"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

@@ -1,0 +1,220 @@
+{
+  "1-1471": {
+    "qid": "1-1471",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "考查文档解析中语义完整性，B选项破坏标题结构，原文明确要求保留结构。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "解析阶段丢失的结构，后面用再复杂的算法也补不回来。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "不同数据类型需差异化处理，符合结构保留原则"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "合并标题下文本会破坏语义边界"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "扩写表格字段可增强语义完整性"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "清晰边界和完整上下文是基本要求"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "4-1468": {
+    "qid": "4-1468",
+    "classification": "cross",
+    "chapter": 4,
+    "quality": "review",
+    "reason": "题干提Multi-Agent但考点在RAG任务拆解，属Agent设计思想迁移应用。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "多Agent设计四条硬原则",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "单工具无法覆盖复杂RAG全流程"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "任务拆分符合Agent规划-行动闭环"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "大prompt违背模块化与可维护性"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "纯API调用缺乏工具协同机制"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "5-0047": {
+    "qid": "5-0047",
+    "classification": "cross",
+    "chapter": 5,
+    "quality": "ok",
+    "reason": "幻觉根因含知识截止/无私域，RAG优先于微调。",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "RAG 是私域知识问答的首选方案",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "LoRA不解决知识截止问题"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "提高阈值会降低召回率"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "RAG补知识+LoRA调行为是正交组合"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "全参微调成本高且不治本"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "5-0148": {
+    "qid": "5-0148",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "RAG定义即开卷考试，比微调更简便高效。",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "不让模型凭记忆答题，而是在它回答前，先从企业知识库里检索出最相关的几段资料",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "微调成本高、周期长"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "训练新模型完全不可行"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "提示词传递知识是RAG基础形态"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "默认模型无私域知识"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "5-0689": {
+    "qid": "5-0689",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "ABCD均为RAG核心优势，E错误因RAG增加计算量。",
+    "answer": [
+      "A",
+      "B",
+      "C",
+      "D"
+    ],
+    "supported": true,
+    "quote": "知识更新 = 更新知识库，实时生效，无需重训模型；答案可溯源到具体文档片段",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "扩展知识边界是RAG本质"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "基于检索数据抑制幻觉"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "RAG不改参数，成本远低于微调"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "溯源是RAG可解释性核心"
+      },
+      {
+        "label": "E",
+        "selected": false,
+        "why": "RAG增加Embedding/Rerank等额外计算"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "10-0396": {
+    "qid": "10-0396",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "C跳过解析直接入库，违反文档解析地基原则。",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "文档解析是RAG质量的地基——解析阶段丢失的结构，后面用再复杂的算法也补不回来",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "DashScopeParse专为解析设计"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "润色目录属结构增强手段"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "原始PDF含格式噪声，必须预处理"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "视觉解析适配图片复杂度"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

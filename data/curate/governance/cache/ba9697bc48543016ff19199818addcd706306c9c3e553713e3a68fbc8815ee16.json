@@ -1,0 +1,37 @@
+{
+  "new-7-6-0": {
+    "qid": "new-7-6-0",
+    "classification": "own",
+    "chapter": 7,
+    "quality": "ok",
+    "reason": "题目基于RAGAS指标组合定位故障，考查对指标含义及故障定位法则的理解，属于本章核心考点。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "检索指标都好（Recall、Precision 高），但 Faithfulness / Correctness 低 → 问题在生成阶段；Faithfulness 低 → 检索到了却还在编造",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "Context Recall=0.92已很高，非关键缺失。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "Faithfulness显著偏低，表明生成端编造，与用户反馈‘答非所问但语气肯定’吻合。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "Answer Relevancy高仅说明答案切题，但Faithfulness低表明内容编造，仍需排查。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "指标组合已清晰指向生成端问题，更换评委非优先排查项。"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

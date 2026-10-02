@@ -1,0 +1,212 @@
+{
+  "3-1112": {
+    "qid": "3-1112",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "同名区分需结构化标注，原文明确要求'员工部门查询请注意同名情况'",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "员工部门查询请注意同名情况，可能有 2 个甚至更多同名的人。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "原文要求对同名加部门标签区分"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "替换为'唯一'无依据且破坏语义"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "提高temperature加剧幻觉"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "手动筛选违背RAG自动化目标"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-1121": {
+    "qid": "3-1121",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "知识库更新必须重建索引，原文强调'新内容检索不到'",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "知识库新增/修改文档后，必须重新走'解析→切片→向量化→入库'，否则新内容检索不到",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "原文明确要求重建索引"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "切片长度不解决时效性"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "不处理导致持续过时"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "温度升高加剧幻觉风险"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-1126": {
+    "qid": "3-1126",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "切片核心目标是提升检索颗粒度与精度",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "切片之所以关键，是因为它直接决定了检索的'颗粒度'",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "多样性非切片目的"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "原文指出决定检索颗粒度"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "存储非主要考量"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "切片本身增加构建时间"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-1142": {
+    "qid": "3-1142",
+    "classification": "cross",
+    "chapter": 4,
+    "quality": "review",
+    "reason": "考查记忆类型选择，属Agent章节Memory分短期/长期知识点",
+    "answer": [
+      "D"
+    ],
+    "supported": true,
+    "quote": "Memory分短期/长期与管理策略",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "RAG不适用短期偏好场景"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "硬编码无法动态更新"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "语义检索成本高于短期记忆"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "长期记忆专用于用户偏好积累"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-1145": {
+    "qid": "3-1145",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "切片过大导致主题混杂，原文明确警示'切得太大'稀释语义",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "切得太大：一个 chunk 里混了好几个主题，向量被'平均'得没有重点",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "标题缺失非根本原因"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "原文指出混主题稀释语义"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "切片短导致信息不足而非无关"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "模型故障非切片问题"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-1156": {
+    "qid": "3-1156",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "query信息缺失需查询改写，原文案例明确'多轮对话中指代不清'",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "多轮对话里后续问题检索不准 → 应先结合历史改写问题",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "数据库速度不解决语义缺失"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "top_p调控输出分布"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "原文指定改写解决指代问题"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "切分策略不修复query缺陷"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

@@ -1,0 +1,217 @@
+{
+  "new-7-42-0": {
+    "qid": "new-7-42-0",
+    "classification": "own",
+    "chapter": 7,
+    "quality": "ok",
+    "reason": "考查控制变量原则，需根据题干条件判断最可能导致分数失真的配置项。",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "回归评测的前提是除了待测改动，其他一切都冻结：评测集版本、评测脚本、推理参数（temperature、seed）、模型版本、甚至当评委的大模型版本都要固定。否则分数变化无法归因",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "temperature和seed是推理参数，题干未提生成模型变化，非最优先。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "ground_truth来源是评测集构建问题，题干未提其变化。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "评委LLM版本升级会直接影响RAGAS分数，是控制变量关键。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "question来源是评测集构建问题，题干未提其变化。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-7-42-1": {
+    "qid": "new-7-42-1",
+    "classification": "own",
+    "chapter": 7,
+    "quality": "ok",
+    "reason": "考查评测先行和控制变量的具体操作，需结合教材原文判断。",
+    "answer": [
+      "A",
+      "B",
+      "D"
+    ],
+    "supported": true,
+    "quote": "评测先行（Eval First）的正确顺序是：先建评测集、拿到基线分数，再动手优化。回归评测的前提是除了待测改动，其他一切都冻结：评测集版本、评测脚本、推理参数（temperature、seed）、模型版本、甚至当评委的大模型版本都要固定",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "使用冻结评测集是评测先行和回归的基础。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "固定推理参数是控制变量的要求。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "动态扩充评测集违反冻结要求，无法保证可比性。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "固定评委模型和Embedding模型是控制变量的要求。"
+      }
+    ],
+    "duplicate_of": "7-5065"
+  },
+  "new-7-42-2": {
+    "qid": "new-7-42-2",
+    "classification": "own",
+    "chapter": 7,
+    "quality": "ok",
+    "reason": "考查LLM-as-Judge偏见识别与校准措施，题干描述符合位置偏见。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "位置偏见：对比多个候选时偏爱开头或结尾的选项。随机打乱/交换候选顺序多次打分取平均",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "题干描述是顺序固定导致差异，非长度偏见。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "按顺序打分且差异系统，是位置偏见，应随机打乱。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "题干未提模型风格一致，非自我偏好。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "题干未提评分宽松，非好好先生偏见。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-7-42-3": {
+    "qid": "new-7-42-3",
+    "classification": "own",
+    "chapter": 7,
+    "quality": "ok",
+    "reason": "考查评测集构建铁律：问题真实、答案由专家提供。",
+    "answer": [
+      "A",
+      "C"
+    ],
+    "supported": true,
+    "quote": "问题来自真实用户场景；标准答案来自领域专家。领域专家的深度参与是评测系统乃至整个 AI 应用成功的关键",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "ground_truth由算法工程师编写，违反专家提供原则。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "人工编写边界问题未违反问题真实原则，可接受。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "使用训练数据违反问题真实和防数据泄漏原则。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "邀请HRBP审定符合专家提供原则，正确。"
+      }
+    ],
+    "duplicate_of": "7-5074"
+  },
+  "new-7-42-4": {
+    "qid": "new-7-42-4",
+    "classification": "own",
+    "chapter": 7,
+    "quality": "ok",
+    "reason": "考查根据RAGAS指标组合定位问题的黄金法则。",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "检索指标都好（Recall、Precision高），但Faithfulness / Correctness低 → 问题在生成阶段。Faithfulness低表明答案存在脱离上下文的编造，应强化提示词约束",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "检索指标高但Faithfulness低，问题在生成端，需强化提示词约束。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "检索指标高，不应优先排查检索端；模型能力不足非唯一原因。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "Relevancy高说明答案切题，与用户感知矛盾，但非根本原因。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "题干未提供评测集缺陷证据，且Faithfulness计算不依赖ground_truth。"
+      }
+    ],
+    "duplicate_of": "7-5068"
+  },
+  "new-7-42-5": {
+    "qid": "new-7-42-5",
+    "classification": "own",
+    "chapter": 7,
+    "quality": "ok",
+    "reason": "考查防止回归的具体措施，需同时满足防止回归和控制变量。",
+    "answer": [
+      "A",
+      "B",
+      "C"
+    ],
+    "supported": true,
+    "quote": "防止回归：每次改动后跑同一套题，确保'修好A、没弄坏B'。回归评测的前提是除了待测改动，其他一切都冻结",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "用冻结集运行并对比细分分数，符合防止回归和控制变量。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "CI/CD集成自动化回归测试，符合防止回归和控制变量。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "分层并保持占比恒定，有助于全面防止回归，且未违反控制变量。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "动态补充评测集违反冻结要求，破坏可比性。"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

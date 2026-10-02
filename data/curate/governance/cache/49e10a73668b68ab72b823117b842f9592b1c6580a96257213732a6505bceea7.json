@@ -1,0 +1,29 @@
+{
+  "items": [
+    {
+      "type": 0,
+      "stem": "某团队对新人答疑机器人实施了一次优化：将检索Top K从10调至20，并引入Rerank模块。回归评测显示Context Recall提升至0.98，Context Precision从0.35升至0.72，但Answer Correctness仅从0.61微增至0.63，且Faithfulness下降0.12。用户反馈部分问题答案开始出现细节性幻觉（如将'教研部'误述为'教学研究部'）。依据第7章‘定位问题的黄金法则’与指标作用机制，此次改动最可能引发的核心矛盾是？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "Rerank虽提升了相关片段排序，但过度压缩上下文长度，导致生成阶段可依据的关键细节丢失"
+        },
+        {
+          "option_label": "B",
+          "option_text": "Top K增大引入更多噪声片段，Rerank未能完全过滤，干扰了模型对核心事实的聚焦"
+        },
+        {
+          "option_label": "C",
+          "option_text": "Faithfulness下降表明生成模型本身能力不足，应优先更换更强的基础大模型"
+        },
+        {
+          "option_label": "D",
+          "option_text": "Context Recall接近1.0说明检索已完备，Answer Correctness停滞源于ground_truth标注质量不高"
+        }
+      ],
+      "answer": "A",
+      "analysis": "本题严格依据第7章7.5节‘用指标定位问题’与7.4.3/7.4.4节指标计算原理设计，考查实际场景中多因素耦合下的条件权衡与故障归因。解析如下：\n\n① 题干现象符合‘黄金法则’典型冲突：检索端双指标（Recall/Precision）显著改善，但生成端核心指标Faithfulness下降、Answer Correctness提升微弱——说明问题已从检索端转移至生成端，且根源在‘上下文供给质量’而非模型本身（7.5节明确：‘检索指标都好，但Faithfulness低→问题在生成阶段’；7.5节价值强调：‘上下文是RAG的生命线’，检索质量决定生成上限）。\n\n② 选项A正确：Rerank提升Precision本质是重排序并常伴随截断（如只保留前5个高分片段）。若原Top K=10时包含完整‘教研部’表述，而Rerank后截断至Top 5却仅保留模糊表述‘教学研究部’，则生成模型被迫基于不精确上下文作答，直接导致Faithfulness下降（答案陈述无法由contexts直接推断）和Correctness提升乏力。这精准对应7.4.3节Faithfulness定义：‘答案的每句话能否由资料推出’，以及7.5节风险提醒：‘❌只看Answer Correctness一个总分→必须结合检索端指标一起看’，此处正是因上下文被‘精炼’过度而牺牲了关键细节。\n\n③ 选项B错误：若噪声未被过滤，Context Precision应下降或停滞，但题干明确Precision从0.35升至0.72，证明Rerank有效抑制了噪声，故‘未能完全过滤’与数据矛盾；且噪声增多通常导致Answer Relevancy或Correctness下降，而非特异性Faithfulness受损。\n\n④ 选项C错误：7.5节‘定位问题的黄金法则’第2条明确‘检索指标都好，但Faithfulness低→问题在生成阶段’，但优化方向是‘强化提示词约束、改善上下文拼装’，而非盲目换模型；且题干无任何证据指向基础模型能力缺陷（如所有问题均幻觉），属过度归因。\n\n⑤ 选项D错误：ground_truth质量是评测前提（7.2.1节铁律：‘ground_truth必须由领域专家编写/审定’），但题干未提供其存疑证据；且Context Recall达0.98说明ground_truth观点已被覆盖，若标注错误，Recall本不应升高。7.8.2节强调‘黄金集由业务专家标注’，但本题矛盾点在于上下文供给与生成响应的匹配度，非ground_truth本身。\n\n综上，A项唯一同时满足：符合教材‘黄金法则’归因路径、紧扣Context Precision提升背后的工程实现副作用（截断）、直指Faithfulness下降的因果链（上下文细节丢失→无法支撑陈述），且呼应7.5节‘先检索→再生成’的优化顺序原则。",
+      "difficulty_label": "进阶"
+    }
+  ]
+}

@@ -1,0 +1,215 @@
+{
+  "new-9-6-0": {
+    "qid": "new-9-6-0",
+    "classification": "own",
+    "chapter": 9,
+    "quality": "ok",
+    "reason": "题目考察成本控制优先级，选项A符合教材最直接有效的措施。",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "成本控制的优先级：1. 先选对模型档位；2. 控制输入长度；3. 限制输出长度；4. 利用缓存与批量；5. 监控与告警。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "精简system prompt直接减少输入Token，符合成本控制优先级。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "Batch用于离线大批量，不改变单次调用输入长度。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "降级模型降低单价，但未解决输入Token过多问题。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "减少重复请求是错误处理，不降低单次调用成本。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-9-6-1": {
+    "qid": "new-9-6-1",
+    "classification": "own",
+    "chapter": 9,
+    "quality": "ok",
+    "reason": "题目考察降低输入Token和提升缓存命中率的双重措施，选项A、B、C均符合教材。",
+    "answer": [
+      "A",
+      "B",
+      "C"
+    ],
+    "supported": true,
+    "quote": "要享受到缓存，关键是保持前缀稳定——把容易变化的内容（用户问题、时间戳）放在请求靠后位置，而不是每次都让前缀变来变去。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "减少RAG召回片段直接降低输入Token。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "滑动窗口截断历史减少输入Token。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "移除动态日期稳定前缀，提升缓存命中率。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "添加固定header字段非教材提及的缓存优化手段。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-9-6-2": {
+    "qid": "new-9-6-2",
+    "classification": "own",
+    "chapter": 9,
+    "quality": "ok",
+    "reason": "题目考察Batch API的工程定位与运维异议的合理性，选项D正确。",
+    "answer": [
+      "D"
+    ],
+    "supported": true,
+    "quote": "Batch API本质是异步离线任务提交给平台，平台在后台调度处理，完成后统一产出结果文件。它的优势不是‘更快返回单个结果’，而是更高吞吐、更低单价地处理大批量、对实时性不敏感的任务。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "Batch支持轮询/回调监控状态，异议部分不成立。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "校验对齐是标准流程，但异议的根本矛盾不在此。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "单行失败可独立重试，但异议的根本矛盾不在此。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "Batch设计目标是吞吐与成本，运维便捷性非首要目标。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-9-6-3": {
+    "qid": "new-9-6-3",
+    "classification": "own",
+    "chapter": 9,
+    "quality": "ok",
+    "reason": "题目考察Function Calling循环调用的原因，选项A、B符合教材常见错误。",
+    "answer": [
+      "A",
+      "B"
+    ],
+    "supported": true,
+    "quote": "API层最常见的错误：❌ 忘了把response_message追加进messages——第二次调用时模型不知道自己之前决策了什么，会报上下文错误；❌ 回传结果时漏tool_call_id——模型无法把结果和之前的调用对应起来。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "未追加response_message导致模型不知已决策。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "缺失tool_call_id使模型无法关联结果。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "第二次调用无需携带tools参数。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "system prompt中声明非API层强制约束。"
+      }
+    ],
+    "duplicate_of": "9-5165"
+  },
+  "new-9-6-4": {
+    "qid": "new-9-6-4",
+    "classification": "own",
+    "chapter": 9,
+    "quality": "ok",
+    "reason": "题目考察降低TTFT的有效优化，选项B最直接有效。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "流式输出不改变最终答案质量，只是改变传输和展示方式。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "分批次发送不降低总输入长度，对TTFT无效。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "精简system prompt直接减少输入处理时间。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "缓存命中率影响计费，不直接影响TTFT。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "掩盖感知非技术优化，不符合题意。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-9-6-5": {
+    "qid": "new-9-6-5",
+    "classification": "own",
+    "chapter": 9,
+    "quality": "ok",
+    "reason": "题目考察抑制输出Token失控的直接措施，选项A符合工程规范。",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "成本控制的优先级：1. 先选对模型档位；2. 控制输入长度；3. 限制输出长度；4. 利用缓存与批量；5. 监控与告警。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "配置max_tokens直接限制输出长度，符合优先级。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "切换模型降低单价，但未限制输出长度本身。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "提示词约束不可靠，工程规范应用参数控制。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "Batch用于离线任务，不解决输出长度失控问题。"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

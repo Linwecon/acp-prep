@@ -1,0 +1,107 @@
+{
+  "new-6-24-0": {
+    "qid": "new-6-24-0",
+    "classification": "own",
+    "chapter": 6,
+    "quality": "ok",
+    "reason": "题目考查ECS与PAI-EAS的核心能力差异，符合本章部署形态对比考点。",
+    "answer": [
+      "D"
+    ],
+    "supported": true,
+    "quote": "PAI-EAS提供蓝绿部署、版本控制、回滚等企业级能力。ECS自建需自行实现灰度发布与版本管理。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "ECS自建也可通过脚本实现模型预热。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "动态路由与AB测试非EAS原生独有，ECS也可实现。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "ECS可搭配ESS实现弹性伸缩，非EAS独有。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "蓝绿发布、版本控制与一键回滚是EAS原生企业级能力，ECS需自建。"
+      }
+    ],
+    "duplicate_of": "6-5151"
+  },
+  "new-6-24-1": {
+    "qid": "new-6-24-1",
+    "classification": "own",
+    "chapter": 6,
+    "quality": "ok",
+    "reason": "题目考查函数计算FC的冷启动特性，符合本章部署形态考点。",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "无流量时会回收实例；请求突然到来需要重新拉起实例、加载模型，导致首个请求明显变慢。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "现象符合FC冷启动定义，教材6.7节有明确依据。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "未量化可能加重加载，但根本原因是冷启动机制。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "并发过低通常直接返回错误，而非导致加载延迟。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "PagedAttention解决显存碎片，不解决实例回收后的加载延迟。"
+      }
+    ],
+    "duplicate_of": "6-5152"
+  },
+  "new-6-24-5": {
+    "qid": "new-6-24-5",
+    "classification": "own",
+    "chapter": 6,
+    "quality": "ok",
+    "reason": "题目考查在多重约束下的部署方案选型，符合本章决策考点。",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "PAI-EAS是模型在线服务平台，支持弹性扩缩容、蓝绿/灰度发布、版本控制、资源监控等企业级能力。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "PAI-EAS满足数据不出域、灰度回滚、TTFT要求，且免SRE运维。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "ECS方案需自建CI/CD实现灰度回滚，不符合‘无专职SRE’约束。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "FC冷启动导致TTFT不可控，违反要求。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "百炼MaaS数据出域，直接违反约束①。"
+      }
+    ],
+    "duplicate_of": "6-5138"
+  }
+}

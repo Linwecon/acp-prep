@@ -1,0 +1,37 @@
+{
+  "new-11-18-0": {
+    "qid": "new-11-18-0",
+    "classification": "own",
+    "chapter": 11,
+    "quality": "ok",
+    "reason": "题干明确考查视频理解的核心技术约束，与第11章知识点完全匹配。",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "视频理解……视频要抽大量帧，token 消耗随帧数线性增长，长视频必须抽帧/截断/分段……不能假设模型'能读任意长度视频'，超出上下文窗口的内容会被丢弃。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "原文明确指出长视频受上下文窗口限制，超出部分被丢弃。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "题干核心是遗漏画面动作，非音频处理延迟。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "未提及GPU解码是根本原因，且与遗漏信息无关。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "题干问题在于处理超时和遗漏，非检索召回率低。"
+      }
+    ],
+    "duplicate_of": "11-5189"
+  }
+}

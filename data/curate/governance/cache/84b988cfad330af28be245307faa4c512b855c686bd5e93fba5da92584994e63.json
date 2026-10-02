@@ -1,0 +1,215 @@
+{
+  "new-10-42-0": {
+    "qid": "new-10-42-0",
+    "classification": "own",
+    "chapter": 10,
+    "quality": "fixable",
+    "reason": "题干描述百炼工作流调用内部API超时，但教材未提供百炼节点默认超时阈值等具体技术细节",
+    "answer": [
+      "B"
+    ],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "教材未提及百炼工作流是否内置自动重试"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "超时最可能因同步调用超阈值，但教材无默认超时依据"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "教材未说明百炼工具调用必须异步"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "题干已说明API单独测试正常，非格式问题"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-10-42-1": {
+    "qid": "new-10-42-1",
+    "classification": "own",
+    "chapter": 10,
+    "quality": "fixable",
+    "reason": "考查百炼工作流处理批量输入的能力，但教材未涉及具体节点如‘循环遍历’或‘拆分数组’",
+    "answer": [
+      "A"
+    ],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "批量处理需支持数组输入和遍历逻辑"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "知识库预置模板无法解决工作流节点单输入限制"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "训练专用模型不解决工作流节点输入限制"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "拆分数组是具体实现，非必要条件"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-10-42-2": {
+    "qid": "new-10-42-2",
+    "classification": "own",
+    "chapter": 10,
+    "quality": "ok",
+    "reason": "考查提升百炼工作流中生成环节可靠性的措施，涉及模型选型、RAG优化和提示词",
+    "answer": [
+      "A",
+      "B",
+      "C"
+    ],
+    "supported": true,
+    "quote": "qwen-max 能力最强、效果最好；复杂推理、高质量生成、难任务；按任务难度分级路由才是工程上的最优解",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "换用更强模型可提升复杂推理能力"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "过滤低相关片段可提升输入质量"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "配置system prompt可约束输出格式"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "微调模型非直接提升，且教材未提及"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-10-42-3": {
+    "qid": "new-10-42-3",
+    "classification": "own",
+    "chapter": 10,
+    "quality": "ok",
+    "reason": "考查模型选型原则，需按任务复杂度分级路由而非统一替换",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "按任务难度分级路由才是工程上的最优解；简单高频用 turbo、均衡用 plus、长文档用 long；按任务路由才省钱",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "成本是考虑因素，但非最核心依据"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "应按任务难度分级路由"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "教材未提及模型对PDF插件的支持差异"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "教材未提及此限制"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-10-42-4": {
+    "qid": "new-10-42-4",
+    "classification": "own",
+    "chapter": 10,
+    "quality": "ok",
+    "reason": "考查百炼工作流中处理知识库片段时效性问题的方案",
+    "answer": [
+      "A",
+      "D"
+    ],
+    "supported": true,
+    "quote": "工作流背后就是可控的多步编排；知识库（RAG）内置文档解析、切片、向量化、检索，上传文档即可问答",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "按时间排序是执行顺序层面的改造"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "动态选择知识库超出教材对百炼能力的明确界定"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "添加判断子工作流非最直接执行顺序改造"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "利用元数据过滤是根治方案且符合能力"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-10-42-5": {
+    "qid": "new-10-42-5",
+    "classification": "own",
+    "chapter": 10,
+    "quality": "fixable",
+    "reason": "考查百炼工作流节点超时的解决动作，但教材未提供手动设置超时参数的依据",
+    "answer": [
+      "D"
+    ],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "申请提高阈值非优先且教材未提及"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "修改API代理非平台定位内的动作"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "教材未说明百炼支持异步调用和轮询"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "手动设置超时最直接，但教材无依据"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

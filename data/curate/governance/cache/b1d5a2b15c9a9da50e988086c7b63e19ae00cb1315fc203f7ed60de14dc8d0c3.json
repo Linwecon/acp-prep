@@ -1,0 +1,154 @@
+{
+  "items": [
+    {
+      "type": 0,
+      "stem": "某企业上线Qwen3-0.6B答疑机器人后，监控持续触发'KV Cache显存占用率>95%'告警，GPU计算利用率仅42%，无429错误，且请求平均序列长度稳定在2K。此时若仅通过调整vLLM的--max-num-seqs参数降低并发上限，最可能引发的连锁问题是？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "TTFT显著下降，但QPS骤降，用户感知首token变快但整体吞吐不足"
+        },
+        {
+          "option_label": "B",
+          "option_text": "TPOT升高，因单请求分配更多显存块导致KV Cache访问局部性变差"
+        },
+        {
+          "option_label": "C",
+          "option_text": "错误率上升，因限流阈值未同步配置，超限请求被静默丢弃"
+        },
+        {
+          "option_label": "D",
+          "option_text": "P95 RT恶化且出现超时，因排队请求在队列中等待时间过长，超出客户端超时设置"
+        }
+      ],
+      "answer": "D",
+      "analysis": "依据原文6.3节'高频误区'：'超出并发限制通常直接返回429错误，而非排队慢慢处理'；但题干明确'无429错误'，说明当前限流策略缺失或未生效，请求实际进入排队队列（如vLLM的request queue）。当--max-num-seqs人为压低并发上限，而流量未减少时，大量请求积压在队列中，导致排队延迟（queue wait time）成为RT主要成分——这与原文6.3节Little定律'并发 ≈ QPS × 平均RT'一致：RT升高必然导致同等QPS下所需并发增加，形成恶性循环。选项A错误：TTFT由Prefill决定，与并发上限无直接因果；B错误：PagedAttention已优化块访问局部性，--max-num-seqs不改变单请求KV Cache结构；C错误：vLLM默认行为是返回429而非静默丢弃，'无429'正说明限流未启用，故不存在'阈值未同步'问题。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 1,
+      "stem": "在诊断一个突然出现高TTFT（>8s）的线上vLLM服务时，监控显示GPU利用率正常、KV Cache占用率仅30%、无429错误。以下哪些日志线索最应优先检查？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "vLLM启动日志中是否包含'Using PagedAttention'标识及block size配置"
+        },
+        {
+          "option_label": "B",
+          "option_text": "Prefill阶段CUDA kernel launch耗时是否异常（如>5s），对应输入prompt token数是否突增至数万"
+        },
+        {
+          "option_label": "C",
+          "option_text": "SLB/ALB访问日志中客户端请求到达时间与vLLM接收时间的差值是否显著增大"
+        },
+        {
+          "option_label": "D",
+          "option_text": "模型权重加载日志是否显示INT4量化权重反量化失败，触发FP16回退"
+        }
+      ],
+      "answer": "B,C",
+      "analysis": "依据原文6.2节：TTFT由Prefill阶段决定，是'用户输入prompt一次性并行计算'的耗时，直接受prompt长度影响（'长prompt会让等很久才开口'）。选项B直接指向Prefill瓶颈根源——超长prompt导致计算密集型任务超时，符合'故障原因'考查要求。选项C指向外部链路：原文6.11.2节强调可观测性需用Traces定位'卡在哪一步'，而SLB到vLLM的延迟增大说明问题在负载均衡层（如SSL握手慢、WAF规则扫描耗时），非模型本身，符合'实际场景'与'条件权衡'。选项A错误：PagedAttention影响的是Decode阶段KV Cache管理，与TTFT无关；选项D错误：量化反量化失败会导致启动失败或报错，不会静默导致TTFT飙升，且原文6.4节指出量化主要影响Decode带宽而非Prefill计算。",
+      "difficulty_label": "挑战"
+    },
+    {
+      "type": 0,
+      "stem": "某团队将Qwen3-0.6B模型量化为AWQ INT4后部署于vLLM，观测到：①显存占用下降58%；②TPOT降低22%；③TTFT无明显变化；④代码补全任务BLEU分数下降1.3分。其中可被教材原文直接支持的结论是？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "①和②：量化既省显存又加速，因显存带宽压力减小"
+        },
+        {
+          "option_label": "B",
+          "option_text": "①和③：量化对Prefill阶段无影响，因Prefill是计算密集型"
+        },
+        {
+          "option_label": "C",
+          "option_text": "②和④：INT4精度损失必然导致任务指标下降"
+        },
+        {
+          "option_label": "D",
+          "option_text": "③和④：TTFT不变证明量化未引入额外开销，BLEU下降属合理代价"
+        }
+      ],
+      "answer": "A",
+      "analysis": "原文6.4节明确：'量化主要省显存'+'通常也加速'+'因为Decode阶段是显存带宽密集型，从显存读权重的字节数变少了'，且'INT4在敏感任务上可能掉点更明显，需要用业务评测集验证'。①②完全匹配该论述。③虽符合事实（TTFT由Prefill决定，量化不影响计算逻辑），但原文未直接声明'量化对TTFT无影响'，属于推论而非'直接支持'；④中'必然导致'违背原文'INT4损失略大，取决于方法与任务'的谨慎表述，且BLEU下降1.3分需业务验证，非教材断言。因此仅A项所有结论均有原文逐字依据。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 1,
+      "stem": "在vLLM服务中，当客户端发起流式请求（stream=true）时，PagedAttention机制对KV Cache管理的影响是？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "KV Cache仍按完整响应序列预分配，但仅流式返回已生成token"
+        },
+        {
+          "option_label": "B",
+          "option_text": "KV Cache按实际生成的token数动态增长，每个新token对应新分配的block"
+        },
+        {
+          "option_label": "C",
+          "option_text": "相同前缀的流式请求可共享系统提示词对应的KV Cache block"
+        },
+        {
+          "option_label": "D",
+          "option_text": "流式输出导致KV Cache访问模式变为随机读写，降低PagedAttention的块复用率"
+        }
+      ],
+      "answer": "B,C",
+      "analysis": "依据原文6.5节：PagedAttention核心是'按需分配'，'生成多长用多少'，且'天然支持共享相同前缀的KV块'。流式请求本质仍是逐token Decode，每生成一个token需缓存其KV，故B正确。系统提示词（system prompt）作为所有请求共同前缀，其KV Cache block可被多个流式请求复用，C正确。A错误：PagedAttention已摒弃'按最大长度预分配'，原文明确批判此做法；D错误：流式输出不改变KV Cache的只读特性（历史token KV固定，仅新增token KV写入），且PagedAttention的块管理与访问模式无关，原文未提及其降低复用率。",
+      "difficulty_label": "挑战"
+    },
+    {
+      "type": 0,
+      "stem": "压测发现某vLLM服务在并发从8提升至16时，QPS仅增长15%，但平均RT飙升40%且错误率升至3%。此时若仅调整--max-num-seqs参数（最大并发请求数），最可能产生的效果是？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "QPS进一步下降，RT继续攀升，因显存碎片加剧导致有效并发降低"
+        },
+        {
+          "option_label": "B",
+          "option_text": "错误率归零，但QPS跌至原水平的60%，因限流强制请求排队"
+        },
+        {
+          "option_label": "C",
+          "option_text": "RT回归正常，QPS小幅提升，因PagedAttention在更低并发下显存利用率更优"
+        },
+        {
+          "option_label": "D",
+          "option_text": "错误率维持3%，但RT波动减小，因请求调度更均匀"
+        }
+      ],
+      "answer": "B",
+      "analysis": "原文6.3节'高频误区'明确：'超出并发上限通常直接返回429错误'，且'限流场景下客户端应配合指数退避重试'。题干中错误率3%正是超并发触发限流的典型表现（429）。--max-num-seqs是vLLM控制并发的核心参数，调低它会立即将超限请求拦截为429，使错误率趋近于0（B正确）。但QPS会因请求被拒绝而下降，原文6.3节'并发越高吞吐越高'误区指出：超限后'必须通过压测确定最优并发阈值'，盲目调低并发只会牺牲吞吐。A错误：PagedAttention已消除碎片，不会因--max-num-seqs调整而加剧；C错误：RT改善需从根源（如量化、降长）解决，参数调低不修复已存在的资源瓶颈；D错误：限流本身不平滑调度，RT波动由排队策略决定，非--max-num-seqs直接作用。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 1,
+      "stem": "某金融企业需上线内部合规问答机器人，要求：①全部业务数据严禁出域；②日均稳定请求2000+，P95 TTFT需<1.2s；③支持灰度发布与秒级故障回滚。运维团队具备GPU调优能力，但无专职SRE。以下部署方案中，哪些能力组合能同时满足全部约束？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "PAI-EAS：数据不出域（私有部署）、模型预热保障TTFT、蓝绿发布支持灰度与秒级回滚"
+        },
+        {
+          "option_label": "B",
+          "option_text": "GPU ECS + vLLM：数据不出域、无冷启动保障TTFT、ESS弹性伸缩+SLB负载均衡+版本镜像管理实现回滚"
+        },
+        {
+          "option_label": "C",
+          "option_text": "函数计算FC：按调用付费降低成本、预留实例缓解冷启动、版本管理支持灰度"
+        },
+        {
+          "option_label": "D",
+          "option_text": "百炼MaaS：千问系列原生支持、一键部署、API调用免运维"
+        }
+      ],
+      "answer": "A,B",
+      "analysis": "依据原文6.12节选型四步法：①数据不出域→排除百炼（D错误）、FC（C错误，FC虽可私有VPC但平台侧仍处理数据，原文6.7节'数据出域需评估'隐含风险）；②P95 TTFT<1.2s→需避免冷启动，FC有冷启动（原文6.10.1'明显，需预热缓解'），不满足；③灰度与秒级回滚→PAI-EAS原生支持蓝绿/版本（A正确），ECS需自行实现镜像版本管理+SLB权重切换（B正确，原文6.9节'搭配SLB+ESS+监控告警'及6.11.1'容灾与回滚'提及版本保留）；C中'预留实例'产生持续成本，违背FC'无闲置成本'优势，且'版本管理'在FC中弱于EAS；D百炼数据必出域，直接违反①。因此仅A、B满足全部硬性约束。",
+      "difficulty_label": "挑战"
+    }
+  ]
+}

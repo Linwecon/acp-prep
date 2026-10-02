@@ -1,0 +1,37 @@
+{
+  "new-6-102-0": {
+    "qid": "new-6-102-0",
+    "classification": "own",
+    "chapter": 6,
+    "quality": "ok",
+    "reason": "题干明确指向vLLM部署与参数配置，属本章核心实践问题。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "vLLM 的 OpenAI 兼容服务：官方教程用一条命令即可把 Qwen3-0.6B 启动为服务：`vllm serve ...`",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "原文未提权重加载失败导致校验异常"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "vLLM默认限制上下文长度，需显式配置"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "OpenAI接口不要求客户端传该字段"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "错误是逻辑校验而非内存越界"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

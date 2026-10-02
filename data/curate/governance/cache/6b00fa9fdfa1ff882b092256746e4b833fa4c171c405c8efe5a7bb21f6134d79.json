@@ -1,0 +1,269 @@
+{
+  "2-1016": {
+    "qid": "2-1016",
+    "classification": "own",
+    "chapter": 2,
+    "quality": "ok",
+    "reason": "考查提示词六要素中“上下文”的定义与识别。",
+    "answer": [
+      "A",
+      "F"
+    ],
+    "supported": true,
+    "quote": "上下文（Context）：提供背景、事实、范围 | 附上参考资料、业务规则",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "提供用户偏好背景信息，属于上下文。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "是任务目标或约束，非上下文。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "是输出格式，非上下文。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "是角色定义，非上下文。"
+      },
+      {
+        "label": "E",
+        "selected": false,
+        "why": "是任务指令，非上下文。"
+      },
+      {
+        "label": "F",
+        "selected": true,
+        "why": "提供行程和时间背景，属于上下文。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "2-1157": {
+    "qid": "2-1157",
+    "classification": "own",
+    "chapter": 2,
+    "quality": "ok",
+    "reason": "考查分隔符的常见形式。",
+    "answer": [
+      "A",
+      "B",
+      "E"
+    ],
+    "supported": true,
+    "quote": "常见形式有：三引号 `\"\"\"...\"\"\"`、XML 标签 `<context>...</context>`、Markdown 代码块、分隔线 `---`/`-----`、方括号 `【】`、`<< >>`、`###` 等。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "XML标签是常见分隔符形式。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "具体XML标签示例，是分隔符。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "不加标记易混淆，非分隔符。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "原文未提及“...”是分隔符。"
+      },
+      {
+        "label": "E",
+        "selected": true,
+        "why": "“##”类似Markdown标题，可作分隔。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "2-1450": {
+    "qid": "2-1450",
+    "classification": "own",
+    "chapter": 2,
+    "quality": "ok",
+    "reason": "考查提示词六要素中“输出格式”的识别。",
+    "answer": [
+      "B",
+      "D",
+      "F"
+    ],
+    "supported": true,
+    "quote": "输出格式（Output Format）：指定格式、枚举值、禁止项 | \"只输出 JSON，不要多余解释\"",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "是任务目标，非输出格式。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "指定表格形式，是输出格式。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "是角色定义，非输出格式。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "指定JSON格式，是输出格式。"
+      },
+      {
+        "label": "E",
+        "selected": false,
+        "why": "是写作风格，非输出格式。"
+      },
+      {
+        "label": "F",
+        "selected": true,
+        "why": "指定结果包含的字段，是输出格式约束。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "2-0606": {
+    "qid": "2-0606",
+    "classification": "own",
+    "chapter": 2,
+    "quality": "ok",
+    "reason": "考查Few-shot提示中示例选择的原则。",
+    "answer": [
+      "A",
+      "B",
+      "C",
+      "F"
+    ],
+    "supported": true,
+    "quote": "示例不在多而在精，2~5 个高质量范例通常足够。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "覆盖各种情况有助于模型泛化。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "体现难点有助于模型学习关键点。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "避免混淆，选择代表性示例。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "示例贵精不贵多，原文反对过多。"
+      },
+      {
+        "label": "E",
+        "selected": false,
+        "why": "原文未提及此原则。"
+      },
+      {
+        "label": "F",
+        "selected": true,
+        "why": "真实场景示例更具参考价值。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "2-0677": {
+    "qid": "2-0677",
+    "classification": "own",
+    "chapter": 2,
+    "quality": "ok",
+    "reason": "考查改善大模型事实性错误的方法。",
+    "answer": [
+      "A",
+      "C",
+      "D"
+    ],
+    "supported": true,
+    "quote": "先用提示词把规则讲清楚；知识不足、需要私域事实时上 RAG；只有当 RAG 也无法满足...要求时，才投入微调。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "RAG引入外部知识可纠正事实错误。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "注明来源不直接改善事实准确性。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "CoT展示推理过程，可能暴露错误。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "领域微调可适配特定知识。"
+      },
+      {
+        "label": "E",
+        "selected": false,
+        "why": "不干预无法改善事实错误。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "2-0745": {
+    "qid": "2-0745",
+    "classification": "own",
+    "chapter": 2,
+    "quality": "ok",
+    "reason": "考查针对具体审查维度的有效提示词设计。",
+    "answer": [
+      "B",
+      "C",
+      "D"
+    ],
+    "supported": true,
+    "quote": "文档审阅要可用，必须先把评价维度和输出结构定死。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "任务模糊，未指定审查维度。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "明确角色和三个审查维度，有效。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "明确安全漏洞具体类型，有效。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "明确代码规范标准，有效。"
+      },
+      {
+        "label": "E",
+        "selected": false,
+        "why": "指令过于模糊，无效。"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

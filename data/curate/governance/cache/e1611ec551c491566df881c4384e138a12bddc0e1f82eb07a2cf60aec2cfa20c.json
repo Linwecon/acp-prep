@@ -1,0 +1,154 @@
+{
+  "items": [
+    {
+      "type": 0,
+      "stem": "某金融企业需上线内部合规问答机器人，要求：①全部业务数据严禁出域；②日均稳定请求2000+，P95 TTFT需<800ms；③支持AB测试新模型版本。运维团队具备GPU调优能力，但无专职SRE。以下部署方案中，最符合全量生产要求的是？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "直接调用百炼MaaS API，通过VPC私有连接保障数据不出域"
+        },
+        {
+          "option_label": "B",
+          "option_text": "使用函数计算FC部署vLLM服务，配置预留实例避免冷启动"
+        },
+        {
+          "option_label": "C",
+          "option_text": "在GPU云服务器ECS上自建vLLM服务，前端挂SLB负载均衡，后端集成ARMS监控与ESS弹性伸缩"
+        },
+        {
+          "option_label": "D",
+          "option_text": "部署至PAI-EAS，启用模型预热、蓝绿发布与资源组隔离"
+        }
+      ],
+      "answer": "D",
+      "analysis": "依据教材6.12节‘部署选型四步决策法’：①数据不能出域→排除百炼（6.7/6.8明确‘数据出域需评估’，百炼为公有MaaS，不满足‘严禁出域’）；②稳定高吞吐+TTFT敏感→FC存在冷启动（6.10.1强调‘实时性要求高不适合FC’），且预留实例违背Serverless成本优势；③AB测试即灰度发布需求→ECS自建需自行实现蓝绿/版本管理（6.9仅提‘可配合监控告警’，未提供原生灰度能力），而PAI-EAS在6.10.2明确定义为‘提供蓝绿/灰度发布、版本控制、回滚’的企业级平台，且6.7表格指出其适用于‘自定义模型上线、需弹性与灰度’场景；④运维能力适配→6.7对比表说明PAI-EAS为‘平台托管+用户配置’，比ECS‘用户自运维’门槛更低，符合‘有GPU调优能力但无专职SRE’的定位。故D为唯一同时满足四重约束的方案。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 1,
+      "stem": "某团队压测vLLM服务时发现：并发从4提升至16，QPS从12.5升至38.2，但平均RT从412ms飙升至1120ms，且错误率从0%升至7.3%（主要为429）。此时应优先采取哪些措施？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "立即扩容GPU实例数量，增加SLB后端节点"
+        },
+        {
+          "option_label": "B",
+          "option_text": "在客户端实施指数退避重试+降级策略（如返回缓存答案）"
+        },
+        {
+          "option_label": "C",
+          "option_text": "将模型从FP16量化为INT4，并验证业务准确率"
+        },
+        {
+          "option_label": "D",
+          "option_text": "限制单次请求最大序列长度（max_model_len），并设置合理的max_num_batched_tokens"
+        }
+      ],
+      "answer": "B,C,D",
+      "analysis": "题干现象符合教材6.3节‘高频误区’中‘并发过高导致RT劣化、超时增多’的经典案例，且错误码429明确指向限流（6.3/6.8均强调‘超出并发限制直接返回429’）。A错误：扩容是长期解法，但题干未说明当前是否已达硬件上限，且6.9指出‘GPU扩容相对较慢，需提前规划’，压测中应先做软件层优化；B正确：6.3/6.11.1明确要求‘客户端应配合指数退避重试+降级’，这是应对429的必选动作；C正确：6.4节指出量化‘主要省显存’，而KV Cache随并发线性增长（6.6），INT4可显著降低单请求显存占用，缓解OOM与排队；D正确：6.6节强调‘限制最大序列长度’是‘牺牲长上下文换并发’的有效手段，且vLLM参数max_model_len和max_num_batched_tokens直接控制KV Cache预算（6.5命令示例隐含此配置能力），符合‘压测确定最优并发阈值’的工程原则。",
+      "difficulty_label": "高阶"
+    },
+    {
+      "type": 0,
+      "stem": "开发团队在vLLM服务中观察到GPU显存占用持续攀升，监控显示KV Cache占比达82%，而权重仅占12%。此时若想在不更换GPU的前提下提升并发数，以下哪项操作最可能失效？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "启用AWQ量化，将模型权重从FP16转为INT4"
+        },
+        {
+          "option_label": "B",
+          "option_text": "在vLLM启动命令中添加--kv-cache-dtype fp8参数"
+        },
+        {
+          "option_label": "C",
+          "option_text": "将所有请求的max_tokens统一设为128"
+        },
+        {
+          "option_label": "D",
+          "option_text": "启用PagedAttention并配置block-size=16"
+        }
+      ],
+      "answer": "C",
+      "analysis": "题干核心矛盾是KV Cache占比过高（82%），需针对性压缩其体积。A有效：6.4节指出INT4使权重体积降至FP32的1/8，虽权重本身只占12%，但释放的显存可被KV Cache复用，且6.6节强调‘量化腾出显存给KV Cache’；B有效：6.6节‘KV Cache量化’明确列为缓解手段，fp8可降低缓存精度；D有效：6.5节定义PagedAttention‘消除碎片、按需分配’，直接提升KV Cache显存利用率，使同样显存容纳更多并发；C无效：max_tokens限制的是输出长度，而KV Cache主要由输入prompt长度（Prefill阶段）和历史token数（Decode阶段）决定（6.2/6.6），教材6.11.3特别警示‘max_tokens是安全阀而非内容控制手段’，对KV Cache体积影响微弱，无法解决题干所述的显存瓶颈。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 1,
+      "stem": "某教育科技公司需为教师备课系统部署一个支持10万字长文档摘要的模型服务。监控发现：单请求KV Cache显存占用达42GB，远超单卡96GB显存上限。以下哪些技术组合能切实缓解该瓶颈？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "采用GQA（分组查询注意力）架构的模型"
+        },
+        {
+          "option_label": "B",
+          "option_text": "在vLLM中启用MLA（多头潜在注意力）"
+        },
+        {
+          "option_label": "C",
+          "option_text": "将模型权重量化为INT4，并启用KV Cache INT8量化"
+        },
+        {
+          "option_label": "D",
+          "option_text": "使用上下文缓存（Context Cache）复用系统提示词"
+        }
+      ],
+      "answer": "A,C,D",
+      "analysis": "题干关键约束是‘单请求KV Cache达42GB’，需直击KV Cache膨胀根源。A正确：6.6节‘缓解KV Cache压力’表格明确列出GQA‘多个Q头共享一组KV头，KV头数成倍减少’，属架构级优化；C正确：6.4节量化原理与6.6节‘KV Cache量化’共同支持——权重INT4降低基础显存，KV Cache INT8进一步压缩缓存体积；D正确：6.6/6.11.3均强调‘上下文缓存复用公共前缀（如系统提示词）’可减少重复计算与缓存，对长文档场景尤其有效；B错误：MLA在6.6节虽被提及，但明确限定为‘DeepSeek等模型采用’，属特定模型架构特性，非vLLM通用功能，且教材未说明其可独立启用，故不属于普适性缓解手段。",
+      "difficulty_label": "高阶"
+    },
+    {
+      "type": 0,
+      "stem": "运维人员收到告警：vLLM服务TPOT指标持续高于350ms（SLO要求<200ms），但GPU计算利用率仅45%，显存占用率88%。此时最应优先排查的环节是？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "检查CUDA驱动版本是否匹配vLLM要求"
+        },
+        {
+          "option_label": "B",
+          "option_text": "分析KV Cache是否因长上下文或高并发导致显存带宽瓶颈"
+        },
+        {
+          "option_label": "C",
+          "option_text": "验证Prefill阶段是否存在prompt过长导致的计算延迟"
+        },
+        {
+          "option_label": "D",
+          "option_text": "审查客户端是否未启用流式响应导致阻塞"
+        }
+      ],
+      "answer": "B",
+      "analysis": "题干指标呈现典型Decode阶段瓶颈特征：TPOT高（6.2节定义TPOT为‘每生成token时间’）、GPU计算利用率低（说明非算力不足）、显存占用率高（6.6节指出KV Cache随并发×序列长度线性增长，是显存大头）。6.2节明确‘Decode是显存带宽密集型’，6.3节表格‘受什么影响’列明TPOT受‘显存带宽、KV Cache’影响，6.6节更指出‘长上下文高并发下KV Cache常是并发瓶颈’。A、C均属Prefill问题，但Prefill影响TTFT而非TPOT；D中流式响应影响用户体验但不改变TPOT数值。故B是唯一与TPOT、显存占用、低计算利用率三者逻辑自洽的根因。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 0,
+      "stem": "某团队将Qwen3-0.6B模型部署于PAI-EAS，配置了自动弹性伸缩。上线后发现：流量低谷期（凌晨2-5点）仍产生固定费用。最可能的原因是？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "EAS默认启用Spot抢占式实例，但夜间无可用竞价资源"
+        },
+        {
+          "option_label": "B",
+          "option_text": "弹性伸缩策略未配置最小实例数为0，导致空闲实例持续计费"
+        },
+        {
+          "option_label": "C",
+          "option_text": "模型预热功能保持实例常驻以保障首请求性能"
+        },
+        {
+          "option_label": "D",
+          "option_text": "PAI-EAS底层依赖ECS实例，而ECS按小时计费不可暂停"
+        }
+      ],
+      "answer": "C",
+      "analysis": "题干焦点是‘低谷期固定费用’，需区分不同部署形态的成本模型。A错误：Spot实例在无资源时会释放，不会产生费用（6.9/6.10.2均强调Spot‘最高省90%’，隐含无资源则不计费）；B错误：6.10.2明确EAS支持‘弹性扩缩容’，且6.7对比表指出其‘有一定学习成本’，说明可配置最小实例数，但题干未提配置失误，属过度推测；D错误：EAS是PaaS平台，用户不直接购买ECS（6.7表格将ECS与EAS列为不同方案），其计费模式为‘按实例规格/时长’（6.10.2），与ECS IaaS计费逻辑分离；C正确：6.10.2节明确定义EAS‘提供模型预热，让服务上线即就绪’，且6.7节对比FC时强调‘EAS提供预热，FC需预留实例’，预热必然导致实例常驻，这正是低谷期产生固定费用的直接原因，符合教材对EAS‘稳定流量更划算’的成本特征描述（6.10.2）。",
+      "difficulty_label": "基础"
+    }
+  ]
+}

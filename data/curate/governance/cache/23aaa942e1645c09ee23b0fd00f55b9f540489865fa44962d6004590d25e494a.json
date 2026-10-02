@@ -1,0 +1,216 @@
+{
+  "new-5-18-0": {
+    "qid": "new-5-18-0",
+    "classification": "own",
+    "chapter": 5,
+    "quality": "ok",
+    "reason": "考查QLoRA量化与LoRA适配的耦合约束，教材有明确原理支持",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "QLoRA量化+LoRA双降本技术",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "教材未提QLoRA要求仅对量化模块适配"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "4bit量化需在模型加载时生效，否则无法应用QLoRA"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "all-linear指所有线性层，教材未提非线性层问题"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "教材明确支持QLoRA，即同时启用"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-5-18-1": {
+    "qid": "new-5-18-1",
+    "classification": "own",
+    "chapter": 5,
+    "quality": "ok",
+    "reason": "考查蒸馏流程中的关键顺序约束，教材有明确步骤",
+    "answer": [
+      "A",
+      "C",
+      "D"
+    ],
+    "supported": true,
+    "quote": "离线数据合成阶段（教师侧）...在线训练与验证阶段（学生侧）",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "必须先合成数据再训练，是流程顺序"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "合并权重非评测前提，可评测LoRA模型"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "QLoRA需先量化基座再配LoRA"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "训练与推理prompt需一致，教材强调"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-5-18-2": {
+    "qid": "new-5-18-2",
+    "classification": "own",
+    "chapter": 5,
+    "quality": "ok",
+    "reason": "考查超参数选择原则，教材明确应基于数据分布",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "超参数选择的正确姿势：先分析数据...再据此决定参数",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "题干未涉及灾难性遗忘"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "盲目增加rank违反基于数据分布原则"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "题干未涉及数据质量问题"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "验证loss未先降后升，非过拟合"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-5-18-3": {
+    "qid": "new-5-18-3",
+    "classification": "own",
+    "chapter": 5,
+    "quality": "ok",
+    "reason": "考查QLoRA特有故障，需区分量化与普通微调",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "QLoRA量化+LoRA双降本技术",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "显存峰值在量化函数，是QLoRA特有"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "JSON解析失败是格式问题，非QLoRA特有"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "合并后模型应不变大，非QLoRA特有"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "梯度爆炸是训练问题，非QLoRA特有"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-5-18-4": {
+    "qid": "new-5-18-4",
+    "classification": "own",
+    "chapter": 5,
+    "quality": "fixable",
+    "reason": "考查数据质量过滤，但选项C也部分正确，题干问最本质环节",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "assistant：期望输出（训练时的'标准答案'）",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "是措施，非最本质故障环节"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "训练数据格式错误是根本原因"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "评测方式偏差是后果，非根本"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "lora_rank大小非代码块问题主因"
+      }
+    ],
+    "duplicate_of": "5-5125"
+  },
+  "new-5-18-5": {
+    "qid": "new-5-18-5",
+    "classification": "own",
+    "chapter": 5,
+    "quality": "ok",
+    "reason": "考查QLoRA双降本目标达成条件，教材有依据",
+    "answer": [
+      "A",
+      "B",
+      "C"
+    ],
+    "supported": true,
+    "quote": "QLoRA量化+LoRA双降本技术...合并LoRA权重实现零开销推理",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "训练阶段使用量化与LoRA降成本"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "合并后推理零开销，降推理成本"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "学生小、任务高频是降本前提"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "数据来源非双降本必要条件"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

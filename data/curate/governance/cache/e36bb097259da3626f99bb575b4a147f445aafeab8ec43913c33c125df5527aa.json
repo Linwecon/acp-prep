@@ -1,0 +1,212 @@
+{
+  "8-1444": {
+    "qid": "8-1444",
+    "classification": "own",
+    "chapter": 8,
+    "quality": "ok",
+    "reason": "考查三层防御顺序，原文明确输入过滤在前、输出审查在后",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "输入过滤：Prompt 进模型前检测，拦截越狱/注入/敏感词/违规内容",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "顺序颠倒，输入应在生成前检查"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "符合三层防御中输入过滤优先原则"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "遗漏输出审查，不完整"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "仅检查输出，忽略输入风险"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "8-0009": {
+    "qid": "8-0009",
+    "classification": "own",
+    "chapter": 8,
+    "quality": "ok",
+    "reason": "考查输入过滤实时性，需在提问时拦截",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "输入过滤：Prompt 进模型前检测，拦截越狱/注入/敏感词/违规内容",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "事后审核无法立即返回话术"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "知识库预筛不解决用户输入风险"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "实时检测可立即触发固定话术"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "微调无法保证即时响应"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "8-0052": {
+    "qid": "8-0052",
+    "classification": "own",
+    "chapter": 8,
+    "quality": "ok",
+    "reason": "考查《暂行办法》备案强制性",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "面向境内公众提供生成式 AI 服务须依法备案；未备案有下架风险",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "国内生成式AI服务备案是必选项"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "知识产权非上线前置合规要求"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "等保三级非大模型专项强制要求"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "赔偿基金非法规明确义务"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "8-0296": {
+    "qid": "8-0296",
+    "classification": "own",
+    "chapter": 8,
+    "quality": "ok",
+    "reason": "考查内容安全风险定义，不相关属质量问题",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "模型答错一个数字、检索到了无关段落、回答跑题 → 质量/相关性缺陷",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "违法信息属典型内容风险"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "虚假内容即幻觉属内容风险"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "不相关是质量缺陷非安全风险"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "偏见属内容安全风险"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "8-0894": {
+    "qid": "8-0894",
+    "classification": "cross",
+    "chapter": 2,
+    "quality": "review",
+    "reason": "属提示工程最佳实践，非安全核心考点",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "提示词六要素（角色/任务/上下文/受众/样例/输出格式）",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "缺少角色与任务定义"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "含角色+任务，符合六要素"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "过于模糊无约束"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "未明确审查目标"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "8-0956": {
+    "qid": "8-0956",
+    "classification": "own",
+    "chapter": 8,
+    "quality": "ok",
+    "reason": "考查安全性评估维度，长度非安全指标",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "RAGAS五大指标",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "歧视偏见是核心安全维度"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "隐私泄露是典型安全风险"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "文本长度与安全性无关"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "道德法律遵循是安全底线"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

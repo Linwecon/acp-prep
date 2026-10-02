@@ -1,0 +1,154 @@
+{
+  "items": [
+    {
+      "type": 0,
+      "stem": "某企业微信答疑机器人在早高峰出现大量429错误，运维日志显示重试请求集中爆发在整点后第3秒。代码中对429错误采用固定1秒延迟重试3次。该设计违反了本章强调的哪项核心工程原则？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "未区分4xx与5xx错误的重试策略"
+        },
+        {
+          "option_label": "B",
+          "option_text": "缺少指数退避与随机抖动机制"
+        },
+        {
+          "option_label": "C",
+          "option_text": "未校验API Key有效性即发起重试"
+        },
+        {
+          "option_label": "D",
+          "option_text": "未设置最大重试次数导致无限循环"
+        }
+      ],
+      "answer": "B",
+      "analysis": "依据9.8节‘指数退避 + 抖动’原理：固定延迟（如恒定1秒）会导致所有客户端在相同时间点重试，形成‘踩点重试’，加剧服务端压力，即‘重试风暴’；而指数退避（1s→2s→4s）叠加随机抖动（如±300ms）可分散重试时间，避免雪崩。原文明确指出‘在等待时间上加一个随机抖动，避免大量客户端踩点同时重试把服务再次打爆’。A项错误——429属于应重试的限流错误，本题场景不涉及4xx误判；C项错误——429是限流而非鉴权问题，无需验证Key；D项错误——题干已限定‘重试3次’，未体现无限循环。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 0,
+      "stem": "财务部门发现本月Token费用异常飙升，经分析发现每次多轮对话均将全部历史消息（含3天前的闲聊）原样传入，且system prompt长达800字并包含动态时间戳。根据9.9节成本控制原则，以下哪项优化措施对降低输入Token成本最直接有效？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "将system prompt拆分为多个小段，分次调用以摊薄单次计费"
+        },
+        {
+          "option_label": "B",
+          "option_text": "启用上下文缓存功能，自动压缩重复内容"
+        },
+        {
+          "option_label": "C",
+          "option_text": "实施滑动窗口截断+摘要压缩，并精简system prompt为静态指令"
+        },
+        {
+          "option_label": "D",
+          "option_text": "切换至qwen-turbo模型以降低单价"
+        }
+      ],
+      "answer": "C",
+      "analysis": "依据9.9节‘成本控制的优先级’和‘历史消息是把双刃剑’：输入Token成本主要来自冗余历史与过长system prompt。C项直击两大根源——滑动窗口/摘要压缩减少历史长度，精简system prompt消除动态时间戳（破坏缓存前缀稳定性），且‘静态指令’符合‘保持前缀稳定’以利用缓存的要求。A项错误——拆分system prompt无法规避每次调用仍需传入全部内容，且违反API结构规范；B项错误——缓存是平台自动行为，非‘启用’功能，且动态时间戳会破坏缓存命中；D项虽降单价但未解决输入Token暴涨主因，属次要措施。",
+      "difficulty_label": "高阶"
+    },
+    {
+      "type": 1,
+      "stem": "新人答疑机器人需支持三种场景：①员工在企微群@机器人实时提问（要求秒级首字响应）；②HR夜间批量生成500份培训摘要（次日8点前完成即可）；③财务系统每日定时拉取前一日Token用量报表（需完整准确）。根据9.10与9.6节对比，以下关于调用方式选型的判断，哪些符合本章工程实践？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "场景①必须使用stream=True实现流式输出，以降低TTFT"
+        },
+        {
+          "option_label": "B",
+          "option_text": "场景②应选用Batch API，因其异步离线特性更适配大批量、非实时任务"
+        },
+        {
+          "option_label": "C",
+          "option_text": "场景③适合同步调用，因需即时获取精确计费数据"
+        },
+        {
+          "option_label": "D",
+          "option_text": "场景②若用同步接口逐个调用，可通过增加并发数提升速度且成本不变"
+        }
+      ],
+      "answer": "A,B,C",
+      "analysis": "A正确：9.6节明确‘在线对话、聊天机器人等面向用户的场景默认开启流式，显著降低TTFT’；B正确：9.10节定义Batch适用于‘离线大批量、对实时性不敏感’场景，且强调‘更高吞吐、更低单价’；C正确：财务报表需确定性结果与即时性，同步调用可确保一次请求返回完整usage字段（见9.2节响应结构），符合9.11‘故障排查地图’中‘统计Token’环节要求；D错误：9.10节‘风险’明确指出‘同步接口要排队等限流且单价高’，增加并发反而易触发429，且Batch的经济性正源于其异步调度优势，非单纯提速。",
+      "difficulty_label": "高阶"
+    },
+    {
+      "type": 0,
+      "stem": "开发团队在实现Function Calling时，模型返回了tool_calls，但最终回答中未体现工具结果。排查发现代码中执行完工具后，仅将tool_result作为普通user消息追加到messages。该错误违反了9.7节强调的哪条API层关键约束？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "未在第一次调用后将response_message追加进messages"
+        },
+        {
+          "option_label": "B",
+          "option_text": "回传工具结果时未使用role='tool'且缺失tool_call_id"
+        },
+        {
+          "option_label": "C",
+          "option_text": "tools参数中JSON Schema的required字段未标注必填参数"
+        },
+        {
+          "option_label": "D",
+          "option_text": "tool_choice参数未设置为'auto'导致模型未触发调用"
+        }
+      ],
+      "answer": "B",
+      "analysis": "依据9.7节‘API视角的四个关键字段’及‘风险’说明：工具结果必须以`role=\"tool\"`消息回传，且必须携带`tool_call_id`（原文示例中`messages.append({\"tool_call_id\": tool_call.id, \"role\": \"tool\", ...})`）。将结果作为`user`消息追加，模型无法关联到之前的`tool_calls`，导致第二次调用时无上下文生成答案。A项虽重要（原文‘忘了把response_message追加进messages’会报错），但本题现象是‘未体现结果’，主因是回传角色错误；C项影响参数提取准确性，非本题现象主因；D项错误——`tool_choice=\"auto\"`是示例值，非强制要求，且题干已说明模型返回了`tool_calls`，证明调用已被触发。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 1,
+      "stem": "某生产环境API服务频繁出现400 Bad Request错误，日志显示错误请求的messages中存在role值为'User'（首字母大写）和content为空字符串。根据9.2与9.8节规范，以下哪些措施能从根本上预防此类错误？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "在发送请求前对messages数组进行schema校验，确保role值严格等于'user'/'system'/'assistant'/'tool'"
+        },
+        {
+          "option_label": "B",
+          "option_text": "将所有role值统一转为小写后再构造请求"
+        },
+        {
+          "option_label": "C",
+          "option_text": "在客户端添加content非空校验，对空字符串抛出业务异常"
+        },
+        {
+          "option_label": "D",
+          "option_text": "配置全局重试策略，对400错误自动重试并修正role大小写"
+        }
+      ],
+      "answer": "A,C",
+      "analysis": "A正确：9.2节明确role取值为小写字符串（'user'/'system'等），且9.8节强调‘400是请求参数错误，不该重试，先修请求’，schema校验是预防性工程实践；C正确：空content属于非法参数（如9.5节示例中content均为非空字符串），提前校验可阻断错误请求；B错误：简单转小写无法覆盖其他参数错误（如content为空），且可能掩盖深层逻辑缺陷；D错误：9.8节明确‘400不该重试’，重试只会浪费配额并掩盖问题，违背‘修请求’原则。",
+      "difficulty_label": "高阶"
+    },
+    {
+      "type": 0,
+      "stem": "安全审计发现前端JS中存在硬编码API Key，且.gitignore未排除密钥文件。根据9.3节‘API Key安全的五条军规’，以下应急处置步骤的优先级排序，哪一项符合教材推荐的黄金顺序？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "立即禁用/轮换Key → 检查近期调用记录 → 评估损失 → 更新.gitignore并扫描历史提交"
+        },
+        {
+          "option_label": "B",
+          "option_text": "更新.gitignore → 扫描历史提交 → 立即禁用/轮换Key → 检查调用记录"
+        },
+        {
+          "option_label": "C",
+          "option_text": "检查调用记录 → 评估损失 → 立即禁用/轮换Key → 更新.gitignore"
+        },
+        {
+          "option_label": "D",
+          "option_text": "扫描历史提交 → 更新.gitignore → 立即禁用/轮换Key → 评估损失"
+        }
+      ],
+      "answer": "A",
+      "analysis": "依据9.3节‘泄漏后的应急顺序’原文：‘立即禁用/轮换 Key → 检查近期调用记录 → 评估损失’。A项完全匹配此三步，且补充了‘更新.gitignore并扫描历史提交’作为后续加固动作（对应‘不提交Git’军规），符合‘先止损、再溯源、后加固’的工程逻辑。B、C、D均将‘禁用/轮换Key’置于第二或第三步，违背‘立即’这一最高优先级要求；且‘扫描历史提交’应在禁用Key后执行，避免在Key仍有效时暴露更多风险。",
+      "difficulty_label": "进阶"
+    }
+  ]
+}

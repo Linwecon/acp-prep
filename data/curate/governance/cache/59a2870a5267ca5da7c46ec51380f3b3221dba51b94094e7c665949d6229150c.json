@@ -1,0 +1,210 @@
+{
+  "4-0350": {
+    "qid": "4-0350",
+    "classification": "own",
+    "chapter": 4,
+    "quality": "ok",
+    "reason": "题目考查Agent中缓解有限长上下文问题的常见方法，与本章Memory知识点直接相关。",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "Memory（记忆）分两类：短期记忆：当前会话的对话历史与中间结果，维持本次对话连贯；长期记忆：跨会话持久化的用户偏好、业务事实、经验教训，按需检索。三种主流管理策略：固定窗口截断、滚动摘要、向量化召回。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "动态压缩（如滚动摘要）是常用方法。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "改进注意力机制是模型层方法，但非本章Agent应用层措施。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "定期重初始化会丢失关键历史，不是通常采用的缓解方法。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "利用外部存储（如向量库）是常用扩展容量的方法。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "4-0352": {
+    "qid": "4-0352",
+    "classification": "own",
+    "chapter": 4,
+    "quality": "ok",
+    "reason": "题目考查多Agent系统评测体系的关键考虑因素，与本章Agent评测知识点相关。",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "Agent 评测比 RAG 更难：问题常出在过程而非最终答案。三种核心评测手段：确定性检查、LLM-as-Judge（大模型当评委）、Rubric（评分量表）。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "用户体验主观感受量化是评测考虑因素。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "Agent间协作效率是评测考虑因素。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "交互界面美观程度与评测系统遵循需求能力无直接关系。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "实时性与响应速度是评测考虑因素。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "4-0364": {
+    "qid": "4-0364",
+    "classification": "own",
+    "chapter": 4,
+    "quality": "ok",
+    "reason": "题目考查多Agent协作中信息共享策略的合理性，与多Agent设计原则相关。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "多 Agent 设计四原则：明确职责、独立凭据、中央调度、避免全量注入。分层模式还有一个工程红利：每个 Worker 拥有独立的上下文窗口，只看自己那部分任务，互不干扰，输出更聚焦。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "动态调整路径基于共享信息，是合理策略。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "完全不共享信息会极大降低协作效率，最不合理。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "请求协助是基于共享信息的合理策略。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "利用环境建模指导搜索是合理策略。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "4-0374": {
+    "qid": "4-0374",
+    "classification": "own",
+    "chapter": 4,
+    "quality": "ok",
+    "reason": "题目考查人机协同在多Agent框架中的优势，与本章人机协作（HITL）知识点相关。",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "人机协作 HITL：在关键节点暂停，交人类审批/决策。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "研究社会关系非主要优势。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "自动完成全部流程过于绝对，非主要优势。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "支持人机直接对话协同解决问题是核心优势。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "中央控制器调度是架构模式，非此交互特性独有优势。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "4-0389": {
+    "qid": "4-0389",
+    "classification": "own",
+    "chapter": 4,
+    "quality": "ok",
+    "reason": "题目考查多Agent系统的适用场景，需判断哪个场景最复杂、最需分布式协作。",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "多 Agent：事情做不完，需要多步操作\"完成任务\"。多 Agent 设计四原则：明确职责、独立凭据、中央调度、避免全量注入。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "单一目标追踪任务可能无需多Agent复杂协作。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "简单的自动化搬运可能无需多Agent系统。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "大型物流中心自动化涉及复杂协作，最适合多Agent系统。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "个人电脑操作系统管理通常不是多Agent典型场景。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "4-1220": {
+    "qid": "4-1220",
+    "classification": "own",
+    "chapter": 4,
+    "quality": "fixable",
+    "reason": "题目条件缺失，未提供具体系统架构和Agent职责定义，无法确定答案。",
+    "answer": [],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "仅员工信息Agent可能不足以完成请假全流程。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "仅请假Agent可能无法获取员工信息。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "聊天和总结Agent组合未体现规划和执行。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "规划和监控Agent是常见组合，但需具体架构支持。"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

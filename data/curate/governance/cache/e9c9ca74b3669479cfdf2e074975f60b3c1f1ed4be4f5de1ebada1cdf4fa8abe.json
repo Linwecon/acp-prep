@@ -1,0 +1,154 @@
+{
+  "items": [
+    {
+      "type": 0,
+      "stem": "某团队使用 vLLM 部署 Qwen3-0.6B 模型，启动命令中未指定 --max-model-len，服务上线后偶发 429 错误且日志显示 'sequence length exceeds max_model_len'。该错误最直接的根源是？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "客户端请求的 prompt + output 总长度超过 vLLM 默认的 max_model_len（通常为 4096 或 8192）"
+        },
+        {
+          "option_label": "B",
+          "option_text": "GPU 显存不足导致 KV Cache 分配失败，触发限流机制"
+        },
+        {
+          "option_label": "C",
+          "option_text": "OpenAI 兼容接口未正确解析 messages 字段，造成 token 计数溢出"
+        },
+        {
+          "option_label": "D",
+          "option_text": "vLLM 服务未启用连续批处理，静态 batch 超出预设容量"
+        }
+      ],
+      "answer": "A",
+      "analysis": "依据原文 6.5 节：'PagedAttention...按需分配，不再按最大长度预分配浪费'，但前提是必须显式或隐式设定最大序列长度约束；原文 6.6 节明确指出 '限制最大序列长度' 是缓解 KV Cache 压力的常用手段，且 'KV Cache 随序列长度 × 并发数线性增长'；原文 6.5 的 vLLM 启动示例虽未展示 --max-model-len，但官方文档与教材实践逻辑均要求该参数作为安全边界——当实际请求总长度（prompt+max_tokens）超出 vLLM 内部校验阈值时，会直接拒绝并返回 429（对应 OpenAI 兼容接口的 rate limit 错误语义），而非等待 OOM 或调度失败。选项 B 描述的是 OOM 或显存耗尽场景，会报 CUDA out of memory 或 block allocation failure，非 429；选项 C 无依据，vLLM 的 OpenAI 接口对 messages 解析符合规范；选项 D 错误，连续批处理本身不设 batch 容量上限，其调度基于可用块和请求长度，429 与此无关。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 0,
+      "stem": "开发人员配置 vLLM 服务时启用了 --enable-prefix-caching，但在压测中发现相同系统提示词的并发请求并未显著降低 TTFT。最可能的原因是？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "前缀缓存仅在模型支持 MLA/GQA 时生效，而 Qwen3-0.6B 不具备该结构"
+        },
+        {
+          "option_label": "B",
+          "option_text": "客户端未在请求中复用相同的 system message 内容哈希，导致前缀无法命中"
+        },
+        {
+          "option_label": "C",
+          "option_text": "vLLM 的 prefix caching 仅加速 Decode 阶段，对 Prefill 无影响"
+        },
+        {
+          "option_label": "D",
+          "option_text": "该参数需配合 --kv-cache-dtype=fp8 才能激活前缀共享机制"
+        }
+      ],
+      "answer": "C",
+      "analysis": "依据原文 6.5 节原理：'Prefill 阶段...并行处理所有输入 token 的表示'，决定 TTFT；而 'KV Cache 是 Decode 加速的基础'，前缀缓存本质是对历史 token 的 KV 块复用，属于 Decode 阶段优化（见 6.5 '天然支持共享：相同前缀...的 KV 块可以在多个请求间共享'）。TTFT 由 Prefill 计算决定，前缀缓存不参与 Prefill 过程，故无法降低首 token 延迟。选项 A 错误，prefix caching 是 vLLM 独立实现的通用机制，不依赖特定注意力变体；选项 B 无依据，vLLM 自动根据输入文本内容计算前缀哈希，无需客户端干预；选项 D 错误，prefix caching 与 kv-cache-dtype 无关，原文未提及其耦合关系。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 1,
+      "stem": "某团队将 vLLM 服务部署于阿里云 ECS，并通过 SLB 对外提供 OpenAI 兼容接口。上线后监控发现：QPS 稳定在 120，但 P95 TTFT 波动剧烈（200ms–2.1s），而 GPU 利用率始终低于 40%。以下哪些排查方向符合教材故障诊断逻辑？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "检查 SLB 是否配置了 HTTPS 终止与重试策略，确认是否因 TLS 握手或重试放大延迟"
+        },
+        {
+          "option_label": "B",
+          "option_text": "查看 vLLM 日志中是否存在 'out of memory' 或 'block allocation failed'，定位 KV Cache 显存碎片问题"
+        },
+        {
+          "option_label": "C",
+          "option_text": "分析客户端请求的 prompt 长度分布，确认是否存在长 prompt 请求导致 Prefill 阶段阻塞"
+        },
+        {
+          "option_label": "D",
+          "option_text": "验证 ECS 实例是否绑定多张 GPU 卡但未启用张量并行，造成单卡负载不均"
+        }
+      ],
+      "answer": "A,C",
+      "analysis": "依据原文 6.2 节：'TTFT 受 prompt 长度影响'，且 '一次请求的总延迟 ≈ TTFT + TPOT × 输出 token 数'，长 prompt 直接拉高 TTFT，符合波动特征；原文 6.11.1 节强调 '保障稳定性需关注负载均衡+限流重试'，SLB 的 HTTPS 终止、重试策略若配置不当（如无限重试、超时过短）会显著放大用户感知延迟，且 GPU 利用率低说明计算资源未饱和，问题大概率在链路外围；选项 B 错误，OOM 或 block allocation failed 会导致服务崩溃或 500 错误，而非 TTFT 波动，且 GPU 利用率低排除显存瓶颈；选项 D 错误，vLLM 默认单卡部署，多卡需显式配置张量并行，但教材未将此列为 TTFT 波动的典型原因，且利用率低说明未触发多卡调度需求。",
+      "difficulty_label": "挑战"
+    },
+    {
+      "type": 0,
+      "stem": "团队使用 curl 调用 vLLM 的 /v1/chat/completions 接口时，始终收到 400 Bad Request 错误，响应体为 '{\"error\":{\"message\":\"model not found\",\"type\":\"invalid_request_error\"}}'。已确认模型路径 '/mnt/workspace/model/Qwen3-0.6B' 在服务器上真实存在且权限正确。最可能被忽略的必要条件是？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "请求体中 'model' 字段值必须与 vLLM 启动时指定的模型路径完全一致（含绝对路径）"
+        },
+        {
+          "option_label": "B",
+          "option_text": "vLLM 服务必须通过 --served-model-name 参数显式注册该模型别名"
+        },
+        {
+          "option_label": "C",
+          "option_text": "客户端请求头必须包含 'Authorization: Bearer <api_key>'"
+        },
+        {
+          "option_label": "D",
+          "option_text": "模型目录下必须存在 tokenizer.json 和 config.json 文件"
+        }
+      ],
+      "answer": "B",
+      "analysis": "依据原文 6.5 节：'启动后即可用标准 OpenAI 接口调用（与官方教程一致，`model` 字段传模型本地路径）'，但该描述基于默认行为；教材虽未明说 --served-model-name，但 vLLM 官方行为及生产实践要求：当启动命令中模型路径为本地路径时，vLLM 默认以该路径作为 served model name；然而，若服务启动时未显式指定 --served-model-name，且客户端请求中的 model 字段值与启动路径存在微小差异（如相对路径/符号链接/路径大小写），则触发 'model not found'。更重要的是，原文 6.5 示例命令 `vllm serve \"/mnt/workspace/model/Qwen3-0.6B\"` 中路径为绝对路径，而教材强调 '业务侧用原有 OpenAI 客户端改个地址就能接入'，暗示 model 字段需严格匹配服务端注册名。选项 A 错误，model 字段可为任意字符串，vLLM 通过内部映射匹配，非强制路径字面量；选项 C 错误，vLLM 默认不启用 API Key 认证；选项 D 错误，tokenizer.json 和 config.json 是模型加载必要文件，缺失会导致启动失败而非 400，且题干已确认路径存在。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 1,
+      "stem": "在 vLLM 的 OpenAI 兼容接口中，以下哪些请求参数组合会导致服务拒绝处理并返回明确错误（非超时或 5xx）？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "设置 stream=true 但未在请求头中声明 Accept: text/event-stream"
+        },
+        {
+          "option_label": "B",
+          "option_text": "指定 max_tokens=1 且 temperature=0，但 prompt 包含非法 Unicode 字符"
+        },
+        {
+          "option_label": "C",
+          "option_text": "同时设置 n=3 和 stream=true"
+        },
+        {
+          "option_label": "D",
+          "option_text": "在 messages 中传入 role='assistant' 的历史消息，且 enable_prefix_caching=true"
+        }
+      ],
+      "answer": "C,D",
+      "analysis": "依据 vLLM 官方兼容性设计及教材 6.5 节 'OpenAI 兼容接口' 隐含约束：stream=true 与 n>1 互斥，vLLM 会直接拒绝（返回 400）；教材 6.5 提到 '相同前缀（如系统提示词、公共上下文）的 KV 块可共享'，但前缀缓存仅支持 role='system'/'user' 的确定性前缀，role='assistant' 属于生成内容，其 token 序列不可预测，启用 prefix caching 时若包含 assistant 消息会导致缓存键冲突，vLLM 将报错（如 'prefix caching requires deterministic prompt'）。选项 A 错误，vLLM 支持 stream=true 无 header 时降级为普通 JSON 响应；选项 B 错误，非法字符会在 tokenizer 阶段被静默处理或替换，不触发 400。",
+      "difficulty_label": "挑战"
+    },
+    {
+      "type": 0,
+      "stem": "运维人员发现 vLLM 服务在持续运行 12 小时后，KV Cache 显存占用率从 45% 缓慢升至 92%，但并发请求数稳定在 20，且无新模型加载操作。最符合教材原理的故障原因是？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "客户端未正确关闭 HTTP 连接，导致 vLLM 的请求上下文未及时释放"
+        },
+        {
+          "option_label": "B",
+          "option_text": "PagedAttention 的页表元数据泄漏，长期运行后块索引未回收"
+        },
+        {
+          "option_label": "C",
+          "option_text": "长时间运行中累积的未完成流式响应（stream=true）占用了大量未释放的 KV 块"
+        },
+        {
+          "option_label": "D",
+          "option_text": "模型权重在 GPU 显存中发生内存碎片，挤压 KV Cache 可用空间"
+        }
+      ],
+      "answer": "C",
+      "analysis": "依据原文 6.5 节：'连续批处理...完成一个就立刻返回、新请求立刻补进 batch'，但流式响应（stream=true）的生命周期与普通请求不同——其 KV Cache 必须全程保留直至整个响应流结束；教材虽未明说，但 vLLM 实现中，流式请求的 KV 块在最后 token 发送完毕前不会被回收。若客户端异常断连或未读取完流，vLLM 会等待超时（默认 60s）后才释放，但若超时设置过长或存在大量慢客户端，则导致 KV Cache 块长期滞留。选项 A 错误，HTTP 连接管理由 ASGI 服务器（如 uvicorn）处理，与 KV Cache 无关；选项 B 错误，PagedAttention 的页表是内存结构，泄漏会导致 OOM，而非渐进式占用上升；选项 D 错误，教材 6.5 明确 PagedAttention '消除碎片'，权重碎片不影响 KV Cache 分配。",
+      "difficulty_label": "挑战"
+    }
+  ]
+}

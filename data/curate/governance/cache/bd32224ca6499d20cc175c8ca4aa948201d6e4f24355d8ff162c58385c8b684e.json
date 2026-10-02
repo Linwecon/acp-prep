@@ -1,0 +1,180 @@
+{
+  "new-6-42-0": {
+    "qid": "new-6-42-0",
+    "classification": "own",
+    "chapter": 6,
+    "quality": "ok",
+    "reason": "题目考察PAI-EAS与ECS自建在灰度发布、版本控制等企业级能力上的差异，符合本章部署形态对比考点。",
+    "answer": [
+      "D"
+    ],
+    "supported": true,
+    "quote": "PAI-EAS（Elastic Algorithm Service）是阿里云PAI平台的模型在线服务，可把开源社区模型或自训练/微调模型部署为在线服务，提供弹性扩缩容、蓝绿/灰度发布、资源组管理、版本控制、资源监控等企业级能力。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "ECS自建也可通过预热脚本实现模型预热，非EAS独有。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "SLB负载均衡是云服务通用能力，ECS可自行配置。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "ESS弹性伸缩策略ECS也可配置，非EAS独有。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "蓝绿发布、版本控制与一键回滚界面是EAS原生企业级能力，ECS需自研。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-6-42-1": {
+    "qid": "new-6-42-1",
+    "classification": "own",
+    "chapter": 6,
+    "quality": "ok",
+    "reason": "题目考察函数计算FC冷启动延迟的根本原因，符合FC边界与风险考点。",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "函数计算FC（Function Compute）是事件驱动的Serverless计算服务...它提供Serverless GPU能力，秒级自动扩缩容...FC的边界必须记牢：冷启动延迟：无流量时实例被回收，新请求到来要重新拉起、可能还要加载模型，首个响应明显变慢。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "现象符合FC冷启动定义，即实例回收后需重新拉起并加载模型。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "PagedAttention解决显存碎片，但题干核心是首次调用延迟，非碎片问题。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "题干未提重量化或重试，与量化精度损失无直接关联。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "题干现象是首次调用延迟高，非并发限制触发的429错误。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-6-42-2": {
+    "qid": "new-6-42-2",
+    "classification": "own",
+    "chapter": 6,
+    "quality": "ok",
+    "reason": "题目考察量化（AWQ INT4）对显存、速度、精度影响的多维度判断，符合量化考点。",
+    "answer": [
+      "A",
+      "B",
+      "C",
+      "D"
+    ],
+    "supported": true,
+    "quote": "量化（Quantization）：把模型参数从高精度压缩到低精度，以可控的精度损失换取显存占用下降、显存带宽压力减小、推理速度提升。GPTQ与AWQ是两种主流的PTQ方法...AWQ（Activation-aware Weight Quantization）...在低比特（INT4）下通常更稳、更快。量化主要省显存：参数体积成倍缩小...量化通常也加速：因为Decode阶段是显存带宽密集型...量化不是零代价：INT8损失一般很小，INT4在敏感任务上可能掉点更明显。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "量化主要节省显存，且因Decode阶段显存带宽减小通常加速。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "AWQ属于训练后量化（PTQ），教材明确其在低比特下通常更稳。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "TTFT由Prefill阶段决定，Prefill计算密集，量化主要影响Decode权重读取。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "INT4量化必然有精度损失，损失程度与任务敏感性相关。"
+      }
+    ],
+    "duplicate_of": "6-5136"
+  },
+  "new-6-42-3": {
+    "qid": "new-6-42-3",
+    "classification": "own",
+    "chapter": 6,
+    "quality": "ok",
+    "reason": "题目考察vLLM并发超限时调整最大并发参数的效果，符合性能指标与限流考点。",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "并发数：同时在处理的请求数 | 显存（KV Cache）容量、调度策略...超出并发上限通常直接返回错误（如429），需要客户端重试与降级配合。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "降低并发可减少429错误，但若KV Cache已超显存上限，RT仍会高。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "并发已超最优值，QPS不会显著提升，连续批处理效率已饱和。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "TTFT由Prefill决定，调整并发参数主要影响调度与限流，非Prefill资源竞争。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "TPOT下降需减少显存带宽压力，仅调并发数不直接减小单请求压力。"
+      }
+    ],
+    "duplicate_of": "6-5135"
+  },
+  "new-6-42-5": {
+    "qid": "new-6-42-5",
+    "classification": "own",
+    "chapter": 6,
+    "quality": "ok",
+    "reason": "题目综合考察数据出域、性能、运维能力等多约束下的部署选型，符合选型决策考点。",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "部署选型四步决策法：1. 数据能否出域？不能（敏感/合规）→ 排除百炼等公有MaaS...PAI-EAS（Elastic Algorithm Service）是阿里云PAI平台的模型在线服务，可把开源社区模型或自训练/微调模型部署为在线服务，提供弹性扩缩容、蓝绿/灰度发布、资源组管理、版本控制、资源监控等企业级能力。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "PAI-EAS满足数据不出域、实时推理、原生支持灰度与回滚，符合所有约束。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "ECS需自研灰度与回滚，不符合‘无专职SRE’约束，故非最符合。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "FC存在冷启动，无法保障P95 TTFT<1.2s，故不符合。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "百炼数据出域违反约束①，且不支持私有模型灰度，故不符合。"
+      }
+    ],
+    "duplicate_of": "6-5138"
+  }
+}

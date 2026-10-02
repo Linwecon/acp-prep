@@ -1,0 +1,107 @@
+{
+  "new-4-114-0": {
+    "qid": "new-4-114-0",
+    "classification": "own",
+    "chapter": 4,
+    "quality": "ok",
+    "reason": "题目考查Harness/Loop闭环中验证环节的必要性，与原文知识点匹配。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "验证（Validate）：用确定性检查 + LLM Judge + 浏览器截图/代码执行等客观证据",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "标准缺失是问题，但根本在于未执行验证。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "未对工具返回值进行校验与异常判断，违反验证环节。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "记录不足是后续问题，非最根本违反环节。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "写回延迟是改进问题，非当前行为根本违反点。"
+      }
+    ],
+    "duplicate_of": "4-5183"
+  },
+  "new-4-114-1": {
+    "qid": "new-4-114-1",
+    "classification": "own",
+    "chapter": 4,
+    "quality": "ok",
+    "reason": "题目考查Skill的渐进式披露原则，与原文描述一致。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "Skill：Agent 启动时只看到所有 Skill 的 description（很短），由模型判断当前任务要不要激活；激活后才读 SKILL.md，执行到具体步骤时再读对应子文件——这就是渐进式披露（Progressive Disclosure）。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "避免全量注入是多Agent原则，非Skill加载原则。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "分阶段按需加载子资源，是渐进式披露核心。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "独立凭据是多Agent设计原则，无关。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "滚动摘要是记忆管理策略，无关。"
+      }
+    ],
+    "duplicate_of": "4-5157"
+  },
+  "new-4-114-5": {
+    "qid": "new-4-114-5",
+    "classification": "own",
+    "chapter": 4,
+    "quality": "ok",
+    "reason": "题目考查ReAct循环中工具失败后的标准处理流程。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "Observation 可能含噪声甚至恶意内容（提示注入），模型不能盲目信任外部返回，必要时交叉验证。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "未将结果回传模型决策，违反ReAct流程。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "将超时结果作为Observation回传，触发模型下一步决策。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "直接调用备用工具，绕过了模型的规划决策。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "丢弃结果重新推理，浪费资源且不符合闭环。"
+      }
+    ],
+    "duplicate_of": "4-5175"
+  }
+}

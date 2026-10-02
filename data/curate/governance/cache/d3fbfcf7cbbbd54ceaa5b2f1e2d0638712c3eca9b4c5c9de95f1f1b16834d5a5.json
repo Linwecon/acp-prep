@@ -1,0 +1,210 @@
+{
+  "5-1401": {
+    "qid": "5-1401",
+    "classification": "own",
+    "chapter": 5,
+    "quality": "ok",
+    "reason": "操作系统UI美观程度与微调计算资源无关，属无关项。",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "GPU的数量和型号，以支持大规模并行计算",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "是关键指标，原文提显存/算力需求"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "是关键指标，数据传输影响训练效率"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "UI美观不影响计算资源效能"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "是关键指标，需存模型和中间状态"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "5-1422": {
+    "qid": "5-1422",
+    "classification": "own",
+    "chapter": 5,
+    "quality": "ok",
+    "reason": "原文明确“质量优于数量”，质量是首要原则。",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "质量从四个维度把关，其重要性远高于数量",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "原文明确反对数据越多越好"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "多样性是质量四维度之一，非首要"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "原文强调质量重要性远高于数量"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "平衡性未在质量四维度中提及"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "5-1450": {
+    "qid": "5-1450",
+    "classification": "own",
+    "chapter": 5,
+    "quality": "ok",
+    "reason": "Adapter Tuning即LoRA类方法，只训新增参数。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "LoRA（低秩适配）不直接更新原始权重矩阵 W₀，而是在它旁边\"挂\"一对小矩阵来学习变化量 ΔW",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "Adapter冻结原参数，不修改"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "只训练新增Adapter层参数"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "适用性非核心优势，原文未提"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "验证集必需，原文强调三集独立"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "5-1451": {
+    "qid": "5-1451",
+    "classification": "own",
+    "chapter": 5,
+    "quality": "ok",
+    "reason": "Adapter本质是在原模型中插入可训练模块。",
+    "answer": [
+      "D"
+    ],
+    "supported": true,
+    "quote": "LoRA（低秩适配）不直接更新原始权重矩阵 W₀，而是在它旁边\"挂\"一对小矩阵来学习变化量 ΔW",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "Adapter不替换全部参数"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "量化非Adapter核心设计"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "随机丢弃属Dropout，非Adapter"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "插入可训练中间层是核心设计"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "5-0008": {
+    "qid": "5-0008",
+    "classification": "own",
+    "chapter": 5,
+    "quality": "review",
+    "reason": "题干称有损失趋势图但未提供，无法判断状态。",
+    "answer": [],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "无图无法判断欠拟合"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "无图无法判断过拟合"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "无图无法判断失败"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "无图无法判断成功"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "5-0046": {
+    "qid": "5-0046",
+    "classification": "own",
+    "chapter": 5,
+    "quality": "ok",
+    "reason": "loss快速震荡或上升对应训练失败，原文明确。",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "训练 loss 大幅震荡 | 学习率偏高 / batch 太小导致梯度不稳",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "欠拟合表现为loss持续下降"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "过拟合表现为验证loss先降后升"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "loss震荡或上升是训练失败特征"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "训练成功需loss平稳下降"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

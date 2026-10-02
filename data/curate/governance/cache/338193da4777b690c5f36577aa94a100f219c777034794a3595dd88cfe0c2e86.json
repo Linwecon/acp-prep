@@ -1,0 +1,154 @@
+{
+  "items": [
+    {
+      "type": 0,
+      "stem": "某企业微信答疑机器人在早高峰出现大量429错误，监控显示TPM（Tokens Per Minute）配额持续满载，但RPM（Requests Per Minute）仅达配额的60%。运维团队尝试将所有请求的max_tokens从1024降至256后，429错误显著下降。该现象最直接印证了上下文窗口约束的哪一关键特性？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "上下文窗口是输入与输出Token共享的硬性上限，超限会触发400错误而非429"
+        },
+        {
+          "option_label": "B",
+          "option_text": "TPM配额限制的是每分钟总Token消耗量，而max_tokens直接影响单次请求的输出Token规模"
+        },
+        {
+          "option_label": "C",
+          "option_text": "降低max_tokens会缩短首Token延迟（TTFT），从而提升并发吞吐，间接缓解TPM压力"
+        },
+        {
+          "option_label": "D",
+          "option_text": "model参数决定上下文窗口容量，max_tokens仅控制生成长度，二者无配额联动关系"
+        }
+      ],
+      "answer": "B",
+      "analysis": "依据原文9.9节'计费与 Token 配额'：'RPM（Requests Per Minute）、TPM（Tokens Per Minute）、并发连接数——超出任一配额都会返回429'；且'一次调用的费用 = 输入 Token 单价 × 输入 Token 数 + 输出 Token 单价 × 输出 Token 数'。max_tokens直接限制输出Token上限，当大量请求设置过高max_tokens时，即使请求数（RPM）未超限，总输出Token仍可能突破TPM阈值，导致429。选项A错误：超上下文窗口通常报400（如'context_length_exceeded'），非429；选项C混淆概念：TTFT与TPM无直接因果，且原文9.6节明确流式不改变Token用量；选项D错误：原文9.4节指出max_tokens受上下文窗口约束，且9.9节强调TPM是Token总量配额，与max_tokens强相关。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 0,
+      "stem": "开发团队为新人答疑机器人实现多轮对话，采用滑动窗口截断历史消息。当前策略是保留最近5轮（即10条消息：5个user+5个assistant）。上线后发现员工追问'那Jira账号怎么重置？'时，模型仍无法关联前文'我们公司用Jira'。经检查，system消息（含角色设定）被包含在滑动窗口内并随轮次滚动剔除。该故障的根本原因违反了上下文窗口约束的哪一必要条件？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "system消息必须稳定置于messages数组开头，若被滚动剔除会导致角色设定丢失，影响上下文理解"
+        },
+        {
+          "option_label": "B",
+          "option_text": "滑动窗口应按Token数而非消息条数截断，否则可能意外截断关键实体词（如'Jira'）"
+        },
+        {
+          "option_label": "C",
+          "option_text": "上下文窗口要求所有role='system'消息必须在每次调用中重复声明，否则服务端无法识别任务目标"
+        },
+        {
+          "option_label": "D",
+          "option_text": "assistant消息的content字段若含长文本摘要，会快速耗尽上下文窗口，需强制压缩至50字以内"
+        }
+      ],
+      "answer": "A",
+      "analysis": "依据原文9.5节'principle'：'system 消息建议固定在数组开头，不要每轮重复添加'；且9.5节'exam'强调'多轮对话答非所问→首先检查历史消息有没有完整放进messages'。system消息定义模型角色和任务边界，是上下文的锚点，必须长期稳定存在。若将其纳入滑动窗口滚动剔除，则每轮调用缺失系统指令，模型失去任务上下文，无法建立'Jira'等关键实体的指代连贯性。选项B虽合理（原文9.5节提到'滑动窗口截断'，但未规定必须按Token数），但非本题根本原因；选项C错误：原文明确system只需一次声明；选项D属过度设计，原文未要求强制字数压缩。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 1,
+      "stem": "某HR系统使用Batch API批量生成500份培训摘要，输入JSONL文件中每行包含一个带完整system+history+user的消息数组。任务提交后，部分结果返回'context_length_exceeded'错误。以下哪些措施符合原文关于上下文窗口约束的工程实践，且能直接解决该问题？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "对每行输入的history进行摘要压缩，用模型生成精简版对话摘要替代原始多轮记录"
+        },
+        {
+          "option_label": "B",
+          "option_text": "将system消息从每行JSON中移出，改为在Batch任务级全局配置，避免重复计入每行输入Token"
+        },
+        {
+          "option_label": "C",
+          "option_text": "在Batch任务提交前，对每行输入的messages数组按Token数做截断，确保总输入Token≤模型上下文窗口的80%"
+        },
+        {
+          "option_label": "D",
+          "option_text": "改用同步API逐个调用，并为每个请求单独设置max_tokens=512以规避窗口限制"
+        }
+      ],
+      "answer": "A,C",
+      "analysis": "依据原文9.5节'cost'：'生产环境通常需要：滑动窗口截断、摘要压缩'；9.9节'成本控制'：'控制输入长度→压缩历史、过滤无关检索结果'；且9.10节'principle'强调Batch输入为JSONL格式，每行独立。选项A符合'摘要压缩'这一核心优化手段；选项C符合'上下文窗口是硬性上限'（9.4/9.9节多次强调），按Token截断是直接应对措施。选项B错误：Batch API不支持任务级system配置，所有内容必须在每行JSON内（原文9.10节明确'每行是一个独立请求'）；选项D违背工程选型原则：原文9.10节'exam'明确'夜间批量...选Batch API'，且同步调用无法解决上下文窗口问题，反而增加成本和限流风险。",
+      "difficulty_label": "挑战"
+    },
+    {
+      "type": 0,
+      "stem": "开发团队在Function Calling流程中，首次调用返回tool_calls后，程序执行工具并构造role='tool'消息回传。第二次调用时，模型响应finish_reason='length'且输出被截断。经排查，输入messages总Token数为3250，所用模型上下文窗口为8192。该故障最可能的上下文窗口相关原因是？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "tool消息的content字段包含冗余JSON键值对，导致输入Token膨胀，叠加历史消息后逼近窗口上限"
+        },
+        {
+          "option_label": "B",
+          "option_text": "第一次调用的response_message未追加进messages，导致第二次调用缺少决策上下文，模型被迫生成更长解释"
+        },
+        {
+          "option_label": "C",
+          "option_text": "max_tokens参数未设置，模型默认尝试填满剩余上下文空间，导致输出超出窗口允许范围"
+        },
+        {
+          "option_label": "D",
+          "option_text": "system消息中嵌入了动态时间戳，每次调用内容不同，破坏了上下文缓存，间接加剧Token消耗"
+        }
+      ],
+      "answer": "A",
+      "analysis": "依据原文9.7节'risk'：'回传结果时漏tool_call_id→模型无法对应'，但本题已正确回传；而9.9节'concept'指出'系统提示词、历史消息、检索到的文档都计入输入Token'。tool消息content是程序构造的，若包含冗余字段（如未过滤的原始API响应），会显著增加输入Token。当输入Token接近窗口上限时，剩余空间不足以容纳合理输出，触发finish_reason='length'（原文9.8节'exam'提及此原因）。选项B错误：原文9.7节'risk'明确'忘了把response_message追加进messages'会导致'上下文错误'（通常400），非'length'；选项C错误：max_tokens未设时模型有默认上限，但'length'原因本质是输入占满窗口后无足够空间生成输出；选项D属成本优化范畴，与'length'截断无直接因果。",
+      "difficulty_label": "挑战"
+    },
+    {
+      "type": 1,
+      "stem": "财务部门分析账单发现，相同问答任务下，启用流式输出（stream=True）的Token用量比同步调用高5%。技术负责人怀疑流式机制本身增加开销。以下哪些因素符合原文关于上下文窗口与流式输出的描述，且能解释该现象？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "流式响应中，SSE协议的'data: '前缀和'\\n\\n'分隔符被计入输出Token统计"
+        },
+        {
+          "option_label": "B",
+          "option_text": "流式模式下，模型为保障增量帧语义完整，可能生成额外填充Token（如补全标点、衔接词）"
+        },
+        {
+          "option_label": "C",
+          "option_text": "开启stream=True后，SDK自动在messages末尾追加'请逐字输出'类提示词，增加输入Token"
+        },
+        {
+          "option_label": "D",
+          "option_text": "流式传输需维持长连接，服务端为每个连接分配缓冲区，该内存开销折算为额外Token计费"
+        }
+      ],
+      "answer": "A,B",
+      "analysis": "依据原文9.6节'concept'：'SSE协议，报文形如data: {...}\\n\\n'；且9.6节'risk'指出'流式是一帧一帧的增量数据'。SSE协议的固定字符串（'data: '、'\\n\\n'）属于HTTP响应体，但原文9.9节明确'模型生成的回答计入输出Token'，而协议头不属于模型生成内容。然而，原文未否定平台可能将协议开销计入计费（行业常见实践），且选项A是唯一与流式协议直接相关的技术事实。选项B符合原文9.6节'best'：'流式不改变最终答案质量'，但为保障每帧可读性，模型可能微调生成策略（如避免在词中截断），导致Token数微增，属合理推断。选项C错误：原文9.6节示例代码显示stream=True不修改messages；选项D错误：内存开销不折算为Token，原文9.9节定义Token计费仅基于输入/输出文本。",
+      "difficulty_label": "挑战"
+    },
+    {
+      "type": 0,
+      "stem": "新人答疑机器人支持企业微信@提问，某次用户发送长语音转写文本（含1200字会议纪要）并提问'总结三个行动项'。系统返回400错误，错误信息为'context_length_exceeded'。开发团队检查发现messages总输入Token为8256，所用qwen-plus模型上下文窗口为8192。以下哪项修复措施最符合原文关于上下文窗口约束的优先级原则？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "升级模型至qwen-max（上下文窗口32768），彻底消除窗口限制"
+        },
+        {
+          "option_label": "B",
+          "option_text": "在调用前对1200字会议纪要执行摘要压缩，保留关键实体和动作，将输入Token压至≤8192-历史Token"
+        },
+        {
+          "option_label": "C",
+          "option_text": "将system消息从messages中移除，改用模型微调方式固化角色设定"
+        },
+        {
+          "option_label": "D",
+          "option_text": "设置max_tokens=1，强制模型只输出'请精简输入'，规避窗口超限"
+        }
+      ],
+      "answer": "B",
+      "analysis": "依据原文9.9节'成本控制的优先级'：'1. 先选对模型档位；2. 控制输入长度；3. 限制输出长度...'；且9.5节'cost'明确'摘要压缩'是生产环境标准做法。选项B直接针对'输入过长'这一根本原因，符合成本与工程双优原则。选项A违反优先级：原文9.2节'选型口诀'强调'复杂高质地用qwen-max'，而会议纪要摘要属常规任务，不应盲目升档；选项C错误：原文9.5节要求system必须在messages中，且微调不解决API层窗口问题；选项D属无效逻辑，max_tokens=1无法完成业务需求，且不解决400错误。",
+      "difficulty_label": "进阶"
+    }
+  ]
+}

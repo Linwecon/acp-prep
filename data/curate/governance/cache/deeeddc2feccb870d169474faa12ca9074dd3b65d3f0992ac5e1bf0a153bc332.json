@@ -1,0 +1,154 @@
+{
+  "items": [
+    {
+      "type": 0,
+      "stem": "某金融企业需上线内部合规问答系统，要求：①全部业务数据与提示词严禁出域；②日均稳定请求2000+，P95 TTFT需<1.2s；③支持灰度发布新模型版本并可秒级回滚。在PAI-EAS与GPU ECS+vLLM两种方案中，若团队具备GPU运维能力但缺乏K8s经验，应优先选择哪一方案？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "GPU ECS+vLLM：因完全可控，可深度调优vLLM参数（如--block-size、--max-num-seqs）压低TTFT"
+        },
+        {
+          "option_label": "B",
+          "option_text": "PAI-EAS：其内置模型预热与蓝绿发布能力天然满足灰度/回滚需求，且免容器运维"
+        },
+        {
+          "option_label": "C",
+          "option_text": "GPU ECS+vLLM：ECS不支持自动灰度，但可通过SLB权重手动切流实现同等效果"
+        },
+        {
+          "option_label": "D",
+          "option_text": "PAI-EAS：虽为托管服务，但支持VPC内网部署，满足数据不出域要求"
+        }
+      ],
+      "answer": "B",
+      "analysis": "依据教材6.10.2节，PAI-EAS明确提供“模型预热”（解决TTFT稳定性）、“蓝绿/灰度发布”和“版本控制+快速回滚”三大企业级能力，且6.7节表格指出其定位为“自定义/私有模型上线、实时推理、需弹性与灰度”，完全匹配题干三要素；而D选项错误——PAI-EAS虽支持VPC，但6.7节‘三组边界’强调“百炼 vs 自部署”时明确指出“百炼上的模型已部署好”，而PAI-EAS作为平台托管服务，其模型仍运行于阿里云物理资源上，数据出域风险需单独评估（6.8节‘数据出域与模型范围’），教材未承诺其绝对不出域；A、C选项忽视题干关键约束“支持灰度发布并可秒级回滚”——ECS需自行搭建SLB+脚本+CI/CD才能模拟，非原生能力，违背6.12节“选型四步法”中“运维能力”与“企业级能力”需匹配的原则。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 0,
+      "stem": "使用vLLM部署Qwen3-0.6B时，观察到GPU显存占用中KV Cache占比达78%，且并发从4提升至8时，TPOT上升35%、错误率激增。此时最应优先排查的配置项是？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "是否启用--enable-prefix-caching复用系统提示词KV块"
+        },
+        {
+          "option_label": "B",
+          "option_text": "是否设置--max-model-len过小导致长上下文被截断重计算"
+        },
+        {
+          "option_label": "C",
+          "option_text": "是否配置--block-size过大造成PagedAttention内存对齐浪费"
+        },
+        {
+          "option_label": "D",
+          "option_text": "是否遗漏--quantization awq参数启用INT4量化"
+        }
+      ],
+      "answer": "B",
+      "analysis": "题干核心矛盾是KV Cache占比高（78%）且并发提升后TPOT劣化、错误率激增，指向KV Cache管理异常。教材6.5节明确：“KV Cache随序列长度×并发数线性增长”，6.6节指出“限制最大序列长度可直接约束单次请求KV Cache占用”。若--max-model-len设置过小（如远低于实际prompt+output长度），vLLM会在Decode阶段频繁触发KV Cache重分配与拷贝，导致显存碎片加剧、带宽压力飙升，表现为TPOT恶化与OOM错误——这正是6.5节PagedAttention要解决的痛点。A选项虽能降本，但题干未提存在公共前缀；C选项影响的是显存利用率而非TPOT突变；D选项针对权重显存，而题干明确KV Cache是主因（78%），量化权重对KV Cache无直接影响。",
+      "difficulty_label": "高阶"
+    },
+    {
+      "type": 1,
+      "stem": "某电商客服系统采用FC部署AI助手，上线后发现：①工作日早9点流量高峰时首请求延迟达3.2s；②夜间低峰期偶发超时；③监控显示GPU利用率峰值仅45%。以下哪些措施可针对性解决上述问题？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "配置FC预留实例，确保常驻GPU资源"
+        },
+        {
+          "option_label": "B",
+          "option_text": "将函数超时时间从默认60s调高至300s"
+        },
+        {
+          "option_label": "C",
+          "option_text": "启用FC的预热功能，按业务高峰周期定时触发预热"
+        },
+        {
+          "option_label": "D",
+          "option_text": "改用PAI-EAS部署，利用其模型预热能力"
+        }
+      ],
+      "answer": "A,C,D",
+      "analysis": "题干现象①②均为典型冷启动表现（高峰首请求慢、低峰偶发超时），③GPU利用率低印证了FC空转特性。教材6.10.1节明确：“冷启动延迟是FC核心边界”，并指出“可通过预留实例/预热缓解”；A选项直接消除冷启动根源；C选项是教材推荐的预热实践；D选项切换至PAI-EAS，其6.10.2节强调“提供模型预热，服务上线即就绪”，本质是规避FC冷启动缺陷。B选项错误——调高超时时间不能解决延迟问题，反而掩盖冷启动故障，且6.10.1节‘风险’指出“超时是硬约束”，盲目调高可能引发更严重雪崩。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 0,
+      "stem": "压测发现当并发从16增至32时，vLLM服务QPS仅提升12%，而平均RT翻倍、429错误率升至8%。此时最应优先执行的操作是？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "立即扩容GPU实例数量，通过负载均衡分担请求"
+        },
+        {
+          "option_label": "B",
+          "option_text": "检查KV Cache显存占用是否已达阈值，确认是否触发vLLM的自动限流"
+        },
+        {
+          "option_label": "C",
+          "option_text": "启用--enforce-eager参数禁用CUDA Graph优化"
+        },
+        {
+          "option_label": "D",
+          "option_text": "将--max-num-batched-tokens从默认值调高以增大批处理容量"
+        }
+      ],
+      "answer": "B",
+      "analysis": "题干现象（QPS增幅远低于并发增幅、RT飙升、429错误）是典型的显存瓶颈信号。教材6.3节‘高频误区’明确警示：“超出并发上限通常直接返回错误（如429）”，6.6节指出“KV Cache是随序列长度×并发数线性增长的部分”，且6.5节说明vLLM会基于显存水位实施动态限流。因此，首要动作是验证瓶颈根源——B选项直指核心，符合教材6.3节“必须通过压测确定最优并发阈值”的指导原则。A选项属事后扩容，未诊断即扩容易造成资源浪费；C、D选项属于性能调优，但教材6.5节强调PagedAttention与连续批处理已默认启用，盲目调整参数可能破坏稳定性。",
+      "difficulty_label": "高阶"
+    },
+    {
+      "type": 1,
+      "stem": "某团队需为医疗知识库构建问答服务，要求：①严格保障患者数据不出本地机房；②支持10万字长文档检索+生成；③需对接现有Prometheus监控体系。以下哪些部署方案组合符合要求？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "GPU ECS + vLLM + 自建Prometheus exporter"
+        },
+        {
+          "option_label": "B",
+          "option_text": "PAI-EAS + VPC专有网络 + ARMS监控对接"
+        },
+        {
+          "option_label": "C",
+          "option_text": "函数计算FC + 本地NAS挂载 + 自定义监控埋点"
+        },
+        {
+          "option_label": "D",
+          "option_text": "本地IDC GPU服务器 + vLLM + Prometheus"
+        }
+      ],
+      "answer": "A,D",
+      "analysis": "题干核心约束是“患者数据不出本地机房”，即物理隔离要求。教材6.7节明确：百炼/MaaS、FC、PAI-EAS均属云托管服务，数据需上传至阿里云环境，无法满足本地机房要求；B选项PAI-EAS虽支持VPC，但VPC是云上虚拟网络，非物理本地机房；C选项FC强制使用云上存储，NAS挂载无法规避数据出域。A选项ECS可部署于客户自有IDC或阿里云专属云（Apsara Stack），结合vLLM完全可控，且Prometheus exporter可自主集成；D选项直接使用本地IDC服务器，100%满足数据不出域，且vLLM原生支持长上下文（6.5节PagedAttention设计初衷即为长上下文）。教材6.12节“选型四步法”第一步即“数据能否出域？不能→排除MaaS/FC/EAS”，故仅A、D合法。",
+      "difficulty_label": "高阶"
+    },
+    {
+      "type": 0,
+      "stem": "在对比vLLM与朴素Transformers推理时，发现相同Qwen3-0.6B模型下，vLLM的TPOT降低40%。这一性能提升主要归因于以下哪项技术对Decode阶段的优化？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "PagedAttention通过分页管理KV Cache，减少显存碎片，提升显存带宽利用率"
+        },
+        {
+          "option_label": "B",
+          "option_text": "连续批处理使GPU在Decode阶段持续满载，消除静态批处理中的空转等待"
+        },
+        {
+          "option_label": "C",
+          "option_text": "vLLM内置GPTQ量化算子，在Decode阶段直接执行INT4矩阵乘法"
+        },
+        {
+          "option_label": "D",
+          "option_text": "Prefill阶段采用FlashAttention-2加速，缩短首token生成时间"
+        }
+      ],
+      "answer": "A",
+      "analysis": "题干明确TPOT（每输出token时间）降低40%，而TPOT由Decode阶段决定（6.2节原理）。教材6.5节指出：Decode是“显存带宽密集型”，其瓶颈在于从显存读取KV Cache；PagedAttention的核心价值正是“消除碎片、按需分配”，使显存带宽更高效地服务于KV Cache读取（6.5节‘好处’第2条）。B选项虽提升吞吐（QPS），但教材6.5节图示说明其优化的是GPU调度粒度，不直接降低单token计算耗时；C选项错误——vLLM本身不内置量化算子，量化需配合AWQ/GPTQ等PTQ方法（6.4节），且题干未提量化；D选项优化的是Prefill阶段，影响TTFT而非TPOT。",
+      "difficulty_label": "进阶"
+    }
+  ]
+}

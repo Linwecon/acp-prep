@@ -1,0 +1,208 @@
+{
+  "3-1235": {
+    "qid": "3-1235",
+    "classification": "misplaced",
+    "chapter": 3,
+    "quality": "remove",
+    "reason": "node_postprocessors属LlamaIndex框架细节，原文未提及其参数配置规则",
+    "answer": [],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "原文未定义similarity_top_k与top_n关系"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "streaming是query_engine级参数"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "similarity_cutoff=0无实际意义"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "重排序是RAG关键环节"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-1268": {
+    "qid": "3-1268",
+    "classification": "beyond",
+    "chapter": 3,
+    "quality": "remove",
+    "reason": "Marp转PPT属前端工具，原文未涉及",
+    "answer": [],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "原文未提Marp语法限制"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "原文未提图片排版要求"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "原文未提主题样式"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "原文未提代码块渲染"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-1282": {
+    "qid": "3-1282",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "四项均对应原文3.5-3.6节技术点",
+    "answer": [
+      "A",
+      "C",
+      "D"
+    ],
+    "supported": true,
+    "quote": "检索质量三要素：Embedding 质量、切片策略、文档结构",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "原文明确'Embedding 模型不够好'是根因"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "增加切片长度会降低精度"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "原文3.6.3列查询改写为检索增强技术"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "原文3.6.2强调Rerank提升精确率"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-1412": {
+    "qid": "3-1412",
+    "classification": "cross",
+    "chapter": 9,
+    "quality": "remove",
+    "reason": "AssistantAPI属OpenAI生态，原文未提及",
+    "answer": [],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "原文未提AssistantAPI参数"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "model是正确参数但原文未覆盖"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "原文未提instructions作用"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "原文未提description用途"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-1456": {
+    "qid": "3-1456",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "B方案符合RAG私有化部署核心要求",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "知识更新 = 更新知识库，实时生效，无需重训模型",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "公有云API泄露涉密信息"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "私有部署+RAG满足安全与时效"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "脱敏后仍调用第三方有风险"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "免费模型无法保障涉密安全"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-1458": {
+    "qid": "3-1458",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "C违反原文分块策略适配原则",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "常见切片策略：Token/句子/Markdown/语义/句子窗口",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "原文3.4确认切片过大会稀释语义"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "原文3.4指出切片过小会截断语义"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "原文3.4强调按文档类型选策略"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "原文3.4提元数据标签提升检索"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

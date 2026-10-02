@@ -1,0 +1,212 @@
+{
+  "3-0241": {
+    "qid": "3-0241",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "考查RAGAS指标优化，选项明确区分检索与生成问题。",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "Context Precision 低分说明：无关内容排前面，加 Rerank",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "Rerank提升相关片段排名，针对Context Precision低。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "增加训练数据是微调手段，不解决检索排序问题。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "减少推理时间无关检索精度优化。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "增加参数数量是模型训练，非RAG检索优化。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-0243": {
+    "qid": "3-0243",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "考查切片策略选择，符合教材对比。",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "句子窗口检索：建索引时以'单个句子'为可检索单元...检索命中某句后，后处理器自动把内容替换成整个窗口",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "句子窗口以句为单位检索并扩展上下文，适合长文档。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "Token切片按固定长度切，易切断语义，不保上下文。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "句子切片保持句子完整，但未提及扩展上下文。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "语义切片成本高，教材未明确其保上下文优势。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-0246": {
+    "qid": "3-0246",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "考查Top K参数调整的直接作用。",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "Top K：每次检索返回的最相关 chunk 数量；K 调大 → 召回率（相关文档被找到的比例）↑",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "增加similarity_top_k即增加召回切片数量。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "增加训练数据是微调，非检索参数调整。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "减少推理时间非Top K调整的直接好处。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "增加参数数量是模型训练，无关检索。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-0247": {
+    "qid": "3-0247",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "考查Context Recall优化中知识库完备性检查。",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "Context Recall 低分说明：有遗漏，查知识库/Embedding/改写",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "对比知识库与样本可发现内容缺失，确保完备。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "增加训练数据是微调，不解决知识库缺失。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "减少推理时间无关知识库内容检查。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "增加参数数量是模型训练，非RAG知识库优化。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-0249": {
+    "qid": "3-0249",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "考查RAG两阶段划分，切片属于建库阶段。",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "第一阶段：离线建库...2. 文本切片（Chunking）：把长文切成一个个小段（chunk）",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "文档解析与切片是建库阶段的核心步骤。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "向量存储是切片后的操作，不涉及切片本身。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "检索召回是在线阶段，使用已切片的数据。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "生成答案是后续阶段，不涉及切片。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-0251": {
+    "qid": "3-0251",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "考查检索阶段核心任务，选项区分明确。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "在线问答（Retrieval & Generation）...3. 在向量库中检索与问题向量最相似的 Top K 个 chunk",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "生成答案是后续阶段任务。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "检索阶段任务是召回相关文本段。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "增加训练数据非检索阶段任务。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "减少推理时间非检索阶段核心任务。"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

@@ -1,0 +1,154 @@
+{
+  "items": [
+    {
+      "type": 0,
+      "stem": "某金融公司需构建合规问答系统，要求：① 所有客户合同与监管文件严禁出域；② 通用千问模型对'穿透式尽调'等术语回答不准；③ 需支持1000+并发实时响应。技术团队决定基于Qwen2-7B开源模型微调后部署。以下哪组阿里云产品组合最符合全链路需求？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "百炼（知识库+智能体）→ DashScope API → PAI-EAS"
+        },
+        {
+          "option_label": "B",
+          "option_text": "ModelScope下载模型 → PAI-DSW开发微调 → PAI-DLC训练 → PAI-EAS部署"
+        },
+        {
+          "option_label": "C",
+          "option_text": "DashScope OpenAI兼容接口 + qwen-max → 自建K8s集群部署"
+        },
+        {
+          "option_label": "D",
+          "option_text": "OSS存储合同 → DataWorks清洗 → 百炼工作流调用qwen-long"
+        }
+      ],
+      "answer": "B",
+      "analysis": "题干三重约束构成典型‘训-部-控’闭环：①‘数据严禁出域’排除所有托管API（DashScope/百炼），必须使用开源模型（ModelScope下载）；②‘术语答不准’需LoRA等微调能力，属PAI-DSW（交互开发）与PAI-DLC（分布式训练）职责；③‘1000+并发实时响应’要求生产级弹性服务，PAI-EAS提供蓝绿发布、自动扩缩容、监控告警等能力（教材10.4节明确EAS定位为‘模型对外服务的门面’）。A错在百炼/DashScope均需数据上送；C错在自建K8s违背‘免运维’前提且未利用PAI原生能力；D错在百炼工作流底层仍调用DashScope API，无法满足数据不出域。教材依据：10.5节选型决策第4条‘要数据完全不出域、强私有化→开源模型+PAI/EAS’；10.7节‘开源版可私有化部署，数据可不出域’；10.4节‘DSW开发、DLC训练、EAS部署’三件套分工。",
+      "difficulty_label": "挑战"
+    },
+    {
+      "type": 0,
+      "stem": "运维工程师发现生产环境DashScope API调用频繁返回429错误，日志显示RPM（每分钟请求数）持续超限。此时最应优先执行的操作是？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "立即申请提升RPM配额，并同步增加前端请求并发数"
+        },
+        {
+          "option_label": "B",
+          "option_text": "在代码中实现指数退避+随机抖动重试机制，并检查是否遗漏限流兜底逻辑"
+        },
+        {
+          "option_label": "C",
+          "option_text": "将所有qwen-plus调用替换为qwen-turbo以降低单次Token消耗"
+        },
+        {
+          "option_label": "D",
+          "option_text": "关闭百炼控制台所有知识库自动同步任务，释放后台API额度"
+        }
+      ],
+      "answer": "B",
+      "analysis": "429是限流触发的HTTP状态码，教材10.8节明确指出‘遇429用指数退避+抖动重试，必要时降级’，且强调‘不能假设无限并发’（10.8风险栏）。B项直击故障根因——缺乏重试策略导致请求雪崩，符合‘处理限流’第一优先级工程手段。A错在盲目提配额不解决根本问题，且‘增加并发’会加剧超限；C虽可降本但非429直接原因（RPM超限是请求数而非Token量）；D错在百炼知识库同步不消耗DashScope RPM配额（其底层调用独立计费通道），属干扰项。教材依据：10.8节‘处理限流：遇429用指数退避+抖动重试’；10.8风险栏‘❌ API调用没有上限→有RPM/TPM限流，超限返回429’。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 0,
+      "stem": "HR希望零代码搭建新人答疑机器人，上传员工手册后能回答‘年假几天’等问题，并发布到钉钉群。若在PAI-DSW中创建Jupyter Notebook编写RAG流水线代码实现该功能，此做法最根本的问题在于？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "PAI-DSW不支持PDF文档解析，无法处理员工手册"
+        },
+        {
+          "option_label": "B",
+          "option_text": "违背‘谁该用控制台、谁该写代码、谁必须训模型’的分层原则，过度工程化"
+        },
+        {
+          "option_label": "C",
+          "option_text": "DSW实例按计算时计费，长期运行成本远高于百炼订阅制"
+        },
+        {
+          "option_label": "D",
+          "option_text": "百炼知识库已内置RAG全流程，DSW需重复造轮子且无钉钉发布能力"
+        }
+      ],
+      "answer": "B",
+      "analysis": "题干核心是‘HR零代码需求’与‘PAI-DSW写代码’的严重错配。教材10.5节‘选型决策’明确：‘要快速搭知识库问答并发布→百炼’；10.2节强调百炼价值是‘把RAG封装成可视化操作’，让非工程人员独立完成。PAI-DSW面向算法工程师做模型开发（10.4节），强制HR用Notebook写RAG代码，本质是混淆应用层（百炼）与训练部署层（PAI）的职责边界。A错（DSW支持PDF解析）、C错（成本非根本问题）、D错（虽属实但非‘最根本’——根本在于分层错位）。教材依据：10.5节‘选型决策’第2条；10.1节‘百炼面向应用开发者、产品、运营’；10.9误区表‘PAI是给大模型应用开发用的→✅正解：PAI是训练/部署平台；搭应用用百炼’。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 1,
+      "stem": "当百炼应用需要调用部署在PAI-EAS上的私有模型时，以下哪些条件是必须同时满足的？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "百炼应用配置中需填写PAI-EAS服务的公网Endpoint和认证Token"
+        },
+        {
+          "option_label": "B",
+          "option_text": "PAI-EAS服务必须开启公网访问权限，且安全组放行对应端口"
+        },
+        {
+          "option_label": "C",
+          "option_text": "百炼与PAI-EAS需处于同一阿里云地域（Region）"
+        },
+        {
+          "option_label": "D",
+          "option_text": "PAI-EAS服务需配置为兼容OpenAI API格式的HTTP接口"
+        }
+      ],
+      "answer": "A,D",
+      "analysis": "百炼调用EAS私有模型属于跨平台集成，教材10.1节全链路示例明确‘百炼应用再去调用EAS上的私有模型’，其技术前提是：A正确——百炼需通过网络地址（Endpoint）和密钥（Token）访问EAS服务；D正确——百炼工作流/智能体节点调用外部API时，要求目标服务提供标准RESTful接口，而课程实践（10.4节）中vLLM部署即采用OpenAI兼容API（教材10.3节强调‘vLLM本地起服务验证，其HTTP接口本身兼容OpenAI API’）。B错——EAS支持VPC内网调用，公网访问非必需且存在安全风险；C错——跨地域调用可行（如百炼杭州→EAS北京），仅影响延迟，非必要条件。教材依据：10.1节‘百炼应用再去调用EAS上的私有模型’；10.3节‘vLLM本地起服务验证（其HTTP接口本身兼容OpenAI API）’；10.4节‘PAI-EAS部署’流程。",
+      "difficulty_label": "挑战"
+    },
+    {
+      "type": 0,
+      "stem": "课程实验中，学生在PAI-DSW GPU实例运行微调脚本后关闭浏览器，次日发现账单异常高昂。最可能的根本原因及依据是？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "GPU实例未停止，仍在后台运行训练任务，依据：PAI-DSW按计算时计费，关闭浏览器不等于停止实例"
+        },
+        {
+          "option_label": "B",
+          "option_text": "微调脚本触发了PAI-DLC分布式训练，产生额外费用，依据：DLC按任务计费"
+        },
+        {
+          "option_label": "C",
+          "option_text": "模型权重自动同步至OSS存储桶，产生对象存储费用，依据：OSS按存储量计费"
+        },
+        {
+          "option_label": "D",
+          "option_text": "百炼知识库自动索引DSW中的临时文件，产生Embedding调用费，依据：Embedding按Token计费"
+        }
+      ],
+      "answer": "A",
+      "analysis": "教材10.4节‘PAI-DSW费用提醒’三处强调：①‘DSW实例按计算时计费’；②‘关闭浏览器不等于停止实例’；③‘不学了必须回控制台停止或删除’。学生行为（关浏览器）与高账单的因果链唯一指向DSW实例持续计费。B错（DLC需显式提交任务，非DSW默认行为）；C错（OSS同步需手动配置，非DSW自动触发）；D错（百炼与DSW无自动索引关联）。教材依据：10.4节‘PAI-DSW费用提醒’原文‘关闭浏览器不等于停止实例，不学了必须回控制台停止或删除’；10.8节‘免费额度按计算时抵扣’。",
+      "difficulty_label": "入门"
+    },
+    {
+      "type": 1,
+      "stem": "某医疗AI初创公司计划构建临床指南问答系统，技术负责人提出采用‘ModelScope下载Qwen2-7B开源模型 + PAI-EAS部署’方案。根据原文10.7节对开源模型价值的阐述，以下哪些因素会显著增强该方案的合理性？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "公司已通过等保三级认证，需确保患者病历数据全程不离开本地机房"
+        },
+        {
+          "option_label": "B",
+          "option_text": "团队拥有3名熟悉PyTorch的算法工程师，但无专职运维人员"
+        },
+        {
+          "option_label": "C",
+          "option_text": "系统上线后预计日均调用量达50万次，长期API账单已超GPU采购成本"
+        },
+        {
+          "option_label": "D",
+          "option_text": "需要对接医院HIS系统，要求模型服务支持HTTPS双向认证"
+        }
+      ],
+      "answer": "A,C,D",
+      "analysis": "教材10.7节定义开源模型三大价值：①数据隐私与合规（数据不出域）；②可深度定制（任意微调/改结构）；③大规模稳定流量下长期成本可控。A对应①（等保三级+本地机房）；C对应③（50万次/日使API账单超GPU成本，经济性驱动）；D对应①的延伸（HTTPS双向认证需私有化部署才能实现）。B错——‘无专职运维’恰恰是开源方案的障碍（教材10.7节明确‘要自己承担GPU与运维成本’），反而削弱合理性。教材依据：10.7节‘开源模型的价值集中在三点：①数据隐私与合规；②可深度定制；③长期成本可控’；10.7节‘代价是需要GPU、算法与运维能力’。",
+      "difficulty_label": "挑战"
+    }
+  ]
+}

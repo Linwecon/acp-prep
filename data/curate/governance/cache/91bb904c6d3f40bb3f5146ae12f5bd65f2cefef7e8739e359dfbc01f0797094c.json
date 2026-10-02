@@ -1,0 +1,235 @@
+{
+  "4-1225": {
+    "qid": "4-1225",
+    "classification": "own",
+    "chapter": 4,
+    "quality": "ok",
+    "reason": "考查多Agent系统优势，选项C描述单一Agent简化设计，与多Agent核心思想相悖。",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "多 Agent 设计四条硬原则（明确职责、独立凭据、中央调度、避免全量注入）",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "利用异构性是优势，符合多Agent设计原则。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "竞争合作反映市场动态是优势。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "单一Agent处理所有策略，违背多Agent分工协作本质。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "模拟独立决策增加仿真度是优势。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "4-1229": {
+    "qid": "4-1229",
+    "classification": "own",
+    "chapter": 4,
+    "quality": "fixable",
+    "reason": "选项D“部署分布式数据”与单Agent基本步骤无关，应修正或删除。",
+    "answer": [
+      "A",
+      "B",
+      "C"
+    ],
+    "supported": true,
+    "quote": "单 Agent 四大组件（LLM / Planner / Tool / Memory）的职责与协作；工具必须以 JSON-Schema 描述",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "定义工具函数是构建单Agent的基本步骤。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "通过API创建Agent是常见实现方式。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "建立工具函数映射是调用工具的必要环节。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "部署分布式数据不属于单Agent基本步骤。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "4-1271": {
+    "qid": "4-1271",
+    "classification": "cross",
+    "chapter": 10,
+    "quality": "ok",
+    "reason": "考查百炼平台多Agent编排优势，属于阿里云AI平台产品特性。",
+    "answer": [
+      "A",
+      "B",
+      "D"
+    ],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "可视化流程设计是低代码平台常见优势。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "内置协作逻辑可简化开发。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "“完全无需代码”过于绝对，通常仍需部分配置。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "快速验证业务效果是平台价值所在。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "4-1450": {
+    "qid": "4-1450",
+    "classification": "own",
+    "chapter": 4,
+    "quality": "ok",
+    "reason": "考查Function Calling适用场景，需调用外部实时数据的场景最合适。",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "Function Calling（函数调用 / 工具调用）让模型自己决定“要不要调工具、调哪个、传什么参”",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "生成文案通常无需调用外部函数。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "解答历史常识问题无需实时工具调用。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "查询实时天气数据需调用外部API，是Function Calling典型场景。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "总结论文主要依赖模型内部能力。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "4-0593": {
+    "qid": "4-0593",
+    "classification": "own",
+    "chapter": 4,
+    "quality": "ok",
+    "reason": "考查增强Agent能力的方式，插件和集成API是外部能力扩展手段。",
+    "answer": [
+      "B",
+      "D"
+    ],
+    "supported": true,
+    "quote": "工具调用（Function Calling）：模型输出结构化的“调用哪个工具、传什么参数”",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "增加训练数据集属于模型训练范畴，非Agent增强方式。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "使用插件是扩展Agent工具能力的常见方式。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "调整学习率属于模型训练参数，与Agent能力增强无关。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "集成第三方API可为Agent提供外部工具能力。"
+      },
+      {
+        "label": "E",
+        "selected": false,
+        "why": "更改模型架构属于底层模型改动，非Agent增强方式。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "4-1203": {
+    "qid": "4-1203",
+    "classification": "misplaced",
+    "chapter": 12,
+    "quality": "ok",
+    "reason": "考查面向对象设计中基类的作用，属于框架与工具章节的工程实践。",
+    "answer": [
+      "A",
+      "C",
+      "E",
+      "F"
+    ],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "基类可简化子类构造函数，减少重复代码。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "Python支持多继承，此说法错误。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "允许子类定义自己的query方法，增加灵活性。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "基类设计主要目的不是隐藏私有属性。"
+      },
+      {
+        "label": "E",
+        "selected": true,
+        "why": "提供统一call方法便于以相同方式调用子类。"
+      },
+      {
+        "label": "F",
+        "selected": true,
+        "why": "共享相同接口，实现代码复用是基类核心价值。"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

@@ -1,0 +1,264 @@
+{
+  "11-0464": {
+    "qid": "11-0464",
+    "classification": "own",
+    "chapter": 11,
+    "quality": "ok",
+    "reason": "题干问'正确原则'，ABD符合多模态内容提炼的简洁性、结构化与图文结合要求。",
+    "answer": [
+      "A",
+      "B",
+      "D"
+    ],
+    "supported": true,
+    "quote": "提炼关键信息，避免冗长段落；使用简短标题，聚焦于要点；结合图片辅助，在适当的位置插入图片",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "原文强调降低表达门槛、获取文本外信息，需提炼关键信息"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "符合'聚焦要点'的结构化输出要求"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "原文明确反对'尽量详细全面'，强调简洁"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "图文结合是多模态核心价值之一"
+      },
+      {
+        "label": "E",
+        "selected": false,
+        "why": "原文要求OCR/结构化处理，不可直接用原始内容"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "11-0637": {
+    "qid": "11-0637",
+    "classification": "own",
+    "chapter": 11,
+    "quality": "ok",
+    "reason": "ABDF符合多模态安全检测技术，C错在否定自动化，E错在忽略水印合规。",
+    "answer": [
+      "A",
+      "B",
+      "D",
+      "F"
+    ],
+    "supported": true,
+    "quote": "图像检测不仅要看画面，还要审'图里的字'——攻击者可以把违规文字写进图片里绕过文本过滤",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "YOLO属目标检测，可用于敏感物体识别"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "OCR提取图中文字用于文本审核，原文明确支持"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "原文指出图像检测可用同步/异步模型，非仅人工"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "PHash是图像指纹比对常用算法，用于版权检查"
+      },
+      {
+        "label": "E",
+        "selected": false,
+        "why": "水印/品牌标志属合规检查项，原文要求标识AI生成"
+      },
+      {
+        "label": "F",
+        "selected": true,
+        "why": "CNN是图像分类主流模型，可用于暴力内容识别"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "11-0675": {
+    "qid": "11-0675",
+    "classification": "own",
+    "chapter": 11,
+    "quality": "ok",
+    "reason": "ABCE是多模态处理可行方案，D忽略非文本信息违背多模态本质。",
+    "answer": [
+      "A",
+      "B",
+      "C",
+      "E"
+    ],
+    "supported": true,
+    "quote": "多模态模型则能处理'图文混合''语音进语音出'等更贴近人类的交互。其价值不只是'多支持几种格式'",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "支持多模态模型是直接方案，如Qwen-VL"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "管道式架构即分模态处理再融合，原文明确"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "OCR/ASR转文本是标准做法，原文多次强调"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "原文指出纯文本模型无法处理图文混合问题"
+      },
+      {
+        "label": "E",
+        "selected": true,
+        "why": "训练专用融合模型属可行路径，原文未排除"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "11-0897": {
+    "qid": "11-0897",
+    "classification": "cross",
+    "chapter": 11,
+    "quality": "ok",
+    "reason": "ABCDE均属对话系统通用体验提升点，本章虽未直接定义但属多模态交互延伸。",
+    "answer": [
+      "A",
+      "B",
+      "C",
+      "D",
+      "E"
+    ],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "会话记忆在11.5节语音助手链路中明确要求"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "个性化音色/偏好在11.5节列为关键点"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "多模态交互是本章核心主题，贯穿各节"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "延迟敏感在11.5/11.6节多次强调"
+      },
+      {
+        "label": "E",
+        "selected": true,
+        "why": "错误处理在11.5节'低置信度追问'中体现"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "11-1035": {
+    "qid": "11-1035",
+    "classification": "own",
+    "chapter": 11,
+    "quality": "ok",
+    "reason": "AC正确对应CosyVoice的TTS定位，BD混淆ASR与生成能力。",
+    "answer": [
+      "A",
+      "C"
+    ],
+    "supported": true,
+    "quote": "TTS（文字→语音），如 CosyVoice；个性化语音助手的'个性化'主要体现在 TTS 音色克隆",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "原文明确定义CosyVoice为TTS模型"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "CosyVoice不生成视频，通义万相才负责视频生成"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "11.5节指出语音链路需流式TTS优化延迟"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "语音识别是通义听悟职责，非CosyVoice功能"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "11-1159": {
+    "qid": "11-1159",
+    "classification": "beyond",
+    "chapter": 11,
+    "quality": "review",
+    "reason": "ffmpeg属通用音视频工具，原文未提及具体命令或能力，需确认是否超纲。",
+    "answer": [
+      "A",
+      "B",
+      "D",
+      "E",
+      "F"
+    ],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "ffmpeg基础功能，提取音频属常规操作"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "分辨率调整是ffmpeg核心能力之一"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "ffmpeg不训练模型，仅做音视频处理"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "合并视频是ffmpeg典型应用场景"
+      },
+      {
+        "label": "E",
+        "selected": true,
+        "why": "添加水印为ffmpeg支持功能"
+      },
+      {
+        "label": "F",
+        "selected": true,
+        "why": "格式转换是ffmpeg最基本用途"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

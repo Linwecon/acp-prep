@@ -1,0 +1,217 @@
+{
+  "1-0442": {
+    "qid": "1-0442",
+    "classification": "own",
+    "chapter": 1,
+    "quality": "ok",
+    "reason": "考查messages结构，选项语法错误明显，可判断正确形式。",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "OpenAI 兼容接口用 `messages` 列表组织对话，每条消息有两个关键字段：`role` 和 `content`。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "role和content字段正确，顺序合理。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "使用列表而非字典，语法错误。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "角色顺序错误，system内容不当。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "角色顺序和内容均错误。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "1-0453": {
+    "qid": "1-0453",
+    "classification": "own",
+    "chapter": 1,
+    "quality": "ok",
+    "reason": "考查system角色定义，正确选项符合其设定人设的职责。",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "system 设定模型的人设、任务、规则、约束",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "内容是用户提问，非system职责。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "内容是客服问候语，应由assistant说。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "正确设定了客服代表的人设。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "内容是描述用户意图，非设定人设。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "1-0460": {
+    "qid": "1-0460",
+    "classification": "own",
+    "chapter": 1,
+    "quality": "ok",
+    "reason": "考查messages中三种角色的标准交互顺序。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "system 通常 0 或 1 条，放在最前",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "顺序错误，assistant不应在最前。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "顺序正确：system -> user -> assistant。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "顺序错误，user在system前。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "空列表，未展示交互。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "1-0467": {
+    "qid": "1-0467",
+    "classification": "own",
+    "chapter": 1,
+    "quality": "ok",
+    "reason": "考查temperature参数对概率分布的影响。",
+    "answer": [
+      "A",
+      "B"
+    ],
+    "supported": true,
+    "quote": "T 越小 → 概率越集中在高概率 Token 上；T 越大 → 分布越平坦，低概率 Token 也有机会被选中",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "低温度使分布集中，高概率Token更可能被选。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "高温度使分布平坦，低概率Token机会增加。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "与低温度效果相反。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "与高温度效果相反。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "1-0485": {
+    "qid": "1-0485",
+    "classification": "cross",
+    "chapter": -1,
+    "quality": "remove",
+    "reason": "题目不完整，无上下文说明提取什么标签，选项均为通用类别，无考查价值。",
+    "answer": [],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "题目条件缺失，无法判断。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "题目条件缺失，无法判断。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "题目条件缺失，无法判断。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "题目条件缺失，无法判断。"
+      },
+      {
+        "label": "E",
+        "selected": false,
+        "why": "题目条件缺失，无法判断。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "1-0619": {
+    "qid": "1-0619",
+    "classification": "own",
+    "chapter": 1,
+    "quality": "ok",
+    "reason": "考查分词基本概念，包括Token定义和ID映射。",
+    "answer": [
+      "B",
+      "D"
+    ],
+    "supported": true,
+    "quote": "Token（词元）是模型处理文本的最小单位；分词器（Tokenizer）把文本切成一个个 Token，并映射为词表里的整数 ID",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "错误，Token映射为ID，非直接使用字符串。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "正确描述了分词的目的和Token定义。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "描述片面，未涉及子词分词，且非本章核心考点。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "正确，Token需转换为数字ID供模型处理。"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

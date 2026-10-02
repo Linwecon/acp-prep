@@ -1,0 +1,218 @@
+{
+  "11-0375": {
+    "qid": "11-0375",
+    "classification": "own",
+    "chapter": 11,
+    "quality": "ok",
+    "reason": "题干强调‘自然地交流并理解多种类型的输入数据’，多模态模型是核心基础。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "多模态 AI 指能联合理解、生成两种及以上模态信息，并建立它们之间关联的模型与系统",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "视觉信息非唯一主要方式，题干要求理解多种输入。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "多模态模型能处理文本、图片、音频，符合题干要求。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "音频处理模型仅处理语音，无法覆盖图片等模态。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "大语言模型仅处理文本，无法理解图片、音频。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "11-0358": {
+    "qid": "11-0358",
+    "classification": "own",
+    "chapter": 11,
+    "quality": "ok",
+    "reason": "考察百炼中图像生成服务的交互方式，需用户描述内容。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "文生图（通义万相）... 输入 → 输出：文字描述（+参考图）→ 图像",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "文生图是生成而非提供URL。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "用户只需口头描述想要的图片内容，符合文生图交互。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "无需编写代码指令，通过描述即可。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "题干未提及手绘草图优化。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "11-0381": {
+    "qid": "11-0381",
+    "classification": "own",
+    "chapter": 11,
+    "quality": "ok",
+    "reason": "考察多模态学习典型流程，需识别不属于的步骤。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "图文多模态模型的工作原理可以用一个公式概括：编码器 + 投影对齐 + 大语言模型",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "多模态表征学习是典型流程。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "特征降维非典型多模态学习核心流程。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "多模态对齐与融合是核心流程。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "任务特定的转化是典型流程。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "11-0590": {
+    "qid": "11-0590",
+    "classification": "own",
+    "chapter": 11,
+    "quality": "ok",
+    "reason": "考察对大语言模型与多模态模型基本概念的理解。",
+    "answer": [
+      "A",
+      "C"
+    ],
+    "supported": true,
+    "quote": "纯文本 LLM 的输入输出都只有文字；多模态模型则能处理‘图文混合’‘语音进语音出’",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "描述符合大语言模型基于Transformer处理文本的特征。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "Bard是谷歌产品，非微软推出。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "多模态模型能处理文本、图像、音频并关联分析。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "描述是ASR定义，但非多模态模型核心描述。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "11-0598": {
+    "qid": "11-0598",
+    "classification": "own",
+    "chapter": 11,
+    "quality": "ok",
+    "reason": "考察多模态学习在实际场景中的应用案例识别。",
+    "answer": [
+      "A",
+      "B",
+      "C",
+      "D"
+    ],
+    "supported": true,
+    "quote": "多模态 AI 指能联合理解、生成两种及以上模态信息，并建立它们之间关联的模型与系统",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "智能客服结合语音和文本，是多模态应用。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "自动驾驶集成视觉、雷达等多传感器数据。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "医疗影像融合影像和报告，是多模态分析。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "在线教育融合视频、语音、文字，是多模态体验。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "11-0615": {
+    "qid": "11-0615",
+    "classification": "own",
+    "chapter": 11,
+    "quality": "ok",
+    "reason": "考察多模态学习中整合不同模态信息的关键步骤。",
+    "answer": [
+      "A",
+      "B",
+      "C"
+    ],
+    "supported": true,
+    "quote": "图文多模态模型的工作原理可以用一个公式概括：编码器 + 投影对齐 + 大语言模型",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "多模态表征是学习不同模态特征的关键。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "多模态对齐是建立模态间关联的核心。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "多模态融合是整合信息以完成任务的步骤。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "协同学习非典型多模态学习流程中的关键步骤。"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

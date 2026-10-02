@@ -1,0 +1,220 @@
+{
+  "3-1460": {
+    "qid": "3-1460",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "五选项均符合RAG核心优势描述",
+    "answer": [
+      "A",
+      "B",
+      "C",
+      "D"
+    ],
+    "supported": true,
+    "quote": "RAG（Retrieval-Augmented Generation，检索增强生成）的核心思路可以用四个字概括：'开卷考试'。不让模型凭记忆答题，而是在它回答前，先从企业知识库里检索出最相关的几段资料，连同问题一起交给模型，让它'看着资料作答'。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "原文明确'知识截止/无私域/生成机制'三坎，RAG解决知识不足"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "原文指出幻觉根因是'生成模型本质是预测下一个词'，RAG可抑制"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "原文强调'RAG不改变模型参数'，知识更新只需更新知识库"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "原文多次强调'答案可溯源到具体文档片段，便于人工核验'"
+      },
+      {
+        "label": "E",
+        "selected": false,
+        "why": "原文未提推理速度提升，RAG增加Embedding和检索开销"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-0509": {
+    "qid": "3-0509",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "Answer Correctness需大模型作为评委打分",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "RAGAS（RAG Assessment）是主流的开源 RAG 评估框架，它把 RAG 链路拆成'检索端'和'生成端'分别打分，核心思想是'让大模型当评委'。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "原文明确'让大模型当评委'评估Answer Correctness"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "Embedding模型用于检索端，非Correctness计算"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "选项与Correctness计算无关"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "选项与Correctness计算无关"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-0516": {
+    "qid": "3-0516",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "text-embedding-v3在原文明确提及为百炼提供模型",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "阿里云百炼提供 `text-embedding-v3` 等 Embedding 模型，可同时用于建库与查询。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "原文逐字引用该模型名称"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "原文未提small变体"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "原文未提large变体"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "原文明确v3而非v2"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-0547": {
+    "qid": "3-0547",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "Embedding模型负责向量化，相似度计算依赖向量",
+    "answer": [
+      "A",
+      "B"
+    ],
+    "supported": true,
+    "quote": "Embedding（向量化 / 嵌入）是把一段文本转换成一串数字（高维向量，如 1024 维）。它的核心性质是：语义相近的文本，向量在空间中的距离也近。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "Embedding模型将文本转为向量是基础功能"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "余弦相似度需基于向量计算，原文明确其为首选"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "选项与Embedding作用无关"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "选项与Embedding作用无关"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-0571": {
+    "qid": "3-0571",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "更换Embedding模型可提升语义理解与召回质量",
+    "answer": [
+      "A",
+      "B"
+    ],
+    "supported": true,
+    "quote": "Embedding 模型负责'把文本变向量'，用于检索，不生成回答；检索质量差的三大根因：① Embedding 模型不够好 ② 切片策略不当 ③ 文档格式丢失了结构信息。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "原文指出Embedding训练用对比学习，可学深层语义"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "原文将Embedding质量列为检索质量三大根因之一"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "选项与Embedding作用无关"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "选项与Embedding作用无关"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-0578": {
+    "qid": "3-0578",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "review",
+    "reason": "cosine_similarity函数参数未在原文定义，属工程实现细节",
+    "answer": [],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "原文未定义函数参数"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "原文未定义函数参数"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "原文未定义函数参数"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "原文未定义函数参数"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

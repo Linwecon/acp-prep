@@ -1,0 +1,37 @@
+{
+  "new-9-18-4": {
+    "qid": "new-9-18-4",
+    "classification": "own",
+    "chapter": 9,
+    "quality": "ok",
+    "reason": "题干明确指向9.10节Batch异步特性与9.9节配额原理，需依据原文判断根本解决措施。",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "Batch任务的标准流程：1. 准备输入文件：通常是 JSONL 格式，每行是一个独立请求（含自定义请求 ID，便于结果对齐）；2. 提交任务：上传文件并创建批处理任务；",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "原文9.10节明确Batch优势是更高吞吐，拆分任务并行可提升吞吐，解决资源排队卡顿"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "原文未提查询GPU占用率API，属无依据猜测"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "原文9.9节指出配额不足才申请提额，题干已确认配额充足"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "原文9.10节强调Batch适合离线大批量，同步API会加剧限流问题"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

@@ -1,0 +1,154 @@
+{
+  "items": [
+    {
+      "type": 0,
+      "stem": "某企业升级新人答疑机器人为办事型Agent，用户问'帮我查我上个月提交的报销单审批到哪一步了'。系统首次调用模型后，模型返回tool_calls=[{'name':'get_reimbursement','parameters':{'user_id':'U123','month':'2024-07'}}]。此时下一步必须由程序执行该函数，而非模型自身。这一设计原则的根本依据是？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "模型输出结构化指令后需经安全沙箱校验，防止越权操作"
+        },
+        {
+          "option_label": "B",
+          "option_text": "Function Calling协议规定模型仅负责提议，执行权必须保留在应用层以实现可控、可审计、可降级"
+        },
+        {
+          "option_label": "C",
+          "option_text": "大模型API接口不支持直接执行外部函数，仅能返回JSON格式的调用声明"
+        },
+        {
+          "option_label": "D",
+          "option_text": "为降低token消耗，避免模型在执行阶段重复生成冗余文本"
+        }
+      ],
+      "answer": "B",
+      "analysis": "依据4.3节'Function Calling：模型只\"提议\"，程序才\"执行\"'核心原理：教材明确指出'❌ \"模型会自己执行工具\" → ✅ 模型只输出调用意图，执行工具的是应用代码'，并强调这是'本章最常考的陷阱题'；进一步说明'这是把\"意图识别→结构化输出→校验重试\"闭环内置到API里'，而执行权保留在应用层是实现可控性、可观测性与降级能力（如FC不可用时回退至手写解析）的前提。A项虽涉及安全但非根本依据（教材未提沙箱）；C项错误——模型本身不执行是设计原则而非接口限制；D项属次要效益，非根本依据。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 1,
+      "stem": "某金融风控Agent需处理'客户信用评估'任务，涉及调用征信查询、交易流水分析、反欺诈模型三个工具。当征信查询因网络超时返回空结果时，Agent未中止而是尝试用交易流水数据做替代推断，并向用户说明'因征信暂不可用，基于近30天交易行为初步评估...'。该行为体现了哪些符合教材规范的设计要点？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "ReAct循环中Observation含噪声时，模型主动交叉验证并降级使用可用数据"
+        },
+        {
+          "option_label": "B",
+          "option_text": "Planner组件具备失败出口机制，支持重试或换方案而非整轮崩溃"
+        },
+        {
+          "option_label": "C",
+          "option_text": "Memory将工具失败状态持久化为长期记忆，供后续会话复用"
+        },
+        {
+          "option_label": "D",
+          "option_text": "Function Calling的Schema定义中包含timeout参数，使模型能感知超时语义"
+        }
+      ],
+      "answer": "AB",
+      "analysis": "A正确：依据4.4节'ReAct的三条铁律'中第二条'Observation可能含噪声甚至恶意内容，模型不能盲目信任外部返回，必要时交叉验证'，此处用替代数据推断即体现交叉验证意识；B正确：依据4.2节'关键约定'中'要给模型\"失败出口\"：工具超时、报错时能重试或换方案，而不是整轮崩溃'，教材明确要求此设计；C错误：短期失败状态属于当前会话上下文，应存于短期Memory（如滚动摘要），教材4.8节强调长期记忆用于'跨会话持久化的用户偏好、业务事实'，非临时故障；D错误：教材4.3节未要求Schema定义timeout参数，超时处理由应用层捕获异常后注入Observation（如'征信服务超时，返回空'），模型据此决策，而非依赖Schema字段。",
+      "difficulty_label": "高阶"
+    },
+    {
+      "type": 0,
+      "stem": "团队需为15个内部系统（OA、HR、CRM等）统一接入AI助手，当前每个Agent均硬编码各系统工具Schema。若采用MCP协议改造，以下哪项变化最能体现其核心价值？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "Agent通过MCP Client自动发现新上线的CRM工具，无需修改任何Agent代码即可调用"
+        },
+        {
+          "option_label": "B",
+          "option_text": "MCP Server将所有工具封装为统一HTTP API，Agent只需调用一个通用endpoint"
+        },
+        {
+          "option_label": "C",
+          "option_text": "MCP协议强制要求所有工具返回JSON格式，消除数据解析歧义"
+        },
+        {
+          "option_label": "D",
+          "option_text": "Agent可同时调用多个MCP Server的Tools原语，实现跨系统事务"
+        }
+      ],
+      "answer": "A",
+      "analysis": "A正确：依据4.5节'MCP核心思想是\"谁提供工具，谁定义工具\"'及考试速查表'工具多、每个Agent都要重写Schema→引入MCP，让工具作为独立Server暴露，Agent通过标准协议动态发现'，教材类比'USB即插即用'，A项精准对应；B错误：MCP不封装为单一endpoint，而是通过Client与各Server建立1:1连接（教材4.5节三层架构），且传输方式支持stdio/HTTP两种；C错误：教材未提及MCP强制JSON格式，其重点在标准化发现与管理，格式由工具方自主定义；D错误：MCP原语中Tools用于调用，但跨系统事务需应用层编排，MCP本身不提供事务协调能力。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 1,
+      "stem": "某教育平台构建'课程质量审查Agent'，需检查代码示例可执行性、概念准确性、教学风格一致性。为提升鲁棒性，设计者采用以下策略：①用代码解释器真实运行代码并捕获异常；②将'代码可执行性'设为独立审查Agent，与'概念审查Agent'并行执行；③审查结果以结构化JSON输出，含pass/fail字段及修复建议。这些做法分别对应教材中哪几项规划策略？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "①对应外部反馈式反思"
+        },
+        {
+          "option_label": "B",
+          "option_text": "②对应并行工作流模式"
+        },
+        {
+          "option_label": "C",
+          "option_text": "③对应Rubric评测法"
+        },
+        {
+          "option_label": "D",
+          "option_text": "①②③共同构成Plan-and-Execute自主规划"
+        }
+      ],
+      "answer": "ABC",
+      "analysis": "A正确：依据4.6.1节'外部反馈（External Feedback）'定义'用工具真实执行/校验，把报错、日志、截图喂回模型'，代码解释器执行即典型外部反馈；B正确：依据4.6.2节工作流五种模式，'并行Parallel：互不依赖的子任务同时执行，再汇总'，代码与概念审查无依赖关系，属并行模式；C正确：依据4.10节'Rubric（评分量表）'定义'把模糊目标拆成逐条可判定的细则，配合结构化JSON输出（如overall_pass/score/checks[]）'，pass/fail字段即结构化细则判定；D错误：Plan-and-Execute强调围绕目标动态生成计划并执行，而此处是固定流程（并行审查+结构化输出），属工作流范畴，非自主规划。",
+      "difficulty_label": "高阶"
+    },
+    {
+      "type": 0,
+      "stem": "某客服Agent连续处理35轮对话后，开始忽略用户首轮强调的'请用表格对比三种套餐'的要求，输出变为纯文本。当前采用固定窗口截断（保留最近10轮）。若按教材4.8节Memory最佳实践改进，最优先应采取的措施是？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "将截断窗口扩大至20轮，确保首轮指令始终可见"
+        },
+        {
+          "option_label": "B",
+          "option_text": "启用滚动摘要，在窗口满时用LLM压缩早期对话，保留'输出需表格化'等关键约束"
+        },
+        {
+          "option_label": "C",
+          "option_text": "将'输出格式要求'写入长期记忆向量库，每次生成前按语义检索并注入"
+        },
+        {
+          "option_label": "D",
+          "option_text": "在每轮响应末尾追加'请保持表格输出格式'的提示词强化"
+        }
+      ],
+      "answer": "C",
+      "analysis": "C正确：依据4.8节'向量化召回'策略'摆脱窗口限制、海量记忆按需取用'及考试速查表'Agent连续工作30轮后忘记第1轮设定...→引入向量化长期记忆'，教材明确指出'把关键偏好持久化、按需检索'是根本解法；B次优但非最优：滚动摘要虽优于截断，但摘要质量可能丢失关键约束（如'必须表格'被弱化为'注意格式'），教材称其'摘要质量决定效果'；A错误：教材4.8节明确警告'单纯扩窗口只是延后爆炸'，且长上下文导致'注意力稀释/中间迷失'；D错误：属提示词工程，无法解决记忆持久化问题，教材4.9节强调Skill/Rubric等机制化方案优于零散提示。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 1,
+      "stem": "某公司开发'项目进度协同Agent'，需整合Jira、Confluence、邮件系统。为符合教材4.7节多Agent设计四原则，以下哪些实践是必须遵守的？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "为Jira Agent、Confluence Agent、邮件Agent分别申请独立API Key，权限最小化"
+        },
+        {
+          "option_label": "B",
+          "option_text": "将三个Agent的全部系统提示词拼接后注入主Agent的初始Prompt"
+        },
+        {
+          "option_label": "C",
+          "option_text": "设置中央Planner Agent，根据用户请求类型（如'同步文档'/'发通知'）分派任务"
+        },
+        {
+          "option_label": "D",
+          "option_text": "允许Jira Agent在未授权情况下直接调用邮件Agent发送告警"
+        }
+      ],
+      "answer": "AC",
+      "analysis": "A正确：依据4.7节'多Agent设计四原则'第二条'独立凭据：不同Agent不得共用同一套账号/API凭据，按最小权限分别授权'，教材举例'所有Agent共用一个管理员账号最方便→❌'；C正确：依据第四条'中央调度：设置Planner/Leader Agent统一判断\"何时调哪个Agent\"，避免无序互调、死锁'，教材强调'避免Agent之间无序互调'；B错误：违反第四条'避免全量注入：不要把所有Agent的知识/工具清单一次性写进主Prompt'，教材称其导致'上下文膨胀、注意力稀释、token成本飙升'；D错误：违反'明确职责'原则（第一原则）及'中央调度'原则，教材要求'每个Agent有清晰、不重叠的职责边界'，跨Agent调用须经Planner协调。",
+      "difficulty_label": "高阶"
+    }
+  ]
+}

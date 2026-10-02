@@ -1,0 +1,247 @@
+{
+  "2-1468": {
+    "qid": "2-1468",
+    "classification": "cross",
+    "chapter": 7,
+    "quality": "ok",
+    "reason": "考点是RAGAS评估指标分析与优化措施对应，属于第7章模型评估。",
+    "answer": [
+      "A",
+      "B",
+      "D"
+    ],
+    "supported": true,
+    "quote": "Answer Correctness低但Context Recall高，以下哪些措施可能有效？",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "调整Prompt可改善生成与上下文的匹配。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "降低温度可提高输出确定性，减少幻觉。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "Context Recall已高，非知识库缺失问题。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "更换更强模型可能提升生成准确性。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "2-0634": {
+    "qid": "2-0634",
+    "classification": "own",
+    "chapter": 2,
+    "quality": "ok",
+    "reason": "考查提示词优化手段，符合本章知识。",
+    "answer": [
+      "A",
+      "B",
+      "D"
+    ],
+    "supported": true,
+    "quote": "样例让模型通过上下文学习对齐输出格式与风格；输出格式把自然语言输出约束成程序可解析的结构。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "详细格式要求是输出格式要素。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "提供示例是Few-shot技巧。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "分段摘要非提示词优化，属RAG切片策略。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "明确主旨是补充任务目标。"
+      },
+      {
+        "label": "E",
+        "selected": false,
+        "why": "放弃模板是倒退，不可控。"
+      }
+    ],
+    "duplicate_of": "2-1305"
+  },
+  "2-0864": {
+    "qid": "2-0864",
+    "classification": "own",
+    "chapter": 2,
+    "quality": "ok",
+    "reason": "直接考查提示词六要素中输出格式的识别。",
+    "answer": [
+      "C",
+      "D",
+      "F"
+    ],
+    "supported": true,
+    "quote": "输出格式把自然语言输出约束成程序可解析的结构。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "第一人称口吻属于角色或风格。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "总结文章是任务目标。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "指定包含字段是输出格式。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "JSON格式是典型输出格式。"
+      },
+      {
+        "label": "E",
+        "selected": false,
+        "why": "资深律师是角色设定。"
+      },
+      {
+        "label": "F",
+        "selected": true,
+        "why": "表格形式是输出格式。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "2-1085": {
+    "qid": "2-1085",
+    "classification": "own",
+    "chapter": 2,
+    "quality": "ok",
+    "reason": "与2-0634完全相同，属重复题。",
+    "answer": [
+      "B",
+      "D",
+      "E"
+    ],
+    "supported": true,
+    "quote": "样例让模型通过上下文学习对齐输出格式与风格；输出格式把自然语言输出约束成程序可解析的结构。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "分段摘要非提示词优化，属RAG切片策略。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "明确主旨是补充任务目标。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "放弃模板是倒退，不可控。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "提供示例是Few-shot技巧。"
+      },
+      {
+        "label": "E",
+        "selected": true,
+        "why": "详细格式要求是输出格式要素。"
+      }
+    ],
+    "duplicate_of": "2-0634"
+  },
+  "2-1290": {
+    "qid": "2-1290",
+    "classification": "own",
+    "chapter": 2,
+    "quality": "ok",
+    "reason": "考查意图分类提示词模板的修改，符合本章知识。",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "分类提示词必须包含的三要素：意图清单、输出格式、低置信度处理规则。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "仅改输入query不更新意图清单。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "输出格式未变，无需修改。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "需修改任务要求中的意图清单。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "未提及Q_S_Line函数，无关。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "2-1305": {
+    "qid": "2-1305",
+    "classification": "own",
+    "chapter": 2,
+    "quality": "ok",
+    "reason": "与2-0634、2-1085考点完全相同，属重复题。",
+    "answer": [
+      "B",
+      "D",
+      "E"
+    ],
+    "supported": true,
+    "quote": "样例让模型通过上下文学习对齐输出格式与风格；输出格式把自然语言输出约束成程序可解析的结构。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "放弃模板是倒退，不可控。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "明确主旨是补充任务目标。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "分段摘要非提示词优化，属RAG切片策略。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "提供示例是Few-shot技巧。"
+      },
+      {
+        "label": "E",
+        "selected": true,
+        "why": "详细格式要求是输出格式要素。"
+      }
+    ],
+    "duplicate_of": "2-0634"
+  }
+}

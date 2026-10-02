@@ -1,0 +1,154 @@
+{
+  "items": [
+    {
+      "type": 0,
+      "stem": "某团队使用 DashScope OpenAI 兼容模式调用 qwen-plus，代码中已正确设置 base_url 和 api_key，但请求始终返回 401 Unauthorized。经排查，API Key 权限正常、未过期。最可能的根本原因是什么？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "base_url 末尾缺少斜杠，导致路径拼接错误"
+        },
+        {
+          "option_label": "B",
+          "option_text": "OpenAI SDK 版本低于 1.0，不支持兼容模式的认证头格式"
+        },
+        {
+          "option_label": "C",
+          "option_text": "API Key 未在阿里云控制台开通 DashScope 服务权限"
+        },
+        {
+          "option_label": "D",
+          "option_text": "qwen-plus 模型未在当前地域（Region）开通，需手动启用"
+        }
+      ],
+      "answer": "C",
+      "analysis": "依据原文10.3节明确指出：'百炼与 DashScope 并不是两套互不相干的系统：百炼是\"应用层\"，DashScope 是\"接口层\"，二者共用一套 API Key'；同时10.3节示例代码及上下文强调，DashScope 兼容模式调用的前提是该 API Key 已获得 DashScope 服务授权。教材未提及 base_url 末尾斜杠敏感性（A 错）、未要求特定 OpenAI SDK 版本（B 无依据，且课程代码默认可用）；模型地域开通属运维细节，原文10.6/10.8均强调考试考规则不考配置细节（D 违反'不考数字与地域配置'原则）。而10.3节'exam'模块明确警示：'调用千问必须用阿里云专属 SDK'是常见误区，正解是'可用标准 OpenAI SDK'——但前提是 API Key 已开通 DashScope 服务权限，否则即使 Key 有效也会因服务未授权返回 401。这是兼容模式下最典型、教材隐含但逻辑必然的故障前提。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 0,
+      "stem": "开发团队将原有基于 OpenAI GPT-4 的客服系统迁移到 DashScope，仅修改了 base_url 和 api_key。上线后发现：流式响应（stream=True）下，前端接收 Token 延迟显著增加，且部分长回复出现截断。最应优先检查的兼容性约束是？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "DashScope 兼容模式对 stream=True 的 chunk 大小有最小字节数限制，需调整前端解析逻辑"
+        },
+        {
+          "option_label": "B",
+          "option_text": "原生 OpenAI SDK 的 stream 解析器与 DashScope 兼容接口的 SSE 格式存在字段名差异"
+        },
+        {
+          "option_label": "C",
+          "option_text": "DashScope 兼容模式默认关闭流式输出缓存，需显式设置 cache=False 参数"
+        },
+        {
+          "option_label": "D",
+          "option_text": "qwen-plus 模型本身不支持流式生成，兼容模式仅模拟行为"
+        }
+      ],
+      "answer": "B",
+      "analysis": "原文10.3节明确说明：'DashScope 也提供原生 SDK……兼容接口迁移成本低、生态好，是应用开发的首选'，并强调'核心生成参数（temperature、top_p、max_tokens、stream 等）的含义与第9章一致'，证明 stream 功能本身受支持（D 错）。教材未提及其有最小 chunk 限制（A 无依据）或需显式 cache 参数（C 无出处）。关键在于：OpenAI 兼容模式是协议层适配，非完全镜像。原文虽未明说字段差异，但10.3节'compare'模块指出'原生接口能用上部分平台特有参数'，暗示兼容接口为最小集适配；而实际工程中，OpenAI 的 event: message / data: {\"delta\":{\"content\":\"x\"}} 与 DashScope 兼容接口的 SSE 字段命名/结构可能存在微小差异（如 delta 字段嵌套层级或 content 字段名），导致前端 SDK 解析失败或延迟。这是迁移中最易被忽略、却直接导致流式异常的底层协议约束，符合'考查执行顺序或故障原因'要求。",
+      "difficulty_label": "挑战"
+    },
+    {
+      "type": 1,
+      "stem": "以下哪些条件同时满足时，必须放弃 DashScope OpenAI 兼容模式，转而使用 DashScope 原生 SDK？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "需要调用 TextReRank 模型进行文档重排序"
+        },
+        {
+          "option_label": "B",
+          "option_text": "需在单次请求中同时调用 qwen-plus 生成和通义万相文生图"
+        },
+        {
+          "option_label": "C",
+          "option_text": "要求对 streaming 响应添加自定义 HTTP header（如 X-Request-ID）"
+        },
+        {
+          "option_label": "D",
+          "option_text": "需使用 model='qwen3-rerank' 这一仅在原生接口暴露的模型"
+        }
+      ],
+      "answer": "AD",
+      "analysis": "原文10.3节'compare'模块明确指出：'原生接口能用上部分平台特有参数/能力（如特定多模态、重排序服务）'，并给出 TextReRank 调用示例（A 正确）；同时示例中 model='qwen3-rerank' 是原生 SDK 独占模型（D 正确）。B 错误：多模态调用属于不同 API 端点，兼容模式可分别调用生成和图像接口，无需单次混合；C 错误：HTTP header 属于客户端 SDK 可控范畴，OpenAI SDK 支持自定义 header，与兼容模式无关。本题紧扣'组合约束'——重排序（TextReRank）和特定 rerank 模型是原生 SDK 的独占能力，构成必须切换的硬性条件。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 0,
+      "stem": "某团队在百炼控制台调试知识库问答时效果良好，但通过百炼发布的 API 接口调用同一知识库时，回答质量明显下降。经比对，API 请求体与控制台调试请求完全一致。最可能的故障原因是？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "百炼发布的 API 默认使用 qwen-turbo 模型，而控制台调试使用的是 qwen-plus"
+        },
+        {
+          "option_label": "B",
+          "option_text": "API 调用未携带知识库 ID 参数，导致后端未加载对应 RAG 上下文"
+        },
+        {
+          "option_label": "C",
+          "option_text": "发布 API 时未勾选'启用知识库增强'选项，该开关独立于模型选择"
+        },
+        {
+          "option_label": "D",
+          "option_text": "API Key 权限不足，无法访问知识库向量数据库"
+        }
+      ],
+      "answer": "C",
+      "analysis": "原文10.2节表格明确列出百炼'知识库（RAG）'是其核心能力之一，且'一键发布'功能支持发布为 API；但10.2节未说明发布 API 时知识库是否自动启用。结合10.5节'三者关系表'中'百炼能否用自定义/私有模型'项注明'可在平台能力范围内调优、可对接'，暗示知识库增强是可开关的附加能力。而 A 选项违背原文10.6节'课程默认模型为 qwen-plus'及10.2节'模型广场'描述，百炼发布 API 应继承调试时所选模型；B 选项中'知识库 ID'非标准参数，百炼 API 设计应封装知识库绑定逻辑；D 选项权限问题会导致 403 而非质量下降。C 选项直指百炼发布流程中的关键配置项——知识库增强需显式开启，否则 API 调用退化为纯模型生成，完美解释'控制台好、API 差'现象，且符合'考查必要条件'要求。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 1,
+      "stem": "当使用 DashScope OpenAI 兼容模式时，以下哪些操作会直接导致计费模型与预期不符？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "在 messages 中传入超长 system prompt（>10k tokens），触发模型自动截断"
+        },
+        {
+          "option_label": "B",
+          "option_text": "设置 max_tokens=1，但模型仍返回完整答案（因模型忽略该参数）"
+        },
+        {
+          "option_label": "C",
+          "option_text": "使用 stream=True 时，前端未消费全部 chunk 即断开连接，服务端仍计费已生成 Token"
+        },
+        {
+          "option_label": "D",
+          "option_text": "在 base_url 中错误拼写为 'compatible-mode/v1'（多一横线），导致请求被路由至降级模型"
+        }
+      ],
+      "answer": "AC",
+      "analysis": "原文10.8节明确'按 Token 计费'、'输入/输出分别计价'，且'控制输入'是省成本首要手段（A 正确：超长 system prompt 被截断前已计入输入 Token，造成浪费）；'stream=True' 流式场景下，服务端按实际生成 Token 计费，无论前端是否接收（C 正确，符合'输出 Token 计费'规则）。B 错误：max_tokens 是强制截断参数，模型不会忽略；D 错误：URL 拼写错误会导致 404 或 400，而非静默降级，且原文未提及其有降级路由机制。本题聚焦'故障原因'与'计费偏差'的因果链，A 和 C 是教材明确规则下的典型计费陷阱。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 0,
+      "stem": "团队在 PAI-DSW 中开发了一个基于 vLLM 的本地推理服务，其 HTTP 接口完全兼容 OpenAI API。现需将此服务接入百炼应用作为后端模型。以下哪项是成功集成的必要前提？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "PAI-EAS 必须部署该 vLLM 服务，百炼仅支持调用 EAS 托管的服务"
+        },
+        {
+          "option_label": "B",
+          "option_text": "vLLM 服务需部署在与百炼同地域的 VPC 内，并配置安全组放行"
+        },
+        {
+          "option_label": "C",
+          "option_text": "百炼应用配置中需填写 vLLM 服务的公网域名及 API Key"
+        },
+        {
+          "option_label": "D",
+          "option_text": "vLLM 服务必须启用 DashScope 兼容模式中间件"
+        }
+      ],
+      "answer": "B",
+      "analysis": "原文10.5节'三者关系表'明确：'百炼上能做轻量微调，但……可对接 PAI-EAS 上的私有模型'；10.4节'principle'指出：'百炼应用也可以调用部署在 PAI-EAS 上的私有模型'。但本题场景是 DSW 中的本地 vLLM 服务（非 EAS），需直连。原文10.1节全链路描述：'百炼应用再去调用 EAS 上的私有模型'，暗示百炼调用外部服务需网络可达。A 错误：EAS 非唯一途径，百炼支持自定义 HTTP 后端；C 错误：百炼对接自定义模型需配置 endpoint，但无需 API Key（Key 用于 DashScope 调用）；D 错误：vLLM 本身已兼容 OpenAI API，无需额外中间件。B 正确：DSW 实例默认无公网 IP，且百炼作为 SaaS 服务需通过内网/VPC 访问私有服务，这是网络连通性的刚性前提，符合'考查必要条件'要求。",
+      "difficulty_label": "挑战"
+    }
+  ]
+}

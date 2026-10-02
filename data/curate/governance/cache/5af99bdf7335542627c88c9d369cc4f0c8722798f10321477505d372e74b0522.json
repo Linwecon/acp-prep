@@ -1,0 +1,110 @@
+{
+  "new-6-0-0": {
+    "qid": "new-6-0-0",
+    "classification": "own",
+    "chapter": 6,
+    "quality": "ok",
+    "reason": "场景题考查部署选型四步决策法，约束明确，选项典型。",
+    "answer": [
+      "D"
+    ],
+    "supported": true,
+    "quote": "数据能否出域？不能（敏感/合规）→ 排除百炼等公有 MaaS，选 ECS 自建或 PAI-EAS 私有部署；私有微调模型上线，需弹性伸缩与灰度发布 → PAI-EAS",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "百炼MaaS数据会出域，不符合严禁出域要求。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "FC有冷启动和时长限制，不适合稳定高吞吐实时服务。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "ECS自建可控，但灰度发布和秒级回滚能力弱于PAI-EAS。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "PAI-EAS支持私有部署、弹性伸缩、模型预热与蓝绿发布，最符合全部约束。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-6-0-2": {
+    "qid": "new-6-0-2",
+    "classification": "own",
+    "chapter": 6,
+    "quality": "ok",
+    "reason": "考查量化效果分析，选项与教材原文对应关系清晰。",
+    "answer": [
+      "A",
+      "C"
+    ],
+    "supported": true,
+    "quote": "量化主要省显存：参数体积成倍缩小；Decode阶段是显存带宽密集型，从显存读权重的字节数变少了；INT4在敏感任务上可能掉点更明显，需要用业务评测集验证",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "量化减少Decode阶段显存带宽压力，可加速TPOT。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "Prefill计算密集，但权重读取带宽下降也可能影响TTFT，原文未支持‘不受影响’。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "INT4在敏感任务上掉点更明显，需业务评测验证，符合原文。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "显存下降58%与理论75%不符，原文未支持‘无异常’结论。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-6-0-4": {
+    "qid": "new-6-0-4",
+    "classification": "own",
+    "chapter": 6,
+    "quality": "ok",
+    "reason": "考查高并发、低延迟、降本增效的具体技术手段，选项均有原文依据。",
+    "answer": [
+      "A",
+      "B",
+      "C"
+    ],
+    "supported": true,
+    "quote": "PagedAttention分页管理KV Cache，消除碎片与预分配浪费，提升显存利用率；连续批处理（Continuous Batching）让请求动态进出，GPU几乎全程满载；上下文缓存（Context Cache）复用公共前缀（系统提示词、知识库）的KV结果",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "PagedAttention提升显存利用率以支撑更高并发。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "连续批处理减少GPU空转，提升整体吞吐。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "上下文缓存复用公共提示词KV块，降低重复计算。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "GQA是模型结构改造，教材未列为部署时可直接启用的手段。"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

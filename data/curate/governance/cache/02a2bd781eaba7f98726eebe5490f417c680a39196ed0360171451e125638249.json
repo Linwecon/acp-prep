@@ -1,0 +1,218 @@
+{
+  "3-1242": {
+    "qid": "3-1242",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "题目考查句子窗口切片的核心特征，选项明确，教材有清晰描述。",
+    "answer": [
+      "A",
+      "B",
+      "C"
+    ],
+    "supported": true,
+    "quote": "句子窗口检索（Sentence Window Retrieval）：建索引时以‘单个句子’为可检索单元（小块，便于精准命中），同时在每个句子的元数据里存下它‘前后各 N 句’组成的窗口",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "句子窗口以单句为检索单元，保持句子完整。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "检索命中后，会替换为包含上下文的窗口。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "句子窗口旨在解决长文档中精准命中与上下文完整的矛盾。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "教材未限定仅用于短文本，且旨在处理长文档矛盾。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-1250": {
+    "qid": "3-1250",
+    "classification": "cross",
+    "chapter": -1,
+    "quality": "remove",
+    "reason": "题目问“语义相似度计算精度”，属于Embedding模型训练范畴，本章未涉及训练策略，考点错位。",
+    "answer": [],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "硬件加速非算法策略，且教材未提及。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "引入新模型是策略，但教材未讨论训练过程。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "扩大数据集是策略，但教材未讨论训练过程。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "精确标注是策略，但教材未讨论训练过程。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-1293": {
+    "qid": "3-1293",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "题目考查文档解析阶段的常见问题，选项符合教材描述。",
+    "answer": [
+      "A",
+      "B",
+      "D"
+    ],
+    "supported": true,
+    "quote": "文档解析（Document Parsing）是把 PDF、Word、Markdown、网页等格式的文档，加载并转换为大模型可读文本的过程。它看似简单，却是 RAG 质量的‘地基’——解析阶段丢失的结构，后面用再复杂的算法也补不回来。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "教材列举了PDF/Word/Markdown/网页，未提Keynote，属可能问题。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "解析阶段需保留表格结构，提取图片内容是挑战。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "切片长度过大是切片阶段问题，非解析阶段。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "目录层级混乱属于结构丢失问题，是解析阶段关键。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-1308": {
+    "qid": "3-1308",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "题目考查RAG两阶段划分，明确区分建库与在线问答步骤。",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "第一阶段：离线建库（Indexing，一次做好、多次复用） 1. 文档解析 2. 文本切片（Chunking） 3. 向量化 4. 入库。第二阶段：在线问答（Retrieval & Generation，每次请求都执行） 1. 用户提问；必要时先做查询改写 2. 把问题也向量化",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "文档解析是建库阶段第一步。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "文本切片是建库阶段第二步。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "将用户问题向量化是在线问答阶段的步骤。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "将文本片段向量化是建库阶段第三步。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-1331": {
+    "qid": "3-1331",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "题目考查检索后处理技术，选项均在教材相关章节有对应。",
+    "answer": [
+      "B",
+      "C",
+      "D"
+    ],
+    "supported": true,
+    "quote": "句子窗口检索…后处理器自动把内容替换成整个窗口再交给模型。Rerank（重排序）…第二阶段用更强的重排序模型对候选逐篇精细打分、重新排序。再用相似度阈值 0.2 过滤",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "问题扩写属于查询改写，是检索前处理。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "重排序（Rerank）是典型的检索后处理技术。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "滑动窗口补充上下文是句子窗口检索的后处理。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "相似度阈值过滤是后处理中的过滤步骤。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-1333": {
+    "qid": "3-1333",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "题目考查文档切片策略，选项与教材列举的策略对应。",
+    "answer": [
+      "B",
+      "C",
+      "D"
+    ],
+    "supported": true,
+    "quote": "常见切片策略：Token 切片、句子切片、Markdown 切片、语义切片、句子窗口切片",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "教材未提及‘图片切片’作为文本切片策略。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "Token 切片是教材列出的策略之一。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "语义切片是教材列出的策略之一。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "Markdown 切片是教材列出的策略之一。"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

@@ -1,0 +1,217 @@
+{
+  "new-7-30-0": {
+    "qid": "new-7-30-0",
+    "classification": "own",
+    "chapter": 7,
+    "quality": "ok",
+    "reason": "考查RAGAS指标组合分析，定位检索与生成问题",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "Context Recall / Precision 低 → 问题在检索阶段；检索指标都好（Recall、Precision 高），但 Faithfulness / Correctness 低 → 问题在生成阶段",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "Recall升Precision降，噪声多致生成被干扰"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "Recall高且Faithfulness高，说明资料已召回"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "Faithfulness保持0.95，生成端幻觉未增加"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "题干未提标注问题，且Recall已升"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-7-30-1": {
+    "qid": "new-7-30-1",
+    "classification": "own",
+    "chapter": 7,
+    "quality": "ok",
+    "reason": "考查评测集构建原则与回归评测",
+    "answer": [
+      "A",
+      "B",
+      "C"
+    ],
+    "supported": true,
+    "quote": "问题来自真实用户场景；标准答案来自领域专家；每次改动后跑同一套冻结评测集，防止‘修好 A、弄坏 B’",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "符合问题来自真实用户场景原则"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "符合先建评测集、领域专家提供标准答案"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "分层覆盖符合评测集设计要点"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "仅用少数用例违反回归评测原则"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-7-30-2": {
+    "qid": "new-7-30-2",
+    "classification": "own",
+    "chapter": 7,
+    "quality": "ok",
+    "reason": "考查Agent白盒评测与LLM评委局限性",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "端到端评测 vs 白盒评测；总分低时无法定位瓶颈；确定性检查（规则/断言）用代码规则直接判断，结果确定",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "是偏见但非题干最可能忽视的关键风险"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "是风险但非最可能忽视的定位问题风险"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "仅加主观评分未解决组件故障定位问题"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "校准重要但非题干最可能忽视的关键风险"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-7-30-3": {
+    "qid": "new-7-30-3",
+    "classification": "own",
+    "chapter": 7,
+    "quality": "ok",
+    "reason": "考查根据RAGAS指标定位并优化检索端",
+    "answer": [
+      "A",
+      "C"
+    ],
+    "supported": true,
+    "quote": "Precision 低（Recall 高） → 找回来了但噪声多、排得靠后 → 加 Rerank、缩小 Top K、相似度阈值过滤、混合检索",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "Precision低需重排序，符合黄金法则"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "Recall已高，增Top K会加剧噪声"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "同义词扩展可提升检索质量"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "是生成端约束，非检索优先"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-7-30-4": {
+    "qid": "new-7-30-4",
+    "classification": "own",
+    "chapter": 7,
+    "quality": "ok",
+    "reason": "考查传统自动指标局限性与业务目标对齐",
+    "answer": [
+      "D"
+    ],
+    "supported": true,
+    "quote": "BLEU 高 = 翻译好’ → BLEU 只认字面重合，同义改写会被误伤；算法指标是手段，业务指标才是目标",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "是风险但未直接对应业务满意度下降"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "是特点但未解释满意度矛盾"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "包含部分风险但未点明业务目标"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "直接指出指标高分不等于业务表现好"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-7-30-5": {
+    "qid": "new-7-30-5",
+    "classification": "own",
+    "chapter": 7,
+    "quality": "ok",
+    "reason": "考查EDD实践中回归与定位的具体方法",
+    "answer": [
+      "A",
+      "B",
+      "D"
+    ],
+    "supported": true,
+    "quote": "回归评测的前提是除了待测改动，其他一切都冻结；根据分数确定优化方向；要按题型、难度、类别细分找短板",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "全指标对比可防回归并定位问题环节"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "版本锁定保障分数可比性，防止回归"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "仅看总分无法定位具体问题"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "分场景分析指标差异可定位短板"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

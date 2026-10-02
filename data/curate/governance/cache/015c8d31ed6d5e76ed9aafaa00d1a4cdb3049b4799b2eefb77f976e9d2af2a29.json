@@ -1,0 +1,144 @@
+{
+  "new-4-30-0": {
+    "qid": "new-4-30-0",
+    "classification": "own",
+    "chapter": 4,
+    "quality": "ok",
+    "reason": "题干描述的场景与本章开篇贯穿案例完全一致，考查Agent核心闭环特征。",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "Agent（智能体）是由大模型驱动、具备自主感知、规划、调用工具并根据反馈迭代能力的应用。它的本质不是'更能聊的模型'，而是一个 LLM 驱动的闭环执行系统。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "解耦是架构设计，非核心本质特征。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "记忆是支撑能力，非最核心特征。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "未启动规划-行动-观察闭环，违背Agent本质。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "配置问题是具体原因，非核心特征。"
+      }
+    ],
+    "duplicate_of": "4-5164"
+  },
+  "new-4-30-1": {
+    "qid": "new-4-30-1",
+    "classification": "own",
+    "chapter": 4,
+    "quality": "ok",
+    "reason": "考查Skill章节的核心设计原则“渐进式披露”。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "Skill：Agent 启动时只看到所有 Skill 的 description（很短），由模型判断当前任务要不要激活；激活后才读 SKILL.md，执行到具体步骤时再读对应子文件——这就是渐进式披露（Progressive Disclosure）。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "避免全量注入是多Agent原则。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "分阶段加载正是渐进式披露。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "明确职责是多Agent原则。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "探索-固化是规划策略。"
+      }
+    ],
+    "duplicate_of": "4-5157"
+  },
+  "new-4-30-4": {
+    "qid": "new-4-30-4",
+    "classification": "own",
+    "chapter": 4,
+    "quality": "ok",
+    "reason": "考查ReAct循环中如何处理工具失败，需将结果回传模型决策。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "Observation 可能含噪声甚至恶意内容（提示注入），模型不能盲目信任外部返回，必要时交叉验证。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "直接终止未利用ReAct循环。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "将结果回传，由模型决定后续动作。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "自动重试是程序行为，非模型决策。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "HITL用于高风险，非首选。"
+      }
+    ],
+    "duplicate_of": "4-5175"
+  },
+  "new-4-30-5": {
+    "qid": "new-4-30-5",
+    "classification": "own",
+    "chapter": 4,
+    "quality": "ok",
+    "reason": "多选题，考查评测方法论中三种核心手段的组合应用。",
+    "answer": [
+      "A",
+      "B",
+      "C"
+    ],
+    "supported": true,
+    "quote": "三种核心评测手段：1. 确定性检查（Deterministic Checks）... 2. LLM-as-Judge（大模型当评委）... 3. Rubric（评分量表）...",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "确定性检查可验证字段存在性。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "LLM-as-Judge可评估主观完整性。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "Rubric可将模糊目标拆解为细则。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "扩大窗口是记忆策略，非评测手段。"
+      }
+    ],
+    "duplicate_of": "4-5173"
+  }
+}

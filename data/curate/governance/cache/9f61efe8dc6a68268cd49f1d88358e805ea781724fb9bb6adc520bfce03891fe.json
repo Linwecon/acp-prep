@@ -1,0 +1,214 @@
+{
+  "new-11-48-0": {
+    "qid": "new-11-48-0",
+    "classification": "own",
+    "chapter": 11,
+    "quality": "ok",
+    "reason": "考查视频理解的核心技术约束，题干与原文考点一致。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "视频要抽大量帧，token 消耗随帧数线性增长，长视频必须抽帧/截断/分段；不能假设模型'能读任意长度视频'，超出上下文窗口的内容会被丢弃。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "题干问题是遗漏信息，非延迟导致。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "原文指出长视频必须抽帧/截断，超出上下文窗口的内容会被丢弃。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "TTS是语音合成，与视频理解信息提取无关。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "OCR用于提取文字，但视频理解需抽帧和ASR，非仅字幕。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-11-48-1": {
+    "qid": "new-11-48-1",
+    "classification": "own",
+    "chapter": 11,
+    "quality": "ok",
+    "reason": "考查医疗AI合规要求，结合内容安全与行业案例。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "医疗达医智影（AI 辅助、医生复核、隐私）；AI 结论仅作辅助，医疗决策必须由医生做出，不可替代诊断；需可解释与留痕。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "CT影像用于诊断，非内容安全审核对象。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "医疗AI必须标识辅助性质，医生最终决策。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "应在OCR后脱敏，而非OCR前模糊处理。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "生成模拟影像训练涉及数据合规，非必须措施。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-11-48-2": {
+    "qid": "new-11-48-2",
+    "classification": "own",
+    "chapter": 11,
+    "quality": "ok",
+    "reason": "考查扫描件处理的首要步骤，符合文档智能解析原理。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "扫描件 PDF 本质是图片，普通文本加载器读不出文字、直接切到的是空白/乱码。首要动作是先做文档智能解析（OCR + 版面分析 + 表格转 Markdown）。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "检索功能是后续步骤，非首要检查环节。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "扫描件必须先OCR识别文字，否则无法检索。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "微调权重非处理扫描件的首要技术步骤。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "多模态Embedding用于图片检索，非扫描件文字提取。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-11-48-3": {
+    "qid": "new-11-48-3",
+    "classification": "own",
+    "chapter": 11,
+    "quality": "ok",
+    "reason": "考查语音助手实时交互的工程实践，符合最佳实践。",
+    "answer": [
+      "A",
+      "C"
+    ],
+    "supported": true,
+    "quote": "语音链路对延迟敏感，实时通话要做流式 ASR/TTS 与首包优化；CosyVoice 对应'文字→语音/合成'。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "流式ASR可降低延迟，提升实时体验。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "跳过意图澄清可能导致错误操作，不符合最佳实践。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "使用SSML控制发音细节，符合TTS个性化实践。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "存储全部历史语音文件不符合隐私合规和存储约束。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-11-48-4": {
+    "qid": "new-11-48-4",
+    "classification": "own",
+    "chapter": 11,
+    "quality": "ok",
+    "reason": "考查文生图文字错位的风险与补救措施。",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "图文/视频一致性：模型可能生成'看起来对但细节错'的内容，自动指标很难评判，必须靠人工抽检或多模态审核模型兜底。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "增加采样步数可能改善质量，但非针对文字错位的直接补救。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "提示词约束可能有效，但非最应采取的补救措施。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "图文一致性需多模态审核模型校验，是生成类风险的标准兜底措施。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "内容安全检测针对违规内容，非文字排版错误。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-11-48-5": {
+    "qid": "new-11-48-5",
+    "classification": "own",
+    "chapter": 11,
+    "quality": "ok",
+    "reason": "考查拍照搜题功能的全链路技术组件。",
+    "answer": [
+      "A",
+      "C"
+    ],
+    "supported": true,
+    "quote": "拍照/语音输入 → OCR/ASR → LLM 解题讲解/作文批改 → 个性化学习路径与（语音）反馈。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "Qwen-VL用于图文联合理解手写题目语义。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "ASR用于语音识别，非手写体文字识别。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "文档智能解析执行OCR与版面分析，提取手写文字。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "语音讲解非必须组件，题干未要求语音输出。"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

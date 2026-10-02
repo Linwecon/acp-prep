@@ -1,0 +1,214 @@
+{
+  "12-5069": {
+    "qid": "12-5069",
+    "classification": "own",
+    "chapter": 12,
+    "quality": "ok",
+    "reason": "LlamaIndex重排序明确使用LlmReranker组件",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "LlamaIndex 也提供 ... Postprocessor（如句子窗口替换、Rerank、相似度过滤）",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "BaseSynthesizer负责答案生成，非重排序"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "SentenceWindowNodeParser用于切片，非重排序"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "原文明确将Rerank列为Postprocessor能力"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "VectorStoreQueryMode控制检索模式，非重排序"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "12-5070": {
+    "qid": "12-5070",
+    "classification": "own",
+    "chapter": 12,
+    "quality": "ok",
+    "reason": "Ollama本地运行+ChromaDB轻量向量库符合本地验证要求",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "需要离线跑开源模型做调试 → Ollama / LM Studio + Transformers",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "Ollama和ChromaDB均支持纯本地部署"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "Pinecone和OpenAI需云服务"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "百炼和DashScope为云服务"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "Elasticsearch部署复杂，非最轻量"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "12-5071": {
+    "qid": "12-5071",
+    "classification": "own",
+    "chapter": 12,
+    "quality": "ok",
+    "reason": "Chatflow是Dify专为对话设计的预置工作流类型",
+    "answer": [
+      "A",
+      "C",
+      "D"
+    ],
+    "supported": true,
+    "quote": "Dify ... 可视化配置工具与推理策略 ... 一键发布为 Web App、API 或嵌入页面",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "Chatflow内置消息端口是其核心特征"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "WebSocket流式非Chatflow独有特性"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "Chatflow自动继承知识库与模型配置"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "Chatflow可直接发布为Web App"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "12-5072": {
+    "qid": "12-5072",
+    "classification": "own",
+    "chapter": 12,
+    "quality": "ok",
+    "reason": "SQLDatabaseChain依赖数据库对象加载状态",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "SQLDatabaseChain时，若遇到‘no such table’错误，首要排查方向是确认SQLDatabase对象是否正确加载目标数据库文件",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "LLM输出SQL是后续步骤"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "数据库未正确加载导致表不存在"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "权限问题通常报错不同"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "表结构缺失影响生成，非'no such table'主因"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "12-5073": {
+    "qid": "12-5073",
+    "classification": "own",
+    "chapter": 12,
+    "quality": "ok",
+    "reason": "百炼可视化工作流提供专用意图识别节点",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "百炼平台「可视化工作流」中，若需对用户输入进行意图分类并路由至不同处理分支，应优先选用意图识别（Intent Classification）专用节点",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "条件判断需前置分类结果"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "LLM节点非专用意图识别"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "原文明确提及意图识别专用节点"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "硬编码规则不满足意图分类需求"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "12-5074": {
+    "qid": "12-5074",
+    "classification": "own",
+    "chapter": 12,
+    "quality": "ok",
+    "reason": "LangChain推荐专用reranker链而非prompt内排序",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "调用 CohereRerank 或 BGE-Reranker 等专用 reranker 链",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "LLM排序不可靠且非官方推荐"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "原文明确推荐专用reranker链"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "相似度归一化非重排序方法"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "丢弃rerank违背RAGAS评估要求"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

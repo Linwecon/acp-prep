@@ -1,0 +1,72 @@
+{
+  "new-6-156-0": {
+    "qid": "new-6-156-0",
+    "classification": "own",
+    "chapter": 6,
+    "quality": "ok",
+    "reason": "题目考察量化效果与教材原文的对应关系，选项C的表述与教材原文一致。",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "INT4在敏感任务上可能掉点更明显",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "原文未说INT4‘必然’加速Decode。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "原文未明确量化对Prefill无影响。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "选项表述与教材原文一致。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "58%与理论1/4（75%）不符，原文未支持。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-6-156-3": {
+    "qid": "new-6-156-3",
+    "classification": "own",
+    "chapter": 6,
+    "quality": "ok",
+    "reason": "题目描述FC冷启动现象，选项A准确对应教材对冷启动的定义和解释。",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "Serverless为了省成本，无流量时会回收实例；请求突然到来需要重新拉起实例、加载模型，导致首个请求明显变慢",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "现象符合教材对FC冷启动的描述。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "题干未提量化，与根本原因无关。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "PAI-EAS预热是缓解手段，非FC根本原因。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "现象是实例回收后加载，非规格不足。"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

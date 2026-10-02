@@ -1,0 +1,154 @@
+{
+  "items": [
+    {
+      "type": 0,
+      "stem": "某团队在PAI-EAS上成功部署了一个基于Qwen2-7B的LoRA微调模型，服务已注册为HTTP端点。百炼应用需调用该私有模型完成专业合同条款解析，但测试时始终返回401 Unauthorized。排查发现百炼工作流中已正确填写EAS服务地址和Token。最可能的根本原因是什么？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "EAS服务未开启公网访问权限，仅允许VPC内调用，而百炼应用运行在阿里云公共云环境"
+        },
+        {
+          "option_label": "B",
+          "option_text": "百炼工作流中误将DashScope API Key填入EAS认证字段，而非EAS服务自身生成的Access Token"
+        },
+        {
+          "option_label": "C",
+          "option_text": "EAS服务配置了IP白名单，但百炼控制台出口IP未被加入，且未启用‘允许所有来源’"
+        },
+        {
+          "option_label": "D",
+          "option_text": "百炼不支持调用非DashScope托管的模型，其‘自定义模型’功能仅限于平台内置微调模型"
+        }
+      ],
+      "answer": "A",
+      "analysis": "依据原文10.4节‘PAI-EAS：模型在线服务’及10.5节‘三者关系与选型’：EAS部署的服务默认为VPC内网访问（教材明确强调‘可私有化/数据不出域程度更高’），若需被百炼等外部系统调用，必须显式开启公网访问并配置安全组/ACL（教材虽未详述网络策略，但10.5表中‘数据与模型控制’栏明确指出PAI方案‘数据不出域程度更高’，隐含其默认隔离性；且10.1全景链路描述‘百炼应用再去调用EAS上的私有模型’，该能力成立的前提是网络连通性已打通——这是实际部署的必要条件，也是高频故障点）。选项B错误：EAS服务认证使用其自身颁发的Access Token或AK/SK，与DashScope Key无关，且两者密钥体系完全独立；选项C虽为常见配置项，但EAS公网访问默认不启用白名单，且百炼无固定出口IP，白名单不可行，故非根本原因；选项D错误：原文10.5‘三者可组合’明确说明‘百炼应用也可以调用部署在PAI-EAS上的私有模型’，此为官方支持场景。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 0,
+      "stem": "算法团队在PAI-DSW中完成Qwen2-1.5B模型微调后，导出合并权重至OSS。下一步需部署为高可用在线服务。以下哪项操作顺序严格符合教材10.4节推荐的PAI-EAS标准流程？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "1. 在EAS控制台创建服务 → 2. 选择‘自定义镜像’并指定含vLLM推理代码的Docker镜像 → 3. 挂载OSS路径作为模型加载源 → 4. 启动服务"
+        },
+        {
+          "option_label": "B",
+          "option_text": "1. 在EAS控制台创建服务 → 2. 选择‘PAI预置镜像’ → 3. 填写模型OSS路径及推理框架（如vLLM）→ 4. 启动服务"
+        },
+        {
+          "option_label": "C",
+          "option_text": "1. 在PAI-DLC中提交推理服务任务 → 2. 配置OSS模型路径与vLLM参数 → 3. 导出服务Endpoint"
+        },
+        {
+          "option_label": "D",
+          "option_text": "1. 使用PAI-DSW本地启动vLLM HTTP服务验证 → 2. 将该服务打包为Docker镜像并推送至ACR → 3. 在EAS中创建服务并挂载ACR镜像"
+        }
+      ],
+      "answer": "B",
+      "analysis": "依据原文10.4节‘PAI-EAS：模型在线服务’及10.4‘原理’框：EAS核心价值是‘一键部署为在线推理服务，支持弹性伸缩、蓝绿发布、版本管理’，其标准流程是‘上传模型（OSS路径）+ 选择预置推理框架（如vLLM/Triton）+ 配置参数’，无需用户手动构建镜像（教材未要求也未推荐自建镜像，反而强调‘获得弹性伸缩、预热、监控等生产能力’，预置镜像已集成这些能力）。选项A错误：‘自定义镜像’需用户自行维护，违背EAS‘免运维’定位，且教材未提及此路径；选项C错误：DLC是‘分布式训练’组件，非部署组件，教材明确‘上线选EAS’；选项D虽技术可行，但‘本地起服务验证’属调试环节（教材10.4原理中‘vLLM本地起服务验证’是EAS部署前的可选步骤），而‘打包镜像推ACR’非EAS标准流程，增加运维负担，不符合教材‘一键部署’原则。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 1,
+      "stem": "当百炼应用需要调用部署在PAI-EAS上的私有模型时，以下哪些条件是必须同时满足的？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "EAS服务已开启公网访问或与百炼所在VPC已通过云企业网CEN打通网络"
+        },
+        {
+          "option_label": "B",
+          "option_text": "EAS服务配置了兼容OpenAI API的HTTP接口（如vLLM服务），且百炼工作流中使用标准OpenAI格式调用"
+        },
+        {
+          "option_label": "C",
+          "option_text": "百炼工作流中需填写EAS服务的完整公网域名或内网Endpoint，以及EAS服务自身的Access Token"
+        },
+        {
+          "option_label": "D",
+          "option_text": "PAI-EAS服务必须使用DashScope提供的预置模型镜像，不能使用用户自定义镜像"
+        }
+      ],
+      "answer": "A,B,C",
+      "analysis": "依据原文10.4节EAS定义（‘模型在线服务’）、10.5节‘三者可组合’（‘百炼应用也可调用EAS上的私有模型’）及10.3节OpenAI兼容模式（‘vLLM本地起服务验证（其HTTP接口本身兼容OpenAI API）’）：A正确，网络连通是调用前提，教材虽未明说，但‘调用’逻辑必然要求可达性；B正确，百炼工作流调用外部模型需遵循标准协议，而vLLM等主流推理框架均提供OpenAI兼容API，教材10.4原理明确将其作为EAS部署前验证环节；C正确，调用需Endpoint（地址）和认证凭证（EAS Access Token），百炼不共享DashScope Key；D错误，教材10.4明确EAS支持‘自定义部署’，且10.7节强调开源模型需‘自行部署’，预置镜像仅为便利选项，非强制约束。",
+      "difficulty_label": "挑战"
+    },
+    {
+      "type": 0,
+      "stem": "某金融公司需将自研法律垂类模型部署为API供内部OA调用，要求满足等保三级合规。运维发现EAS服务启动后，健康检查持续失败（HTTP 503）。日志显示模型加载超时。以下哪项最可能是导致该故障的直接原因，且符合教材对PAI-EAS部署约束的描述？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "EAS实例规格（CPU/GPU内存）小于模型权重文件大小，导致OOM（内存溢出）"
+        },
+        {
+          "option_label": "B",
+          "option_text": "模型OSS路径配置错误，EAS无法下载权重，且未配置失败重试机制"
+        },
+        {
+          "option_label": "C",
+          "option_text": "EAS服务未配置‘就绪探针（Readiness Probe）’，导致K8s在模型加载完成前即转发流量"
+        },
+        {
+          "option_label": "D",
+          "option_text": "模型使用了EAS预置镜像不支持的PyTorch版本，引发兼容性错误"
+        }
+      ],
+      "answer": "A",
+      "analysis": "依据原文10.4节‘EAS：模型在线服务’及10.4‘原理’框：EAS部署需‘把训练好的模型一键部署’，其底层依赖资源规格匹配。教材虽未直接提OOM，但在10.4‘成本提醒’中强调‘GPU实例消耗额度远快于CPU’，隐含资源规格是部署关键约束；且10.4原理中‘vLLM本地起服务验证’是前置步骤，验证即包含资源适配。选项A是模型部署最基础、最高频的故障原因（权重过大→内存不足→加载失败→健康检查失败），直接对应EAS‘一键部署’对资源配置的强依赖；选项B虽可能，但OSS路径错误通常报404或连接超时，非503；选项C是K8s高级配置，教材未涉及探针概念，非考查重点；选项D属框架兼容问题，但EAS预置镜像已适配主流版本，且教材未强调此风险。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 1,
+      "stem": "在将PAI-EAS部署的私有模型接入百炼工作流时，以下哪些做法符合教材10.5节‘三者可组合’原则及10.8节成本优化要求？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "在百炼工作流中对EAS调用设置超时时间（timeout）和重试次数，避免因EAS瞬时抖动导致整个工作流失败"
+        },
+        {
+          "option_label": "B",
+          "option_text": "将EAS服务的响应结果缓存至百炼内置Redis，对相同输入请求直接返回缓存，减少EAS调用频次"
+        },
+        {
+          "option_label": "C",
+          "option_text": "在EAS服务侧启用vLLM的PagedAttention和连续批处理，提升单实例吞吐量，降低单位请求成本"
+        },
+        {
+          "option_label": "D",
+          "option_text": "百炼工作流中禁用EAS调用的stream参数，强制等待完整响应，以简化前端处理逻辑"
+        }
+      ],
+      "answer": "A,C",
+      "analysis": "依据原文10.5节‘三者可组合’（百炼调用EAS）及10.8节‘省成本的工程手段’（‘规模化后算账：高频稳定调用可评估微调/蒸馏小模型 + 自托管（PAI-EAS）是否更省’）：A正确，容错设计是生产环境必备，符合‘组合’的健壮性要求；C正确，vLLM优化是教材10.4原理中明确提及的推理加速手段，直接降低EAS资源消耗，契合成本优化；B错误，百炼内置缓存机制未在教材中描述，且EAS调用属外部服务，缓存应由EAS或API网关层实现，非百炼职责；D错误，禁用stream会增加首Token延迟，违背10.3节‘stream=True是对话类应用降低等待感的标配’，损害用户体验，不符合成本优化中‘按任务路由’的体验权衡原则。",
+      "difficulty_label": "挑战"
+    },
+    {
+      "type": 0,
+      "stem": "团队在PAI-EAS上部署了Qwen2-7B微调模型，服务状态正常。但百炼工作流调用时，返回错误：‘HTTP 400 Bad Request: Invalid request format’。检查发现百炼工作流中请求体为JSON，包含‘model’、‘messages’字段，与DashScope格式一致。最可能的原因是？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "EAS部署的vLLM服务未启用OpenAI兼容模式，其API期望的是vLLM原生格式（如‘prompt’字段），而非OpenAI的‘messages’"
+        },
+        {
+          "option_label": "B",
+          "option_text": "百炼工作流中误将EAS服务Endpoint拼写为DashScope的base_url地址"
+        },
+        {
+          "option_label": "C",
+          "option_text": "EAS服务配置了请求体大小限制（如1MB），而百炼传入的messages内容超过阈值"
+        },
+        {
+          "option_label": "D",
+          "option_text": "百炼工作流未在请求头中添加‘Content-Type: application/json’"
+        }
+      ],
+      "answer": "A",
+      "analysis": "依据原文10.4节‘原理’框：‘vLLM本地起服务验证（其HTTP接口本身兼容OpenAI API）’——此句关键在于‘兼容’是可选配置，非默认开启。vLLM默认提供原生API（如/completions，接受prompt字段），OpenAI兼容模式需显式启用（--enable-openai-compatible）。教材10.3节强调DashScope兼容模式的价值，反向说明兼容性需主动配置。选项A直指此核心约束；选项B会导致连接失败或404，非400；选项C通常返回413 Payload Too Large；选项D在现代HTTP客户端中通常自动添加，且400错误更指向语义错误（字段不识别）而非格式错误。",
+      "difficulty_label": "进阶"
+    }
+  ]
+}

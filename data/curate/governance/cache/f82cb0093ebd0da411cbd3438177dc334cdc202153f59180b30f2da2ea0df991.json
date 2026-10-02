@@ -1,0 +1,154 @@
+{
+  "items": [
+    {
+      "type": 0,
+      "stem": "某教育公司上线新人答疑机器人后，用户反复提问'我们项目管理用什么工具'，模型在三次调用中分别返回'Jira'、'Microsoft Project'、'Asana'。所有请求均使用默认参数（temperature=0.7, top_p=0.8），且messages结构完整包含system提示和当前user问题。最根本的技术原因是什么？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "模型参数未冻结，推理中持续学习导致输出漂移"
+        },
+        {
+          "option_label": "B",
+          "option_text": "上下文窗口过小导致历史消息被截断，影响一致性"
+        },
+        {
+          "option_label": "C",
+          "option_text": "采样过程的随机性使模型每次从概率分布中选择不同Token"
+        },
+        {
+          "option_label": "D",
+          "option_text": "分词器对同一中文短语产生不同Token序列，引发嵌入向量偏移"
+        }
+      ],
+      "answer": "C",
+      "analysis": "根据1.7.1节原理：temperature=0.7时softmax输出为平缓概率分布，模型在解码阶段按该分布随机采样（第四阶段），这是自回归生成的固有特性（教材明确'同输入每次回答不同'属正常现象）。A错误：1.2节强调'参数在训练结束时冻结，推理阶段不更新'；B错误：单轮问答极短，远低于常规窗口（如32K），且题干未提示超窗；D错误：1.5节指出分词确定性由词表决定，同一模型对固定文本分词结果稳定，且不会导致三答案系统性发散。本题直击'随机性根源'，区别于常见'如何稳定输出'类题目。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 0,
+      "stem": "开发团队为客服机器人配置流式输出（stream=True）后，监控发现首字延迟降低但整体响应时间未变。此时若将temperature从0.7降至0.1，最可能观察到的现象是？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "首字延迟进一步缩短，因低temperature加速了首个Token的计算"
+        },
+        {
+          "option_label": "B",
+          "option_text": "流式输出中断，因低temperature与stream参数冲突"
+        },
+        {
+          "option_label": "C",
+          "option_text": "输出内容稳定性提升，但首字延迟基本不变"
+        },
+        {
+          "option_label": "D",
+          "option_text": "模型开始跳过EOS标记，导致输出无限延长"
+        }
+      ],
+      "answer": "C",
+      "analysis": "依据1.9节：流式输出仅改变传输方式，不影响模型内部计算（'只改体验，不改质量'）；1.7.1节指出temperature调节概率分布陡峭度，降低temperature使高概率Token被选中概率增大，从而提升输出稳定性。A错误：首字延迟取决于第一个Token生成速度，而temperature影响的是采样策略而非前向计算耗时；B错误：教材明确stream与temperature无兼容性冲突，示例代码同时使用二者；D错误：1.3节说明停止条件含EOS/最大长度/停用词，temperature不改变终止逻辑。本题考查'流式与采样参数的正交性'，避免混淆性能与稳定性。",
+      "difficulty_label": "中等"
+    },
+    {
+      "type": 1,
+      "stem": "某金融企业需构建财报分析助手，要求：① 严格遵循监管文档格式输出；② 对'2024年Q3净利润'等数值必须100%准确；③ 支持多轮追问'该数据同比变化率是多少'。以下哪些技术组合符合本章'能力边界-补位策略'原则？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "使用RAG检索监管文档原文，并在system prompt中要求'仅依据检索结果回答'"
+        },
+        {
+          "option_label": "B",
+          "option_text": "将temperature设为0.0，top_p设为0.1以强制模型输出精确数字"
+        },
+        {
+          "option_label": "C",
+          "option_text": "通过Function Calling调用专用财务计算器API执行同比计算"
+        },
+        {
+          "option_label": "D",
+          "option_text": "在messages中拼接全部历史对话，确保模型理解'该数据'指代关系"
+        }
+      ],
+      "answer": "A,C,D",
+      "analysis": "A正确：1.2节'补位策略表'明确'最新/私域知识→RAG'，且1.2节note强调'只依据资料回答+引用溯源'可抑制幻觉；C正确：1.2节'补位策略表'指出'精确计算→工具调用'，并解释'自回归逐Token生成缺乏符号运算机制'；D正确：1.8.2节强调'无状态'特性下，多轮连贯性依赖客户端维护完整messages（含assistant历史回复）。B错误：1.7.4节risk明确'temperature=0不保证100%一致'，且1.2节指出'不擅精确计算'的根本原因是架构缺陷，非参数可修复。本题聚焦'边界识别+精准补位'，排除典型参数滥用误区。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 0,
+      "stem": "当用户向答疑机器人发送长篇《项目管理制度V3.2》PDF（约12万汉字）并提问'第5.2条如何执行'时，系统报错'context length exceeded'。工程师检查发现模型上下文窗口为32K Token。以下哪项操作最符合本章'上下文工程'核心思想？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "升级至64K窗口模型，确保全文载入"
+        },
+        {
+          "option_label": "B",
+          "option_text": "用LLM先摘要PDF为2000字，再将摘要+问题提交给原模型"
+        },
+        {
+          "option_label": "C",
+          "option_text": "将PDF按页切分，每次只传入含第5.2条的页面文本"
+        },
+        {
+          "option_label": "D",
+          "option_text": "启用'Lost in the Middle'优化插件，增强中间段落注意力"
+        }
+      ],
+      "answer": "C",
+      "analysis": "依据1.6节principle：'上下文工程的核心不是喂得多，而是喂得准'；1.2节compare表强调'检索相关片段（RAG）'是长文本处理首选。C选项本质是精准检索——定位到目标条款所在页面，最小化无关信息注入，既规避窗口限制又避免摘要失真。A错误：1.6节risk指出'窗口越大效果越好'是误区，且成本激增；B错误：1.6节note未提摘要压缩为推荐方案，且摘要可能丢失关键执行细节；D错误：教材未提及'Lost in the Middle插件'，该现象是已知缺陷，需通过检索/滑动窗口缓解而非插件修复。本题考查'精准喂料'的工程直觉，区别于泛泛而谈的'摘要法'。",
+      "difficulty_label": "中等"
+    },
+    {
+      "type": 1,
+      "stem": "在调试多轮对话时，开发者发现：用户问'Jira账号怎么申请'，模型正确回答流程；但当用户紧接着问'需要填哪些表格'，模型却回复'请参考公司OA系统'（实际应提供《Jira权限申请表》链接）。排查messages数组确认包含全部历史。以下哪些原因可能成立？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "上下文窗口已满，系统自动截断了首轮assistant回复中的关键信息"
+        },
+        {
+          "option_label": "B",
+          "option_text": "首轮回复未在assistant.content中显式写出'Jira'，仅用代词'该工具'指代"
+        },
+        {
+          "option_label": "C",
+          "option_text": "temperature设置过高（如1.5），导致模型忽略前文约束"
+        },
+        {
+          "option_label": "D",
+          "option_text": "模型在第二轮推理时，因自注意力机制无法建模长距离指代关系"
+        }
+      ],
+      "answer": "A,B",
+      "analysis": "A正确：1.6节明确'超过窗口的内容通常被截断'，且'丢弃最早部分'，若首轮回复较长，关键实体可能被截断；B正确：1.8.1节示例强调'messages中assistant.content需明确写出实体（如'Jira'）'，否则后续'该工具'指代失效，这属于提示工程缺陷。C错误：temperature只影响采样随机性，不改变模型对上下文的理解能力（1.7.4节risk）；D错误：1.4节明确'自注意力让任意两个位置直接交互'，正是为解决长距离依赖，'无法建模'与教材结论矛盾。本题聚焦'截断'与'指代表达'双重故障点，避免归因于模型能力缺陷。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 0,
+      "stem": "某团队选型时对比qwen-turbo与qwen-max：前者响应快、成本低，后者能力更强但延迟高。当任务是'实时校验客服对话中是否出现违禁词'（需毫秒级响应，输出仅为true/false），应优先选择哪个模型？依据本章哪一原则？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "qwen-max；依据Scaling Law中'参数越多能力越强'原则"
+        },
+        {
+          "option_label": "B",
+          "option_text": "qwen-turbo；依据'先看任务难度，再看成本与延迟'的工程选型口诀"
+        },
+        {
+          "option_label": "C",
+          "option_text": "qwen-plus；依据'性能与成本均衡'的默认推荐原则"
+        },
+        {
+          "option_label": "D",
+          "option_text": "开源Qwen2.5-0.5B；依据'数据不出域'的安全合规原则"
+        }
+      ],
+      "answer": "B",
+      "analysis": "依据1.10节'工程选型口诀'：'先看任务难度，再看成本与延迟'，以及1.11节'快而省→Turbo'的定位。违禁词校验是简单二分类任务，无需复杂推理，qwen-turbo完全胜任，且毫秒级延迟要求与turbo'速度优先'特性完全匹配。A错误：Scaling Law强调参数需与数据/算力同步扩展，此处任务简单，堆参数反而造成资源浪费（1.10节risk）；C错误：plus适用于通用场景，但本题有明确'实时'硬性指标；D错误：题干未提及数据隐私要求，'数据不出域'非首要条件。本题考查'任务驱动选型'，紧扣1.11节口诀，避免被'能力更强'误导。",
+      "difficulty_label": "基础"
+    }
+  ]
+}

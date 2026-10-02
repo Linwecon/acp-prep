@@ -1,0 +1,210 @@
+{
+  "3-0199": {
+    "qid": "3-0199",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "题干问切片向量化阶段准备测试数据的方法，原文未提compare_embeddings函数，其他选项明显无关。",
+    "answer": [],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "原文未提及该函数"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "训练数据属微调阶段"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "推理时间属部署优化"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "参数数量属模型架构"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-0206": {
+    "qid": "3-0206",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "原文明确推荐Markdown为RAG中间格式，因其层次分明、语法简单。",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "Markdown 因层次分明（`#`/`##`/`###`）、语法简单，被推荐作为 RAG 文档的中间格式",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "原文明确推荐"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "JSON非RAG推荐格式"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "XML非RAG推荐格式"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "CSV非RAG推荐格式"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-0240": {
+    "qid": "3-0240",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "原文提到百炼提供text-embedding-v3，v2为较旧版本。",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "阿里云百炼提供 `text-embedding-v3` 等 Embedding 模型，可同时用于建库与查询。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "v3是新版本，v2较旧"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "v3是新版本"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "训练数据属微调阶段"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "推理时间属部署优化"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-0256": {
+    "qid": "3-0256",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "原文定义Embedding是把文本转成数字向量，语义相近则向量距离近。",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "Embedding（向量化 / 嵌入） 是把一段文本转换成一串数字（高维向量，如 1024 维）。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "原文明确定义"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "训练数据属微调阶段"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "推理时间属部署优化"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "参数数量属模型架构"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-0260": {
+    "qid": "3-0260",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "RAG用于私域知识问答，检查文档错误不属其核心链路。",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "RAG（Retrieval-Augmented Generation，检索增强生成） 的核心思路可以用四个字概括：'开卷考试'。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "检查错误非RAG目标"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "内部查询是典型RAG场景"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "训练数据属微调阶段"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "推理时间属部署优化"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-0263": {
+    "qid": "3-0263",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "原文明确指出向量数据库用于存储向量化后的chunk。",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "把'向量 + 原文 + 元数据'存进向量数据库，建立索引。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "原文明确说明"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "解析工具在建库前端"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "分段工具在建库前端"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "Embedding模型用于转换"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

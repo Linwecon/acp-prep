@@ -1,0 +1,216 @@
+{
+  "8-5135": {
+    "qid": "8-5135",
+    "classification": "own",
+    "chapter": 8,
+    "quality": "ok",
+    "reason": "考查安全组最小开放原则，题干清晰，选项合理。",
+    "answer": [
+      "D"
+    ],
+    "supported": true,
+    "quote": "安全组守网络层（实例级防火墙），解决'谁能访问这台机器的哪个端口'。关键配置原则：默认拒绝、最小开放",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "全开放违反最小开放原则，不安全。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "入方向必须管控，不能不管。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "关闭安全组直接暴露，极不安全。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "符合最小开放和源IP白名单原则。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "8-5136": {
+    "qid": "8-5136",
+    "classification": "own",
+    "chapter": 8,
+    "quality": "ok",
+    "reason": "考查安全组设计原则，多选题，选项明确。",
+    "answer": [
+      "A",
+      "B",
+      "D"
+    ],
+    "supported": true,
+    "quote": "安全组关键配置原则：默认拒绝、最小开放：只放行80/443等必要端口，源限白名单IP/安全组",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "默认拒绝是基本原则。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "细粒度限制是安全组功能。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "长期全开放违反最小权限原则。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "最小权限，只开放必需访问是原则。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "8-5137": {
+    "qid": "8-5137",
+    "classification": "own",
+    "chapter": 8,
+    "quality": "ok",
+    "reason": "考查WAF核心作用，题干和正确选项明确。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "WAF（Web应用防火墙）守应用层（HTTP/HTTPS），解决拦SQL注入、XSS、CC、恶意爬虫、漏洞利用",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "WAF不提升推理速度。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "准确描述WAF主要作用。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "WAF不增加训练数据。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "WAF不保证内容准确。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "8-5138": {
+    "qid": "8-5138",
+    "classification": "own",
+    "chapter": 8,
+    "quality": "ok",
+    "reason": "考查DDoS攻击应对措施，场景典型，选项合理。",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "DDoS防护（高防）守流量层，挡SYN Flood、UDP Flood等流量洪峰，以及针对AI的资源耗尽型DDoS",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "删除权重不能应对流量攻击。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "开放更多端口会扩大攻击面。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "接入抗DDoS清洗是标准应对措施。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "关闭监控不利于分析和响应。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "8-5139": {
+    "qid": "8-5139",
+    "classification": "own",
+    "chapter": 8,
+    "quality": "ok",
+    "reason": "考查身份安全和网络隔离最佳实践，多选题，选项明确。",
+    "answer": [
+      "A",
+      "B",
+      "D"
+    ],
+    "supported": true,
+    "quote": "RAM（访问控制）守身份与权限层，解决'哪个子账号/角色能操作哪些云资源'。子账号/角色最小权限、独立凭据、MFA、定期轮换AK",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "使用RAM角色或临时凭证是安全实践。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "VPC内网部署是网络隔离最佳实践。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "全暴露公网违反最小暴露原则。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "定期轮换密钥和最小权限是安全要求。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "8-5140": {
+    "qid": "8-5140",
+    "classification": "own",
+    "chapter": 8,
+    "quality": "ok",
+    "reason": "考查多环境隔离的推荐做法，场景典型，选项合理。",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "网络隔离（VPC/子网）守网络架构层，防横向渗透。数据库、管理后台只放内网，通过负载均衡/跳板机访问",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "使用不同VPC等实现网络与权限隔离。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "共用IP和密钥违反隔离原则。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "同机同端口无隔离，不安全。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "仅命名区分无实际隔离效果。"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

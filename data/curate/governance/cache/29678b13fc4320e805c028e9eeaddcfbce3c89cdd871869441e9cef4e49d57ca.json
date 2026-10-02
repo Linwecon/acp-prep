@@ -1,0 +1,212 @@
+{
+  "2-0356": {
+    "qid": "2-0356",
+    "classification": "own",
+    "chapter": 2,
+    "quality": "ok",
+    "reason": "考查角色设定对输出的影响，选项清晰，有明确答案。",
+    "answer": [
+      "D"
+    ],
+    "supported": true,
+    "quote": "角色激活模型在训练中见过的角色模式（工程师 vs 小学老师，对同一问题的措辞深度完全不同）",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "角色设定旨在让模型从该视角完成任务。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "角色设定会改变语气和风格。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "输出应与角色设定保持一致。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "角色设定要求模型遵循其目标和动机。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "2-0656": {
+    "qid": "2-0656",
+    "classification": "own",
+    "chapter": 2,
+    "quality": "ok",
+    "reason": "考查Zero-shot提示词设计，任务明确，选项对比明显。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "简单、明确的任务；输出格式把自然语言输出约束成程序可解析的结构",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "未明确要求情感分类任务。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "明确任务、输出格式，符合Zero-shot。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "任务偏离，未指定情感分析。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "任务完全无关。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "2-0725": {
+    "qid": "2-0725",
+    "classification": "own",
+    "chapter": 2,
+    "quality": "ok",
+    "reason": "考查Few-shot提示优化特定类别识别，选项有区分度。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "Few-shot（少样本）给 2~5 个示例让模型模仿；格式/风格敏感、需稳定结构的任务",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "非训练数据，是提示工程。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "Few-shot提供示例可提升小众类别识别。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "换模型非提示工程优先方案。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "简化任务可能损失信息。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "2-0742": {
+    "qid": "2-0742",
+    "classification": "own",
+    "chapter": 2,
+    "quality": "ok",
+    "reason": "考查提示词约束对风格和重复的控制，选项合理。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "输出格式把自然语言输出约束成程序可解析的结构；提示词给得越清晰、约束越明确，正确答案的概率分布就越集中",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "后续调用可能偏离要求。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "明确约束可稳定控制风格和重复。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "示例过多可能低效，非最有效。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "依赖模型自身能力不可靠。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "2-0752": {
+    "qid": "2-0752",
+    "classification": "own",
+    "chapter": 2,
+    "quality": "ok",
+    "reason": "考查结构化输出格式要求，任务明确，选项有针对性。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "结构化输出（JSON Mode）要求严格按 JSON 等格式输出，配合 Schema 校验",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "样例辅助风格，非直接满足格式。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "明确输出格式要求是实现表格输出的关键。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "思维链用于复杂推理，非格式控制。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "受众和角色影响内容，非直接控制格式。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "2-0802": {
+    "qid": "2-0802",
+    "classification": "own",
+    "chapter": 2,
+    "quality": "ok",
+    "reason": "考查通过提示词补充受众信息实现个性化，选项对比明显。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "受众（Audience）指定为谁而写，约束内容深度；受众直接决定内容深度",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "训练专用模型成本高，不现实。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "在提示词中包含学生水平信息是最佳方法。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "统一模型无法实现个性化。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "非系统自动适应的方法。"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

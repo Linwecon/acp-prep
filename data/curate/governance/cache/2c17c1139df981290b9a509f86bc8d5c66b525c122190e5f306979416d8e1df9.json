@@ -1,0 +1,38 @@
+{
+  "new-6-120-5": {
+    "qid": "new-6-120-5",
+    "classification": "own",
+    "chapter": 6,
+    "quality": "ok",
+    "reason": "题干为典型部署选型场景题，完全匹配第6章核心考点。",
+    "answer": [
+      "A",
+      "B"
+    ],
+    "supported": true,
+    "quote": "企业私有知识问答，数据严禁出域、流量稳定 → ECS + vLLM 或 PAI-EAS；私有微调模型上线，需弹性伸缩与灰度发布 → PAI-EAS",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "PAI-EAS支持数据不出域、模型预热保TTFT、蓝绿发布支持灰度与秒级回滚"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "ECS+vLLM满足数据不出域、无冷启动保TTFT、ESS+SLB+镜像管理可实现回滚"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "FC存在冷启动，不满足P95 TTFT<1.2s实时性要求"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "百炼数据出域，违反合规要求"
+      }
+    ],
+    "duplicate_of": "6-5138"
+  }
+}

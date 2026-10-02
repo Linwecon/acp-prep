@@ -1,0 +1,215 @@
+{
+  "3-1092": {
+    "qid": "3-1092",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "考查RAG中抑制幻觉的典型措施，选项有明确区分度。",
+    "answer": [
+      "A",
+      "D"
+    ],
+    "supported": true,
+    "quote": "用模板明确告诉模型角色与规则...约束'只能依据资料'以抑制幻觉",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "设置回答范围可强制模型仅依据知识库，减少编造。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "调高temperature会增加随机性，可能加剧幻觉。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "ReRank优化排序，不解决知识库无内容时的编造问题。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "提示词明确无匹配时回复'无法回答'，直接抑制虚构。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-1102": {
+    "qid": "3-1102",
+    "classification": "cross",
+    "chapter": 8,
+    "quality": "ok",
+    "reason": "考查防止敏感信息泄露的安全措施，属于AI安全范畴。",
+    "answer": [
+      "A",
+      "B",
+      "D"
+    ],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "过滤诱导性问题可减少模型泄露隐私的风险。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "实时检测输出是内容安全审查的典型手段。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "增加多样性不直接解决隐私泄露，可能增加风险。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "对知识库脱敏是从源头防止隐私泄露的根本方法。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-1117": {
+    "qid": "3-1117",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "考查针对简短查询的检索增强技术，选项区分明确。",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "HyDE（假设文档嵌入）...问题太短/口语化，与文档表述差太远...先让LLM编一段'假想答案'，用假想答案的向量去检索",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "增加embedding维度不直接解决查询意图补全。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "多步查询用于复杂推理，非简短关键词扩写。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "HyDE专为短/口语化查询生成假想答案以改善检索。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "问题改写多用于指代消解，非关键词意图扩写。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-1118": {
+    "qid": "3-1118",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "考查RAG离线建库的核心步骤，选项有明确正误。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "向量化：用Embedding模型把每个chunk转成一串数字（向量）；入库：把'向量+原文+元数据'存进向量数据库",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "格式转换非必需，解析后可直接处理文本。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "嵌入并存入向量数据库是快速相似度检索的基础。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "加密存储与相似度检索能力无关。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "原样拼接无法实现快速相似度检索，且受窗口限制。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-1131": {
+    "qid": "3-1131",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "考查RAG问题排查的优先顺序，符合RAGAS定位逻辑。",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "检索质量差的三大根因：①Embedding模型不够好②切片策略不当③文档格式丢失了结构信息",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "Embedding模型分辨相似文本是检索质量的基础，应优先检查。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "RAG不依赖训练集，应检查知识库内容而非训练集。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "计算资源非功能性问题排查的首选环节。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "生成解答前应优先确保检索到了正确内容。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-1152": {
+    "qid": "3-1152",
+    "classification": "cross",
+    "chapter": 8,
+    "quality": "ok",
+    "reason": "考查从源头防御恶意内容注入的安全措施，属纵深防御。",
+    "answer": [
+      "B"
+    ],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "输出后分析属事后补救，非最根本的长期防护。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "上传阶段扫描是从源头阻止恶意内容进入知识库的根本措施。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "限制生成可能影响正常功能，且无法阻止恶意知识被检索引用。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "数字签名验证来源完整性，不检测内容安全性。"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

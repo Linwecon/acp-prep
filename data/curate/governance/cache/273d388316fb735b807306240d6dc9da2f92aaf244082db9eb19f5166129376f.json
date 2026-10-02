@@ -1,0 +1,154 @@
+{
+  "items": [
+    {
+      "type": 0,
+      "stem": "某团队将Qwen3-0.6B模型量化为AWQ INT4后部署于vLLM，压测发现：①显存占用下降58%；②TPOT降低22%；③TTFT无明显变化；④在代码补全任务上BLEU分数下降1.3分。以下哪项结论可被教材第6.4节‘模型量化’原文直接支持？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "TPOT降低证明INT4量化必然加速Decode阶段"
+        },
+        {
+          "option_label": "B",
+          "option_text": "TTFT无变化说明量化对Prefill阶段计算无影响"
+        },
+        {
+          "option_label": "C",
+          "option_text": "BLEU下降1.3分符合教材所述‘INT4在敏感任务上可能掉点更明显’的判断"
+        },
+        {
+          "option_label": "D",
+          "option_text": "显存下降58%验证了INT4相对FP16体积降为1/4的理论值"
+        }
+      ],
+      "answer": "C",
+      "analysis": "教材6.4节明确指出：‘INT4在低比特下通常更稳、更快’（AWQ优势），但同时强调‘INT4在敏感任务上可能掉点更明显’，并要求‘需要用业务评测集验证’；选项C直接对应该原文表述与实践要求。A错误：教材强调‘能否加速取决于推理框架/硬件是否有对应的低比特算子’，TPOT降低是结果而非‘必然’结论；B错误：TTFT受Prefill计算强度与排队影响，量化虽不改变Prefill计算逻辑，但显存释放可能间接改善并发调度，教材未断言其‘无影响’；D错误：教材表格给出的是‘相对FP32体积为1/8’，而Qwen3-0.6B原为FP16部署（1/2体积），INT4应为FP16的1/4（即FP32的1/8），58%下降（≈2/5）与理论值40%存在合理工程偏差，但教材未提供具体百分比验证依据，属过度推断。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 0,
+      "stem": "在诊断一个突然出现高TTFT（>8s）的线上vLLM服务时，监控显示GPU利用率正常、KV Cache占用率仅30%、无429错误。此时最应优先检查的日志线索是？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "vLLM启动日志中是否包含'PagedAttention enabled'提示"
+        },
+        {
+          "option_label": "B",
+          "option_text": "请求队列长度（queue length）或调度延迟（scheduler time）指标突增"
+        },
+        {
+          "option_label": "C",
+          "option_text": "CUDA out of memory错误或OOM Killer触发记录"
+        },
+        {
+          "option_label": "D",
+          "option_text": "模型权重加载耗时（model loading time）是否异常延长"
+        }
+      ],
+      "answer": "B",
+      "analysis": "教材6.3节明确：TTFT = Prefill时间 + 排队时长；且‘高频误区’指出‘TTFT不只是Prefill速度，还受排队时长影响’。题干中GPU利用率正常、KV Cache占用低、无OOM/429，排除了显存瓶颈与资源超限，指向调度层问题——即请求在vLLM调度器中等待Prefill执行的时间过长。教材6.5节描述连续批处理时强调‘调度粒度细化到每一步解码’，隐含调度器本身是关键路径。选项B直接对应TTFT构成中的‘排队时长’，是故障诊断的首要排查项。A是配置确认，非故障根因；C与监控矛盾（KV占用仅30%）；D属启动期问题，不会导致‘突然出现’的运行时TTFT劣化。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 0,
+      "stem": "某团队在vLLM中启用PagedAttention后，发现长上下文（64K tokens）请求的并发数从3提升至8，但单请求TTFT未改善。以下哪项是PagedAttention机制本身无法直接优化的根本原因？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "PagedAttention仅管理KV Cache内存布局，不改变Prefill阶段的计算量"
+        },
+        {
+          "option_label": "B",
+          "option_text": "TTFT主要由Prefill阶段决定，而Prefill是计算密集型，与显存分配方式无关"
+        },
+        {
+          "option_label": "C",
+          "option_text": "64K tokens的Prefill需处理大量输入token，并行计算量未因分页而减少"
+        },
+        {
+          "option_label": "D",
+          "option_text": "vLLM的连续批处理机制在Prefill阶段仍需等待整批完成"
+        }
+      ],
+      "answer": "B",
+      "analysis": "教材6.2节明确定义：‘Prefill是计算密集型，决定TTFT’；6.4节指出量化等技术‘主要省显存’，而PagedAttention在6.5节被定义为‘解决KV Cache的显存碎片与预分配浪费’，其作用对象是Decode阶段的KV Cache，与Prefill计算无直接关联。选项B精准概括了这一根本原理——TTFT由Prefill计算强度决定，而PagedAttention不优化计算本身，只优化Decode阶段的显存管理。A、C是B的衍生解释，但未触及‘计算密集型 vs 显存管理’的本质区分；D错误：连续批处理作用于Decode阶段，Prefill本就是整批处理，教材未提及其在Prefill的批处理逻辑。",
+      "difficulty_label": "挑战"
+    },
+    {
+      "type": 1,
+      "stem": "当使用函数计算FC部署AI助手时，观察到工作日早9点首次调用延迟达3.2s，夜间低峰后再次调用仍重现该现象。若监控显示冷启动期间GPU显存占用从0%突增至85%，且模型加载耗时占总延迟70%，此时最根本的原因及教材依据是？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "FC实例被回收后需重新拉起并加载模型，教材6.7节指出‘冷启动延迟’是Serverless核心边界"
+        },
+        {
+          "option_label": "B",
+          "option_text": "模型未启用量化导致加载缓慢，教材6.4节强调量化可‘显著降低显存带宽压力’"
+        },
+        {
+          "option_label": "C",
+          "option_text": "缺少模型预热机制，教材6.10.2节明确PAI-EAS提供‘模型预热’以缓解首次请求慢"
+        },
+        {
+          "option_label": "D",
+          "option_text": "GPU实例规格不足，教材6.6节要求按‘权重+KV Cache+余量’估算显存"
+        }
+      ],
+      "answer": "AC",
+      "analysis": "题干现象（固定时间点首次调用延迟+GPU显存突增+加载耗时占比高）是冷启动典型特征。教材6.7节‘为什么会有冷启动？’明确解释：‘Serverless为了省成本，无流量时会回收实例；请求突然到来需要重新拉起实例、加载模型，导致首个请求明显变慢’，选项A直接引用此定义。选项C指出‘缺少模型预热’，教材6.10.2节对比FC与EAS时强调‘EAS提供模型预热，上线即就绪’，反向印证FC默认无此能力，是根本原因。B错误：加载耗时高是冷启动表现，非量化缺失所致；教材未将量化与加载速度直接关联，量化主要影响推理时读取带宽。D错误：GPU显存突增至85%说明规格足够承载模型，非不足。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 1,
+      "stem": "压测发现当并发从16增至32时，vLLM服务QPS仅提升12%，而平均RT翻倍、429错误率升至8%。此时最应优先执行的操作是？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "通过--max-num-seqs参数限制最大并发请求数，防止超出服务处理能力"
+        },
+        {
+          "option_label": "B",
+          "option_text": "启用INT4量化以降低单请求显存占用"
+        },
+        {
+          "option_label": "C",
+          "option_text": "增加GPU实例数量并配置SLB负载均衡"
+        },
+        {
+          "option_label": "D",
+          "option_text": "进行压测确定最优并发阈值，并据此配置限流策略"
+        }
+      ],
+      "answer": "AD",
+      "analysis": "教材6.3节‘高频误区’明确警示：‘超出并发上限通常直接返回错误（如429）’，并强调‘必须通过压测确定最优并发阈值’；6.11.1节‘稳定性’手段中列出‘限流’为关键措施。选项A（用--max-num-seqs限流）和D（压测定阈值+限流）共同构成教材推荐的标准化应对流程。B错误：量化是长期优化，无法立即解决已发生的超载；且题干未提显存瓶颈（429更可能是调度/计算超限）。C错误：横向扩容是架构级决策，需评估成本与必要性，教材要求‘先压测定阈值’，而非盲目加机器。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 1,
+      "stem": "在vLLM服务中，以下哪些条件同时满足时，PagedAttention的显存利用率提升效果会显著减弱？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "所有请求序列长度高度一致（如均为2048 tokens）"
+        },
+        {
+          "option_label": "B",
+          "option_text": "KV Cache占用率长期低于40%"
+        },
+        {
+          "option_label": "C",
+          "option_text": "启用GQA（分组查询注意力）大幅减少KV头数"
+        },
+        {
+          "option_label": "D",
+          "option_text": "模型权重已量化至INT4，显存压力主要来自权重而非KV Cache"
+        }
+      ],
+      "answer": "ABD",
+      "analysis": "PagedAttention的核心价值是解决KV Cache的‘显存碎片’与‘预分配浪费’（教材6.5节）。A正确：序列长度高度一致时，传统连续分配无明显浪费，分页优势消失；B正确：KV Cache占用率低，说明显存未成为瓶颈，分页带来的利用率提升无意义；D正确：若显存压力主因是权重（INT4已压缩），KV Cache非瓶颈，则PagedAttention优化空间小。C错误：GQA减少KV头数，直接降低KV Cache总量，与PagedAttention作用正交且互补，教材6.6节将其列为‘缓解KV Cache压力’的独立手段，不削弱分页效果。",
+      "difficulty_label": "挑战"
+    }
+  ]
+}

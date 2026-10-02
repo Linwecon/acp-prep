@@ -1,0 +1,217 @@
+{
+  "new-9-30-0": {
+    "qid": "new-9-30-0",
+    "classification": "own",
+    "chapter": 9,
+    "quality": "ok",
+    "reason": "考查限流错误（429）的重试策略设计缺陷，核心是固定间隔导致重试风暴。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "指数退避 + 抖动（Exponential Backoff with Jitter）是处理 429/5xx 的标准做法",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "429与503都需退避重试，策略相似，非核心缺陷。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "固定间隔重试会集中请求，加剧限流，引发重试风暴。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "429是限流错误，与API Key有效性无关。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "题干已设3次重试，非无限循环问题。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-9-30-1": {
+    "qid": "new-9-30-1",
+    "classification": "own",
+    "chapter": 9,
+    "quality": "ok",
+    "reason": "考查成本控制措施，历史消息过长是输入Token费用高的主因。",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "历史消息长度 | 轮次越多输入越长 | 滑动窗口、摘要压缩",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "system prompt长度固定，非费用飙升主因。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "上下文缓存可省钱，但非针对历史过长的最直接措施。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "截断历史可直接减少输入Token，成本控制最直接。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "stop参数控制输出长度，不解决输入历史过长问题。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-9-30-2": {
+    "qid": "new-9-30-2",
+    "classification": "own",
+    "chapter": 9,
+    "quality": "ok",
+    "reason": "考查Function Calling完整流程，缺失第二次调用导致无最终答案。",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "第二次调用：让模型基于工具结果生成最终回答",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "未将第一次决策消息追加，模型无法基于结果生成答案。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "Schema问题会导致参数提取失败，但非收到‘处理中’的原因。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "缺少tool_call_id会导致结果无法对应，但用户仍可能收到错误答案。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "tool_choice设为‘none’则不会返回tool_calls，与题干矛盾。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-9-30-3": {
+    "qid": "new-9-30-3",
+    "classification": "own",
+    "chapter": 9,
+    "quality": "ok",
+    "reason": "考查批量任务场景下三种调用方式的选型判断。",
+    "answer": [
+      "A",
+      "B",
+      "C"
+    ],
+    "supported": true,
+    "quote": "Batch 通过异步调度提供更高吞吐和更经济的单价；同步接口要排队等限流且单价高",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "同步调用受配额限制，大批量处理慢且成本高。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "流式降低TTFT对批量任务无意义，且增加解析复杂度。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "Batch需校验JSONL文件行数与ID对齐，防止结果错位。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "批内单行失败通常不影响其他行，可单独重试。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-9-30-4": {
+    "qid": "new-9-30-4",
+    "classification": "own",
+    "chapter": 9,
+    "quality": "ok",
+    "reason": "考查API Key安全军规，前端硬编码并提交Git违反多条原则。",
+    "answer": [
+      "A",
+      "B",
+      "C"
+    ],
+    "supported": true,
+    "quote": "前端绝不放Key | 不提交 Git | 环境变量/密钥服务托管",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "硬编码在JS中，未使用环境变量或密钥服务。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "将含Key的代码提交到Git仓库，导致泄露风险。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "Key写在前端代码中，等于公开。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "题干未涉及权限分配和定期轮换操作。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-9-30-5": {
+    "qid": "new-9-30-5",
+    "classification": "own",
+    "chapter": 9,
+    "quality": "ok",
+    "reason": "考查降低TTFT的工程实践，流式输出是核心手段。",
+    "answer": [
+      "A",
+      "C"
+    ],
+    "supported": true,
+    "quote": "开启流式只需加一个 stream=True，然后迭代返回对象即可",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "流式输出边生成边返回，可显著降低首Token延迟。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "temperature影响随机性，与推理速度无直接关系。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "减少输入Token可缩短服务端处理时间，有助于降低TTFT。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "模型能力与推理速度非正比，升级模型未必缩短TTFT。"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

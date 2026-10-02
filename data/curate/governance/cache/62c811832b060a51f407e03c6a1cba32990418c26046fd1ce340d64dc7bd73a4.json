@@ -1,0 +1,110 @@
+{
+  "new-6-18-0": {
+    "qid": "new-6-18-0",
+    "classification": "own",
+    "chapter": 6,
+    "quality": "ok",
+    "reason": "典型部署选型场景题，考察数据出域、流量形态、运维能力、企业级功能四步决策法。",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "数据能否出域？不能（敏感/合规）→ 排除百炼等公有 MaaS；私有微调模型上线，需弹性伸缩与灰度发布 → PAI-EAS",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "百炼MaaS数据会出域，违反约束①。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "FC有冷启动和时长限制，不适合实时高吞吐场景。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "PAI-EAS支持私有模型、弹性伸缩、蓝绿发布，符合全部约束。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "ECS自建需专职SRE运维，与约束③部分冲突。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-6-18-2": {
+    "qid": "new-6-18-2",
+    "classification": "own",
+    "chapter": 6,
+    "quality": "ok",
+    "reason": "考察TPOT影响因素，涉及显存带宽、KV Cache管理和生成长度。",
+    "answer": [
+      "A",
+      "B",
+      "C"
+    ],
+    "supported": true,
+    "quote": "Decode 阶段逐 token 生成、每步读取 KV Cache，是显存带宽密集型，决定 TPOT。PagedAttention 解决 KV Cache 的显存碎片与预分配浪费。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "输出token数多，Decode阶段总时间（TPOT×步数）增加。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "TPOT由显存带宽决定，带宽被占用则读取KV Cache变慢。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "未启用PagedAttention会导致显存碎片，影响KV Cache读取效率。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "前缀缓存复用会降低TPOT，而非升高。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-6-18-4": {
+    "qid": "new-6-18-4",
+    "classification": "own",
+    "chapter": 6,
+    "quality": "ok",
+    "reason": "考察基于OpenTelemetry的可观测性方法，定位RT飙升问题。",
+    "answer": [
+      "A",
+      "C"
+    ],
+    "supported": true,
+    "quote": "生产环境的可观测性基于 OpenTelemetry 标准，采集三类数据：Metrics（指标）、Traces（链路追踪）、Logs（日志）。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "Traces用于定位请求在哪个环节耗时异常。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "429是限流错误，与RT飙升但QPS正常的现象不符。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "Metrics中的TTFT/TPOT分项指标可直接反映延迟来源。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "SLB健康检查是基础设施监控，非教材推荐的应用可观测性方法。"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

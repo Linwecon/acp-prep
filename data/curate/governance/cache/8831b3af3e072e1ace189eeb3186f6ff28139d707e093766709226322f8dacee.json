@@ -1,0 +1,180 @@
+{
+  "new-9-0-0": {
+    "qid": "new-9-0-0",
+    "classification": "own",
+    "chapter": 9,
+    "quality": "ok",
+    "reason": "考查错误重试策略，特别是对429限流错误的指数退避与抖动机制。",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "指数退避 + 抖动（Exponential Backoff with Jitter）是处理 429/5xx 的标准做法",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "错误，应立即重试会加剧限流。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "题干已说明有3次重试，并非无限。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "固定延迟且无抖动，易引发重试风暴。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "429应重试，但需采用退避策略。"
+      }
+    ],
+    "duplicate_of": "9-5158"
+  },
+  "new-9-0-1": {
+    "qid": "new-9-0-1",
+    "classification": "own",
+    "chapter": 9,
+    "quality": "ok",
+    "reason": "考查Token用量统计的正确方式，区分LLM推理API与平台管理API。",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "按用户/接口/模型维度统计 Token 与费用，异常突增及时发现",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "逐条同步调用增加实时压力，效率低。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "stream用于推理输出，不用于用量统计。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "使用专用统计API，不增加推理压力。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "嵌入解析增加单次调用开销，非规范。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-9-0-2": {
+    "qid": "new-9-0-2",
+    "classification": "own",
+    "chapter": 9,
+    "quality": "ok",
+    "reason": "考查Function Calling完整流程中，工具结果回传的关键步骤。",
+    "answer": [
+      "A",
+      "B",
+      "C"
+    ],
+    "supported": true,
+    "quote": "必须带 `tool_call_id`；回传结果时漏 `tool_call_id`——模型无法把结果和之前的调用对应起来",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "遗漏则模型不知之前决策，导致上下文错误。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "漏传则模型无法将结果与调用对应。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "必须用role='tool'，而非user。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "第二次调用通常无需再传tools参数。"
+      }
+    ],
+    "duplicate_of": "9-5165"
+  },
+  "new-9-0-4": {
+    "qid": "new-9-0-4",
+    "classification": "own",
+    "chapter": 9,
+    "quality": "ok",
+    "reason": "考查Batch API使用中，输入输出对齐校验的重要性。",
+    "answer": [
+      "A",
+      "B"
+    ],
+    "supported": true,
+    "quote": "必须校验输入输出行数、请求 ID 是否一一对应，防止错位或丢失",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "无唯一ID则无法正确对齐结果。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "未校验是导致错位和行数不符的直接原因。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "Batch通常按行独立处理，单行失败不中断整批。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "stream参数不适用于Batch任务。"
+      }
+    ],
+    "duplicate_of": "9-5170"
+  },
+  "new-9-0-5": {
+    "qid": "new-9-0-5",
+    "classification": "own",
+    "chapter": 9,
+    "quality": "ok",
+    "reason": "考查API Key泄露后的应急处置顺序。",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "泄漏后的应急顺序：**立即禁用/轮换 Key → 检查近期调用记录 → 评估损失**",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "符合教材推荐的黄金应急顺序。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "先更新代码和提交Git会延误止损。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "先扫描历史会延误禁用Key，风险扩大。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "启用KMS等是长期措施，非应急第一步。"
+      }
+    ],
+    "duplicate_of": "9-5162"
+  }
+}

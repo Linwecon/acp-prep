@@ -1,0 +1,37 @@
+{
+  "new-10-30-0": {
+    "qid": "new-10-30-0",
+    "classification": "own",
+    "chapter": 10,
+    "quality": "ok",
+    "reason": "题干明确指向qwen-long误用与成本控制，属10.6选型与10.8计费规则交叉考点",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "qwen-long | 支持超长上下文窗口 | 长文档/大文档问答，可减少切片",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "qwen-long仅扩上下文，不替代RAG切片；整合同传入违反10.6和10.8控制输入原则"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "429是限流结果，非费用激增主因；且配额申请非根本解法"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "题干未提私有化部署，且DashScope托管API符合数据不出域要求（商业版）"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "百炼知识库属应用层能力，与qwen-long模型调用无直接因果"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

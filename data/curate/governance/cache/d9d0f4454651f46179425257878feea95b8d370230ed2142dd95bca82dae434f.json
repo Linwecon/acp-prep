@@ -1,0 +1,236 @@
+{
+  "1-0858": {
+    "qid": "1-0858",
+    "classification": "cross",
+    "chapter": 1,
+    "quality": "ok",
+    "reason": "题目考查扩展上下文窗口的技术，属于大模型基础架构知识。",
+    "answer": [
+      "A",
+      "B",
+      "D"
+    ],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "滑动窗口注意力是扩展上下文长度的常见技术。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "层次化注意力机制有助于处理长序列。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "知识蒸馏用于模型压缩，不直接扩展上下文。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "线性注意力近似旨在降低长序列计算复杂度。"
+      },
+      {
+        "label": "E",
+        "selected": false,
+        "why": "模型量化用于压缩和加速，不扩展上下文。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "1-0984": {
+    "qid": "1-0984",
+    "classification": "own",
+    "chapter": 6,
+    "quality": "ok",
+    "reason": "题目考查推理效率优化技术，属于部署与优化核心内容。",
+    "answer": [
+      "A",
+      "B",
+      "C",
+      "D"
+    ],
+    "supported": true,
+    "quote": "量化（INT8/INT4、GPTQ/AWQ）、KV Cache、PagedAttention、连续批处理各自解决什么问题、代价是什么",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "模型量化是降低显存和加速推理的有效技术。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "注意力机制优化（如PagedAttention）可提升效率。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "批处理推理（连续批处理）是提升吞吐的关键。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "模型蒸馏可得到更小更快的模型，提升效率。"
+      },
+      {
+        "label": "E",
+        "selected": false,
+        "why": "增加参数规模通常会降低推理效率。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "5-1402": {
+    "qid": "5-1402",
+    "classification": "misplaced",
+    "chapter": 5,
+    "quality": "ok",
+    "reason": "题目考查微调场景下的基础设施评估指标，属于模型微调章节。",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "GPU的数量和型号，以支持大规模并行计算；存储容量，以保存庞大的预训练模型及训练过程中的中间状态；网络带宽，以快速传输训练所需的大规模数据集",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "GPU是微调资源评估的核心指标。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "存储容量是微调资源评估的核心指标。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "操作系统界面美观程度与资源评估无关。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "网络带宽是微调资源评估的核心指标。"
+      }
+    ],
+    "duplicate_of": "5-0299"
+  },
+  "5-0299": {
+    "qid": "5-0299",
+    "classification": "misplaced",
+    "chapter": 5,
+    "quality": "ok",
+    "reason": "题目考查微调场景下的硬件与系统指标，属于模型微调章节。",
+    "answer": [
+      "D"
+    ],
+    "supported": true,
+    "quote": "GPU的数量和型号，以支持大规模并行计算；存储容量，以保存庞大的预训练模型及训练过程中的中间状态；网络带宽，以便快速传输训练所需的大规模数据集",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "GPU是微调资源评估的关键指标。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "存储容量是微调资源评估的关键指标。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "网络带宽是微调资源评估的关键指标。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "操作系统界面美观程度与资源评估无关。"
+      }
+    ],
+    "duplicate_of": "5-1402"
+  },
+  "5-0874": {
+    "qid": "5-0874",
+    "classification": "own",
+    "chapter": 6,
+    "quality": "ok",
+    "reason": "题目考查影响API吞吐量的因素，属于推理服务性能优化。",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "连续批处理（Continuous Batching，又称动态/持续批处理）：请求不再“整批齐步走”，而是完成一个就立刻返回、新请求立刻补进 batch。GPU 调度粒度从“整批”细化到“每一步解码”，因此 GPU 几乎全程满载，吞吐量显著提升。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "增加批量大小可提升GPU利用率，增加吞吐。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "自回归解码是生成方式，不直接提升吞吐。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "提高生成长度会增加单请求耗时，可能降低吞吐。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "更高浮点精度会增加计算和显存负担，降低吞吐。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "5-0985": {
+    "qid": "5-0985",
+    "classification": "own",
+    "chapter": 6,
+    "quality": "ok",
+    "reason": "题目考查优化大模型响应速度的方法，属于推理优化范畴。",
+    "answer": [
+      "A",
+      "B",
+      "C",
+      "D",
+      "E"
+    ],
+    "supported": true,
+    "quote": "量化（INT8/INT4、GPTQ/AWQ）...换取显存占用下降、显存带宽压力减小、推理速度提升；连续批处理...吞吐量显著提升；精简输入输出 token...去除冗余上下文",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "模型量化可降低计算和显存开销，加速推理。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "缓存常见答案可避免重复推理，直接提升响应。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "优化提示词长度可减少Prefill计算，降低TTFT。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "贪婪搜索比采样解码更快，可提升生成速度。"
+      },
+      {
+        "label": "E",
+        "selected": true,
+        "why": "增加批处理大小可提升GPU利用率，增加吞吐。"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

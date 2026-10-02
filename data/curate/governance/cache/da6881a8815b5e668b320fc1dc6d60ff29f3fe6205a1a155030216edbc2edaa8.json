@@ -1,0 +1,154 @@
+{
+  "items": [
+    {
+      "type": 0,
+      "stem": "某企业将API Key硬编码在Python脚本中并提交至私有GitLab仓库，未配置.gitignore。两周后该仓库因权限误配被意外设为公开，次日账单激增。依据第9.3节‘API Key安全的五条军规’，该事故最直接违反的首要原则是？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "最小权限 + 定期轮换"
+        },
+        {
+          "option_label": "B",
+          "option_text": "前端绝不放 Key"
+        },
+        {
+          "option_label": "C",
+          "option_text": "环境变量/密钥服务托管"
+        },
+        {
+          "option_label": "D",
+          "option_text": "不提交 Git"
+        }
+      ],
+      "answer": "D",
+      "analysis": "原文9.3节明确将‘不提交 Git’列为第二条军规，并强调‘提交前用扫描工具检查’；同时指出‘写死在代码里方便维护’是❌错误，因‘即使后续删除，Git历史里依然存在’。本题中‘硬编码+提交至仓库’的行为，无论仓库是否公开，其根本违规点在于将密钥纳入版本控制——这是泄漏的源头，而非权限设置或托管方式问题。选项C（环境变量托管）是正确实践，但题干行为未采用该方式，故违反的是‘不提交Git’这一前置性、强制性约束。A、B与场景无关（无前端、未涉及权限粒度），D最精准对应教材‘三种最常见的泄漏途径’第一条：‘硬编码进代码后提交Git’。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 1,
+      "stem": "开发团队在生产环境部署新人答疑机器人时，发现多轮对话中模型频繁出现指代错误（如用户问‘它支持SSO吗？’，模型未识别‘它’指代上一轮提到的Jira）。经排查，messages构造逻辑如下：每次请求均新建列表，仅追加当前user消息，未携带历史assistant回复。依据第9.5节原理，以下哪些修复措施符合‘无状态服务的记忆真相’？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "在客户端维护conversation_history列表，每轮调用前追加user消息，调用后追加assistant回复"
+        },
+        {
+          "option_label": "B",
+          "option_text": "将全部历史消息持久化存入Redis，每次请求从Redis读取完整上下文数组"
+        },
+        {
+          "option_label": "C",
+          "option_text": "在system prompt中添加‘请记住上文所有对话内容’指令"
+        },
+        {
+          "option_label": "D",
+          "option_text": "对conversation_history实施滑动窗口截断，仅保留最近5轮消息"
+        }
+      ],
+      "answer": "ABD",
+      "analysis": "原文9.5节核心论断：‘大模型API是无状态的……所谓多轮对话能力，本质是客户端把历史消息按角色组织好，每次调用都完整地放进messages里再传一遍’。A项完全复现教材示例代码逻辑，是基础正确解法；B项通过外部存储实现跨请求状态保持，符合‘生产环境通常需要持久化存储’的工程建议；D项采用‘滑动窗口截断’，是教材明确列出的成本与性能平衡方案。C项错误：system prompt指令无法改变API无状态本质，服务端不会保存历史，模型仅能看见本次传入的messages，教材9.5节‘exam’部分明确指出‘多轮对话答非所问→首先检查历史消息有没有完整放进messages’，而非依赖提示词指令。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 0,
+      "stem": "运维监控发现Batch任务输出JSONL文件比输入少23行，且部分摘要内容错位（如A课程摘要出现在B课程位置）。开发团队确认输入JSONL每行含唯一request_id。依据第9.10节‘Batch任务的标准流程’，此故障最可能的根本原因是什么？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "未启用stream_options={'include_usage': True}导致结果解析失败"
+        },
+        {
+          "option_label": "B",
+          "option_text": "未校验输入输出行数及request_id一一对应"
+        },
+        {
+          "option_label": "C",
+          "option_text": "batch任务提交时tool_choice参数设置为'none'"
+        },
+        {
+          "option_label": "D",
+          "option_text": "流式响应中delta.content拼接逻辑存在竞态条件"
+        }
+      ],
+      "answer": "B",
+      "analysis": "原文9.10节‘principle’明确要求：‘必须校验输入输出行数、请求ID是否一一对应，防止错位或丢失’；‘risk’部分强调‘结果文件不用校验直接用’是误区。本题现象（行数缺失、内容错位）正是未执行该强制校验步骤的典型后果。A项属于流式场景参数，与Batch无关；C项tool_choice是Function Calling参数，Batch不涉及；D项描述的是流式开发问题，而Batch输出为静态JSONL文件，无流式拼接过程。教材9.10节‘exam’亦明确‘题干出现...批量...不要求实时→选Batch API’，其工程要点首重校验。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 1,
+      "stem": "某财务系统每日定时拉取Token用量报表，需确保数据完整准确。当前使用同步调用，但偶发429错误导致当日数据缺失。依据第9.8节错误处理原则与第9.9节计费特性，以下哪些策略组合可构建高可靠数据采集链路？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "对429错误实施指数退避+抖动重试，最大重试3次"
+        },
+        {
+          "option_label": "B",
+          "option_text": "将报表请求封装为Batch任务，利用异步重试机制保障最终一致性"
+        },
+        {
+          "option_label": "C",
+          "option_text": "在请求中设置max_tokens=1，避免因输出过长触发限流"
+        },
+        {
+          "option_label": "D",
+          "option_text": "对401错误同样启用重试，以应对Key临时失效"
+        }
+      ],
+      "answer": "AC",
+      "analysis": "A项正确：原文9.8节明确‘429是限流，正确做法是指数退避+抖动重试’，且‘设置最大重试次数（如3次）’，符合教材推荐。C项正确：‘max_tokens’限制输出长度，而Token用量报表本身极简（如JSON格式统计），设小值可显著降低单次输出Token，规避TPM超限风险，符合9.9节‘限制输出长度’成本控制原则。B项错误：Batch适用于‘离线大批量’（如500份摘要），而‘每日定时拉取报表’是单次、确定性、需及时性的同步任务，Batch异步特性反而破坏时效性；教材9.10节强调‘Batch不适合在线对话’，同理不适用此强时效场景。D项错误：原文9.8节表格明确‘401不该重试’，应‘检查Key’，重试无效且浪费配额。",
+      "difficulty_label": "挑战"
+    },
+    {
+      "type": 0,
+      "stem": "安全审计发现，某服务日志中存在形如‘API Key: sk-abc123...xyz789’的明文打印。依据第9.3节‘API Key安全的五条军规’及‘risk’分析，此行为主要违反哪项原则并引发何种风险？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "违反‘环境变量/密钥服务托管’，导致密钥在配置中心泄露"
+        },
+        {
+          "option_label": "B",
+          "option_text": "违反‘不提交 Git’，使密钥进入版本控制系统"
+        },
+        {
+          "option_label": "C",
+          "option_text": "违反‘异常监控’，未能及时告警密钥暴露"
+        },
+        {
+          "option_label": "D",
+          "option_text": "违反‘不打印进日志或错误信息’，密钥随日志收集系统扩散"
+        }
+      ],
+      "answer": "D",
+      "analysis": "原文9.3节‘risk’部分第三条明确指出：‘打印进日志或错误信息——日志被收集、分享后间接泄露’；‘best’军规虽未单列‘不打印日志’，但‘不提交Git’‘前端绝不放Key’等条款共同指向‘避免任何形式的明文暴露’，而日志打印是教材明确列举的三大泄漏途径之一。D项精准对应原文描述。A项错误：环境变量托管是加载方式，日志打印是输出行为，二者无因果；B项错误：日志非Git提交物；C项错误：‘异常监控’是事后防御，本题是主动违规打印，非监控缺失。",
+      "difficulty_label": "入门"
+    },
+    {
+      "type": 1,
+      "stem": "开发Function Calling功能时，模型返回tool_calls，程序执行工具后回传role='tool'消息，但第二次调用仍返回tool_calls而非最终答案。依据第9.7节‘API视角的四个关键字段’及‘risk’分析，以下哪些环节遗漏可能导致此循环调用？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "未将首次调用的response_message（含tool_calls）追加进messages"
+        },
+        {
+          "option_label": "B",
+          "option_text": "回传的role='tool'消息中缺失tool_call_id字段"
+        },
+        {
+          "option_label": "C",
+          "option_text": "tools参数中function.description描述模糊，导致参数提取失败"
+        },
+        {
+          "option_label": "D",
+          "option_text": "第二次调用时未传入tools参数"
+        }
+      ],
+      "answer": "AB",
+      "analysis": "原文9.7节‘risk’明确列出：‘❌ 忘了把response_message追加进messages’和‘❌ 回传结果时漏tool_call_id’，二者均会导致模型无法关联工具结果，从而再次返回tool_calls形成循环。A、B项直接对应教材警示。C项错误：description模糊影响首次tool_calls生成，但本题已成功返回tool_calls，说明首次决策正常；D项错误：第二次调用无需tools参数，教材示例代码中final_response.create()未传tools，其作用仅为基于工具结果生成自然语言回答。",
+      "difficulty_label": "挑战"
+    }
+  ]
+}

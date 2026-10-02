@@ -1,0 +1,208 @@
+{
+  "9-0244": {
+    "qid": "9-0244",
+    "classification": "own",
+    "chapter": 9,
+    "quality": "remove",
+    "reason": "原文未提及is_chat_model参数",
+    "answer": [],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "原文未定义该参数"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "原文未定义该参数"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "原文未定义该参数"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "原文未定义该参数"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "9-0283": {
+    "qid": "9-0283",
+    "classification": "own",
+    "chapter": 9,
+    "quality": "ok",
+    "reason": "原文明确top_p=0.9属中高值，输出具多样性",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "`top_p=0.8` 则允许一定的多样性。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "top_p=0.9属中高值，允许多样性"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "低top_p才导致单一"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "top_p=0.9不保证完全固定"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "top_p=0.9仍可正常生成"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "9-0295": {
+    "qid": "9-0295",
+    "classification": "own",
+    "chapter": 9,
+    "quality": "ok",
+    "reason": "创意场景需高多样性，对应高top_p",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "文案、头脑风暴、起名 | 0.8 ~ 1.2 | 0.9 | 要多样性",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "高top_p提升多样性"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "低top_p抑制多样性"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "默认0.8不够创意"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "随机设置无依据"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "9-0781": {
+    "qid": "9-0781",
+    "classification": "own",
+    "chapter": 9,
+    "quality": "ok",
+    "reason": "高temperature+高top_p组合最利多样性",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "文案、头脑风暴、起名 | 0.8 ~ 1.2 | 0.9 | 要多样性",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "低temperature抑制多样性"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "中高temperature+高top_p最佳"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "双低导致过度保守"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "低top_p限制候选范围"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "9-0810": {
+    "qid": "9-0810",
+    "classification": "own",
+    "chapter": 9,
+    "quality": "remove",
+    "reason": "原文未提及repetition penalty参数",
+    "answer": [],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "原文未定义该参数"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "低temperature降低多样性"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "高top_p增加重复风险"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "增加长度不解决重复"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "9-0821": {
+    "qid": "9-0821",
+    "classification": "own",
+    "chapter": 9,
+    "quality": "ok",
+    "reason": "创造性任务需高temperature激发发散",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "文案、头脑风暴、起名 | 0.8 ~ 1.2 | 0.9 | 要多样性",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "低top_p抑制创意"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "temperature=0最保守"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "高temperature激发发散"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "贪婪搜索最确定"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

@@ -1,0 +1,243 @@
+{
+  "2-1024": {
+    "qid": "2-1024",
+    "classification": "own",
+    "chapter": 2,
+    "quality": "ok",
+    "reason": "题目考查大模型局限性，属于提示工程需认知的模型边界。",
+    "answer": [
+      "A",
+      "C",
+      "D",
+      "E"
+    ],
+    "supported": true,
+    "quote": "幻觉/知识截止/计算缺陷三边界",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "人工复审是保证质量的必要环节。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "与模型存在幻觉等边界事实不符。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "模型知识截止，可能误解专业术语。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "查询不清是提示词设计要解决的问题。"
+      },
+      {
+        "label": "E",
+        "selected": true,
+        "why": "识别语言需明确指示，属模型局限性。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "2-1030": {
+    "qid": "2-1030",
+    "classification": "own",
+    "chapter": 2,
+    "quality": "ok",
+    "reason": "考查提示词六要素中的样例定义，原文有明确说明。",
+    "answer": [
+      "B",
+      "C",
+      "E"
+    ],
+    "supported": true,
+    "quote": "样例（Sample）... 给 1~3 个范例对齐格式与风格",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "这是角色设定，不是样例。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "输入输出对是典型样例。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "用户输入与回复示例是样例。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "这是输出格式要求，不是样例。"
+      },
+      {
+        "label": "E",
+        "selected": true,
+        "why": "输入输出对是典型样例。"
+      },
+      {
+        "label": "F",
+        "selected": false,
+        "why": "这是任务目标，不是样例。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "2-1042": {
+    "qid": "2-1042",
+    "classification": "own",
+    "chapter": 2,
+    "quality": "ok",
+    "reason": "考查System Prompt的职责，原文明确其与用户消息分离。",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "System Prompt...用于设定模型全局行为...用户消息则承载每一轮的具体任务",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "限制输出行为是System Prompt职责。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "设定背景目标是System Prompt职责。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "直接回答问题应由用户消息触发。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "提供领域知识可以是背景设定。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "2-1086": {
+    "qid": "2-1086",
+    "classification": "own",
+    "chapter": 2,
+    "quality": "ok",
+    "reason": "考查提示词优化策略，涉及Meta Prompting和专家协作。",
+    "answer": [
+      "A",
+      "B"
+    ],
+    "supported": true,
+    "quote": "Meta Prompting（元提示）... 让模型来优化提示词本身",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "专家审核是工程化优化流程。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "让模型优化提示词是Meta Prompting。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "自身知识有限，理解可能不准确。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "简单提示词可能无法解决专业问题。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "2-1167": {
+    "qid": "2-1167",
+    "classification": "own",
+    "chapter": 2,
+    "quality": "ok",
+    "reason": "考查提升应用体验的工程实践，涉及提示词、交互设计。",
+    "answer": [
+      "A",
+      "C",
+      "E"
+    ],
+    "supported": true,
+    "quote": "分模块组织，角色 / 任务 / 上下文 / 受众 / 样例 / 约束各归其位",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "详细系统提示词有助于理解上下文。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "限制长度非必要，可分段处理。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "多轮对话可细化需求，提升体验。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "模型有局限性，需反馈机制。"
+      },
+      {
+        "label": "E",
+        "selected": true,
+        "why": "自动检测类型是意图分类应用。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "2-1170": {
+    "qid": "2-1170",
+    "classification": "own",
+    "chapter": 2,
+    "quality": "fixable",
+    "reason": "题干未提供abstract_generator具体模板，无法确定标准答案。",
+    "answer": [],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "可能包含，但无原文依据。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "可能包含，但无原文依据。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "可能包含，但无原文依据。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "可能包含，但无原文依据。"
+      },
+      {
+        "label": "E",
+        "selected": false,
+        "why": "可能包含，但无原文依据。"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

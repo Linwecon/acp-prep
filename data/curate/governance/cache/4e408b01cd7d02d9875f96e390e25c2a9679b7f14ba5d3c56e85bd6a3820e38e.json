@@ -1,0 +1,154 @@
+{
+  "items": [
+    {
+      "type": 0,
+      "stem": "某团队构建新人答疑机器人评测集时，技术负责人从线上工单抽取100个高频问题，由AI工程师编写ground_truth，并用qwen-plus自动补全contexts字段后冻结评测集。上线后发现：自动化评测Answer Correctness达0.85，但HRBP人工抽检20例中13例存在业务违规（如将'试用期可休年假'答为'不可休'）。该故障最根本的指标分层失效环节是？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "算法指标层缺失对ground_truth权威性的约束机制"
+        },
+        {
+          "option_label": "B",
+          "option_text": "技术指标层未定义'业务合规性'可工程化阈值"
+        },
+        {
+          "option_label": "C",
+          "option_text": "业务指标层与算法指标层之间缺乏转译校验闭环"
+        },
+        {
+          "option_label": "D",
+          "option_text": "三层指标均被正确实现，问题出在LLM-as-Judge偏见未校准"
+        }
+      ],
+      "answer": "C",
+      "analysis": "依据教材7.2.2节'指标分层'图示及核心原则：'算法指标是手段，业务指标才是目标'；7.2.1节铁律强调'ground_truth必须由领域专家提供'；7.8.2节指出'专业领域必须由领域专家参与评测'。本题中ground_truth由AI工程师编写，导致算法指标（Answer Correctness）虽高，却无法映射真实业务目标（如'政策解读零违规'），暴露出业务指标→算法指标的转译断裂——即缺少'用黄金集校准自动评分'这一关键闭环（7.8.2节）。A选项错误：ground_truth权威性属于数据来源规范，非算法指标设计缺陷；B选项错误：'业务合规性'是业务指标本身，技术指标层应拆解为'召回完整率/生成事实F1'等，而非直接定义合规阈值；D选项错误：偏见校准是次要因素，根本矛盾在于ground_truth脱离业务权威，使整个评测体系失去业务锚点。",
+      "difficulty_label": "挑战"
+    },
+    {
+      "type": 1,
+      "stem": "在实施评测驱动开发（EDD）过程中，若发现Context Recall提升但Answer Correctness未同步改善，且Faithfulness显著下降，以下哪些组合约束条件同时成立时，才能准确定位故障根源为'检索端信噪比恶化导致生成端幻觉'？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "Context Precision同步下降超过0.2"
+        },
+        {
+          "option_label": "B",
+          "option_text": "contexts中包含ground_truth所需全部观点（Recall=1.0），但相关片段排名靠后"
+        },
+        {
+          "option_label": "C",
+          "option_text": "同一contexts输入下，更换更强生成模型后Faithfulness未提升"
+        },
+        {
+          "option_label": "D",
+          "option_text": "人工核查确认检索返回的contexts中存在无关内容（如行政部制度）排在教研部信息之前"
+        }
+      ],
+      "answer": "A,D",
+      "analysis": "依据教材7.5节'定位问题的黄金法则'及7.4.2节Context Precision官方口径：当Recall提升但Correctness/Faithfulness双降，需验证是否因噪声涌入导致Precision下降（7.5节风险提示：'Recall低就一味调大Top K'会引发Precision暴跌）。A项直接对应Precision恶化，是'信噪比恶化'的核心证据；D项通过人工核查证实'无关内容前置'，符合7.4.2节Precision计算逻辑（如'牛顿万有引力'排在'张伟教研部'前导致Precision=0.5）。B项错误：Recall=1.0是前提，但无法证明'排名靠后'（可能相关片段全在前列）；C项错误：更换模型后Faithfulness未提升，只能说明生成端非主因，但不能反向证明检索端信噪比问题——需Precision和人工核查双重验证。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 0,
+      "stem": "某团队将RAGAS评委模型从qwen-plus更换为gpt-4-turbo后，同一组评测样本的Answer Correctness平均分从0.72升至0.85。但人工抽检发现：原qwen-plus评分较低的简洁答案（如'张伟是教研部的'）新评委打分显著提高，而冗长解释型答案打分反而下降。此现象违反指标分层中哪一关键执行顺序要求？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "算法指标必须先冻结评测配置再执行回归对比"
+        },
+        {
+          "option_label": "B",
+          "option_text": "业务指标需通过技术指标分解，而非直接依赖算法指标数值"
+        },
+        {
+          "option_label": "C",
+          "option_text": "技术指标层必须定义'响应简洁性'与'事实准确性'的权重平衡"
+        },
+        {
+          "option_label": "D",
+          "option_text": "算法指标层需确保不同评委模型对同一答案的评分具有一致性"
+        }
+      ],
+      "answer": "A",
+      "analysis": "依据教材7.2.4节'控制变量'原则：'回归评测的前提是除了待测改动，其他一切都冻结'，并明确要求'当评委的大模型版本都要固定'；7.8.1节指出'LLM-as-Judge存在自我偏好偏见'。本题中更换评委模型导致分数变化，却未冻结该变量，直接违反回归评测的执行顺序——即'必须先冻结所有配置（含评委模型）再跑基线与优化后对比'（7.2.4节）。B、C选项属于指标设计层面，非执行顺序问题；D选项错误：教材从未要求不同评委模型评分一致，而是要求'同一评委模型在固定配置下结果可复现'。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 1,
+      "stem": "当Answer Correctness得分持续低于0.5，且深入分析发现其语义相似度子项均值为0.82、事实F1子项均值仅为0.13时，以下哪些必要条件缺失会导致该现象无法被传统自动指标（如BLEU/ROUGE）诊断？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "算法指标层未采用'语义相似度+事实F1'加权结构"
+        },
+        {
+          "option_label": "B",
+          "option_text": "技术指标层未将'业务事实正确性'定义为可量化目标"
+        },
+        {
+          "option_label": "C",
+          "option_text": "业务指标层未明确'用户问题解决率'与'答案事实零错误'的强约束关系"
+        },
+        {
+          "option_label": "D",
+          "option_text": "算法指标层未强制要求ground_truth由领域专家提供"
+        }
+      ],
+      "answer": "A,B,D",
+      "analysis": "依据教材7.4.4节Answer Correctness官方口径：'0.25×语义相似度+0.75×事实F1'，且强调'权重0.75给了事实正确性'；7.2.1节铁律要求ground_truth必须由领域专家提供；7.1节指出'业务目标≠模型输出，必须经过任务定义→指标设计→评测集转译'。本题现象（高语义相似度但低事实F1）正是传统指标（BLEU/ROUGE）的致命缺陷：它们只计算字面重合（7.2.3节风险：'ROUGE不能衡量语义等价'），无法分离'形式相似'与'事实正确'。A项直接对应算法指标结构缺失；B项对应技术指标层未将'事实正确'工程化为F1；D项对应ground_truth若非专家编写，则事实F1计算失去基准。C项错误：业务指标层定义'零错误'是目标，但诊断失效的直接原因是下层指标设计未支撑该目标，非业务层本身缺失。",
+      "difficulty_label": "挑战"
+    },
+    {
+      "type": 0,
+      "stem": "在构建新人答疑机器人评测集时，若仅使用线上日志中的'张伟在哪个部门'类问题，而忽略'年假天数如何计算'等需多步推理的问题，该操作违反指标分层中哪一必要条件？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "算法指标层未覆盖业务场景的难度分层"
+        },
+        {
+          "option_label": "B",
+          "option_text": "技术指标层未定义'多步推理能力'的可测量阈值"
+        },
+        {
+          "option_label": "C",
+          "option_text": "业务指标层未将'复杂问题解决率'纳入最终目标"
+        },
+        {
+          "option_label": "D",
+          "option_text": "三层指标均未考虑'用户意图漂移'的动态性"
+        }
+      ],
+      "answer": "A",
+      "analysis": "依据教材7.8.2节'评测集设计要点'：'分层/分难度覆盖：简单/中等/困难、短/长文本、正常/对抗样本都要有；只含简单题会导致分数虚高'；7.2.2节强调指标分层需服务业务目标。本题中评测集仅覆盖简单事实型问题（'张伟部门'），缺失多步推理类问题，导致算法指标层无法反映真实业务场景的难度分布，使分数虚高且无法定位复杂问题短板（7.8.2节）。B项错误：技术指标层应拆解为'召回准确率/响应时间'等，'多步推理能力'是业务场景特征，非技术指标定义对象；C项错误：业务指标层可包含该目标，但问题本质是评测集未覆盖该场景，非目标缺失；D项错误：'意图漂移'是持续运营要求，非当前构建阶段的必要条件。",
+      "difficulty_label": "入门"
+    },
+    {
+      "type": 1,
+      "stem": "某团队发现RAGAS评测中Context Precision=0.32、Context Recall=0.95，但Answer Correctness仅0.31。日志确认正确信息存在于第15个context中，前14个均为无关内容。此时若要验证'检索端排序失效'是否为根本原因，以下哪些故障诊断操作符合教材7.4.2节Precision计算逻辑与7.5节定位法则？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "人工检查contexts列表，确认第15个片段含'张伟是教研部的'且前14个片段无业务相关性"
+        },
+        {
+          "option_label": "B",
+          "option_text": "将contexts按原始顺序截断至前10个，重新运行评测观察Precision是否归零"
+        },
+        {
+          "option_label": "C",
+          "option_text": "交换第1个和第15个context位置，重新运行评测观察Precision是否跃升"
+        },
+        {
+          "option_label": "D",
+          "option_text": "用相同question重跑检索链路，验证Embedding模型是否对'张伟'与'教研部'的向量距离计算异常"
+        }
+      ],
+      "answer": "A,C",
+      "analysis": "依据教材7.4.2节Context Precision官方口径：'按顺序读取contexts，对每个片段判断是否相关，再计算各片段precision分之和/相关片段总数'；7.5节定位法则：'Precision低（Recall高）→ 加Rerank'。A项直接验证计算前提：确认'相关片段存在且排名靠后'，符合7.4.2节示例（'张伟教研部'排第2位时Precision=0.5）；C项通过交换位置验证因果：若Precision跃升，则证明原始低分确由排序导致，符合7.4.2节'排名靠前'的核心逻辑。B项错误：截断contexts会人为降低Recall，破坏'Recall高'前提，且Precision计算需完整列表；D项错误：Embedding距离异常会影响Recall，但本题Recall=0.95已证明检索覆盖充分，故障在排序而非Embedding计算。",
+      "difficulty_label": "进阶"
+    }
+  ]
+}

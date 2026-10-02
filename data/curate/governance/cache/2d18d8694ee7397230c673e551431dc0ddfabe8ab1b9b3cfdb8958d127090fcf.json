@@ -1,0 +1,225 @@
+{
+  "2-1447": {
+    "qid": "2-1447",
+    "classification": "own",
+    "chapter": 2,
+    "quality": "ok",
+    "reason": "考查提示词六要素与结构化输出，选项明确有效。",
+    "answer": [
+      "A",
+      "B",
+      "C",
+      "D"
+    ],
+    "supported": true,
+    "quote": "六要素需要落成一个稳定的结构。推荐的通用结构是：角色 + 任务 + 上下文 + 示例 + 输出格式与约束",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "明确风格要求是任务目标要素。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "提供示例是Few-shot对齐风格。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "要求检查修正属于任务约束。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "限定结构是输出格式约束。"
+      },
+      {
+        "label": "E",
+        "selected": false,
+        "why": "依赖自动判断违反提示工程原则。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "2-5007": {
+    "qid": "2-5007",
+    "classification": "own",
+    "chapter": 2,
+    "quality": "ok",
+    "reason": "考查分隔符防指令混淆作用，选项直接对应原文。",
+    "answer": [
+      "D"
+    ],
+    "supported": true,
+    "quote": "分隔符（Delimiters）是用特殊符号或标签，把提示词中不同部分（指令、上下文、样例、待处理内容）显式切分开的写法",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "语气礼貌不解决指令混淆。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "temperature调节输出随机性。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "长度限制不防指令误读。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "分隔符隔离数据防误读。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "2-5009": {
+    "qid": "2-5009",
+    "classification": "own",
+    "chapter": 2,
+    "quality": "ok",
+    "reason": "考查分隔符三大作用，选项B、C、D正确。",
+    "answer": [
+      "B",
+      "C",
+      "D"
+    ],
+    "supported": true,
+    "quote": "分隔符看起来是“排版小事”，实则承担三个关键作用：结构化、防注入、易解析",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "分隔符不能完全消除幻觉。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "分隔符区分不同区域。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "降低用户输入误读为指令概率。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "便于程序按标记解析输出。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "2-5012": {
+    "qid": "2-5012",
+    "classification": "own",
+    "chapter": 2,
+    "quality": "ok",
+    "reason": "考查结构化输出与分隔符使用，选项B、C、D正确。",
+    "answer": [
+      "B",
+      "C",
+      "D"
+    ],
+    "supported": true,
+    "quote": "结构化输出（JSON Mode）：要求严格按 JSON 等格式输出，配合 Schema 校验",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "连续一段易混淆，不利稳定。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "成对命名区块是分隔符用法。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "明确声明数据角色防误读。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "固定模板或示例对齐输出格式。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "2-5013": {
+    "qid": "2-5013",
+    "classification": "own",
+    "chapter": 2,
+    "quality": "ok",
+    "reason": "考查意图分类三要素，选项D符合要求。",
+    "answer": [
+      "D"
+    ],
+    "supported": true,
+    "quote": "分类提示词必须包含的三要素（缺一即不完整）：意图清单、输出格式、低置信度处理规则",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "自由发挥无法稳定路由。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "信息不全，缺清单与格式。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "不限格式程序无法解析。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "明确标准与预定义类别是关键。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "2-5014": {
+    "qid": "2-5014",
+    "classification": "own",
+    "chapter": 2,
+    "quality": "ok",
+    "reason": "考查意图分类低置信度处理策略，选项A、B合理。",
+    "answer": [
+      "A",
+      "B"
+    ],
+    "supported": true,
+    "quote": "低置信度处理规则：低于阈值怎么办（追问 / 兜底 / 转人工）",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "设置兜底类别是合理策略。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "转人工或确认处理低置信度。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "强制归类易导致错误路由。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "删除类别会丢失分类能力。"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

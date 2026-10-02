@@ -1,0 +1,214 @@
+{
+  "1-1041": {
+    "qid": "1-1041",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "考点明确，选项A原文支持，其余选项无依据。",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "句子窗口检索：建索引时以'单个句子'为可检索单元（小块，便于精准命中），同时在每个句子的元数据里存下它'前后各 N 句'组成的窗口；检索命中某句后，后处理器自动把内容替换成整个窗口再交给模型。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "原文明确指出兼顾精准命中与上下文完整"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "原文未提注意力机制改善"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "原文未提生成速度提升"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "原文未提存储空间降低"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "1-0419": {
+    "qid": "1-0419",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "考点清晰，C选项符合提示词模板拼装规范。",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "把检索到的 chunk 按顺序拼接，控制总量……用模板明确告诉模型角色与规则……你叫公司小蜜，是公司的答疑机器人。你需要仔细阅读参考信息，然后回答问题。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "原文强调需模板约束而非简单拼接"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "原文未提分别提交再合并"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "原文明确使用提示词模板整合"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "原文要求拼装进模板而非分离提交"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "1-0477": {
+    "qid": "1-0477",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "多选题，AB符合RAG核心价值，CD无依据。",
+    "answer": [
+      "A",
+      "B"
+    ],
+    "supported": true,
+    "quote": "RAG 的核心思路可以用四个字概括：'开卷考试'。不让模型凭记忆答题，而是在它回答前，先从企业知识库里检索出最相关的几段资料，连同问题一起交给模型，让它'看着资料作答'。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "原文强调'看着资料作答'提准确"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "原文强调'最相关资料'提相关"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "原文未提推理时间减少"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "原文明确RAG不改变模型参数"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "1-0428": {
+    "qid": "1-0428",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "考点为Embedding实现，B是标准库，其余非向量化方案。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "Embedding（向量化 / 嵌入）是把一段文本转换成一串数字（高维向量，如 1024 维）。它的核心性质是：语义相近的文本，向量在空间中的距离也近。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "numpy不提供文本向量化功能"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "sentence-transformers是标准Embedding库"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "hashlib是哈希非语义向量"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "len仅计长度非语义向量"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "1-1322": {
+    "qid": "1-1322",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "语义切片适用高价值复杂文档，AB符合，CD不符。",
+    "answer": [
+      "A",
+      "B"
+    ],
+    "supported": true,
+    "quote": "语义切片：用模型判断语义边界，在话题转换处切；高价值、结构复杂的文档（成本更高）",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "逻辑性强需语义边界判断"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "结构复杂需高价值切片"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "Token控制对应Token切片"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "简单对话用句子切片即可"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "1-0435": {
+    "qid": "1-0435",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "A破坏标题语义独立性，BCD均符合完整性要求。",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "标题层级（`#`/`##`/`###`）、语法简单，被推荐作为 RAG 文档的中间格式；表格若被当成普通文字按固定长度切碎，行列关系会被打散",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "合成段落破坏标题层级结构"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "扩写加说明保障语义完整"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "清晰边界是语义完整前提"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "分类型处理符合结构保留原则"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

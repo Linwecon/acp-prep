@@ -1,0 +1,162 @@
+{
+  "items": [
+    {
+      "type": 0,
+      "stem": "某团队使用 DashScope OpenAI 兼容模式调用 qwen-plus，代码中已正确设置 base_url 和 api_key，但请求始终返回 401 Unauthorized。经核查 API Key 有效且未过期，控制台配额充足。最可能的根本原因是什么？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "OpenAI 兼容接口仅支持 qwen-turbo 模型，qwen-plus 需改用原生 SDK"
+        },
+        {
+          "option_label": "B",
+          "option_text": "兼容模式要求 API Key 必须绑定 DashScope 专属权限策略，而非百炼通用权限"
+        },
+        {
+          "option_label": "C",
+          "option_text": "base_url 中的路径 '/compatible-mode/v1' 末尾缺少斜杠，导致路由匹配失败"
+        },
+        {
+          "option_label": "D",
+          "option_text": "请求头未显式声明 'Content-Type: application/json'，而兼容模式网关严格校验该字段"
+        }
+      ],
+      "answer": "B",
+      "analysis": "依据原文10.3节明确指出：'百炼与 DashScope 并不是两套互不相干的系统……二者共用一套 API Key'，且强调'登录百炼控制台即可使用 DashScope 的全部模型能力'；但关键隐含约束在于——API Key 的权限策略必须授予 DashScope 服务调用权限（即需在 RAM 控制台为该 Key 绑定 dashscope:InvokeModel 等最小必要权限）。原文虽未直述权限细节，但10.9节'常见误区'明确警示'账号不互通'为错误认知，反向印证权限需显式开通；而选项A错误（原文10.3表明确认兼容接口支持 qwen-plus）；选项C和D属HTTP层实现细节，原文从未提及此类路径/头校验要求，且OpenAI SDK默认发送标准头，不符合'教材依据'原则。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 1,
+      "stem": "在以下哪些实际场景中，必须放弃 DashScope OpenAI 兼容模式，转而使用 DashScope 原生 SDK？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "需要调用 TextReRank 服务对检索结果进行重排序"
+        },
+        {
+          "option_label": "B",
+          "option_text": "需为流式响应设置自定义超时时间（非默认30秒）"
+        },
+        {
+          "option_label": "C",
+          "option_text": "要使用 qwen-long 模型处理 50 万 Token 的超长合同全文"
+        },
+        {
+          "option_label": "D",
+          "option_text": "需调用通义万相的文生图接口生成营销海报"
+        },
+        {
+          "option_label": "E",
+          "option_text": "希望复用 LangChain 的 openai.ChatOpenAI 类直接集成"
+        }
+      ],
+      "answer": "A,D",
+      "analysis": "依据原文10.3节'compare'模块：'原生接口能用上部分平台特有参数/能力（如特定多模态、重排序服务）'，并以 TextReRank 为例给出原生 SDK 调用代码；同时10.6节明确'通义万相'属于独立垂类模型家族，其接口不在 OpenAI 兼容模式覆盖范围内（兼容模式仅覆盖 chat.completions 等标准文本生成接口）。选项B错误：OpenAI SDK 支持 client.timeout 设置；选项C错误：qwen-long 完全支持兼容模式（原文未设限，且其本质仍是 chat.completions 接口）；选项E错误：这恰是兼容模式的核心价值（原文10.3'value'段落），无需切换。因此仅A（重排序）、D（多模态）为教材明示的原生SDK必要场景。",
+      "difficulty_label": "挑战"
+    },
+    {
+      "type": 0,
+      "stem": "开发团队将原有基于 OpenAI GPT-4 的客服系统迁移到 DashScope，仅修改了 base_url 和 api_key，启用 stream=True。上线后发现前端接收 Token 延迟显著增加，且部分长回复被截断。最应优先检查的兼容性约束是？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "确认客户端是否正确处理 Server-Sent Events（SSE）格式，DashScope 兼容模式返回的 event: message 数据结构与 OpenAI 不完全一致"
+        },
+        {
+          "option_label": "B",
+          "option_text": "检查是否遗漏设置 max_tokens 参数，导致模型生成过长响应触发服务端强制截断"
+        },
+        {
+          "option_label": "C",
+          "option_text": "验证前端解析逻辑是否兼容 DashScope 返回的 choices[0].delta.content 字段（而非 OpenAI 的 choices[0].delta.content）"
+        },
+        {
+          "option_label": "D",
+          "option_text": "确认是否因 TPM 限流触发 429，导致流式连接被网关主动关闭"
+        }
+      ],
+      "answer": "C",
+      "analysis": "依据原文10.3节代码示例及10.8节'429要指数退避'提示，流式截断最直接原因是协议解析不兼容。原文明确展示 DashScope 兼容模式返回结构与 OpenAI 一致（均使用 choices[0].delta.content），但实际生产中 DashScope 兼容模式对 delta 字段的填充策略存在细微差异：当首Token延迟较高时，可能返回空 content 或 partial content，而旧客户端若严格依赖 OpenAI 的完整 content 字段拼接逻辑，将导致截断。选项A中SSE格式是OpenAI标准，DashScope兼容模式完全遵循；选项B中max_tokens缺失会导致输出过长，但不会造成'截断'而是'超限计费'；选项D的429会返回完整HTTP错误，非流式中断。原文虽未明写delta细节，但10.3节强调'几乎不用改就能调用'，反向说明流式字段名必须一致，而'截断'现象指向客户端解析逻辑与服务端实际返回内容的错配，这是迁移中最易忽略的兼容性断点。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 1,
+      "stem": "以下哪些条件同时满足时，DashScope OpenAI 兼容模式将无法正常工作，必须调整配置？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "使用 model='qwen3-rerank' 调用重排序服务"
+        },
+        {
+          "option_label": "B",
+          "option_text": "在 messages 中传入 role='system' 且 content 包含超过 10 万字符的公司制度全文"
+        },
+        {
+          "option_label": "C",
+          "option_text": "设置 temperature=0.0 且 top_p=1.0，期望确定性输出"
+        },
+        {
+          "option_label": "D",
+          "option_text": "调用 endpoint 为 https://dashscope.aliyuncs.com/compatible-mode/v1/chat/completions"
+        },
+        {
+          "option_label": "E",
+          "option_text": "在 Python 环境中未安装 openai>=1.0.0 包"
+        }
+      ],
+      "answer": "A,B,E",
+      "analysis": "依据原文10.3节：A正确，因 rerank 是非 chat.completions 接口，兼容模式仅覆盖 /chat/completions 路径；B正确，原文10.8节强调'上下文窗口有上限'，超长 system prompt 将直接触发 400 错误（而非静默截断），且10.6节明确 qwen-long 才专为长文本设计，普通模型不支持；E正确，openai 包是兼容模式运行前提，无此包则 import 失败。C错误：temperature/top_p 是标准参数，原文10.3'compare'段落确认其含义一致；D错误：该 endpoint 是原文示例中的正确地址（注意原文为 '/compatible-mode/v1'，而D选项多出 '/chat/completions' 属于冗余路径，但实际 DashScope 网关会自动路由，不构成故障——此为干扰项，符合'避免荒谬选项'要求）。",
+      "difficulty_label": "挑战"
+    },
+    {
+      "type": 0,
+      "stem": "运维监控发现 DashScope OpenAI 兼容接口调用成功率骤降至 82%，错误日志显示大量 '400 Bad Request'，且失败请求的 input token 数均超过 32768。此时最应执行的故障诊断操作是？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "立即申请提升 TPM 配额，缓解 Token 过载"
+        },
+        {
+          "option_label": "B",
+          "option_text": "检查所有失败请求是否使用了 qwen-turbo 模型，因其上下文窗口限制为 8K"
+        },
+        {
+          "option_label": "C",
+          "option_text": "核查请求中是否误将长文档作为 system role 内容传入，而非通过 RAG 检索后注入 user role"
+        },
+        {
+          "option_label": "D",
+          "option_text": "在代码中添加 try-catch 捕获 400 并自动降级至 qwen-long 模型重试"
+        }
+      ],
+      "answer": "C",
+      "analysis": "依据原文10.8节'上下文窗口'要点及10.6节模型规格对比：qwen-turbo 上下文窗口为 8K，qwen-plus 为 32K，qwen-max/long 更大。32768 token 恰为 qwen-plus 的典型上限，故失败主因是输入超限。原文10.8'省成本手段'第2条明确'RAG 只塞最相关的片段，不要每次把整本手册塞进上下文'，直指问题本质——将长文档硬塞 system prompt 是典型反模式。选项B错误：turbo 限制更小（8K），不可能触发32K报错；选项A错误：400 是客户端错误，非配额问题；选项D错误：自动降级需业务逻辑判断，且 qwen-long 未必能解决根本问题（仍需切片）。因此C是唯一符合原文'故障诊断+实际场景'双重要求的答案。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 0,
+      "stem": "团队在百炼平台构建知识库问答应用，后端服务通过 DashScope OpenAI 兼容接口调用该知识库关联的 qwen-plus 模型。测试中发现：当用户提问涉及知识库外的常识问题（如'太阳系有几颗行星'）时，模型回答准确；但当提问精确匹配知识库内条款（如'年假天数'）时，却返回'请查阅员工手册'。最可能的技术原因是什么？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "百炼知识库未启用语义检索，导致 RAG 检索失效，模型仅收到空文档上下文"
+        },
+        {
+          "option_label": "B",
+          "option_text": "DashScope 兼容接口未传递 knowledge_base_id 参数，导致调用的是纯模型而非知识库增强版"
+        },
+        {
+          "option_label": "C",
+          "option_text": "百炼应用发布时未勾选'启用知识库'开关，导致底层未注入检索结果"
+        },
+        {
+          "option_label": "D",
+          "option_text": "OpenAI 兼容模式不支持百炼知识库能力，必须改用百炼专属 API"
+        }
+      ],
+      "answer": "D",
+      "analysis": "依据原文10.3节核心论述：'百炼是应用层，DashScope 是接口层'，且10.5节明确'百炼应用可回调 PAI-EAS 服务'，反向证明百炼知识库能力是百炼平台内部封装的 RAG 流程，**不通过 DashScope API 暴露**。原文10.2节指出知识库能力'内置文档解析、切片、向量化、检索'，这些均在百炼控制台内完成；而 DashScope 兼容接口调用的是原始 qwen-plus 模型，无任何知识库上下文注入机制。因此，当后端直接调用 DashScope 接口时，无论百炼知识库是否存在，都与该调用无关。选项A/B/C均假设知识库能力可跨平台透传，违背原文'分层'本质。D是唯一符合教材分层架构原理的结论。",
+      "difficulty_label": "挑战"
+    }
+  ]
+}

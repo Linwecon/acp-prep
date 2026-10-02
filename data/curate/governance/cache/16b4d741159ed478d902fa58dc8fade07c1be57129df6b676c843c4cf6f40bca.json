@@ -1,0 +1,216 @@
+{
+  "7-0160": {
+    "qid": "7-0160",
+    "classification": "own",
+    "chapter": 7,
+    "quality": "ok",
+    "reason": "题目考查RAGAS指标分类，属于核心知识点。",
+    "answer": [
+      "A",
+      "B"
+    ],
+    "supported": true,
+    "quote": "RAGAS的五大核心指标按评价对象分为两类：...Answer Correctness...Answer Relevancy（答案相关性）...属于生成端。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "Answer Correctness是评估整体回答质量的综合指标。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "Answer Relevancy评估答案是否切题，属于生成端质量指标。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "Faithfulness评估答案是否忠于检索资料，是生成端指标，但题干问“整体回答质量”，它更侧重幻觉。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "Context Precision评估检索端片段排序，不属于整体回答质量。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "7-0370": {
+    "qid": "7-0370",
+    "classification": "cross",
+    "chapter": 7,
+    "quality": "remove",
+    "reason": "题目考查大模型API批量处理优势，但题干和选项与模型评估核心知识无关，属于泛泛的应用场景题，无考查价值。",
+    "answer": [
+      "C"
+    ],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "处理速度慢与优势矛盾。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "需要大量人力物力是劣势。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "选项描述了自动化处理的一致性和效率优势。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "大模型能理解自由文本。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "7-0413": {
+    "qid": "7-0413",
+    "classification": "own",
+    "chapter": 7,
+    "quality": "ok",
+    "reason": "题目考查RAGAS指标与评估阶段的对应关系，是核心考点。",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "Faithfulness（忠实度）...生成端...答案是否忠于检索资料，有没有脱离资料编造（幻觉）",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "Faithfulness评估生成端答案是否忠于检索资料。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "context_precision评估检索端片段排序。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "context_recall评估检索端信息召回完整性。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "answer_correctness也评估生成端，但题干选项未列出。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "7-0465": {
+    "qid": "7-0465",
+    "classification": "own",
+    "chapter": 7,
+    "quality": "ok",
+    "reason": "题目考查RAGAS指标分类，属于核心知识点。",
+    "answer": [
+      "A",
+      "B"
+    ],
+    "supported": true,
+    "quote": "Faithfulness（忠实度）...生成端...Answer Relevancy（答案相关性）...生成端",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "Answer Relevancy评估生成端答案是否切题。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "Faithfulness评估生成端答案是否忠于检索资料。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "Context Precision评估检索端片段排序。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "Context Recall评估检索端信息召回完整性。"
+      }
+    ],
+    "duplicate_of": "7-0160"
+  },
+  "7-0471": {
+    "qid": "7-0471",
+    "classification": "own",
+    "chapter": 7,
+    "quality": "ok",
+    "reason": "题目考查Answer Correctness计算细节，是重要考点。",
+    "answer": [
+      "A",
+      "B"
+    ],
+    "supported": true,
+    "quote": "事实准确度（F1）：LLM 把 answer 和 ground_truth 各自分解为观点列表；比对后归入三类",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "事实准确度需比较answer的观点列表。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "事实准确度需比较ground_truth的观点列表。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "与Answer Correctness计算无关。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "与Answer Correctness计算无关。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "7-0493": {
+    "qid": "7-0493",
+    "classification": "own",
+    "chapter": 7,
+    "quality": "ok",
+    "reason": "题目考查RAGAS指标分类，属于核心知识点。",
+    "answer": [
+      "A",
+      "B"
+    ],
+    "supported": true,
+    "quote": "Context Precision...检索端...Context Recall...检索端",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "Context Precision评估检索端片段排序。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "Context Recall评估检索端信息召回完整性。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "Answer Correctness评估生成端整体质量。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "Answer Relevancy评估生成端答案相关性。"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

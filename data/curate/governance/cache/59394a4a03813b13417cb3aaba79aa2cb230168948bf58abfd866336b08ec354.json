@@ -1,0 +1,212 @@
+{
+  "3-0027": {
+    "qid": "3-0027",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "考查RAG在线问答阶段大模型参与步骤，考点明确",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "在线问答（Retrieval & Generation，每次请求都执行）：1. 用户提问；必要时先做查询改写（消代词、补全指代）...6. LLM 依据资料生成答案",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "大模型也参与查询改写"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "大模型参与查询改写和生成"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "检索步骤由向量数据库完成"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "大模型还参与生成步骤"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-0041": {
+    "qid": "3-0041",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "考查精确率低时的优化方法，符合RAGAS定位逻辑",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "Context Precision 低...无关内容排前面，加 Rerank",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "降低阈值会降低精确率"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "知识库已充足，非召回问题"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "Rerank可提升相关片段排名"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "与精确率优化无关"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-0043": {
+    "qid": "3-0043",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "考查RAG评估中领域专家提供ground_truth的必要性",
+    "answer": [
+      "D"
+    ],
+    "supported": true,
+    "quote": "ground_truth 必须由业务领域专家提供",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "算法工程师非领域专家"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "前端工程师非领域专家"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "数据工程师非领域专家"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "医疗专家能验证答案准确性"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-0083": {
+    "qid": "3-0083",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "考查检索召回阶段的问题改写技术",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "查询改写...先用 LLM 把含代词的问题改写成完整问题",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "用户画像扩展非原文提及方法"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "问题改写可扩写问题"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "重排序是精排，非扩写"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "增加训练数据非召回阶段方法"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-0085": {
+    "qid": "3-0085",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "考查RAG在线问答阶段核心步骤",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "在线问答...检索 Top K...拼装提示词...LLM 生成答案",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "检索片段并输入模型是核心"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "非在线问答步骤"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "非在线问答步骤"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "非在线问答步骤"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-0087": {
+    "qid": "3-0087",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "考查检索召回阶段的反向追问技术",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "检索召回阶段...反向追问用户...通过向用户追问来获取更多信息",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "反向追问可获取更多信息"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "问题改写是LLM自动改写"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "重排序是精排，非追问"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "增加训练数据非召回阶段方法"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

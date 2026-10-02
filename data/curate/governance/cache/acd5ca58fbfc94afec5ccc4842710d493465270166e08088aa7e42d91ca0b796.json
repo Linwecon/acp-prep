@@ -1,0 +1,211 @@
+{
+  "new-9-30-0": {
+    "qid": "new-9-30-0",
+    "classification": "own",
+    "chapter": 9,
+    "quality": "ok",
+    "reason": "题目考查TPM配额与max_tokens的关系，符合本章计费与配额知识点。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "TPM（Tokens Per Minute）配额与限流；max_tokens限制生成长度上限；输入和输出Token分开计费",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "超限触发400，但题干是429，且未涉及共享上限。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "TPM限制总Token量，降低max_tokens减少输出Token，直接缓解TPM压力。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "降低max_tokens不影响TTFT，且题干未提及并发吞吐。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "model决定窗口容量，但max_tokens影响输出Token规模，与配额联动。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-9-30-1": {
+    "qid": "new-9-30-1",
+    "classification": "own",
+    "chapter": 9,
+    "quality": "ok",
+    "reason": "题目考查system消息在多轮对话中的稳定位置要求，符合messages结构知识点。",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "system消息建议固定在数组开头，不要每轮重复添加；多轮对话答非所问、指代不清 → 首先检查历史消息有没有完整放进messages",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "system消息被滚动剔除导致角色设定丢失，违反稳定置于开头的原则。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "原文未强调必须按Token数截断，且故障原因是system消息被剔除。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "system消息无需每次重复声明，只需稳定置于开头。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "题干未涉及assistant消息摘要，且非根本原因。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-9-30-2": {
+    "qid": "new-9-30-2",
+    "classification": "own",
+    "chapter": 9,
+    "quality": "ok",
+    "reason": "题目考查Batch API中处理上下文超限的工程实践，符合计费与上下文窗口约束。",
+    "answer": [
+      "A",
+      "C"
+    ],
+    "supported": true,
+    "quote": "上下文窗口是输入与输出Token共享的硬性上限，超限会触发400错误；控制输入长度——压缩历史、过滤无关检索结果、精简system prompt",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "摘要压缩历史是控制输入Token、解决超限的直接措施。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "Batch任务级全局配置system消息原文未提及，且可能不符合每行独立请求。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "按Token数截断确保不超窗口，是直接解决超限的工程实践。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "改用同步API不能直接解决超限，且不符合Batch场景。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-9-30-3": {
+    "qid": "new-9-30-3",
+    "classification": "own",
+    "chapter": 9,
+    "quality": "ok",
+    "reason": "题目考查Function Calling中上下文窗口超限的原因分析，符合messages结构与窗口约束。",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "max_tokens限制生成长度上限；受上下文窗口约束；输入+输出受上下文窗口限制，过大会报错且增加成本",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "输入Token仅3250，远未达窗口上限8192，非主要原因。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "response_message未追加会导致上下文错误，但非finish_reason='length'的直接原因。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "max_tokens未设置，模型尝试填满剩余空间，导致输出超窗口被截断。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "动态时间戳破坏缓存影响计费，但非输出被截断的直接原因。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-9-30-4": {
+    "qid": "new-9-30-4",
+    "classification": "own",
+    "chapter": 9,
+    "quality": "fixable",
+    "reason": "题目探讨流式输出Token用量高的原因，但原文明确流式不改变答案质量，未提及额外Token开销。",
+    "answer": [],
+    "supported": false,
+    "quote": "流式不改变最终答案质量，只是改变传输和展示方式",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "原文未提及SSE协议前缀计入输出Token统计。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "原文未提及流式模式会生成额外填充Token。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "原文未提及SDK自动追加提示词增加输入Token。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "原文未提及连接缓冲区开销折算为Token计费。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-9-30-5": {
+    "qid": "new-9-30-5",
+    "classification": "own",
+    "chapter": 9,
+    "quality": "ok",
+    "reason": "题目考查上下文窗口超限的修复优先级，符合控制输入长度的成本优化原则。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "控制输入长度——压缩历史、过滤无关检索结果、精简system prompt；成本控制的优先级：先选对模型档位 → 控制输入长度 → 限制输出长度",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "升级模型成本高，非优先级最高的措施。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "摘要压缩输入是控制输入长度的直接措施，符合优先级原则。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "移除system消息可能丢失角色设定，且微调非本章即时解决方案。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "设置max_tokens=1无法解决问题，且输出无意义。"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

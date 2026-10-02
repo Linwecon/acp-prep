@@ -1,0 +1,109 @@
+{
+  "new-10-84-0": {
+    "qid": "new-10-84-0",
+    "classification": "own",
+    "chapter": 10,
+    "quality": "ok",
+    "reason": "综合考查阿里云平台选型，需结合数据不出域、微调、高并发部署等约束判断。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "开源模型的价值集中在三点：① 数据隐私与合规（数据不出域）；② 可深度定制（任意微调/改结构）；③ 大规模稳定流量下的长期成本可控。要自己训练、微调、蒸馏，或部署开源模型 → PAI（DSW 开发 + DLC 训练 + EAS 部署）",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "DashScope API数据需上送，违反数据不出域要求。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "PAI全链路满足数据不出域、微调、高并发部署，百炼可调用EAS服务。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "DashScope调用数据需上送，且不支持对模型进行LoRA微调。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "函数计算FC不适合高并发、低延迟的模型推理服务。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-10-84-2": {
+    "qid": "new-10-84-2",
+    "classification": "own",
+    "chapter": 10,
+    "quality": "ok",
+    "reason": "考查DashScope特性，特别是OpenAI兼容模式和流式响应。",
+    "answer": [
+      "A",
+      "C"
+    ],
+    "supported": true,
+    "quote": "OpenAI兼容模式的价值：把 base_url 指向 DashScope 兼容地址、把 api_key 换成阿里云的 Key，原本基于 OpenAI Python SDK 写的程序几乎不用改就能调用通义千问。流式输出开 stream=True，是对话类应用降低等待感的标配。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "OpenAI兼容模式只需修改两处，快速集成并兼容LangChain。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "TextReRank是重排序服务，不直接满足快速集成和流式响应要求。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "stream=True参数支持逐Token流式返回，降低等待感。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "PAI-EAS部署自定义模型与DashScope特性无关。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-10-84-4": {
+    "qid": "new-10-84-4",
+    "classification": "own",
+    "chapter": 10,
+    "quality": "ok",
+    "reason": "考查开源模型+私有化部署的价值，对应数据不出域和可微调。",
+    "answer": [
+      "A",
+      "C"
+    ],
+    "supported": true,
+    "quote": "开源模型的价值集中在三点：① 数据隐私与合规（数据不出域）；② 可深度定制（任意微调/改结构）；③ 大规模稳定流量下的长期成本可控。要数据完全不出域、强私有化 → 开源模型（ModelScope 下载）+ PAI/EAS 或自建 GPU 部署。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "从ModelScope下载开源模型权重，满足数据不出域和可微调。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "DashScope API调用需数据上送，违反数据不出域要求。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "PAI-EAS部署自托管模型，实现私有化服务。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "百炼工作流编排仍可能使用托管API，数据可能出域。"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

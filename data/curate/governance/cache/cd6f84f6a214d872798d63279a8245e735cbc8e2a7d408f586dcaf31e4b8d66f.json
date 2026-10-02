@@ -1,0 +1,108 @@
+{
+  "new-10-24-0": {
+    "qid": "new-10-24-0",
+    "classification": "own",
+    "chapter": 10,
+    "quality": "ok",
+    "reason": "401错误属认证失败，原文明确百炼与DashScope共用API Key",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "百炼是\"应用层\"，DashScope是\"接口层\"，二者共用一套API Key",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "401为未授权错误，原文明确二者共用API Key"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "日志明确报错在Embedding调用环节，非输入空"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "百炼工作流支持直接调用Embedding模型"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "原文未提版本下线，且401非模型不可用错误"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-10-24-1": {
+    "qid": "new-10-24-1",
+    "classification": "own",
+    "chapter": 10,
+    "quality": "ok",
+    "reason": "节点间存在数据依赖必须串行，A/C选项含明确输入输出依赖",
+    "answer": [
+      "A",
+      "C"
+    ],
+    "supported": true,
+    "quote": "拖拽节点把\"检索→改写→生成→审核\"串成稳定流程",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "重排序结果是生成节点的必要输入"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "OSS读取与EAS调用无直接数据依赖"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "摘要结果作为system prompt传入，强依赖"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "转写文本与情感分析可并行预处理"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-10-24-2": {
+    "qid": "new-10-24-2",
+    "classification": "own",
+    "chapter": 10,
+    "quality": "ok",
+    "reason": "缩写识别属领域知识增强，百炼知识库支持术语增强",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "知识库（RAG）：内置文档解析、切片、向量化、检索，上传文档即可问答",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "Prompt模板无法解决专业缩写理解"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "知识库可上传术语词典实现术语增强"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "qwen-plus未报错，能力足够"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "无错误不触发重试，非根本原因"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

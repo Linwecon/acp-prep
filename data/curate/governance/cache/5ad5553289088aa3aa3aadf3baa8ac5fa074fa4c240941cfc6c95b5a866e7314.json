@@ -1,0 +1,228 @@
+{
+  "11-1409": {
+    "qid": "11-1409",
+    "classification": "unsure",
+    "chapter": 11,
+    "quality": "remove",
+    "reason": "考查FFmpeg/MoviePy工具功能，与多模态AI核心知识无关，无考查价值。",
+    "answer": [],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "工具功能，非多模态核心知识。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "工具功能，非多模态核心知识。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "工具功能，非多模态核心知识。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "图像识别非FFmpeg/MoviePy主要功能。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "11-1410": {
+    "qid": "11-1410",
+    "classification": "unsure",
+    "chapter": 11,
+    "quality": "remove",
+    "reason": "考查通用内容提炼策略，与多模态AI核心知识关联弱，无考查价值。",
+    "answer": [],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "策略题，与多模态技术无关。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "策略题，与多模态技术无关。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "策略题，与多模态技术无关。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "策略题，与多模态技术无关。"
+      },
+      {
+        "label": "E",
+        "selected": false,
+        "why": "策略题，与多模态技术无关。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "11-1414": {
+    "qid": "11-1414",
+    "classification": "own",
+    "chapter": 11,
+    "quality": "ok",
+    "reason": "考查多模态应用（文本+图像）的必要技术组件，符合章节知识。",
+    "answer": [
+      "A",
+      "B",
+      "C"
+    ],
+    "supported": true,
+    "quote": "图文多模态模型的工作原理可以用一个公式概括：编码器 + 投影对齐 + 大语言模型。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "图像识别模型将图像转为描述，是多模态理解基础。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "大模型处理文本与图像描述，生成回答，是核心。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "图像存储服务是处理用户上传图像的必要环节。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "纯文本模型无法处理图像，不符合多模态要求。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "11-0643": {
+    "qid": "11-0643",
+    "classification": "own",
+    "chapter": 11,
+    "quality": "fixable",
+    "reason": "考查TTS质量保证实践，但选项A（录音环境）与语音合成无关，存在干扰。",
+    "answer": [
+      "B",
+      "D"
+    ],
+    "supported": true,
+    "quote": "TTS（文字转语音）把文字合成语音播报，如CosyVoice。音色、语速、情绪一致性；可做个性化音色。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "录音环境与语音合成（TTS）过程无关。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "优化文本内容有助于提升合成语音的自然度。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "使用多个模型比较非通用或必要实践。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "调整语速、音调等参数是优化语音合成的常见手段。"
+      },
+      {
+        "label": "E",
+        "selected": false,
+        "why": "增加音量是后处理，非保证自然度的核心。"
+      }
+    ],
+    "duplicate_of": "11-1413"
+  },
+  "11-1100": {
+    "qid": "11-1100",
+    "classification": "own",
+    "chapter": 11,
+    "quality": "ok",
+    "reason": "场景题考查多模态生成（文生视频）、图像理解、音画同步故障排查。",
+    "answer": [
+      "B",
+      "C"
+    ],
+    "supported": true,
+    "quote": "文生图/视频主流基于扩散模型：从噪声出发，在文本条件引导下逐步去噪采样得到画面。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "时间轴设置是编辑问题，非核心故障原因。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "图像理解模型缺少训练数据会导致特定物体识别失败。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "仅用文生图模型无法生成视频，导致返回静态图片。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "采样率问题非导致音画不同步的典型或唯一原因。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "11-1413": {
+    "qid": "11-1413",
+    "classification": "own",
+    "chapter": 11,
+    "quality": "fixable",
+    "reason": "考查TTS质量保证实践，与11-0643高度相似，但选项A（录音环境）无关。",
+    "answer": [
+      "A",
+      "E"
+    ],
+    "supported": true,
+    "quote": "TTS（文字转语音）把文字合成语音播报，如CosyVoice。音色、语速、情绪一致性；可做个性化音色。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "调整语速、音调等参数是优化语音合成的常见手段。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "使用多个模型比较非通用或必要实践。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "增加音量是后处理，非保证自然度的核心。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "录音环境与语音合成（TTS）过程无关。"
+      },
+      {
+        "label": "E",
+        "selected": true,
+        "why": "优化文本内容有助于提升合成语音的自然度。"
+      }
+    ],
+    "duplicate_of": "11-0643"
+  }
+}

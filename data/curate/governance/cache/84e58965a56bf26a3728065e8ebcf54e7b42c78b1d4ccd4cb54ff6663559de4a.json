@@ -1,0 +1,219 @@
+{
+  "3-1221": {
+    "qid": "3-1221",
+    "classification": "cross",
+    "chapter": 4,
+    "quality": "remove",
+    "reason": "题干条件缺失，无法判断工具函数用途。无RAG检索过程描述，属于Agent工具调用题。",
+    "answer": [],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "题干未提及请假申请。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "题干未提及员工信息查询。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "题干未提及文档润色。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "题干未提及向量比较。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-1236": {
+    "qid": "3-1236",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "考查RAG系统优化措施的有效性，选项涉及切片、文档处理、生成参数和知识库。",
+    "answer": [
+      "B",
+      "C",
+      "D"
+    ],
+    "supported": true,
+    "quote": "对于扫描件PDF、含图片和复杂表格的文档，可以用阿里云百炼的文档智能解析（DashScopeParse），它能做OCR并把结果输出为结构化Markdown（保留标题层级、表格行列），再交给大模型做必要的“润色/纠错”。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "仅依赖默认策略可能不适用所有文档。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "大模型润色可提升文档质量，利于后续处理。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "调整温度参数可控制生成答案的确定性。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "补充缺失内容是解决知识不足的根本。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-1240": {
+    "qid": "3-1240",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "考查滑动窗口检索（即句子窗口检索）的核心特性。",
+    "answer": [
+      "B",
+      "C"
+    ],
+    "supported": true,
+    "quote": "句子窗口检索（Sentence Window Retrieval）：建索引时以“单个句子”为可检索单元（小块，便于精准命中），同时在每个句子的元数据里存下它“前后各N句”组成的窗口；检索命中某句后，后处理器自动把内容替换成整个窗口再交给模型。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "未限定仅用于短文档。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "核心是补充相邻上下文。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "避免语义被切断丢失。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "检索结果数量由Top K决定。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-1242": {
+    "qid": "3-1242",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "考查句子窗口切片的核心特点，与滑动窗口检索概念一致。",
+    "answer": [
+      "A",
+      "B",
+      "C"
+    ],
+    "supported": true,
+    "quote": "句子窗口检索（Sentence Window Retrieval）：建索引时以“单个句子”为可检索单元（小块，便于精准命中），同时在每个句子的元数据里存下它“前后各N句”组成的窗口；检索命中某句后，后处理器自动把内容替换成整个窗口再交给模型。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "以句子为单位，保持完整。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "包含前后句子组成的窗口。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "适用于处理长文档。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "未限定仅用于短文本。"
+      }
+    ],
+    "duplicate_of": "3-1240"
+  },
+  "3-1250": {
+    "qid": "3-1250",
+    "classification": "cross",
+    "chapter": -1,
+    "quality": "review",
+    "reason": "考点宽泛，涉及模型训练与优化，超出RAG章节明确范围。需专家复核是否属于模型微调或基础。",
+    "answer": [
+      "B",
+      "C",
+      "D"
+    ],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "硬件加速不直接提升计算精度。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "引入更强嵌入模型可能提升精度。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "扩大数据集可能提升模型泛化能力。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "更精确标注可能提升模型学习效果。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-1293": {
+    "qid": "3-1293",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "考查文档解析阶段可能遇到的具体问题。",
+    "answer": [
+      "A",
+      "B",
+      "D"
+    ],
+    "supported": true,
+    "quote": "文档解析（Document Parsing）是把PDF、Word、Markdown、网页等格式的文档，加载并转换为大模型可读文本的过程。它看似简单，却是RAG质量的“地基”——解析阶段丢失的结构，后面用再复杂的算法也补不回来。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "可能不支持特定格式如Keynote。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "解析可能无法提取非文本内容。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "切片长度是切片阶段问题。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "解析可能导致目录层级混乱。"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

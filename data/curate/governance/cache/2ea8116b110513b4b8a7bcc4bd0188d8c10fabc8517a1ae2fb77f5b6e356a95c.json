@@ -1,0 +1,225 @@
+{
+  "new-8-42-0": {
+    "qid": "new-8-42-0",
+    "classification": "own",
+    "chapter": 8,
+    "quality": "ok",
+    "reason": "考查安全组与WAF/DDoS的分层职责，原文有明确依据。",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "安全组决定‘包能不能进机器’，但看不懂包里是不是 SQL 注入；WAF 能识别 SQL 注入、XSS、恶意爬虫，但挡不住把出口带宽打满的洪水流量；DDoS 高防能清洗洪水，但管不了‘谁能删 OSS Bucket’这种权限问题。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "安全组无法识别HTTP请求内容，不能缓解语义级资源消耗攻击。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "安全组工作在四层，无法智能识别或限流HTTP请求内容。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "安全组工作在四层，无法解析HTTP内容或识别语义级资源消耗。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "WAF主要防Web攻击，对AI算力耗尽攻击也需与DDoS和应用层熔断协同。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-8-42-1": {
+    "qid": "new-8-42-1",
+    "classification": "own",
+    "chapter": 8,
+    "quality": "ok",
+    "reason": "考查RAG权限过滤的执行时机，原文有明确流程描述。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "关键在于：过滤发生在‘检索之后、拼 Prompt 之前’，而不是靠模型‘自觉不回答’。模型不做权限判断，权限必须由应用层强制。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "故障是过滤逻辑未生效，非RAM行级访问控制问题。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "过滤应在检索后、拼Prompt前执行，若在输出后处理则已泄露。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "题干说明数据库关联逻辑无误，非加密或篡改问题。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "VPC内网通信限制与过滤逻辑执行前提无关。"
+      }
+    ],
+    "duplicate_of": "8-5159"
+  },
+  "new-8-42-2": {
+    "qid": "new-8-42-2",
+    "classification": "own",
+    "chapter": 8,
+    "quality": "ok",
+    "reason": "考查间接提示注入的防护，原文强调检索内容也需检测。",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "间接注入危害更大。它藏在用户根本看不到的文档或网页里；一旦被 RAG 检索进上下文，模型可能被诱导去调用工具。检索回来的内容也要过滤。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "RAG检索返回的外部文档同样需做注入检测，不能只信用户输入。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "WAF主要防Web攻击，不理解PDF内OCR文字的语义注入。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "ACL禁止公共读不能防止已授权用户上传含注入的PDF。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "CPU熔断是防资源耗尽，与间接提示注入防护无关。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-8-42-3": {
+    "qid": "new-8-42-3",
+    "classification": "own",
+    "chapter": 8,
+    "quality": "ok",
+    "reason": "综合考查合规备案与基础设施防护的对应措施。",
+    "answer": [
+      "A",
+      "E"
+    ],
+    "supported": true,
+    "quote": "国内面向公众提供生成式 AI 服务须依法备案；安全组决定‘谁能访问这台机器的哪个端口’。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "算法备案是合规要求，安全组配置端口是基础设施防护。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "DDoS防护是基础设施，AIGC标识是合规，但非同时满足双重要求。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "RAM子账号是权限安全，AIGC标识是合规，但非基础设施防护。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "数据脱敏和加密是数据安全，非合规备案或基础设施防护。"
+      },
+      {
+        "label": "E",
+        "selected": true,
+        "why": "审计日志是安全审计，提交备案材料是合规要求。"
+      }
+    ],
+    "duplicate_of": "8-5167"
+  },
+  "new-8-42-4": {
+    "qid": "new-8-42-4",
+    "classification": "own",
+    "chapter": 8,
+    "quality": "ok",
+    "reason": "考查AI算力耗尽攻击的防护组合，原文有明确分层方案。",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "资源耗尽型 DDoS 是 AI 应用的新风险……防御要三层联动：DDoS 高防清洗异常流量 + WAF/API 网关做频率限制 + 应用层对单个用户设 token/算力上限。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "WAF的CC防护可限频，但无法根治AI算力耗尽攻击。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "WAF可配自定义规则，但该攻击本质是算力耗尽，需协同防护。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "攻击本质是AI算力耗尽，需DDoS高防+应用层成本熔断协同。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "安全组限制连接数不能解决HTTP请求内的算力消耗问题。"
+      }
+    ],
+    "duplicate_of": "8-5153"
+  },
+  "new-8-42-5": {
+    "qid": "new-8-42-5",
+    "classification": "own",
+    "chapter": 8,
+    "quality": "ok",
+    "reason": "考查云安全产品分层职责与不可替代性，原文有明确对比。",
+    "answer": [
+      "A",
+      "B",
+      "E"
+    ],
+    "supported": true,
+    "quote": "安全组决定‘包能不能进机器’，但看不懂包里是不是 SQL 注入；WAF 能识别 SQL 注入、XSS、恶意爬虫，但挡不住把出口带宽打满的洪水流量；DDoS 高防能清洗洪水，但管不了‘谁能删 OSS Bucket’这种权限问题；RAM 管的是云资源操作权限。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "安全组控制端口，WAF过滤应用层载荷，分工正确。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "DDoS防流量洪峰，RAM控资源权限，分工正确。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "WAF拦截SQL注入正确，但RAM控RDS权限非其典型职责。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "安全组禁RDS端口正确，但DDoS通常不直接保护RDS免受UDP Flood。"
+      },
+      {
+        "label": "E",
+        "selected": true,
+        "why": "WAF防XSS，RAM禁API调用，体现应用层与权限层分工。"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

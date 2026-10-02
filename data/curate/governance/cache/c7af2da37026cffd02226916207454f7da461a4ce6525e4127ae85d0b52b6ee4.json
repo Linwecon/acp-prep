@@ -1,0 +1,74 @@
+{
+  "new-7-24-0": {
+    "qid": "new-7-24-0",
+    "classification": "own",
+    "chapter": 7,
+    "quality": "ok",
+    "reason": "考查控制变量失效的排查，符合评测章节核心知识。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "回归评测的前提是除了待测改动，其他一切都冻结：评测集版本、评测脚本、推理参数（temperature、seed）、模型版本、甚至当评委的大模型版本都要固定。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "question来源影响评测集真实性，但非控制变量失效的直接原因。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "temperature是推理参数，其变化直接影响输出，需优先核查。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "ground_truth审定影响基准，但非两次评测间控制变量。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "seed影响输出确定性，但题干未提随机性，非最优先。"
+      }
+    ],
+    "duplicate_of": "7-5089"
+  },
+  "new-7-24-5": {
+    "qid": "new-7-24-5",
+    "classification": "own",
+    "chapter": 7,
+    "quality": "ok",
+    "reason": "考查评测驱动开发中防止回归与定位问题的实践。",
+    "answer": [
+      "A",
+      "B",
+      "D"
+    ],
+    "supported": true,
+    "quote": "应建立回归评测机制：冻结一份覆盖各类题型的评测集，每次改动后用同一套题、同一配置重新跑分，对比各题型分数变化。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "冻结评测集并按题型细分分析，可防回归并定位问题场景。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "输出分项指标有助于定位问题在检索端还是生成端。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "关联NPS是业务验证，非防止回归与定位问题的直接手段。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "自动触发日志回溯分析，可直接定位具体样本的问题。"
+      }
+    ],
+    "duplicate_of": "7-5058"
+  }
+}

@@ -1,0 +1,154 @@
+{
+  "items": [
+    {
+      "type": 0,
+      "stem": "某团队将Qwen3-0.6B模型量化为AWQ INT4后部署于vLLM，压测发现：①显存占用下降58%；②TPOT降低22%；③TTFT无明显变化；④代码补全任务BLEU分数下降1.3分。依据教材第6章，以下哪项结论可被原文直接支持？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "TPOT降低证明量化必然加速推理，因显存带宽压力减小"
+        },
+        {
+          "option_label": "B",
+          "option_text": "TTFT不变说明Prefill阶段未受益于量化，因其计算密集性主导延迟"
+        },
+        {
+          "option_label": "C",
+          "option_text": "BLEU下降1.3分表明INT4量化在所有任务上均不可接受"
+        },
+        {
+          "option_label": "D",
+          "option_text": "显存下降58%与INT4相对FP16体积降为1/4的理论值不符，说明量化配置错误"
+        }
+      ],
+      "answer": "B",
+      "analysis": "依据6.4节'量化'与6.2节'Prefill/Decode两阶段'原理：Prefill是计算密集型（依赖算力与prompt长度），主要受矩阵乘法速度影响，而量化对权重读取带宽的优化对Prefill加速有限（教材明确'量化通常也加速'但未承诺Prefill必降）；TPOT下降22%符合6.4节'量化通常也加速...因Decode是显存带宽密集型'的论述；TTFT不变正印证Prefill不受显存带宽瓶颈主导，故B项有直接教材依据。A项错在'必然'——教材强调'需框架算子支持'，非自动加速；C项违背6.4节'INT4损失略大，取决于方法与任务'及'需用业务评测集验证'的审慎表述；D项混淆理论比例（INT4相对FP32为1/8，FP16为1/2，故INT4相对FP16应≈1/4），58%下降（即剩42%）在工程误差与运行时开销范围内，教材未要求严格匹配理论值。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 0,
+      "stem": "vLLM服务突发高TTFT（>8s），监控显示GPU利用率正常、KV Cache占用率仅30%、无429错误。此时最应优先检查的日志线索是？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "vLLM启动日志中是否包含'PagedAttention enabled'提示"
+        },
+        {
+          "option_label": "B",
+          "option_text": "请求日志中用户输入prompt的token数是否远超max_model_len配置值"
+        },
+        {
+          "option_label": "C",
+          "option_text": "CUDA context初始化失败堆栈"
+        },
+        {
+          "option_label": "D",
+          "option_text": "SLB健康检查探针返回超时的HTTP状态码"
+        }
+      ],
+      "answer": "B",
+      "analysis": "依据6.2节'Prefill决定TTFT'及6.6节'KV Cache随序列长度×并发线性增长'，但本题KV Cache占用率仅30%，排除显存瓶颈；GPU利用率正常，排除算力瓶颈；无429说明未超并发限。此时TTFT异常升高最可能源于Prefill阶段计算量暴增——即单次请求prompt过长，超出模型最大上下文（max_model_len），触发vLLM内部截断重试或fallback逻辑（教材6.5节提及'限制最大序列长度'是缓解手段，反向印证超长prompt会劣化TTFT）。A项属启动配置验证，非故障根因；C项若发生会导致服务无法启动，而非TTFT突升；D项属负载均衡层问题，与单请求TTFT无直接因果。教材6.2节明确'长prompt会让等很久才开口（Prefill变慢）'，直接支持B。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 0,
+      "stem": "压测发现vLLM服务并发从16增至32时，QPS仅升12%，RT翻倍且429错误率达8%。此时最应优先执行的操作是？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "立即扩容GPU实例数量并挂载SLB"
+        },
+        {
+          "option_label": "B",
+          "option_text": "通过wrk压测确定当前最优并发阈值，并配置对应限流"
+        },
+        {
+          "option_label": "C",
+          "option_text": "将模型从FP16量化为INT4以降低单请求显存"
+        },
+        {
+          "option_label": "D",
+          "option_text": "启用PagedAttention并增大--block-size参数"
+        }
+      ],
+      "answer": "B",
+      "analysis": "依据6.3节'风险'框：'并发过高已超过服务处理能力'导致RT飙升和超时；教材明确'必须通过压测确定最优并发阈值'，且'超出并发限制通常直接返回429错误'。此时盲目扩容（A）或调参（D）未解决根本问题——系统已过载，需先科学定位容量边界。C项虽能降显存，但当前429主因是调度超载而非显存不足（否则KV Cache占用率会爆表，但题干未提）。B项直指教材核心方法论：'压测确定最优并发阈值+限流'，是生产环境标准SRE实践，6.3节Little定律与'高频误区'均强调此逻辑。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 1,
+      "stem": "某企业需将自研Qwen3-0.6B蒸馏模型部署为实时客服接口，要求：①数据不出域；②P95 TTFT<1.2s；③支持灰度发布与秒级回滚；④运维团队具备vLLM调优能力但无专职SRE。若选择GPU ECS自建方案，则必须额外自行实现而PAI-EAS原生支持的关键能力有哪些？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "模型预热（服务上线前加载模型至GPU）"
+        },
+        {
+          "option_label": "B",
+          "option_text": "蓝绿/灰度发布与一键版本回滚"
+        },
+        {
+          "option_label": "C",
+          "option_text": "基于GPU利用率的自动弹性伸缩（ESS）"
+        },
+        {
+          "option_label": "D",
+          "option_text": "OpenAI兼容API接口（/v1/chat/completions）"
+        }
+      ],
+      "answer": "AB",
+      "analysis": "依据6.10.2节PAI-EAS定义：'提供模型预热，服务上线前就把模型加载好'（A正确）；'支持蓝绿部署、版本控制、回滚'（B正确）。C项：ECS可结合ESS实现弹性，但ESS是云平台通用服务，非EAS原生能力；教材6.9节指出ECS需'结合弹性伸缩ESS'，说明需用户配置，非EAS内置。D项：vLLM原生提供OpenAI兼容接口（6.5节命令示例），ECS+vLLM天然支持，非EAS独有。教材6.7节对比表明确EAS优势在于'模型预热、蓝绿/灰度、版本控制'，而ECS优势在于'完全掌控'，故AB是ECS必须自建而EAS原生提供的核心企业级能力。",
+      "difficulty_label": "挑战"
+    },
+    {
+      "type": 1,
+      "stem": "函数计算FC部署AI助手时，工作日早9点首次调用延迟达3.2s，夜间低峰后再次调用仍重现该现象。监控显示冷启动期间GPU显存占用从0%突增至85%，模型加载耗时占总延迟70%。依据教材，以下哪些分析与应对符合原文逻辑？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "根本原因是FC无流量时回收实例，新请求需重新拉起实例并加载模型"
+        },
+        {
+          "option_label": "B",
+          "option_text": "应配置预留实例（Provisioned Concurrency）使实例常驻，消除冷启动"
+        },
+        {
+          "option_label": "C",
+          "option_text": "可改用PAI-EAS的模型预热功能，因EAS不产生冷启动"
+        },
+        {
+          "option_label": "D",
+          "option_text": "应优化模型加载逻辑，如使用内存映射减少IO延迟"
+        }
+      ],
+      "answer": "AB",
+      "analysis": "依据6.7节'为什么会有冷启动？'：'Serverless为了省成本，无流量时会回收实例；请求突然到来需要重新拉起实例、加载模型，导致首个请求明显变慢'（A正确）。6.10.1节'风险'明确'可通过预留实例/预热缓解'（B正确）。C项错误：EAS虽提供模型预热，但其本质仍是'服务上线前加载'，若服务重启或实例漂移仍可能有短暂延迟，且教材未称EAS'不产生冷启动'；更重要的是，题干场景是FC，切换方案不符合'应对'要求。D项属工程优化，但教材6.10.1节将冷启动归因为'实例回收+模型加载'这一Serverless架构特性，而非加载逻辑缺陷，故非教材推荐的根治路径。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 0,
+      "stem": "某团队在vLLM中启用PagedAttention后，长上下文（64K tokens）请求的并发数从3提升至8，但单请求TTFT未改善。以下哪项是PagedAttention机制本身无法直接优化的根本原因？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "PagedAttention仅管理KV Cache显存分配，不改变Prefill阶段的计算复杂度"
+        },
+        {
+          "option_label": "B",
+          "option_text": "64K tokens已超出GPU显存总量，PagedAttention无法突破物理限制"
+        },
+        {
+          "option_label": "C",
+          "option_text": "vLLM未启用连续批处理，导致GPU计算单元空转"
+        },
+        {
+          "option_label": "D",
+          "option_text": "模型权重未量化，Prefill阶段仍需读取大量FP16参数"
+        }
+      ],
+      "answer": "A",
+      "analysis": "依据6.5节'PagedAttention'定义：'借鉴操作系统分页思想，把KV Cache切成块...解决KV Cache的显存碎片与预分配浪费'，其作用对象明确限定为KV Cache（Decode阶段产物）。而TTFT由Prefill阶段决定（6.2节），Prefill是'并行处理输入prompt'的计算密集型过程，与KV Cache无关。教材6.5节'exam'明确'PagedAttention解决KV Cache显存碎片'，未提及其影响Prefill。B项错误：并发从3→8提升证明显存未超限；C项属连续批处理范畴，与PagedAttention无关；D项中权重读取影响Prefill，但PagedAttention本就不作用于权重，故A是唯一准确描述其能力边界的选项，且直接呼应6.2节'Prefill/Decode分离'这一根本原理。",
+      "difficulty_label": "挑战"
+    }
+  ]
+}

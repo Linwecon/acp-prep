@@ -1,0 +1,37 @@
+{
+  "10-1208": {
+    "qid": "10-1208",
+    "classification": "own",
+    "chapter": 8,
+    "quality": "ok",
+    "reason": "考查音频审核返回字段，原文明确自定义词库命中标签为customized",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "自定义词库命中时标签为 `customized`，用于拦截企业私域敏感词。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "原文明确自定义词库命中标签为customized"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "RiskLevel是风险等级字段，非自定义标签"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "Description是描述字段，非标签字段"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "Confidence是置信度字段，非标签字段"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

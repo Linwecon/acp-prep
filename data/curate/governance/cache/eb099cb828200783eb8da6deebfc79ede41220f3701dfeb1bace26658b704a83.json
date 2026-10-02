@@ -1,0 +1,178 @@
+{
+  "new-12-18-0": {
+    "qid": "new-12-18-0",
+    "classification": "own",
+    "chapter": 12,
+    "quality": "ok",
+    "reason": "考查框架价值，题干与原文场景一致，选项清晰",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "框架的本质价值是'把大模型应用中反复出现的工程模式抽象成可组合的组件'",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "未提及LCEL缺失是根本原因"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "原文指出缺乏对共性工程模式抽象导致困境"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "模型选择非根本原因，qwen-plus支持"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "Dify非根本原因，是可选方案"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-12-18-1": {
+    "qid": "new-12-18-1",
+    "classification": "own",
+    "chapter": 12,
+    "quality": "ok",
+    "reason": "考查LangChain与LlamaIndex组合选型，符合原文推荐",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "LlamaIndex 负责'数据层'...LangChain / LangGraph 负责'编排层'",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "仅用LangChain非最佳，RAG非其最强项"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "仅用LlamaIndex非最佳，复杂Agent生态弱"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "符合原文推荐组合，各司其职"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "AgentScope非此场景首选，侧重多Agent协作"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-12-18-2": {
+    "qid": "new-12-18-2",
+    "classification": "own",
+    "chapter": 12,
+    "quality": "ok",
+    "reason": "考查文档解析选型，题干与原文案例匹配",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "文档是扫描件、截图、复杂表格、图文混排 PDF → 上 DashScopeParse（OCR + 版面结构化）",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "后处理无法解决解析阶段表格结构丢失"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "复杂表格需OCR与版面结构化解析"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "Rerank无法修复已丢失的表格结构"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "调整切片参数无法解决解析问题"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-12-18-4": {
+    "qid": "new-12-18-4",
+    "classification": "own",
+    "chapter": 12,
+    "quality": "fixable",
+    "reason": "考查LCEL流式原理，但选项C/D原文无直接证据",
+    "answer": [
+      "B"
+    ],
+    "supported": false,
+    "quote": "所有实现了 Runnable 协议的组件都天然支持流式、异步、批处理、并行和回调",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "Tongyi模型支持流式，无需更换"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "若解析器未实现streaming接口，可能导致问题"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "原文未提及特殊字符导致乱序"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "CallbackHandler用于追踪，非乱序根本原因"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-12-18-5": {
+    "qid": "new-12-18-5",
+    "classification": "own",
+    "chapter": 12,
+    "quality": "ok",
+    "reason": "考查context_str与query_str互换后果，原文明确",
+    "answer": [
+      "A",
+      "C"
+    ],
+    "supported": true,
+    "quote": "写反会导致模型'把问题当资料、把资料当问题'，几乎必然答非所问或编造",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "互换后问题被当作上下文"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "向量查询不受提示词字段互换影响"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "导致回答偏离意图并虚构细节"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "context_precision可能降低而非升高"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

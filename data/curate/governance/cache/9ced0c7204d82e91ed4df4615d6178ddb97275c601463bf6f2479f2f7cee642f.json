@@ -1,0 +1,240 @@
+{
+  "5-0874": {
+    "qid": "5-0874",
+    "classification": "cross",
+    "chapter": 6,
+    "quality": "ok",
+    "reason": "题目考查部署阶段的吞吐量影响因素，属于模型部署与推理优化范畴。",
+    "answer": [
+      "A"
+    ],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "增加批量大小通常能提升吞吐量。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "自回归解码是默认方式，不直接提升吞吐量。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "提高最大长度会增加单次请求耗时，可能降低吞吐量。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "更高浮点精度会增加计算和显存开销，降低吞吐量。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "5-0887": {
+    "qid": "5-0887",
+    "classification": "own",
+    "chapter": 5,
+    "quality": "ok",
+    "reason": "题目考查影响微调效果的因素，与本章知识点高度相关。",
+    "answer": [
+      "A",
+      "B",
+      "C",
+      "D",
+      "E"
+    ],
+    "supported": true,
+    "quote": "数据质量从四个维度把关，其重要性远高于数量：正确性、多样性、一致性、无重复。训练时验证 loss 先降后升 = 过拟合的铁证。LoRA 是参数高效微调（PEFT）中最主流的一种。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "数据质量是微调效果的关键。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "数据数量需覆盖核心场景。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "超参数设置直接影响训练过程。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "微调方法选择影响资源与效果。"
+      },
+      {
+        "label": "E",
+        "selected": true,
+        "why": "基础模型能力是微调的上限。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "5-0888": {
+    "qid": "5-0888",
+    "classification": "own",
+    "chapter": 5,
+    "quality": "ok",
+    "reason": "题目考查提升微调效果的具体做法，符合本章内容。",
+    "answer": [
+      "A",
+      "B",
+      "C",
+      "D"
+    ],
+    "supported": true,
+    "quote": "数据质量从四个维度把关：正确性、多样性、一致性、无重复。LoRA 训练快、显存省，效果常接近全参。训练/验证/测试三者必须相互独立。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "数据清洗提升质量，避免学习噪声。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "LoRA可减少资源消耗，缓解过拟合。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "划分数据集并监控可防止过拟合。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "选择匹配的基础模型效果更好。"
+      },
+      {
+        "label": "E",
+        "selected": false,
+        "why": "过大的学习率可能导致训练不稳定。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "5-0978": {
+    "qid": "5-0978",
+    "classification": "own",
+    "chapter": 5,
+    "quality": "ok",
+    "reason": "题目考查学习率设置的知识点，属于微调训练过程。",
+    "answer": [
+      "D"
+    ],
+    "supported": true,
+    "quote": "学习率的直观理解：在损失函数的‘山坡’上往下走，步长太大会在谷底反复横跳、越不过最低点；步长太小则磨磨蹭蹭、浪费算力。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "正确，学习率过大会导致不稳定。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "正确，学习率过小会导致训练慢。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "正确，学习率需根据情况调整。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "错误，学习率通常需要动态调整。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "5-0985": {
+    "qid": "5-0985",
+    "classification": "cross",
+    "chapter": 6,
+    "quality": "ok",
+    "reason": "题目考查优化大模型响应速度的方法，属于部署与推理优化。",
+    "answer": [
+      "A",
+      "B",
+      "C",
+      "D",
+      "E"
+    ],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "模型量化可减少计算量，提升速度。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "缓存可避免重复计算，提升响应。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "优化提示词长度可减少处理时间。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "贪婪搜索比采样解码更快。"
+      },
+      {
+        "label": "E",
+        "selected": true,
+        "why": "增加批处理大小可提升吞吐量。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "5-1000": {
+    "qid": "5-1000",
+    "classification": "own",
+    "chapter": 5,
+    "quality": "ok",
+    "reason": "题目考查batch size对训练的影响，属于微调训练过程。",
+    "answer": [
+      "A",
+      "C",
+      "D"
+    ],
+    "supported": true,
+    "quote": "Batch Size：每次更新用的样本数。大 → 梯度稳、显存高、通常需配套调大 lr；小 → 梯度噪声大。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "较大的batch size有助于稳定梯度，充分学习。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "较大的batch size通常有助于泛化，而非下降。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "较大的batch size可加速训练过程。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "较大的batch size会消耗更多GPU显存。"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

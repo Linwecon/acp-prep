@@ -1,0 +1,226 @@
+{
+  "9-1165": {
+    "qid": "9-1165",
+    "classification": "own",
+    "chapter": 9,
+    "quality": "ok",
+    "reason": "四选项均符合流式核心价值：降低TTFT、实时感知、分段处理、防超时。",
+    "answer": [
+      "A",
+      "B",
+      "C",
+      "E"
+    ],
+    "supported": true,
+    "quote": "在线对话、聊天机器人等面向用户的场景默认开启流式，显著降低 TTFT、提升体感速度",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "实时聊天需低TTFT，流式可边生成边返回"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "逐Token返回便于实时监控干预"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "初步结果即首Token，后续持续补充"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "单次简单任务无需流式，同步更高效"
+      },
+      {
+        "label": "E",
+        "selected": true,
+        "why": "长文本逐步返回可避免连接超时"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "9-1362": {
+    "qid": "9-1362",
+    "classification": "own",
+    "chapter": 9,
+    "quality": "ok",
+    "reason": "B正确描述流式本质；A错在不减少总时间；C、D无原文依据。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "流式输出（Streaming）是指模型每生成一个或几个 Token，就立刻通过 HTTP 长连接推送给客户端",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "流式不改变总生成时间"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "按token逐段返回提升体验"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "原文未限定仅支持文本"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "原文明确需显式设stream=True"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "9-1377": {
+    "qid": "9-1377",
+    "classification": "own",
+    "chapter": 9,
+    "quality": "ok",
+    "reason": "api_key和base_url是OpenAI兼容调用必需；model_name在create时传入；timeout非必需。",
+    "answer": [
+      "A",
+      "B"
+    ],
+    "supported": true,
+    "quote": "client = OpenAI(api_key=os.getenv(\"DASHSCOPE_API_KEY\"), base_url=\"https://dashscope.aliyuncs.com/compatible-mode/v1\")",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "鉴权必需字段"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "指定阿里云兼容接口地址"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "model在create方法中传入"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "timeout为可选参数"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "9-1381": {
+    "qid": "9-1381",
+    "classification": "own",
+    "chapter": 9,
+    "quality": "ok",
+    "reason": "name、description、parameters均为JSON Schema定义工具的必需字段；api_version未提及。",
+    "answer": [
+      "A",
+      "B",
+      "D"
+    ],
+    "supported": true,
+    "quote": "每个工具用 JSON Schema 描述 `name`、`description`、`parameters`",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "Schema中name为必需字段"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "Schema中description为必需字段"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "原文未提api_version字段"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "Schema中parameters为必需字段"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "9-1384": {
+    "qid": "9-1384",
+    "classification": "own",
+    "chapter": 9,
+    "quality": "ok",
+    "reason": "temperature直接控制随机性与创新性；max_tokens控长度；top_p为辅助；stop控截断。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "temperature 控制随机性，越高越发散",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "max_tokens控制长度非创新性"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "temperature直接调节创新性"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "top_p是辅助采样参数"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "stop用于截断非创新性控制"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "9-1385": {
+    "qid": "9-1385",
+    "classification": "own",
+    "chapter": 9,
+    "quality": "ok",
+    "reason": "ABCD均为API调用失败的合理排查点，覆盖鉴权、参数、网络、服务状态。",
+    "answer": [
+      "A",
+      "B",
+      "C",
+      "D"
+    ],
+    "supported": true,
+    "quote": "一次调用在服务端要走完五关，任何一关出问题都会反映为错误码",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "对应鉴权关"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "对应请求参数关"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "对应客户端网络关"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "对应服务端可用性关"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

@@ -1,0 +1,217 @@
+{
+  "3-0556": {
+    "qid": "3-0556",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "remove",
+    "reason": "题干考查“内存向量存储的特点”，但本章原文未提及任何关于内存向量存储的具体特点描述，无法从资料中确定答案。",
+    "answer": [],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "原文未提及内存向量存储是否功能完整。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "原文未提及内存向量存储是否可控性强。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "原文未提及内存向量存储是否需要额外配置。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "原文未提及内存向量存储是否自动扩容。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-0557": {
+    "qid": "3-0557",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "题干考查文档类型不统一时的改进策略，属于文档解析与切片阶段的问题，与本章内容相关。",
+    "answer": [
+      "A",
+      "B"
+    ],
+    "supported": true,
+    "quote": "文档解析（Document Parsing）是把 PDF、Word、Markdown、网页等格式的文档，加载并转换为大模型可读文本的过程。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "开发对应格式的解析器是处理不同文档类型的直接手段。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "转换文档格式（如转为Markdown）是保留结构信息的常见策略。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "增加模型训练数据与文档解析阶段的改进无关。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "减少模型推理时间与文档解析阶段的改进无关。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-0560": {
+    "qid": "3-0560",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "题干考查建立索引阶段的主要步骤，与本章“离线建库”阶段内容完全对应。",
+    "answer": [
+      "A",
+      "B",
+      "C",
+      "D"
+    ],
+    "supported": true,
+    "quote": "第一阶段：离线建库（Indexing，一次做好、多次复用）1. 文档解析；2. 文本切片（Chunking）；3. 向量化；4. 入库。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "文档解析是建库第一步。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "文本分段（切片）是建库第二步。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "文本向量化是建库第三步。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "存储索引（入库）是建库第四步。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-0561": {
+    "qid": "3-0561",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "题干考查检索生成阶段中检索阶段的主要步骤，与本章“在线问答”阶段内容对应。",
+    "answer": [
+      "A",
+      "B",
+      "C"
+    ],
+    "supported": true,
+    "quote": "在线问答（Retrieval & Generation）...2. 把问题也向量化；3. 在向量库中检索与问题向量最相似的 Top K 个 chunk；4. 用 Rerank 模型对候选重新精排、过滤。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "对问题进行文本向量化是检索的必要步骤。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "与向量数据库中的段落进行语义相似度比较是检索的核心。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "召回最相关的文本段是检索的目的。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "生成最终回答属于生成阶段，不是检索阶段。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-0562": {
+    "qid": "3-0562",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "题干考查创建RAG应用的必要步骤，与本章“离线建库”阶段内容完全对应。",
+    "answer": [
+      "A",
+      "B",
+      "C",
+      "D"
+    ],
+    "supported": true,
+    "quote": "第一阶段：离线建库（Indexing，一次做好、多次复用）1. 文档解析；2. 文本切片（Chunking）；3. 向量化；4. 入库。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "文档解析是必要步骤。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "文本分段（切片）是必要步骤。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "文本向量化是必要步骤。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "存储索引是必要步骤。"
+      }
+    ],
+    "duplicate_of": "3-0560"
+  },
+  "3-0564": {
+    "qid": "3-0564",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "remove",
+    "reason": "题干问“影响构建RAG应用速度的因素”，但选项A、B是主观业务考量，C、D是技术因素但原文未讨论构建速度的具体影响因素，无法从资料中确定答案。",
+    "answer": [],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "原文未讨论业务机会捕捉速度对构建速度的影响。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "原文未讨论时间投入对构建速度的影响。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "原文未讨论模型训练速度对RAG构建速度的影响。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "原文未讨论数据存储需求对构建速度的影响。"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

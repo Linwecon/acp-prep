@@ -1,0 +1,212 @@
+{
+  "7-0072": {
+    "qid": "7-0072",
+    "classification": "own",
+    "chapter": 7,
+    "quality": "ok",
+    "reason": "考查Context Recall优化方法，原文明确列出查询改写",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "Recall 低 → 补充/检查知识库、换更强 Embedding、做查询改写、调大 Top K",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "原文明确将查询改写列为Recall优化方法"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "训练数据影响知识截止，不提升Recall"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "推理时间与召回准确率无关"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "参数数量不直接决定检索召回能力"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "7-0090": {
+    "qid": "7-0090",
+    "classification": "own",
+    "chapter": 7,
+    "quality": "ok",
+    "reason": "考查Context Recall定义，原文明确定义为检索端指标",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "Context Recall | 检索端 | 标准答案需要的信息，有多少被检索到了（找得全不全）",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "原文定义Recall为检索端指标"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "Correctness衡量生成答案准确度"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "训练数据与Recall无直接关系"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "推理时间不影响Recall计算"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "7-0092": {
+    "qid": "7-0092",
+    "classification": "own",
+    "chapter": 7,
+    "quality": "ok",
+    "reason": "考查Answer Correctness优化方法，原文指出调参是生成端优化方向",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "Correctness 低、其余高 → 优化提示词、调生成超参、换更强模型，必要时才微调",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "原文明确将调参列为Correctness优化方法"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "训练数据不改变知识截止时间"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "推理时间与答案准确度无因果关系"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "参数数量非Correctness直接优化手段"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "7-0100": {
+    "qid": "7-0100",
+    "classification": "own",
+    "chapter": 7,
+    "quality": "ok",
+    "reason": "考查Faithfulness定义，原文明确定义其衡量事实一致性",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "Faithfulness（忠实度） | 生成端 | 答案是否忠于检索资料，有没有脱离资料编造（幻觉）",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "原文定义Faithfulness为事实一致性"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "Relevancy衡量是否切题而非事实一致"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "Precision衡量检索相关性排序"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "Recall衡量检索覆盖度"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "7-0122": {
+    "qid": "7-0122",
+    "classification": "own",
+    "chapter": 7,
+    "quality": "ok",
+    "reason": "考查Answer Correctness构成，原文明确事实准确度为组成部分",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "事实准确度（F1）：LLM 把 answer 和 ground_truth 各自分解为观点列表；比对后归入三类：TP/FP/FN",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "原文明确事实准确度为F1计算"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "语义相似度是另一组成部分"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "训练数据与Correctness计算无关"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "推理时间不参与Correctness计算"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "7-0150": {
+    "qid": "7-0150",
+    "classification": "own",
+    "chapter": 7,
+    "quality": "ok",
+    "reason": "考查Context Precision计算步骤，原文明确要求顺序判断相关性",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "按顺序读取 `contexts` 中的每个片段，依据 question 与 ground_truth 判断它是否相关（相关=1，否则=0）",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "原文明确要求顺序判断相关性"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "训练数据不参与Precision计算"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "推理时间非Precision计算要素"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "参数数量不影响Precision计算步骤"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

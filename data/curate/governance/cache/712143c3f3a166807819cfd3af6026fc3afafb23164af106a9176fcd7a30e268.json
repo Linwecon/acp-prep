@@ -1,0 +1,218 @@
+{
+  "10-1459": {
+    "qid": "10-1459",
+    "classification": "cross",
+    "chapter": -1,
+    "quality": "remove",
+    "reason": "题干未提供任何阿里云平台具体信息，考点是通用文本分类，与第10章无关。",
+    "answer": [],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "未处理敏感问题，不符合要求。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "是通用文本分类方案，但题干未提及阿里云平台。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "让模型学习回避，效果不可控。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "禁止用户输入，不现实且体验差。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "10-0769": {
+    "qid": "10-0769",
+    "classification": "own",
+    "chapter": 10,
+    "quality": "ok",
+    "reason": "题目明确要求PAI平台功能，考查EAS部署与弹性扩展。",
+    "answer": [
+      "A",
+      "B",
+      "D"
+    ],
+    "supported": true,
+    "quote": "PAI-EAS（弹性计算服务，模型部署）...PAI-EAS 的自动扩缩容功能...PAI-EAS 的性能监控与告警功能",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "EAS容器化部署是支持高并发的基础。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "自动扩缩容满足资源弹性扩展要求。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "模型微调功能不直接解决部署性能问题。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "监控告警是保障高可用性的关键。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "10-0820": {
+    "qid": "10-0820",
+    "classification": "cross",
+    "chapter": 2,
+    "quality": "ok",
+    "reason": "考查提示词工程，要求具体、清晰、结构化。",
+    "answer": [
+      "B"
+    ],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "指令过于模糊，未指定格式。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "指令最具体，明确了目标格式和元素。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "指令模糊，未指定Marp格式。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "指令错误，未指定Markdown格式。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "10-0861": {
+    "qid": "10-0861",
+    "classification": "own",
+    "chapter": 10,
+    "quality": "ok",
+    "reason": "考查对阿里云大模型生态核心产品的认知。",
+    "answer": [
+      "A",
+      "B",
+      "C",
+      "E"
+    ],
+    "supported": true,
+    "quote": "通义千问（基础大模型）...PAI-EAS（弹性计算服务，模型部署）...PAI-Studio（模型开发与微调平台）...阿里云 OSS（对象存储服务，存储模型与数据）",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "通义千问是核心基础模型。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "PAI-EAS是模型部署核心服务。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "PAI-Studio是开发与微调平台。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "向量数据库是可选组件，非核心产品。"
+      },
+      {
+        "label": "E",
+        "selected": true,
+        "why": "OSS是存储模型与数据的核心服务。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "10-1054": {
+    "qid": "10-1054",
+    "classification": "cross",
+    "chapter": 2,
+    "quality": "ok",
+    "reason": "考查提示词工程，要求任务描述清晰具体。",
+    "answer": [
+      "B"
+    ],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "请求较模糊，仅附加示例不够。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "请求最详细，明确了课程内容和结构。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "拆分多条请求效率低，缺乏整体性。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "请求过于模糊，无法生成有效脚本。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "10-1125": {
+    "qid": "10-1125",
+    "classification": "own",
+    "chapter": -1,
+    "quality": "remove",
+    "reason": "题干提及百炼平台，但选项C的enable_search参数教材未提及，无法判断。",
+    "answer": [],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "预设话术无法动态获取天气信息。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "方案复杂，非快速解决之道。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "enable_search参数教材未提及，无法确认。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "限制用户输入，体验差且非解决根本。"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

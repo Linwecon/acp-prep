@@ -1,0 +1,216 @@
+{
+  "new-10-0-0": {
+    "qid": "new-10-0-0",
+    "classification": "own",
+    "chapter": 10,
+    "quality": "ok",
+    "reason": "场景题考查平台选型，约束明确，符合教材分层定位与选型逻辑。",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "数据绝对不可出域；团队无GPU运维能力但有1名算法工程师。开源版可私有化/数据不出域但要自担GPU运维；PAI面向模型训练与推理部署，使用者偏算法/ML工程。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "百炼数据托管，不符合‘数据绝对不可出域’要求。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "DashScope API调用数据需上送，违反数据不出域约束。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "开源模型+PAI部署满足数据不出域，有算法工程师可操作。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "自研RAG服务运维复杂，与‘无GPU运维能力’冲突。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-10-0-1": {
+    "qid": "new-10-0-1",
+    "classification": "own",
+    "chapter": 10,
+    "quality": "ok",
+    "reason": "考查成本优化措施，结合具体场景，符合教材计费与选型要点。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "所有请求均强制使用qwen-max并设置max_tokens=4096。省成本的工程手段：选对模型尺寸，简单任务用turbo/小模型；控制输入，RAG只塞最相关的片段。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "提升配额不解决模型选错和输入过长根本问题。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "预处理减少输入Token，换用更经济的模型，直接降本。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "qwen-long单价可能更高，且未解决输入冗余问题。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "部署蒸馏模型是规模化后手段，非最根本优化。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-10-0-2": {
+    "qid": "new-10-0-2",
+    "classification": "own",
+    "chapter": 10,
+    "quality": "ok",
+    "reason": "多选题考查RAG与平台集成实践，选项覆盖不同方案，符合教材。",
+    "answer": [
+      "A",
+      "B",
+      "C"
+    ],
+    "supported": true,
+    "quote": "百炼知识库上传PDF，配置自定义元数据字段；PAI-DSW中开发PDF解析+条款分类模型，训练后部署至EAS；DashScope原生SDK调用qwen-long进行全文理解，结合TextReRank对条款匹配度排序。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "百炼知识库支持上传PDF和元数据，API可嵌入Java应用。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "PAI-DSW开发训练，EAS部署，Java调用，符合训练部署流程。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "DashScope原生SDK调用qwen-long和TextReRank，符合长文档和重排序实践。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "qwen-plus非长文本最优选，切片分批请求效率低。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-10-0-3": {
+    "qid": "new-10-0-3",
+    "classification": "own",
+    "chapter": 10,
+    "quality": "ok",
+    "reason": "考查OpenAI兼容模式的实际应用与问题处理，符合教材价值主张。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "DashScope兼容模式返回的response对象结构与OpenAI略有差异。OpenAI兼容模式的价值：存量应用迁移成本极低、生态工具可直接复用。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "放弃兼容模式违背最小化代码改动的迁移要求。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "增加条件判断兼容差异，是保持兼容性并最小改动的合理策略。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "改用非流式接口可能影响用户体验，非最优。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "将差异处理推给前端，不符合后端迁移最小化改动的原则。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-10-0-4": {
+    "qid": "new-10-0-4",
+    "classification": "own",
+    "chapter": 10,
+    "quality": "ok",
+    "reason": "多选题考查开源模型选型考量因素，选项覆盖教材关键点。",
+    "answer": [
+      "A",
+      "B",
+      "C"
+    ],
+    "supported": true,
+    "quote": "开源模型的价值集中在三点：① 数据隐私与合规（数据不出域）；② 可深度定制；③ 大规模稳定流量下的长期成本可控。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "数据不出本地机房是选择开源模型部署的核心合规因素。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "具备相关工程师经验是成功实施开源模型部署的必要条件。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "大规模稳定调用下，自托管可能比API调用更经济。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "快速上线MVP更倾向于使用托管API，而非自部署开源模型。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-10-0-5": {
+    "qid": "new-10-0-5",
+    "classification": "own",
+    "chapter": 10,
+    "quality": "ok",
+    "reason": "考查PAI-DSW成本管理实操，符合教材关于实例停止的提醒。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "PAI-DSW实例按‘计算时’计费，关闭浏览器不等于停止实例，不学了必须回控制台停止或删除。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "在Notebook中执行命令无法保证实例计费停止。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "在控制台停止实例是直接有效的止损操作。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "提交工单退款非直接有效操作，且不一定成功。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "修改策略适用于未来预防，不能止损已产生的费用。"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

@@ -1,0 +1,154 @@
+{
+  "items": [
+    {
+      "type": 0,
+      "stem": "某团队将Qwen3-0.6B模型部署于vLLM，压测发现：当并发从16增至32时，QPS仅提升12%，平均RT翻倍，429错误率升至8%。此时若仅调高--max-num-seqs参数而不做其他调整，最可能产生的效果是？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "QPS进一步小幅提升，但RT持续恶化、429错误率显著上升"
+        },
+        {
+          "option_label": "B",
+          "option_text": "TTFT明显降低，因Prefill阶段计算资源更充裕"
+        },
+        {
+          "option_label": "C",
+          "option_text": "KV Cache利用率下降，因PagedAttention自动释放闲置块"
+        },
+        {
+          "option_label": "D",
+          "option_text": "TPOT改善，因连续批处理使GPU解码效率提升"
+        }
+      ],
+      "answer": "A",
+      "analysis": "依据6.3节‘风险’与6.5节原理：超并发导致显存（尤其KV Cache）和算力超限，请求排队加剧→RT飙升→触发限流返回429；单纯提高--max-num-seqs（即允许更高并发请求数）会进一步加剧资源争抢，而非缓解瓶颈。教材明确指出‘超出并发上限通常直接返回错误（如429），而非排队慢慢处理’（6.3风险），且‘并发越高吞吐越高’是高频误区，超阈值后RT劣化、错误率上升（6.3风险）。选项B错误：TTFT由Prefill计算决定，受prompt长度和GPU算力制约，与并发数无正向关联；C错误：PagedAttention优化的是分配效率，不降低总占用，反而更高并发会推高KV Cache总量；D错误：TPOT取决于Decode带宽与KV读取效率，超并发下显存带宽饱和，TPOT必然劣化。故A是唯一符合教材SLO权衡逻辑的结论。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 0,
+      "stem": "在诊断一个突然出现高TTFT（>8s）的线上vLLM服务时，监控显示GPU利用率正常、KV Cache占用率仅30%、无429错误。此时最应优先检查的日志线索是？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "Prefill阶段CUDA kernel launch耗时日志，定位是否因长prompt触发显存重分配"
+        },
+        {
+          "option_label": "B",
+          "option_text": "Decode阶段KV Cache block miss率，判断前缀缓存命中失效"
+        },
+        {
+          "option_label": "C",
+          "option_text": "请求队列等待时间（queue_time）指标，确认是否存在调度层阻塞"
+        },
+        {
+          "option_label": "D",
+          "option_text": "模型权重加载日志，排查是否因冷启动或路径错误导致首次推理延迟"
+        }
+      ],
+      "answer": "C",
+      "analysis": "依据6.3节指标定义与6.5节vLLM调度机制：TTFT = 排队时长 + Prefill耗时（6.3表），而题干中GPU利用率正常、KV Cache占用低、无429，说明硬件资源未饱和，瓶颈不在计算或显存，而在请求入队到开始Prefill之间的环节。教材强调‘TTFT受排队时长影响’（6.3表），且vLLM连续批处理依赖调度器动态分发请求，若调度队列积压（如SLB后端实例健康异常、ESS扩容延迟、或vLLM自身调度线程阻塞），会导致请求在队列中长时间等待，直接抬升TTFT。选项A错误：长prompt影响Prefill计算量，但GPU利用率正常说明计算未成为瓶颈；B错误：KV Cache miss影响Decode阶段，与TTFT无关；D错误：冷启动影响首个请求，但题干描述为‘突然出现’且无上下文提示首次调用，且vLLM常驻服务无冷启动。故C是唯一紧扣TTFT构成要素（排队时长）且符合故障分层诊断逻辑的选项。",
+      "difficulty_label": "挑战"
+    },
+    {
+      "type": 1,
+      "stem": "某金融企业需上线内部合规问答机器人，要求：①全部业务数据严禁出域；②日均稳定请求2000+，P95 TTFT需<1.2s；③支持灰度发布与秒级故障回滚。运维团队具备GPU调优能力，但无专职SRE。以下部署方案中，哪些完全满足全部约束？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "PAI-EAS部署，配置GPU资源组、蓝绿发布策略与模型预热"
+        },
+        {
+          "option_label": "B",
+          "option_text": "ECS自建vLLM服务，搭配SLB负载均衡与ESS弹性伸缩"
+        },
+        {
+          "option_label": "C",
+          "option_text": "函数计算FC部署，启用预留实例与HTTP触发器"
+        },
+        {
+          "option_label": "D",
+          "option_text": "百炼MaaS私有化部署（本地版）"
+        }
+      ],
+      "answer": "AB",
+      "analysis": "依据6.12四步决策法与各方案边界：①数据不出域→排除公有云MaaS（百炼标准版）、FC（数据经阿里云平台）；D选项‘百炼私有化版’虽满足数据不出域，但教材未提及该形态，且6.7表明确百炼定位为‘全托管模型服务，调API即可’，其私有化版本不属于本章考查范围，故D无教材依据；②P95 TTFT<1.2s→要求无冷启动、低延迟确定性，FC存在冷启动（6.7/6.10.1），即使预留实例也难保P95达标，故C排除；③灰度与秒级回滚→PAI-EAS原生支持蓝绿/灰度/版本控制（6.10.2），ECS自建可通过CI/CD+SLB权重切换+镜像版本管理实现（6.9架构），均满足；A选项：PAI-EAS满足数据不出域（私有部署场景）、无冷启动（模型预热）、灰度回滚（6.10.2），教材明确其适用于‘私有模型实时在线推理’；B选项：ECS自建完全可控，可深度调优vLLM保障TTFT，搭配SLB+ESS实现高可用与弹性（6.9），且数据不出域；C选项：FC冷启动无法满足TTFT硬性要求（6.10.1风险）；D选项：教材未定义‘百炼私有化版’，且百炼标准版明确要求数据出域（6.7/6.8），故无依据。因此AB为唯二符合全部三约束且有教材支撑的选项。",
+      "difficulty_label": "挑战"
+    },
+    {
+      "type": 0,
+      "stem": "当使用函数计算FC部署AI助手时，观察到首次请求耗时显著高于后续请求，且日志显示模型加载耗时占总延迟70%。此时最符合教材建议的根因分析与应对路径是？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "根因是冷启动，应配置预留实例并启用模型预热，但需权衡持续资源成本"
+        },
+        {
+          "option_label": "B",
+          "option_text": "根因是模型量化不足，应改用AWQ INT4量化以加速加载"
+        },
+        {
+          "option_label": "C",
+          "option_text": "根因是Prefill计算瓶颈，应升级GPU规格提升FP16算力"
+        },
+        {
+          "option_label": "D",
+          "option_text": "根因是KV Cache碎片化，应切换至vLLM框架启用PagedAttention"
+        }
+      ],
+      "answer": "A",
+      "analysis": "依据6.7节‘为什么会有冷启动？’与6.10.1风险：教材明确定义‘Serverless为了省成本，无流量时会回收实例；请求突然到来需要重新拉起实例、加载模型，导致首个请求明显变慢’，并指出‘缓解办法是配置预留实例/预热’（6.7）。选项A完整复现教材表述，且点出‘权衡持续资源成本’呼应6.7‘这又会重新占用资源、回到近似常驻的成本’。B错误：量化影响权重体积和Decode带宽，与模型加载耗时无直接关系；C错误：Prefill是计算密集型，但题干明确‘模型加载耗时占70%’，非计算耗时；D错误：PagedAttention解决KV Cache显存碎片，与FC冷启动无关，且FC不运行vLLM。故A是唯一严格依据教材定义与建议的选项。",
+      "difficulty_label": "入门"
+    },
+    {
+      "type": 1,
+      "stem": "某团队将Qwen3-0.6B模型量化为AWQ INT4后部署于vLLM，观测到：①显存占用下降58%；②TPOT降低22%；③TTFT无明显变化；④在代码补全任务上BLEU分数下降1.3分。以下哪些结论可被教材原文直接支持？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "INT4量化能显著降低显存占用"
+        },
+        {
+          "option_label": "B",
+          "option_text": "量化通常能加速推理，因显存带宽压力减小"
+        },
+        {
+          "option_label": "C",
+          "option_text": "TTFT主要由Prefill阶段决定，与量化精度关系较小"
+        },
+        {
+          "option_label": "D",
+          "option_text": "INT4量化在敏感任务上精度损失更明显，需用业务评测集验证"
+        }
+      ],
+      "answer": "ABD",
+      "analysis": "依据6.4节量化原理与6.3节指标定义：A项对应教材‘INT4 用 4 位整数...相对 FP32 体积 1/8’及‘显存账’（6.4表），58%下降符合1/8理论值（实际含权重+部分KV优化）；B项对应‘量化通常也加速...因为Decode阶段是显存带宽密集型，从显存读权重的字节数变少了’（6.4 compare），TPOT降低22%正是带宽优化体现；D项对应‘INT4 在敏感任务上可能掉点更明显，需要用业务评测集验证’（6.4 compare），BLEU下降1.3分即业务评测验证结果；C项虽逻辑正确（TTFT由Prefill计算决定，量化主要影响权重读取带宽，Prefill计算量不变），但教材未直接论述‘TTFT与量化精度关系小’，仅说明TTFT受Prefill速度影响（6.2 principle），未建立与量化精度的因果链，属合理推断但非‘教材直接支持’。故ABD为可被原文逐字印证的结论。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 0,
+      "stem": "压测发现某vLLM服务在并发从8提升至16时，QPS仅增长15%，但平均RT飙升40%且错误率升至3%。此时若仅调整--max-num-seqs参数（最大并发请求数），最可能产生的效果是？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "服务吞吐达到理论极限，需通过横向扩容（增加ECS实例）突破瓶颈"
+        },
+        {
+          "option_label": "B",
+          "option_text": "RT进一步恶化，因更多请求挤占有限KV Cache导致Decode阶段带宽竞争加剧"
+        },
+        {
+          "option_label": "C",
+          "option_text": "TTFT显著改善，因Prefill阶段获得更高GPU计算资源配额"
+        },
+        {
+          "option_label": "D",
+          "option_text": "错误率下降，因vLLM调度器对高并发请求的限流策略更宽松"
+        }
+      ],
+      "answer": "B",
+      "analysis": "依据6.3节‘吞吐与延迟的关系’与6.5节KV Cache原理：教材指出‘延迟一旦升高，同等并发下吞吐就会下降’（6.3 concept），且‘KV Cache随序列长度×并发数线性增长’（6.5 principle），当并发翻倍而QPS仅微增、RT飙升，表明KV Cache显存带宽已达瓶颈。--max-num-seqs参数直接控制vLLM允许的最大并发请求数，调高它会使更多请求同时竞争有限的KV Cache显存带宽，加剧Decode阶段的读取冲突，导致TPOT恶化、RT进一步飙升（6.5 principle）。选项A错误：横向扩容是解决方案，但题干问‘仅调整参数’的效果；C错误：Prefill计算资源不随--max-num-seqs参数动态分配，且教材未提此机制；D错误：教材明确‘超出并发上限通常直接返回错误（如429）’（6.3风险），限流策略不会因参数调高而变宽松。故B是唯一符合教材显存瓶颈模型与参数作用的结论。",
+      "difficulty_label": "进阶"
+    }
+  ]
+}

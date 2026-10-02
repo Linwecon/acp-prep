@@ -1,0 +1,72 @@
+{
+  "new-7-0-0": {
+    "qid": "new-7-0-0",
+    "classification": "own",
+    "chapter": 7,
+    "quality": "ok",
+    "reason": "考查RAGAS指标组合定位故障能力，符合第7章核心考点。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "检索指标都好（Recall、Precision 高），但 Faithfulness / Correctness 低 → 问题在生成阶段",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "题干已确认检索返回信息正确，向量偏移不成立。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "检索指标高但生成编造，符合提示词约束不足的病根。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "Recall大幅提升，Top K过大干扰注意力非主因。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "ground_truth错误不影响模型依据正确contexts编造。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-7-0-2": {
+    "qid": "new-7-0-2",
+    "classification": "own",
+    "chapter": 7,
+    "quality": "ok",
+    "reason": "考查端到端与白盒评测分工，符合第7章Agent评测考点。",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "端到端看整体、白盒定位组件——'总分不错但某功能坏了'应加白盒评测",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "仅提阈值不解决具体组件问题，用户抱怨持续。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "长度偏见是LLM评委固有缺陷，但非仅提阈值的直接后果。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "触发正确性指标误判与提升端到端阈值无直接因果。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "白盒评测分数虚高是评测设计问题，非提阈值直接导致。"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

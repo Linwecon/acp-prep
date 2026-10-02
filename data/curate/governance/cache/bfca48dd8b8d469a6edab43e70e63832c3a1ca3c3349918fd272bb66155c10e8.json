@@ -1,0 +1,154 @@
+{
+  "items": [
+    {
+      "type": 0,
+      "stem": "某教育公司上线新人答疑机器人后，用户连续提问：'我们项目管理用什么工具？'→'那怎么申请账号？'。第二轮模型未提及Jira，仅泛泛说明通用流程。经排查，messages数组中已包含system和第一轮user/assistant消息，且总Token数远低于窗口上限。最可能的根本原因是什么？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "temperature设置过高（如1.2），导致模型忽略上下文细节"
+        },
+        {
+          "option_label": "B",
+          "option_text": "模型在推理阶段参数冻结，无法从对话中学习新知识"
+        },
+        {
+          "option_label": "C",
+          "option_text": "第二轮调用时未将第一轮assistant回复的完整文本放入messages的assistant字段"
+        },
+        {
+          "option_label": "D",
+          "option_text": "top_p=0.95扩大了候选集，使模型更倾向生成通用答案而非具体指代"
+        }
+      ],
+      "answer": "C",
+      "analysis": "依据原文1.8.2节核心原理：'大模型API是无状态的……所谓多轮对话，本质是客户端把历史消息拼进messages，每次重新发一遍'。题干明确'已包含system和第一轮user/assistant消息'，但关键在于'assistant字段内容是否完整准确'——若第二轮messages中assistant字段缺失、为空或被截断（如只存摘要而丢弃'Jira'关键词），模型便无法建立指代关系。A、D属参数影响随机性，但不会导致系统性丢失关键实体；B虽为事实（知识截止），但此处问题非'学新知识'而是'未看到已有信息'，与参数无关。教材1.8.1示例代码及1.12误区表第9条均强调：'第二轮模型忘了第一轮说过的话'的主因是'没把历史assistant消息放进messages'。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 1,
+      "stem": "某团队开发财务报告分析助手，需对营收数据执行精确计算（如'Q3同比增幅=（2024Q3-2023Q3）/2023Q3×100%'）。以下哪些措施符合原文1.2节'对症下药'原则且能根本规避计算错误？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "在system prompt中强调'必须使用计算器进行精确运算'"
+        },
+        {
+          "option_label": "B",
+          "option_text": "启用Function Calling插件，调用Python eval()执行公式计算"
+        },
+        {
+          "option_label": "C",
+          "option_text": "将temperature调至0.1并固定seed，提升数值输出稳定性"
+        },
+        {
+          "option_label": "D",
+          "option_text": "使用RAG检索财报PDF中的原始数字，再交由模型心算"
+        }
+      ],
+      "answer": "B",
+      "analysis": "原文1.2节'compare'表格明确指出：'精确计算 → 工具调用（计算器、代码）'，并强调'让模型心算、反复追问'是错误手段。B项直接对应'工具调用'正解。A项属提示词约束，原文1.2节'note'指出'抑制幻觉'需'只依据资料回答+引用溯源'，但对计算错误无效；C项仅降低随机性，无法解决模型缺乏符号运算机制的本质缺陷（1.2节'不擅精确计算'原理）；D项仍依赖模型心算，违背'应交给计算器/代码工具'的结论。教材1.2节风险说明'多位数进位、大数乘除很容易出错'，根源在于自回归逐Token生成，非概率问题。",
+      "difficulty_label": "高阶"
+    },
+    {
+      "type": 0,
+      "stem": "开发人员调试时发现：同一段中文文本（含100个汉字）在Qwen-Max和LLaMA-3上tokenize后数量不同。最符合原文1.5节原理的解释是？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "中文分词算法不同：Qwen用BPE，LLaMA用WordPiece，导致子词切分粒度差异"
+        },
+        {
+          "option_label": "B",
+          "option_text": "模型词表大小不同，生僻字在Qwen词表中为单Token，在LLaMA中被拆成多个字节Token"
+        },
+        {
+          "option_label": "C",
+          "option_text": "Qwen对空格和标点不计Token，而LLaMA将其计入，造成统计偏差"
+        },
+        {
+          "option_label": "D",
+          "option_text": "中文字符编码方式不同（UTF-8 vs GBK），影响字节对编码结果"
+        }
+      ],
+      "answer": "B",
+      "analysis": "原文1.5节明确：'同一段文字在不同模型上Token数可能不同，因为词表不同'，并指出BPE算法'任何文本都能被表示（生僻词拆成子词即可）'。B项精准对应此原理——词表差异导致相同汉字在不同模型中被映射为1个Token（高频词）或多个子词Token（低频/生僻）。A项错误：LLaMA系列实际也采用BPE（非WordPiece）；C项错误：原文1.5节'note'指出'空格、标点也可能占用Token'，且所有主流模型均计入；D项错误：Tokenization基于词表映射，与底层编码无关，BPE处理的是Unicode码点而非字节流。教材1.5节'risk'框强调'❌不同模型Token数不同'是正常现象，根源即词表异构。",
+      "difficulty_label": "中阶"
+    },
+    {
+      "type": 1,
+      "stem": "某客服系统需支持长文档问答（如100页员工手册），但发现模型常遗漏中间章节的关键政策。依据原文1.6节'Lost in the Middle'现象和上下文工程原则，以下哪些优化策略既有效又符合'喂得准'理念？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "将整本手册按章节切分，对每个问题仅注入最相关的3个章节片段"
+        },
+        {
+          "option_label": "B",
+          "option_text": "使用滑动窗口将手册分块，每次请求注入连续5页内容并滚动更新"
+        },
+        {
+          "option_label": "C",
+          "option_text": "对整本手册做全局摘要（500字），将摘要作为system prompt注入"
+        },
+        {
+          "option_label": "D",
+          "option_text": "增大模型上下文窗口至128K，直接输入全文"
+        }
+      ],
+      "answer": "A,B",
+      "analysis": "原文1.6节'risk'框明确警示：'过长的无关上下文会稀释注意力、引入噪声（Lost in the Middle）'，并指出'上下文工程的核心不是喂得多，而是喂得准'。A项对应'RAG检索相关片段'（1.6节principle），精准注入相关章节，避免噪声；B项'滑动窗口'是1.6节principle明确列出的手段，动态聚焦局部内容。C项错误：全局摘要会丢失章节级政策细节，无法解决'遗漏中间章节'问题；D项错误：1.6节'risk'框直接否定'窗口越大效果越好'，且128K窗口成本极高，违背'喂得准'原则。教材1.2节compare表亦强调RAG是'最新/私域知识'的正确手段。",
+      "difficulty_label": "高阶"
+    },
+    {
+      "type": 0,
+      "stem": "测试中发现：开启stream=True后，前端显示'微'字后停顿，接着蹦出'软'字，最后'Project'三字连出。该现象最符合原文哪一原理？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "流式输出导致模型分段计算，各段推理质量不一致"
+        },
+        {
+          "option_label": "B",
+          "option_text": "子词Token解码特性：'Microsoft'被BPE切分为'micro','soft','Project'三个Token"
+        },
+        {
+          "option_label": "C",
+          "option_text": "temperature参数使模型在生成时概率分布不稳定"
+        },
+        {
+          "option_label": "D",
+          "option_text": "上下文窗口不足，模型被迫截断中间Token"
+        }
+      ],
+      "answer": "B",
+      "analysis": "原文1.9节'note'明确说明：'由于Token可能是子词片段，流式显示时偶尔会看到一个词被拆成几部分蹦出……这是正常现象，不是Bug'。B项直接对应1.5节BPE原理——'常见词组到单字节的多级词表'，'Microsoft Project'在BPE词表中极可能被切分为'micro','soft','Project'（尤其当'Project'为独立高频词时）。A项错误：1.9节compare表强调流式'答案质量完全相同'；C项错误：temperature影响整体分布，不导致单字分段；D项错误：题干未提窗口超限，且'微''软'分开展示恰证明Token未被截断。教材1.5节'中英Token换算'经验也佐证子词切分的普遍性。",
+      "difficulty_label": "中阶"
+    },
+    {
+      "type": 1,
+      "stem": "某团队选型时纠结：Qwen-Turbo响应快但能力弱，Qwen-Max能力强但成本高。依据原文1.10节Scaling Law和1.11节选型口诀，以下哪些决策符合'先看任务难度，再看成本与延迟'原则？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "内部知识库问答（需RAG+私域数据）选用Qwen-Plus，平衡能力与成本"
+        },
+        {
+          "option_label": "B",
+          "option_text": "实时客服对话（简单FAQ）选用Qwen-Turbo，优先保障首字延迟"
+        },
+        {
+          "option_label": "C",
+          "option_text": "金融风控报告生成（需复杂推理与合规校验）选用Qwen-Max，接受高成本"
+        },
+        {
+          "option_label": "D",
+          "option_text": "所有场景默认使用Qwen-Max，确保能力上限"
+        }
+      ],
+      "answer": "A,B,C",
+      "analysis": "原文1.11节选型口诀明确：'快而省→Turbo；稳而强→Max；性价比→Plus；要私有化→开源版'，且1.10节best practice强调'能用小模型解决的绝不上大模型'。A项对应'Plus'定位（1.11节表格），B项对应'Turbo'（速度优先），C项对应'Max'（复杂推理），均符合口诀。D项直接违反1.11节'简单任务不要一上来就用Max'的考点，且1.10节risk框指出'大模型更贵、更慢、更耗资源'。教材1.12'exam'考点第10条亦总结：'Turbo快省、Max最强、Plus均衡、开源版可私有化'。",
+      "difficulty_label": "中阶"
+    }
+  ]
+}

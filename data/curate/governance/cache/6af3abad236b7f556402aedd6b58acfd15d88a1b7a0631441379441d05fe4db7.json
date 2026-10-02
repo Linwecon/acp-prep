@@ -1,0 +1,238 @@
+{
+  "1-0605": {
+    "qid": "1-0605",
+    "classification": "cross",
+    "chapter": 5,
+    "quality": "remove",
+    "reason": "题干模糊，选项与AI安全章节核心考点无关，考查价值低。",
+    "answer": [],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "属于模型训练优化，非安全防控措施。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "属于安全测试方法，非增强鲁棒性措施。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "缩小规模可能降低能力，非标准安全措施。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "提升参数是性能优化，非安全措施。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "1-1329": {
+    "qid": "1-1329",
+    "classification": "cross",
+    "chapter": 8,
+    "quality": "ok",
+    "reason": "考查AI生成内容的版权风险，属于合规范畴。",
+    "answer": [
+      "A",
+      "B",
+      "D"
+    ],
+    "supported": true,
+    "quote": "《生成式人工智能服务管理暂行办法》对备案、AI生成标识、最小必要的要求；AI生成的文本、图片、音视频必须添加显著标识。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "使用未经授权数据是典型版权风险。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "生成内容高度相似可能构成侵权。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "添加水印是合规要求，降低风险。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "未获授权使用场景存在法律风险。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "1-0646": {
+    "qid": "1-0646",
+    "classification": "own",
+    "chapter": 8,
+    "quality": "ok",
+    "reason": "考查私域场景下防止敏感信息泄露的防护措施。",
+    "answer": [
+      "A",
+      "B",
+      "C",
+      "D"
+    ],
+    "supported": true,
+    "quote": "输出内容审核；有害信息/幻觉/数据泄露拦截；敏感信息脱敏后再输出；RAG让机器人能查公司制度，但也带来一个新风险：越权检索。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "输入过滤是基础安全措施。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "输出审查是必要防线。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "微调可使模型学习安全策略。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "限制访问是权限控制核心。"
+      },
+      {
+        "label": "E",
+        "selected": false,
+        "why": "通用模型无自我意识防范能力。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "1-1200": {
+    "qid": "1-1200",
+    "classification": "own",
+    "chapter": 8,
+    "quality": "fixable",
+    "reason": "考查敏感词检测代码实现，但选项C有语法错误，需修正。",
+    "answer": [
+      "B",
+      "D"
+    ],
+    "supported": true,
+    "quote": "规则审核（关键词/正则/黑白名单）：快、便宜、确定，但易被变形绕过，适合粗筛。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "按空格分词不完整，易漏检。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "使用any和in，正确检测子串。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "代码语法错误，lower()调用错误。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "使用nltk分词，检测更准确。"
+      },
+      {
+        "label": "E",
+        "selected": false,
+        "why": "仅检查全文完全匹配，不实用。"
+      }
+    ],
+    "duplicate_of": "1-1393"
+  },
+  "1-1393": {
+    "qid": "1-1393",
+    "classification": "own",
+    "chapter": 8,
+    "quality": "fixable",
+    "reason": "与1-1200高度重复，考查点相同，选项有命名不规范问题。",
+    "answer": [
+      "D",
+      "E",
+      "F"
+    ],
+    "supported": true,
+    "quote": "规则审核（关键词/正则/黑白名单）：快、便宜、确定，但易被变形绕过，适合粗筛。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "仅检查全文完全匹配，不实用。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "按空格分词不完整，易漏检。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "变量名Text未定义，代码错误。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "使用any和in，正确检测子串。"
+      },
+      {
+        "label": "E",
+        "selected": true,
+        "why": "使用nltk分词，检测更准确。"
+      },
+      {
+        "label": "F",
+        "selected": true,
+        "why": "使用正则匹配，功能正确。"
+      }
+    ],
+    "duplicate_of": "1-1200"
+  },
+  "3-1318": {
+    "qid": "3-1318",
+    "classification": "own",
+    "chapter": 8,
+    "quality": "ok",
+    "reason": "考查规则匹配式文本合规检测的适用场景。",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "规则审核（关键词/正则/黑白名单）：快、便宜、确定，但易被变形绕过，适合粗筛。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "复杂情感需模型理解，非规则匹配。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "特定品牌广告信息需语义理解。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "明确违禁词汇适合规则匹配检测。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "深层含义需模型理解，非规则匹配。"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

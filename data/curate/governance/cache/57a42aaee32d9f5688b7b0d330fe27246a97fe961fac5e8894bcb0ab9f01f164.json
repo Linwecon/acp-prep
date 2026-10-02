@@ -1,0 +1,226 @@
+{
+  "new-8-30-0": {
+    "qid": "new-8-30-0",
+    "classification": "own",
+    "chapter": 8,
+    "quality": "ok",
+    "reason": "考查RAG权限过滤的执行时机，与教材原理一致。",
+    "answer": [
+      "D"
+    ],
+    "supported": true,
+    "quote": "过滤发生在‘检索之后、拼 Prompt 之前’……权限必须由应用层强制。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "题干焦点是越权检索，非越狱检测。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "模型不做权限判断，依赖模型是错误。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "加密不影响语义匹配，非根本错误。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "未在拼Prompt前过滤Top-K，导致无权条目进入上下文。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-8-30-1": {
+    "qid": "new-8-30-1",
+    "classification": "own",
+    "chapter": 8,
+    "quality": "ok",
+    "reason": "考查间接提示注入的防护缺失，与教材核心原则对应。",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "间接注入危害更大……一旦被 RAG 检索进上下文，模型可能被诱导去调用工具。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "未对检索内容做注入检测，违反间接注入防护原则。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "WAF防Web攻击，不懂语义注入。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "系统提示词非机制保证，非根本缺失。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "是后果，非导致攻击成功的必要条件缺失。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-8-30-2": {
+    "qid": "new-8-30-2",
+    "classification": "own",
+    "chapter": 8,
+    "quality": "ok",
+    "reason": "考查多模态检测对PDF的处理流程，与教材规范一致。",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "图像审核既能审画面，也能识别图中文字……PDF里用文字写下‘忽略以上指令’等注入话术。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "图像审核未开OCR，无法提取PDF中文本指令，导致漏报。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "文本审核接口应能处理文本内容，非技术约束主因。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "教材未提及专用pdf_moderation接口。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "自定义词库非检测PDF嵌入指令的主要手段。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-8-30-3": {
+    "qid": "new-8-30-3",
+    "classification": "own",
+    "chapter": 8,
+    "quality": "ok",
+    "reason": "综合考查幻觉、偏见、间接注入的区分与处置，覆盖教材要点。",
+    "answer": [
+      "A",
+      "D",
+      "E"
+    ],
+    "supported": true,
+    "quote": "幻觉是模型自身的质量缺陷……间接注入来自文档/网页……偏见来自训练数据的分布偏差。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "虚构金额属幻觉，教材定义相符。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "现象②是间接提示注入，非偏见。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "现象①是质量问题，非安全问题。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "PDF导致违规回复，属间接提示注入。"
+      },
+      {
+        "label": "E",
+        "selected": true,
+        "why": "区分关键符合教材对幻觉与偏见的本质定义。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-8-30-4": {
+    "qid": "new-8-30-4",
+    "classification": "own",
+    "chapter": 8,
+    "quality": "ok",
+    "reason": "考查资源耗尽型DDoS的防护组合，与教材逻辑一致。",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "资源耗尽型 DDoS……防御要三层联动：DDoS 高防清洗异常流量 + WAF/API 网关做频率限制 + 应用层对单个用户设 token/算力上限。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "DDoS防流量，应用层熔断防高消耗请求穿透至模型。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "WAF限流可能有效，但题干强调启用DDoS后负载未降，根本在应用层。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "KMS加密与计算资源访问控制无关。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "RAM配额管理非针对算力消耗的主要手段。"
+      }
+    ],
+    "duplicate_of": "8-5158"
+  },
+  "new-8-30-5": {
+    "qid": "new-8-30-5",
+    "classification": "own",
+    "chapter": 8,
+    "quality": "ok",
+    "reason": "考查RAG权限过滤实现的正确性与鲁棒性，是工程实践题。",
+    "answer": [
+      "A",
+      "C",
+      "D"
+    ],
+    "supported": true,
+    "quote": "知识库访问控制的三步流程……比对知识条目的访问属性……过滤发生在‘检索之后、拼 Prompt 之前’。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "strip()消除空格，是鲁棒性基础处理。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "JSON对空白字符并不更宽容，解析前也需清理。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "入库校验从源头保证数据质量，满足正确性。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "数据库层过滤更可靠，是正确性保障。"
+      },
+      {
+        "label": "E",
+        "selected": false,
+        "why": "输出审查是兜底，非权限过滤的正确方式。"
+      }
+    ],
+    "duplicate_of": "8-5159"
+  }
+}

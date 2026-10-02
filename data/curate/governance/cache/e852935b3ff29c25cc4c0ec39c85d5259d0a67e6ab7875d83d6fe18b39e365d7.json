@@ -1,0 +1,154 @@
+{
+  "items": [
+    {
+      "type": 0,
+      "stem": "某团队将Qwen3-0.6B模型量化为AWQ INT4后部署于vLLM，压测发现显存占用下降58%、TPOT降低22%，但TTFT无明显变化，且代码补全任务BLEU分数下降1.3分。以下哪项结论可被教材原文直接支持？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "AWQ在INT4下精度损失更小，因此BLEU下降仅1.3分属于预期内波动"
+        },
+        {
+          "option_label": "B",
+          "option_text": "TPOT降低是因显存带宽压力减小，但需框架支持低比特算子——该加速效果已被原文明确确认"
+        },
+        {
+          "option_label": "C",
+          "option_text": "TTFT不变说明Prefill阶段未受益于AWQ量化，这与AWQ保护显著权重通道的机制无关"
+        },
+        {
+          "option_label": "D",
+          "option_text": "显存下降58%超出INT4理论压缩比（1/4），证明AWQ引入了额外稀疏性优化"
+        }
+      ],
+      "answer": "B",
+      "analysis": "依据原文6.4节：'量化通常也加速……因为Decode阶段是显存带宽密集型，从显存读权重的字节数变少了。但能否加速取决于推理框架/硬件是否有对应的低比特算子'；同时明确指出'AWQ在低比特（INT4）下通常更稳、更快'。选项B准确复现了原文对'TPOT降低'的归因逻辑（显存带宽下降+框架支持），且'已被原文明确确认'符合题干'直接支持'要求。A错误：原文仅说AWQ在INT4下'通常更稳'，未断言其精度损失'更小'，且BLEU下降是否'预期内'需业务评测验证，非教材定论；C错误：TTFT不变确与Prefill计算密集特性相关，但原文未将此现象归因于AWQ的通道保护机制，属过度推断；D错误：原文未提及AWQ引入稀疏性，58%下降在INT4（理论1/4≈75%下降）合理误差范围内，'超出理论比'不成立。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 1,
+      "stem": "在诊断vLLM服务高TTFT（>8s）故障时，监控显示GPU利用率正常、KV Cache占用率仅30%、无429错误。此时应优先排查哪些必要条件？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "客户端是否在请求中传入过长prompt（如>8K tokens），导致Prefill计算量激增"
+        },
+        {
+          "option_label": "B",
+          "option_text": "vLLM启动时是否遗漏--max-model-len参数，导致系统默认按超大长度预分配显存"
+        },
+        {
+          "option_label": "C",
+          "option_text": "模型权重文件是否损坏或格式不兼容（如safetensors缺失关键tensor）"
+        },
+        {
+          "option_label": "D",
+          "option_text": "SLB负载均衡器是否配置了过短的连接超时（如<5s），导致首token未返回即中断"
+        }
+      ],
+      "answer": "AC",
+      "analysis": "依据原文6.2节：'Prefill是计算密集型，决定TTFT'，且'长prompt会让等很久才开口'；6.4节强调量化需校准数据，若权重损坏则Prefill计算异常；6.5节vLLM命令示例明确依赖模型路径有效性。A正确：长prompt直接导致Prefill耗时飙升，是TTFT超标的首要原因，原文6.2节明确关联；C正确：权重文件损坏会导致Prefill前向计算失败或重试，引发TTFT异常，属基础必要条件，原文6.5节启动命令隐含此前提。B错误：--max-model-len影响KV Cache分配上限，但监控显示KV占用仅30%，与TTFT无直接因果；D错误：SLB超时会导致连接中断报错（如504），而非TTFT指标升高，且原文6.11节告警设计聚焦服务端指标，非基础设施超时。",
+      "difficulty_label": "挑战"
+    },
+    {
+      "type": 0,
+      "stem": "当vLLM服务处理混合长度请求（128/2048/16384 tokens）时，PagedAttention相比传统连续内存分配，其显存节省的核心机制是什么？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "将KV Cache切分为固定大小块，按需分配，避免为最长请求预分配整段连续显存"
+        },
+        {
+          "option_label": "B",
+          "option_text": "对每个请求的KV Cache进行INT4量化，降低单块存储体积"
+        },
+        {
+          "option_label": "C",
+          "option_text": "复用相同前缀的KV块（如系统提示词），减少重复缓存"
+        },
+        {
+          "option_label": "D",
+          "option_text": "动态调整每个请求的block数量，使总块数严格等于当前并发请求数"
+        }
+      ],
+      "answer": "A",
+      "analysis": "依据原文6.5节：'PagedAttention把KV Cache切成固定大小的块（block），按需分配……不再按最大长度预分配浪费'；并明确类比'操作系统虚拟内存分页'，核心解决'预分配浪费'和'显存碎片'。A项完整复现原文定义，直指'按需分配'与'避免预分配'两大本质。B错误：量化是独立技术（6.4节），PagedAttention本身不执行量化；C错误：前缀复用是PagedAttention的衍生优势（原文'天然支持共享'），但非'显存节省的核心机制'，核心机制是分页按需；D错误：'总块数=并发数'违背原文——块数由实际序列长度×并发数决定，非固定等于并发数。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 1,
+      "stem": "某团队在vLLM中启用PagedAttention后，长上下文（64K tokens）请求并发数从3提升至8，但单请求TTFT未改善。以下哪些因素是PagedAttention机制本身无法直接优化的根本原因？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "Prefill阶段需全量计算输入prompt的注意力，其计算复杂度与prompt长度平方成正比"
+        },
+        {
+          "option_label": "B",
+          "option_text": "GPU显存带宽未升级，导致长prompt加载权重延迟增加"
+        },
+        {
+          "option_label": "C",
+          "option_text": "vLLM未启用FlashAttention-2内核，Prefill计算未获算子级优化"
+        },
+        {
+          "option_label": "D",
+          "option_text": "KV Cache块表（page table）查询引入额外CPU开销"
+        }
+      ],
+      "answer": "AC",
+      "analysis": "依据原文6.2节：'Prefill是计算密集型，决定TTFT'，且其耗时由prompt长度主导；6.5节明确PagedAttention'解决KV Cache显存碎片与预分配浪费'，即仅优化Decode阶段的KV管理。A正确：Prefill计算复杂度属算法固有属性，PagedAttention不改变其计算量，原文6.2节直接支持；C正确：FlashAttention-2是Prefill专用优化算子，PagedAttention未涉及Prefill算子替换，原文6.5节未提及其影响Prefill。B错误：显存带宽是硬件约束，非PagedAttention的设计目标，但'未升级'不是PagedAttention'无法优化'的原因，属外部条件；D错误：page table查询开销极小（微秒级），且原文未将其列为TTFT影响因素，属干扰项。",
+      "difficulty_label": "挑战"
+    },
+    {
+      "type": 0,
+      "stem": "开发者在FC上部署AI助手后，工作日早9点首次调用延迟达3.2s，夜间低峰后再次调用仍重现该现象。若监控显示冷启动期间GPU显存占用从0%突增至85%，且模型加载耗时占总延迟70%，此时最根本的原因及教材依据是？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "FC实例被回收后需重新拉起并加载模型，教材6.7节明确'冷启动延迟'是Serverless核心边界"
+        },
+        {
+          "option_label": "B",
+          "option_text": "模型权重未启用AWQ量化，导致加载时解压耗时过长，教材6.4节指出AWQ可加速低比特加载"
+        },
+        {
+          "option_label": "C",
+          "option_text": "FC函数超时设置过短（如10s），触发重试机制导致延迟叠加，教材6.10.1节警告'资源与时长限制'"
+        },
+        {
+          "option_label": "D",
+          "option_text": "缺少预留实例配置，教材6.7节建议'配置预留实例/预热'缓解冷启动"
+        }
+      ],
+      "answer": "A",
+      "analysis": "依据原文6.7节：'为什么会有冷启动？Serverless为了省成本，无流量时会回收实例；请求突然到来需要重新拉起实例、加载模型，导致首个请求明显变慢'；6.10.1节重申'冷启动延迟'是FC'必须记牢的边界'。A项精准对应原文定义，'最根本原因'即冷启动机制本身，而非配置缺失（D）或优化不足（B）。B错误：AWQ加速的是推理计算，非加载耗时，原文未提及其影响加载；C错误：超时设置影响的是请求终止，非首次延迟成因；D错误：'预留实例'是缓解手段，非根本原因，题干问'最根本的原因'。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 1,
+      "stem": "在vLLM服务中，以下哪些条件同时满足时，PagedAttention的显存利用率提升效果会显著减弱？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "所有并发请求的序列长度高度一致（如均为2048 tokens）"
+        },
+        {
+          "option_label": "B",
+          "option_text": "启用GQA（分组查询注意力），大幅减少KV头数"
+        },
+        {
+          "option_label": "C",
+          "option_text": "模型权重已量化为INT4，整体显存压力降低"
+        },
+        {
+          "option_label": "D",
+          "option_text": "使用--max-num-seqs参数严格限制并发数为1"
+        }
+      ],
+      "answer": "AD",
+      "analysis": "依据原文6.5节：PagedAttention核心价值是'消除碎片'和'按需分配'，其收益在'序列长度参差不齐'和'高并发'场景最大化。A正确：长度高度一致时，传统连续分配无显著碎片，PagedAttention优势消失；D正确：并发=1时，无多请求调度与碎片问题，PagedAttention退化为普通分配，原文'按需分配'失去意义。B错误：GQA减少KV头数，降低KV Cache总量，但不影响PagedAttention的分页管理效率，反可能放大其收益；C错误：权重量化降低总显存需求，但不削弱PagedAttention对KV Cache的管理效能，原文6.6节将二者列为并行优化手段。",
+      "difficulty_label": "挑战"
+    }
+  ]
+}

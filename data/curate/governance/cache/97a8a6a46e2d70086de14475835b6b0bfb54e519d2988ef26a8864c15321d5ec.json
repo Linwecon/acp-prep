@@ -1,0 +1,209 @@
+{
+  "2-5010": {
+    "qid": "2-5010",
+    "classification": "own",
+    "chapter": 2,
+    "quality": "ok",
+    "reason": "考查分隔符防注入核心作用",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "把用户输入 / 检索内容包裹为\"数据\"而非\"指令\"，降低提示注入风险",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "直接回答会执行恶意指令"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "用户指令优先级不应高于系统约束"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "明确数据边界可防注入"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "增大max_tokens不解决指令混淆"
+      }
+    ]
+  },
+  "2-5011": {
+    "qid": "2-5011",
+    "classification": "own",
+    "chapter": 2,
+    "quality": "ok",
+    "reason": "考查分隔符设计原则",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "❌ 只加分隔符却不说明各段含义 → 模型不知道每段是什么，分隔符就退化成无意义符号",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "三重反引号是标准分隔符"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "XML标签是推荐分隔符"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "改写原文破坏原始性，非分隔手段"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "空行加标题是有效分隔方式"
+      }
+    ]
+  },
+  "2-5012": {
+    "qid": "2-5012",
+    "classification": "own",
+    "chapter": 2,
+    "quality": "ok",
+    "reason": "考查结构化输出工程实践",
+    "answer": [
+      "B",
+      "C",
+      "D"
+    ],
+    "supported": true,
+    "quote": "分隔符分段、声明数据角色、结构化输出+枚举约束",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "连续一段易导致指令混淆"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "成对命名确保模型识别区块"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "声明数据角色防注入"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "模板或示例对齐输出格式"
+      }
+    ]
+  },
+  "2-5013": {
+    "qid": "2-5013",
+    "classification": "own",
+    "chapter": 2,
+    "quality": "ok",
+    "reason": "考查意图分类三要素",
+    "answer": [
+      "D"
+    ],
+    "supported": true,
+    "quote": "【意图清单】每个意图一句话定义 + 1 个示例；【输出要求】只输出 JSON",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "自由发挥导致路由不稳定"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "缺少意图清单和输出格式"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "不限格式无法程序解析"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "明确定义+预设类别保障稳定"
+      }
+    ]
+  },
+  "2-5014": {
+    "qid": "2-5014",
+    "classification": "own",
+    "chapter": 2,
+    "quality": "ok",
+    "reason": "考查意图分类低置信度处理",
+    "answer": [
+      "A",
+      "B"
+    ],
+    "supported": true,
+    "quote": "低置信度→澄清追问；未匹配→兜底意图或转人工",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "兜底类别覆盖未知输入"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "二次确认避免错误路由"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "强制归类违反分类原则"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "删减类别降低覆盖能力"
+      }
+    ]
+  },
+  "2-5016": {
+    "qid": "2-5016",
+    "classification": "own",
+    "chapter": 2,
+    "quality": "ok",
+    "reason": "考查多轮对话上下文依赖",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "长文档先按章节/切片逐段审，再审阅汇总，避免一次审全篇漏项",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "需指代消解理解“那”指代鞋"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "生成长度不解决指代问题"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "高temperature增加不确定性"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "表情符号无助于意图识别"
+      }
+    ]
+  }
+}

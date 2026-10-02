@@ -1,0 +1,154 @@
+{
+  "items": [
+    {
+      "type": 0,
+      "stem": "某金融公司需构建合规问答系统，要求：① 所有客户合同与监管文件不得出域；② 通用千问模型对专业条款理解不足；③ 需支持100+并发实时响应；④ 运维团队仅2人。以下技术路径最符合阿里云平台分层原则且满足全部约束的是？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "直接在百炼控制台上传合同PDF→启用知识库→发布为钉钉机器人"
+        },
+        {
+          "option_label": "B",
+          "option_text": "从ModelScope下载Qwen2-7B开源模型→在PAI-DSW中用LoRA微调→提交DLC训练→部署至PAI-EAS服务"
+        },
+        {
+          "option_label": "C",
+          "option_text": "调用DashScope的qwen-max API→将全文本合同作为system prompt传入→前端轮询重试429错误"
+        },
+        {
+          "option_label": "D",
+          "option_text": "使用OSS存储合同→DataWorks清洗→百炼工作流调用DashScope Embedding+Rerank→结果返回前端"
+        }
+      ],
+      "answer": "B",
+      "analysis": "依据原文10.1分层定位表及10.5选型决策：'数据不出域+需微调+高并发部署'明确指向PAI训练部署层（非应用层百炼或接口层DashScope）。选项B完整覆盖DSW开发→DLC训练→EAS部署三件套，且ModelScope提供开源模型下载（10.7），满足数据不出域（10.5对比表）与定制化需求（10.4原理）。A错：百炼知识库底层仍调用DashScope API，数据上送不满足'不出域'；C错：DashScope为托管API，数据必上送，且无微调能力；D错：虽用到百炼+DashScope组合，但未解决'专业条款理解不足'这一核心问题，且OSS/DataWorks属数据底座层，非模型层解法（10.1干扰项提示）。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 0,
+      "stem": "某电商APP上线智能客服，首日调用量达50万次，次日财务发现账单激增300%。排查发现：每次用户提问均将整份《售后服务政策V3.2.pdf》（86页）作为context传入qwen-plus API。以下哪项成本优化措施最直接有效且符合原文工程实践？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "将模型切换为qwen-turbo以降低单价"
+        },
+        {
+          "option_label": "B",
+          "option_text": "在PAI-EAS上自托管qwen-turbo并关闭流式输出"
+        },
+        {
+          "option_label": "C",
+          "option_text": "改用百炼知识库功能，上传PDF后由系统自动切片检索"
+        },
+        {
+          "option_label": "D",
+          "option_text": "设置max_tokens=50强制截断输出长度"
+        }
+      ],
+      "answer": "C",
+      "analysis": "原文10.8明确指出'控制输入'是省成本首要手段：'RAG只塞最相关的片段，不要每次把整本手册塞进上下文'。选项C通过百炼知识库（10.2）实现RAG自动化——文档解析→切片→向量化→检索，仅传入相关片段，直击问题根源。A错：虽单价低但输入Token量未减，总费用仍高（10.6强调'turbo适合简单任务'，而售后政策问答属复杂场景）；B错：自托管成本更高（10.7价值分析），且题目未提私有化需求；D错：仅限制输出，输入Token（86页PDF）仍是主要成本来源（10.8'输入输出分别计价'，且输入量巨大）。",
+      "difficulty_label": "中阶"
+    },
+    {
+      "type": 1,
+      "stem": "某AI初创团队需快速验证法律咨询机器人MVP，要求：零代码、3天内上线、支持钉钉接入、无需GPU运维。以下哪些操作符合百炼平台定位与能力边界？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "在百炼控制台上传《民法典》PDF，启用知识库自动切片与向量化"
+        },
+        {
+          "option_label": "B",
+          "option_text": "使用百炼工作流编排'用户提问→检索法条→生成解释→审核过滤'四步流程"
+        },
+        {
+          "option_label": "C",
+          "option_text": "在百炼模型广场选择qwen-long模型，并配置128K上下文窗口"
+        },
+        {
+          "option_label": "D",
+          "option_text": "通过百炼API将调试好的智能体集成至自有Java后端系统"
+        }
+      ],
+      "answer": "ABD",
+      "analysis": "依据原文10.2百炼能力表：A正确，知识库是其核心能力（'内置文档解析、切片、向量化、检索'）；B正确，工作流编排是明确列出的能力（'拖拽节点串成稳定流程'）；D正确，'一键发布'包含'发布为API'（10.2价值段），且10.5强调'百炼应用可被代码集成'。C错误：qwen-long是DashScope提供的商业API模型（10.6），百炼模型广场虽可选模型，但'配置128K上下文窗口'属底层API参数，百炼控制台不开放此粒度配置（10.2未提及上下文窗口调节，10.6说明该参数需在API调用时指定）。",
+      "difficulty_label": "中阶"
+    },
+    {
+      "type": 0,
+      "stem": "开发团队使用DashScope OpenAI兼容接口调用qwen-plus，发现流式响应延迟高影响用户体验。经监控发现TPM（每分钟Token数）配额已耗尽，触发429限流。以下哪项处理方式最符合原文10.8风险应对原则？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "立即申请提升TPM配额，等待审批通过后重启服务"
+        },
+        {
+          "option_label": "B",
+          "option_text": "在客户端增加重试逻辑，失败后立即发起下一次请求"
+        },
+        {
+          "option_label": "C",
+          "option_text": "后端服务添加指数退避+随机抖动重试，并对高频简单查询降级为qwen-turbo"
+        },
+        {
+          "option_label": "D",
+          "option_text": "将所有请求合并为批量API调用，减少请求数"
+        }
+      ],
+      "answer": "C",
+      "analysis": "原文10.8成本要点明确要求：'遇429用指数退避+抖动重试，必要时降级到更小模型'。选项C完全匹配该原则。A错：'等待审批'违背生产环境高可用要求（10.8强调'必须考虑重试、退避与降级'）；B错：'立即重试'会加剧限流（10.8风险段警示'切忌无间隔死循环重试'）；D错：DashScope不提供批量调用API（10.3仅展示单次chat.completions.create），且批量无法解决TPM超限（Token总量不变）。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 1,
+      "stem": "某企业需构建医疗报告分析系统，要求：① 使用开源Qwen2.5-MoE模型；② 支持私有化部署；③ 满足等保三级数据不出域；④ 提供弹性伸缩与蓝绿发布。以下哪些阿里云产品组合能完整覆盖需求？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "ModelScope（下载模型权重）"
+        },
+        {
+          "option_label": "B",
+          "option_text": "PAI-DSW（本地微调开发）"
+        },
+        {
+          "option_label": "C",
+          "option_text": "PAI-EAS（部署为在线服务）"
+        },
+        {
+          "option_label": "D",
+          "option_text": "DashScope（调用商业API）"
+        }
+      ],
+      "answer": "AC",
+      "analysis": "需求①③④指向开源模型+私有化部署：ModelScope是唯一官方开源模型下载渠道（10.7定义），PAI-EAS提供'弹性伸缩、蓝绿发布'（10.4组件表），且EAS支持私有化部署（10.5对比表'数据不出域程度更高'）。B错误：DSW是开发环境，不满足'部署为服务'需求（10.4明确'DSW用于调试，EAS用于上线'）；D错误：DashScope是托管API，数据必上送，违反'不出域'（10.5对比表'数据与模型控制'栏）。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 0,
+      "stem": "课程实验中，学生在PAI-DSW GPU实例运行微调脚本后关闭浏览器，次日发现账单异常高昂。最可能的根本原因及依据是？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "GPU实例未停止，持续按计算时计费——原文10.4成本提醒强调'关闭浏览器不等于停止实例'"
+        },
+        {
+          "option_label": "B",
+          "option_text": "微调过程触发了DashScope API调用产生额外Token费用——原文10.3说明百炼/DashScope共用API Key"
+        },
+        {
+          "option_label": "C",
+          "option_text": "模型权重上传至OSS产生存储费用——原文10.1将OSS归类为'数据底座层'，与计费无关"
+        },
+        {
+          "option_label": "D",
+          "option_text": "DSW实例默认开启自动续费导致超额扣款——原文未提及自动续费机制"
+        }
+      ],
+      "answer": "A",
+      "analysis": "原文10.4成本提醒段落三次强调：'DSW实例按计算时计费，关闭浏览器不等于停止实例，不学了必须回控制台停止或删除'，并警示'GPU实例消耗额度远快于CPU'。选项A完全对应原文。B错：DSW内微调不调用DashScope API（10.4原理说明'在DSW里写代码做LoRA微调'，属本地训练）；C错：OSS存储费用与DSW计费无关，且原文未将其与DSW账单关联；D错：原文未涉及自动续费，属无依据干扰项。",
+      "difficulty_label": "基础"
+    }
+  ]
+}

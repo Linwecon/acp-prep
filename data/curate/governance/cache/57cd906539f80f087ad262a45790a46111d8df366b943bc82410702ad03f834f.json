@@ -1,0 +1,212 @@
+{
+  "2-0133": {
+    "qid": "2-0133",
+    "classification": "own",
+    "chapter": 2,
+    "quality": "ok",
+    "reason": "题干问'清晰表达需求的主要作用'，对应原文'提示工程'定义及价值：引导模型输出符合预期，核心是提升相关性。选项B/C/D均属模型自身属性，与提示词无关，原文明确提示工程'不改变模型参数'、'不扩展知识'。",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "提示工程（Prompt Engineering）：通过精心设计输入文本（提示词），引导大模型稳定生成符合预期输出的技术。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "原文明确提示工程目标是'引导大模型稳定生成符合预期输出'，'符合预期'即高度相关；且'同一模型 + 不同提示词 ≈ 不同效果'说明相关性由提示词决定"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "原文强调提示工程'不改动模型参数、不重新训练'，训练数据属于模型训练阶段，与提示词无关"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "原文未提及提示词对推理时间的影响；TTFT/TPOT等延迟指标属于第6章部署范畴，非本章考点"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "原文多次强调'不改变模型参数'，如'提示工程不改变模型参数，这是它与微调的本质区别'"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "2-0142": {
+    "qid": "2-0142",
+    "classification": "own",
+    "chapter": 2,
+    "quality": "ok",
+    "reason": "题干问'提供任务的背景信息'对应六要素中'上下文（Context）'的明确定义，原文表格和文字均直接说明其作用。其他选项在表格中有明确定义，不匹配背景信息功能。",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "上下文（Context）：提供背景、事实、范围",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "原文表格明确'上下文（Context）'作用为'提供背景、事实、范围'，与题干'背景信息'完全对应"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "样例（Sample）作用是'给1~3个范例对齐格式与风格'，用于模仿而非提供背景"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "任务目标（Object）作用是'明确要完成什么，让模型聚焦'，即具体动作而非背景"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "角色（Role）作用是'定义身份、语气、写作风格'，影响表达方式而非背景信息"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "2-0163": {
+    "qid": "2-0163",
+    "classification": "own",
+    "chapter": 2,
+    "quality": "ok",
+    "reason": "题干中'ask_llm_route函数'是意图识别的典型实现，对应原文2.8节'意图分类'流程：先分类再路由到不同分支。选项B/C/D均与函数功能无关，原文明确意图分类是'分诊台'决定'该由谁、按什么流程处理'。",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "它是客服系统的'分诊台'，决定'这个问题该由谁、按什么流程处理'。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "原文2.8节明确意图分类是'分诊台'，决定'该由谁、按什么流程处理'；'ask_llm_route'函数名中的'route'即路由，与'选择不同提示词和工作流程'完全一致"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "增加训练数据属于微调或蒸馏范畴，原文强调提示工程'不改动模型参数、不重新训练'"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "推理时间属于部署优化范畴（第6章），原文未将意图分类与延迟关联"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "增加参数数量属于模型架构变更，与提示词函数无关；原文强调提示工程'不改变模型参数'"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "2-0166": {
+    "qid": "2-0166",
+    "classification": "own",
+    "chapter": 2,
+    "quality": "ok",
+    "reason": "题干问'上下文（Context）的主要作用'，原文表格和文字均明确定义其为提供背景信息，与2-0142题考点一致但问法不同，属同一知识点的不同考查角度。",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "上下文（Context）：提供背景、事实、范围",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "原文表格明确'上下文（Context）'作用为'提供背景、事实、范围'，与题干'背景信息'完全对应"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "明确任务是'任务目标（Object）'的作用，原文表格中'任务目标'定义为'明确要完成什么'"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "定义角色是'角色（Role）'的作用，原文表格中'角色'定义为'定义身份、语气、写作风格'"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "指定格式是'输出格式（Output Format）'的作用，原文表格中'输出格式'定义为'指定格式、枚举值、禁止项'"
+      }
+    ],
+    "duplicate_of": "2-0142"
+  },
+  "2-0173": {
+    "qid": "2-0173",
+    "classification": "own",
+    "chapter": 2,
+    "quality": "ok",
+    "reason": "题干问'system_message的作用'，对应原文2.5节System Prompt定义：设定全局行为（角色、规则、输出规范）。选项A/B/C/D均非原文定义，原文明确其用于'设定模型全局行为'，而'标签提取'属于具体任务，应由用户消息承载。",
+    "answer": [
+      "A"
+    ],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "system_message是系统提示词，用于设定全局角色与规则，而'标签提取的规则和输出格式'属于具体任务约束，应放在用户消息或提示词模板中；原文2.5节强调'System Prompt用于设定全局行为'，'用户消息承载具体任务'"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "用户输入格式由业务系统控制，system_message不定义用户输入格式；原文2.5节指出'user message承载每一轮的具体任务'"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "定义训练参数属于微调范畴（第5章），原文2.1节明确'提示工程不改变模型参数'"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "检索流程属于RAG范畴（第3章），原文2.1节指出'RAG管的是知道什么'，与system_message无关"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "2-0202": {
+    "qid": "2-0202",
+    "classification": "own",
+    "chapter": 2,
+    "quality": "ok",
+    "reason": "题干问'意图识别使用提示词的优点'，原文2.1节明确提示工程'不改动模型参数、不重新训练'，且2.8节意图分类是提示词应用案例。选项B/C/D均属模型自身属性，与提示词无关。",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "提示工程不改变模型参数，这是它与微调的本质区别。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "原文2.1节明确'提示工程不改变模型参数，这是它与微调的本质区别'，意图识别作为提示工程应用，自然继承此优点"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "增加训练数据需重新训练模型，与提示词无关；原文2.1节强调'不改动模型参数、不重新训练'"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "推理时间属于部署优化范畴（第6章），原文未将意图识别与延迟关联"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "增加参数数量属于模型架构变更，与提示词无关；原文2.1节强调'不改变模型参数'"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

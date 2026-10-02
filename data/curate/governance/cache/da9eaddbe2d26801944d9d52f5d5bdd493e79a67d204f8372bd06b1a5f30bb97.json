@@ -1,0 +1,154 @@
+{
+  "items": [
+    {
+      "type": 0,
+      "stem": "某团队对新人答疑机器人执行切片优化后，RAGAS评测显示Context Recall从0.65升至0.93，但Answer Correctness却从0.76降至0.49，且Faithfulness同步下降0.28。日志确认检索返回的contexts中明确包含'张伟是教研部的'等完整正确信息。此时若仅依据RAGAS五大指标的输入依赖关系与计算逻辑，最应优先排查的故障环节是？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "Embedding模型未冻结，导致context recall计算所用向量与生成阶段不一致"
+        },
+        {
+          "option_label": "B",
+          "option_text": "评委LLM在计算Faithfulness时未被提供contexts字段，导致幻觉判定失效"
+        },
+        {
+          "option_label": "C",
+          "option_text": "answer_correctness计算中误将contexts作为必要输入，干扰了事实F1的独立判断"
+        },
+        {
+          "option_label": "D",
+          "option_text": "切片优化导致上下文拼装逻辑变更，使模型接收到的contexts顺序与RAGAS计算Context Precision时假设的排序不一致"
+        }
+      ],
+      "answer": "B",
+      "analysis": "依据教材7.4.3节Faithfulness官方口径：'计算需question/answer/contexts，**不要ground_truth**'；且其核心是判断答案每句话能否由contexts直接推断。若评委LLM未被传入contexts（如代码配置遗漏或字段映射错误），则无法执行支撑性判定，必然导致Faithfulness=0或随机低分——这与题干中'Faithfulness同步下降0.28'且'contexts实际存在正确信息'的现象完全吻合。A错误：Context Recall计算依赖Embedding，但Recall上升说明Embedding已生效，且Recall与Correctness无向量一致性要求；C错误：Answer Correctness官方明确**不需要contexts**（教材7.4.4节'输入字段别搞混'），误传不会导致Correctness下降；D错误：Context Precision关注排序，但题干未提Precision变化，且Precision低会首先表现为Precision下降而非Correctness/Faithfulness双降。",
+      "difficulty_label": "挑战"
+    },
+    {
+      "type": 1,
+      "stem": "在构建RAGAS评测集时，以下哪些操作会直接导致Answer Correctness指标失去业务可信度，且违反教材7.2.1节'评测集构建的两条铁律'？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "使用线上用户问题抽样构建question，但为提升效率，让AI工程师根据知识库片段自动生成ground_truth"
+        },
+        {
+          "option_label": "B",
+          "option_text": "为覆盖边界场景，人工构造'如果员工入职满3年但未转正，是否享受年假'等对抗性question"
+        },
+        {
+          "option_label": "C",
+          "option_text": "将历史客服对话中用户提问与坐席回答直接作为question和ground_truth"
+        },
+        {
+          "option_label": "D",
+          "option_text": "邀请HRBP对所有ground_truth进行合规性终审，并签署《业务答案确认书》"
+        }
+      ],
+      "answer": "AC",
+      "analysis": "A违反铁律二：教材7.2.1节强调'标准答案必须由业务领域专家编写/审定'，AI工程师生成ground_truth会导致答案脱离业务真实规则（如忽略最新政策修订），使Answer Correctness沦为对知识库文本的拟合，而非对业务正确性的检验；C违反铁律一与二：客服坐席回答可能含错误、过时或主观解释，非'领域专家审定'的标准答案，且非'业务上正确、完整、合规'的权威基准。B正确：人工构造对抗题是教材7.8.2节'分层/分难度覆盖'推荐做法；D正确：HRBP终审并签署确认书正是落实'领域专家主导'铁律的体现。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 0,
+      "stem": "当RAGAS评测显示Context Precision=0.32、Context Recall=0.89、Faithfulness=0.91、Answer Correctness=0.45时，若严格遵循教材7.5节'定位问题的黄金法则'及7.4.2节Context Precision官方计算逻辑，最应优先执行的诊断动作是？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "检查检索系统返回的contexts列表，确认相关片段是否集中出现在前3条内"
+        },
+        {
+          "option_label": "B",
+          "option_text": "调用评委LLM重跑Faithfulness，验证其是否因temperature设置过高导致判定宽松"
+        },
+        {
+          "option_label": "C",
+          "option_text": "比对answer与ground_truth的观点分解结果，定位TP/FP/FN分布"
+        },
+        {
+          "option_label": "D",
+          "option_text": "审查知识库文档切片策略，确认是否存在关键信息被跨切片割裂现象"
+        }
+      ],
+      "answer": "A",
+      "analysis": "Context Precision=0.32（极低）而Recall=0.89（高）表明：正确信息已被召回，但严重'埋没'在无关内容之后（教材7.4.2节示例：正确片段排第2位时Precision=0.5，排更后则更低）。教材7.4.2节明确其计算依赖'按顺序读取contexts'并逐位计算precision分，因此首要诊断必须是**验证相关片段的实际排名位置**（A）。B错误：Faithfulness=0.91已属高位，无需优先诊断；C错误：Answer Correctness=0.45虽低，但黄金法则要求'先看检索指标'，且Correctness低在此组合下必由Precision低引发（资料噪声干扰生成）；D错误：Recall高说明信息未被割裂，否则Recall会显著下降。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 1,
+      "stem": "以下哪些情况会直接导致RAGAS的Answer Correctness指标计算失效，且其原因可被教材7.4.4节'官方口径'明确解释？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "评测脚本中未传入ground_truth字段，导致语义相似度与事实F1均无法计算"
+        },
+        {
+          "option_label": "B",
+          "option_text": "评委LLM在分解ground_truth观点时，将复合句'试用期工资不低于转正后80%'错误拆分为两个独立观点"
+        },
+        {
+          "option_label": "C",
+          "option_text": "Embedding模型版本升级后，text-embedding-v3的输出维度与旧版不兼容"
+        },
+        {
+          "option_label": "D",
+          "option_text": "为加速评测，将temperature设为1.0，导致评委LLM生成的观点列表随机性增强"
+        }
+      ],
+      "answer": "ABD",
+      "analysis": "A正确：教材7.4.4节明确Answer Correctness必须输入question/answer/**ground_truth**，缺ground_truth则两项子指标均失效；B正确：官方口径要求'LLM把answer和ground_truth各自分解为观点列表'，若ground_truth分解错误（如将强约束条件拆散），将直接扭曲TP/FP/FN统计，使F1失真；D正确：temperature=1.0增大随机性，违背'固定评测配置'原则（教材7.2.4节），导致观点分解不可复现，F1计算不稳定。C错误：Embedding维度不兼容属于工程报错，非指标计算逻辑失效；且教材未要求维度兼容，只要能计算余弦相似度即可。",
+      "difficulty_label": "挑战"
+    },
+    {
+      "type": 0,
+      "stem": "某团队发现RAGAS评测中Answer Relevancy持续低于0.4，且人工抽检发现大量答案以'根据提供的信息，无法确定...'开头。若严格依据教材7.4.5节Answer Relevancy官方计算口径，该现象最直接暴露的系统缺陷是？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "提示词中缺少'不得回避问题'的强约束，导致模型默认采用noncommittal策略"
+        },
+        {
+          "option_label": "B",
+          "option_text": "检索返回的contexts质量差，导致模型缺乏作答依据"
+        },
+        {
+          "option_label": "C",
+          "option_text": "评委LLM的'反向生成问题'能力弱，无法准确还原原始question语义"
+        },
+        {
+          "option_label": "D",
+          "option_text": "ground_truth标注未覆盖'无法确定'类边界场景，造成评测基准缺失"
+        }
+      ],
+      "answer": "A",
+      "analysis": "教材7.4.5节明确定义Answer Relevancy计算包含'判断答案是否模棱两可（noncommittal）'，并将'我不知道''我不确定'等标记为1（即严重扣分）。题干中'大量答案以无法确定开头'正是noncommittal的典型表现，根源在于生成端提示词未抑制该行为（教材7.5节优化方向明确'查提示词与意图理解'）。B错误：Context Recall若低会同步拉低Relevancy，但题干未提Recall异常；C错误：评委LLM能力是评测工具问题，而题干描述的是系统生成行为，应优先归因于被测系统；D错误：ground_truth用于Correctness，Relevancy计算不依赖ground_truth（教材7.3节表格明确其输入为question/answer/（及context））。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 1,
+      "stem": "在执行RAGAS自动化评测时，以下哪些配置若未冻结，将直接导致回归评测分数不可比，且违反教材7.2.4节'控制变量'原则？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "评委LLM的temperature参数"
+        },
+        {
+          "option_label": "B",
+          "option_text": "被测RAG系统的top_k检索参数"
+        },
+        {
+          "option_label": "C",
+          "option_text": "Embedding模型的API endpoint地址"
+        },
+        {
+          "option_label": "D",
+          "option_text": "评测集数据文件的JSON Schema定义"
+        }
+      ],
+      "answer": "AC",
+      "analysis": "A正确：temperature影响评委LLM输出稳定性，教材7.2.4节强调'推理参数（temperature/seed）都要固定'，否则打分波动无法归因；C正确：Embedding模型endpoint变更意味着向量空间改变，将直接影响Context Recall/Precision及Answer Correctness的语义相似度计算，教材7.2.4节明确'当评委的大模型版本都要固定'。B错误：top_k是被测系统参数，其变动正是待评估的优化项，不应冻结；D错误：JSON Schema定义属于数据结构规范，其变更属于评测集版本迭代，教材要求冻结的是'评测集版本'本身，而非Schema定义（Schema可随业务演进更新）。",
+      "difficulty_label": "进阶"
+    }
+  ]
+}

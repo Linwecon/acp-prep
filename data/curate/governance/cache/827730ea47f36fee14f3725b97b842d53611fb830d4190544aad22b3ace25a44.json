@@ -1,0 +1,154 @@
+{
+  "items": [
+    {
+      "type": 0,
+      "stem": "某企业报销查询Agent在工具调用超时后返回空结果，系统未触发重试、未切换备用方案、也未向用户澄清，而是直接生成模糊回答：“系统暂未返回结果”。该行为最根本违反Harness/Loop闭环中哪一环节的必要性？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "标准（Standard）缺失：未定义工具失败时的响应规范"
+        },
+        {
+          "option_label": "B",
+          "option_text": "验证（Validate）失效：未配置对工具返回值的确定性校验与异常分支判断"
+        },
+        {
+          "option_label": "C",
+          "option_text": "记录（Record）不足：未持久化失败轨迹供后续分析"
+        },
+        {
+          "option_label": "D",
+          "option_text": "写回（Write-back）延迟：未将故障模式沉淀为Skill或验证规则"
+        }
+      ],
+      "answer": "B",
+      "analysis": "依据教材第4.11节Harness/Loop闭环定义，'验证'环节要求通过确定性检查（如解析tool_calls、校验参数格式、检测工具返回状态码/错误字段）主动识别执行异常，并驱动对应处置逻辑（重试、降级、追问）。题干中Agent对空结果无感知、无分支处理，表明其验证机制未覆盖工具失败场景——既未检查Observation是否为空/含error字段，也未在代码层设置fallback路径。A项错误：标准缺失会导致设计偏差，但本题是已有标准未被验证执行；C、D属事后改进环节，而故障发生时验证已失守，是闭环断裂的第一道缺口。教材原文明确：'验证（Validate）：用确定性检查 + LLM Judge + 浏览器截图/代码执行等客观证据'，且4.2节强调'要给模型“失败出口”：工具超时、报错时能重试或换方案，而不是整轮崩溃'。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 0,
+      "stem": "一个课程审查Skill目录已编写完成，包含SKILL.md、code-quality.md及validate_code.py脚本。当Agent首次收到‘请审查这份Pandas教程代码’请求时，它仅加载了SKILL.md中的YAML frontmatter（含name/description），并未立即读取子文档或执行脚本。这种分阶段加载行为主要体现了本章强调的哪一核心设计原则？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "避免全量注入：防止无关Skill内容污染当前任务上下文"
+        },
+        {
+          "option_label": "B",
+          "option_text": "渐进式披露：按需加载子资源，控制上下文膨胀并提升相关性"
+        },
+        {
+          "option_label": "C",
+          "option_text": "独立凭据：确保审查脚本运行时使用最小权限账号"
+        },
+        {
+          "option_label": "D",
+          "option_text": "滚动摘要：用LLM压缩历史对话以节省token"
+        }
+      ],
+      "answer": "B",
+      "analysis": "教材第4.9节明确将Skill与RAG的核心区别定义为'选择-展开 vs 检索-注入'，并指出Skill采用'渐进式披露（Progressive Disclosure）'：Agent启动时仅看到所有Skill的description（极短），由模型判断是否激活；激活后才读SKILL.md，执行到具体步骤时再按需加载子文件（如code-quality.md）或调用脚本（validate_code.py）。这直接对应题干'仅加载YAML frontmatter，不立即读子文档'的行为。A项'避免全量注入'针对多Agent场景中主Prompt拼接所有Worker提示词的问题（4.7节），与Skill加载机制无关；C项'独立凭据'属于多Agent安全原则；D项'滚动摘要'是Memory管理策略（4.8节）。教材原文：'这就是渐进式披露（Progressive Disclosure）。这带来三个好处：不重复交代、不污染无关任务、不撑爆上下文。'",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 0,
+      "stem": "某金融Agent需完成‘评估客户A的贷款申请’任务，涉及调用征信查询、收入验证、风控模型三个工具。当前采用固定流水线工作流：征信→收入→风控。但近期因征信API临时不可用，整个流程卡死。为提升鲁棒性，以下哪些调整符合本章‘规划策略’的最佳实践？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "将征信工具替换为本地缓存数据，保持流水线结构不变"
+        },
+        {
+          "option_label": "B",
+          "option_text": "引入Plan-and-Execute模式，在每步执行前动态判断是否跳过/替换工具"
+        },
+        {
+          "option_label": "C",
+          "option_text": "为每个工具添加超时重试逻辑，但维持固定顺序"
+        },
+        {
+          "option_label": "D",
+          "option_text": "将三个工具合并为一个复合函数，减少调用次数"
+        }
+      ],
+      "answer": "B",
+      "analysis": "教材第4.6.3节明确指出：'固定工作流的致命问题是\"卡不起\"：竞品网站改版导致爬虫失效，预设流程里没这条分支，整个流程就僵住'，而'Plan-and-Execute让Agent围绕用户的高阶目标，先生成计划，再逐项执行；遇到障碍时重新规划'。B项正是此策略的体现——动态判断而非死守预设路径。A项未解决'卡死'本质，仅换数据源；C项虽增强容错，但未改变'卡在征信环节'的流程僵化问题，仍属固定流水线修补；D项违背解耦原则（4.2节），且增加单点故障风险。教材强调：'开发者从\"流程设计师\"变成\"目标设定者 + 工具提供者\"'，而Plan-and-Execute正是实现该转变的核心机制。",
+      "difficulty_label": "挑战"
+    },
+    {
+      "type": 1,
+      "stem": "某团队采用MCP协议接入多个内部系统工具（OA、HRIS、CRM）。部署后发现：新上线的CRM工具无法被Agent自动发现；同时，Agent在调用HRIS工具时偶发将员工身份证号明文写入日志。以下哪些做法符合本章对MCP的规范要求与风险警示？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "检查CRM MCP Server是否正确实现了tools.list接口并返回符合Schema的工具清单"
+        },
+        {
+          "option_label": "B",
+          "option_text": "在HRIS MCP Server端启用日志脱敏中间件，对敏感字段进行掩码处理"
+        },
+        {
+          "option_label": "C",
+          "option_text": "将CRM工具Schema硬编码到Agent代码中作为临时兜底方案"
+        },
+        {
+          "option_label": "D",
+          "option_text": "要求HRIS Server在返回数据前，强制对所有字符串字段执行base64编码"
+        }
+      ],
+      "answer": "AB",
+      "analysis": "教材第4.5节明确：MCP Server需对外暴露工具清单，Host通过MCP Client自动拉取（'Agent启动时客户端自动连接并拉取工具清单'），A项直指CRM未被发现的根本原因——Server端接口或Schema不符合协议。B项对应教材4.5节风险警示：'MCP Server本身需要鉴权，不能裸奔；其返回内容也可能被投毒，要防提示注入'，日志明文敏感信息属于典型安全疏漏，需在Server端治理。C项违背MCP设计初衷（'让工具作为独立Server暴露，Agent无需改代码'），属倒退；D项base64编码非脱敏，且破坏数据可用性，教材未推荐此类粗暴处理，反而强调'防提示注入'需针对性过滤而非通用编码。",
+      "difficulty_label": "挑战"
+    },
+    {
+      "type": 1,
+      "stem": "在Harness/Loop闭环的'写回（Write-back）'环节，以下哪些操作符合教材4.11节定义的'可复用经验回写'要求？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "将本次报销查询失败案例加入黄金测试集，用于后续LLM-as-Judge校准"
+        },
+        {
+          "option_label": "B",
+          "option_text": "在QWEN.md中新增一条约束：'当get_reimbursement返回空时，必须重试一次并追问工单号'"
+        },
+        {
+          "option_label": "C",
+          "option_text": "将失败日志存入Elasticsearch供运维人员人工排查"
+        },
+        {
+          "option_label": "D",
+          "option_text": "将'身份证号明文日志'问题记录为Jira Bug，分配给开发修复"
+        }
+      ],
+      "answer": "AB",
+      "analysis": "教材第4.11节定义'写回'为'把可复用经验回写到Skill / 验证器 / 标准'，并举例'把教训写进Skill / QWEN.md'、'补验证器 / 检查项'。A项将失败案例转化为评测资产，属于'写回验证体系'；B项将故障应对策略固化为系统级标准（QWEN.md），是典型的'写回标准'。C项仅为原始日志存储，未提炼为可复用规则；D项是常规缺陷管理，未上升为系统性改进（如更新验证器或Skill）。教材强调：'当问题出现时，按这个顺序判断该改什么：作品本身有错→改作品；Agent反复犯同类错→写进Skill；错误没被自动发现→补验证器；好坏判不清→补标准'，AB正对应后两类。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 0,
+      "stem": "某企业升级新人答疑机器人为报销进度查询助手。用户输入'帮我查一下我上个月提交的报销单审批到哪一步了'，模型返回tool_calls=[{'name':'get_reimbursement','args':{'user_id':'U123','month':'2024-07'}}]。此时若工具执行超时返回空结果，Agent下一步最应采取的行动是？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "立即向用户发送通知：'报销查询服务暂时不可用，请稍后再试'"
+        },
+        {
+          "option_label": "B",
+          "option_text": "在当前上下文中追加'Observation: get_reimbursement returned empty due to timeout'，交由模型生成下一步决策"
+        },
+        {
+          "option_label": "C",
+          "option_text": "由应用代码直接调用备用工具get_reimbursement_fallback"
+        },
+        {
+          "option_label": "D",
+          "option_text": "丢弃本次结果，重新发起一轮完整推理"
+        }
+      ],
+      "answer": "B",
+      "analysis": "教材第4.2节明确约定：'工具返回结果必须回灌到上下文，否则模型等于\"做完就忘\"'；第4.4节ReAct流程强调Observation必须作为消息回传，模型基于完整轨迹（Thought/Action/Observation）决定后续动作。B项严格遵循此闭环：将超时事实作为Observation（role='tool'）注入上下文，交由模型自主决策（重试、换参、追问、降级等）。A项绕过模型决策，违背Agent'自主迭代'本质；C项虽可行，但将策略硬编码，丧失ReAct的动态适应性，且教材未授权应用层越俎代庖做决策；D项浪费算力，违背'最小轮数'原则（4.4节铁律）。教材原文：'Observation：读回结果 → 回到感知'，且'每一轮，LLM都基于...上一步工具返回生成下一步动作'。",
+      "difficulty_label": "进阶"
+    }
+  ]
+}

@@ -1,0 +1,179 @@
+{
+  "new-6-12-0": {
+    "qid": "new-6-12-0",
+    "classification": "own",
+    "chapter": 6,
+    "quality": "ok",
+    "reason": "考查连续批处理与Prefill阶段性能的关系，符合本章核心知识。",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "Prefill（预填充阶段）...是计算密集型，处理完后吐出第一个token，决定了TTFT（Time To First Token，首token延迟）",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "连续批处理优化Decode调度，但长prompt的Prefill计算量大，直接导致TTFT上升。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "PagedAttention解决碎片，但题干无相关线索，且TTFT主因是Prefill。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "流式响应影响用户体验，不改变服务端TTFT计算。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "模型初始化在服务启动时完成，不影响运行时TTFT。"
+      }
+    ],
+    "duplicate_of": "6-5148"
+  },
+  "new-6-12-1": {
+    "qid": "new-6-12-1",
+    "classification": "own",
+    "chapter": 6,
+    "quality": "ok",
+    "reason": "考查PagedAttention参数调整对KV Cache占用的影响，符合本章知识。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "KV Cache随‘序列长度 × 并发数’线性增长...PagedAttention（分页注意力）...带来的好处：消除碎片...按需分配",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "增大块大小不直接减少并发数，无法立即缓解高占用。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "降低最大并发数可直接减少KV Cache总量，立即缓解占用。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "启用前缀缓存可复用，但题干未提公共前缀，非最直接缓解。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "调整存储精度是量化，非PagedAttention参数调整。"
+      }
+    ],
+    "duplicate_of": "6-5145"
+  },
+  "new-6-12-3": {
+    "qid": "new-6-12-3",
+    "classification": "own",
+    "chapter": 6,
+    "quality": "ok",
+    "reason": "考查PagedAttention提升显存利用率的前提条件，符合本章知识。",
+    "answer": [
+      "A",
+      "B"
+    ],
+    "supported": true,
+    "quote": "PagedAttention...带来的好处：消除碎片、按需分配、不再按最大长度预分配浪费",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "长度一致则无碎片，预分配浪费少，PagedAttention优势减弱。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "缓存已满且无空闲块可复用，则无法通过分页提升利用率。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "GQA减少KV头数，降低缓存压力，但非PagedAttention效果减弱原因。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "存在相同前缀正是PagedAttention可共享的优势场景。"
+      }
+    ],
+    "duplicate_of": "6-5144"
+  },
+  "new-6-12-4": {
+    "qid": "new-6-12-4",
+    "classification": "own",
+    "chapter": 6,
+    "quality": "ok",
+    "reason": "考查量化效果与教材原文支持的对应关系，符合本章知识。",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "量化通常也加速：因为Decode阶段是显存带宽密集型，从显存读权重的字节数变少了",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "原文支持量化因减少显存带宽而加速Decode（TPOT）。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "原文未明确量化对Prefill无影响，TTFT无变化可能因其他因素。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "分数下降需验证，但原文未直接证明AWQ不适用于代码任务。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "INT4理论降为1/4（75%），58%不符，原文未支持此数值。"
+      }
+    ],
+    "duplicate_of": "6-5136"
+  },
+  "new-6-12-5": {
+    "qid": "new-6-12-5",
+    "classification": "own",
+    "chapter": 6,
+    "quality": "ok",
+    "reason": "考查高TTFT的排查思路，紧扣Prefill阶段性能分析。",
+    "answer": [
+      "A",
+      "B"
+    ],
+    "supported": true,
+    "quote": "Prefill（预填充阶段）...是计算密集型，处理完后吐出第一个token，决定了TTFT",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "TTFT由Prefill决定，应优先检查其执行耗时。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "无排队日志不代表无等待，队列时间可能影响TTFT。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "模型加载在服务启动时完成，非运行时TTFT高的原因。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "KV Cache占用率低，且Decode延迟主要影响TPOT而非TTFT。"
+      }
+    ],
+    "duplicate_of": "6-5139"
+  }
+}

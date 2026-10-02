@@ -1,0 +1,154 @@
+{
+  "items": [
+    {
+      "type": 0,
+      "stem": "某企业升级新人答疑机器人为可办事Agent，用户问'帮我查一下我上个月提交的报销单审批到哪一步了'。系统首次调用模型后返回tool_calls=[{'name':'get_reimbursement','args':{'user_id':'U123','month':'2024-07'}}]。此时下一步必须由谁执行该函数？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "模型自身立即执行该函数并返回结果"
+        },
+        {
+          "option_label": "B",
+          "option_text": "前端JavaScript代码解析并调用内部API"
+        },
+        {
+          "option_label": "C",
+          "option_text": "后端应用代码解析tool_calls、调用对应服务、将结果以role='tool'消息回传"
+        },
+        {
+          "option_label": "D",
+          "option_text": "Memory模块自动触发工具注册器完成执行"
+        }
+      ],
+      "answer": "C",
+      "analysis": "依据4.3节Function Calling流程四步铁律：第1步定义工具、第2步模型决策输出tool_calls（仅提议）、第3步必须由应用代码执行函数、第4步将结果作为role='tool'消息回传。原文明确强调'模型只输出调用意图，执行工具的是应用代码'（4.3风险栏），且示例代码中由client.chat.completions.create后人工解析call、执行函数、再构造tool消息重调模型。A违反'模型不执行'核心原则；B未体现标准tool消息回传机制且前端不应直连业务API；D混淆Memory职责——Memory只存储不执行。",
+      "difficulty_label": "基础"
+    },
+    {
+      "type": 1,
+      "stem": "在排查一个ReAct Agent反复失败的生产问题时，发现其轨迹中Thought步骤逻辑合理，但Action调用的工具参数始终为空字符串。以下哪些原因符合教材所述高频风险点？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "工具JSON-Schema中parameters字段缺少required数组声明必填项"
+        },
+        {
+          "option_label": "B",
+          "option_text": "用户原始提问含模糊表述（如'那个单子'），Agent未主动追问而强行生成参数"
+        },
+        {
+          "option_label": "C",
+          "option_text": "Observation结果被直接拼入上下文但未标注role='tool'，导致模型无法识别"
+        },
+        {
+          "option_label": "D",
+          "option_text": "ReAct轮数上限设为1，导致未进入第二轮参数补全"
+        }
+      ],
+      "answer": "ABCD",
+      "analysis": "A对应4.3风险栏'❌ Schema随便写写就行 → ✅ Schema字段名含糊、描述缺失，会直接导致参数提取错误'，required缺失使模型认为参数可选；B对应4.3风险栏'❌ 参数必须一轮提取完 → ✅ 缺参时Agent应主动追问而不是瞎猜'，模糊指代是典型触发场景；C对应4.3风险栏'❌ 工具结果模型自己能看到 → ✅ 结果必须由程序作为role=\"tool\"消息追加回上下文'，未标注则模型无法感知Observation；D对应4.4风险栏'ReAct不是无限循环：必须设置最大迭代轮数...超限要主动收尾'，轮数过小会截断多轮参数收集过程。四项均严格匹配教材原文风险描述。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 0,
+      "stem": "某团队需接入20+内部系统（OA/CRM/ERP/BI）作为Agent工具，当前每个Agent都硬编码所有工具Schema。当CRM接口变更时，所有Agent需同步修改并重新部署。为根治此问题，应优先引入哪项技术？其与Function Calling的核心关系是什么？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "MCP协议；它定义工具调用的底层通信机制，替代Function Calling"
+        },
+        {
+          "option_label": "B",
+          "option_text": "ReAct框架；它通过Thought-Action-Observation循环解决工具动态发现"
+        },
+        {
+          "option_label": "C",
+          "option_text": "MCP协议；它标准化工具的'接入与发现'，Function Calling仍负责模型调用触发"
+        },
+        {
+          "option_label": "D",
+          "option_text": "Skill系统；通过渐进式披露管理多工具描述，避免Schema硬编码"
+        }
+      ],
+      "answer": "C",
+      "analysis": "依据4.5节'对比MCP vs Function Calling'：'Function Calling解决模型会不会、怎么调用工具（调用机制）；MCP解决工具怎么被发现、被管理、被复用（接入标准化）'，且原文明确'实际链路：Agent通过MCP Client发现工具→把工具Schema注入→模型仍通过Function Calling触发调用'。A错误在于'替代'，教材强调'互补，不是替代'；B错误因ReAct不解决工具发现，只解决执行时序；D错误因Skill管理的是SOP流程而非工具Schema，且4.9节指出Skill入口仅含description（短文本），不承载完整Schema。",
+      "difficulty_label": "中等"
+    },
+    {
+      "type": 1,
+      "stem": "设计一个多Agent系统处理'编写Pandas课程'任务，包含教学设计师、数据科学家、内容编辑三个Agent。以下哪些设计违反了本章'多Agent设计四条硬原则'？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "为简化运维，所有Agent共用同一套数据库读写权限凭证"
+        },
+        {
+          "option_label": "B",
+          "option_text": "将三个Agent的全部系统提示词合并为一个超长Prompt，在Leader Agent初始化时一次性注入"
+        },
+        {
+          "option_label": "C",
+          "option_text": "数据科学家Agent在发现代码示例有误时，直接调用内容编辑Agent修正文案"
+        },
+        {
+          "option_label": "D",
+          "option_text": "Leader Agent根据任务拆解结果，按需调用各Worker Agent并汇总结果"
+        }
+      ],
+      "answer": "ABC",
+      "analysis": "A违反'独立凭据'原则（4.7原则2），原文警示'不得共用同一套账号/API凭据，按最小权限分别授权'；B违反'避免全量注入'原则（4.7原则4），原文强调'不要把所有Agent的知识/工具清单一次性写进主Prompt'，否则导致上下文膨胀；C违反'中央调度'原则（4.7原则3），原文要求'设置Planner/Leader Agent统一判断何时调哪个Agent，避免Agent之间无序互调、循环等待'；D符合分层规划模式（4.7场景），是正确实践，故不选。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 0,
+      "stem": "某客服Agent连续处理30轮对话后，用户反馈'之前说好用学术风格回答，现在又变回口语化了'。当前采用固定窗口截断策略（保留最近10轮）。最根本的改进方案应聚焦于哪类记忆机制？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "扩大截断窗口至50轮，确保首轮指令不被丢弃"
+        },
+        {
+          "option_label": "B",
+          "option_text": "改用滚动摘要策略，将早期关键约束压缩为摘要嵌入上下文"
+        },
+        {
+          "option_label": "C",
+          "option_text": "引入向量化长期记忆，将'学术风格'偏好持久化并按需检索注入"
+        },
+        {
+          "option_label": "D",
+          "option_text": "在每次响应末尾强制追加'请保持学术风格'作为系统指令"
+        }
+      ],
+      "answer": "C",
+      "analysis": "依据4.8节'为什么不能把全部历史一直塞进上下文？'：'窗口有限、成本高、且会注意力稀释/中间迷失'，故A只是延后问题；B虽优于A，但摘要质量不可控（4.8最佳实践指出'摘要质量决定效果'），且无法保证关键约束不被压缩丢失；C直接对应4.8考试题'Agent连续工作30轮后忘记第1轮设定的严谨学术风...怎么改？→ 引入向量化长期记忆'，原文强调其'摆脱窗口限制、海量记忆按需取用'；D违反'有选择地记'原则（4.8最佳实践），属于低价值噪声污染上下文。",
+      "difficulty_label": "中等"
+    },
+    {
+      "type": 1,
+      "stem": "评测一个报销查询Agent时，端到端指标（如用户满意度）达标，但运营发现'报销单号格式错误导致工具调用失败'的工单激增。为精准定位该问题，应组合使用以下哪些评测手段？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "确定性检查：解析执行trace，验证get_reimbursement工具调用参数是否符合正则^[R][X]\\d{6}$"
+        },
+        {
+          "option_label": "B",
+          "option_text": "LLM-as-Judge：让另一个模型评估'工具调用合理性'并打分"
+        },
+        {
+          "option_label": "C",
+          "option_text": "Rubric：定义'参数合规性'细则（如单号长度、前缀、数字位数），结构化输出check结果"
+        },
+        {
+          "option_label": "D",
+          "option_text": "白盒化评测：单独检查工具调用环节的输入参数生成过程"
+        }
+      ],
+      "answer": "ACD",
+      "analysis": "A是确定性检查典型应用（4.10原理），针对'报销单号格式'这一客观规则，可编程验证；C是Rubric对确定性检查的增强（4.10原理），将模糊目标拆为可判定细则；D是4.10节明确提出的'白盒化评测'范畴，'关键组件/中间步骤（工具调用序列、参数、轨迹）'正是定位'参数生成错误'的关键；B虽属评测手段，但LLM-as-Judge适用于主观项（4.10原理），'单号格式是否正确'是确定性规则，用LLM评判既不准确又增加偏见风险（4.10风险栏），故不选。",
+      "difficulty_label": "进阶"
+    }
+  ]
+}

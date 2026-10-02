@@ -1,0 +1,217 @@
+{
+  "3-0502": {
+    "qid": "3-0502",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "考查向量数据库选型，与原文知识点匹配。",
+    "answer": [
+      "A",
+      "D"
+    ],
+    "supported": true,
+    "quote": "开发测试可用 LlamaIndex 内置的内存向量库；生产环境可选用云服务（如阿里云 DashVector）或自建开源库",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "原文明确生产环境可选用云服务。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "小规模应用通常用内存向量库，非云服务。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "开发测试建议用内置内存库，非云服务。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "大规模应用是云服务向量存储的典型场景。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-0503": {
+    "qid": "3-0503",
+    "classification": "misplaced",
+    "chapter": 7,
+    "quality": "fixable",
+    "reason": "题干表述不清，选项与RAG召回结果无关，更像评估或应用价值题。",
+    "answer": [],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "内容研究分析是应用场景，非召回结果。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "教材开发是应用场景，非召回结果。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "增加训练数据与RAG召回结果无关。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "减少推理时间非召回结果，是性能目标。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-0506": {
+    "qid": "3-0506",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "考查查询改写等检索前意图还原技术，与原文知识点匹配。",
+    "answer": [
+      "A",
+      "B"
+    ],
+    "supported": true,
+    "quote": "必要时先做查询改写（消代词、补全指代）；HyDE（假设文档嵌入）先让 LLM 编一段假想答案",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "问题改写是原文明确的检索前技术。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "问题扩写（如HyDE）属于意图还原。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "用户画像扩展上下文原文未提及。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "提取标签是元数据过滤，非意图还原。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-0508": {
+    "qid": "3-0508",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "考查多轮对话中影响检索的因素，与原文知识点匹配。",
+    "answer": [
+      "A",
+      "B"
+    ],
+    "supported": true,
+    "quote": "多轮对话中后续问题检索不准应先结合历史改写问题，而不是把全部对话历史塞进检索（会降低 embedding 质量）",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "长文本作为历史信息可能影响检索。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "历史对话信息是影响检索的关键因素。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "模型参数数量与检索系统处理能力无关。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "训练数据量是模型训练因素，非检索处理因素。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-0511": {
+    "qid": "3-0511",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "考查元数据标签的提取与应用场景，与原文知识点匹配。",
+    "answer": [
+      "A",
+      "B"
+    ],
+    "supported": true,
+    "quote": "元数据过滤：权限、时效、部门隔离，检索前按来源/时间/部门等标签先过滤候选集",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "建索引时从文档提取标签是合理场景。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "检索时从问题提取标签过滤是合理场景。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "建索引时应从文档提取，非从用户问题。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "检索时应从问题或过滤条件提取，非从文档切片。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-0514": {
+    "qid": "3-0514",
+    "classification": "beyond",
+    "chapter": 12,
+    "quality": "review",
+    "reason": "考查高级RAG课题，GraphRAG等超出第3章核心知识，属于框架与工具拓展。",
+    "answer": [
+      "A",
+      "B",
+      "C",
+      "D"
+    ],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "GraphRAG是值得探索的高级课题。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "可视化工作流是工程化探索方向。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "智能体编排是Agent与RAG结合方向。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "LlamaIndex组件是框架层面的探索。"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

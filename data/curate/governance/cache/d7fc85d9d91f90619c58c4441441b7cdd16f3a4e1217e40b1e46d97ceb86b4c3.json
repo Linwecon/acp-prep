@@ -1,0 +1,207 @@
+{
+  "4-0303": {
+    "qid": "4-0303",
+    "classification": "own",
+    "chapter": 4,
+    "quality": "review",
+    "reason": "原文未提ModelScope-Agent具体实现",
+    "answer": [],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "原文未定义ModelScope-Agent工具参数机制"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "原文未提NLU动态分析技术"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "原文强调模型可逐步追问缺参"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "原文明确反对固定参数，支持多轮追问"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "4-0305": {
+    "qid": "4-0305",
+    "classification": "own",
+    "chapter": 4,
+    "quality": "review",
+    "reason": "原文未提ModelScope-Agent可定制性来源",
+    "answer": [],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "原文未提预训练模型阵容"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "原文未提角色描述快速搭建"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "原文未提限制性接口设计"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "原文未提固定工具集"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "4-0310": {
+    "qid": "4-0310",
+    "classification": "own",
+    "chapter": 4,
+    "quality": "ok",
+    "reason": "MetaGPT项目明确用于软件开发公司建模",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "用MetaGPT构建软件开发公司",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "斯坦福小镇未提文档套件"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "虚拟动物社区未提扁平化"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "MetaGPT强调扁平化协作与文档生成"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "AutoGen聊天室未提软件开发"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "4-0333": {
+    "qid": "4-0333",
+    "classification": "own",
+    "chapter": 4,
+    "quality": "ok",
+    "reason": "多Agent需中央调度防死锁，原文明确要求",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "设置 Planner / Leader Agent 统一判断'何时调哪个 Agent'，避免 Agent 之间无序互调、循环等待（死锁）",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "原文要求职责明确而非算法一致"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "原文未提减少通信开销"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "原文四原则之中央调度防死锁"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "原文强调全局目标而非局部优化"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "4-0344": {
+    "qid": "4-0344",
+    "classification": "own",
+    "chapter": 4,
+    "quality": "ok",
+    "reason": "原文明确三种记忆管理策略含截断和动态机制",
+    "answer": [
+      "A",
+      "B"
+    ],
+    "supported": true,
+    "quote": "三种主流管理策略：固定窗口截断 / 滚动摘要 / 向量化召回",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "对应向量化召回与动态检索"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "原文首推固定窗口截断策略"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "原文未提Transformer-XL变种"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "原文反对每次重启，主张记忆治理"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "4-0349": {
+    "qid": "4-0349",
+    "classification": "own",
+    "chapter": 4,
+    "quality": "review",
+    "reason": "原文未提LLM规模动态分配策略",
+    "answer": [],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "原文未提统一用最大模型"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "原文未提任务复杂度动态调整"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "原文未提固定规模配置"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "原文未提关键点用大模型"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

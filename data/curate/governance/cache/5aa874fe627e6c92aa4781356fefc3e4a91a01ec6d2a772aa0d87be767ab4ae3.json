@@ -1,0 +1,218 @@
+{
+  "3-0509": {
+    "qid": "3-0509",
+    "classification": "own",
+    "chapter": 7,
+    "quality": "fixable",
+    "reason": "题干问法模糊，选项C/D与题干无关，需修正选项。",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "RAGAS（RAG Assessment）是主流的开源 RAG 评估框架，它把 RAG 链路拆成'检索端'和'生成端'分别打分，核心思想是'让大模型当评委'。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "RAGAS使用大模型作为评委进行评分。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "Answer Correctness评估生成答案，不直接使用Embedding模型。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "增加训练数据是训练阶段行为，与评估计算过程无关。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "减少推理时间与评估指标的计算过程无关。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-0516": {
+    "qid": "3-0516",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "考查对阿里云百炼提供的Embedding模型版本的识记。",
+    "answer": [
+      "A",
+      "B",
+      "C"
+    ],
+    "supported": true,
+    "quote": "阿里云百炼提供 `text-embedding-v3` 等 Embedding 模型，可同时用于建库与查询。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "text-embedding-v3是原文提及的模型。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "text-embedding-3-small是v3系列模型，符合更新模型范畴。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "text-embedding-3-large是v3系列模型，符合更新模型范畴。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "v2是旧版本，不符合题干“更新的”要求。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-0571": {
+    "qid": "3-0571",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "fixable",
+    "reason": "选项C/D与题干无关，需修正。题干问法为“哪些是好处”，应选正面选项。",
+    "answer": [
+      "A",
+      "B"
+    ],
+    "supported": true,
+    "quote": "Embedding 模型负责'把文本变向量'，用于检索，不生成回答。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "更好的Embedding模型能理解更深层语义，提升召回。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "更换更好的模型能提升检索准确率，从而优化recall。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "增加训练数据是模型训练行为，非更换模型的好处。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "减少推理时间与优化context recall指标无直接关系。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-0578": {
+    "qid": "3-0578",
+    "classification": "own",
+    "chapter": -1,
+    "quality": "remove",
+    "reason": "考查具体函数参数，属于编程细节，无考查价值且与RAG核心知识无关。",
+    "answer": [],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "无原文支持，且考查细节无意义。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "无原文支持，且考查细节无意义。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "无原文支持，且考查细节无意义。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "无原文支持，且考查细节无意义。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-0730": {
+    "qid": "3-0730",
+    "classification": "cross",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "考查RAG中向量检索技术在推荐场景的应用，选项D为干扰项。",
+    "answer": [
+      "A",
+      "B",
+      "C"
+    ],
+    "supported": true,
+    "quote": "向量检索：离线把每个 chunk 向量化存入库；在线把用户问题也向量化，找出与问题向量距离最近的若干 chunk。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "存储用户行为和商品向量是向量数据库的典型应用。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "将文本转换为向量是Embedding接口的核心功能。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "结合向量相似度和业务规则生成推荐列表是合理设计。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "不依赖用户行为数据，与个性化推荐要求矛盾。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-0735": {
+    "qid": "3-0735",
+    "classification": "cross",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "考查RAG结合外部工具（API）的集成能力，所有选项均合理。",
+    "answer": [
+      "A",
+      "B",
+      "C",
+      "D"
+    ],
+    "supported": true,
+    "quote": "RAG 是上下文工程（Context Engineering）四大手段之一——在正确的时间把最相关的信息加载进上下文窗口。另外三个是提示词（Prompt）、工具（Tool）、记忆（Memory）。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "向量数据库用于存储和检索特征向量。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "大模型用于生成最终的推荐列表和理由。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "库存API提供实时数据，是工具集成的体现。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "行为分析工具提供用户数据，是必要的数据源。"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

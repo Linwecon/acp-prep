@@ -1,0 +1,212 @@
+{
+  "3-0088": {
+    "qid": "3-0088",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "考查切片策略选型，原文有对应知识。",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "语义切片：用模型判断语义边界，在话题转换处切 | 适用场景：高价值、结构复杂的文档（成本更高）",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "原文指出语义切片适合高价值、结构复杂的文档。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "Token切片按固定长度切，未提及适合逻辑性强文档。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "句子切片是通用策略，未特指适合逻辑性强专业文档。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "句子窗口切片解决精准命中与上下文完整矛盾，非首选。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-0093": {
+    "qid": "3-0093",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "考查向量相似度度量，原文明确说明。",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "余弦相似度：最常用，只看方向、不受长度影响",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "原文指出余弦相似度是向量检索首选相似度。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "欧氏距离是另一种度量，非首选或主要方法。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "曼哈顿距离原文未提及用于向量相似度计算。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "增加训练数据与计算相似度无关。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-0095": {
+    "qid": "3-0095",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "fixable",
+    "reason": "题干表述模糊，但选项A“提取标签”与原文“元数据过滤”概念对应，可修正。",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "元数据过滤：权限、时效、部门隔离 | 检索前按来源/时间/部门等标签先过滤候选集",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "提取标签对应元数据过滤，用于后续过滤和检索。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "问题改写解决指代不清，非提取标签。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "重排序用于精排，非提取标签。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "增加训练数据与检索召回阶段无关。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-0096": {
+    "qid": "3-0096",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "考查重排序对Context Precision指标的作用，原文有明确对应。",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "Rerank（重排序）...只把最相关的少数（如 Top 3）交给大模型。 | Context Precision...低分说明：无关内容排前面，加 Rerank",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "重排序提升相关片段排名，改善Context Precision。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "增加训练数据与重排序无关。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "重排序增加计算，可能增加推理时间。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "重排序不增加模型参数数量。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-0102": {
+    "qid": "3-0102",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "考查查询改写中的HyDE技术，原文有明确说明。",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "HyDE（假设文档嵌入）：问题太短/口语化，与文档表述差太远 | 先让 LLM 编一段“假想答案”，用假想答案的向量去检索真实文档",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "HyDE通过生成假想文档来增强检索效果。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "大模型扩充用户问题可能包含但不特指HyDE。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "多步骤查询改写原文未提及。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "重排序是另一项技术，非问题改写方法。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-0103": {
+    "qid": "3-0103",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "考查文本向量化的核心作用，原文有明确说明。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "Embedding（向量化 / 嵌入）是把一段文本转换成一串数字（高维向量...）。它的核心性质是：语义相近的文本，向量在空间中的距离也近。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "向量化不增加训练数据。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "向量化将文本转为数字表示以便相似度比较。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "向量化本身不减少推理时间。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "向量化不增加模型参数数量。"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

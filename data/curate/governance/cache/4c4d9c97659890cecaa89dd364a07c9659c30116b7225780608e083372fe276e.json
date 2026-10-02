@@ -1,0 +1,37 @@
+{
+  "8-5152": {
+    "qid": "8-5152",
+    "classification": "own",
+    "chapter": 8,
+    "quality": "ok",
+    "reason": "RAM权限管理核心是最小必要原则",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "RAM（访问控制）……'哪个子账号/角色能操作哪些云资源'……子账号/角色最小权限、独立凭据、MFA、定期轮换 AK",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "符合RAM最小权限原则"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "违反最小权限原则"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "安全风险不能以事故为前提"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "删除日志掩盖问题，违反审计要求"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

@@ -1,0 +1,214 @@
+{
+  "new-10-0-0": {
+    "qid": "new-10-0-0",
+    "classification": "own",
+    "chapter": 10,
+    "quality": "ok",
+    "reason": "考查PAI三件套分工，EAS负责在线服务部署与运维。",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "PAI-EAS，因其专为模型在线服务设计，原生支持弹性伸缩、蓝绿发布、版本管理与监控",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "DSW是开发环境，不适合生产部署。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "DLC用于训练，不负责推理服务部署。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "EAS专为模型在线服务设计，满足题干所有要求。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "ModelScope Notebook免费但非生产级服务。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-10-0-1": {
+    "qid": "new-10-0-1",
+    "classification": "own",
+    "chapter": 10,
+    "quality": "ok",
+    "reason": "考查TPM限流逻辑与成本控制，增大max_tokens会加剧消耗。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "加剧429错误并推高成本，因单次请求消耗Token量增加，更快耗尽TPM配额",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "增大输出长度会增加单次Token消耗，可能加剧限流。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "单次请求消耗Token增加会更快耗尽TPM配额，加剧问题。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "题干明确是TPM超限，非RPM。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "截断是技术结果，非题干所问的后果。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-10-0-2": {
+    "qid": "new-10-0-2",
+    "classification": "own",
+    "chapter": 10,
+    "quality": "ok",
+    "reason": "考查数据不出域、定制模型、高并发场景下PAI的必要性。",
+    "answer": [
+      "A",
+      "C"
+    ],
+    "supported": true,
+    "quote": "使用PAI-DSW进行LoRA微调，适配金融领域术语；使用PAI-EAS部署微调后模型，实现数据不出域的高并发服务",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "需微调适配术语，且数据不出域，需在PAI环境进行。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "题干未要求大规模分布式训练提升泛化。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "高并发、数据不出域的服务部署必须用EAS。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "调用DashScope API数据会上传，违反不出域约束。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-10-0-3": {
+    "qid": "new-10-0-3",
+    "classification": "own",
+    "chapter": 10,
+    "quality": "ok",
+    "reason": "考查PAI生命周期分层原则，DSW用于开发调试而非生产上线。",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "调试选DSW、训练选DLC、上线选EAS",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "在DSW启动服务用于生产，违反分层原则。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "费用管理是问题，但非题干问的“最根本”原则。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "vLLM接口兼容OpenAI，此说法错误。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "权重泄露非原文强调的关键原则。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-10-0-4": {
+    "qid": "new-10-0-4",
+    "classification": "own",
+    "chapter": 10,
+    "quality": "ok",
+    "reason": "考查开源模型价值：数据隐私、可定制、长期成本可控。",
+    "answer": [
+      "A",
+      "C"
+    ],
+    "supported": true,
+    "quote": "开源模型的价值集中在三点：① 数据隐私与合规（数据不出域）；② 可深度定制（任意微调/改结构）；③ 大规模稳定流量下的长期成本可控",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "医疗数据合规要求不出域，是开源核心价值。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "具备运维能力是前提，但非增强方案合理性的核心因素。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "需快速微调上线，体现开源模型可深度定制的价值。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "初期调用量小、预算有限，用托管API更划算。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-10-0-5": {
+    "qid": "new-10-0-5",
+    "classification": "own",
+    "chapter": 10,
+    "quality": "ok",
+    "reason": "考查使用者分层原则，HR应使用百炼而非PAI写代码。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "百炼面向大模型应用开发（Prompt、知识库、Agent、工作流、发布），使用者偏应用/产品；PAI面向模型训练与推理部署",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "PAI-DSW支持编码实现RAG，但非最佳工具。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "HR是应用使用者，应使用零代码的百炼平台。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "EAS可发布API，渠道集成非根本问题。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "PAI镜像通常预置模型，此说法不准确。"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

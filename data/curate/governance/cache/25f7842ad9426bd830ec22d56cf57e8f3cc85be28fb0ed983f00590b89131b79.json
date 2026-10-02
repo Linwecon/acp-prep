@@ -1,0 +1,215 @@
+{
+  "3-5060": {
+    "qid": "3-5060",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "Dify知识库管理需上传、切分、索引、配置、测试，C明显错误",
+    "answer": [
+      "A",
+      "B",
+      "D"
+    ],
+    "supported": true,
+    "quote": "上传文档并进行切分与索引",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "原文明确要求文档解析→切片→向量化→入库"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "需根据文档类型选择切片策略等配置"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "必须导入内容才能检索，仅存文件名无效"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "RAGAS评估需召回测试验证效果"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-5023": {
+    "qid": "3-5023",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "合同修订需分块处理并携带上下文，避免超窗和信息遗漏",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "切片太大引入干扰；切片太小、信息被截断",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "全文超上下文窗口，必然丢失后半内容"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "分块+全局约束是RAG标准做法"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "标题无实质内容，无法支撑修订"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "图片输入需OCR，非直接输入有效文本"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-5055": {
+    "qid": "3-5055",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "核心是知识库接入+提示词约束，其他选项无关",
+    "answer": [
+      "D"
+    ],
+    "supported": true,
+    "quote": "根据上下文信息而非先验知识来回答问题",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "模型大小不解决依据性问题"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "日志关闭不影响生成逻辑"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "应用名长度与行为约束无关"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "原文强调‘只依据资料’的提示词约束"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-5058": {
+    "qid": "3-5058",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "引用来源依赖知识库配置与返回设置，非硬件或UI问题",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "LLM依据资料生成答案，并标注引用来源",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "GPU运行不影响引用输出逻辑"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "图标与溯源功能无技术关联"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "引用显示需知识库启用并返回来源字段"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "用户名长度与引用功能无关"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-1096": {
+    "qid": "3-1096",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "PDF/Word含表格图片时需OCR或结构化解析，A/B/D均部分正确但D最完整",
+    "answer": [
+      "B",
+      "D"
+    ],
+    "supported": true,
+    "quote": "PDF是扫描图片怎么办 → 需要OCR / 文档智能解析",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "手动复制不可扩展，非工程化方案"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "OCR解决扫描件文字提取问题"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "强制纯文本违背企业文档现实"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "DashScopeParse专为结构化解析设计"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-0149": {
+    "qid": "3-0149",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "RAG专用于私域知识查询，其他选项属训练或性能范畴",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "RAG核心思想：开卷考试",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "公司内部文档查询是RAG典型场景"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "文档错误检查属质量校验，非RAG目标"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "增加训练数据属微调范畴"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "推理时间优化属部署层问题"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

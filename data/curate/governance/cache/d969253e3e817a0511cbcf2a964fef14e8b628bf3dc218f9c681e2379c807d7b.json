@@ -1,0 +1,215 @@
+{
+  "12-0500": {
+    "qid": "12-0500",
+    "classification": "own",
+    "chapter": 12,
+    "quality": "ok",
+    "reason": "考查LlamaIndex索引持久化方法，原文明确给出persist和load_index_from_storage",
+    "answer": [
+      "A",
+      "B"
+    ],
+    "supported": true,
+    "quote": "通过 `StorageContext.from_defaults(persist_dir=...)` + `index.storage_context.persist(...)` 把索引落到本地",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "原文明确提到persist方法"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "原文虽未直写函数名但上下文指代加载操作"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "是文档加载非索引加载"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "是建索引非保存索引"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "12-0573": {
+    "qid": "12-0573",
+    "classification": "own",
+    "chapter": 12,
+    "quality": "ok",
+    "reason": "考查流式输出价值，原文指出流式不改变答案质量但改善体验",
+    "answer": [
+      "C",
+      "D"
+    ],
+    "supported": true,
+    "quote": "流式响应与SSE协议",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "原文明确流式不改变答案质量"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "TTFT/TPOT指标未提速度提升"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "给用户带来良好阅读体验"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "避免超时是流式核心优势"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "12-0763": {
+    "qid": "12-0763",
+    "classification": "own",
+    "chapter": 12,
+    "quality": "ok",
+    "reason": "考查文档解析选型，原文强调结构化数据需先解析再提示",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "无论用哪种，都要把解析结果存为结构化 Markdown：保留标题层级（`#`/`##`/`###`）和表格的行列结构",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "Excel需先解析再输入"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "符合解析→结构化→提示词路径"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "违背自动化要求"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "未满足图表描述需求"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "12-1197": {
+    "qid": "12-1197",
+    "classification": "own",
+    "chapter": 12,
+    "quality": "ok",
+    "reason": "考查句子窗口机制，原文明确其作用是扩展召回文本上下文",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "句子窗口检索机制",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "rerank是独立后处理步骤"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "句子窗口用于扩展上下文"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "自动合并检查未提及"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "未涉及索引加载"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "12-1205": {
+    "qid": "12-1205",
+    "classification": "own",
+    "chapter": 12,
+    "quality": "ok",
+    "reason": "考查Settings全局配置，原文强调统一配置避免重复指定",
+    "answer": [
+      "D"
+    ],
+    "supported": true,
+    "quote": "课程 `course_core/chatbot/rag.py` 展示了最精简的 LlamaIndex 用法",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "定义是手段非目的"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "embed_model不参与生成"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "流式由query_engine控制"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "Settings统一配置避免重复指定"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "12-1461": {
+    "qid": "12-1461",
+    "classification": "own",
+    "chapter": 12,
+    "quality": "ok",
+    "reason": "考查自定义API封装价值，原文指出LangChain支持多模型接入",
+    "answer": [
+      "A",
+      "B"
+    ],
+    "supported": true,
+    "quote": "集成包 `langchain-openai`、`langchain-community` 等把各家模型、向量库、工具包装成统一接口",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "API可扩展参数"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "支持更多模型接入"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "中间结果非主要优点"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "仍需API Key"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

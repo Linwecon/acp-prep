@@ -1,0 +1,37 @@
+{
+  "new-10-114-4": {
+    "qid": "new-10-114-4",
+    "classification": "own",
+    "chapter": 10,
+    "quality": "ok",
+    "reason": "考查qwen-plus上下文限制与长文本选型逻辑",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "qwen-long | 支持超长上下文窗口 | 长文档/大文档问答，可减少切片",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "原文明确qwen-long支持超长上下文，用于长文档问答"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "原文未提百炼工作流token默认上限值"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "原文未提平台主动熔断机制"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "原文未提DashScope input token硬性上限及400错误"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

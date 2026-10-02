@@ -1,0 +1,72 @@
+{
+  "new-10-30-0": {
+    "qid": "new-10-30-0",
+    "classification": "own",
+    "chapter": 10,
+    "quality": "ok",
+    "reason": "题目考查在数据不出域、需定制模型、有运维能力场景下的平台选型，符合本章分层与选型原则。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "开源模型的价值集中在三点：① 数据隐私与合规（数据不出域）；② 可深度定制（任意微调/改结构）；③ 大规模稳定流量下的长期成本可控。PAI 三件套对应模型生命周期的三个阶段：DSW 开发、DLC 训练、EAS 部署。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "调用DashScope API数据需上送云端，违反数据不出内网要求。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "开源模型下载、PAI微调与部署，全程在私有环境，满足数据不出域和定制需求。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "调用DashScope API数据需上送云端，违反数据不出内网要求。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "百炼‘模型调优’功能可能依赖平台托管训练，数据可能出域；且导出ONNX自建部署非本章标准路径。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-10-30-4": {
+    "qid": "new-10-30-4",
+    "classification": "own",
+    "chapter": 10,
+    "quality": "ok",
+    "reason": "题目考查数据不出专网、需多环节处理（OCR、字段提取、摘要）场景下的私有化平台选型。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "PAI 是阿里云面向算法工程师的机器学习全流程平台，覆盖模型开发、分布式训练、在线推理部署。开源模型可私有化/数据不出域程度更高。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "通义听悟用于语音识别，非OCR；且调用DashScope API数据可能出专网。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "使用PAI-DSW开发、训练、部署开源OCR及专用模型，全程在专网内，符合私有化原则。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "百炼文档解析和调用DashScope可能使数据离开专网，违反数据不出网要求。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "本地服务器部署开源模型可行，但未体现训练专用字段识别模型的环节，且非本章强调的PAI标准流程。"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

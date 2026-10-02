@@ -1,0 +1,178 @@
+{
+  "new-10-168-0": {
+    "qid": "new-10-168-0",
+    "classification": "own",
+    "chapter": 10,
+    "quality": "ok",
+    "reason": "题干明确要求基于ModelScope开源模型+PAI-EAS私有化部署，考察ModelScope的核心定位。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "ModelScope（魔搭）是阿里云主导的开源模型与数据集社区，类似‘模型界的GitHub’。你可以在上面下载开源模型权重和数据集",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "提供Notebook是功能，非核心定位，且与私有化部署决策无直接依赖。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "ModelScope核心定位是开源模型社区，支持下载可私有化部署的模型权重，这是决策的直接依据。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "按Token计费的托管API服务是DashScope的定位，不是ModelScope的。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "内置RAG知识库引擎是百炼的功能，ModelScope不提供此服务。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-10-168-1": {
+    "qid": "new-10-168-1",
+    "classification": "own",
+    "chapter": 10,
+    "quality": "ok",
+    "reason": "考察ModelScope Notebook环境限制及LoRA微调与推理的显存差异，教材有明确依据。",
+    "answer": [
+      "A",
+      "B"
+    ],
+    "supported": true,
+    "quote": "ModelScope Notebook免费但通常有连续运行时长限制（如单次4小时自动关闭）；PAI-DSW实例可保留但需主动管理计费。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "教材指出ModelScope Notebook有运行时长限制，默认GPU显存有限，不支持训练类任务。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "LoRA微调需加载参数并保留梯度，对显存要求远高于纯推理，这是教材明确指出的约束。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "说法绝对，Qwen3-0.6B是较小模型，并非无法在任何Notebook运行。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "ModelScope提供模型权重下载，但未明确说明不提供训练框架支持，且与OOM故障无直接关系。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-10-168-2": {
+    "qid": "new-10-168-2",
+    "classification": "own",
+    "chapter": 10,
+    "quality": "ok",
+    "reason": "考察对DashScope API限流（TPM）及正确处理方式的理解，教材有明确原则。",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "遇429用指数退避 + 抖动重试，切忌无间隔死循环重试，那会加剧限流、推高成本。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "上下文缓存折扣可降本，但与无间隔重试导致稳定性问题无直接关系。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "路由至更小模型是降本策略，但非处理限流错误的最直接原则。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "教材明确指出处理429限流应使用指数退避+抖动策略，无间隔重试违反此原则。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "设置max_tokens是控制输出的成本手段，与处理限流错误无直接关系。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-10-168-4": {
+    "qid": "new-10-168-4",
+    "classification": "own",
+    "chapter": 10,
+    "quality": "ok",
+    "reason": "综合考察基于开源模型微调并私有化部署的全链路产品选型，需遵循原文分层定位。",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "开源模型的价值集中在三点：① 数据隐私与合规（数据不出域）；② 可深度定制（任意微调/改结构）；③ 大规模稳定流量下的长期成本可控。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "ModelScope下载模型，PAI-DSW开发，PAI-DLC训练，PAI-EAS部署，完全符合开源模型私有化部署全链路分层定位。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "使用DashScope和百炼涉及数据上送公网，违反‘严禁出域’要求。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "百炼是应用开发平台，不适合用于模型微调开发，且部署环节不明确。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "OSS存储模型不合理，MaxCompute用于海量离线计算而非模型训练，DashScope是API服务非网关。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-10-168-5": {
+    "qid": "new-10-168-5",
+    "classification": "own",
+    "chapter": 10,
+    "quality": "ok",
+    "reason": "考察平台选型原则，针对非工程人员（HR）的零代码需求，应使用百炼而非PAI-DSW写代码。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "选型决策（按‘你想干什么’发问）：要快速搭知识库问答/智能体/工作流并发布 → 百炼。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "计费风险是问题但不是最根本的，根本在于选型错误。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "HR是应用使用者，应使用百炼零代码搭建，违背了‘谁该用控制台、谁该写代码’的选型原则。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "DSW中可以调用DashScope API，此说法不成立。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "DSW作为开发环境，支持文档解析与向量化代码实现，此说法不成立。"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

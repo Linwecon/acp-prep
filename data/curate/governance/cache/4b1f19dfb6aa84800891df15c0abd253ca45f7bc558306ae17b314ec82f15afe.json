@@ -1,0 +1,37 @@
+{
+  "new-6-132-0": {
+    "qid": "new-6-132-0",
+    "classification": "own",
+    "chapter": 6,
+    "quality": "ok",
+    "reason": "考查vLLM并发控制参数对性能的影响，符合本章知识。",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "并发数：同时在处理的请求数 | 受显存（KV Cache）容量、调度策略影响。超出并发上限通常直接返回错误（如429）",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "错误率归零不现实，RT下降与QPS提升矛盾。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "RT继续恶化不符合限制并发的目的。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "限制并发可减少排队和KV Cache压力，改善错误率和RT。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "限制并发应能改善错误率，不会无变化。"
+      }
+    ],
+    "duplicate_of": "6-5135"
+  }
+}

@@ -1,0 +1,154 @@
+{
+  "items": [
+    {
+      "type": 0,
+      "stem": "某团队使用vLLM部署Qwen3-0.6B模型，压测发现当并发从16提升至32时，QPS仅增长12%，平均RT翻倍且429错误率达8%。此时若仅调整--max-num-seqs参数（最大并发请求数），最可能产生的效果是？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "QPS显著提升，RT下降，错误率归零"
+        },
+        {
+          "option_label": "B",
+          "option_text": "RT进一步恶化，429错误率升高，QPS增长停滞甚至下降"
+        },
+        {
+          "option_label": "C",
+          "option_text": "TTFT明显降低，但TPOT无变化，整体RT仍劣化"
+        },
+        {
+          "option_label": "D",
+          "option_text": "KV Cache显存占用率下降，GPU利用率提升，服务稳定性增强"
+        }
+      ],
+      "answer": "B",
+      "analysis": "依据原文6.3节'高频误区'与6.5节vLLM原理：--max-num-seqs直接限制vLLM调度器允许的并发请求数，其本质是显存安全阀。当当前并发已超服务承载能力（RT飙升+429错误）时，强行提高该值只会加剧KV Cache显存压力（原文6.6：KV Cache随并发线性增长），导致更多请求排队/超时，触发更严格限流（原文6.3：超出并发上限通常直接返回429而非排队）。原文明确指出'并发越高吞吐越高'是误区，'必须通过压测确定最优并发阈值'；且6.5节强调PagedAttention虽提升显存利用率，但无法突破物理显存总量约束。因此盲目调高--max-num-seqs将恶化系统状态，B项符合教材对'超并发导致RT劣化与错误率上升'的因果链描述。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 0,
+      "stem": "在诊断一个突然出现高TTFT（>8s）的线上vLLM服务时，监控显示GPU利用率正常、KV Cache占用率仅30%、无429错误。此时最应优先检查的日志线索是？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "vLLM启动日志中Prefill阶段CUDA kernel launch耗时统计"
+        },
+        {
+          "option_label": "B",
+          "option_text": "客户端请求中的prompt长度及是否含长上下文前缀"
+        },
+        {
+          "option_label": "C",
+          "option_text": "SLB负载均衡器转发延迟与TLS握手日志"
+        },
+        {
+          "option_label": "D",
+          "option_text": "vLLM中Decode阶段KV Cache读取带宽告警"
+        }
+      ],
+      "answer": "B",
+      "analysis": "依据原文6.2节核心原理：TTFT由Prefill阶段决定，而Prefill是计算密集型且'长prompt会让等很久才开口'（原文6.2场景描述）。题干排除了显存瓶颈（KV Cache占用率低）、计算瓶颈（GPU利用率正常）、限流（无429），说明问题不在Decode或调度层。此时TTFT异常升高必然源于Prefill输入本身——即用户prompt过长或含冗余长前缀（如系统提示词重复加载）。原文6.3表明确指出TTFT'受prompt长度影响'，且6.11.2可观测性强调需用Traces定位'卡在哪一步'，而Traces第一环节必然是Prefill输入解析。选项A虽相关但属底层调试，非运维首选排查路径；C属于基础设施层，与TTFT无直接因果；D对应TPOT问题。B项直指Prefill阶段最敏感变量，符合教材'先看业务输入特征'的故障诊断逻辑。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 0,
+      "stem": "某团队将Qwen3-0.6B模型量化为AWQ INT4后部署于vLLM，观测到：①显存占用下降58%；②TPOT降低22%；③TTFT无明显变化；④在代码补全任务上BLEU分数下降1.3分。以下哪项结论可被教材原文直接支持？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "INT4量化必然导致精度损失，因此不适用于代码补全等敏感任务"
+        },
+        {
+          "option_label": "B",
+          "option_text": "TPOT降低是因为显存带宽压力减小，但需框架算子支持"
+        },
+        {
+          "option_label": "C",
+          "option_text": "TTFT不变证明量化对Prefill阶段无任何影响"
+        },
+        {
+          "option_label": "D",
+          "option_text": "显存下降58%验证了INT4相对FP16体积降为1/4的理论值"
+        }
+      ],
+      "answer": "B",
+      "analysis": "依据原文6.4节'量化的几个关键判断'：'量化通常也加速...因为Decode阶段是显存带宽密集型，从显存读权重的字节数变少了。但能否加速取决于推理框架/硬件是否有对应的低比特算子'。题干中TPOT（Decode阶段指标）降低22%正对应此机制，且原文明确将'加速'与'显存带宽下降'和'算子支持'绑定，B项完全复现教材原意。A项'必然导致'违背原文'INT4损失略大，需业务评测集验证'的审慎表述；C项'无任何影响'过度推断，原文未讨论量化对Prefill计算的影响；D项58%下降与理论值1/4（75%）不符，原文6.4表仅给出'相对FP32体积'比例，且强调实际压缩率受实现影响，不能反向验证理论值。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 1,
+      "stem": "在vLLM服务中，以下哪些条件同时满足时，PagedAttention的显存利用率提升效果会显著减弱？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "所有并发请求的序列长度高度一致（如均为2048 tokens）"
+        },
+        {
+          "option_label": "B",
+          "option_text": "启用GQA（分组查询注意力）大幅减少KV头数"
+        },
+        {
+          "option_label": "C",
+          "option_text": "模型权重已量化至INT4，显存占比大幅降低"
+        },
+        {
+          "option_label": "D",
+          "option_text": "请求全部共享相同系统提示词前缀（如1024 tokens）"
+        }
+      ],
+      "answer": "A,D",
+      "analysis": "依据原文6.5节PagedAttention原理：其核心价值在于解决'预分配浪费'和'显存碎片'，而这两者均源于'请求序列长度参差不齐'（原文6.5：'实际生成长度参差不齐，预分配的空间大量闲置；不同请求的缓存还会在显存里形成碎片'）。A项使所有请求长度一致，传统连续分配即可高效利用显存，PagedAttention的碎片消除优势消失。D项因前缀复用（原文6.6：'相同前缀的KV结果复用'），KV Cache实际存储量远低于理论值，显存压力本就小，PagedAttention的按需分配价值降低。B项GQA减少KV头数，直接降低KV Cache总量，与PagedAttention作用维度不同，不削弱其效果；C项权重量化降低的是固定部分显存，而PagedAttention优化的是动态增长的KV Cache部分，二者正交，不削弱。",
+      "difficulty_label": "挑战"
+    },
+    {
+      "type": 0,
+      "stem": "开发者在FC上部署AI助手后，发现工作日早9点流量高峰时首个请求延迟达3.2s，其余请求正常。夜间低峰期再次调用又重现该现象。最根本的原因及对应教材依据是？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "FC实例被回收后冷启动，需重新拉起实例并加载模型；教材6.7指出'Serverless为了省成本，无流量时会回收实例；请求突然到来需要重新拉起实例、加载模型，导致首个请求明显变慢'"
+        },
+        {
+          "option_label": "B",
+          "option_text": "模型权重未量化导致加载缓慢；教材6.4指出'量化可加速模型加载'"
+        },
+        {
+          "option_label": "C",
+          "option_text": "FC并发配置不足引发排队；教材6.3指出'超出并发限制会排队慢慢处理'"
+        },
+        {
+          "option_label": "D",
+          "option_text": "网络DNS解析超时；教材6.11.2未提及此原因"
+        }
+      ],
+      "answer": "A",
+      "analysis": "题干特征'首个请求延迟高、其余正常'+'低峰后重现'是冷启动的典型指纹。教材6.7节'为什么会有冷启动？'明确解释：'Serverless为了省成本，无流量时会回收实例；请求突然到来需要重新拉起实例、加载模型，导致首个请求明显变慢'，且6.10.1风险栏强调'冷启动延迟明显，需预热缓解'。A项完整复现原文因果链。B项错误：量化主要影响推理速度而非加载时间，且教材未将加载慢归因于量化缺失；C项错误：教材6.3明确指出'超出并发上限通常直接返回错误（如429）'，而非排队导致首请求慢；D项属无依据臆测，教材未涉及DNS。",
+      "difficulty_label": "入门"
+    },
+    {
+      "type": 1,
+      "stem": "某企业需将自研的Qwen3-0.6B蒸馏模型部署为实时客服接口，要求数据不出域、P95 TTFT<1.2s、支持灰度发布与故障秒级回滚，且运维团队具备vLLM调优能力但无专职SRE。在PAI-EAS与GPU ECS两种方案中，若选择ECS自建，则必须额外自行实现而EAS原生支持的关键能力是？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "模型预热（服务上线前加载模型，避免首次请求慢）"
+        },
+        {
+          "option_label": "B",
+          "option_text": "蓝绿/灰度发布与一键回滚"
+        },
+        {
+          "option_label": "C",
+          "option_text": "自动弹性伸缩（ESS）"
+        },
+        {
+          "option_label": "D",
+          "option_text": "OpenAI兼容API接口"
+        }
+      ],
+      "answer": "A,B",
+      "analysis": "依据原文6.10.2 PAI-EAS定义：'提供模型预热，服务上线前就把模型加载好，上线即进入正常服务状态'；'支持蓝绿部署、版本控制、回滚'。而6.9节ECS自建描述中，虽提及'可结合ESS弹性伸缩'和'用vLLM提供OpenAI兼容接口'，但全文未提ECS原生支持模型预热或蓝绿发布——这些需用户自行开发CI/CD流水线、容器编排、流量切分等。A、B项正是EAS区别于ECS的核心托管能力。C项ESS虽需配置，但ECS可直接集成，非'必须额外实现'；D项vLLM本身即提供OpenAI接口，非EAS独有。教材6.12选型表明确将'模型预热'和'蓝绿/灰度'列为EAS关键优势，故A、B为正确答案。",
+      "difficulty_label": "进阶"
+    }
+  ]
+}

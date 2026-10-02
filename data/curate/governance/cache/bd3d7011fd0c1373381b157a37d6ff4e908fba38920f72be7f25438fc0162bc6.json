@@ -1,0 +1,212 @@
+{
+  "new-10-90-0": {
+    "qid": "new-10-90-0",
+    "classification": "own",
+    "chapter": 10,
+    "quality": "fixable",
+    "reason": "题干描述401错误，但原文未明确提及兼容模式认证失败的具体原因，选项均无直接证据。",
+    "answer": [],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "原文未提及access_token与API Key的区别。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "原文示例base_url即为/compatible-mode/v1。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "原文未提及SDK版本与认证协议的兼容性问题。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "原文未提及API Key需单独开通服务权限。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-10-90-1": {
+    "qid": "new-10-90-1",
+    "classification": "own",
+    "chapter": 10,
+    "quality": "ok",
+    "reason": "考查DashScope原生接口与兼容接口的能力差异，原文有明确依据。",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "原生接口能用上部分平台特有参数/能力（如特定多模态、重排序服务）",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "重排序是平台特有服务，兼容模式可能不支持。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "原文未提及可通过注册自定义模型名称支持。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "原文未提及LangChain版本与内置工具链。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "提示词模拟非必要修正措施，且原文未提及。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-10-90-2": {
+    "qid": "new-10-90-2",
+    "classification": "own",
+    "chapter": 10,
+    "quality": "review",
+    "reason": "考查stream参数失效的边界条件，部分选项原文无依据，需结合工程实践判断。",
+    "answer": [
+      "B",
+      "C"
+    ],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "原文未提及qwen-long的token限制导致stream失效。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "网络抖动可能导致流式连接中断，属合理推断。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "缺少正确响应头可能导致流式解析失败，属合理推断。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "原文未提及SDK版本与stream兼容性的关系。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-10-90-3": {
+    "qid": "new-10-90-3",
+    "classification": "own",
+    "chapter": 10,
+    "quality": "review",
+    "reason": "考查百炼工作流与DashScope集成的技术约束，需结合平台架构推断，原文无直接证据。",
+    "answer": [
+      "C"
+    ],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "原文未提及百炼工作流禁止外部HTTP调用。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "原文未提及域名白名单机制。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "VPC内网与公网地址的网络隔离是合理的技术约束。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "原文未提及百炼禁用stream或兼容模式强制流式。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-10-90-4": {
+    "qid": "new-10-90-4",
+    "classification": "own",
+    "chapter": 10,
+    "quality": "ok",
+    "reason": "考查必须使用原生SDK的场景，原文对特有服务有明确依据。",
+    "answer": [
+      "A",
+      "B"
+    ],
+    "supported": true,
+    "quote": "原生接口能用上部分平台特有参数/能力（如特定多模态、重排序服务）",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "重排序是平台特有服务，兼容模式可能不支持。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "控制embedding返回向量数是平台特有参数。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "vLLM私有模型服务本身兼容OpenAI标准，无需改用原生SDK。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "原文未提及trace_id仅原生SDK提供。"
+      }
+    ],
+    "duplicate_of": "10-5183"
+  },
+  "new-10-90-5": {
+    "qid": "new-10-90-5",
+    "classification": "own",
+    "chapter": 10,
+    "quality": "ok",
+    "reason": "考查违反成本控制原则导致TPM限流，原文有明确依据。",
+    "answer": [
+      "D"
+    ],
+    "supported": true,
+    "quote": "限流（RPM/TPM、QPM） | 每分钟请求数/Token 数有配额，超限返回 429",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "仍遵循按Token计费，但未控制总量。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "未违反分别计价规则，是输入Token过多。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "是现象描述，非根本违反的设计原则。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "携带完整历史导致输入Token暴增，触发TPM限流。"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

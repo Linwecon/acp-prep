@@ -1,0 +1,204 @@
+{
+  "1-0080": {
+    "qid": "1-0080",
+    "classification": "cross",
+    "chapter": 2,
+    "quality": "ok",
+    "reason": "题目考查提示词的应用场景，属于提示工程章节核心知识。",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "以下哪项任务需求最符合用于文本扩写和润色的提示词？",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "题干明确询问‘文本扩写和润色’的任务需求。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "增加训练数据是微调或训练阶段的任务。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "减少推理时间属于部署优化范畴。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "增加参数数量属于模型训练或选型范畴。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "1-0097": {
+    "qid": "1-0097",
+    "classification": "cross",
+    "chapter": -1,
+    "quality": "remove",
+    "reason": "题干和选项均未提供足够信息，无法确定extract_tags函数的具体作用。",
+    "answer": [],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "标签和关键词常混用，无上下文无法区分。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "标签和关键词常混用，无上下文无法区分。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "提取句子与函数名‘tags’不符。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "提取段落与函数名‘tags’不符。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "1-0172": {
+    "qid": "1-0172",
+    "classification": "cross",
+    "chapter": -1,
+    "quality": "remove",
+    "reason": "题干和选项均未提供足够信息，无法确定score.to_pandas()的具体作用。",
+    "answer": [],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "虽看似合理，但无上下文证实score对象类型。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "增加训练数据与评估结果转换无关。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "减少推理时间与评估结果转换无关。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "增加参数数量与评估结果转换无关。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "1-0177": {
+    "qid": "1-0177",
+    "classification": "cross",
+    "chapter": 2,
+    "quality": "ok",
+    "reason": "题目考查分隔符在提示词中的作用，属于提示工程章节核心知识。",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "在提示词中使用分隔符的主要作用是什么？",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "分隔符用于结构化输入，聚焦目标信息。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "增加训练数据是微调或训练阶段的任务。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "减少推理时间属于部署优化范畴。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "增加参数数量属于模型训练或选型范畴。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "1-0178": {
+    "qid": "1-0178",
+    "classification": "cross",
+    "chapter": -1,
+    "quality": "remove",
+    "reason": "题干和选项均未提供足够信息，无法确定ask_lm_route规定的输入格式。",
+    "answer": [],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "仅为一个字符串示例，无上下文证实其为规定格式。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "增加训练数据与输入格式无关。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "减少推理时间与输入格式无关。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "增加参数数量与输入格式无关。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "1-0181": {
+    "qid": "1-0181",
+    "classification": "cross",
+    "chapter": -1,
+    "quality": "remove",
+    "reason": "题干和选项均未提供足够信息，无法确定data_samples字典的具体作用。",
+    "answer": [],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "虽看似合理，但无上下文证实其存储的具体内容。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "增加训练数据与数据存储字典无关。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "减少推理时间与数据存储字典无关。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "增加参数数量与数据存储字典无关。"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

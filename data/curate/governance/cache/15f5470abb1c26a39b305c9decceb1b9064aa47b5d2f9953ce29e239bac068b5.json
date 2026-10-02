@@ -1,0 +1,154 @@
+{
+  "items": [
+    {
+      "type": 0,
+      "stem": "某HR团队构建新人答疑机器人评测集时，技术负责人从客服工单中抽取120个高频问题，并邀请3位资深HRBP共同审定每条问题对应的标准答案，最终形成含ground_truth的评测样本。该做法最直接满足教材7.2.1节提出的哪条铁律？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "问题来自真实用户场景，覆盖主要业务与边界情况"
+        },
+        {
+          "option_label": "B",
+          "option_text": "标准答案必须由业务领域专家编写/审定"
+        },
+        {
+          "option_label": "C",
+          "option_text": "评测集需分层覆盖简单/中等/困难题型"
+        },
+        {
+          "option_label": "D",
+          "option_text": "ground_truth字段必须与contexts字段一一对应"
+        }
+      ],
+      "answer": "B",
+      "analysis": "题干核心动作是‘邀请3位资深HRBP共同审定标准答案’，这精准对应教材7.2.1节‘评测集构建的两条铁律’中第二条：‘标准答案来自领域专家——技术人员能判断检索是否相关，但只有业务专家才知道答案在业务上是否正确、完整、合规’。A虽提及‘客服工单抽样’符合第一条铁律，但题干强调的是‘审定答案’而非‘抽样问题’；C是7.8.2节‘评测集设计要点’，非铁律；D在原文表格中明确指出contexts缺失影响检索评估，但ground_truth与contexts无需一一对应（如ground_truth可含多观点，contexts为片段列表），且非铁律内容。",
+      "difficulty_label": "入门"
+    },
+    {
+      "type": 1,
+      "stem": "在一次RAGAS评测中，某问题出现以下指标组合：Context Recall=0.95、Context Precision=0.32、Faithfulness=0.41、Answer Correctness=0.39。日志确认检索返回的contexts中包含完整正确信息（如‘张伟是教研部的’），但模型生成答案为‘张伟在人事部工作’。依据教材7.5节‘定位问题的黄金法则’及7.4.2节Context Precision计算原理，以下哪些结论有教材依据？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "病根在检索端排序质量差，导致相关片段被无关内容稀释"
+        },
+        {
+          "option_label": "B",
+          "option_text": "应优先加Rerank重排序，而非补充知识库或更换Embedding模型"
+        },
+        {
+          "option_label": "C",
+          "option_text": "Faithfulness低说明生成模型存在幻觉，需强化提示词约束"
+        },
+        {
+          "option_label": "D",
+          "option_text": "Answer Correctness低的主因是语义相似度不足，应优化embedding模型"
+        }
+      ],
+      "answer": "AB",
+      "analysis": "A正确：教材7.4.2节明确Context Precision低意味着‘正确片段存在但排在后面’，惩罚‘把无关内容塞在前面’，直接对应‘相关片段被无关内容稀释’；B正确：教材7.5节‘按指标组合定位故障’表明确切指出‘Precision低（Recall高）→ 加Rerank’，且强调‘Recall高时不应盲目改知识库’；C错误：教材7.5节指出‘检索指标都好但Faithfulness低才查生成端’，本例Precision=0.32属检索端严重缺陷，Faithfulness低是结果而非独立病因，不能直接归因为幻觉；D错误：教材7.4.4节明确Answer Correctness=0.25×语义相似度+0.75×事实F1，且权重0.75给事实准确度，此处Correctness低主因是事实错误（F1极低），非语义相似度问题。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 0,
+      "stem": "团队计划用MMLU基准初筛大模型用于中文HR政策问答系统。依据教材7.7节‘公开基准的三个坑’，以下哪项操作最能规避‘基准分高≠业务表现好’的风险？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "仅将MMLU作为初筛门槛，后续必须用自建评测集（含真实HR工单问题+HRBP标注ground_truth）验证"
+        },
+        {
+          "option_label": "B",
+          "option_text": "在MMLU测试中增加中文HR政策子集，提升领域相关性"
+        },
+        {
+          "option_label": "C",
+          "option_text": "使用MMLU分数直接替代RAGAS的Answer Correctness指标进行上线决策"
+        },
+        {
+          "option_label": "D",
+          "option_text": "将MMLU题目翻译成中文后，混入自建评测集进行联合评估"
+        }
+      ],
+      "answer": "A",
+      "analysis": "A完全对应教材7.7节‘正确定位’原则：‘公开基准仅用于选型初筛，业务决策必须用自建评测集+领域专家验证’；B错误：MMLU本身无中文HR子集，且教材明确指出‘基准只反映通用能力，与业务题型/语言分布/领域知识可能完全不同’，强行改造无法解决根本矛盾；C直接违反教材‘❌基准分高=业务表现好’的高频误区；D错误：教材7.8.2节强调‘防止数据泄漏’，将公开基准题混入评测集可能导致训练数据污染，且MMLU题目与HR业务无实质关联。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 1,
+      "stem": "在实施评测驱动开发（EDD）时，为同时满足‘防止回归’与‘定位问题’双重目标，以下哪些实践被教材7.1节和7.5节明确支持？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "每次优化前，先用冻结的评测集获取基线分数；优化后，用同一套评测集、同一配置（temperature/seed/模型版本）重新运行"
+        },
+        {
+          "option_label": "B",
+          "option_text": "当Answer Correctness下降时，仅关注该总分变化，不拆解Context Recall/Faithfulness等分项指标"
+        },
+        {
+          "option_label": "C",
+          "option_text": "构建评测集时，确保question来自线上日志，ground_truth由HRBP等业务专家标注"
+        },
+        {
+          "option_label": "D",
+          "option_text": "将评测集按题型（如年假/报销/入职流程）分组，分别统计各组指标变化，识别‘修好A弄坏B’现象"
+        }
+      ],
+      "answer": "ACD",
+      "analysis": "A正确：教材7.1节‘评测先行’强调‘先建评测集拿基线再优化’，7.2.4节‘控制变量’要求‘冻结评测集与配置’以确保分数可比，这是防止回归的基础；C正确：教材7.2.1节‘两条铁律’明确要求ground_truth由领域专家提供，这是定位问题的前提（否则Correctness无基准）；D正确：教材7.1节‘跷跷板效应’案例及7.8.2节‘不只看平均分’均强调‘按题型细分找短板’，是识别回归问题的核心方法；B错误：教材7.5节‘黄金法则’开宗明义要求‘必须结合检索端指标一起看’，仅看总分无法定位。",
+      "difficulty_label": "挑战"
+    },
+    {
+      "type": 0,
+      "stem": "某Agent端到端评测得分为4.3/5，但用户持续反馈‘生成的Python代码示例全部无法运行’。依据教材7.6节Agent评测框架，以下哪项措施属于‘白盒评测’且能最精准定位该故障？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "在端到端评测中增加一条规则：对生成代码执行单元测试，失败则扣分"
+        },
+        {
+          "option_label": "B",
+          "option_text": "单独构建代码生成组件评测集，用确定性检查器验证代码能否被Python解释器成功执行"
+        },
+        {
+          "option_label": "C",
+          "option_text": "调用LLM-as-Judge对代码示例的‘教学有效性’打分"
+        },
+        {
+          "option_label": "D",
+          "option_text": "扩大端到端评测集规模至1000题，提高统计显著性"
+        }
+      ],
+      "answer": "B",
+      "analysis": "B正确：教材7.6节明确定义‘白盒评测’为‘深入链路，对关键组件/中间步骤单独打分’，并举例‘单独测代码生成组件，检查代码能否运行’，且‘确定性检查’是三类方法中专管‘客观硬指标’（如可执行性）的；A错误：在端到端流程中加规则仍属端到端视角，未打开黑盒；C错误：LLM-as-Judge属主观语义评价，无法验证代码可执行性这一确定性事实；D错误：扩大规模不改变评测视角，仍是端到端，无法定位具体组件故障。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 1,
+      "stem": "团队使用qwen-plus作为RAGAS评委计算Answer Correctness，但发现对简洁答案（如‘张伟是教研部的’）打分偏低，而对冗长解释（如‘根据资料，张伟是教研部的一名工程师...’）打分偏高。依据教材7.8.1节LLM-as-Judge偏见分析，以下哪些校准动作被明确推荐？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "在评分提示词中明确‘冗余内容不加分，简洁准确即满分’"
+        },
+        {
+          "option_label": "B",
+          "option_text": "对每个候选答案随机打乱顺序后多次打分取平均"
+        },
+        {
+          "option_label": "C",
+          "option_text": "用与被测模型不同的评委模型（如换glm-4）重新计算"
+        },
+        {
+          "option_label": "D",
+          "option_text": "提供‘简洁正确答案’和‘冗长正确答案’的few-shot样例"
+        }
+      ],
+      "answer": "AD",
+      "analysis": "A正确：教材7.8.1节‘长度偏见’缓解手段明确要求‘评分细则中明确冗余扣分’；D正确：同节‘风格偏见’缓解手段提到‘提供多样few-shot样例’，且‘明确维度、量表、输出格式’是校准标准动作；B错误：‘交换候选顺序’针对的是‘位置偏见’（对比多个选项时偏好首尾），本题是单答案打分，无候选顺序可交换；C错误：教材建议‘用与被测模型不同的评委’是为缓解‘自我偏好’，但本题现象是长度偏见，换模型不直接解决，且教材未将其列为长度偏见的缓解手段。",
+      "difficulty_label": "挑战"
+    }
+  ]
+}

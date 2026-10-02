@@ -1,0 +1,204 @@
+{
+  "4-0200": {
+    "qid": "4-0200",
+    "classification": "own",
+    "chapter": 4,
+    "quality": "ok",
+    "reason": "Planner职责在4.2节明确定义为拆解任务、决定调用工具/Agent。",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "Planner：拆解复杂任务、决定何时调哪个工具/Agent；可写在提示词里，也可独立成模块",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "执行工具是程序代码职责，非Planner。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "总结输出非Planner核心职责。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "原文明确Planner负责拆解任务并分发。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "打印日志非Planner定义职责。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "4-0328": {
+    "qid": "4-0328",
+    "classification": "own",
+    "chapter": 4,
+    "quality": "ok",
+    "reason": "ModelScope-Agent未在教材出现，属beyond范围。",
+    "answer": [],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "教材未提及ModelScope-Agent。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "教材未提及ModelScope-Agent。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "教材未提及ModelScope-Agent。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "教材未提及ModelScope-Agent。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "4-0355": {
+    "qid": "4-0355",
+    "classification": "beyond",
+    "chapter": 4,
+    "quality": "remove",
+    "reason": "斯坦福小镇项目未在第4章原文中出现。",
+    "answer": [],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "原文未提及斯坦福小镇。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "原文未提及斯坦福小镇。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "原文未提及斯坦福小镇。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "原文未提及斯坦福小镇。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "4-0368": {
+    "qid": "4-0368",
+    "classification": "beyond",
+    "chapter": 4,
+    "quality": "remove",
+    "reason": "黑板模型效率比较未在原文中讨论。",
+    "answer": [],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "原文未比较通信方式效率。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "原文未比较通信方式效率。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "原文未比较通信方式效率。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "原文未比较通信方式效率。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "4-0386": {
+    "qid": "4-0386",
+    "classification": "beyond",
+    "chapter": 4,
+    "quality": "remove",
+    "reason": "斯坦福小镇互动模式未在原文中描述。",
+    "answer": [],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "原文未提及斯坦福小镇。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "原文未提及斯坦福小镇。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "原文未提及斯坦福小镇。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "原文未提及斯坦福小镇。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "4-1449": {
+    "qid": "4-1449",
+    "classification": "own",
+    "chapter": 4,
+    "quality": "ok",
+    "reason": "多Agent适用场景在4.7节有明确原则和案例。",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "让一个 Agent 独立完成'写一门 Pandas 课程'……但你把它拆给'教学设计师、数据科学家、内容编辑'三个专家 Agent，并由一个主管统筹，质量立刻提升",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "大型物流需多角色协同，符合分层规划原则。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "简单搬运无需多Agent分工。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "单一目标不需多Agent协作。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "OS管理非本章Agent范畴。"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

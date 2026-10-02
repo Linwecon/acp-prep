@@ -1,0 +1,37 @@
+{
+  "6-1122": {
+    "qid": "6-1122",
+    "classification": "own",
+    "chapter": 6,
+    "quality": "ok",
+    "reason": "考查成本优化手段，符合本章知识。",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "批量推理适合离线、时效要求低的任务；百炼批量推理计费约为实时的50%",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "流式输出不省token，不降成本。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "大模型成本更高，与降本目标相悖。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "批量推理离线处理，计费更低，最有效。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "上下文缓存降本，但非针对离线批量任务。"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

@@ -1,0 +1,212 @@
+{
+  "7-0231": {
+    "qid": "7-0231",
+    "classification": "own",
+    "chapter": 7,
+    "quality": "ok",
+    "reason": "考查RAGAS核心指标定义，题干与选项均清晰。",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "Context Precision：召回的片段中，相关项是否排名靠前、占比高（信噪比）",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "原文定义Context Precision衡量相关片段是否排名靠前、占比高。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "生成答案准确度由Answer Correctness衡量。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "答案与问题相关性由Answer Relevancy衡量。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "相关参考资料被检索到的数量由Context Recall衡量。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "7-0242": {
+    "qid": "7-0242",
+    "classification": "own",
+    "chapter": 7,
+    "quality": "ok",
+    "reason": "考查RAGAS核心指标定义，题干与选项均清晰。",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "Answer Relevancy（答案相关性）：答案是否切题、有没有答非所问或含糊其辞",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "原文定义Answer Relevancy衡量答案是否切题。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "生成答案准确度由Answer Correctness衡量。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "答案忠于上下文由Faithfulness衡量。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "参考资料覆盖程度由Context Recall衡量。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "7-0252": {
+    "qid": "7-0252",
+    "classification": "own",
+    "chapter": 7,
+    "quality": "ok",
+    "reason": "考查RAGAS核心指标定义，题干与选项均清晰。",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "Context Recall：标准答案需要的信息，有多少被检索到了（找得全不全）",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "原文定义Context Recall衡量相关参考信息被召回的完整程度。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "生成答案准确度由Answer Correctness衡量。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "答案与问题相关性由Answer Relevancy衡量。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "答案忠于上下文由Faithfulness衡量。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "7-0292": {
+    "qid": "7-0292",
+    "classification": "own",
+    "chapter": 7,
+    "quality": "ok",
+    "reason": "考查RAGAS指标名称与功能的对应关系。",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "Answer Relevancy（答案相关性）：答案是否切题、有没有答非所问或含糊其辞",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "Answer Relevancy衡量生成答案与问题的相关性。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "Faithfulness衡量答案是否忠于检索资料。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "Context Precision衡量检索片段排名与信噪比。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "Context Recall衡量检索到的信息完整度。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "7-0796": {
+    "qid": "7-0796",
+    "classification": "cross",
+    "chapter": 7,
+    "quality": "fixable",
+    "reason": "考点是评估标准分层（业务/技术/算法），但选项未直接对应教材指标，需推理。",
+    "answer": [
+      "B"
+    ],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "前所未有侧重新颖性，非可行性。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "与现有技术能力和资源匹配程度更侧重可行性。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "描述生动有趣侧重表达，非可行性。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "名称响亮度侧重营销，非可行性。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "7-0833": {
+    "qid": "7-0833",
+    "classification": "own",
+    "chapter": 7,
+    "quality": "ok",
+    "reason": "考查人工评估的核心维度，与教材强调事实一致性相符。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "专业领域代价极高：医疗、法律、金融等场景“看似合理实则错误”的后果严重，必须由领域专家参与评测",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "词汇丰富度非人工评估最核心维度。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "事实一致性是人工评估摘要质量的核心。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "句子长度非人工评估最核心维度。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "排版格式非人工评估最核心维度。"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

@@ -1,0 +1,214 @@
+{
+  "new-11-0-0": {
+    "qid": "new-11-0-0",
+    "classification": "own",
+    "chapter": 11,
+    "quality": "ok",
+    "reason": "题目考查CLIP范式在细粒度图文对齐上的局限，符合11.3节原理。",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "CLIP范式：训练时给模型大量'图文对'，把匹配的图文向量在空间中拉近、不匹配的推远",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "CLIP优化全局相似度，未建模局部区域与文本短语的细粒度对齐，导致无法定位字段。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "题干已说明视觉编码器输出成功，且动态分辨率是优化细节，非根本原因。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "故障在定位字段，非语义偏移；且OCR后文本处理非CLIP核心。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "题干未提及token拼接方式，且此属实现细节，非CLIP范式固有局限。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-11-0-1": {
+    "qid": "new-11-0-1",
+    "classification": "own",
+    "chapter": 11,
+    "quality": "ok",
+    "reason": "题目考查CLIP范式原理及提升检索精度的合理改进，符合11.3节。",
+    "answer": [
+      "D"
+    ],
+    "supported": true,
+    "quote": "CLIP范式：训练时给模型大量'图文对'，把匹配的图文向量在空间中拉近、不匹配的推远",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "增加细粒度标签需重新训练，不符合'核心约束'（利用现有CLIP模型）。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "拼接OCR结果改变了查询文本，违背CLIP使用原始文本编码的典型方式。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "增加分类头需修改模型结构，非CLIP范式的核心改进方式。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "改写查询为视觉描述，更匹配CLIP学习的图文对齐空间，符合其原理。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-11-0-2": {
+    "qid": "new-11-0-2",
+    "classification": "own",
+    "chapter": 11,
+    "quality": "ok",
+    "reason": "题目结合CLIP局限与文档智能要求，考查多模态RAG中处理手写文本的根本措施。",
+    "answer": [
+      "A",
+      "D"
+    ],
+    "supported": true,
+    "quote": "扫描件/图片文档：OCR + 版面分析 → 结构化文本 → 常规 RAG；纯文本模型看不到图，需要 Qwen-VL 这类多模态模型",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "OCR识别文字并存入知识库，是文档智能解析的标准步骤，可被RAG检索。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "将OCR结果作为特殊token输入，是工程技巧，非原文强调的根本性解决方案。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "增加跨模态注意力模块需修改模型，不符合原文强调的管道式架构解耦思想。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "使用Qwen-VL等多模态模型替代纯CLIP+LLM，是原文推荐的看图作答方案。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-11-0-3": {
+    "qid": "new-11-0-3",
+    "classification": "own",
+    "chapter": 11,
+    "quality": "ok",
+    "reason": "题目考查CLIP范式在文本组合语义理解上的局限，符合11.3节原理。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "CLIP范式：训练时给模型大量'图文对'，把匹配的图文向量在空间中拉近、不匹配的推远",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "Transformer能建模词间关系，但CLIP损失函数优化的是整体相似度，非内部短语。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "CLIP优化整体图文相似度，对文本内部短语组合的细粒度语义分解能力有限。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "版面分析是文档智能环节，与CLIP文本编码器对短语组合的编码能力无关。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "题干未提及对齐层问题，且向量空间扭曲通常导致更广泛的性能下降。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-11-0-4": {
+    "qid": "new-11-0-4",
+    "classification": "own",
+    "chapter": 11,
+    "quality": "ok",
+    "reason": "题目考查在CLIP框架下提升细粒度分类能力且不破坏管道架构的改进措施。",
+    "answer": [
+      "A",
+      "B"
+    ],
+    "supported": true,
+    "quote": "图文统一 = 编码器 + 对齐 + 大模型；管道式架构（Pipeline）是绝大多数多模态应用的骨架",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "在训练阶段增加细粒度图文对并强化向量距离，是符合CLIP范式的本质改进。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "插入轻量级分类模型输出标签供LLM参考，符合管道式架构解耦思想。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "拼接OCR结果改变了输入文本，不属于对CLIP模型本身的改进。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "替换编码器改变了模型结构，且ResNet-50不一定是ViT的升级。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-11-0-5": {
+    "qid": "new-11-0-5",
+    "classification": "own",
+    "chapter": 11,
+    "quality": "ok",
+    "reason": "题目考查CLIP范式及ViT在处理表格行列坐标查询上的根本局限。",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "图文统一 = 编码器 + 对齐 + 大模型；CLIP范式优化的是图文对整体相似度",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "CLIP范式未建模图像空间坐标信息，无法支持基于行列坐标的精确定位查询。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "ViT patch切分可能丢失结构，但CLIP本身不建模坐标信息是更根本原因。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "LLM能解析索引语义，问题在于无法将语义与图像中的具体位置关联。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "权重问题可优化，但CLIP缺乏空间建模能力是结构性缺陷。"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

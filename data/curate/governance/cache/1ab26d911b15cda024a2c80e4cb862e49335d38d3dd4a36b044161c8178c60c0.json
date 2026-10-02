@@ -1,0 +1,221 @@
+{
+  "3-0424": {
+    "qid": "3-0424",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "考查LlamaIndex中控制召回数量的API参数位置",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "query_engine = index.as_query_engine(similarity_top_k=5, streaming=True,",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "from_documents无此参数"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "as_query_engine参数控制召回数"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "query方法不接收该参数"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "流式响应不控制召回数"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-0498": {
+    "qid": "3-0498",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "考查多轮对话中查询改写技术",
+    "answer": [
+      "A",
+      "B"
+    ],
+    "supported": true,
+    "quote": "先用 LLM 把含代词的问题改写成完整问题（如\"他的主管是谁\"→\"张伟的主管是谁\"）再检索",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "CondenseQuestionChatEngine专用于改写"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "custom_prompt可实现改写逻辑"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "增加训练数据属微调范畴"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "减少推理时间不解决改写"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-0507": {
+    "qid": "3-0507",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "考查LlamaIndex query_engine参数",
+    "answer": [
+      "A",
+      "B",
+      "C"
+    ],
+    "supported": true,
+    "quote": "query_engine = index.as_query_engine(similarity_top_k=5, streaming=True,",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "streaming是合法参数"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "similarity_top_k控制召回数"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "llm可指定生成模型"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "api_key不由该方法传入"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-0512": {
+    "qid": "3-0512",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "考查Context Recall优化措施",
+    "answer": [
+      "A",
+      "B",
+      "C"
+    ],
+    "supported": true,
+    "quote": "Recall 低：补充知识库、换更强的 Embedding、做查询改写",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "知识库缺失导致召回不足"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "Embedding差影响语义匹配"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "查询改写提升匹配度"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "增加训练数据属微调范畴"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-0528": {
+    "qid": "3-0528",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "考查本地索引加载参数",
+    "answer": [
+      "A",
+      "B",
+      "D"
+    ],
+    "supported": true,
+    "quote": "把 PDF / Word / Markdown 等加载并解析成纯文本（尽量保留标题、表格等结构）",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "存储路径必需指定"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "embedding模型需指定"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "API Key不在此处设置"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "文本分段即切片策略"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-0529": {
+    "qid": "3-0529",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "考查compare_embedding_models函数参数",
+    "answer": [
+      "A",
+      "B",
+      "D"
+    ],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "documents为必传参数"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "question用于评估检索"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "ground_truth未在原文提及"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "sentence_splitter影响切片"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

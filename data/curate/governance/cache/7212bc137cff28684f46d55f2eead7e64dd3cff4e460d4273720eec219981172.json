@@ -1,0 +1,215 @@
+{
+  "12-5063": {
+    "qid": "12-5063",
+    "classification": "cross",
+    "chapter": 10,
+    "quality": "review",
+    "reason": "题干考查百炼平台可视化工作流的具体功能节点，属于阿里云AI平台（第10章）的实操细节。",
+    "answer": [
+      "C"
+    ],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "文本清洗节点用于预处理，非高亮功能。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "答案生成节点负责生成答案，非高亮。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "富文本渲染节点可能用于格式化输出，包含高亮。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "关键词提取节点识别关键词，但不负责渲染高亮。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "12-5064": {
+    "qid": "12-5064",
+    "classification": "own",
+    "chapter": 12,
+    "quality": "ok",
+    "reason": "考查LangChain提示词模板的变量注入语法，是框架核心知识点。",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "LangChain Expression Language 是 LangChain 0.3 推荐的组链方式：基于 Runnable 协议，用 Python 的管道符 | 把组件声明式地串起来。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "LangChain常用Jinja2语法进行变量插值。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "f-string是Python语法，非LangChain模板标准。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "Markdown占位符非LangChain标准模板语法。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "JSON Schema用于定义工具参数，非提示词变量注入。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "12-5065": {
+    "qid": "12-5065",
+    "classification": "own",
+    "chapter": 12,
+    "quality": "ok",
+    "reason": "考查LlamaIndex中NodeParser的核心职责，属于框架核心抽象。",
+    "answer": [
+      "A",
+      "C"
+    ],
+    "supported": true,
+    "quote": "NodeParser 将原始文档切分为语义连贯的文本块（Nodes），添加窗口上下文、父-子节点关系等元数据。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "NodeParser负责文档切片为Nodes。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "嵌入向量并写入向量库是Index的职责。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "NodeParser负责添加元数据如窗口上下文。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "查询重写是查询改写的职责，非NodeParser。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "12-5066": {
+    "qid": "12-5066",
+    "classification": "cross",
+    "chapter": 10,
+    "quality": "review",
+    "reason": "考查Dify平台知识库配置的实操问题，属于阿里云AI平台（第10章）或Dify工具细节。",
+    "answer": [
+      "A"
+    ],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "最可能原因是未启用自动解析功能。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "文件大小限制可能导致上传失败，但非解析失败主因。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "Dify作为平台应内置依赖，非用户安装问题。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "知识库类型选错可能导致处理方式不同，但PDF仍应被解析。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "12-5067": {
+    "qid": "12-5067",
+    "classification": "own",
+    "chapter": 12,
+    "quality": "ok",
+    "reason": "考查LangChain中Memory组件的核心作用，是框架核心抽象之一。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "Memory 管“对话历史怎么留、怎么压缩、怎么按需取”。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "缓存LLM响应以加速非Memory核心作用。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "Memory核心是管理会话历史供多轮对话使用。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "管理向量数据库连接池非Memory职责。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "压缩prompt长度是优化手段，非Memory核心作用。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "12-5068": {
+    "qid": "12-5068",
+    "classification": "cross",
+    "chapter": 10,
+    "quality": "review",
+    "reason": "考查百炼平台工具调用节点的集成能力，属于阿里云AI平台（第10章）功能。",
+    "answer": [
+      "A",
+      "B",
+      "C"
+    ],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "工具调用可集成外部API，如HR系统。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "工具调用可集成数据库查询能力。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "工具调用可集成DashScope服务，如TTS。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "自动修正错别字属于输入预处理，非典型工具调用。"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

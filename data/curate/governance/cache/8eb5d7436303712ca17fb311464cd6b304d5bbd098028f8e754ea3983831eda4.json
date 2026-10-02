@@ -1,0 +1,154 @@
+{
+  "items": [
+    {
+      "type": 0,
+      "stem": "某企业将报销查询工具接入Agent时，JSON-Schema中month参数定义为{'type': 'string', 'pattern': '^\\\\d{4}-\\\\d{2}$'}，且required=['user_id']。测试中模型传入'2024-7'（缺前导零）导致工具服务返回'Invalid month format'。该故障最直接暴露的JSON-Schema设计缺陷是？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "未声明default值，导致缺失月份时无法兜底"
+        },
+        {
+          "option_label": "B",
+          "option_text": "required字段遗漏month，使模型可跳过校验直接传参"
+        },
+        {
+          "option_label": "C",
+          "option_text": "正则pattern未设置case-insensitive标志，匹配失败"
+        },
+        {
+          "option_label": "D",
+          "option_text": "description字段缺失，未向模型说明格式要求（如'2024-07'）"
+        }
+      ],
+      "answer": "D",
+      "analysis": "依据教材4.2节'关键约定：工具必须以JSON-Schema描述自己（名称、参数、用途），让模型知道'有什么可用、怎么用'；以及4.3节'参数提取准不准，取决于三件事：Schema质量（名称、描述、必填项是否清晰）、模型能力、上下文清晰度'。本题中pattern本身正确（'^\\\\d{4}-\\\\d{2}$'能匹配'2024-07'），但模型仍传入'2024-7'，说明其未理解格式要求——根本原因是description字段缺失，未用自然语言明确示例（如'格式必须为YYYY-MM，例如2024-07'）。教材4.3节'高频考点与误区'明确指出：'Schema字段名含糊、描述缺失，会直接导致参数提取错误'。A错：default非必需，且缺失月份应触发追问而非兜底；B错：month本就不在required中，符合'缺参时Agent应主动追问'原则；C错：正则不区分大小写，且此处无大小写问题。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 0,
+      "stem": "一个课程审查Skill已封装validate_code.py脚本用于确定性验证代码可执行性，并返回结构化JSON。当评测发现Agent在未运行该脚本的情况下就断言'代码可运行'，为精准定位此SOP合规性失效环节，应优先采用哪种评测手段？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "LLM-as-Judge：用大模型评估审查报告是否专业"
+        },
+        {
+          "option_label": "B",
+          "option_text": "端到端黑盒评测：仅检查最终输出是否包含'可运行'结论"
+        },
+        {
+          "option_label": "C",
+          "option_text": "确定性检查：解析执行轨迹，验证是否调用validate_code.py及返回状态"
+        },
+        {
+          "option_label": "D",
+          "option_text": "Rubric评分：按'检查项完整性'维度对报告打分"
+        }
+      ],
+      "answer": "C",
+      "analysis": "依据教材4.10节'三种核心评测手段'：确定性检查用于'用代码/脚本判断该发生的步骤有没有发生'，适合客观项；而本题需验证'是否执行了特定脚本'这一可判定动作，属典型确定性检查场景。教材明确举例：'解析执行 trace，验证是否调了报销查询工具'。A错：LLM-as-Judge适用于主观项（如风格），且易有偏见；B错：端到端评测无法区分'结论正确'是因脚本执行还是幻觉；D错：Rubric用于多维度综合评分，不针对单一动作是否发生。教材4.10节强调：'白盒化评测能精准定位瓶颈'，而确定性检查正是白盒评测的核心方法。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 0,
+      "stem": "某金融Agent需执行'查询信用分→判断放贷→生成报告→邮件发送'四步流程。当前工具get_credit_score的JSON-Schema中parameters定义了user_id（required），但未声明timeout或retry策略。当该工具因网络超时返回空结果时，Agent直接崩溃。该故障最根本违反教材强调的哪一条核心设计约定？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "工具返回结果必须回灌到上下文，否则模型等于'做完就忘'"
+        },
+        {
+          "option_label": "B",
+          "option_text": "要给模型'失败出口'：工具超时、报错时能重试或换方案，而不是整轮崩溃"
+        },
+        {
+          "option_label": "C",
+          "option_text": "工具必须以JSON-Schema定义，确保模型理解参数结构"
+        },
+        {
+          "option_label": "D",
+          "option_text": "Planner职责是拆解任务，不应由LLM承担失败处理逻辑"
+        }
+      ],
+      "answer": "B",
+      "analysis": "依据教材4.2节'关键约定'原文：'要给模型\"失败出口\"：工具超时、报错时能重试或换方案，而不是整轮崩溃'。本题中Agent因单点工具超时即崩溃，完全违背此条硬性约定。A错：回灌结果是保障'观察'环节有效，但崩溃发生在结果返回前，与回灌无关；C错：Schema定义完整（user_id required），问题不在参数理解；D错：教材4.2节明确Planner可写在提示词里或独立成模块，失败处理恰是Planner/LLM协同职责，且4.4节ReAct铁律强调'工具失败时能换工具、改参数、求助用户'。该约定位于4.2节'各组件如何协作'末尾，是支撑闭环鲁棒性的基石。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 1,
+      "stem": "某团队将'课程代码审查'流程固化为Skill，但将全部检查规则硬编码进主系统提示词。上线后出现新员工误删检查项、跨项目规则难复用等问题。该做法违反了教材4.9节关于Skill设计的哪些核心原则？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "Skill应模块化、可版本化，而非散落在提示词中"
+        },
+        {
+          "option_label": "B",
+          "option_text": "Skill需遵循渐进式披露：主文件精简，按需加载子资源"
+        },
+        {
+          "option_label": "C",
+          "option_text": "Skill入口SKILL.md必须含YAML frontmatter（name/description）"
+        },
+        {
+          "option_label": "D",
+          "option_text": "Skill应配好工具，让脚本做确定性验证而非模型猜测"
+        }
+      ],
+      "answer": "AB",
+      "analysis": "依据教材4.9节'概念'：'Skill是把...打包成的模块化、可复用、可版本化的能力单元'；'渐进式披露（Progressive Disclosure）'指'启动时只看到description，激活后才读SKILL.md，执行时再读子文件'。将规则硬编码进主提示词，既破坏模块化（A对），又违背渐进式披露（B对：所有规则一次性注入，而非按需展开）。C错：YAML frontmatter是Skill的必要结构，但本题问题在于'硬编码进主提示词'而非SKILL.md缺失frontmatter；D错：配工具是原则，但本题未涉及工具配置问题。教材4.9节'五步编写法'第一步即强调'值得封装'，而'散落提示词'恰恰是反模式。",
+      "difficulty_label": "挑战"
+    },
+    {
+      "type": 1,
+      "stem": "某企业接入OA、HRIS、CRM等15个内部工具，当前每个Agent均硬编码所有工具Schema。为根治此问题，引入MCP协议后，以下哪些做法符合教材4.5节对MCP的规范要求与风险警示？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "MCP Server部署时强制启用API Key鉴权，禁止裸奔"
+        },
+        {
+          "option_label": "B",
+          "option_text": "Agent通过MCP Client自动拉取工具清单，无需修改代码即可支持新工具"
+        },
+        {
+          "option_label": "C",
+          "option_text": "将MCP Server返回的Resources内容直接拼入主Prompt，避免向量召回开销"
+        },
+        {
+          "option_label": "D",
+          "option_text": "MCP Server返回内容需经防提示注入过滤，再注入上下文"
+        }
+      ],
+      "answer": "ABD",
+      "analysis": "依据教材4.5节'风险'：'MCP Server本身需要鉴权，不能裸奔'（A对）；'MCP解决工具怎么被发现、被管理、被复用'，'Agent通过MCP Client发现工具→注入Schema→模型仍通过FC调用'（B对）；'MCP Server返回内容也可能被投毒，要防提示注入'（D对）。C错：教材4.8节明确反对'把全部历史塞进上下文'，且4.5节未提'避免向量召回'，反而强调MCP与向量召回可共存（如Resources可来自向量库）。教材4.5节'exam'例题明确'新增工具无需改Agent代码'，印证B正确。",
+      "difficulty_label": "挑战"
+    },
+    {
+      "type": 0,
+      "stem": "某报销查询Agent在用户未提供报销单ID时，模型传入空字符串调用get_reimbursement工具并失败，而非主动追问。该行为最直接违反教材4.3节关于Function Calling的哪一条核心约定？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "模型只输出tool_calls（提议），应用代码才是执行者"
+        },
+        {
+          "option_label": "B",
+          "option_text": "参数可以在多轮对话中逐步收集，缺参时Agent应主动追问而不是瞎猜"
+        },
+        {
+          "option_label": "C",
+          "option_text": "工具结果必须由程序作为role='tool'消息追加回上下文"
+        },
+        {
+          "option_label": "D",
+          "option_text": "Schema中required字段必须与业务强约束一致"
+        }
+      ],
+      "answer": "B",
+      "analysis": "依据教材4.3节'高频考点与误区'原文：'❌ \"参数必须一轮提取完\" → ✅ 参数可以在多轮对话中逐步收集，缺参时 Agent 应主动追问而不是瞎猜'。本题中用户未提供ID（关键参数），模型却传空字符串而非追问，直接违反此条。A错：题干未涉及执行主体混淆；C错：题干未涉及结果回传环节；D错：required字段设置合理（ID确为必需），问题在于模型未遵守'缺参追问'流程。教材4.3节将此列为'高频考点'，强调这是保障工具调用成功率的关键交互设计。",
+      "difficulty_label": "进阶"
+    }
+  ]
+}

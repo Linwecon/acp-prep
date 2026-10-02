@@ -1,0 +1,154 @@
+{
+  "items": [
+    {
+      "type": 0,
+      "stem": "某企业将新人答疑机器人升级为报销进度查询助手。用户输入'帮我查一下我上个月提交的报销单审批到哪一步了'，Agent首次响应中未调用工具，而是直接回答'一般3–5个工作日'。该行为违反了Agent最核心的哪一本质特征？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "未使用Function Calling机制"
+        },
+        {
+          "option_label": "B",
+          "option_text": "缺乏长期Memory支持"
+        },
+        {
+          "option_label": "C",
+          "option_text": "未进入'感知-规划-行动-观察'闭环"
+        },
+        {
+          "option_label": "D",
+          "option_text": "Planner组件未解耦"
+        }
+      ],
+      "answer": "C",
+      "analysis": "依据4.1节原文：'Agent的本质不是\\\"更能聊的模型\\\"，而是一个LLM驱动的闭环执行系统'，其标志性特征是反复执行'感知→规划→行动→观察'循环直至任务完成。题干中Agent未调用工具、未观察结果、未迭代决策，仅做一次问答式输出，完全停留在普通对话模式（见4.1节对比表），因此根本性违背闭环本质。A选项虽现象正确，但Function Calling只是支撑闭环的'工具调用能力'之一（4.1节'支撑Agent闭环的三项核心能力'），非本质定义；B、D属具体实现问题，不触及本质区分（4.2节强调组件解耦是'最佳实践'而非强制要求）。",
+      "difficulty_label": "基础"
+    },
+    {
+      "type": 1,
+      "stem": "在调试一个ReAct Agent时，发现其对天气查询请求持续循环调用weather工具12轮仍未停止。以下哪些措施符合教材明确指出的ReAct铁律且能有效解决该问题？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "在初始化Agent时设置max_iterations=5参数"
+        },
+        {
+          "option_label": "B",
+          "option_text": "修改系统提示词，增加'若连续3次获得相同Observation则终止'指令"
+        },
+        {
+          "option_label": "C",
+          "option_text": "为weather工具添加超时熔断逻辑，返回错误后强制跳转至Answer阶段"
+        },
+        {
+          "option_label": "D",
+          "option_text": "在ReAct轨迹解析层注入token预算检查，当累计输入token超过8000时主动截断"
+        }
+      ],
+      "answer": "ABD",
+      "analysis": "依据4.4节'风险'部分：'ReAct不是无限循环：必须设置最大迭代轮数/超时/token预算上限，超限要主动收尾'。A项直接对应'最大迭代轮数'（教材原话）；B项通过提示词约束'连续相同Observation'属于教材认可的'主动收尾'策略（4.4节'超限要主动收尾或向用户澄清'）；D项' token预算上限'为教材明确列出的三类上限之一。C项错误：教材强调'工具失败时能重试或换方案，而不是整轮崩溃'（4.2节原则），强制跳转Answer违背'根据反馈迭代'的核心思想，且未解决循环根源。注意：教材未要求必须用代码参数实现（A），也接受提示词层约束（B），但'超时'在教材中指整体执行超时（如30秒），非单工具超时（C），故C不符合教材定义。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 0,
+      "stem": "某团队需接入OA审批、数据库查询、内部知识库检索等15个新工具。当前每个Agent均硬编码所有工具Schema，工具方参数变更需全量重新部署。为根治此问题，应优先引入哪项技术？其与Function Calling的关系应如何理解？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "MCP协议；MCP负责工具动态发现与管理，Function Calling负责模型触发调用，二者互补"
+        },
+        {
+          "option_label": "B",
+          "option_text": "ReAct框架；ReAct提供多轮循环机制，Function Calling是其内置的工具调用子模块"
+        },
+        {
+          "option_label": "C",
+          "option_text": "Skill体系；Skill封装工具调用流程，Function Calling作为Skill的底层执行引擎"
+        },
+        {
+          "option_label": "D",
+          "option_text": "Harness工程；Harness通过标准-验证-记录-写回闭环统一管理工具Schema版本"
+        }
+      ],
+      "answer": "A",
+      "analysis": "依据4.5节：'MCP解决的问题'正是'工具怎么被发现、被管理、被复用'，其场景描述与题干'新增工具需改代码、重新部署'完全一致；教材明确'MCP vs Function Calling——互补，不是替代'，并指出'MCP解决接入标准化，FC解决调用机制'（4.5节compare框）。B错误：ReAct是推理范式，不解决工具管理问题；C错误：Skill解决'怎么做专业任务'（4.9节），非工具接入；D错误：Harness是工程闭环（4.11节），不提供工具发现协议。教材'考试速查'表第4行亦明确'工具多、每个Agent都要重写Schema→MCP'。",
+      "difficulty_label": "基础"
+    },
+    {
+      "type": 1,
+      "stem": "某多Agent客服系统出现严重故障：用户投诉'修改手机号'操作后，账户被误删。经排查，所有Agent共用同一套管理员API Key，且主调度Agent的Prompt中拼接了全部12个Worker的完整系统提示词。该设计违反了教材中哪几条多Agent硬原则？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "明确职责"
+        },
+        {
+          "option_label": "B",
+          "option_text": "独立凭据"
+        },
+        {
+          "option_label": "C",
+          "option_text": "中央调度"
+        },
+        {
+          "option_label": "D",
+          "option_text": "避免全量注入"
+        }
+      ],
+      "answer": "BD",
+      "analysis": "依据4.7节'多Agent设计四原则'：'独立凭据'明确要求'不同Agent不得共用同一套账号/API凭据'，题干'共用管理员API Key'直接违反此条（教材举例'所有Agent共用一个管理员账号最方便→❌'）；'避免全量注入'要求'不要把所有Agent的知识/工具清单一次性写进主Prompt'，题干'拼接全部12个Worker完整系统提示词'即典型违规（教材'考试速查'表第6行）。A错误：'明确职责'指功能边界划分，题干未体现职责混淆；C错误：'中央调度'指存在Leader Agent，题干'主调度Agent'恰恰符合此原则。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 0,
+      "stem": "一个课程审查Agent在连续30轮对话中逐渐丢失首轮设定的'严谨学术风'要求，当前采用固定窗口截断（保留最近10轮）。工程师计划升级Memory策略。以下哪种方案最符合教材推荐的'组合策略'且能根治该问题？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "将'严谨学术风'作为关键偏好存入向量库，每次生成前按语义检索并注入上下文"
+        },
+        {
+          "option_label": "B",
+          "option_text": "扩大截断窗口至50轮，确保首轮内容始终保留在上下文中"
+        },
+        {
+          "option_label": "C",
+          "option_text": "用滚动摘要将前20轮压缩为一段文字，替换原始历史"
+        },
+        {
+          "option_label": "D",
+          "option_text": "为每个会话创建独立Memory实例，禁止跨会话共享"
+        }
+      ],
+      "answer": "A",
+      "analysis": "依据4.8节：'工程上通常三者组合：短期用窗口/摘要保连贯，长期用向量库存关键事实'；教材'考试速查'表第7行明确'聊久了忘记最早要求→引入向量化长期记忆'；且'自测题5解析'直接给出相同场景的答案：'引入向量化长期记忆...把风格偏好等关键信息持久化到向量库'。B错误：教材指出'单纯扩窗口只是延后爆炸'，且长上下文导致'注意力稀释/中间迷失'（4.8节）；C错误：滚动摘要适用于'长篇创作、项目规划'，但无法保证'严谨学术风'这类抽象偏好在摘要中不被丢失；D错误：'独立Memory实例'是默认行为，与解决'会话内遗忘'无关。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 0,
+      "stem": "某金融Agent生成投资建议时，端到端评测得分92分，但风控团队发现其多次遗漏'杠杆率超阈值'的合规检查。为精准定位该环节缺陷，应优先采用哪种评测方法？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "LLM-as-Judge，用另一个大模型评估建议的合规性"
+        },
+        {
+          "option_label": "B",
+          "option_text": "Rubric评分量表，拆解'杠杆率检查'为独立可判定项"
+        },
+        {
+          "option_label": "C",
+          "option_text": "确定性检查，解析执行轨迹验证是否调用leverage_check工具"
+        },
+        {
+          "option_label": "D",
+          "option_text": "黄金集人工标注，由专家对100个样本进行合规性打分"
+        }
+      ],
+      "answer": "C",
+      "analysis": "依据4.10节：'白盒化评测'用于'精准定位瓶颈'，而'确定性检查'专攻'该发生的步骤有没有发生'，教材举例'验证是否调了报销查询工具'（4.10节原理框）。题干'遗漏杠杆率检查'是客观过程缺陷，需确定性验证工具调用行为。A、B、D均属主观/端到端评测，无法区分'未调用工具'与'调用后判断错误'（4.10节'问题常出在过程而非最终答案'）。教材'自测题6解析'明确'加白盒评测，单独检查代码生成环节'，与此题逻辑完全一致。",
+      "difficulty_label": "基础"
+    }
+  ]
+}

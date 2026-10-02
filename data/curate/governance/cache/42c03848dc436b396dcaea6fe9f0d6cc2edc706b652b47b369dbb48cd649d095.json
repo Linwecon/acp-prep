@@ -1,0 +1,154 @@
+{
+  "items": [
+    {
+      "type": 0,
+      "stem": "某企业报销查询Agent在工具调用失败（如网络超时）后，未重试、未切换方案、也未向用户澄清，而是直接生成模糊回答：“系统暂未返回结果”。该行为最根本违反了本章强调的哪一条核心设计约定？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "工具返回结果必须回灌到上下文，否则模型等于“做完就忘”"
+        },
+        {
+          "option_label": "B",
+          "option_text": "要给模型“失败出口”：工具超时、报错时能重试或换方案，而不是整轮崩溃"
+        },
+        {
+          "option_label": "C",
+          "option_text": "工具必须以JSON-Schema描述自己，让模型知道“有什么可用、怎么用”"
+        },
+        {
+          "option_label": "D",
+          "option_text": "模型只提议、程序才执行——执行责任在应用代码，不在LLM"
+        }
+      ],
+      "answer": "B",
+      "analysis": "依据原文4.2节【关键约定】明确指出：“要给模型‘失败出口’：工具超时、报错时能重试或换方案，而不是整轮崩溃。”该故障中Agent面对超时未采取任何容错动作，直接放弃闭环，本质是缺失失败处理机制，而非上下文回灌（A）、Schema定义（C）或执行主体混淆（D）问题。A项虽为正确原则，但题干中未体现“结果未回传”，而是结果已返回（空/超时）后无响应；C、D与故障现象无直接因果关系。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 0,
+      "stem": "一个ReAct Agent被设计用于处理报销查询任务。其工具get_reimbursement的JSON-Schema中，parameters定义了user_id（required）和month（required），但未设置default值。当用户提问“帮我查我的报销单”而未提供月份时，Agent未主动追问，而是传入空字符串调用工具并失败。该行为违背了教材强调的哪一条关于JSON-Schema与执行流程的核心原则？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "参数可以在多轮对话中逐步收集，缺参时Agent应主动追问"
+        },
+        {
+          "option_label": "B",
+          "option_text": "Schema字段名含糊、描述缺失，会直接导致参数提取错误"
+        },
+        {
+          "option_label": "C",
+          "option_text": "模型会自己执行工具，因此必须确保参数一次提取准确"
+        },
+        {
+          "option_label": "D",
+          "option_text": "工具结果模型自己能看到，无需程序额外回传"
+        }
+      ],
+      "answer": "A",
+      "analysis": "原文4.3节【风险】明确指出：“❌ '参数必须一轮提取完' → ✅ 参数可以在多轮对话中逐步收集，缺参时Agent应主动追问。”题干中用户未提供month，而Schema标记为required，此时正确行为是触发追问（如“请提供报销单所属月份”），而非强行传空值。B项涉及Schema质量，但题干未指出字段名或描述问题；C、D均为原文明确否定的误区（见4.3节【风险】首两条），且与“未追问”无直接关联。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 1,
+      "stem": "在调试一个失败的报销查询Agent时，发现工具执行代码已正确解析model输出的tool_calls，但调用内部服务后返回'Invalid month format'。经检查，JSON-Schema中month字段定义为{'type': 'string', 'pattern': '^\\\\d{4}-\\\\d{2}$'}，而模型传入的参数是'2024-07'。此时最应优先排查的环节是？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "模型对JSON-Schema中正则pattern的理解能力是否足够"
+        },
+        {
+          "option_label": "B",
+          "option_text": "工具执行代码中对传入参数的格式校验逻辑是否严格匹配Schema pattern"
+        },
+        {
+          "option_label": "C",
+          "option_text": "工具服务端实际接收的参数是否被中间件（如API网关）篡改或截断"
+        },
+        {
+          "option_label": "D",
+          "option_text": "模型输出的tool_calls中month参数值是否被上下文噪声污染"
+        }
+      ],
+      "answer": "B,C",
+      "analysis": "依据原文4.3节【风险】：“参数提取准不准，取决于三件事：Schema质量、模型能力、上下文清晰度”，且强调“Schema字段名含糊、描述缺失，会直接导致参数提取错误”。但本题中模型传入'2024-07'完全符合pattern（^\\d{4}-\\d{2}$），说明提取正确；故障发生在工具执行后服务端返回'Invalid month format'，表明问题出在执行层：B项指工具执行代码自身校验逻辑可能比Schema更严（如要求'2024-07'但代码校验写成'^\\d{4}-\\d{1,2}$'）；C项指网络链路中参数被修改（如网关自动去零），属典型生产环境故障点。A项将问题归因于模型能力，但输入合规，故非首要；D项无证据支持上下文污染，且'2024-07'是标准格式，非噪声特征。",
+      "difficulty_label": "挑战"
+    },
+    {
+      "type": 0,
+      "stem": "某团队为代码审查Agent设计评测，发现LLM-as-Judge对‘代码风格是否学术’的打分与实际专家评审结果相关性仅为0.3。根据教材4.10节对LLM-as-Judge的风险警示，造成此低相关性的最根本原因是什么？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "未使用黄金测试集校准评委模型，导致其主观偏好未对齐业务标准"
+        },
+        {
+          "option_label": "B",
+          "option_text": "未对评委模型输出做结构化约束（如Rubric JSON），导致评分维度不一致"
+        },
+        {
+          "option_label": "C",
+          "option_text": "未采用打乱顺序、人工抽检等方法缓解评委模型的“位置偏见”"
+        },
+        {
+          "option_label": "D",
+          "option_text": "未将风格判断指标转化为可判定的细则，而是依赖评委模型自由发挥"
+        }
+      ],
+      "answer": "D",
+      "analysis": "原文4.10节【principle】强调：“Rubric（评分量表）：把模糊目标拆成逐条可判定的细则……让Judge逐项判定再汇总。”又在【best】中指出：“专家定义标准……把‘隐性知识’编码成评分细则”。题干中“代码风格是否学术”是高度主观、模糊的指标，若未拆解为“是否使用被动语态”“是否避免第一人称”“是否引用权威文献”等可判定细则，仅让评委模型自由打分，则必然因模型自身偏见（如偏好简洁vs详尽）导致与专家分歧。A、B、C均为缓解偏见的技术手段，但D是根源性缺陷——标准本身未结构化，其他手段无法弥补。",
+      "difficulty_label": "挑战"
+    },
+    {
+      "type": 1,
+      "stem": "某金融Agent需完成‘评估客户A的贷款申请’任务，涉及调用征信查询、收入验证、风控模型三个工具。当前采用固定流水线工作流：征信→收入→风控。但近期因征信API临时不可用，整个流程卡死。为提升鲁棒性，以下哪些调整符合本章‘规划策略’的最佳实践？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "将征信查询步骤替换为ReAct模式，允许模型在超时后自主选择调用备用缓存服务"
+        },
+        {
+          "option_label": "B",
+          "option_text": "在流水线中增加分支节点：征信失败时自动路由至‘人工审核’子流程"
+        },
+        {
+          "option_label": "C",
+          "option_text": "将整个任务升级为Plan-and-Execute模式，由模型动态生成包含重试、降级、人工介入的完整计划"
+        },
+        {
+          "option_label": "D",
+          "option_text": "为征信工具添加重试机制，并在Schema中声明‘max_retries:3’"
+        }
+      ],
+      "answer": "A,B,C",
+      "analysis": "依据原文4.6.3节【concept】：“Plan-and-Execute让Agent围绕用户目标先生成计划，再逐项执行；遇到障碍时重新规划”。A项将单步转为ReAct，赋予该步动态调整能力（4.4节）；B项属工作流中的Branching模式（4.6.2节），是固定工作流内嵌容错的合理做法；C项是典型的Plan-and-Execute升级，符合“环境多变需真实反馈动态调整”的适用场景（4.6.3节）。D项错误：JSON-Schema是工具元数据描述，不承载执行逻辑（如重试次数），重试必须由应用代码实现（4.3节【principle】），Schema中声明'max_retries'无标准支持且违背职责分离。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 0,
+      "stem": "某企业升级新人答疑机器人为报销进度查询助手。用户输入'帮我查一下我上个月提交的报销单审批到哪一步了'，模型返回tool_calls=[{'name':'get_reimbursement','args':{'user_id':'U123','month':'2024-07'}}]。此时若工具执行超时返回空结果，Agent下一步最应采取的行动是？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "将空结果作为role='tool'消息追加回上下文，再次调用模型，由模型决定后续动作"
+        },
+        {
+          "option_label": "B",
+          "option_text": "立即终止流程，向用户返回'系统繁忙，请稍后再试'"
+        },
+        {
+          "option_label": "C",
+          "option_text": "由应用代码自动重试get_reimbursement三次，成功后再回传结果"
+        },
+        {
+          "option_label": "D",
+          "option_text": "忽略超时结果，直接调用另一个工具（如get_reimbursement_history）获取替代信息"
+        }
+      ],
+      "answer": "A",
+      "analysis": "依据原文4.3节【principle】Function Calling四步流程第4步：“结果回传：带着工具结果再次调用模型，模型据此生成最终回复，或决定继续调下一个工具。”且4.2节【关键约定】强调：“工具返回结果必须回灌到上下文，否则模型等于‘做完就忘’”。超时返回空结果仍是Observation，必须作为role='tool'消息注入上下文，交由模型基于此新事实决策（重试/换工具/追问/收尾）。B项放弃闭环；C项越权——重试策略应由模型规划（ReAct）或配置在应用层，但题干未说明有预设重试逻辑；D项跳过模型决策，违反“模型负责规划”原则（4.2节）。A是标准FC流程的必然步骤。",
+      "difficulty_label": "入门"
+    }
+  ]
+}

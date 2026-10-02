@@ -1,0 +1,154 @@
+{
+  "items": [
+    {
+      "type": 0,
+      "stem": "某教育公司调试新人答疑机器人时发现：相同system prompt和user query（'我们公司项目管理应该用什么工具？'）在Qwen-Max上tokenize后为42个Token，而在本地部署的Qwen2.5-7B上tokenize后为51个Token。两次调用均未超窗、参数一致、输出内容语义相同。该现象最根本的技术原因是什么？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "Qwen2.5-7B的上下文窗口更小，导致分词器被迫拆分更多子词以适配"
+        },
+        {
+          "option_label": "B",
+          "option_text": "不同模型使用独立构建的词表（vocabulary），BPE分词策略与训练语料分布不同"
+        },
+        {
+          "option_label": "C",
+          "option_text": "Qwen-Max启用了更激进的token压缩优化，而Qwen2.5-7B默认关闭"
+        },
+        {
+          "option_label": "D",
+          "option_text": "本地部署环境缺少Unicode标准化预处理，导致中文字符被重复编码"
+        }
+      ],
+      "answer": "B",
+      "analysis": "依据原文1.5节‘Token与分词’：‘同一段文字在不同模型上Token数可能不同，因为词表不同’；并明确指出‘主流模型使用BPE等子词算法构建词表……不同模型词表不同’。选项B直接对应原文核心原理——词表（vocabulary）是模型专属的，由其训练语料和BPE合并策略决定，故相同文本在不同模型tokenizer下切分结果必然存在差异。A错误：上下文窗口不影响分词数量，只影响能否容纳；C错误：原文未提‘token压缩优化’，且token数由分词器静态决定，非运行时压缩；D错误：Unicode标准化属工程细节，原文未将其列为Token差异主因，且‘语义相同’说明编码无误。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 0,
+      "stem": "开发人员调试RAG系统时发现：当检索到3段高度相关的技术文档片段（共1200 Token）并拼入messages后，模型对'如何配置Qwen-Max的top_p参数'的回答开始出现事实性错误，且响应延迟显著增加。最可能的根本原因是？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "检索片段中混入了过时版本文档，导致知识冲突，触发幻觉"
+        },
+        {
+          "option_label": "B",
+          "option_text": "输入Token总数逼近上下文窗口上限，导致模型注意力被稀释（Lost in the Middle）"
+        },
+        {
+          "option_label": "C",
+          "option_text": "RAG检索模块未对齐Qwen-Max的Embedding模型，造成向量语义失配"
+        },
+        {
+          "option_label": "D",
+          "option_text": "top_p参数在RAG增强后被自动重置为1.0，扩大采样范围"
+        }
+      ],
+      "answer": "B",
+      "analysis": "依据原文1.6节‘上下文窗口’：‘过长的无关上下文会稀释注意力、引入噪声（“Lost in the Middle”现象）’；且1.12节风险表强调‘窗口越大效果越好’是误区。题干中‘高度相关’排除A（非知识冲突），‘响应延迟增加’指向计算负载上升而非RAG模块错误（C属检索阶段问题，不直接影响生成延迟），D无依据（参数不会被RAG自动重置）。B精准对应原文‘Lost in the Middle’现象——即使内容相关，过长输入仍会削弱模型对关键信息的关注力，导致事实性错误，同时Transformer推理复杂度随序列长度平方增长，故延迟上升。",
+      "difficulty_label": "挑战"
+    },
+    {
+      "type": 0,
+      "stem": "某团队选型时对比qwen-turbo与qwen-max：前者响应快、成本低，后者能力更强但延迟高。当任务是'实时校验客服对话中是否出现违禁词'（需毫秒级响应，输出仅为true/false），应优先选择哪个模型？依据本章哪一原则？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "qwen-turbo；依据1.10节Scaling Law——小模型在高质量数据上充分训练可反超大模型"
+        },
+        {
+          "option_label": "B",
+          "option_text": "qwen-turbo；依据1.11节选型口诀——'快而省 → Turbo'，且简单任务无需Max能力"
+        },
+        {
+          "option_label": "C",
+          "option_text": "qwen-max；依据1.10节Scaling Law——参数越多，分类准确率越高"
+        },
+        {
+          "option_label": "D",
+          "option_text": "qwen-max；依据1.8节无状态特性——需强模型保证多轮违禁词上下文关联"
+        }
+      ],
+      "answer": "B",
+      "analysis": "题干任务是二分类（true/false）、低延迟、高频调用，属典型‘简单任务’。原文1.11节选型口诀明确：‘快而省 → Turbo’；1.10节best practice强调：‘能用小模型解决的绝不上大模型’；1.12节风险表警示：‘参数越多模型一定越好’是误区。A虽引用Scaling Law但偏离重点——本题不比准确率，而比‘是否需要Max能力’；C违背原文‘参数不是唯一因素’及成本权衡原则；D错误：违禁词检测是单轮模式匹配，无需多轮上下文（且‘无状态’指API机制，非能力需求）。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 1,
+      "stem": "测试工程师发现：当向模型发送'计算12345×6789'时，不同temperature设置下结果稳定性差异显著。temperature=0.1时90%返回正确结果，temperature=1.5时正确率降至35%。这一现象最能印证教材中关于LLM的哪几项根本特性？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "LLM本质是概率性文本生成器，不擅精确计算"
+        },
+        {
+          "option_label": "B",
+          "option_text": "temperature只改变采样随机性，不增加知识或推理能力"
+        },
+        {
+          "option_label": "C",
+          "option_text": "幻觉源于上下文不足时模型强行续写"
+        },
+        {
+          "option_label": "D",
+          "option_text": "自回归生成缺乏符号运算机制"
+        }
+      ],
+      "answer": "ABD",
+      "analysis": "题干现象直指‘计算错误率随temperature升高而飙升’，核心印证三点：A（原文1.2节开篇即列‘不擅精确计算’为三大边界之一）；B（原文1.7.4节明确‘调高temperature不能让模型更聪明’，仅增随机性）；D（原文1.2节解释‘它不是按竖式一步步算，而是在猜下一个数字/符号’）。C错误：本题有完整数学表达式（上下文充足），错误主因非幻觉，而是计算机制缺陷；幻觉特指‘编造看似合理但错误的事实’，而此处是纯计算失误。",
+      "difficulty_label": "挑战"
+    },
+    {
+      "type": 0,
+      "stem": "在调试一个教育问答机器人时，开发者发现：相同system prompt和user query下，开启stream=True时首字延迟为300ms，关闭后整体响应耗时2.1s。但人工比对发现两版输出文本完全一致。这一现象最能印证本章哪一核心原理？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "流式输出只改变展示方式，不改变答案质量"
+        },
+        {
+          "option_label": "B",
+          "option_text": "模型本身无状态，每次请求独立"
+        },
+        {
+          "option_label": "C",
+          "option_text": "自注意力不限制序列长度"
+        },
+        {
+          "option_label": "D",
+          "option_text": "五阶段工作流程中，解码与自回归是循环过程"
+        }
+      ],
+      "answer": "A",
+      "analysis": "题干关键证据链：‘开启stream首字延迟低’（体验改善）、‘关闭后总耗时长’（非流式需等待全量生成）、‘两版输出文本完全一致’（质量未变）。这三者严丝合缝对应原文1.9节核心结论：‘流式输出只改变展示方式，不改质量’，且1.9节表格明确对比‘答案质量’维度为‘——’（非流式）与‘完全相同’（流式）。B虽正确但与题干现象无关（无状态性影响的是多轮历史维护，非单次延迟）；C、D是正确原理，但无法解释‘相同输出+不同延迟’这一特定对比。",
+      "difficulty_label": "入门"
+    },
+    {
+      "type": 1,
+      "stem": "某教育公司上线新人答疑机器人后，用户连续提问：'我们项目管理用什么工具？'→'那怎么申请账号？'。第二轮模型未提及Jira，仅泛泛说明通用流程。经排查，messages数组中已包含system和第一轮user/assistant消息，且总Token数远低于窗口上限。最可能的根本原因是什么？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "assistant第一轮回复中未明确写出'Jira'，而是用代词'它'指代，导致第二轮无法锚定"
+        },
+        {
+          "option_label": "B",
+          "option_text": "system prompt未强制要求模型在回答中显式复述关键名词"
+        },
+        {
+          "option_label": "C",
+          "option_text": "模型在第二轮推理时因输入过长触发了隐式截断，丢弃了首轮assistant消息"
+        },
+        {
+          "option_label": "D",
+          "option_text": "首轮assistant回复的Token ID序列在解码时发生子词错位，导致语义丢失"
+        }
+      ],
+      "answer": "AB",
+      "analysis": "题干条件：messages结构完整、Token未超窗、第二轮仍‘失忆’。A正确：原文1.8.1节示例明确‘这个工具靠上文才知道是Jira’，若首轮回复为‘它目前使用Jira’，则‘它’在第二轮中无法被模型可靠解析（指代消解失败），这是真实场景常见故障；B正确：原文1.2节‘补位表’指出‘稳定语气/格式需提示词约束’，system prompt若未要求‘所有工具名必须全称写出’，模型倾向用代词缩写，属提示词工程缺陷。C错误：题干已排除超窗，且截断会丢弃最早消息（通常是system），而非首轮assistant；D错误：子词错位影响单字显示（如流式蹦词），不导致整句语义丢失，且原文1.9节注明此为‘正常现象’，非故障根源。",
+      "difficulty_label": "进阶"
+    }
+  ]
+}

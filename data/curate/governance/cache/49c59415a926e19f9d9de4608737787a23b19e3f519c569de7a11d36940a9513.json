@@ -1,0 +1,72 @@
+{
+  "new-6-6-0": {
+    "qid": "new-6-6-0",
+    "classification": "own",
+    "chapter": 6,
+    "quality": "ok",
+    "reason": "题目考查PagedAttention机制的作用边界，与原文知识点对应。",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "Prefill（预填充阶段）...是计算密集型，处理完后吐出第一个token，决定了TTFT。PagedAttention...解决的是KV Cache的显存碎片与预分配浪费。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "原文明确TTFT由Prefill决定，PagedAttention优化Decode阶段KV Cache管理。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "原文未提及页表查询开销会抵消效率提升。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "原文未提及页表过大导致CPU调度延迟。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "原文未提及vLLM默认禁用Prefill分页优化。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-6-6-5": {
+    "qid": "new-6-6-5",
+    "classification": "own",
+    "chapter": 6,
+    "quality": "ok",
+    "reason": "题目考查函数计算FC的冷启动延迟现象，与原文描述完全一致。",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "Serverless为了省成本，无流量时会回收实例；请求突然到来需要重新拉起实例、加载模型，导致首个请求明显变慢。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "原文明确冷启动是因实例回收后需重新拉起并加载模型。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "原文未将冷启动归因于磁盘IO瓶颈。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "原文未提及FC存在GPU驱动预热问题。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "原文未将冷启动归因于GPU资源配额不足。"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

@@ -1,0 +1,218 @@
+{
+  "new-10-24-0": {
+    "qid": "new-10-24-0",
+    "classification": "own",
+    "chapter": 10,
+    "quality": "ok",
+    "reason": "考查百炼工作流调用DashScope API的认证机制，401错误对应权限问题。",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "百炼与DashScope共用一套API Key。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "401错误表示未授权，最可能是API Key缺失或无效。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "输入缺失可能导致失败，但不会直接导致401认证错误。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "百炼支持调用Embedding模型，原文提及知识库底层调用DashScope Embedding。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "模型下线可能导致调用失败，但401是认证错误，非模型不可用。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-10-24-1": {
+    "qid": "new-10-24-1",
+    "classification": "own",
+    "chapter": 10,
+    "quality": "ok",
+    "reason": "考查工作流节点间的数据依赖关系，判断哪些场景必须串行。",
+    "answer": [
+      "A",
+      "C"
+    ],
+    "supported": true,
+    "quote": "节点1调用DashScope Rerank服务对检索结果重排序，节点2将重排序后的top3文档作为上下文输入给qwen-plus生成答案",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "节点2依赖节点1的重排序结果，必须串行。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "读取文件与调用模型无直接数据依赖，可并行。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "节点2的system prompt依赖节点1的摘要结果，必须串行。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "转写与情感分析无直接数据依赖，可并行。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-10-24-2": {
+    "qid": "new-10-24-2",
+    "classification": "own",
+    "chapter": 10,
+    "quality": "ok",
+    "reason": "考查提示词工程在解决专业术语识别问题中的优先级。",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "百炼能力可以理解为把前几章的技术'产品化'了：Prompt 调试对应提示词工程",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "准确率下降但无错误，应优先优化Prompt明确要求。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "知识库用于RAG，题干未提及检索，非最优先。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "日志显示调用plus，且turbo能力不足非最可能原因。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "重试解决临时故障，不解决系统性准确率问题。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-10-24-3": {
+    "qid": "new-10-24-3",
+    "classification": "own",
+    "chapter": 10,
+    "quality": "ok",
+    "reason": "考查工作流失败的根本原因分类，区分参数调整与拓扑/依赖变更。",
+    "answer": [
+      "A",
+      "B",
+      "C",
+      "D"
+    ],
+    "supported": true,
+    "quote": "工作流背后就是可控的多步编排",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "节点间数据格式不匹配，需修改输出或解析逻辑。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "外部服务不可用，需修复插件或网络。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "输入超出模型窗口，需修改输入或工作流结构。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "并行节点存在未声明的数据依赖，需调整拓扑。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-10-24-4": {
+    "qid": "new-10-24-4",
+    "classification": "own",
+    "chapter": 10,
+    "quality": "ok",
+    "reason": "考查根据问题根因（手写图片导致解析超时）选择符合成本与架构原则的优化方案。",
+    "answer": [
+      "D"
+    ],
+    "supported": true,
+    "quote": "百炼的价值在于把复杂的工程链路封装成可视化操作",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "增加图像预处理节点增加复杂性与成本，非最简方案。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "升级模型可能提升能力但成本更高，且未必解决超时根本问题。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "重试无法解决因输入内容导致的持续超时问题。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "修改输入规范从源头避免问题，符合成本与工程原则。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-10-24-5": {
+    "qid": "new-10-24-5",
+    "classification": "own",
+    "chapter": 10,
+    "quality": "ok",
+    "reason": "考查百炼工作流调用PAI-EAS私有模型的技术前提条件。",
+    "answer": [
+      "A",
+      "B",
+      "C"
+    ],
+    "supported": true,
+    "quote": "百炼应用也可以调用部署在PAI-EAS上的私有模型。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "网络必须连通，是调用的基础条件。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "Endpoint必须正确配置，否则无法发起请求。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "响应格式必须兼容，工作流才能解析结果。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "EAS可部署任意模型，不限于Qwen系列。"
+      }
+    ],
+    "duplicate_of": "10-5192"
+  }
+}

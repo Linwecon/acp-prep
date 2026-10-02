@@ -1,0 +1,233 @@
+{
+  "new-4-54-0": {
+    "qid": "new-4-54-0",
+    "classification": "own",
+    "chapter": 4,
+    "quality": "ok",
+    "reason": "考查Function Calling核心流程，模型只提议，程序才执行。",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "模型只输出结构化的'调用哪个工具、传什么参数'；由你的应用代码解析 tool_calls、真正执行对应函数",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "模型自身不执行函数，只输出调用意图。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "前端可能参与，但核心执行者是应用程序代码。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "符合Function Calling流程：程序执行，结果以role='tool'回传。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "Planner不直接执行，且工具调用不一定是SQL。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-4-54-1": {
+    "qid": "new-4-54-1",
+    "classification": "own",
+    "chapter": 4,
+    "quality": "ok",
+    "reason": "综合考查ReAct铁律和Function Calling原则，需结合故障场景选择正确措施。",
+    "answer": [
+      "A",
+      "B",
+      "E"
+    ],
+    "supported": true,
+    "quote": "Schema 质量（名称、描述、必填项是否清晰）直接影响参数提取；Observation 可能含噪声甚至恶意内容，模型不能盲目信任外部返回；结果必须由程序作为 role='tool' 消息追加回上下文",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "Schema缺失必填声明可能导致参数提取错误。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "符合ReAct铁律，需对Observation进行交叉验证。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "违反ReAct铁律，必须设置最大迭代轮数上限。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "工具结果必须回灌上下文，否则模型等于'做完就忘'。"
+      },
+      {
+        "label": "E",
+        "selected": true,
+        "why": "确保工具结果正确封装并注入，是Function Calling关键。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-4-54-2": {
+    "qid": "new-4-54-2",
+    "classification": "own",
+    "chapter": 4,
+    "quality": "ok",
+    "reason": "考查MCP协议解决的问题及其与Function Calling的互补关系。",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "MCP（模型上下文协议）用来统一 Agent 接入外部工具与数据源的方式。它的核心思想是'谁提供工具，谁定义工具'；MCP 解决'工具怎么被发现、被管理、被复用'（接入标准化）",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "MCP解决工具动态发现和管理，与FC互补。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "ReAct不解决工具Schema集中管理问题，也不替代FC。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "Skill固化SOP，不解决工具Schema动态发现和集中管理。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "向量记忆用于持久化事实，不解决工具Schema管理问题。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-4-54-3": {
+    "qid": "new-4-54-3",
+    "classification": "own",
+    "chapter": 4,
+    "quality": "ok",
+    "reason": "考查多Agent设计的四条硬原则，需识别题干中违反的具体原则。",
+    "answer": [
+      "B",
+      "C",
+      "D"
+    ],
+    "supported": true,
+    "quote": "独立凭据：不同 Agent 不得共用同一套账号/API 凭据；中央调度：设置 Planner / Leader Agent 统一判断'何时调哪个 Agent'；避免全量注入：不要把所有 Agent 的知识/工具清单一次性写进主 Prompt",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "题干未体现职责不明确。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "Worker共用数据库账号违反独立凭据原则。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "Worker间直接互调违反中央调度原则。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "所有Worker提示词拼入Leader初始Prompt违反避免全量注入。"
+      },
+      {
+        "label": "E",
+        "selected": false,
+        "why": "题干未质疑分层规划模式的适用性。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-4-54-4": {
+    "qid": "new-4-54-4",
+    "classification": "own",
+    "chapter": 4,
+    "quality": "ok",
+    "reason": "考查Memory管理策略，需选择最符合教材的改进方案。",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "长期记忆：跨会话持久化的用户偏好、业务事实、经验教训，按需检索；向量化召回：每轮对话切片入向量库，新问题按语义检索相关历史再注入",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "单纯扩大窗口会延后问题，且长上下文会注意力稀释。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "滚动摘要是短期记忆策略，不如向量化长期记忆根本。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "向量化长期记忆可持久化关键偏好并按需检索，最合理。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "强制追加是临时补救，非系统性Memory策略改进。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-4-54-5": {
+    "qid": "new-4-54-5",
+    "classification": "own",
+    "chapter": 4,
+    "quality": "ok",
+    "reason": "考查白盒化评测手段，需针对具体问题选择精准定位方法。",
+    "answer": [
+      "A",
+      "C",
+      "E"
+    ],
+    "supported": true,
+    "quote": "确定性检查：用代码/脚本判断'该发生的步骤有没有发生'；Rubric：把模糊目标拆成逐条可判定的细则",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "确定性检查可验证是否调用了正确的工具。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "LLM-as-Judge是主观评测，不如确定性检查精准。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "Rubric拆解可行性为可判定细则，适合白盒评测。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "向量召回是记忆策略，非白盒评测手段。"
+      },
+      {
+        "label": "E",
+        "selected": true,
+        "why": "用脚本调用API校验是典型的确定性检查。"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

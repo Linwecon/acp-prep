@@ -1,0 +1,657 @@
+{
+  "generated_at": "2026-10-02T15:34:40",
+  "target_per_chapter": 100,
+  "target_note": "默认建议值（假设见运行输出），非官方要求；可用 --target 调整。",
+  "exclusion_note": "合格 = 非软删除 + 答案已确认 + 低质检查非待修复/待复核 + 章节检查非待处理。",
+  "plan": {
+    "1": {
+      "chapter": 1,
+      "chapter_name": "大模型基础",
+      "active_count": 192,
+      "eligible_count": 174,
+      "excluded_counts": {
+        "answer_unconfirmed": 18,
+        "quality_flagged": 0,
+        "chapter_flagged": 0
+      },
+      "type_counts": {
+        "single": 123,
+        "multi": 51
+      },
+      "difficulty_counts": {
+        "入门": 90,
+        "进阶": 79,
+        "挑战": 5
+      },
+      "gap": 0,
+      "blueprint": {}
+    },
+    "2": {
+      "chapter": 2,
+      "chapter_name": "提示工程",
+      "active_count": 229,
+      "eligible_count": 211,
+      "excluded_counts": {
+        "answer_unconfirmed": 18,
+        "quality_flagged": 0,
+        "chapter_flagged": 0
+      },
+      "type_counts": {
+        "single": 141,
+        "multi": 70
+      },
+      "difficulty_counts": {
+        "入门": 103,
+        "进阶": 88,
+        "挑战": 20
+      },
+      "gap": 0,
+      "blueprint": {}
+    },
+    "3": {
+      "chapter": 3,
+      "chapter_name": "RAG 检索增强生成",
+      "active_count": 456,
+      "eligible_count": 415,
+      "excluded_counts": {
+        "answer_unconfirmed": 41,
+        "quality_flagged": 0,
+        "chapter_flagged": 0
+      },
+      "type_counts": {
+        "single": 298,
+        "multi": 117
+      },
+      "difficulty_counts": {
+        "入门": 209,
+        "进阶": 172,
+        "挑战": 34
+      },
+      "gap": 0,
+      "blueprint": {}
+    },
+    "4": {
+      "chapter": 4,
+      "chapter_name": "Agent 智能体",
+      "active_count": 86,
+      "eligible_count": 78,
+      "excluded_counts": {
+        "answer_unconfirmed": 8,
+        "quality_flagged": 0,
+        "chapter_flagged": 0
+      },
+      "type_counts": {
+        "single": 54,
+        "multi": 24
+      },
+      "difficulty_counts": {
+        "入门": 22,
+        "进阶": 43,
+        "挑战": 13
+      },
+      "gap": 22,
+      "blueprint": {
+        "count": 22,
+        "quota_note": "按该章现有分布计算（多选占比 31%）；无题时回退 7:3 / 3:5:2",
+        "type_quota": {
+          "multi": 7,
+          "single": 15
+        },
+        "difficulty_quota": {
+          "入门": 6,
+          "进阶": 12,
+          "挑战": 4
+        },
+        "priority_knowledge": [
+          {
+            "concept": "Agent与RAG的互补关系",
+            "coverage": 0
+          },
+          {
+            "concept": "Agent本质是规划-行动-观察闭环",
+            "coverage": 0
+          },
+          {
+            "concept": "Agent评测三方法：确定性检查/LLM-as-Judge/Rubric",
+            "coverage": 0
+          },
+          {
+            "concept": "Function Calling四步流程",
+            "coverage": 0
+          },
+          {
+            "concept": "Harness标准-验证-记录-写回闭环",
+            "coverage": 0
+          },
+          {
+            "concept": "MCP三层架构与三类原语",
+            "coverage": 0
+          },
+          {
+            "concept": "Memory分短期/长期与管理策略",
+            "coverage": 0
+          },
+          {
+            "concept": "Planner解耦与轻重场景权衡",
+            "coverage": 0
+          },
+          {
+            "concept": "ReAct与CoT的本质区别",
+            "coverage": 0
+          },
+          {
+            "concept": "Skill的结构与渐进式披露",
+            "coverage": 0
+          }
+        ],
+        "coverage_note": "coverage=该考点下现有合格题数，0 表示完全未覆盖，优先补。"
+      }
+    },
+    "5": {
+      "chapter": 5,
+      "chapter_name": "模型微调与训练",
+      "active_count": 166,
+      "eligible_count": 151,
+      "excluded_counts": {
+        "answer_unconfirmed": 15,
+        "quality_flagged": 0,
+        "chapter_flagged": 0
+      },
+      "type_counts": {
+        "single": 109,
+        "multi": 42
+      },
+      "difficulty_counts": {
+        "入门": 77,
+        "进阶": 68,
+        "挑战": 6
+      },
+      "gap": 0,
+      "blueprint": {}
+    },
+    "6": {
+      "chapter": 6,
+      "chapter_name": "模型部署与推理优化",
+      "active_count": 67,
+      "eligible_count": 61,
+      "excluded_counts": {
+        "answer_unconfirmed": 6,
+        "quality_flagged": 0,
+        "chapter_flagged": 0
+      },
+      "type_counts": {
+        "single": 37,
+        "multi": 24
+      },
+      "difficulty_counts": {
+        "入门": 18,
+        "进阶": 41,
+        "挑战": 2
+      },
+      "gap": 39,
+      "blueprint": {
+        "count": 39,
+        "quota_note": "按该章现有分布计算（多选占比 39%）；无题时回退 7:3 / 3:5:2",
+        "type_quota": {
+          "multi": 15,
+          "single": 24
+        },
+        "difficulty_quota": {
+          "入门": 12,
+          "进阶": 26,
+          "挑战": 1
+        },
+        "priority_knowledge": [
+          {
+            "concept": "GPTQ与AWQ量化方法",
+            "coverage": 0
+          },
+          {
+            "concept": "KV Cache作用与显存瓶颈",
+            "coverage": 0
+          },
+          {
+            "concept": "PagedAttention分页机制",
+            "coverage": 0
+          },
+          {
+            "concept": "Prefill/Decode两阶段模型",
+            "coverage": 0
+          },
+          {
+            "concept": "QPS/延迟/并发/显存四维评估",
+            "coverage": 0
+          },
+          {
+            "concept": "SLO驱动的性能权衡",
+            "coverage": 0
+          },
+          {
+            "concept": "TTFT与TPOT指标定义",
+            "coverage": 0
+          },
+          {
+            "concept": "vLLM的OpenAI兼容接口",
+            "coverage": 0
+          },
+          {
+            "concept": "四种部署形态对比（FC/PAI-EAS/百炼/ECS）",
+            "coverage": 0
+          },
+          {
+            "concept": "数据合规对部署选型的约束",
+            "coverage": 0
+          }
+        ],
+        "coverage_note": "coverage=该考点下现有合格题数，0 表示完全未覆盖，优先补。"
+      }
+    },
+    "7": {
+      "chapter": 7,
+      "chapter_name": "模型评估",
+      "active_count": 71,
+      "eligible_count": 67,
+      "excluded_counts": {
+        "answer_unconfirmed": 4,
+        "quality_flagged": 0,
+        "chapter_flagged": 0
+      },
+      "type_counts": {
+        "single": 44,
+        "multi": 23
+      },
+      "difficulty_counts": {
+        "入门": 31,
+        "进阶": 30,
+        "挑战": 6
+      },
+      "gap": 33,
+      "blueprint": {
+        "count": 33,
+        "quota_note": "按该章现有分布计算（多选占比 34%）；无题时回退 7:3 / 3:5:2",
+        "type_quota": {
+          "multi": 11,
+          "single": 22
+        },
+        "difficulty_quota": {
+          "入门": 15,
+          "进阶": 15,
+          "挑战": 3
+        },
+        "priority_knowledge": [
+          {
+            "concept": "Answer Relevancy定义",
+            "coverage": 0
+          },
+          {
+            "concept": "Context Precision与Recall辨析",
+            "coverage": 0
+          },
+          {
+            "concept": "Faithfulness与Correctness辨析",
+            "coverage": 0
+          },
+          {
+            "concept": "LLM-as-Judge原理",
+            "coverage": 0
+          },
+          {
+            "concept": "RAGAS五大指标",
+            "coverage": 0
+          },
+          {
+            "concept": "传统自动指标局限性",
+            "coverage": 0
+          },
+          {
+            "concept": "回归评测与基线重要性",
+            "coverage": 0
+          },
+          {
+            "concept": "指标三层分层（业务/技术/算法）",
+            "coverage": 0
+          },
+          {
+            "concept": "控制变量保障可比性",
+            "coverage": 0
+          },
+          {
+            "concept": "检索端与生成端分离评估",
+            "coverage": 0
+          }
+        ],
+        "coverage_note": "coverage=该考点下现有合格题数，0 表示完全未覆盖，优先补。"
+      }
+    },
+    "8": {
+      "chapter": 8,
+      "chapter_name": "AI 安全与合规",
+      "active_count": 115,
+      "eligible_count": 108,
+      "excluded_counts": {
+        "answer_unconfirmed": 7,
+        "quality_flagged": 0,
+        "chapter_flagged": 0
+      },
+      "type_counts": {
+        "single": 64,
+        "multi": 44
+      },
+      "difficulty_counts": {
+        "入门": 40,
+        "进阶": 57,
+        "挑战": 11
+      },
+      "gap": 0,
+      "blueprint": {}
+    },
+    "9": {
+      "chapter": 9,
+      "chapter_name": "API 调用与工具使用",
+      "active_count": 87,
+      "eligible_count": 82,
+      "excluded_counts": {
+        "answer_unconfirmed": 5,
+        "quality_flagged": 0,
+        "chapter_flagged": 0
+      },
+      "type_counts": {
+        "single": 52,
+        "multi": 30
+      },
+      "difficulty_counts": {
+        "入门": 27,
+        "进阶": 37,
+        "挑战": 18
+      },
+      "gap": 18,
+      "blueprint": {
+        "count": 18,
+        "quota_note": "按该章现有分布计算（多选占比 37%）；无题时回退 7:3 / 3:5:2",
+        "type_quota": {
+          "multi": 7,
+          "single": 11
+        },
+        "difficulty_quota": {
+          "入门": 6,
+          "进阶": 8,
+          "挑战": 4
+        },
+        "priority_knowledge": [
+          {
+            "concept": "API Key安全五军规",
+            "coverage": 0
+          },
+          {
+            "concept": "API调用无状态性",
+            "coverage": 0
+          },
+          {
+            "concept": "Batch异步任务特性",
+            "coverage": 0
+          },
+          {
+            "concept": "Function Calling两次调用闭环",
+            "coverage": 0
+          },
+          {
+            "concept": "OpenAI兼容接口原理",
+            "coverage": 0
+          },
+          {
+            "concept": "RPM/TPM配额管理",
+            "coverage": 0
+          },
+          {
+            "concept": "Token计费与成本控制",
+            "coverage": 0
+          },
+          {
+            "concept": "messages角色化结构",
+            "coverage": 0
+          },
+          {
+            "concept": "system/user/assistant/tool角色分工",
+            "coverage": 0
+          },
+          {
+            "concept": "temperature与top_p调控机制",
+            "coverage": 0
+          }
+        ],
+        "coverage_note": "coverage=该考点下现有合格题数，0 表示完全未覆盖，优先补。"
+      }
+    },
+    "10": {
+      "chapter": 10,
+      "chapter_name": "阿里云 AI 平台",
+      "active_count": 71,
+      "eligible_count": 62,
+      "excluded_counts": {
+        "answer_unconfirmed": 9,
+        "quality_flagged": 0,
+        "chapter_flagged": 0
+      },
+      "type_counts": {
+        "single": 45,
+        "multi": 17
+      },
+      "difficulty_counts": {
+        "入门": 21,
+        "进阶": 28,
+        "挑战": 13
+      },
+      "gap": 38,
+      "blueprint": {
+        "count": 38,
+        "quota_note": "按该章现有分布计算（多选占比 27%）；无题时回退 7:3 / 3:5:2",
+        "type_quota": {
+          "multi": 10,
+          "single": 28
+        },
+        "difficulty_quota": {
+          "入门": 13,
+          "进阶": 17,
+          "挑战": 8
+        },
+        "priority_knowledge": [
+          {
+            "concept": "DSW/DLC/EAS三件套",
+            "coverage": 0
+          },
+          {
+            "concept": "DashScope：模型API服务层",
+            "coverage": 0
+          },
+          {
+            "concept": "MaaS（模型即服务）",
+            "coverage": 0
+          },
+          {
+            "concept": "ModelScope：开源模型社区",
+            "coverage": 0
+          },
+          {
+            "concept": "OpenAI兼容模式",
+            "coverage": 0
+          },
+          {
+            "concept": "PAI：训练与部署平台",
+            "coverage": 0
+          },
+          {
+            "concept": "RAG知识库集成原理",
+            "coverage": 0
+          },
+          {
+            "concept": "Token计费与限流机制",
+            "coverage": 0
+          },
+          {
+            "concept": "控制台vs代码vs训练的决策边界",
+            "coverage": 0
+          },
+          {
+            "concept": "智能体与工作流低代码编排",
+            "coverage": 0
+          }
+        ],
+        "coverage_note": "coverage=该考点下现有合格题数，0 表示完全未覆盖，优先补。"
+      }
+    },
+    "11": {
+      "chapter": 11,
+      "chapter_name": "多模态 AI",
+      "active_count": 58,
+      "eligible_count": 41,
+      "excluded_counts": {
+        "answer_unconfirmed": 5,
+        "quality_flagged": 6,
+        "chapter_flagged": 6
+      },
+      "type_counts": {
+        "single": 22,
+        "multi": 19
+      },
+      "difficulty_counts": {
+        "入门": 13,
+        "进阶": 26,
+        "挑战": 2
+      },
+      "gap": 59,
+      "blueprint": {
+        "count": 59,
+        "quota_note": "按该章现有分布计算（多选占比 46%）；无题时回退 7:3 / 3:5:2",
+        "type_quota": {
+          "multi": 27,
+          "single": 32
+        },
+        "difficulty_quota": {
+          "入门": 19,
+          "进阶": 37,
+          "挑战": 3
+        },
+        "priority_knowledge": [
+          {
+            "concept": "ASR→LLM→TTS管道式架构",
+            "coverage": 0
+          },
+          {
+            "concept": "图文对比学习（CLIP范式）",
+            "coverage": 0
+          },
+          {
+            "concept": "多模态RAG知识形态扩展",
+            "coverage": 0
+          },
+          {
+            "concept": "多模态成本与延迟特征",
+            "coverage": 0
+          },
+          {
+            "concept": "多模态模型 vs 纯文本LLM",
+            "coverage": 0
+          },
+          {
+            "concept": "多模态生成与内容安全强耦合",
+            "coverage": 0
+          },
+          {
+            "concept": "多模态选型常见误区",
+            "coverage": 0
+          },
+          {
+            "concept": "扩散模型原理（文生图/视频）",
+            "coverage": 0
+          },
+          {
+            "concept": "文档智能解析链路（OCR+版面+结构化）",
+            "coverage": 0
+          },
+          {
+            "concept": "模态定义（文本/图像/音频/视频）",
+            "coverage": 0
+          }
+        ],
+        "coverage_note": "coverage=该考点下现有合格题数，0 表示完全未覆盖，优先补。"
+      }
+    },
+    "12": {
+      "chapter": 12,
+      "chapter_name": "框架与工具",
+      "active_count": 58,
+      "eligible_count": 58,
+      "excluded_counts": {
+        "answer_unconfirmed": 0,
+        "quality_flagged": 0,
+        "chapter_flagged": 0
+      },
+      "type_counts": {
+        "single": 44,
+        "multi": 14
+      },
+      "difficulty_counts": {
+        "入门": 21,
+        "进阶": 27,
+        "挑战": 10
+      },
+      "gap": 42,
+      "blueprint": {
+        "count": 42,
+        "quota_note": "按该章现有分布计算（多选占比 24%）；无题时回退 7:3 / 3:5:2",
+        "type_quota": {
+          "multi": 10,
+          "single": 32
+        },
+        "difficulty_quota": {
+          "入门": 15,
+          "进阶": 20,
+          "挑战": 7
+        },
+        "priority_knowledge": [
+          {
+            "concept": "LCEL声明式管道与Runnable协议",
+            "coverage": 0
+          },
+          {
+            "concept": "LangChain与LlamaIndex的互补组合模式",
+            "coverage": 0
+          },
+          {
+            "concept": "LangChain核心抽象：Model I/O/Chain/Memory/Agent/Tool",
+            "coverage": 0
+          },
+          {
+            "concept": "LlamaIndex核心链：Document→Node→Index→Retriever→QueryEngine",
+            "coverage": 0
+          },
+          {
+            "concept": "RAGAS/Gradio/FastAPI的技术栈分层",
+            "coverage": 0
+          },
+          {
+            "concept": "RAG中context_str与query_str的语义区分",
+            "coverage": 0
+          },
+          {
+            "concept": "‘为用框架而用框架’的典型误区",
+            "coverage": 0
+          },
+          {
+            "concept": "低代码平台Dify的原型验证价值",
+            "coverage": 0
+          },
+          {
+            "concept": "多Agent框架AgentScope的协作角色",
+            "coverage": 0
+          },
+          {
+            "concept": "抽象泄漏与框架调试黑盒风险",
+            "coverage": 0
+          }
+        ],
+        "coverage_note": "coverage=该考点下现有合格题数，0 表示完全未覆盖，优先补。"
+      }
+    }
+  }
+}

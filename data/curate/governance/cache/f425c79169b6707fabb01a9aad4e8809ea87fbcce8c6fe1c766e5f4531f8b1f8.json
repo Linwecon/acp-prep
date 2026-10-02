@@ -1,0 +1,154 @@
+{
+  "items": [
+    {
+      "type": 0,
+      "stem": "某教育公司新人答疑机器人初期仅需单轮问答，两周后需支持RAG知识库、多轮对话、调用三个内部系统、人工评测及前端API接入。此时代码迅速膨胀至数百行，出现大量手动拼接messages、重复检索逻辑和历史维护混乱。根据第12章核心观点，导致该困境的根本原因是什么？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "未选用最新版LangChain，导致LCEL流式能力缺失"
+        },
+        {
+          "option_label": "B",
+          "option_text": "缺乏对模型能力的持续调优，提示词工程不到位"
+        },
+        {
+          "option_label": "C",
+          "option_text": "裸调SDK无法抽象共性工程模式，导致重复造轮子"
+        },
+        {
+          "option_label": "D",
+          "option_text": "未及时迁移到Dify平台，失去低代码协作能力"
+        }
+      ],
+      "answer": "C",
+      "analysis": "依据12.1节‘为什么需要框架’原文：真实应用反复出现‘共性脏活’（如提示词拼装、多轮历史维护、文档加载切片检索、多步编排、工具调用循环），裸调SDK时需‘自己写’，而框架价值在于‘把反复出现的工程模式抽象成可组合组件’。题干中‘手动拼接messages、手工维护历史、重复写检索逻辑’正是这些共性脏活的典型表现，直指裸调SDK缺乏抽象的本质缺陷。A错误——LCEL是LangChain的组链方式，非根本原因；B错误——模型能力调优属第3/6章范畴，题干未提效果不佳；D错误——Dify适用于非工程人员参与场景，而题干描述的是工程师开发过程中的工程化瓶颈，且Dify在需求演进后期才适用，非初期困境根源。",
+      "difficulty_label": "基础"
+    },
+    {
+      "type": 1,
+      "stem": "某团队为客服机器人选型框架，需求包括：① 接入扫描件PDF合同与复杂表格；② 支持HR非技术人员上传并更新文档；③ 需要自动识别条款中的数值并关联到报销系统API；④ 要求上线前通过RAGAS量化评估召回准确率。根据第12章12.5节解析工具链与12.6–12.7节分层定位，以下哪些技术选型符合‘务实决策路径’且有教材依据？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "使用DashScopeParse处理扫描件PDF，因其具备OCR+版面分析+表格识别能力"
+        },
+        {
+          "option_label": "B",
+          "option_text": "采用Dify平台搭建，因其支持可视化知识库管理与非工程人员自助维护"
+        },
+        {
+          "option_label": "C",
+          "option_text": "用LangChain封装报销API为Tool，并集成至Agent工作流"
+        },
+        {
+          "option_label": "D",
+          "option_text": "直接用SimpleDirectoryReader解析所有PDF，因其课程默认入口最轻量"
+        }
+      ],
+      "answer": "A,B,C",
+      "analysis": "A正确：12.5节明确指出‘扫描件、复杂表格PDF → 上DashScopeParse（OCR+版面结构化）’，并强调其输出结构化Markdown，为后续数值提取奠定基础；B正确：12.6.2节定义Dify为‘面向少写代码甚至不写代码的搭建体验，让产品、运营和业务人员也能参与’，且‘HR想自己搭制度问答机器人，IT只提供API Key’即为其典型场景；C正确：12.2节指出LangChain的Tool组件专用于‘模型如何根据问题动态选择并调用工具’，且12.4节组合案例明确‘LlamaIndex做检索 + LangChain做Agent编排’是正解，此处报销API即典型外部工具；D错误：12.5节明确警示‘扫描件PDF读出来是空的’，因SimpleDirectoryReader仅处理有文字层的电子文档，对扫描件完全无效，违背‘按文件类型分派解析器’原则。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 0,
+      "stem": "在构建一个需支持‘先查知识库、再根据回答决定是否调用请假系统API、并在多轮对话中记住员工身份’的智能助手时，技术栈涉及LlamaIndex、LangChain和AgentScope。根据第12章12.4节对比与12.6.1节定位，以下哪项组合最符合‘各司其职、避免抽象冗余’的选型原则？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "全部使用LangChain：用其Retriever模块查知识库，Tool模块调请假API，BufferMemory记员工身份"
+        },
+        {
+          "option_label": "B",
+          "option_text": "全部使用AgentScope：用其ReActAgent统一处理知识库检索、API调用与消息广播"
+        },
+        {
+          "option_label": "C",
+          "option_text": "LlamaIndex负责知识库检索（数据层），LangChain负责Agent编排与Memory（编排层）"
+        },
+        {
+          "option_label": "D",
+          "option_text": "Dify平台拖拽配置：知识库节点+HTTP请求节点+会话上下文变量"
+        }
+      ],
+      "answer": "C",
+      "analysis": "依据12.4节‘二者不是互斥，而是可以组合’的图表与文字：‘LlamaIndex负责数据层（文档解析/索引/检索），LangChain/LangGraph负责编排层（Agent规划/工具调用/多步流程）’；且12.4节考试要点明确‘应用以RAG为主，但需要一个会查知识库也会调请假/报销API的Agent → LlamaIndex做检索 + LangChain/LangGraph做Agent编排是典型正解’。题干中‘查知识库’是LlamaIndex强项，‘多工具调用+多轮状态机’是LangChain强项，C项精准对应。A错误：LangChain Retriever虽能接入向量库，但RAG数据接入、索引类型、后处理等丰富能力远弱于LlamaIndex，属‘用非强项做核心’；B错误：AgentScope聚焦‘多Agent间消息通信’，题干为单Agent多工具场景，无需MsgHub/Blackboard等重抽象；D错误：Dify适合HR自助，但题干隐含技术团队深度定制需求（如‘记住员工身份’需精细Memory控制），且12.6.2节强调Dify‘超复杂状态机不如代码框架灵活’。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 1,
+      "stem": "某团队使用FastAPI封装RAG服务，同时用Gradio搭建内部演示界面。根据第12章12.7.2–12.7.3节对UI层与服务层的定位，以下关于二者协同实践的描述，哪些符合教材‘分层解耦’原则？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "Gradio界面直接调用LlamaIndex QueryEngine的query方法，FastAPI路由也调用同一QueryEngine实例"
+        },
+        {
+          "option_label": "B",
+          "option_text": "将RAG核心逻辑（如检索、合成）封装为独立模块，Gradio和FastAPI均导入该模块调用"
+        },
+        {
+          "option_label": "C",
+          "option_text": "Gradio中实现完整RAG流程（含文档加载、索引重建），FastAPI复用相同代码"
+        },
+        {
+          "option_label": "D",
+          "option_text": "FastAPI暴露/api/ask接口供Gradio前端调用，形成前后端分离架构"
+        }
+      ],
+      "answer": "A,B",
+      "analysis": "A正确：12.7.3节明确‘Gradio只负责界面，不承载业务逻辑’，且‘同一份RAG能力可以同时被Gradio（人用）和FastAPI（系统调用）复用’，直接调用QueryEngine正是复用核心能力的体现；B正确：这是A的工程化延伸，12.7.2节强调‘RAG、Agent、提示词这些应放在下层可独立测试的模块里’，Gradio/FastAPI作为UI/Service层仅调用接口，完美契合分层解耦；C错误：12.7.2节警告‘否则一旦要把Demo变成正式产品，所有逻辑都和UI耦在一起’，在Gradio中做索引重建属于严重耦合；D错误：Gradio本质是Python Web UI库，其前端运行在浏览器，后端与FastAPI同进程或独立进程，但‘Gradio前端调用FastAPI接口’并非标准模式，且12.7.3节未建议此架构，反而强调二者‘同时存在’且‘各司其职’，D项混淆了部署形态与分层职责。",
+      "difficulty_label": "中等"
+    },
+    {
+      "type": 0,
+      "stem": "项目组在引入LangChain后遭遇‘第一天就跑不起来’，日志显示版本冲突：langchain==0.3.27与llama-index-core==0.14.23依赖的pydantic版本不兼容。根据第12章12.1节‘框架的风险’与12.8节‘七大误区’，该问题最直接反映的框架负担类型是？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "抽象泄漏：框架隐藏细节导致无法定位底层pydantic冲突"
+        },
+        {
+          "option_label": "B",
+          "option_text": "调试黑盒：栈追踪过长，难以判断是LangChain还是LlamaIndex引发异常"
+        },
+        {
+          "option_label": "C",
+          "option_text": "学习成本：团队尚未掌握pydantic版本管理规范"
+        },
+        {
+          "option_label": "D",
+          "option_text": "版本依赖：多框架共存时依赖树冲突是新手最常见问题"
+        }
+      ],
+      "answer": "D",
+      "analysis": "12.1节‘risk’部分明确列出四类负担：‘学习成本、版本依赖、抽象泄漏和调试黑盒’，并首条即指出‘课程requirements.txt里同时钉住langchain、llama-index-core、agentscope等数十个依赖，版本不匹配是新手最常见的‘第一天就跑不起来’的原因’。题干‘版本冲突’‘依赖不兼容’完全对应‘版本依赖’这一负担类型。A错误：抽象泄漏指框架封装导致行为异常（如多塞system prompt），非依赖冲突；B错误：调试黑盒指栈追踪长、需翻源码，题干未提调试过程；C错误：学习成本指概念理解难度，而版本冲突是工程依赖管理问题，非知识学习问题。",
+      "difficulty_label": "基础"
+    },
+    {
+      "type": 0,
+      "stem": "在评估一个基于LlamaIndex构建的RAG应用时，团队使用RAGAS计算context_precision和answer_correctness指标。根据第12章12.7.1节对RAGAS的定位，以下哪项描述最准确地反映了RAGAS在技术栈中的角色？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "RAGAS是一个RAG编排框架，用于替代LlamaIndex的QueryEngine"
+        },
+        {
+          "option_label": "B",
+          "option_text": "RAGAS是评估框架，需配合LangChain封装的LLM作为评委，对LlamaIndex产出进行打分"
+        },
+        {
+          "option_label": "C",
+          "option_text": "RAGAS是文档解析工具，用于提升PDF扫描件的OCR识别精度"
+        },
+        {
+          "option_label": "D",
+          "option_text": "RAGAS是低代码平台，提供可视化界面配置RAG评估流程"
+        }
+      ],
+      "answer": "B",
+      "analysis": "12.7.1节明确定义RAGAS为‘主流的开源RAG评估框架’，并强调‘它不是编排框架，而是评测框架’；原文示例代码`evaluate(..., llm=Tongyi(...), embeddings=...)`直接使用LangChain封装的LLM和Embeddings，且说明‘RAGAS是评估器，LangChain是模型适配器，LlamaIndex是被评估的RAG系统’。B项完整复现了这一三层关系。A错误：12.7.1节开篇即否定‘RAGAS是RAG编排框架’；C错误：文档解析属12.5节内容，RAGAS无OCR能力；D错误：低代码平台是Dify的定位（12.6.2节），RAGAS是纯代码评估库。",
+      "difficulty_label": "中等"
+    }
+  ]
+}

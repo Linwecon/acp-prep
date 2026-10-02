@@ -1,0 +1,218 @@
+{
+  "2-1453": {
+    "qid": "2-1453",
+    "classification": "own",
+    "chapter": 2,
+    "quality": "ok",
+    "reason": "考查CoT在推理模型中的适用性，原文明确指出推理模型无需CoT提示。",
+    "answer": [
+      "A",
+      "C"
+    ],
+    "supported": true,
+    "quote": "对 qwen3 这类推理模型，无需再写\"一步步思考\"——它们本身会自动进行深度思考，强加 CoT 提示反而可能限制其发挥。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "原文明确说推理模型本身会自动深度思考"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "原文未提计算量增加"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "原文说强加CoT可能限制其发挥"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "推理模型仍需推理，只是不需显式提示"
+      },
+      {
+        "label": "E",
+        "selected": false,
+        "why": "原文未提设计目标不符"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "2-1460": {
+    "qid": "2-1460",
+    "classification": "own",
+    "chapter": 2,
+    "quality": "ok",
+    "reason": "考查Zero-shot定义，原文明确其为上下文学习而非训练阶段概念。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "Zero-shot（零样本）：不给示例，直接提问；Few-shot之所以有效，是因为示例让模型通过上下文学习对齐输出格式与口吻。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "Zero-shot是推理时不用示例，非训练阶段"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "原文定义为仅通过提示词完成新任务"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "原文未比较准确率高低"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "所有大模型均支持Zero-shot"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "2-1463": {
+    "qid": "2-1463",
+    "classification": "own",
+    "chapter": 2,
+    "quality": "ok",
+    "reason": "考查意图分类技术选型，工单分类属典型意图分类场景。",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "意图分类（Intent Classification）：在处理用户请求前，先把输入归入预定义的意图清单，再路由到不同处理分支的前置环节。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "Few-shot适配格式/风格敏感的分类任务"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "原文强调必须优化提示词才能稳定输出"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "题干要求使用大模型自动分类"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "向量库用于RAG检索，非意图分类"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "2-0032": {
+    "qid": "2-0032",
+    "classification": "own",
+    "chapter": 2,
+    "quality": "ok",
+    "reason": "考查优化顺序原则，原文强调提示词是第一手段。",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "标准优化顺序（务必记住，高频考点）：提示词优化 → RAG → （仍不满足才考虑）微调；提示工程是第一手段，微调是最后手段。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "微调是最后手段，非首选"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "换模型未解决提示词根本问题"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "原文明确提示词优化为第一手段"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "调参是局部优化，非首要策略"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "2-0469": {
+    "qid": "2-0469",
+    "classification": "own",
+    "chapter": 2,
+    "quality": "ok",
+    "reason": "考查结构化输出约束，原文示例明确列出全部四项要求。",
+    "answer": [
+      "A",
+      "B",
+      "C",
+      "D"
+    ],
+    "supported": true,
+    "quote": "请你只输出 json 格式，不要输出代码段。其中，label 只能取 0 或 1，0 代表有错误，1 代表没有错误；reason 是错误的原因；correct 是修正后的文档内容。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "原文明确要求JSON格式"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "原文规定label只能取0或1"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "原文说明reason是错误原因"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "原文说明correct是修正后内容"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "2-0523": {
+    "qid": "2-0523",
+    "classification": "own",
+    "chapter": 2,
+    "quality": "ok",
+    "reason": "考查分隔符形式，原文列举多种合法符号。",
+    "answer": [
+      "A",
+      "B",
+      "C"
+    ],
+    "supported": true,
+    "quote": "常见形式有：三引号 \"\"\"...\"\"\"、XML 标签 <context>...</context>、Markdown 代码块、分隔线 ---/-----、方括号 【】、<< >>、### 等。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "方括号【】在原文分隔符列表中"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "XML标签<context>在原文示例中"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "###在原文分隔符列表中"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

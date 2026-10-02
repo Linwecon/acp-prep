@@ -1,0 +1,212 @@
+{
+  "8-0775": {
+    "qid": "8-0775",
+    "classification": "own",
+    "chapter": 8,
+    "quality": "ok",
+    "reason": "考查数据脱敏作为隐私保护核心措施",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "数据脱敏（去标识化）是在数据进入训练、评测、RAG 链路之前，对姓名、手机号、证件号、地址、银行卡号等个人可识别信息（PII）做掩码、替换、泛化或删除",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "仅靠提示词要求不可靠，模型可能被绕过"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "模型内置功能有限，不能替代应用层防护"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "脱敏是处理敏感信息的核心实践"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "依赖用户不可控，非有效防护措施"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "8-0814": {
+    "qid": "8-0814",
+    "classification": "own",
+    "chapter": 8,
+    "quality": "ok",
+    "reason": "考查合规内容生成的最佳实践",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "AI 生成的文本、图片、音视频必须添加显著标识；最佳实践是规则粗筛 → 模型细判 → 人工兜底 → 全程留痕",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "完全依赖模型可能输出不合规内容"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "结合模板与模型生成，平衡效率与合规"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "人工编写成本高，非最佳实践"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "复制可能侵权，且未必合规"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "8-0918": {
+    "qid": "8-0918",
+    "classification": "own",
+    "chapter": 8,
+    "quality": "ok",
+    "reason": "考查面向儿童应用的内容安全与适宜性",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "模型说错一个数字 = 安全事故 → 这是质量问题，不是内容安全；输出审核不能省",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "内容需适合儿童认知，是核心安全措施"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "复杂推理可能超出儿童认知，不安全"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "输出也必须过滤，仅过滤输入不足"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "鼓励分享个人信息违反隐私保护原则"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "8-0953": {
+    "qid": "8-0953",
+    "classification": "own",
+    "chapter": 8,
+    "quality": "ok",
+    "reason": "考查红队测试作为安全评估方法",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "课程案例整理成现象 → 定性 → 正确处置 → 错误干扰项的速查表，模拟攻击场景",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "性能测试不评估安全性"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "红队测试主动探测模型安全漏洞"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "单元测试验证功能，非安全测试"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "压力测试评估性能，非内容安全"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "8-1212": {
+    "qid": "8-1212",
+    "classification": "misplaced",
+    "chapter": 6,
+    "quality": "fixable",
+    "reason": "考点属于模型部署选型，但选项C涉及数据安全",
+    "answer": [
+      "C"
+    ],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "动态扩展是云端优势"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "更低延迟是可能优势，非主要"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "本地部署常因数据不出域而更安全"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "本地部署运维成本通常更高"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "8-1222": {
+    "qid": "8-1222",
+    "classification": "misplaced",
+    "chapter": 6,
+    "quality": "fixable",
+    "reason": "考点属于部署架构，但涉及数据隐私权衡",
+    "answer": [
+      "B"
+    ],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "端云协同仍需云端"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "平衡效率与体验是核心优势"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "可能降低部分成本，非核心"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "可能提高，但非核心优势"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

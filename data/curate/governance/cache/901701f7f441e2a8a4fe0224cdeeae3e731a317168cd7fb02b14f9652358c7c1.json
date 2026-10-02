@@ -1,0 +1,220 @@
+{
+  "1-1471": {
+    "qid": "1-1471",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "题目考查文本切片策略对语义独立性与完整性的影响，属于RAG核心知识点。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "文本切片（Chunking）是把解析后的长文档，切成若干长度合适、语义相对完整的小文本块。切出来的每个 chunk 就是后续向量化和检索的基本单位。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "对不同数据类型采用不同处理方式有助于保留结构，符合语义独立完整原则。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "合并标题下所有文本会破坏语义单元边界，导致信息混杂，不符合要求。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "为表格数据扩写标题和字段说明，能增强上下文完整性，符合要求。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "确保语义单元边界清晰和上下文完整，是切片策略的核心目标。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "4-1468": {
+    "qid": "4-1468",
+    "classification": "cross",
+    "chapter": 4,
+    "quality": "ok",
+    "reason": "题目核心考查Multi-Agent思想（任务拆解与分工），属于Agent章节知识。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "Agent本质是规划-行动-观察闭环。多Agent设计四条硬原则。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "仅使用单一工具手动处理，不符合Multi-Agent的自动化协作思想。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "将复杂任务拆分子任务并分配不同处理逻辑，符合Multi-Agent设计原则。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "整合所有步骤到单一prompt，不符合任务拆解和分工协作的Agent思想。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "仅使用单一API，未利用不同工具或模型分工，不符合Multi-Agent思想。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "5-0047": {
+    "qid": "5-0047",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "题目考查RAG解决幻觉问题的优先性，属于RAG核心应用场景。",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "RAG（Retrieval-Augmented Generation，检索增强生成）的核心思路可以用四个字概括：\"开卷考试\"。不让模型凭记忆答题，而是在它回答前，先从企业知识库里检索出最相关的几段资料，连同问题一起交给模型，让它\"看着资料作答\"。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "降低LoRA秩和增大学习率属于微调参数调整，非解决幻觉的优先手段。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "增加训练epoch和提高相似度阈值，未直接针对知识不足导致的幻觉。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "RAG增强知识库可直接提供准确知识，LoRA微调可适配领域风格，组合优先。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "更换全参微调和减少batch_size成本高且非解决知识性幻觉的首选。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "5-0148": {
+    "qid": "5-0148",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "题目考查接入私域知识的方案选型，RAG相比其他方案更简便高效。",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "RAG 是私域知识问答的首选方案。知识更新 = 更新知识库，实时生效，无需重训模型；成本远低于微调。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "微调模型成本高、周期长，非简便高效方法。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "训练新模型成本极高，不简便。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "通过提示词传递私域知识（即RAG核心）简便且高效。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "使用默认模型无法回答私域知识问题。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "5-0689": {
+    "qid": "5-0689",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "题目综合考查RAG技术的多项优势，属于本章核心知识点。",
+    "answer": [
+      "A",
+      "B",
+      "C",
+      "D"
+    ],
+    "supported": true,
+    "quote": "RAG（Retrieval-Augmented Generation，检索增强生成）的核心思路可以用四个字概括：\"开卷考试\"。知识更新 = 更新知识库，实时生效，无需重训模型；成本远低于微调。答案可溯源到具体文档片段，便于人工核验。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "RAG可扩展知识边界，支持最新和领域数据。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "基于检索的真实数据生成，可减少幻觉。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "无需通过微调更新知识，降低成本。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "可追溯回答来源，提升可解释性。"
+      },
+      {
+        "label": "E",
+        "selected": false,
+        "why": "RAG增加检索和上下文拼装步骤，通常不会加快推理速度。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "10-0396": {
+    "qid": "10-0396",
+    "classification": "cross",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "题目考查RAG预处理的最佳实践，核心考点属于RAG章节。",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "文档解析（Document Parsing）是把 PDF、Word、Markdown、网页等格式的文档，加载并转换为大模型可读文本的过程。它看似简单，却是 RAG 质量的\"地基\"。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "使用DashScope Parse解析文档是推荐的最佳实践。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "使用大模型润色目录层级是提升结构清晰度的好实践。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "不进行任何预处理直接输入向量数据库，会丢失结构，不符合最佳实践。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "根据图片复杂度选择性使用视觉模型解析是合理的优化实践。"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

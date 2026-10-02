@@ -1,0 +1,54 @@
+{
+  "items": [
+    {
+      "type": 0,
+      "stem": "某金融企业需上线内部合规问答机器人，明确要求：①全部业务数据严禁出域；②日均稳定请求2000+，P95 TTFT需<1.2s；③支持灰度发布与秒级故障回滚；④运维团队具备vLLM调优能力，但无专职SRE。在PAI-EAS与GPU ECS两种方案中，若选择ECS自建，则必须额外自行实现而EAS原生支持的关键能力是？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "模型预热（服务上线即就绪，消除首请求延迟）"
+        },
+        {
+          "option_label": "B",
+          "option_text": "蓝绿/灰度发布与一键版本回滚"
+        },
+        {
+          "option_label": "C",
+          "option_text": "SLB负载均衡与ESS弹性伸缩集成"
+        },
+        {
+          "option_label": "D",
+          "option_text": "基于OpenTelemetry的Metrics/Traces/Logs三支柱可观测性采集"
+        }
+      ],
+      "answer": "B",
+      "analysis": "依据教材6.10.2节‘PAI-EAS：企业级在线推理平台’明确指出：PAI-EAS提供‘蓝绿部署、版本控制、回滚’能力，便于灰度验证；微调模型上线标准链路包含‘灰度/AB验证 → 全量上线，保留回滚版本’。而6.9节关于ECS自建的描述仅提及‘需搭配SLB+ESS+监控告警’，未提及任何原生灰度/回滚机制——该能力需用户自行基于K8s Helm、自研发布系统或脚本实现，属额外工程负担。选项A虽EAS支持模型预热，但ECS+vLLM亦可通过启动后主动发送warm-up请求模拟实现；选项C中SLB/ESS为通用云服务，非EAS独有；选项D中ARMS可观测性可独立接入ECS，非EAS原生绑定。故B是EAS原生提供而ECS必须额外实现的唯一关键能力。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 1,
+      "stem": "某团队将Qwen3-0.6B模型量化为AWQ INT4后部署于vLLM，压测发现：①显存占用下降58%；②TPOT降低22%；③TTFT无明显变化；④在代码补全任务上BLEU分数下降1.3分。以下哪些结论可被教材原文直接支持？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "INT4量化导致精度损失，在敏感任务（如代码补全）上可能掉点更明显"
+        },
+        {
+          "option_label": "B",
+          "option_text": "量化主要节省显存，且通常因显存带宽压力减小而加速Decode阶段"
+        },
+        {
+          "option_label": "C",
+          "option_text": "AWQ属于PTQ（训练后量化），在低比特下通常比GPTQ更稳"
+        },
+        {
+          "option_label": "D",
+          "option_text": "TTFT不受量化影响，因其由Prefill阶段计算密集型操作决定"
+        }
+      ],
+      "answer": "A,B,C",
+      "analysis": "A正确：教材6.4节‘量化’部分明确指出‘INT4在敏感任务上可能掉点更明显’，并强调‘需要用业务评测集验证’，代码补全属典型敏感任务，BLEU下降1.3分符合该描述。B正确：教材6.4节‘量化的几个关键判断’中明确‘量化主要省显存’‘通常也加速’，并解释‘Decode阶段是显存带宽密集型，从显存读权重的字节数变少了’，TPOT下降22%正是Decode加速的直接体现。C正确：教材6.4节对比GPTQ与AWQ时明确‘AWQ在低比特下通常更稳、更快’，且二者均属PTQ路线。D错误：教材未断言‘TTFT不受量化影响’；TTFT虽主要取决于Prefill计算，但量化后低比特算子若缺乏优化，仍可能影响计算效率（如FP16→INT4需额外dequantize开销），且教材6.4节仅说明‘INT8损失很小’，未排除INT4对TTFT的潜在影响，故D超出原文支持范围。",
+      "difficulty_label": "进阶"
+    }
+  ]
+}

@@ -1,0 +1,217 @@
+{
+  "new-7-114-0": {
+    "qid": "new-7-114-0",
+    "classification": "own",
+    "chapter": 7,
+    "quality": "ok",
+    "reason": "考查控制变量原则，评委LLM版本未冻结导致归因失效。",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "回归评测的前提是除了待测改动，其他一切都冻结：评测集版本、评测脚本、推理参数（temperature、seed）、模型版本、甚至当评委的大模型版本都要固定。否则分数变化无法归因——你不知道是系统变好了，还是评委今天'心情不同'。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "评委模型版本变化导致分数变化，归因失效。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "Faithfulness下降原因需结合检索指标分析。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "Context Recall提升有实际收益，但被其他因素掩盖。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "ground_truth偏差非本题讨论重点。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-7-114-1": {
+    "qid": "new-7-114-1",
+    "classification": "own",
+    "chapter": 7,
+    "quality": "ok",
+    "reason": "考查评测集构建铁律与控制变量原则的违反情形。",
+    "answer": [
+      "A",
+      "B",
+      "C"
+    ],
+    "supported": true,
+    "quote": "标准答案来自领域专家：技术人员能判断'系统有没有检索到相关内容'，但只有业务专家才知道'这个答案在业务上是否正确、完整、合规'。回归评测的前提是除了待测改动，其他一切都冻结：评测集版本、评测脚本、推理参数（temperature、seed）、模型版本、甚至当评委的大模型版本都要固定。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "实习生非领域专家，违反铁律。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "评委LLM版本未冻结，违反控制变量。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "追加问题改变评测集，违反控制变量。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "违反铁律，但未违反控制变量原则。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-7-114-2": {
+    "qid": "new-7-114-2",
+    "classification": "own",
+    "chapter": 7,
+    "quality": "ok",
+    "reason": "考查Answer Correctness子项分析及temperature对生成质量的影响。",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "Faithfulness（忠实度）衡量答案是否忠于检索资料，有没有脱离资料编造（幻觉）。Faithfulness低：检索到了却还在编造，强化'只依据资料回答'的提示词约束、改善上下文拼装、降低temperature、换更强模型。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "提高temperature增加随机性，加剧幻觉。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "Context Precision是检索端指标，不受生成temperature影响。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "Answer Relevancy可能受影响，但非最直接加剧的故障。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "Context Recall是检索端指标，不受生成temperature影响。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-7-114-3": {
+    "qid": "new-7-114-3",
+    "classification": "own",
+    "chapter": 7,
+    "quality": "ok",
+    "reason": "考查回归评测中为满足防止回归和控制变量所需的冻结措施。",
+    "answer": [
+      "A",
+      "B",
+      "C"
+    ],
+    "supported": true,
+    "quote": "回归评测的前提是除了待测改动，其他一切都冻结：评测集版本、评测脚本、推理参数（temperature、seed）、模型版本、甚至当评委的大模型版本都要固定。否则分数变化无法归因。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "固定评测集版本和内容，符合要求。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "锁定脚本和模型版本，符合要求。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "统一推理参数，符合要求。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "contexts是运行结果，不应人工校验一致。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-7-114-4": {
+    "qid": "new-7-114-4",
+    "classification": "own",
+    "chapter": 7,
+    "quality": "ok",
+    "reason": "考查Agent白盒评测中确定性检查方法的应用。",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "确定性检查（规则/断言）：用代码规则直接判断，结果确定。适合评价客观项：代码能否运行、是否含必需章节、字数/格式、工具是否被调用。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "调用解释器执行是确定性检查。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "使用LLM打分是LLM-as-Judge方法。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "人工抽检非自动化确定性检查。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "检查关键字是规则，但未验证可执行性。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-7-114-5": {
+    "qid": "new-7-114-5",
+    "classification": "own",
+    "chapter": 7,
+    "quality": "ok",
+    "reason": "考查评测驱动开发中防止回归和定位问题的实践。",
+    "answer": [
+      "A",
+      "C"
+    ],
+    "supported": true,
+    "quote": "防止回归：每次改动后跑同一套题，确保'修好 A、没弄坏 B'。定位问题的黄金法则：Context Recall / Precision 低 → 问题在检索阶段；检索指标都好，但 Faithfulness / Correctness 低 → 问题在生成阶段。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "用冻结集全量分组分析，可防止回归并定位问题。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "建立黄金集用于校准，非直接防止回归或定位问题。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "检查指标组合判断病根，符合定位问题要求。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "分层确保占比恒定，有助于分析，但非直接防止回归。"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

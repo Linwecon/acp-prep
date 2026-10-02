@@ -1,0 +1,256 @@
+{
+  "1-0718": {
+    "qid": "1-0718",
+    "classification": "own",
+    "chapter": 1,
+    "quality": "ok",
+    "reason": "考查大模型API成本控制措施，符合本章知识边界。",
+    "answer": [
+      "A",
+      "B",
+      "C"
+    ],
+    "supported": true,
+    "quote": "选择与任务匹配的轻量模型（如文本分类任务选择通义千问 - 轻量版，而非旗舰版）",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "限制输出长度可减少生成Token数，降低成本。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "轻量模型成本更低，符合选型原则。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "精简输入可减少输入Token数，降低成本。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "增加并发量会增加总调用次数，反而增加成本。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "1-1196": {
+    "qid": "1-1196",
+    "classification": "misplaced",
+    "chapter": 9,
+    "quality": "ok",
+    "reason": "考查API调用中的异常处理，属于API调用与工具使用章节。",
+    "answer": [
+      "C"
+    ],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "finally块不能捕获异常，且打印内容与错误无关。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "except没有对应的try块，语法错误。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "正确使用try-except捕获并打印异常信息。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "逻辑错误，if判断函数返回值而非捕获异常。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "1-1343": {
+    "qid": "1-1343",
+    "classification": "own",
+    "chapter": 1,
+    "quality": "ok",
+    "reason": "考查提示词设计引导模型执行翻译任务，属于提示工程基础。",
+    "answer": [
+      "A",
+      "C",
+      "D",
+      "F"
+    ],
+    "supported": true,
+    "quote": "提示词六要素（角色/任务/上下文/受众/样例/输出格式）",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "明确指令“Translate”，能有效引导。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "指令模糊，仅提供文本和“中文”二字。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "明确指令“翻译成中文”，能有效引导。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "明确指令“English to Chinese”，能有效引导。"
+      },
+      {
+        "label": "E",
+        "selected": false,
+        "why": "指令为询问“怎么说”，非明确翻译指令。"
+      },
+      {
+        "label": "F",
+        "selected": true,
+        "why": "明确指令“翻译为中文”，能有效引导。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "1-1470": {
+    "qid": "1-1470",
+    "classification": "cross",
+    "chapter": 10,
+    "quality": "ok",
+    "reason": "考查大模型应用开发全流程，属于阿里云AI平台章节的顶层概述。",
+    "answer": [
+      "A",
+      "B",
+      "C",
+      "D",
+      "E"
+    ],
+    "supported": true,
+    "quote": "阿里云AI产品四层架构",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "需求分析是任何应用开发的首要环节。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "技术选型是核心流程环节。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "模型开发/微调是核心流程环节。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "应用部署与监控是核心流程环节。"
+      },
+      {
+        "label": "E",
+        "selected": true,
+        "why": "运维优化是核心流程环节。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "1-1172": {
+    "qid": "1-1172",
+    "classification": "misplaced",
+    "chapter": 5,
+    "quality": "ok",
+    "reason": "考查文本序列化、标准化等数据预处理，属于模型微调与训练的数据准备环节。",
+    "answer": [
+      "A",
+      "B",
+      "E"
+    ],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "将文本分词为序列，是序列化操作。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "填充序列到统一长度，是标准化操作。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "计算词表大小，不涉及序列化或标准化。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "截断序列，是标准化操作，但代码语法有误。"
+      },
+      {
+        "label": "E",
+        "selected": true,
+        "why": "预处理文本，通常包含标准化步骤。"
+      },
+      {
+        "label": "F",
+        "selected": false,
+        "why": "初始化嵌入矩阵，不涉及序列化或标准化。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "1-1200": {
+    "qid": "1-1200",
+    "classification": "cross",
+    "chapter": 8,
+    "quality": "ok",
+    "reason": "考查敏感词检测，属于AI安全与合规中的输入过滤环节。",
+    "answer": [
+      "A",
+      "B",
+      "C",
+      "D"
+    ],
+    "supported": true,
+    "quote": "输入过滤/运行监控/输出审查三层防御",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "遍历文本单词检查是否在敏感词列表中。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "使用any函数检查文本中是否包含任何敏感词。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "包含错误处理，并统一小写进行比较。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "使用NLTK分词后检查token是否在敏感词列表中。"
+      },
+      {
+        "label": "E",
+        "selected": false,
+        "why": "检查整个文本是否完全等于某个敏感词，逻辑错误。"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

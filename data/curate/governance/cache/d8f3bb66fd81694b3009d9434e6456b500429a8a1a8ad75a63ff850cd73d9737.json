@@ -1,0 +1,144 @@
+{
+  "new-7-78-0": {
+    "qid": "new-7-78-0",
+    "classification": "own",
+    "chapter": 7,
+    "quality": "ok",
+    "reason": "考查控制变量原则，需识别导致分数不可比的配置变更。",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "回归评测的前提是除了待测改动，其他一切都冻结：评测集版本、评测脚本、推理参数（temperature、seed）、模型版本、甚至当评委的大模型版本都要固定。否则分数变化无法归因",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "temperature变化直接影响模型输出，破坏控制变量原则。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "评测集question字段变更属于评测集版本变化，但题干未明确提及此变更。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "ground_truth来源变化会影响基准，但题干未明确提及此变更。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "embedding模型切换会影响检索，但题干未明确提及此变更。"
+      }
+    ],
+    "duplicate_of": "7-5089"
+  },
+  "new-7-78-1": {
+    "qid": "new-7-78-1",
+    "classification": "own",
+    "chapter": 7,
+    "quality": "ok",
+    "reason": "考查评测驱动开发中防止回归和定位问题的具体实践。",
+    "answer": [
+      "A",
+      "B",
+      "D"
+    ],
+    "supported": true,
+    "quote": "每次改动后跑同一套题，确保‘修好 A、没弄坏 B’；根据分数确定优化方向；把评测集按题型、难度、类别细分找短板",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "使用冻结评测集运行全量指标，可对比变化，防止回归并定位问题。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "分层统计指标，可识别不同场景的改进与退化，定位问题。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "仅监控总分无法定位具体问题，不符合定位问题目标。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "固定配置确保分数可比，是防止回归和准确定位的前提。"
+      }
+    ],
+    "duplicate_of": "7-5058"
+  },
+  "new-7-78-2": {
+    "qid": "new-7-78-2",
+    "classification": "own",
+    "chapter": 7,
+    "quality": "ok",
+    "reason": "考查LLM-as-Judge长度偏见的识别与校准方法。",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "长度偏见：倾向认为更长更详细的答案‘更完整’，惩罚简洁但切题的答案；缓解手段：评分细则中明确‘冗余扣分’、控制输出长度；定期用人工标注校准阈值",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "在提示词中加入长度惩罚是缓解方法，但非优先校准动作。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "交换顺序用于缓解位置偏见，而非长度偏见。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "用黄金集校准评委阈值是缓解长度偏见的直接有效方法。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "更换评委模型可能引入新偏见，非优先校准动作。"
+      }
+    ],
+    "duplicate_of": "7-5060"
+  },
+  "new-7-78-4": {
+    "qid": "new-7-78-4",
+    "classification": "own",
+    "chapter": 7,
+    "quality": "ok",
+    "reason": "考查根据RAGAS指标组合定位故障（检索好但生成差）的能力。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "检索指标都好（Recall、Precision 高），但 Faithfulness / Correctness 低 → 问题在生成阶段；Faithfulness 低：检索到了却还在编造 → 强化‘只依据资料回答’的提示词约束",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "检索指标（Recall）已大幅提升，说明检索成功，非拼接错乱。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "检索成功但生成错误，最可能是提示词缺乏强约束导致幻觉。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "ground_truth来源影响评测基准，但题干未提及此问题。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "embedding维度不匹配非RAGAS评委模型计算Answer Correctness的环节。"
+      }
+    ],
+    "duplicate_of": "7-5052"
+  }
+}

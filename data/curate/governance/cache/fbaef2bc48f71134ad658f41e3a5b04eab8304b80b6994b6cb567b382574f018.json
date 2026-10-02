@@ -1,0 +1,154 @@
+{
+  "items": [
+    {
+      "type": 0,
+      "stem": "某团队优化新人答疑机器人后，RAGAS评测显示Context Recall=1.0、Context Precision=0.35，Faithfulness=0.22，Answer Correctness=0.24。日志确认检索片段中包含完整正确信息（如'张伟是教研部的'），但该陈述位于第18个context中，前17个均为无关内容。此时若仅调整生成端提示词强化'只依据资料回答'，最可能产生的实际效果是？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "Faithfulness显著提升，因约束性提示词能抑制幻觉"
+        },
+        {
+          "option_label": "B",
+          "option_text": "Answer Correctness小幅改善，但Faithfulness仍难突破0.3，因模型注意力被前17个无关片段严重稀释"
+        },
+        {
+          "option_label": "C",
+          "option_text": "Context Precision同步上升，因提示词优化间接改善了检索排序"
+        },
+        {
+          "option_label": "D",
+          "option_text": "Answer Relevancy大幅下降，因模型为规避幻觉而转向含糊回避"
+        }
+      ],
+      "answer": "B",
+      "analysis": "依据教材7.4.2节Context Precision官方口径：Precision低（0.35）源于相关片段排位靠后（第18位），导致模型在'Lost in the Middle'现象下难以聚焦关键信息；7.5节黄金法则明确指出：'检索指标差→问题在检索端'，且7.5节风险提示强调'检索指标都差时，生成端优化事倍功半'；7.4.3节Faithfulness计算逻辑要求答案陈述必须能由contexts直接推断，但当支撑性上下文被大量噪声淹没时，即使提示词强化，模型仍大概率忽略第18条而基于前17条无关内容生成（导致Faithfulness持续低位）。选项A错误——教材7.5节'踩坑提醒'指出'检索指标差时改提示词无效'；C错误——提示词不参与检索排序，Precision需通过Rerank/过滤等检索端手段提升；D虽符合noncommittal倾向，但题干未出现回避表述，且7.4.5节指出Relevancy低才对应含糊，本题Relevancy未提及，属无依据推断。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 1,
+      "stem": "在Faithfulness与Answer Correctness的辨析中，以下哪些组合条件能同时成立，且符合教材7.3节'易混指标辨析'及7.4.3–7.4.4节官方口径？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "Faithfulness=0.95，Answer Correctness=0.32：检索资料准确（含'张伟是教研部的'），但ground_truth要求更细粒度（如'张伟是教研部高级工程师，2023年入职'），答案仅复述资料基础事实"
+        },
+        {
+          "option_label": "B",
+          "option_text": "Faithfulness=0.25，Answer Correctness=0.88：资料中无'张伟'相关信息，模型凭先验知识编造出正确答案"
+        },
+        {
+          "option_label": "C",
+          "option_text": "Faithfulness=0.0，Answer Correctness=0.0：资料完全无关，答案也完全错误且脱离资料"
+        },
+        {
+          "option_label": "D",
+          "option_text": "Faithfulness=0.65，Answer Correctness=0.92：资料部分覆盖ground_truth，答案补充了资料外但业务上正确的细节"
+        }
+      ],
+      "answer": "A,C",
+      "analysis": "A正确：教材7.3节明确'Faithfulness问答案能否从资料推出，Correctness问答案是否与ground_truth一致'；A中答案忠于资料（高Faithfulness），但因ground_truth要求更细粒度而未覆盖全部观点（F1低），导致Correctness低，符合7.4.4节'事实F1=TP/(TP+0.5(FP+FN))'中FN占比高情形。C正确：两者均依赖资料支撑，资料完全无关时，Faithfulness必为0（无陈述可被支撑），Correctness中F1也为0（TP=0），语义相似度亦趋近0，故Correctness≈0，符合官方公式。B错误：教材7.3节强调'Faithfulness不需要ground_truth'，其计算仅用answer/contexts，若资料无相关信息，所有答案陈述均无法被支撑，Faithfulness必为0，不可能达0.25；且Correctness=0.88需高语义相似度或高F1，与'资料完全无关'矛盾。D错误：教材7.4.3节规定Faithfulness判定标准为'能否由contexts直接推断'，若答案含资料外细节，则对应陈述判0，Faithfulness必然低于1.0；而Correctness=0.92需高F1，但FP（资料外细节）会拉低F1，与高Correctness冲突。",
+      "difficulty_label": "挑战"
+    },
+    {
+      "type": 0,
+      "stem": "某HR问答系统上线后，用户反馈'年假天数计算'类问题答案常出现事实错误（如将'工作满1年享5天'答为'满半年即享5天'）。RAGAS评测显示Context Recall=0.94、Context Precision=0.87、Faithfulness=0.91，但Answer Correctness=0.43。依据教材7.4.4节Answer Correctness官方口径，该分数构成中最可能异常偏低的子项是？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "语义相似度（余弦）：因答案与ground_truth用词差异大导致编码距离远"
+        },
+        {
+          "option_label": "B",
+          "option_text": "事实F1：因答案遗漏ground_truth中'满1年'的关键条件（FN高）或添加了'满半年'错误条件（FP高）"
+        },
+        {
+          "option_label": "C",
+          "option_text": "Context Precision：因相关片段排名靠后导致模型注意力分散"
+        },
+        {
+          "option_label": "D",
+          "option_text": "Faithfulness：因答案中存在无法由contexts支撑的陈述"
+        }
+      ],
+      "answer": "B",
+      "analysis": "教材7.4.4节明确Answer Correctness=0.25×语义相似度+0.75×事实F1，且权重0.75赋予事实F1，说明其主导总分；题干中Recall/Precision/Faithfulness均高，证明检索充分、排序合理、答案未幻觉，故问题必在答案与ground_truth的事实对齐上；'满1年'vs'满半年'属于典型FP（错编）或FN（漏掉关键条件），直接拉低F1（F1=TP/(TP+0.5(FP+FN))）；A错误：语义相似度仅占0.25权重，且'年假天数'等核心词相同，余弦值不会极低；C错误：Precision=0.87已属高位，且该指标属检索端，与Correctness子项无关；D错误：Faithfulness=0.91证实答案陈述基本可由资料支撑，与题干'答案常出现事实错误'矛盾——错误源于资料本身缺失或ground_truth定义偏差，而非生成幻觉。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 1,
+      "stem": "当Faithfulness指标显著低于Answer Correctness时，以下哪些故障原因符合教材7.3–7.5节原理且能解释该异常组合？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "contexts中混入了与question强相关但与ground_truth矛盾的干扰片段（如ground_truth为'张伟是教研部'，contexts含'张伟是人事部'的过期文档）"
+        },
+        {
+          "option_label": "B",
+          "option_text": "answer字段被错误注入了非模型生成内容（如前端拼接的固定话术），导致部分陈述无法由contexts推断"
+        },
+        {
+          "option_label": "C",
+          "option_text": "评测时误将ground_truth填入contexts字段，导致Faithfulness计算输入错误"
+        },
+        {
+          "option_label": "D",
+          "option_text": "模型temperature设置过高，导致答案中出现大量与contexts无关的随机token"
+        }
+      ],
+      "answer": "A,B,D",
+      "analysis": "A正确：教材7.4.3节Faithfulness判定标准为'答案陈述能否由contexts直接推断'，若contexts含矛盾信息（如'人事部'），模型可能采信该片段生成错误答案，此时答案部分陈述（如'张伟是人事部'）可被contexts支撑（Faithfulness不为0），但因与ground_truth冲突导致Correctness低；而若模型采信正确片段，Correctness应高，故A能导致Faithfulness<Correctness的异常（需具体数值，但原理成立）。B正确：教材7.2.1节强调answer字段须为'待测系统自动生成'，若answer含人工拼接内容，其陈述无法由contexts推断，直接拉低Faithfulness；而Correctness仍可因语义相似度或部分F1匹配维持较高值。D正确：教材7.1节指出'输出概率性'，high temperature增加随机性，生成无关token，这些token无法被contexts支撑，Faithfulness下降，但若主体内容仍正确，Correctness可能保持。C错误：教材7.4.3节明确Faithfulness输入为question/answer/**contexts**，ground_truth不参与计算；误填ground_truth至contexts会导致Context Recall/Precision异常，但Faithfulness计算本身无格式错误，且该操作属数据工程失误，非模型故障原因。",
+      "difficulty_label": "挑战"
+    },
+    {
+      "type": 0,
+      "stem": "团队发现RAGAS评测中Answer Correctness持续低于0.5，深入拆解发现：语义相似度子项均值为0.85，但事实F1子项均值仅为0.12。依据教材7.4.4节官方口径及7.2.2节'指标分层'原则，该现象揭示的根本矛盾是？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "算法指标（Correctness）与业务指标脱节：语义相似度高说明模型表达风格贴近ground_truth，但F1低暴露业务事实错误，需回归业务目标校准评测集"
+        },
+        {
+          "option_label": "B",
+          "option_text": "技术指标配置失效：temperature过高导致生成不稳定，应降低参数重跑评测"
+        },
+        {
+          "option_label": "C",
+          "option_text": "检索端缺陷：Context Recall不足导致ground_truth关键观点未被覆盖，F1计算中FN过高"
+        },
+        {
+          "option_label": "D",
+          "option_text": "生成端提示词缺陷：未强制要求答案结构化输出，导致LLM评委在分解观点时产生歧义"
+        }
+      ],
+      "answer": "A",
+      "analysis": "教材7.4.4节明确Answer Correctness=0.25×语义相似度+0.75×事实F1，题干中语义相似度0.85（高）而F1仅0.12（极低），说明答案在字面/风格上接近ground_truth（如都用'根据政策...'开头），但事实细节严重错误（如'年假5天'答成'10天'）；7.2.2节'指标分层'强调'算法指标是手段，业务指标才是目标'，此处高语义相似度掩盖了业务事实错误，正体现算法指标未对齐业务目标；教材7.8.2节'黄金集'要求'由业务专家标注ground_truth'，若ground_truth本身未反映真实业务规则（如过时政策），或评测集未覆盖关键业务场景，就会导致该矛盾。B、D属生成端调参问题，但无法解释为何语义相似度高而F1极低；C错误：Context Recall不足会影响F1中的FN，但题干未提供Recall数据，且Recall低通常伴随Faithfulness/Correctness双低，与'语义相似度高'矛盾。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 1,
+      "stem": "在Faithfulness指标计算过程中，以下哪些操作严格违反教材7.4.3节'官方口径'及7.2.1节'评测集四字段'要求？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "使用ground_truth字段替代contexts作为Faithfulness计算的上下文输入"
+        },
+        {
+          "option_label": "B",
+          "option_text": "将answer字段中代词（如'他'）替换为指代对象后再进行陈述拆分"
+        },
+        {
+          "option_label": "C",
+          "option_text": "在陈述拆分阶段，保留answer中'可能''大概'等模糊限定词"
+        },
+        {
+          "option_label": "D",
+          "option_text": "对contexts字段执行去重处理，删除重复片段后再送入Faithfulness计算"
+        }
+      ],
+      "answer": "A,C",
+      "analysis": "A正确：教材7.4.3节明确Faithfulness输入为question/answer/**contexts**，且7.3节'易混辨析'强调'Faithfulness不需要ground_truth'；用ground_truth替代contexts，本质是用标准答案验证答案，违背'忠于检索资料'的设计初衷。C正确：教材7.4.3节要求'把answer每句话拆成不含代词、独立可理解的简单陈述'，'可能''大概'等模糊词导致陈述无法被'直接推断'（因推断需确定性），应被剔除或重构，保留则违反官方口径。B错误：教材未禁止代词消解，且'替换为指代对象'正是为了达成'不含代词、独立可理解'的要求，符合口径。D错误：contexts去重是合理的预处理（避免噪声放大），教材7.5节'加Rerank/相似度阈值过滤'即隐含对contexts的清洗，未禁止去重。",
+      "difficulty_label": "挑战"
+    }
+  ]
+}

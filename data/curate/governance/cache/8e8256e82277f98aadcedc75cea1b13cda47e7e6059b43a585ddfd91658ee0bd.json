@@ -1,0 +1,226 @@
+{
+  "new-8-6-0": {
+    "qid": "new-8-6-0",
+    "classification": "own",
+    "chapter": 8,
+    "quality": "ok",
+    "reason": "考查RAG访问控制核心原则，教材明确过滤时机",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "过滤发生在'检索之后、拼 Prompt 之前'，而不是靠模型'自觉不回答'。模型不做权限判断，权限必须由应用层强制。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "元数据预过滤非教材核心原则"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "教材强调过滤时机在检索后、拼Prompt前"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "向量加密非本题核心原则"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "RAM角色与本题访问控制原则无关"
+      }
+    ],
+    "duplicate_of": "8-5165"
+  },
+  "new-8-6-1": {
+    "qid": "new-8-6-1",
+    "classification": "own",
+    "chapter": 8,
+    "quality": "ok",
+    "reason": "考查RAG权限过滤实现细节，教材示例需解析字符串",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "position_ids = ast.literal_eval(row['position_ids']) if user_position_id in position_ids:",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "教材代码使用ast.literal_eval解析字符串"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "KMS与元数据解析无关"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "WAF防护SQL注入非本题故障"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "多模态检测与元数据解析无关"
+      }
+    ],
+    "duplicate_of": "8-5159"
+  },
+  "new-8-6-2": {
+    "qid": "new-8-6-2",
+    "classification": "own",
+    "chapter": 8,
+    "quality": "ok",
+    "reason": "考查RAG多维权限过滤，教材要求职位、部门等维度组合",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "工程上一般把这些维度做成知识条目的元数据标签，检索时作为 filter 一起下推。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "教材要求职位、部门、密级等多维组合过滤"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "指令与数据隔离非本题核心缺陷"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "向量加密非本题暴露的缺陷"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "RAM独立凭据与跨部门过滤无关"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-8-6-3": {
+    "qid": "new-8-6-3",
+    "classification": "own",
+    "chapter": 8,
+    "quality": "ok",
+    "reason": "考查RAG双保险机制，教材明确访问控制与加密要求",
+    "answer": [
+      "A",
+      "B",
+      "D"
+    ],
+    "supported": true,
+    "quote": "第一道：访问控制（应用层）——按用户职位/部门过滤 Top-K；第二道：双重加密（数据层）——文本内容 AES-CTR-256 等对称加密；向量 DCPE（加噪、缩放、归一化、洗牌）。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "符合应用层访问控制要求"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "符合文本加密存储要求"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "模型非权限边界，教材反对此做法"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "符合向量DCPE加密处理要求"
+      },
+      {
+        "label": "E",
+        "selected": false,
+        "why": "RAM子账号非双保险机制核心"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-8-6-4": {
+    "qid": "new-8-6-4",
+    "classification": "own",
+    "chapter": 8,
+    "quality": "ok",
+    "reason": "考查RAG权限过滤数据关联，教材示例需查询用户职位",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "user_position_id = user_table[user_table['user_id'] == user_id]['position_id'].values[0]",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "教材代码需从user.csv查询position_id"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "自定义词库与position_id查询无关"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "OSS加密与position_id查询失败无关"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "WAF防护CC攻击非本题故障"
+      }
+    ],
+    "duplicate_of": "8-5161"
+  },
+  "new-8-6-5": {
+    "qid": "new-8-6-5",
+    "classification": "own",
+    "chapter": 8,
+    "quality": "ok",
+    "reason": "考查双保险适用场景，教材强调高敏感与高权限场景",
+    "answer": [
+      "A",
+      "B",
+      "C"
+    ],
+    "supported": true,
+    "quote": "高敏感场景文本 + 向量双重加密；即使有人绕过了应用层（比如拿到了高级权限、直接导出了数据库文件），数据本身仍是密文。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "薪资明细高敏感，需防越权与加密"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "数据库管理员高权限，需加密防拖库"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "跨租户共享，需加密防语义泄露"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "PDF入库过程未强调双保险"
+      },
+      {
+        "label": "E",
+        "selected": false,
+        "why": "审计导出全量未强调双保险"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

@@ -1,0 +1,215 @@
+{
+  "3-0508": {
+    "qid": "3-0508",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "考查多轮对话中影响检索的因素，原文明确提及历史对话信息需改写后检索。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "多轮对话里后续问题检索不准 → 应先结合历史改写问题",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "长文本属文档解析阶段输入，非检索处理能力影响因素"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "原文明确要求结合历史改写问题以提升检索准确率"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "模型参数数量影响生成阶段，与检索处理能力无关"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "训练数据量影响Embedding模型质量，非实时检索处理能力"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-0511": {
+    "qid": "3-0511",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "考查标签提取场景，原文明确索引阶段从文档切片提取、检索时用标签过滤。",
+    "answer": [
+      "A",
+      "B"
+    ],
+    "supported": true,
+    "quote": "元数据过滤：检索前按来源/时间/部门等标签先过滤候选集",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "建库时需为文档切片添加元数据标签"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "检索时依据标签过滤候选集是原文明确技术"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "用户问题在检索阶段处理，不参与建库标签提取"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "检索时不对文档切片重新提取标签，仅使用预存标签"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-0514": {
+    "qid": "3-0514",
+    "classification": "cross",
+    "chapter": 3,
+    "quality": "review",
+    "reason": "GraphRAG属RAG进阶方向，但原文未提及；其他选项属平台或框架范畴。",
+    "answer": [
+      "A"
+    ],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "GraphRAG是RAG演进方向，但原文未覆盖"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "可视化工作流属低代码平台能力，非RAG课题"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "智能体编排属第4章Agent范畴"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "LlamaIndex组件属第12章框架工具范畴"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-0518": {
+    "qid": "3-0518",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "考查RAG两阶段组成，原文明确离线建库与在线问答两大阶段。",
+    "answer": [
+      "A",
+      "B"
+    ],
+    "supported": true,
+    "quote": "RAG由两个阶段组成：离线建库（Indexing）+ 在线问答（Retrieval & Generation）",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "建库阶段即离线建库，原文定义为第一阶段"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "检索与生成即在线问答，原文定义为第二阶段"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "模型训练属微调范畴，与RAG无关"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "模型推理是生成阶段子步骤，非独立组成部分"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-0526": {
+    "qid": "3-0526",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "考查Markdown格式优势，原文明确其结构清晰、语法简单特性。",
+    "answer": [
+      "A",
+      "B"
+    ],
+    "supported": true,
+    "quote": "Markdown因层次分明（`#`/`##`/`###`）、语法简单，被推荐作为RAG文档的中间格式",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "原文直接指出Markdown结构清晰层次分明"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "原文明确说明Markdown语法简单易维护"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "Markdown不增加训练数据，属文档格式"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "Markdown不影响模型推理时间，属输入格式"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-0527": {
+    "qid": "3-0527",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "考查余弦相似度原理，原文明确其计算向量夹角且为首选度量。",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "余弦相似度：两个向量的方向夹角；最常用，只看方向、不受长度影响",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "原文明确定义余弦相似度看方向夹角"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "点积是另一度量，原文强调余弦为首选"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "与训练数据无关，属向量计算方法"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "与推理时间无关，属相似度计算逻辑"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

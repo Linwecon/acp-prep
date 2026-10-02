@@ -1,0 +1,208 @@
+{
+  "4-0688": {
+    "qid": "4-0688",
+    "classification": "own",
+    "chapter": 4,
+    "quality": "ok",
+    "reason": "考查多Agent拆解复杂任务思想，B选项符合分而治之原则",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "把多个步骤按固定关系编排起来就是工作流。课程总结了五种核心模式：流水线 Pipeline、分支 Branching、并行 Parallel、混合专家 MoA、人机协作 HITL",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "单模型无法体现Multi-Agent思想"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "符合分而治之与多Agent协同"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "违背多Agent分工协作本质"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "手动完成不符合Agent自动化"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "4-1018": {
+    "qid": "4-1018",
+    "classification": "unsure",
+    "chapter": 4,
+    "quality": "review",
+    "reason": "代码未提供，无法判断操作类型",
+    "answer": [],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "无代码无法确认检索操作"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "无代码无法确认删除操作"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "无代码无法确认创建操作"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "无代码无法确认更新操作"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "4-1130": {
+    "qid": "4-1130",
+    "classification": "own",
+    "chapter": 4,
+    "quality": "ok",
+    "reason": "考查多Agent四原则中中央调度与冲突校验",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "设置 Planner / Leader Agent 统一判断'何时调哪个 Agent'，避免 Agent 之间无序互调、循环等待（死锁）",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "未体现冲突校验机制"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "单Agent无法实现专业分工"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "含任务拆分、并行执行、冲突校验"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "工作流非多Agent架构"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "4-1226": {
+    "qid": "4-1226",
+    "classification": "beyond",
+    "chapter": 4,
+    "quality": "remove",
+    "reason": "ast.literal_eval属Python标准库，非本章Agent知识范畴",
+    "answer": [],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "Python基础库功能，非Agent考点"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "与加密无关"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "非测试用例生成"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "余弦相似度属RAG章节"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "4-1261": {
+    "qid": "4-1261",
+    "classification": "own",
+    "chapter": 4,
+    "quality": "ok",
+    "reason": "考查多Agent协调机制，A违反独立凭据与差异化决策原则",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "多 Agent 设计四条硬原则：明确职责、独立凭据、中央调度、避免全量注入",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "强制相同逻辑违背独立凭据"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "符合中央调度原则"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "博弈论可辅助冲突解决"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "自适应符合Loop Engineering"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "4-1283": {
+    "qid": "4-1283",
+    "classification": "own",
+    "chapter": 4,
+    "quality": "ok",
+    "reason": "考查Function Calling中tools参数定义作用",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "1. 工具定义：在 API 的 `tools` 参数中用 JSON-Schema 声明每个工具的 `name`、`description`、`parameters`",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "名称由name参数定义"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "tools参数定义可调用工具"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "响应速度由temperature等控制"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "权限由API Key与凭据管理"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

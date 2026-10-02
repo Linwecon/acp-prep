@@ -1,0 +1,211 @@
+{
+  "10-1073": {
+    "qid": "10-1073",
+    "classification": "own",
+    "chapter": -1,
+    "quality": "remove",
+    "reason": "题干表述不清，未明确是调用百炼API还是DashScope API，导致选项A的‘messages’字段归属不明，存在歧义。",
+    "answer": [],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "题干未明确调用何种接口，messages字段归属不明。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "model参数用于指定模型，非用户输入。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "api_key用于身份验证，非用户输入。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "base_url用于指定端点，非用户输入。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "10-1209": {
+    "qid": "10-1209",
+    "classification": "own",
+    "chapter": 10,
+    "quality": "ok",
+    "reason": "题目考查阿里云支持的模型部署平台，与章节知识匹配，选项清晰。",
+    "answer": [
+      "A",
+      "B",
+      "C"
+    ],
+    "supported": true,
+    "quote": "四种部署形态对比（FC/PAI-EAS/百炼/ECS）",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "云服务器ECS是部署形态之一。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "函数计算FC是部署形态之一。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "PAI-EAS是模型在线服务部署平台。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "百炼是应用开发平台，非部署平台。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "10-1314": {
+    "qid": "10-1314",
+    "classification": "own",
+    "chapter": 10,
+    "quality": "ok",
+    "reason": "题目考查正确设置API key的代码片段，与章节知识匹配。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "client = OpenAI(api_key=os.getenv(\"DASHSCOPE_API_KEY\"), base_url=\"https://dashscope.aliyuncs.com/compatible-mode/v1\")",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "参数位置错误，且未使用关键字参数。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "正确设置了base_url和api_key。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "缺少base_url参数，无法指向百炼。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "缺少api_key参数，无法认证。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "10-1337": {
+    "qid": "10-1337",
+    "classification": "cross",
+    "chapter": 2,
+    "quality": "remove",
+    "reason": "题目问法模糊，选项与优化输出质量关联性弱，且缺乏明确判断依据，无考查价值。",
+    "answer": [],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "表述宽泛，非具体优化方法。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "增加输入长度不一定优化质量。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "添加术语可能改善相关性，非通用优化。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "模型自带校验功能未在资料中提及。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "10-1344": {
+    "qid": "10-1344",
+    "classification": "own",
+    "chapter": 10,
+    "quality": "ok",
+    "reason": "题目考查正确调用百炼模型的代码写法，与章节知识匹配。",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "response = client.chat.completions.create(model=\"qwen-plus\", messages=[{\"role\": \"user\", \"content\": \"年假有几天？\"}])",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "参数名‘Records’错误，应为‘messages’。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "方法名‘chat.create’错误，模型名拼写错误。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "方法、参数名、模型名均正确。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "方法名、参数名、模型名均错误。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "10-1345": {
+    "qid": "10-1345",
+    "classification": "own",
+    "chapter": 10,
+    "quality": "ok",
+    "reason": "题目考查通义听悟的核心能力，与章节知识匹配，选项区分度好。",
+    "answer": [
+      "A",
+      "D"
+    ],
+    "supported": true,
+    "quote": "通义听悟：语音识别、会议转写（ASR）",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "图像转视频属于多模态生成，非听悟聚焦能力。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "音频转文字是听悟核心能力。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "音频摘要及翻译是听悟相关能力。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "结合图像文本生成属多模态，非听悟聚焦。"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

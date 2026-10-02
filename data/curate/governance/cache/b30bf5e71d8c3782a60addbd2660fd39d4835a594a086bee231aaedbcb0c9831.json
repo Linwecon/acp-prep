@@ -1,0 +1,74 @@
+{
+  "new-5-18-0": {
+    "qid": "new-5-18-0",
+    "classification": "own",
+    "chapter": 5,
+    "quality": "ok",
+    "reason": "考查QLoRA实现原理，错误源于量化未生效导致模块未被标记为可适配。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "QLoRA | LoRA + 4bit 量化基座 | 同 LoRA | 进一步降显存，消费级显卡也能训大模型",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "原文未提all-linear需限定于已量化模块"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "QLoRA要求4bit量化在加载时生效"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "原文未提LayerNorm等非线性层限制"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "原文明确支持QLoRA组合"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-5-18-5": {
+    "qid": "new-5-18-5",
+    "classification": "own",
+    "chapter": 5,
+    "quality": "ok",
+    "reason": "三者缺一不可：训练降本靠QLoRA，推理降本靠合并，任务适配靠高频结构化。",
+    "answer": [
+      "A",
+      "B",
+      "C"
+    ],
+    "supported": true,
+    "quote": "QLoRA | LoRA + 4bit 量化基座 | 同 LoRA | 进一步降显存，消费级显卡也能训大模型",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "训练降本核心：4bit+LoRA"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "推理零开销需合并权重"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "高频结构化是蒸馏适用前提"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "混入人工数据不破坏双降本"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

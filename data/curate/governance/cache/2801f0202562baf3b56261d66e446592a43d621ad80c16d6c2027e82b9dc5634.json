@@ -1,0 +1,212 @@
+{
+  "6-0685": {
+    "qid": "6-0685",
+    "classification": "own",
+    "chapter": 6,
+    "quality": "ok",
+    "reason": "考查部署形态弹性对比，原文明确托管服务弹性优势",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "百炼 / DashScope（MaaS）：全托管模型服务，调 API 即可；平台负责自动扩缩容、模型升级、高可用都由平台兜底。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "单台服务器无弹性伸缩能力"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "托管服务自动扩缩容，弹性最强"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "笔记本无并发与扩展能力"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "不部署无法提供服务"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "6-0714": {
+    "qid": "6-0714",
+    "classification": "own",
+    "chapter": 6,
+    "quality": "ok",
+    "reason": "量化是显存不足时最快见效的工程方案",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "量化是其中最快见效、工程成本最低的一个，但不要把它当万能药：对精度极度敏感的任务，应优先选蒸馏/微调小模型，而非一味压低比特。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "更换硬件非便捷方案"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "量化即插即用，成本最低"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "蒸馏需重新训练，周期长"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "分布式部署复杂度高"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "6-0773": {
+    "qid": "6-0773",
+    "classification": "own",
+    "chapter": 6,
+    "quality": "ok",
+    "reason": "CPU核心数不影响纯GPU推理速度",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "推理阶段参数冻结，只做前向计算；硬件诉求是单卡/多卡，强调低延迟与高吞吐，而非CPU核数。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "量化可加速显存带宽密集型Decode"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "减小上下文可降低KV Cache压力"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "GPU推理不依赖CPU核心数"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "蒸馏可简化结构提升速度"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "6-1206": {
+    "qid": "6-1206",
+    "classification": "own",
+    "chapter": 6,
+    "quality": "ok",
+    "reason": "ECS适合可控、稳定、长期运行场景",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "ECS（Elastic Compute Service）是 IaaS 层的云服务器，用户对操作系统、驱动、框架、依赖拥有完全控制权……适合长期运行的大模型、深度定制、数据合规要求高。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "无运维团队应选托管服务"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "ECS需自运维，适合有管控需求"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "闭源模型非ECS选型依据"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "Serverless是FC特性"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "6-1248": {
+    "qid": "6-1248",
+    "classification": "own",
+    "chapter": 6,
+    "quality": "ok",
+    "reason": "FC核心特征是免运维与按调用计费",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "函数计算 FC（Function Compute）是事件驱动的 Serverless 计算服务……按调用量和实际资源消耗计费，无流量时不产生费用。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "FC延迟含冷启动，非高延迟"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "原文明确定义其免运维特性"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "FC支持Serverless GPU"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "FC不适合长期运行服务"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "6-1255": {
+    "qid": "6-1255",
+    "classification": "own",
+    "chapter": 6,
+    "quality": "ok",
+    "reason": "量化核心价值是降显存与提速度",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "量化（Quantization）：把模型参数从高精度压缩到低精度，以可控的精度损失换取显存占用下降、显存带宽压力减小、推理速度提升。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "量化会引入精度损失"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "原文明确省显存与提速"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "量化有精度损失"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "多模态非量化目标"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

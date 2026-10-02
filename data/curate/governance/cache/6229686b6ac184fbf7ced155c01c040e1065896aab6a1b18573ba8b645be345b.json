@@ -1,0 +1,72 @@
+{
+  "new-12-48-1": {
+    "qid": "new-12-48-1",
+    "classification": "own",
+    "chapter": 12,
+    "quality": "ok",
+    "reason": "考查文档解析选型与低代码平台组合，符合章节知识",
+    "answer": [
+      "A",
+      "C",
+      "D"
+    ],
+    "supported": true,
+    "quote": "扫描件/复杂表格 → 上 DashScopeParse（OCR + 版面结构化）...Dify 是一个开源的**低代码 LLM 应用开发平台**",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "Dify适合HR自助，内置OCR能力符合扫描件需求"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "PyMuPDF无法处理扫描件，不符合扫描件需求"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "DashScopeParse专用于扫描件PDF，符合分层原则"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "Dify配置DashScopeParse后端，实现结构化输出"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-12-48-4": {
+    "qid": "new-12-48-4",
+    "classification": "own",
+    "chapter": -1,
+    "quality": "remove",
+    "reason": "题干逻辑混乱，RAGAS评估无需配置Memory或Retriever，问题无意义",
+    "answer": [],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "RAGAS不要求必须用LangChain"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "未配置Memory确实不影响Faithfulness"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "Faithfulness依赖contexts，与ground_truth无关"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "RAGAS评估时需提供contexts，非配置Retriever"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

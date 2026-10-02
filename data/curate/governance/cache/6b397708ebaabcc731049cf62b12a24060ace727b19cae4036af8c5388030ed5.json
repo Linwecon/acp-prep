@@ -1,0 +1,213 @@
+{
+  "5-0120": {
+    "qid": "5-0120",
+    "classification": "own",
+    "chapter": 2,
+    "quality": "ok",
+    "reason": "考查提示工程适用场景，需识别哪些任务可直接用提示词解决",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "提示工程：通过精心设计输入文本（提示词），引导大模型稳定生成符合预期输出的技术。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "文档审查属提示工程典型任务"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "内部知识查询需RAG支持"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "增加训练数据属微调范畴"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "减少推理时间属部署优化"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "8-0894": {
+    "qid": "8-0894",
+    "classification": "own",
+    "chapter": 2,
+    "quality": "ok",
+    "reason": "考查角色设定对提示效果的影响",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "角色（Role）定义身份、语气、写作风格；'你是一名耐心的入职伙伴'",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "未指定角色和任务目标"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "明确角色+任务+对象"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "表述模糊无约束"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "仅给任务名称无细节"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "10-1269": {
+    "qid": "10-1269",
+    "classification": "own",
+    "chapter": 2,
+    "quality": "ok",
+    "reason": "考查结构化提示策略",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "标准优化顺序：提示词优化 → RAG → （仍不满足才考虑）微调",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "无评估优化闭环"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "符合生成-评估-优化范式"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "超上下文窗口反降质"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "过短丢失关键信息"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "10-1337": {
+    "qid": "10-1337",
+    "classification": "own",
+    "chapter": 2,
+    "quality": "ok",
+    "reason": "考查多选题中提示优化方法",
+    "answer": [
+      "A",
+      "C"
+    ],
+    "supported": true,
+    "quote": "提示词六要素（角色/任务/上下文/受众/样例/输出格式）",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "符合EDD评测驱动开发"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "非普适优化方法"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "补充领域上下文要素"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "模型无自带校验功能"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "10-0820": {
+    "qid": "10-0820",
+    "classification": "own",
+    "chapter": 2,
+    "quality": "ok",
+    "reason": "考查输出格式与上下文要素",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "输出格式（Output Format）指定格式、枚举值、禁止项",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "未指定Marp格式要求"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "含格式+结构要素"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "未限定Marp特性"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "PPT非Markdown格式"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "10-1054": {
+    "qid": "10-1054",
+    "classification": "own",
+    "chapter": 2,
+    "quality": "ok",
+    "reason": "考查任务目标与上下文要素",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "任务目标（Object）明确要完成什么，让模型聚焦",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "示例代码非必需要素"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "明确任务+内容范围"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "割裂内容破坏连贯性"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "关键词过于宽泛"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

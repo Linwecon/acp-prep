@@ -1,0 +1,215 @@
+{
+  "new-12-24-0": {
+    "qid": "new-12-24-0",
+    "classification": "own",
+    "chapter": 12,
+    "quality": "ok",
+    "reason": "考查框架解决工程化编排的核心价值",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "框架的本质价值是‘把大模型应用中反复出现的工程模式抽象成可组合的组件’",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "困境与模型版本无关"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "缺乏统一编排导致共性脏活重复"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "困境与向量库选型无关"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "困境非LCEL语法缺失导致"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-12-24-1": {
+    "qid": "new-12-24-1",
+    "classification": "own",
+    "chapter": 12,
+    "quality": "ok",
+    "reason": "考查文档解析选型与低代码平台适配原则",
+    "answer": [
+      "A",
+      "B",
+      "C"
+    ],
+    "supported": true,
+    "quote": "文档是扫描件、截图、复杂表格、图文混排 PDF → 上 DashScopeParse（OCR + 版面结构化）",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "DashScopeParse适合扫描件表格"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "SimpleDirectoryReader是默认入口"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "Dify让非技术人员上传文档"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "强制学习源码不符合角色适配"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-12-24-2": {
+    "qid": "new-12-24-2",
+    "classification": "own",
+    "chapter": 12,
+    "quality": "ok",
+    "reason": "考查RAGAS在技术栈中的评估层定位",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "RAGAS 是主流的开源 RAG 评估框架……用大模型当评委，对检索端和生成端分别打分",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "RAGAS不替代数据层组件"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "RAGAS是评估层工具"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "RAGAS不是编排框架"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "RAGAS不是服务层中间件"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-12-24-3": {
+    "qid": "new-12-24-3",
+    "classification": "own",
+    "chapter": 12,
+    "quality": "ok",
+    "reason": "考查框架组合分工原则",
+    "answer": [
+      "A",
+      "B"
+    ],
+    "supported": true,
+    "quote": "LlamaIndex 负责‘数据接入—索引—检索’……LangChain 负责‘通用大模型应用编排’",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "LlamaIndex负责RAG全链路"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "LangChain负责Agent规划与协调"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "场景非多Agent并行广播"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "嵌入QueryEngine是具体实现"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-12-24-4": {
+    "qid": "new-12-24-4",
+    "classification": "own",
+    "chapter": 12,
+    "quality": "ok",
+    "reason": "考查LangChain中Tool的JSON Schema配置",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "Tool 的参数必须用 JSON Schema 声明，直接呼应 Function Calling 考点",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "非最优先检查项"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "工具名需与JSON Schema一致"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "Memory非工具名错误主因"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "OutputParser非工具调用失败主因"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-12-24-5": {
+    "qid": "new-12-24-5",
+    "classification": "own",
+    "chapter": 12,
+    "quality": "ok",
+    "reason": "考查技术栈分层与工具各司其职",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "Gradio 适合‘给人用的 Demo’，FastAPI 适合‘给系统调的服务’——二者常常同时存在",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "Gradio单一服务不符合解耦"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "FastAPI单一服务不符合解耦"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "Gradio与FastAPI分层共享逻辑"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "打包进单一镜像不符合分层"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

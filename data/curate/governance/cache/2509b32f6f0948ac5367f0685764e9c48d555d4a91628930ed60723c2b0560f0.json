@@ -1,0 +1,208 @@
+{
+  "4-1325": {
+    "qid": "4-1325",
+    "classification": "cross",
+    "chapter": 4,
+    "quality": "remove",
+    "reason": "题目无考查价值，选项宽泛且与Multi-Agent结合无必然逻辑。",
+    "answer": [],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "视觉标注是特定任务，非Multi-Agent核心结合技术。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "自然语言处理是Agent基础，但题干问法无意义。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "机器学习优化宽泛，非特定结合技术。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "区块链加密与Multi-Agent结合非本章考点。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "5-1353": {
+    "qid": "5-1353",
+    "classification": "own",
+    "chapter": 11,
+    "quality": "remove",
+    "reason": "选项荒谬，无正确选项，考查点模糊。",
+    "answer": [],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "‘深度学习’不是提示词结构。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "虽描述场景风格，但非教材定义的最佳实践结构。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "‘生成一张图表’过于简单，非最佳实践。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "‘超参数’不是提示词结构。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "5-1378": {
+    "qid": "5-1378",
+    "classification": "own",
+    "chapter": 11,
+    "quality": "ok",
+    "reason": "考查文生图提示词工程，选项区分度合理。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "文生图（通义万相）核心是扩散模型（Diffusion）——从一张随机噪声图出发，在文本条件引导下一步步去噪",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "仅关键词描述不足，无法提升质量。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "描述场景与风格符合文本条件引导的最佳实践。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "反向提示词有用，但B更全面提升质量。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "复制图像链接非文生图提示词做法。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "10-0455": {
+    "qid": "10-0455",
+    "classification": "own",
+    "chapter": 11,
+    "quality": "ok",
+    "reason": "考查视觉模型在RAG中解析的适用场景。",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "扫描件/图片文档 OCR + 版面分析 → 结构化文本 → 常规 RAG；表格/图表 表格转 Markdown 保留结构",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "简单文字截图可用OCR，无需深层次解析。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "清晰文本截图OCR即可，无需深层次解析。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "不规则复杂信息图片需视觉模型深层次解析。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "已解析文本段落无需视觉模型。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "10-0388": {
+    "qid": "10-0388",
+    "classification": "own",
+    "chapter": 11,
+    "quality": "ok",
+    "reason": "考查Qwen-VL-Max多模态模型能力边界。",
+    "answer": [
+      "D"
+    ],
+    "supported": true,
+    "quote": "图文多模态模型的工作原理可以用一个公式概括：编码器 + 投影对齐 + 大语言模型",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "识别描述物体是图文理解能力。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "图表转表格属文档智能解析能力。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "基于图像创作故事是生成能力。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "实时三维场景重建超出Qwen-VL能力。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "10-1084": {
+    "qid": "10-1084",
+    "classification": "own",
+    "chapter": 11,
+    "quality": "ok",
+    "reason": "考查多模态解析的合理选型与效率思路。",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "只涉及文本的问答/写作，不要为了‘多模态’而上多模态，徒增成本与延迟",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "所有图片都用视觉模型解析不符合效率思路，成本高。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "使用DashScopeParse解析文档符合提升效率思路。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "拆分任务使用不同工具处理符合效率思路。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "简单文本替换用正则表达式符合效率思路。"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

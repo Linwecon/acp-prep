@@ -1,0 +1,72 @@
+{
+  "10-0060": {
+    "qid": "10-0060",
+    "classification": "cross",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "考查RAG与工具调用对时效性知识的补位，非纯提示工程",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "RAG核心思想：开卷考试",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "RAG需离线建库，无法保证'今早'时效性"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "function call可实时获取最新新闻"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "qwen-plus无enable_search参数，API不支持"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "模型知识截止，无法凭空生成今日新闻"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "12-0755": {
+    "qid": "12-0755",
+    "classification": "own",
+    "chapter": 2,
+    "quality": "ok",
+    "reason": "布鲁姆分类法是提示词中控制认知难度的标准方法",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "提示词六要素（角色/任务/上下文/受众/样例/输出格式）",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "随机不可控，不系统化"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "布鲁姆法明确定义认知层次"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "要求模糊，无具体控制维度"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "人工编写不属提示工程范畴"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

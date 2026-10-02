@@ -1,0 +1,216 @@
+{
+  "new-4-60-0": {
+    "qid": "new-4-60-0",
+    "classification": "own",
+    "chapter": 4,
+    "quality": "ok",
+    "reason": "考查ReAct循环中工具失败后的处理逻辑，符合本章核心概念。",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "工具返回结果必须回灌到上下文，否则模型等于'做完就忘'；要给模型'失败出口'：工具超时、报错时能重试或换方案",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "未利用ReAct循环的观察修正能力，不符合失败出口设计。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "忽略超时直接生成回答，未遵循工具结果必须回灌的原则。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "将超时作为Observation回传，触发ReAct新Thought，符合闭环设计。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "模型不自行执行工具，应由程序控制重试。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-4-60-1": {
+    "qid": "new-4-60-1",
+    "classification": "own",
+    "chapter": 4,
+    "quality": "ok",
+    "reason": "考查多Agent设计四条硬原则，选项直接对应原则内容。",
+    "answer": [
+      "A",
+      "B"
+    ],
+    "supported": true,
+    "quote": "独立凭据：不同Agent不得共用同一套账号/API凭据；避免全量注入：不要把所有Agent的知识/工具清单一次性写进主Prompt",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "共用凭证违反独立凭据原则。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "全量注入主Prompt违反避免全量注入原则。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "主动调用其他Agent是协作方式，未直接违反四条原则。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "中央Planner动态调度符合中央调度原则。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-4-60-2": {
+    "qid": "new-4-60-2",
+    "classification": "own",
+    "chapter": 4,
+    "quality": "ok",
+    "reason": "考查反思模式中自我反馈与外部反馈的区别及适用场景。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "外部反馈（External Feedback）：用工具真实执行/校验，把报错、日志、截图喂回模型；代码能否运行、计算是否正确",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "提示词约束无法保证代码真实可执行。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "调用代码解释器真实执行是外部反馈，能捕获运行报错。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "换模型仍属自我反馈，无法解决漏检运行错误问题。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "写入记忆无法直接验证代码执行结果。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-4-60-3": {
+    "qid": "new-4-60-3",
+    "classification": "own",
+    "chapter": 4,
+    "quality": "ok",
+    "reason": "考查固定工作流与自主规划策略的选择，符合规划策略内容。",
+    "answer": [
+      "B",
+      "C"
+    ],
+    "supported": true,
+    "quote": "探索-固化混合模式：新出现、流程不明的任务，派自主规划Agent去试错；一旦路径稳定，就抽象成固定工作流",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "强制固定顺序缺乏灵活性，未考虑环节失败。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "Plan-and-Execute生成计划并允许失败重规划，适合复杂多变任务。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "混合策略兼顾稳定部分与应对变化部分，符合探索-固化模式。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "单一ReAct Agent不拆解步骤，难以兼顾多操作与鲁棒性。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-4-60-4": {
+    "qid": "new-4-60-4",
+    "classification": "own",
+    "chapter": 4,
+    "quality": "ok",
+    "reason": "考查MCP动态发现工具的核心机制，与Function Calling互补关系。",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "MCP Client在启动时自动连接并拉取工具清单；工具提供方改个参数，所有Agent都得跟着改、重新部署。MCP解决工具怎么被发现",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "Client启动连接Server拉取清单，实现工具动态发现。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "MCP将工具定义职责转移给Server，而非硬编码到Agent提示词。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "Function Calling是调用机制，MCP解决发现与接入标准化。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "HTTP协议是传输方式，非实现动态能力核心机制。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-4-60-5": {
+    "qid": "new-4-60-5",
+    "classification": "own",
+    "chapter": 4,
+    "quality": "ok",
+    "reason": "考查Memory管理中有选择记录与持续治理原则的具体应用。",
+    "answer": [
+      "A",
+      "B",
+      "C"
+    ],
+    "supported": true,
+    "quote": "有选择地记：建立写入准入机制；持续治理：定期清理过时信息、合并重复、校验事实；向量化召回：海量记忆按需取用",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "答题记录向量化并按语义检索，符合按需取用原则。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "显式要求才写入，符合有选择记录和写入准入机制。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "定期合并删除无效记录，符合持续治理原则。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "所有闲聊截断存入，未做选择，可能引入噪声。"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

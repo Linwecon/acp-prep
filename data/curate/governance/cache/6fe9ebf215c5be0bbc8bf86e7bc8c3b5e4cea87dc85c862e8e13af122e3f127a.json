@@ -1,0 +1,251 @@
+{
+  "2-0369": {
+    "qid": "2-0369",
+    "classification": "own",
+    "chapter": 2,
+    "quality": "ok",
+    "reason": "题目考查Few-Shot Prompting的局限性，属于提示工程核心知识。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "示例不在多而在精，2~5个高质量范例通常足够。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "Few-Shot不需要大量数据，少量高质量示例即可。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "原文强调示例质量与数量对模型影响大。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "Few-Shot正是让模型从示例中学习新任务。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "提示词复杂不是Few-Shot的主要局限性。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "2-0379": {
+    "qid": "2-0379",
+    "classification": "own",
+    "chapter": 2,
+    "quality": "ok",
+    "reason": "题目考查Zero-Shot Prompting的原理，属于提示工程基础。",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "Zero-shot（零样本）：不给示例，直接提问。简单、明确的任务。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "Zero-Shot能力源于预训练阶段学习到的广泛知识。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "微调是后续行为，不是Zero-Shot的基础。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "监督学习需要标注数据，与Zero-Shot定义不符。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "强化学习不是Zero-Shot Prompting的主要基础。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "2-0607": {
+    "qid": "2-0607",
+    "classification": "own",
+    "chapter": 2,
+    "quality": "ok",
+    "reason": "题目考查提升Zero-Shot性能的建议，属于提示工程优化技巧。",
+    "answer": [
+      "A",
+      "C",
+      "E"
+    ],
+    "supported": true,
+    "quote": "提示词给得越清晰、约束越明确，正确答案的概率分布就越集中；提示词含糊，模型只能靠猜测补全。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "明确任务描述是清晰提示词的核心。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "冗长复杂提示会稀释注意力，是误区。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "提供背景信息即补充上下文，是六要素之一。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "使用专业术语可能影响理解，非建议。"
+      },
+      {
+        "label": "E",
+        "selected": true,
+        "why": "保持提示一致性有助于稳定输出。"
+      },
+      {
+        "label": "F",
+        "selected": false,
+        "why": "引导词汇如CoT中的“一步步思考”是有益的。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "2-0612": {
+    "qid": "2-0612",
+    "classification": "own",
+    "chapter": 2,
+    "quality": "ok",
+    "reason": "题目考查提示词中分配角色的目的，属于六要素应用。",
+    "answer": [
+      "A",
+      "B",
+      "D",
+      "E"
+    ],
+    "supported": true,
+    "quote": "“角色”激活模型在训练中见过的角色模式（工程师 vs 小学老师，对同一问题的措辞深度完全不同）；“受众”直接决定内容深度。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "角色决定语气，如客服与工程师不同。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "角色控制生成风格，如正式或亲切。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "增加随机性不是分配角色的目的。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "让模型进行角色扮演是核心目的。"
+      },
+      {
+        "label": "E",
+        "selected": true,
+        "why": "角色与受众共同决定信息深浅程度。"
+      },
+      {
+        "label": "F",
+        "selected": false,
+        "why": "分配角色不直接限制模型功能。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "2-0621": {
+    "qid": "2-0621",
+    "classification": "own",
+    "chapter": 2,
+    "quality": "fixable",
+    "reason": "题目考查CoT提示设计的推荐做法，但选项B、E表述模糊易歧义。",
+    "answer": [
+      "A",
+      "C",
+      "D"
+    ],
+    "supported": true,
+    "quote": "CoT使用要点：适合复杂推理、数学、多步骤分析；不必滥用：简单事实问答用Zero-shot直接答即可。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "使用简洁一致的提示是通用好实践。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "CoT不必须提供大量示例样本。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "CoT常与Zero-shot结合，如“一步步思考”。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "保持问题深度广度平衡有助于有效推理。"
+      },
+      {
+        "label": "E",
+        "selected": false,
+        "why": "不应忽略模型的归纳能力。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "2-0624": {
+    "qid": "2-0624",
+    "classification": "own",
+    "chapter": 2,
+    "quality": "ok",
+    "reason": "题目考查CoT提示的适用场景，属于核心知识点。",
+    "answer": [
+      "A",
+      "C",
+      "D"
+    ],
+    "supported": true,
+    "quote": "这对数学计算、逻辑推理、多约束规划等任务提升尤其明显。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "数学问题解答是CoT典型应用场景。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "数据清洗通常不依赖复杂推理步骤。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "法律案例分析涉及复杂逻辑推理。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "逻辑推理与论证是CoT核心适用场景。"
+      },
+      {
+        "label": "E",
+        "selected": false,
+        "why": "情感分析通常不依赖显式推理链。"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

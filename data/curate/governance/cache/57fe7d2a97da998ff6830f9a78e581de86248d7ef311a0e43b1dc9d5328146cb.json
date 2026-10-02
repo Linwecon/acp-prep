@@ -1,0 +1,105 @@
+{
+  "10-5132": {
+    "qid": "10-5132",
+    "classification": "own",
+    "chapter": 10,
+    "quality": "ok",
+    "reason": "题目考查阿里云平台选型，区分托管API与自定义部署场景，符合本章核心考点。",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "前者使用百炼等托管模型服务，后者使用 PAI-EAS。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "托管模型服务对应百炼/DashScope，自定义部署对应PAI-EAS，组合正确。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "ECS和本地笔记本非平台推荐方案，与题干“降低运维成本”不符。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "两者都手动部署不符合平台服务化、降低运维成本的核心优势。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "PAI-EAS用于自定义部署，百炼用于托管服务，选项组合颠倒。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "10-5054": {
+    "qid": "10-5054",
+    "classification": "cross",
+    "chapter": -1,
+    "quality": "remove",
+    "reason": "题目考查Dify平台能力，但教材第10章未提及Dify，属于超出本章范围且无原文支持。",
+    "answer": [],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "教材未提及Dify，无法判断其能力。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "教材未提及Dify，无法判断其能力。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "教材未提及Dify，无法判断其能力。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "教材未提及Dify，无法判断其能力。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "10-5131": {
+    "qid": "10-5131",
+    "classification": "own",
+    "chapter": 10,
+    "quality": "ok",
+    "reason": "题目考查PAI-EAS的核心优势，与自建ECS对比，符合本章部署选型考点。",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "PAI-EAS 部署模型服务的突出特点是提供模型服务化托管、弹性扩缩容和在线推理能力。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "PAI-EAS专用于在线推理服务，非仅离线训练。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "PAI-EAS提供弹性扩缩容，无需手动扩容物理机。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "准确概括了PAI-EAS作为托管服务的核心优势。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "PAI-EAS部署的服务通常提供REST API接口。"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

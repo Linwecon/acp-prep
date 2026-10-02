@@ -1,0 +1,213 @@
+{
+  "new-12-36-0": {
+    "qid": "new-12-36-0",
+    "classification": "own",
+    "chapter": 12,
+    "quality": "ok",
+    "reason": "考查技术栈分层原则，Gradio不应承载核心业务逻辑。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "Gradio 只负责界面，不承载业务逻辑。RAG、Agent、提示词这些应放在下层可独立测试的模块里，UI 只调用它们的接口。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "题干故障与RAGAS评估解耦无关。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "Gradio作为UI层不应初始化核心RAG逻辑，应与业务模块解耦。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "FastAPI无需通过LangChain的Runnable协议暴露接口。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "QueryEngine无需持久化到Redis共享。"
+      }
+    ],
+    "duplicate_of": "12-5107"
+  },
+  "new-12-36-1": {
+    "qid": "new-12-36-1",
+    "classification": "own",
+    "chapter": 12,
+    "quality": "ok",
+    "reason": "考查提示词模板变量错误对生成结果的影响。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "`context_str` 是检索到的上下文，不是用户问题。LlamaIndex 默认的 QA 提示词模板里，`{context_str}` 注入的是从向量库召回的资料",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "模型未必拒绝回答，可能自由生成。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "上下文注入为空，模型基于自身知识生成，导致幻觉。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "检索阶段未失效，是提示词注入错误。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "LlamaIndex不会自动降级为纯LLM模式。"
+      }
+    ],
+    "duplicate_of": "12-5096"
+  },
+  "new-12-36-2": {
+    "qid": "new-12-36-2",
+    "classification": "own",
+    "chapter": 12,
+    "quality": "ok",
+    "reason": "考查复杂Agent场景下框架组合选型原则。",
+    "answer": [
+      "A",
+      "B"
+    ],
+    "supported": true,
+    "quote": "LangChain/LangGraph 更偏\"单/多 Agent 的工作流与状态机编排\"，生态更通用；DashScopeParse（OCR + 版面结构化）",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "DashScopeParse擅长扫描件/复杂表格，输出结构化Markdown。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "LangChain+LangGraph在多工具调用、状态机、追踪方面生态完整。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "题干是单Agent多步骤，非多角色协作场景。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "Dify低代码平台不适合深度定制、可观测、可调试要求。"
+      }
+    ],
+    "duplicate_of": "12-5098"
+  },
+  "new-12-36-3": {
+    "qid": "new-12-36-3",
+    "classification": "own",
+    "chapter": 12,
+    "quality": "ok",
+    "reason": "考查Tool封装时未正确传入query_str导致检索失效。",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "用户问题由 `{query_str}` 注入——考试常把二者互换作为错误选项",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "JSON Schema解析失败通常导致调用错误，而非返回相似内容。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "未传入llm参数影响生成，但检索应正常进行。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "未传入用户问题导致空查询，检索结果与问题无关。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "未配置similarity_top_k可能返回过多结果，但内容应与问题相关。"
+      }
+    ],
+    "duplicate_of": "12-5110"
+  },
+  "new-12-36-4": {
+    "qid": "new-12-36-4",
+    "classification": "own",
+    "chapter": 12,
+    "quality": "ok",
+    "reason": "考查务实演进路径，初期应轻量，后续按需引入。",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "一条务实的选型主线：1. 能用：先用 SDK 把核心问答跑通；",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "初期裸调SDK确保能用，符合务实演进路径。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "初期即引入复杂框架，违背'能不引入就不引入'原则。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "Dify适合非工程人员，但团队有工程师，且初期需求简单。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "初期无RAG需求，不应直接引入LlamaIndex。"
+      }
+    ],
+    "duplicate_of": "12-5109"
+  },
+  "new-12-36-5": {
+    "qid": "new-12-36-5",
+    "classification": "own",
+    "chapter": 12,
+    "quality": "ok",
+    "reason": "考查索引持久化避免每次重建的知识点。",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "索引需要持久化，避免每次重建。通过 `StorageContext.from_defaults(persist_dir=...)` + `index.storage_context.persist(...)`",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "每次查询重建索引导致延迟高，应持久化索引。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "问题根源是索引重建，非解析器选择。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "问题与RAGAS评估数据集无关。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "问题根源是索引重建，非LCEL异步。"
+      }
+    ],
+    "duplicate_of": "12-5106"
+  }
+}

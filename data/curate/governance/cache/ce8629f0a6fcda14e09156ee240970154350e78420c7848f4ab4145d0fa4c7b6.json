@@ -1,0 +1,264 @@
+{
+  "3-1340": {
+    "qid": "3-1340",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "题目考查影响RAG性能的常见因素，属于RAG核心知识，选项覆盖全面。",
+    "answer": [
+      "A",
+      "B",
+      "C",
+      "D",
+      "E",
+      "F"
+    ],
+    "supported": true,
+    "quote": "RAG 的主要成本来自：Embedding 调用（建库时一次性 + 查询时）、检索到的 token、生成用的大模型 token、以及 Rerank/查询改写引入的额外模型调用。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "查询表达影响检索，如口语化需改写。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "切片策略直接影响检索颗粒度与质量。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "生成模型性能影响答案质量与成本。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "向量库类型影响检索速度与精度。"
+      },
+      {
+        "label": "E",
+        "selected": true,
+        "why": "硬件资源限制影响部署与性能。"
+      },
+      {
+        "label": "F",
+        "selected": true,
+        "why": "文档质量与数量是知识库基础。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-1399": {
+    "qid": "3-1399",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "fixable",
+    "reason": "题干提及的函数名“Compare_embedding_models”在教材中未出现，但考查Embedding模型比较的核心意图明确。",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "检索质量差的三大根因（要背）：① Embedding 模型不够好 ② 切片策略不当 ③ 文档格式丢失了结构信息。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "比较不同Embedding模型表现是优化检索的关键。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "函数不负责增加训练数据。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "函数不直接减少推理时间。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "函数不增加模型参数。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-1441": {
+    "qid": "3-1441",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "题目考查文档解析阶段的常见问题与认知，属于RAG基础环节。",
+    "answer": [
+      "A",
+      "B",
+      "E",
+      "F"
+    ],
+    "supported": true,
+    "quote": "文档解析（Document Parsing）是把 PDF、Word、Markdown、网页等格式的文档，加载并转换为大模型可读文本的过程。它看似简单，却是 RAG 质量的“地基”。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "解析工具质量直接影响结果。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "格式差异可能导致解析不同。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "PDF解析通常比纯文本更复杂。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "解析问题也涉及业务需求。"
+      },
+      {
+        "label": "E",
+        "selected": true,
+        "why": "工具选型对效率准确性至关重要。"
+      },
+      {
+        "label": "F",
+        "selected": true,
+        "why": "动态内容解析难度通常更大。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-1445": {
+    "qid": "3-1445",
+    "classification": "cross",
+    "chapter": 11,
+    "quality": "ok",
+    "reason": "题目考查多模态内容生成与整合的挑战，属于多模态AI范畴。",
+    "answer": [
+      "A",
+      "B",
+      "C",
+      "D",
+      "E"
+    ],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "多模态同步是常见挑战。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "翻译准确性是字幕关键。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "音质问题影响体验。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "多模态生成资源消耗大。"
+      },
+      {
+        "label": "E",
+        "selected": true,
+        "why": "版权合规是重要风险点。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-1454": {
+    "qid": "3-1454",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "题目考查HyDE方法的核心步骤，属于RAG进阶检索技术。",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "HyDE（假设文档嵌入）……先让 LLM 编一段“假想答案”，用假想答案的向量去检索真实文档",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "先生成假想答案再检索是HyDE核心。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "HyDE不是直接检索。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "HyDE不依赖标签过滤。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "滑动窗口是另一技术。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-1464": {
+    "qid": "3-1464",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "题目考查影响RAG性能的常见因素，与3-1340高度相似。",
+    "answer": [
+      "A",
+      "B",
+      "C",
+      "D",
+      "E",
+      "F"
+    ],
+    "supported": true,
+    "quote": "RAG 的主要成本来自：Embedding 调用（建库时一次性 + 查询时）、检索到的 token、生成用的大模型 token、以及 Rerank/查询改写引入的额外模型调用。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "硬件资源限制性能。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "文档质量数量是基础。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "向量库影响检索。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "查询表达影响检索。"
+      },
+      {
+        "label": "E",
+        "selected": true,
+        "why": "模型性能影响生成。"
+      },
+      {
+        "label": "F",
+        "selected": true,
+        "why": "切片方法影响质量。"
+      }
+    ],
+    "duplicate_of": "3-1340"
+  }
+}

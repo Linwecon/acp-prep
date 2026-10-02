@@ -1,0 +1,212 @@
+{
+  "8-0778": {
+    "qid": "8-0778",
+    "classification": "own",
+    "chapter": 8,
+    "quality": "ok",
+    "reason": "考查内容安全检测方案组合策略",
+    "answer": [
+      "D"
+    ],
+    "supported": true,
+    "quote": "最佳实践是“规则粗筛 → 模型细判 → 人工兜底 → 全程留痕”",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "降低阈值会增误报，与目标相反"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "示例不能解决模型固有误判倾向"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "指令无法约束模型判断逻辑"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "规则+模型双校验可平衡精度与召回"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "8-0800": {
+    "qid": "8-0800",
+    "classification": "own",
+    "chapter": 8,
+    "quality": "ok",
+    "reason": "考查偏见治理根因与手段",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "偏见则来自训练数据的分布偏差，模型只是忠实地学到了这些统计规律",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "多模型投票不解决数据偏差"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "多角度指令无法消除统计偏见"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "基于事实性信息可规避主观偏见"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "人工编写非模型应用防护手段"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "8-0814": {
+    "qid": "8-0814",
+    "classification": "own",
+    "chapter": 8,
+    "quality": "ok",
+    "reason": "考查合规生成的工程化路径",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "合规不是上线后的补救，而是设计阶段就要纳入的基础要求",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "完全依赖模型易违反合规要求"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "模板约束+模型生成保障合规"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "人工编写非AI应用防护手段"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "复制描述存在版权与合规风险"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "8-0831": {
+    "qid": "8-0831",
+    "classification": "own",
+    "chapter": 8,
+    "quality": "ok",
+    "reason": "考查三层实时防御位置",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "3.输出审查：拦有害言论/幻觉/数据泄漏/事实风险",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "输入过滤属第一层但非最可能"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "模型内部干预非标准部署方式"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "输出审查是最后一道防线"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "训练后微调前属离线阶段"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "8-0832": {
+    "qid": "8-0832",
+    "classification": "own",
+    "chapter": 8,
+    "quality": "ok",
+    "reason": "考查预部署防护定义",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "安全不是上线后的补救，而是设计阶段就要纳入的基础要求",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "实时过滤属运行时防护"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "人工审核属事后兜底"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "训练数据清洗属预部署阶段"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "举报机制属上线后运营"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "8-0918": {
+    "qid": "8-0918",
+    "classification": "own",
+    "chapter": 8,
+    "quality": "ok",
+    "reason": "考查儿童场景特殊安全要求",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "大模型应用安全是覆盖内容、数据、模型、应用、基础设施、合规六个维度的体系工程",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "适龄性是儿童应用核心安全要求"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "复杂推理非儿童安全重点"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "必须双向过滤，输出同样危险"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "鼓励分享个人信息违反最小必要"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

@@ -1,0 +1,211 @@
+{
+  "9-0239": {
+    "qid": "9-0239",
+    "classification": "own",
+    "chapter": 9,
+    "quality": "ok",
+    "reason": "考查temperature参数对输出多样性的影响，考点明确。",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "temperature 控制随机性，越高越发散。事实类调低，创意类调高。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "高temperature增加随机性，输出更多样。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "高temperature不会使输出单一。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "temperature=0也非绝对固定，高temperature更不固定。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "高temperature不会导致无法生成。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "9-0313": {
+    "qid": "9-0313",
+    "classification": "own",
+    "chapter": 9,
+    "quality": "ok",
+    "reason": "考查API调用自动化流程，手动检查非必要步骤符合工程实践。",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "大模型API调用，就是应用程序通过HTTP请求...它让大模型从网页上的聊天框变成一个可以被任意程序调用的后端能力。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "预处理是必要步骤。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "调用API是必要步骤。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "自动化处理无需手动检查每个答案。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "收集并分析结果是必要步骤。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "9-0167": {
+    "qid": "9-0167",
+    "classification": "own",
+    "chapter": 9,
+    "quality": "ok",
+    "reason": "考查max_tokens参数的核心作用，考点清晰。",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "max_tokens：限制生成长度上限。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "max_tokens直接限制输出Token数量。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "输出多样性由temperature/top_p控制。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "输出确定性由temperature控制。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "减少重复性非max_tokens主要作用。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "9-0225": {
+    "qid": "9-0225",
+    "classification": "own",
+    "chapter": 9,
+    "quality": "ok",
+    "reason": "考查top_p参数在不同任务场景下的设置策略。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "事实问答、代码生成、信息抽取要稳定、少随机。文案、头脑风暴、起名要多样性。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "新闻初稿或需创意，但代码生成需稳定，不宜高top_p。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "代码生成需稳定，宜用低top_p；新闻初稿也需可控。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "默认值未必适合所有场景，需针对性调整。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "随机设置不合理。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "9-0463": {
+    "qid": "9-0463",
+    "classification": "cross",
+    "chapter": 4,
+    "quality": "remove",
+    "reason": "题干不完整，缺少关键代码片段，无法判断选项。",
+    "answer": [],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "题干信息不足，无法判断。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "题干信息不足，无法判断。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "题干信息不足，无法判断。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "题干信息不足，无法判断。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "9-0487": {
+    "qid": "9-0487",
+    "classification": "own",
+    "chapter": 9,
+    "quality": "fixable",
+    "reason": "考查生成确定性文本的参数设置，但presence_penalty教材未提及。",
+    "answer": [
+      "A",
+      "D"
+    ],
+    "supported": true,
+    "quote": "temperature 控制随机性，越高越发散。固定seed值，尽量复现输出。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "降低temperature可减少随机性。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "减少max_tokens仅限长度，不影响确定性。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "presence_penalty教材未定义，无法判断。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "固定seed有助于复现输出。"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

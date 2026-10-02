@@ -1,0 +1,162 @@
+{
+  "items": [
+    {
+      "type": 0,
+      "stem": "某企业采用 MCP 协议接入 OA、HRIS、CRM 三类内部系统工具。部署后发现：CRM 工具未出现在 Agent 的可用工具列表中；同时，HRIS 工具调用日志中明文记录了员工身份证号。依据第4章原文，以下哪项措施组合最符合 MCP 的规范要求与风险警示？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "1）检查 CRM Server 是否已启动并正确注册至 MCP Host；2）在 HRIS Server 中启用敏感字段脱敏中间件，并配置日志审计策略"
+        },
+        {
+          "option_label": "B",
+          "option_text": "1）手动将 CRM 工具 Schema 硬编码进 Agent 提示词；2）为 HRIS Server 添加 API Key 鉴权"
+        },
+        {
+          "option_label": "C",
+          "option_text": "1）要求 Agent 开发者重写 Function Calling 工具定义逻辑；2）关闭 HRIS Server 的所有日志输出"
+        },
+        {
+          "option_label": "D",
+          "option_text": "1）在 MCP Client 初始化时强制指定 CRM 工具路径；2）将 HRIS 日志存储至加密数据库"
+        }
+      ],
+      "answer": "A",
+      "analysis": "依据4.5节‘MCP：让工具即插即用的标准协议’：① MCP 的核心是‘动态发现’——Agent 启动时由 MCP Client 自动连接 Server 并拉取工具清单（原文：‘Agent 启动时客户端自动连接并拉取工具清单’），CRM 未出现必然是 Server 未就绪或未注册，而非硬编码或强制路径（B/C/D 均违背‘谁提供工具，谁定义’原则）；② 原文明确警示‘MCP Server 本身需要鉴权’且‘返回内容也可能被投毒，要防提示注入’，但更直接的风险是敏感数据泄露——4.5节‘risk’框强调安全治理，而4.8节‘Memory’和4.11节‘Harness’均要求‘隐私过滤’与‘敏感信息不应进入长期记忆’，故对 HRIS 日志的脱敏与审计是标准工程实践（A 正确）。B 错在回归硬编码，破坏 MCP 价值；C 错在混淆 MCP 与 FC 职责；D 错在绕过协议自动发现机制。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 1,
+      "stem": "一个课程审查 Skill 目录已实现：SKILL.md（含 YAML frontmatter）、code-quality.md、validate_code.py（返回结构化 JSON）。当 Agent 首次收到‘审查 Pandas 教程代码’请求时，仅加载 SKILL.md 的 description 字段，后续按需读取子文档及执行脚本。该设计体现了教材中哪些关键原则？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "渐进式披露（Progressive Disclosure）"
+        },
+        {
+          "option_label": "B",
+          "option_text": "避免全量注入（Avoid Full Injection）"
+        },
+        {
+          "option_label": "C",
+          "option_text": "Skill 与 RAG 的本质区别：选择-展开 vs 检索-注入"
+        },
+        {
+          "option_label": "D",
+          "option_text": "Function Calling 中模型只提议、程序才执行"
+        },
+        {
+          "option_label": "E",
+          "option_text": "MCP 的 Tools/Resource/Prompts 三原语分层"
+        }
+      ],
+      "answer": "A,C",
+      "analysis": "依据4.9节‘Skill：把专家经验固化为可复用流程’：① ‘渐进式披露’是 Skill 的核心设计原则（原文明确加粗标题），指仅在激活 Skill 后才加载主文件，执行到具体步骤时再读子文件，避免上下文膨胀（A 正确）；② 原文对比 Skill 与 RAG 时强调‘Skill 是选择后渐进展开，RAG 是检索后一次性注入’（C 正确），本题场景正是‘先看 description 判断是否激活，再按需展开’，完美对应；B 属于多 Agent 设计原则（4.7节），针对的是多个 Agent 提示词拼接问题，与单 Skill 内部加载无关；D 是 FC 流程铁律（4.3节），本题未涉及工具调用执行环节；E 是 MCP 架构（4.5节），本题无 Server/Client 通信场景。故仅 A 和 C 符合原文依据。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 0,
+      "stem": "某金融风控 Agent 执行‘查询信用分→判断放贷→生成报告→邮件发送’流水线。因征信 API 临时不可用，整个流程卡死。若改用 Plan-and-Execute 策略，其最根本的架构级改进应体现在哪个环节？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "将四步操作封装为单一 MCP Resource，由 Host 统一调度"
+        },
+        {
+          "option_label": "B",
+          "option_text": "在 Planner 组件中预置‘征信失败时切换至备用评分模型’的分支逻辑"
+        },
+        {
+          "option_label": "C",
+          "option_text": "允许 Agent 在执行中动态生成新工具（如本地规则引擎）并立即调用"
+        },
+        {
+          "option_label": "D",
+          "option_text": "为每个步骤配置独立的 Function Calling Schema，并增加 timeout 参数"
+        }
+      ],
+      "answer": "C",
+      "analysis": "依据4.6.3节‘自主规划（Plan-and-Execute）’：原文定义其本质是‘围绕用户高阶目标，先生成计划，再逐项执行；遇到障碍时重新规划’，并特别指出进阶做法是‘给 Agent 一个代码解释器作为元工具，让它在执行中动态创造新工具’（原文：‘用代码解释器执行，就能用上变量、条件、循环甚至第三方库……动态创造新工具’）。C 项直接对应此核心能力——当预设征信工具失效，Agent 可动态生成并执行本地规则引擎替代，体现真正的‘重新规划’而非预设分支；B 是固定工作流的分支模式（4.6.2节），仍属‘预设流程图’，无法应对未预见故障；A 混淆 MCP Resource（只读数据）与可执行动作；D 是 FC 基础参数优化，不改变‘卡死’本质。故 C 是唯一符合‘Plan-and-Execute’架构级定义的答案。",
+      "difficulty_label": "挑战"
+    },
+    {
+      "type": 1,
+      "stem": "某团队调试报销查询 Agent 时发现：工具执行代码已正确解析 model 输出的 tool_calls，调用内部服务后返回 'Invalid month format'；JSON-Schema 中 month 字段定义为 {'type': 'string', 'pattern': '^\\\\d{4}-\\\\d{2}$'}，而模型传入 '2024-07'。此时应优先排查哪些环节？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "检查模型是否支持正则 pattern 校验（部分模型忽略 pattern 字段）"
+        },
+        {
+          "option_label": "B",
+          "option_text": "验证 JSON-Schema 中 pattern 的转义是否正确（\\\\ 应为 \\）"
+        },
+        {
+          "option_label": "C",
+          "option_text": "确认工具执行层是否对传入参数做二次格式校验"
+        },
+        {
+          "option_label": "D",
+          "option_text": "核查 MCP Server 是否覆盖了原始 Schema 定义"
+        },
+        {
+          "option_label": "E",
+          "option_text": "分析 ReAct Agent 的 Observation 是否被错误截断导致模型误判"
+        }
+      ],
+      "answer": "A,B,C",
+      "analysis": "依据4.3节‘Function Calling’与4.5节‘MCP’：① 原文强调‘参数提取准不准，取决于三件事：Schema 质量、模型能力、上下文清晰度’，并指出‘Schema 字段名含糊、描述缺失，会直接导致参数提取错误’（4.3节 risk 框）；A 对应‘模型能力’——部分轻量模型确实忽略 pattern，需验证；② B 对应‘Schema 质量’——JSON-Schema 中正则需双反斜杠转义（\\\\d），若实际写成 \\d 则 pattern 失效，这是 Schema 定义常见缺陷（4.3节强调 Schema 必须清晰）；③ C 对应‘程序执行’责任——FC 流程中‘应用代码执行函数’（4.3节 principle），工具层必须做防御性校验，不能依赖模型保证（4.2节 principle：‘工具必须以 JSON-Schema 描述’，但执行层需兜底）；D 错：MCP Server 暴露的是自身 Schema，不覆盖 FC 的 Schema；E 错：Observation 截断影响后续推理，但本题故障发生在工具执行前（参数已传入且报错），与 Observation 无关。故 A/B/C 是直接关联的三个必要排查点。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 0,
+      "stem": "某多 Agent 客服系统中，Leader Agent 将‘查订单’任务分派给 Worker A，‘查物流’分派给 Worker B。审计发现：Worker A 与 B 共用同一套数据库账号；所有 Worker 的完整系统提示词被拼入 Leader 的初始 Prompt；且 Worker 间存在直接互调现象。这些设计违反了教材中哪两条硬原则？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "明确职责 & 中央调度"
+        },
+        {
+          "option_label": "B",
+          "option_text": "独立凭据 & 避免全量注入"
+        },
+        {
+          "option_label": "C",
+          "option_text": "中央调度 & 避免全量注入"
+        },
+        {
+          "option_label": "D",
+          "option_text": "独立凭据 & 中央调度"
+        }
+      ],
+      "answer": "D",
+      "analysis": "依据4.7节‘多 Agent 设计四条硬原则’：① ‘独立凭据’：原文明确‘不同 Agent 不得共用同一套账号/API 凭据’，共用数据库账号直接违反此条（对应题干‘共用同一套数据库账号’）；② ‘中央调度’：原文要求‘设置 Planner / Leader Agent 统一判断何时调哪个 Agent，避免 Agent 之间无序互调、循环等待（死锁）’，题干‘Worker 间存在直接互调’正是典型违反；③ ‘避免全量注入’：原文指‘不要把所有 Agent 的知识/工具清单一次性写进主 Prompt’，题干‘所有 Worker 的完整系统提示词被拼入 Leader 的初始 Prompt’完全匹配；④ ‘明确职责’：题干未提及职责重叠或模糊。题干共描述三个问题，但题目问‘违反了哪两条硬原则’，需选最直接对应的两项。‘共用账号’→独立凭据；‘Worker 互调’→中央调度；‘拼入全部提示词’→避免全量注入。但选项中只有 D 同时包含‘独立凭据’和‘中央调度’，且二者均为题干明确列出的问题（A/B/C 均未同时覆盖这两个最严重违规）。故 D 正确。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 0,
+      "stem": "某教育平台课程审查 Agent 持续给出‘建议增加注释’等泛泛反馈，却漏掉团队特有规范如‘禁止使用 eval()’‘必须用 DataFrame.copy()’。开发团队决定固化这些规范。依据第4章4.9节，相比将规范存入长期记忆，最本质的解决方案是？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "将规范写入 QWEN.md 全局配置文件，并在每次会话初始化时加载"
+        },
+        {
+          "option_label": "B",
+          "option_text": "为每个规范创建独立 MCP Prompt 原语，由 Agent 按需调用"
+        },
+        {
+          "option_label": "C",
+          "option_text": "编写 Skill 目录，将规范编码为 code-quality.md 子文档及 validate_code.py 脚本"
+        },
+        {
+          "option_label": "D",
+          "option_text": "在 Function Calling 工具中新增一个‘check_team_rules’函数"
+        }
+      ],
+      "answer": "C",
+      "analysis": "依据4.9节‘Skill：把专家经验固化为可复用流程’：原文定义 Skill 解决的是‘模型不知道该怎么做某类专业任务’，而非‘不知道某个事实’（那是 RAG 的活）；并强调 Skill 是‘模块化、可复用、可版本化’的能力单元，包含 YAML frontmatter（决定是否激活）、正文（怎么做）、子资源（具体检查项）和脚本（确定性验证）（4.9节结构图）。C 项完全匹配：code-quality.md 存储规范（子文档），validate_code.py 实现确定性检查（脚本），YAML 控制激活——这正是 Skill 的标准形态；A 错：QWEN.md 是 Coding Agent 的三级配置（4.11节），用于项目约束，非通用 Skill 封装；B 错：MCP Prompt 原语是‘可复用的提示词模板’（4.5节表格），用于提示词复用，不承载执行逻辑与确定性验证；D 错：单纯新增 FC 函数无法解决‘规范未被触发’问题，且缺乏 Skill 的渐进式披露、版本化、SOP 固化等核心价值。故 C 是唯一符合教材 Skill 本质定义的答案。",
+      "difficulty_label": "挑战"
+    }
+  ]
+}

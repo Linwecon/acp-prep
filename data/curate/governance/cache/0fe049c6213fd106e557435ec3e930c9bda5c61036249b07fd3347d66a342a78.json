@@ -1,0 +1,214 @@
+{
+  "12-0478": {
+    "qid": "12-0478",
+    "classification": "own",
+    "chapter": 12,
+    "quality": "ok",
+    "reason": "百炼平台工具在原文12.6.2明确列出",
+    "answer": [
+      "A",
+      "B"
+    ],
+    "supported": true,
+    "quote": "Dify 是一个开源的低代码 LLM 应用开发平台，用可视化界面把'知识库（RAG）、工作流、Agent、模型接入、工具调用、发布'串成一条流水线。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "原文明确'工作流'为百炼可视化能力"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "原文明确'Agent'为百炼可视化能力"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "LlamaIndex是独立框架非百炼工具"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "NLP模型是基础模型非构建工具"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "12-0996": {
+    "qid": "12-0996",
+    "classification": "own",
+    "chapter": 12,
+    "quality": "ok",
+    "reason": "Document对象是LlamaIndex链路起点",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "Document → NodeParser → Node → Index → Retriever → QueryEngine → Response",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "SimpleDirectoryReader返回列表而非单对象"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "索引是后续步骤产物"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "原文链路明确Document为初始抽象"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "字符串丢失结构化信息"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "12-1079": {
+    "qid": "12-1079",
+    "classification": "own",
+    "chapter": 12,
+    "quality": "ok",
+    "reason": "LangChain LLM需可调用函数",
+    "answer": [
+      "D"
+    ],
+    "supported": true,
+    "quote": "所有实现了 Runnable 协议的组件都天然支持流式、异步、批处理、并行和回调",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "API Key仅是认证要素"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "Model name需配合调用逻辑"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "JSON非LangChain标准输入"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "Runnable协议要求函数式接口"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "12-1284": {
+    "qid": "12-1284",
+    "classification": "own",
+    "chapter": 12,
+    "quality": "ok",
+    "reason": "LlamaIndex链路顺序题",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "Document -> NodeParser -> Node -> Index -> Retriever -> QueryEngine -> Response",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "原文链路完全匹配"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "Index在Node之后生成"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "Document是起点而非Node"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "顺序完全颠倒"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "12-1391": {
+    "qid": "12-1391",
+    "classification": "own",
+    "chapter": 12,
+    "quality": "ok",
+    "reason": "创建索引需先读取文档",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "1. 读入目录下的文档\\ndocuments = SimpleDirectoryReader(\"./docs\").load_data()",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "StorageContext用于持久化存储"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "VectorStoreIndex需Document输入"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "原文示例首步即SimpleDirectoryReader"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "load_index_from_storage用于加载已有索引"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "12-0495": {
+    "qid": "12-0495",
+    "classification": "own",
+    "chapter": 12,
+    "quality": "ok",
+    "reason": "默认模板变量在原文明确",
+    "answer": [
+      "A",
+      "B"
+    ],
+    "supported": true,
+    "quote": "{context_str} 注入的是从向量库召回的资料，用户问题由 {query_str} 注入",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "原文明确context_str为必要变量"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "原文明确query_str为必要变量"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "角色在system prompt中非模板变量"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "格式非默认模板必需要素"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

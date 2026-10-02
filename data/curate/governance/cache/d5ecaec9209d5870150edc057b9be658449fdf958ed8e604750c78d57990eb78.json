@@ -1,0 +1,210 @@
+{
+  "3-0482": {
+    "qid": "3-0482",
+    "classification": "unsure",
+    "chapter": 3,
+    "quality": "remove",
+    "reason": "题干概念GraphRAG未在教材中定义，选项与教材RAG内容无关，无考查价值。",
+    "answer": [],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "教材未提及GraphRAG，无法判断。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "教材未提及GraphRAG，无法判断。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "教材未提及GraphRAG，无法判断。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "教材未提及GraphRAG，无法判断。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-0483": {
+    "qid": "3-0483",
+    "classification": "cross",
+    "chapter": -1,
+    "quality": "remove",
+    "reason": "题干问“其他应用场景”，与RAG核心流程无关，选项C/D明显错误但无教材依据，考查点模糊。",
+    "answer": [],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "教材未明确讨论此场景。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "教材未明确讨论此场景。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "与RAG流程无关，常识错误。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "与RAG流程无关，常识错误。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-0489": {
+    "qid": "3-0489",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "考查检索准确性提升手段，选项B/C符合教材，A/D需辨析。",
+    "answer": [
+      "B",
+      "C"
+    ],
+    "supported": true,
+    "quote": "Rerank（重排序）...第二阶段用更强的重排序模型对候选逐篇精细打分、重新排序，只把最相关的少数交给大模型。...典型配置...用相似度阈值0.2过滤",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "召回切片数量大可能引入噪声，不必然提高准确性。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "教材明确重排序可提升精确率。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "教材示例使用相似度阈值过滤不相关切片。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "增加训练次数与检索准确性无直接关系。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-0491": {
+    "qid": "3-0491",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "考查问题改写方法，A/B/C符合教材检索增强技术，D是后续步骤。",
+    "answer": [
+      "A",
+      "B",
+      "C"
+    ],
+    "supported": true,
+    "quote": "查询改写...先用LLM把含代词的问题改写成完整问题...HyDE（假设文档嵌入）...先让LLM编一段假想答案，用假想答案的向量去检索",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "使用大模型扩充问题是查询改写的一种。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "改写为多步骤查询是还原意图的方法。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "HyDE即假设文档嵌入，用于增强检索。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "重排序在检索之后，不属于检索前改写。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-0494": {
+    "qid": "3-0494",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "考查切片长度过短的改进策略，A/B符合教材调优经验，C/D无关。",
+    "answer": [
+      "A",
+      "B"
+    ],
+    "supported": true,
+    "quote": "chunk太短、信息被截断 → 增大切片长度或改用句子窗口。...切片选型与排错经验...出现以下问题时这样调",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "直接扩大切片长度是直接对策。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "开发更合适策略如句子窗口是优化方向。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "增加训练数据与切片长度问题无关。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "减少推理时间与解决切片过短无关。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-0503": {
+    "qid": "3-0503",
+    "classification": "misplaced",
+    "chapter": -1,
+    "quality": "remove",
+    "reason": "题干“知识库召回结果”定义不明，选项A/B/D语义模糊且与RAG评估或检索结果无关，C明显错误，题目无意义。",
+    "answer": [],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "语义模糊，非教材定义的结果形式。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "语义模糊，非教材定义的结果形式。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "明显错误，与召回结果无关。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "语义模糊，非教材定义的结果形式。"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

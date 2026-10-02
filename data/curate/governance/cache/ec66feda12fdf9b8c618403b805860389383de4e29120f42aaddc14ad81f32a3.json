@@ -1,0 +1,206 @@
+{
+  "10-0361": {
+    "qid": "10-0361",
+    "classification": "beyond",
+    "chapter": 10,
+    "quality": "remove",
+    "reason": "考查LLM通用能力，非阿里云平台特有知识",
+    "answer": [],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "与平台无关"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "属大模型基础共性"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "属大模型基础共性"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "属大模型基础共性"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "10-0388": {
+    "qid": "10-0388",
+    "classification": "beyond",
+    "chapter": 10,
+    "quality": "remove",
+    "reason": "Qwen-VL-Max未在章节目录或原文中提及",
+    "answer": [],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "未定义该模型能力"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "未定义该模型能力"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "未定义该模型能力"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "未定义该模型能力"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "10-0396": {
+    "qid": "10-0396",
+    "classification": "cross",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "RAG预处理属第3章核心考点",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "文档解析与结构保留",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "Parse是标准解析手段"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "润色目录属合理增强"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "必须解析切片再向量化"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "选择性解析符合实践"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "10-0791": {
+    "qid": "10-0791",
+    "classification": "cross",
+    "chapter": 8,
+    "quality": "ok",
+    "reason": "敏感问题识别属AI安全范畴",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "输入过滤/运行监控/输出审查三层防御",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "违反安全原则"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "分类识别是标准方案"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "回避不可靠"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "关键词限制不全面"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "10-1084": {
+    "qid": "10-1084",
+    "classification": "cross",
+    "chapter": 11,
+    "quality": "ok",
+    "reason": "多模态处理策略属第11章",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "多模态RAG知识形态扩展",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "过度解析增加成本"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "Parse是推荐方案"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "拆分任务是合理设计"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "正则替代是最佳实践"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "10-1208": {
+    "qid": "10-1208",
+    "classification": "misplaced",
+    "chapter": 8,
+    "quality": "remove",
+    "reason": "音频审核服务未在本章出现",
+    "answer": [],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "未定义该字段"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "未定义该字段"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "未定义该字段"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "未定义该字段"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

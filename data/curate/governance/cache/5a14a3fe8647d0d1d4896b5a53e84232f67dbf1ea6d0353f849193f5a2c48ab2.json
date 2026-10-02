@@ -1,0 +1,224 @@
+{
+  "new-12-6-0": {
+    "qid": "new-12-6-0",
+    "classification": "own",
+    "chapter": 12,
+    "quality": "ok",
+    "reason": "题干场景直接对应12.1节框架价值论述，考查核心观点。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "直接调 SDK 能解决一切吗？对一个‘输入一句话、输出一句话’的脚本，完全可以。但真实应用通常会反复出现几类‘共性脏活’……框架的本质价值是‘把大模型应用中反复出现的工程模式抽象成可组合的组件’。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "框架不提升模型智力，原文明确。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "题干现象印证框架解决‘共性脏活’，价值在工程化编排。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "绝对化，LlamaIndex可独立工作，组合非必须。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "绝对化，Dify非万能，代码框架仍有价值。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-12-6-1": {
+    "qid": "new-12-6-1",
+    "classification": "own",
+    "chapter": 12,
+    "quality": "ok",
+    "reason": "考查12.4节LangChain与LlamaIndex组合使用的典型场景。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "一种非常常见的生产架构是：LlamaIndex 负责‘数据层’……LangChain / LangGraph 负责‘编排层’。举例：用 LlamaIndex 建好向量索引、封装成一个 Retriever，再把这个 Retriever 作为 Tool 挂到 LangChain 的 Agent 上。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "弃用已建索引不必要，违背组合原则。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "符合组合架构：LlamaIndex检索，LangChain编排Agent。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "AgentScope非必须，题干未强调多Agent协作。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "强制Dify不合理，复杂Agent需代码框架。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-12-6-2": {
+    "qid": "new-12-6-2",
+    "classification": "own",
+    "chapter": 12,
+    "quality": "ok",
+    "reason": "考查12.5节文档解析工具链选型，结合离线、扫描件、表格等约束。",
+    "answer": [
+      "B",
+      "E"
+    ],
+    "supported": true,
+    "quote": "文档是扫描件、截图、复杂表格、图文混排 PDF → 上 DashScopeParse（OCR + 版面结构化）；需要完全离线、多格式统一分区，或百炼不满足合规 → 评估 Unstructured 或 PyMuPDF；内部专有格式 → 自定义 Reader。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "DashScopeParse是云服务，违反离线要求。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "Unstructured支持离线分区解析，可保留结构。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "SimpleDirectoryReader对扫描件、复杂表格处理有限。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "PyMuPDF对扫描件无效，不符合要求。"
+      },
+      {
+        "label": "E",
+        "selected": true,
+        "why": "自定义Reader可针对专有格式开发，符合要求。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-12-6-3": {
+    "qid": "new-12-6-3",
+    "classification": "own",
+    "chapter": 12,
+    "quality": "ok",
+    "reason": "考查12.3节LlamaIndex索引持久化知识点，题干现象典型。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "索引需要持久化，避免每次重建。通过 StorageContext.from_defaults(persist_dir=...) + index.storage_context.persist(...) 把索引落到本地。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "LCEL是LangChain概念，与索引重建无关。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "每次查询重建索引导致延迟，应持久化。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "解析质量非延迟突增主因，且未提及。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "top_k影响检索耗时，非索引重建。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-12-6-4": {
+    "qid": "new-12-6-4",
+    "classification": "own",
+    "chapter": 12,
+    "quality": "ok",
+    "reason": "考查12.7节技术栈分层原则，故障体现UI与服务层耦合问题。",
+    "answer": [
+      "B",
+      "E"
+    ],
+    "supported": true,
+    "quote": "Gradio 只负责界面，不承载业务逻辑。RAG、Agent、提示词这些应放在下层可独立测试的模块里，UI 只调用它们的接口。否则一旦要把 Demo 变成正式产品，所有逻辑都和 UI 耦在一起，无法重写。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "Gradio和FastAPI属不同层，不应强制共享实例。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "故障因逻辑与UI绑定，需解耦下沉为独立模块。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "RAGAS是评估层，与生产监控无必然集成关系。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "原则正确，但非此故障直接揭示的关键原则。"
+      },
+      {
+        "label": "E",
+        "selected": true,
+        "why": "业务逻辑不应与UI绑定，否则无法复用。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-12-6-5": {
+    "qid": "new-12-6-5",
+    "classification": "own",
+    "chapter": 12,
+    "quality": "ok",
+    "reason": "考查12.6节Dify风险警示，私有部署不等于自动安全合规。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "私有部署 ≠ 自动合规：数据不出域只是第一步，内容安全审核、权限分级、审计日志仍需自己配置。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "涉及框架抽象泄漏，但非此场景核心违背点。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "认知错误，私有部署只解决出域，权限等需自行配置。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "LangChain Callback非Dify场景，且非核心违背点。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "RAGAS评估安全漏洞非此场景核心。"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

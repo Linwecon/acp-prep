@@ -1,0 +1,215 @@
+{
+  "new-9-12-0": {
+    "qid": "new-9-12-0",
+    "classification": "own",
+    "chapter": 9,
+    "quality": "ok",
+    "reason": "题目考查对错误处理和重试策略的理解，符合本章知识点。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "指数退避 + 抖动（Exponential Backoff with Jitter）是处理 429/5xx 的标准做法",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "题干已明确是429错误，属于限流，与4xx/5xx区分无关。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "固定延迟重试易导致重试风暴，违反指数退避与随机抖动原则。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "429错误是限流，与API Key有效性无关。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "题干已说明重试3次，并非无限循环。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-9-12-1": {
+    "qid": "new-9-12-1",
+    "classification": "own",
+    "chapter": 9,
+    "quality": "ok",
+    "reason": "题目考查成本控制原则，涉及输入Token优化，符合本章内容。",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "控制输入长度——压缩历史、过滤无关检索结果、精简 system prompt",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "拆分system prompt会增加调用次数，可能增加总成本。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "缓存功能是平台行为，非直接可控的优化措施。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "截断历史、压缩摘要、精简静态指令可直接减少输入Token。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "降低单价是间接措施，不如直接减少输入Token有效。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-9-12-2": {
+    "qid": "new-9-12-2",
+    "classification": "own",
+    "chapter": 9,
+    "quality": "ok",
+    "reason": "题目考查不同场景下调用方式选型，覆盖流式、批量和同步调用。",
+    "answer": [
+      "A",
+      "B",
+      "C"
+    ],
+    "supported": true,
+    "quote": "在线对话、聊天机器人等面向用户的场景默认开启流式，显著降低 TTFT",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "实时提问要求秒级首字响应，流式输出可降低TTFT。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "批量、非实时任务适合Batch API异步处理。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "获取精确数据无需流式，同步调用即可。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "同步接口逐个调用可能触发限流，且成本不变说法不准确。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-9-12-3": {
+    "qid": "new-9-12-3",
+    "classification": "own",
+    "chapter": 9,
+    "quality": "ok",
+    "reason": "题目考查Function Calling API层的实现细节，符合本章知识点。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "回传结果时漏 tool_call_id——模型无法把结果和之前的调用对应起来",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "题干未提及是否追加response_message，错误在于回传格式。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "工具结果必须用role='tool'并携带tool_call_id回传。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "Schema描述问题可能导致参数提取失败，但非题干描述的错误。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "tool_choice设置为'auto'是默认行为，非错误原因。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-9-12-4": {
+    "qid": "new-9-12-4",
+    "classification": "own",
+    "chapter": 9,
+    "quality": "ok",
+    "reason": "题目考查请求参数校验，符合API调用工程实践。",
+    "answer": [
+      "A",
+      "C"
+    ],
+    "supported": true,
+    "quote": "400 Bad Request——请求参数错误：messages 格式错、参数越界、字段非法",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "schema校验可确保role值符合规范，预防格式错误。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "统一转小写可能不符合所有平台规范，非根本预防措施。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "content非空校验可避免空字符串导致的参数错误。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "400错误不应重试，重试无法修正根本问题。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-9-12-5": {
+    "qid": "new-9-12-5",
+    "classification": "own",
+    "chapter": 9,
+    "quality": "ok",
+    "reason": "题目考查API Key泄露后的应急处理步骤，符合安全实践。",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "泄漏后的应急顺序：立即禁用/轮换 Key → 检查近期调用记录 → 评估损失",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "顺序符合教材推荐的黄金顺序：先止损，再评估。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "先更新.gitignore和扫描历史，未优先止损。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "先检查记录和评估损失，未优先禁用/轮换Key。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "先扫描历史提交，未优先采取止损措施。"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

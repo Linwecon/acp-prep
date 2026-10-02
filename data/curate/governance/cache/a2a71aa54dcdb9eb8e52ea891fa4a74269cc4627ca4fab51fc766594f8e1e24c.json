@@ -1,0 +1,154 @@
+{
+  "items": [
+    {
+      "type": 0,
+      "stem": "某企业微信机器人在早高峰（8:30-9:00）频繁返回429错误，运维日志显示RPM配额每分钟100次，但实际请求峰值达280次/分钟。此时前端未做任何限流，后端直接透传请求。以下哪项是最符合本章工程原则的根因定位与首步修复？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "模型服务端临时过载，应立即联系平台方扩容TPM配额"
+        },
+        {
+          "option_label": "B",
+          "option_text": "客户端未实现指数退避重试，导致重试风暴加剧限流，应优先在SDK层配置retry_strategy"
+        },
+        {
+          "option_label": "C",
+          "option_text": "API Key权限不足，需升级为高级权限以提升RPM，应提交工单申请"
+        },
+        {
+          "option_label": "D",
+          "option_text": "后端未对并发请求数做主动控制，应在调用前加令牌桶限流，将峰值压至≤100次/分钟"
+        }
+      ],
+      "answer": "D",
+      "analysis": "依据原文9.8节‘错误处理、限流与重试’及9.11节故障排查地图：429本质是‘超出RPM/TPM/并发配额’（教材明确），而题干给出关键数据——RPM配额100次/分钟，实测峰值280次/分钟，说明问题根源是**客户端流量未经节制直接冲击服务端**。教材‘生产环境稳定性checklist’第一条即强调‘主动控并发：用令牌桶/信号量限制同时发出的请求数’（9.8），且9.11表中明确‘429→排查方向：指数退避+抖动重试、主动控并发、申请提额’，其中‘主动控并发’是前置性防御措施，优于被动重试（B选项错误：重试仅解决已发生的429，无法阻止新请求持续触发429；A/C选项无教材依据：RPM是配额维度而非服务端过载或权限问题）。D选项直击‘流量整形’这一本章强调的工程核心，符合‘让调用在高压下活下来’的章节目标。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 1,
+      "stem": "某HR系统需批量生成500份新员工培训材料摘要，要求次日9点前交付，允许夜间离线处理。当前使用同步API逐条调用，发现耗时长、成本高且易受限流影响。根据第9章内容，以下哪些措施属于Batch API的正确应用实践？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "将500个请求构造成JSONL文件，每行包含model、messages和自定义request_id"
+        },
+        {
+          "option_label": "B",
+          "option_text": "提交Batch任务后，每30秒轮询一次任务状态，直到status=completed"
+        },
+        {
+          "option_label": "C",
+          "option_text": "下载结果JSONL后，直接按行顺序解析，无需校验request_id与输入行是否一一对应"
+        },
+        {
+          "option_label": "D",
+          "option_text": "若某行处理失败，整批任务需重新提交，避免结果错位"
+        }
+      ],
+      "answer": "AB",
+      "analysis": "依据原文9.10节‘批量生成（Batch API）’：A正确——教材明确‘准备输入文件：通常是JSONL格式，每行是一个独立请求（含自定义请求ID）’（9.10）；B正确——‘轮询/回调：查询任务状态（排队中→运行中→已完成/失败）’是标准流程（9.10）；C错误——教材‘风险’栏强调‘结果文件不用校验直接用’是误区，‘必须校验行数、ID对齐，防止结果错位’（9.10）；D错误——教材‘常见误区’指出‘批内一行失败就整批失败’是错误认知，‘一般按行独立处理，失败行单独重试即可’（9.10）。因此AB符合教材最佳实践，CD违背教材明确警示。",
+      "difficulty_label": "中等"
+    },
+    {
+      "type": 0,
+      "stem": "新人答疑机器人上线后，员工连续追问‘那怎么申请账号’时，机器人回答通用注册流程，未关联上一轮提到的Jira。开发团队检查代码发现：每次请求仅构造[{'role':'user','content':question}]，未携带历史消息。此现象最根本违反了本章哪一核心概念？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "Function Calling的两次调用闭环未完成"
+        },
+        {
+          "option_label": "B",
+          "option_text": "API调用是无状态的，多轮上下文必须由客户端每次传全"
+        },
+        {
+          "option_label": "C",
+          "option_text": "stream=True未开启导致TTFT过高，影响上下文感知"
+        },
+        {
+          "option_label": "D",
+          "option_text": "temperature设置过高导致输出不稳定"
+        }
+      ],
+      "answer": "B",
+      "analysis": "依据原文9.5节‘messages结构与多轮对话’：题干描述‘仅构造单条user消息，未携带历史’，直接对应教材核心定义——‘大模型API是无状态的……所谓多轮对话能力，本质是客户端把历史消息按角色组织好，每次调用都完整地放进messages里再传一遍’（9.5）。教材9.11故障排查表更明确指出‘多轮对话失忆→大概率病根：历史消息没放进messages’（9.11）。A选项涉及工具调用，与题干无关；C选项流式影响传输方式，不改变上下文逻辑；D选项随机性影响内容风格，不导致指代丢失。B选项精准命中本章关于API无状态性的根本原理，是教材反复强调的‘记忆真相’。",
+      "difficulty_label": "基础"
+    },
+    {
+      "type": 1,
+      "stem": "某财务系统需调用大模型分析月度报销单，要求输出严格JSON格式（含amount、category、reason字段）。为保障格式稳定与成本可控，依据第9章，以下哪些参数配置和工程实践是必要的？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "设置temperature=0.0并配合JSON Schema约束输出"
+        },
+        {
+          "option_label": "B",
+          "option_text": "将完整的报销单PDF全文作为system prompt传入"
+        },
+        {
+          "option_label": "C",
+          "option_text": "使用qwen-turbo模型而非qwen-max，降低Token单价"
+        },
+        {
+          "option_label": "D",
+          "option_text": "在messages中添加role='system'消息，明确指令‘仅输出合法JSON，不要任何解释’"
+        }
+      ],
+      "answer": "ACD",
+      "analysis": "依据原文9.4节‘核心参数详解’与9.9节‘计费与Token配额’：A正确——教材‘场景化选型建议’表明确‘需程序解析的结构化输出’应设‘temperature=0~0.3’（9.4），且9.4‘风险’栏强调‘事实查询要低temperature’；C正确——教材‘选型口诀’及9.9‘成本控制优先级’均指出‘简单任务用Turbo’（9.2,9.9）；D正确——教材9.2示例及9.5原则强调system消息用于‘设置角色、规则、输出格式’（9.2,9.5）；B错误——教材9.9明确警告‘system prompt长度影响输入Token费用’，且‘PDF全文’远超合理长度，违反‘简洁、稳定’原则（9.9），应提取关键字段而非传全文。ACD均符合教材参数选型与成本控制双重要求。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 0,
+      "stem": "开发团队在调试Function Calling功能时，模型返回了tool_calls，但最终响应中未出现预期的论文信息。经检查，代码执行了工具函数并获取结果，却未将结果追加到messages中便发起第二次调用。此错误直接违反了本章哪一条API层面的关键原则？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "tool_calls字段仅表示模型提议，工具执行必须由应用程序完成"
+        },
+        {
+          "option_label": "B",
+          "option_text": "第二次调用前必须将第一次的response_message和tool执行结果作为role='tool'消息追加进messages"
+        },
+        {
+          "option_label": "C",
+          "option_text": "tools参数中的JSON Schema必须包含required字段，否则参数提取失败"
+        },
+        {
+          "option_label": "D",
+          "option_text": "tool_choice应设为'none'以强制模型不调用工具"
+        }
+      ],
+      "answer": "B",
+      "analysis": "依据原文9.7节‘Function Calling从API视角’：题干描述‘执行了工具但未追加结果就二次调用’，精准对应教材9.7‘API视角的四个关键字段’中‘role=\"tool\"’的定义——‘程序执行工具后回传结果的消息，必须带tool_call_id’（9.7），且教材‘风险’栏明确列出‘❌ 忘了把response_message追加进messages→第二次调用时模型不知道自己之前决策了什么’（9.7）。B选项完整复述了这一强制步骤，是API闭环的必要条件。A选项虽正确（教材‘exam’栏强调‘模型返回tool_calls不等于工具已执行’），但题干错误在于‘未追加’而非‘未执行’；C选项是Schema设计问题，与题干无关；D选项与功能目标相悖。B是唯一直接解释‘为何最终无结果’的教材依据。",
+      "difficulty_label": "中等"
+    },
+    {
+      "type": 0,
+      "stem": "某公司前端工程师为快速联调，将DASHSCOPE_API_KEY硬编码在Vue组件的data()中，并提交至内部GitLab仓库。三天后财务发现账单异常飙升。根据第9章API Key安全规范，此操作最严重违反了哪一条‘军规’？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "最小权限 + 定期轮换"
+        },
+        {
+          "option_label": "B",
+          "option_text": "环境变量/密钥服务托管"
+        },
+        {
+          "option_label": "C",
+          "option_text": "不提交Git"
+        },
+        {
+          "option_label": "D",
+          "option_text": "前端绝不放Key"
+        }
+      ],
+      "answer": "D",
+      "analysis": "依据原文9.3节‘API Key安全最佳实践’：题干明确‘前端工程师’‘硬编码在Vue组件’，教材‘五条军规’第四条即‘前端绝不放Key’，并注释‘浏览器端请求走后端代理，由后端附加Key’（9.3）；教材‘exam’栏更直接判定‘为了方便前端联调，可以把API Key写在前端代码里→❌，前端Key等于公开’（9.3）。虽然B（环境变量托管）和C（不提交Git）也违规，但D是**最直接、最不可妥协的红线**——教材将‘前端放Key’列为首要风险，因其等同于将凭证公之于众（9.3场景）。A选项‘最小权限’非本题焦点。D选项精准对应教材对前端场景的绝对禁止性规定。",
+      "difficulty_label": "基础"
+    }
+  ]
+}

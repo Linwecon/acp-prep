@@ -1,0 +1,270 @@
+{
+  "10-0458": {
+    "qid": "10-0458",
+    "classification": "own",
+    "chapter": 10,
+    "quality": "ok",
+    "reason": "考查DashScope Assistant API中工具调用的执行与结果提交流程，属于API调用与工具使用范畴。",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "get the function name,run and return thefunction output to the server",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "函数功能是执行工具调用，不是创建Assistant。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "函数处理的是工具调用结果，不是提交用户query。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "函数解析工具调用，执行函数，并将输出提交给服务器。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "函数是提交工具输出，不是获取Assistant回复。"
+      },
+      {
+        "label": "E",
+        "selected": false,
+        "why": "函数不创建Thread，而是处理运行状态。"
+      },
+      {
+        "label": "F",
+        "selected": false,
+        "why": "函数主动提交输出，不是被动等待Run完成。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "10-1452": {
+    "qid": "10-1452",
+    "classification": "own",
+    "chapter": 10,
+    "quality": "ok",
+    "reason": "考查DashScope Assistant API查询流程中各步骤的功能理解，属于API调用与工具使用。",
+    "answer": [
+      "A",
+      "B",
+      "C",
+      "D",
+      "E",
+      "F"
+    ],
+    "supported": true,
+    "quote": "message =dashscope.Messages.create(self.thread.id,Content=query)message_run =dashscope.Runs.create(self.thread.id,Assistant_id=self.assistant.id)run_status =Dashscope. Runs.wait(message_run.id,thread_id=self.thread.id)if Run_status.required_action:self.forward_and_submit_outputs(run_status)Run_status =dashscope.Runs.wait(run_status.id,thread_id=self.thread.id)msgs=dashscope.Messages.list(self.thread.id)answer=json.loads(json.dumps(msgs,Default=lambda o:o.dict()))['data'][O]['content'][0]['text']['value']",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "代码首行创建message对象。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "在required_action条件下调用该函数。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "代码中调用了dashscope.Runs.create。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "代码中两次调用了dashscope.Runs.wait。"
+      },
+      {
+        "label": "E",
+        "selected": true,
+        "why": "代码中调用了dashscope.Messages.list。"
+      },
+      {
+        "label": "F",
+        "selected": true,
+        "why": "代码最后解析msgs获取answer。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "10-0575": {
+    "qid": "10-0575",
+    "classification": "own",
+    "chapter": 10,
+    "quality": "ok",
+    "reason": "考查DashScope Assistant API中Runs.wait方法的作用，属于API调用与工具使用。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "wait是同步等待，不是监听消耗资源。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "wait阻塞当前线程直到响应准备好。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "wait是同步调用，不是异步提升速度。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "wait等待运行完成，不是确保消息存储。"
+      },
+      {
+        "label": "E",
+        "selected": false,
+        "why": "wait等待运行状态，不是等待工具输出。"
+      },
+      {
+        "label": "F",
+        "selected": false,
+        "why": "wait返回最终状态，不是实时进度。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "10-1021": {
+    "qid": "10-1021",
+    "classification": "cross",
+    "chapter": -1,
+    "quality": "review",
+    "reason": "题目涉及Qwen-Max、CosVoice、moviepy协同，但教材未提及CosVoice和moviepy，无法判断正确性。",
+    "answer": [],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "教材未提及CosVoice功能，无法判断。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "教材未提及CosVoice功能，无法判断。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "教材未提及moviepy功能，无法判断。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "Qwen-Max是文本模型，生成字幕可能，但非主要功能。"
+      },
+      {
+        "label": "E",
+        "selected": false,
+        "why": "教材未提及moviepy功能，无法判断。"
+      },
+      {
+        "label": "F",
+        "selected": false,
+        "why": "教材未提及协同流程，无法判断。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "10-1186": {
+    "qid": "10-1186",
+    "classification": "own",
+    "chapter": 10,
+    "quality": "ok",
+    "reason": "考查DashScope Runs.wait方法返回的终止状态，属于API调用与工具使用。",
+    "answer": [
+      "D"
+    ],
+    "supported": true,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "completed是任务完成的终止状态。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "failed是任务失败的终止状态。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "cancelled是任务取消的终止状态。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "in_progress表示进行中，不是终止状态。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "10-1199": {
+    "qid": "10-1199",
+    "classification": "own",
+    "chapter": 10,
+    "quality": "ok",
+    "reason": "考查APIAssistantAgent查询函数中与大模型交互的步骤，属于API调用与工具使用。",
+    "answer": [
+      "A",
+      "B",
+      "C",
+      "D",
+      "E",
+      "F"
+    ],
+    "supported": true,
+    "quote": "message = dashscope.Messages.create(self.thread_id, content=query)message_run = dashscope.Runs.create(self.thread_id,assistant_id=self.assistant_id)run_status = dashscope.Runs.wait(message_run.id, thread_id=self.thread_id)if run_status.required_action:self.forward_and_submit_outputs(run_status)run_status = dashscope.Runs.wait(run_status.id, thread_id=self.thread_id)msgs = dashscope.Messages.list(self.thread_id)answer = json.loads(json.dumps(msgs, default=lambda o: o.__dict__))[\"data\"][0][\"content\"][0][\"text\"][\"value\"]",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "该函数处理工具调用，与大模型交互。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "wait等待模型运行结果，是交互步骤。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "创建消息是发起交互的起始步骤。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "列出消息是获取模型生成的内容。"
+      },
+      {
+        "label": "E",
+        "selected": true,
+        "why": "解析消息是提取模型生成的最终答案。"
+      },
+      {
+        "label": "F",
+        "selected": true,
+        "why": "创建运行是触发模型处理消息。"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

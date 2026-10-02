@@ -1,0 +1,220 @@
+{
+  "3-0550": {
+    "qid": "3-0550",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "考查切片策略对RAG效果的影响，属于核心知识点。",
+    "answer": [
+      "A",
+      "B"
+    ],
+    "supported": true,
+    "quote": "切片之所以关键，是因为它直接决定了检索的'颗粒度'：切得太大...检索时容易'沾边但不精准'...；切得太小...语义被截断...模型无法据此回答。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "切片太小会丢失关键信息，导致模型无法回答。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "切片太大会混入无关噪声，稀释语义，影响检索精度。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "增加训练数据属于微调范畴，与RAG解析切片阶段无关。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "减少推理时间不是解析切片阶段要解决的问题。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-0560": {
+    "qid": "3-0560",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "考查RAG离线建库（索引）阶段的核心步骤。",
+    "answer": [
+      "A",
+      "B",
+      "C",
+      "D"
+    ],
+    "supported": true,
+    "quote": "第一阶段：离线建库（Indexing，一次做好、多次复用）1. 文档解析；2. 文本切片（Chunking）；3. 向量化；4. 入库。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "文档解析是建库的第一步。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "文本分段（切片）是建库的关键步骤。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "文本向量化（Embedding）是建库的必要环节。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "存储索引（入库）是建库的最后一步。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-0561": {
+    "qid": "3-0561",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "考查RAG在线问答阶段检索部分的核心步骤。",
+    "answer": [
+      "A",
+      "B",
+      "C"
+    ],
+    "supported": true,
+    "quote": "第二阶段：在线问答...2. 把问题也向量化；3. 在向量库中检索与问题向量最相似的 Top K 个 chunk；",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "对问题进行向量化是检索的前提。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "语义相似度比较是向量检索的核心。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "召回相关文本段是检索的目的。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "生成最终回答属于生成阶段，不是检索阶段。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-0562": {
+    "qid": "3-0562",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "考查RAG应用构建（建库阶段）的必要步骤。",
+    "answer": [
+      "A",
+      "B",
+      "C",
+      "D"
+    ],
+    "supported": true,
+    "quote": "第一阶段：离线建库（Indexing，一次做好、多次复用）1. 文档解析；2. 文本切片（Chunking）；3. 向量化；4. 入库。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "文档解析是必要的第一步。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "文本分段（切片）是必要的处理步骤。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "文本向量化是必要的转换步骤。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "存储索引是必要的持久化步骤。"
+      }
+    ],
+    "duplicate_of": "3-0560"
+  },
+  "3-0564": {
+    "qid": "3-0564",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "remove",
+    "reason": "题目问“可能影响构建速度的因素”，但选项A、B是主观动机或状态，C、D是技术因素，混合了不同维度，且缺乏明确判断标准，考查价值低。",
+    "answer": [],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "业务机会紧迫性是外部需求，非技术构建速度因素。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "时间投入是项目管理问题，非技术构建速度因素。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "模型训练速度不属于RAG构建的核心耗时环节。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "数据存储需求是基础设施，非主要速度瓶颈。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-0567": {
+    "qid": "3-0567",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "考查针对切片过大问题的具体改进策略，属于核心知识点。",
+    "answer": [
+      "A",
+      "B"
+    ],
+    "supported": true,
+    "quote": "出现以下问题时这样调：chunk 太大引入干扰 → 减小切片长度；主题接近的内容互相混淆 → 扩写标题...加元数据标签。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "直接减小切片长度是应对过大的直接方法。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "开发更合适的策略（如语义切片）是根本改进。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "增加训练数据与解决切片过大问题无关。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "减少推理时间不是解决切片过大问题的方法。"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

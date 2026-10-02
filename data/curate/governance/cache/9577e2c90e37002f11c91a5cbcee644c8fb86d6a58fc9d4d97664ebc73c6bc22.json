@@ -1,0 +1,212 @@
+{
+  "1-0684": {
+    "qid": "1-0684",
+    "classification": "own",
+    "chapter": 1,
+    "quality": "ok",
+    "reason": "考查开源模型商业应用的核心考量，与模型选型相关。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "开源系列（如 Qwen2.5，从 0.5B 到 72B 多种规格）：可下载、可私有化部署，数据不出域",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "论文数量非商业应用重点"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "开源协议限制是商业关键"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "创建者国籍非商业考量"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "模型名字无实质影响"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "1-0737": {
+    "qid": "1-0737",
+    "classification": "own",
+    "chapter": 1,
+    "quality": "ok",
+    "reason": "考查提示工程中利用上下文实现个性化，属于提示词应用。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "所谓“多轮对话”，本质是客户端把历史消息拼进 messages，每次重新发一遍",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "统一描述不个性化"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "基于用户历史行为最个性化"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "随机生成不保证个性化"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "模板填充缺乏个性化"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "1-0756": {
+    "qid": "1-0756",
+    "classification": "own",
+    "chapter": 1,
+    "quality": "ok",
+    "reason": "考查提示词具体化对生成结果的控制，属于提示工程。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "提示词六要素（角色/任务/上下文/受众/样例/输出格式）",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "指令过于模糊"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "指定受众和类型最有效"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "“简单”定义模糊"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "指令最模糊"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "1-0798": {
+    "qid": "1-0798",
+    "classification": "own",
+    "chapter": 1,
+    "quality": "ok",
+    "reason": "考查利用上下文信息提升生成质量，属于提示工程应用。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "提示词六要素（角色/任务/上下文/受众/样例/输出格式）",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "统一理由不个性化"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "结合用户和产品特征质量最高"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "随机生成质量低"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "无理由质量最低"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "1-0806": {
+    "qid": "1-0806",
+    "classification": "own",
+    "chapter": 1,
+    "quality": "ok",
+    "reason": "考查多轮对话实现机制，属于大模型无状态特性应用。",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "大模型 API 是无状态（Stateless）的：每次 HTTP 请求相互独立",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "状态跟踪是保持连贯关键"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "独立处理会丢失上下文"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "要求重复信息体验差"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "短上下文模型不利连贯"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "1-0823": {
+    "qid": "1-0823",
+    "classification": "cross",
+    "chapter": 5,
+    "quality": "ok",
+    "reason": "考查知识蒸馏技术用于模型轻量化，属于模型微调与训练章节。",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "知识蒸馏=教师生成数据+学生SFT训练",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "微调通常增加显存需求"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "扩大输入长度增加显存"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "蒸馏小模型减少显存"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "提高批量可能增加显存"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

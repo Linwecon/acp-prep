@@ -1,0 +1,214 @@
+{
+  "1-1113": {
+    "qid": "1-1113",
+    "classification": "beyond",
+    "chapter": 1,
+    "quality": "remove",
+    "reason": "题目为经典数学逻辑题（蜗牛爬井），与大模型基础无关；无任何LLM特性、机制、边界或工作流程考查点；纯数学推理，不涉及概率生成、token、上下文窗口、temperature等本章知识。",
+    "answer": [],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "平均速度法是数学解法，非LLM能力考查；本章未提及'平均速度计算'作为提示策略或模型能力。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "CoT（思维链）属第2章提示工程内容，非本章考点；原文未将'解释逻辑推导'列为大模型基础能力或边界。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "直接输出结果属通用行为，不体现本章任何核心概念（如自回归、采样、无状态等）。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "'陷阱'为数学题干扰项，本章无'陷阱解答'定义；幻觉/知识截止等边界不通过此类题型考查。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "1-1136": {
+    "qid": "1-1136",
+    "classification": "cross",
+    "chapter": 1,
+    "quality": "review",
+    "reason": "考查'工具调用'必要性，属本章1.2节'补位逻辑'与1.3节'五阶段工作流程'中'不擅精确计算'的延伸，但核心知识点（Function Calling）在第4章Agent，需确认是否超纲；原文明确'多位数进位、大数乘除很容易出错'应'交给计算器/代码工具'，且'不擅精确计算'是三大边界之一。",
+    "answer": [
+      "D"
+    ],
+    "supported": true,
+    "quote": "不擅精确计算：自回归逐 Token 生成，缺乏真正的符号运算机制，多位数进位、大数乘除很容易出错。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "文档分类属文本理解任务，LLM原生擅长，无需工具；原文未将分类列为需工具场景。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "情感分析是LLM典型强项，属'语言理解'范畴，原文'擅长'列表明确包含。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "信息提取属文本生成/抽取任务，LLM可直接完成；原文未要求必须用工具。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "皮尔逊相关系数是精确数值计算，原文明确'不擅精确计算'且'应交给计算器/代码工具'，符合本章'补位逻辑'。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "1-1349": {
+    "qid": "1-1349",
+    "classification": "cross",
+    "chapter": 1,
+    "quality": "review",
+    "reason": "考查错误处理实践，与本章'幻觉/知识截止/计算缺陷三边界'直接相关；原文强调'幻觉无法100%消除，只能缓解'，需配合人工抽检/引用溯源等，但'try-except'属工程实现层，原文未提编程异常捕获；需判断是否属于'防范幻觉'的合理手段。",
+    "answer": [
+      "C"
+    ],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "原文明确'幻觉无法100%消除'，'假设总是正确'违背本章核心风险认知。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "输入验证可防注入但无法解决幻觉，原文'幻觉从哪来'归因为'上下文不足时模型仍会编答案'，非输入问题。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "虽原文未提try-except，但'处理返回结果中可能存在的错误'是应对幻觉/计算错误的工程实践，符合'缓解幻觉'目标；其他选项明显错误，此为最合理。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "原文强调'需人工抽检'，'不处理'直接违反'幻觉需缓解'原则。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "1-1394": {
+    "qid": "1-1394",
+    "classification": "own",
+    "chapter": 1,
+    "quality": "ok",
+    "reason": "考查上下文窗口管理，对应1.6节'上下文窗口：输入输出共用的内存预算'及'长文本应用要把内容塞进窗口'策略；原文明确'滑动窗口/摘要压缩'、'检索相关片段'、'上下文缓存'等手段，选项D'动态记忆机制'本质是摘要压缩+关键信息保留，符合'喂得准'原则。",
+    "answer": [
+      "D"
+    ],
+    "supported": true,
+    "quote": "上下文工程的核心不是'喂得多'，而是'喂得准'。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "Transformer-XL属模型架构改进，原文强调'真正限制长度的是上下文窗口'而非注意力机制，且该技术未在本章知识列表出现。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "固定截断会丢失关键信息，原文指出'丢弃最早的部分'是常见做法但非最优，'滑动窗口/摘要压缩'才是推荐方案。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "重启对话状态破坏连贯性，原文强调'多轮对话需维护历史'，且'无状态'指API层面，非设计上应清空。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "'动态记忆机制'即原文'摘要压缩'与'关键信息保留'的工程实现，符合'喂得准'原则，能缓解过载并保持连贯性。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "1-0001": {
+    "qid": "1-0001",
+    "classification": "own",
+    "chapter": 1,
+    "quality": "ok",
+    "reason": "考查'幻觉'风险场景，对应1.2节'幻觉（Hallucination）'定义及1.2节表格'遇到问题该用什么补位？'中'抑制幻觉'措施；原文明确幻觉'上下文不足时模型仍会编出看似合理但错误的答案'，医疗/法律/教育问答均属高风险领域。",
+    "answer": [
+      "A",
+      "C",
+      "D"
+    ],
+    "supported": true,
+    "quote": "幻觉（Hallucination）：上下文不足时，模型仍会按概率'编'出一个看似合理但错误的答案。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "医疗诊断需绝对准确，幻觉可能导致严重后果，原文'幻觉无法100%消除'且'需人工抽检'，属高风险场景。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "趋势预测属概率性任务，错误容忍度高，原文未将其列为幻觉高风险领域。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "法律合同条款需精确无误，幻觉可能引发法律风险，符合'上下文不足时编造答案'的高危特征。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "历史知识问答依赖事实准确性，若模型知识截止或私域缺失易幻觉，原文'知识截止'与'无私域'是幻觉根因。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "1-0006": {
+    "qid": "1-0006",
+    "classification": "own",
+    "chapter": 1,
+    "quality": "ok",
+    "reason": "考查五阶段工作流程，对应1.3节'大模型文本生成五阶段'；原文明确'分词→向量化→推理→解码→输出'，且'自回归生成'即'根据候选Token概率选择输出'，'Token向量化'使模型能处理语义。",
+    "answer": [
+      "A",
+      "C",
+      "D"
+    ],
+    "supported": true,
+    "quote": "第一阶段：文本分词（Tokenization）...第二阶段：Token 向量化（Embedding）...第三阶段：大模型推理（Forward Pass）...Logits 经 softmax 变成'下一个 Token 的概率分布'，再按解码策略选出一个 Token。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "原文'第一阶段：文本分词（Tokenization）'明确输入需先分词为Token。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "原文'同输入每次回答不同'的根因是'采样随机性'，且'无法100%保证完全一致'，故输出Token不一定相同。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "原文'Logits经softmax变成概率分布，再按解码策略选出一个Token'，即根据概率选择输出。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "原文'ID本身只是编号...用Embedding矩阵查表换成高维向量'，使计算机能基于语义处理语言。"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

@@ -1,0 +1,37 @@
+{
+  "new-8-30-0": {
+    "qid": "new-8-30-0",
+    "classification": "own",
+    "chapter": 8,
+    "quality": "ok",
+    "reason": "考查资源耗尽型DDoS攻击的识别与防护机制选择",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "资源耗尽型 DDoS 是 AI 应用的新风险：攻击者不需要打满带宽，只要提交大量'分析公司五年财报并写 5000 字报告'这类高计算请求，就能让 GPU 100%、账单飙升。防御要三层联动：DDoS 高防清洗异常流量 + WAF/API 网关做频率限制 + 应用层对单个用户设 token/算力上限并对超复杂请求做成本预估与熔断。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "题干描述的是资源耗尽攻击，非指令注入"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "WAF防Web攻击，不防算力耗尽"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "符合教材对资源耗尽型DDoS的防护组合"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "幻觉抑制针对质量，不解决算力攻击"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

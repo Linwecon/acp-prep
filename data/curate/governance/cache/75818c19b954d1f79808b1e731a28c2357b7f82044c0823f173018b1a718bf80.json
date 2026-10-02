@@ -1,0 +1,213 @@
+{
+  "new-1-0-0": {
+    "qid": "new-1-0-0",
+    "classification": "own",
+    "chapter": 1,
+    "quality": "ok",
+    "reason": "考查temperature和seed对输出一致性的影响，符合本章知识点。",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "temperature（温度）对模型输出的原始分数（logits）做缩放后再 softmax。T 越小 → 概率越集中在高概率 Token 上，输出越确定；T→0 时近似贪婪解码。seed：在每次调用时传入相同 seed 且其他参数不变，模型会尽最大努力返回相同结果；但官方明确：无法 100% 保证完全一致。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "temperature=0使分布最集中，seed尽力复现，最符合审计要求。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "top_p调小虽可缩小候选集，但教材未将其作为确保一致性的首选。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "教材建议不要同时大改temperature和top_p，且单调temperature=0更彻底。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "仅用seed无法保证严格一致，教材明确其无法100%保证。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-1-0-1": {
+    "qid": "new-1-0-1",
+    "classification": "own",
+    "chapter": 1,
+    "quality": "ok",
+    "reason": "考查结构化抽取任务的调参实践，符合教材调参建议。",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "不要同时大改 temperature 和 top_p：二者都在控制随机性，同时大改会让结果难以预测。建议先调一个，观察后再微调另一个，每次幅度约 ±0.2。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "先降temperature观察，再微调top_p，符合‘先调一个、再微调另一个’建议。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "先升top_p扩大候选集，与降低波动性的目标相悖。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "同步大改两个参数，不符合教材建议的调参实践。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "仅靠提示词约束无法从根本上改变采样随机性。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-1-0-2": {
+    "qid": "new-1-0-2",
+    "classification": "own",
+    "chapter": 1,
+    "quality": "ok",
+    "reason": "考查上下文窗口过载对模型注意力的影响，属于本章核心知识点。",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "过长的无关上下文会稀释注意力、引入噪声（“Lost in the Middle”现象），又慢又贵。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "上下文占满95%窗口，会稀释注意力导致遗漏，符合教材描述。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "temperature低旨在稳定输出，与注意力稀释无直接关联。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "题干明确未超窗（占95%），故截断不是根本原因。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "RAG去重非本章讨论内容，且题干未提及重复信息。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-1-0-3": {
+    "qid": "new-1-0-3",
+    "classification": "own",
+    "chapter": 1,
+    "quality": "ok",
+    "reason": "考查temperature作用与LLM计算缺陷的区别，辨析教材观点。",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "调高 temperature 能让模型更聪明 / 知识更多 → 它只改变采样随机性，不增加任何知识或推理能力。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "现象印证了LLM不擅精确计算的观点。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "现象印证了temperature只改变随机性，不增加能力。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "教材明确驳斥了‘调高temperature让模型更聪明’的观点。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "计算错误可视为一种幻觉，现象与之部分相关。"
+      }
+    ],
+    "duplicate_of": "1-1477"
+  },
+  "new-1-0-4": {
+    "qid": "new-1-0-4",
+    "classification": "own",
+    "chapter": 1,
+    "quality": "fixable",
+    "reason": "考查temperature调节失效的排查，但选项D涉及实现细节，教材未明确支持。",
+    "answer": [
+      "C",
+      "D"
+    ],
+    "supported": false,
+    "quote": "seed：在每次调用时传入相同 seed 且其他参数不变，模型会尽最大努力返回相同结果；但官方明确：无法 100% 保证完全一致——分布式调度、模型版本更新、推理优化都可能引入微小差异。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "修改system prompt是内容变化，非temperature调节失效。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "换模型是模型能力变化，非temperature调节失效。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "seed是控制复现性的参数，与temperature调节目标相关。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "教材提及分布式调度等因素可能导致结果不一致。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-1-0-5": {
+    "qid": "new-1-0-5",
+    "classification": "own",
+    "chapter": 1,
+    "quality": "ok",
+    "reason": "考查上下文工程原则，针对RAG检索过量提出优化措施。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "上下文工程的核心不是‘喂得多’，而是‘喂得准’。长文本应用要把内容‘塞进’窗口，常见手段：检索相关片段（RAG）：只把最相关的几段放进来，而不是整本手册。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "降temperature不影响输入token消耗，治标不治本。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "优化检索策略，减少不相关chunk，是根治输入token激增的措施。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "升级窗口模型未解决检索不准的根本问题，且成本高。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "提示词指令无法控制输入token数，且效果有限。"
+      }
+    ],
+    "duplicate_of": "1-1482"
+  }
+}

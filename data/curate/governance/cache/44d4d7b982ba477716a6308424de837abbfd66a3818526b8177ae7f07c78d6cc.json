@@ -1,0 +1,249 @@
+{
+  "3-0570": {
+    "qid": "3-0570",
+    "classification": "cross",
+    "chapter": -1,
+    "quality": "remove",
+    "reason": "题目考查具体API类的参数，属于框架/工具使用细节，无考查价值。",
+    "answer": [],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "无教材依据，属框架细节。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "无教材依据，属框架细节。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "无教材依据，属框架细节。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "similarity_top_k是检索参数，非Embedding类参数。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-0572": {
+    "qid": "3-0572",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "考查RAG建库阶段核心步骤，与教材内容一致。",
+    "answer": [
+      "A",
+      "B",
+      "C"
+    ],
+    "supported": true,
+    "quote": "RAG由两个阶段组成...第一阶段：离线建库...1.文档解析；2.文本切片；3.向量化；4.入库",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "对应文本切片和向量化步骤。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "向量化需使用Embedding模型。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "向量存储保留语义信息是入库目的。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "RAG不改变模型参数，无需增加训练数据。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-0651": {
+    "qid": "3-0651",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "考查文档切片优化思路，覆盖教材切片策略与解析要点。",
+    "answer": [
+      "B",
+      "C",
+      "F"
+    ],
+    "supported": true,
+    "quote": "Markdown切片：按标题层级切...表格若被当成普通文字按固定长度切碎，行列关系会被打散...对于扫描件PDF、含图片和复杂表格的文档，可以用阿里云百炼的文档智能解析",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "合并大文件违反切片原则，会稀释语义。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "Markdown切片可保留文档原始结构。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "补充语义信息有助于提升检索质量。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "等长切块易切断语义，非优化思路。"
+      },
+      {
+        "label": "E",
+        "selected": false,
+        "why": "根据提问习惯切片无教材依据，不切实际。"
+      },
+      {
+        "label": "F",
+        "selected": true,
+        "why": "复杂解析器可处理表格图片，保留结构。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-0654": {
+    "qid": "3-0654",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "综合考查RAG应用场景、微调选型及工程实践，合理。",
+    "answer": [
+      "A",
+      "B",
+      "C",
+      "D",
+      "E"
+    ],
+    "supported": true,
+    "quote": "RAG是私域知识问答的首选方案...当RAG也无法满足'稳定的风格/行为/格式'要求时，才投入微调",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "RAG适合接入法律条文和案例库。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "微调可适配法律领域风格与格式。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "提示词约束是生成阶段关键手段。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "设置免责声明是合规与安全实践。"
+      },
+      {
+        "label": "E",
+        "selected": true,
+        "why": "人工审核是重要安全与质量保障。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-0747": {
+    "qid": "3-0747",
+    "classification": "cross",
+    "chapter": 2,
+    "quality": "ok",
+    "reason": "考查确保生成一致性的工程方法，属提示工程与工具使用范畴。",
+    "answer": [
+      "A",
+      "B",
+      "D"
+    ],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "构建术语库并强制使用是有效控制手段。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "统一模板可规范输出格式与结构。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "事后人工检查效率低，非最有效组合。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "自动化检查工具可提升效率与一致性。"
+      },
+      {
+        "label": "E",
+        "selected": false,
+        "why": "依赖模型术语管理不可靠，易产生不一致。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-0898": {
+    "qid": "3-0898",
+    "classification": "cross",
+    "chapter": 11,
+    "quality": "ok",
+    "reason": "考查多模态RAG系统技术组件，属多模态AI知识范畴。",
+    "answer": [
+      "A",
+      "B",
+      "C",
+      "D",
+      "E"
+    ],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "文档解析是提取多模态内容的基础。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "多模态理解模型处理图文混合内容。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "向量数据库存储文档片段嵌入。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "检索器根据查询找到相关片段。"
+      },
+      {
+        "label": "E",
+        "selected": true,
+        "why": "生成模型基于检索结果生成答案。"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

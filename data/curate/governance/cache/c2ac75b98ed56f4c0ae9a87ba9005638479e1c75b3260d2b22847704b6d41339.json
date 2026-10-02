@@ -1,0 +1,154 @@
+{
+  "items": [
+    {
+      "type": 0,
+      "stem": "某团队使用vLLM部署Qwen3-0.6B模型，压测中发现：当并发从8提升至16时，QPS仅增长15%，平均RT飙升40%，且出现3%超时错误。此时若仅将--max-num-seqs参数从默认值调高至32，最可能产生的效果是？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "QPS进一步提升，RT继续恶化，429错误率显著上升"
+        },
+        {
+          "option_label": "B",
+          "option_text": "TTFT明显降低，因Prefill阶段获得更大batch并行度"
+        },
+        {
+          "option_label": "C",
+          "option_text": "KV Cache显存占用线性翻倍，触发OOM导致服务崩溃"
+        },
+        {
+          "option_label": "D",
+          "option_text": "TPOT下降，因Decode阶段连续批处理效率提升"
+        }
+      ],
+      "answer": "A",
+      "analysis": "依据6.3节'高频误区'与6.5节原理：--max-num-seqs控制vLLM允许的最大并发请求数（即逻辑并发上限），其本质是KV Cache容量的硬约束。原文明确指出：'超出并发限制通常直接返回429错误，而非排队等待'；且'并发越高吞吐越高'是误区——超过显存/算力上限后，RT劣化、错误率上升。当前已出现RT飙升和超时，说明系统已达瓶颈；盲目调高--max-num-seqs只会加剧KV Cache压力（6.6节：KV Cache∝序列长度×并发数），导致更多请求排队或OOM，进而引发更严重的RT恶化和429错误。选项B错误：Prefill并行度由实际到达的prompt batch决定，非--max-num-seqs参数控制；C错误：OOM是结果而非必然线性翻倍；D错误：TPOT取决于单token Decode效率，与并发上限参数无直接因果关系。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 0,
+      "stem": "诊断一个线上vLLM服务突然出现高TTFT（>8s）的问题，监控显示GPU利用率正常、KV Cache占用率仅30%、无429错误。此时最应优先检查的日志线索是？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "vLLM调度器日志中Prefill阶段的CUDA kernel launch耗时"
+        },
+        {
+          "option_label": "B",
+          "option_text": "客户端请求的prompt长度分布突增，尤其是长上下文输入"
+        },
+        {
+          "option_label": "C",
+          "option_text": "PagedAttention页表分配失败重试次数激增"
+        },
+        {
+          "option_label": "D",
+          "option_text": "Decode阶段KV Cache读取带宽饱和告警"
+        }
+      ],
+      "answer": "B",
+      "analysis": "依据6.2节核心原理：TTFT由Prefill阶段决定，而Prefill是计算密集型，'长prompt会让等很久才开口'（原文直述）。监控显示GPU利用率正常（排除算力瓶颈）、KV Cache占用低（排除Decode阶段显存带宽问题）、无429（排除并发超限），三者共同指向Prefill自身负载异常。6.3节表格明确'TTFT受prompt长度影响'，且6.1节场景中'HR发链接后用户反馈转半天不出字'正是长prompt导致TTFT劣化的典型表现。选项A虽相关，但kernel耗时是结果而非根因；C、D均属Decode阶段问题，与TTFT无关（6.2节强调TTFT仅由Prefill决定）。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 0,
+      "stem": "当使用函数计算FC部署AI助手时，观察到首次请求耗时显著高于后续请求，且日志显示模型加载耗时占总延迟70%。此时最符合教材建议的根因分析与应对路径是？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "冷启动导致实例拉起与模型加载延迟；应配置预留实例或预热，但需权衡持续资源成本"
+        },
+        {
+          "option_label": "B",
+          "option_text": "FC网络带宽不足；应升级实例规格中的vCPU配额"
+        },
+        {
+          "option_label": "C",
+          "option_text": "模型权重未量化，加载体积过大；应立即采用AWQ INT4量化"
+        },
+        {
+          "option_label": "D",
+          "option_text": "HTTP触发器配置错误，导致请求路由延迟；应改用EventBridge事件触发"
+        }
+      ],
+      "answer": "A",
+      "analysis": "依据6.7节'为什么会有冷启动？'：'Serverless为省成本，无流量时回收实例；请求到来需重新拉起+加载模型，导致首个请求明显变慢'。6.10.1节明确'冷启动延迟是FC边界必须记牢'，并指出'可通过预留实例/预热缓解，但会重新产生持续资源费用'。选项B、D无教材依据（原文未提FC带宽或触发器类型对冷启动的影响）；选项C错误：量化可减小加载体积，但教材6.4节强调'量化主要省显存'，且冷启动主因是实例拉起与IO加载，非精度问题——原文未将量化列为冷启动缓解手段。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 1,
+      "stem": "某团队将Qwen3-0.6B模型量化为AWQ INT4后部署于vLLM，观测到：①显存占用下降58%；②TPOT降低22%；③TTFT无明显变化；④在代码补全任务上BLEU分数下降1.3分。以下哪些结论可被教材原文直接支持？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "INT4量化导致精度损失，在敏感任务（如代码补全）上BLEU下降符合预期"
+        },
+        {
+          "option_label": "B",
+          "option_text": "量化后TPOT降低，是因为Decode阶段显存带宽压力减小"
+        },
+        {
+          "option_label": "C",
+          "option_text": "TTFT无变化，说明Prefill阶段不受益于量化"
+        },
+        {
+          "option_label": "D",
+          "option_text": "显存下降58%接近理论值（FP16→INT4应降为1/4），证明量化实施正确"
+        }
+      ],
+      "answer": "AB",
+      "analysis": "A正确：6.4节'量化'部分明确'INT4在敏感任务上可能掉点更明显'，且'需要用业务评测集验证'，代码补全属敏感任务，BLEU下降符合原文判断。B正确：6.4节'量化的几个关键判断'指出'量化通常也加速...因为Decode阶段是显存带宽密集型，从显存读权重的字节数变少了'，TPOT正由Decode效率决定。C错误：TTFT无变化不能反推Prefill不受益，原文未讨论量化对Prefill的具体影响，且Prefill也是计算密集型，可能受算子优化影响；D错误：原文仅给出'INT4相对FP32体积为1/8'的理论比例（6.4节表格），但实际下降58%涉及运行时开销、KV Cache等其他因素，无法直接推断实施正确性——教材未提供量化效果验收的数值标准。",
+      "difficulty_label": "挑战"
+    },
+    {
+      "type": 1,
+      "stem": "压测发现某vLLM服务在并发从8提升至16时，QPS仅增长15%，但平均RT飙升40%且错误率升至3%。此时应优先执行的操作包括？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "检查GPU显存占用是否已达阈值，确认KV Cache是否成为瓶颈"
+        },
+        {
+          "option_label": "B",
+          "option_text": "降低--max-model-len参数以限制单次请求最大序列长度"
+        },
+        {
+          "option_label": "C",
+          "option_text": "增加ECS实例数量并配置SLB负载均衡"
+        },
+        {
+          "option_label": "D",
+          "option_text": "启用AWQ量化并重测，以降低单请求显存占用"
+        }
+      ],
+      "answer": "ABD",
+      "analysis": "依据6.3节'高频误区'：'并发越高吞吐越高'是错误认知，'必须通过压测确定最优并发阈值'；6.6节明确'KV Cache随序列长度×并发数线性增长，是并发瓶颈'；6.6节'缓解KV Cache压力'手段包含'限制最大序列长度'（对应B）和'量化'（对应D）；A是诊断第一步——6.6节强调'先按权重+KV Cache+余量估算显存'，监控显存是定位瓶颈的直接依据。C错误：增加实例属横向扩容，但原文6.9节指出'ECS弹性伸缩相对较慢，需提前规划'，且当前问题是单实例内并发超限导致RT劣化，应先优化单实例效率（如限长、量化），而非立即扩容——教材6.11.1节'保障稳定性'首条即'降低单请求资源消耗'。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 1,
+      "stem": "在vLLM服务中，当客户端发起流式请求（stream=true）时，PagedAttention机制对KV Cache管理的影响是？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "仍按完整响应序列预分配KV Cache块，但仅在每token生成后释放已发送块"
+        },
+        {
+          "option_label": "B",
+          "option_text": "KV Cache块按需动态分配，生成多少token就分配多少块，消除预分配浪费"
+        },
+        {
+          "option_label": "C",
+          "option_text": "相同前缀的请求可共享页表映射，复用已加载的系统提示词KV块"
+        },
+        {
+          "option_label": "D",
+          "option_text": "流式输出不改变KV Cache总量，但使PagedAttention的页表更新频率更高"
+        }
+      ],
+      "answer": "BCD",
+      "analysis": "B正确：6.5节'PagedAttention'定义'按需分配，不再按最大长度预分配浪费'，流式请求长度不确定，更凸显按需分配价值。C正确：同节明确'天然支持共享：相同前缀（如系统提示词）的KV块可共享'，流式场景下系统提示词复用率高。D正确：流式请求每生成1token即返回，PagedAttention需为每个新token分配/更新页表项，更新频率高于非流式（一次分配全部）。A错误：PagedAttention核心是'消除预分配'，不存在'按完整序列预分配'——这正是它要解决的传统框架痛点（6.5节'痛点一'）。",
+      "difficulty_label": "挑战"
+    }
+  ]
+}

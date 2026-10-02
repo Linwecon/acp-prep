@@ -8,6 +8,8 @@
         Object.entries(ACP.CHAPTER_QUESTIONS).forEach(([ch, qs]) => {
             ACP.BY_CH[ch] = [];
             qs.forEach(q => {
+                // 软删除的题（治理下架）不进入运行时题库
+                if (q.deleted) return;
                 // 兼容完整版与压缩版（quiz_categorized.min.js）键名
                 const g = (k1, k2) => (q[k1] !== undefined && q[k1] !== null) ? q[k1] : q[k2];
                 const ans = String(g('answer', 'a') || '').replace(/\s/g, '');

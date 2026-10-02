@@ -1,0 +1,37 @@
+{
+  "new-8-48-2": {
+    "qid": "new-8-48-2",
+    "classification": "own",
+    "chapter": 8,
+    "quality": "ok",
+    "reason": "考查PII处理中脱敏与加密的不可替代性",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "脱敏不是\"可选项\"：模型有\"记忆\"效应，训练数据里的 PII 可能在后续对话中被一点点\"问\"出来；课程里那个反复追问张三工位、项目组、绩效的攻击者，就是在拼凑员工隐私。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "题干未提传输加密，不构成违背"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "原文未要求密钥必须KMS托管"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "PII必须先脱敏，加密不能替代"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "原文未要求日志文件必须加密"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

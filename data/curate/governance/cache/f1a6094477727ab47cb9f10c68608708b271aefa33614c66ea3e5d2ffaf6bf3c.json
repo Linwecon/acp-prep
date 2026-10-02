@@ -1,0 +1,208 @@
+{
+  "10-0076": {
+    "qid": "10-0076",
+    "classification": "own",
+    "chapter": 10,
+    "quality": "ok",
+    "reason": "考查模型选型基础参数含义",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "调用 API 时第一个要填的参数就是 `model`。写 `qwen-turbo` 还是 `qwen-max`？",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "model参数指定调用的具体模型名称"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "多样性由temperature控制"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "确定性由temperature调节"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "长度由max_tokens控制"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "10-0297": {
+    "qid": "10-0297",
+    "classification": "own",
+    "chapter": 10,
+    "quality": "ok",
+    "reason": "考查qwen-max在商业API中的定位",
+    "answer": [
+      "D"
+    ],
+    "supported": true,
+    "quote": "qwen-max：能力最强、效果最好；适合复杂推理、高质量生成、难任务。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "原始模型不称线上模型"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "微调模型属PAI范畴"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "无在线交互优化描述"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "文档明确称其能力最强"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "10-0316": {
+    "qid": "10-0316",
+    "classification": "own",
+    "chapter": 10,
+    "quality": "ok",
+    "reason": "考查上下文管理最佳实践",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "不要每次把整本手册塞进上下文；RAG只塞最相关的片段，不要每次把整本手册塞进上下文",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "完整历史会超上下文窗口"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "保留最近几轮是推荐做法"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "清空历史破坏对话连续性"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "摘要传关键信息是推荐做法"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "10-0391": {
+    "qid": "10-0391",
+    "classification": "own",
+    "chapter": 10,
+    "quality": "ok",
+    "reason": "考查通义听悟核心能力",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "通义听悟：语音识别、会议转写（ASR）；把录音转成文字",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "文生视频属通义万相"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "图文生成非听悟能力"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "ASR转写是其明确定位"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "图像推理非听悟范畴"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "10-0455": {
+    "qid": "10-0455",
+    "classification": "cross",
+    "chapter": 11,
+    "quality": "review",
+    "reason": "考查多模态解析适用场景，需跨章验证",
+    "answer": [],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "命令行截图文本简单，OCR即可"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "清晰文本截图OCR足够"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "复杂图片需视觉模型，但原文未提RAG中视觉模型使用"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "已解析文本无需视觉模型"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "10-1056": {
+    "qid": "10-1056",
+    "classification": "misplaced",
+    "chapter": 8,
+    "quality": "remove",
+    "reason": "营销表达检测属安全合规范畴，非平台层功能",
+    "answer": [],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "错误识别非营销检测重点"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "修改非检测手段"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "单点词汇识别不全面"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "生成结果非检测方法"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

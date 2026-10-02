@@ -1,0 +1,212 @@
+{
+  "3-0168": {
+    "qid": "3-0168",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "内存向量存储最简单，原文明确提及开发测试可用LlamaIndex内置内存向量库",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "开发测试可用 LlamaIndex 内置的内存向量库；生产环境可选用云服务（如阿里云 DashVector）或自建开源库（Milvus、Qdrant）。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "原文明确说开发测试可用LlamaIndex内置内存向量库"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "本地数据库需部署维护，比内存复杂"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "云服务需配置网络权限，比内存复杂"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "增加训练数据属微调范畴，非向量存储方案"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-0174": {
+    "qid": "3-0174",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "HyDE通过生成假想文档增强检索，原文表格明确列出",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "HyDE（假设文档嵌入）：先让 LLM 编一段\"假想答案\"，用假想答案的向量去检索真实文档",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "原文表格明确定义HyDE为生成假想文档"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "重排序是精排候选，不生成假想文档"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "滑动窗口是切片技术，非查询改写"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "增加训练数据属微调，非查询改写方法"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-0175": {
+    "qid": "3-0175",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "切片过大应减小长度或换策略，原文明确给出排错经验",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "出现以下问题时这样调：主题接近的内容互相混淆 → 扩写标题……chunk 太大引入干扰 → 减小切片长度",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "原文明确说chunk太大应减小切片长度"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "增加训练数据属微调，不解决切片问题"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "减少推理时间与切片长度无关"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "增加参数属模型架构，非切片策略"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-0176": {
+    "qid": "3-0176",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "生成阶段LLM依据资料生成答案，原文明确说明",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "LLM 依据资料生成答案，并标注引用来源。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "召回是向量检索阶段任务"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "原文明确说LLM依据资料生成答案"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "增加训练数据属微调范畴"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "减少推理时间是部署优化目标"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-0179": {
+    "qid": "3-0179",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "similarity_top_k=5控制检索返回数量，原文多次强调Top K含义",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "把问题也向量化；在向量库中检索与问题向量最相似的 Top K 个 chunk",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "原文明确说检索Top K个chunk"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "增加训练数据属微调范畴"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "减少推理时间是部署优化目标"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "增加参数属模型架构，非检索参数"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-0180": {
+    "qid": "3-0180",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "多轮对话改写提升检索准确性，原文明确指出",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "多轮对话里后续问题检索不准 → 应先结合历史改写问题，而不是把全部对话历史塞进检索",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "原文明确说改写可提升检索准确"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "增加训练数据属微调范畴"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "减少推理时间是部署优化目标"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "增加参数属模型架构，非改写目的"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

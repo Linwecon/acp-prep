@@ -1,0 +1,154 @@
+{
+  "items": [
+    {
+      "type": 0,
+      "stem": "某团队优化新人答疑机器人后，RAGAS评测显示Context Recall=0.94、Context Precision=0.31，Faithfulness=0.25，Answer Correctness=0.28。日志确认检索片段中包含完整正确信息（如'张伟是教研部的'），但该信息位于第18个context中，前17个均为行政制度、考勤规则等无关内容。此时若仅调整生成端提示词强调'严格依据前3个context回答'，最可能产生的后果是？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "Answer Correctness显著提升，因模型更聚焦高置信片段"
+        },
+        {
+          "option_label": "B",
+          "option_text": "Faithfulness短暂上升但Answer Correctness持续偏低，因关键信息被截断"
+        },
+        {
+          "option_label": "C",
+          "option_text": "Context Precision指标被人为扭曲，失去对排序质量的真实反馈"
+        },
+        {
+          "option_label": "D",
+          "option_text": "触发'Lost in the Middle'现象加剧，模型在截断后的噪声中更易幻觉"
+        }
+      ],
+      "answer": "B",
+      "analysis": "依据教材7.4.2节Context Precision官方口径：Precision计算依赖contexts全序列表，其公式本质是惩罚相关片段排名靠后（如例中第18位导致Precision=0.31）。若强制只用前3个context，等于人为掩盖检索排序缺陷——关键信息被截断，模型被迫在纯噪声中作答，虽可能因约束变强使Faithfulness短期微升（不编造），但因缺失真实依据，Answer Correctness无法实质性改善（教材7.5节明确指出'资料都没找对，生成无从谈起'）。选项A错误：截断后无关键信息，Correctness不可能显著提升；C错误：Precision指标本身未被扭曲，但人为规避其反馈违背EDD原则；D错误：'Lost in the Middle'指长上下文中间位置信息被忽略，而此处是关键信息在末尾且被主动丢弃，属'信息湮没'而非中间丢失。教材7.5节风险提醒明确指出'一味调大Top K会降Precision，但盲目截断更危险'。",
+      "difficulty_label": "挑战"
+    },
+    {
+      "type": 1,
+      "stem": "在诊断Context Precision低（Recall高）的故障时，以下哪些现象可作为交叉验证证据，且直接对应教材7.4.2节Precision计算原理中的'排名敏感性'？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "人工检查contexts列表，发现正确片段存在但排位≥10，且前5个均为无关政策文件"
+        },
+        {
+          "option_label": "B",
+          "option_text": "将同一问题输入不同Embedding模型，Precision分数波动超过0.3"
+        },
+        {
+          "option_label": "C",
+          "option_text": "在contexts中手动将正确片段移至第1位后，Precision值从0.25跃升至0.82"
+        },
+        {
+          "option_label": "D",
+          "option_text": "增加Top K从5到20后，Recall不变但Precision下降0.15"
+        }
+      ],
+      "answer": "ACD",
+      "analysis": "教材7.4.2节明确定义Context Precision为'按顺序读取contexts，对每个片段计算precision分，再求平均'，其核心是排名敏感性。A项直接体现'相关片段排位靠后'这一根本原因，符合公式中'分母为排位'的设计；C项通过干预排位验证因果关系（移至第1位→Precision飙升），是教材7.5节'定位问题黄金法则'推荐的实证方法；D项中扩大Top K引入更多噪声却未提升Recall，说明新增片段全无关，稀释了相关片段占比，符合Precision公式中'分子为累计相关数、分母为排位'的数学逻辑。B项错误：Embedding模型影响的是召回内容本身，与Precision的排名计算无直接关联，属于混淆'检索质量'与'排序质量'；教材7.2.4节强调'冻结Embedding模型以保证分数可比'，其波动反映配置失效而非Precision原理。所有选项均需结合教材原文逐项排除，避免经验主义误判。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 0,
+      "stem": "当Context Precision与Context Recall呈现'双低'状态（如Precision=0.28, Recall=0.35）时，以下哪项故障原因最符合教材7.5节'定位问题的黄金法则'及7.4.1-7.4.2节指标定义的本质差异？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "知识库中缺失关键业务文档，且现有文档的切片粒度过粗导致信息稀疏"
+        },
+        {
+          "option_label": "B",
+          "option_text": "Embedding模型对业务术语编码能力弱，导致语义相似度计算失真"
+        },
+        {
+          "option_label": "C",
+          "option_text": "Rerank模块未启用，且Top K设置过大导致噪声淹没信号"
+        },
+        {
+          "option_label": "D",
+          "option_text": "查询改写将'年假天数'错误泛化为'休假政策'，扩大检索范围"
+        }
+      ],
+      "answer": "B",
+      "analysis": "教材7.4.1节定义Recall为'ground_truth观点被contexts支撑的比例'，7.4.2节定义Precision为'相关片段在contexts中排名靠前的程度'。双低意味着：既没找全（Recall低），又没排好（Precision低）。A项仅解释Recall低（缺文档），但无法解释Precision低（若文档缺失，Precision应无意义或趋近0，但教材示例中双低需同时存在有效相关片段和大量无关片段）；C项中'Rerank未启用'主要影响Precision，'Top K过大'会拉低Precision但通常提升Recall，与双低矛盾；D项'查询改写泛化'会扩大检索面，可能提升Recall但引入噪声，导致Precision下降，但难以同时严重拉低Recall。B项'Embedding模型编码能力弱'直接导致语义匹配失效：既无法准确识别相关文档（Recall低），又无法对已召回文档进行有效排序（Precision低），完美契合双低的根源——教材7.5节强调'检索瓶颈往往在Embedding'，且7.4.1-7.4.2节公式均依赖Embedding计算相似度。其他选项均片面，唯B项抓住指标共性依赖。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 1,
+      "stem": "在构建用于诊断Context Precision问题的专项评测集时，以下哪些设计严格遵循教材7.2.1节'评测集构建的两条铁律'及7.4.2节Precision计算原理？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "从线上用户日志抽取'张伟部门归属'类问题，由HRBP编写ground_truth，并确保contexts列表中正确信息固定排在第15位"
+        },
+        {
+          "option_label": "B",
+          "option_text": "人工构造'正确信息在第1位'与'正确信息在第15位'两组样本，使用相同question和ground_truth，对比Precision值差异"
+        },
+        {
+          "option_label": "C",
+          "option_text": "邀请3位HR专家独立标注同一组问题的ground_truth，取共识部分作为最终标准"
+        },
+        {
+          "option_label": "D",
+          "option_text": "在contexts中混入与question主题相近但事实相悖的干扰片段（如'张伟是人事部主管'），测试模型抗噪能力"
+        }
+      ],
+      "answer": "BC",
+      "analysis": "教材7.2.1节铁律一要求'问题来自真实用户场景'，铁律二要求'ground_truth由领域专家提供'。B项虽为人工构造，但'相同question/ground_truth+不同排位'是教材7.4.2节验证Precision排名敏感性的标准方法（如课程示例中'牛顿万有引力'与'张伟教研部'的排序实验），且不违背真实场景逻辑；C项'HR专家共识标注'直接满足铁律二。A项错误：'确保正确信息固定排在第15位'违背真实检索结果分布，伪造数据破坏评测有效性；D项错误：混入'事实相悖'干扰项违反ground_truth权威性——教材7.2.1节强调'标准答案必须由业务专家审定'，干扰项若被误标为context则污染评测基准。所有选项需紧扣'铁律'与'Precision原理'双重约束，A、D均制造虚假前提，B、C符合科学归因逻辑。",
+      "difficulty_label": "挑战"
+    },
+    {
+      "type": 0,
+      "stem": "某团队发现Context Precision在连续三次优化中稳定在0.42±0.03，但Answer Correctness从0.65降至0.41。日志显示每次优化均未改动检索模块，且contexts列表中正确信息始终排在第1位。此时若依据教材7.4.2节Precision计算原理与7.5节定位法则，最应优先排查的环节是？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "生成模型temperature参数是否被意外调高，导致输出随机性增强"
+        },
+        {
+          "option_label": "B",
+          "option_text": "评测用LLM评委模型版本是否被升级，引发评分标准漂移"
+        },
+        {
+          "option_label": "C",
+          "option_text": "ground_truth编写是否随业务更新，但评测集未同步冻结"
+        },
+        {
+          "option_label": "D",
+          "option_text": "提示词中是否新增'请用生活化比喻解释'等指令，引发生成端蝴蝶效应"
+        }
+      ],
+      "answer": "D",
+      "analysis": "教材7.4.2节明确Precision仅依赖question/gound_truth/contexts三字段的排序关系，当'正确信息始终排第1位'且'未改动检索模块'，Precision稳定证明检索端无变化。Correctness下降必源于生成端或评测基准异常。A项temperature影响随机性，但教材7.2.4节要求'冻结temperature/seed'，若未冻结则属配置失效，非生成逻辑问题；B项评委模型升级直接违反7.2.4节'回归评测必须冻结评委模型'，属重大流程违规，但题干强调'依据Precision原理与定位法则'，需先排除生成端内在问题；C项ground_truth未冻结违反7.1节'评测先行'原则，但题干未提示业务变更，属过度推测。D项'新增生活化比喻指令'直指教材7.1节'蝴蝶效应'典型案例：同一输入下，生成风格改变可能导致事实准确性下降（如比喻失真），且完全不触碰检索端，与Precision稳定、Correctness下降的现象严丝合缝。教材7.5节定位法则第2条明确'检索指标好但Correctness低→查生成端'，D是唯一符合'生成端内在逻辑变更'的选项。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 1,
+      "stem": "以下哪些场景中，Context Precision指标会因教材7.4.2节定义中的'分子分母结构'而产生反直觉结果，且该结果对工程决策具有关键警示价值？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "contexts=[相关A, 相关B, 无关X]，Precision=(1/1 + 2/2)/2 = 1.0，但模型实际仅使用了相关A"
+        },
+        {
+          "option_label": "B",
+          "option_text": "contexts=[无关X, 相关A]，Precision=(0/1 + 1/2)/1 = 0.5，暴露'正确信息被无关内容压制'风险"
+        },
+        {
+          "option_label": "C",
+          "option_text": "contexts=[相关A, 相关B, 相关C]，Precision=(1/1 + 2/2 + 3/3)/3 = 1.0，但相关B/C含过时政策"
+        },
+        {
+          "option_label": "D",
+          "option_text": "contexts=[相关A]，Precision=1/1=1.0，但相关A内容残缺（仅'张伟是...'未提部门）"
+        }
+      ],
+      "answer": "BD",
+      "analysis": "教材7.4.2节Precision公式为'各片段precision分之和 / 相关片段总数'，其警示价值在于量化'排序质量'。B项完美复现教材示例（牛顿万有引力/张伟教研部），0.5分直观揭示'相关片段被无关内容前置'这一致命缺陷，直接指向Rerank必要性；D项中单片段Precision=1.0看似完美，但教材7.4.1节Recall定义要求'观点被支撑'，若内容残缺则Recall会低，此时Precision高而Recall低形成鲜明对比，警示'精度不等于完整性'——这正是教材7.5节强调'必须结合Recall看Precision'的工程意义。A项中Precision=1.0正确反映排序最优，无反直觉；C项中Precision=1.0但内容过时，属ground_truth时效性问题，非Precision定义缺陷，教材7.8.2节强调'评测集需持续运营'，但此问题不源于Precision公式本身。BD两项均从公式结构出发，揭示指标对真实风险的敏感性，符合'考查执行顺序与故障原因'要求。",
+      "difficulty_label": "挑战"
+    }
+  ]
+}

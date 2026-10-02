@@ -1,0 +1,184 @@
+{
+  "new-8-12-0": {
+    "qid": "new-8-12-0",
+    "classification": "own",
+    "chapter": 8,
+    "quality": "ok",
+    "reason": "考查间接提示注入的防御环节，题干清晰，选项有干扰性。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "间接提示注入：恶意指令藏在外部数据里，被 RAG/Agent 读入上下文后悄悄生效",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "自定义词库非本题核心，且攻击不依赖邮箱变体。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "攻击来自RAG检索的文档，输入过滤未覆盖此路径。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "OCR检测是图像审核范畴，但题干强调文本层护栏失效主因。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "输出审查是事后环节，非本题问的“为何无法拦截”。"
+      }
+    ],
+    "duplicate_of": "8-5166"
+  },
+  "new-8-12-1": {
+    "qid": "new-8-12-1",
+    "classification": "own",
+    "chapter": 8,
+    "quality": "ok",
+    "reason": "考查RAG权限过滤的实现细节，代码逻辑陷阱典型。",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "position_ids = ast.literal_eval(row['position_ids'])",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "字符串未解析导致'in'判断失败，过滤失效。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "题干明确代码执行了ast.literal_eval，格式问题已解决。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "过滤时机错误，但题干说“过滤逻辑正确执行”。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "RAM权限是云资源控制，非应用层数据过滤问题。"
+      }
+    ],
+    "duplicate_of": "8-5159"
+  },
+  "new-8-12-2": {
+    "qid": "new-8-12-2",
+    "classification": "own",
+    "chapter": 8,
+    "quality": "ok",
+    "reason": "考查资源耗尽型DDoS与应用层防御的区别。",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "资源耗尽型 DDoS（高耗 token/GPU 请求打爆算力）",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "DDoS防网络洪峰，应用层高计算请求需限流熔断。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "CC防护针对爬虫，非本题高计算请求场景。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "安全组规则宽松非主因，且无法识别应用层计算负载。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "KMS密钥轮换与GPU计算负载无直接关系。"
+      }
+    ],
+    "duplicate_of": "8-5158"
+  },
+  "new-8-12-3": {
+    "qid": "new-8-12-3",
+    "classification": "own",
+    "chapter": 8,
+    "quality": "ok",
+    "reason": "综合考查PII处理的全链路安全要求，选项典型。",
+    "answer": [
+      "A",
+      "C",
+      "D"
+    ],
+    "supported": true,
+    "quote": "数据脱敏（去标识化）是在数据进入训练、评测、RAG 链路之前",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "进入RAG前脱敏是满足最小必要原则的关键措施。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "存储明文违反数据安全要求，需KMS加密。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "RAM独立子账号和最小权限是权限控制核心。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "输出侧拦截防止生成内容泄露隐私，是必要兜底。"
+      },
+      {
+        "label": "E",
+        "selected": false,
+        "why": "原始证件图片含PII，直接传公网URL违反脱敏和最小必要原则。"
+      }
+    ],
+    "duplicate_of": "8-5162"
+  },
+  "new-8-12-4": {
+    "qid": "new-8-12-4",
+    "classification": "own",
+    "chapter": 8,
+    "quality": "ok",
+    "reason": "考查多模态检测中PDF文件的规范处理流程。",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "需要检测本地文件时，课程用 oss_service.py 先把文件上传到 OSS，再把 URL 传给审核接口",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "接口不接受base64编码的PDF文件直接审核。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "私有URL无法被内容安全服务公网访问检测。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "上传OSS获公网URL后调用image_moderation是标准流程。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "仅提取文本会丢失图像中违规内容，不符合多模态检测要求。"
+      }
+    ],
+    "duplicate_of": "8-5157"
+  }
+}

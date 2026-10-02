@@ -1,0 +1,250 @@
+{
+  "2-1157": {
+    "qid": "2-1157",
+    "classification": "own",
+    "chapter": 2,
+    "quality": "ok",
+    "reason": "考查分隔符形式，教材明确列举，选项清晰。",
+    "answer": [
+      "A",
+      "B",
+      "D",
+      "E"
+    ],
+    "supported": true,
+    "quote": "常见形式有：三引号 `\"\"\"...\"\"\"`、XML 标签 `<context>...</context>`、Markdown 代码块、分隔线 `---`/`-----`、方括号 `【】`、`<< >>`、`###` 等。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "教材明确列举XML标签是分隔符形式。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "是XML标签的具体示例，属于分隔符。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "不加标记不符合分隔符结构化作用。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "三引号是教材列举的常见分隔符形式。"
+      },
+      {
+        "label": "E",
+        "selected": true,
+        "why": "`###`是教材列举的分隔符形式之一。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "2-1450": {
+    "qid": "2-1450",
+    "classification": "own",
+    "chapter": 2,
+    "quality": "ok",
+    "reason": "考查输出格式要素识别，选项区分度好。",
+    "answer": [
+      "B",
+      "D",
+      "F"
+    ],
+    "supported": true,
+    "quote": "输出格式（Output Format） | 指定格式、枚举值、禁止项 | \"只输出 JSON，不要多余解释\"",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "是任务目标，非输出格式。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "指定表格形式，属于输出格式。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "是角色设定，非输出格式。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "指定JSON格式，是典型输出格式。"
+      },
+      {
+        "label": "E",
+        "selected": false,
+        "why": "是写作风格，属于角色或受众范畴。"
+      },
+      {
+        "label": "F",
+        "selected": true,
+        "why": "指定结果包含字段，属于输出格式约束。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "2-0677": {
+    "qid": "2-0677",
+    "classification": "cross",
+    "chapter": -1,
+    "quality": "fixable",
+    "reason": "题干问“哪些方法”，是多选题，但选项E明显错误，应修正为单选或明确多选。",
+    "answer": [
+      "A",
+      "B",
+      "C",
+      "D"
+    ],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "RAG引入外部知识可改善事实错误。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "要求注明来源可间接促使模型更谨慎。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "CoT展示推理过程有助于发现逻辑错误。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "领域微调可提升模型在特定领域的事实准确性。"
+      },
+      {
+        "label": "E",
+        "selected": false,
+        "why": "完全依赖内置知识不干预，无法改善事实错误。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "2-0762": {
+    "qid": "2-0762",
+    "classification": "own",
+    "chapter": 2,
+    "quality": "ok",
+    "reason": "考查风格控制和语法错误优化的有效提示措施，选项合理。",
+    "answer": [
+      "A",
+      "B",
+      "C",
+      "D"
+    ],
+    "supported": true,
+    "quote": "样例（Sample） | 给 1~3 个范例对齐格式与风格 | Few-shot 示例；输出格式（Output Format） | 指定格式、枚举值、禁止项 | \"只输出 JSON，不要多余解释\"",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "明确风格要求是提示词基本要素。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "提供示例是Few-shot，可对齐风格。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "要求检查修正语法，是有效约束。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "限定文本结构属于输出格式约束。"
+      },
+      {
+        "label": "E",
+        "selected": false,
+        "why": "不做优化无法保证特定风格和无语法错误。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "2-0830": {
+    "qid": "2-0830",
+    "classification": "cross",
+    "chapter": 12,
+    "quality": "review",
+    "reason": "考查LlamaIndex框架具体API操作，属于框架工具章，教材未提供具体步骤。",
+    "answer": [
+      "A",
+      "B",
+      "D"
+    ],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "update_prompts是常见更新提示词方法。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "定义新prompt字符串并预留变量是必要步骤。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "修改框架源码不是常规步骤，且题干未提及。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "使用PromptTemplate对象是框架标准做法。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "2-1445": {
+    "qid": "2-1445",
+    "classification": "own",
+    "chapter": 2,
+    "quality": "ok",
+    "reason": "考查Few-shot适用场景，基于原理判断，选项清晰。",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "Zero-shot（零样本） | 不给示例，直接提问 | 简单、明确的任务；Few-shot（少样本） | 给 2~5 个示例让模型模仿 | 格式/风格敏感、需稳定结构的任务",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "企业内部流程问答，Few-shot示例有效。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "小众领域分类，Few-shot可提供参考。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "通用常识问答简单明确，Zero-shot即可。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "固定模板生成，Few-shot示例有效。"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

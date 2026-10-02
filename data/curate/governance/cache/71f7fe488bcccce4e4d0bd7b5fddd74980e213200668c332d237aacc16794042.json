@@ -1,0 +1,212 @@
+{
+  "2-0919": {
+    "qid": "2-0919",
+    "classification": "unsure",
+    "chapter": 2,
+    "quality": "remove",
+    "reason": "题目考查低资源语言翻译质量改善方法，核心考点是模型训练与数据增强，与提示工程章节知识（如六要素、分隔符、CoT等）无关。题干问“帮助最小”，但选项涉及数据收集、迁移学习、数据增强和调参，属于模型训练或微调范畴，非提示工程手段。",
+    "answer": [
+      "D"
+    ],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "收集更多语料是改善翻译质量的常见数据层面方法。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "迁移学习是从高资源语言迁移知识，对低资源语言有帮助。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "反向翻译是数据增强技术，有助于改善低资源语言表现。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "调高温度参数主要影响输出随机性，与改善低资源语言翻译质量关系最小。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "2-0923": {
+    "qid": "2-0923",
+    "classification": "own",
+    "chapter": 2,
+    "quality": "ok",
+    "reason": "题目考查提示词六要素设计，B选项明确包含角色、具体任务和输出要求，符合“任务目标、角色、输出格式”等要素，是最有效的提示词。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "六要素需要落成一个稳定的结构。推荐的通用结构是：角色 + 任务 + 上下文 + 示例 + 输出格式与约束",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "过于模糊，缺乏角色、具体任务和输出要求。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "包含角色、具体任务和量化输出要求，信息最完整有效。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "过于简单，缺乏必要的指导和约束。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "过于宽泛，未提供任何具体分析方向。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "2-0931": {
+    "qid": "2-0931",
+    "classification": "own",
+    "chapter": 2,
+    "quality": "ok",
+    "reason": "题目考查激发创意的提示词技术。B选项“使用类比和隐喻激发创意”符合提示工程中通过设计输入引导模型生成新颖内容的原则，而A、C、D选项均不利于创新。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "提示工程（Prompt Engineering）：通过精心设计输入文本（提示词），引导大模型稳定生成符合预期输出的技术。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "“创新设计”指令过于模糊，缺乏具体引导。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "类比和隐喻能有效激发模型的联想和创意生成。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "遵循现有规范会限制创新，与生成新颖概念的目标相悖。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "模板化设计不利于产生新颖创意。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "2-0944": {
+    "qid": "2-0944",
+    "classification": "own",
+    "chapter": 2,
+    "quality": "ok",
+    "reason": "题目考查如何通过提示词改善多轮对话的连贯性。B选项“在提示词中明确对话历史和当前焦点”直接对应提示工程中补充上下文要素的原则，是有效且低成本的方法。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "上下文（Context）：提供背景、事实、范围。附上参考资料、业务规则。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "增加参数是模型训练层面，非提示工程手段，且成本高。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "明确对话历史和焦点是为模型补充关键上下文信息。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "更快的硬件提升速度，不直接解决对话连贯性问题。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "减少数据量会降低模型能力，与改善效果背道而驰。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "2-0950": {
+    "qid": "2-0950",
+    "classification": "own",
+    "chapter": 2,
+    "quality": "ok",
+    "reason": "题目考查如何通过提示词改善模型语气。D选项“提供角色设定”是提示工程六要素中的“角色”要素，能有效引导模型模仿特定身份的语气，比B选项的抽象指令更具体。",
+    "answer": [
+      "D"
+    ],
+    "supported": true,
+    "quote": "角色（Role）：定义身份、语气、写作风格。“你是一名耐心的入职伙伴”。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "增加训练数据是模型训练层面，非即时提示工程手段。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "要求“empathetic语气”较抽象，不如具体角色设定有效。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "换更强模型可能改善，但非提示工程优先手段，且成本高。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "设定“富有同理心的客服专家”角色，能直接引导语气。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "2-0951": {
+    "qid": "2-0951",
+    "classification": "cross",
+    "chapter": 4,
+    "quality": "ok",
+    "reason": "题目考查处理复杂规则时模型与规则引擎的分工，核心是Agent设计中“模型只提议、程序才执行”的原则，属于第4章Agent知识。C选项符合此原则。",
+    "answer": [
+      "C"
+    ],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "完全依赖模型不可靠，可能产生错误或幻觉。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "将复杂规则编码到提示词中可能冗长且易出错。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "规则引擎处理确定规则，模型处理异常，分工可靠。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "人工处理所有排班效率低，不符合智能化目标。"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

@@ -1,0 +1,154 @@
+{
+  "items": [
+    {
+      "type": 0,
+      "stem": "某金融公司需构建合规问答系统，要求：① 所有客户合同与监管文件必须在私有VPC内处理；② 通用千问API无法准确解析'穿透式尽调'等专业表述；③ 需支持LoRA微调并灰度发布新模型版本。以下哪组阿里云产品组合最符合该技术架构要求？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "百炼（知识库+工作流） + DashScope API + ModelScope下载开源模型"
+        },
+        {
+          "option_label": "B",
+          "option_text": "DashScope OpenAI兼容接口 + PAI-DSW（开发） + PAI-DLC（训练） + PAI-EAS（部署）"
+        },
+        {
+          "option_label": "C",
+          "option_text": "百炼智能体 + PAI-EAS自定义模型服务 + OSS加密存储"
+        },
+        {
+          "option_label": "D",
+          "option_text": "ModelScope Notebook微调 + DashScope重排序API + DataWorks调度"
+        }
+      ],
+      "answer": "B",
+      "analysis": "题干三要素精准对应PAI三件套：① '私有VPC内处理'排除托管型百炼/DashScope（二者数据需上送），必须用PAI（DSW/DLC/EAS均支持VPC专有网络部署）；② 'LoRA微调+灰度发布'是PAI-DLC训练与PAI-EAS弹性部署的核心能力（10.4节明确：DLC支持分布式训练，EAS支持蓝绿发布、版本管理）；③ '通用API答不好专业问题'说明需自研模型，非百炼应用层能解决（10.5节对比表强调：百炼仅支持平台内轻量调优，'大规模训练、自定义部署'是PAI主场）。A错在百炼和DashScope均不满足数据不出域；C错在百炼无法完成LoRA微调与灰度发布；D错在ModelScope Notebook无生产级训练/部署能力，且DashScope重排序API不解决模型能力不足问题。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 0,
+      "stem": "某电商团队上线促销文案生成机器人后，首月账单超预期300%。排查发现：每次请求将整本《营销SOP手册》（20万字）作为system prompt传入，且未设置max_tokens。根据第10.8节成本要点，以下哪项措施对降本效果最直接且可立即生效？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "将手册上传至百炼知识库，通过RAG只检索相关段落作为上下文"
+        },
+        {
+          "option_label": "B",
+          "option_text": "切换至qwen-turbo模型以降低单价"
+        },
+        {
+          "option_label": "C",
+          "option_text": "在API请求中显式设置max_tokens=512"
+        },
+        {
+          "option_label": "D",
+          "option_text": "启用DashScope上下文缓存功能"
+        }
+      ],
+      "answer": "C",
+      "analysis": "题干明确故障根因是'未设max_tokens'导致输出失控，而10.8节成本要点指出：'限制输出：用max_tokens给输出设上限，避免模型刹不住车'——这是最直接、零改造、即时生效的止血措施。A虽符合RAG最佳实践（10.2节知识库能力），但需重构系统接入百炼，非'立即生效'；B切换模型可能牺牲质量（turbo不适合复杂生成），且未解决输出失控本质；D缓存仅对重复前缀有效，对长手册全文输入无收益。教材依据：10.8节'省成本的工程手段'第3条明确将max_tokens设限列为首要操作。",
+      "difficulty_label": "基础"
+    },
+    {
+      "type": 1,
+      "stem": "某政务系统需实现'政策文件智能解读'功能，要求：① 支持上传PDF/Word格式的红头文件；② 解析结果需严格基于原文，禁止幻觉；③ 输出需符合公文格式规范。以下哪些阿里云产品能力组合可满足全部要求？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "百炼知识库（自动解析文档+RAG检索）"
+        },
+        {
+          "option_label": "B",
+          "option_text": "PAI-DSW中调用Qwen-VL多模态模型进行PDF理解"
+        },
+        {
+          "option_label": "C",
+          "option_text": "DashScope qwen-long模型+自定义system prompt约束格式"
+        },
+        {
+          "option_label": "D",
+          "option_text": "百炼工作流编排：文档解析→切片→向量化→检索→格式化生成"
+        }
+      ],
+      "answer": "A,D",
+      "analysis": "A正确：百炼知识库明确支持'上传文档即可问答'，内置文档解析、切片、向量化、检索（10.2节表格），且RAG机制天然抑制幻觉（答案源自检索片段）；D正确：百炼工作流可拖拽编排'解析→切片→检索→审核→生成'全链路（10.2节），'格式化生成'可通过Prompt调试或插件实现。B错误：Qwen-VL属通义万相体系（10.6节映射表），课程未提及其PDF解析能力，且PAI-DSW需自行开发，不满足'开箱即用'要求；C错误：qwen-long仅解决长上下文，但无文档解析能力（PDF需先转文本），且纯模型调用无法保证公文格式，需额外工程约束。教材依据：10.2节'知识库（RAG）'能力描述及10.5节选型决策中'要快速搭知识库问答→百炼'。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 0,
+      "stem": "开发团队使用DashScope OpenAI兼容接口调用qwen-plus，发现流式响应（stream=True）下前端渲染卡顿。经监控发现大量429错误。以下哪项诊断最符合10.8节限流原理？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "TPM（每分钟Token数）超限，因流式响应持续占用Token配额导致累积超限"
+        },
+        {
+          "option_label": "B",
+          "option_text": "RPM（每分钟请求数）超限，因前端未做防抖导致高频短间隔请求"
+        },
+        {
+          "option_label": "C",
+          "option_text": "API Key权限不足，需在RAM控制台授权DashScope FullAccess"
+        },
+        {
+          "option_label": "D",
+          "option_text": "qwen-plus模型已下线，需切换至qwen-max"
+        }
+      ],
+      "answer": "A",
+      "analysis": "题干关键线索：'流式响应'与'429错误'。10.8节明确'429表示触发RPM/TPM限流'，而流式响应的特点是单次请求持续返回Token，其总消耗Token数在响应结束前不可知，易在高并发下快速耗尽TPM配额（如1000 TPM配额，10个流式请求同时返回，每秒各100 Token，则10秒即超限）。B虽为常见RPM超限场景，但题干未提'高频短间隔'，且流式本身不增加请求数（1次请求）；C、D与429无关（权限不足返回403，模型下线返回404）。教材依据：10.8节'风险'部分强调'429要指数退避'，且'限流（RPM/TPM）'表格明确区分两种配额类型。",
+      "difficulty_label": "中阶"
+    },
+    {
+      "type": 1,
+      "stem": "某教育科技公司计划构建'AI备课助手'，需支持：① 教师上传课件PPT提取知识点；② 基于课标文档生成分层习题；③ 将生成内容嵌入自有教学APP。以下关于平台选型的判断，哪些符合第10章分层原则？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "用百炼知识库管理课标文档，调用其API生成习题，再集成到APP"
+        },
+        {
+          "option_label": "B",
+          "option_text": "在PAI-DSW中开发PPT解析模型，用DLC训练，EAS部署后供APP调用"
+        },
+        {
+          "option_label": "C",
+          "option_text": "用DashScope qwen-long API直接解析PPT二进制流生成习题"
+        },
+        {
+          "option_label": "D",
+          "option_text": "用ModelScope下载Qwen-VL模型，在本地GPU服务器部署提供API"
+        }
+      ],
+      "answer": "A,B",
+      "analysis": "A正确：'管理课标文档'对应百炼知识库（10.2节），'调用API生成习题'符合百炼'一键发布为API'能力（10.2节表格），'嵌入APP'即API集成，完全匹配'应用层'定位；B正确：'开发PPT解析模型'属于自研模型范畴，必须用PAI（10.4节'PAI面向自己造/改模型的人'），DSW开发、DLC训练、EAS部署是标准三件套流程（10.4节表格）。C错误：DashScope不支持直接解析PPT二进制（需先转文本），且qwen-long是文本模型，非多模态；D错误：ModelScope仅为模型仓库，不提供部署能力，'本地GPU服务器'违背阿里云平台选型前提。教材依据：10.1节分层表明确'应用开发层→百炼'、'训练部署层→PAI'。",
+      "difficulty_label": "中阶"
+    },
+    {
+      "type": 0,
+      "stem": "某客户反馈：使用百炼搭建的HR答疑机器人，在钉钉群中回答'年假天数'时偶尔返回'请咨询HRBP'，但上传的《员工手册》PDF中明确写了'工作满1年享5天带薪年假'。运维日志显示该请求调用了DashScope qwen-plus模型。以下哪项最可能是根本原因？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "百炼知识库未开启'精确匹配'模式，导致RAG检索未召回手册中相关段落"
+        },
+        {
+          "option_label": "B",
+          "option_text": "qwen-plus模型在训练时未学习劳动法相关知识"
+        },
+        {
+          "option_label": "C",
+          "option_text": "百炼工作流中未配置'审核节点'，模型直接输出未经验证的结果"
+        },
+        {
+          "option_label": "D",
+          "option_text": "DashScope API Key配额耗尽，返回默认兜底响应"
+        }
+      ],
+      "answer": "A",
+      "analysis": "题干核心矛盾：'手册有答案但机器人未答出'，且明确使用百炼知识库（RAG）。10.2节指出知识库能力是'RAG：内置文档解析、切片、向量化、检索，上传文档即可问答'，而RAG失效主因是检索失败。A直指RAG链路关键环节——若未开启精确匹配或切片/向量化参数不当，可能导致'年假'相关段落未被检索到，模型只能基于通用知识回答（10.5节强调百炼知识库是RAG实现）。B错误：qwen-plus作为通用模型具备基础常识，且手册已提供依据；C错误：'审核节点'属工作流高级能力，非RAG问答必需；D错误：配额耗尽返回429而非业务兜底语。教材依据：10.2节知识库原理及10.5节'百炼应用可回调PAI-EAS私有模型'反证其依赖RAG检索质量。",
+      "difficulty_label": "进阶"
+    }
+  ]
+}

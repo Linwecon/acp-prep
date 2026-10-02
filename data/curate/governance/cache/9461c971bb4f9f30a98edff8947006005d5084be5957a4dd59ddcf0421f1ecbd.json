@@ -1,0 +1,162 @@
+{
+  "items": [
+    {
+      "type": 0,
+      "stem": "某教育公司新人答疑机器人初期仅需单轮问答，两周后需支持RAG知识库、多轮对话、调用三个内部系统、效果评测及前端API接入。此时工程师发现代码迅速膨胀至数百行，messages手工拼接、历史维护混乱、检索逻辑重复。该现象最直接印证了本章强调的哪一核心观点？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "框架能提升大模型本身的推理能力，解决模型智力不足问题"
+        },
+        {
+          "option_label": "B",
+          "option_text": "裸调SDK在复杂场景下导致‘共性脏活’重复实现，框架价值在于工程化编排与组件复用"
+        },
+        {
+          "option_label": "C",
+          "option_text": "LlamaIndex必须配合LangChain Agent才能处理多系统调用，否则无法扩展"
+        },
+        {
+          "option_label": "D",
+          "option_text": "所有大模型应用都应优先选用Dify，避免从零编写后端逻辑"
+        }
+      ],
+      "answer": "B",
+      "analysis": "题干精准复现原文12.1节‘scenario’案例：从单轮脚本到多维度需求演进后出现的工程熵增（手动拼messages、维护历史、重写检索）。原文明确指出这是‘共性脏活’——提示词拼装、多轮记忆、文档检索、流程编排等反复出现的模式，而框架的本质价值正是将其抽象为可组合组件（PromptTemplate/Memory/Retriever/Chain），即‘工程化编排、组件复用、流程标准化’（目标1、exam要点）。A错误：原文多次强调‘框架不提升模型智力’（12.1 value、12.8 risk）；C错误：多系统调用属Agent编排范畴，LangChain或AgentScope均可独立支撑，非LlamaIndex必需依赖（12.4 compare、12.6.1）；D错误：原文明确反对‘为用框架而用框架’，且简单脚本裸调SDK更优（12.1 exam、12.8选型表）。",
+      "difficulty_label": "基础"
+    },
+    {
+      "type": 0,
+      "stem": "在构建一个需支持‘查制度文档+调请假API+记员工身份’的Agent时，技术团队评估发现：LlamaIndex已建好向量索引并封装为Retriever，但现有Agent需动态决策是否查知识库、是否调API、如何管理跨轮身份。此时最符合本章‘定位-抽象-生态’三维对比原则的架构选择是？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "弃用LlamaIndex，全部改用LangChain Retrieval模块重建索引，确保抽象统一"
+        },
+        {
+          "option_label": "B",
+          "option_text": "将LlamaIndex Retriever注册为LangChain Tool，由LangChain Agent统一编排决策与Memory管理"
+        },
+        {
+          "option_label": "C",
+          "option_text": "改用AgentScope的ReActAgent，因其原生支持工具调用，无需额外适配"
+        },
+        {
+          "option_label": "D",
+          "option_text": "强制使用Dify可视化工作流，避免任何Python代码开发"
+        }
+      ],
+      "answer": "B",
+      "analysis": "题干场景完全对应原文12.4节‘二者不是互斥，而是可以组合’的经典案例（‘应用以RAG为主，但需要一个会查知识库也会调请假/报销API的Agent’）。原文明确给出正解：‘用LlamaIndex建好向量索引、封装成Retriever，再把这个Retriever作为Tool挂到LangChain的Agent上’，让LlamaIndex专注‘数据层’（RAG强项），LangChain专注‘编排层’（Agent/Tool/Memory强项）（12.4 compare、exam）。A错误：原文警示‘反模式’包括‘用两套抽象同时建索引’（12.4 risk）；C错误：AgentScope虽支持Tool，但其核心优势在多Agent消息协作（MsgHub/Blackboard），而题干是单Agent多工具，LangChain生态更成熟（12.6.1 compare、12.4 best）；D错误：Dify适合非工程人员自助搭建，但题干涉及深度定制（员工身份记忆需Memory配置），原文强调‘深度定制仍需写代码’（12.6.2 exam）。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 1,
+      "stem": "某金融企业需上线合规审计问答机器人，文档含大量扫描版合同、带复杂表格的监管报表及内部Markdown制度。团队要求：1）解析结果必须保留表格结构与标题层级；2）所有处理需离线完成；3）IT部门拒绝引入云服务。根据第12.5节文档解析工具链选型原则，以下哪些工具组合符合要求？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "DashScopeParse（因具备OCR和表格识别能力）"
+        },
+        {
+          "option_label": "B",
+          "option_text": "Unstructured（支持离线分区解析，可保留表格与标题结构）"
+        },
+        {
+          "option_label": "C",
+          "option_text": "SimpleDirectoryReader（默认支持PDF/DOCX，轻量易用）"
+        },
+        {
+          "option_label": "D",
+          "option_text": "PyMuPDF（纯文本PDF抽取快，但对扫描件无效）"
+        },
+        {
+          "option_label": "E",
+          "option_text": "自定义Reader（继承BaseReader，针对合同/报表格式专项开发）"
+        }
+      ],
+      "answer": "B,E",
+      "analysis": "题干三条件直指12.5节‘选型决策路径’：1）扫描件+复杂表格→需OCR/版面分析；2）离线→排除DashScopeParse（云端服务，12.5 table）；3）拒绝云服务→排除A。B正确：Unstructured明确标注‘完全离线、多格式统一分区’，且‘擅长按分区识别标题、段落、表格’（12.5 table、best）；E正确：原文指出‘内部专有格式→自定义Reader’，合同/报表属典型专有格式，且可完全离线（12.5 table、best）；C错误：SimpleDirectoryReader对扫描件‘处理有限’（12.5 table），无法满足条件1；D错误：PyMuPDF‘扫描件无文字层时无能为力’（12.5 exam），直接违反条件1；A错误：DashScopeParse是‘云端服务，有调用费用与数据出域考虑’（12.5 table），违反条件2、3。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 0,
+      "stem": "运维团队收到告警：某基于LlamaIndex的RAG服务响应延迟突增300%，日志显示索引重建耗时异常。经排查，代码中每次用户查询均执行‘VectorStoreIndex.from_documents(documents, embed_model=...)’。此问题根源及最优解最符合本章哪一知识点？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "未使用LCEL管道，导致同步阻塞；应改用prompt | model | parser异步链"
+        },
+        {
+          "option_label": "B",
+          "option_text": "索引未持久化，每次查询重建索引；应使用StorageContext.persist()与load_index_from_storage()"
+        },
+        {
+          "option_label": "C",
+          "option_text": "Document解析质量差，导致向量化失败；应更换为DashScopeParse解析器"
+        },
+        {
+          "option_label": "D",
+          "option_text": "Retriever配置similarity_top_k过大，引发向量计算爆炸；应调小该参数"
+        }
+      ],
+      "answer": "B",
+      "analysis": "题干描述‘每次用户查询均执行from_documents’，直接对应原文12.3节关键考点：‘索引需要持久化，避免每次重建’，并给出具体方案‘StorageContext.from_defaults(persist_dir=...) + index.storage_context.persist(...)’（12.3 exam、code snippet）。延迟突增源于重复建索引（O(n²)级开销），而非模型调用或解析问题。A错误：LCEL解决的是链路流式/异步，不解决索引重建问题（12.2 LCEL作用）；C错误：解析质量影响检索精度，但不会导致‘索引重建耗时异常’这一特定现象（12.5 exam聚焦答案错误，非性能）；D错误：similarity_top_k影响召回数量，不改变索引构建过程（12.3 QueryEngine参数说明）。",
+      "difficulty_label": "基础"
+    },
+    {
+      "type": 1,
+      "stem": "某团队使用FastAPI暴露RAG服务，同时用Gradio搭建内部演示界面。测试中发现：Gradio界面响应正常，但FastAPI接口返回500错误，日志提示‘query_engine未初始化’。检查代码发现query_engine在Gradio的answer函数内创建，未在FastAPI路由函数中声明。此故障揭示了本章关于技术栈分层的哪两个关键原则？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "Gradio和FastAPI属于同一服务层，应共享实例"
+        },
+        {
+          "option_label": "B",
+          "option_text": "UI层（Gradio）与服务层（FastAPI）应解耦，业务逻辑需下沉为独立可复用模块"
+        },
+        {
+          "option_label": "C",
+          "option_text": "RAGAS评估必须与FastAPI集成，否则无法监控生产指标"
+        },
+        {
+          "option_label": "D",
+          "option_text": "框架选型应遵循‘先看需求复杂度，再选工具’，而非先定框架"
+        },
+        {
+          "option_label": "E",
+          "option_text": "业务逻辑不应与UI绑定，否则无法被不同入口复用"
+        }
+      ],
+      "answer": "B,E",
+      "analysis": "题干故障本质是业务逻辑（query_engine）与UI（Gradio）强耦合，导致FastAPI无法访问。原文12.7.2明确警告：‘Gradio只负责界面，不承载业务逻辑。RAG、Agent、提示词这些应放在下层可独立测试的模块里，UI只调用它们的接口。否则一旦要把Demo变成正式产品，所有逻辑都和UI耦在一起，无法重写’（12.7.2 concept）。B、E共同指向这一核心原则：UI层与服务层解耦，业务逻辑下沉为独立模块（如单独rag.py），供Gradio和FastAPI共同调用。A错误：原文12.7.3明确区分‘Gradio适合给人用的Demo，FastAPI适合给系统调的服务’，二者是不同层次（12.7.3 compare）；C错误：RAGAS是评估层，与服务暴露无关（12.7.1）；D虽是本章原则（12.1 exam），但与此故障无直接因果关系。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 0,
+      "stem": "安全团队审计发现：某Dify私有部署实例中，HR上传的敏感制度文档可通过未授权API被外部调用。运维人员辩称‘已私有部署，数据不出域，因此绝对安全’。此认知违背本章哪一重要风险警示？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "框架引入会带来抽象泄漏和调试黑盒，增加安全排查难度"
+        },
+        {
+          "option_label": "B",
+          "option_text": "Dify私有部署只解决数据出域，内容安全、权限分级、审计日志仍需自行配置"
+        },
+        {
+          "option_label": "C",
+          "option_text": "LangChain的Callback机制若未启用，将无法追踪恶意API调用"
+        },
+        {
+          "option_label": "D",
+          "option_text": "RAGAS评估缺失导致无法发现生成内容的安全漏洞"
+        }
+      ],
+      "answer": "B",
+      "analysis": "题干‘私有部署≠自动安全合规’直接复现原文12.6.2节‘cost’框中的核心警示：‘私有部署 ≠ 自动合规：数据不出域只是第一步，内容安全审核、权限分级、审计日志仍需自己配置’（12.6.2 cost）。故障根源是权限控制缺失（未授权API访问），而非框架抽象或评估问题。A虽是风险（12.1 risk），但与‘权限配置’无直接关联；C错误：Callback用于链路追踪，非安全防护机制（12.1 table）；D错误：RAGAS评估生成质量，不解决API鉴权问题（12.7.1）。",
+      "difficulty_label": "基础"
+    }
+  ]
+}

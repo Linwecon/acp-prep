@@ -1,0 +1,246 @@
+{
+  "8-1230": {
+    "qid": "8-1230",
+    "classification": "unsure",
+    "chapter": 8,
+    "quality": "remove",
+    "reason": "题干与AI安全合规无关，属于多语言客服系统设计，超出本章范围。",
+    "answer": [],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "题干无关安全合规，无法判断。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "题干无关安全合规，无法判断。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "题干无关安全合规，无法判断。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "题干无关安全合规，无法判断。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "8-1448": {
+    "qid": "8-1448",
+    "classification": "own",
+    "chapter": 8,
+    "quality": "ok",
+    "reason": "考查上下文污染定义，属于模型应用安全风险。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "攻击大模型应用……劫持对话、诱导输出、操纵 Agent……提示注入、越狱、提示词泄漏、恶意工具调用、知识库投毒",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "上下文窗口大小是技术限制，非污染定义。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "多用户共享时，输入输出被干扰是应用安全风险。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "污染可发生在任何部署模式，非仅本地。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "增加参数不能完全避免，需应用层防护。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "8-1451": {
+    "qid": "8-1451",
+    "classification": "own",
+    "chapter": 8,
+    "quality": "ok",
+    "reason": "考查视频合规检测的关键步骤，属于多模态内容安全。",
+    "answer": [
+      "B",
+      "C",
+      "E",
+      "F"
+    ],
+    "supported": true,
+    "quote": "视频既有画面又有音轨，风险面是图文的叠加……音频/视频因为要转码、抽帧、识别音轨，通常走异步任务",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "用户评论分析非视频检测关键步骤。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "视频预处理如分段抽帧是必要步骤。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "音频合规检测是视频检测组成部分。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "编码格式选择非合规检测关键步骤。"
+      },
+      {
+        "label": "E",
+        "selected": true,
+        "why": "图片合规检测对应视频抽帧画面分析。"
+      },
+      {
+        "label": "F",
+        "selected": true,
+        "why": "文本合规检测对应字幕和音频转录文本。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "8-0056": {
+    "qid": "8-0056",
+    "classification": "own",
+    "chapter": 8,
+    "quality": "ok",
+    "reason": "考查API Key安全配置实践，属于密钥管理。",
+    "answer": [
+      "B",
+      "D"
+    ],
+    "supported": true,
+    "quote": "强烈建议不要把 AccessKey ID 和 Secret 保存到工程代码里……代码里也是从环境变量读取",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "环境变量不直接影响模型回复速度。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "避免硬编码，降低泄露风险。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "环境变量不直接影响模型准确率。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "便于代码复用和管理，无需硬记密钥。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "8-0964": {
+    "qid": "8-0964",
+    "classification": "own",
+    "chapter": 8,
+    "quality": "ok",
+    "reason": "考查保障大模型应用责任与伦理运行的措施。",
+    "answer": [
+      "A",
+      "B",
+      "C",
+      "D"
+    ],
+    "supported": true,
+    "quote": "安全不是上线后的补救，而是设计阶段就要纳入的基础要求……建立投诉举报机制",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "内容安全策略是伦理运行基础。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "说明局限性是透明和负责任的表现。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "公平性测试可减少偏见，符合伦理。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "用户反馈渠道是责任和合规要求。"
+      },
+      {
+        "label": "E",
+        "selected": false,
+        "why": "忽略其他因素不符合责任伦理原则。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "8-1461": {
+    "qid": "8-1461",
+    "classification": "own",
+    "chapter": 8,
+    "quality": "ok",
+    "reason": "考查AI应用上线合规与安全注意事项。",
+    "answer": [
+      "A",
+      "B",
+      "D",
+      "E",
+      "F"
+    ],
+    "supported": true,
+    "quote": "面向境内公众提供生成式 AI 服务须依法备案……AI 生成/合成的文本、图片、音视频须添加显著标识",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "关注法规动态是合规基本要求。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "上线前完成算法备案是法定要求。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "忽略备案要求违反法规，有下架风险。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "审核过滤AIGC内容是内容安全责任。"
+      },
+      {
+        "label": "E",
+        "selected": true,
+        "why": "获得用户同意并保障数据安全是合规要求。"
+      },
+      {
+        "label": "F",
+        "selected": true,
+        "why": "告知用户使用AIGC技术是标识要求。"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

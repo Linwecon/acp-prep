@@ -1,0 +1,212 @@
+{
+  "new-1-0-0": {
+    "qid": "new-1-0-0",
+    "classification": "own",
+    "chapter": 1,
+    "quality": "ok",
+    "reason": "考查采样随机性导致输出不一致的根本原因",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "采样本身具有随机性，属正常现象；要稳定就调低 temperature / 固定 seed",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "位置编码偏移非教材提及原因"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "浮点精度扰动非教材提及根本原因"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "教材指出采样随机性致同输入不同输出"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "分词器不一致非教材提及默认情况"
+      }
+    ],
+    "duplicate_of": "1-1471"
+  },
+  "new-1-0-1": {
+    "qid": "new-1-0-1",
+    "classification": "cross",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "考查RAG解决私域知识问题的核心机制",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "最新 / 私域知识 → RAG 检索、联网搜索",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "注入全文超窗且非有效学习机制"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "联网搜索无法访问公司内网私域文档"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "RAG检索手册段落提供上下文是正确手段"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "调参无法解决知识缺失根本问题"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-1-0-2": {
+    "qid": "new-1-0-2",
+    "classification": "own",
+    "chapter": 1,
+    "quality": "ok",
+    "reason": "考查长上下文中间信息丢失现象",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "过长的无关上下文会稀释注意力、引入噪声（'Lost in the Middle'现象）",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "自注意力两两交互但权重稀释非教材原话"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "挤压生成空间非现象主因"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "教材明确提及Lost in the Middle现象"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "因果注意力限制看到左侧，但摘要能看到全文"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-1-0-3": {
+    "qid": "new-1-0-3",
+    "classification": "own",
+    "chapter": 1,
+    "quality": "ok",
+    "reason": "考查多轮对话无状态需回传历史",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "API 是无状态（Stateless）的：每次 HTTP 请求相互独立",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "分词映射非问题主因"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "位置编码非问题主因"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "需确认历史assistant回复已追加至上下文"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "默认参数非贪心策略"
+      }
+    ],
+    "duplicate_of": "1-1475"
+  },
+  "new-1-0-4": {
+    "qid": "new-1-0-4",
+    "classification": "own",
+    "chapter": 1,
+    "quality": "ok",
+    "reason": "考查自注意力计算复杂度与长序列关系",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "自注意力本身不限制序列长度，真正限制长度的是工程上的上下文窗口",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "复杂度O(n²)致计算延迟符合直觉"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "位置编码精度衰减非教材提及原因"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "教材指出自注意力不限长，故障可能源于机制复杂度"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "多头注意力能力下降非教材原话"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-1-0-5": {
+    "qid": "new-1-0-5",
+    "classification": "own",
+    "chapter": 1,
+    "quality": "ok",
+    "reason": "考查LLM不擅精确计算的根本特性",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "LLM 的本质是条件概率模型：给定上文，模型计算下一个词的概率分布",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "训练目标是预测下一个Token，非执行符号运算"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "自注意力评估相关性非根本原因"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "上下文窗口非此现象主因"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "分词破坏语义非根本特性"
+      }
+    ],
+    "duplicate_of": "1-1477"
+  }
+}

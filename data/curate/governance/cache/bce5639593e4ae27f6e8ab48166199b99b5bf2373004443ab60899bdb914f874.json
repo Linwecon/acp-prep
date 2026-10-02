@@ -1,0 +1,44 @@
+{
+  "items": [
+    {
+      "qid": "new-11-36-0",
+      "duplicate_of": "new-11-30-0",
+      "reason": "考点、关键条件、解题路径完全相同"
+    },
+    {
+      "qid": "new-11-36-1",
+      "duplicate_of": "",
+      "reason": "考点相同但关键条件不同（误判类型不同）"
+    },
+    {
+      "qid": "new-11-36-2",
+      "duplicate_of": "new-11-12-3",
+      "reason": "考点、关键条件、解题路径完全相同"
+    },
+    {
+      "qid": "new-11-36-5",
+      "duplicate_of": "",
+      "reason": "考点相同但关键条件不同（遗漏原因不同）"
+    },
+    {
+      "qid": "new-11-42-0",
+      "duplicate_of": "new-11-30-0",
+      "reason": "考点、关键条件、解题路径完全相同"
+    },
+    {
+      "qid": "new-11-42-1",
+      "duplicate_of": "new-11-36-1",
+      "reason": "考点、关键条件、解题路径完全相同"
+    },
+    {
+      "qid": "new-11-48-0",
+      "duplicate_of": "",
+      "reason": "考点相同但关键条件不同（问题具体表现不同）"
+    },
+    {
+      "qid": "new-11-48-5",
+      "duplicate_of": "new-11-12-3",
+      "reason": "考点、关键条件、解题路径完全相同"
+    }
+  ]
+}

@@ -1,0 +1,212 @@
+{
+  "5-0347": {
+    "qid": "5-0347",
+    "classification": "own",
+    "chapter": 5,
+    "quality": "ok",
+    "reason": "业务角色提供领域知识指导数据构建和评估，原文强调微调需贴合业务行为。",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "微调则通过领域样本让它学会'这个岗位该怎么说话、按什么格式交付'。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "数据工程师非关键决策角色，原文未提"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "ML工程师是执行者，非调研阶段关键"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "业务工作者提供领域知识指导数据构建"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "UI/UX设计不涉及微调核心数据构建"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "5-0351": {
+    "qid": "5-0351",
+    "classification": "own",
+    "chapter": 5,
+    "quality": "ok",
+    "reason": "大规模收集数据若质量低会损害效果，原文明确'数据越多越好'是误区。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "❌ '数据越多越好' → 低质、重复、错位的数据反而有害，模型会把错误也学进去；",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "精心筛选符合质量优先原则"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "大规模收集易引入低质数据"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "类别失衡属常见问题但非最直接原因"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "去噪预处理是正确做法"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "5-0382": {
+    "qid": "5-0382",
+    "classification": "own",
+    "chapter": 5,
+    "quality": "ok",
+    "reason": "数据清洗去噪是质量四维基础，原文强调质量远高于数量。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "质量从四个维度把关，其重要性远高于数量：1. 正确性 2. 多样性 3. 一致性 4. 无重复",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "随机排序非关键步骤"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "清洗去噪保障数据正确性"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "划分集是必要但非最关键步骤"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "加入无关信息会降低质量"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "5-0402": {
+    "qid": "5-0402",
+    "classification": "own",
+    "chapter": 5,
+    "quality": "ok",
+    "reason": "分词是模型处理最小单位，原文明确Token是处理最小单位。",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "Token是处理最小单位",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "分词不直接降成本"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "分词不简化内容而是切分"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "Token是处理最小单位"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "分词与传输效率无关"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "5-0426": {
+    "qid": "5-0426",
+    "classification": "own",
+    "chapter": 5,
+    "quality": "ok",
+    "reason": "微调目标是适配特定任务行为，原文定义微调为'让模型在特定任务上的输出行为更稳定'。",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "微调（Fine-tuning）：在已经预训练好的模型权重基础上，用一批'指令—回答'样本继续做梯度下降，让模型在特定任务上的输出行为（风格、格式、领域表达）更稳定、更贴合业务。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "泛化能力非微调主要目标"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "微调不减少参数量"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "改善特定任务性能是核心目的"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "训练速度非主要目的"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "5-0427": {
+    "qid": "5-0427",
+    "classification": "own",
+    "chapter": 5,
+    "quality": "ok",
+    "reason": "学习率控制参数更新步长，原文明确'学习率（lr）是每次参数更新的步长'。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "学习率（lr）是每次参数更新的步长",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "批大小影响梯度稳定性"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "学习率直接控制更新步长"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "训练轮数控制迭代次数"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "正则化系数控制过拟合"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

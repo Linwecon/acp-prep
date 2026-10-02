@@ -1,0 +1,218 @@
+{
+  "5-0439": {
+    "qid": "5-0439",
+    "classification": "own",
+    "chapter": 5,
+    "quality": "ok",
+    "reason": "D选项错误，微调不改变模型大小和复杂度",
+    "answer": [
+      "D"
+    ],
+    "supported": true,
+    "quote": "微调是在已经预训练好的模型权重基础上，用一批\"指令—回答\"样本继续做梯度下降",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "原文明确指出过拟合是微调常见失败模式"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "原文强调高质量标注数据是微调前提"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "原文虽未直接提偏见，但风险部分涵盖行为适配边界"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "微调不改变模型结构，大小复杂度不变"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "5-0480": {
+    "qid": "5-0480",
+    "classification": "own",
+    "chapter": 5,
+    "quality": "ok",
+    "reason": "D默认模型无法回答私域知识，其他均可",
+    "answer": [
+      "A",
+      "C"
+    ],
+    "supported": true,
+    "quote": "RAG核心思想：开卷考试；微调解决行为适配而非知识更新",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "微调可适配领域术语，但知识时效仍受限"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "训练新模型非微调范畴，且不解决私域知识"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "提示词可传递私域知识，属上下文工程手段"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "默认模型无私域知识，无法直接回答"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "5-0515": {
+    "qid": "5-0515",
+    "classification": "own",
+    "chapter": 5,
+    "quality": "ok",
+    "reason": "D减少推理时间与意图识别无关",
+    "answer": [
+      "A",
+      "B",
+      "C"
+    ],
+    "supported": true,
+    "quote": "提示词优化 → RAG → （仍不满足才考虑）微调；微调擅长稳定的风格、语气、输出格式、领域行为习惯",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "提示词可约束意图识别输出格式"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "微调可提升领域意图识别稳定性"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "增加训练数据可提升意图识别效果"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "推理时间不影响意图识别能力"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "5-0586": {
+    "qid": "5-0586",
+    "classification": "own",
+    "chapter": 5,
+    "quality": "ok",
+    "reason": "B错误，模型并非越大越好",
+    "answer": [
+      "A",
+      "C",
+      "D"
+    ],
+    "supported": true,
+    "quote": "模型选型四维评估（速度/能力/长文本/成本）；微调不改变知识截止时间",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "原文强调模型选型需按任务需求"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "原文指出大模型有成本/延迟/知识截止等限制"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "原文要求按任务分布准备数据"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "原文提及数据合规与版权约束"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "5-0608": {
+    "qid": "5-0608",
+    "classification": "own",
+    "chapter": 5,
+    "quality": "ok",
+    "reason": "B和C明显错误，A和D正确",
+    "answer": [
+      "A",
+      "D"
+    ],
+    "supported": true,
+    "quote": "需求分析（确认是行为/风格问题）；超参数选择的正确姿势：先分析数据",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "原文强调需求分析是第一步"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "需选择适配任务的预训练模型"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "需领域相关高质量数据"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "原文多次强调资源约束与成本"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "5-0680": {
+    "qid": "5-0680",
+    "classification": "own",
+    "chapter": 5,
+    "quality": "ok",
+    "reason": "B通过多模型投票可提升标注质量",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "数据合成蒸馏全流程：教师生成多样化提问→教师低温度标注→质量过滤",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "原文要求多轮质量过滤"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "多模型投票是典型噪声抑制方法"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "原文强调必须自动过滤不合格样本"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "原文主张教师生成+质量过滤的高效方案"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

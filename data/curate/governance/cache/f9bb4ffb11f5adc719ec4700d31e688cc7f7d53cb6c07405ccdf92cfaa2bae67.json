@@ -1,0 +1,166 @@
+{
+  "items": [
+    {
+      "type": 0,
+      "stem": "某金融公司需构建合规问答系统，要求：① 所有客户合同与监管文件严禁出域；② 通用千问模型对'穿透式尽调'等术语回答不准；③ 需支持1000+并发实时响应。技术团队决定基于Qwen2-7B开源模型微调后部署。以下哪组阿里云产品组合最符合全链路需求？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "ModelScope下载模型 → PAI-DSW开发微调 → PAI-DLC分布式训练 → PAI-EAS部署"
+        },
+        {
+          "option_label": "B",
+          "option_text": "百炼知识库上传合同 → 调用qwen-max API → 开启流式响应"
+        },
+        {
+          "option_label": "C",
+          "option_text": "DashScope原生SDK调用qwen-long → 设置max_tokens=8192 → 启用RPM限流降级"
+        },
+        {
+          "option_label": "D",
+          "option_text": "OSS存储合同PDF → DataWorks清洗 → 百炼工作流编排 → 调用DashScope Embedding"
+        }
+      ],
+      "answer": "A",
+      "analysis": "题干三重约束：'数据严禁出域'（排除所有需上送API的方案B/C/D）、'术语回答不准需微调'（排除仅用预置模型的B/C/D）、'1000+并发实时响应'（需生产级部署能力，EAS提供弹性伸缩与高可用）。A项严格对应教材10.4节PAI三件套分工：DSW用于交互式开发调试（10.4原理）、DLC用于分布式训练（10.4表格明确'大规模/分布式训练'由DLC承担）、EAS用于高并发在线服务（10.4定义'支持弹性伸缩、蓝绿发布'）。B项违反数据不出域（百炼底层调DashScope API，数据上送）；C项本质仍是托管API，无法满足私有化与微调；D项未涉及模型改造，且百炼工作流仍依赖外部API。教材10.5明确指出：'要自己训练、微调、蒸馏，或部署开源模型 → PAI'；10.7强调开源模型价值在于'数据可不出域、可深度定制'。",
+      "difficulty_label": "挑战"
+    },
+    {
+      "type": 1,
+      "stem": "运维工程师发现生产环境DashScope API调用频繁返回429错误，日志显示RPM（每分钟请求数）持续超限。此时应采取哪些符合原文10.8节成本与稳定性原则的措施？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "立即在代码中添加指数退避+随机抖动重试机制"
+        },
+        {
+          "option_label": "B",
+          "option_text": "将所有请求路由至qwen-turbo以降低单次Token消耗"
+        },
+        {
+          "option_label": "C",
+          "option_text": "检查前端是否未做请求限流，增加客户端并发控制"
+        },
+        {
+          "option_label": "D",
+          "option_text": "申请提升RPM配额，并同步评估PAI-EAS自托管可行性"
+        },
+        {
+          "option_label": "E",
+          "option_text": "关闭DashScope缓存功能，避免上下文前缀重复计费"
+        }
+      ],
+      "answer": "A,C,D",
+      "analysis": "429是RPM/TPM限流信号（10.8明确'超限返回429'），处理必须遵循'工程手段+长期优化'双路径。A正确：原文10.8成本要点第5条明确'遇429用指数退避+抖动重试'；C正确：原文10.8场景题指出'有人把整本员工手册每次都塞进提示词...前端狂点'导致账单失控，强调客户端限流必要性；D正确：原文10.8风险应对指出'必要时降级到更小模型'（对应B）但更根本的是'规模化后算账...评估微调/蒸馏小模型+自托管是否更省'（即PAI-EAS），且10.5明确'三者可组合'，自托管是合理演进路径。B错误：RPM是请求数限制，非Token数，换turbo不解决RPM超限（10.6说明turbo是'速度快、延迟低'，但RPM配额与模型无关）；E错误：原文10.8省成本手段第4条明确'善用缓存'，关闭缓存会增加费用，且缓存折扣针对固定前缀，不增加计费。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 0,
+      "stem": "某医疗科技公司需构建药品说明书问答系统，要求：① 严格遵循NMPA审评标准；② 支持10万字说明书全文问答；③ 输出必须带引用来源页码；④ 模型需通过等保三级认证。以下技术选型中，同时满足合规性与技术可行性的有？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "使用qwen-long模型 + 百炼知识库切片上传 + 自定义引用提取插件"
+        },
+        {
+          "option_label": "B",
+          "option_text": "ModelScope下载Qwen2-72B开源模型 → 在PAI-DSW中微调 → PAI-EAS部署并配置等保三级认证"
+        },
+        {
+          "option_label": "C",
+          "option_text": "DashScope调用qwen-max + Rerank服务 + 自建引用溯源模块"
+        },
+        {
+          "option_label": "D",
+          "option_text": "OSS存储说明书PDF → PAI-DLC训练文档理解模型 → EAS部署 → 对接百炼工作流"
+        }
+      ],
+      "answer": "B",
+      "analysis": "四重约束需逐项验证：①NMPA审评标准→需模型可控可审计，商业API（A/C）黑盒不可控；②10万字全文问答→需超长上下文，qwen-long虽支持，但A项'百炼知识库切片上传'违背'全文问答'要求（10.6明确qwen-long'可减少切片'，切片即放弃全文能力）；③引用页码→需模型输出结构化溯源，商业API无此保证；④等保三级→需私有化部署（10.7指出'开源版可私有化部署'，而DashScope/百炼为公有云托管服务，无法满足等保三级物理隔离要求）。B项：ModelScope下载开源模型（10.7定义）→ DSW微调（10.4）→ EAS部署（10.4），全程可控，且EAS作为阿里云PaaS服务支持等保三级认证（官方文档可查，教材10.4'生产级服务'隐含合规能力）。A错在切片破坏全文能力；C错在DashScope托管服务无法满足等保三级；D错在'PAI-DLC训练文档理解模型'无教材依据（DLC用于大模型训练，非专用文档理解模型），且未解决等保与引用溯源。",
+      "difficulty_label": "挑战"
+    },
+    {
+      "type": 1,
+      "stem": "算法团队在PAI-DSW中完成Qwen2-1.5B模型微调后，需验证推理效果。以下哪些操作符合教材10.4节推荐的验证路径？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "在DSW中直接加载微调后模型权重，用vLLM启动本地HTTP服务进行测试"
+        },
+        {
+          "option_label": "B",
+          "option_text": "将模型导出至OSS，再通过DashScope API调用该模型"
+        },
+        {
+          "option_label": "C",
+          "option_text": "提交DLC任务进行大规模验证集推理"
+        },
+        {
+          "option_label": "D",
+          "option_text": "使用PAI-EAS部署模型服务，通过压测工具验证首Token延迟"
+        },
+        {
+          "option_label": "E",
+          "option_text": "在DSW中编写Python脚本，调用transformers库加载模型进行单样本推理"
+        }
+      ],
+      "answer": "A,E",
+      "analysis": "验证路径需区分'开发验证'与'生产验证'。教材10.4原理明确：'在PAI-DSW的GPU实例里写代码、用ms-swift做LoRA微调'，并指出'得到合并后的模型，用vLLM本地起服务验证（其HTTP接口本身兼容OpenAI API）'——这直接对应A项（vLLM本地服务）和E项（transformers单样本推理），二者均为DSW内轻量级验证，符合'调试'定位。B错误：DashScope只调用平台预置模型，不支持用户上传模型（10.5表明确'能否用自定义/私有模型：百炼/ DashScope→否，PAI→是'）；C错误：DLC用于'大规模/分布式训练'（10.4表格），非推理验证；D错误：EAS用于'稳定对外提供高并发服务'（10.4），是上线步骤，非微调后即时验证。教材10.4原则强调'调试选DSW'，验证必须在DSW内闭环。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 0,
+      "stem": "课程实验中，学生在PAI-DSW中运行微调脚本后关闭浏览器，次日发现账单异常高昂。最可能的根本原因及依据是？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "GPU实例未停止，持续按计算时计费；教材10.4成本提醒：'关闭浏览器不等于停止实例，必须回控制台停止或删除'"
+        },
+        {
+          "option_label": "B",
+          "option_text": "微调脚本触发了DLC分布式训练任务，产生额外算力费用；教材10.4：'大规模训练可提交到DLC'"
+        },
+        {
+          "option_label": "C",
+          "option_text": "模型权重自动同步至OSS存储，产生对象存储费用；教材10.1：'OSS存放企业文档'"
+        },
+        {
+          "option_label": "D",
+          "option_text": "百炼知识库自动索引了DSW中的训练日志，产生Embedding调用费；教材10.2：'知识库内置向量化'"
+        }
+      ],
+      "answer": "A",
+      "analysis": "题干核心线索是'关闭浏览器'与'账单高昂'，直指PAI-DSW计费陷阱。教材10.4成本提醒原文明确：'DSW实例按计算时计费，关闭浏览器不等于停止实例，不学了必须回控制台停止或删除'，且强调'GPU实例消耗额度远快于CPU'。A项完全复现原文，是唯一与'关闭浏览器'动作直接关联的计费风险。B项错误：题干明确'在DSW中运行微调脚本'，未提及提交DLC任务；C项错误：OSS费用与DSW实例运行无关，且教材未提DSW自动同步日志；D项错误：百炼知识库与DSW无自动联动，教材10.5强调二者分层独立。此题考查对教材关键警示的精准记忆与场景映射。",
+      "difficulty_label": "入门"
+    },
+    {
+      "type": 1,
+      "stem": "某电商团队需上线智能客服，初期日调用量约5000次，用户反馈响应延迟高、偶发429错误。运维团队排查发现：前端未做请求限流，且每次请求均将整份《售后服务政策》（12万字）作为system prompt传入。以下哪些成本优化措施符合原文10.8节'省成本的工程手段'？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "采用RAG架构，仅将检索出的相关片段注入prompt，而非整本手册"
+        },
+        {
+          "option_label": "B",
+          "option_text": "将system prompt改为精简版，保留核心条款，删除示例和解释性文字"
+        },
+        {
+          "option_label": "C",
+          "option_text": "为所有API请求设置max_tokens=512，强制截断输出长度"
+        },
+        {
+          "option_label": "D",
+          "option_text": "将模型从qwen-plus切换至qwen-turbo，利用其更低延迟特性"
+        },
+        {
+          "option_label": "E",
+          "option_text": "启用DashScope上下文缓存，对重复的system prompt前缀享受折扣"
+        }
+      ],
+      "answer": "A,B,C,E",
+      "analysis": "题干问题根源是'整本手册作为system prompt'（输入Token爆炸）和'未限流'（RPM超限）。原文10.8省成本手段逐条对照：A对应第2条'控制输入：RAG只塞最相关的片段，不要每次把整本手册塞进上下文'；B对应第2条'控制输入'的实践延伸（精简system prompt）；C对应第3条'限制输出：用max_tokens给输出设上限'；E对应第4条'善用缓存：对重复的系统提示词、知识库前缀利用上下文缓存折扣'。D错误：qwen-turbo虽延迟低，但题干429是RPM（请求数）超限，非延迟问题；且切换模型不解决输入Token过载（12万字仍需计费）。教材10.8明确'降本顺序：选对模型→控制上下文与max_tokens→缓存→限流重试'，A/B/C/E均属前序关键措施，D是次要选项。",
+      "difficulty_label": "进阶"
+    }
+  ]
+}

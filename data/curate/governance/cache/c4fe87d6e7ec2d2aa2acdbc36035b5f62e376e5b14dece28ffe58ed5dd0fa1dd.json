@@ -1,0 +1,108 @@
+{
+  "new-10-66-0": {
+    "qid": "new-10-66-0",
+    "classification": "own",
+    "chapter": 10,
+    "quality": "ok",
+    "reason": "题目综合考察私有化、微调、部署的阿里云产品选型，符合本章分层定位与选型决策考点。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "PAI（Platform for AI，人工智能平台）是阿里云面向算法工程师的机器学习全流程平台，覆盖模型开发、分布式训练、在线推理部署。开源模型从 ModelScope 下载。数据全程在云端私有环境，满足不出域要求。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "DashScope API数据需上送，不符合私有VPC处理要求。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "PAI三件套支持私有环境开发、训练、部署，满足数据不出域和微调灰度发布。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "未明确包含训练环节，且百炼智能体可能依赖外部API。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "DashScope API数据需上送，且DataWorks主要用于数据调度。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-10-66-2": {
+    "qid": "new-10-66-2",
+    "classification": "own",
+    "chapter": 10,
+    "quality": "ok",
+    "reason": "题目考察基于文档解析和格式约束的政务应用产品能力组合，涉及百炼知识库、工作流等核心功能。",
+    "answer": [
+      "A",
+      "D"
+    ],
+    "supported": true,
+    "quote": "百炼（阿里云百炼大模型服务平台，Model Studio）是一站式大模型应用开发平台。百炼的核心能力可以理解为把前几章的技术'产品化'了：知识库（RAG）对应第3章RAG，工作流编排对应Workflow。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "百炼知识库具备自动解析文档和RAG检索能力，可基于原文回答。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "Qwen-VL是多模态图像模型，不专门用于PDF文本解析。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "仅用长上下文模型和提示词约束，缺乏文档解析和检索机制。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "百炼工作流完整覆盖文档解析到格式化生成，满足全部要求。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-10-66-5": {
+    "qid": "new-10-66-5",
+    "classification": "own",
+    "chapter": 10,
+    "quality": "ok",
+    "reason": "题目考察百炼知识库RAG检索失败导致幻觉的根因分析，是RAG与平台结合的典型场景。",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "百炼知识库（RAG）对应第3章RAG，内置文档解析、切片、向量化、检索，上传文档即可问答。幻觉根因：知识截止/无私域/生成机制。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "知识库检索未召回相关段落是RAG幻觉的常见原因。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "通用模型知识截止非根本原因，RAG应用应依赖知识库。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "审核节点用于内容安全，不解决检索失败问题。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "配额耗尽通常返回429错误，而非特定兜底响应。"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

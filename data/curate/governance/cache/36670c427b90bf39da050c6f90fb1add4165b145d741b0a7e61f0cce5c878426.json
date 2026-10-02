@@ -1,0 +1,215 @@
+{
+  "new-5-0-0": {
+    "qid": "new-5-0-0",
+    "classification": "own",
+    "chapter": 5,
+    "quality": "ok",
+    "reason": "考查微调适用场景与优化顺序，题干条件清晰，符合教材逻辑。",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "微调擅长的是稳定的风格、语气、输出格式、领域行为习惯；知识时效与可溯源交给 RAG。标准的优化顺序：提示词优化 → RAG → （仍不满足才考虑）微调",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "全参微调成本高，非最优先措施。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "题干已说明提示词反复优化仍不稳定，应进入下一阶段。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "风格格式不稳定属行为问题，是微调适用域，且题干已走完前序步骤。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "成本高，且未解决行为不稳定问题。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-5-0-1": {
+    "qid": "new-5-0-1",
+    "classification": "own",
+    "chapter": 5,
+    "quality": "ok",
+    "reason": "考查数据质量要求，选项与教材内容对应清晰。",
+    "answer": [
+      "A",
+      "C"
+    ],
+    "supported": true,
+    "quote": "教师标注：用精确的 system prompt 约束输出 JSON，低温度（temperature=0.1）保证标注一致性。质量过滤：逐条校验——JSON 能否解析、5 个必填字段是否齐全、字段值是否在合法范围内，不合格直接丢弃",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "低温度保证标注一致性，字段值需在预定义schema内。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "教材未要求添加markdown代码块，且可能引入噪声。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "自动校验剔除不合格样本是质量过滤的核心。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "教材提及可混入真实数据，但非强制要求，且题干问‘强制要求’。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-5-0-2": {
+    "qid": "new-5-0-2",
+    "classification": "own",
+    "chapter": 5,
+    "quality": "ok",
+    "reason": "考查过拟合现象与后果，符合教材训练过程描述。",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "验证 loss 先降后升 → 过拟合：模型在‘背题’，减轮次/补数据/加正则。部署应选验证集表现最优的 checkpoint，而不是最后一个",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "过拟合导致泛化能力下降，验证集指标会变差。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "OOM与显存配置相关，非过拟合直接后果。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "过拟合不会提升泛化能力，学生难超教师。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "权重合并错误与过拟合无直接关系。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-5-0-3": {
+    "qid": "new-5-0-3",
+    "classification": "own",
+    "chapter": 5,
+    "quality": "ok",
+    "reason": "考查LoRA原理细节，选项与教材原文对应明确。",
+    "answer": [
+      "A",
+      "C",
+      "D"
+    ],
+    "supported": true,
+    "quote": "LoRA 冻结了原权重，只为那一对小矩阵计算梯度和优化器状态。训练完成后，可以把 W₀ + B·A 合并回普通权重，得到一个和原模型结构完全一样的模型。低秩近似足以表达领域适配所需的变化。LoRA 扰动小，能保留模型绝大部分基础能力",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "原文说明冻结原权重，只训小矩阵省显存。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "推理时合并后零开销，但计算量未降低99.6%，原文无此说法。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "合并后与原始模型结构一致，推理零额外开销。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "原文提及低维子空间假说，扰动小缓解遗忘。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-5-0-4": {
+    "qid": "new-5-0-4",
+    "classification": "own",
+    "chapter": 5,
+    "quality": "ok",
+    "reason": "考查蒸馏能力边界与问题排查，聚焦知识时效性。",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "微调不更新模型的知识截止时间，知识性内容仍受预训练数据限制。把制度条文写进参数，制度一变就得重训",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "政策问题依赖知识，应优先排查数据是否覆盖新知识及质量。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "容量不足非主因，知识性错误首要排查数据。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "量化训练与知识错误无直接关系。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "缓解遗忘非解决知识错误的首要方向。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-5-0-5": {
+    "qid": "new-5-0-5",
+    "classification": "own",
+    "chapter": 5,
+    "quality": "ok",
+    "reason": "考查按评测指标定位问题并改进，符合教材原则。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "合规但 F1/路由低 → 判断病：多意图、边界意图、相似意图样本覆盖不足，应补充这些样本而非盲目加轮次",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "盲目增加数量，未针对问题（多意图漏判）改进。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "针对判断病，补充多意图、易混淆样本是有效策略。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "JSON合规率已达标，格式非当前瓶颈。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "全参微调不一定优于LoRA，且未针对数据缺陷改进。"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

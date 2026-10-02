@@ -1,0 +1,214 @@
+{
+  "new-4-6-0": {
+    "qid": "new-4-6-0",
+    "classification": "own",
+    "chapter": 4,
+    "quality": "ok",
+    "reason": "题目考查JSON-Schema定义中description清晰度对参数提取的影响，是Function Calling的核心考点。",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "参数提取准不准，取决于三件事：Schema 质量（名称、描述、必填项是否清晰）、模型能力、上下文清晰度",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "pattern或enum是增强约束，但根本问题是description未明确格式要求。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "additionalProperties控制额外字段，与参数格式问题无关。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "description未明确要求'YYYY-MM'格式，导致模型自由发挥。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "required数组已包含month，未遗漏。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-4-6-1": {
+    "qid": "new-4-6-1",
+    "classification": "own",
+    "chapter": 4,
+    "quality": "ok",
+    "reason": "题目考查JSON-Schema定义缺陷如何导致Function Calling失败，覆盖多个具体场景。",
+    "answer": [
+      "A",
+      "B",
+      "C"
+    ],
+    "supported": true,
+    "quote": "Schema 字段名含糊、描述缺失，会直接导致参数提取错误。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "未声明properties，模型无法生成参数，是Schema缺陷。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "description不准确导致模型误判，是Schema定义缺陷。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "required字段未在properties定义，导致校验失败，是Schema缺陷。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "maximumProperties非JSON-Schema标准字段，教材未提及。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-4-6-2": {
+    "qid": "new-4-6-2",
+    "classification": "own",
+    "chapter": 4,
+    "quality": "ok",
+    "reason": "题目考查Function Calling流程中程序与模型的责任边界，是核心原则。",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "模型只输出调用意图，执行工具的是应用代码。这是本章最常考的陷阱题。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "程序应拦截空参，而非仅依赖模型追问。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "default值非必需，核心是程序应执行校验。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "程序层应拦截空参并触发追问，符合'模型只提议，程序才执行'。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "minLength约束参数格式，但根本是程序未执行校验。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-4-6-3": {
+    "qid": "new-4-6-3",
+    "classification": "own",
+    "chapter": 4,
+    "quality": "ok",
+    "reason": "题目考查JSON-Schema定义清晰度对Function Calling可靠性的影响。",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "Schema 字段名含糊、描述缺失，会直接导致参数提取错误。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "description'查数据库'过于模糊，易导致模型误判。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "定义清晰，无明显缺陷。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "定义清晰，有数值范围约束。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "定义清晰，有路径格式描述。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-4-6-4": {
+    "qid": "new-4-6-4",
+    "classification": "own",
+    "chapter": 4,
+    "quality": "ok",
+    "reason": "题目考查JSON-Schema中pattern正则表达式定义的精确性。",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "参数提取准不准，取决于三件事：Schema 质量（名称、描述、必填项是否清晰）",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "pattern未覆盖单数字月份，是Schema定义缺陷。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "month非required，但模型已传入值，非根本原因。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "additionalProperties控制额外字段，与格式错误无关。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "description可增强，但pattern定义错误是直接原因。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-4-6-5": {
+    "qid": "new-4-6-5",
+    "classification": "own",
+    "chapter": 4,
+    "quality": "ok",
+    "reason": "题目考查Function Calling全链路中，当模型输出符合Schema但工具调用失败时的排查逻辑。",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "模型只输出调用意图，执行工具的是应用代码。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "模型输出符合Schema，应优先排查工具服务端校验逻辑。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "模型输出格式正确，说明已理解要求。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "参数'2024-07'符合pattern，无需清洗。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "模型输出符合pattern，说明pattern已生效。"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

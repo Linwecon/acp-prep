@@ -1,0 +1,107 @@
+{
+  "new-7-108-0": {
+    "qid": "new-7-108-0",
+    "classification": "own",
+    "chapter": 7,
+    "quality": "ok",
+    "reason": "考查传统自动指标（如BLEU）在RAG评测中的局限性，与教材风险点对应。",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "BLEU 只认字面重合，同义改写会被误伤，且短译文有 BP 惩罚",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "题干强调Faithfulness下降，核心故障是生成幻觉，而非检索排序。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "题干未提及同义改写，且Faithfulness下降指向幻觉而非正确改写。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "BLEU可能因字面匹配掩盖幻觉，与教材‘只认字面、不懂语义’风险一致。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "题干未提及答案含糊，且BLEU无法检测含糊是事实，但非核心故障。"
+      }
+    ],
+    "duplicate_of": "7-5085"
+  },
+  "new-7-108-1": {
+    "qid": "new-7-108-1",
+    "classification": "own",
+    "chapter": 7,
+    "quality": "ok",
+    "reason": "考查PPL（困惑度）指标的本质，与教材核心论断直接对应。",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "PPL 只反映**概率预测的把握程度**，一句很自信的事实错误照样可以 PPL 很低",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "PPL降低但错误率上升，印证PPL与事实正确性无关的教材论断。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "教材未提及PPL在长文本中的位置偏见，且题干未涉及长文本。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "教材提及数据泄漏是公开基准风险，非PPL核心论断。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "教材提及类别不平衡看F1，但非PPL的核心论断。"
+      }
+    ],
+    "duplicate_of": "7-5086"
+  },
+  "new-7-108-5": {
+    "qid": "new-7-108-5",
+    "classification": "own",
+    "chapter": 7,
+    "quality": "ok",
+    "reason": "考查控制变量原则在回归评测中的应用，与教材要求一致。",
+    "answer": [
+      "D"
+    ],
+    "supported": true,
+    "quote": "回归评测的前提是**除了待测改动，其他一切都冻结**：评测集版本、评测脚本、推理参数（`temperature`、`seed`）、模型版本、甚至当评委的大模型版本都要固定",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "temperature和seed需固定，但评委和Embedding模型版本变化影响更大。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "ground_truth来源影响评测集质量，但非控制变量失效的直接原因。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "question来源影响评测集真实性，但非控制变量失效的直接原因。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "评委和Embedding模型版本变化会直接导致分数不可比，应优先核查。"
+      }
+    ],
+    "duplicate_of": "7-5089"
+  }
+}

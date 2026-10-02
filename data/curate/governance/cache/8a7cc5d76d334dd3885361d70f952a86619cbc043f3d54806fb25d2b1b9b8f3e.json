@@ -1,0 +1,225 @@
+{
+  "new-8-12-0": {
+    "qid": "new-8-12-0",
+    "classification": "own",
+    "chapter": 8,
+    "quality": "ok",
+    "reason": "考查最小权限原则在工具调用和数据访问中的直接应用。",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "工具账号最小权限；Agent 使用的数据库/OS 账号只给'必需的权限'，禁止它删库、改工资",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "工具账号权限过大，直接违反最小权限原则。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "是注入检测失效，非最小权限问题。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "是访问控制缺失，非最小权限直接环节。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "是RAM配置问题，非导致泄露的最直接环节。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-8-12-1": {
+    "qid": "new-8-12-1",
+    "classification": "own",
+    "chapter": 8,
+    "quality": "ok",
+    "reason": "考查RAG权限过滤的正确时机和实现。",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "过滤发生在'检索之后、拼 Prompt 之前'，而不是靠模型'自觉不回答'。模型不做权限判断，权限必须由应用层强制",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "模型不做权限判断，不能依赖。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "输出审查是事后，应在事前过滤。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "符合教材三步流程，在拼Prompt前剔除。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "篡改元数据违反权限设计。"
+      }
+    ],
+    "duplicate_of": "8-5165"
+  },
+  "new-8-12-2": {
+    "qid": "new-8-12-2",
+    "classification": "own",
+    "chapter": 8,
+    "quality": "ok",
+    "reason": "考查最小权限原则在工具、权限、数据维度的具体措施。",
+    "answer": [
+      "A",
+      "B",
+      "D"
+    ],
+    "supported": true,
+    "quote": "工具账号最小权限；RAM 子账号最小权限、独立凭据；检索内容无害化；RAG 取回的文档同样要过一遍注入检测",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "专用角色、最小API权限、目标限制，符合原则。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "按职位过滤Top-K，是RAG访问控制核心。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "未按密级区分存储，违反最小权限。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "对上传PDF做注入检测，是输入过滤必要措施。"
+      },
+      {
+        "label": "E",
+        "selected": false,
+        "why": "使用主账号AK并硬编码，违反密钥安全原则。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-8-12-3": {
+    "qid": "new-8-12-3",
+    "classification": "own",
+    "chapter": 8,
+    "quality": "ok",
+    "reason": "考查最小权限原则在资源配额中的灵活应用。",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "应用层对单个用户设 token/算力上限并对超复杂请求做成本预估与熔断",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "为不同角色配置差异化配额，符合最小权限。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "关闭熔断违反安全设计，升级硬件不解决问题。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "统一上调未考虑角色差异，违反最小权限。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "高管完全豁免，违反权限控制原则。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-8-12-4": {
+    "qid": "new-8-12-4",
+    "classification": "own",
+    "chapter": 8,
+    "quality": "ok",
+    "reason": "考查工具权限配置不当的典型故障现象。",
+    "answer": [
+      "B",
+      "E"
+    ],
+    "supported": true,
+    "quote": "工具账号最小权限；Agent 使用的数据库/OS 账号只给'必需的权限'，禁止它删库、改工资",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "权限不足是正确配置结果，非故障。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "数据库工具权限过大，导致恶意指令执行。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "是RAG访问控制失效，非工具权限问题。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "是越狱检测失效，非工具权限问题。"
+      },
+      {
+        "label": "E",
+        "selected": true,
+        "why": "邮件服务账号权限过大（无IP白名单），导致数据泄露。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-8-12-5": {
+    "qid": "new-8-12-5",
+    "classification": "own",
+    "chapter": 8,
+    "quality": "ok",
+    "reason": "考查权限控制实现中数据格式缺陷的根本原因。",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "权限决策逻辑存在代码缺陷，导致访问控制失效",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "解析逻辑与数据格式不匹配，是代码缺陷。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "字段值符合规范'[3,4]'，非格式问题。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "入库审批是预防，非本次故障根本原因。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "查询未失败，是逻辑解析错误。"
+      }
+    ],
+    "duplicate_of": "8-5159"
+  }
+}

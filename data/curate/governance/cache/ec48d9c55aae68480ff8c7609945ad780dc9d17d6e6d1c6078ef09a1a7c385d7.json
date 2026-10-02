@@ -1,0 +1,216 @@
+{
+  "new-4-6-0": {
+    "qid": "new-4-6-0",
+    "classification": "own",
+    "chapter": 4,
+    "quality": "ok",
+    "reason": "考查Function Calling核心原则，教材有明确依据。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "Function Calling 流程四步：模型只输出结构化的'调用哪个工具、传什么参数'；由你的应用代码解析、真正执行对应函数。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "安全沙箱非教材强调的根本依据。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "教材明确模型只提议，程序执行以实现可控。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "API不支持执行是事实，但非根本设计原则。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "降低token消耗非此设计原则的根本依据。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-4-6-1": {
+    "qid": "new-4-6-1",
+    "classification": "own",
+    "chapter": 4,
+    "quality": "ok",
+    "reason": "考查ReAct循环中失败出口和降级处理，教材有对应描述。",
+    "answer": [
+      "A",
+      "B"
+    ],
+    "supported": true,
+    "quote": "工具超时、报错时能重试或换方案，而不是整轮崩溃。Observation可能含噪声，模型不能盲目信任外部返回。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "模型主动交叉验证并降级使用可用数据。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "Planner具备失败出口机制，支持换方案。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "将工具失败状态持久化为长期记忆，教材未明确支持。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "Schema定义含timeout参数使模型感知超时，教材未提及。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-4-6-2": {
+    "qid": "new-4-6-2",
+    "classification": "own",
+    "chapter": 4,
+    "quality": "ok",
+    "reason": "考查MCP核心价值，教材有明确对比。",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "MCP核心思想是'谁提供工具，谁定义工具'，把工具Schema维护职责从Agent转移到工具服务方，Agent动态发现。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "体现MCP动态发现工具，无需改Agent代码。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "封装为统一HTTP API非MCP核心价值。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "强制JSON格式消除歧义非MCP核心价值。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "跨系统事务非MCP核心价值强调点。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-4-6-3": {
+    "qid": "new-4-6-3",
+    "classification": "own",
+    "chapter": 4,
+    "quality": "ok",
+    "reason": "考查规划策略与评测方法，教材有对应知识点。",
+    "answer": [
+      "A",
+      "B",
+      "C"
+    ],
+    "supported": true,
+    "quote": "外部反馈：用工具真实执行/校验，把报错喂回模型。并行工作流：互不依赖的子任务同时执行。Rubric：把模糊目标拆成逐条可判定的细则。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "代码解释器运行捕获异常属外部反馈反思。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "独立审查Agent并行执行属并行工作流。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "结构化JSON输出含pass/fail字段属Rubric评测。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "三者共同构成Plan-and-Execute描述不准确。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-4-6-4": {
+    "qid": "new-4-6-4",
+    "classification": "own",
+    "chapter": 4,
+    "quality": "ok",
+    "reason": "考查Memory管理策略，教材有明确最佳实践。",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "长期记忆：跨会话持久化的用户偏好、业务事实，按需检索。向量化召回：摆脱窗口限制、海量记忆按需取用。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "单纯扩大窗口只是延后问题，非最佳实践。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "滚动摘要可行，但教材优先推荐向量化长期记忆。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "将关键约束写入向量库按需检索是最佳实践。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "每轮追加提示词非教材推荐的Memory改进措施。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-4-6-5": {
+    "qid": "new-4-6-5",
+    "classification": "own",
+    "chapter": 4,
+    "quality": "ok",
+    "reason": "考查多Agent设计四原则，教材有明确条目。",
+    "answer": [
+      "A",
+      "C"
+    ],
+    "supported": true,
+    "quote": "多Agent设计四原则：明确职责、独立凭据、中央调度、避免全量注入。不同Agent不得共用同一套账号/API凭据。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "独立API Key、权限最小化符合独立凭据原则。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "拼接全部提示词注入违反避免全量注入原则。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "设置中央Planner分派任务符合中央调度原则。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "未授权直接调用违反明确职责和独立凭据原则。"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

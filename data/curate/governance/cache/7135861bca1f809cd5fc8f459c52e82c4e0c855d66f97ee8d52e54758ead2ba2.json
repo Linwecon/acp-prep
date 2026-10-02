@@ -1,0 +1,178 @@
+{
+  "new-11-6-0": {
+    "qid": "new-11-6-0",
+    "classification": "own",
+    "chapter": 11,
+    "quality": "ok",
+    "reason": "考查语音助手意图理解环节设计缺陷，符合11.5节工程要点",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "意图理解...低置信度要追问澄清，而不是硬答",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "题干已明确ASR输出文字准确，非ASR问题"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "意图理解环节缺乏领域适配或低置信度追问机制"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "TTS合成阶段不影响意图判断"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "会话记忆非意图误判主因"
+      }
+    ],
+    "duplicate_of": "11-5181"
+  },
+  "new-11-6-1": {
+    "qid": "new-11-6-1",
+    "classification": "own",
+    "chapter": 11,
+    "quality": "ok",
+    "reason": "考查意图误判导致错误工具调用的安全强化措施",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "意图不清时优先澄清反问，避免错误调用工具（如真的提交了请假）",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "ASR输出正确，非关键词校验问题"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "意图理解后应增加敏感操作确认与审计留痕"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "TTS延迟与错误调用无关"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "系统提示无法防止意图误判"
+      }
+    ],
+    "duplicate_of": "11-5185"
+  },
+  "new-11-6-2": {
+    "qid": "new-11-6-2",
+    "classification": "own",
+    "chapter": 11,
+    "quality": "ok",
+    "reason": "考查多模态安全中图像检测的必要动作",
+    "answer": [
+      "A",
+      "B"
+    ],
+    "supported": true,
+    "quote": "图像检测不仅要看画面，还要审'图里的字'...这正是必须做多模态审核的原因",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "必须同步检测截图画面内容"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "需OCR识别图中文字并做文本过滤"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "纯文本LLM无法直接判断图像违规"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "截图无音频轨，无需voice_moderation"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-11-6-3": {
+    "qid": "new-11-6-3",
+    "classification": "own",
+    "chapter": 11,
+    "quality": "ok",
+    "reason": "考查多模态生成评测中自动文本指标的局限性",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "图文一致性、指令跟随等需人工评测校准兜底",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "文本指标无法评估图像空间布局与文字可读性"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "CosyVoice是TTS，与评测无关"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "CLIP Score虽相关，但非题干核心问题"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "OCR预处理非指标选择错误主因"
+      }
+    ],
+    "duplicate_of": "11-5173"
+  },
+  "new-11-6-5": {
+    "qid": "new-11-6-5",
+    "classification": "own",
+    "chapter": 11,
+    "quality": "ok",
+    "reason": "考查医疗AI等高风险场景的评测原则",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "图文一致性、指令跟随等需人工评测校准兜底",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "CLIP Score是自动指标，不够可靠"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "需领域专家人工盲评，符合评测原则"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "检查token维度无法验证理解细节"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "检索文献比对非模型能力验证"
+      }
+    ],
+    "duplicate_of": "11-5183"
+  }
+}

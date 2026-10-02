@@ -1,0 +1,212 @@
+{
+  "3-1352": {
+    "qid": "3-1352",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "B违反文档解析必须预处理原则",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "文档解析是把PDF/Word/Markdown等加载并转换为大模型可读文本的过程。它看似简单，却是RAG质量的\"地基\"——解析阶段丢失的结构，后面用再复杂的算法也补不回来。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "视觉解析属多模态范畴，原文未禁止"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "原文明确要求解析预处理"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "润色目录属结构化增强"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "DashScope Parse是推荐方案"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-1364": {
+    "qid": "3-1364",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "B符合切片过大时的优化策略",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "切片太大：一个chunk里混了好几个主题，向量被\"平均\"得没有重点，检索时容易\"沾边但不精准\"，还浪费token、引入噪声；切片太小：语义被截断（一句话被切成两半），即使检索命中也信息不全",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "增加文档数量不解决切片问题"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "原文明确建议减小切片长度"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "算法无法弥补切片缺陷"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "训练水平与切片无关"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-1374": {
+    "qid": "3-1374",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "C准确描述Embedding类作用",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "Embedding（向量化/嵌入）是把一段文本转换成一串数字（高维向量，如1024维）。它的核心性质是：语义相近的文本，向量在空间中的距离也近。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "不涉及训练数据增减"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "不改变模型参数"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "加载Embedding模型是其核心功能"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "与推理时间无直接关系"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-1388": {
+    "qid": "3-1388",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "C对应查询改写技术",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "查询改写：多轮对话中\"他/这个\"指代不清；先用LLM把含代词的问题改写成完整问题（如\"他的主管是谁\"→\"张伟的主管是谁\"）再检索",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "不应返回空答案"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "增大切片加剧干扰"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "查询改写解决描述不完整"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "降低版本损害效果"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-1396": {
+    "qid": "3-1396",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "B非RAG常见切片法",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "常见切片策略：Token切片/句子切片/Markdown切片/语义切片/句子窗口切片",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "语义分割是原文列出策略"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "词性分割未在原文提及"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "Token切片是原文策略"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "字符分割属Token切片变体"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-1470": {
+    "qid": "3-1470",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "D最可能保留完整语义",
+    "answer": [
+      "D"
+    ],
+    "supported": true,
+    "quote": "语义切片：用模型判断语义边界，在话题转换处切；适用高价值、结构复杂的文档（成本更高）",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "标点分割易切断语义"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "字符分割破坏语义完整性"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "Token分割仍可能截断句子"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "语义分割专为保留语义设计"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

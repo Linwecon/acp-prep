@@ -1,0 +1,212 @@
+{
+  "5-0976": {
+    "qid": "5-0976",
+    "classification": "own",
+    "chapter": 5,
+    "quality": "ok",
+    "reason": "验证集作用是调参和防过拟合，原文明确说明。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "验证集（调参/选 checkpoint）、测试集（最终评估）必须相互独立",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "训练集用于最终训练，非验证集"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "原文明确验证集用于监控训练、防过拟合"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "测试集用于最终性能指标"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "数据预处理在划分前完成"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "5-0977": {
+    "qid": "5-0977",
+    "classification": "own",
+    "chapter": 5,
+    "quality": "ok",
+    "reason": "微调常用AdamW等梯度下降变体，原文多次提及。",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "用一批'指令—回答'样本继续做梯度下降",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "原文明确使用梯度下降及其变体"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "冒泡排序是排序算法，无关"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "FFT是信号处理算法，无关"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "Dijkstra是图算法，无关"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "5-0979": {
+    "qid": "5-0979",
+    "classification": "own",
+    "chapter": 5,
+    "quality": "ok",
+    "reason": "增加模型深度宽度会加剧过拟合，与验证损失停滞矛盾。",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "过拟合（Overfitting）：模型容量大而数据少/重复时，会把训练集里的噪声也'背'下来",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "调学习率是标准应对措施"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "清洗噪声可改善验证损失"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "增大模型会加剧过拟合"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "RAG可补充知识，缓解瓶颈"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "5-0982": {
+    "qid": "5-0982",
+    "classification": "own",
+    "chapter": 5,
+    "quality": "ok",
+    "reason": "早停是防过拟合核心手段，原文明确列为对策。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "过拟合（Overfitting）...对策：提高数据多样性、增加正则、控制训练轮数、使用 LoRA",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "增参数易导致过拟合"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "原文将早停列为防过拟合对策"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "小学习率可能致欠拟合"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "增epochs会加剧过拟合"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "5-1059": {
+    "qid": "5-1059",
+    "classification": "own",
+    "chapter": 5,
+    "quality": "ok",
+    "reason": "早停条件为验证损失n轮不降，原文表格明确定义。",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "验证 loss 先降后升 = 过拟合的铁证，应回退到验证 loss 最低的 checkpoint",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "原文定义验证loss不降即停"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "100%准确率不现实且非停止条件"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "训练loss最小常伴随过拟合"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "训练准确率上升不反映泛化能力"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "5-1060": {
+    "qid": "5-1060",
+    "classification": "own",
+    "chapter": 5,
+    "quality": "ok",
+    "reason": "质量优于数量是核心原则，原文四次强调。",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "质量从四个维度把关，其重要性远高于数量",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "丰富场景保障多样性质量"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "生成数据需过滤，非首要原则"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "原文明确反对数据越多越好"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "单一模板降低多样性"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

@@ -1,0 +1,72 @@
+{
+  "new-7-60-0": {
+    "qid": "new-7-60-0",
+    "classification": "own",
+    "chapter": 7,
+    "quality": "ok",
+    "reason": "考查RAGAS指标组合分析与故障定位黄金法则，有明确解题路径。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "检索指标都好（Recall、Precision 高），但 Faithfulness / Correctness 低 → 问题在生成阶段；Precision 低（Recall 高） → 找回来了但噪声多、排得靠后 → 加 Rerank",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "Recall已大幅提升，无需扩大Top K或加文档。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "Precision低且Faithfulness降，表明检索噪声多导致生成幻觉，应优先Rerank。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "生成问题由检索噪声引起，先优化检索排序更有效。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "ground_truth标注非当前优化重点，且用户反馈指向答案质量。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-7-60-2": {
+    "qid": "new-7-60-2",
+    "classification": "own",
+    "chapter": 7,
+    "quality": "ok",
+    "reason": "考查Agent白盒评测方法选择，区分确定性检查与LLM评委适用场景。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "确定性检查（规则/断言）用代码规则直接判断，结果确定；适合客观项：代码能否运行",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "LLM-as-Judge不适合判断客观可执行性，有偏见且不可靠。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "确定性检查直接执行代码单元测试，可精准定位运行故障。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "代码风格一致性非当前‘运行报错’故障的直接原因。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "扩大端到端覆盖率无法精确定位组件故障，仍是黑盒评测。"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

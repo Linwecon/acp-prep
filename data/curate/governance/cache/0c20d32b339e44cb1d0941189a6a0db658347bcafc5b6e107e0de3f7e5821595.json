@@ -1,0 +1,212 @@
+{
+  "7-1258": {
+    "qid": "7-1258",
+    "classification": "own",
+    "chapter": 7,
+    "quality": "ok",
+    "reason": "考查Perplexity定义，原文明确其含义与方向",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "Perplexity（困惑度 PPL）只反映概率预测的把握程度，越低越好",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "PPL越低越好，非越高越好"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "原文称PPL反映模型对文本的惊讶程度"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "PPL用于语言模型，非图像任务"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "PPL不依赖参考文本，是自回归指标"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "7-1319": {
+    "qid": "7-1319",
+    "classification": "own",
+    "chapter": 7,
+    "quality": "ok",
+    "reason": "考查BLEU适用任务，原文表格明确标注",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "BLEU：机器翻译；衡量生成文本与参考译文的n-gram重合度",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "原文表格首行明确BLEU用于机器翻译"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "图像生成不属BLEU适用任务"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "文本分类用Accuracy/F1，非BLEU"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "语音合成不属BLEU适用任务"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "7-1321": {
+    "qid": "7-1321",
+    "classification": "own",
+    "chapter": 7,
+    "quality": "ok",
+    "reason": "考查ROUGE计算原理，原文表格明确说明",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "ROUGE：文本摘要；基于n-gram与最长公共子序列（LCS）",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "原文明确ROUGE基于n-gram重叠"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "句法树匹配未在原文提及"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "语义向量相似度属Embedding方法"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "编辑距离非ROUGE核心方式"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "7-1362": {
+    "qid": "7-1362",
+    "classification": "own",
+    "chapter": 7,
+    "quality": "ok",
+    "reason": "考查Context Recall计算步骤，原文有明确定义",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "LLM逐条判断每个观点能否在contexts中找到依据",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "推理时间非Recall计算步骤"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "原文明确需LLM判断观点是否被contexts支撑"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "参数数量与Recall计算无关"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "训练数据非Recall计算步骤"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "7-1458": {
+    "qid": "7-1458",
+    "classification": "own",
+    "chapter": 7,
+    "quality": "ok",
+    "reason": "考查ROUGE-L用途，原文表格明确对应任务",
+    "answer": [
+      "D"
+    ],
+    "supported": true,
+    "quote": "ROUGE：文本摘要；基于n-gram与最长公共子序列（LCS）",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "图像分类不属ROUGE用途"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "目标检测不属ROUGE用途"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "语音识别不属ROUGE用途"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "原文明确ROUGE用于文本摘要任务"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "7-0139": {
+    "qid": "7-0139",
+    "classification": "own",
+    "chapter": 7,
+    "quality": "ok",
+    "reason": "考查Answer Correctness定义，原文表格清晰界定",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "Answer Correctness：答案与标准答案的整体一致程度",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "原文表格明确定义为答案与ground_truth一致性"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "相关性是Answer Relevancy指标"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "事实一致性是Faithfulness指标"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "检索数量是Context Recall指标"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

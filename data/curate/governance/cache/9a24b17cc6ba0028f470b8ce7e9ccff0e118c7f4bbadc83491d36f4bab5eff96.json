@@ -1,0 +1,214 @@
+{
+  "new-11-6-0": {
+    "qid": "new-11-6-0",
+    "classification": "own",
+    "chapter": 11,
+    "quality": "ok",
+    "reason": "题干描述长视频处理超时且遗漏动作，核心是视频理解的技术约束。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "视频要抽大量帧，token 消耗随帧数线性增长，长视频必须抽帧/截断/分段",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "ASR流式处理解决语音丢失，非画面动作遗漏主因。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "视频理解需抽帧并分析，否则遗漏视觉信息。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "上下文窗口限制是原因，但非遗漏画面动作的根本。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "时间轴对齐影响综合，非导致画面遗漏的根本约束。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-11-6-1": {
+    "qid": "new-11-6-1",
+    "classification": "own",
+    "chapter": 11,
+    "quality": "ok",
+    "reason": "考查医疗多模态应用的合规与准确性设计要点。",
+    "answer": [
+      "B",
+      "D"
+    ],
+    "supported": true,
+    "quote": "AI 结论仅作辅助，医疗决策必须由医生做出；图像检测不仅要看画面，还要审图里的字",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "Qwen-VL可处理图文，但非医疗合规的强制要求。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "医疗AI必须标识辅助诊断，医生复核。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "CT影像分析非OCR提取文字，是视觉理解。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "多模态安全需图像检测，防恶意篡改。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-11-6-2": {
+    "qid": "new-11-6-2",
+    "classification": "own",
+    "chapter": 11,
+    "quality": "ok",
+    "reason": "考查模糊图像单据处理，文档智能解析链路的前置步骤。",
+    "answer": [
+      "D"
+    ],
+    "supported": true,
+    "quote": "扫描件 PDF 本质是图片，普通文本加载器读不出文字",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "超分可提升质量，但非处理模糊单据的优先级最高动作。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "ASR热词用于语音识别，与图像单据无关。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "纯文本模型无法看图，替换会彻底失效。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "文档智能解析需前置图像预处理，提升OCR识别率。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-11-6-3": {
+    "qid": "new-11-6-3",
+    "classification": "own",
+    "chapter": 11,
+    "quality": "ok",
+    "reason": "考查拍照搜题功能的多模态技术组件与安全要求。",
+    "answer": [
+      "B",
+      "C"
+    ],
+    "supported": true,
+    "quote": "拍照搜题、商品图打标、票据识别、会议纪要、视频内容审核；多模态安全 = 文本 + 图像 + 音频 + 视频四类检测",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "通义听悟用于语音转文字，题干为拍照，非必需。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "手写题照片需图文理解模型识别公式。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "图像内容安全检测是必须集成的安全组件。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "语音合成非题干返回解题步骤的必需组件。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-11-6-4": {
+    "qid": "new-11-6-4",
+    "classification": "own",
+    "chapter": 11,
+    "quality": "ok",
+    "reason": "考查文生图图文一致性评估的局限与正确策略。",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "图文一致性、指令跟随等需人工评测校准兜底；自动指标很难评判",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "CLIP相似度无法检测局部文字错误，需OCR校验。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "VAE压缩影响细节，但非错别字主因，且未提及参数调整。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "错别字源于生成，非ASR识别错误。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "CLIP数据不足非主因，再训练不切实际。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-11-6-5": {
+    "qid": "new-11-6-5",
+    "classification": "own",
+    "chapter": 11,
+    "quality": "ok",
+    "reason": "考查语音助手延迟优化，符合管道式架构解耦原则。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "语音链路对延迟敏感，实时通话要做流式 ASR/TTS 与首包优化",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "合并为端到端模型违反解耦原则，且未必降延迟。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "流式处理边收边生成边合成，符合解耦且显著降延迟。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "增加算力可优化，但非最符合解耦原则的措施。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "换小模型可能降质量，非基于架构解耦的优化。"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

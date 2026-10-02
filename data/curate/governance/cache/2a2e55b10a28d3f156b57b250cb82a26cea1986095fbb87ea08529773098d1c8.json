@@ -1,0 +1,214 @@
+{
+  "new-11-0-0": {
+    "qid": "new-11-0-0",
+    "classification": "own",
+    "chapter": 11,
+    "quality": "ok",
+    "reason": "考查扫描件PDF在RAG中失效的根本原因，对应11.4节文档智能解析链路。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "扫描件PDF本质是图片，普通文本加载器读不出文字、直接切到的是空白/乱码。首要动作是先做文档智能解析（OCR + 版面分析 + 表格转Markdown）",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "图文联合检索是回答环节，非解析缺失原因。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "扫描件必须先OCR和版面分析才能被RAG处理。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "图像增强非必要，解析OCR才是关键。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "向量化是解析后的步骤，非根本缺失。"
+      }
+    ],
+    "duplicate_of": "11-5166"
+  },
+  "new-11-0-1": {
+    "qid": "new-11-0-1",
+    "classification": "own",
+    "chapter": 11,
+    "quality": "ok",
+    "reason": "考查语音助手意图误判的工程缺陷，对应11.5节意图理解与澄清机制。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "意图不清时优先澄清反问，避免错误调用工具（如真的提交了请假）",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "ASR输出准确，非专有名词识别问题。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "意图置信度低时应追问澄清，防误触发。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "TTS音色校验与意图误判无关。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "注入历史记录非防误判的关键设计。"
+      }
+    ],
+    "duplicate_of": "11-5185"
+  },
+  "new-11-0-2": {
+    "qid": "new-11-0-2",
+    "classification": "own",
+    "chapter": 11,
+    "quality": "ok",
+    "reason": "考查截图内容安全检测的必要组合，对应11.8节多模态安全检测方式。",
+    "answer": [
+      "A",
+      "B"
+    ],
+    "supported": true,
+    "quote": "图像检测不仅要看画面，还要审‘图里的字’——攻击者可以把违规文字写进图片里绕过文本过滤",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "必须同步检测截图画面内容。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "图中文字需OCR后做文本过滤。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "截图非视频，无需video_moderation。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "截图无音频，无需voice_moderation。"
+      }
+    ],
+    "duplicate_of": "11-5170"
+  },
+  "new-11-0-3": {
+    "qid": "new-11-0-3",
+    "classification": "own",
+    "chapter": 11,
+    "quality": "ok",
+    "reason": "考查文生图质量评测误区，对应11.7节生成风险与评测原则。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "图文一致性：模型可能生成‘看起来对但细节错’的内容，自动指标很难评判，必须靠人工抽检或多模态审核模型兜底",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "题干焦点是评测，非生成原理。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "图文一致性需人工或多模态审核，自动指标不可靠。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "标识是合规要求，非评测问题。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "动态分辨率与评测无关。"
+      }
+    ],
+    "duplicate_of": "11-5178"
+  },
+  "new-11-0-4": {
+    "qid": "new-11-0-4",
+    "classification": "own",
+    "chapter": 11,
+    "quality": "ok",
+    "reason": "考查医疗多模态评测原则，对应11.10节评测需人工抽检。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "图文一致性、指令跟随等需人工评测校准兜底",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "CLIP Score是自动指标，不可靠。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "人工盲评最符合人工抽检原则。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "检查映射非验证理解细节的有效方式。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "分类准确率非针对特定特征的理解验证。"
+      }
+    ],
+    "duplicate_of": "11-5183"
+  },
+  "new-11-0-5": {
+    "qid": "new-11-0-5",
+    "classification": "own",
+    "chapter": 11,
+    "quality": "ok",
+    "reason": "考查语音助手延迟与音色异常的可能原因，对应11.5节链路与工程要点。",
+    "answer": [
+      "B",
+      "C"
+    ],
+    "supported": true,
+    "quote": "TTS服务未启用音色克隆模型，每次请求随机调用不同音色实例；会话记忆模块未做摘要压缩，长上下文超出LLM窗口导致token截断与重生成",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "ASR降级可能导致延迟，但未必同时导致音色突变。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "TTS音色不固定会导致音色异常。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "长上下文截断重生成会导致延迟超标。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "语音流检测应为异步，同步阻塞会导致延迟，但未必导致音色异常。"
+      }
+    ],
+    "duplicate_of": "11-5169"
+  }
+}

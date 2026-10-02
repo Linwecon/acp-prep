@@ -1,0 +1,203 @@
+{
+  "1-0125": {
+    "qid": "1-0125",
+    "classification": "cross",
+    "chapter": -1,
+    "quality": "remove",
+    "reason": "题干不完整，缺少关键上下文。response_format参数作用不明，无法判断选项。",
+    "answer": [],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "题干信息不足，无法判断。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "题干信息不足，无法判断。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "题干信息不足，无法判断。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "题干信息不足，无法判断。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "1-0273": {
+    "qid": "1-0273",
+    "classification": "cross",
+    "chapter": -1,
+    "quality": "remove",
+    "reason": "题干不完整，缺少关键上下文。completion对象来源不明，无法判断其属性作用。",
+    "answer": [],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "题干信息不足，无法判断。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "题干信息不足，无法判断。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "题干信息不足，无法判断。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "题干信息不足，无法判断。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "1-0431": {
+    "qid": "1-0431",
+    "classification": "cross",
+    "chapter": -1,
+    "quality": "remove",
+    "reason": "题干不完整，缺少关键上下文。无法判断“生成摘要的函数”具体实现，选项均不合理。",
+    "answer": [],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "题干信息不足，无法判断。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "题干信息不足，无法判断。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "题干信息不足，无法判断。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "题干信息不足，无法判断。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "1-0497": {
+    "qid": "1-0497",
+    "classification": "cross",
+    "chapter": -1,
+    "quality": "remove",
+    "reason": "题干不完整，缺少关键上下文。OpenAILike类定义不明，无法判断其参数。",
+    "answer": [],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "题干信息不足，无法判断。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "题干信息不足，无法判断。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "题干信息不足，无法判断。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "题干信息不足，无法判断。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "1-0580": {
+    "qid": "1-0580",
+    "classification": "cross",
+    "chapter": -1,
+    "quality": "remove",
+    "reason": "题干不完整，缺少关键上下文。提取标签的具体要求和规范不明，无法判断正确操作。",
+    "answer": [],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "题干信息不足，无法判断。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "题干信息不足，无法判断。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "题干信息不足，无法判断。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "题干信息不足，无法判断。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "1-0602": {
+    "qid": "1-0602",
+    "classification": "own",
+    "chapter": 1,
+    "quality": "ok",
+    "reason": "考查分词化基本概念，属于大模型基础章节。",
+    "answer": [
+      "B",
+      "D"
+    ],
+    "supported": true,
+    "quote": "分词器（Tokenizer）把文本切成一个个 Token，并映射为词表里的整数 ID。Token 通常是子词片段，不一定是完整的词",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "描述基本正确，非错误选项。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "分词化不产生字节码，描述错误。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "描述基本正确，非错误选项。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "子词粒度不是以单个汉字为单位，描述错误。"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

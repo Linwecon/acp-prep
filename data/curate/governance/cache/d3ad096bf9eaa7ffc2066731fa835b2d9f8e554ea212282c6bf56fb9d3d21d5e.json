@@ -1,0 +1,204 @@
+{
+  "1-0496": {
+    "qid": "1-0496",
+    "classification": "own",
+    "chapter": 4,
+    "quality": "review",
+    "reason": "题干未说明优化后机器人具体能力，选项无原文支撑",
+    "answer": [],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "无原文说明文档审查是否为输出"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "未定义内部文档查询是否启用"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "未提及翻译功能是否集成"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "未说明fallback机制是否存在"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "2-0951": {
+    "qid": "2-0951",
+    "classification": "own",
+    "chapter": 4,
+    "quality": "ok",
+    "reason": "考Agent规划策略中规则处理的可靠性",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "让模型做它擅长的（理解、推理、生成），让脚本做它擅长的（执行、验证、计算）",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "模型推理不可靠，易幻觉"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "提示词编码规则易被覆盖或忽略"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "规则引擎保确定性，模型处理异常"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "违背Agent自动化目标"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "2-0869": {
+    "qid": "2-0869",
+    "classification": "cross",
+    "chapter": 3,
+    "quality": "remove",
+    "reason": "RAG查询改写与反问属第3章知识，非Agent考点",
+    "answer": [],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "HyDE属RAG查询改写技术"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "反问属RAG交互设计范畴"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "多步查询属RAG检索策略"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "返回全部属RAG召回策略"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "2-1437": {
+    "qid": "2-1437",
+    "classification": "misplaced",
+    "chapter": 2,
+    "quality": "remove",
+    "reason": "ask_llm_route是提示工程路由函数，非Agent章节内容",
+    "answer": [],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "reviewed_prompt属提示词模板"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "translate_prompt属提示词模板"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "query_engine属RAG组件"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "rag.ask属RAG调用接口"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-1390": {
+    "qid": "3-1390",
+    "classification": "cross",
+    "chapter": 3,
+    "quality": "remove",
+    "reason": "多次检索规划属RAG查询改写，非Agent闭环执行",
+    "answer": [],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "思考规划多次检索属RAG技术"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "训练数据属模型微调范畴"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "问题改写属RAG预处理技术"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "重排序属RAG后处理技术"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-1142": {
+    "qid": "3-1142",
+    "classification": "own",
+    "chapter": 4,
+    "quality": "ok",
+    "reason": "考Agent长期记忆在个性化推荐中的低成本应用",
+    "answer": [
+      "D"
+    ],
+    "supported": true,
+    "quote": "长期记忆：跨会话持久化的用户偏好、业务事实、经验教训，按需检索",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "RAG知识库成本高且非Agent原生"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "硬编码无法适应动态偏好"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "向量检索系统复杂度高"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "长期记忆是Agent原生低成本方案"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

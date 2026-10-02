@@ -1,0 +1,215 @@
+{
+  "new-7-126-0": {
+    "qid": "new-7-126-0",
+    "classification": "own",
+    "chapter": 7,
+    "quality": "ok",
+    "reason": "考查RAGAS指标定位与故障分析，符合第7章核心考点。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "日志确认检索片段中包含完整正确信息（如'张伟是教研部的'），但该信息位于第18个context中，前17个均为行政制度、考勤规则等无关内容。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "关键信息被截断，无法正确回答。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "关键信息被截断，模型无法依据正确信息生成答案。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "Precision指标反映客观排序，不会被提示词扭曲。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "截断后噪声减少，但关键信息丢失是主因。"
+      }
+    ],
+    "duplicate_of": "7-5083"
+  },
+  "new-7-126-1": {
+    "qid": "new-7-126-1",
+    "classification": "own",
+    "chapter": 7,
+    "quality": "ok",
+    "reason": "考查Context Precision计算原理与工程验证，符合第7章知识点。",
+    "answer": [
+      "A",
+      "C"
+    ],
+    "supported": true,
+    "quote": "对每个片段，以'该片段及之前片段的相关数之和'为分子、以该片段排位为分母，算一个precision分",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "正确片段排位靠后，前序无关内容多，符合排名敏感性。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "模型波动不直接验证Precision计算原理。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "手动改变排名导致分数跃升，直接验证排名敏感性。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "Recall不变但Precision下降，说明噪声增加，非排名验证。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-7-126-2": {
+    "qid": "new-7-126-2",
+    "classification": "own",
+    "chapter": 7,
+    "quality": "ok",
+    "reason": "考查双低故障原因定位，需结合Recall与Precision定义差异。",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "Context Recall vs Context Precision：前者管'找得全不全'，后者管'找得准不准、排得靠前不靠前'",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "知识库缺失（Recall低）且切片粗（信息稀疏影响Precision）。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "编码失真主要影响Recall，对Precision影响间接。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "Top K过大主要导致Precision低，Recall可能不低。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "查询改写错误可能导致Recall低，但Precision不一定低。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-7-126-3": {
+    "qid": "new-7-126-3",
+    "classification": "own",
+    "chapter": 7,
+    "quality": "ok",
+    "reason": "考查评测集构建原则与Precision专项设计，符合教材要求。",
+    "answer": [
+      "A",
+      "B"
+    ],
+    "supported": true,
+    "quote": "问题来自真实用户场景；标准答案来自领域专家；按顺序读取contexts中的每个片段，依据question与ground_truth判断它是否相关",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "问题真实、答案专家提供、固定排位测试Precision。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "人工构造对比样本，直接验证排名对Precision的影响。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "专家共识是质量保证，非Precision计算原理的直接验证。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "测试抗噪能力，非Precision计算原理的直接验证。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-7-126-4": {
+    "qid": "new-7-126-4",
+    "classification": "own",
+    "chapter": 7,
+    "quality": "ok",
+    "reason": "考查Precision稳定但Correctness下降的故障定位，需结合定位法则。",
+    "answer": [
+      "D"
+    ],
+    "supported": true,
+    "quote": "检索指标都好（Recall、Precision高），但Faithfulness / Correctness低 → 问题在生成阶段",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "temperature调高增加随机性，但题干未提及此改动。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "评委模型升级可能导致分数漂移，但非最优先排查环节。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "ground_truth更新但评测集未冻结，会导致分数不可比。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "提示词新增指令可能引发生成端蝴蝶效应，导致Correctness下降。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-7-126-5": {
+    "qid": "new-7-126-5",
+    "classification": "own",
+    "chapter": 7,
+    "quality": "ok",
+    "reason": "考查Context Precision计算细节与工程警示，符合教材内容。",
+    "answer": [
+      "A",
+      "B"
+    ],
+    "supported": true,
+    "quote": "对每个片段，以'该片段及之前片段的相关数之和'为分子、以该片段排位为分母，算一个precision分",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "Precision满分但模型未用全部相关片段，警示指标局限性。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "Precision低暴露无关内容压制风险，警示排序问题。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "过时政策不影响Precision计算，但影响答案正确性。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "内容残缺影响Recall和答案质量，Precision计算不受影响。"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

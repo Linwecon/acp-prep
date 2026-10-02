@@ -1,0 +1,215 @@
+{
+  "1-1316": {
+    "qid": "1-1316",
+    "classification": "beyond",
+    "chapter": 0,
+    "quality": "remove",
+    "reason": "题目考查Linux压力测试命令参数，与大模型基础无关，属于完全无关领域。",
+    "answer": [],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "选项与题干无关"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "选项与题干无关"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "选项与题干无关"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "选项与题干无关"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "1-1317": {
+    "qid": "1-1317",
+    "classification": "own",
+    "chapter": 1,
+    "quality": "ok",
+    "reason": "考查提示词任务定义清晰度，属于大模型基础能力边界理解。",
+    "answer": [
+      "D"
+    ],
+    "supported": true,
+    "quote": "大模型有三类天然局限，务必记牢：1. 幻觉（Hallucination）：上下文不足时，模型仍会按概率“编”出一个看似合理但错误的答案。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "明确要求总结，能指导摘要"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "明确要求概括，能指导摘要"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "明确要求提取关键词，能指导摘要"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "询问评价，未明确要求摘要"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "1-1417": {
+    "qid": "1-1417",
+    "classification": "own",
+    "chapter": 1,
+    "quality": "ok",
+    "reason": "考查上下文窗口限制与成本控制，属于大模型基础核心概念。",
+    "answer": [
+      "D"
+    ],
+    "supported": true,
+    "quote": "上下文窗口（Context Window）是模型一次能“看到”的最大 Token 数。它是输入与输出共用的 Token 预算。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "无原文支持，非主要原因"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "无原文支持，非主要原因"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "无原文支持，非主要原因"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "分处理可控制Token使用，降低成本"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "1-0270": {
+    "qid": "1-0270",
+    "classification": "cross",
+    "chapter": 2,
+    "quality": "ok",
+    "reason": "考查提示词分隔符使用，属于提示工程结构化手段。",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "分隔符的结构化与防注入作用",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "分号分隔力弱，易混淆"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "尖括号易与XML/HTML混淆"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "###分隔清晰，常见于提示词"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "XML格式冗长，非最佳"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "1-0400": {
+    "qid": "1-0400",
+    "classification": "cross",
+    "chapter": -1,
+    "quality": "review",
+    "reason": "考查工程实践中的错误处理，但章节归属不明确，需复核。",
+    "answer": [
+      "B"
+    ],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "不处理风险高"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "捕获异常是稳健做法"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "输入验证必要，但非主要"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "假设总正确不现实"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "1-0405": {
+    "qid": "1-0405",
+    "classification": "own",
+    "chapter": 1,
+    "quality": "ok",
+    "reason": "考查提示词清晰度对模型任务执行的影响，属于基础能力。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "提示词六要素（角色/任务/上下文/受众/样例/输出格式）",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "过于简略，指导性弱"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "指令清晰具体，最适合"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "过于简略，指导性弱"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "要求写小说，非单纯扩写"
+      },
+      {
+        "label": "E",
+        "selected": false,
+        "why": "要求分析利弊，非扩写"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

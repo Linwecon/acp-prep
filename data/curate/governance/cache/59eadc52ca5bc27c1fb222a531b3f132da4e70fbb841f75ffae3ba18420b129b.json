@@ -1,0 +1,43 @@
+{
+  "new-10-156-2": {
+    "qid": "new-10-156-2",
+    "classification": "own",
+    "chapter": 10,
+    "quality": "ok",
+    "reason": "考查DashScope限流机制与重试后果，属本章核心成本控制考点",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "遇 429 用**指数退避 + 抖动**重试，必要时降级到更小模型；切忌无间隔死循环重试，那会加剧限流、推高成本。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "重试仍消耗Token，TPM超限恶化"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "RPM未超限，重试不触发RPM限流"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "费用升高非因重试导致输入重复"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "temperature参数与重试无关"
+      }
+    ],
+    "duplicate_of": "",
+    "references": [
+      {
+        "chapter": 10,
+        "id": 80
+      }
+    ]
+  }
+}

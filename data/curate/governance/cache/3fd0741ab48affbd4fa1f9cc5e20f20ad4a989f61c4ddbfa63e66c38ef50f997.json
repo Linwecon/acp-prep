@@ -1,0 +1,37 @@
+{
+  "new-9-96-2": {
+    "qid": "new-9-96-2",
+    "classification": "own",
+    "chapter": 9,
+    "quality": "ok",
+    "reason": "题干明确指向429重试策略，原文9:87-9:88直接定义指数退避+抖动为标准做法",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "指数退避 + 抖动（Exponential Backoff with Jitter） 是处理 429/5xx 的标准做法：第 1 次失败等 1 秒，第 2 次等 2 秒，第 3 次等 4 秒…… 间隔指数增长；在等待时间上加一个随机抖动",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "原文9:87-9:88明确定义该原则为处理429的标准做法"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "虽提及控并发，但题干焦点是重试时机而非并发控制"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "429是限流非Key泄露，禁用Key属错误处置"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "RPM配额由平台设定，与模型档位无关"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

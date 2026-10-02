@@ -1,0 +1,73 @@
+{
+  "new-6-48-0": {
+    "qid": "new-6-48-0",
+    "classification": "own",
+    "chapter": 6,
+    "quality": "ok",
+    "reason": "题目考查vLLM并发超限时的表现与参数调整效果，属于部署性能调优核心考点。",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "并发已超过服务最优处理能力，GPU/显存成为瓶颈，请求开始排队导致 RT 劣化和超时。应通过压测找到最优并发阈值并做限流",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "仅调高并发上限会加剧显存与调度压力，导致RT恶化与错误率上升。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "TTFT由Prefill决定，提高并发上限不直接增加其计算资源。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "PagedAttention按需分配，调高并发会增加KV Cache占用而非释放。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "TPOT由Decode效率决定，并发超限会因调度争抢而劣化。"
+      }
+    ],
+    "duplicate_of": "6-5135"
+  },
+  "new-6-48-2": {
+    "qid": "new-6-48-2",
+    "classification": "own",
+    "chapter": 6,
+    "quality": "ok",
+    "reason": "题目综合考查部署选型决策，需结合数据合规、性能、运维能力等约束判断。",
+    "answer": [
+      "A",
+      "B"
+    ],
+    "supported": true,
+    "quote": "数据不出域 → 排除百炼等公有 MaaS，选 ECS 自建或 PAI-EAS 私有部署；PAI-EAS（企业级在线推理、预热/灰度/版本、私有模型）、ECS（自建可控、无冷启动、自运维、稳定高吞吐合规）",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "PAI-EAS支持私有部署、灰度发布与模型预热，满足全部约束。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "ECS自建vLLM可控且数据不出域，搭配SLB/ESS可满足性能与回滚要求。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "FC有冷启动且不适合实时大模型推理，不满足TTFT与灰度要求。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "百炼MaaS本地版教材未提及，且通常仍涉及数据出域评估。"
+      }
+    ],
+    "duplicate_of": "6-5138"
+  }
+}

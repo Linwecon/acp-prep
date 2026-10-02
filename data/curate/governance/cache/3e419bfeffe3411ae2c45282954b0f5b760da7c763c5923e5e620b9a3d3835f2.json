@@ -1,0 +1,37 @@
+{
+  "new-7-48-0": {
+    "qid": "new-7-48-0",
+    "classification": "own",
+    "chapter": 7,
+    "quality": "ok",
+    "reason": "题目考查RAGAS指标差异分析及故障归因逻辑，属于第7章核心考点。",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "Faithfulness（忠实度）衡量答案是否忠于检索资料，有没有脱离资料编造（幻觉）。计算口径：先用LLM把answer的每句话拆成若干不含代词、独立可理解的简单陈述；再让LLM对照contexts逐条判定：该陈述能否由上下文直接推断",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "Faithfulness计算前提是拆解答案陈述并与contexts比对，是归因基础。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "ground_truth来源是评测集构建前提，非当前故障归因必要条件。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "Context Precision低是现象，非Faithfulness与Correctness差异归因的必要条件。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "question来源是评测集构建铁律，非当前故障归因的必要条件。"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

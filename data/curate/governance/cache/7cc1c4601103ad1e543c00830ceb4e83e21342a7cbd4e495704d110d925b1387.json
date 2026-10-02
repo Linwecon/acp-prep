@@ -1,0 +1,220 @@
+{
+  "3-1360": {
+    "qid": "3-1360",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "考查云向量库服务特性，原文明确提及云服务优势",
+    "answer": [
+      "A",
+      "B",
+      "D"
+    ],
+    "supported": true,
+    "quote": "生产环境可选用云服务（如阿里云 DashVector）或自建开源库（Milvus、Qdrant）",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "云服务典型按量付费模式"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "云服务具备自动扩容能力"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "需配置向量模型和索引参数"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "原文明确列出混合检索为检索增强技术"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-1366": {
+    "qid": "3-1366",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "考查检索增强方法，原文明确列出HyDE和标签提取",
+    "answer": [
+      "A",
+      "B",
+      "D"
+    ],
+    "supported": true,
+    "quote": "提取结构化标签...HyDE（假设文档嵌入）...结合用户画像扩展上下文",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "原文列为检索增强技术"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "原文明确HyDE为检索增强"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "减少切片数会降低召回率"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "原文提到结合用户画像扩展上下文"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-1369": {
+    "qid": "3-1369",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "考查标签提取流程，原文要求标签用于过滤",
+    "answer": [
+      "A",
+      "B",
+      "C"
+    ],
+    "supported": true,
+    "quote": "提取结构化标签...用标签过滤检索结果",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "原文明确从切片提取标签"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "原文要求从问题中提取标签"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "原文明确用标签过滤结果"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "标签需保持语义关联性"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-1371": {
+    "qid": "3-1371",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "考查相似度阈值影响，原文明确放宽阈值使召回率↑精确率↓",
+    "answer": [
+      "C",
+      "D"
+    ],
+    "supported": true,
+    "quote": "放宽相似度阈值是召回率 ↑、精确率 ↓",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "提高阈值会减少召回"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "提高阈值减少无用知识"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "提高阈值过滤低分项"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "提高阈值导致召回数量减少"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-1373": {
+    "qid": "3-1373",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "考查向量索引作用，原文强调向量数据库用ANN索引实现毫秒级检索",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "向量数据库用近似最近邻（ANN）索引（如 HNSW、IVF）实现毫秒级检索",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "模型大小不影响检索效率"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "ANN索引提升检索效率"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "切片更小反而降低语义完整性"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "embedding堆叠非原文概念"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-1383": {
+    "qid": "3-1383",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "考查内存向量存储特性，原文对比开发测试与生产环境选型",
+    "answer": [
+      "A",
+      "C"
+    ],
+    "supported": true,
+    "quote": "开发测试可用 LlamaIndex 内置的内存向量库；生产环境可选用云服务",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "内存库便于本地调试控制"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "功能不如云服务完整"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "内存库无需额外部署配置"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "内存库无自动扩容能力"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

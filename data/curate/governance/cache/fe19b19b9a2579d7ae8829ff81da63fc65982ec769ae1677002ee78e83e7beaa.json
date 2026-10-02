@@ -1,0 +1,79 @@
+{
+  "new-5-12-1": {
+    "qid": "new-5-12-1",
+    "classification": "own",
+    "chapter": 5,
+    "quality": "ok",
+    "reason": "题目考查知识蒸馏离线数据合成阶段的必要环节，属于本章核心知识点，选项明确，有原文支持。",
+    "answer": [
+      "A",
+      "B",
+      "D"
+    ],
+    "supported": true,
+    "quote": "离线数据合成阶段（教师侧）：1. 设计 schema：先定义稳定的输出结构。本课工单含 intents/department/urgency/entities/route 五个字段及取值范围；2. 生成多样化提问：用高温度（如 temperature=0.9）让教师批量造问；3. 教师标注：用精确的 system prompt 约束输出 JSON，低温度（temperature=0.1）保证标注一致性；4. 质量过滤：逐条校验；5. 格式化：把合格样本写成 ms-swift 的 messages 格式。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "教师低温度标注是保证标注一致性的必要环节。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "格式化messages(JSONL)是数据准备的必需步骤。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "LoRA训练属于学生侧在线训练阶段，非教师侧。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "设计稳定输出schema是离线数据合成的第一步。"
+      },
+      {
+        "label": "E",
+        "selected": false,
+        "why": "选择checkpoint并合并权重属于学生侧训练后步骤。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-5-12-2": {
+    "qid": "new-5-12-2",
+    "classification": "own",
+    "chapter": 5,
+    "quality": "ok",
+    "reason": "题目考查过拟合现象及后果，属于本章训练过程核心知识点，选项明确，有原文支持。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "验证 loss 先降后升 = 过拟合的铁证，应回退到验证 loss 最低的 checkpoint。部署应选验证集表现最优的 checkpoint，而不是最后一个——最后一个可能已经'练过头'。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "过拟合会损害泛化能力，合规率未必提升。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "验证loss上升表明过拟合，继续训练会降低泛化能力。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "秩r是超参数，不会自动降低。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "过拟合与灾难性遗忘不同，不能恢复旧能力。"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

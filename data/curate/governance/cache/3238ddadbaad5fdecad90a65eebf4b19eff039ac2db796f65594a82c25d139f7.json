@@ -1,0 +1,154 @@
+{
+  "items": [
+    {
+      "type": 0,
+      "stem": "某团队完成切片优化后，RAGAS评测显示Context Recall从0.63升至0.94，但Answer Correctness仅微升0.01，且Faithfulness下降0.22；日志确认检索片段中明确包含'张伟是教研部的'等完整事实。此时若仅冻结评测集而未冻结评委LLM版本，却将分数变化归因为切片优化效果有限——该归因错误最直接违反教材哪项核心原则？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "评测先行原则：未在优化前建立基线"
+        },
+        {
+          "option_label": "B",
+          "option_text": "控制变量原则：评委LLM版本未冻结，导致分数不可比"
+        },
+        {
+          "option_label": "C",
+          "option_text": "指标分层原则：混淆算法指标与业务指标目标"
+        },
+        {
+          "option_label": "D",
+          "option_text": "领域专家铁律：ground_truth未由HR专家审定"
+        }
+      ],
+      "answer": "B",
+      "analysis": "依据教材7.2.4节'控制变量：让分数可比'，明确指出'回归评测的前提是除了待测改动，其他一切都冻结：评测集版本、评测脚本、推理参数（temperature/seed）、模型版本、甚至当评委的大模型版本都要固定。否则分数变化无法归因'。题干中'未冻结评委LLM版本'却将分数变化归因于切片优化，直接违反该原则。A虽涉及评测先行，但题干已执行评测（有基线与优化后分数），问题在于归因失效；C、D与题干描述的故障现象无直接因果关系。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 1,
+      "stem": "在构建新人答疑机器人回归评测集时，以下哪些操作同时满足教材7.2.1节'两条铁律'与7.2.4节'控制变量'要求，且能有效支撑'防止回归'用途？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "从近3个月线上客服工单中按问题类型与频次抽样150个question，并由3位资深HRBP联合编写并交叉校验ground_truth"
+        },
+        {
+          "option_label": "B",
+          "option_text": "将评测集版本号固化为v1.2.0，配套冻结评测脚本、qwen-plus评委模型、text-embedding-v3嵌入模型及temperature=0.1"
+        },
+        {
+          "option_label": "C",
+          "option_text": "为覆盖边界场景，人工构造20个对抗性question（如'试用期能不能休年假？'），并由法务同事审核ground_truth合规性"
+        },
+        {
+          "option_label": "D",
+          "option_text": "每次优化后，动态追加当周新出现的用户投诉问题到评测集，确保覆盖最新问题分布"
+        }
+      ],
+      "answer": "A,B,C",
+      "analysis": "A满足'问题来自真实用户场景'（工单抽样）与'标准答案来自领域专家'（HRBP编写校验）双铁律；B严格实现'控制变量'：冻结评测集版本、脚本、评委模型、嵌入模型、温度参数，是回归评测可比性的技术基础；C中'人工构造对抗性question'虽非纯真实抽样，但教材7.8.2节'评测集设计要点'明确要求'正例+负例'、'覆盖对抗样本'，且'法务审核ground_truth'延续了领域专家主导原则；D违反'冻结评测集'要求——教材7.1节强调'没有冻结的评测集，无法判断分数变化来自改动还是题目本身'，动态追加会破坏回归可比性，故排除。",
+      "difficulty_label": "挑战"
+    },
+    {
+      "type": 0,
+      "stem": "团队发现RAGAS评测中Answer Correctness持续低于0.4，深入拆解发现：语义相似度子项均值0.85，事实F1子项均值仅0.08。若此时盲目提升生成端温度以增加多样性，最可能加剧的系统性风险是？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "Faithfulness进一步下降，幻觉内容增多"
+        },
+        {
+          "option_label": "B",
+          "option_text": "Context Precision降低，无关片段排序更靠前"
+        },
+        {
+          "option_label": "C",
+          "option_text": "Answer Relevancy升高，但答案更含糊回避"
+        },
+        {
+          "option_label": "D",
+          "option_text": "Context Recall下降，关键信息检索不全"
+        }
+      ],
+      "answer": "A",
+      "analysis": "依据教材7.4.4节Answer Correctness官方口径：'0.25×语义相似度 + 0.75×事实F1'，当前事实F1极低（0.08）表明答案存在大量FP（编造）或FN（遗漏），即生成端严重幻觉或漏答。教材7.5节定位法则指出：'检索指标都好但Faithfulness低→问题在生成阶段'，且7.5节优化方向明确'Faithfulness低→强化提示词约束、降低temperature、换更强模型'。提高temperature会增强随机性，直接加剧幻觉（FP），导致Faithfulness恶化，与教材7.5节'Faithfulness低应降低temperature'的建议完全相悖。B、D属检索端问题，与事实F1低无直接因果；C中Answer Relevancy低表现为'noncommittal'（如'我不知道'），但题干未体现该特征，且提高temperature通常不会改善回避倾向。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 1,
+      "stem": "某Agent端到端评测得分为4.1/5，但用户集中反馈'生成的报销流程图缺失审批节点'。依据教材7.6节Agent评测框架，以下哪些白盒评测设计能精准定位该故障？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "使用确定性检查器解析执行trace，验证'审批节点'是否在工具调用序列中被触发"
+        },
+        {
+          "option_label": "B",
+          "option_text": "对最终输出图像进行OCR识别，比对文本中是否包含'审批'关键词"
+        },
+        {
+          "option_label": "C",
+          "option_text": "定义Rubric量表：'流程图完整性'维度下设'审批节点存在性'锚点（存在=5分，缺失=1分）"
+        },
+        {
+          "option_label": "D",
+          "option_text": "用LLM-as-Judge评估'流程图是否符合SOP'，输入为原始question与生成图像base64编码"
+        }
+      ],
+      "answer": "A,C",
+      "analysis": "教材7.6节强调Agent评测需'深入链路，对关键组件/中间步骤单独打分'，并指出'白盒评测优势是信号清晰无干扰、定位精准'。A属于'确定性检查'：直接解析trace验证'审批节点'是否被调用，符合教材7.6.1节'确定性检查管客观硬指标'及'过程是否符合SOP'要求；C属于'Rubric评分量表'：将模糊目标'完整性'拆解为可检查的'审批节点存在性'细则，符合教材7.6.1节'把模糊目标拆成多条可检查细则'。B依赖OCR识别图像文本，但流程图缺失节点是结构缺陷而非文本缺失，OCR无法检测；D中LLM-as-Judge处理图像base64缺乏可靠性，且教材7.6.1节指出LLM-as-Judge适合主观语义评价，不适用于结构化完整性验证。",
+      "difficulty_label": "挑战"
+    },
+    {
+      "type": 0,
+      "stem": "团队使用MMLU基准筛选大模型后，选中得分最高的模型部署新人答疑机器人。上线后RAGAS自建评测显示Answer Correctness仅0.32，远低于基线0.68。该结果最直接印证教材7.7节关于公开基准的哪项核心论断？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "公开基准存在数据污染风险，导致分数虚高"
+        },
+        {
+          "option_label": "B",
+          "option_text": "公开基准只反映通用能力，与业务题型/领域知识不一致"
+        },
+        {
+          "option_label": "C",
+          "option_text": "MMLU为英文基准，中文场景应优先参考C-Eval"
+        },
+        {
+          "option_label": "D",
+          "option_text": "基准分高不能替代领域专家标注的ground_truth"
+        }
+      ],
+      "answer": "B",
+      "analysis": "教材7.7节'公开基准的三个坑'第一条即'基准分高 = 业务表现好'是错误认知，原因明确为'基准只反映通用能力，和你的业务题型、语言分布、领域知识可能完全不同'。题干中MMLU高分模型在中文HR业务场景（新人答疑）中Answer Correctness暴跌，正是'通用能力高但领域适配差'的典型表现。A虽为真，但题干未提供数据污染证据；C是技术建议，非核心论断；D是正确做法，但非对'基准分高≠业务好'这一现象的根本解释。",
+      "difficulty_label": "入门"
+    },
+    {
+      "type": 1,
+      "stem": "在实施评测驱动开发（EDD）时，以下哪些实践能同时满足教材7.1节'防止回归'用途与7.5节'定位问题'黄金法则？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "每次优化后，运行同一套冻结评测集，按题型（如'年假'、'报销'）细分分析各指标变化"
+        },
+        {
+          "option_label": "B",
+          "option_text": "当Answer Correctness下降时，立即结合Context Recall与Faithfulness判断病根在检索端或生成端"
+        },
+        {
+          "option_label": "C",
+          "option_text": "为加速迭代，对每次改动仅测试3个典型question，但覆盖所有指标维度"
+        },
+        {
+          "option_label": "D",
+          "option_text": "建立基线后，将'防止回归'定义为'所有题型Correctness不低于基线95%'，并设置CI/CD自动拦截"
+        }
+      ],
+      "answer": "A,B,D",
+      "analysis": "A满足'防止回归'（同一套冻结集）与'定位问题'（按题型细分找短板），教材7.8.2节'评测集设计要点'强调'不只看平均分，要按题型、难度、类别细分找短板'；B直接应用教材7.5节'黄金法则'：'Answer Correctness低+检索指标也低→先修检索'，是定位问题的标准动作；D中'设置CI/CD自动拦截'呼应教材7.9节'DeepEval可设Pass/Fail阈值，便于接入CI/CD做自动化回归'，且'所有题型Correctness不低于基线95%'体现防止回归的量化要求。C违反'防止回归'本质——教材7.1节强调'无法系统性确认B、C这些原本答对的问题没被改坏'，仅测3个question无法覆盖回归范围，故排除。",
+      "difficulty_label": "进阶"
+    }
+  ]
+}

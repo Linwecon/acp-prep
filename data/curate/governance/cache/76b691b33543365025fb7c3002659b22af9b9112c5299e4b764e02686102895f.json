@@ -1,0 +1,183 @@
+{
+  "new-7-12-0": {
+    "qid": "new-7-12-0",
+    "classification": "own",
+    "chapter": 7,
+    "quality": "ok",
+    "reason": "考查RAGAS指标组合定位故障能力，检索好但生成差应查生成端。",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "检索指标都好（Recall、Precision 高），但 Faithfulness / Correctness 低 → 问题在生成阶段",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "日志确认检索片段已含完整答案，知识库不缺。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "Recall已大幅提升，召回能力足够。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "检索好但Faithfulness降，提示词约束不足致幻觉。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "Recall已高，调大Top K会引入噪声。"
+      }
+    ],
+    "duplicate_of": "7-5052"
+  },
+  "new-7-12-1": {
+    "qid": "new-7-12-1",
+    "classification": "own",
+    "chapter": 7,
+    "quality": "ok",
+    "reason": "考查EDD中防止回归和定位问题的具体实践。",
+    "answer": [
+      "B",
+      "C",
+      "D"
+    ],
+    "supported": true,
+    "quote": "回归评测的前提是除了待测改动，其他一切都冻结；构建覆盖主要业务场景与边界情况；用RAGAS链路拆成检索端和生成端分别评价",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "仅运行子集无法防止其他模块回归。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "冻结配置确保分数可比，防止回归。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "覆盖多场景评测集能发现短板，定位问题。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "拆解指标可定位问题在检索端或生成端。"
+      }
+    ],
+    "duplicate_of": "7-5058"
+  },
+  "new-7-12-2": {
+    "qid": "new-7-12-2",
+    "classification": "own",
+    "chapter": 7,
+    "quality": "ok",
+    "reason": "考查Agent白盒评测与端到端评测的区别及应用。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "端到端评测看最终输出，白盒评测深入链路，对关键组件/中间步骤单独打分",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "LLM主观评分仍属端到端，无法精准验证可执行性。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "白盒组件直接执行代码验证，精准定位故障。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "扩大端到端集规模不改变评测方法，无法定位。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "提示词约束无法验证，非评测指标设计。"
+      }
+    ],
+    "duplicate_of": "7-5054"
+  },
+  "new-7-12-3": {
+    "qid": "new-7-12-3",
+    "classification": "own",
+    "chapter": 7,
+    "quality": "ok",
+    "reason": "考查RAGAS Answer Correctness指标计算的具体配置要求。",
+    "answer": [
+      "A",
+      "B",
+      "D"
+    ],
+    "supported": true,
+    "quote": "课程使用 qwen-plus 作为评委 LLM、text-embedding-v3 作为 Embedding；RAGAS的中文场景可替换 chinese_prompt.py 里的中文提示词模板",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "教材明确使用text-embedding-v3计算语义相似度。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "中文场景建议注入中文提示词模板。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "教材未要求专家人工校验观点分解。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "教材示例固定评委LLM为qwen-plus并显式指定。"
+      }
+    ],
+    "duplicate_of": "7-5055"
+  },
+  "new-7-12-5": {
+    "qid": "new-7-12-5",
+    "classification": "own",
+    "chapter": 7,
+    "quality": "ok",
+    "reason": "考查评测先行和领域专家主导原则的具体违反情形。",
+    "answer": [
+      "A",
+      "B",
+      "D"
+    ],
+    "supported": true,
+    "quote": "评测先行的正确顺序是：先建评测集、拿到基线分数，再动手优化；标准答案来自领域专家；问题来自真实用户场景",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "先优化后建评测集，违反评测先行。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "技术团队编写ground_truth，违反领域专家主导。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "剔除敏感政策工单可能合理，未明确违反原则。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "用模拟问题替代真实用户问题，违反真实场景原则。"
+      }
+    ],
+    "duplicate_of": "7-5074"
+  }
+}

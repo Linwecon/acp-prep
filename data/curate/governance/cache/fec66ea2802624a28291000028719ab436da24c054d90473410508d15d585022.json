@@ -1,0 +1,129 @@
+{
+  "items": [
+    {
+      "type": 0,
+      "stem": "某教育公司正为新人答疑机器人选型：当前仅需单轮问答，但已明确3个月内将接入内部制度文档（含扫描件PDF）、支持多轮对话、调用HR系统API，并需对效果进行量化评估。团队仅有1名全栈工程师，无专职AI运维。依据第12章框架选型决策主线，最符合‘务实演进路径’的初始技术选型是？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "直接使用 LangChain + LangGraph 构建完整 Agent 工作流，预埋所有扩展点"
+        },
+        {
+          "option_label": "B",
+          "option_text": "用 DashScope SDK 裸调 qwen-plus 实现基础问答，后续按需逐步引入 LlamaIndex（RAG）、LangChain（Agent）、RAGAS（评测）"
+        },
+        {
+          "option_label": "C",
+          "option_text": "立即部署 Dify 私有化版本，由HR同事上传扫描件并配置工作流"
+        },
+        {
+          "option_label": "D",
+          "option_text": "首选 AgentScope 搭建多 Agent 协作架构，预留 Leader-Worker 扩展能力"
+        }
+      ],
+      "answer": "B",
+      "analysis": "依据第12章‘一条务实的选型主线’（12.8节）：‘1. 能用：先用 SDK 把核心问答跑通；2. 好用：私域知识多 → 上 LlamaIndex 做 RAG……’。题干明确‘当前仅需单轮问答’，此时裸调 SDK（如课程 `course_core/chatbot/llm.py`）是最轻量、可控、易调试的起点，完全契合‘能用’阶段；而A、D过早引入复杂框架，违背‘不要为用框架而用框架’的第七大误区；C虽适合非工程人员，但题干限定‘仅有1名全栈工程师’且需后续深度集成API与评测，Dify 的可视化抽象在复杂工具链和定制化评测（RAGAS）上灵活性不足，且‘立即部署’不符合渐进演进逻辑。教材原文明确指出：‘简单脚本直接用 OpenAI/DashScope SDK 更合适（课程 `llm.py` 即是例证）’（12.1节 Exam 栏）。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 1,
+      "stem": "某团队使用 LlamaIndex 构建 RAG 系统时，发现对合同中‘违约金为合同总额5%’这类数值型问题回答错误率高。经排查，原始PDF含复杂表格，解析后表格内容被扁平化为连续文本。根据第12章文档解析工具链选型原则，以下哪些措施可系统性解决该问题？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "将 `SimpleDirectoryReader` 替换为 `DashScopeParse`，利用其OCR与版面分析能力保留表格结构"
+        },
+        {
+          "option_label": "B",
+          "option_text": "在 `NodeParser` 中启用 `SentenceWindowNodeParser`，扩大上下文窗口"
+        },
+        {
+          "option_label": "C",
+          "option_text": "改用 `Unstructured` 的 `partition_pdf` 并设置 `strategy='hi_res'`，提升表格识别精度"
+        },
+        {
+          "option_label": "D",
+          "option_text": "在 `QueryEngine` 中增加 `Rerank` 后处理器，提升数值片段召回权重"
+        }
+      ],
+      "answer": "AC",
+      "analysis": "题干核心病根是‘解析阶段表格被打散成纯文本’（12.5节 Exam 栏明确指出），属文档解析层缺陷。A正确：`DashScopeParse` 专为扫描件/复杂PDF设计，具备OCR+版面分析+表格识别能力，可输出结构化Markdown，直接解决表格语义丢失问题（12.5节表格与Best栏）。C正确：`Unstructured` 的 `'hi_res'` 策略依赖OCR引擎，对复杂表格识别效果优于默认策略，是离线场景下的合理替代方案（12.5节选型路径第3条）。B错误：`SentenceWindowNodeParser` 仅影响切片粒度，无法恢复已丢失的表格结构，属于‘用下游补上游’的无效操作。D错误：Rerank作用于已检索出的Node，若原始Node中表格数据已失真，Rerank无法修复语义，属于‘在错误输入上优化排序’（12.5节Exam栏强调‘病根在解析’）。教材明确要求‘把解析结果存为结构化 Markdown：保留标题层级和表格的行列结构’（12.5节Best栏），A、C均指向此目标。",
+      "difficulty_label": "高阶"
+    },
+    {
+      "type": 0,
+      "stem": "在将 LlamaIndex 的 `VectorStoreIndex` 封装为 LangChain 的 `Tool` 供 Agent 调用时，开发者发现 Agent 总是重复调用该工具却未获得有效答案。经日志追踪，发现每次调用返回的 `context_str` 内容高度相似且与用户问题无关。依据第12章对 `context_str` 的定义及默认提示词机制，最可能的根本原因是？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "LlamaIndex 的 `QueryEngine` 未配置 `llm` 参数，导致生成阶段缺失模型推理"
+        },
+        {
+          "option_label": "B",
+          "option_text": "LangChain Tool 的 `args_schema` 未正确定义 JSON Schema，导致参数解析失败"
+        },
+        {
+          "option_label": "C",
+          "option_text": "LlamaIndex 默认提示词中 `{query_str}` 被误写为 `{context_str}`，导致检索时将上下文当问题查询"
+        },
+        {
+          "option_label": "D",
+          "option_text": "向量库索引未持久化，每次调用重建索引导致检索不一致"
+        }
+      ],
+      "answer": "C",
+      "analysis": "题干关键现象是‘`context_str` 内容高度相似且与用户问题无关’，直指提示词模板变量混淆。教材12.3节明确：‘`{context_str}` 注入的是从向量库召回的资料，用户问题由 `{query_str}` 注入’，并警示‘考试常把二者互换作为错误选项’；12.8节QA自测第3题进一步说明：‘写反会导致模型把问题当资料、把资料当问题，几乎必然答非所问’。C选项精准对应此根本原因——当提示词误将 `context_str` 当作查询字符串传入检索器，检索器会基于固定上下文（而非用户问题）反复召回相似内容，造成死循环。A错误：`QueryEngine` 的 `llm` 参数仅影响最终生成，不影响检索阶段 `context_str` 的生成；B错误：参数解析失败通常导致工具调用异常或中断，而非返回固定无关内容；D错误：索引重建会影响检索结果一致性，但不会导致‘高度相似且无关’的稳定输出，且题干未提重建行为。",
+      "difficulty_label": "高阶"
+    },
+    {
+      "type": 1,
+      "stem": "某企业需构建一个支持‘员工身份识别→查考勤记录→查请假政策→综合生成休假建议’的多步Agent系统。团队熟悉Python，要求状态可追踪、流程可调试、支持异步调用。根据第12章对框架定位的对比，以下哪些组合既满足技术需求又符合‘各司其职’原则？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "LlamaIndex 负责考勤/政策文档的向量索引与检索，封装为 Retriever Tool"
+        },
+        {
+          "option_label": "B",
+          "option_text": "LangChain 的 LCEL 链负责串联身份识别、工具调用、Memory 管理与最终生成"
+        },
+        {
+          "option_label": "C",
+          "option_text": "AgentScope 的 MsgHub 用于广播员工身份信息，实现跨Agent协同"
+        },
+        {
+          "option_label": "D",
+          "option_text": "FastAPI 将整个Agent系统封装为 HTTP API，供企业OA系统调用"
+        }
+      ],
+      "answer": "ABD",
+      "analysis": "题干场景是‘单Agent多步骤流程’（身份识别→查记录→查政策→生成建议），核心需求是‘多步编排、状态管理、异步、可调试’。A正确：LlamaIndex 擅长RAG，将考勤/政策文档建索引并封装为Tool，符合‘LlamaIndex做数据层’定位（12.4节Compare栏）。B正确：LangChain/LCEL 擅长通用编排，天然支持流式/异步/回调/批处理，且Memory组件可管理员工身份等状态（12.2节LCEL价值与Memory栏），完美匹配需求。D正确：FastAPI 是课程指定的服务层方案，用于对外提供生产级API（12.7.3节），且与OA系统集成是典型用例。C错误：AgentScope 的 `MsgHub` 和消息广播是为‘多Agent角色协作’（如Leader-Worker、Blackboard群聊）设计，而本题是单Agent执行多步骤任务，无需跨Agent通信，强行引入违背‘为用框架而用框架’误区（12.8节Risk栏），且增加不必要的复杂度。教材12.4节Exam栏明确场景题正解为‘LlamaIndex做检索 + LangChain做Agent编排’。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 0,
+      "stem": "某团队使用 Dify 搭建制度问答机器人，已私有化部署并接入百炼模型。上线后发现用户提问‘我上个月休了3天年假，还剩几天？’时，模型常虚构剩余天数。安全团队要求立即整改。依据第12章对 Dify 能力边界的论述，以下哪项措施最直接、最符合教材推荐的合规实践？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "在 Dify 的知识库设置中启用‘严格模式’（Strict Mode），强制回答必须基于检索到的上下文"
+        },
+        {
+          "option_label": "B",
+          "option_text": "将 Dify 迁移至阿里云百炼平台托管，利用其内置内容安全网关"
+        },
+        {
+          "option_label": "C",
+          "option_text": "在 Dify 工作流中添加自定义 Python 节点，调用 RAGAS 的 faithfulness 指标进行实时校验"
+        },
+        {
+          "option_label": "D",
+          "option_text": "为 Dify 配置独立的内容审核服务，对所有输出进行关键词过滤与LLM重写"
+        }
+      ],
+      "answer": "A",
+      "analysis": "题干问题本质是‘模型幻觉’（虚构剩余天数），根源在于生成环节未约束事实依据。教材12.6.2节明确：Dify 提供‘严格模式’（Strict Mode）开关，其作用正是‘强制回答必须基于知识库检索到的内容，禁止模型自由发挥’（12.6.2节Exam栏：‘希望问答结果严格限定于知识库内容、禁止模型自由发挥，应启用哪项关键开关？’答案即此）。A选项直接、零成本、符合Dify原生能力，是教材明确推荐的解决方案。B错误：迁移至百炼托管不能解决幻觉问题，百炼同样需配置严格模式或后处理；C错误：RAGAS 是离线评测框架，非实时校验工具，且Dify工作流不原生支持RAGAS指标注入；D错误：虽可行但过度工程化，违背‘务实选型’原则，且教材强调‘私有部署≠自动合规’，需‘自行配置’，而A是Dify内置的、最轻量的合规控制点（12.6.2节Cost栏）。教材12.8节误区第6条警示：‘私有部署 ≠ 自动合规’，但A正是针对此问题的官方内置对策。",
+      "difficulty_label": "基础"
+    }
+  ]
+}

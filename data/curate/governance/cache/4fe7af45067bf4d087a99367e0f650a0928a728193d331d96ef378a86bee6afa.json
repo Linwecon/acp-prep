@@ -1,0 +1,162 @@
+{
+  "items": [
+    {
+      "type": 0,
+      "stem": "某金融企业需构建合规审查机器人，要求：① 严格保障客户合同数据不出本地私有云；② 需对法律条文与合同条款做深度语义匹配；③ 团队具备算法工程师但无专职GPU运维人员。以下哪组技术选型最符合实际约束与平台分层逻辑？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "在百炼控制台上传合同知识库，启用qwen-max模型+RAG问答，通过API嵌入OA系统"
+        },
+        {
+          "option_label": "B",
+          "option_text": "从ModelScope下载Qwen2.5-7B-Instruct开源模型，在PAI-DSW中微调，用DLC训练后部署至PAI-EAS服务"
+        },
+        {
+          "option_label": "C",
+          "option_text": "直接调用DashScope的qwen-long API，将整份PDF合同base64编码后作为输入请求"
+        },
+        {
+          "option_label": "D",
+          "option_text": "使用OSS存储合同扫描件，MaxCompute清洗文本，再通过DataWorks调度百炼知识库定时更新"
+        }
+      ],
+      "answer": "B",
+      "analysis": "依据原文10.4节'PAI三件套'与10.7节'开源模型价值'：① '数据不出域'明确排除DashScope（托管API，数据上送）和百炼（底层依赖DashScope，同样需上传）——A、C错误；② '深度语义匹配'需定制化能力，通用模型（qwen-long/max）无法满足专业法律意图识别，必须微调——C、D均未涉及模型改造；③ '有算法工程师但无GPU运维'正对应PAI定位：DSW提供交互式开发环境（无需自搭环境），DLC支持分布式训练（免运维GPU集群），EAS实现弹性部署（含监控/蓝绿发布）——B完整覆盖开发→训练→部署闭环。D选项混淆数据底座（OSS/MaxCompute/DataWorks）与AI平台职责，属10.1节明确指出的干扰项。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 0,
+      "stem": "某电商团队上线智能客服后，首月账单远超预期。排查发现：用户每次咨询都触发3次API调用（意图识别→商品检索→生成回复），且每次均将2000字商品详情页全文作为system prompt传入。以下哪项成本优化措施最能直击根本原因并符合原文10.8节工程原则？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "将三次调用合并为单次multi-step workflow，减少RPM消耗"
+        },
+        {
+          "option_label": "B",
+          "option_text": "改用qwen-turbo模型替代qwen-plus，降低单Token单价"
+        },
+        {
+          "option_label": "C",
+          "option_text": "在DashScope调用中设置max_tokens=100，并启用上下文缓存功能"
+        },
+        {
+          "option_label": "D",
+          "option_text": "采用RAG架构，仅向模型输入检索出的3条最相关商品属性片段，而非整页详情"
+        }
+      ],
+      "answer": "D",
+      "analysis": "原文10.8节'省成本的工程手段'明确指出：'控制输入：RAG只塞最相关的片段，不要每次把整本手册塞进上下文'。题干核心问题是'输入冗余'（2000字详情页全文作为system prompt），导致输入Token激增（输入Token计费且单价高）。A项错误：workflow不减少总Token量，仅改变调用次数；B项治标不治本，单价下降无法抵消输入量级增长；C项中max_tokens限制输出，对输入冗余无效，且上下文缓存需固定前缀，整页详情页无法缓存；D项直接应用RAG范式，精准截取关键信息，从源头压缩输入Token——完全契合原文'控制输入'这一最高优先级降本策略。",
+      "difficulty_label": "高阶"
+    },
+    {
+      "type": 1,
+      "stem": "某SaaS厂商需为客户提供可私有化部署的AI助手，要求：① 客户可自主管理模型权重与数据；② 支持客户基于自有业务数据微调；③ 提供生产级推理服务（弹性伸缩、蓝绿发布）。以下哪些阿里云产品组合能满足全部要求？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "ModelScope（下载开源模型权重）"
+        },
+        {
+          "option_label": "B",
+          "option_text": "PAI-DSW（微调开发环境）"
+        },
+        {
+          "option_label": "C",
+          "option_text": "PAI-EAS（模型在线服务）"
+        },
+        {
+          "option_label": "D",
+          "option_text": "百炼（知识库+Agent可视化搭建）"
+        },
+        {
+          "option_label": "E",
+          "option_text": "DashScope（商业API托管服务）"
+        }
+      ],
+      "answer": "A,B,C",
+      "analysis": "依据原文10.7节'开源模型价值'与10.4节'PAI三件套'：① '客户自主管理模型权重'必须使用开源模型（ModelScope提供下载），排除DashScope（商业API）和百炼（托管模型）——E、D错误；② '基于自有数据微调'需代码级开发能力，PAI-DSW提供JupyterLab环境与预置镜像，是标准开发入口——B正确；③ '生产级推理服务'明确指向PAI-EAS的弹性伸缩、蓝绿发布等能力——C正确；A项ModelScope是开源模型来源，构成私有化基础，不可或缺。原文10.5节'选型决策'强调：'要私有化部署开源模型→PAI（EAS）或自建'，三者组合形成完整私有化链路。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 0,
+      "stem": "开发团队需将现有基于OpenAI GPT-4的客服系统迁移至阿里云，要求最小化代码改动。当前代码使用openai>=1.0 SDK，含stream=True参数。以下哪项操作能确保无缝迁移且符合原文10.3节兼容模式原理？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "安装dashscope包，将client.chat.completions.create()替换为dashscope.Generation.call()"
+        },
+        {
+          "option_label": "B",
+          "option_text": "仅修改base_url为'https://dashscope.aliyuncs.com/compatible-mode/v1'，保持其余代码不变"
+        },
+        {
+          "option_label": "C",
+          "option_text": "将model参数从'gpt-4'改为'qwen-max'，其他参数保留，使用原生openai客户端"
+        },
+        {
+          "option_label": "D",
+          "option_text": "需重写所有提示词工程逻辑，因qwen系列tokenization方式与GPT不同"
+        }
+      ],
+      "answer": "B",
+      "analysis": "原文10.3节'OpenAI兼容模式'明确说明：'把base_url指向DashScope兼容地址、把api_key换成阿里云Key，原本基于OpenAI Python SDK写的程序几乎不用改就能调用通义千问'，并给出示例代码验证stream=True参数直接复用。B项完全符合该原理。A项错误：使用原生dashscope SDK即放弃兼容性，需重写调用逻辑；C项错误：虽model参数需更换，但'几乎不用改'指除model、base_url、key外其余参数（如stream、temperature）均保持一致，C未提base_url修改，不完整；D项错误：原文未提及tokenization差异需重写提示词，且兼容模式设计目标正是降低迁移成本。",
+      "difficulty_label": "基础"
+    },
+    {
+      "type": 1,
+      "stem": "某医疗AI项目需处理大量CT影像报告（含文字描述与DICOM图像），要求：① 实现图文联合分析；② 模型需在院内私有服务器部署；③ 支持医生通过自然语言提问获取诊断建议。以下哪些产品/能力组合符合原文分层定位与技术可行性？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "通义万相（处理图像生成任务）"
+        },
+        {
+          "option_label": "B",
+          "option_text": "ModelScope下载Qwen-VL多模态开源模型"
+        },
+        {
+          "option_label": "C",
+          "option_text": "PAI-EAS部署多模态模型服务"
+        },
+        {
+          "option_label": "D",
+          "option_text": "百炼平台构建图文问答智能体"
+        },
+        {
+          "option_label": "E",
+          "option_text": "DashScope调用通义万相API进行图像增强"
+        }
+      ],
+      "answer": "B,C",
+      "analysis": "依据原文10.1节分层与10.7节'开源模型价值'：① '图文联合分析'需多模态模型，通义万相（A、E）仅支持文生图/图生图，不支持图文理解；Qwen-VL是ModelScope提供的开源多模态模型，支持图文输入——B正确；② '院内部署'要求数据不出域，必须使用开源模型（B）+ 自托管（C），PAI-EAS支持私有化部署——C正确；D项百炼是托管应用平台，无法满足私有部署；E项DashScope是托管API，数据需上送，违反医疗合规要求。原文10.5节'选型决策'强调：'要数据完全不出域→开源模型+PAI/EAS或自建'，B、C构成该路径。",
+      "difficulty_label": "高阶"
+    },
+    {
+      "type": 0,
+      "stem": "运维同学发现PAI-DSW实例持续产生费用，检查发现浏览器已关闭但实例仍在运行。以下哪项操作最符合原文10.4节'PAI-DSW费用提醒'的核心要求？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "在DSW Notebook中执行!shutdown -h now命令强制关机"
+        },
+        {
+          "option_label": "B",
+          "option_text": "登录PAI控制台，在DSW实例列表页点击'停止'按钮"
+        },
+        {
+          "option_label": "C",
+          "option_text": "通过阿里云CLI执行aliyun pai StopDSWInstance --InstanceId xxx"
+        },
+        {
+          "option_label": "D",
+          "option_text": "等待实例自动休眠（默认30分钟无操作）"
+        }
+      ],
+      "answer": "B",
+      "analysis": "原文10.4节'PAI-DSW费用提醒'明确警示：'关闭浏览器不等于停止实例，不学了必须回控制台停止或删除'。B项'登录PAI控制台点击停止'是官方指定操作路径，直接对应原文要求。A项错误：Notebook内命令无法终止云端实例，仅影响容器内进程；C项虽技术可行，但原文强调'回控制台'这一可视化操作，且CLI非考试重点；D项错误：原文未提及自动休眠机制，且'30分钟'为虚构参数，原文只强调'必须主动停止'。",
+      "difficulty_label": "基础"
+    }
+  ]
+}

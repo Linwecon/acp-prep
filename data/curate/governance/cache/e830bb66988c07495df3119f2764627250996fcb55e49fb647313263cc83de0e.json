@@ -1,0 +1,215 @@
+{
+  "9-0212": {
+    "qid": "9-0212",
+    "classification": "own",
+    "chapter": 9,
+    "quality": "ok",
+    "reason": "明确对应9.2节核心概念",
+    "answer": [
+      "D"
+    ],
+    "supported": true,
+    "quote": "client.chat.completions.create(...) 底层是一个 POST 请求",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "标签提取非本章定义功能"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "API不用于模型训练"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "文档检索属RAG范畴"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "文本生成是API核心作用"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "9-0545": {
+    "qid": "9-0545",
+    "classification": "own",
+    "chapter": 9,
+    "quality": "ok",
+    "reason": "直接对应9.4节top_p原理",
+    "answer": [
+      "A",
+      "B"
+    ],
+    "supported": true,
+    "quote": "top_p（核采样）：把候选按概率从高到低累加，直到累积概率达到p，只在这个'核心集合'内采样",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "高p值扩大核心集合"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "低p值缩小核心集合"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "与原文描述相反"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "与原文描述相反"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "9-0719": {
+    "qid": "9-0719",
+    "classification": "own",
+    "chapter": 9,
+    "quality": "ok",
+    "reason": "temperature专控创新性",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "temperature 控制随机性，越高越发散",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "控制长度而非创新性"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "temperature调控随机性"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "top_p辅助但非主控"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "stop控制截断位置"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "9-1093": {
+    "qid": "9-1093",
+    "classification": "own",
+    "chapter": 9,
+    "quality": "ok",
+    "reason": "三选项均符合9.4节描述",
+    "answer": [
+      "A",
+      "C",
+      "D"
+    ],
+    "supported": true,
+    "quote": "课程明确建议：固定一个、调另一个，优先调 temperature，必要时再微调 top_p",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "低top_p更保守稳定"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "低temperature降低多样性"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "建议固定一个调另一个"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "高temperature增加多样性"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "9-1123": {
+    "qid": "9-1123",
+    "classification": "own",
+    "chapter": 9,
+    "quality": "ok",
+    "reason": "工具描述作用在9.7节明确",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "工具描述用 JSON Schema，description 写得越清晰，参数提取越准",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "description指导模型调用"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "与内存无关"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "不涉及加密"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "不影响调用速度"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "9-1133": {
+    "qid": "9-1133",
+    "classification": "own",
+    "chapter": 9,
+    "quality": "ok",
+    "reason": "A项错误，单模型可处理多格式",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "大模型 API 调用，就是应用程序通过 HTTP 请求，把'提示词 + 上下文 + 生成参数'发给云端模型服务",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "单模型可处理多格式"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "正确做法"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "正确分析"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "正确策略"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

@@ -1,0 +1,154 @@
+{
+  "items": [
+    {
+      "type": 0,
+      "stem": "某企业微信答疑机器人在早高峰突增429错误，日志显示重试请求集中爆发在每分钟第0秒（如08:30:00、08:31:00），且重试后仍持续失败。代码中对429采用固定2秒延迟+3次重试。该设计违反了本章强调的哪项核心工程原则？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "未区分4xx与5xx错误的重试必要性"
+        },
+        {
+          "option_label": "B",
+          "option_text": "未在退避策略中引入随机抖动（Jitter）"
+        },
+        {
+          "option_label": "C",
+          "option_text": "未设置最大重试次数导致无限重试"
+        },
+        {
+          "option_label": "D",
+          "option_text": "将429错误误判为客户端参数错误而放弃重试"
+        }
+      ],
+      "answer": "B",
+      "analysis": "依据原文9.8节‘指数退避 + 抖动（Exponential Backoff with Jitter）’明确指出：‘在等待时间上加一个随机抖动，避免大量客户端踩点同时重试把服务再次打爆’；并给出公式‘等待时间 = min(base × 2^attempt, max_wait) + random(0, jitter)’。题干中‘固定2秒延迟’且‘集中爆发在整点’，正是缺乏抖动导致的协同重试风暴，直接对应教材原理。A项错误——429明确属于应重试的错误（原文表明确标✅）；C项错误——题干已限定‘3次’，非无限；D项错误——429被正确认知为需重试，问题在于重试方式不当。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 1,
+      "stem": "某HR系统使用Batch API批量生成500份培训摘要，任务完成后下载输出JSONL文件，发现其中3条记录缺失、2条内容错位（如课程A摘要出现在课程B行）。以下哪些操作符合原文9.10节关于Batch工程实践的要求？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "提交前为每行输入JSON添加唯一request_id字段，并在结果校验时严格比对request_id与行序"
+        },
+        {
+          "option_label": "B",
+          "option_text": "因单行失败不影响整体，直接丢弃缺失/错位行，用同步接口补调这5条"
+        },
+        {
+          "option_label": "C",
+          "option_text": "在结果解析阶段，仅按行号顺序硬绑定输入与输出，不校验request_id"
+        },
+        {
+          "option_label": "D",
+          "option_text": "任务提交后未轮询状态，而是等待固定30分钟后直接拉取结果"
+        }
+      ],
+      "answer": "A",
+      "analysis": "原文9.10节‘Batch 任务的标准流程’第5步明确要求：‘必须校验输入输出行数、请求 ID 是否一一对应，防止错位或丢失’；且‘风险’部分强调‘结果文件不用校验直接用’是典型误区。A项完全复现教材要求，是唯一正确选项。B项错误——‘直接丢弃’违反‘失败重试’原则（原文：‘可只重试失败行’，而非绕过）；C项错误——‘仅按行号硬绑定’正是教材警告的‘防止错位’所针对的错误做法；D项错误——‘等待固定时间’不符合‘轮询/回调’流程（原文：‘查询任务状态’），可能因任务未完成而拉取空/不完整结果。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 0,
+      "stem": "开发Function Calling功能时，模型首次返回tool_calls，程序执行工具后回传role='tool'消息，但第二次调用模型返回的答案仍忽略工具结果。排查发现回传消息中缺少tool_call_id字段。此错误直接违反原文9.7节哪条API层关键约束？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "未在第一次调用后将response_message追加进messages"
+        },
+        {
+          "option_label": "B",
+          "option_text": "tool消息中漏传tool_call_id，导致模型无法关联结果与调用意图"
+        },
+        {
+          "option_label": "C",
+          "option_text": "tools参数中JSON Schema的required字段未标注必填参数"
+        },
+        {
+          "option_label": "D",
+          "option_text": "tool_choice参数未设为'auto'导致模型未触发工具调用"
+        }
+      ],
+      "answer": "B",
+      "analysis": "原文9.7节‘API 视角的四个关键字段’表格中明确列出：‘role=\"tool\"’消息‘必须带 tool_call_id’；且‘风险’部分第三条直接警示：‘❌ 回传结果时漏 tool_call_id —— 模型无法把结果和之前的调用对应起来’。题干现象（答案忽略工具结果）与原因（漏tool_call_id）完全匹配该条。A项虽属常见错误，但会导致第二次调用报错（上下文缺失），而非‘忽略结果’；C项影响参数提取，但不会导致结果不被识别；D项影响首次是否调用，与题干‘已返回tool_calls’矛盾。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 1,
+      "stem": "财务部门发现本月Token费用异常飙升300%，分析显示每次多轮对话均将全部历史（含50轮闲聊）原样传入，且system prompt含动态时间戳。根据原文9.9节‘成本控制的优先级’与‘上下文缓存’原理，以下哪些措施能直接降低输入Token成本？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "将system prompt中‘当前日期：2024-06-15’改为静态‘当前日期’，保持前缀稳定以提升缓存命中率"
+        },
+        {
+          "option_label": "B",
+          "option_text": "对conversation_history实施滑动窗口截断，仅保留最近5轮用户/助手消息"
+        },
+        {
+          "option_label": "C",
+          "option_text": "将temperature从0.7降至0.1，减少模型生成不确定性带来的Token波动"
+        },
+        {
+          "option_label": "D",
+          "option_text": "改用qwen-turbo模型替代qwen-plus，降低单价"
+        }
+      ],
+      "answer": "A,B",
+      "analysis": "原文9.9节明确：‘要享受到缓存，关键是保持前缀稳定’（A项直接对应）；‘生产环境通常需要：1. 持久化存储…2. 滑动窗口截断…’（B项直接对应）；且‘成本控制优先级’第一条即‘先选对模型档位’，但D项虽合理，题干问‘直接降低输入Token成本’，而换模型仅降低单价，不减少Token数量本身，不符合‘直接’要求；C项中temperature影响输出随机性，与输入Token数量无关（输入Token由messages长度决定），原文9.4节‘risk’明确指出‘temperature只影响随机性，与模型能力无关’，故C无效。",
+      "difficulty_label": "挑战"
+    },
+    {
+      "type": 0,
+      "stem": "新人答疑机器人第二轮问答出现‘失忆’：首轮问‘公司用什么项目管理工具’答‘Jira’，次轮问‘怎么申请账号’却答通用流程。代码中第二轮messages构造为[{\"role\":\"user\",\"content\":\"怎么申请账号\"}]。此故障最根本的原因及修复方式，对应原文哪一核心概念？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "违反‘messages结构与多轮对话’原则：API无状态，必须每次传全历史"
+        },
+        {
+          "option_label": "B",
+          "option_text": "违反‘流式输出’原则：未开启stream=True导致TTFT过高"
+        },
+        {
+          "option_label": "C",
+          "option_text": "违反‘Function Calling’原则：未定义tools参数导致无法调用IT系统API"
+        },
+        {
+          "option_label": "D",
+          "option_text": "违反‘错误码分类’原则：将400错误误判为429而启用重试"
+        }
+      ],
+      "answer": "A",
+      "analysis": "原文9.5节开篇即定义：‘大模型 API 是无状态的……所谓多轮对话能力，本质是客户端把历史消息按角色组织好，每次调用都完整地放进messages里再传一遍’；且‘场景’案例与‘exam’总结均以同一问题（Jira账号）为例，明确指出‘第二轮就失忆’是因为‘第二次调用时messages里只放新问题’。题干代码片段与教材案例完全一致，A项是原文概念的精准复述。B、C、D均与‘失忆’现象无因果关系——流式影响延迟，Function Calling涉及外部工具，错误码分类针对HTTP响应，而题干未提任何错误码。",
+      "difficulty_label": "入门"
+    },
+    {
+      "type": 1,
+      "stem": "前端工程师将DASHSCOPE_API_KEY硬编码于React组件并提交至GitHub公开仓库，次日账单激增。依据原文9.3节‘API Key安全的五条军规’及‘exam’应急顺序，以下哪些操作构成符合教材推荐的黄金处置流程？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "立即在阿里云控制台禁用/轮换该Key"
+        },
+        {
+          "option_label": "B",
+          "option_text": "检查Git历史并强制删除含Key的commit（git rebase）"
+        },
+        {
+          "option_label": "C",
+          "option_text": "扫描近期调用日志，定位异常调用源与数据泄露范围"
+        },
+        {
+          "option_label": "D",
+          "option_text": "在前端代码中增加密钥混淆逻辑，避免明文暴露"
+        }
+      ],
+      "answer": "A,C",
+      "analysis": "原文9.3节‘exam’明确给出泄漏后应急顺序：‘立即禁用/轮换 Key → 检查近期调用记录 → 评估损失’；且‘五条军规’首条即‘最小权限 + 定期轮换’，‘风险’部分强调‘泄漏途径1：硬编码进代码后提交Git’。A项对应第一步‘立即禁用/轮换’；C项对应第二步‘检查近期调用记录’（日志即调用记录）。B项虽是Git安全实践，但原文未将其列为‘应急顺序’，且‘强制删除commit’无法清除已爬取的Key；D项错误——原文‘五条军规’第三条严令‘前端绝不放Key’，混淆仍属前端暴露，违背根本原则。",
+      "difficulty_label": "进阶"
+    }
+  ]
+}

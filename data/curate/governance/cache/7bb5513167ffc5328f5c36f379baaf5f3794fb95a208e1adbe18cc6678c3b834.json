@@ -1,0 +1,154 @@
+{
+  "items": [
+    {
+      "type": 0,
+      "stem": "某团队对新人答疑机器人实施切片优化后，RAGAS评测显示Context Recall从0.62升至0.89，但Answer Correctness仅微升0.02，且Faithfulness下降0.15；日志确认检索返回的contexts中完整包含'张伟是教研部的'等关键事实。此时若仅依据传统自动指标（如BLEU）评估answer字段，最可能掩盖的核心故障是什么？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "检索片段排序混乱导致模型注意力被无关内容稀释（Lost in the Middle）"
+        },
+        {
+          "option_label": "B",
+          "option_text": "生成答案与ground_truth字面重合度低，但语义正确（同义改写未被BLEU识别）"
+        },
+        {
+          "option_label": "C",
+          "option_text": "模型在生成时脱离检索资料编造事实（幻觉），但编造内容恰好与参考答案部分n-gram匹配"
+        },
+        {
+          "option_label": "D",
+          "option_text": "提示词未约束'不得回避问题'，导致答案含糊（noncommittal）但BLEU无法检测"
+        }
+      ],
+      "answer": "A",
+      "analysis": "本题考查传统自动指标（BLEU）在RAG场景下的根本局限性——它只认字面重合，完全不感知上下文相关性与排序质量。题干中Context Recall提升说明信息已召回，Faithfulness下降表明生成端出现幻觉，而Answer Correctness几乎未变，说明答案与ground_truth的n-gram重合度未显著改善。但BLEU会因'张伟是教研部的'这一短句与参考答案高度重合而给出高分，从而完全掩盖'该正确片段排在第15位、前14个context均为无关噪声'这一致命缺陷（教材7.2.3节明确指出：BLEU'只认字面、不懂语义'；7.4.2节强调Precision低即对应'Lost in the Middle'现象）。选项B描述的是BLEU的已知缺陷（同义改写误伤），但题干中Faithfulness下降指向更严重的幻觉与排序失效，非同义改写问题；C虽涉及幻觉，但BLEU对幻觉无判别能力，不会因此'掩盖'——它只是对错都无感；D中noncommittal属Answer Relevancy范畴，BLEU同样无法检测。故A是唯一同时满足'被BLEU掩盖'且符合题干故障特征的选项。",
+      "difficulty_label": "挑战"
+    },
+    {
+      "type": 0,
+      "stem": "团队使用Perplexity（PPL）监控答疑机器人生成质量，发现优化后PPL从12.5降至8.3，但人工抽检发现'年假天数计算'类问题错误率上升15%。该现象印证教材中关于PPL的哪项核心论断？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "PPL只反映模型对文本的概率预测把握程度，与事实正确性无关"
+        },
+        {
+          "option_label": "B",
+          "option_text": "PPL在长文本生成中易受位置偏见影响，对结尾段落敏感"
+        },
+        {
+          "option_label": "C",
+          "option_text": "PPL计算依赖训练数据分布，存在数据泄漏风险"
+        },
+        {
+          "option_label": "D",
+          "option_text": "PPL对类别不平衡问题不鲁棒，需配合F1使用"
+        }
+      ],
+      "answer": "A",
+      "analysis": "教材7.2.3节'高频误区'明确警示：'❌ PPL 低 ≠ 回答正确；PPL 只反映概率预测的把握程度，一句很自信的事实错误照样可以 PPL 很低'。题干中PPL下降但错误率上升，正是'模型更自信地犯错'的典型表现，直接验证了PPL与事实正确性无因果关系这一核心论断。选项B、C、D均未在教材中作为PPL特性提及：位置偏见属于LLM-as-Judge范畴（7.8.1节），数据泄漏针对评测集构建（7.8.2节），F1用于分类任务（7.2.3节表格），均与PPL本质无关。故A为唯一有教材原文支撑的答案。",
+      "difficulty_label": "入门"
+    },
+    {
+      "type": 1,
+      "stem": "在构建新人答疑机器人评测集时，以下哪些操作同时违反教材7.2.1节'评测集构建的两条铁律'及7.2.2节'指标分层'原则？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "技术团队从线上日志抽取100个高频问题，并由AI工程师编写标准答案"
+        },
+        {
+          "option_label": "B",
+          "option_text": "为快速上线，直接复用MMLU基准中的10道HR相关题目作为评测集"
+        },
+        {
+          "option_label": "C",
+          "option_text": "评测集仅包含简单问答题，未覆盖边界场景（如'试用期能否休年假'）"
+        },
+        {
+          "option_label": "D",
+          "option_text": "将用户满意度（业务指标）直接设为自动化评测的唯一目标分数"
+        }
+      ],
+      "answer": "ABD",
+      "analysis": "教材7.2.1节'两条铁律'：①问题必须来自真实用户场景（A、B违反：A中问题来源合规但答案非专家提供；B中题目非真实用户问题）；②ground_truth必须由领域专家提供（A、B违反：A中AI工程师非HR专家；B中MMLU答案非本领域专家审定）。7.2.2节'指标分层'强调：业务指标是目标，算法指标是手段，不可混淆（D违反：将业务指标'用户满意度'直接作为自动化评测目标，违背'算法指标是手段'原则）。C仅违反'分层/分难度覆盖'最佳实践（7.8.2节），但未触碰'两条铁律'或'分层'核心定义；且'未覆盖边界场景'属评测集完备性问题，非根本性原则违反。故ABD同时违反两条铁律及分层原则，C不满足'同时违反'条件。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 0,
+      "stem": "某团队将RAGAS评委模型从qwen-plus更换为gpt-4-turbo后，同一组评测样本的Answer Correctness平均分从0.72升至0.85。但人工抽检发现：原qwen-plus评分较低的'张伟是教研部的'等简洁答案，新评委打分显著提高；而原评分较高的冗长解释型答案，新评委打分反而下降。此现象最直接违反教材7.2.4节关于回归评测的哪项核心要求？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "评测配置（包括评委模型版本）必须冻结，否则分数变化无法归因"
+        },
+        {
+          "option_label": "B",
+          "option_text": "评测集必须冻结，防止题目本身漂移导致分数变化"
+        },
+        {
+          "option_label": "C",
+          "option_text": "ground_truth必须由领域专家提供，确保基准权威性"
+        },
+        {
+          "option_label": "D",
+          "option_text": "应定期抽样校验自动评测结果与人工判断的一致性"
+        }
+      ],
+      "answer": "A",
+      "analysis": "教材7.2.4节'控制变量'明确要求：'回归评测的前提是除了待测改动，其他一切都冻结：评测集版本、评测脚本、推理参数、模型版本、甚至当评委的大模型版本都要固定。否则分数变化无法归因'。题干中评委模型变更（qwen-plus→gpt-4-turbo）直接导致分数跃升，但人工抽检证明这是评委'品味'变化（偏好简洁答案），而非系统真实改进，这正是'分数变化无法归因'的典型案例。选项B、C、D虽为教材要点，但B针对评测集版本漂移，C针对ground_truth来源，D针对校准动作，均不直接对应'评委模型变更'这一违规行为。故A为唯一精准对应教材原文的要求。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 1,
+      "stem": "为防止'按下葫芦浮起瓢'，在实施回归评测时，以下哪些措施能同时满足教材7.1节'防止回归'用途与7.2.4节'控制变量'要求？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "每次优化后，用同一套冻结的评测集（含question/ground_truth/contexts）运行待测系统"
+        },
+        {
+          "option_label": "B",
+          "option_text": "固定评测脚本、temperature=0.0、seed=42、评委模型版本及Embedding模型版本"
+        },
+        {
+          "option_label": "C",
+          "option_text": "将评测集按题型分组，分别统计'报销流程'和'年假政策'类问题的分数变化"
+        },
+        {
+          "option_label": "D",
+          "option_text": "建立黄金测试集，由HR专家标注并定期用于校准自动评测阈值"
+        }
+      ],
+      "answer": "AB",
+      "analysis": "教材7.1节'防止回归'用途定义为：'每次改动后跑同一套题，确保修好A、没弄坏B'；7.2.4节'控制变量'要求：'除了待测改动，其他一切都冻结'。A满足'同一套冻结评测集'，直接实现防止回归与控制变量；B通过冻结所有配置参数，确保分数变化仅归因于系统改动，是控制变量的刚性要求。C是'按题型细分找短板'（7.8.2节），服务于'发现短板'用途，但未体现'冻结'或'同一套题'；D是黄金集校准（7.8.2节），用于缓解LLM-as-Judge偏见，属评测质量保障，非回归评测的必要控制条件。故AB是唯二同时满足两项要求的措施。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 0,
+      "stem": "某团队对新人答疑机器人执行切片优化后，RAGAS评测显示Context Recall从0.62升至0.89，但Answer Correctness仅微升0.02，且Faithfulness下降0.15；日志确认检索返回的contexts中完整包含'张伟是教研部的'等关键信息。此时若要验证是否因控制变量失效导致分数失真，最应优先核查哪项配置？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "评测脚本中是否固定了temperature和seed参数"
+        },
+        {
+          "option_label": "B",
+          "option_text": "ground_truth是否由HR领域专家审定"
+        },
+        {
+          "option_label": "C",
+          "option_text": "评测集中的question是否全部来自真实用户工单"
+        },
+        {
+          "option_label": "D",
+          "option_text": "评委模型（qwen-plus）和Embedding模型（text-embedding-v3）版本是否与基线一致"
+        }
+      ],
+      "answer": "D",
+      "analysis": "题干聚焦'分数失真'的归因验证，且明确指出'Context Recall提升但Answer Correctness几乎不变'，暗示问题可能出在评测环节而非数据质量。教材7.2.4节强调：'不要频繁更换评测用的LLM与Embedding模型'，并指出'回归评测必须冻结评测集与配置（temperature/seed/模型版本）'。评委模型或Embedding模型版本变更会直接导致RAGAS各指标（尤其是Answer Correctness依赖Embedding、Faithfulness依赖评委）计算结果漂移，是'控制变量失效'最敏感的环节。A虽属控制变量，但temperature/seed主要影响生成端随机性，对Recall/Precision等检索指标影响极小，无法解释Recall大幅上升而Correctness几乎不变的矛盾；B、C属评测集构建铁律（7.2.1节），影响的是评测有效性，非'分数失真'（即同一配置下前后分数不可比）。故D为最优先核查项，直指控制变量核心。",
+      "difficulty_label": "挑战"
+    }
+  ]
+}

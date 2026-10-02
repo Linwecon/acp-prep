@@ -1,0 +1,213 @@
+{
+  "new-10-30-0": {
+    "qid": "new-10-30-0",
+    "classification": "own",
+    "chapter": 10,
+    "quality": "ok",
+    "reason": "考查TPM配额超限的根因排查，符合成本优化考点。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "省成本的工程手段：控制输入：RAG 只塞最相关的片段，不要每次把整本手册塞进上下文",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "应先排查原因，而非直接扩容。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "输入Token冗余是常见成本与配额问题根源。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "切换模型是后续优化，非优先根因排查。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "自建服务非优先排查动作，且成本高。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-10-30-1": {
+    "qid": "new-10-30-1",
+    "classification": "own",
+    "chapter": 10,
+    "quality": "ok",
+    "reason": "考查输出Token费用高的原因，符合计费规则考点。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "输出通常更贵；限制输出：用 max_tokens 给输出设上限，避免模型“刹不住车”",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "流式不影响总Token计费。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "未设max_tokens导致冗长回复，输出Token多。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "并行调用增加输入，但输出费用高是主因。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "Embedding模型不生成文本，不符现象。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-10-30-2": {
+    "qid": "new-10-30-2",
+    "classification": "own",
+    "chapter": 10,
+    "quality": "ok",
+    "reason": "考查数据不出域与平台能力边界的配置组合。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "百炼应用也可以调用部署在 PAI-EAS 上的私有模型；开源版可私有化/数据不出域程度更高",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "使用qwen-plus，数据需上送API，可能出域。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "私有模型部署在EAS，数据不出域，且百炼可调用。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "仅网络隔离不改变模型调用数据流向。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "本地部署后通过插件调用，超出百炼原生能力边界。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-10-30-3": {
+    "qid": "new-10-30-3",
+    "classification": "own",
+    "chapter": 10,
+    "quality": "ok",
+    "reason": "考查PAI-DSW中TPM错误的原因辨析。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "DSW 实例中运行的调试代码调用了 DashScope API，而非本地模型",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "TPM是DashScope API限流，非训练配额。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "TPM错误表明代码调用了DashScope API。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "拼写错误不会导致TPM超限。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "PAI平台不限流本地模型调用。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-10-30-4": {
+    "qid": "new-10-30-4",
+    "classification": "own",
+    "chapter": 10,
+    "quality": "ok",
+    "reason": "考查429错误的完整重试策略组合。",
+    "answer": [
+      "B",
+      "C"
+    ],
+    "supported": true,
+    "quote": "遇 429 用指数退避 + 抖动重试，必要时降级到更小模型",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "立即重试会加剧限流。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "指数退避加抖动是标准重试策略。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "降级模型是应对限流的有效手段。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "DataWorks调度非重试策略核心。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-10-30-5": {
+    "qid": "new-10-30-5",
+    "classification": "own",
+    "chapter": 10,
+    "quality": "ok",
+    "reason": "考查RAG输入控制与成本优化原则的对应。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "控制输入：RAG 只塞最相关的片段，不要每次把整本手册塞进上下文",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "问题在于切片策略，非模型能力。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "固定切片导致输入不精准，违反控制输入原则。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "问题在输入检索，非输出长度。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "缓存优化不解决切片不相关问题。"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

@@ -1,0 +1,212 @@
+{
+  "3-0409": {
+    "qid": "3-0409",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "考查切片策略类型，题干明确问“不属于”，选项D教材未提及。",
+    "answer": [
+      "D"
+    ],
+    "supported": true,
+    "quote": "常见切片策略：Token切片、句子切片、Markdown切片、语义切片、句子窗口切片",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "按字符分割是常见方法，属Token切片范畴。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "按token长度分割是教材列出的策略。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "按语义分割是教材列出的高级策略。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "教材未提及按词性分割作为切片方法。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-0722": {
+    "qid": "3-0722",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "考查余弦相似度在向量检索中的作用，教材有明确说明。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "余弦相似度：最常用，只看方向、不受长度影响",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "余弦相似度不看大小差异，看方向夹角。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "教材明确余弦相似度用于判断语义相关性。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "这是关键词匹配，非向量检索原理。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "教材未提及此作用。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-0844": {
+    "qid": "3-0844",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "fixable",
+    "reason": "题干条件矛盾，知识库未更新则检索必返回旧信息，提示词告知截止日期是常见缓解手段。",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "知识更新 = 更新知识库，实时生效，无需重训模型",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "提示模型注意时效性是可行缓解措施。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "绕过检索违背RAG核心，且模型知识也过时。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "改写查询不能解决知识库内容过时问题。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "降低召回率可能漏掉所有信息，无效。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-0870": {
+    "qid": "3-0870",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "考查文本切片的核心目的，教材明确说明为提高检索精度。",
+    "answer": [
+      "D"
+    ],
+    "supported": true,
+    "quote": "切片之所以关键，是因为它直接决定了检索的“颗粒度”",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "切片可能增加而非减少索引构建时间。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "切片通常增加元数据，未必减少存储空间。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "切片目的非让输出多样，而是精准检索。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "教材指出切片为提高检索精度和定位。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-0937": {
+    "qid": "3-0937",
+    "classification": "cross",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "考查RAG在专业术语翻译中的应用，属于RAG解决私域知识问题的典型场景。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "RAG核心思路：开卷考试。不让模型凭记忆答题，而是先从企业知识库里检索出最相关的几段资料",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "完全依赖模型可能因知识截止或专业不足出错。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "构建术语词典并通过RAG集成，是RAG解决私域知识的直接应用。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "要求用户提供不现实，非系统自身解决方案。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "在线API可能不包含特定专业术语。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-0945": {
+    "qid": "3-0945",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "考查解决检索片段零散、缺乏上下文的进阶技术，句子窗口检索是教材对应方案。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "句子窗口检索：建索引时以“单个句子”为可检索单元，同时在元数据里存下它“前后各N句”组成的窗口",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "提高阈值可能召回更少片段，加剧问题。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "对召回片段进行摘要融合，类似句子窗口检索提供更连贯上下文。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "增加数量可能引入更多噪声，未必改善连贯性。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "要求用户拆分问题非系统改进措施。"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

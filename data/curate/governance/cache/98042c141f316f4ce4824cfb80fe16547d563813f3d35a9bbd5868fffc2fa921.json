@@ -1,0 +1,214 @@
+{
+  "new-9-78-0": {
+    "qid": "new-9-78-0",
+    "classification": "own",
+    "chapter": 9,
+    "quality": "ok",
+    "reason": "考查流式响应拼接时对delta.content为None帧的处理，是工程实践细节。",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "每一帧取 delta.content（增量），而不是 message.content",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "流式响应中delta.content可能为None，不处理会破坏拼接。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "题干已说明使用SDK逐帧拼接，非解析HTTP响应体。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "include_usage的最后一帧choices为空，不会污染内容。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "缓存失效影响计费，不直接导致生成逻辑异常。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-9-78-1": {
+    "qid": "new-9-78-1",
+    "classification": "own",
+    "chapter": 9,
+    "quality": "fixable",
+    "reason": "考查SSE协议解析细节，但部分选项原文未明确支持。",
+    "answer": [
+      "A",
+      "D"
+    ],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "SSE协议要求Content-Type为text/event-stream。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "原文未提及需忽略不含data:的行。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "delta.content可为空，如首帧或工具调用帧。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "SSE协议以\\n\\n分隔帧，需正确解析。"
+      }
+    ],
+    "duplicate_of": "9-5177"
+  },
+  "new-9-78-2": {
+    "qid": "new-9-78-2",
+    "classification": "own",
+    "chapter": 9,
+    "quality": "ok",
+    "reason": "考查temperature参数对TTFT的影响，纠正常见误区。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "temperature 只影响随机性，与模型能力无关",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "原文未提及低temperature增加计算精度需求。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "temperature只控随机性，与TTFT无关，延迟另有原因。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "原文未提及temperature影响缓存命中。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "原文未提及低temperature触发额外校验。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-9-78-3": {
+    "qid": "new-9-78-3",
+    "classification": "own",
+    "chapter": 9,
+    "quality": "fixable",
+    "reason": "考查流式中断恢复策略，但部分选项原文未明确支持。",
+    "answer": [
+      "A",
+      "D"
+    ],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "SSE协议支持通过Last-Event-ID头续传。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "原文未提及服务端主动保存未发送序列。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "网络超时也应退避重试，防重试风暴。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "重连后发起新请求是简单可靠的恢复策略。"
+      }
+    ],
+    "duplicate_of": "9-5176"
+  },
+  "new-9-78-4": {
+    "qid": "new-9-78-4",
+    "classification": "own",
+    "chapter": 9,
+    "quality": "ok",
+    "reason": "考查Batch API结果对齐的关键实践，是工程要点。",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "必须校验输入输出行数、请求 ID 是否一一对应，防止错位或丢失",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "未嵌入唯一request_id，依赖行号易错位。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "轮询方式不影响结果行号对齐。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "编码问题可能导致解析失败，但非最可能原因。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "题干已说明行数错位，非未校验行数相等。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-9-78-5": {
+    "qid": "new-9-78-5",
+    "classification": "own",
+    "chapter": 9,
+    "quality": "ok",
+    "reason": "考查SSE流式响应Content-Type设置，是协议基础。",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "它底层使用 SSE（Server-Sent Events）协议",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "跨域问题可能导致请求失败，但非EventSource不触发主因。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "HTTP协议未被现代浏览器禁用SSE。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "SSE要求Content-Type为text/event-stream，否则不触发。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "onmessage是正确事件，首帧不含data字段仍会触发。"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

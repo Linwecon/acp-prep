@@ -1,0 +1,235 @@
+{
+  "1-0858": {
+    "qid": "1-0858",
+    "classification": "cross",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "上下文扩展属RAG与长文本建模交叉，原文未列滑动窗口等为部署技术。",
+    "answer": [
+      "A",
+      "B",
+      "D"
+    ],
+    "supported": true,
+    "quote": "句子窗口检索机制；重排序（Rerank）交叉编码；查询改写必要性",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "滑动窗口是长上下文处理技术"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "层次化注意力支持长序列建模"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "知识蒸馏用于模型压缩非扩上下文"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "线性注意力降低长序列复杂度"
+      },
+      {
+        "label": "E",
+        "selected": false,
+        "why": "量化省显存不扩展上下文能力"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "1-0984": {
+    "qid": "1-0984",
+    "classification": "own",
+    "chapter": 6,
+    "quality": "ok",
+    "reason": "题干明确指向推理效率优化，全选项均在第6章有对应原理。",
+    "answer": [
+      "A",
+      "B",
+      "C",
+      "D"
+    ],
+    "supported": true,
+    "quote": "量化（INT8/INT4）原理与取舍；PagedAttention分页机制；连续批处理；知识蒸馏=教师生成数据+学生SFT训练",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "量化直接提升推理吞吐与速度"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "PagedAttention等属注意力优化"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "连续批处理显著提升QPS"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "蒸馏小模型降低推理成本"
+      },
+      {
+        "label": "E",
+        "selected": false,
+        "why": "增参规模会降低推理效率"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "5-1402": {
+    "qid": "5-1402",
+    "classification": "misplaced",
+    "chapter": 5,
+    "quality": "remove",
+    "reason": "题干问‘大规模微调’，但归属第6章错误；且‘界面美观’明显无关，考查价值低。",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "微调解决行为适配而非知识更新；LoRA低秩分解原理；训练loss曲线诊断",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "GPU是微调核心基础设施"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "存储是微调必需资源"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "UI美观与微调无关"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "网络带宽影响数据加载"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "5-0299": {
+    "qid": "5-0299",
+    "classification": "misplaced",
+    "chapter": 5,
+    "quality": "remove",
+    "reason": "同上题，错放第6章；‘UI美观’无考查价值，属无效干扰项。",
+    "answer": [
+      "D"
+    ],
+    "supported": true,
+    "quote": "微调解决行为适配而非知识更新；LoRA低秩分解原理；训练loss曲线诊断",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "GPU数量型号是关键指标"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "存储容量是关键指标"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "网络带宽是关键指标"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "UI美观与微调无关"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "5-0874": {
+    "qid": "5-0874",
+    "classification": "own",
+    "chapter": 6,
+    "quality": "ok",
+    "reason": "吞吐量正向影响因素，原文明确批量大小提升QPS。",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "QPS / TPS：每秒请求数 / 每秒生成 token 数，衡量吞吐；batch 大小、并发、GPU 利用率",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "增大batch可提升GPU利用率"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "自回归解码是固有方式"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "增长度拉高TPOT降低吞吐"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "FP32增加显存带宽压力"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "5-0985": {
+    "qid": "5-0985",
+    "classification": "own",
+    "chapter": 6,
+    "quality": "ok",
+    "reason": "响应速度即TTFT/TPOT，各选项均在第6章有依据。",
+    "answer": [
+      "A",
+      "B",
+      "C",
+      "E"
+    ],
+    "supported": true,
+    "quote": "TTFT与TPOT指标定义；上下文缓存（Context Cache）复用公共前缀；精简输入输出 token；连续批处理（Continuous Batching）",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "量化降低显存带宽提升速度"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "缓存复用减少重复计算"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "精简提示词缩短Prefill时间"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "贪婪搜索非响应速度主因"
+      },
+      {
+        "label": "E",
+        "selected": true,
+        "why": "增大batch提升GPU利用率"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

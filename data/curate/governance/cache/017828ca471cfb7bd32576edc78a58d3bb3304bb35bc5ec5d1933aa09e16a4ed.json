@@ -1,0 +1,72 @@
+{
+  "new-10-66-0": {
+    "qid": "new-10-66-0",
+    "classification": "own",
+    "chapter": 10,
+    "quality": "ok",
+    "reason": "考查模型选型与首Token延迟关系，原文明确qwen-plus比turbo慢",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "qwen-turbo 速度快、延迟低、成本低；qwen-plus 能力与成本均衡；qwen-max 能力最强、效果最好；qwen-long 支持超长上下文窗口",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "temperature=0非教材提及的TTFT优化手段"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "未提上下文缓存对TTFT影响"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "qwen-plus天然延迟高于turbo，违反速度权衡原则"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "base_url错误会导致请求失败而非TTFT升高"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-10-66-1": {
+    "qid": "new-10-66-1",
+    "classification": "own",
+    "chapter": 10,
+    "quality": "ok",
+    "reason": "考查输入控制与成本原则，原文明确RAG只塞最相关片段",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "控制输入：RAG 只塞最相关的片段，不要每次把整本手册塞进上下文",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "TPM超限主因是输入过大，非模型选型"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "整本手册作system prompt违反输入控制原则"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "输出失控导致TPM超限，但题干强调输入12,000字符"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "重排序与TPM超限无直接因果关系"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

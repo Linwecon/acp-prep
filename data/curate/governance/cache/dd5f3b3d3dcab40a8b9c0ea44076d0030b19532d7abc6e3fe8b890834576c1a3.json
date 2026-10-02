@@ -1,0 +1,154 @@
+{
+  "items": [
+    {
+      "type": 0,
+      "stem": "某企业需将蒸馏后的Qwen3-0.6B模型部署为内部知识问答服务，要求数据100%不出域、支持灰度发布与AB测试、日均稳定请求2000次，且运维团队具备GPU调优能力。在不牺牲首token延迟（TTFT）的前提下，以下哪种方案最能兼顾性能可控性与企业级治理能力？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "直接调用百炼MaaS API，通过API Key接入"
+        },
+        {
+          "option_label": "B",
+          "option_text": "使用函数计算FC部署vLLM服务，配置预留实例缓解冷启动"
+        },
+        {
+          "option_label": "C",
+          "option_text": "在GPU ECS上自建vLLM服务，配合SLB+ESS实现弹性与高可用"
+        },
+        {
+          "option_label": "D",
+          "option_text": "通过PAI-EAS部署模型，启用模型预热、蓝绿发布与资源组监控"
+        }
+      ],
+      "answer": "D",
+      "analysis": "依据教材6.12节‘部署选型四步决策法’及6.10.2节对PAI-EAS的定义：①数据不出域→排除百炼（A错误，见6.7‘百炼 vs 自部署’明确指出百炼需数据出域）；②需灰度/AB测试→FC（B）无蓝绿/版本控制能力（6.10.1明确FC‘调试监控更难’‘不适合实时性要求高的大模型推理’）；③ECS（C）虽满足可控性，但缺乏PAI-EAS原生支持的‘模型预热（解决TTFT抖动）、蓝绿发布、版本回滚’等企业级治理能力（6.10.2强调EAS提供‘灰度验证、保留回滚版本’）；④D完全匹配场景：PAI-EAS定位即‘企业级在线服务平台’，专为‘私有/自定义模型上线、需弹性与灰度发布’设计（6.10.2），且‘模型预热’可保障TTFT稳定性（6.10.2‘上线即就绪’），同时规避FC冷启动风险（6.10.1‘冷启动明显’）。故D为最优解。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 1,
+      "stem": "某团队使用vLLM部署Qwen3-0.6B时，压测发现当并发从8提升至16，QPS仅增长15%而平均RT飙升40%，并出现少量429错误。经监控确认GPU显存占用已达95%，KV Cache占比超70%。此时可立即生效且符合教材原理的优化措施有哪些？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "启用AWQ INT4量化，降低权重与KV Cache显存占用"
+        },
+        {
+          "option_label": "B",
+          "option_text": "在vLLM启动参数中添加--max-model-len 2048，限制最大序列长度"
+        },
+        {
+          "option_label": "C",
+          "option_text": "将模型从FP16转为BF16精度，减少单参数字节数"
+        },
+        {
+          "option_label": "D",
+          "option_text": "启用PagedAttention（vLLM默认开启）并结合上下文缓存复用系统提示词"
+        }
+      ],
+      "answer": "ABD",
+      "analysis": "依据教材6.6节‘KV Cache这笔账’与6.5节vLLM原理：①A正确——AWQ INT4可将权重体积降至FP16的1/4（6.4表），且教材明确‘AWQ在低比特下通常更稳’，同时KV Cache存储也受益于低精度权重加载（6.4‘量化主要省显存’）；②B正确——‘限制最大序列长度’是教材6.6‘显存账怎么指导选型’中明确列出的‘直接约束单次请求可占用的KV Cache’手段，可线性降低KV Cache显存（6.6‘序列长度翻倍→KV Cache显存翻倍’）；③C错误——BF16与FP16同为16位精度（6.4表），显存占用无差异，且教材未提BF16对KV Cache有优化作用；④D正确——PagedAttention是vLLM默认特性（6.5‘vLLM默认提供’），其核心价值正是‘消除碎片、按需分配’以提升显存利用率（6.5‘显存利用率接近打满’）；上下文缓存复用公共前缀（如系统提示词）是教材6.6明确列出的‘缓解KV Cache压力’手段（6.6表），可显著降低重复计算开销。故ABD符合教材依据。",
+      "difficulty_label": "高阶"
+    },
+    {
+      "type": 0,
+      "stem": "运维人员监控到某vLLM服务TPOT持续高于200ms（P95），但TTFT正常（<800ms），GPU显存占用仅60%而显存带宽利用率达98%。此时最应优先排查的瓶颈环节是？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "Prefill阶段计算负载，检查prompt长度是否异常增长"
+        },
+        {
+          "option_label": "B",
+          "option_text": "Decode阶段KV Cache读取效率，确认是否发生显存带宽争抢"
+        },
+        {
+          "option_label": "C",
+          "option_text": "网络层延迟，排查SLB或客户端HTTP连接耗时"
+        },
+        {
+          "option_label": "D",
+          "option_text": "模型权重加载路径，验证safetensors文件IO是否阻塞"
+        }
+      ],
+      "answer": "B",
+      "analysis": "依据教材6.2节‘推理两阶段’原理：TPOT（Time Per Output Token）由Decode阶段决定，而Decode是‘显存带宽密集型’（6.2明确标注），其性能直接受KV Cache读取效率影响；题干中‘显存带宽利用率98%’与‘TPOT超标’形成强因果对应（6.2‘Decode决定TPOT’+6.5‘KV Cache是Decode加速基础’）；TTFT正常说明Prefill（计算密集型）无瓶颈（排除A）；网络层问题通常导致RT整体升高而非仅TPOT异常（排除C）；权重加载属启动阶段行为，不影响运行时TPOT（排除D）。教材6.5进一步指出‘Decode每一步都要读取全部历史token的KV Cache’，带宽打满即表明此环节成为瓶颈。故B为唯一符合教材原理的选项。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 1,
+      "stem": "某金融客户需部署合规敏感的微调模型，要求满足：①数据零出域；②支持每分钟万级QPS；③首token延迟TTFT P95<1.2s；④支持故障自动回滚。以下哪些技术组合能同时满足全部要求？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "GPU ECS + vLLM（启用PagedAttention与连续批处理） + SLB负载均衡 + ESS弹性伸缩"
+        },
+        {
+          "option_label": "B",
+          "option_text": "PAI-EAS + 模型预热 + 蓝绿发布 + ARMS可观测性"
+        },
+        {
+          "option_label": "C",
+          "option_text": "函数计算FC + 预留实例 + 上下文缓存 + 冷启动预热"
+        },
+        {
+          "option_label": "D",
+          "option_text": "百炼MaaS + 专属模型部署 + 限流配额提升 + 多可用区容灾"
+        }
+      ],
+      "answer": "AB",
+      "analysis": "依据教材6.12‘四步决策法’及各方案边界：①数据零出域→排除D（百炼需数据出域，6.7‘数据出域需评估’）和C（FC为公有云Serverless，数据仍经平台侧，6.7‘FC偏轻量、低频’未提数据不出域能力）；②万级QPS+TTFT<1.2s→C不可行（6.10.1明确FC‘冷启动明显’‘不适合实时性要求高的大模型推理’，且‘执行时长/资源限制’制约高吞吐）；③A满足：ECS自建可100%数据不出域（6.9‘数据不出域’），vLLM的PagedAttention+连续批处理保障高吞吐与低TPOT（6.5‘大幅提升吞吐’），SLB+ESS实现高可用与弹性（6.9‘SLB负载均衡+ESS弹性伸缩’），回滚可通过镜像快照或Ansible脚本实现（6.11.1‘容灾与回滚’）；④B满足：PAI-EAS定位即‘企业级在线服务平台’，明确支持‘数据不出域’（6.10.2‘私有/自定义模型’）、‘模型预热’保障TTFT（6.10.2‘上线即就绪’）、‘蓝绿发布’支持回滚（6.10.2‘保留回滚版本’），且EAS底层为GPU集群，可支撑万级QPS（6.10.2‘实时同步推理’）。故AB正确，CD因违反数据不出域或实时性要求被排除。",
+      "difficulty_label": "高阶"
+    },
+    {
+      "type": 0,
+      "stem": "开发团队在对比vLLM与朴素Transformers推理时，观察到相同Qwen3-0.6B模型在vLLM下并发承载能力提升3倍，但单请求TTFT无明显变化。这一现象最根本的原因是？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "vLLM的PagedAttention优化了KV Cache内存布局，使更多并发请求可共享显存"
+        },
+        {
+          "option_label": "B",
+          "option_text": "vLLM的连续批处理机制让GPU在Decode阶段几乎无空转，提升单位时间token产出"
+        },
+        {
+          "option_label": "C",
+          "option_text": "vLLM对Prefill阶段进行了算子融合，大幅加速了prompt编码过程"
+        },
+        {
+          "option_label": "D",
+          "option_text": "vLLM默认启用INT8量化，降低了Prefill阶段的计算负载"
+        }
+      ],
+      "answer": "A",
+      "analysis": "依据教材6.5节vLLM原理：题干核心矛盾是‘并发提升3倍’但‘TTFT不变’，而TTFT由Prefill阶段决定（6.2‘Prefill决定TTFT’），说明Prefill未被优化；并发提升本质是显存利用率提升——教材6.5明确PagedAttention‘消除碎片’‘按需分配’，使‘同样显存能塞下更多并发请求’（6.5原文）；而连续批处理（B）提升的是Decode阶段吞吐（即TPOT/QPS），非并发数上限；C、D均涉及Prefill优化，但教材6.5未提vLLM对Prefill有特殊加速，且量化（D）属于可选配置而非默认行为（6.4‘GPTQ/AWQ需主动应用’）。故A是唯一符合教材对PagedAttention核心价值描述（提升并发承载力）且不违背TTFT原理的选项。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 0,
+      "stem": "某教育SaaS厂商需为学校客户部署AI备课助手，要求支持100所学校并发访问，每校日均请求约500次，且需按校隔离模型版本与数据。在成本可控前提下，以下哪种部署架构最符合教材推荐的‘流量形态-运维能力-成本模型’决策逻辑？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "为每所学校单独购买GPU ECS实例，部署独立vLLM服务"
+        },
+        {
+          "option_label": "B",
+          "option_text": "使用函数计算FC，为每所学校分配独立函数实例与环境变量"
+        },
+        {
+          "option_label": "C",
+          "option_text": "在PAI-EAS中创建100个独立服务实例，按资源组隔离并配置弹性伸缩"
+        },
+        {
+          "option_label": "D",
+          "option_text": "统一接入百炼MaaS，通过API Key与租户ID实现逻辑隔离"
+        }
+      ],
+      "answer": "C",
+      "analysis": "依据教材6.12‘部署选型四步决策法’：①数据隔离需求→非严格‘不出域’（学校数据可上云），但需租户级隔离，百炼（D）虽支持多租户，但教材6.8未提其支持‘按校版本隔离’，且‘模型范围有限’（6.8‘平台支持的模型种类有限’）；②流量形态→100校×500次/日=5万次/日，属‘稳定中等流量’，非剧烈波动（排除FC的B，因6.10.1强调FC适合‘低频、事件触发’）；③运维能力→SaaS厂商应具备一定运维能力（否则无法管理100校），但无需深度GPU调优；④成本模型→统一部署比100个ECS（A）成本更低，而FC（B）按调用付费在中等稳定流量下可能高于EAS包年包月（6.10.2‘EAS在稳定流量更划算’）。教材6.10.2明确PAI-EAS支持‘资源组管理’（实现租户隔离）与‘弹性扩缩容’（应对各校流量差异），且6.12典型场景表中‘私有微调模型上线，需弹性伸缩与灰度发布’对应EAS。故C是唯一同时满足隔离性、流量适配、成本可控且符合教材EAS定位的选项。",
+      "difficulty_label": "进阶"
+    }
+  ]
+}

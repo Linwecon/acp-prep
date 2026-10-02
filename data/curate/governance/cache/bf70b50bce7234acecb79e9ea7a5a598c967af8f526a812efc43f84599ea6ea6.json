@@ -1,0 +1,144 @@
+{
+  "5-5113": {
+    "qid": "5-5113",
+    "classification": "own",
+    "chapter": 5,
+    "quality": "ok",
+    "reason": "考查LoRA核心优势，原文明确其省显存原理",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "LoRA 冻结原权重，只训练一对低秩小矩阵；全参微调要为每一个参数保存梯度和优化器状态，LoRA只为小矩阵计算，显存骤降",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "泛化能力非LoRA主要优势，原文未提必然增强"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "LoRA仍需训练数据，原文强调SFT流程"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "原文明确低秩增量训练省显存存储"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "推理需加载合并后模型，原文称‘合并后与普通模型等价’"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "5-5114": {
+    "qid": "5-5114",
+    "classification": "own",
+    "chapter": 5,
+    "quality": "ok",
+    "reason": "考查数据质量四维度，原文明确要求",
+    "answer": [
+      "A",
+      "B",
+      "C"
+    ],
+    "supported": true,
+    "quote": "质量从四个维度把关：正确性、多样性、一致性、无重复；低质重复数据反而有害，必须自动过滤",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "对应‘正确性’维度，原文要求答案无误"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "对应‘无重复’维度，原文强调去重"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "对应‘多样性’维度，需覆盖真实分布"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "原文明确‘低质数据反而有害’"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "5-5115": {
+    "qid": "5-5115",
+    "classification": "own",
+    "chapter": 5,
+    "quality": "ok",
+    "reason": "考查过拟合判断，原文定义明确",
+    "answer": [
+      "D"
+    ],
+    "supported": true,
+    "quote": "验证 loss 先降后升 = 过拟合的铁证；模型在‘背题’，表现为训练集越来越好、验证集反而变差",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "学习率小导致欠拟合，loss应持续不降"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "样本量大非主因，原文强调质量与分布"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "参数小易欠拟合，非验证loss上升主因"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "原文明确定义该现象为过拟合"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "5-5116": {
+    "qid": "5-5116",
+    "classification": "cross",
+    "chapter": 5,
+    "quality": "review",
+    "reason": "RLHF未在第5章出现，属跨章考点",
+    "answer": [
+      "D"
+    ],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "SFT需标注/生成数据，原文强调数据准备"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "SFT专改输出风格，原文称‘适配行为’"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "RLHF必在SFT之后，原文未提但属常识"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "SFT用示范数据，RLHF用偏好反馈，逻辑成立"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

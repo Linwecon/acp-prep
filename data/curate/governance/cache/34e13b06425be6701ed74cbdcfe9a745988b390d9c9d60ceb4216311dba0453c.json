@@ -1,0 +1,225 @@
+{
+  "new-8-24-0": {
+    "qid": "new-8-24-0",
+    "classification": "own",
+    "chapter": 8,
+    "quality": "ok",
+    "reason": "考查间接提示注入成功的前提条件，涉及RAG内容检测、指令隔离、工具权限等关键知识点。",
+    "answer": [
+      "A",
+      "C"
+    ],
+    "supported": true,
+    "quote": "间接提示注入……恶意指令藏在外部数据里，被 RAG/Agent 读入上下文后悄悄生效……检索内容无害化：RAG 取回的文档同样要过一遍注入检测……工具权限最小化：Agent 使用的数据库/OS 账号只给'必需的权限'",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "攻击成功因RAG未对召回内容做注入检测，导致恶意指令进入上下文。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "分隔符是缓解措施，非攻击成功的关键前提。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "邮件工具拥有过高权限，是执行恶意指令的必要条件。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "关键词过滤防不住间接注入，且指令藏在PDF中。"
+      }
+    ],
+    "duplicate_of": "8-5166"
+  },
+  "new-8-24-1": {
+    "qid": "new-8-24-1",
+    "classification": "own",
+    "chapter": 8,
+    "quality": "ok",
+    "reason": "考查RAG权限过滤的正确执行顺序，是本章核心考点。",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "关键在于：过滤发生在'检索之后、拼 Prompt 之前'，而不是靠模型'自觉不回答'。模型不做权限判断，权限必须由应用层强制。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "权限过滤应在检索之后，而非之前。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "模型推理过程中无法进行权限过滤。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "权限过滤应在检索后、拼Prompt前执行，跳过则导致越权。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "用户信息未加载是可能原因，但非题干描述的根本顺序缺陷。"
+      }
+    ],
+    "duplicate_of": "8-5165"
+  },
+  "new-8-24-2": {
+    "qid": "new-8-24-2",
+    "classification": "own",
+    "chapter": 8,
+    "quality": "ok",
+    "reason": "考查资源耗尽型DDoS的防御，区分WAF与应用层熔断的作用。",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "资源耗尽型 DDoS 是 AI 应用的新风险……攻击者不需要打满带宽，只要提交大量'分析公司五年财报并写 5000 字报告'这类高计算请求，就能让 GPU 100%",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "WAF频率限制已启用，能限制请求数量。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "题干未提及WAF误判，且非最可能导致的风险。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "单个高消耗请求即可耗尽GPU，WAF频率限制无法阻止。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "题干描述的是资源耗尽攻击，非提示注入。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-8-24-3": {
+    "qid": "new-8-24-3",
+    "classification": "own",
+    "chapter": 8,
+    "quality": "ok",
+    "reason": "考查《生成式人工智能服务管理暂行办法》的强制性义务。",
+    "answer": [
+      "A",
+      "B",
+      "D"
+    ],
+    "supported": true,
+    "quote": "面向境内公众提供生成式 AI 服务须依法备案……AI 生成/合成的文本、图片、音视频须添加显著'AI 生成'标识……建立投诉举报机制",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "法规要求面向公众提供服务须完成算法备案。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "法规要求AI生成内容须添加显著标识。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "PII脱敏是数据安全要求，非该法规明确规定的强制性义务。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "法规要求建立投诉举报机制。"
+      },
+      {
+        "label": "E",
+        "selected": false,
+        "why": "RAM最小权限是云安全最佳实践，非该法规的强制性义务。"
+      }
+    ],
+    "duplicate_of": "8-5167"
+  },
+  "new-8-24-4": {
+    "qid": "new-8-24-4",
+    "classification": "own",
+    "chapter": 8,
+    "quality": "ok",
+    "reason": "考查多模态（音频）安全检测的技术约束，涉及异步接口和URL要求。",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "多模态检测需要'公网可访问 URL'，所以要先把本地文件上传到 OSS。音频……异步：先 voice_moderation 提交拿 task_id，再轮询",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "音频审核接口仅接受公网URL，不支持直接传入二进制流。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "是具体操作，但非导致HTTP 400错误的根本技术约束。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "异步是调用方式，非导致400错误的直接原因。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "是工程规范，但非导致接口报错的根本技术约束。"
+      }
+    ],
+    "duplicate_of": "8-5169"
+  },
+  "new-8-24-5": {
+    "qid": "new-8-24-5",
+    "classification": "own",
+    "chapter": 8,
+    "quality": "ok",
+    "reason": "考查多模态检测的聚合逻辑和安全防护的核心原则。",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "security_manager.detect(content) 把四种检测串起来：文本/图像/音频/视频任意一类判定为 fail，整体状态就是 fail",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "原文明确要求任一模态fail则整体fail，图像medium应导致整体fail。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "题干描述的是检测逻辑，非输入输出两端都要检的原则。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "题干未涉及规则、模型、人工的组合流程。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "题干描述的是具体检测逻辑违规，非六个维度的覆盖原则。"
+      },
+      {
+        "label": "E",
+        "selected": false,
+        "why": "题干未涉及三层实时防御的具体环节。"
+      }
+    ],
+    "duplicate_of": "8-5170"
+  }
+}

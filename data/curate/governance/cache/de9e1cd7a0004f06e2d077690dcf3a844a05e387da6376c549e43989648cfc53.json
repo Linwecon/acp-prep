@@ -1,0 +1,156 @@
+{
+  "new-8-6-0": {
+    "qid": "new-8-6-0",
+    "classification": "own",
+    "chapter": 8,
+    "quality": "ok",
+    "reason": "考查间接提示注入的核心失效环节，符合本章重点。",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "间接提示注入：恶意指令藏在外部数据里，被 RAG/Agent 读入上下文后悄悄生效",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "攻击来自上传的PDF，属于间接提示注入，核心是未对检索内容做检测。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "系统提示词约束不是机制保证，无法防御间接注入。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "WAF防Web攻击，不理解语义层面的提示注入。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "DDoS防护针对流量洪峰，与文档内容注入无关。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-8-6-3": {
+    "qid": "new-8-6-3",
+    "classification": "own",
+    "chapter": 8,
+    "quality": "ok",
+    "reason": "考查《暂行办法》核心合规要求，属于本章重点知识。",
+    "answer": [
+      "A",
+      "C",
+      "D"
+    ],
+    "supported": true,
+    "quote": "AI 生成/合成的文本、图片、音视频须添加显著‘AI 生成’标识；面向境内公众提供生成式 AI 服务须依法备案；处理个人信息须告知同意、遵循最小必要原则",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "法规要求AI生成内容添加显著标识。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "数字水印是技术手段，非法规明确强制义务。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "面向公众提供服务，算法备案是强制性义务。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "收集个人信息须遵循最小必要原则，是法规要求。"
+      },
+      {
+        "label": "E",
+        "selected": false,
+        "why": "TEE是技术选型，非法规明确强制要求。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-8-6-4": {
+    "qid": "new-8-6-4",
+    "classification": "own",
+    "chapter": 8,
+    "quality": "ok",
+    "reason": "考查资源耗尽型DDoS的识别与防护优先级。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "资源耗尽型 DDoS（高耗 token/GPU 请求打爆算力）；DDoS 高防清洗流量 + WAF/API 网关做频率限制",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "RAM管权限，不解决算力被打满的问题。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "高计算请求导致GPU过载，属于资源耗尽型攻击，需流量清洗和限流。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "越狱检测针对内容安全，不解决资源耗尽问题。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "向量加密保护数据隐私，不防护算力攻击。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-8-6-5": {
+    "qid": "new-8-6-5",
+    "classification": "own",
+    "chapter": 8,
+    "quality": "ok",
+    "reason": "考查RAG知识库权限隔离的‘双保险’最佳实践。",
+    "answer": [
+      "A",
+      "B",
+      "D"
+    ],
+    "supported": true,
+    "quote": "知识库防护明确分成两道防线：第一道：访问控制（应用层）；第二道：双重加密（数据层）",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "应用层访问控制，按职位过滤结果。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "数据层加密，保护存储的原始文件。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "提示词约束非强制机制，易被绕过，不构成可靠防线。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "数据层加密，保护向量索引的语义。"
+      },
+      {
+        "label": "E",
+        "selected": false,
+        "why": "数据库权限是最小权限实践，但非RAG知识库特有的‘双保险’措施。"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

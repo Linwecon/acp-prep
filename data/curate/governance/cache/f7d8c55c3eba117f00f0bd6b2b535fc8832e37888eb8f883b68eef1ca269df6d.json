@@ -1,0 +1,109 @@
+{
+  "new-7-114-2": {
+    "qid": "new-7-114-2",
+    "classification": "own",
+    "chapter": 7,
+    "quality": "ok",
+    "reason": "考查Answer Correctness子项拆解与temperature影响",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "Faithfulness = 被判定为可支撑的陈述数 / 答案总陈述数。Faithfulness 抓的就是幻觉",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "temperature升高加剧幻觉，Faithfulness下降"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "Context Precision属检索端，不受生成参数影响"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "Answer Relevancy低主因noncommittal，非temperature直接导致"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "Context Recall属检索端，与temperature无关"
+      }
+    ],
+    "duplicate_of": "7-5083"
+  },
+  "new-7-114-4": {
+    "qid": "new-7-114-4",
+    "classification": "own",
+    "chapter": 7,
+    "quality": "ok",
+    "reason": "考查确定性检查定义与代码可执行性验证",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "确定性检查（规则/断言）：用代码规则直接判断，结果确定。适合评价：代码能否运行",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "调用解释器执行是确定性检查典型做法"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "LLM打分属LLM-as-Judge，非确定性"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "人工抽检非自动化确定性检查"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "关键字检查无法验证可执行性"
+      }
+    ],
+    "duplicate_of": "7-5054"
+  },
+  "new-7-114-5": {
+    "qid": "new-7-114-5",
+    "classification": "own",
+    "chapter": 7,
+    "quality": "ok",
+    "reason": "考查EDD中防止回归与定位问题的双重实践",
+    "answer": [
+      "A",
+      "C",
+      "D"
+    ],
+    "supported": true,
+    "quote": "防止回归：每次改动后跑同一套题，确保'修好 A、没弄坏 B'。根据一组RAGAS分数，准确判断问题出在检索端还是生成端",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "冻结评测集+分组分析满足双重目标"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "黄金集用于校准，不直接实现防止回归"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "同步查Recall/Faithfulness可定位病根"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "分层占比恒定保障回归可比性"
+      }
+    ],
+    "duplicate_of": "7-5078"
+  }
+}

@@ -1,0 +1,148 @@
+{
+  "new-10-162-0": {
+    "qid": "new-10-162-0",
+    "classification": "own",
+    "chapter": 10,
+    "quality": "ok",
+    "reason": "题干明确指向教材10.4节推荐操作，考查PAI-DSW微调后的验证路径。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "得到合并后的模型，用 vLLM 本地起服务验证（其 HTTP 接口本身兼容 OpenAI API）",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "教材推荐用vLLM启动服务验证，非本地脚本加载。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "教材明确推荐用vLLM启动HTTP服务进行端到端验证。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "开源模型不应上传至ModelScope社区再通过DashScope调用。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "跳过验证直接训练不符合推荐流程。"
+      }
+    ],
+    "duplicate_of": "10-5163"
+  },
+  "new-10-162-1": {
+    "qid": "new-10-162-1",
+    "classification": "own",
+    "chapter": 10,
+    "quality": "ok",
+    "reason": "题干描述现象与教材成本管理提醒完全对应，考查对计费规则的理解。",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "DSW 实例按'计算时'计费，关闭浏览器不等于停止实例，不学了必须回控制台停止或删除",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "直接对应题干现象和教材提醒。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "虽正确，但非题干现象最直接原因。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "涉及免费额度，但题干未提额度用尽。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "涉及免费试用，但题干未提免费额度。"
+      }
+    ],
+    "duplicate_of": "10-5176"
+  },
+  "new-10-162-3": {
+    "qid": "new-10-162-3",
+    "classification": "own",
+    "chapter": 10,
+    "quality": "ok",
+    "reason": "考查对开源模型价值（数据隐私、可定制）与方案合理性因素的理解。",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "开源模型的价值集中在三点：① 数据隐私与合规（数据不出域）；② 可深度定制（任意微调/改结构）；③ 大规模稳定流量下的长期成本可控",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "复用现有硬件符合开源模型可私有化部署、控制成本的价值。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "商业API上下文窗口不足非开源模型核心价值。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "调用量低且预算有限，使用商业API更合理。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "团队无算法能力，开源方案运维门槛高，不合理。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-10-162-4": {
+    "qid": "new-10-162-4",
+    "classification": "own",
+    "chapter": 10,
+    "quality": "ok",
+    "reason": "考查对ModelScope Notebook限制与PAI-DSW优势的理解，选项需符合教材逻辑。",
+    "answer": [
+      "A",
+      "D"
+    ],
+    "supported": true,
+    "quote": "ModelScope Notebook 免费但通常有连续运行时长限制（如单次 4 小时自动关闭）；PAI-DSW 实例可保留但需主动管理计费。课程实验要求使用PAI-DSW的预置镜像，因其已集成ms-swift等优化框架并配置合理显存策略",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "符合教材对免费Notebook资源有限的提醒。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "双倍显存说法教材未提及，无依据。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "梯度检查点技术教材未在Notebook场景提及。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "教材明确课程实验要求使用PAI-DSW预置镜像。"
+      },
+      {
+        "label": "E",
+        "selected": false,
+        "why": "flash-attn库教材未在Notebook场景提及。"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

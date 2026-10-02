@@ -1,0 +1,45 @@
+{
+  "10-1415": {
+    "qid": "10-1415",
+    "classification": "cross",
+    "chapter": 9,
+    "quality": "review",
+    "reason": "CosyVoice和moviepy在原文未出现，Qwen-Max未在第11章定义；需确认是否属API调用与工具使用范畴",
+    "answer": [],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "CosyVoice功能原文仅提TTS，但未明确写'将文本转换为音频'"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "原文称CosyVoice是TTS，非视频剪辑"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "moviepy未在教材中提及"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "Qwen-Max未在第11章定义，字幕生成未说明"
+      },
+      {
+        "label": "E",
+        "selected": false,
+        "why": "moviepy未在教材中提及"
+      },
+      {
+        "label": "F",
+        "selected": false,
+        "why": "三者协同流程无原文依据"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

@@ -1,0 +1,72 @@
+{
+  "new-10-6-0": {
+    "qid": "new-10-6-0",
+    "classification": "own",
+    "chapter": 10,
+    "quality": "ok",
+    "reason": "综合考查阿里云平台分层选型，约束明确，选项典型，有考查价值。",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "开源模型从 ModelScope 下载。数据全程在云端私有环境，满足不出域要求。PAI 三件套：在 DSW 里做数据处理与 LoRA 微调开发，大规模训练可提交 DLC，最后用 EAS 部署为弹性伸缩的在线服务",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "满足本地处理、微调、高可用API全部约束，符合PAI三件套流程。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "百炼知识库处理数据可能不完全在本地VPC，且未提及模型微调。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "DashScope API调用数据需上送云端，不满足本地VPC处理约束。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "未涉及模型微调，且百炼工作流调用DashScope不满足本地处理约束。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-10-6-2": {
+    "qid": "new-10-6-2",
+    "classification": "own",
+    "chapter": 10,
+    "quality": "ok",
+    "reason": "考查DashScope API成本控制措施，结合计费机制，选项区分度好。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "控制输出：用 max_tokens 给输出设上限，避免模型“刹不住车”。省成本的工程手段",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "路由至turbo可能影响效果，非最直接控制output_tokens的措施。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "强制限制max_tokens可直接减少输出Token，符合按Token计费机制。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "缓存主要针对输入Token复用，对突增的输出Token成本控制不直接。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "前端限制输入字数有助于控制输入成本，但对输出Token超限问题不直接。"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

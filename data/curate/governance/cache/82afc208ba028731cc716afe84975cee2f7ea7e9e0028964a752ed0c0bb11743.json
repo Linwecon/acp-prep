@@ -1,0 +1,216 @@
+{
+  "new-7-6-0": {
+    "qid": "new-7-6-0",
+    "classification": "own",
+    "chapter": 7,
+    "quality": "ok",
+    "reason": "考查评测集构建铁律，题干明确违反教材要求",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "标准答案来自领域专家：必须由业务领域专家编写/审定",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "ground_truth由AI工程师编写，违反领域专家提供铁律"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "技术指标层非根本原因，问题在数据源头"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "转译校验非题干核心，根本是ground_truth权威性"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "LLM偏见非主因，人工抽检已发现业务违规"
+      }
+    ],
+    "duplicate_of": "7-5066"
+  },
+  "new-7-6-1": {
+    "qid": "new-7-6-1",
+    "classification": "own",
+    "chapter": 7,
+    "quality": "ok",
+    "reason": "考查故障定位黄金法则，需结合多个指标判断",
+    "answer": [
+      "A",
+      "B",
+      "D"
+    ],
+    "supported": true,
+    "quote": "Context Precision低（Recall高）：找回来了但噪声多、排得靠后；病根在检索端的排序与噪声",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "Precision下降表明检索信噪比恶化"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "Recall=1.0但排名靠后，符合Precision低特征"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "更换模型非必要，故障定位在检索端"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "人工核查确认无关内容排前，是信噪比恶化的直接证据"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-7-6-2": {
+    "qid": "new-7-6-2",
+    "classification": "own",
+    "chapter": 7,
+    "quality": "ok",
+    "reason": "考查回归评测控制变量原则，评委模型变更导致分数不可比",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "回归评测的前提是除了待测改动，其他一切都冻结：评测集版本、评测脚本、推理参数、模型版本、甚至当评委的大模型版本都要固定",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "更换评委模型违反冻结配置要求，分数不可比"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "题干未涉及业务指标转译问题"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "技术指标权重非题干核心，是评委偏见问题"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "一致性是结果，违反冻结配置是原因"
+      }
+    ],
+    "duplicate_of": "7-5084"
+  },
+  "new-7-6-3": {
+    "qid": "new-7-6-3",
+    "classification": "own",
+    "chapter": 7,
+    "quality": "ok",
+    "reason": "考查Answer Correctness公式与传统指标局限",
+    "answer": [
+      "A",
+      "B"
+    ],
+    "supported": true,
+    "quote": "Answer Correctness = 0.25 × 语义相似度 + 0.75 × 事实准确度；传统自动指标只认字面、不懂语义",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "传统指标如BLEU无加权结构，无法诊断事实错误"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "技术指标未量化事实正确性，传统指标无法衡量"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "业务指标层非传统指标诊断的必要条件"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "ground_truth来源影响所有指标，非传统指标特有"
+      }
+    ],
+    "duplicate_of": "7-5082"
+  },
+  "new-7-6-4": {
+    "qid": "new-7-6-4",
+    "classification": "own",
+    "chapter": 7,
+    "quality": "ok",
+    "reason": "考查评测集覆盖度要求，忽略多步推理问题",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "评测集设计要点：分层/分难度覆盖；简单/中等/困难、短/长文本、正常/对抗样本都要有",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "仅用简单问题，违反覆盖难度分层要求"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "技术指标定义非题干所述操作违反点"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "业务目标未纳入非题干操作直接违反项"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "意图漂移非题干所述操作违反点"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-7-6-5": {
+    "qid": "new-7-6-5",
+    "classification": "own",
+    "chapter": 7,
+    "quality": "ok",
+    "reason": "考查Precision计算逻辑与故障诊断操作",
+    "answer": [
+      "A",
+      "C"
+    ],
+    "supported": true,
+    "quote": "Context Precision计算考虑排名：对每个片段，以该片段及之前片段的相关数之和为分子、以该片段排位为分母",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "人工检查确认排名靠后，符合Precision计算逻辑"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "截断重跑非教材所述诊断方法，且归零不必然"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "交换位置验证排名影响，符合Precision计算原理"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "检查Embedding距离非Precision计算直接验证"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

@@ -1,0 +1,154 @@
+{
+  "items": [
+    {
+      "type": 0,
+      "stem": "某团队对新人答疑机器人实施了一次优化：将切片长度从256字符缩短为128字符，并启用Rerank模块。回归评测显示Context Recall下降5%，Context Precision提升22%，Answer Correctness提升8%，但Answer Relevancy下降3%。依据本章‘黄金法则’与指标权衡逻辑，此次改动最可能引发的隐性风险是？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "检索结果相关性增强，但因切片过短导致关键信息被截断，部分问题答案完整性受损"
+        },
+        {
+          "option_label": "B",
+          "option_text": "Rerank虽提升排序质量，但因未同步调整Top K，导致有效上下文数量减少，触发‘Lost in the Middle’现象加剧"
+        },
+        {
+          "option_label": "C",
+          "option_text": "Answer Relevancy下降表明生成端开始回避问题，根源在于Rerank后上下文语义密度变化，使提示词中‘必须直接作答’约束失效"
+        },
+        {
+          "option_label": "D",
+          "option_text": "Context Recall下降属合理代价，但Answer Correctness提升幅度（8%）远小于Precision提升（22%），说明生成模型对高质量上下文的利用效率未同步优化"
+        }
+      ],
+      "answer": "D",
+      "analysis": "依据教材7.5节‘黄金法则’及7.4.4节Answer Correctness官方口径（0.25×语义相似度+0.75×事实F1）：Correctness提升8%而Precision提升22%，说明生成端未能充分转化检索质量提升——即‘知识浓度’提高后，模型未更精准提取事实（F1未同比提升）。教材明确指出：‘检索质量决定上限，但生成端需匹配才能达上限’（7.5末段）。选项A错误：切片缩短通常影响Recall而非Relevancy，且Relevancy下降与完整性无直接因果；选项B错误：‘Lost in the Middle’对应Precision低，此处Precision显著提升，矛盾；选项C错误：Relevancy下降主因是‘答非所问/含糊’（7.4.5），但题干未提供回避类回答证据，属过度推断；选项D直指核心权衡——指标提升不同步暴露生成端瓶颈，符合教材‘先检索、再生成、最后微调’的优化顺序原则（7.5末段）。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 0,
+      "stem": "在构建新人答疑机器人评测集时，HR部门提供了100条线上工单问题，技术团队编写了对应答案。但在自动化评测中，Answer Correctness分数波动剧烈，人工抽检发现多条‘技术答案’与业务实际政策存在细微偏差（如年假计算规则）。依据本章‘评测集四字段’铁律与‘指标分层’原则，最根本的问题出在哪里？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "ground_truth由技术人员编写，违反‘必须由领域专家提供’铁律，导致算法指标失去业务基准"
+        },
+        {
+          "option_label": "B",
+          "option_text": "question未覆盖边界场景，导致评测集代表性不足，无法反映真实业务复杂度"
+        },
+        {
+          "option_label": "C",
+          "option_text": "未冻结评测配置（如temperature），造成LLM-as-Judge打分不稳定"
+        },
+        {
+          "option_label": "D",
+          "option_text": "混淆了算法指标与业务指标，将Answer Correctness误当作业务目标而非技术手段"
+        }
+      ],
+      "answer": "A",
+      "analysis": "教材7.2.1节‘评测集构建的两条铁律’明确强调：‘标准答案必须由业务领域专家编写/审定’，并解释‘技术人员能判断检索是否相关，但只有业务专家才知道答案在业务上是否正确、完整、合规’。题干中‘技术答案与业务政策存在细微偏差’正是该铁律被违反的直接后果，导致Answer Correctness这一算法指标失去业务有效性（7.2.2节强调‘算法指标是手段，业务指标才是目标’）。选项B虽合理，但题干焦点是‘答案偏差’而非‘问题覆盖’；选项C涉及7.2.4节控制变量，但波动源于答案本身错误，非配置不稳；选项D曲解概念——Correctness本就是算法指标，题干问题在于其输入（ground_truth）无效，而非定位错误。",
+      "difficulty_label": "基础"
+    },
+    {
+      "type": 1,
+      "stem": "某Agent在课程写作任务中端到端评测得分为4.3/5，但用户反馈‘生成的Python代码示例全部无法运行’。依据本章7.6节Agent评测框架，以下哪些措施属于‘白盒评测’且能精准定位该故障？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "使用确定性检查器解析执行trace，验证‘代码生成Skill’是否被正确调用"
+        },
+        {
+          "option_label": "B",
+          "option_text": "用LLM-as-Judge对最终课程稿整体评分，增加‘代码可执行性’维度"
+        },
+        {
+          "option_label": "C",
+          "option_text": "构建独立测试集，对‘代码生成组件’输出运行单元测试（pass@1）"
+        },
+        {
+          "option_label": "D",
+          "option_text": "在端到端评测中增加Rubric量表，细化‘技术准确性’评分锚点"
+        }
+      ],
+      "answer": "AC",
+      "analysis": "教材7.6节明确定义白盒评测为‘深入链路，对关键组件/中间步骤单独打分’。选项A：解析执行trace验证Skill调用，属白盒（7.6.1节‘SOP合规性’检查）；选项C：对代码生成组件单独运行单元测试，是典型白盒（7.6.1节‘确定性检查’示例）。选项B和D均作用于最终输出，属端到端评测（7.6节对比表），无法定位‘过程故障’。教材强调：‘光看最终答案发现不了工具调用路径错误’（7.6节首段），故B、D无效。AC共同构成‘触发正确性+功能正确性’双白盒验证，符合7.6.1节‘Skill评测两维度’要求。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 0,
+      "stem": "团队使用qwen-plus作为RAGAS评委模型计算Answer Correctness，但发现对简洁答案（如‘张伟是教研部的’）打分偏低，而对冗长解释（如‘根据资料，张伟是教研部的一名工程师，负责...’）打分偏高。依据本章7.8.1节LLM-as-Judge偏见分析，应优先采取哪项校准动作？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "在评分提示词中加入‘答案需简洁准确，冗余描述扣分’的明确指令"
+        },
+        {
+          "option_label": "B",
+          "option_text": "更换为与qwen-plus架构不同的评委模型（如GLM-4）以消除自我偏好"
+        },
+        {
+          "option_label": "C",
+          "option_text": "对同一问题生成多个候选答案，随机打乱顺序后多次评分取平均"
+        },
+        {
+          "option_label": "D",
+          "option_text": "用黄金集人工标注一批简洁/冗长答案的分数，反向校准评委阈值"
+        }
+      ],
+      "answer": "A",
+      "analysis": "题干描述‘倾向认为更长更详细的答案更完整’，精准对应教材7.8.1节‘长度偏见’定义。教材给出的缓解手段第一条即‘评分细则中明确“冗余扣分”’（7.8.1节表格）。选项A直接针对该偏见设计约束，成本最低、见效最快。选项B针对‘自我偏好’，但题干未提评委与被测模型同源；选项C针对‘位置偏见’，与长度无关；选项D属黄金集校准（7.8.2节），虽有效但非‘优先’——教材强调‘校准标准动作’第一是‘提示词明确维度与量表’（7.8.1节原理框），A是前置性预防，D是事后修正。",
+      "difficulty_label": "中等"
+    },
+    {
+      "type": 1,
+      "stem": "在一次RAG系统迭代中，团队观察到：Context Recall从0.62升至0.75，Context Precision从0.38降至0.29，Faithfulness从0.81升至0.89，Answer Correctness从0.73升至0.77。依据本章7.5节‘定位问题的黄金法则’及指标联动逻辑，以下哪些结论成立？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "检索端整体改善（Recall↑），但噪声增加导致Precision↓，需加Rerank或相似度阈值过滤"
+        },
+        {
+          "option_label": "B",
+          "option_text": "生成端能力提升（Faithfulness↑），且Correctness同步提升，说明检索质量提升被有效利用"
+        },
+        {
+          "option_label": "C",
+          "option_text": "Recall与Precision反向变动，表明当前Top K设置过大，应优先调小Top K"
+        },
+        {
+          "option_label": "D",
+          "option_text": "Correctness提升幅度（4%）小于Recall提升（13%），说明生成端仍有优化空间，可强化提示词的事实约束"
+        }
+      ],
+      "answer": "ACD",
+      "analysis": "教材7.5节‘黄金法则’指出：Recall低→补库/Embedding；Precision低→加Rerank/调Top K/阈值过滤。A正确：Recall↑Precision↓是典型‘召回增多但噪声暴涨’，教材7.5节风险框明确警示‘一味调大Top K致Precision掉’，故需Rerank或阈值（A、C均指向此）。C正确：Recall与Precision常呈反比，Top K过大是主因（7.5节风险框）。D正确：Correctness提升（4%）远小于Recall（13%），印证教材‘生成端需匹配检索提升’观点（7.5末段），提示强化提示词。B错误：Faithfulness↑Correctness↑看似正向，但Correctness含0.75权重事实F1，其提升未达Recall增幅，不能断言‘被有效利用’；且Precision↓可能稀释注意力，B属过度乐观推断。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 0,
+      "stem": "某团队计划用MMLU基准筛选大模型用于新人答疑机器人。依据本章7.7节‘公开基准的三个坑’，以下哪项操作最能规避‘基准分高≠业务表现好’的风险？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "仅将MMLU作为初筛门槛（如≥65%），通过后立即切换至自建评测集进行领域验证"
+        },
+        {
+          "option_label": "B",
+          "option_text": "在MMLU测试中，仅选用与HR政策相关的‘Social Sciences’子集进行评估"
+        },
+        {
+          "option_label": "C",
+          "option_text": "将MMLU题目翻译为中文后，用C-Eval基准替代进行评测"
+        },
+        {
+          "option_label": "D",
+          "option_text": "在MMLU评测中，额外加入10%的线上真实用户问题作为补充题型"
+        }
+      ],
+      "answer": "A",
+      "analysis": "教材7.7节‘公开基准的三个坑’结论明确：‘公开基准仅用于选型初筛，业务决策必须用自建评测集+领域专家验证’。选项A严格遵循此原则，将MMLU限定为初筛工具，后续必经自建集验证，完全契合教材定义。选项B错误：MMLU子集仍属通用知识，无法覆盖‘张伟部门’等具体业务事实；选项C错误：C-Eval仍是通用中文知识基准，非业务场景；选项D错误：‘加入10%真实问题’未解决核心矛盾——MMLU题目本身与业务无关，且混合评测破坏基准可比性。教材强调‘统一模拟考试只能用于初筛’（7.7节标题），A是唯一符合正确定位的操作。",
+      "difficulty_label": "中等"
+    }
+  ]
+}

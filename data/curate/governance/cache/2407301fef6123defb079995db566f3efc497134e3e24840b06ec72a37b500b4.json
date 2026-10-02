@@ -1,0 +1,215 @@
+{
+  "new-8-54-0": {
+    "qid": "new-8-54-0",
+    "classification": "own",
+    "chapter": 8,
+    "quality": "ok",
+    "reason": "题目考查RAG权限过滤的执行顺序缺陷，与教材8.8.1节核心流程一致。",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "关键在于：过滤发生在‘检索之后、拼 Prompt 之前’，而不是靠模型‘自觉不回答’。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "教材强调过滤在检索后，而非检索前预过滤。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "模型不是权限边界，依赖模型自觉是错误做法。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "教材明确指出权限过滤应在检索后、拼Prompt前执行。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "元数据缺失是前提问题，但根本缺陷是过滤时机错误。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-8-54-1": {
+    "qid": "new-8-54-1",
+    "classification": "own",
+    "chapter": 8,
+    "quality": "ok",
+    "reason": "题目考查资源耗尽型DDoS的防御层次，WAF与DDoS防护分工明确。",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "WAF 能识别 SQL 注入、XSS、恶意爬虫，但挡不住把出口带宽打满的洪水流量。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "WAF工作在应用层，无法约束单次请求的GPU算力消耗。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "GPU耗尽属于应用层算力攻击，DDoS高防主要针对流量洪峰。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "题干描述是资源耗尽攻击，非提示注入。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "WAF可防护API调用，但无法识别语义复杂度。"
+      }
+    ],
+    "duplicate_of": "8-5158"
+  },
+  "new-8-54-2": {
+    "qid": "new-8-54-2",
+    "classification": "own",
+    "chapter": 8,
+    "quality": "ok",
+    "reason": "题目考查多模态检测的标准流程，教材对音视频异步、需URL有明确说明。",
+    "answer": [
+      "A",
+      "C"
+    ],
+    "supported": true,
+    "quote": "音频/视频因为要转码、抽帧、识别音轨，通常走异步任务。需要检测本地文件时，课程用 oss_service.py 先把文件上传到 OSS，再把 URL 传给审核接口",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "音频检测需先上传OSS获取URL，不能直接传二进制流。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "PDF应调用文本或图像检测，传入URL符合流程。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "视频检测是异步任务，不能同步等待结果。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "图片先上传OSS再检测，符合标准流程。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-8-54-3": {
+    "qid": "new-8-54-3",
+    "classification": "own",
+    "chapter": 8,
+    "quality": "ok",
+    "reason": "题目考查RAG权限过滤代码实现细节，与教材示例代码逻辑一致。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "position_ids = ast.literal_eval(row['position_ids']) if user_position_id in position_ids:",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "题干明确用户position_id=2，未被错误录入。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "教材示例代码使用ast.literal_eval解析字符串列表。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "过滤逻辑在检索后，题干描述是过滤失效。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "教材示例merge操作指定了on参数。"
+      }
+    ],
+    "duplicate_of": "8-5159"
+  },
+  "new-8-54-4": {
+    "qid": "new-8-54-4",
+    "classification": "own",
+    "chapter": 8,
+    "quality": "ok",
+    "reason": "题目考查间接提示注入的针对性防护措施，教材有明确标准组合。",
+    "answer": [
+      "B",
+      "C",
+      "D"
+    ],
+    "supported": true,
+    "quote": "间接注入危害更大。它藏在用户根本看不到的文档或网页里；一旦被 RAG 检索进上下文，模型可能被诱导去调用工具",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "间接注入来自文档，仅过滤用户对话不够。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "必须对RAG检索返回内容单独做注入检测。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "用分隔符标识数据非指令，是隔离手段。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "最小权限可防止恶意指令造成实际破坏。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-8-54-5": {
+    "qid": "new-8-54-5",
+    "classification": "own",
+    "chapter": 8,
+    "quality": "ok",
+    "reason": "题目考查RAG权限过滤三步流程的具体故障点，用户有权访问却未过滤，属流程缺失。",
+    "answer": [
+      "D"
+    ],
+    "supported": true,
+    "quote": "关键在于：过滤发生在‘检索之后、拼 Prompt 之前’，而不是靠模型‘自觉不回答’。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "用户position_id=1，且文档允许1，查询应成功。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "文档position_ids包含1，用户有权，不应过滤。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "用户有权，文档应被拼入Prompt，无需跳过。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "根本是过滤流程未集成，仍依赖模型软约束。"
+      }
+    ],
+    "duplicate_of": "8-5161"
+  }
+}

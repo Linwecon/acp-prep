@@ -1,0 +1,162 @@
+{
+  "items": [
+    {
+      "type": 0,
+      "stem": "某团队在PAI-DSW中完成Qwen2-1.5B的LoRA微调后，导出合并权重至OSS，准备部署为在线服务。但在PAI-EAS控制台创建服务时，选择'自定义镜像'并配置启动命令后，服务状态持续为'Pending'且日志显示'Failed to load model: tokenizer_config.json not found'。最可能的根本原因及教材依据是？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "EAS未启用GPU资源配额，导致模型加载失败"
+        },
+        {
+          "option_label": "B",
+          "option_text": "模型文件未按Hugging Face标准格式组织（缺少tokenizer_config.json、config.json等必需文件），EAS无法自动识别模型结构"
+        },
+        {
+          "option_label": "C",
+          "option_text": "OSS Bucket未开启公共读权限，EAS实例无法拉取模型文件"
+        },
+        {
+          "option_label": "D",
+          "option_text": "DSW导出时未使用ms-swift export命令，导致LoRA权重未正确合并"
+        }
+      ],
+      "answer": "B",
+      "analysis": "依据原文10.4节'PAI三件套'与10.7节'开源模型'的隐含约束：PAI-EAS部署开源模型要求模型目录严格遵循Hugging Face Transformers标准格式（含config.json、tokenizer_config.json、pytorch_model.bin等），这是EAS自动加载tokenizer和model类的前提。教材虽未明写文件清单，但10.4节强调'EAS支持部署开源模型'，而10.7节指出'从ModelScope下载的模型权重可直接部署'——ModelScope所有官方模型均符合该格式；若手动导出缺失关键配置文件，EAS将无法初始化分词器，直接报错。A错误：'Pending'状态通常非GPU配额问题（配额不足会报明确错误如'Insufficient GPU'）；C错误：EAS通过RAM角色访问OSS，无需公共读；D错误：ms-swift export是推荐方式，但即使未用，只要合并后的模型目录完整仍可加载。",
+      "difficulty_label": "挑战"
+    },
+    {
+      "type": 1,
+      "stem": "当百炼应用需调用部署在PAI-EAS上的私有模型（如微调后的Qwen2-7B）时，以下哪些条件是必须同时满足的？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "PAI-EAS服务已开启公网访问或配置了VPC内网互通（百炼后端需能访问EAS服务Endpoint）"
+        },
+        {
+          "option_label": "B",
+          "option_text": "EAS服务的API接口需兼容OpenAI标准格式（如/v1/chat/completions），否则百炼工作流节点无法解析响应"
+        },
+        {
+          "option_label": "C",
+          "option_text": "百炼工作流中调用EAS服务的HTTP请求必须携带有效的阿里云AccessKey进行鉴权"
+        },
+        {
+          "option_label": "D",
+          "option_text": "EAS服务需在百炼控制台完成'模型注册'，并绑定至百炼知识库的Embedding/LLM配置项"
+        },
+        {
+          "option_label": "E",
+          "option_text": "EAS服务返回的JSON响应中必须包含choices[0].message.content字段结构"
+        }
+      ],
+      "answer": "A,B,E",
+      "analysis": "依据原文10.1节末句'百炼应用再去调用EAS上的私有模型'及10.4节'PAI-EAS是模型对外服务的门面'，可知：A正确——网络连通是前提，百炼作为SaaS服务需能访问EAS Endpoint（通过公网或VPC对等连接）；B正确——10.3节明确百炼底层调用DashScope API，而DashScope采用OpenAI兼容接口，因此百炼工作流的HTTP调用节点默认解析OpenAI格式响应，若EAS不兼容则解析失败；E正确——百炼工作流节点依赖固定JSON Schema提取content，否则触发解析异常。C错误：百炼调用外部服务使用标准HTTP，无需AccessKey（那是调用阿里云API才需）；D错误：'模型注册'是百炼管理内置模型的概念，EAS私有模型由用户自行维护Endpoint，百炼仅作HTTP调用，无注册机制。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 0,
+      "stem": "某金融公司要求构建合规问答系统，必须满足：①客户合同原文严禁出域；②通用千问模型对'穿透式尽调'等术语回答不准；③需支持1000+并发实时响应。技术团队决定基于Qwen2-7B开源模型微调后部署。此时，若在PAI-DLC中提交分布式训练任务后，任务状态长期卡在'Initializing'且日志无有效输出，最应优先核查的必要条件是？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "DLC训练任务配置的OSS输入路径是否包含合法的modelscope download命令生成的模型快照"
+        },
+        {
+          "option_label": "B",
+          "option_text": "DLC所选GPU机型是否在当前地域支持vLLM推理加速（因训练脚本引用了vLLM库）"
+        },
+        {
+          "option_label": "C",
+          "option_text": "DLC任务使用的镜像是否预装了适配Qwen2-7B的transformers>=4.40.0及对应PyTorch版本"
+        },
+        {
+          "option_label": "D",
+          "option_text": "DLC任务的RAM角色是否被授予访问指定OSS Bucket的oss:GetObject权限"
+        }
+      ],
+      "answer": "D",
+      "analysis": "依据原文10.4节'PAI三件套'说明：DLC是'容器化的大规模/分布式训练任务，可对接OSS/MaxCompute数据'，其核心依赖是数据源可访问性。'Initializing'卡住是DLC典型初始化失败现象，主因常为权限不足导致无法拉取OSS中的训练数据或模型权重。教材10.7节强调'从ModelScope下载模型'，而ModelScope下载需OSS存储路径，DLC必须通过RAM角色获取OSS读权限（oss:GetObject）。A错误：modelscope download是本地操作，DLC直接读OSS路径，不执行download命令；B错误：vLLM用于推理，DLC训练无需vLLM；C错误：镜像版本问题通常导致'Running'后报错，而非卡在'Initializing'。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 1,
+      "stem": "开发团队在PAI-DSW中调试微调代码时，发现GPU实例费用持续增长。检查确认浏览器已关闭但实例仍在运行。以下哪些操作符合原文明确警示且能根本性防止此类计费风险？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "在DSW实例详情页点击'停止'按钮，使实例进入Stopped状态"
+        },
+        {
+          "option_label": "B",
+          "option_text": "在DSW控制台设置'空闲自动停止'策略（如15分钟无活动自动停止）"
+        },
+        {
+          "option_label": "C",
+          "option_text": "编写Python脚本调用PAI OpenAPI，在代码执行完毕后主动调用StopInstance"
+        },
+        {
+          "option_label": "D",
+          "option_text": "将DSW实例类型降级为CPU规格以降低单位时间费用"
+        },
+        {
+          "option_label": "E",
+          "option_text": "在DSW JupyterLab中执行!kill -9 -1命令强制终止所有进程"
+        }
+      ],
+      "answer": "A,B",
+      "analysis": "依据原文10.4节'PAI-DSW费用提醒'：'关闭浏览器不等于停止实例，不学了必须回控制台停止或删除'，并强调'GPU实例消耗额度远快于CPU'。A正确：'停止'是控制台标准操作，使实例暂停计费；B正确：'空闲自动停止'是控制台提供的防呆功能，直接响应教材'必须主动管理'的要求。C错误：OpenAPI调用需额外权限配置，非教材提及的标准防护手段；D错误：降级CPU不能解决'未停止导致持续计费'的本质问题，且可能使微调失败；E错误：!kill仅终止进程，DSW实例本身仍在运行并计费，违反教材'停止或删除实例'的明确指令。",
+      "difficulty_label": "入门"
+    },
+    {
+      "type": 0,
+      "stem": "某医疗AI初创公司计划构建临床指南问答系统，技术负责人提出'用ModelScope下载Qwen2-7B开源模型 + PAI-EAS部署'方案。根据原文10.7节对开源模型价值的阐述，以下哪项因素若存在，将最显著增强该方案的合理性？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "公司已采购NVIDIA A10 GPU服务器，计划将模型部署在自建K8s集群而非PAI"
+        },
+        {
+          "option_label": "B",
+          "option_text": "临床指南PDF需经OCR识别后处理，且OCR结果需与原始PDF页码强绑定以支持引用溯源"
+        },
+        {
+          "option_label": "C",
+          "option_text": "团队需对模型进行深度结构改造（如插入医学实体识别专用层），且要求模型权重可导出供第三方审计"
+        },
+        {
+          "option_label": "D",
+          "option_text": "系统上线首年预计日均调用量低于100次，预算有限"
+        }
+      ],
+      "answer": "C",
+      "analysis": "依据原文10.7节'开源模型的价值集中在三点：①数据隐私与合规（数据不出域）；②可深度定制（任意微调/改结构）；③大规模稳定流量下的长期成本可控'。C选项直指第二点'可深度定制'，且'结构改造'和'权重导出审计'是商业API（DashScope）完全无法满足的硬性需求，完美匹配教材强调的'开源版可自由微调/改结构'的核心价值。A削弱PAI-EAS必要性；B是RAG工程细节，百炼知识库亦可实现；D反而削弱开源方案合理性（低频调用时API更省）。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 0,
+      "stem": "运维工程师发现生产环境DashScope API调用频繁返回429错误，日志显示TPM（每分钟Token数）持续超限。此时，若立即在代码中增加'无间隔重试'逻辑，最直接违反原文哪项成本与稳定性原则？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "违反'处理限流'原则中'指数退避 + 抖动'的要求，加剧限流并推高无效Token消耗"
+        },
+        {
+          "option_label": "B",
+          "option_text": "违反'选对模型尺寸'原则，未将高频简单请求路由至qwen-turbo"
+        },
+        {
+          "option_label": "C",
+          "option_text": "违反'控制输入'原则，未对RAG检索结果做长度截断"
+        },
+        {
+          "option_label": "D",
+          "option_text": "违反'限制输出'原则，未设置max_tokens导致输出Token激增"
+        }
+      ],
+      "answer": "A",
+      "analysis": "依据原文10.8节'处理限流'明确要求：'遇429用指数退避 + 抖动重试，必要时降级...不能假设无限并发'，并警示'切忌无间隔死循环重试，那会加剧限流、推高成本'。A选项精准对应此条，'无间隔重试'正是教材明令禁止的行为，会触发更多429，形成恶性循环。B/C/D虽是成本优化手段，但与'重试逻辑'无直接因果关系，题干焦点是'重试方式'而非模型选型或输入输出控制。",
+      "difficulty_label": "入门"
+    }
+  ]
+}

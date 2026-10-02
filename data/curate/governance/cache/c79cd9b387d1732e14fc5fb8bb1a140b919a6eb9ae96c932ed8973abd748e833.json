@@ -1,0 +1,229 @@
+{
+  "3-1463": {
+    "qid": "3-1463",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "四选项均属RAG检索质量根因，原文明确列出三要素",
+    "answer": [
+      "A",
+      "B",
+      "C",
+      "E",
+      "F"
+    ],
+    "supported": true,
+    "quote": "检索质量差的三大根因（要背）：① Embedding 模型不够好 ② 切片策略不当 ③ 文档格式丢失了结构信息",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "解析器无法提取图片内容→结构丢失"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "Embedding模型训练不足→语义不准"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "表格关系未理解→结构丢失"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "解析速度慢不导致不准确"
+      },
+      {
+        "label": "E",
+        "selected": true,
+        "why": "Embedding模型错误→相似度计算错"
+      },
+      {
+        "label": "F",
+        "selected": true,
+        "why": "按字符切片→语义被截断"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-1466": {
+    "qid": "3-1466",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "Recall低对应知识覆盖不足，原文明确给出三项措施",
+    "answer": [
+      "A",
+      "B",
+      "C"
+    ],
+    "supported": true,
+    "quote": "Context Recall 低：补充知识库、换更强的 Embedding、做查询改写",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "补充知识库→提升覆盖"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "换强Embedding→提升匹配"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "查询改写→提升匹配"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "Rerank提升Precision非Recall"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-1467": {
+    "qid": "3-1467",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "Precision低需提升相关片段排名，原文明确Rerank和Embedding有效",
+    "answer": [
+      "A",
+      "B",
+      "D"
+    ],
+    "supported": true,
+    "quote": "Context Precision 低：加 Rerank；Recall 低：换更强的 Embedding、做查询改写",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "Rerank提升相关排序"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "查询改写提升匹配"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "生成长度不影响Precision"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "换强Embedding提升匹配"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-0058": {
+    "qid": "3-0058",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "作息信息排名靠后属Precision低，原文明确Rerank和换Embedding有效",
+    "answer": [
+      "A",
+      "B"
+    ],
+    "supported": true,
+    "quote": "正确答案存在但排名靠后没被用上 → 关注 Context Precision，加 Rerank 提升相关片段排名",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "Rerank提升相关排序"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "换Embedding提升匹配"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "大模型影响生成非召回"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "提示词影响生成非召回"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-0062": {
+    "qid": "3-0062",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "召回夹杂无关商品属Precision低，原文明确阈值放宽会降低Precision",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "放宽相似度阈值是 召回率 ↑、精确率 ↓（必考）",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "降阈值使Precision更低"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "提示词约束生成过滤噪声"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "微调不解决检索噪声"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "剔除内容可能误伤相关项"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-0513": {
+    "qid": "3-0513",
+    "classification": "misplaced",
+    "chapter": 3,
+    "quality": "remove",
+    "reason": "compare_embeddings非教材提及函数，属代码实现细节",
+    "answer": [],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "函数未在教材出现"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "函数未在教材出现"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "函数未在教材出现"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "函数未在教材出现"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

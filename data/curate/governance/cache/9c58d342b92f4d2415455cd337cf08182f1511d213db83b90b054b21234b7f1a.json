@@ -1,0 +1,212 @@
+{
+  "4-1224": {
+    "qid": "4-1224",
+    "classification": "own",
+    "chapter": 4,
+    "quality": "ok",
+    "reason": "题目考查多Agent协作原则，选项B明显违背协作共享原则，不合理。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "多 Agent 设计四条硬原则（明确职责、独立凭据、中央调度、避免全量注入）",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "动态调整路径符合协作优化原则。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "完全不共享信息违背协作本质，最不合理。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "请求协助是合理的协作机制。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "利用环境建模指导搜索是合理策略。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "4-1428": {
+    "qid": "4-1428",
+    "classification": "own",
+    "chapter": 4,
+    "quality": "ok",
+    "reason": "考查多Agent系统优势，D项“单一Agent即可完成所有任务”与多Agent设计初衷相悖。",
+    "answer": [
+      "D"
+    ],
+    "supported": true,
+    "quote": "多 Agent 设计四条硬原则（明确职责、独立凭据、中央调度、避免全量注入）",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "提高分配效率是多Agent优势。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "路径动态优化是多Agent优势。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "增强适应性是多Agent优势。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "单一Agent完成所有任务不是多Agent优势。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "4-1439": {
+    "qid": "4-1439",
+    "classification": "own",
+    "chapter": 4,
+    "quality": "ok",
+    "reason": "考查Planner Agent核心职责，原文明确其负责任务拆解与分派。",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "Planner 解耦与轻重场景权衡",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "执行工具是Tool的职责。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "生成最终响应通常是LLM职责。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "Planner主要职责是任务分发与路由。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "监控日志不是Planner主要职责。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "4-0304": {
+    "qid": "4-0304",
+    "classification": "own",
+    "chapter": 4,
+    "quality": "ok",
+    "reason": "考查多Agent适用场景，大规模并发调度是其典型优势。",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "多 Agent 设计四条硬原则（明确职责、独立凭据、中央调度、避免全量注入）",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "简单固定任务无需多Agent。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "单目标侦察任务单Agent可能足够。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "调度上千台机器人是多Agent典型场景。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "个人电脑资源管理通常无需多Agent。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "4-0445": {
+    "qid": "4-0445",
+    "classification": "own",
+    "chapter": 4,
+    "quality": "ok",
+    "reason": "考查多智能体文档检测优势，C项“直接拼接结果”是错误做法，不属于优势。",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "多 Agent 设计四条硬原则（明确职责、独立凭据、中央调度、避免全量注入）",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "专业分工检测是优势。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "提高错误识别覆盖率是优势。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "直接拼接结果不是优势，汇总需整合分析。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "减少模型过载是优势。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "4-0599": {
+    "qid": "4-0599",
+    "classification": "own",
+    "chapter": 4,
+    "quality": "ok",
+    "reason": "考查单Agent适用场景，集中处理适合目标单一、无需复杂协作的任务。",
+    "answer": [
+      "C"
+    ],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "无人驾驶需多传感器协作，非纯集中处理。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "数据中心资源分配可能涉及分布式优化。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "单目标深度学习训练适合集中处理。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "生产线监控调度可能需多Agent协作。"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

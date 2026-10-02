@@ -1,0 +1,226 @@
+{
+  "1-1326": {
+    "qid": "1-1326",
+    "classification": "unsure",
+    "chapter": 1,
+    "quality": "remove",
+    "reason": "题目考查ms-swift框架特点，但本章教材未提及此框架，无法判断选项正误。",
+    "answer": [],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "教材未提及，无法判断。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "教材未提及，无法判断。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "教材未提及，无法判断。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "教材未提及，无法判断。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "1-1469": {
+    "qid": "1-1469",
+    "classification": "own",
+    "chapter": 1,
+    "quality": "ok",
+    "reason": "考查大模型能力边界与任务类型识别，属于基础概念应用。",
+    "answer": [
+      "A",
+      "B",
+      "D"
+    ],
+    "supported": true,
+    "quote": "它擅长什么、不擅长什么：语言理解、文本生成、知识问答、代码编写、总结改写、一定的推理分析",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "提取联系方式属于命名实体识别，是大模型擅长任务。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "判断问题类型和满意度属于文本分类，是大模型擅长任务。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "生成统计报表是结构化数据生成，非文本摘要。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "提取问题类型和满意度标签属于信息抽取，是大模型擅长任务。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "1-1471": {
+    "qid": "1-1471",
+    "classification": "cross",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "考查RAG中文本切片策略，属于文档解析与结构保留知识点。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "文本切片策略与重叠机制",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "不同数据类型不同处理有助于保持语义独立。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "合并段落会破坏语义单元边界，损害完整性。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "扩写单元格数据可提供完整上下文信息。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "确保边界和上下文是保持完整性的正确做法。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "1-0697": {
+    "qid": "1-0697",
+    "classification": "own",
+    "chapter": 1,
+    "quality": "ok",
+    "reason": "考查幻觉的规避措施，属于幻觉边界与补位逻辑知识点。",
+    "answer": [
+      "A",
+      "B",
+      "C",
+      "D"
+    ],
+    "supported": true,
+    "quote": "幻觉（Hallucination）：上下文不足时，模型仍会按概率“编”出一个看似合理但错误的答案。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "提示词约束是缓解幻觉的常见手段。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "RAG提供可核查资料，是缓解幻觉的核心手段。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "事实校验是输出审查，属于三层防御之一。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "少样本提示可引导模型行为，属于提示工程。"
+      },
+      {
+        "label": "E",
+        "selected": false,
+        "why": "参数规模不直接决定幻觉率，Scaling Law强调同步放大。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "1-1196": {
+    "qid": "1-1196",
+    "classification": "beyond",
+    "chapter": 1,
+    "quality": "remove",
+    "reason": "考查Python异常处理语法，与大模型基础知识点无关，无考查价值。",
+    "answer": [],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "语法错误，finally块位置不当，且无except。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "语法错误，except没有对应的try。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "语法正确，但非本章知识点。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "逻辑错误，用if判断异常不恰当。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "1-1343": {
+    "qid": "1-1343",
+    "classification": "own",
+    "chapter": -1,
+    "quality": "remove",
+    "reason": "题目考查具体提示词设计，但题干问法模糊（“有效引导”标准不清），选项均可能有效，导致答案不唯一。",
+    "answer": [],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "可能有效，但标准模糊。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "可能有效，但标准模糊。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "可能有效，但标准模糊。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "可能有效，但标准模糊。"
+      },
+      {
+        "label": "E",
+        "selected": false,
+        "why": "可能有效，但标准模糊。"
+      },
+      {
+        "label": "F",
+        "selected": false,
+        "why": "可能有效，但标准模糊。"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

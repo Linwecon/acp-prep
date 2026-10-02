@@ -1,0 +1,216 @@
+{
+  "new-10-60-0": {
+    "qid": "new-10-60-0",
+    "classification": "own",
+    "chapter": 10,
+    "quality": "ok",
+    "reason": "综合考查平台选型，条件明确，有典型性。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "团队要对一个开源模型做 LoRA 微调并部署成高并发在线服务，且要求数据不出域，应选用哪组产品？请对应到开发、训练、部署三个阶段。解析：用 PAI 三件套：在 DSW（GPU Notebook）里做数据处理与 LoRA 微调开发，大规模训练可提交 DLC，最后用 EAS 部署为弹性伸缩的在线服务；开源模型从 ModelScope 下载。数据全程在云端私有环境，满足不出域要求。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "DashScope API数据需上送，不符合数据不出域要求。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "PAI三件套满足开发、训练、部署全流程，且数据不出域。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "DashScope调用通用模型无法解决术语不准问题，且数据需上送。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "自建Nginx运维复杂，不符合无GPU运维能力要求。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-10-60-1": {
+    "qid": "new-10-60-1",
+    "classification": "own",
+    "chapter": 10,
+    "quality": "ok",
+    "reason": "考查成本控制措施，场景典型，选项区分度好。",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "省成本的工程手段：控制输入：RAG 只塞最相关的片段，不要每次把整本手册塞进上下文；限制输出：用 max_tokens 给输出设上限。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "RAG知识库仅传入相关段落，能最大程度减少输入Token。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "换模型单价低，但未解决输入大量Token的根本问题。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "限制输出有效，但输入Token消耗巨大是主因。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "流式响应改善体验，不降低Token消耗。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-10-60-2": {
+    "qid": "new-10-60-2",
+    "classification": "own",
+    "chapter": 10,
+    "quality": "ok",
+    "reason": "考查兼容性、流式响应和平台选型，符合工程实践。",
+    "answer": [
+      "A",
+      "B",
+      "C"
+    ],
+    "supported": true,
+    "quote": "OpenAI 兼容模式的价值：把 base_url 指向 DashScope 兼容地址、把 api_key 换成阿里云的 Key，原本基于 OpenAI Python SDK 写的程序几乎不用改就能调用通义千问。百炼既能可视化搭，也能发布成 API 被代码调用。要稳定对外提供高并发服务时，再用 PAI-EAS 部署，获得弹性伸缩、预热、监控等生产能力。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "DashScope兼容模式利于客户快速集成，符合要求。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "百炼发布为标准API，支持客户调用，符合低代码集成。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "vLLM服务启用OpenAI兼容API，满足自托管模型集成要求。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "强制统一部署不符合客户自主选择的要求。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-10-60-3": {
+    "qid": "new-10-60-3",
+    "classification": "own",
+    "chapter": 10,
+    "quality": "ok",
+    "reason": "考查快速上线、无运维场景下的平台选型，典型。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "三人团队、无运维、用千问、要尽快上线 → 百炼一键部署/发布（课程 4.2 原题结论）。百炼（阿里云百炼大模型服务平台，Model Studio）是一站式大模型应用开发平台。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "需编写脚本，不符合HR自行调整、无专职人员要求。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "百炼控制台零代码操作，满足快速上线和HR自行操作需求。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "本地GPU部署运维复杂，不符合无运维人员要求。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "需开发后端服务，不符合两周内上线MVP和无专职人员要求。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-10-60-4": {
+    "qid": "new-10-60-4",
+    "classification": "own",
+    "chapter": 10,
+    "quality": "ok",
+    "reason": "考查限流错误处理与成本控制措施，符合工程实践。",
+    "answer": [
+      "A",
+      "B",
+      "C"
+    ],
+    "supported": true,
+    "quote": "处理限流：遇 429 用指数退避 + 抖动重试，必要时降级到更小模型。省成本的工程手段：选对模型尺寸：简单任务用 turbo/小模型；控制输入；限制输出；善用缓存；处理限流。规模化后算账：高频稳定调用可评估微调/蒸馏小模型 + 自托管（PAI-EAS）是否更省。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "指数退避+抖动是教材推荐的规范重试机制。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "路由至低价模型降低单次消耗，具成本效益。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "申请配额和评估自托管是规模化后的长期成本优化。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "关闭流式响应不减少Token消耗，且可能增加延迟。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-10-60-5": {
+    "qid": "new-10-60-5",
+    "classification": "own",
+    "chapter": 10,
+    "quality": "ok",
+    "reason": "考查硬性约束下的平台选型，综合性强。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "要数据完全不出域、强私有化 → 开源模型（ModelScope 下载）+ PAI/EAS 或自建 GPU 部署。团队要对一个开源模型做 LoRA 微调并部署成高并发在线服务，且要求数据不出域，应选用哪组产品？请对应到开发、训练、部署三个阶段。解析：用 PAI 三件套：在 DSW（GPU Notebook）里做数据处理与 LoRA 微调开发，大规模训练可提交 DLC，最后用 EAS 部署为弹性伸缩的在线服务。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "DashScope API数据需上送，不符合数据驻留要求。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "PAI全流程满足微调、数据不出域和高并发部署要求。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "通义法睿API是托管服务，数据需上送，且未提及微调。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "百炼调用DashScope，数据需上送，不符合数据驻留要求。"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

@@ -1,0 +1,121 @@
+{
+  "new-4-42-1": {
+    "qid": "new-4-42-1",
+    "classification": "own",
+    "chapter": 4,
+    "quality": "ok",
+    "reason": "题目考查ReAct铁律与工程实践，选项覆盖了最大迭代轮数、外部反馈、工具切换和记忆管理，符合本章知识点。",
+    "answer": [
+      "A",
+      "B",
+      "D",
+      "E"
+    ],
+    "supported": true,
+    "quote": "ReAct 不是无限循环：必须设置最大迭代轮数 / 超时 / token 预算上限；Observation 可能含噪声甚至恶意内容，模型不能盲目信任外部返回，必要时交叉验证；简单任务不要上 ReAct：一步能答的问题直接回答更快、更省 token。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "符合ReAct必须设最大轮数上限的铁律。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "符合外部反馈的反思模式，用工具获取客观证据。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "违反ReAct铁律，不能无限重试。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "工具失败时换方案，符合ReAct的规划调整能力。"
+      },
+      {
+        "label": "E",
+        "selected": true,
+        "why": "符合记忆管理中的滚动摘要策略，节省token。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-4-42-3": {
+    "qid": "new-4-42-3",
+    "classification": "own",
+    "chapter": 4,
+    "quality": "ok",
+    "reason": "题目直接考查多Agent设计四条硬原则，选项设置清晰，符合本章核心考点。",
+    "answer": [
+      "B",
+      "D"
+    ],
+    "supported": true,
+    "quote": "多 Agent 设计四原则（每条都是考点）：1. 明确职责；2. 独立凭据；3. 中央调度；4. 避免全量注入。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "题干未提及职责重叠问题。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "共用管理员API Key违反独立凭据原则。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "题干未提及调度混乱问题。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "拼接全部Agent提示词违反避免全量注入原则。"
+      },
+      {
+        "label": "E",
+        "selected": false,
+        "why": "题干未涉及记忆分离问题。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-4-42-4": {
+    "qid": "new-4-42-4",
+    "classification": "own",
+    "chapter": 4,
+    "quality": "ok",
+    "reason": "题目考查Skill与RAG/记忆的区别，以及Skill的设计原则，选项对比清晰，符合本章知识点。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "Skill（技能）是把“在什么场景下、按什么流程、用什么标准、调用什么工具”打包成的模块化、可复用、可版本化的能力单元。Skill 与 RAG 的关键区别——“选择-展开” vs “检索-注入”。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "全局配置加载不符合Skill渐进式披露原则。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "创建Skill目录并渐进式披露，符合Skill设计原则。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "向量化检索是RAG做法，不是固化SOP的Skill。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "主Prompt添加规则易被稀释，不符合Skill封装复用原则。"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

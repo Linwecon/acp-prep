@@ -1,0 +1,214 @@
+{
+  "new-11-48-0": {
+    "qid": "new-11-48-0",
+    "classification": "own",
+    "chapter": 11,
+    "quality": "ok",
+    "reason": "题干明确指向11.6节视频理解原理，考查视频理解链路缺失对齐环节的根本约束。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "视频理解的标准处理方式：...把画面、语音、字幕按时间轴对齐；...LLM 综合",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "ASR转写未对齐是问题表现，但题干问最根本的技术约束原因。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "原文强调视频理解必须进行帧-语音-字幕三者时间轴对齐。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "上下文窗口限制是普遍约束，但题干强调画面与答案不符的具体原因。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "抽帧策略是可能原因，但原文未将其列为最根本的技术约束。"
+      }
+    ],
+    "duplicate_of": "11-5189"
+  },
+  "new-11-48-1": {
+    "qid": "new-11-48-1",
+    "classification": "own",
+    "chapter": 11,
+    "quality": "ok",
+    "reason": "考查扫描件PDF处理必须优先执行的修复动作，依据11.4节文档智能解析链路。",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "扫描件 PDF 本质是图片，普通文本加载器读不出文字...首要动作是先做文档智能解析（OCR + 版面分析 + 表格转 Markdown）",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "必须优先执行OCR+版面分析+表格结构化还原。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "直接切片是错误做法，会导致检索不到文字。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "Qwen-VL用于看图作答，但处理扫描件PDF应先解析文本。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "多模态Embedding可用于纯图片库，但扫描件应先提取结构化文本。"
+      }
+    ],
+    "duplicate_of": "11-5166"
+  },
+  "new-11-48-2": {
+    "qid": "new-11-48-2",
+    "classification": "own",
+    "chapter": 11,
+    "quality": "ok",
+    "reason": "考查医疗影像AI评测原则，依据原文强调图文一致性需人工抽检。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "图文一致性、指令跟随等需人工评测校准兜底",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "CLIP Score是自动指标，原文强调自动指标不可靠。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "由领域专家人工盲审最符合原文要求。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "检查token分布是技术验证，非业务效果验证。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "ROUGE是文本自动指标，无法评估影像细节理解。"
+      }
+    ],
+    "duplicate_of": "11-5183"
+  },
+  "new-11-48-3": {
+    "qid": "new-11-48-3",
+    "classification": "own",
+    "chapter": 11,
+    "quality": "ok",
+    "reason": "考查语音助手意图理解错误触发敏感操作的问题，依据11.5节工程要点。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "意图不清时优先澄清反问，避免错误调用工具（如真的提交了请假）",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "ASR识别正确，非专有名词识别问题。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "意图理解缺乏低置信度追问机制，导致误触发。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "TTS合成在意图理解之后，非问题根源。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "会话记忆有助于推理，但非防止误触发的首要机制。"
+      }
+    ],
+    "duplicate_of": "11-5185"
+  },
+  "new-11-48-4": {
+    "qid": "new-11-48-4",
+    "classification": "own",
+    "chapter": 11,
+    "quality": "ok",
+    "reason": "多选题，考查文生图质量评测的误区与正确策略，依据11.7和11.10节。",
+    "answer": [
+      "A",
+      "B",
+      "C"
+    ],
+    "supported": true,
+    "quote": "图文一致性、指令跟随等需人工评测校准兜底；自动指标很难评判，必须靠人工抽检或多模态审核模型兜底",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "BLEU/ROUGE是文本指标，无法检测视觉缺陷。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "应采用多模态审核模型进行自动化初筛。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "必须由人工抽检关键视觉要素。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "提升去噪步数不能解决所有图文不一致问题。"
+      }
+    ],
+    "duplicate_of": "11-5173"
+  },
+  "new-11-48-5": {
+    "qid": "new-11-48-5",
+    "classification": "own",
+    "chapter": 11,
+    "quality": "ok",
+    "reason": "考查CLIP范式在细粒度图文定位任务中的局限性，结合报销单场景。",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "CLIP 范式...训练时给模型大量'图文对'，把匹配的图文向量在空间中拉近",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "CLIP主要对齐全局表征，缺乏局部细粒度对齐能力。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "题干已排查视觉编码器输出正常，且LLM能解析语义，非OCR缺失。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "patch尺寸是可能原因，但原文未强调此细节为根本原因。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "上下文窗口限制是普遍问题，但题干强调故障定位在细粒度对齐。"
+      }
+    ],
+    "duplicate_of": "11-5200"
+  }
+}

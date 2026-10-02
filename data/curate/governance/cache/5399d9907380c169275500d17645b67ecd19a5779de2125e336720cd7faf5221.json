@@ -1,0 +1,216 @@
+{
+  "new-6-36-0": {
+    "qid": "new-6-36-0",
+    "classification": "own",
+    "chapter": 6,
+    "quality": "ok",
+    "reason": "考查部署选型决策，结合数据合规、性能、运维能力等约束。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "PAI-EAS（企业级模型在线服务平台）...提供弹性扩缩容、蓝绿/灰度发布、版本控制、资源监控、模型预热",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "团队缺乏K8s经验，ECS自建灰度需额外运维，不如EAS内置能力。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "EAS内置模型预热与蓝绿发布满足灰度/回滚，且免容器运维，符合要求。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "SLB手动切流非自动灰度，运维复杂，不优先。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "VPC内网部署是前提，但题干强调灰度发布与运维能力。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-6-36-1": {
+    "qid": "new-6-36-1",
+    "classification": "own",
+    "chapter": 6,
+    "quality": "ok",
+    "reason": "考查KV Cache瓶颈分析与vLLM配置调优。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "KV Cache随序列长度 × 并发数线性增长...长上下文、高并发时 KV Cache 往往成为显存大头",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "前缀缓存可降本，但非解决当前并发下TPOT劣化的主因。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "max-model-len过小导致长上下文被截断，可能引发重计算，加剧显存与性能问题。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "block-size影响碎片，但题干主诉是并发提升后TPOT上升与错误率激增。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "量化可省显存，但非最优先排查项，且需验证是否已启用。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-6-36-2": {
+    "qid": "new-6-36-2",
+    "classification": "own",
+    "chapter": 6,
+    "quality": "ok",
+    "reason": "考查FC冷启动问题及优化措施。",
+    "answer": [
+      "A",
+      "C",
+      "D"
+    ],
+    "supported": true,
+    "quote": "FC 是事件驱动的 Serverless 计算服务...冷启动延迟：无流量时实例被回收，新请求到来要重新拉起、可能还要加载模型，首个响应明显变慢。可通过预留实例/预热缓解",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "预留实例可避免冷启动，解决高峰首请求延迟高问题。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "调高超时时间不能解决冷启动延迟和GPU利用率低问题。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "预热功能可定时触发，提前加载模型，缓解高峰延迟。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "EAS提供模型预热能力，更适合实时在线服务，避免FC冷启动。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-6-36-3": {
+    "qid": "new-6-36-3",
+    "classification": "own",
+    "chapter": 6,
+    "quality": "ok",
+    "reason": "考查高并发下性能瓶颈分析与限流机制。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "并发受 KV Cache 限制，超并发返回错误（429）而非无限排队。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "扩容是后续手段，应先排查当前实例是否已达KV Cache限流阈值。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "并发提升后RT翻倍且429错误激增，最可能是KV Cache触达显存阈值触发限流。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "禁用CUDA Graph优化非针对此现象的标准排查项。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "调高批处理容量可能加剧显存压力，非优先操作。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-6-36-4": {
+    "qid": "new-6-36-4",
+    "classification": "own",
+    "chapter": 6,
+    "quality": "ok",
+    "reason": "考查数据不出域、长上下文、监控集成场景下的部署方案。",
+    "answer": [
+      "A",
+      "B",
+      "D"
+    ],
+    "supported": true,
+    "quote": "ECS（Elastic Compute Service）是 IaaS 层的云服务器，用户对操作系统、驱动、框架、依赖拥有完全控制权...适合长期运行的大模型、深度定制、数据合规要求高的场景。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "ECS+vLLm本地部署满足数据不出域，可自建exporter对接Prometheus。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "PAI-EAS支持VPC专有网络，ARMS可对接Prometheus，符合要求。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "FC有冷启动和时长限制，不适合10万字长文档的实时生成场景。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "本地IDC部署完全数据不出域，vLLM支持长上下文，可集成Prometheus。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-6-36-5": {
+    "qid": "new-6-36-5",
+    "classification": "own",
+    "chapter": 6,
+    "quality": "ok",
+    "reason": "考查vLLM核心优化技术对Decode阶段性能提升的原理。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "连续批处理（Continuous Batching，又称动态/持续批处理）：请求不再整批齐步走，而是完成一个就立刻返回、新请求立刻补进 batch。GPU 调度粒度从整批细化到每一步解码，因此 GPU 几乎全程满载，吞吐量显著提升。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "PagedAttention主要解决显存碎片，提升吞吐，但题干问TPOT降低（Decode速度）。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "连续批处理消除GPU空转，使Decode阶段持续满载，直接提升TPOT。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "vLLM默认不内置GPTQ量化算子，且量化非题干所述性能提升主因。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "FlashAttention-2优化Prefill阶段，与Decode阶段的TPOT无关。"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

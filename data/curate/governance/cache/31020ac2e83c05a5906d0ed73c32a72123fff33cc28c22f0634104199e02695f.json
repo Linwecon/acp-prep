@@ -1,0 +1,213 @@
+{
+  "3-1448": {
+    "qid": "3-1448",
+    "classification": "own",
+    "chapter": 8,
+    "quality": "ok",
+    "reason": "考查RAG知识库访问控制的核心实现逻辑，与教材内容一致。",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "知识库访问控制的三步流程：1. 查用户权限……2. 比对知识条目的访问属性……3. 过滤后再送入模型：只把用户有权看的条目拼进 Prompt",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "教材明确说明权限过滤发生在检索之后、拼Prompt之前。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "预先过滤知识库不现实，且教材未提及此方法。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "仅限管理员访问不符合最小权限原则，且非教材方案。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "教材强调模型不是权限边界，权限必须由应用层强制。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-1102": {
+    "qid": "3-1102",
+    "classification": "own",
+    "chapter": 8,
+    "quality": "ok",
+    "reason": "考查防止个人隐私泄露的防护措施，选项与教材数据安全章节对应。",
+    "answer": [
+      "A",
+      "B",
+      "D"
+    ],
+    "supported": true,
+    "quote": "数据脱敏（去标识化）是在数据进入训练、评测、RAG 链路之前，对姓名、手机号、证件号等个人可识别信息（PII）做掩码、替换、泛化或删除。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "过滤诱导性问题属于输入过滤，可防止隐私拼凑泄露。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "输出侧实时检测并过滤敏感信息是输出审查的一部分。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "增加多样性不能减少隐私被召回，反而可能增加泄露风险。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "对知识库内容脱敏是防止隐私泄露的根本措施之一。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-1152": {
+    "qid": "3-1152",
+    "classification": "own",
+    "chapter": 8,
+    "quality": "ok",
+    "reason": "考查间接提示注入（知识库投毒）的根本防护措施。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "知识库被'热心员工'上传了篡改过的报销指南……入库审批 + 入库前内容扫描 + 版本管理与回滚 + 来源校验",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "输出阶段分析是事后补救，非根本措施。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "在知识库上传阶段扫描文档安全性是防止投毒的根本措施。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "限制生成代码不能防止模型被诱导执行其他恶意指令。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "数字签名用于验证来源，不能防止内容本身恶意。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "7-0595": {
+    "qid": "7-0595",
+    "classification": "cross",
+    "chapter": 7,
+    "quality": "ok",
+    "reason": "考查模型安全评估的通用步骤，属于模型评估章节内容。",
+    "answer": [
+      "A",
+      "B"
+    ],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "定义风险类型是安全评估的基础步骤。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "构建评估基准是量化安全风险的标准方法。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "优化用户界面与模型安全评估无直接关系。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "增加计算资源不能直接帮助评估安全性。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "10-1056": {
+    "qid": "10-1056",
+    "classification": "misplaced",
+    "chapter": 8,
+    "quality": "remove",
+    "reason": "题干模糊，选项荒谬，无任何考查价值。",
+    "answer": [],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "识别内容错误与识别营销性表达无关。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "自动修改内容不是识别问题的方法。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "逐条识别词汇效率低，非全面方法。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "一次性生成所有结果不现实且无意义。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "10-0791": {
+    "qid": "10-0791",
+    "classification": "own",
+    "chapter": 8,
+    "quality": "ok",
+    "reason": "考查敏感问题识别与处置的技术方案选择。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "输入过滤：Prompt 进模型前检测，拦截越狱、角色扮演、提示注入、知识库投毒等恶意指令",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "不处理敏感问题会导致模型生成不当回复，不符合要求。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "文本分类识别敏感问题并触发转接，是输入过滤的典型应用。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "仅靠示例让模型学习回避，不可靠且易被绕过。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "前端关键词过滤易被绕过，非根本解决方案。"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

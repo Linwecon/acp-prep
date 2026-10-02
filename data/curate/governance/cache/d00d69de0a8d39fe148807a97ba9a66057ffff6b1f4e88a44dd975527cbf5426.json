@@ -1,0 +1,220 @@
+{
+  "3-1221": {
+    "qid": "3-1221",
+    "classification": "own",
+    "chapter": 4,
+    "quality": "ok",
+    "reason": "工具名需语义匹配，query_employee_info最符合查询人数需求",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "工具必须以 JSON-Schema 描述自己（名称、参数、用途），让模型知道'有什么可用、怎么用'",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "send_leave_application与查询人数无关"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "语义匹配，专用于员工信息查询"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "md_polisher是文档润色工具"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "compare_embeddings用于向量相似度计算"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-0785": {
+    "qid": "3-0785",
+    "classification": "own",
+    "chapter": 4,
+    "quality": "ok",
+    "reason": "日志分析需结构化提取、异常识别、方案生成三步闭环",
+    "answer": [
+      "A",
+      "B",
+      "C"
+    ],
+    "supported": true,
+    "quote": "Agent 是由大模型驱动、具备自主感知、规划、调用工具并根据反馈迭代能力的应用",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "结构化日志是后续分析基础"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "文本分类识别异常是关键步骤"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "大模型生成解决方案是核心动作"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "向量库非必要，属RAG范畴而非Agent必需"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "5-0394": {
+    "qid": "5-0394",
+    "classification": "own",
+    "chapter": 4,
+    "quality": "ok",
+    "reason": "代码解释器是Agent执行工具的核心组件",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "工具必须以 JSON-Schema 描述自己（名称、参数、用途），让模型知道'有什么可用、怎么用'",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "自然语言理解是LLM本职"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "执行代码并返回结果是其核心作用"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "图像处理需专用多模态模型"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "模型训练需微调框架，非插件功能"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "6-1119": {
+    "qid": "6-1119",
+    "classification": "own",
+    "chapter": 4,
+    "quality": "ok",
+    "reason": "Schema描述不足是参数错误主因，教材明确强调Schema质量决定提取准度",
+    "answer": [
+      "D"
+    ],
+    "supported": true,
+    "quote": "参数提取准不准，取决于三件事：Schema 质量（名称、描述、必填项是否清晰）、模型能力、上下文清晰度",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "资源限制影响性能而非参数格式"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "用户输入非主因，教材强调Schema质量"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "工具变化需同步更新Schema，非自动转换问题"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "Schema描述不足直接导致参数提取偏差"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "7-0935": {
+    "qid": "7-0935",
+    "classification": "own",
+    "chapter": 4,
+    "quality": "ok",
+    "reason": "对话历史管理需状态跟踪、信息提取、长度优化、相关性评估四要素",
+    "answer": [
+      "A",
+      "B",
+      "C",
+      "D"
+    ],
+    "supported": true,
+    "quote": "Memory 分两类：短期记忆（当前会话）与长期记忆（跨会话持久化），三种主流管理策略",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "状态跟踪维持对话连贯性"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "关键信息存储支撑长期记忆"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "长度优化应对上下文窗口限制"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "相关性评估确保注入内容精准"
+      },
+      {
+        "label": "E",
+        "selected": false,
+        "why": "每次独立处理违背Agent记忆设计原则"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "9-0463": {
+    "qid": "9-0463",
+    "classification": "misplaced",
+    "chapter": 9,
+    "quality": "review",
+    "reason": "代码涉及thread和流式输出，属API调用章节",
+    "answer": [],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "题干未提供代码无法判断"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "题干未提供代码无法判断"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "题干未提供代码无法判断"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "题干未提供代码无法判断"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

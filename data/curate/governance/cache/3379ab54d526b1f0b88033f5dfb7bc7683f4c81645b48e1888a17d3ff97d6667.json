@@ -1,0 +1,217 @@
+{
+  "new-7-18-0": {
+    "qid": "new-7-18-0",
+    "classification": "own",
+    "chapter": 7,
+    "quality": "ok",
+    "reason": "考查评测集构建铁律，题干明确对应教材7.2.1节内容",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "标准答案来自领域专家：技术人员能判断‘系统有没有检索到相关内容’，但只有业务专家才知道‘这个答案在业务上是否正确、完整、合规’。领域专家的深度参与是评测系统乃至整个 AI 应用成功的关键。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "题干强调HRBP审定标准答案，非问题来源"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "题干描述HRBP审定标准答案，直接对应铁律"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "分层覆盖是设计要点，非题干强调的铁律"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "教材未要求ground_truth与contexts一一对应"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-7-18-1": {
+    "qid": "new-7-18-1",
+    "classification": "own",
+    "chapter": 7,
+    "quality": "ok",
+    "reason": "考查RAGAS指标组合分析与故障定位，教材有明确依据",
+    "answer": [
+      "A",
+      "B",
+      "C"
+    ],
+    "supported": true,
+    "quote": "Precision 低（Recall 高）→ 找回来了但噪声多、排得靠后 → 加 Rerank、缩小 Top K、相似度阈值过滤、混合检索。Faithfulness 低 → 检索到了却还在编造 → 强化‘只依据资料回答’的提示词约束",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "Precision低说明相关片段被无关内容稀释"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "Recall高，应优先加Rerank而非补充知识库"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "Faithfulness低说明存在幻觉，需强化提示词"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "Correctness低主因是事实错误，非语义相似度"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-7-18-2": {
+    "qid": "new-7-18-2",
+    "classification": "own",
+    "chapter": 7,
+    "quality": "ok",
+    "reason": "考查公开基准使用风险及正确做法，教材有明确指导",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "公开基准仅用于选型初筛，业务决策必须用自建评测集 + 领域专家验证。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "教材明确公开基准仅做初筛，业务决策需自建集"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "增加子集仍属公开基准，未解决根本风险"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "MMLU不能替代RAGAS指标进行业务决策"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "翻译混入未解决基准与业务场景不一致问题"
+      }
+    ],
+    "duplicate_of": "7-5061"
+  },
+  "new-7-18-3": {
+    "qid": "new-7-18-3",
+    "classification": "own",
+    "chapter": 7,
+    "quality": "ok",
+    "reason": "考查EDD实践与防止回归、定位问题的具体措施",
+    "answer": [
+      "A",
+      "C",
+      "D"
+    ],
+    "supported": true,
+    "quote": "回归评测的前提是除了待测改动，其他一切都冻结：评测集版本、评测脚本、推理参数（temperature、seed）、模型版本、甚至当评委的大模型版本都要固定。否则分数变化无法归因",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "冻结评测集与配置是回归评测前提"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "教材强调需拆解分项指标以定位问题"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "问题来自日志、答案由专家标注是铁律"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "分组统计可识别跷跷板效应"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-7-18-4": {
+    "qid": "new-7-18-4",
+    "classification": "own",
+    "chapter": 7,
+    "quality": "ok",
+    "reason": "考查Agent白盒评测与故障精准定位方法",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "白盒评测（White-box）：深入链路，对关键组件/中间步骤单独打分。回答的问题：‘到底是哪一步、哪个组件坏了？’",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "在端到端中加规则仍属端到端评测"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "单独构建组件评测集是典型白盒评测"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "LLM-as-Judge打分属主观评价，非精准定位"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "扩大规模不改变端到端性质，无法定位"
+      }
+    ],
+    "duplicate_of": "7-5054"
+  },
+  "new-7-18-5": {
+    "qid": "new-7-18-5",
+    "classification": "own",
+    "chapter": 7,
+    "quality": "ok",
+    "reason": "考查LLM-as-Judge长度偏见及校准措施",
+    "answer": [
+      "A",
+      "D"
+    ],
+    "supported": true,
+    "quote": "长度偏见：倾向认为更长更详细的答案‘更完整’，惩罚简洁但切题的答案 → 缓解手段：评分细则中明确‘冗余扣分’、控制输出长度",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "明确‘冗余扣分’是教材推荐的缓解手段"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "随机打乱顺序用于缓解位置偏见，非长度偏见"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "换评委模型教材未明确推荐为长度偏见校准动作"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "提供few-shot样例是校准评委的推荐做法"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

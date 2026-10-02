@@ -1,0 +1,218 @@
+{
+  "new-7-42-0": {
+    "qid": "new-7-42-0",
+    "classification": "own",
+    "chapter": 7,
+    "quality": "ok",
+    "reason": "考查RAGAS指标组合定位故障能力，符合第7章核心考点。",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "检索指标都好（Recall、Precision 高），但 Faithfulness / Correctness 低 → 问题在生成阶段",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "Context Recall已大幅提升，说明知识库覆盖度已改善。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "日志确认检索片段包含完整答案，排序噪声非主因。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "检索指标好但Faithfulness下降，提示词约束不足导致幻觉。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "ground_truth不一致会导致Correctness低，但非Faithfulness下降主因。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-7-42-1": {
+    "qid": "new-7-42-1",
+    "classification": "own",
+    "chapter": 7,
+    "quality": "ok",
+    "reason": "考查评测集构建原则，覆盖评测先行与领域专家主导。",
+    "answer": [
+      "A",
+      "C",
+      "D"
+    ],
+    "supported": true,
+    "quote": "问题来自真实用户场景；标准答案来自领域专家；要把线上发现的失败案例持续补充进评测集",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "从真实工单抽样，符合问题来源要求。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "算法工程师编写、模型生成答案，违背领域专家主导原则。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "邀请业务专家审定，确保权威性与合规性。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "将失败案例加入，符合持续运营评测集原则。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-7-42-2": {
+    "qid": "new-7-42-2",
+    "classification": "own",
+    "chapter": 7,
+    "quality": "ok",
+    "reason": "考查Agent端到端与白盒评测分工，定位组件故障。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "端到端评测 vs 白盒评测：端到端看整体、白盒定位组件",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "扩大端到端评测规模无法定位具体组件故障。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "应对具体组件进行白盒评测，如代码可执行性检查。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "修改提示词是优化手段，非定位故障的下一步。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "提高阈值无法解决代码无法运行的具体问题。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-7-42-3": {
+    "qid": "new-7-42-3",
+    "classification": "own",
+    "chapter": 7,
+    "quality": "ok",
+    "reason": "考查评测偏差原因，涉及LLM评委偏见、数据泄漏等。",
+    "answer": [
+      "A",
+      "B",
+      "C"
+    ],
+    "supported": true,
+    "quote": "LLM评委自身有偏见；绝不能用训练数据当评测集，否则分数虚高；专业领域必须由领域专家参与评测",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "LLM评委存在知识盲区，可能导致评分偏差。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "ground_truth权威性不足，影响评测基准准确性。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "数据泄漏会导致评测分数虚高，掩盖真实问题。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "Answer Correctness权重0.75给事实F1，非语义相似度。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-7-42-4": {
+    "qid": "new-7-42-4",
+    "classification": "own",
+    "chapter": 7,
+    "quality": "ok",
+    "reason": "考查检索端Precision与Recall权衡，及对整体效果影响。",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "Context Recall / Precision 低 → 问题在检索阶段；召回是多了，但噪声也暴涨，Precision 跟着掉",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "Precision升Recall降，是检索端过度追求精度牺牲召回。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "生成模型过拟合无依据，且Correctness下降与检索指标变化相关。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "ground_truth有误是系统性偏差，与指标间此消彼长现象不符。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "位置偏见影响对比评分，非指标本身变化的合理解释。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-7-42-5": {
+    "qid": "new-7-42-5",
+    "classification": "own",
+    "chapter": 7,
+    "quality": "ok",
+    "reason": "考查LLM-as-Judge偏见校准的具体措施。",
+    "answer": [
+      "A",
+      "B",
+      "C"
+    ],
+    "supported": true,
+    "quote": "随机打乱/交换候选顺序多次打分取平均以抵消位置偏见；评分细则中明确‘冗余扣分’、控制输出长度；定期用人工标注校准阈值",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "随机打乱顺序是缓解位置偏见的有效方法。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "提示词明确要求并设上限，可缓解长度偏见。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "用专家标注黄金集定期检验，是校准评委的标准动作。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "固定使用同一LLM作为所有Judge，不符合多评委投票等校准要求。"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

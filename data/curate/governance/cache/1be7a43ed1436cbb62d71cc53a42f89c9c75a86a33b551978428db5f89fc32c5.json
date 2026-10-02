@@ -1,0 +1,110 @@
+{
+  "new-10-42-1": {
+    "qid": "new-10-42-1",
+    "classification": "own",
+    "chapter": 10,
+    "quality": "ok",
+    "reason": "考查EAS部署vLLM服务的典型技术约束，属PAI部署层实操细节",
+    "answer": [
+      "A",
+      "B",
+      "C"
+    ],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "健康检查路径配置错误是EAS就绪失败常见原因"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "GPU显存不足导致服务无法加载，属直接硬件约束"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "监听地址绑定错误致容器内网探测失败"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "vLLM不依赖DashScope重排序，无此调用链"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-10-42-2": {
+    "qid": "new-10-42-2",
+    "classification": "own",
+    "chapter": 10,
+    "quality": "ok",
+    "reason": "考查百炼调用EAS时鉴权失败的根本原因，属跨产品集成要点",
+    "answer": [
+      "C"
+    ],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "EAS默认不强制JWT校验，非根本原因"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "百炼工作流节点可配置Token字段"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "RAM跨产品域鉴权是401主因"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "安全组拦截应返回连接超时而非401"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-10-42-5": {
+    "qid": "new-10-42-5",
+    "classification": "own",
+    "chapter": 10,
+    "quality": "ok",
+    "reason": "考查EAS服务侧配置缺陷的判别依据，属部署监控核心能力",
+    "answer": [
+      "A",
+      "C"
+    ],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "CPU为0且503表明服务未真正启动"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "404属路由错误，非EAS配置缺陷"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "健康检查持续失败是典型配置缺陷"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "请求到达数为0属网络或调用方问题"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

@@ -1,0 +1,214 @@
+{
+  "new-10-180-0": {
+    "qid": "new-10-180-0",
+    "classification": "own",
+    "chapter": 10,
+    "quality": "ok",
+    "reason": "考察DashScope OpenAI兼容模式认证失败的根本原因，属于API调用细节。",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "百炼和DashScope共用一套API Key。如今登录百炼控制台即可使用DashScope的全部模型能力。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "原文强调百炼与DashScope共用API Key，未提及兼容模式需专用Key，此为干扰项。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "路径拼写错误是可能原因，但题干问“最可能根本原因”，A更符合逻辑。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "模型未开通是可能原因，但题干已说明API Key有效，此非根本。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "SDK版本过低是可能原因，但题干未提供版本信息，非最根本。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-10-180-1": {
+    "qid": "new-10-180-1",
+    "classification": "own",
+    "chapter": 10,
+    "quality": "ok",
+    "reason": "考察DashScope原生SDK与OpenAI兼容模式的适用场景区别。",
+    "answer": [
+      "A",
+      "D"
+    ],
+    "supported": true,
+    "quote": "原生接口能用上部分平台特有参数/能力（如特定多模态、重排序服务）。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "TextReRank是DashScope原生服务，兼容模式可能不支持或参数不同。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "共享上下文缓存是模型服务特性，未提及必须用原生SDK。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "qwen-long模型和chunking_strategy参数可通过兼容模式调用。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "获取每个Token的耗时统计是平台特有监控能力，兼容模式可能不提供。"
+      }
+    ],
+    "duplicate_of": "10-5183"
+  },
+  "new-10-180-2": {
+    "qid": "new-10-180-2",
+    "classification": "own",
+    "chapter": 10,
+    "quality": "ok",
+    "reason": "考察迁移至DashScope兼容模式时，字符编码相关的兼容性问题。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "OpenAI兼容模式的价值：把base_url指向DashScope兼容地址、把api_key换成阿里云的Key，原本基于OpenAI Python SDK写的程序几乎不用改就能调用通义千问。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "原文未提及LangChain版本对字符编码协商的支持问题。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "设置正确的Content-Type和charset是处理中文字符编码问题的基本步骤。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "原文未提及兼容模式强制要求URL编码。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "stream=True模式保持UTF-8传输是基本要求，非优先检查项。"
+      }
+    ],
+    "duplicate_of": "10-5182"
+  },
+  "new-10-180-3": {
+    "qid": "new-10-180-3",
+    "classification": "own",
+    "chapter": 10,
+    "quality": "ok",
+    "reason": "考察百炼应用调用PAI-EAS私有模型的前提条件。",
+    "answer": [
+      "A",
+      "C"
+    ],
+    "supported": true,
+    "quote": "百炼应用也可以调用部署在PAI-EAS上的私有模型。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "网络互通是调用外部服务的基本前提。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "HTTPS和可信CA是安全要求，但非“必须”条件，内网调用可能不需要。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "兼容OpenAI标准格式是百炼调用外部模型的常见要求。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "“启用自定义模型回溯”和“服务密钥”是虚构条件，原文未提及。"
+      }
+    ],
+    "duplicate_of": "10-5192"
+  },
+  "new-10-180-4": {
+    "qid": "new-10-180-4",
+    "classification": "own",
+    "chapter": 10,
+    "quality": "ok",
+    "reason": "考察TPM超限的根本原因分析与优先处理措施。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "控制输入：RAG 只塞最相关的片段，不要每次把整本手册塞进上下文。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "增加重试和降低max_tokens是应对措施，但未针对TPM超限的根本原因。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "检查输入长度是识别TPM消耗过高的直接原因，符合成本控制原则。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "申请提升配额是长期方案，非最优先操作。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "切换模型可能降低成本，但未解决输入Token过多的问题。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-10-180-5": {
+    "qid": "new-10-180-5",
+    "classification": "own",
+    "chapter": 10,
+    "quality": "ok",
+    "reason": "考察DashScope兼容模式与本地微调模型的关系。",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "DashScope（灵积）是阿里云的模型服务API平台，是百炼底层的模型能力来源。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "兼容模式调用的是DashScope托管的预置模型，无法直接调用本地未部署的模型。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "模型名称匹配问题非根本障碍，关键是模型是否已部署为服务。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "网络策略是可能障碍，但非最根本，且题干未明确说明。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "ModelScope是开源社区，与DashScope API调用无关。"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

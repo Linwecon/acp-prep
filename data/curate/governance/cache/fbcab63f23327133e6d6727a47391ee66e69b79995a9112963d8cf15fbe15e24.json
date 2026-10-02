@@ -1,0 +1,214 @@
+{
+  "1-1048": {
+    "qid": "1-1048",
+    "classification": "cross",
+    "chapter": 5,
+    "quality": "ok",
+    "reason": "考点是训练循环中的损失计算步骤，属于模型微调与训练章节。",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "正向传播得到模型输出，反向传播计算梯度，梯度更新调整参数。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "梯度更新是调整参数，不是计算差异。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "参数初始化是训练前步骤。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "反向传播过程计算损失梯度，包含差异计算。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "正向传播得到输出，不计算差异。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "1-1113": {
+    "qid": "1-1113",
+    "classification": "misplaced",
+    "chapter": 1,
+    "quality": "remove",
+    "reason": "题干是经典数学题，但选项是四种不同的提示词要求，与题干问题不匹配，条件缺失，无法解题。",
+    "answer": [],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "选项描述的是提示词要求，不是天数答案。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "选项描述的是提示词要求，不是天数答案。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "选项描述的是提示词要求，不是天数答案。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "选项描述的是提示词要求，不是天数答案。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "1-1136": {
+    "qid": "1-1136",
+    "classification": "own",
+    "chapter": 1,
+    "quality": "ok",
+    "reason": "考查大模型不擅精确计算，应使用工具补位，属于能力边界。",
+    "answer": [
+      "D"
+    ],
+    "supported": true,
+    "quote": "不擅精确计算：自回归逐 Token 生成，缺乏真正的符号运算机制，多位数进位、大数乘除很容易出错。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "文本分类是大模型擅长任务。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "情感分析是大模型擅长任务。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "信息抽取是大模型擅长任务。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "计算相关系数需要精确计算，应使用工具。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "1-1349": {
+    "qid": "1-1349",
+    "classification": "cross",
+    "chapter": -1,
+    "quality": "review",
+    "reason": "考查工程实践中的错误处理，教材未明确提及，需review。",
+    "answer": [
+      "C"
+    ],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "模型会出错，不能假设总是正确。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "输入验证不能处理模型返回的错误。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "捕获异常是处理运行时错误的通用方法。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "不处理错误可能导致程序崩溃。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "1-0001": {
+    "qid": "1-0001",
+    "classification": "own",
+    "chapter": 1,
+    "quality": "ok",
+    "reason": "考查幻觉风险高的场景，属于大模型能力边界。",
+    "answer": [
+      "A",
+      "C",
+      "D"
+    ],
+    "supported": true,
+    "quote": "幻觉（Hallucination）：上下文不足时，模型仍会按概率'编'出一个看似合理但错误的答案。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "医疗诊断要求高准确性，幻觉风险危害大。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "趋势预测容忍一定不确定性，风险相对较低。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "法律合同要求精确无误，幻觉风险高。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "历史知识问答要求事实正确，需防范幻觉。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "1-0006": {
+    "qid": "1-0006",
+    "classification": "own",
+    "chapter": 1,
+    "quality": "ok",
+    "reason": "考查大模型五阶段工作流程的基本概念。",
+    "answer": [
+      "A",
+      "C",
+      "D"
+    ],
+    "supported": true,
+    "quote": "第一阶段：文本分词（Tokenization）...第二阶段：Token 向量化（Embedding）...第四阶段：解码与自回归（Decoding & Autoregression）",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "输入文本需先分词为Token，是第一阶段。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "采样具有随机性，输出Token可能不同。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "推理阶段根据概率分布选择输出Token。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "Token向量化让计算机能处理语义。"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

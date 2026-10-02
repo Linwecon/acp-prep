@@ -1,0 +1,232 @@
+{
+  "new-4-66-0": {
+    "qid": "new-4-66-0",
+    "classification": "own",
+    "chapter": 4,
+    "quality": "ok",
+    "reason": "考查Function Calling核心流程，模型只提议，程序才执行。",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "模型只输出结构化的'调用哪个工具、传什么参数'；由你的应用代码解析 tool_calls、真正执行对应函数",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "模型自身不执行函数。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "前端非必须，执行由应用服务端完成。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "应用代码执行函数，结果以role='tool'回传。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "模型已生成调用指令，无需用户手动输入。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-4-66-1": {
+    "qid": "new-4-66-1",
+    "classification": "own",
+    "chapter": 4,
+    "quality": "ok",
+    "reason": "考查ReAct铁律（轮数上限）和反思策略（外部反馈）。",
+    "answer": [
+      "A",
+      "B"
+    ],
+    "supported": true,
+    "quote": "ReAct 不是无限循环：必须设置最大迭代轮数 / 超时 / token 预算上限；外部反馈：用工具真实执行/校验，把报错、日志、截图喂回模型",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "ReAct必须设轮数上限。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "外部反馈用真实执行捕获报错。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "全历史拼入会膨胀上下文，非最佳。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "硬编码fallback非教材推荐策略。"
+      },
+      {
+        "label": "E",
+        "selected": false,
+        "why": "LLM-as-Judge用于评测，非故障排查措施。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-4-66-2": {
+    "qid": "new-4-66-2",
+    "classification": "own",
+    "chapter": 4,
+    "quality": "ok",
+    "reason": "考查MCP协议解决工具动态发现，及其与Function Calling互补关系。",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "MCP（模型上下文协议）是...用来统一 Agent 接入外部工具与数据源的方式。它的核心思想是'谁提供工具，谁定义工具'；MCP 与 Function Calling——互补，不是替代",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "MCP让工具方维护，FC是调用机制。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "RAG解决知识不足，非工具调用标准化。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "网关集中管理Schema，未解决动态发现。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "动态生成Schema仍属FC硬编码范畴。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-4-66-3": {
+    "qid": "new-4-66-3",
+    "classification": "own",
+    "chapter": 4,
+    "quality": "ok",
+    "reason": "考查Memory组合策略：长期向量化+短期滚动摘要，及主动管理。",
+    "answer": [
+      "A",
+      "B",
+      "E"
+    ],
+    "supported": true,
+    "quote": "工程上通常三者组合：短期用窗口/摘要保连贯，长期用向量库存关键事实；并在 AgentScope 等框架中通过 Mem0LongTermMemory 等模块开箱即用",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "关键元数据写入长期向量库按需检索。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "短期记忆用滚动摘要压缩是组合策略。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "独立会话线程非教材所述Memory策略。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "要求用户重复非自动化Memory管理。"
+      },
+      {
+        "label": "E",
+        "selected": true,
+        "why": "使用长期记忆模块并配置过滤符合实践。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-4-66-4": {
+    "qid": "new-4-66-4",
+    "classification": "own",
+    "chapter": 4,
+    "quality": "ok",
+    "reason": "考查Skill封装SOP解决反复交代问题，与RAG区别。",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "Skill（技能）是把'在什么场景下、按什么流程、用什么标准、调用什么工具'打包成的模块化、可复用、可版本化的能力单元",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "QWEN.md是Coding Agent配置，非通用解。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "每次会话注入提示词即当前问题，非本质解。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "Skill封装审查标准，可复用，解决反复交代。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "LLM-as-Judge是评测手段，非固化SOP方案。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-4-66-5": {
+    "qid": "new-4-66-5",
+    "classification": "own",
+    "chapter": 4,
+    "quality": "ok",
+    "reason": "考查Tool组件错误处理和Harness确定性检查。",
+    "answer": [
+      "A",
+      "B",
+      "D"
+    ],
+    "supported": true,
+    "quote": "要给模型'失败出口'：工具超时、报错时能重试或换方案；在模型之外搭建一整套外部运行环境与约束——标准、工具、边界、检查点",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "Tool组件应添加超时重试降级逻辑。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "Planner预设fallback工作流是失败出口。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "单提示词依赖模型决策易崩溃，不符解耦原则。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "Harness配置确定性检查验证工具调用结果。"
+      },
+      {
+        "label": "E",
+        "selected": false,
+        "why": "依赖模型显式声明非可靠，应靠外部约束。"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

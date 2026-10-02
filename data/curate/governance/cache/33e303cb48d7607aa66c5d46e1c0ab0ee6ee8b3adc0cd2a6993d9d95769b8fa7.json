@@ -1,0 +1,212 @@
+{
+  "2-0826": {
+    "qid": "2-0826",
+    "classification": "own",
+    "chapter": 2,
+    "quality": "ok",
+    "reason": "考查提示词六要素中'角色（Role）'的设定方法。需选择能精准激活模型角色认知的描述，而非泛泛而谈或任务指令。",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "角色（Role）：定义身份、语气、写作风格；'你是一名耐心的入职伙伴'",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "仅声明AI助手身份，未体现'严格的数学老师'这一具体角色特征，无法激活模型对教学风格、逻辑严谨性等维度的认知"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "属于'任务目标'要素，未设定角色，且'请回答'是用户消息层级指令，非系统级角色设定"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "完整包含角色身份（经验丰富的数学老师）、行为特征（要求严格）、输出要求（注重逻辑和步骤），符合原文'角色激活模型在训练中见过的角色模式'及'角色+任务+上下文'模板要求"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "属于任务指令且模糊，未定义任何角色，与'严格的数学老师'无关联"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "2-0842": {
+    "qid": "2-0842",
+    "classification": "own",
+    "chapter": 2,
+    "quality": "ok",
+    "reason": "考查提示工程在分类任务中的适用性判断。情绪识别属于典型意图/属性分类，应优先使用提示词引导而非重训练。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "意图分类解决'先分流'——这是哪类请求；提示工程是第一手段，微调是最后手段",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "训练新模型属于微调范畴，违背'提示词→RAG→微调'优化顺序，且成本高、周期长，原文明确'提示工程是第一手段'"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "利用大模型上下文学习能力进行零样本分类，符合'Zero-shot'适用场景（简单明确任务），且原文指出'意图分类是客服系统的分诊台'，情绪识别即一种意图分类"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "将责任转嫁给用户，违背自动化服务设计原则，原文未提及此做法，且无法保证用户配合度与准确性"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "忽略情绪会降低服务质量，原文强调'受众'决定内容深度，情绪状态直接影响沟通策略，属必须处理的上下文信息"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "2-0901": {
+    "qid": "2-0901",
+    "classification": "own",
+    "chapter": 2,
+    "quality": "ok",
+    "reason": "考查提示词六要素中'任务目标'与'上下文'的精准设定。法律条款识别需明确对象、数量、类型等约束条件。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "任务目标（Object）：明确要完成什么，让模型聚焦；'审查这段话有没有错别字'",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "仅给出宽泛任务，未限定'关键条款'的定义、数量、类型，缺乏原文要求的'补足决策信息'，易导致结果不可控"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "同时包含角色（法律专家）、任务（识别关键责任条款和限制条款）、量化约束（5个/3个），符合'任务+角色+上下文'三要素，且与原文'法律文档审阅示例'中'审阅维度+输出字段'结构一致"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "'重要内容'定义模糊，未提供判断标准，违反'范围不清'误区，原文强调'补充上下文与约束'是解决不相关问题的第一对策"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "'总结'是通用任务，未聚焦'关键条款识别'这一具体目标，且无法律领域约束，无法保证输出符合专业需求"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "2-0910": {
+    "qid": "2-0910",
+    "classification": "own",
+    "chapter": 2,
+    "quality": "ok",
+    "reason": "考查提示词中'约束'要素对生成质量的影响。遗漏信息属于输出不完整，需通过显式约束修正。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "生成内容不相关'的第一对策是补充上下文与约束，而不是'换模型、调高 temperature'",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "降低temperature提升确定性但不解决信息遗漏问题，原文指出'事实类任务用低temperature'，但遗漏是约束缺失而非随机性问题"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "直接在提示词中添加'必须包含...'的硬性约束，符合原文'补充上下文与约束'为第一对策的原则，且与'输出格式与约束'要素完全对应"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "增加token数可能延长摘要但不保证关键信息被包含，原文未将token数作为解决遗漏的手段，属无效干预"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "思维链适用于复杂推理，摘要任务属简单事实提取，原文明确'简单任务不必滥用CoT'，且CoT不解决信息覆盖问题"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "2-0915": {
+    "qid": "2-0915",
+    "classification": "own",
+    "chapter": 2,
+    "quality": "ok",
+    "reason": "考查提示词中'Memory'作为上下文工程手段的应用。多轮对话一致性依赖历史信息传递。",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "上下文工程四大手段（Prompt/RAG/Tool/Memory）；Memory分短期/长期与管理策略",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "完全放弃历史信息，违背'Memory'作为上下文工程手段的定位，原文强调Memory用于管理对话状态"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "固定角色仅解决全局人设，无法承载动态偏好信息，原文指出'System Prompt设定全局规则，用户消息承载具体任务'，偏好属具体任务信息"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "将对话历史作为上下文传递，正是'上下文工程'中Memory的典型实现方式，符合原文'上下文工程核心是把最相关信息加载进上下文窗口'的定义"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "增加用户负担，违背用户体验原则，原文未建议此做法，且与'可复用、可配置'工程化实践相悖"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "2-0919": {
+    "qid": "2-0919",
+    "classification": "own",
+    "chapter": 2,
+    "quality": "ok",
+    "reason": "考查提示工程与模型能力边界的区分。温度参数调控输出随机性，不影响跨语言能力。",
+    "answer": [
+      "D"
+    ],
+    "supported": true,
+    "quote": "temperature调节输出确定性；提示工程不改变模型参数",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "收集平行语料属于数据增强，是提升低资源语言能力的有效方法，虽属RAG/微调范畴但原文未否定其有效性"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "迁移学习是模型能力优化手段，虽超出提示工程范畴但属合理技术路径，原文未将其列为错误选项"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "反向翻译是经典的数据增强技术，能提升低资源语言表现，符合工程实践常识"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "提高temperature仅增加高资源语言输出的随机性，对低资源语言质量无改善作用，且违背'事实类任务用低temperature'原则，原文明确temperature只调节确定性，不改变知识或能力"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

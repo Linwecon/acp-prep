@@ -1,0 +1,202 @@
+{
+  "1-1135": {
+    "qid": "1-1135",
+    "classification": "beyond",
+    "chapter": 1,
+    "quality": "remove",
+    "reason": "题干问'关键词匹配的数据结构'，考点属于经典算法与数据结构（如Trie树），不在第1章'大模型基础'知识范围内。原文未提及栈/数组/链表/字典树任何一种，也未涉及匹配效率优化技术。",
+    "answer": [],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "栈是LIFO结构，不用于关键词匹配；原文未提及其在匹配中的应用。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "数组支持随机访问但无前缀匹配优势；原文未讨论数组用于匹配。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "链表查找效率低，不适合高效关键词匹配；原文未涉及。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "字典树（Trie）确为关键词匹配常用结构，但该知识点完全超出本章范围，原文零提及。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "1-1154": {
+    "qid": "1-1154",
+    "classification": "beyond",
+    "chapter": 1,
+    "quality": "remove",
+    "reason": "题干聚焦AI数字NPC的工程实现难度比较，涉及情绪识别、语音处理、剧情生成、动作捕捉四类跨领域技术，属于AI系统集成或游戏AI范畴。第1章仅定义LLM本质、边界、流程等基础概念，未对任何一项技术的实现难度排序或对比。",
+    "answer": [],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "情绪识别需多模态融合与细粒度建模，但原文未评估其难度。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "语音指令识别属ASR任务，原文在11章提ASR→LLM管道，但未论难度。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "实时剧情分支需长程规划与一致性保障，原文仅提CoT/ReAct等推理机制，未评难度。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "动作捕捉复现是确定性动画技术，原文未覆盖此内容。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "1-1249": {
+    "qid": "1-1249",
+    "classification": "misplaced",
+    "chapter": 1,
+    "quality": "remove",
+    "reason": "函数计算FC计费模式属于阿里云平台运维细节，应归属第10章'阿里云AI平台'或第6章'模型部署与推理优化'（部署形态）。第1章知识列表及全文均未出现'函数计算''FC''计费模式'等关键词。",
+    "answer": [],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "按月订阅非FC主流计费方式；原文未提FC计费。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "FC实际按调用次数+资源使用计费，但本章无任何FC相关内容。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "存储量计费常见于OSS，FC不以此为主；原文未覆盖。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "固定年费不符合FC按量付费特性；本章未涉及。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "1-1281": {
+    "qid": "1-1281",
+    "classification": "beyond",
+    "chapter": 1,
+    "quality": "remove",
+    "reason": "索引内存存储的缺点属于数据库系统或向量检索工程实践范畴，第1章知识列表中无'索引''内存存储''持久化'等概念。虽RAG章节（第3章）涉及索引构建，但本题未限定RAG上下文，且'默认使用内存存储'表述模糊（不同系统默认不同），缺乏解题依据。",
+    "answer": [],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "内存索引确实无法持久化，但本章未定义索引存储机制。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "内存索引通常不支持超大规模数据（受限于RAM），但原文未讨论。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "提高准确性非内存索引缺点，属无关干扰项；原文未提。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "降低运维复杂度是内存索引优点而非缺点；本章未覆盖。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "1-1316": {
+    "qid": "1-1316",
+    "classification": "beyond",
+    "chapter": 1,
+    "quality": "remove",
+    "reason": "测压命令参数（如-ab或-wrk）属于性能测试工具操作细节，第1章知识列表及全文未出现任何压力测试、测压命令、参数含义等内容。该题考查CLI工具使用，与大模型基础理论完全无关。",
+    "answer": [],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "-t1通常表示超时1秒，非持续时间；原文未提测压命令。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "-c1表示并发数1，非时间参数；本章无相关内容。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "-d10s是wrk等工具中表示持续10秒的参数，但原文未覆盖。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "-s为静默模式参数，与时间无关；本章未涉及。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "1-1317": {
+    "qid": "1-1317",
+    "classification": "own",
+    "chapter": 1,
+    "quality": "ok",
+    "reason": "题干考查提示词对任务引导的有效性，直接对应第1章'提示工程'前置认知——本章明确强调'LLM是概率生成器，需明确指令约束输出'（1.1节），并指出'抑制幻觉需用提示词要求只依据资料回答'（1.2节）。选项D'写得怎么样'是主观评价指令，无法触发摘要这一确定性任务，符合本章'提示词需明确任务'的核心原则。",
+    "answer": [
+      "D"
+    ],
+    "supported": true,
+    "quote": "提示词约束或微调；抑制幻觉：\"只依据资料回答\" + 引用溯源",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "明确指令'请总结...主要内容'直接指定摘要任务，符合本章'提示词六要素中任务需明确'的要求。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "'用一句话概括'是典型摘要指令，本章1.2节强调'稳定语气/格式用提示词约束'，此即格式约束。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "'提取关键词'是结构化抽取任务，本章1.7节调参建议指出'结构化抽取需低temperature'，隐含任务需明确。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "'写得怎么样'是开放式主观评价，未指定摘要任务，违背本章'提示词需明确任务'原则，无法有效指导摘要。"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

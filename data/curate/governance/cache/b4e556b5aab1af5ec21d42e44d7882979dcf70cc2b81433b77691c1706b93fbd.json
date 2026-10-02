@@ -1,0 +1,129 @@
+{
+  "items": [
+    {
+      "type": 0,
+      "stem": "某企业微信答疑机器人在早高峰出现大量429错误，运维日志显示重试请求集中爆发在整点后第3秒。开发团队此前实现了“失败立即重试3次”的逻辑。该问题最根本的工程缺陷是什么？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "未校验API Key有效性，导致鉴权失败被误判为限流"
+        },
+        {
+          "option_label": "B",
+          "option_text": "对429错误使用了固定间隔重试，未引入指数退避与随机抖动"
+        },
+        {
+          "option_label": "C",
+          "option_text": "messages中混入了非法role值（如'admin'），触发400错误并被错误重试"
+        },
+        {
+          "option_label": "D",
+          "option_text": "流式响应超时设为500ms，导致大量连接中断并重复发起新请求"
+        }
+      ],
+      "answer": "B",
+      "analysis": "依据原文9.8节‘指数退避 + 抖动’原则：‘在等待时间上加一个随机抖动，避免大量客户端踩点同时重试把服务再次打爆’；且明确指出‘429是限流，正确做法是指数退避+抖动后重试，而不是立即重试’。选项A对应401场景，原文强调401‘不该重试’；选项C属400范畴，原文明确‘400不该重试’；选项D描述的是读取超时过短（见9.6风险），但题干现象是‘整点后第3秒集中爆发’，典型同步重试风暴特征，与流式超时无关。故B为唯一符合教材原理的根本缺陷。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 1,
+      "stem": "财务部门发现某批处理任务月度Token费用异常飙升，经分析发现每次调用均传入完整历史对话（含30轮已过期闲聊）及冗长system prompt。以下哪些成本优化措施有教材依据且能直接生效？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "将system prompt从120字精简至40字，并确保其位置稳定在messages数组开头"
+        },
+        {
+          "option_label": "B",
+          "option_text": "对历史消息启用滑动窗口截断，仅保留最近5轮user/assistant消息"
+        },
+        {
+          "option_label": "C",
+          "option_text": "将模型从qwen-max降级为qwen-turbo，同时将max_tokens从2048调至512"
+        },
+        {
+          "option_label": "D",
+          "option_text": "在每次请求前主动清空环境变量DASHSCOPE_API_KEY，强制触发密钥轮换"
+        }
+      ],
+      "answer": "ABC",
+      "analysis": "依据原文9.9节成本控制原则：A项对应‘system prompt长度影响输入Token’及‘保持前缀稳定可命中缓存’（9.9 principle）；B项直接引用‘滑动窗口截断’作为生产环境标准实践（9.5 cost）；C项符合‘先选对模型档位’和‘限制输出长度’双优先级（9.9 cost），且qwen-turbo单价更低、max_tokens下调减少输出计费；D项无教材依据——密钥轮换是安全运维动作（9.3 best），与Token计费无关，且清空环境变量会导致调用失败。故ABC正确。",
+      "difficulty_label": "高阶"
+    },
+    {
+      "type": 0,
+      "stem": "新人答疑机器人上线后，员工连续追问‘那怎么申请账号’时，机器人回答通用注册流程而非Jira账号申请。开发人员检查代码发现每次调用均构造全新messages列表，仅包含当前user消息。此问题应优先排查哪一工程环节？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "Function Calling中tool_calls未执行，导致上下文缺失"
+        },
+        {
+          "option_label": "B",
+          "option_text": "messages未按9.5节要求维护多轮历史并全量传入"
+        },
+        {
+          "option_label": "C",
+          "option_text": "temperature设置过高（1.5），导致模型忽略上下文指代"
+        },
+        {
+          "option_label": "D",
+          "option_text": "stream=True开启后delta.content解析错误，造成消息体损坏"
+        }
+      ],
+      "answer": "B",
+      "analysis": "原文9.5节核心概念明确：‘大模型API是无状态的……所谓多轮对话能力，本质是客户端把历史消息按角色组织好，每次调用都完整地放进messages里再传一遍’；且9.11故障地图直接将‘多轮对话失忆’归因为‘历史消息没放进messages’。题干描述‘每次构造全新messages列表，仅含当前user消息’完全匹配该病根。A项涉及工具调用闭环（9.7），与指代无关；C项中temperature影响随机性而非上下文理解（9.4 risk）；D项流式解析错误会导致内容乱码，非指代失效。故B为唯一精准定位。",
+      "difficulty_label": "基础"
+    },
+    {
+      "type": 1,
+      "stem": "某HR系统需夜间批量生成500份培训录音摘要，要求次日9点前交付。当前采用同步接口逐条调用，但因RPM限流导致耗时超12小时且成本高昂。根据9.10节Batch API特性，以下哪些判断正确？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "改用Batch API后，单个摘要生成延迟会显著降低（如从3秒降至0.5秒）"
+        },
+        {
+          "option_label": "B",
+          "option_text": "Batch任务需准备JSONL格式输入文件，每行一个请求并含唯一request_id"
+        },
+        {
+          "option_label": "C",
+          "option_text": "结果文件下载后必须校验行数与request_id，防止错位导致摘要张冠李戴"
+        },
+        {
+          "option_label": "D",
+          "option_text": "若某行处理失败，应整批重新提交以保证原子性"
+        }
+      ],
+      "answer": "BC",
+      "analysis": "依据原文9.10节：B项直接引用‘准备输入文件：通常是JSONL格式，每行是一个独立请求（含自定义请求 ID）’；C项对应‘必须校验输入输出行数、请求 ID 是否一一对应，防止错位或丢失’。A项错误——原文明确‘Batch不是让单个请求更快返回……优势在吞吐和成本’，单请求延迟反而更高；D项错误——原文‘批内一行失败通常不影响其他行，可只重试失败行’，整批重跑违反幂等与成本原则。故BC正确。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 0,
+      "stem": "前端工程师为快速联调，在React组件中硬编码API Key并调用client.chat.completions.create。上线后账单突增。该行为违反9.3节哪条API Key安全军规？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "环境变量/密钥服务托管"
+        },
+        {
+          "option_label": "B",
+          "option_text": "不提交Git"
+        },
+        {
+          "option_label": "C",
+          "option_text": "前端绝不放Key"
+        },
+        {
+          "option_label": "D",
+          "option_text": "最小权限+定期轮换"
+        }
+      ],
+      "answer": "C",
+      "analysis": "原文9.3节‘API Key安全的五条军规’中第三条明确为‘前端绝不放Key’，并解释‘浏览器端请求走后端代理，由后端附加Key’；且9.3 scenario举例‘同学把api_key写在前端JS里提交到公开仓库’导致账单暴涨，与题干场景完全一致。A项针对服务端密钥管理，B项针对代码提交行为，D项针对权限策略，均不直接对应‘前端硬编码’这一具体违规动作。故C为最精准答案。",
+      "difficulty_label": "基础"
+    }
+  ]
+}

@@ -1,0 +1,44 @@
+{
+  "new-10-210-3": {
+    "qid": "new-10-210-3",
+    "classification": "own",
+    "chapter": 10,
+    "quality": "ok",
+    "reason": "题目考查DashScope计费规则，特别是输出费用高于输入的原因，属于本章核心知识点。",
+    "answer": [
+      "A",
+      "B",
+      "D"
+    ],
+    "supported": true,
+    "quote": "输入/输出分别计价，输出通常更贵；控制输出：用max_tokens给输出设上限，避免模型‘刹不住车’",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "冗长输出直接导致输出Token量增加，符合计费规则。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "未设max_tokens可能导致模型生成过长，增加输出Token。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "输入Token激增会推高输入费用，但题干问输出费用高于输入。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "原文明确指出输出Token单价通常更贵，是根本原因。"
+      },
+      {
+        "label": "E",
+        "selected": false,
+        "why": "RAG拼接增加输入Token，但题干问输出费用异常高。"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

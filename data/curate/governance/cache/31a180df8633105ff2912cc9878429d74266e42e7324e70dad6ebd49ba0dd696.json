@@ -1,0 +1,218 @@
+{
+  "9-0554": {
+    "qid": "9-0554",
+    "classification": "own",
+    "chapter": 9,
+    "quality": "ok",
+    "reason": "考查temperature参数场景化选型",
+    "answer": [
+      "A",
+      "B"
+    ],
+    "supported": true,
+    "quote": "事实问答、代码生成、信息抽取 | 0 ~ 0.3 | 要稳定、少随机",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "代码生成需稳定可复现"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "数据提取要确定性输出"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "文案需多样性，应调高"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "诗歌创作需高随机性"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "9-0555": {
+    "qid": "9-0555",
+    "classification": "own",
+    "chapter": 9,
+    "quality": "ok",
+    "reason": "考查API调用参数配置范围",
+    "answer": [
+      "A",
+      "B"
+    ],
+    "supported": true,
+    "quote": "关键字段有三个：`model`、`messages` 和各类生成参数。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "stream是核心生成参数"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "model字段指定调用模型"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "API Key是鉴权凭证非参数"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "文本分段属RAG预处理环节"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "9-0696": {
+    "qid": "9-0696",
+    "classification": "own",
+    "chapter": 9,
+    "quality": "ok",
+    "reason": "考查Function Calling典型场景",
+    "answer": [
+      "A",
+      "B",
+      "D"
+    ],
+    "supported": true,
+    "quote": "Function Calling（函数调用）是 API 内置的能力：你在请求里通过 `tools` 参数告诉模型'有哪些工具可用'",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "地图API属于外部工具调用"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "数据分析函数需程序执行"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "无需工具调用不属于FC场景"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "航司API是典型外部服务"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "9-0701": {
+    "qid": "9-0701",
+    "classification": "own",
+    "chapter": 9,
+    "quality": "ok",
+    "reason": "考查流式输出本质理解",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "流式输出（Streaming）是指模型每生成一个或几个 Token，就立刻通过 HTTP 长连接推送给客户端",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "不改变总生成时间"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "SSE协议逐Token返回"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "支持所有生成类任务"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "需显式设置stream=True"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "9-0720": {
+    "qid": "9-0720",
+    "classification": "own",
+    "chapter": 9,
+    "quality": "ok",
+    "reason": "考查响应速度优化措施",
+    "answer": [
+      "A",
+      "B",
+      "C"
+    ],
+    "supported": true,
+    "quote": "在线对话、聊天机器人等面向用户的场景默认开启流式，显著降低 TTFT、提升体感速度",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "流式降低首Token延迟"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "轻量模型推理更快"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "精简输入减少prefill耗时"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "延长超时不影响实际速度"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "9-0868": {
+    "qid": "9-0868",
+    "classification": "own",
+    "chapter": 9,
+    "quality": "ok",
+    "reason": "考查流式输出工程实现",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "开启流式只需加一个 `stream=True`，然后迭代返回对象即可。这是教程中的真实示例",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "前端可轻松适配SSE"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "参数与流式无关"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "需修改代码适配delta格式"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "prompt效果不受流式影响"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

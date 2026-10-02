@@ -1,0 +1,37 @@
+{
+  "new-5-6-0": {
+    "qid": "new-5-6-0",
+    "classification": "own",
+    "chapter": 5,
+    "quality": "ok",
+    "reason": "考查过拟合现象识别与原因分析，符合本章训练过程知识点。",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "训练 loss 下降，验证 loss 先降后升，状态是过拟合。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "过拟合主因是数据质量，隐性错误被模型记住。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "rank小可能导致欠拟合，非过拟合主因。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "验证集比例影响评估，但非loss攀升根本原因。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "学习率大导致loss震荡或不降，非先降后升。"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

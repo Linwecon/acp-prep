@@ -1,0 +1,234 @@
+{
+  "2-0713": {
+    "qid": "2-0713",
+    "classification": "own",
+    "chapter": 2,
+    "quality": "ok",
+    "reason": "考查提示词六要素中'上下文'与'样例'的运用",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "提供文章的大纲和关键点，相当于补充上下文与结构化样例，引导模型生成深入、结构化内容",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "语言切换不解决泛泛而谈问题"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "大纲和关键点提供结构化上下文与样例，符合六要素中上下文+样例作用"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "限长加剧信息缺失，无法提升深度"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "重复生成不改变提示质量，非策略性优化"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "2-0896": {
+    "qid": "2-0896",
+    "classification": "own",
+    "chapter": 2,
+    "quality": "ok",
+    "reason": "考查输出格式要素中约束与枚举的精准表达",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "在提示词中明确要求\"为每段重要代码添加详细注释\"，属于输出格式中的具体约束与粒度控制",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "\"写注释\"过于模糊，无粒度约束"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "明确粒度（每段重要代码）与质量（详细），符合输出格式要素要求"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "事后手动属工程流程，非提示策略"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "工具属下游校验，非提示词设计"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "2-0946": {
+    "qid": "2-0946",
+    "classification": "own",
+    "chapter": 2,
+    "quality": "ok",
+    "reason": "考查Zero-shot定义及意图分类提示词设计原则",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "零样本（Zero-Shot）指不提供示例，仅靠类别名称与任务指令完成分类，是标准做法",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "10000条远超上下文窗口，不可行"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "Zero-shot只需类别名+分类指令，符合六要素中任务+上下文"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "微调属三级优化，非Zero-shot验证"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "单类别破坏分类任务完整性"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "2-0968": {
+    "qid": "2-0968",
+    "classification": "own",
+    "chapter": 2,
+    "quality": "ok",
+    "reason": "考查输出格式要素中受众、任务、格式三者融合",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "生成可读性高的Python代码，并添加必要的注释，同时约束语言、质量、格式三要素",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "无任何质量或格式约束"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "\"高效\"不等同于\"可读+注释\""
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "同时指定语言、可读性、注释，覆盖任务+格式+约束"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "语言切换不解决可读性与注释问题"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "2-1025": {
+    "qid": "2-1025",
+    "classification": "own",
+    "chapter": 2,
+    "quality": "ok",
+    "reason": "考查六要素中样例的定义与作用",
+    "answer": [
+      "D"
+    ],
+    "supported": true,
+    "quote": "样例提供输出格式与风格的锚点，模型通过上下文学习隐式模仿",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "确定受众是独立要素"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "样例旨在对齐风格，非单一答案"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "限长属输出格式约束，非样例作用"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "样例即有指导性的案例，用于隐式模仿"
+      },
+      {
+        "label": "E",
+        "selected": false,
+        "why": "情感色彩由角色要素决定"
+      },
+      {
+        "label": "F",
+        "selected": false,
+        "why": "方案抽象属任务分解，非样例功能"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "2-1027": {
+    "qid": "2-1027",
+    "classification": "own",
+    "chapter": 2,
+    "quality": "ok",
+    "reason": "考查输出格式要素的多维约束要求",
+    "answer": [
+      "C",
+      "D",
+      "E"
+    ],
+    "supported": true,
+    "quote": "输出格式要指定格式、枚举值、禁止项；用样例对齐格式与风格；限定字段取值范围",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "输出格式直接影响模型应答结构"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "需明确禁止项，如'不要多余解释'"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "样例可提示输出格式与风格"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "枚举值范围必须明确，如label只能取0/1"
+      },
+      {
+        "label": "E",
+        "selected": true,
+        "why": "需明确内容类型，如只输出JSON"
+      },
+      {
+        "label": "F",
+        "selected": false,
+        "why": "样例是明确输出格式的有效手段"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

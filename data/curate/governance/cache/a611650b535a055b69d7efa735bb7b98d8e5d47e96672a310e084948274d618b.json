@@ -1,0 +1,220 @@
+{
+  "7-0465": {
+    "qid": "7-0465",
+    "classification": "own",
+    "chapter": 7,
+    "quality": "ok",
+    "reason": "考查RAGAS指标分类，原文明确生成端指标",
+    "answer": [
+      "A",
+      "B"
+    ],
+    "supported": true,
+    "quote": "Faithfulness（忠实度）... Answer Correctness... Answer Relevancy（答案相关性）",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "Answer Relevancy属生成端指标"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "Faithfulness属生成端指标"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "Context Precision属检索端"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "Context Recall属检索端"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "7-0471": {
+    "qid": "7-0471",
+    "classification": "own",
+    "chapter": 7,
+    "quality": "ok",
+    "reason": "考查Answer Correctness中事实F1的比较对象",
+    "answer": [
+      "A",
+      "B"
+    ],
+    "supported": true,
+    "quote": "LLM 把 answer 和 ground_truth 各自分解为观点列表；比对后归入三类：TP/FP/FN",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "answer观点列表是F1比较对象"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "ground_truth观点列表是F1比较对象"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "训练数据非F1比较对象"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "推理时间非F1比较对象"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "7-0475": {
+    "qid": "7-0475",
+    "classification": "own",
+    "chapter": 7,
+    "quality": "ok",
+    "reason": "考查Context Precision相关性判断依据",
+    "answer": [
+      "A",
+      "B"
+    ],
+    "supported": true,
+    "quote": "按顺序读取 contexts 中的每个片段，依据 question 与 ground_truth 判断它是否相关",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "question是判断依据之一"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "ground_truth是判断依据之一"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "训练数据无关"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "推理时间无关"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "7-0493": {
+    "qid": "7-0493",
+    "classification": "own",
+    "chapter": 7,
+    "quality": "ok",
+    "reason": "考查RAGAS召回阶段指标",
+    "answer": [
+      "A",
+      "B"
+    ],
+    "supported": true,
+    "quote": "RAGAS 的五大核心指标按评价对象分为两类：Context Precision / Context Recall 属检索端",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "Context Precision属检索端"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "Context Recall属检索端"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "Answer Correctness属生成端"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "Answer Relevancy属生成端"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "7-0520": {
+    "qid": "7-0520",
+    "classification": "own",
+    "chapter": 7,
+    "quality": "ok",
+    "reason": "考查Answer Correctness中大模型作用",
+    "answer": [
+      "A",
+      "B"
+    ],
+    "supported": true,
+    "quote": "LLM 把 answer 和 ground_truth 各自分解为观点列表；比对后归入三类：TP/FP/FN",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "大模型生成answer观点列表"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "大模型生成ground_truth观点列表"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "训练数据非大模型作用"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "推理时间非大模型作用"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "7-0935": {
+    "qid": "7-0935",
+    "classification": "misplaced",
+    "chapter": 7,
+    "quality": "review",
+    "reason": "对话历史管理属Agent或提示工程，非本章考点",
+    "answer": [],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "属Agent章节"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "属Agent章节"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "属提示工程章节"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "属RAG或评估章节"
+      },
+      {
+        "label": "E",
+        "selected": false,
+        "why": "属提示工程章节"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

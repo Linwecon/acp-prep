@@ -1,0 +1,215 @@
+{
+  "3-0577": {
+    "qid": "3-0577",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "考查多轮对话检索不准的根因，原文明确指出代词指代问题需查询改写",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "多轮对话中'他/这个'指代不清 → 应先结合历史改写问题",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "向量检索本就是相似度比较，非错误操作"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "丢失历史导致指代无法解析，原文明确指出"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "长文本是建库阶段问题，非多轮对话特有"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "增加训练数据属微调范畴，与RAG检索无关"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-0579": {
+    "qid": "3-0579",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "考查多轮对话解决方案，原文明确推荐查询改写技术",
+    "answer": [
+      "A",
+      "D"
+    ],
+    "supported": true,
+    "quote": "先用LLM把含代词的问题改写成完整问题再检索",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "原文明确为多轮对话推荐查询改写"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "增训练数据属微调，非RAG检索方案"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "减推理时间非解决多轮检索问题的方法"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "改写后必须用新query重新检索生成"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-0582": {
+    "qid": "3-0582",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "考查RAG两阶段划分，原文明确在线问答阶段含检索与生成",
+    "answer": [
+      "A",
+      "B"
+    ],
+    "supported": true,
+    "quote": "第二阶段：在线问答（Retrieval & Generation，每次请求都执行）",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "检索是在线问答核心步骤之一"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "生成是在线问答核心步骤之一"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "文档解析属离线建库阶段"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "文本分段即切片，属离线建库阶段"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-0623": {
+    "qid": "3-0623",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "考查知识索引优化技术，原文明确句子窗口和新型Embedding模型",
+    "answer": [
+      "A",
+      "D"
+    ],
+    "supported": true,
+    "quote": "句子窗口检索：建索引时以单个句子为可检索单元",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "句子滑窗即句子窗口检索，原文明确"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "自动合并非原文提及的索引优化技术"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "TF-IDF属关键词匹配，原文强调语义检索优先"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "BGE属新型Embedding模型，原文提百炼v3"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-0721": {
+    "qid": "3-0721",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "考查向量数据库核心步骤，原文明确向量化后入库",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "把每个chunk转成一串数字（向量）；把向量+原文+元数据存进向量数据库",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "直接存原文不构成向量数据库"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "向量化是向量数据库构建核心步骤"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "分词结果非向量，不满足向量检索要求"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "PDF格式存储与向量数据库无关"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-0746": {
+    "qid": "3-0746",
+    "classification": "cross",
+    "chapter": 3,
+    "quality": "review",
+    "reason": "题干为代码文档不符，属幻觉问题，但原文未覆盖代码场景",
+    "answer": [
+      "B"
+    ],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "重写代码非RAG改进措施"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "基于代码分析即RAG式开卷考试逻辑"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "仅要求确保准确不能解决幻觉"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "人工校对非技术性改进措施"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

@@ -1,0 +1,110 @@
+{
+  "new-7-36-2": {
+    "qid": "new-7-36-2",
+    "classification": "own",
+    "chapter": 7,
+    "quality": "ok",
+    "reason": "考查Context Precision骤降归因，需验证Embedding畸变证据。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "Context Precision = 各片段 precision 分之和 / 相关片段总数。以课程数据为例：contexts = [\"牛顿发现万有引力\"(无关), \"张伟 教研部工程师\"(相关)]：第 1 个片段：0/1 = 0；第 2 个片段：(0+1)/2 = 0.5；相关片段共 1 个 → Context Precision = (0 + 0.5)/1 = 0.5。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "未涉及排名位置，不直接验证Precision计算逻辑"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "Precision官方公式依赖首个相关片段排名位置"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "绝对数量不反映排序，Precision看位置非数量"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "实体相似度不等价于上下文排序质量"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-7-36-3": {
+    "qid": "new-7-36-3",
+    "classification": "own",
+    "chapter": 7,
+    "quality": "ok",
+    "reason": "考查Lost in the Middle与Precision/Recall关系。",
+    "answer": [
+      "A",
+      "B",
+      "D"
+    ],
+    "supported": true,
+    "quote": "这就是为什么\"正确片段存在但排在后面\"Precision 会低——它惩罚的正是把无关内容塞在前面、稀释模型注意力的排序，与\"Lost in the Middle\"现象直接对应。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "仅1相关且排第20位，Precision必低于Recall"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "10相关但前15全无关，Precision显著低于Recall"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "改写噪声影响召回，不必然导致Precision<Recall"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "相关全在后50%且占比<10%，Precision必低"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-7-36-5": {
+    "qid": "new-7-36-5",
+    "classification": "own",
+    "chapter": 7,
+    "quality": "ok",
+    "reason": "考查Precision诊断是否符合教材黄金法则与计算逻辑。",
+    "answer": [
+      "A",
+      "B"
+    ],
+    "supported": true,
+    "quote": "1. 按顺序读取 `contexts` 中的每个片段，依据 question 与 ground_truth 判断它是否相关（相关=1，否则=0）；2. 对每个片段，以\"该片段及之前片段的相关数之和\"为分子、以该片段排位为分母，算一个 precision 分；3. Context Precision = 各片段 precision 分之和 / 相关片段总数。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "匹配官方计算第1步：判断相关性并记录位置"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "排名差值可定位Precision下降根源"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "均值归因违反黄金法则，须结合Recall分析"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "黄金法则未强制Rerank为唯一解，需先诊断"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

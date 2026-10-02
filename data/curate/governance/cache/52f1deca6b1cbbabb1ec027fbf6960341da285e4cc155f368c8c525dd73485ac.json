@@ -1,0 +1,107 @@
+{
+  "new-7-18-0": {
+    "qid": "new-7-18-0",
+    "classification": "own",
+    "chapter": 7,
+    "quality": "ok",
+    "reason": "考查传统自动指标（如BLEU）的局限性，与教材风险点一致。",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "传统自动指标：机器阅卷的'老办法'……它们速度快、可复现、不调用大模型，但只认字面、不懂语义……BLEU只认字面重合，同义改写会被误伤",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "题干问BLEU掩盖的故障，A是RAGAS指标揭示的问题。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "题干明确日志确认关键信息完整，非ground_truth问题。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "BLEU仅匹配字面n-gram，无法识别事实性错误。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "题干未提temperature变化，且非BLEU固有缺陷。"
+      }
+    ],
+    "duplicate_of": "7-5085"
+  },
+  "new-7-18-1": {
+    "qid": "new-7-18-1",
+    "classification": "own",
+    "chapter": 7,
+    "quality": "ok",
+    "reason": "考查PPL（困惑度）指标的本质，与教材风险点一致。",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "PPL（困惑度）……只反映概率预测的把握程度，一句很自信的事实错误照样可以 PPL 很低",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "PPL低仅表示预测自信，不保证事实正确。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "教材未提及PPL与专业术语准确性的关联。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "教材未提及PPL对长程逻辑一致性的敏感性。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "教材未提及中文分词对PPL的影响。"
+      }
+    ],
+    "duplicate_of": "7-5086"
+  },
+  "new-7-18-4": {
+    "qid": "new-7-18-4",
+    "classification": "own",
+    "chapter": 7,
+    "quality": "ok",
+    "reason": "考查指标分层逻辑及故障定位，与教材内容一致。",
+    "answer": [
+      "D"
+    ],
+    "supported": true,
+    "quote": "指标分层：业务、技术与算法……算法指标是手段，业务指标才是目标……Faithfulness下降揭示生成端存在幻觉",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "题干未提供用户满意度数据，无法定位业务层。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "题干未提及核心技术指标（如响应时间）异常。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "割裂本身是现象，根本定位是生成端幻觉。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "Faithfulness下降直接指向生成端算法指标问题。"
+      }
+    ],
+    "duplicate_of": "7-5079"
+  }
+}

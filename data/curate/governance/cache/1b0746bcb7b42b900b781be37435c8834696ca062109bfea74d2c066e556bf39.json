@@ -1,0 +1,218 @@
+{
+  "new-7-30-0": {
+    "qid": "new-7-30-0",
+    "classification": "own",
+    "chapter": 7,
+    "quality": "ok",
+    "reason": "考查RAGAS指标组合分析及故障定位，符合第7章核心考点。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "检索指标都好（Recall、Precision 高），但 Faithfulness / Correctness 低 → 问题在**生成阶段**；Precision 低（Recall 高） → 找回来了但噪声多、排得靠后",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "仅靠提示词难以克服严重噪声干扰。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "检索排序差导致模型注意力被稀释，生成端优化效果有限。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "提示词无法直接影响检索排序。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "题干未暗示模型会转向含糊回避。"
+      }
+    ],
+    "duplicate_of": "7-5083"
+  },
+  "new-7-30-1": {
+    "qid": "new-7-30-1",
+    "classification": "own",
+    "chapter": 7,
+    "quality": "ok",
+    "reason": "考查Faithfulness与Answer Correctness指标辨析，符合教材内容。",
+    "answer": [
+      "A",
+      "B",
+      "C",
+      "D"
+    ],
+    "supported": true,
+    "quote": "前者问'答案里的每句话能不能从检索资料里推出来'，后者问'答案和标准答案是否一致'；一个答案可以很 Faithful（资料说啥它说啥）但仍不正确——因为资料本身没召回全",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "Faithful但未覆盖更细粒度ground_truth，Correctness低。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "不Faithful但答案碰巧与ground_truth一致，Correctness高。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "资料无关，答案错误，两者皆低。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "部分Faithful，补充正确细节，Correctness可高。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-7-30-2": {
+    "qid": "new-7-30-2",
+    "classification": "own",
+    "chapter": 7,
+    "quality": "ok",
+    "reason": "考查Answer Correctness公式拆解及子项分析，符合教材。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "Answer Correctness = 0.25 × 语义相似度 + 0.75 × 事实准确度；事实准确度（F1） = TP / (TP + 0.5 × (FP + FN))",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "用词差异大但语义相似度未必低，且权重仅0.25。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "事实错误（FP/FN高）导致F1低，权重0.75影响大。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "Precision=0.87已较高，非主要矛盾。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "Faithfulness=0.91已很高，非主要矛盾。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-7-30-3": {
+    "qid": "new-7-30-3",
+    "classification": "own",
+    "chapter": 7,
+    "quality": "ok",
+    "reason": "考查Faithfulness低于Correctness的异常原因分析，符合教材逻辑。",
+    "answer": [
+      "A",
+      "B",
+      "C",
+      "D"
+    ],
+    "supported": true,
+    "quote": "Faithfulness 抓的就是**幻觉**：答案里那些资料里根本没有、模型自己'脑补'出来的内容；Faithfulness 用 question/answer/**contexts**（不要 ground_truth）",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "干扰片段导致答案不Faithful，但可能碰巧正确。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "注入内容非模型生成，无法由contexts推断。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "输入字段错误直接影响Faithfulness计算。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "高temperature导致无关token，降低Faithfulness。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-7-30-4": {
+    "qid": "new-7-30-4",
+    "classification": "own",
+    "chapter": 7,
+    "quality": "ok",
+    "reason": "考查Answer Correctness子项矛盾与指标分层原则，符合教材。",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "算法指标是手段，业务指标才是目标；Answer Correctness = 0.25 × 语义相似度 + 0.75 × 事实准确度",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "字面像但事实错，揭示算法指标与业务目标脱节。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "未提及temperature问题，且非根本矛盾。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "Context Recall=0.94较高，非FN主因。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "未提及结构化输出问题，且非根本矛盾。"
+      }
+    ],
+    "duplicate_of": "7-5082"
+  },
+  "new-7-30-5": {
+    "qid": "new-7-30-5",
+    "classification": "own",
+    "chapter": 7,
+    "quality": "ok",
+    "reason": "考查Faithfulness计算口径和评测集字段要求，符合教材规范。",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "Faithfulness 用 question/answer/**contexts**（不要 ground_truth）；让 LLM 对照 `contexts` 逐条判定：该陈述能否由上下文**直接推断**",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "违反字段要求，用ground_truth替代contexts。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "替换代词是澄清指代，未违反拆分原则。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "保留模糊词是保留原意，未违反拆分原则。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "去重处理未违反核心计算逻辑。"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

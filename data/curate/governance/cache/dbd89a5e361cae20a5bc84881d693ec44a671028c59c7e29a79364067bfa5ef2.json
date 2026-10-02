@@ -1,0 +1,166 @@
+{
+  "items": [
+    {
+      "type": 0,
+      "stem": "某金融公司需构建合规问答系统，要求：① 所有客户合同与监管文件严禁出域；② 通用千问模型对'穿透式尽调'等术语回答不准；③ 需支持1000+并发实时响应。技术团队决定基于Qwen2-7B开源模型微调后部署。以下哪组阿里云产品组合最符合全链路需求？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "百炼（知识库+智能体）→ DashScope API → PAI-EAS"
+        },
+        {
+          "option_label": "B",
+          "option_text": "ModelScope下载模型 → PAI-DSW开发微调 → PAI-DLC训练 → PAI-EAS部署"
+        },
+        {
+          "option_label": "C",
+          "option_text": "DashScope OpenAI兼容接口 → 百炼工作流编排 → OSS存储向量"
+        },
+        {
+          "option_label": "D",
+          "option_text": "PAI-DSW直接调用DashScope Embedding API → 微调后导出至函数计算FC"
+        }
+      ],
+      "answer": "B",
+      "analysis": "题干三重约束构成典型‘训模型+私有化+高并发’场景：①‘数据严禁出域’排除所有需上送API的方案（A、C、D均依赖DashScope托管服务，违反数据不出域）；②‘术语回答不准’需主动微调，非百炼轻量调优可解决（百炼微调能力限于平台内参数/LoRA小规模，不支持自定义结构或大规模训练）；③‘1000+并发’要求生产级服务治理能力，EAS提供弹性伸缩、蓝绿发布、监控告警，远超函数计算FC或百炼托管服务的SLA保障。B选项严格对应教材10.4节PAI三件套分工（DSW开发→DLC训练→EAS部署）及10.7节‘开源模型+PAI’私有化路径，且ModelScope是开源模型唯一合法下载源（10.7明确‘商业版不可私有化，开源版从ModelScope下载’）。A错在百炼/DashScope本质是MaaS托管，数据必上送；C混淆分层，工作流不能替代训练；D中FC无GPU推理优化、无弹性伸缩，且调用DashScope API仍违反出域要求。",
+      "difficulty_label": "挑战"
+    },
+    {
+      "type": 1,
+      "stem": "运维工程师发现生产环境DashScope API调用频繁返回429错误，日志显示RPM（每分钟请求数）持续超限。此时应采取哪些符合原文10.8节成本与稳定性原则的措施？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "立即在代码中添加指数退避+随机抖动重试机制"
+        },
+        {
+          "option_label": "B",
+          "option_text": "将所有qwen-plus请求降级为qwen-turbo以降低单次Token消耗"
+        },
+        {
+          "option_label": "C",
+          "option_text": "检查前端是否未做请求限流，增加客户端并发控制"
+        },
+        {
+          "option_label": "D",
+          "option_text": "申请提升DashScope RPM配额，无需修改代码"
+        },
+        {
+          "option_label": "E",
+          "option_text": "在服务端缓存高频问题的固定答案，减少API调用次数"
+        }
+      ],
+      "answer": "A,C,E",
+      "analysis": "原文10.8节‘处理限流’明确要求‘遇429用指数退避+抖动重试’（A正确）；‘RPM/TPM限流’属于硬性配额，必须从源头控制并发，故检查并限制前端并发是根本（C正确）；‘善用缓存’被列为省成本工程手段第4条，且缓存固定答案可规避限流（E正确）。B错误：RPM是请求数限制，与Token无关，降级模型无法缓解RPM超限；D错误：原文10.8‘风险’部分强调‘不能假设无限并发’，生产环境必须自主实现重试/降级/限流，而非依赖配额提升——这违背稳定性设计原则，且配额提升需审批，非即时解法。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 0,
+      "stem": "HR希望零代码搭建新人答疑机器人，上传员工手册后能回答‘年假几天’等问题，并发布到钉钉群。若在PAI-DSW中创建Jupyter Notebook编写RAG流水线代码实现该功能，此做法最根本的问题在于？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "PAI-DSW不支持文档解析与向量化，无法实现RAG"
+        },
+        {
+          "option_label": "B",
+          "option_text": "违背‘谁该用控制台、谁该写代码、谁必须训模型’的分层决策原则"
+        },
+        {
+          "option_label": "C",
+          "option_text": "DSW实例按计算时计费，成本远高于百炼知识库"
+        },
+        {
+          "option_label": "D",
+          "option_text": "PAI-EAS无法将DSW中的RAG服务一键发布到钉钉"
+        }
+      ],
+      "answer": "B",
+      "analysis": "题干核心是‘HR零代码需求’与‘PAI-DSW写代码实现’的冲突。教材10.5节‘选型决策’明确指出：‘要快速搭知识库问答/智能体/工作流并发布→百炼’；10.9节误区表强调‘百炼是为不懂编程的HR准备的’。PAI-DSW面向算法工程师（10.4节），其定位是‘自己造/改模型’，而知识库问答属于标准RAG应用，百炼已内置‘文档解析→切片→向量化→检索’全链路（10.2节表格）。选择DSW是严重错层：本该用应用层（百炼）解决的问题，却强行进入训练部署层（PAI）编码，违背分层选型根本原则。A错：DSW完全支持RAG代码开发；C是成本次生问题，非根本；D错：EAS可部署任意服务，但发布到钉钉需额外开发，非百炼‘一键发布’能力。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 1,
+      "stem": "开发团队在PAI-DSW中完成Qwen2-1.5B模型微调后，需验证推理效果。以下哪些操作符合教材10.4节推荐的验证路径？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "在DSW中使用vLLM本地起HTTP服务，通过curl测试生成结果"
+        },
+        {
+          "option_label": "B",
+          "option_text": "将模型直接提交至PAI-EAS部署，跳过本地验证"
+        },
+        {
+          "option_label": "C",
+          "option_text": "使用DashScope原生SDK调用微调后模型的EAS服务地址进行测试"
+        },
+        {
+          "option_label": "D",
+          "option_text": "在DSW中加载微调模型权重，运行Python脚本执行prompt推理并打印输出"
+        },
+        {
+          "option_label": "E",
+          "option_text": "将微调模型导出为ONNX格式，在OSS中存储后通过DataWorks调度验证"
+        }
+      ],
+      "answer": "A,D",
+      "analysis": "教材10.4节‘原理’部分明确给出验证路径：‘得到合并后的模型，用vLLM本地起服务验证（其HTTP接口本身兼容OpenAI API）’（A正确）；DSW作为交互式开发环境（10.4节定义），天然支持加载模型权重执行推理脚本（D正确）。B错误：10.4节强调‘要稳定对外提供高并发服务时，再用PAI-EAS部署’，本地验证是EAS部署前必要步骤；C错误：DashScope SDK用于调用DashScope托管模型，不能调用用户自部署的EAS服务（EAS服务需用标准HTTP或OpenAI兼容接口调用）；E错误：ONNX导出与DataWorks调度属于大数据ETL范畴，与模型推理验证无关，且原文未提此路径。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 0,
+      "stem": "课程实验中，学生在PAI-DSW GPU实例运行微调脚本后关闭浏览器，次日发现账单异常高昂。最可能的根本原因及依据是？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "GPU实例未停止，持续按计算时计费；依据：10.4节‘DSW费用提醒’明确‘关闭浏览器不等于停止实例’"
+        },
+        {
+          "option_label": "B",
+          "option_text": "微调过程触发了DLC分布式训练，产生额外费用；依据：10.4节‘DLC用于大规模训练’"
+        },
+        {
+          "option_label": "C",
+          "option_text": "模型部署到EAS后未缩容，导致持续计费；依据：10.4节‘EAS支持弹性伸缩’"
+        },
+        {
+          "option_label": "D",
+          "option_text": "DashScope API调用超出免费额度；依据：10.8节‘免费额度有有效期’"
+        }
+      ],
+      "answer": "A",
+      "analysis": "题干关键动作是‘在DSW运行脚本后关闭浏览器’，结果是‘账单高昂’。教材10.4节‘DSW费用提醒’三条警示中第一条即：‘DSW实例按计算时计费，关闭浏览器不等于停止实例，不学了必须回控制台停止或删除’；第二条强调‘GPU实例消耗额度远快于CPU’。这直接解释了现象：GPU实例持续运行产生高额计算时费用。B错误：题干未提提交DLC任务；C错误：未涉及EAS部署；D错误：DSW内运行脚本不调用DashScope API（除非显式编码），且账单高昂主因是GPU计算时，非API Token。",
+      "difficulty_label": "入门"
+    },
+    {
+      "type": 1,
+      "stem": "当百炼应用需要调用部署在PAI-EAS上的私有模型时，以下哪些条件是必须同时满足的？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "PAI-EAS服务需配置为公网可访问或VPC内网互通"
+        },
+        {
+          "option_label": "B",
+          "option_text": "百炼应用中需配置PAI-EAS服务的Endpoint和认证密钥"
+        },
+        {
+          "option_label": "C",
+          "option_text": "PAI-EAS服务的API接口需兼容OpenAI标准格式（如/chat/completions）"
+        },
+        {
+          "option_label": "D",
+          "option_text": "百炼平台需开通PAI产品权限并完成跨产品授权"
+        },
+        {
+          "option_label": "E",
+          "option_text": "PAI-EAS部署的模型必须是通义千问系列商业版"
+        }
+      ],
+      "answer": "A,B,C",
+      "analysis": "教材10.1节末尾明确描述全链路：‘百炼应用再去调用EAS上的私有模型’，且10.5节对比表指出百炼‘能否用自定义/私有模型’为‘可对接’。实现对接需三要素：网络连通（A，否则无法发起HTTP请求）、服务地址与鉴权（B，百炼需知道调哪里及如何认证）、接口协议兼容（C，百炼工作流/智能体调用外部服务需标准REST API，而vLLM等工具默认兼容OpenAI格式，10.4节提及‘vLLM本地起服务验证（其HTTP接口本身兼容OpenAI API）’）。D错误：百炼与PAI同属阿里云账号体系，无需额外‘跨产品授权’，控制台内配置Endpoint即可；E错误：10.7节强调私有化必须用‘开源版’，商业版不可私有部署。",
+      "difficulty_label": "挑战"
+    }
+  ]
+}

@@ -1,0 +1,145 @@
+{
+  "new-12-42-0": {
+    "qid": "new-12-42-0",
+    "classification": "own",
+    "chapter": 12,
+    "quality": "ok",
+    "reason": "考查文档解析工具链选型，结合离线、扫描件、表格等约束条件。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "文档是扫描件、截图、复杂表格、图文混排 PDF → 上 DashScopeParse（OCR + 版面结构化）；需要完全离线、多格式统一分区，或百炼不满足合规 → 评估 Unstructured 或 PyMuPDF",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "PyMuPDF对扫描件无效，不满足OCR需求。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "Unstructured本地部署支持OCR和表格提取，符合离线刚性约束。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "DashScopeParse是云端服务，违反离线要求。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "自定义开发可行，但非最符合选型原则的推荐组合。"
+      }
+    ],
+    "duplicate_of": "12-5105"
+  },
+  "new-12-42-1": {
+    "qid": "new-12-42-1",
+    "classification": "own",
+    "chapter": 12,
+    "quality": "ok",
+    "reason": "考查RAG故障根因分析，涉及索引持久化、解析、切片和Embedding。",
+    "answer": [
+      "A",
+      "B",
+      "C"
+    ],
+    "supported": true,
+    "quote": "索引需要持久化，避免每次重建；新增/修改文档后必须重新走‘解析→切片→建索引’流程；扫描件 PDF 读出来是空的 → 需要 OCR / DashScopeParse",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "索引未持久化且新增文档未加载，导致旧索引被使用。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "SimpleDirectoryReader对扫描件OCR失败，导致新政策丢失。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "切片不当破坏语义完整性，影响检索召回。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "Embedding模型版本影响语义相似度，但非主要故障原因。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-12-42-2": {
+    "qid": "new-12-42-2",
+    "classification": "own",
+    "chapter": 12,
+    "quality": "ok",
+    "reason": "考查低代码平台与解析能力组合选型，满足非技术人员与离线要求。",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "Dify 是一个开源的**低代码 LLM 应用开发平台**；扫描件/复杂表格 → 需要 OCR + 版面结构化的解析能力（如百炼文档智能）",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "Dify内置解析器能力未明确，可能不满足扫描件需求。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "需要工程师运行脚本，不符合非技术人员可维护。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "Dify满足低代码，自定义插件接入百炼API满足解析能力。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "Unstructured本地服务需部署维护，增加技术复杂度。"
+      }
+    ],
+    "duplicate_of": "12-5103"
+  },
+  "new-12-42-3": {
+    "qid": "new-12-42-3",
+    "classification": "own",
+    "chapter": 12,
+    "quality": "ok",
+    "reason": "考查LangChain与LlamaIndex组合时，Tool封装与提示词配置错误。",
+    "answer": [
+      "A",
+      "C"
+    ],
+    "supported": true,
+    "quote": "`context_str` 是检索到的上下文，不是用户问题；Tool 的参数必须用 **JSON Schema** 声明",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "args_schema定义错误导致query_str参数无法传入QueryEngine。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "流式设置影响输出方式，不影响context_str内容生成。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "Tool执行函数未动态传入用户输入，导致固定查询。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "模板中变量写反会导致逻辑错误，但题干描述为context_str值固定。"
+      }
+    ],
+    "duplicate_of": "12-5110"
+  }
+}

@@ -1,0 +1,215 @@
+{
+  "new-9-18-0": {
+    "qid": "new-9-18-0",
+    "classification": "own",
+    "chapter": 9,
+    "quality": "ok",
+    "reason": "题干描述429错误和立即重试，考查指数退避与抖动的重试策略。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "指数退避 + 抖动（Exponential Backoff with Jitter）是处理 429/5xx 的标准做法。在等待时间上加一个随机抖动，避免大量客户端‘踩点同时重试’把服务再次打爆",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "题干明确是429错误，与API Key鉴权无关。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "立即重试且集中于同一时间点，未加抖动，会引发重试风暴。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "题干未提及400错误，且429与400处置原则本就不同。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "题干已说明是3次立即重试，并非无限循环。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-9-18-1": {
+    "qid": "new-9-18-1",
+    "classification": "own",
+    "chapter": 9,
+    "quality": "ok",
+    "reason": "考查成本控制优先级，原文明确先控制输入长度，再考虑其他手段。",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "成本控制的优先级：1. 先选对模型档位……2. 控制输入长度——压缩历史、过滤无关检索结果、精简 system prompt",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "降级模型是优先级1，但题干核心问题是输入过长，应先解决。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "缓存可省钱，但前提是前缀稳定，且非解决输入过长的首要措施。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "滑动窗口截断直接减少输入Token，是控制输入长度的典型手段。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "限制输出长度是优先级3，且题干问题在于输入历史过长。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-9-18-2": {
+    "qid": "new-9-18-2",
+    "classification": "own",
+    "chapter": 9,
+    "quality": "ok",
+    "reason": "考查多轮对话失忆的根本原因及修复方法，即历史消息未完整传入。",
+    "answer": [
+      "A",
+      "C"
+    ],
+    "supported": true,
+    "quote": "多轮对话答非所问、指代不清 → 首先检查‘历史消息有没有完整放进 messages’",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "将第一次的assistant回复追加，是构建完整历史的一部分。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "修改system消息无法解决历史缺失问题，且Jira是上一轮答案。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "必须将第一次的user和assistant消息都加入，才能提供完整上下文。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "加提示词是提示工程手段，不能解决API无状态导致的历史缺失。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-9-18-3": {
+    "qid": "new-9-18-3",
+    "classification": "own",
+    "chapter": 9,
+    "quality": "ok",
+    "reason": "考查Batch API的适用场景，即离线、大批量、成本敏感任务。",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "Batch 通过后台调度实现更高吞吐与更经济单价，契合离线大批量场景",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "JSONL格式是技术细节，不是选择Batch的最根本工程依据。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "减少长连接资源占用是优点，但非最根本的离线大批量场景依据。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "Batch的核心优势是异步、高吞吐、经济单价，契合题干场景。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "自动重试是便利性，非选择Batch的最根本工程依据。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-9-18-4": {
+    "qid": "new-9-18-4",
+    "classification": "own",
+    "chapter": 9,
+    "quality": "ok",
+    "reason": "考查Function Calling完整流程中，工具结果回传的关键步骤遗漏。",
+    "answer": [
+      "A",
+      "B",
+      "C"
+    ],
+    "supported": true,
+    "quote": "拿到 tool_calls 就以为工具已经执行——模型只是‘提议’，执行工具的是你自己的代码；忘了把 response_message 追加进 messages；回传结果时漏 tool_call_id",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "未追加response_message，模型在第二次调用时不知之前决策。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "漏tool_call_id，模型无法将结果与之前的调用对应。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "未将tool结果作为role='tool'的消息加入，模型无结果可用。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "description简略可能导致参数提取不准，但不影响结果回传流程。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-9-18-5": {
+    "qid": "new-9-18-5",
+    "classification": "own",
+    "chapter": 9,
+    "quality": "ok",
+    "reason": "考查API Key泄露后的应急操作顺序，教材有明确步骤。",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "泄漏后的应急顺序：立即禁用/轮换 Key → 检查近期调用记录 → 评估损失",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "顺序符合教材要求：立即禁用、检查记录、评估损失、更新配置。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "先重新生成Key再禁用旧Key，可能给攻击者留有时间窗口。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "清理Git历史非应急首要步骤，且删除文件不能清除历史记录。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "先检查日志确认泄漏源，会延误禁用Key的黄金时间。"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

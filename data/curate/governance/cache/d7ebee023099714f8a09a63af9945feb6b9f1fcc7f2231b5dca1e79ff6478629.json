@@ -1,0 +1,110 @@
+{
+  "new-10-0-0": {
+    "qid": "new-10-0-0",
+    "classification": "own",
+    "chapter": 10,
+    "quality": "ok",
+    "reason": "综合考查平台选型，需结合数据不出域、无GPU运维、有算法工程师等约束判断。",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "开源模型的价值集中在三点：① 数据隐私与合规（数据不出域）；② 可深度定制（任意微调/改结构）；③ 大规模稳定流量下的长期成本可控。代价是需要 GPU、算法与运维能力。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "百炼数据托管，不符合‘数据绝对不可出域’要求。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "DashScope调用数据需上送云端，违反数据不出域约束。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "开源模型+PAI部署满足数据不出域，有算法工程师可操作。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "自研RAG服务运维复杂，与‘无GPU运维能力’冲突。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-10-0-2": {
+    "qid": "new-10-0-2",
+    "classification": "own",
+    "chapter": 10,
+    "quality": "ok",
+    "reason": "考查RAG与平台集成实践，需判断哪些符合教材推荐的工程化路径。",
+    "answer": [
+      "A",
+      "C"
+    ],
+    "supported": true,
+    "quote": "百炼知识库（RAG）内置文档解析、切片、向量化、检索，上传文档即可问答。DashScope原生接口能用上部分平台特有参数/能力（如特定多模态、重排序服务）。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "百炼知识库支持上传PDF和RAG，API可嵌入现有Java应用。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "训练专用模型过度复杂，不符合教材推荐的高效实践。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "qwen-long适合长文档，TextReRank是DashScope原生重排序服务。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "qwen-plus非长文档专用，切片分批请求效率低。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-10-0-4": {
+    "qid": "new-10-0-4",
+    "classification": "own",
+    "chapter": 10,
+    "quality": "ok",
+    "reason": "考查开源模型选型决策因素，需依据教材中开源模型价值与适用场景判断。",
+    "answer": [
+      "A",
+      "B",
+      "C"
+    ],
+    "supported": true,
+    "quote": "开源模型的价值集中在三点：① 数据隐私与合规（数据不出域）；② 可深度定制；③ 大规模稳定流量下的长期成本可控。代价是需要 GPU、算法与运维能力。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "数据不出本地机房是开源模型的核心优势之一。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "团队具备微调与部署经验，满足开源模型所需的技术能力。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "大规模稳定调用下，自托管可能比API调用更经济。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "快速验证MVP应优先用托管API，而非自部署开源模型。"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

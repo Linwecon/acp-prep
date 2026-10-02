@@ -1,0 +1,247 @@
+{
+  "1-0646": {
+    "qid": "1-0646",
+    "classification": "cross",
+    "chapter": 8,
+    "quality": "ok",
+    "reason": "题目考查AI安全与合规中防范敏感信息泄露的工程实践，属于第8章知识范畴。",
+    "answer": [
+      "A",
+      "B",
+      "C",
+      "D"
+    ],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "输入过滤是防御敏感信息泄露的基础手段。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "输出审查是防止敏感信息泄露的最后防线。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "微调可使模型学习特定安全策略，适配私域场景。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "最小权限原则要求对数据访问进行限制。"
+      },
+      {
+        "label": "E",
+        "selected": false,
+        "why": "通用大模型不具备可靠的“自我意识”来防范泄露。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "1-0676": {
+    "qid": "1-0676",
+    "classification": "own",
+    "chapter": 1,
+    "quality": "ok",
+    "reason": "题目考查处理实时流式数据时与大模型基础特性相关的技术考虑。",
+    "answer": [
+      "A",
+      "B",
+      "C",
+      "D",
+      "E"
+    ],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "流式响应可改善用户体验，是流式输出的核心价值。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "长时间对话需要管理会话状态和历史信息。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "上下文窗口有限，需管理历史信息避免超限。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "低延迟是实时流式应用的关键性能要求。"
+      },
+      {
+        "label": "E",
+        "selected": true,
+        "why": "会话状态一致性是多轮对话连贯性的基础。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "1-0738": {
+    "qid": "1-0738",
+    "classification": "own",
+    "chapter": 1,
+    "quality": "ok",
+    "reason": "题目考查解决大模型多轮对话中“遗忘”问题的工程措施，属于第1章核心知识。",
+    "answer": [
+      "A",
+      "B",
+      "D"
+    ],
+    "supported": true,
+    "quote": "大模型 API 是无状态（Stateless）的：每次 HTTP 请求相互独立，服务端不会因为你上次调过就“记得”你。所谓“多轮对话”，本质是客户端把历史消息拼进 messages，每次重新发一遍。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "符合大模型无状态特性，需主动传入历史记录。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "摘要压缩是管理长上下文、保留核心信息的有效手段。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "强制结束对话是业务策略，非解决“遗忘”的技术优化。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "会话状态管理工具可辅助维护对话连贯性。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "1-0792": {
+    "qid": "1-0792",
+    "classification": "own",
+    "chapter": 1,
+    "quality": "ok",
+    "reason": "题目考查大模型处理客户反馈时不同NLP任务类型的组合应用，属于基础能力范畴。",
+    "answer": [
+      "A",
+      "B",
+      "C"
+    ],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "命名实体识别可用于提取联系方式等实体信息。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "文本分类可用于判断问题类型和满意度类别。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "文本摘要可用于从多份反馈中生成概括性统计报表。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "信息抽取与文本分类功能重叠，且未涵盖生成报表。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "1-0803": {
+    "qid": "1-0803",
+    "classification": "cross",
+    "chapter": 2,
+    "quality": "ok",
+    "reason": "题目考查通过提示工程实现个性化适配的策略，属于提示工程的应用范畴。",
+    "answer": [
+      "A",
+      "B",
+      "D"
+    ],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "调整语言复杂度是典型的个性化提示工程手段。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "动态调整难度是基于上下文（学习进度）的工程化实践。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "统一内容与个性化适配目标相悖。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "根据学习风格调整解释方式是个性化的重要体现。"
+      },
+      {
+        "label": "E",
+        "selected": false,
+        "why": "忽略个性化直接违背题目“有效适配策略”的要求。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "1-0804": {
+    "qid": "1-0804",
+    "classification": "cross",
+    "chapter": 2,
+    "quality": "ok",
+    "reason": "题目考查智能客服场景下通过提示工程处理用户情绪的优化策略。",
+    "answer": [
+      "A",
+      "B",
+      "D"
+    ],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "识别情绪并调整回应是提示工程中上下文感知的体现。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "使用安抚性语言是通过提示词调整模型语气和策略。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "坚持标准流程可能加剧情绪化用户的不满。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "为高情绪用户分配人工是合理的业务降级和流程优化。"
+      },
+      {
+        "label": "E",
+        "selected": false,
+        "why": "忽略情绪不符合“改善服务效果”的目标。"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

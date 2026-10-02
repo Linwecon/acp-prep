@@ -1,0 +1,107 @@
+{
+  "new-10-168-0": {
+    "qid": "new-10-168-0",
+    "classification": "own",
+    "chapter": 10,
+    "quality": "ok",
+    "reason": "考查ModelScope核心定位，原文明确定义其为开源模型社区",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "ModelScope（魔搭社区）是阿里云主导的开源模型与数据集社区，类似\"模型界的 GitHub\"。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "Notebook是附带能力，非核心定位"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "原文明确定义为开源模型社区"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "托管API是DashScope定位"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "RAG引擎是百炼能力"
+      }
+    ],
+    "duplicate_of": "10-5161"
+  },
+  "new-10-168-2": {
+    "qid": "new-10-168-2",
+    "classification": "own",
+    "chapter": 10,
+    "quality": "ok",
+    "reason": "考查429错误处理原则，原文明确要求指数退避+抖动",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "遇 429 用**指数退避 + 抖动**重试，必要时降级到更小模型；切忌无间隔死循环重试，那会加剧限流、推高成本。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "缓存折扣非限流主因"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "模型路由非限流直接对策"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "原文明确要求该策略"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "max_tokens限制输出非限流对策"
+      }
+    ],
+    "duplicate_of": "10-5188"
+  },
+  "new-10-168-5": {
+    "qid": "new-10-168-5",
+    "classification": "own",
+    "chapter": 10,
+    "quality": "ok",
+    "reason": "考查平台选型原则，HR属应用开发者应选百炼",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "百炼面向应用开发者、产品、运营；PAI面向算法/ML工程师；先判断'搭应用/调接口/训模型'再对号入座。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "计费风险非根本问题"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "违背使用者分层原则"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "DSW可调用DashScope模型"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "DSW支持PDF解析"
+      }
+    ],
+    "duplicate_of": "10-5179"
+  }
+}

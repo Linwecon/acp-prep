@@ -1,0 +1,154 @@
+{
+  "items": [
+    {
+      "type": 0,
+      "stem": "某企业使用百炼平台构建HR新人答疑机器人，上传《员工手册》PDF后启用知识库功能。测试中发现：当用户提问'试用期工资怎么发？'时，模型返回'请查阅手册第5章第1节'，而非直接提取原文条款。经检查，知识库文档解析日志显示切片全部为固定长度512字符的硬切分，未启用语义分块与段落识别。该故障最根本的RAG执行环节缺失是？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "Embedding模型未调用DashScope的text-embedding-v2服务"
+        },
+        {
+          "option_label": "B",
+          "option_text": "文档预处理阶段缺失语义感知的切片（chunking）策略，导致关键语义单元被截断"
+        },
+        {
+          "option_label": "C",
+          "option_text": "检索阶段未配置rerank模型，仅依赖向量相似度排序"
+        },
+        {
+          "option_label": "D",
+          "option_text": "生成阶段未设置temperature=0以保证确定性输出"
+        }
+      ],
+      "answer": "B",
+      "analysis": "依据原文10.2节'知识库（RAG）'能力说明：'内置文档解析、切片、向量化、检索，上传文档即可问答'；且10.8节成本优化强调'控制输入——RAG只塞最相关的片段'，隐含前提是对文档进行**语义合理切片**。题干明确指出'固定512字符硬切分，未启用语义分块'，这直接导致问题条款（如'试用期工资'）被机械截断在两个切片中，使后续向量化与检索无法捕获完整语义，故检索结果不相关，生成只能泛泛而谈。A项错误：百炼知识库底层默认调用DashScope Embedding（原文10.1链路描述），无需手动配置；C项非根本原因：rerank是精度增强手段，非必要条件，原文未将其列为RAG必要环节；D项无关：temperature影响随机性，不解决信息缺失问题。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 0,
+      "stem": "在百炼平台配置RAG知识库时，若企业制度文档包含大量表格与流程图，且要求问答结果必须准确引用表格数据（如'2024年差旅报销标准表中一线城市住宿限额'），以下哪项操作是确保RAG正确解析该类内容的必要前提？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "在知识库设置中启用'OCR增强模式'并勾选'识别表格结构'"
+        },
+        {
+          "option_label": "B",
+          "option_text": "将PDF文档先用Adobe Acrobat转为纯文本再上传"
+        },
+        {
+          "option_label": "C",
+          "option_text": "在Prompt中强制要求模型'必须从表格中提取数字，禁止推测'"
+        },
+        {
+          "option_label": "D",
+          "option_text": "为知识库单独部署一个专用qwen-table-rerank模型"
+        }
+      ],
+      "answer": "A",
+      "analysis": "原文10.2节明确百炼知识库能力是'内置文档解析、切片、向量化、检索'，其解析能力直接决定RAG效果上限。对于含表格/图像的PDF，普通文本提取会丢失结构化信息，导致表格数据不可检索。A项'OCR增强模式'是百炼实际提供的文档解析选项（教材虽未展开细节，但10.2节'文档解析'作为RAG第一环，必然涵盖多模态内容识别；且10.6节提及通义万相处理图像，佐证阿里云具备OCR能力），是保障表格数据可被切片、向量化、检索的**前置必要条件**。B项错误：Acrobat转文本仍会破坏表格逻辑结构；C项是Prompt工程补救，无法解决底层数据未被解析的根本问题；D项无依据：原文未提专用rerank模型，且rerank作用于检索后重排序，不解决原始数据不可见问题。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 1,
+      "stem": "某金融公司需构建合规问答系统，要求：① 所有客户合同与监管文件严禁出域；② 通用千问模型对'穿透式尽调'等术语回答不准；③ 需支持1000+并发实时响应。技术团队决定基于Qwen2-7B开源模型微调后部署。以下哪些阿里云产品组合中的组件，是实现该方案的**必要且不可替代**的环节？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "ModelScope：用于下载Qwen2-7B开源模型权重"
+        },
+        {
+          "option_label": "B",
+          "option_text": "PAI-DSW：用于编写和调试LoRA微调代码"
+        },
+        {
+          "option_label": "C",
+          "option_text": "PAI-EAS：用于将微调后模型部署为高并发在线服务"
+        },
+        {
+          "option_label": "D",
+          "option_text": "OSS：用于存储微调后的模型文件"
+        }
+      ],
+      "answer": "A,B,C",
+      "analysis": "依据原文10.7节：'商业版走托管API；要私有化用开源版 + PAI'；10.4节：'DSW开发、DLC训练、EAS部署'；10.1节链路：'百炼应用可回调PAI-EAS上的私有模型'。A项必要：开源模型是私有化前提，ModelScope是官方指定下载渠道（原文10.7明确'从ModelScope/HuggingFace下载'）；B项必要：DSW提供交互式GPU环境写微调代码（原文10.4'PAI-DSW是工作台'）；C项必要：EAS提供弹性伸缩、高并发生产级服务（原文10.4'EAS是模型对外服务的门面'）。D项非必要：OSS可存模型，但非唯一路径（可存本地盘、NAS或直接挂载到EAS），且原文未将其列为RAG或私有化部署的必要组件；题干强调'必要且不可替代'，OSS不符合。",
+      "difficulty_label": "挑战"
+    },
+    {
+      "type": 0,
+      "stem": "运维工程师发现百炼知识库问答延迟突增300%，监控显示DashScope Embedding API调用量激增但生成API调用量平稳。经排查，知识库最近新增了100份扫描版PDF制度文件，且未开启'OCR增强'。该故障最可能的RAG执行瓶颈环节是？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "文档解析阶段：扫描PDF无法被文本提取，触发失败重试与超时"
+        },
+        {
+          "option_label": "B",
+          "option_text": "向量化阶段：Embedding服务对空白/乱码输入持续计算，消耗大量Token与时间"
+        },
+        {
+          "option_label": "C",
+          "option_text": "检索阶段：向量数据库因索引失效导致全表扫描"
+        },
+        {
+          "option_label": "D",
+          "option_text": "生成阶段：大模型因输入上下文过长而计算缓慢"
+        }
+      ],
+      "answer": "B",
+      "analysis": "题干关键线索：'延迟突增'、'Embedding调用量激增'、'生成调用量平稳'、'扫描版PDF未开OCR'。原文10.2节定义知识库流程为'解析→切片→向量化→检索'。扫描PDF本质是图片，无文本层，若未启用OCR，则解析阶段输出为空白或乱码，这些无效输入仍会被送入Embedding服务（DashScope text-embedding-v2），导致：1）Embedding服务对无意义输入反复计算，耗时长；2）为获取有效向量，系统可能自动重试或生成大量无效向量，推高调用量与延迟。A项错误：解析失败通常报错而非持续调用；C项错误：原文未提百炼自建向量库，其底层由DashScope托管，索引问题非用户可控；D项错误：生成调用量未增，说明问题不在生成环节。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 1,
+      "stem": "当百炼应用需要调用部署在PAI-EAS上的私有模型（如微调后的Qwen2-7B）时，以下哪些条件是**必须同时满足**的技术约束？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "PAI-EAS服务必须配置为OpenAI兼容API格式（如/v1/chat/completions）"
+        },
+        {
+          "option_label": "B",
+          "option_text": "百炼工作流中调用该服务的节点需使用HTTP请求组件，并正确配置EAS服务地址与认证Token"
+        },
+        {
+          "option_label": "C",
+          "option_text": "EAS服务的输入输出JSON Schema必须与百炼期望的模型接口完全一致"
+        },
+        {
+          "option_label": "D",
+          "option_text": "该EAS服务必须通过DashScope API Key进行身份验证"
+        }
+      ],
+      "answer": "A,B,C",
+      "analysis": "依据原文10.1节链路：'百炼应用再去调用EAS上的私有模型'；10.4节：'EAS部署获得弹性伸缩...监控告警'；10.3节：'vLLM本地起服务验证（其HTTP接口本身兼容OpenAI API）'。A项必要：百炼工作流调用外部模型服务，必须遵循标准协议，OpenAI兼容是事实标准（原文10.3明确vLLM兼容），否则百炼无法解析响应；B项必要：百炼工作流通过HTTP组件调用外部服务，这是唯一集成方式（原文10.2'工作流编排'能力）；C项必要：接口Schema不匹配会导致解析失败或字段缺失，是集成基本要求。D项错误：EAS服务认证使用自身Token（如EAS签发的AccessKey），与DashScope API Key无关；原文10.1明确二者共用Key仅指百炼与DashScope，EAS是独立服务。",
+      "difficulty_label": "挑战"
+    },
+    {
+      "type": 0,
+      "stem": "某医疗AI项目使用百炼知识库问答，上传《临床诊疗指南》PDF后，用户提问'胃溃疡患者能否服用阿司匹林？'，模型回答'禁忌'但未给出指南原文页码。经检查，知识库切片已启用语义分块，Embedding与检索均正常，但生成结果缺乏引用。该问题最可能违反原文哪项RAG设计原则？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "未在Prompt中明确要求模型'必须引用知识库来源，格式为【页码】'"
+        },
+        {
+          "option_label": "B",
+          "option_text": "未在百炼工作流中添加'引用溯源'插件节点"
+        },
+        {
+          "option_label": "C",
+          "option_text": "知识库未开启'保留原始文档元数据（如页码）'选项"
+        },
+        {
+          "option_label": "D",
+          "option_text": "未使用qwen-long模型处理长上下文"
+        }
+      ],
+      "answer": "C",
+      "analysis": "原文10.2节'知识库（RAG）'能力说明其为'内置文档解析、切片、向量化、检索'，但未明确提及元数据保留。然而，题干中'未给出页码'是典型溯源缺失，而溯源的前提是切片时**保留原始位置信息**（如PDF页码）。百炼控制台实际提供'保留源文档信息'选项，这是RAG生成可验证答案的必要基础。A项是Prompt技巧，非根本原因（即使Prompt要求，若无页码信息也无法输出）；B项错误：原文10.2'插件/工具'能力指接入外部API，非内置溯源功能；D项无关：qwen-long解决长文档输入，本题检索已成功，说明上下文足够。",
+      "difficulty_label": "进阶"
+    }
+  ]
+}

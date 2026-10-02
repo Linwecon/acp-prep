@@ -1,0 +1,220 @@
+{
+  "3-0518": {
+    "qid": "3-0518",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "考查RAG两阶段核心组成，选项设置合理。",
+    "answer": [
+      "A",
+      "B"
+    ],
+    "supported": true,
+    "quote": "RAG由两个阶段组成……第一阶段：离线建库（Indexing，一次做好、多次复用）……第二阶段：在线问答（Retrieval & Generation，每次请求都执行）",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "对应离线建库（建立索引）阶段。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "对应在线问答（检索与生成）阶段。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "RAG不涉及模型训练。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "模型推理是生成环节的一部分，非独立主要部分。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-0526": {
+    "qid": "3-0526",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "fixable",
+    "reason": "题干‘优化检查效果’表述模糊，但考点明确。选项C/D无关。",
+    "answer": [
+      "A",
+      "B"
+    ],
+    "supported": true,
+    "quote": "Markdown因层次分明（`#`/`##`/`###`）、语法简单，被推荐作为RAG文档的中间格式",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "Markdown结构清晰，层次分明。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "Markdown语法简单，易于处理。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "与Markdown格式特点无关。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "与Markdown格式特点无关。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-0527": {
+    "qid": "3-0527",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "fixable",
+    "reason": "题干‘切片向量化与存储阶段’表述不精确，但考查余弦相似度定义。选项C/D无关。",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "余弦相似度……看两个向量的方向夹角……最常用，只看方向、不受长度影响",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "余弦相似度计算向量夹角。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "点积是另一种相似度度量。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "与相似度计算方法无关。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "与相似度计算方法无关。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-0532": {
+    "qid": "3-0532",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "考查RAG生成阶段主要步骤，选项设置合理。",
+    "answer": [
+      "A",
+      "B",
+      "C"
+    ],
+    "supported": true,
+    "quote": "生成阶段做三件事：1. 拼装上下文……2. 提示词约束……3. 生成与溯源",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "召回相关文本段是生成的前提。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "拼装提示词是生成阶段的关键步骤。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "由大模型生成回复是核心步骤。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "与生成阶段步骤无关。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-0533": {
+    "qid": "3-0533",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "考查RAG工作流程关键步骤，覆盖两阶段核心环节。",
+    "answer": [
+      "A",
+      "B",
+      "C",
+      "D"
+    ],
+    "supported": true,
+    "quote": "RAG两阶段全景……第一阶段：离线建库（1.文档收集 2.文档解析 3.文本切片 4.向量化 Embedding 5.写入向量库）……第二阶段：在线问答（1.用户提问 2.（可选）查询改写 3.问题向量化 4.检索 Top K 5.Rerank 重排 6.拼装提示词 7.LLM 生成答案 8.引用溯源输出）",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "文档解析与切片是建库关键步骤。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "向量存储是建库的最终环节。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "检索召回是在线问答的核心。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "生成答案是在线问答的最终输出。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-0534": {
+    "qid": "3-0534",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "考查RAG两阶段核心组成，与3-0518考点一致。",
+    "answer": [
+      "A",
+      "B"
+    ],
+    "supported": true,
+    "quote": "RAG由两个阶段组成……第一阶段：离线建库（Indexing，一次做好、多次复用）……第二阶段：在线问答（Retrieval & Generation，每次请求都执行）",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "对应离线建库（建立索引）阶段。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "对应在线问答（检索生成）阶段。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "RAG不涉及模型训练。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "模型推理是生成环节的一部分，非独立主要部分。"
+      }
+    ],
+    "duplicate_of": "3-0518"
+  }
+}

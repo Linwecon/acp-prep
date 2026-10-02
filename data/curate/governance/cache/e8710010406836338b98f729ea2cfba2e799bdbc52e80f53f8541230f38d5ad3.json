@@ -1,0 +1,225 @@
+{
+  "new-8-0-0": {
+    "qid": "new-8-0-0",
+    "classification": "own",
+    "chapter": 8,
+    "quality": "ok",
+    "reason": "题干描述PDF中藏匿指令，属于典型的间接提示注入攻击。",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "间接提示注入：恶意指令藏于外部数据里，被 RAG/Agent 读入上下文后悄悄生效",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "用户未在对话中直接发出指令，攻击来自上传文档。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "题干未提及SQL语句或数据库篡改。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "恶意指令藏于RAG检索的外部文档中，符合间接提示注入定义。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "未涉及角色扮演或虚构身份，是直接指令覆盖。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-8-0-1": {
+    "qid": "new-8-0-1",
+    "classification": "own",
+    "chapter": 8,
+    "quality": "ok",
+    "reason": "题干描述高计算请求导致资源耗尽，属于资源耗尽型DDoS，需应用层限流熔断。",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "资源耗尽型 DDoS 是 AI 应用的新风险……应用层对单个用户设 token/算力上限并对超复杂请求做成本预估与熔断",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "WAF防CC攻击，但题干核心是单请求高计算消耗。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "SYN Flood是流量层攻击，题干是应用层高计算请求。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "按用户设算力熔断和费用预估限流，直接针对资源耗尽攻击。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "安全组控制网络访问，不解决已授权IP的高消耗请求。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-8-0-2": {
+    "qid": "new-8-0-2",
+    "classification": "own",
+    "chapter": 8,
+    "quality": "ok",
+    "reason": "员工有权看到文档，但后续提问引用了无权看到的片段，暴露RAG权限过滤时机错误。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "过滤发生在检索之后、拼 Prompt 之前……无权条目在进入模型之前就被剔除",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "题干未提及用户提问含越狱话术。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "无权文档片段进入上下文，说明过滤未在拼Prompt前生效。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "题干未提及向量加密或攻击者反推语义。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "输出是IT部数据片段，不一定是PII，且核心是越权访问。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-8-0-3": {
+    "qid": "new-8-0-3",
+    "classification": "own",
+    "chapter": 8,
+    "quality": "ok",
+    "reason": "音频检测需语音转写识别语义，若未启用ASR则无法检测指令内容。",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "音频/直播流里可能出现违规语音……音频检测……异步：先 voice_moderation 提交拿 task_id，再轮询",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "音频检测需ASR转写文本才能识别语义指令，否则仅检测原始音频。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "内容安全服务应对异步任务进行语义审核，题干未提默认关闭。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "voice_moderation是正确接口，live_stream_detection用于直播流。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "题干只提交了音频，未提及其他模态检测结果聚合。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-8-0-4": {
+    "qid": "new-8-0-4",
+    "classification": "own",
+    "chapter": 8,
+    "quality": "ok",
+    "reason": "考查《暂行办法》及《个保法》的合规刚性要求。",
+    "answer": [
+      "A",
+      "C"
+    ],
+    "supported": true,
+    "quote": "面向境内公众提供生成式 AI 服务须依法备案……AI 生成/合成的文本、图片、音视频须添加显著AI生成标识",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "《暂行办法》要求算法备案并公示。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "脱敏是安全最佳实践，但非《暂行办法》或《个保法》明确标识的刚性要求。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "《互联网信息服务深度合成管理规定》要求添加AI生成标识。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "RAM最小权限是云安全实践，非上述法规的明确刚性要求。"
+      },
+      {
+        "label": "E",
+        "selected": false,
+        "why": "HTTPS和KMS加密是数据安全措施，非上述法规明确标识的刚性要求。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-8-0-5": {
+    "qid": "new-8-0-5",
+    "classification": "own",
+    "chapter": 8,
+    "quality": "ok",
+    "reason": "考查对三层实时防御各层不可替代职能的理解。",
+    "answer": [
+      "A",
+      "B",
+      "D"
+    ],
+    "supported": true,
+    "quote": "输入过滤：Prompt 进模型前检测，拦截越狱、角色扮演、提示注入……运行监控：Agent 要调工具时审计其行为……输出审查：最后一道防线，拦截有害言论、数据泄露、幻觉风险内容",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "输入过滤层负责检测越狱话术等恶意指令。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "运行监控层审计工具调用，拦截异常行为如发外部邮件。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "输出审查层防有害内容泄露，规则匹配脱敏是数据安全措施。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "运行监控层设熔断器，防止无限循环等异常。"
+      },
+      {
+        "label": "E",
+        "selected": false,
+        "why": "事实核查属于质量问题处理，非输出审查层核心安全职能。"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

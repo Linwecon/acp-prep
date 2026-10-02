@@ -1,0 +1,206 @@
+{
+  "5-1353": {
+    "qid": "5-1353",
+    "classification": "misplaced",
+    "chapter": 11,
+    "quality": "remove",
+    "reason": "考点为多模态文生图提示词，与第5章微调无关，且选项无明确答案，考查价值低。",
+    "answer": [],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "仅关键词，非最佳实践。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "描述具体，但非唯一最佳。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "过于简略，非最佳。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "仅关键词，非最佳。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "5-1378": {
+    "qid": "5-1378",
+    "classification": "misplaced",
+    "chapter": 11,
+    "quality": "remove",
+    "reason": "考点为多模态文生图提示词，与第5章微调无关，且选项无明确答案，考查价值低。",
+    "answer": [],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "仅关键词，不足以提升质量。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "描述具体，但非唯一最佳。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "反向提示词有效，但非唯一最佳。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "复制链接与提示词无关。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "5-1401": {
+    "qid": "5-1401",
+    "classification": "own",
+    "chapter": 5,
+    "quality": "ok",
+    "reason": "考查微调基础设施关键指标，选项C明显无关，符合常识。",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "在确保计算资源与基础设施能满足大模型微调需求时，哪项不是关键考量指标？",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "GPU是并行计算关键。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "网络带宽影响数据传输。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "界面美观非技术关键指标。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "存储容量保存模型和状态。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "5-1450": {
+    "qid": "5-1450",
+    "classification": "own",
+    "chapter": 5,
+    "quality": "fixable",
+    "reason": "考查Adapter Tuning优势，但选项C表述模糊，教材未明确提及。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "LoRA（Low-Rank Adaptation，低秩适配）不直接更新原始权重矩阵 `W₀`，而是在它旁边\"挂\"一对小矩阵来学习**变化量** `ΔW`",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "Adapter不修改原始参数。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "仅训练新增层，参数高效。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "教材未明确提及此优势。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "仍需验证集监控过拟合。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "5-1451": {
+    "qid": "5-1451",
+    "classification": "own",
+    "chapter": 5,
+    "quality": "ok",
+    "reason": "考查Adapter Tuning核心设计，选项D正确。",
+    "answer": [
+      "D"
+    ],
+    "supported": true,
+    "quote": "LoRA（Low-Rank Adaptation，低秩适配）不直接更新原始权重矩阵 `W₀`，而是在它旁边\"挂\"一对小矩阵来学习**变化量** `ΔW`",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "不替换全部参数。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "与量化梯度无关。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "与随机丢弃无关。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "插入可训练中间层。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "5-0008": {
+    "qid": "5-0008",
+    "classification": "own",
+    "chapter": 5,
+    "quality": "remove",
+    "reason": "题干缺失关键信息（损失趋势图），无法判断状态，条件缺失。",
+    "answer": [],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "无图无法判断。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "无图无法判断。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "无图无法判断。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "无图无法判断。"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

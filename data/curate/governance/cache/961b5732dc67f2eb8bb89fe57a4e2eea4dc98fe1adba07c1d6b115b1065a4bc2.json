@@ -1,0 +1,212 @@
+{
+  "3-0903": {
+    "qid": "3-0903",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "RAG核心是开卷考试，确保答案有据可查",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "RAG 的核心思路可以用四个字概括：\"开卷考试\"。不让模型凭记忆答题，而是在它回答前，先从企业知识库里检索出最相关的几段资料，连同问题一起交给模型，让它\"看着资料作答\"。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "模型知识截止且无私域知识"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "RAG确保答案基于文档，可溯源"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "用户无法提供专业答案"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "不可扩展，非自动化方案"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-0912": {
+    "qid": "3-0912",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "RAG支持实时接入最新学术数据",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "知识更新 = 更新知识库，实时生效，无需重训模型；答案可溯源到具体文档片段，便于人工核验",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "训练知识已过时，无法覆盖最新进展"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "RAG可实时接入学术数据库更新"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "常识推理无法保证学术前沿性"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "非自动化，无法实时响应"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-0920": {
+    "qid": "3-0920",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "RAG知识库可实时更新，适配高频变更",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "知识更新 = 更新知识库，实时生效，无需重训模型；成本远低于微调，是私域知识问答的首选方案",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "静态模型无法适应知识更新"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "RAG知识库实时更新，低延迟生效"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "内置知识截止，无法覆盖新闻"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "定期微调成本高、周期长"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-0947": {
+    "qid": "3-0947",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "RAG基于权威资料保障专业安全",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "答案可溯源到具体文档片段，便于人工核验；RAG与微调的本质区别，RAG不改变模型参数",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "新版本不解决知识截止和幻觉"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "权威资料+溯源确保专业安全"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "指令无法约束幻觉生成"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "免责声明不提升答案准确性"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-0992": {
+    "qid": "3-0992",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "重叠+语义边界切分防信息截断",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "切片之所以关键，是因为它直接决定了检索的\"颗粒度\"；工程上通常会设置重叠——相邻 chunk 之间保留一小段重复文字，防止一句话正好被从中间切断",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "极小字符数破坏语义完整性"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "超上下文窗口，无法处理"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "重叠+句子/段落边界保语义"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "随机抽取丢失逻辑关联"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-0993": {
+    "qid": "3-0993",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "截断关键信息导致生成错误答案",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "切得太大：一个 chunk 里混了好几个主题，向量被\"平均\"得没有重点，检索时容易\"沾边但不精准\"，还浪费 token、引入噪声",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "模型仍可生成，但不可靠"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "不完整上下文引发幻觉错误"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "截断不影响检索速度"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "模型无自动补偿机制"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

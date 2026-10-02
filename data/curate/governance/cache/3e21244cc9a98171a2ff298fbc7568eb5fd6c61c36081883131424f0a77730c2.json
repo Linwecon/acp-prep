@@ -1,0 +1,146 @@
+{
+  "new-1-6-0": {
+    "qid": "new-1-6-0",
+    "classification": "own",
+    "chapter": 1,
+    "quality": "ok",
+    "reason": "考查不同模型分词器词表差异导致Token数不同，是本章核心知识点。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "同一段文字在**不同模型上 Token 数可能不同**，因为词表不同。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "位置编码不影响分词，分词在向量化之前。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "教材明确不同模型词表不同，导致分词结果不同。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "temperature影响采样，不影响分词。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "top_p影响采样，不影响分词和embedding维度。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-1-6-2": {
+    "qid": "new-1-6-2",
+    "classification": "own",
+    "chapter": 1,
+    "quality": "ok",
+    "reason": "考查过长无关上下文稀释注意力（Lost in the Middle）现象。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "过长的**无关**上下文会稀释注意力、引入噪声（'Lost in the Middle'现象）",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "top_p不会在长上下文中被自动缩放。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "教材指出过长无关上下文会稀释注意力，导致忽略关键信息。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "教材未提及softmax数值溢出。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "top_p采样不会强制选择特定数值。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-1-6-3": {
+    "qid": "new-1-6-3",
+    "classification": "own",
+    "chapter": 1,
+    "quality": "ok",
+    "reason": "考查top_p和top_k解码策略的严格定义。",
+    "answer": [
+      "A",
+      "D"
+    ],
+    "supported": true,
+    "quote": "top_p（Nucleus Sampling）：把候选按概率从高到低累加，只在'累计概率达到 p'的最小集合里采样，候选集大小**动态**变化；top_k：固定只保留概率最高的 k 个 Token",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "符合教材对top_p动态候选集的描述。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "top_k可独立使用，教材未提必须与temperature联用。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "top_p=1.0是在完整词表采样，但非均匀随机。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "top_k=1近似贪婪解码，符合教材逻辑。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-1-6-4": {
+    "qid": "new-1-6-4",
+    "classification": "own",
+    "chapter": 1,
+    "quality": "ok",
+    "reason": "考查采样随机性导致同一问题输出不同的技术根源。",
+    "answer": [
+      "A",
+      "B",
+      "C",
+      "D"
+    ],
+    "supported": true,
+    "quote": "seed参数未显式设置，导致每次调用使用不同随机种子，引发采样结果差异；top_p=0.8在概率分布中截取前两个Token；temperature=0.7使原始logits分布平滑化，扩大了中低概率Token被选中的机会；模型在训练阶段未见过该公司内部政策",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "seed未设导致随机性，是教材提及的原因。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "top_p截断使多个答案在候选集内，符合教材逻辑。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "temperature平滑分布增加多样性，是教材描述的作用。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "模型缺乏私域知识，从训练分布采样，是幻觉根源。"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

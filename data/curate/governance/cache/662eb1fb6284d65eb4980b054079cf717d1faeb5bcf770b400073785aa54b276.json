@@ -1,0 +1,215 @@
+{
+  "12-5063": {
+    "qid": "12-5063",
+    "classification": "own",
+    "chapter": 12,
+    "quality": "ok",
+    "reason": "考查百炼可视化工作流节点功能，属本章框架工具实操细节",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "Dify：低代码 LLM 应用开发平台……知识库（RAG）、工作流、Agent、模型接入、工具调用、发布",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "文本清洗不涉及高亮渲染"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "答案生成负责输出，不处理渲染"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "富文本渲染支持关键词高亮"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "关键词提取是前置步骤，非渲染节点"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "12-5064": {
+    "qid": "12-5064",
+    "classification": "own",
+    "chapter": 12,
+    "quality": "ok",
+    "reason": "考查LangChain提示词模板语法，属本章核心抽象",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "LangChain 的组件可以按\"四层抽象\"理解：Model I/O → PromptTemplate / ChatModel / OutputParser",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "PromptTemplate默认Jinja2语法"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "f-string无法被框架解析注入"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "Markdown占位符非LangChain标准"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "JSON Schema用于Tool参数定义"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "12-5065": {
+    "qid": "12-5065",
+    "classification": "own",
+    "chapter": 12,
+    "quality": "ok",
+    "reason": "考查LlamaIndex NodeParser职责，属本章核心链路",
+    "answer": [
+      "A",
+      "C"
+    ],
+    "supported": true,
+    "quote": "LlamaIndex 的核心数据流是每个考生都应该能默写的一条链：Document -> NodeParser -> Node -> Index -> Retriever -> QueryEngine",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "切片是NodeParser核心职责"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "向量化属Embedding模块"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "元数据添加是NodeParser功能"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "query重写属检索优化层"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "12-5066": {
+    "qid": "12-5066",
+    "classification": "own",
+    "chapter": 12,
+    "quality": "ok",
+    "reason": "考查Dify知识库解析机制，属本章低代码平台实操",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "Dify：低代码 LLM 应用开发平台……知识库（RAG）、工作流、Agent、模型接入、工具调用、发布",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "自动解析开关控制PDF解析"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "文件大小限制未在原文提及"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "Dify内置解析器，无需手动装PyPDF2"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "知识库类型不影响PDF解析逻辑"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "12-5067": {
+    "qid": "12-5067",
+    "classification": "own",
+    "chapter": 12,
+    "quality": "ok",
+    "reason": "考查LangChain Memory组件定位，属本章核心抽象",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "LangChain 的组件可以按\"四层抽象\"理解：Model I/O / Retrieval / Memory / Agent",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "缓存响应非Memory职责"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "Memory专管会话历史持久化"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "连接池管理属向量库SDK"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "prompt压缩需其他策略"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "12-5068": {
+    "qid": "12-5068",
+    "classification": "own",
+    "chapter": 12,
+    "quality": "ok",
+    "reason": "考查百炼工具调用能力边界，属本章平台集成考点",
+    "answer": [
+      "A",
+      "B",
+      "C"
+    ],
+    "supported": true,
+    "quote": "Dify：低代码 LLM 应用开发平台……工具调用……内置 HTTP 请求、代码节点、自定义工具",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "HTTP请求可集成内部API"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "SQL查询可通过代码节点实现"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "TTS服务属外部API可调用"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "错别字修正属LLM生成能力，非工具调用"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

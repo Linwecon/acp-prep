@@ -1,0 +1,273 @@
+{
+  "8-0941": {
+    "qid": "8-0941",
+    "classification": "own",
+    "chapter": 8,
+    "quality": "ok",
+    "reason": "题目考查企业级大模型应用的安全与合规关注点，符合第8章核心内容。",
+    "answer": [
+      "A",
+      "B",
+      "D",
+      "E"
+    ],
+    "supported": true,
+    "quote": "AI 应用安全是覆盖内容、数据、模型、应用、基础设施、合规六个维度的体系工程。它的核心思路是纵深防御",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "数据隐私保护是数据安全核心要求。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "内容安全过滤是输入输出审查关键。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "模型输出确定性是模型特性，非安全合规关注点。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "访问控制和权限管理是权限隔离核心。"
+      },
+      {
+        "label": "E",
+        "selected": true,
+        "why": "审计日志记录是合规追溯的刚需。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "8-0957": {
+    "qid": "8-0957",
+    "classification": "cross",
+    "chapter": 7,
+    "quality": "ok",
+    "reason": "题目考查大模型生成内容的评估维度，属于第7章模型评估范畴。",
+    "answer": [
+      "A",
+      "B",
+      "C",
+      "D",
+      "E"
+    ],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "流畅性是文本生成基本质量维度。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "相关性是评估内容与任务匹配度。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "事实一致性是评估内容真实性。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "安全性是内容合规重要维度。"
+      },
+      {
+        "label": "E",
+        "selected": true,
+        "why": "创造性是内容新颖性评估维度。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "8-0958": {
+    "qid": "8-0958",
+    "classification": "cross",
+    "chapter": 7,
+    "quality": "ok",
+    "reason": "题目考查大模型生成内容的评估维度，属于第7章模型评估范畴。",
+    "answer": [
+      "A",
+      "B",
+      "C",
+      "D",
+      "E"
+    ],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "相关性和准确性是核心评估指标。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "流畅度和连贯性是文本质量基础。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "安全性和合规性是重要评估维度。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "信息量和深度是内容价值体现。"
+      },
+      {
+        "label": "E",
+        "selected": true,
+        "why": "风格和语调恰当性是适用性评估。"
+      }
+    ],
+    "duplicate_of": "8-0957"
+  },
+  "8-0981": {
+    "qid": "8-0981",
+    "classification": "cross",
+    "chapter": 10,
+    "quality": "ok",
+    "reason": "题目考查大模型解决方案选型评估维度，符合第10章阿里云AI平台选型内容。",
+    "answer": [
+      "A",
+      "B",
+      "C",
+      "D",
+      "E"
+    ],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "模型能力和性能是选型核心。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "成本和资源需求是重要考量。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "部署维护复杂度影响实施。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "社区生态和支持影响可持续性。"
+      },
+      {
+        "label": "E",
+        "selected": true,
+        "why": "合规性和安全认证是准入条件。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "8-1038": {
+    "qid": "8-1038",
+    "classification": "own",
+    "chapter": 8,
+    "quality": "ok",
+    "reason": "题目考查视频合规检测的关键步骤，符合第8章多模态内容安全检测内容。",
+    "answer": [
+      "B",
+      "C",
+      "E",
+      "F"
+    ],
+    "supported": true,
+    "quote": "视频既有画面又有音轨，风险面是图文的叠加。所以防护不能只做纯文本。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "用户评论分析非视频合规检测关键步骤。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "视频预处理是检测前必要步骤。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "音频合规检测是视频检测组成部分。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "编码格式选择非合规检测关键步骤。"
+      },
+      {
+        "label": "E",
+        "selected": true,
+        "why": "图片合规检测对应视频抽帧画面检测。"
+      },
+      {
+        "label": "F",
+        "selected": true,
+        "why": "文本合规检测对应字幕和语音转写。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "8-1164": {
+    "qid": "8-1164",
+    "classification": "own",
+    "chapter": 8,
+    "quality": "ok",
+    "reason": "题目考查提高大模型在私域场景下安全性的措施，符合第8章安全体系内容。",
+    "answer": [
+      "A",
+      "B",
+      "E",
+      "F"
+    ],
+    "supported": true,
+    "quote": "安全不是上线后的补救，而是设计阶段就要纳入的基础要求。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "安全培训提升人员安全意识。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "建立响应机制是安全闭环要求。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "开源数据管理软件与安全性无直接必然关系。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "将所有数据存云端可能增加暴露风险。"
+      },
+      {
+        "label": "E",
+        "selected": true,
+        "why": "定期更新是保持安全状态措施。"
+      },
+      {
+        "label": "F",
+        "selected": true,
+        "why": "持续安全评估是纵深防御要求。"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

@@ -1,0 +1,220 @@
+{
+  "3-0509": {
+    "qid": "3-0509",
+    "classification": "own",
+    "chapter": 7,
+    "quality": "ok",
+    "reason": "考查Answer Correctness计算所需模型，原文明确提及两类模型。",
+    "answer": [
+      "A",
+      "B"
+    ],
+    "supported": true,
+    "quote": "用 Embedding 模型（`text-embedding-v3`）分别编码 `answer` 与 `ground_truth`，计算余弦相似度；再让 LLM 对照 `contexts` 逐条判定",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "LLM用于事实F1计算"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "Embedding用于语义相似度"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "训练数据非计算模型"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "推理时间非计算模型"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-1036": {
+    "qid": "3-1036",
+    "classification": "own",
+    "chapter": 7,
+    "quality": "ok",
+    "reason": "考查Embedding在RAGAS中的具体用途，原文明确其在Correctness和Relevancy中的作用。",
+    "answer": [
+      "A",
+      "D"
+    ],
+    "supported": true,
+    "quote": "语义相似度：用 Embedding 模型（`text-embedding-v3`）分别编码 `answer` 与 `ground_truth`，计算余弦相似度",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "Correctness需语义相似度"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "原文未提剔除离群点"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "Faithfulness不用Embedding"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "Relevancy需answer-query相似度"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-1398": {
+    "qid": "3-1398",
+    "classification": "misplaced",
+    "chapter": 3,
+    "quality": "review",
+    "reason": "函数名及参数属RAG实施细节，教材未提Compare_embedding_models函数。",
+    "answer": [],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "教材未提该函数"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "教材未提该函数"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "教材未提该函数"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "教材未提该函数"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "6-0825": {
+    "qid": "6-0825",
+    "classification": "own",
+    "chapter": 7,
+    "quality": "ok",
+    "reason": "考查评测优先级，题干为客服助手，意图理解是生成质量前提。",
+    "answer": [
+      "D"
+    ],
+    "supported": true,
+    "quote": "评测先行（Eval First）的正确顺序是：先建评测集、拿到基线分数，再动手优化",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "界面非本章考点"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "并发属部署章"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "响应时间非首要"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "意图理解决定生成质量"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "6-0954": {
+    "qid": "6-0954",
+    "classification": "own",
+    "chapter": 7,
+    "quality": "ok",
+    "reason": "考查多轮对话评测指标，单轮响应时间不反映对话质量。",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "多轮对话能力...不能只看单轮响应时间，需关注连贯性、任务完成率、用户满意度等",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "连贯性是核心指标"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "任务完成率是核心"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "单轮时间不反映对话质量"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "满意度是核心指标"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "8-0957": {
+    "qid": "8-0957",
+    "classification": "cross",
+    "chapter": 8,
+    "quality": "ok",
+    "reason": "考查内容质量维度，安全属第8章，其他维度教材有覆盖。",
+    "answer": [
+      "A",
+      "B",
+      "C",
+      "D"
+    ],
+    "supported": true,
+    "quote": "AI 安全护栏与内容安全服务...幻觉与偏见的本质区别...Faithfulness与Correctness辨析",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "教材提流畅性"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "教材提相关性"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "教材提Faithfulness"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "安全属第8章"
+      },
+      {
+        "label": "E",
+        "selected": false,
+        "why": "创造性非教材维度"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

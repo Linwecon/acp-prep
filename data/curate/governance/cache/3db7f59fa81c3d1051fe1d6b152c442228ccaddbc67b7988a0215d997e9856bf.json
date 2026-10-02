@@ -1,0 +1,154 @@
+{
+  "items": [
+    {
+      "type": 0,
+      "stem": "某金融公司需构建合规问答系统，要求：① 仅使用内部制度文档回答；② 禁止任何数据出域；③ 支持对监管新规进行LoRA微调；④ 对外提供高并发、低延迟API服务。以下技术选型组合中，最符合全链路要求的是？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "百炼知识库 + DashScope qwen-max API + ModelScope下载模型本地部署"
+        },
+        {
+          "option_label": "B",
+          "option_text": "PAI-DSW开发微调代码 → PAI-DLC训练 → PAI-EAS部署 → 百炼应用调用该EAS服务"
+        },
+        {
+          "option_label": "C",
+          "option_text": "DashScope原生SDK调用qwen-long + 自建Nginx反向代理做限流"
+        },
+        {
+          "option_label": "D",
+          "option_text": "ModelScope免费Notebook微调 → 导出模型至OSS → 函数计算FC部署"
+        }
+      ],
+      "answer": "B",
+      "analysis": "依据原文10.4节'PAI三件套'与10.5节'选型决策'：①'禁止数据出域'排除所有托管API（百炼/DashScope），必须自托管；②'LoRA微调'属模型训练行为，对应PAI-DLC（分布式训练）或DSW（交互式开发）；③'高并发低延迟在线服务'明确指向PAI-EAS（弹性算法服务），其支持蓝绿发布、预热、监控等生产级能力（10.4原理）；④'百炼应用调用EAS服务'是原文10.1明确指出的典型全链路组合（'百炼应用再去调用EAS上的私有模型'）。A错在百炼/DashScope均需数据上送；C未解决私有化与微调；D中函数计算FC无GPU支持、冷启动高、不满足低延迟要求，且ModelScope Notebook非生产环境（10.7考试提示）。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 0,
+      "stem": "某电商团队上线智能客服后，首月账单远超预期。排查发现：用户每次咨询都上传整份《售后服务政策V3.2.pdf》（86页）作为system prompt，且未设置max_tokens。该问题违反了原文哪项成本控制原则？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "应按任务难度路由模型，避免无脑使用qwen-max"
+        },
+        {
+          "option_label": "B",
+          "option_text": "输入Token与输出Token分别计价，且输出通常更贵"
+        },
+        {
+          "option_label": "C",
+          "option_text": "应控制输入内容，RAG只塞最相关片段，而非整本手册"
+        },
+        {
+          "option_label": "D",
+          "option_text": "需用指数退避处理429限流，避免重试推高费用"
+        }
+      ],
+      "answer": "C",
+      "analysis": "原文10.8节'省成本的工程手段'第2条明确指出：'控制输入：RAG 只塞最相关的片段，不要每次把整本手册塞进上下文'。题干中'上传整份86页PDF作为system prompt'正是典型违规操作——既造成输入Token爆炸式增长（违反'按Token计费'规则），又违背RAG最佳实践（10.2知识库能力说明中强调'内置文档解析、切片、向量化、检索'，即应由平台自动处理而非人工塞全文）。A虽正确但非本题主因（未提模型选型错误）；B描述正确但题干未涉及输出失控；D针对限流场景，题干未出现429。本题直击原文成本控制最易忽视的输入治理环节。",
+      "difficulty_label": "中等"
+    },
+    {
+      "type": 1,
+      "stem": "某SaaS厂商需将大模型能力嵌入自有CRM系统，要求：① 后端工程师能快速集成；② 兼容现有LangChain框架；③ 避免修改大量历史代码；④ 支持流式响应降低用户等待感。以下哪些DashScope特性可同时满足全部要求？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "OpenAI兼容模式，仅需修改base_url和api_key"
+        },
+        {
+          "option_label": "B",
+          "option_text": "原生dashscope SDK提供的TextReRank服务"
+        },
+        {
+          "option_label": "C",
+          "option_text": "stream=True参数支持逐Token流式返回"
+        },
+        {
+          "option_label": "D",
+          "option_text": "通过PAI-EAS部署自定义模型并反向代理"
+        }
+      ],
+      "answer": "AC",
+      "analysis": "依据原文10.3节：①'OpenAI兼容模式的价值'明确说明'把base_url指向DashScope兼容地址、api_key换成阿里云Key，原本基于OpenAI Python SDK写的程序几乎不用改就能调用'，完美匹配要求①②③（10.3课程代码示例佐证）；②'stream=True'在10.3代码示例及'exam'栏中被强调为'对话类应用降低等待感的标配'，直接满足要求④。B中TextReRank是特定重排序服务，与LangChain通用集成无关；D需自建服务，违背'快速集成'和'避免修改代码'要求。注意：题目要求'同时满足全部要求'，故必须四项全中才可选，AC是唯二满足全部四点的选项。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 0,
+      "stem": "运维同学发现PAI-DSW实例持续运行72小时后产生高额费用，而业务方声称'只是关掉了浏览器标签页'。该现象最直接违反原文哪项成本管理提醒？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "PAI-DSW费用按'计算时'计费，关闭浏览器不等于停止实例"
+        },
+        {
+          "option_label": "B",
+          "option_text": "GPU实例消耗额度远快于CPU，课程建议仅微调/部署时启用GPU"
+        },
+        {
+          "option_label": "C",
+          "option_text": "免费额度有有效期与计算时上限，用尽后按量计费"
+        },
+        {
+          "option_label": "D",
+          "option_text": "模型选型应按速度/能力/成本权衡，避免无脑上max"
+        }
+      ],
+      "answer": "A",
+      "analysis": "原文10.4节'PAI-DSW费用提醒'第一条即明确警示：'DSW实例按计算时计费，关闭浏览器不等于停止实例，不学了必须回控制台停止或删除'。题干中'关掉浏览器标签页'与'持续运行72小时'完全对应此误区。B描述正确但属于资源类型选择问题，非本题核心；C针对免费额度耗尽场景，题干未提及额度；D是模型选型问题，与实例生命周期管理无关。本题考查对PAI计费机制中最常见实操陷阱的精准识别。",
+      "difficulty_label": "基础"
+    },
+    {
+      "type": 1,
+      "stem": "某医疗AI项目需实现：① 基于患者病历生成结构化诊断报告；② 严格保障病历数据不出医院内网；③ 支持医生反馈微调模型。以下产品组合中，哪些符合原文对'开源模型+私有化部署'价值的定义？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "从ModelScope下载Qwen2.5-7B医学微调版权重"
+        },
+        {
+          "option_label": "B",
+          "option_text": "使用DashScope qwen-medical API进行实时调用"
+        },
+        {
+          "option_label": "C",
+          "option_text": "在PAI-EAS上部署自托管模型服务"
+        },
+        {
+          "option_label": "D",
+          "option_text": "通过百炼工作流编排病历解析与报告生成"
+        }
+      ],
+      "answer": "AC",
+      "analysis": "原文10.7节'开源模型的价值'三点明确指出：①'数据隐私与合规（数据不出域）'；②'可深度定制（任意微调/改结构）'；③'长期成本可控'。A中'ModelScope下载开源权重'是获取可私有化模型的前提（10.7概念）；C中'PAI-EAS部署'是原文10.4定义的'模型在线服务'，且EAS支持私有VPC部署（10.5对比表'数据与模型控制'栏注明PAI'可私有化/数据不出域程度更高'）。B中DashScope是托管API，必然数据上送，违反①；D中百炼是应用层平台，其知识库/RAG均依赖DashScope底层API（10.1全景图），无法满足数据不出域。AC共同构成'下载→部署→私有化'完整闭环。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 0,
+      "stem": "当调用DashScope API返回HTTP 429状态码时，最应优先检查的配置项是？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "是否启用了OpenAI兼容模式的base_url"
+        },
+        {
+          "option_label": "B",
+          "option_text": "max_tokens参数是否设置过小导致截断"
+        },
+        {
+          "option_label": "C",
+          "option_text": "当前账户的RPM/TPM配额使用情况"
+        },
+        {
+          "option_label": "D",
+          "option_text": "qwen-turbo与qwen-plus的单价差异"
+        }
+      ],
+      "answer": "C",
+      "analysis": "原文10.8节'限流（RPM/TPM、QPM）'明确定义：'超限返回429'；'risk'栏强调'429要指数退避'；'exam'栏明确'考试考规则不考数字：知道...有RPM/TPM限流、429要退避即可'。429是标准HTTP限流响应码，直接对应配额超限（RPM=每分钟请求数，TPM=每分钟Token数），与A（兼容模式配置错误会返回401/404）、B（max_tokens过小导致输出截断，但不会触发429）、D（单价影响账单不影响状态码）均无因果关系。本题考查对限流机制本质的理解，而非表象配置。",
+      "difficulty_label": "中等"
+    }
+  ]
+}

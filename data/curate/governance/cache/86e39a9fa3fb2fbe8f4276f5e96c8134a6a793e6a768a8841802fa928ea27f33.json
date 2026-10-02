@@ -1,0 +1,214 @@
+{
+  "new-8-0-0": {
+    "qid": "new-8-0-0",
+    "classification": "own",
+    "chapter": 8,
+    "quality": "ok",
+    "reason": "考查间接提示注入与三层防御触发顺序，题干清晰，选项明确。",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "间接提示注入：恶意指令藏在外部数据里，被 RAG/Agent 读入上下文后悄悄生效",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "PDF内容在检索前应做注入检测，这是输入过滤职责。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "运行监控应在工具调用时审计，但非最先应触发层。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "输出审查在生成后，非最先应触发层。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "GPU熔断属资源防护，非题干所指三层防御。"
+      }
+    ],
+    "duplicate_of": "8-5166"
+  },
+  "new-8-0-1": {
+    "qid": "new-8-0-1",
+    "classification": "own",
+    "chapter": 8,
+    "quality": "ok",
+    "reason": "考查编码绕过与语义级检测必要性，选项区分度好。",
+    "answer": [
+      "D"
+    ],
+    "supported": true,
+    "quote": "把 UPDATE xxx 用 Base64 编码，黑名单根本看不见",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "指令与数据隔离是缓解措施，非根本原因。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "Base64非多模态，题干未涉及图像音频。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "题干为用户直接输入，非间接注入。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "关键词黑名单无法识别编码变形，需语义检测。"
+      }
+    ],
+    "duplicate_of": "8-5156"
+  },
+  "new-8-0-2": {
+    "qid": "new-8-0-2",
+    "classification": "own",
+    "chapter": 8,
+    "quality": "ok",
+    "reason": "考查资源耗尽型DDoS与输出审查局限，场景典型。",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "资源耗尽型 DDoS……高耗 token/GPU 请求打爆算力",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "输出审查不防算力耗尽，GPU仍会打满。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "输出无违法信息不代表审查放行，逻辑不成立。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "幻觉检测非输出审查标准功能。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "输出审查不主动熔断任务，属运行监控职责。"
+      }
+    ],
+    "duplicate_of": "8-5158"
+  },
+  "new-8-0-3": {
+    "qid": "new-8-0-3",
+    "classification": "own",
+    "chapter": 8,
+    "quality": "ok",
+    "reason": "考查RAG权限过滤时机与防线失效，多选设计合理。",
+    "answer": [
+      "C",
+      "D"
+    ],
+    "supported": true,
+    "quote": "过滤发生在'检索之后、拼 Prompt 之前'……模型不做权限判断",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "文档内容无隐藏指令，非注入问题。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "模型引用文档非工具调用，运行监控不审计。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "未在拼Prompt前过滤无权文档，导致越权检索。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "输出敏感数据未拦截，输出审查失效。"
+      }
+    ],
+    "duplicate_of": "8-5154"
+  },
+  "new-8-0-4": {
+    "qid": "new-8-0-4",
+    "classification": "own",
+    "chapter": 8,
+    "quality": "ok",
+    "reason": "考查多模态检测需公网URL的技术约束，知识点明确。",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "多模态检测需要'公网可访问 URL'，所以要先把本地文件上传到 OSS",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "图像审核接口需公网URL，先上传OSS满足要求。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "WAF拦截非主要设计目的。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "流程未涉及异步解耦。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "OSS加密非主要解决的技术约束。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-8-0-5": {
+    "qid": "new-8-0-5",
+    "classification": "own",
+    "chapter": 8,
+    "quality": "ok",
+    "reason": "考查三层防御职能界定，多选选项有辨析价值。",
+    "answer": [
+      "A",
+      "B"
+    ],
+    "supported": true,
+    "quote": "应用运行时都要布三层：输入过滤、运行监控、输出审查",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "输入过滤需覆盖所有上下文，送入模型前完成。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "运行监控核心是审计Agent工具调用行为。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "输出审查不能替代输入过滤，需层层叠加。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "三层按序执行，但任一层失败即终止未明确。"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

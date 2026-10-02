@@ -1,0 +1,237 @@
+{
+  "3-0549": {
+    "qid": "3-0549",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "考查语义切片概念，选项区分度好，符合教材内容。",
+    "answer": [
+      "B",
+      "D",
+      "E"
+    ],
+    "supported": true,
+    "quote": "语义切片：用模型判断语义边界，在话题转换处切",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "固定长度切片非语义切片理念"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "按结构切分是语义切片常见策略"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "表格单元格独立切分不合理"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "添加上下文信息符合语义切片理念"
+      },
+      {
+        "label": "E",
+        "selected": true,
+        "why": "模型分析语义边界是核心定义"
+      },
+      {
+        "label": "F",
+        "selected": false,
+        "why": "代码块单独切分非语义切片核心"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-0563": {
+    "qid": "3-0563",
+    "classification": "cross",
+    "chapter": -1,
+    "quality": "remove",
+    "reason": "考查OpenAI模型，与阿里云教材无关，无考查价值。",
+    "answer": [],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "教材未提及OpenAI模型"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "教材未提及OpenAI模型"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "教材未提及OpenAI模型"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "教材提及的是阿里云模型"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-0642": {
+    "qid": "3-0642",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "fixable",
+    "reason": "题干缺少代码，无法判断选项对错，需补充代码。",
+    "answer": [],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "无代码无法判断"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "无代码无法判断"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "教材支持流式输出"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "无代码无法判断"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-0728": {
+    "qid": "3-0728",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "考查RAG应用场景，选项区分明确，符合教材逻辑。",
+    "answer": [
+      "A",
+      "B"
+    ],
+    "supported": true,
+    "quote": "RAG核心思路可以用四个字概括：\"开卷考试\"",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "RAG是解决私域知识问答首选方案"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "思维链可引导模型分步解析问题"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "通用模型无法保证精准回答政策"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "语音识别非RAG核心技术方案"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-0776": {
+    "qid": "3-0776",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "考查RAG结合实时数据的应用，选项合理。",
+    "answer": [
+      "A",
+      "B",
+      "C",
+      "D"
+    ],
+    "supported": true,
+    "quote": "Embedding（向量化/嵌入）是把一段文本转换成一串数字",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "用户咨询需向量化以进行检索"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "商品特征向量存储是RAG基础"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "少量样本提示可引导模型输出格式"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "集成API确保推荐实用性"
+      },
+      {
+        "label": "E",
+        "selected": false,
+        "why": "不依赖实时数据可能导致无货推荐"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-0783": {
+    "qid": "3-0783",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "考查RAG与提示词结合生成内容，选项区分度好。",
+    "answer": [
+      "A",
+      "B",
+      "C",
+      "D"
+    ],
+    "supported": true,
+    "quote": "RAG核心思路可以用四个字概括：\"开卷考试\"",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "解析课件是RAG建库第一步"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "少量样本提示可引导生成格式"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "调用API生成并限制格式是必要步骤"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "RAG确保题目关联课件知识点"
+      },
+      {
+        "label": "E",
+        "selected": false,
+        "why": "生成无关练习题不符合需求"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

@@ -1,0 +1,235 @@
+{
+  "2-1448": {
+    "qid": "2-1448",
+    "classification": "own",
+    "chapter": 2,
+    "quality": "ok",
+    "reason": "考查样例要素作用，原文明确其提供输出格式与风格锚点",
+    "answer": [
+      "D"
+    ],
+    "supported": true,
+    "quote": "样例提供输出格式与风格的锚点，模型通过上下文学习隐式模仿",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "确定目标用户是受众要素作用"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "样例不保证单一答案，而是对齐风格"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "限制长度属输出格式要素范畴"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "原文明确样例提供输出格式与风格锚点"
+      },
+      {
+        "label": "E",
+        "selected": false,
+        "why": "情感色彩由角色要素设定"
+      },
+      {
+        "label": "F",
+        "selected": false,
+        "why": "抽象方案非样例功能，属任务目标要素"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "2-0033": {
+    "qid": "2-0033",
+    "classification": "own",
+    "chapter": 2,
+    "quality": "ok",
+    "reason": "考查结构化输出与程序解析需求，需JSON格式+字段约束",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "结构化输出（JSON Mode）要求严格按JSON等格式输出，配合Schema校验",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "未结构化，程序难解析"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "JSON格式+字段约束满足程序解析需求"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "CoT不必要且增加成本"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "符号分隔非标准结构化输出"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "2-0061": {
+    "qid": "2-0061",
+    "classification": "own",
+    "chapter": 2,
+    "quality": "ok",
+    "reason": "考查提示词设计需业务方深度参与，原文强调领域专家共同设计",
+    "answer": [
+      "B",
+      "C"
+    ],
+    "supported": true,
+    "quote": "实际落地时常让领域专家共同设计提示词，因此不应在代码里硬编码",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "前端实现不参与提示词设计"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "产品经理定义用户场景和业务流程"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "客服主管熟悉高频问题和政策细节"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "算法工程师专注模型调优，非提示词设计主体"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "2-0369": {
+    "qid": "2-0369",
+    "classification": "own",
+    "chapter": 2,
+    "quality": "ok",
+    "reason": "考查Few-shot局限性，原文指出示例不在多而在精",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "Few-shot之所以有效，是因为示例让模型通过上下文学习对齐输出格式与措辞一致",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "Few-shot只需2~5个高质量范例"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "原文强调示例质量与数量影响大"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "Few-shot本质就是让模型从示例学习"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "复杂度非主要局限性"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "2-0379": {
+    "qid": "2-0379",
+    "classification": "own",
+    "chapter": 2,
+    "quality": "ok",
+    "reason": "考查Zero-shot基础能力来源，原文指出模型通过预训练获得泛化能力",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "零样本提示允许模型在没有见过特定任务或数据集的情况下完成新任务，这主要归功于预训练",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "预训练赋予模型泛化能力"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "微调是后续行为适配手段"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "监督学习属微调阶段"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "强化学习非Zero-shot基础"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "2-0607": {
+    "qid": "2-0607",
+    "classification": "own",
+    "chapter": 2,
+    "quality": "ok",
+    "reason": "考查Zero-shot优化建议，原文强调明确任务、补充背景、保持一致",
+    "answer": [
+      "A",
+      "C",
+      "E"
+    ],
+    "supported": true,
+    "quote": "明确任务描述、提供背景信息、保持提示的一致性是提高Zero-shot性能的关键建议",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "明确任务描述是首要建议"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "冗长复杂会稀释注意力"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "提供背景信息提升相关性"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "专业术语降低可理解性"
+      },
+      {
+        "label": "E",
+        "selected": true,
+        "why": "保持一致性保障输出稳定"
+      },
+      {
+        "label": "F",
+        "selected": false,
+        "why": "引导词汇如'请'有助于指令识别"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

@@ -1,0 +1,44 @@
+{
+  "items": [
+    {
+      "qid": "new-12-18-2",
+      "duplicate_of": "new-12-30-1",
+      "reason": "考点、关键条件、解题路径相同：扫描件表格解析问题，最佳实践为使用DashScopeParse。"
+    },
+    {
+      "qid": "new-12-18-5",
+      "duplicate_of": "new-12-30-3",
+      "reason": "考点、关键条件、解题路径相同：提示词变量互换导致模型角色错位。"
+    },
+    {
+      "qid": "new-12-24-0",
+      "duplicate_of": "new-12-0-0",
+      "reason": "考点、关键条件、解题路径相同：代码膨胀因缺乏工程模式抽象。"
+    },
+    {
+      "qid": "new-12-30-0",
+      "duplicate_of": "new-12-0-0",
+      "reason": "考点、关键条件、解题路径相同：代码膨胀因缺乏工程模式抽象。"
+    },
+    {
+      "qid": "new-12-30-2",
+      "duplicate_of": "new-12-18-1",
+      "reason": "考点、关键条件、解题路径相同：LlamaIndex与LangChain分工边界。"
+    },
+    {
+      "qid": "new-12-30-3",
+      "duplicate_of": "new-12-18-5",
+      "reason": "考点、关键条件、解题路径相同：提示词变量互换导致模型角色错位。"
+    },
+    {
+      "qid": "new-12-36-0",
+      "duplicate_of": "new-12-0-0",
+      "reason": "考点、关键条件、解题路径相同：代码膨胀因缺乏工程模式抽象。"
+    },
+    {
+      "qid": "new-12-36-2",
+      "duplicate_of": "new-12-30-1",
+      "reason": "考点、关键条件、解题路径相同：扫描件解析最佳实践为DashScopeParse。"
+    }
+  ]
+}

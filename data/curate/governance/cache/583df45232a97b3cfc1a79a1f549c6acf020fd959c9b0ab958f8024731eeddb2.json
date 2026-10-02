@@ -1,0 +1,212 @@
+{
+  "1-0496": {
+    "qid": "1-0496",
+    "classification": "misplaced",
+    "chapter": 1,
+    "quality": "remove",
+    "reason": "题干'优化后的答题机器人'未定义优化手段（RAG/提示词/工具等），选项涉及文档审查、内部查询、翻译、拒答等，需结合RAG、Agent、安全等多章知识判断，原文第1章未覆盖任何具体输出类型判定逻辑；'可能的输出'无上下文约束，所有选项均无法从第1章原文推导。",
+    "answer": [],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "第1章未提及文档审查场景或能力，'文档审查结果'属于RAG或Agent章节内容。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "第1章明确模型无私域知识，但未说明如何通过RAG等手段获取内部文档结果，该能力超出本章范围。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "翻译能力虽属LLM通用能力，但第1章知识列表及原文未列举翻译作为典型表现，且'内容翻译结果'需结合多模态或特定任务设计，本章未覆盖。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "第1章提到模型可能幻觉，但未定义'未能识别问题类型'这类结构化拒答行为，该逻辑属于提示工程或Agent失败处理范畴。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "1-0521": {
+    "qid": "1-0521",
+    "classification": "misplaced",
+    "chapter": 1,
+    "quality": "remove",
+    "reason": "题干中'Tone'（语气）在第1章原文及知识列表中完全未出现；所有五阶段流程描述均围绕Token生成、向量化、推理、解码、输出，未涉及语气建模或处理；该概念属于提示工程（Chapter 2）中system prompt角色设定或微调（Chapter 5）行为适配范畴。",
+    "answer": [],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "分词化仅处理文本切分，原文'第一阶段：文本分词'未提Tone。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "Token向量化含位置编码，但原文'第二阶段'明确只叠加位置信息，未涉及语气语义编码。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "大模型推理阶段处理隐藏状态和logits，原文'第三阶段'未提及Tone相关计算。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "输出Token是解码过程，原文'第五阶段'仅说明还原字符串，未涉及语气控制。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "1-0536": {
+    "qid": "1-0536",
+    "classification": "own",
+    "chapter": 1,
+    "quality": "ok",
+    "reason": "题干考察私域知识问答中直接传入参考信息的问题，对应第1章'知识截止'边界及'上下文窗口'限制。原文明确'模型无法在对话中学会新知识'（知识截止），且'上下文窗口是输入输出共用预算'，超窗会导致截断或报错，影响效果。",
+    "answer": [
+      "A",
+      "B",
+      "D"
+    ],
+    "supported": true,
+    "quote": "上下文窗口（Context Window）是模型一次能\"看到\"的最大 Token 数。它是输入（system/user 消息、历史对话、检索资料）与输出（模型生成）共用的 Token 预算。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "原文指出上下文窗口是有限预算，私域信息过长会超出提示词承载能力，符合'提示词长度有限'。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "原文'上下文窗口'部分说明超长输入会稀释注意力、引入噪声，且'输入+输出共用预算'，导致处理效率降低。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "原文未说模型'无法理解'私域知识，而是强调其不掌握私域信息（知识截止），若提供足够上下文，模型可基于此生成，故'无法理解'表述错误。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "原文'幻觉'风险指出'上下文不足时模型会编出错误答案'，直接传入私域信息若不精准或超窗，易导致生成不准确。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "1-0551": {
+    "qid": "1-0551",
+    "classification": "own",
+    "chapter": 1,
+    "quality": "ok",
+    "reason": "题干问五阶段工作流程中哪些是必要阶段，原文1.3节明确列出五个阶段且强调顺序不可省略，其中A/B/C/D分别对应第一至第四阶段，第五阶段为输出文本（即D选项'输出Token'实指输出阶段）。所有四阶段均为流程必需。",
+    "answer": [
+      "A",
+      "B",
+      "C",
+      "D"
+    ],
+    "supported": true,
+    "quote": "大模型文本生成五阶段：1.文本分词 Tokenization 2.Token 向量化 Embedding（+位置编码） 3.大模型推理 Forward Pass（Transformer 解码器层） 4.解码与自回归（softmax → 采样 → 追加，循环） 5.输出文本（可流式增量返回）",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "原文'第一阶段：文本分词'明确为五阶段起始，必不可少。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "原文'第二阶段：Token 向量化'是连接分词与推理的必经步骤。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "原文'第三阶段：大模型推理'是核心计算环节，无此则无生成。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "原文'第五阶段：输出文本'即解码Token为可读字符串，是流程终点，'输出Token'在此语境下即指该阶段。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "1-0576": {
+    "qid": "1-0576",
+    "classification": "own",
+    "chapter": 1,
+    "quality": "ok",
+    "reason": "题干问影响Token选择的因素，对应第1章1.7节生成参数原理。原文明确'Logits经softmax变成概率分布'，'按解码策略（贪心、top_p、top_k）选出Token'，而logits由输入文本和模型权重决定，训练数据固化于权重中，故A/C正确；输入长度影响上下文但不直接决定单个Token选择，输出格式由提示词约束而非推理阶段决定。",
+    "answer": [
+      "A",
+      "C"
+    ],
+    "supported": true,
+    "quote": "Logits 经 softmax 变成\"下一个 Token 的概率分布\"，再按解码策略（贪心、top_p、top_k 等）选出一个 Token",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "原文明确Token选择基于概率分布，候选Token概率直接决定采样结果。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "输入长度影响上下文窗口占用和注意力计算，但不直接参与单个Token的概率计算或采样决策。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "训练数据塑造模型权重，权重决定logits，从而影响概率分布，原文'知识被压缩进权重参数'支持此逻辑。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "输出格式由提示词中的角色/任务/输出格式要素约束，属于提示工程范畴，非推理阶段内在机制。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "1-0605": {
+    "qid": "1-0605",
+    "classification": "beyond",
+    "chapter": 1,
+    "quality": "remove",
+    "reason": "题干'模型安全防控'和'鲁棒性'在第1章知识列表及原文中完全未涉及；'对抗性攻击测试'、'训练数据多样性'属于AI安全（Chapter 8）或模型训练（Chapter 5）内容；第1章仅提'幻觉/知识截止/计算缺陷'三边界，不涉及安全防控措施。该题应归属Chapter 8。",
+    "answer": [],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "增加训练数据多样性属模型训练优化，原文第1章未提及，属Chapter 5或8范畴。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "对抗性攻击测试是AI安全专项技术，Chapter 1知识列表及原文无此内容。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "缩小模型规模与鲁棒性无直接关联，且第1章强调Scaling Law需参数/数据/算力同步，未提规模缩小增强鲁棒性。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "提升参数属Scaling Law范畴，但原文明确'参数越多不一定越好'，且未关联鲁棒性，安全防控非本章主题。"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

@@ -1,0 +1,222 @@
+{
+  "3-0532": {
+    "qid": "3-0532",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "生成阶段三步：拼装提示词、LLM生成、溯源输出",
+    "answer": [
+      "B",
+      "C"
+    ],
+    "supported": true,
+    "quote": "生成阶段做三件事：1. 拼装上下文 2. 提示词约束 3. 生成与溯源",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "召回属检索阶段，非生成阶段"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "拼装提示词是生成阶段核心步骤"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "LLM生成答案是生成阶段最终动作"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "增加训练数据属微调，非RAG生成阶段"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-0533": {
+    "qid": "3-0533",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "四步均属RAG全流程关键环节",
+    "answer": [
+      "A",
+      "B",
+      "C",
+      "D"
+    ],
+    "supported": true,
+    "quote": "RAG由两个阶段组成：离线建库（文档解析→切片→向量化→入库）+在线问答（改写→检索→重排→拼装→生成）",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "文档解析与切片是离线建库起点"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "向量存储是建库完成标志"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "检索召回是在线问答核心"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "生成答案是RAG最终输出环节"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-0534": {
+    "qid": "3-0534",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "RAG两阶段即建索引与检索生成",
+    "answer": [
+      "A",
+      "B"
+    ],
+    "supported": true,
+    "quote": "RAG由两个阶段组成，理解这张图是本章的总纲：离线建库+在线问答",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "建立索引对应离线建库阶段"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "检索生成对应在线问答阶段"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "模型训练属微调，非RAG组成部分"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "模型推理是通用概念，非RAG特有环节"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-0537": {
+    "qid": "3-0537",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "Context Recall低需补全知识覆盖",
+    "answer": [
+      "A",
+      "B",
+      "C"
+    ],
+    "supported": true,
+    "quote": "Recall低：补充知识库、换更强的Embedding、做查询改写",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "对比知识库与样本可发现遗漏"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "换Embedding提升语义匹配能力"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "查询改写提升问题表征质量"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "增加训练数据属微调，不提升Recall"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-0539": {
+    "qid": "3-0539",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "问题改写聚焦大模型增强query",
+    "answer": [
+      "A",
+      "B",
+      "C"
+    ],
+    "supported": true,
+    "quote": "查询改写：先用LLM把含代词的问题改写成完整问题",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "扩充问题属查询改写范畴"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "多步骤改写是查询改写变体"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "HyDE通过假想文档增强检索"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "重排序属检索后处理，非问题改写"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-0540": {
+    "qid": "3-0540",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "检索阶段核心是向量化与相似匹配",
+    "answer": [
+      "A",
+      "B"
+    ],
+    "supported": true,
+    "quote": "把问题也向量化；在向量库中检索与问题向量最相似的Top K个chunk",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "问题向量化是检索前提"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "相似向量检索是核心操作"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "增加训练数据属微调范畴"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "减少推理时间是部署优化目标"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

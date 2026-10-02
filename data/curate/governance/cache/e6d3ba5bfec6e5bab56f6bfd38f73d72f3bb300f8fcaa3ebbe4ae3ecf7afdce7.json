@@ -1,0 +1,208 @@
+{
+  "3-0307": {
+    "qid": "3-0307",
+    "classification": "unsure",
+    "chapter": 3,
+    "quality": "remove",
+    "reason": "题目考查具体平台限制，与RAG核心知识无关，无考查价值。",
+    "answer": [],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "无原文支持，属平台具体限制。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "无原文支持，属平台具体限制。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "无原文支持，属平台具体限制。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "无原文支持，属平台具体限制。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-0330": {
+    "qid": "3-0330",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "考查Embedding模型对检索性能的影响，是RAG核心知识。",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "检索质量差的三大根因（要背）：① Embedding 模型不够好 ② 切片策略不当 ③ 文档格式丢失了结构信息。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "问题分解技术，非嵌入模型。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "互联网检索技术，非嵌入模型。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "BGE是嵌入模型，直接影响检索性能。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "问题摘要技术，非嵌入模型。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-0366": {
+    "qid": "3-0366",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "考查CRAG技术，属于RAG检索增强技术范畴。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "CRAG方法：从更广泛的数据源获取信息以补充知识库不足。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "句子滑窗是检索后处理技术。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "CRAG方法从外部数据源补充信息。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "BGE是嵌入模型，非补充信息。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "Hyde是假设答案生成，非补充信息。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-0420": {
+    "qid": "3-0420",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "考查句子滑窗检索的核心优势，是RAG进阶技术。",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "句子窗口检索：建索引时以“单个句子”为可检索单元（小块，便于精准命中），同时在每个句子的元数据里存下它“前后各 N 句”组成的窗口；检索命中某句后，后处理器自动把内容替换成整个窗口再交给模型。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "不直接提高生成速度。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "未提及针对性改善注意力机制。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "精准检索同时保证上下文完整。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "不降低存储要求。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-0422": {
+    "qid": "3-0422",
+    "classification": "cross",
+    "chapter": -1,
+    "quality": "remove",
+    "reason": "考查特定框架（如LlamaIndex）的API细节，与RAG核心概念无关。",
+    "answer": [],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "无原文支持，属框架API细节。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "无原文支持，属框架API细节。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "无原文支持，属框架API细节。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "无原文支持，属框架API细节。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-0433": {
+    "qid": "3-0433",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "考查不同文本切片方法对语义完整性的影响，是RAG核心知识。",
+    "answer": [
+      "D"
+    ],
+    "supported": true,
+    "quote": "语义切片：用模型判断语义边界，在话题转换处切。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "按字符分割易切断语义。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "按token分割可能切断语义。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "按标点分割可能不完整。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "语义分割模型最可能保留完整语义。"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

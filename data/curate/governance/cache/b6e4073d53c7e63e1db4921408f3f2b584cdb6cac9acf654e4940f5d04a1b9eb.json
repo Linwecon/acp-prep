@@ -1,0 +1,242 @@
+{
+  "5-0678": {
+    "qid": "5-0678",
+    "classification": "own",
+    "chapter": 5,
+    "quality": "ok",
+    "reason": "全选项均属有效优化方向，原文明确支持提示词、微调、数据清洗、换模型四路径",
+    "answer": [
+      "A",
+      "B",
+      "C",
+      "D"
+    ],
+    "supported": true,
+    "quote": "提示词优化 → RAG → （仍不满足才考虑）微调",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "原文强调提示词是零成本首选"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "微调是解决行为适配的正式手段"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "风险提示数据质量影响训练效果"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "模型选型是四维评估核心维度"
+      },
+      {
+        "label": "E",
+        "selected": false,
+        "why": "放弃任务违背优化顺序原则"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "5-0689": {
+    "qid": "5-0689",
+    "classification": "cross",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "RAG优势属第3章核心内容，本题误标为第5章",
+    "answer": [
+      "A",
+      "B",
+      "C",
+      "D"
+    ],
+    "supported": true,
+    "quote": "RAG核心思想：开卷考试",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "扩展知识边界是RAG本质目标"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "减少幻觉是RAG根本价值"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "RAG替代微调更新知识是核心对比"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "可追溯来源是RAG关键优势"
+      },
+      {
+        "label": "E",
+        "selected": false,
+        "why": "RAG增加检索开销，不提速"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "5-0850": {
+    "qid": "5-0850",
+    "classification": "own",
+    "chapter": 5,
+    "quality": "ok",
+    "reason": "B选项错误，LoRA必须加载完整基座权重",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "LoRA 冻结了原权重，只为那一对小矩阵计算梯度和优化器状态",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "正确描述LoRA轻量化特性"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "必须加载完整权重才能冻结"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "合并权重是标准部署流程"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "数据少资源有限正是LoRA适用场景"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "5-0851": {
+    "qid": "5-0851",
+    "classification": "own",
+    "chapter": 5,
+    "quality": "ok",
+    "reason": "ACE错误，B D正确，原文明确全参微调更新全部参数、PEFT冻结大部分参数、微调适配领域风格",
+    "answer": [
+      "A",
+      "B",
+      "D"
+    ],
+    "supported": true,
+    "quote": "全参微调要为每一个参数保存这些量；LoRA 冻结了原权重",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "全参微调更新所有参数"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "PEFT冻结大部分参数"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "高质量千条即可"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "微调解决领域行为适配"
+      },
+      {
+        "label": "E",
+        "selected": false,
+        "why": "LoRA可保留97%以上能力"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "5-0874": {
+    "qid": "5-0874",
+    "classification": "beyond",
+    "chapter": 6,
+    "quality": "remove",
+    "reason": "吞吐量属第6章部署指标，完全超出第5章范围",
+    "answer": [],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "属第6章部署优化范畴"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "解码方式影响延迟非吞吐"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "长度增加降低吞吐"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "高精度增加计算量"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "5-0887": {
+    "qid": "5-0887",
+    "classification": "own",
+    "chapter": 5,
+    "quality": "ok",
+    "reason": "ABCDE均正确，原文明确数据质量/数量/超参/方法/基座五要素",
+    "answer": [
+      "A",
+      "B",
+      "C",
+      "D",
+      "E"
+    ],
+    "supported": true,
+    "quote": "数据质量 > 数据数量；学习率/epochs/batch/max_length需按数据分布选",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "质量是四维评估首项"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "数量需覆盖线上分布"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "超参选择决定训练成败"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "方法选择影响资源消耗"
+      },
+      {
+        "label": "E",
+        "selected": true,
+        "why": "基座模型是微调起点"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

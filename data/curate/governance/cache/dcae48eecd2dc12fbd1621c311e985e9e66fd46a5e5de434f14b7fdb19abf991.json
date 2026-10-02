@@ -1,0 +1,154 @@
+{
+  "items": [
+    {
+      "type": 0,
+      "stem": "某多Agent报销系统中，Leader Agent将查询任务分派给Worker A（负责调用OA系统）和Worker B（负责调用财务数据库）。审计发现：Worker A与Worker B共用同一套高权限数据库账号；且Leader在初始化时将全部Worker的完整系统提示词（含敏感操作逻辑）拼接后一次性注入自身上下文。这两个设计缺陷分别违反了多Agent设计四条硬原则中的哪两条？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "独立凭据、避免全量注入"
+        },
+        {
+          "option_label": "B",
+          "option_text": "明确职责、中央调度"
+        },
+        {
+          "option_label": "C",
+          "option_text": "中央调度、避免全量注入"
+        },
+        {
+          "option_label": "D",
+          "option_text": "独立凭据、中央调度"
+        }
+      ],
+      "answer": "A",
+      "analysis": "依据教材4.7节‘多 Agent 设计四原则’原文：①‘独立凭据’明确要求‘不同 Agent 不得共用同一套账号/API 凭据，按最小权限分别授权’——共用高权限数据库账号直接违反此条，导致越权风险与横向扩散；②‘避免全量注入’强调‘不要把所有 Agent 的知识/工具清单一次性写进主 Prompt，应按需加载、按需调用’——将全部Worker提示词拼接注入Leader上下文，造成上下文膨胀、注意力稀释、token成本飙升，是该原则的典型反例。B选项‘明确职责’未被违反（A/B职责清晰），C/D中‘中央调度’未被破坏（Leader仍在统一分派），故排除。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 1,
+      "stem": "在规划一个用于‘编写Pandas课程’的多Agent系统时，若采用教学设计师、数据科学家、内容编辑三个专家Agent协作模式，以下哪些设计违反了教材第4.7节明确提出的‘多Agent设计四条硬原则’？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "为提升响应速度，让教学设计师Agent直接调用数据科学家Agent的代码生成能力，绕过Leader统一调度"
+        },
+        {
+          "option_label": "B",
+          "option_text": "将三个Agent的API密钥统一配置在环境变量中，由同一服务进程加载共享"
+        },
+        {
+          "option_label": "C",
+          "option_text": "Leader Agent的系统提示词中完整嵌入了所有三个Worker的职责描述、工具列表及错误处理流程"
+        },
+        {
+          "option_label": "D",
+          "option_text": "为保证风格统一，要求内容编辑Agent在生成文稿前必须先向教学设计师Agent发起风格确认请求"
+        }
+      ],
+      "answer": "ABC",
+      "analysis": "依据教材4.7节四原则逐项分析：A违反‘中央调度’——原文强调‘设置Planner/Leader Agent统一判断何时调哪个Agent，避免Agent之间无序互调、循环等待（死锁）’，直接互调即属无序互调；B违反‘独立凭据’——‘不同Agent不得共用同一套账号/API凭据’，统一配置密钥即共用凭据；C违反‘避免全量注入’——‘不要把所有Agent的知识/工具清单一次性写进主Prompt’，完整嵌入三者职责与工具即属全量注入；D不违反原则：跨Agent协调在分层模式下本就通过Leader中转，但‘风格确认请求’若经由Leader路由则合规；题干未说明是否绕过Leader，且D描述的是合理协同需求，不构成对四原则的明确违背（教材未禁止必要信息同步，只要不破坏调度中心性即可），故D不选。",
+      "difficulty_label": "挑战"
+    },
+    {
+      "type": 0,
+      "stem": "某金融风控多Agent系统中，Leader Agent需根据实时市场数据动态决定调用征信查询、收入验证或压力测试三个Worker之一。当前实现中，Leader每次决策前都从向量库检索全部三个Worker的完整能力文档（含详细参数示例与错误码说明）并注入上下文。该做法最根本违反了多Agent设计四原则中的哪一条？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "明确职责"
+        },
+        {
+          "option_label": "B",
+          "option_text": "独立凭据"
+        },
+        {
+          "option_label": "C",
+          "option_text": "避免全量注入"
+        },
+        {
+          "option_label": "D",
+          "option_text": "中央调度"
+        }
+      ],
+      "answer": "C",
+      "analysis": "教材4.7节原文明确指出：‘避免全量注入’是指‘不要把所有 Agent 的知识/工具清单一次性写进主 Prompt，应按需加载、按需调用，否则上下文膨胀、注意力被稀释、token 成本飙升’。题干中‘每次决策前都检索全部三个Worker的完整能力文档并注入上下文’，正是将非当前所需的知识（如本次只需征信，却加载收入验证和压力测试的全部细节）全量注入，直接导致上下文冗余、注意力稀释、token浪费。A、B、D均未涉及：职责划分清晰（征信/收入/压力测试边界明确），凭据独立性未被质疑，中央调度功能（Leader决策）反而正在执行。因此C是唯一且最根本的违反项。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 1,
+      "stem": "一个用于课程审查的Skill已封装validate_code.py脚本，并定义了YAML frontmatter。当Agent首次收到审查请求时，仅加载SKILL.md中的name/description字段，后续才按需读取子文档。这种分阶段加载行为体现了哪些教材强调的设计原则？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "渐进式披露（Progressive Disclosure）"
+        },
+        {
+          "option_label": "B",
+          "option_text": "避免全量注入"
+        },
+        {
+          "option_label": "C",
+          "option_text": "明确职责"
+        },
+        {
+          "option_label": "D",
+          "option_text": "Skill与RAG的本质区别"
+        }
+      ],
+      "answer": "ABD",
+      "analysis": "依据教材4.9节：A正确——原文明确定义‘渐进式披露’为‘Agent启动时只看到所有Skill的description（很短），由模型判断是否激活；激活后才读SKILL.md，执行到具体步骤时再读对应子文件’，题干描述完全匹配；B正确——‘避免全量注入’在多Agent语境下指不一次性注入全部知识，而Skill的渐进式加载正是该原则在单Agent Skill场景下的同源实践，教材4.9节对比RAG时强调‘Skill是选择后渐进展开，而非RAG的检索-注入’，本质都是控制信息注入粒度；D正确——教材4.9节核心对比点即‘RAG是检索-注入，Skill是选择-展开’，分阶段加载正是‘选择-展开’的具象化，凸显二者本质区别；C错误——‘明确职责’是多Agent中对各Agent角色的界定，与Skill内部加载机制无关。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 0,
+      "stem": "某企业报销查询Agent在工具调用失败（如网络超时返回空结果）后，既未重试、也未切换备用方案、更未向用户澄清，而是直接生成模糊回答：‘系统暂未返回结果’。该故障最根本违反了教材4.2节关于单Agent组件协作的哪一条核心约定？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "工具返回结果必须回灌到上下文"
+        },
+        {
+          "option_label": "B",
+          "option_text": "要给模型‘失败出口’：工具超时、报错时能重试或换方案，而不是整轮崩溃"
+        },
+        {
+          "option_label": "C",
+          "option_text": "Planner决定‘先做什么、再做什么’"
+        },
+        {
+          "option_label": "D",
+          "option_text": "LLM基于历史+上一步工具返回生成下一步动作"
+        }
+      ],
+      "answer": "B",
+      "analysis": "教材4.2节‘各组件如何协作’末尾明确列出关键约定：‘要给模型“失败出口”：工具超时、报错时能重试或换方案，而不是整轮崩溃’。题干中Agent面对超时失败，既无重试、无降级、无澄清，而是生成模糊回答——这并非‘崩溃’，但属于更隐蔽的‘失效’：它放弃了作为闭环执行系统的纠错责任，违背了‘失败出口’这一保障鲁棒性的核心约定。A虽为真（结果需回灌），但题干未说结果未回灌，而是说回灌后模型未做有效响应；C、D描述的是正常协作流程，不涉及失败处理机制。因此B是最直接、最根本的违反项。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 1,
+      "stem": "在调试一个报销查询Agent时，发现工具执行代码已正确解析model输出的tool_calls，调用内部服务后返回'Invalid month format'。JSON-Schema中month字段定义为{'type': 'string', 'pattern': '^\\\\d{4}-\\\\d{2}$'}，而模型传入的参数是'2024-07'。此时最应优先排查的环节是？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "检查工具执行代码是否正确将'2024-07'作为字符串传入，而非被意外转换为日期对象"
+        },
+        {
+          "option_label": "B",
+          "option_text": "验证JSON-Schema中pattern正则表达式在Python环境中的实际匹配行为（如转义字符处理）"
+        },
+        {
+          "option_label": "C",
+          "option_text": "确认模型输出的tool_calls中month参数值是否确为'2024-07'（而非前端或中间件篡改）"
+        },
+        {
+          "option_label": "D",
+          "option_text": "检查内部报销服务的month参数校验逻辑是否与Schema定义严格一致"
+        }
+      ],
+      "answer": "BD",
+      "analysis": "教材4.3节‘Function Calling’风险提示强调：‘参数提取准不准，取决于三件事：Schema质量、模型能力、上下文清晰度’；且‘Schema字段名含糊、描述缺失，会直接导致参数提取错误’。题干中Schema定义了pattern，但服务返回'Invalid month format'，说明校验未通过。B正确：正则表达式`'^\\\\d{4}-\\\\d{2}$'`在Python中需注意双重转义，若实际运行时pattern未正确编译或匹配，会导致模型提取的合法值被拒绝，这是Schema质量缺陷的典型表现；D正确：教材4.3节强调‘工具必须以JSON-Schema描述自己’，Schema是工具能力的契约，若服务端校验逻辑与Schema不一致（如服务要求'YYYY/MM'而Schema写'YYYY-MM'），则契约失效，必须对齐；A错误：'2024-07'是标准字符串，无需转换；C错误：题干已明确‘模型传入的参数是2024-07’，且工具执行代码已正确解析，无需重复确认。",
+      "difficulty_label": "挑战"
+    }
+  ]
+}

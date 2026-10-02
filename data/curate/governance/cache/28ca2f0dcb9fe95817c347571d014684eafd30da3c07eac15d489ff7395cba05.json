@@ -1,0 +1,154 @@
+{
+  "items": [
+    {
+      "type": 0,
+      "stem": "某企业升级新人答疑机器人为报销查询助手。用户输入“帮我查一下我上个月提交的报销单审批到哪一步了”，模型正确输出 tool_calls，但工具执行后返回“未找到匹配单据”，Agent却未追问工单号或引导用户提供更多信息，而是直接生成模糊回答：“系统暂未返回结果”。该故障最根本违反了本章强调的哪一条核心设计约定？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "LLM 不应承担工具执行职责"
+        },
+        {
+          "option_label": "B",
+          "option_text": "工具返回结果必须回灌到上下文"
+        },
+        {
+          "option_label": "C",
+          "option_text": "要给模型‘失败出口’：工具超时、报错时能重试或换方案"
+        },
+        {
+          "option_label": "D",
+          "option_text": "Planner 必须独立于 LLM 实现"
+        }
+      ],
+      "answer": "C",
+      "analysis": "依据原文4.2节‘各组件如何协作’末句明确指出：‘要给模型“失败出口”：工具超时、报错时能重试或换方案，而不是整轮崩溃。’本题中工具返回‘未找到匹配单据’属于典型失败场景（非超时但语义失败），Agent 既未重试（如换参数重查）、也未换方案（如调用‘工单号补全’工具）、更未主动追问用户——完全缺失失败应对机制，直接违背该硬性约定。A项虽正确（见4.3节‘模型只提议，程序才执行’），但本题故障发生在工具已执行且返回结果后的决策环节，与执行主体无关；B项是Observation可用的前提，但题干未说结果未回传，而是Agent收到结果后无响应，故非根本原因；D项与教材‘Planner可写在提示词里’的柔性设计相悖（4.2节），且非本题故障根源。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 0,
+      "stem": "一个课程审查Skill已编写完成，包含SKILL.md、code-quality.md及validate_code.py脚本。当Agent首次收到‘请审查这份Pandas教程代码’请求时，它仅加载了SKILL.md中的YAML frontmatter（含name/description），并未立即读取子文档或执行脚本。这种分阶段加载行为主要体现了本章强调的哪一核心设计原则？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "避免全量注入"
+        },
+        {
+          "option_label": "B",
+          "option_text": "渐进式披露"
+        },
+        {
+          "option_label": "C",
+          "option_text": "确定性检查优先"
+        },
+        {
+          "option_label": "D",
+          "option_text": "Planner与Tool解耦"
+        }
+      ],
+      "answer": "B",
+      "analysis": "依据原文4.9节‘Skill 与 RAG 的关键区别’明确指出：‘Skill 启动时只看到所有 Skill 的 description（很短），由模型判断当前任务要不要激活；激活后才读 SKILL.md，执行到具体步骤时再读对应子文件——这就是渐进式披露（Progressive Disclosure）。’题干中‘仅加载YAML frontmatter，不立即读子文档’正是该原则的典型实现：先用轻量description做触发判断，按需展开深层内容，避免上下文污染和token浪费。A项‘避免全量注入’针对多Agent场景下主Prompt拼接所有Agent提示词（4.7节），与Skill加载无关；C项是评测方法（4.10节），非设计原则；D项虽为4.2节建议，但题干未涉及Planner与Tool的物理分离，而是同一Skill内的加载策略。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 0,
+      "stem": "某金融Agent需完成‘评估客户A的贷款申请’任务，涉及调用征信查询、收入验证、风控模型三个工具。当前采用固定流水线工作流：征信→收入→风控。但近期因征信API临时不可用，整个流程卡死。为提升鲁棒性，以下哪些调整符合本章‘规划策略’的最佳实践？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "将征信工具替换为本地缓存数据，确保流程不中断"
+        },
+        {
+          "option_label": "B",
+          "option_text": "引入Plan-and-Execute模式，在每步执行前动态判断是否跳过/重试/换工具"
+        },
+        {
+          "option_label": "C",
+          "option_text": "增加ReAct循环轮数上限至50轮，允许更多重试"
+        },
+        {
+          "option_label": "D",
+          "option_text": "为每个工具添加‘备用API地址’参数，并在提示词中强制要求优先使用备用地址"
+        }
+      ],
+      "answer": "B",
+      "analysis": "依据原文4.6.3节‘自主规划（Plan-and-Execute）’定义：‘让Agent围绕用户的高阶目标（Goal），先生成一份包含多步骤的计划（Plan），再逐项执行；遇到障碍时重新规划，而不是死守预设流程图。’题干中‘征信API不可用导致流程卡死’正是固定工作流的致命缺陷（4.6.2节‘固定工作流的致命问题是‘卡不起’’），而Plan-and-Execute的核心价值就是动态应对环境变化。B项直接对应此策略。A项属硬编码降级，违背‘探索-固化’中‘探索阶段用自主规划试错’的原则（4.6.3节）；C项违反ReAct铁律‘必须设置最大迭代轮数’（4.4节），盲目扩上限会引发死循环与成本失控；D项仍是预设分支，未解决‘未知故障类型’的泛化应对问题，且‘强制优先备用地址’可能降低主链路稳定性。",
+      "difficulty_label": "挑战"
+    },
+    {
+      "type": 1,
+      "stem": "某企业升级新人答疑机器人为报销查询助手。用户输入'帮我查一下我上个月提交的报销单审批到哪一步了'，模型输出包含 tool_calls 的结构化响应，但系统未返回最终答案，而是陷入静默。经排查，工具执行代码已正确解析参数并调用内部报销服务，结果也成功生成。最可能的根本原因是什么？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "工具返回结果未以 role='tool' 消息格式追加回上下文"
+        },
+        {
+          "option_label": "B",
+          "option_text": "Planner 组件未被正确初始化"
+        },
+        {
+          "option_label": "C",
+          "option_text": "Memory 组件未将工具结果写入短期记忆"
+        },
+        {
+          "option_label": "D",
+          "option_text": "LLM 在第二轮调用时未收到工具结果消息"
+        }
+      ],
+      "answer": "AD",
+      "analysis": "依据原文4.3节Function Calling流程第四步：‘结果回传：带着工具结果再次调用模型’，并强调‘结果必须由程序作为 role=\"tool\" 消息追加回上下文，模型才“知道”发生了什么’（4.3节风险栏）。题干中‘工具执行成功但无最终答案’，说明第二轮模型调用未发生，根本原因是工具结果未按规范封装为role='tool'消息并注入上下文（A、D本质同一问题：D是现象，A是技术实现错误）。C项虽相关，但Memory的职责是存储历史，其未写入的后果是下一轮无上下文，但题干‘陷入静默’表明第二轮调用根本未发起，问题在消息传递层而非Memory存储层；B项错误，Planner在单Agent中可内嵌于提示词（4.2节），且静默现象与Planner初始化无关，而是Function Calling标准流程断裂。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 1,
+      "stem": "某多Agent客服系统设计中，Leader Agent负责分派工单给Worker Agent处理。当前所有Worker共用同一套数据库API Key，并将全部Worker的系统提示词拼接后一次性注入Leader的上下文。上线后出现两个严重问题：1）某Worker误操作删除了核心业务表；2）Leader响应延迟显著升高。根据本章四条硬原则，这两个问题分别违反了哪两条？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "明确职责"
+        },
+        {
+          "option_label": "B",
+          "option_text": "独立凭据"
+        },
+        {
+          "option_label": "C",
+          "option_text": "中央调度"
+        },
+        {
+          "option_label": "D",
+          "option_text": "避免全量注入"
+        }
+      ],
+      "answer": "BD",
+      "analysis": "依据原文4.7节‘多 Agent 设计四原则’：①‘独立凭据’要求‘不同 Agent 不得共用同一套账号/API 凭据，按最小权限分别授权’，题干中‘共用数据库API Key’直接导致Worker越权操作（问题1），违反B；②‘避免全量注入’要求‘不要把所有 Agent 的知识/工具清单一次性写进主 Prompt’，题干中‘全部Worker系统提示词拼接注入Leader上下文’造成上下文膨胀、注意力稀释、token成本飙升，直接导致响应延迟（问题2），违反D。A项‘明确职责’指任务边界清晰，题干未体现职责混淆；C项‘中央调度’指Leader统一判断调用逻辑，题干中Leader确实在分派，未违反此原则。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 0,
+      "stem": "某团队开发代码审查Agent，目标是检测“未处理的空指针异常”。当前采用LLM-as-Judge评测：用另一个大模型对审查报告打分。上线后发现，该评测分数与实际线上故障率相关性极低。根据本章4.10节，最根本的原因是什么？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "未建立黄金测试集进行校准"
+        },
+        {
+          "option_label": "B",
+          "option_text": "未结合确定性检查进行白盒评测"
+        },
+        {
+          "option_label": "C",
+          "option_text": "LLM-as-Judge存在‘好好先生’偏见，倾向于给高分"
+        },
+        {
+          "option_label": "D",
+          "option_text": "未使用Rubric将模糊目标拆解为可判定细则"
+        }
+      ],
+      "answer": "B",
+      "analysis": "依据原文4.10节‘Agent 评测’开篇强调：‘Agent 评测比 RAG 更难：问题常出在过程而非最终答案……光看最终结果根本发现不了。’并指出‘端到端评测（黑盒）’与‘白盒化评测’的区分。题干中‘评测分数与线上故障率相关性低’，说明黑盒评测（LLM-as-Judge打分）无法反映真实缺陷（空指针未被检测出），而根本解法是白盒评测——针对‘代码能否运行’这一客观环节，用确定性检查（如代码解释器真实执行、捕获NullPointerException）直接验证。B项直指此核心方法论。A、C、D均为LLM-as-Judge的优化手段（4.10节‘best’与‘risk’），但题干问题本质是评测维度错误（用主观打分替代客观执行验证），而非打分本身不准。",
+      "difficulty_label": "挑战"
+    }
+  ]
+}

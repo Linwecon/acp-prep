@@ -1,0 +1,154 @@
+{
+  "items": [
+    {
+      "type": 0,
+      "stem": "某教育公司采用AgentScope构建新人答疑机器人，设计了Leader-Agent（规划员）与Worker-Agents（制度查询员、流程查询员、政策解读员）三角色协作。运行中发现：Leader-Agent多次向同一Worker-Agent重复发送相同任务，且未收到有效响应。经检查MsgHub日志，该Worker-Agent的message处理函数始终返回空字符串。依据第12章12.6.1节对AgentScope核心抽象的定义，此故障最直接违反了哪一必要条件？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "Worker-Agent未正确注册Tool，导致无法解析工具调用意图"
+        },
+        {
+          "option_label": "B",
+          "option_text": "Worker-Agent的message处理逻辑未实现非空响应协议，违反MsgHub对消息语义完整性的要求"
+        },
+        {
+          "option_label": "C",
+          "option_text": "未配置DashScopeMultiAgentFormatter，导致消息序列化格式不兼容qwen-plus模型输入"
+        },
+        {
+          "option_label": "D",
+          "option_text": "Leader-Agent未调用handoff方法，导致任务无法移交至Worker-Agent执行上下文"
+        }
+      ],
+      "answer": "B",
+      "analysis": "依据原文12.6.1节：'AgentScope的核心抽象包括Agent、Model、Msg / MsgHub、Formatter、Tool'，其中MsgHub被明确定义为'实现群聊式共创协作（Blackboard模式）'的通信中枢，其前提是各Agent能通过标准消息协议进行**有意义的交互**。原文强调MsgHub承载的是'消息通信'，而消息必须具备可消费的语义内容——Worker-Agent返回空字符串，直接破坏了MsgHub赖以工作的基本契约：消息需携带有效载荷（如工具结果、思考结论、观察反馈）。选项A错误：Tool注册缺失会导致tool_calls解析失败或报错，而非静默返回空；选项C错误：Formatter缺失将导致模型输入格式错误（如缺少role字段），引发模型拒绝响应或格式异常，但不会使Worker固定返回空字符串；选项D错误：handoff是Leader-Worker分层模式的显式控制流机制，但即使未handoff，Worker仍可通过MsgHub监听并响应广播消息，且故障现象是'重复发送后无响应'，说明消息已送达但处理无输出。因此，B项直指MsgHub通信范式的核心前提——消息必须非空且语义完整，符合教材对'多Agent之间如何说话'这一一等公民抽象的定义。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 1,
+      "stem": "在AgentScope框架中，以下哪些组合约束是强制性的，若违反将导致ReActAgent无法进入正常‘思考—行动—观察’循环？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "ReActAgent实例必须绑定一个实现了Runnable协议的Model对象"
+        },
+        {
+          "option_label": "B",
+          "option_text": "ReActAgent的sys_prompt中必须包含明确的工具描述文本，且与注册的Tool的JSON Schema严格一致"
+        },
+        {
+          "option_label": "C",
+          "option_text": "所有参与MsgHub协作的Agent必须使用相同的DashScopeChatFormatter实例"
+        },
+        {
+          "option_label": "D",
+          "option_text": "ReActAgent的formatter参数必须为DashScopeMultiAgentFormatter，不可使用DashScopeChatFormatter"
+        }
+      ],
+      "answer": "AB",
+      "analysis": "依据原文12.6.1节代码示例及概念描述：'ReActAgent封装模型、系统提示词、工具与思考—行动—观察循环'，且示例中明确传入model（DashScopeChatModel）和formatter（DashScopeMultiAgentFormatter）。A项正确：Model是ReActAgent执行循环的驱动源，裸调模型是循环基础，虽未明说'必须Runnable'，但课程所有Model实现均遵循LangChain Runnable协议（呼应12.2节LCEL），且AgentScope文档要求Model支持chat接口，故A为隐含强制约束；B项正确：原文12.2节明确指出'LangChain的Tool的参数必须用JSON Schema声明，直接呼应Function Calling考点'，而AgentScope的Tool注册同样依赖Schema生成工具描述，若sys_prompt中描述与Schema不一致，模型将无法生成合法tool_calls，循环卡在'思考'阶段，此为ReAct范式根本前提；C项错误：MsgHub仅要求消息可序列化/反序列化，不同Agent可用不同Formatter（如Leader用MultiAgentFormatter，Worker用ChatFormatter），只要最终消息结构能被接收方解析即可，原文未要求统一实例；D项错误：DashScopeChatFormatter适用于单Agent场景，DashScopeMultiAgentFormatter专为多Agent消息广播设计，但ReActAgent本身可独立运行（无需MsgHub），此时使用ChatFormatter完全合法，原文示例仅展示多Agent场景用法，并非强制约束。",
+      "difficulty_label": "挑战"
+    },
+    {
+      "type": 0,
+      "stem": "团队使用AgentScope构建'合同条款协同审阅'系统，采用Blackboard模式：法务、HR、风控三Agent通过MsgHub广播消息讨论一份合同。上线后发现，当法务Agent发布一条含Markdown表格的关键条款分析时，HR Agent解析出的表格内容严重错乱（行列颠倒、单元格合并失效）。经排查，法务Agent发送消息时未调用任何Formatter，而是直接传入原始字典。依据第12章12.6.1节对Formatter作用的定义，此问题的根本原因是什么？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "MsgHub不支持传输结构化数据，必须将表格转为纯文本再发送"
+        },
+        {
+          "option_label": "B",
+          "option_text": "未使用Formatter导致消息未按模型所需格式（如role/content结构）序列化，接收方无法正确还原语义结构"
+        },
+        {
+          "option_label": "C",
+          "option_text": "HR Agent未安装pandas库，无法解析表格数据"
+        },
+        {
+          "option_label": "D",
+          "option_text": "Blackboard模式要求所有Agent必须使用同一套工具集，法务未注册表格解析Tool"
+        }
+      ],
+      "answer": "B",
+      "analysis": "原文12.6.1节明确定义：'Formatter：如DashScopeChatFormatter、DashScopeMultiAgentFormatter，把Agent消息序列化成模型能接受的格式'。关键点在于'序列化成模型能接受的格式'——即确保消息结构（如role='assistant'、content包含正确Markdown）符合大模型输入规范。法务Agent直接传入原始字典，绕过Formatter，导致消息体为{'analysis': '...|列1|列2|\\n|---|---|...'}等非标准结构，HR Agent接收到后无法识别为有效content，解析器按普通字典键值处理，自然丢失表格语义。A项错误：MsgHub本质是消息队列，可传输任意Python对象（经pickle或JSON序列化），支持结构化数据；C项错误：表格错乱是消息格式问题，非运行时依赖缺失；D项错误：Blackboard模式不要求工具集统一，而是基于消息广播的松耦合协作，原文强调'消息通信'是核心，非工具共享。B项精准对应Formatter的教材定义：它是消息与模型之间的'翻译器'，缺失则语义结构坍塌。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 1,
+      "stem": "在AgentScope中实现Leader-Worker分层协作时，以下哪些执行顺序或状态流转是符合框架设计原则的必要步骤？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "Leader-Agent调用handoff()方法，将任务对象及当前对话历史作为参数传递给指定Worker-Agent"
+        },
+        {
+          "option_label": "B",
+          "option_text": "Worker-Agent执行完毕后，必须通过MsgHub向Leader-Agent发送带有task_id标识的响应消息"
+        },
+        {
+          "option_label": "C",
+          "option_text": "Leader-Agent需在handoff前，先将Worker-Agent注册到全局MsgHub实例中"
+        },
+        {
+          "option_label": "D",
+          "option_text": "Worker-Agent的响应消息必须包含完整的原始用户问题，以便Leader进行答案合成"
+        }
+      ],
+      "answer": "AC",
+      "analysis": "依据原文12.6.1节：'课程C3还演示了两种多Agent协作模式：分层规划（Leader-Worker，通过handoff转交任务）'，且代码示例中create_agent函数明确使用ReActAgent类。A项正确：handoff是Leader-Worker模式的标志性API，原文用'通过handoff转交任务'直接定义其作用，是任务移交的必要动作；C项正确：MsgHub是消息中枢，所有Agent需注册（即加入Hub）才能收发消息，这是分布式通信的基础前提，虽原文未逐行写注册代码，但MsgHub设计必然要求参与者注册，否则消息无法路由；B项错误：handoff是同步/半同步调用，Worker执行结果通常直接返回给Leader（非必须经MsgHub广播），原文未要求'必须通过MsgHub发送'，Blackboard才强依赖MsgHub广播；D项错误：Leader已持有完整上下文，Worker只需返回其负责子任务的结果（如'年假政策为10天'），答案合成由Leader完成，无需重复问题，这会增加冗余和错误风险。因此，AC是分层模式下框架强制的状态流转路径。",
+      "difficulty_label": "挑战"
+    },
+    {
+      "type": 0,
+      "stem": "某团队将AgentScope与LangChain混合使用：用LangChain的LangGraph编排主工作流，同时将AgentScope的ReActAgent封装为LangChain Tool供Graph节点调用。运行中发现，当LangGraph节点调用该Tool时，AgentScope Agent的日志显示'Formatter not set, using default'，且返回答案质量显著下降。依据第12章12.6.1节对Formatter作用的阐述及12.4节框架组合原则，此问题最可能的原因是？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "LangGraph未实现Runnable协议，导致无法向AgentScope Agent透传Formatter配置"
+        },
+        {
+          "option_label": "B",
+          "option_text": "AgentScope ReActAgent在被LangChain Tool封装时，未显式传入Formatter参数，导致使用不兼容的默认格式"
+        },
+        {
+          "option_label": "C",
+          "option_text": "LangChain的Tool抽象要求返回纯文本，而AgentScope Agent默认返回Message对象，造成解析失败"
+        },
+        {
+          "option_label": "D",
+          "option_text": "LangGraph与AgentScope的版本不兼容（agentscope==1.0.18 vs langchain==0.3.27），引发抽象泄漏"
+        }
+      ],
+      "answer": "B",
+      "analysis": "原文12.6.1节代码示例清晰展示：创建ReActAgent时必须显式传入formatter参数（'formatter=DashScopeMultiAgentFormatter()'）。当将其封装为LangChain Tool时，若开发者未在Tool初始化代码中将Formatter作为Agent构造参数传入，Agent将回退到内部默认Formatter（原文日志'using default'即指此），而默认Formatter可能不匹配qwen-plus的输入格式（如缺少role字段或message结构），导致模型理解偏差，答案质量下降。A项错误：LangGraph完全基于Runnable协议，不存在协议不支持问题；C项错误：LangChain Tool可返回任意类型，OutputParser负责转换，非强制纯文本；D项错误：版本不匹配会导致启动失败或API报错，而非静默使用默认Formatter。B项直击教材核心实践——Formatter是ReActAgent的必需构造参数，混合使用时必须显式传递，符合'各司其职、组合使用'的12.4节原则。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 0,
+      "stem": "在调试AgentScope多Agent系统时，工程师发现Leader-Agent发出的handoff指令未被任何Worker-Agent响应，且MsgHub监控面板显示该消息未被消费。进一步检查发现，所有Worker-Agent均使用'worker_1'、'worker_2'等硬编码名称创建，而Leader-Agent的handoff目标地址写为'hr_worker'。依据第12章12.6.1节对AgentScope协作机制的描述，此故障的根本原因是什么？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "handoff方法不支持字符串目标地址，必须传入Worker-Agent实例对象"
+        },
+        {
+          "option_label": "B",
+          "option_text": "Worker-Agent未在MsgHub中以'hr_worker'为key注册，导致消息路由失败"
+        },
+        {
+          "option_label": "C",
+          "option_text": "AgentScope要求所有Agent名称必须为全小写字母加下划线，'hr_worker'含非法字符"
+        },
+        {
+          "option_label": "D",
+          "option_text": "Leader-Agent未调用MsgHub.broadcast()，导致handoff消息无法进入消息总线"
+        }
+      ],
+      "answer": "B",
+      "analysis": "原文12.6.1节指出MsgHub实现'群聊式'共创协作，其本质是消息路由中心。handoff作为定向任务移交，必然依赖MsgHub根据目标Agent名称（即注册ID）进行精确投递。Worker-Agent若以'worker_1'注册，而Leader指定'hr_worker'，MsgHub无法匹配目标，消息滞留。A项错误：handoff API设计必然支持字符串地址（类比RPC服务发现），原文示例虽未展示，但工程实践必支持；C项错误：Agent名称遵循Python变量命名规则，'hr_worker'完全合法；D项错误：handoff是专用方法，非需手动broadcast。B项精准对应MsgHub的核心机制——注册名即路由键，是消息可达性的前提，教材虽未明写'注册名必须匹配'，但'通过handoff转交任务'的表述隐含了目标可寻址性，此为分布式系统基础共识。",
+      "difficulty_label": "入门"
+    }
+  ]
+}

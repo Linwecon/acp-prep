@@ -1,0 +1,37 @@
+{
+  "new-4-48-0": {
+    "qid": "new-4-48-0",
+    "classification": "own",
+    "chapter": 4,
+    "quality": "ok",
+    "reason": "题目考查Function Calling流程中工具结果必须回传的核心约定，属于本章重点。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "工具返回结果必须回灌到上下文，否则模型等于‘做完就忘’",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "题干未提及循环被截断，故障与轮数上限无关。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "工具结果未回传，模型无法感知，违反核心约定。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "题干未涉及Planner耦合问题，故障点明确。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "故障是单次调用结果未回传，与长期记忆无关。"
+      }
+    ],
+    "duplicate_of": "4-5159"
+  }
+}

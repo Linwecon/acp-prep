@@ -1,0 +1,72 @@
+{
+  "new-1-24-0": {
+    "qid": "new-1-24-0",
+    "classification": "own",
+    "chapter": 1,
+    "quality": "ok",
+    "reason": "题目考查多轮对话中模型“失忆”的常见原因，即API无状态特性要求客户端维护并回传完整历史消息。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "大模型 API 是无状态（Stateless）的：每次 HTTP 请求相互独立，服务端不会因为你上次调过就“记得”你。所谓“多轮对话”，本质是客户端把历史消息拼进 messages，每次重新发一遍。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "system角色通常只需一次，遗漏不是第二轮失忆的主因。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "若将assistant回复误标为user角色，模型会将其视为用户输入而非自身历史，导致上下文断裂。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "流式输出只改变传输方式，不影响messages内容的完整性。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "启用联网搜索可能导致答案变化，但与“未提及Jira”这一上下文丢失问题无关。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-1-24-3": {
+    "qid": "new-1-24-3",
+    "classification": "own",
+    "chapter": 1,
+    "quality": "ok",
+    "reason": "题目考查上下文窗口被无关信息稀释的风险，即“Lost in the Middle”现象，属于本章核心知识点。",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "过长的无关上下文会稀释注意力、引入噪声（“Lost in the Middle”现象），又慢又贵。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "检索chunk数量翻倍会挤占上下文窗口，引入无关信息，导致注意力稀释和效果下降。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "Token换算误差是计费问题，与chunk数量翻倍导致的消耗突增无直接关联。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "temperature影响输出随机性，不改变输入token数量，与消耗突增无关。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "流式输出解码开销影响传输，不改变模型处理的总token数，非消耗突增主因。"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

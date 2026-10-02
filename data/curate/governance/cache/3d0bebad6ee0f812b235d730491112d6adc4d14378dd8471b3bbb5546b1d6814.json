@@ -1,0 +1,215 @@
+{
+  "4-0303": {
+    "qid": "4-0303",
+    "classification": "own",
+    "chapter": 4,
+    "quality": "ok",
+    "reason": "考查Function Calling中参数提取机制，属于核心知识点。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "参数提取准不准，取决于三件事：Schema 质量（名称、描述、必填项是否清晰）、模型能力、上下文清晰度（用户表述含糊时 Agent 应追问而不是瞎猜）",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "参数可多轮收集，非静态。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "模型基于上下文动态分析提取。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "Agent应能主动追问，非仅依赖明示。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "参数可动态调整，非固定。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "4-0305": {
+    "qid": "4-0305",
+    "classification": "cross",
+    "chapter": 12,
+    "quality": "ok",
+    "reason": "考查框架（如AgentScope）的可定制性，属于框架与工具章节。",
+    "answer": [
+      "B"
+    ],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "预训练模型需调整适配。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "框架简化流程，快速搭建应用。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "限制性接口不利于定制。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "固定工具集减少灵活性。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "4-0310": {
+    "qid": "4-0310",
+    "classification": "cross",
+    "chapter": 12,
+    "quality": "ok",
+    "reason": "考查多Agent框架（如MetaGPT）的应用案例，属于框架与工具章节。",
+    "answer": [
+      "C"
+    ],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "虚拟社区非软件开发文档。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "动物社区非软件开发。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "MetaGPT用于构建软件开发公司。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "聊天室非软件开发文档。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "4-0333": {
+    "qid": "4-0333",
+    "classification": "own",
+    "chapter": 4,
+    "quality": "ok",
+    "reason": "考查多Agent设计原则，属于核心知识点。",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "设置 Planner / Leader Agent 统一判断'何时调哪个 Agent'，避免 Agent 之间无序互调、循环等待（死锁）",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "相同算法策略不适用于异构任务。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "必要信息交换是关键，非减少开销。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "中央调度避免无序互调，提升效能。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "局部优化可能导致全局次优。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "4-0344": {
+    "qid": "4-0344",
+    "classification": "own",
+    "chapter": 4,
+    "quality": "ok",
+    "reason": "考查Memory管理策略，属于核心知识点。",
+    "answer": [
+      "A",
+      "B",
+      "D"
+    ],
+    "supported": true,
+    "quote": "固定窗口截断：只保留最近 N 轮 / N token，老的直接丢；滚动摘要：接近满时用 LLM 把旧对话压成摘要，替换原文；向量化召回：每轮对话切片入向量库，新问题按语义检索相关历史再注入",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "动态记忆保留关键信息。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "固定窗口截断是基础策略。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "Transformer-XL是模型架构，非缓解手段。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "重启对话状态可清空旧信息。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "4-0349": {
+    "qid": "4-0349",
+    "classification": "cross",
+    "chapter": -1,
+    "quality": "review",
+    "reason": "考查成本优化策略，但章节归属模糊，需专家复核。",
+    "answer": [
+      "B",
+      "D"
+    ],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "统一使用最大模型不经济。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "按任务复杂度动态调整规模。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "固定同一规模不灵活。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "关键决策用大型，其余用小型。"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

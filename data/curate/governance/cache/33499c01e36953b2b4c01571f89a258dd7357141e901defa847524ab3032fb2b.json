@@ -1,0 +1,104 @@
+{
+  "items": [
+    {
+      "type": 0,
+      "stem": "某教育公司上线新人答疑机器人后，用户连续提问：'我们项目管理用什么工具？'→'那怎么申请账号？'。第二轮模型未提及Jira，仅泛泛回答通用账号流程。经排查messages结构完整、temperature=0.7、上下文远未超窗。最应优先检查的环节是？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "是否在第二轮调用中遗漏了system角色消息"
+        },
+        {
+          "option_label": "B",
+          "option_text": "是否将第一轮assistant回复内容误写为user角色"
+        },
+        {
+          "option_label": "C",
+          "option_text": "是否因流式输出导致部分assistant内容未被完整接收并回传"
+        },
+        {
+          "option_label": "D",
+          "option_text": "是否在第二轮请求中错误启用了enable_search参数"
+        }
+      ],
+      "answer": "B",
+      "analysis": "依据1.8.1节messages结构规范与1.8.2节'无状态'原理：模型严格按role字段识别语义角色。若第一轮assistant回复（如'软件一组目前使用Jira'）被错误标记为user角色，则第二轮输入中'这个工具'的指代对象缺失，模型无法建立共指关系。A项system消息缺失会影响人设但不破坏指代链；C项流式输出仅影响传输方式，不改变内容完整性（见1.9节'答案质量完全相同'）；D项联网搜索可能引入干扰但不会导致指代失效。教材明确强调：'assistant消息必须准确标注，否则历史信息无法被正确建模'（1.8.1示例代码及风险说明）。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 1,
+      "stem": "某金融客服系统需从客户投诉中稳定抽取'问题类型、金额、发生日期'三字段。为最大限度抑制幻觉并保障结构化输出一致性，以下哪些措施符合本章核心原则？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "将temperature设为0.1，top_p设为0.3"
+        },
+        {
+          "option_label": "B",
+          "option_text": "在system提示词中强制要求'仅输出JSON格式，不得添加解释'"
+        },
+        {
+          "option_label": "C",
+          "option_text": "使用RAG检索公司最新投诉处理SOP文档并作为context注入"
+        },
+        {
+          "option_label": "D",
+          "option_text": "启用qwen-max模型的reasoning_content模式以增强推理过程"
+        }
+      ],
+      "answer": "AB",
+      "analysis": "A项符合1.7.4节'事实问答/结构化抽取应低temperature+低top_p'的调参建议；B项对应1.2节'抑制幻觉需提示词约束'（教材原文：'只依据资料回答'+引用溯源），且JSON格式强制可降低自由发挥空间。C项虽属RAG，但SOP文档若未包含具体投诉实例的字段值，则无法解决抽取任务——本章1.2节明确指出RAG用于'最新/私域知识'补位，而结构化抽取依赖的是模型对输入文本的解析能力，非知识检索；D项reasoning_content属于推理扩展（1.11节注），会增加输出长度和不确定性，与'稳定抽取'目标相悖。教材强调：'调参与提示词约束是抑制幻觉的第一道防线，RAG用于知识补充而非替代基础能力'（1.2节compare表与1.7.4节best practice）。",
+      "difficulty_label": "高阶"
+    },
+    {
+      "type": 0,
+      "stem": "开发团队发现同一段长技术文档摘要请求，在qwen-plus和qwen-turbo上生成结果差异显著：前者细节丰富但偶有虚构数据，后者简洁准确却丢失关键指标。该现象最能印证本章哪一核心原理？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "Scaling Law中参数规模与能力上限的正相关性"
+        },
+        {
+          "option_label": "B",
+          "option_text": "上下文窗口对输入输出Token预算的共用约束"
+        },
+        {
+          "option_label": "C",
+          "option_text": "LLM本质是概率性文本生成器，非数据库或搜索引擎"
+        },
+        {
+          "option_label": "D",
+          "option_text": "自注意力机制不限制序列长度，但工程实现受上下文窗口限制"
+        }
+      ],
+      "answer": "A",
+      "analysis": "题干描述'qwen-plus（中等参数）细节丰富但幻觉多'与'qwen-turbo（小参数）简洁准确但信息少'，直接对应1.10节Scaling Law的核心结论：参数量决定能力上限（复杂推理/长文理解），但需匹配数据与算力；小模型在简单任务上更稳定（1.11节选型口诀'快而省→Turbo'）。B项窗口约束解释的是长度限制，非质量差异；C项是LLM本质，但无法解释参数差异导致的表现分化；D项讨论的是自注意力与窗口的关系，与模型选型无关。教材1.10节明确指出：'大参数模型能力上限高但易幻觉，小模型延迟低、成本低、稳定性好'，且1.11节对比表中Turbo定位为'响应快、成本低，适合简单/高频任务'，Plus为'性能与成本均衡'。",
+      "difficulty_label": "中阶"
+    },
+    {
+      "type": 0,
+      "stem": "运维人员监控到某RAG服务token消耗突增300%，经分析发现用户query长度未变，但检索返回的chunk数量翻倍。此时最应警惕的本章风险点是？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "上下文窗口被无关信息稀释，引发'Lost in the Middle'现象"
+        },
+        {
+          "option_label": "B",
+          "option_text": "分词器对中文文本的Token换算误差累积"
+        },
+        {
+          "option_label": "C",
+          "option_text": "temperature参数设置过高导致采样范围扩大"
+        },
+        {
+          "option_label": "D",
+          "option_text": "流式输出解码时子词片段错位增加传输开销"
+        }
+      ],
+      "answer": "A",
+      "analysis": "题干核心是'RAG返回chunk数量翻倍→token消耗激增'，直指1.6节'上下文窗口'风险：'过长的无关上下文会稀释注意力、引入噪声（Lost in the Middle）'，且教材强调'上下文工程的核心不是喂得多，而是喂得准'。A项精准对应此原理。B项Token换算误差属固有特性，不会因chunk数量变化而突增；C项temperature影响输出随机性，与输入token消耗无关（见1.7.4节'参数作用'表）；D项流式输出仅改变传输方式，不增加token总量（1.9节'答案质量完全相同'）。教材1.6节risk框明确警示：'❌ 窗口越大效果越好'，并指出'无关上下文会稀释注意力'。",
+      "difficulty_label": "进阶"
+    }
+  ]
+}

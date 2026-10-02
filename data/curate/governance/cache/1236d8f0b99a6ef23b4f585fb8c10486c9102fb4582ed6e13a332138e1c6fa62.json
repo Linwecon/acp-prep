@@ -1,0 +1,162 @@
+{
+  "items": [
+    {
+      "type": 0,
+      "stem": "某教育公司上线新人答疑机器人后，监控日志发现：同一IP在30秒内提交127次'分析2024年全公司报销单并生成汇总表'请求，GPU利用率持续100%，但无业务告警。该现象最应优先归因于哪类攻击面？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "攻击大模型本身：高频调用导致模型权重被克隆"
+        },
+        {
+          "option_label": "B",
+          "option_text": "攻击大模型应用：间接提示注入触发RAG无限检索"
+        },
+        {
+          "option_label": "C",
+          "option_text": "攻击基础设施：资源耗尽型DDoS，目标是算力与成本瘫痪"
+        },
+        {
+          "option_label": "D",
+          "option_text": "数据安全漏洞：用户上传的PDF中嵌入恶意指令劫持GPU"
+        }
+      ],
+      "answer": "C",
+      "analysis": "依据原文8.1节攻击面总纲表及8.10场景表第1条：'大量分析五年财报写5000字请求把GPU打到100%、账单飙升'明确归类为'资源耗尽型DDoS'，属于'攻击基础设施'范畴；原文8.7强调'DDoS高防能清洗洪水，但管不了权限问题'，且8.10指出其本质是'针对AI的资源耗尽型DDoS（高耗token/GPU请求打爆算力）'。A错误：克隆模型需长期高频调用+模型输出反推，非短时GPU满载；B错误：间接注入表现为输出异常或工具滥用，而非单纯算力耗尽；D错误：PDF藏毒属间接注入，会引发行为异常（如忽略原问题），而非仅资源占用。本题考查攻击面精准定性能力。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 0,
+      "stem": "开发团队为RAG知识库配置了按职位过滤Top-K的逻辑，但在测试中发现：当用户ID对应position_id=2（teamleader）时，系统仍返回了kb_position_ref.csv中position_ids='[3,4]'（manager/ceo）的知识条目。最可能的根本原因是什么？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "未对kb_position_ref.csv中的position_ids字段执行ast.literal_eval解析，导致字符串'[3,4]'被当作整体匹配"
+        },
+        {
+          "option_label": "B",
+          "option_text": "安全组规则未限制数据库访问，导致攻击者直接绕过应用层读取原始CSV"
+        },
+        {
+          "option_label": "C",
+          "option_text": "WAF未开启SQL注入防护，使恶意查询篡改了position_id查询条件"
+        },
+        {
+          "option_label": "D",
+          "option_text": "输出审查模块误将敏感内容标记为'none'风险，未触发拦截"
+        }
+      ],
+      "answer": "A",
+      "analysis": "依据原文8.8.1节代码示例及原理说明：过滤逻辑依赖`ast.literal_eval(row['position_ids'])`将字符串'[3,4]'转为Python列表，若缺失此步，`user_position_id in '[3,4]'`会进行子字符串匹配（如2 in '[3,4]'为False，但若字段含空格或格式错误可能误判）。原文明确要求'逐条检查该条知识的position_ids是否包含当前用户的职位'，且代码注释强调解析必要性。B、C、D均属其他安全层问题，与RAG权限过滤逻辑缺陷无直接因果——原文8.8.2强调'权限必须由应用层强制'，而此处是应用层代码实现错误。本题考查对权限控制技术细节的深度理解。",
+      "difficulty_label": "高阶"
+    },
+    {
+      "type": 0,
+      "stem": "某AI客服系统接入阿里云内容安全服务，需对用户上传的会议录音进行合规检测。开发人员调用audio_moderation接口后立即轮询voice_moderation_result，但始终返回'任务不存在'。最符合原文规范的修正方案是？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "改用同步接口text_moderation_plus，并传入音频URL"
+        },
+        {
+          "option_label": "B",
+          "option_text": "先调用voice_moderation提交音频URL获取task_id，再用该task_id轮询结果"
+        },
+        {
+          "option_label": "C",
+          "option_text": "将音频文件base64编码后直接作为content参数传入image_moderation接口"
+        },
+        {
+          "option_label": "D",
+          "option_text": "在OSS中设置音频文件为public-read，再用其公网URL调用videoDetection接口"
+        }
+      ],
+      "answer": "B",
+      "analysis": "依据原文8.4.3表格及文字说明：音频检测必须'异步'，'先voice_moderation提交拿task_id，再轮询voice_moderation_result'；原文明确区分'音频URL'为输入，且强调'异步任务'特性。A错误：text_moderation_plus专用于文本，不支持音频；C错误：image_moderation处理图片，base64编码无法改变媒体类型；D错误：videoDetection用于视频，且需videoDetection接口而非image_moderation。本题直击多模态检测接口调用范式的易错点，考查对技术文档的精确执行能力。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 1,
+      "stem": "某金融企业部署RAG智能投顾系统，需确保客户薪资、持仓等敏感信息绝对隔离。根据原文8.5与8.8，以下哪些措施构成'双保险'式防护？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "在RAM中为投顾服务创建独立子账号，仅授予OSS只读权限"
+        },
+        {
+          "option_label": "B",
+          "option_text": "对知识库CSV文件中的薪资字段使用AES-256加密存储"
+        },
+        {
+          "option_label": "C",
+          "option_text": "在检索后、拼接Prompt前，按用户部门ID过滤Top-K结果"
+        },
+        {
+          "option_label": "D",
+          "option_text": "对向量数据库中的embedding向量应用DCPE（加噪+缩放+归一化+洗牌）"
+        },
+        {
+          "option_label": "E",
+          "option_text": "在API网关层配置WAF规则，拦截含'salary'关键词的请求"
+        }
+      ],
+      "answer": "B,C,D",
+      "analysis": "依据原文8.8.2'双重加密'定义：'文本内容'需AES加密（B正确），'向量'需DCPE加密（D正确）；原文8.8.1明确'过滤发生在检索之后、拼Prompt之前'（C正确）。A属于RAM权限控制，是云资源操作权限，不直接保护知识库数据本身；E中WAF无法识别语义，且'salary'关键词易被绕过（原文8.3指出黑名单无效），更非'双保险'核心。原文8.8.2强调'第一道：访问控制（应用层）...第二道：双重加密（数据层）'，B/C/D分别对应文本加密、应用层过滤、向量加密，三者共同构成纵深防御。本题考查对'双保险'概念的结构化理解。",
+      "difficulty_label": "高阶"
+    },
+    {
+      "type": 0,
+      "stem": "审计日志显示：某员工通过RAG机器人连续追问'张三的工位号''张三所属项目组''张三上季度绩效等级'，最终拼凑出完整个人信息。该事件暴露出哪一环节的防护缺失？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "输入过滤未识别隐私拼凑意图，应增加越狱话术检测"
+        },
+        {
+          "option_label": "B",
+          "option_text": "输出审查未拦截PII泄露，应启用输出侧PII识别与脱敏"
+        },
+        {
+          "option_label": "C",
+          "option_text": "数据脱敏未覆盖训练/入库数据，应实施全链路PII掩码"
+        },
+        {
+          "option_label": "D",
+          "option_text": "权限隔离未限制跨知识条目关联，应禁止检索同一人的多维度信息"
+        }
+      ],
+      "answer": "B",
+      "analysis": "依据原文8.10场景表第7条：'机器人把员工王伟的工位、项目组、绩效一步步聊了出来' → '隐私拼凑泄露'，处置方案为'输出侧PII识别拦截 + 训练/入库数据脱敏'；原文8.5强调脱敏是'进入训练、评测、RAG链路之前'，而本题中信息是通过多次问答逐步获取，属输出阶段泄露。A错误：输入过滤针对恶意指令，非正常提问；C虽正确但属根治措施，本题问'暴露出哪一环节缺失'，日志显示的是输出结果已泄露，故输出审查是第一道失守防线；D错误：原文未要求禁止跨条目关联，而是通过输出审查拦截。本题考查对'泄露发生环节'的精准定位能力。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 1,
+      "stem": "某公司上线面向公众的AI写作助手，需满足《生成式人工智能服务管理暂行办法》要求。根据原文8.6，以下哪些动作属于强制性合规义务？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "在用户协议中明示AI生成内容可能存在的幻觉风险"
+        },
+        {
+          "option_label": "B",
+          "option_text": "完成算法备案，否则存在下架风险"
+        },
+        {
+          "option_label": "C",
+          "option_text": "对所有生成文本添加'AI生成'水印或显著标识"
+        },
+        {
+          "option_label": "D",
+          "option_text": "建立投诉举报机制并公示处理流程"
+        },
+        {
+          "option_label": "E",
+          "option_text": "使用KMS对用户上传的文档进行静态加密"
+        }
+      ],
+      "answer": "B,C,D",
+      "analysis": "依据原文8.6法规表及'考试要点'：'面向境内公众提供生成式AI服务须依法备案'（B正确）；'AI生成的文本...须添加显著AI生成标识'（C正确）；'建立投诉举报机制'（D正确）。A中'幻觉风险告知'属最佳实践，但原文未列为《暂行办法》强制要求；E属数据安全措施（8.5节），非《暂行办法》直接义务。原文8.6明确'谁提供服务，谁负责'，备案、标识、投诉机制是三大刚性要求。本题考查对国内核心法规条款的精准识别，避免将技术建议混淆为法定义务。",
+      "difficulty_label": "进阶"
+    }
+  ]
+}

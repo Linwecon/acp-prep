@@ -1,0 +1,44 @@
+{
+  "items": [
+    {
+      "qid": "new-11-54-0",
+      "duplicate_of": "new-11-36-0",
+      "reason": "考点、关键条件、解题路径完全相同"
+    },
+    {
+      "qid": "new-11-54-2",
+      "duplicate_of": "new-11-12-4",
+      "reason": "考点、关键条件、解题路径完全相同"
+    },
+    {
+      "qid": "new-11-54-3",
+      "duplicate_of": "new-11-24-3",
+      "reason": "考点、关键条件、解题路径完全相同"
+    },
+    {
+      "qid": "new-11-6-0",
+      "duplicate_of": "new-11-0-0",
+      "reason": "考点、关键条件、解题路径完全相同"
+    },
+    {
+      "qid": "new-11-6-3",
+      "duplicate_of": "new-11-36-2",
+      "reason": "考点、关键条件、解题路径完全相同"
+    },
+    {
+      "qid": "new-11-60-0",
+      "duplicate_of": "new-11-12-0",
+      "reason": "考点、关键条件、解题路径完全相同"
+    },
+    {
+      "qid": "new-11-60-1",
+      "duplicate_of": "new-11-18-1",
+      "reason": "考点、关键条件、解题路径完全相同"
+    },
+    {
+      "qid": "new-12-18-0",
+      "duplicate_of": "new-12-0-0",
+      "reason": "考点、关键条件、解题路径完全相同"
+    }
+  ]
+}

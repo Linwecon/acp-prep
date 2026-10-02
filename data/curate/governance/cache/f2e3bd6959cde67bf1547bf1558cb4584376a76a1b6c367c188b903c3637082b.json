@@ -1,0 +1,72 @@
+{
+  "new-11-18-0": {
+    "qid": "new-11-18-0",
+    "classification": "own",
+    "chapter": 11,
+    "quality": "ok",
+    "reason": "考查扫描件PDF处理的核心流程，正确选项符合教材原则",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "扫描件PDF本质是图片，文本切片器一行字都读不出来。需要文档智能解析先把结构还原出来。OCR（光学字符识别）识别图片/扫描件里的文字",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "Qwen-VL用于看图作答，不解决PDF入库问题"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "扫描件必须先OCR解析为结构化文本才能被检索"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "通用加载器读不出扫描件文字，增大chunk无效"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "二进制提取数字不现实，应在解析阶段解决"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-11-18-2": {
+    "qid": "new-11-18-2",
+    "classification": "own",
+    "chapter": 11,
+    "quality": "ok",
+    "reason": "考查多模态生成质量评估的局限性，正确选项符合教材",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "图文一致性：模型可能生成'看起来对但细节错'的内容，自动指标很难评判，必须靠人工抽检或多模态审核模型兜底",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "教材明确图文一致性需人工或多模态审核兜底"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "教材未要求生成前必须用Qwen-VL验证"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "教材未强制文生图接入OCR校验"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "内容安全检测必要，但不是本题违背的核心原则"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

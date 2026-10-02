@@ -1,0 +1,72 @@
+{
+  "new-1-12-0": {
+    "qid": "new-1-12-0",
+    "classification": "own",
+    "chapter": 1,
+    "quality": "ok",
+    "reason": "考查temperature参数导致采样随机性的核心概念，题干条件清晰。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "temperature（温度）对模型输出的原始分数（logits）做缩放后再 softmax。T 越大 → 分布越平坦，低概率 Token 也有机会被选中，输出越发散。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "推理阶段参数冻结，不会动态更新。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "temperature=0.7使采样具有随机性，导致相同输入可能输出不同。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "题干明确两次请求内容一致，与历史无关。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "题干已确认上下文窗口一致且未超限。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-1-12-2": {
+    "qid": "new-1-12-2",
+    "classification": "own",
+    "chapter": 1,
+    "quality": "ok",
+    "reason": "考查上下文窗口超限导致截断的典型场景，条件明确。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "上下文窗口是输入与输出共用的 Token 预算。超过窗口的内容通常会被截断（往往丢弃最早的部分）。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "流式输出不影响消息处理与答案质量。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "消息完整但总Token数可能超窗，导致早期关键约束被截断。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "推理阶段不执行参数微调。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "分词歧义不是导致语义失联的主因。"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

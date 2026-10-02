@@ -1,0 +1,154 @@
+{
+  "items": [
+    {
+      "type": 0,
+      "stem": "某医疗AI团队需构建患者病历问答系统，要求：① 所有原始病历数据严禁离开医院私有云；② 模型需支持基于最新诊疗指南的LoRA微调；③ 对外提供高并发、低延迟API服务。若该团队决定从ModelScope下载Qwen2-7B开源模型，以下哪项是其成功落地的绝对必要前提？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "已开通PAI-EAS服务并配置VPC内网访问权限"
+        },
+        {
+          "option_label": "B",
+          "option_text": "在ModelScope上完成模型权重的在线微调并导出"
+        },
+        {
+          "option_label": "C",
+          "option_text": "为DashScope API申请了专属高配额RPM/TPM白名单"
+        },
+        {
+          "option_label": "D",
+          "option_text": "已将员工手册上传至百炼知识库并启用语义分块"
+        }
+      ],
+      "answer": "A",
+      "analysis": "依据原文10.7节：'ModelScope是开源模型社区，不是API服务；要部署开源模型必须自行或借助PAI/EAS等平台完成训练与服务化'；10.4节明确：'EAS是模型在线服务，支持弹性伸缩、蓝绿发布、版本管理'；10.5节强调：'要数据完全不出域、强私有化 → 开源模型（ModelScope下载）+ PAI/EAS或自建GPU部署'。选项B错误——ModelScope Notebook仅支持轻量推理和Demo体验，不支持生产级LoRA微调（教材10.7注：'Notebook免费但有运行时长限制'，且10.4指出微调需DSW/DLC）；选项C混淆了商业API与私有化路径，DashScope不适用于数据不出域场景；选项D属于百炼应用层，与私有模型部署无关。只有A满足'开源模型→本地/私有云部署→高并发服务'全链路的基础设施前提。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 1,
+      "stem": "运维工程师发现生产环境DashScope API调用持续返回429错误，监控显示TPM（每分钟Token数）已达配额上限。根据原文10.8节'处理限流'原则，以下哪些措施构成符合规范的完整重试与降级策略？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "立即在代码中添加无间隔循环重试逻辑，直至请求成功"
+        },
+        {
+          "option_label": "B",
+          "option_text": "实现指数退避（Exponential Backoff）并加入随机抖动（Jitter）的重试机制"
+        },
+        {
+          "option_label": "C",
+          "option_text": "当连续3次429后，自动降级为调用qwen-turbo模型以降低单次Token消耗"
+        },
+        {
+          "option_label": "D",
+          "option_text": "向阿里云工单申请永久提升TPM配额，无需修改代码"
+        }
+      ],
+      "answer": "BC",
+      "analysis": "原文10.8节明确：'遇429用**指数退避 + 抖动**重试，必要时降级到更小模型'；10.6节指出选型逻辑：'turbo速度快、成本低，适合高频简单任务'，降级符合工程权衡。选项A违反'切忌无间隔死循环重试，那会加剧限流、推高成本'（10.8风险提示）；选项D虽可行但非'处理'而是被动依赖，原文强调'生产环境必须考虑重试、退避与降级，不能假设无限并发'（10.8风险），且未解决瞬时峰值问题。BC共同构成主动、可控、符合成本优化的完整策略。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 0,
+      "stem": "算法团队在PAI-DSW GPU实例中完成Qwen2-1.5B模型LoRA微调后，需验证推理效果。以下哪种操作最严格遵循教材10.4节推荐的验证路径？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "直接在DSW中启动vLLM服务，使用curl命令测试HTTP接口，确认响应格式兼容OpenAI API"
+        },
+        {
+          "option_label": "B",
+          "option_text": "将微调后模型上传至百炼模型广场，通过控制台Prompt调试功能进行多轮问答测试"
+        },
+        {
+          "option_label": "C",
+          "option_text": "在ModelScope Notebook中加载微调权重，运行相同测试集并比对loss曲线"
+        },
+        {
+          "option_label": "D",
+          "option_text": "导出模型至OSS，提交DLC任务进行分布式推理压测"
+        }
+      ],
+      "answer": "A",
+      "analysis": "原文10.4节'principle'框明确给出典型流程：'在PAI-DSW的GPU实例里写代码...用vLLM本地起服务验证（其HTTP接口本身兼容OpenAI API）'；10.5节对比指出：'百炼面向应用开发，PAI面向模型训练与部署'，微调后验证属PAI范畴，非百炼适用场景；ModelScope Notebook无持久化存储与生产级验证能力（10.7注：'免费但有单次4小时限制'）；DLC用于训练而非推理验证。A项完全复现教材指定路径，且vLLM兼容OpenAI API是10.3节强调的关键价值点。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 1,
+      "stem": "某金融公司需构建合规问答系统，核心约束为：① 客户合同与监管文件严禁出域；② 通用千问模型对'穿透式尽调'等术语回答不准；③ 需支持1000+并发实时响应。若选择基于Qwen2-7B开源模型微调后部署，以下哪些阿里云产品组合能覆盖开发、训练、部署全链路且满足所有约束？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "ModelScope（下载Qwen2-7B权重）"
+        },
+        {
+          "option_label": "B",
+          "option_text": "PAI-DSW（LoRA微调开发与调试）"
+        },
+        {
+          "option_label": "C",
+          "option_text": "PAI-DLC（大规模分布式微调训练）"
+        },
+        {
+          "option_label": "D",
+          "option_text": "PAI-EAS（部署为高并发在线服务）"
+        }
+      ],
+      "answer": "ABD",
+      "analysis": "原文10.7节：'开源版可从ModelScope下载'；10.4节：'DSW是交互式建模工作台，用于写代码、做实验'，且课程4.1/4.2明确用DSW做LoRA微调；10.4节定义EAS为'把训练好的模型一键部署为在线推理服务，支持弹性伸缩、高并发'；10.5节强调'三者可组合：百炼应用可回调PAI-EAS服务'，且'数据不出域程度更高'。DLC虽可用于'大规模/分布式训练'（10.4表），但本题约束为'LoRA微调'，教材10.4'principle'明确'在DSW里用ms-swift做LoRA微调'，DLC非必要；且DLC侧重训练而非开发调试，ABD已覆盖'下载→开发微调→部署服务'最小可行闭环。C为干扰项，不符合'必要条件'考查要求。",
+      "difficulty_label": "挑战"
+    },
+    {
+      "type": 0,
+      "stem": "开发团队在ModelScope Notebook中成功运行Qwen3-0.6B推理Demo，但执行LoRA微调脚本时遭遇OOM（内存溢出）。该故障最根本的原因及教材依据是？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "Notebook默认资源配额不足，无法支撑微调所需显存；依据10.7节：'ModelScope Notebook免费但通常有连续运行时长限制'"
+        },
+        {
+          "option_label": "B",
+          "option_text": "LoRA微调需完整加载模型权重并保留梯度，显存需求远超纯推理；依据10.4节：'DSW提供GPU实例与预置镜像'，暗示专业微调需专用环境"
+        },
+        {
+          "option_label": "C",
+          "option_text": "Qwen3-0.6B模型权重文件损坏，导致加载异常；依据10.7节：'ModelScope是开源模型社区，类似GitHub'"
+        },
+        {
+          "option_label": "D",
+          "option_text": "未正确安装ms-swift库，引发兼容性错误；依据10.3节：'课程用ms-swift做LoRA微调'"
+        }
+      ],
+      "answer": "B",
+      "analysis": "故障本质是计算资源与任务需求的错配。原文10.4节明确区分：DSW是'交互式建模工作台'，提供'CPU/GPU实例与预置镜像'，专为开发调试设计；而ModelScope Notebook在10.7节被定义为'免费体验在线Demo'，其资源受限是设计使然。选项A提及'运行时长限制'，但OOM是内存不足，非超时问题；选项C、D属具体技术错误，非根本原因。B项直指核心：微调需梯度计算、优化器状态等，显存开销数倍于推理，教材10.4'principle'用DSW而非Notebook做微调，即隐含此硬件约束，符合'故障诊断'考查要求。",
+      "difficulty_label": "挑战"
+    },
+    {
+      "type": 1,
+      "stem": "当百炼应用需要调用部署在PAI-EAS上的私有模型时，以下哪些条件是必须同时满足的？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "PAI-EAS服务已开启公网访问或配置VPC内网互通"
+        },
+        {
+          "option_label": "B",
+          "option_text": "百炼应用所在地域与PAI-EAS实例部署在同一阿里云Region"
+        },
+        {
+          "option_label": "C",
+          "option_text": "PAI-EAS服务已配置正确的鉴权密钥（如AccessKey或STS Token）"
+        },
+        {
+          "option_label": "D",
+          "option_text": "百炼平台已内置PAI-EAS SDK并支持一键绑定服务"
+        }
+      ],
+      "answer": "AC",
+      "analysis": "原文10.5节'best'框明确：'百炼应用可回调PAI-EAS服务'，说明二者可集成；10.4节定义EAS为'模型在线服务'，其本质是HTTP API，故需网络可达（A）与身份认证（C）——这是任何跨服务API调用的基础。选项B非必须：阿里云跨Region可通过公网或高速通道互通，教材未限定同Region；选项D错误：百炼作为应用平台，不内置PAI SDK，其'回调'需开发者在百炼工作流或插件中编写代码调用EAS接口（10.2节'插件/工具'能力），教材从未提及'一键绑定'。AC是网络与安全层面的刚性前提，符合'组合约束'考查要求。",
+      "difficulty_label": "进阶"
+    }
+  ]
+}

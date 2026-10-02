@@ -1,0 +1,214 @@
+{
+  "1-1247": {
+    "qid": "1-1247",
+    "classification": "own",
+    "chapter": 1,
+    "quality": "ok",
+    "reason": "考查自注意力机制核心特性，题干明确要求识别'错误陈述'，选项C与原文'自注意力本身不限制序列长度'直接矛盾。",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "自注意力本身不限制序列长度，真正限制长度的是工程上的上下文窗口。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "正确。原文明确'每个 Token 都能看到序列里的其他 Token'，即全连接交互。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "正确。原文'生成 Q / K / V'及'Q 拿着问题去问各个 K'等描述均支持此说法。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "错误。原文多次强调'自注意力机制不限制序列长度'，限制长度的是上下文窗口。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "正确。原文'多头注意力并行捕捉语法、指代、语义等不同关系'直接支持。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "1-1262": {
+    "qid": "1-1262",
+    "classification": "own",
+    "chapter": 1,
+    "quality": "ok",
+    "reason": "考查OpenAI兼容API响应结构，属于1.8节messages结构和1.7节代码示例的延伸应用，需结合原文Python示例推断。",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "response = client.chat.completions.create(...); for chunk in response: print(chunk.choices[0].delta.content, end=\"\")",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "错误。API响应是嵌套结构，choices是列表，必须索引。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "错误。标准OpenAI兼容接口中choices内元素为dict，含message或delta字段，无直接message属性。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "正确。原文流式示例中使用chunk.choices[0].delta.content，非流式响应结构同理，choices[0]对应首个输出，其message.content为文本内容。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "错误。completion.choices[0]是完整choice对象，包含message、finish_reason等字段，非纯文本。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "1-1462": {
+    "qid": "1-1462",
+    "classification": "own",
+    "chapter": 1,
+    "quality": "ok",
+    "reason": "考查幻觉根因与缓解手段，题干要求'不能有效降低'，选项C与原文'幻觉无法100%消除，只能缓解'及'增加参数不解决幻觉'逻辑一致。",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "幻觉无法 100% 消除，只能缓解：用 RAG 提供可核查的资料、在提示词中要求\"只依据资料回答\"、让模型标注引用、再配合人工抽检。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "正确。原文'在提示词中要求\"只依据资料回答\"'是明确推荐的缓解手段。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "正确。原文'用 RAG 提供可核查的资料'是核心缓解手段。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "错误。原文'幻觉从哪来'指出根源是'训练目标是预测下一个词，而不是验证真伪'，增大参数不改变该目标，无法根治幻觉。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "正确。原文'再配合人工抽检'及'事实校验'属于后处理缓解手段。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "1-1464": {
+    "qid": "1-1464",
+    "classification": "own",
+    "chapter": 1,
+    "quality": "ok",
+    "reason": "考查多轮对话无状态特性，题干要求'最有效'，选项B对应原文'客户端把历史消息拼进messages'的最佳实践，优于A的用户体验降级方案。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "所谓\"多轮对话\"，本质是客户端把历史消息拼进 messages，每次重新发一遍。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "低效。原文指出'模型无状态'，但强制用户重复违背人机交互原则，非技术优化。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "正确。原文'客户端把历史消息拼进 messages'是根本解法，标注核心实体是工程化增强，确保指代明确。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "无效。原文'参数越大模型一定越好'是误区，且幻觉/指代问题与参数规模无直接因果。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "无关。提问长度与指代消解无直接关系，原文未提及此方案。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "1-1465": {
+    "qid": "1-1465",
+    "classification": "own",
+    "chapter": 1,
+    "quality": "ok",
+    "reason": "考查大模型能力边界与技术选型，题干为舆情分析（文本分类+实体识别），选项A直接对应LLM基础能力，其余选项偏离文本处理核心。",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "✅ 擅长 | 语言理解、文本生成、知识问答、代码编写、总结改写、一定的推理分析",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "正确。原文'擅长语言理解'及'知识问答'涵盖文本分类与NER，是LLM原生能力。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "错误。摘要/翻译非舆情分析核心需求，原文未将其列为舆情场景适配技术。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "错误。语音识别属多模态（第11章），原文未提及其在文本舆情中的必要性。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "错误。向量检索属RAG（第3章），模型并行属部署（第6章），非基础文本分析技术。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "1-1467": {
+    "qid": "1-1467",
+    "classification": "own",
+    "chapter": 1,
+    "quality": "ok",
+    "reason": "考查多轮对话状态管理，题干为多选且明确'有效'，选项A/B/D均被原文直接支持，C属消极方案未被提及。",
+    "answer": [
+      "A",
+      "B",
+      "D"
+    ],
+    "supported": true,
+    "quote": "要让模型\"记住\"前文，就必须由你的程序维护对话历史（内存、数据库、会话存储），并在每次调用时带上；长文本应用要把内容\"塞进\"窗口，常见手段：滑动窗口 / 摘要压缩；Memory分短期/长期与管理策略",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "正确。原文'客户端把历史消息拼进 messages'是无状态模型的根本解法。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "正确。原文'滑动窗口 / 摘要压缩'是处理长历史的标准手段。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "错误。原文未提及强制结束对话，此为粗暴方案，不符合'优化'要求。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "正确。原文'Agent本质是规划-行动-观察闭环'及'Memory分短期/长期'表明状态管理是标准组件。"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

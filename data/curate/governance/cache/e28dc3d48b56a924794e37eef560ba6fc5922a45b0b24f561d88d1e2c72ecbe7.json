@@ -1,0 +1,214 @@
+{
+  "new-10-36-0": {
+    "qid": "new-10-36-0",
+    "classification": "own",
+    "chapter": 10,
+    "quality": "ok",
+    "reason": "考查DashScope API Key启用与百炼关系，原文有明确依据。",
+    "answer": [
+      "D"
+    ],
+    "supported": true,
+    "quote": "百炼与DashScope虽共用API Key，但需在DashScope控制台单独开通API服务并完成实名认证",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "原文未提及需为特定模型单独开启权限。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "描述正确，但非最可能根本原因。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "401是认证错误，非URL拼写错误。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "原文明确需在DashScope控制台启用API服务。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-10-36-1": {
+    "qid": "new-10-36-1",
+    "classification": "own",
+    "chapter": 10,
+    "quality": "ok",
+    "reason": "考查TPM超限应对措施，原文有成本优化原则。",
+    "answer": [
+      "A",
+      "D"
+    ],
+    "supported": true,
+    "quote": "遇429用指数退避+抖动重试，必要时降级到更小模型；RAG只塞最相关的片段，不要每次把整本手册塞进上下文",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "符合指数退避、降级原则。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "批量请求不解决TPM超限问题。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "申请配额是管理手段，非即时风险降低措施。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "控制输入Token是成本优化原则。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-10-36-2": {
+    "qid": "new-10-36-2",
+    "classification": "own",
+    "chapter": 10,
+    "quality": "ok",
+    "reason": "考查DashScope不支持私有模型，原文有明确依据。",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "DashScope API仅支持平台预置商业模型，不支持用户上传的私有模型",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "原文明确DashScope仅支持预置模型。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "ModelScope注册非DashScope调用前提。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "故障根本是DashScope不支持私有模型。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "原文未提及API Key需绑定PAI资源组。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-10-36-3": {
+    "qid": "new-10-36-3",
+    "classification": "own",
+    "chapter": 10,
+    "quality": "ok",
+    "reason": "考查百炼知识库检索失败的可能原因，涉及RAG机制。",
+    "answer": [
+      "A",
+      "D"
+    ],
+    "supported": true,
+    "quote": "知识库切片策略与重叠机制；重排序（Rerank）交叉编码",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "切片截断可导致信息丢失。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "原文未提及Embedding模型启用语义分块。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "免费额度耗尽不会导致降级为关键词匹配。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "未配置重排可能导致检索结果相关性不足。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-10-36-4": {
+    "qid": "new-10-36-4",
+    "classification": "own",
+    "chapter": 10,
+    "quality": "ok",
+    "reason": "考查百炼发布API与DashScope API的选型依据。",
+    "answer": [
+      "D"
+    ],
+    "supported": true,
+    "quote": "流式输出开stream=True，是对话类应用降低等待感的标配",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "个性化记忆非选择DashScope的必要前提。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "自定义插件非选择DashScope的必要前提。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "OpenAPI规范集成非选择DashScope的必要前提。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "流式响应是DashScope原生支持的能力。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-10-36-5": {
+    "qid": "new-10-36-5",
+    "classification": "own",
+    "chapter": 10,
+    "quality": "ok",
+    "reason": "考查PAI-EAS部署模型格式要求，原文有依据。",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "ModelScope下载的HuggingFace格式模型需转换为EAS支持的推理引擎格式（如Triton）",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "日志提示格式不兼容，非GPU配额问题。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "原文未提及DSW导出权重不被支持。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "原文明确需转换模型格式。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "权限校验失败非日志提示的根本原因。"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

@@ -1,0 +1,104 @@
+{
+  "items": [
+    {
+      "type": 0,
+      "stem": "某企业财务系统每日凌晨自动拉取前一日全量Token用量明细（含输入/输出拆分、按模型/接口/用户维度聚合），用于成本分摊与预算预警。该任务对结果完整性、准确性要求极高，但无实时性要求。根据第9章原理，以下哪项调用方式选型及关键约束最符合工程实践？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "使用同步API逐次调用计费查询接口，设置3次重试+指数退避，依赖response.usage字段聚合"
+        },
+        {
+          "option_label": "B",
+          "option_text": "使用流式API获取增量账单数据，通过SSE帧拼接后解析JSONL格式的用量记录"
+        },
+        {
+          "option_label": "C",
+          "option_text": "调用平台提供的异步批量账单导出API（如DashScope Billing Batch Export），下载CSV/JSONL结果文件，并校验行数与MD5一致性"
+        },
+        {
+          "option_label": "D",
+          "option_text": "在应用层缓存每笔API调用的usage信息至数据库，凌晨定时SQL聚合——但未做去重与幂等校验"
+        }
+      ],
+      "answer": "C",
+      "analysis": "依据原文9.10节：'批量生成（Batch API）是把大量请求打包成一个异步离线任务提交给平台……优势是更高吞吐、更低单价地处理大批量、对实时性不敏感的任务'；且明确指出'Batch适用于批量评测、批量翻译/摘要/标注、夜间跑批'。题干中'每日凌晨拉取前一日全量Token明细'完全匹配'离线、大批量、高准确性要求、无实时性'四大特征。选项C对应平台原生账单批量导出能力（属广义Batch范畴），符合'异步、结果文件、需校验行数与一致性'的工程规范（9.10 Principle）。A错误：同步调用无法保证全量账单原子性，且usage字段仅存在于模型推理响应中，不适用于计费查询接口；B错误：流式用于模型生成，不适用于账单导出场景，且SSE无法保障账单数据完整性；D错误：原文9.9节强调'日志可追溯'需记录'请求ID、Token用量'，但应用层自行聚合存在漏记、重复、时序错乱风险，且未满足'校验行数、ID对齐'这一Batch核心校验要求（9.10 Risk），违反成本监控的可靠性前提。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 1,
+      "stem": "某HR系统使用qwen-plus模型为500份培训录音转写稿生成摘要，当前采用同步API循环调用，月底发现Token费用超预算200%。经分析，输入Token中65%来自冗余内容：system prompt含动态时间戳（每次不同）、历史消息未截断、RAG检索返回Top-10片段（实际仅需Top-3）。根据第9章9.9节'成本控制的优先级'与9.5节'历史消息是把双刃剑'，以下哪些优化措施能直接降低输入Token成本？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "将system prompt中的'截至2024年X月X日'改为静态表述'截至最新培训周期'，确保前缀稳定以提升缓存命中率"
+        },
+        {
+          "option_label": "B",
+          "option_text": "为每份转写稿单独构造messages，仅保留当前转写稿文本+精简system prompt，彻底移除多轮对话历史"
+        },
+        {
+          "option_label": "C",
+          "option_text": "在RAG检索后增加rerank步骤，将Top-10片段压缩为Top-3最相关片段再传入模型"
+        },
+        {
+          "option_label": "D",
+          "option_text": "将模型从qwen-plus降级为qwen-turbo，因turbo档位单价更低"
+        }
+      ],
+      "answer": "A,B,C",
+      "analysis": "依据原文9.9节'成本控制的优先级'：'1. 先选对模型档位；2. 控制输入长度；3. 限制输出长度；4. 利用缓存与批量；5. 监控与告警'，且明确'system prompt长度每次都作为输入计费'、'历史消息长度轮次越多输入越长'、'RAG检索片段全部进输入'。A正确：原文9.9 Principle指出'保持前缀稳定'可提升上下文缓存命中率，静态化时间戳是典型实践；B正确：题干明确'500份培训录音转写稿'为独立单次摘要任务（非多轮对话），9.5节强调'历史消息是把双刃剑'，此处无历史必要，移除即直接削减输入Token；C正确：9.9节'影响单次成本的关键因素'明确'RAG检索片段'计入输入，'控制Top K'是标准优化手段。D错误：虽属成本控制第1步，但题干问题聚焦'输入Token成本'，而模型降级影响的是单价而非输入Token数量，且qwen-turbo可能无法满足摘要质量要求（9.2 Best Practice：'复杂高质地用qwen-max'，摘要属中等复杂度，plus已适配），不符合'直接降低输入Token'这一限定条件。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 0,
+      "stem": "运维团队监控到某答疑机器人在早高峰持续触发429错误，进一步分析发现：RPM配额为120次/分钟，但客户端每分钟发起210次请求，且所有重试请求均在首次失败后第1秒、第2秒、第4秒精确执行（无抖动）。该现象最直接违反了第9章哪项核心工程原则？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "429应采用指数退避+抖动重试，避免重试风暴"
+        },
+        {
+          "option_label": "B",
+          "option_text": "应主动控制并发，使用令牌桶限制同时请求数"
+        },
+        {
+          "option_label": "C",
+          "option_text": "429属于限流错误，必须立即禁用Key并轮换"
+        },
+        {
+          "option_label": "D",
+          "option_text": "应将高频请求路由至qwen-turbo模型以提升RPM配额"
+        }
+      ],
+      "answer": "A",
+      "analysis": "依据原文9.8节'指数退避 + 抖动（Exponential Backoff with Jitter）是处理429/5xx的标准做法'，并明确指出'在等待时间上加一个随机抖动，避免大量客户端踩点同时重试把服务再次打爆'；同时'常见HTTP错误码与处置策略'表中定义429'✅ 退避后重试'，且'exam'部分强调'429是限流，正确做法是指数退避+抖动后重试，而不是立即重试'。题干中'所有重试请求均在首次失败后第1秒、第2秒、第4秒精确执行（无抖动）'，正是对'抖动'原则的直接违反，导致重试请求高度同步，加剧服务端压力。B虽是9.8 Best Practice中的'主动控并发'，但题干现象根源是重试策略缺陷而非并发控制缺失；C错误：429是配额超限，非Key泄露，应急处置针对401/429泄漏场景（9.3 Exam）；D错误：RPM配额由平台分配，与模型档位无关（9.9 Principle：'RPM/TPM/并发配额'是独立维度），且qwen-turbo未必提升RPM。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 0,
+      "stem": "开发Function Calling功能时，模型首次返回tool_calls，程序执行工具后回传role='tool'消息，但第二次调用模型时返回400错误，提示'messages must contain at least one user message'。排查发现messages数组结构为：[system_msg, user_msg, assistant_msg, tool_msg]。此故障最根本的原因是什么？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "tool_msg缺少required字段tool_call_id，导致服务端无法关联调用意图"
+        },
+        {
+          "option_label": "B",
+          "option_text": "未将首次调用返回的assistant_msg追加进messages，导致上下文断裂"
+        },
+        {
+          "option_label": "C",
+          "option_text": "system_msg位置错误，不应放在数组开头"
+        },
+        {
+          "option_label": "D",
+          "option_text": "user_msg内容为空字符串，违反400校验规则"
+        }
+      ],
+      "answer": "B",
+      "analysis": "依据原文9.7节'API层最常见的错误'：'❌ 忘了把response_message追加进messages——第二次调用时模型不知道自己之前决策了什么，会报上下文错误'；且9.7 Principle明确'role=\"assistant\"'消息必须包含在messages中。题干中messages结构为[system_msg, user_msg, assistant_msg, tool_msg]，表面看包含assistant_msg，但关键在于：该assistant_msg是否为**首次调用返回的完整message对象**？原文9.7示例代码第4步明确'`messages.append(response_message)`'，而response_message是包含`tool_calls`的完整assistant消息（含role='assistant'、content=None、tool_calls=[...]）。若开发中仅手动构造了{role:'assistant'}空消息或遗漏追加，则第二次调用时messages中assistant_msg实际为null或不完整，导致服务端校验失败。A错误：缺少tool_call_id会导致工具结果无法绑定，但错误码应为更具体的参数错误（如400 with 'invalid tool_call_id'），而非泛化的'messages must contain at least one user message'；C错误：原文9.5 exam明确'system消息建议固定在数组开头'，非错误原因；D错误：user_msg为空会触发400，但题干错误提示指向'messages must contain at least one user message'，说明user_msg存在但上下文链断裂，核心是assistant_msg缺失导致整个对话序列不合法。",
+      "difficulty_label": "挑战"
+    }
+  ]
+}

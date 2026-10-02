@@ -1,0 +1,154 @@
+{
+  "items": [
+    {
+      "type": 0,
+      "stem": "某金融企业需上线合规问答机器人，要求：①全部客户对话数据严禁出域；②日均稳定请求2000+，P95 TTFT需<1.2s；③支持灰度发布新模型版本并可秒级回滚。在PAI-EAS与GPU ECS+vLLM两种方案中，若团队具备GPU运维能力且已建立CI/CD流水线，应优先选择哪一方案？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "PAI-EAS，因其内置蓝绿发布、模型预热和自动弹性，运维负担更轻"
+        },
+        {
+          "option_label": "B",
+          "option_text": "GPU ECS+vLLM，因可深度调优PagedAttention块大小与连续批处理调度策略，精准控制TTFT抖动"
+        },
+        {
+          "option_label": "C",
+          "option_text": "PAI-EAS，因EAS对千问系列模型有专属DeepGPU-LLM加速，TTFT天然优于自建"
+        },
+        {
+          "option_label": "D",
+          "option_text": "GPU ECS+vLLM，因EAS不支持自定义vLLM内核参数，无法满足P95 TTFT硬性指标"
+        }
+      ],
+      "answer": "B",
+      "analysis": "依据6.12节‘部署选型四步决策法’及6.9节ECS优势描述：当‘数据不出域’（条件①）且‘团队具备GPU运维能力’时，ECS自建是合规前提下的高阶选项；而P95 TTFT<1.2s属严格延迟SLO（6.3节‘对话类业务TTFT要求高’），教材明确指出ECS方案‘无冷启动、性能稳定、可深度定制’（6.9节），且vLLM的PagedAttention块大小（block_size）、max_num_seqs等参数直接影响TTFT分布（6.5节原理），这些调优能力仅在自建环境中完全开放；PAI-EAS虽提供预热和灰度（6.10.2节），但其封装层屏蔽了底层vLLM调度器参数，无法实现对P95延迟的精细化控制。选项A错误——EAS运维负担轻是事实，但本题前提已声明‘团队具备GPU运维能力’，此时可控性优先于省心；选项C错误——DeepGPU-LLM加速在ECS上同样可用（6.9节末尾）；选项D过度绝对化，EAS支持vLLM部署但参数暴露有限，并非‘不支持’，教材未断言其无法达标。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 1,
+      "stem": "某教育科技公司使用Qwen3-0.6B蒸馏模型部署在线作文批改服务。压测发现：当并发从8提升至16时，QPS仅增长1.3倍，TTFT上升40%，且出现KV Cache OOM错误。以下哪些措施能直接缓解该瓶颈？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "启用vLLM的PagedAttention，将KV Cache按需分页分配"
+        },
+        {
+          "option_label": "B",
+          "option_text": "将模型从FP16量化为INT4，降低权重显存占用"
+        },
+        {
+          "option_label": "C",
+          "option_text": "限制单次请求最大上下文长度为2048 token"
+        },
+        {
+          "option_label": "D",
+          "option_text": "在Decode阶段启用GQA（分组查询注意力）"
+        }
+      ],
+      "answer": "A,C,D",
+      "analysis": "题干核心瓶颈是‘并发翻倍导致KV Cache OOM’，即KV Cache成为显存主要矛盾（6.6节‘KV Cache随序列长度×并发线性增长，常是并发瓶颈’）。A正确：PagedAttention直接解决KV Cache显存碎片与预分配浪费，提升显存利用率（6.5节）；C正确：限制最大上下文长度直接约束单次请求KV Cache上限，是教材明确推荐的‘牺牲长上下文换并发’手段（6.6节）；D正确：GQA通过减少KV头数成倍降低KV Cache体积（6.6节表格），属‘缓解KV Cache压力’的有效手段。B错误：量化权重仅降低‘权重’部分显存（一份），而题干OOM由KV Cache引起，权重显存未变，故不直接缓解瓶颈（6.6节强调‘权重只占一份，与并发无关’）。",
+      "difficulty_label": "高阶"
+    },
+    {
+      "type": 0,
+      "stem": "运维人员监控到推理服务TPOT持续高于250ms，但GPU计算单元利用率仅45%。此时最应优先排查以下哪个环节？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "Prefill阶段是否因长prompt导致计算密集型瓶颈"
+        },
+        {
+          "option_label": "B",
+          "option_text": "KV Cache是否因序列过长或并发过高引发显存带宽饱和"
+        },
+        {
+          "option_label": "C",
+          "option_text": "网络传输层是否存在HTTP/2流控或TLS握手延迟"
+        },
+        {
+          "option_label": "D",
+          "option_text": "模型权重加载是否未启用内存映射（mmap）导致IO阻塞"
+        }
+      ],
+      "answer": "B",
+      "analysis": "TPOT（Time Per Output Token）是Decode阶段指标，教材明确定义Decode为‘显存带宽密集型’（6.2节），且TPOT升高而GPU计算单元（SM）利用率低，说明瓶颈不在算力而在数据搬运——即显存带宽被KV Cache读取占满（6.5节‘Decode是显存带宽密集型’）。选项B直指该本质；A错误：Prefill决定TTFT，与TPOT无关；C错误：网络延迟影响RT但不会导致GPU SM利用率低；D错误：权重加载属启动阶段，不影响运行时TPOT。教材6.3节风险提示‘TPOT受显存带宽、KV Cache影响’，6.5节原理强调‘Decode每步读取KV Cache’，共同支撑B为唯一正解。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 1,
+      "stem": "某政务热线AI助手需7×24小时响应，要求：①市民对话数据100%本地化；②突发流量峰值可达日常3倍；③故障时需5分钟内自动恢复。以下哪些组合措施符合教材推荐的高可用实践？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "前端配置SLB负载均衡，后端部署3台GPU ECS实例"
+        },
+        {
+          "option_label": "B",
+          "option_text": "配置ESS弹性伸缩策略，CPU利用率>70%时自动扩容ECS实例"
+        },
+        {
+          "option_label": "C",
+          "option_text": "设置TPOT>300ms触发告警，并联动降级至规则引擎兜底"
+        },
+        {
+          "option_label": "D",
+          "option_text": "每日凌晨执行全量模型快照备份至NAS，故障时手动恢复"
+        }
+      ],
+      "answer": "A,B,C",
+      "analysis": "教材6.11.1节明确高可用四类手段：‘弹性伸缩+负载均衡’（A、B）、‘限流重试与降级熔断’（C）。A正确：SLB+多ECS是ECS方案标准高可用架构（6.9节图表）；B正确：ESS按负载自动扩缩容是应对流量峰值的核心手段（6.9节、6.11.1节）；C正确：TPOT超阈值触发降级是‘检测到模型异常时自动降级’的典型实践（6.11.1节）。D错误：教材强调‘容灾与回滚’需‘保留多版本支持快速回滚’（6.11.1节），而‘手动恢复快照’违背‘5分钟自动恢复’要求，且NAS备份非教材提及的容灾方式；教材推荐的是跨可用区部署与版本回滚，非存储快照。",
+      "difficulty_label": "高阶"
+    },
+    {
+      "type": 0,
+      "stem": "开发者使用wrk对vLLM服务压测，观察到并发10时QPS达22.08，但平均RT升至426.84ms且出现超时。此时若仅调整--max-num-seqs参数从256降至128，最可能产生的效果是？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "QPS下降，RT显著降低，超时消失"
+        },
+        {
+          "option_label": "B",
+          "option_text": "QPS基本不变，RT小幅下降，超时仍存在"
+        },
+        {
+          "option_label": "C",
+          "option_text": "QPS上升，RT进一步升高，超时增多"
+        },
+        {
+          "option_label": "D",
+          "option_text": "QPS下降，RT升高，超时增多"
+        }
+      ],
+      "answer": "A",
+      "analysis": "--max-num-seqs是vLLM关键参数，控制连续批处理中允许的最大并发请求数（6.5节‘连续批处理’原理）。题干现象（高并发下RT飙升+超时）表明当前并发已超服务承载极限（6.3节‘并发过高导致RT劣化、超时增多’）。降低--max-num-seqs即主动限流，强制减少同时处理的请求数，使系统回归稳定区间：KV Cache压力下降→显存带宽压力缓解→TPOT改善；排队请求减少→RT下降；超时消除。教材6.3节风险提示‘必须通过压测确定最优并发阈值’，6.11.1节‘限流’手段即为此类场景设计。选项B错误：RT必显著下降而非小幅；C、D与限流逻辑相悖。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 1,
+      "stem": "某电商大促期间，客服机器人流量激增。监控发现：QPS突增300%，但GPU显存占用率仅从65%升至72%，而TPOT却从180ms飙升至410ms。以下哪些因素可能导致此现象？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "大量用户提交超长商品描述（>8K token），导致单请求KV Cache暴涨"
+        },
+        {
+          "option_label": "B",
+          "option_text": "vLLM未启用PagedAttention，KV Cache预分配造成显存虚假充足"
+        },
+        {
+          "option_label": "C",
+          "option_text": "Decode阶段显存带宽已达PCIe瓶颈，新增请求加剧带宽争抢"
+        },
+        {
+          "option_label": "D",
+          "option_text": "Prefill阶段因batch过大触发CUDA kernel launch延迟"
+        }
+      ],
+      "answer": "A,C",
+      "analysis": "TPOT飙升而显存占用率增幅小，说明瓶颈不在显存容量而在带宽（6.2节‘Decode是显存带宽密集型’）。A正确：长上下文直接导致单请求KV Cache体积剧增（6.6节‘序列长度翻倍→KV Cache显存翻倍’），虽总显存未满，但带宽被长请求独占；C正确：PCIe带宽饱和是典型带宽瓶颈，教材虽未直述PCIe，但6.2节明确Decode‘决定TPOT’，6.5节指出‘Decode每步读取KV Cache’，带宽争抢必然抬升TPOT。B错误：PagedAttention解决的是显存碎片问题，不影响带宽；若未启用，显存占用率应更高（因预分配浪费），与题干‘仅升至72%’矛盾；D错误：Prefill影响TTFT，与TPOT无关（6.2节两阶段区分）。",
+      "difficulty_label": "高阶"
+    }
+  ]
+}

@@ -1,0 +1,212 @@
+{
+  "7-0165": {
+    "qid": "7-0165",
+    "classification": "own",
+    "chapter": 7,
+    "quality": "ok",
+    "reason": "考点明确，Faithfulness定义精准",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "Faithfulness（忠实度）：答案是否“忠于检索资料”，有没有脱离资料编造（幻觉）",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "原文明确定义为忠于检索资料"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "Correctness才评估准确度"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "Relevancy才评估相关性"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "Recall才评估检索数量"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "7-0204": {
+    "qid": "7-0204",
+    "classification": "own",
+    "chapter": 7,
+    "quality": "ok",
+    "reason": "考点明确，Precision定义精准",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "Context Precision：召回的片段中，相关项是否“排名靠前、占比高”（信噪比）",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "Correctness才评估整体质量"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "原文明确定义为排名靠前"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "Faithfulness才评估一致性"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "Relevancy才评估问题相关性"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "7-0218": {
+    "qid": "7-0218",
+    "classification": "own",
+    "chapter": 7,
+    "quality": "ok",
+    "reason": "考点明确，Recall定义精准",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "Context Recall：标准答案需要的信息，有多少被“检索到了”（找得全不全）",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "原文明确定义为信息检索全不全"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "Precision才评估排名靠前"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "与训练数据无关"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "与推理时间无关"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "7-0231": {
+    "qid": "7-0231",
+    "classification": "own",
+    "chapter": 7,
+    "quality": "ok",
+    "reason": "考点明确，Precision定义精准",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "Context Precision：召回的片段中，相关项是否“排名靠前、占比高”（信噪比）",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "原文明确定义为排名靠前占比高"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "Correctness才评估准确度"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "Relevancy才评估问题相关性"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "Recall才评估检索数量"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "7-0242": {
+    "qid": "7-0242",
+    "classification": "own",
+    "chapter": 7,
+    "quality": "ok",
+    "reason": "考点明确，Relevancy定义精准",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "Answer Relevancy（答案相关性）：答案是否“切题”、有没有答非所问或含糊其辞",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "原文明确定义为是否切题"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "Correctness才评估准确度"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "Faithfulness才评估忠于资料"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "Recall才评估覆盖程度"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "7-0252": {
+    "qid": "7-0252",
+    "classification": "own",
+    "chapter": 7,
+    "quality": "ok",
+    "reason": "考点明确，Recall定义精准",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "Context Recall：标准答案需要的信息，有多少被“检索到了”（找得全不全）",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "原文明确定义为召回完整程度"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "Correctness才评估准确度"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "Relevancy才评估问题相关性"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "Faithfulness才评估忠于资料"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

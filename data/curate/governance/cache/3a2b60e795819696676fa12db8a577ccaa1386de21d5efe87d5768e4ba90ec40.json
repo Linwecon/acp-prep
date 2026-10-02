@@ -1,0 +1,225 @@
+{
+  "new-8-36-0": {
+    "qid": "new-8-36-0",
+    "classification": "own",
+    "chapter": 8,
+    "quality": "ok",
+    "reason": "题干描述间接提示注入导致恶意工具调用，考查输入过滤缺失的合规义务。",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "输入过滤：Prompt 进模型前检测，拦截越狱、角色扮演、提示注入、知识库投毒等恶意指令",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "事故核心是输入未审核导致指令执行，非标识问题。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "事故暴露的是实时防护缺失，非事后举报机制。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "PDF隐藏指令被检索并执行，说明输入内容未实时审核。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "题干已明确完成备案，非备案问题。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-8-36-1": {
+    "qid": "new-8-36-1",
+    "classification": "own",
+    "chapter": 8,
+    "quality": "ok",
+    "reason": "考查《暂行办法》中“面向境内公众提供”的备案条件界定。",
+    "answer": [
+      "B",
+      "D"
+    ],
+    "supported": true,
+    "quote": "面向境内公众提供生成式 AI 服务须依法备案；服务提供者承担内容安全主体责任",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "内部员工使用，非面向公众。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "第三方集成并展示给终端用户，属面向公众。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "内网仅限部门使用，非面向公众。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "官网向所有访客提供，属面向公众。"
+      },
+      {
+        "label": "E",
+        "selected": false,
+        "why": "仅对认证员工开放，非面向公众。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-8-36-2": {
+    "qid": "new-8-36-2",
+    "classification": "own",
+    "chapter": 8,
+    "quality": "ok",
+    "reason": "考查《暂行办法》中“内容安全主体责任”的具体体现。",
+    "answer": [
+      "D"
+    ],
+    "supported": true,
+    "quote": "谁提供服务，谁负责是《暂行办法》的核心原则。模型是你的服务调的、内容是你的应用输出的，责任就在服务提供方",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "事故核心是内容安全责任未履行，非举报机制。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "最小必要是收集原则，非输出泄露的直接违反项。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "事故是泄露敏感数据，非标识问题。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "输出泄露PII，服务提供者未履行内容安全主体责任。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-8-36-3": {
+    "qid": "new-8-36-3",
+    "classification": "own",
+    "chapter": 8,
+    "quality": "ok",
+    "reason": "考查《暂行办法》中备案及标识等强制性要求。",
+    "answer": [
+      "A",
+      "B",
+      "C"
+    ],
+    "supported": true,
+    "quote": "面向境内公众提供生成式 AI 服务须依法备案；AI 生成/合成的文本、图片、音视频须添加显著AI生成标识；建立投诉举报机制",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "添加显著标识是法规明确要求。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "向网信部门备案是强制性义务。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "建立投诉举报机制是法规要求。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "PII脱敏是数据安全最佳实践，非备案强制要求。"
+      },
+      {
+        "label": "E",
+        "selected": false,
+        "why": "响应头标识非法规明确要求，界面标识是必须的。"
+      }
+    ],
+    "duplicate_of": "8-5167"
+  },
+  "new-8-36-4": {
+    "qid": "new-8-36-4",
+    "classification": "own",
+    "chapter": 8,
+    "quality": "ok",
+    "reason": "考查多模态检测中“任一fail则整体fail”的组合约束。",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "文本/图像/音频/视频任意一类判定为 fail，整体状态就是 fail，应用据此拒绝该请求",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "故障是整体判定逻辑错误，非OCR二次审核问题。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "图像检测已返回high，故障在聚合逻辑。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "图像high但整体pass，违反任一fail则整体fail约束。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "题干未提及检测失败，故障在判定逻辑。"
+      }
+    ],
+    "duplicate_of": "8-5170"
+  },
+  "new-8-36-5": {
+    "qid": "new-8-36-5",
+    "classification": "own",
+    "chapter": 8,
+    "quality": "ok",
+    "reason": "考查《暂行办法》中“内容安全主体责任”的具体应用。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "谁提供服务，谁负责是《暂行办法》的核心原则。模型是你的服务调的、内容是你的应用输出的，责任就在服务提供方",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "嵌入广告链接非最小必要原则问题。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "输出未声明广告内容，服务提供者未履行内容安全主体责任。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "事故是内容安全，非标识问题。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "事故是内容安全，非举报机制问题。"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

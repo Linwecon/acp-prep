@@ -1,0 +1,37 @@
+{
+  "new-6-168-0": {
+    "qid": "new-6-168-0",
+    "classification": "own",
+    "chapter": 6,
+    "quality": "ok",
+    "reason": "题目考查PagedAttention机制的核心作用边界，即优化KV Cache显存分配，不直接影响Prefill计算。选项分析清晰，有原文支持。",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "PagedAttention（分页注意力）...解决的是 KV Cache 的显存碎片与预分配浪费。Prefill（预填充阶段）...是计算密集型，决定了 TTFT",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "PagedAttention优化KV Cache分配，不改变Prefill计算量，故TTFT不变。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "TTFT由Prefill决定，与Decode调度无关。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "题干未提及截断，且截断会改变TTFT。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "TTFT主要受Prefill计算影响，与权重精度关系不大。"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

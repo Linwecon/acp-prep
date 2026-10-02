@@ -1,0 +1,154 @@
+{
+  "items": [
+    {
+      "type": 0,
+      "stem": "某团队在vLLM服务中启用PagedAttention后，长上下文（64K tokens）请求的并发数从3提升至8，但单请求TTFT未改善。以下哪项最准确解释该现象？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "PagedAttention仅优化KV Cache显存分配效率，不改变Prefill阶段的计算量与内存带宽需求"
+        },
+        {
+          "option_label": "B",
+          "option_text": "TTFT受GPU显存带宽限制，而PagedAttention降低了显存带宽利用率"
+        },
+        {
+          "option_label": "C",
+          "option_text": "vLLM默认关闭Prefill优化，需手动启用--enable-prefill-optimization参数"
+        },
+        {
+          "option_label": "D",
+          "option_text": "64K长度已超出vLLM支持的最大序列长度，触发回退到朴素注意力"
+        }
+      ],
+      "answer": "A",
+      "analysis": "根据原文6.5节：'PagedAttention……解决的是KV Cache的显存碎片与预分配浪费'；6.2节明确指出'Prefill是计算密集型，决定TTFT'，而KV Cache仅在Decode阶段被读取和复用；6.6节强调'KV Cache是Decode加速基础'，与Prefill无关。因此PagedAttention通过消除显存碎片提升并发容量（即更多请求可同时驻留），但Prefill仍需完整加载prompt并执行全量矩阵乘，其计算量、显存带宽压力与TTFT无直接关联。选项B错误——PagedAttention不降低带宽需求，反因块间非连续访问可能轻微增加访存开销；C、D在原文中无依据，vLLM无--enable-prefill-optimization参数，且64K在现代vLLM版本中属常规支持范围。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 0,
+      "stem": "压测发现当并发从16增至32时，vLLM服务QPS仅提升12%，而平均RT翻倍、429错误率升至8%。此时最应优先执行的操作是？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "立即扩容GPU实例数量，采用多卡张量并行分担负载"
+        },
+        {
+          "option_label": "B",
+          "option_text": "检查监控中KV Cache占用率与GPU显存总占用率，确认是否已达显存瓶颈"
+        },
+        {
+          "option_label": "C",
+          "option_text": "调高--max-num-seqs参数，允许更多并发请求进入调度队列"
+        },
+        {
+          "option_label": "D",
+          "option_text": "将模型从FP16量化为AWQ INT4，以降低权重显存占用"
+        }
+      ],
+      "answer": "B",
+      "analysis": "原文6.3节'高频误区'明确指出：'超出并发上限通常直接返回错误（如429）'；6.6节强调'KV Cache随序列长度×并发数线性增长'，且'长上下文下KV Cache常是显存大头、是并发瓶颈'；6.11.1节要求'通过压测确定最优并发阈值'。RT翻倍+429激增是典型显存/算力超载信号，必须首先验证瓶颈类型——若KV Cache占用率接近100%，说明显存已满，扩容或量化才有意义；若GPU利用率低而显存满，则是KV Cache瓶颈；若GPU利用率高，则是算力瓶颈。A盲目扩容可能无效（若瓶颈在显存而非算力）；C会加剧排队与错误；D虽有效但属后续优化，非诊断第一步。教材6.3节'必须通过压测确定最优并发阈值'直接支持B为首要动作。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 0,
+      "stem": "运维人员观察到vLLM服务在高并发下KV Cache占用率持续95%以上，但GPU显存总占用仅60%。此时若仅调整PagedAttention相关参数，以下哪项操作最可能立即缓解该现象？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "增大--block-size参数，使每个KV Cache块容纳更多token"
+        },
+        {
+          "option_label": "B",
+          "option_text": "减小--block-size参数，增加块数量以提升分配粒度"
+        },
+        {
+          "option_label": "C",
+          "option_text": "启用--kv-cache-dtype fp8，对KV Cache本身进行量化存储"
+        },
+        {
+          "option_label": "D",
+          "option_text": "设置--max-model-len为更小值，硬性限制单请求最大序列长度"
+        }
+      ],
+      "answer": "D",
+      "analysis": "原文6.6节'缓解KV Cache压力的常用手段'明确列出'限制最大序列长度'为直接手段，且说明'牺牲长上下文能力，换并发'；6.5节指出PagedAttention解决'预分配浪费'，但无法减少KV Cache总量——它只优化分配效率，不改变总量需求。选项A/B调整block-size影响的是内存碎片程度，对已高达95%的占用率无实质缓解（原文6.5：'按需分配'指动态分配，非压缩总量）；C中--kv-cache-dtype在vLLM中非标准参数，且原文6.6表中'KV Cache量化'属独立手段，非PagedAttention参数范畴；D直接削减单请求KV Cache需求（KV ∝ 序列长度×并发），是教材明确推荐的'立竿见影'手段，符合'立即缓解'要求。",
+      "difficulty_label": "挑战"
+    },
+    {
+      "type": 1,
+      "stem": "在诊断一个突然出现高TTFT（>8s）的线上vLLM服务时，监控显示GPU利用率正常、KV Cache占用率仅30%、无429错误。此时最应优先检查的日志线索是？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "Prefill阶段CUDA kernel启动耗时日志"
+        },
+        {
+          "option_label": "B",
+          "option_text": "请求排队等待调度的时间（queue_time_s）"
+        },
+        {
+          "option_label": "C",
+          "option_text": "模型权重加载（model loading）耗时"
+        },
+        {
+          "option_label": "D",
+          "option_text": "系统级OOM Killer日志或显存分配失败记录"
+        }
+      ],
+      "answer": "B,C",
+      "analysis": "原文6.2节定义TTFT = '首token延迟'，并明确其由'Prefill速度、排队时长、prompt长度'共同决定；6.3节'指标受什么影响'表中TTFT直接受'排队时长'影响；6.5节vLLM启动命令示例隐含模型加载为启动时一次性动作，若服务已运行则加载完成，但突发高TTFT可能源于新模型热加载或权重IO异常；6.3节'高频误区'强调'并发过高导致排队'，而当前监控显示GPU利用率正常、KV Cache占用低，排除显存/算力瓶颈，指向调度层问题。A虽属Prefill环节，但GPU利用率正常说明kernel执行未卡顿；D与KV Cache占用率30%矛盾（OOM应伴随显存满）。教材6.3节'TTFT受排队时长影响'及6.5节启动流程共同支持B（调度排队）和C（权重加载异常，如磁盘IO慢或路径变更）为最优先日志线索。",
+      "difficulty_label": "挑战"
+    },
+    {
+      "type": 1,
+      "stem": "某团队将Qwen3-0.6B模型量化为AWQ INT4后部署于vLLM，观测到：①显存占用下降58%；②TPOT降低22%；③TTFT无明显变化；④在代码补全任务上BLEU分数下降1.3分。以下哪些结论可被教材原文直接支持？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "量化主要省显存，且INT4下精度损失风险更大"
+        },
+        {
+          "option_label": "B",
+          "option_text": "量化通常也加速，因Decode阶段显存带宽压力减小"
+        },
+        {
+          "option_label": "C",
+          "option_text": "TTFT不变是因为Prefill阶段不依赖KV Cache"
+        },
+        {
+          "option_label": "D",
+          "option_text": "AWQ属于PTQ（训练后量化）方法"
+        }
+      ],
+      "answer": "A,B,D",
+      "analysis": "原文6.4节'量化的几个关键判断'明确：'量化主要省显存'、'INT4在低比特下精度损失更明显'（支持A）；'量化通常也加速……因为Decode阶段是显存带宽密集型'（支持B）；6.4节'GPTQ与AWQ'段落指出'GPTQ/AWQ属于PTQ'（支持D）。C虽逻辑正确（Prefill不读KV Cache），但原文6.2节仅说明'Prefill决定TTFT'、'Decode读取KV Cache'，未建立'TTFT不变→因Prefill不依赖KV Cache'的因果链，属推论而非教材直接支持；而A/B/D均为原文原句或表格直接陈述。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 1,
+      "stem": "当vLLM服务处理一批混合长度请求（128/2048/16384 tokens）时，PagedAttention相比传统连续内存分配，其显存节省主要来源于以下哪一机制？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "相同前缀的KV块在多个请求间共享"
+        },
+        {
+          "option_label": "B",
+          "option_text": "按需分配块，避免为最长请求预分配整段连续显存"
+        },
+        {
+          "option_label": "C",
+          "option_text": "使用更小的block-size降低内存对齐开销"
+        },
+        {
+          "option_label": "D",
+          "option_text": "将KV Cache从FP16压缩为INT8存储"
+        }
+      ],
+      "answer": "A,B",
+      "analysis": "原文6.5节'PagedAttention'定义：'把KV Cache切成固定大小的块，按需分配'，并明确好处包括'消除碎片'、'按需分配，不再按最大长度预分配浪费'（支持B）；'天然支持共享：相同前缀……的KV块可以在多个请求间共享'（支持A）。C中block-size是固定配置，非动态优化机制，且原文未提'降低对齐开销'；D属KV Cache量化，是6.6节独立手段，非PagedAttention机制。教材6.5节'按需分配'与'共享'两点直接对应A、B，且二者共同构成显存节省的核心来源。",
+      "difficulty_label": "进阶"
+    }
+  ]
+}

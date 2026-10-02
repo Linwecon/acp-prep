@@ -1,0 +1,218 @@
+{
+  "10-1440": {
+    "qid": "10-1440",
+    "classification": "cross",
+    "chapter": 9,
+    "quality": "ok",
+    "reason": "考查API多轮对话的messages构建规则",
+    "answer": [
+      "B",
+      "D"
+    ],
+    "supported": true,
+    "quote": "messages角色化结构；system/user/assistant/tool角色分工",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "模型无状态，历史需手动维护"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "需将assistant回复加入历史"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "API支持多轮，需维护历史"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "新问题需添加user message"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "10-1458": {
+    "qid": "10-1458",
+    "classification": "own",
+    "chapter": 10,
+    "quality": "ok",
+    "reason": "考查PAI-EAS模型服务化能力",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "把训练好的模型一键部署为在线推理服务，支持弹性伸缩、蓝绿发布、版本管理、监控告警",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "支持自定义/开源模型"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "EAS可将模型部署为服务"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "支持监控和弹性扩容"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "使用云端资源，无需本地"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "10-0594": {
+    "qid": "10-0594",
+    "classification": "own",
+    "chapter": 10,
+    "quality": "ok",
+    "reason": "考查不同规格模型的能力差异与局限",
+    "answer": [
+      "A",
+      "B",
+      "C"
+    ],
+    "supported": true,
+    "quote": "turbo快省、plus均衡、max最强、long长文本；按速度/能力/上下文/成本权衡",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "预训练模型缺乏领域微调"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "Chat对齐对话，Max泛化更强"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "Max参数多数据广，能力更强"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "模型能力受规模限制"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "10-1179": {
+    "qid": "10-1179",
+    "classification": "cross",
+    "chapter": 12,
+    "quality": "ok",
+    "reason": "考查LlamaIndex中全局设置的作用",
+    "answer": [
+      "C"
+    ],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "设置默认模型不决定流式"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "embedding不参与生成"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "全局设置后无需重复指定"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "定义了变量但不是最终目的"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "10-1430": {
+    "qid": "10-1430",
+    "classification": "own",
+    "chapter": 10,
+    "quality": "ok",
+    "reason": "考查DashScope API调用中获取最终答案的步骤",
+    "answer": [
+      "D"
+    ],
+    "supported": true,
+    "quote": "answer = json.loads(json.dumps(msgs, default=lambda o: o.__dict__))['data'][0]['content'][0]['text']['value']",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "创建运行，非获取答案"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "列出消息，未提取内容"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "处理工具调用，非最终答案"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "解析消息获取答案文本"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "10-0060": {
+    "qid": "10-0060",
+    "classification": "cross",
+    "chapter": 2,
+    "quality": "ok",
+    "reason": "考查解决时效性问题的多种工程手段",
+    "answer": [
+      "A",
+      "B",
+      "C",
+      "D"
+    ],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "RAG可参考知识库新闻"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "Function call调用搜索工具"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "平台搜索功能可获取新闻"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "提示词明确要求最新新闻"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

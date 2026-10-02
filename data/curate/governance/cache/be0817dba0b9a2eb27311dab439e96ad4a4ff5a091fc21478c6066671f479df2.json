@@ -1,0 +1,154 @@
+{
+  "items": [
+    {
+      "type": 0,
+      "stem": "某团队将Qwen3-0.6B模型量化为AWQ INT4后部署于vLLM，压测发现：①显存占用下降58%；②TPOT降低22%；③TTFT无明显变化；④在代码补全任务上BLEU分数下降1.3分。以下哪项结论可被教材第6.4节原文直接支持？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "INT4量化必然导致精度损失，因此BLEU下降是量化固有代价，无法规避"
+        },
+        {
+          "option_label": "B",
+          "option_text": "TPOT降低是因为显存带宽压力减小，但需框架支持低比特算子才能生效"
+        },
+        {
+          "option_label": "C",
+          "option_text": "TTFT不变说明Prefill阶段未受益于权重量化，因其计算密集性主导延迟"
+        },
+        {
+          "option_label": "D",
+          "option_text": "显存下降58%符合INT4相对FP16体积降为1/4的理论值（25%），实测偏差属正常工程误差"
+        }
+      ],
+      "answer": "B",
+      "analysis": "依据6.4节'量化'小节：'量化通常也加速……因为Decode阶段是显存带宽密集型，从显存读权重的字节数变少了。但能否加速取决于推理框架/硬件是否有对应的低比特算子'——选项B完整复现该因果链（TPOT↓→带宽压力↓→需算子支持），且与观测现象（TPOT降22%）严格对应。A错误：原文明确'INT4在敏感任务上可能掉点更明显，需要用业务评测集验证'，'必然导致''无法规避'属过度推断；C虽合理但原文未直接论述Prefill与量化的关系，仅指出Prefill是计算密集型，未排除其可能受益于INT4带来的内存访问优化；D错误：58%下降≠25%，因显存含权重+KV Cache+运行时开销，INT4仅压缩权重部分，原文表格明确'INT4相对FP32为1/8'，而FP16是1/2，故INT4相对FP16应≈1/4（25%），58%下降远超理论值，不能直接支持。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 0,
+      "stem": "运维人员发现vLLM服务在高并发下KV Cache占用率持续95%以上，但GPU总显存占用仅60%。此时若仅调整PagedAttention相关参数，以下哪项操作最可能立即缓解该现象？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "增大--block-size参数，使每个KV Cache块容纳更多token，减少块数量"
+        },
+        {
+          "option_label": "B",
+          "option_text": "启用--kv-cache-dtype fp8，对KV Cache本身进行低精度存储"
+        },
+        {
+          "option_label": "C",
+          "option_text": "调小--max-num-seqs，强制限制并发请求数"
+        },
+        {
+          "option_label": "D",
+          "option_text": "增加--gpu-memory-utilization阈值，允许更高显存使用率"
+        }
+      ],
+      "answer": "C",
+      "analysis": "依据6.6节'KV Cache是随序列长度×并发数线性增长'及6.4节'量化主要省显存（权重）'，题干中'KV Cache占用率95%'表明瓶颈在KV Cache容量而非总显存，PagedAttention本身不减少KV Cache总量，只优化其分配效率（6.5节'消除碎片、按需分配'）。选项C直接作用于KV Cache总量公式中的'并发数'因子，是唯一能立即降低KV Cache绝对占用的操作。A错误：增大block-size不减少总块数，反而可能因对齐浪费更多显存；B属于KV Cache量化，原文6.6节'缓解KV Cache压力的常用手段'中确有此条，但题干限定'仅调整PagedAttention相关参数'，而--kv-cache-dtype非PagedAttention参数；D错误：提高利用率阈值不解决KV Cache已占满的问题，可能触发OOM。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 0,
+      "stem": "当vLLM服务处理一批混合长度请求（128/2048/16384 tokens）时，PagedAttention相比传统连续内存分配，其显存节省主要来源于以下哪一机制？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "将长请求的KV Cache切分为多个固定大小块，避免为短请求预分配过长连续空间"
+        },
+        {
+          "option_label": "B",
+          "option_text": "通过页表映射实现相同前缀的KV块跨请求共享"
+        },
+        {
+          "option_label": "C",
+          "option_text": "动态调整每个请求的KV Cache块数量，使其严格匹配实际生成长度"
+        },
+        {
+          "option_label": "D",
+          "option_text": "将KV Cache从GPU显存迁移至CPU内存，利用虚拟内存交换"
+        }
+      ],
+      "answer": "A",
+      "analysis": "依据6.5节'PagedAttention'定义：'把KV Cache切成一个个固定大小的块（block），按需分配……传统框架为每个请求按最大可能长度预分配一段连续显存……预分配的空间大量闲置'。选项A精准对应'避免为短请求预分配过长连续空间'这一核心痛点，是PagedAttention解决显存碎片与预分配浪费的直接机制。B虽为PagedAttention带来的'天然支持共享'优势（6.5节），但题干问'显存节省主要来源'，共享是额外收益，非基础节省机制；C错误：'严格匹配'是目标，但PagedAttention仍需预留一定余量，且节省主因是块化分配而非绝对精确；D完全违背原文，PagedAttention仍在GPU显存内管理块，未涉及CPU-GPU交换。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 1,
+      "stem": "某团队在vLLM中启用连续批处理后，观测到GPU计算单元（SM）利用率从62%提升至94%，但单请求TTFT反而上升了18%。以下哪些原因符合教材第6.5节对连续批处理原理的描述？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "连续批处理导致Prefill阶段无法并行处理整批prompt，转为串行或分片处理"
+        },
+        {
+          "option_label": "B",
+          "option_text": "新请求动态加入batch，使Prefill计算需等待当前batch中其他请求完成Decode才能开始"
+        },
+        {
+          "option_label": "C",
+          "option_text": "连续批处理本身不改变Prefill逻辑，TTFT上升源于并发增加导致的排队延迟"
+        },
+        {
+          "option_label": "D",
+          "option_text": "框架为支持动态batch，在Prefill阶段引入额外调度开销和内存拷贝"
+        }
+      ],
+      "answer": "C",
+      "analysis": "依据6.5节'连续批处理'定义：'请求不再整批齐步走……完成一个就立刻返回、新请求立刻补进batch'，并强调其优化对象是Decode阶段（'GPU全程不空转'）。Prefill阶段始终是单次请求的独立计算（6.2节），连续批处理不影响Prefill的并行性。TTFT上升的合理解释只能是并发增加导致请求排队（6.3节'吞吐与延迟关系'：'并发过高已经超过了服务处理能力'，'延迟一旦升高，同等并发下吞吐就会下降'）。选项C直接引用教材核心观点。A、B、D均无原文依据：教材从未提及连续批处理会损害Prefill并行性或引入Prefill调度开销，其设计初衷是解耦Prefill与Decode调度。",
+      "difficulty_label": "挑战"
+    },
+    {
+      "type": 1,
+      "stem": "在诊断一个突然出现高TTFT（>8s）的线上vLLM服务时，监控显示GPU利用率正常、KV Cache占用率仅30%、无429错误。此时最应优先检查的日志线索是？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "Prefill阶段的CUDA kernel执行耗时日志"
+        },
+        {
+          "option_label": "B",
+          "option_text": "请求排队队列长度与平均等待时间"
+        },
+        {
+          "option_label": "C",
+          "option_text": "模型权重加载与初始化耗时"
+        },
+        {
+          "option_label": "D",
+          "option_text": "系统级OOM Killer日志或显存分配失败记录"
+        }
+      ],
+      "answer": "B",
+      "analysis": "依据6.2节'一次请求总延迟 ≈ TTFT + TPOT × 输出 token 数'及6.3节'TTFT受Prefill速度、排队时长、prompt长度影响'，题干排除了GPU算力瓶颈（利用率正常）、KV Cache瓶颈（占用率低）、限流（无429），则TTFT异常升高必源于'排队时长'或'Prefill自身变慢'。但Prefill变慢通常伴随GPU利用率异常（因计算密集），而GPU利用率正常，故首要怀疑排队。6.3节'高频误区'明确指出'超出并发限制通常直接返回429'，但此处无429，说明排队发生在服务内部调度队列（如vLLM的request queue），而非限流层，故B是直接线索。A虽相关但GPU利用率正常已间接排除Prefill计算瓶颈；C属于启动问题，不会'突然出现'；D与GPU利用率正常矛盾。",
+      "difficulty_label": "挑战"
+    },
+    {
+      "type": 1,
+      "stem": "开发者尝试在vLLM中禁用PagedAttention（通过--disable-visual-batch等非标准参数），发现服务启动失败并报错'PagedAttention is required for vLLM v0.4+'.以下哪些结论可被教材第6.5节原文直接支持？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "PagedAttention已成为vLLM架构的强制基础组件，不再支持传统连续内存分配模式"
+        },
+        {
+          "option_label": "B",
+          "option_text": "该报错证明PagedAttention是vLLM实现高吞吐的核心技术，移除后框架无法保证性能SLA"
+        },
+        {
+          "option_label": "C",
+          "option_text": "教材将PagedAttention类比操作系统分页，说明其设计目标是解决显存碎片与预分配浪费"
+        },
+        {
+          "option_label": "D",
+          "option_text": "vLLM v0.4+版本已完全移除对传统KV Cache内存管理方式的代码支持"
+        }
+      ],
+      "answer": "A,C",
+      "analysis": "选项A：报错信息'PagedAttention is required'直接支持'强制基础组件'结论，且6.5节标题'vLLM原理：PagedAttention与连续批处理'及全文将其作为核心创新展开，隐含其架构必要性。选项C：6.5节明确'借鉴操作系统的虚拟内存分页思想'，并列出'消除碎片''按需分配'等好处，完全支持。B错误：'无法保证性能SLA'属推断，原文未提SLA；D错误：'完全移除代码支持'是过度解读，报错仅说明启动时强制启用，不排除代码中存在兼容逻辑，且教材未讨论代码实现细节。",
+      "difficulty_label": "进阶"
+    }
+  ]
+}

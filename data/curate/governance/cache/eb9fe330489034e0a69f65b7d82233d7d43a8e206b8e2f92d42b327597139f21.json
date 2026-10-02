@@ -1,0 +1,215 @@
+{
+  "new-12-42-0": {
+    "qid": "new-12-42-0",
+    "classification": "own",
+    "chapter": 12,
+    "quality": "ok",
+    "reason": "题干描述符合12.1节框架价值场景，考查对框架本质的理解。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "框架的本质价值是'把大模型应用中反复出现的工程模式抽象成可组合的组件'。它不提升模型本身的智力，而是降低拼装复杂度、统一接口约定、沉淀最佳实践",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "题干困境与LCEL流式能力无关，是工程模式抽象缺失。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "符合原文对框架价值的描述，即缺乏对共性工程模式的抽象。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "题干未提及API延迟问题，是工程模式问题。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "向量不一致非题干困境根本原因，是工程抽象问题。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-12-42-1": {
+    "qid": "new-12-42-1",
+    "classification": "own",
+    "chapter": 12,
+    "quality": "ok",
+    "reason": "综合考查文档解析选型与低代码平台适用场景，符合12.5与12.6.2节内容。",
+    "answer": [
+      "A",
+      "C"
+    ],
+    "supported": true,
+    "quote": "文档是扫描件、截图、复杂表格、图文混排 PDF → 上 DashScopeParse（OCR + 版面结构化）。Dify 是一个开源的**低代码 LLM 应用开发平台**，用可视化界面把'知识库（RAG）、工作流、Agent、模型接入、工具调用、发布'串成一条流水线。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "扫描件PDF需OCR与版面解析，DashScopeParse符合。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "扫描件PDF非SimpleDirectoryReader擅长，解析质量不足。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "无专职工程师，法务自助上传，Dify低代码平台符合。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "无专职工程师且需求明确，自建Agent不务实。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-12-42-2": {
+    "qid": "new-12-42-2",
+    "classification": "own",
+    "chapter": 12,
+    "quality": "ok",
+    "reason": "考查LlamaIndex QueryEngine配置细节，符合12.3节内容。",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "QueryEngine：Retriever + ResponseSynthesizer，端到端回答。`index.as_query_engine(streaming=True, llm=...)`",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "索引未持久化不会导致context_str无关。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "文档未向量化则无法检索，与现象不符。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "未指定llm可能导致纯检索或无意义生成，与现象相符。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "metadata过滤问题不会直接导致context_str高度无关。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-12-42-3": {
+    "qid": "new-12-42-3",
+    "classification": "own",
+    "chapter": 12,
+    "quality": "ok",
+    "reason": "考查AgentScope在多Agent协作方面的差异化优势，符合12.6.1节内容。",
+    "answer": [
+      "A",
+      "B"
+    ],
+    "supported": true,
+    "quote": "AgentScope 更偏'**多 Agent 之间的消息通信与协作模式**'，对分布式、多角色对话抽象更直接。Agent 之间通过消息通信，`MsgHub` 实现'群聊式'的共创协作（Blackboard 模式）。`DashScopeMultiAgentFormatter`，把 Agent 消息序列化成模型能接受的格式",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "MsgHub支持群聊式消息广播是AgentScope核心优势。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "内置多Agent消息格式化器是其差异化优势。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "这是LangGraph的能力，非AgentScope差异化优势。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "ReActAgent是通用抽象，非AgentScope独有优势。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-12-42-4": {
+    "qid": "new-12-42-4",
+    "classification": "cross",
+    "chapter": 7,
+    "quality": "ok",
+    "reason": "考查RAGAS指标与RAG优化措施的对应关系，涉及第7章评估与第12章工具。",
+    "answer": [
+      "D"
+    ],
+    "supported": true,
+    "quote": "context_recall 指标。使用SentenceWindowNodeParser重构Node，扩大上下文窗口",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "MetadataReplacementPostProcessor替换窗口文本，主要解决上下文不连贯。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "减少召回数量可能降低recall，与提高recall目标相悖。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "reranker重排序主要提升精度，对recall提升不直接。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "扩大上下文窗口可包含更多相关段落，直接对应提高recall。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-12-42-5": {
+    "qid": "new-12-42-5",
+    "classification": "own",
+    "chapter": 12,
+    "quality": "ok",
+    "reason": "考查技术栈分层及各工具职责，符合12.7节内容。",
+    "answer": [
+      "A",
+      "C"
+    ],
+    "supported": true,
+    "quote": "FastAPI 把大模型应用封装成生产级 HTTP API。RAGAS 是评估框架。Gradio 只负责界面，不承载业务逻辑。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "FastAPI封装API供APP调用，符合服务层职责。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "Gradio直接集成QueryEngine耦合业务逻辑，不符分层原则。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "RAGAS使用冻结数据集评估，符合评估层职责。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "UI与业务逻辑写在一起导致耦合，违反分层原则。"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

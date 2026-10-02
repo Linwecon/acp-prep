@@ -1,0 +1,217 @@
+{
+  "new-7-36-0": {
+    "qid": "new-7-36-0",
+    "classification": "own",
+    "chapter": 7,
+    "quality": "ok",
+    "reason": "考查传统自动指标（BLEU）在RAG场景下的局限性，与教材7.2.3节内容一致",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "BLEU只认字面重合，同义改写会被误伤，且短译文有BP惩罚",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "BLEU无法识别事实性幻觉，符合教材指出的局限性"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "题干未提及答案变短，且BP惩罚非核心故障"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "题干未涉及同义改写，且非核心故障"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "长度波动非BLEU固有缺陷，且题干未强调"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-7-36-1": {
+    "qid": "new-7-36-1",
+    "classification": "own",
+    "chapter": 7,
+    "quality": "ok",
+    "reason": "考查评测集构建铁律，与教材7.2.1节要求完全对应",
+    "answer": [
+      "A",
+      "B"
+    ],
+    "supported": true,
+    "quote": "问题来自真实用户场景；标准答案来自领域专家。领域专家的深度参与是评测系统乃至整个AI应用成功的关键",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "复用训练数据违反‘问题来自真实用户场景’铁律"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "AI工程师编写ground_truth违反‘领域专家提供’铁律"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "题干未提及覆盖度问题，非铁律内容"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "题干未涉及配置冻结，非铁律内容"
+      }
+    ],
+    "duplicate_of": "7-5066"
+  },
+  "new-7-36-2": {
+    "qid": "new-7-36-2",
+    "classification": "own",
+    "chapter": 7,
+    "quality": "ok",
+    "reason": "考查PPL指标的本质与局限性，与教材7.2.3节风险点一致",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "PPL只反映概率预测的把握程度，一句很自信的事实错误照样可以PPL很低",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "PPL低不保证事实正确，与教材核心论断一致"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "题干未提及temperature变化，且PPL下降与质量无关非教材论断"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "题干未涉及长文本，且非教材核心论断"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "PPL计算无需ground_truth对齐，且非教材论断"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-7-36-3": {
+    "qid": "new-7-36-3",
+    "classification": "own",
+    "chapter": 7,
+    "quality": "ok",
+    "reason": "考查ROUGE在RAG场景下的固有缺陷，与教材7.2.3节风险点对应",
+    "answer": [
+      "A",
+      "B",
+      "C"
+    ],
+    "supported": true,
+    "quote": "ROUGE衡量字面/结构覆盖，换种说法就偏低",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "同义表述导致得分偏低，暴露字面匹配缺陷"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "ground_truth未包含则无法匹配，暴露依赖参考的缺陷"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "额外正确内容被扣分，暴露无法评估信息增量的缺陷"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "覆盖率下降导致得分降低是ROUGE的正常反映，非固有缺陷"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-7-36-4": {
+    "qid": "new-7-36-4",
+    "classification": "own",
+    "chapter": 7,
+    "quality": "ok",
+    "reason": "考查Accuracy指标在类别不平衡下的局限性，与教材7.2.3节风险点一致",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "类别不平衡时Accuracy会失真（99%负样本时全猜负也有99%）",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "Accuracy无法反映类别不平衡，会掩盖部分问题恶化"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "Accuracy不要求字符严格匹配，且非题干核心风险"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "题干问Accuracy掩盖的风险，非问定位环节"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "Accuracy支持自动化计算，且非题干核心风险"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-7-36-5": {
+    "qid": "new-7-36-5",
+    "classification": "own",
+    "chapter": 7,
+    "quality": "ok",
+    "reason": "考查评测先行原则与故障定位法则的综合应用",
+    "answer": [
+      "A",
+      "B",
+      "D"
+    ],
+    "supported": true,
+    "quote": "先建评测集、拿到基线分数，再动手优化；检索指标都好（Recall、Precision高），但Faithfulness/Correctness低→问题在生成阶段",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "先构建冻结评测集符合评测先行原则"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "结合检索端指标定位故障符合黄金法则"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "用BLEU替代RAGAS指标违反定位法则"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "运行同一套集合并对比分项变化符合防止回归"
+      }
+    ],
+    "duplicate_of": "7-5056"
+  }
+}

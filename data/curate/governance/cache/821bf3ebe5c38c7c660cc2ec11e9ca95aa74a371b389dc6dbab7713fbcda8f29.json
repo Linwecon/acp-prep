@@ -1,0 +1,37 @@
+{
+  "new-11-24-0": {
+    "qid": "new-11-24-0",
+    "classification": "own",
+    "chapter": 11,
+    "quality": "ok",
+    "reason": "考查视频理解标准处理方式，选项C符合教材原理",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "视频理解的标准处理方式：抽关键帧、提取音轨、字幕/文本对齐、LLM综合",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "视频不能整段输入，受上下文窗口限制"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "纯文本LLM无法处理视频内容"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "符合教材视频理解标准处理方式"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "画质增强不解决根本处理方式问题"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

@@ -1,0 +1,212 @@
+{
+  "11-0360": {
+    "qid": "11-0360",
+    "classification": "own",
+    "chapter": 11,
+    "quality": "ok",
+    "reason": "考查多模态协同学习的核心价值：信息互补",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "多模态让模型能拿到这些'文本之外的信息'。其价值不只是'多支持几种格式'，而是信息互补",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "纯文本任务，非多模态"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "仅单一模态，无协同"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "结合图像与地理位置，体现多模态信息互补"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "仅图像模态，无协同"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "11-0376": {
+    "qid": "11-0376",
+    "classification": "own",
+    "chapter": 11,
+    "quality": "ok",
+    "reason": "考查多模态生成任务的定义",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "文生图（通义万相）... 文字描述（+参考图）→ 图像",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "文本到图像，是多模态生成任务"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "视频理解任务，非模态转换"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "纯文本分析，非多模态"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "语音控制，非模态转换生成"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "11-0380": {
+    "qid": "11-0380",
+    "classification": "own",
+    "chapter": 11,
+    "quality": "ok",
+    "reason": "考查多模态协同学习的工作原理",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "对比学习（CLIP 范式）... 把匹配的图文向量在空间中拉近、不匹配的推远",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "独立学习后合并，非协同"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "一种模态引导另一种，是协同"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "仅用单一模态，非协同"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "模态隔离，非协同"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "11-0790": {
+    "qid": "11-0790",
+    "classification": "own",
+    "chapter": 11,
+    "quality": "ok",
+    "reason": "考查文档智能解析（OCR+结构化）与RAG的结合",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "文档智能解析链路：OCR（光学字符识别）... 结构化还原... 进入常规 RAG",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "PDF含表格公式，直接输入会丢失结构"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "先OCR提取并结构化，再结合RAG，最完整"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "手动转换不符合自动化要求"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "多模态模型看图，但PDF需解析表格公式"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "11-0839": {
+    "qid": "11-0839",
+    "classification": "own",
+    "chapter": 11,
+    "quality": "ok",
+    "reason": "考查多模态应用中的用户体验与错误处理原则",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "意图不清时优先澄清反问，避免错误调用工具",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "强行分析输出错误，体验差"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "通用错误信息不友好，未引导"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "主动告知并建议，符合澄清反问原则"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "忽略用户输入，体验差"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "11-1267": {
+    "qid": "11-1267",
+    "classification": "own",
+    "chapter": 11,
+    "quality": "ok",
+    "reason": "考查CosyVoice语音合成的关键参数",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "CosyVoice对应'文字→语音/合成'... 音色、语速、情绪一致性；可做个性化音色",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "视频分辨率与语音合成无关"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "语音合成模型选择是关键参数"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "字幕对齐是ASR或视频理解相关"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "PPT切换速度与语音合成无关"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

@@ -1,0 +1,109 @@
+{
+  "new-6-114-0": {
+    "qid": "new-6-114-0",
+    "classification": "own",
+    "chapter": 6,
+    "quality": "ok",
+    "reason": "题目考查量化效果分析，选项涉及量化对显存、TPOT、TTFT及精度的影响，原文有直接依据。",
+    "answer": [
+      "D"
+    ],
+    "supported": true,
+    "quote": "量化（Quantization）把模型参数从高精度压缩到低精度，以可控的精度损失换取显存占用下降、显存带宽压力减小、推理速度提升。INT4相对FP16体积降为1/8。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "量化通常加速，但非必然，取决于算子支持。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "TTFT由Prefill计算决定，量化可能影响权重读取带宽。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "1.3分下降需业务验证，原文未定义‘不可接受’标准。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "INT4理论体积降为1/4（相对FP32），显存下降是量化核心价值。"
+      }
+    ],
+    "duplicate_of": "6-5136"
+  },
+  "new-6-114-3": {
+    "qid": "new-6-114-3",
+    "classification": "own",
+    "chapter": 6,
+    "quality": "ok",
+    "reason": "题目考查部署选型决策，结合数据合规、性能、运维能力等约束，原文有明确选型逻辑。",
+    "answer": [
+      "A",
+      "B"
+    ],
+    "supported": true,
+    "quote": "数据能否出域？不能（敏感/合规）→ 排除百炼等公有MaaS，选ECS自建或PAI-EAS私有部署。PAI-EAS提供弹性扩缩容、蓝绿/灰度发布、版本控制。ECS用户对操作系统、驱动、框架、依赖拥有完全控制权。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "PAI-EAS支持私有VPC、弹性、灰度发布与版本回滚，满足全部约束。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "ECS+vLLM数据不出域、无冷启动，通过脚本可实现灰度与回滚。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "百炼MaaS数据会发到平台侧，严禁出域则排除。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "FC有冷启动和时长限制，不适合实时大模型推理。"
+      }
+    ],
+    "duplicate_of": "6-5138"
+  },
+  "new-6-114-5": {
+    "qid": "new-6-114-5",
+    "classification": "own",
+    "chapter": 6,
+    "quality": "ok",
+    "reason": "题目考查PagedAttention参数调优以缓解KV Cache高占用，原文提及相关机制。",
+    "answer": [
+      "B",
+      "C"
+    ],
+    "supported": true,
+    "quote": "PagedAttention把KV Cache切成固定大小的块，按需分配。上下文缓存/前缀复用：相同前缀的KV结果复用。限制最大序列长度：直接约束单次请求可占用的KV Cache。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "增大块大小可能加剧碎片，不直接缓解高占用率。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "启用前缀缓存可复用KV块，减少实际占用。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "减小最大序列长度可直接限制单请求KV Cache占用。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "禁用分块预填充与缓解KV Cache占用无直接关系。"
+      }
+    ],
+    "duplicate_of": "6-5145"
+  }
+}

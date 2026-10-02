@@ -1,0 +1,246 @@
+{
+  "3-0636": {
+    "qid": "3-0636",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "题目考查文档解析阶段的常见问题与认知，选项覆盖了工具、格式、难度、重要性等关键点，具有考查价值。",
+    "answer": [
+      "A",
+      "B",
+      "D",
+      "E"
+    ],
+    "supported": true,
+    "quote": "文档解析（Document Parsing）是把 PDF、Word、Markdown、网页等格式的文档，加载并转换为大模型可读文本的过程。它看似简单，却是 RAG 质量的'地基'——解析阶段丢失的结构，后面用再复杂的算法也补不回来。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "解析工具质量直接影响结果，原文强调解析是地基。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "不同格式可能导致解析结果差异，符合文档解析的复杂性。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "PDF解析通常比纯文本更复杂，涉及OCR和结构保留。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "在线文档动态特性增加了解析难度，符合常识。"
+      },
+      {
+        "label": "E",
+        "selected": true,
+        "why": "选择合适的解析工具对效率和准确性至关重要，是核心观点。"
+      },
+      {
+        "label": "F",
+        "selected": false,
+        "why": "解析问题也涉及业务对结构的需求，如表格保留。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-0712": {
+    "qid": "3-0712",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "题目考查基于字符的切片方法的潜在缺点，与教材中切片策略的讨论直接相关。",
+    "answer": [
+      "B",
+      "F"
+    ],
+    "supported": true,
+    "quote": "切得太小：语义被截断（一句话被切成两半），即使检索命中也信息不全，模型无法据此回答。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "基于字符的切片方法并不难实现。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "按字符硬切易切断语义，导致语义分离。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "切片方法本身不必然需要大量额外存储空间。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "计算复杂度并非基于字符切片的主要缺点。"
+      },
+      {
+        "label": "E",
+        "selected": false,
+        "why": "按固定字符数切片，大小通常是均匀的。"
+      },
+      {
+        "label": "F",
+        "selected": true,
+        "why": "切得太小会导致上下文丢失，信息不全。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-0726": {
+    "qid": "3-0726",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "题目针对检索精度低的问题，考查提升Context Precision的有效措施，符合教材内容。",
+    "answer": [
+      "A",
+      "B",
+      "C"
+    ],
+    "supported": true,
+    "quote": "Context Precision低：无关内容排前面，加 Rerank。Precision 低：上述措施 + 加 Rerank。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "提高相似度阈值可过滤低相关性结果，提升精度。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "按语义逻辑分块能提升chunk内聚性，利于精准检索。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "语义增强问题表述，可使其Embedding更接近目标知识。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "删除无文档可能损害Recall，不直接解决精度问题。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-0785": {
+    "qid": "3-0785",
+    "classification": "cross",
+    "chapter": -1,
+    "quality": "review",
+    "reason": "题目描述智能运维场景，涉及日志分析、分类、生成方案和案例参考，但未明确要求RAG。选项D提及向量数据库存储案例供参考，是RAG思路，但其他选项（A、B、C）是更通用的AI应用组件。题干未强调必须使用RAG技术，导致答案组合存在歧义。主要考点可能超出第3章RAG范围，属于综合应用设计。",
+    "answer": [],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "日志分析提取结构化数据是常见预处理，但非RAG特有。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "文本分类识别异常是独立任务，不必然属于RAG系统。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "调用大模型生成方案是生成步骤，但知识来源未指定。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "向量数据库存储案例供参考是RAG的检索增强思路。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-0805": {
+    "qid": "3-0805",
+    "classification": "cross",
+    "chapter": -1,
+    "quality": "review",
+    "reason": "题目考查智能客服处理专业问题的架构设计，选项涉及路由、RAG、术语理解等。选项B明确属于第3章RAG内容，但其他选项（A、C）可能涉及模型选型或NLU模块，属于更广泛的系统设计。题干未限定在RAG框架内，导致章节归属模糊。",
+    "answer": [],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "问题分类路由到专家模型是系统设计，但不特指RAG。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "基于领域知识库构建RAG系统是处理专业问题的有效架构。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "专业术语理解模块可提升交互，但不特指RAG组件。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "统一使用通用大模型可能不适合专业领域，需具体分析。"
+      },
+      {
+        "label": "E",
+        "selected": false,
+        "why": "要求用户提供详细背景不是合理的架构设计，是用户负担。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-0809": {
+    "qid": "3-0809",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "题目考查保持内容事实准确性的技术组合，RAG是核心手段，其他选项如事实核查、实时搜索是常见增强方案。",
+    "answer": [
+      "A",
+      "B",
+      "D"
+    ],
+    "supported": true,
+    "quote": "RAG（Retrieval-Augmented Generation，检索增强生成）的核心思路可以用四个字概括：'开卷考试'。不让模型凭记忆答题，而是在它回答前，先从企业知识库里检索出最相关的几段资料，连同问题一起交给模型，让它'看着资料作答'。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "事实核查模块可作为后处理，验证生成内容准确性。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "基于权威信息源构建RAG系统是保证事实准确性的核心。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "要求用户确认所有事实性内容不现实，不是有效技术组合。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "实时搜索验证关键信息可作为RAG的补充或实现方式。"
+      },
+      {
+        "label": "E",
+        "selected": false,
+        "why": "完全依赖模型训练知识会导致知识截止和幻觉问题。"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

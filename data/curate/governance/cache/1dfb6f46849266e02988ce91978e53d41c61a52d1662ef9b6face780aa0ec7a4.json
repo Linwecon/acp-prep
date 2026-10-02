@@ -1,0 +1,213 @@
+{
+  "1-0818": {
+    "qid": "1-0818",
+    "classification": "own",
+    "chapter": 2,
+    "quality": "ok",
+    "reason": "考查结构化输出与工程化实践，符合提示工程章节知识。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "结构化输出要在提示词里写清字段和取值，并**在程序端做 JSON 解析容错**（模型偶尔会输出多余文字或格式偏差）",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "仅要求不够可靠，模型可能输出非标准JSON。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "使用库强制解析是工程化可靠做法。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "模型输出可能包含非JSON内容。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "与题干要求的JSON格式不符。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "1-0125": {
+    "qid": "1-0125",
+    "classification": "cross",
+    "chapter": -1,
+    "quality": "review",
+    "reason": "考点是API调用参数，属于第9章，但教材未提供第9章原文。",
+    "answer": [
+      "A"
+    ],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "response_format参数用于指定输出格式为JSON。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "参数作用不是指定XML格式。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "参数作用不是指定纯文本格式。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "参数作用不是指定CSV格式。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "1-0431": {
+    "qid": "1-0431",
+    "classification": "own",
+    "chapter": 2,
+    "quality": "ok",
+    "reason": "考查通过提示词约束输出长度，是提示工程核心实践。",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "输出格式（Output Format）指定格式、枚举值、禁止项",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "在提示词中明确约束是正确方法。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "后处理截断可能破坏语义完整性。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "截断输入文档会丢失信息，错误。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "选项A是正确的修改方法。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "1-0580": {
+    "qid": "1-0580",
+    "classification": "own",
+    "chapter": 2,
+    "quality": "ok",
+    "reason": "考查结构化输出格式与字段完整性，符合提示工程知识。",
+    "answer": [
+      "B",
+      "C"
+    ],
+    "supported": true,
+    "quote": "结构化输出（JSON Mode）要求严格按 JSON 等格式输出，配合 Schema 校验",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "未识别也应输出类型以保持结构完整。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "输出所有标签类型确保结构稳定。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "JSON格式便于程序解析，是推荐做法。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "XML非首选，题干未指定。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-1081": {
+    "qid": "3-1081",
+    "classification": "own",
+    "chapter": 2,
+    "quality": "ok",
+    "reason": "考查文档审阅的分段审阅原则，符合教材内容。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "长文档一次丢给模型审全篇 → 容易漏项、超出上下文，应分段审 + 汇总",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "与文档审阅的全面性要求不符。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "一次审全篇易遗漏错误，是主要风险。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "内容错误需要处理，说法错误。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "非主要技术原因，理解困难非核心。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-0746": {
+    "qid": "3-0746",
+    "classification": "own",
+    "chapter": 2,
+    "quality": "ok",
+    "reason": "考查通过上下文（代码分析）提升生成准确性，符合提示工程原则。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "上下文（Context）提供背景、事实、范围",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "非针对生成过程的改进措施。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "提供代码作为上下文最有效提升准确性。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "仅口头要求不够，需提供具体上下文。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "人工校对成本高，非最有效改进。"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

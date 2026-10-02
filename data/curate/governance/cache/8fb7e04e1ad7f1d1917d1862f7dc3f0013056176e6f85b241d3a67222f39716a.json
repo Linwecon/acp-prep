@@ -1,0 +1,215 @@
+{
+  "new-1-0-0": {
+    "qid": "new-1-0-0",
+    "classification": "own",
+    "chapter": 1,
+    "quality": "ok",
+    "reason": "考查采样随机性导致输出不一致的根本原因，属于核心概念。",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "采样本身具有随机性，属正常现象；要稳定就调低 temperature / 固定 seed。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "模型推理阶段参数冻结，不学习。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "题干未提历史消息，且默认参数下短问题不会超窗。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "默认参数下采样随机性导致每次从分布中选不同Token。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "同一短语分词结果稳定，不会导致输出差异。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-1-0-1": {
+    "qid": "new-1-0-1",
+    "classification": "own",
+    "chapter": 1,
+    "quality": "ok",
+    "reason": "考查temperature对流式输出和延迟的影响，属于参数调优。",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "temperature（温度）对模型输出的原始分数（logits）做缩放后再 softmax。T 越小 → 概率越集中在高概率 Token 上，输出越确定。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "temperature不改变计算速度，只影响采样分布。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "temperature与stream参数无冲突。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "低temperature提升输出稳定性，但不影响流式传输的首字延迟。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "低temperature不会导致跳过EOS标记。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-1-0-2": {
+    "qid": "new-1-0-2",
+    "classification": "own",
+    "chapter": 1,
+    "quality": "ok",
+    "reason": "综合考查能力边界与补位策略，涉及RAG、工具调用和对话管理。",
+    "answer": [
+      "A",
+      "C",
+      "D"
+    ],
+    "supported": true,
+    "quote": "最新 / 私域知识 → RAG 检索；精确计算 → 工具调用；要让模型'记住'前文，就必须由你的程序维护对话历史。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "RAG解决私域知识，prompt约束格式。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "调参无法保证数值100%准确，应靠工具。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "精确计算应交给工具调用。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "拼接历史是多轮对话的必要手段。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-1-0-3": {
+    "qid": "new-1-0-3",
+    "classification": "own",
+    "chapter": 1,
+    "quality": "ok",
+    "reason": "考查上下文窗口超限的工程解决思路，核心是精准喂入。",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "长文本应用要把内容'塞进'窗口，常见手段：检索相关片段（RAG）：只把最相关的几段放进来，而不是整本手册。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "升级窗口治标不治本，且可能引入噪声。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "摘要可能丢失细节，且摘要过程本身可能超窗。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "精准检索相关片段（如含第5.2条的页面）最符合'喂得准'原则。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "'Lost in the Middle'是现象而非优化插件。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-1-0-4": {
+    "qid": "new-1-0-4",
+    "classification": "own",
+    "chapter": 1,
+    "quality": "ok",
+    "reason": "考查多轮对话失忆的可能原因，涉及窗口截断和指代清晰度。",
+    "answer": [
+      "A",
+      "B"
+    ],
+    "supported": true,
+    "quote": "历史消息越多，占用的上下文窗口越大、成本越高；超长后需要截断。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "窗口满导致关键信息被截断是可能原因。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "assistant回复未明确提及'Jira'，导致指代不清。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "temperature过高影响随机性，但不会直接导致忽略前文。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "自注意力机制能建模长距离关系，非原因。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-1-0-5": {
+    "qid": "new-1-0-5",
+    "classification": "own",
+    "chapter": 1,
+    "quality": "ok",
+    "reason": "考查模型选型原则，强调任务难度与成本延迟的权衡。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "工程选型口诀：先看任务难度，再看成本与延迟。能用小模型解决的绝不上大模型。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "任务简单，无需最强能力，且延迟要求高。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "任务简单且要求毫秒级响应，应优先选快而省的turbo。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "plus非最快最省，且题干明确对比turbo和max。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "题干未提及数据不出域要求，且0.5B能力可能不足。"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

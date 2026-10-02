@@ -1,0 +1,229 @@
+{
+  "2-1290": {
+    "qid": "2-1290",
+    "classification": "own",
+    "chapter": 2,
+    "quality": "ok",
+    "reason": "考点为意图分类提示词三要素，需同步更新任务要求与函数逻辑",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "【任务要求】我们需要将用户的意图分成如下几类：请假政策，福利待遇，绩效考核，工作职责，开发规范",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "仅改query列表不更新意图清单，模型无法识别新类别"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "输出格式已满足JSON要求，无需修改"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "需更新任务要求中的意图清单，并可能调整函数解析逻辑"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "Q_S_Line非原文概念，属虚构函数名"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "2-1305": {
+    "qid": "2-1305",
+    "classification": "own",
+    "chapter": 2,
+    "quality": "ok",
+    "reason": "考查提示词六要素中上下文、样例、输出格式的优化作用",
+    "answer": [
+      "B",
+      "C",
+      "D",
+      "E"
+    ],
+    "supported": true,
+    "quote": "【任务要求】...【输出要求】...Few-shot 示例...输出格式（Output Format）",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "弃用模板违背工程化原则"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "明确主旨提升任务聚焦度"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "分段处理符合长文档审阅最佳实践"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "Few-shot对齐摘要风格与结构"
+      },
+      {
+        "label": "E",
+        "selected": true,
+        "why": "细化格式约束提升输出可控性"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "2-1447": {
+    "qid": "2-1447",
+    "classification": "own",
+    "chapter": 2,
+    "quality": "ok",
+    "reason": "考查提示词六要素中角色、样例、输出格式的应用",
+    "answer": [
+      "A",
+      "B",
+      "D"
+    ],
+    "supported": true,
+    "quote": "角色（Role）...样例（Sample）...输出格式（Output Format）...风格/格式约束",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "明确风格即设定角色要素"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "样例实现风格对齐"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "模型无自我校验能力，属无效指令"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "结构化提示约束文本组织"
+      },
+      {
+        "label": "E",
+        "selected": false,
+        "why": "违背提示工程基本前提"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "2-5007": {
+    "qid": "2-5007",
+    "classification": "own",
+    "chapter": 2,
+    "quality": "ok",
+    "reason": "直考分隔符防注入作用",
+    "answer": [
+      "D"
+    ],
+    "supported": true,
+    "quote": "分隔符...把用户输入 / 检索内容包裹为'数据'而非'指令'，降低提示注入风险",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "语气礼貌不解决指令混淆"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "temperature影响随机性，不解决结构问题"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "长度限制无关指令识别"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "分隔符隔离数据是防注入核心手段"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "2-5008": {
+    "qid": "2-5008",
+    "classification": "own",
+    "chapter": 2,
+    "quality": "ok",
+    "reason": "考查分隔符在多段处理中的结构化作用",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "用特殊符号或标签，把提示词中不同部分（指令、上下文、样例、待处理内容）显式切分开",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "编号+分隔符确保段落独立处理"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "拼接导致模型混淆段落边界"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "逗号无结构化隔离能力"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "删除内容破坏原始信息"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "2-5009": {
+    "qid": "2-5009",
+    "classification": "own",
+    "chapter": 2,
+    "quality": "ok",
+    "reason": "直考分隔符三大作用",
+    "answer": [
+      "B",
+      "C",
+      "D"
+    ],
+    "supported": true,
+    "quote": "分隔符...结构化...防注入...易解析...指令与数据边界清晰，模型能抓住目标",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "分隔符不能消除幻觉"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "实现结构化分区"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "防注入即降低误读概率"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "程序可按标记提取输出"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

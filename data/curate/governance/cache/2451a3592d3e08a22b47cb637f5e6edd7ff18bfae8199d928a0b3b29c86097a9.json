@@ -1,0 +1,259 @@
+{
+  "8-0922": {
+    "qid": "8-0922",
+    "classification": "own",
+    "chapter": 8,
+    "quality": "ok",
+    "reason": "四选项均属本章数据安全核心措施",
+    "answer": [
+      "A",
+      "B",
+      "C",
+      "D"
+    ],
+    "supported": true,
+    "quote": "数据脱敏（去标识化）是在数据进入训练、评测、RAG 链路之前，对姓名、手机号、证件号、地址、银行卡号等个人可识别信息（PII）做掩码、替换、泛化或删除。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "原文明确要求PII脱敏处理"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "差分隐私属数据安全防护手段"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "限制记忆是防隐私泄露关键"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "RAM最小权限是云安全核心"
+      },
+      {
+        "label": "E",
+        "selected": false,
+        "why": "原文强调不能依赖内置机制"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "8-0964": {
+    "qid": "8-0964",
+    "classification": "own",
+    "chapter": 8,
+    "quality": "ok",
+    "reason": "ABCD均符合本章合规与伦理要求",
+    "answer": [
+      "A",
+      "B",
+      "C",
+      "D"
+    ],
+    "supported": true,
+    "quote": "《生成式人工智能服务管理暂行办法》要求服务提供者承担内容安全主体责任；建立投诉举报机制；未备案有下架风险",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "内容安全策略是三层防御基础"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "知识截止/幻觉需明确告知"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "公平性测试属偏见治理范畴"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "投诉渠道是暂行办法强制要求"
+      },
+      {
+        "label": "E",
+        "selected": false,
+        "why": "忽略其他因素违反合规原则"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "8-1386": {
+    "qid": "8-1386",
+    "classification": "own",
+    "chapter": 8,
+    "quality": "ok",
+    "reason": "ABD为教材明确指出的密钥管理规范",
+    "answer": [
+      "A",
+      "C"
+    ],
+    "supported": true,
+    "quote": "阿里云账号 AccessKey 拥有所有 API 的访问权限，建议使用 RAM 用户进行 API 访问……强烈建议不要把 AccessKey ID 和 Secret 保存到工程代码里。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "防止KEY泄漏是首要目的"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "减少代码行数非安全目标"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "SDK自动读取环境变量是标准实践"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "环境变量不提升运行速度"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "8-1449": {
+    "qid": "8-1449",
+    "classification": "own",
+    "chapter": 8,
+    "quality": "ok",
+    "reason": "ABCD均为本章明确要求的安全措施",
+    "answer": [
+      "A",
+      "B",
+      "C",
+      "D"
+    ],
+    "supported": true,
+    "quote": "传输：全链路 HTTPS/TLS；存储：用 KMS（密钥管理服务）托管密钥，对 OSS、数据库、知识库源文件做服务端加密",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "敏感信息过滤属输入过滤层"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "禁止违法内容是输出审查核心"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "私有化部署保障数据不出域"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "合规审核是输出审查必备项"
+      },
+      {
+        "label": "E",
+        "selected": false,
+        "why": "完全依赖模型违反纵深防御"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "8-1461": {
+    "qid": "8-1461",
+    "classification": "own",
+    "chapter": 8,
+    "quality": "ok",
+    "reason": "ABDEF均符合本章备案与合规要求",
+    "answer": [
+      "A",
+      "B",
+      "D",
+      "E",
+      "F"
+    ],
+    "supported": true,
+    "quote": "面向境内公众提供生成式 AI 服务须依法备案；服务提供者承担内容安全主体责任；AI 生成的文本、图片、音视频须添加显著标识",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "关注法规动态是合规前提"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "算法备案是暂行办法强制要求"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "忽略备案违反监管要求"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "AIGC审核是输出审查义务"
+      },
+      {
+        "label": "E",
+        "selected": true,
+        "why": "用户同意是个保法核心要求"
+      },
+      {
+        "label": "F",
+        "selected": true,
+        "why": "AIGC标识是深度合成规定"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "8-0604": {
+    "qid": "8-0604",
+    "classification": "own",
+    "chapter": 8,
+    "quality": "ok",
+    "reason": "ABCD均为本章API安全通用要求",
+    "answer": [
+      "A",
+      "B",
+      "C",
+      "D"
+    ],
+    "supported": true,
+    "quote": "API Key / AccessKey 本身是最高优先级的密钥。课程 text_security.py 等文件头部有一段醒目注释：阿里云账号 AccessKey 拥有所有 API 的访问权限",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "数据隐私是本章核心主题"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "不确定性需通过三层防御管控"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "成本控制属DDoS防护范畴"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "使用条款遵守是合规基本要求"
+      },
+      {
+        "label": "E",
+        "selected": false,
+        "why": "高级编程非教材要求条件"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

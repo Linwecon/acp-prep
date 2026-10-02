@@ -1,0 +1,212 @@
+{
+  "3-0138": {
+    "qid": "3-0138",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "题干问切片向量化与存储阶段的比较方法，原文明确提及余弦相似度是向量检索首选度量。",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "余弦相似度是向量检索首选相似度。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "原文明确指出余弦相似度是向量检索首选度量"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "增加训练数据属于模型训练阶段，非切片向量化阶段"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "减少推理时间是部署优化目标，非比较方法"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "增加参数数量是模型架构调整，非向量比较方法"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-0145": {
+    "qid": "3-0145",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "VectorStoreIndex.from_documents方法对应建库流程，原文明确其包含文本切片和向量化入库步骤。",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "3. 文本切片 4. 向量化 Embedding 5. 写入向量库",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "文档解析在LlamaIndex中由Separate loader完成"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "文本分段是切片环节，建立索引是入库环节，但缺向量化"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "原文建库流程第3-5步对应文本向量化和存储索引"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "文档解析是前置步骤，不在from_documents方法内"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-0170": {
+    "qid": "3-0170",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "SimilarityPostprocessor作用是按相似度阈值过滤，原文明确其用于过滤低相似度候选。",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "similarity_cutoff=0.2 过滤",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "原文示例代码中similarity_cutoff=0.2即过滤低于该值的切片"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "召回数量由similarity_top_k控制，非此参数"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "重排序数量由rerank top_n控制"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "模型类型由客户端配置，非此参数功能"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-0171": {
+    "qid": "3-0171",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "题干问余弦相似度计算方法，原文明确其为向量检索首选度量，需专用函数实现。",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "余弦相似度是向量检索首选相似度。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "余弦相似度需专用函数计算，如sklearn.metrics.pairwise.cosine_similarity"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "增加训练数据与相似度计算无关"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "减少推理时间非相似度计算方法"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "增加参数数量不涉及相似度计算"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-0185": {
+    "qid": "3-0185",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "标签增强检索需先提取标签再过滤，原文明确元数据过滤在检索前执行。",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "检索前按来源/时间/部门等标签先过滤候选集",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "建立索引时提取标签正确，符合元数据过滤要求"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "检索时提取问题标签进行过滤正确"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "原文明确元数据过滤应在检索前，而非检索后"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "标签需与切片一起存储以支持过滤"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-0189": {
+    "qid": "3-0189",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "多轮对话直接检索易因指代不清导致错误，原文明确应先查询改写。",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "多轮对话里后续问题检索不准 → 应先结合历史改写问题",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "原文明确多轮对话检索不准根因是指代不清"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "检索速度与是否多轮无直接关系"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "模型能理解输入，但指代消解需改写"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "生成完整性取决于上下文拼装，非直接比较问题"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

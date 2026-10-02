@@ -1,0 +1,215 @@
+{
+  "new-11-12-0": {
+    "qid": "new-11-12-0",
+    "classification": "own",
+    "chapter": 11,
+    "quality": "ok",
+    "reason": "考查视频理解中关键帧抽取策略对内容覆盖的影响",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "视频理解的标准处理方式：抽关键帧：按固定间隔或场景切换抽取画面帧，送入视觉模型分析画面内容",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "题干明确ASR转写完整，非术语识别问题"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "关键帧未覆盖动作密集时段，导致视觉信息缺失"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "题干链路未提多模态输入，且摘要任务可仅用文本"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "题干已说明ASR转写完整，非静音问题"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-11-12-1": {
+    "qid": "new-11-12-1",
+    "classification": "own",
+    "chapter": 11,
+    "quality": "ok",
+    "reason": "考查视频安全审核必须执行的独立检测动作",
+    "answer": [
+      "A",
+      "C"
+    ],
+    "supported": true,
+    "quote": "视频：异步任务（video_moderation 提交 + 轮询结果） | 音频：异步任务（voice_moderation 提交 + 轮询结果）",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "视频检测必须调用异步接口并轮询"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "视频检测应走异步接口，非同步逐帧检测"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "音轨需单独调用语音异步检测"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "ASR转写+文本过滤不能替代语音异步检测"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-11-12-2": {
+    "qid": "new-11-12-2",
+    "classification": "own",
+    "chapter": 11,
+    "quality": "ok",
+    "reason": "考查图文一致性评测中自动指标的局限性",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "图文一致性：模型可能生成'看起来对但细节错'的内容，自动指标很难评判，必须靠人工抽检或多模态审核模型兜底",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "CLIP Score可评估语义相似度，非无法评估"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "自动指标不可靠，需人工或多模态审核兜底"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "是B项原则的具体表现，非核心原则"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "合规检查与评测可靠性问题无关"
+      }
+    ],
+    "duplicate_of": "11-5178"
+  },
+  "new-11-12-3": {
+    "qid": "new-11-12-3",
+    "classification": "own",
+    "chapter": 11,
+    "quality": "ok",
+    "reason": "考查多模态工程中低置信度输入的主动澄清原则",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "意图不清时优先澄清反问，避免错误调用工具",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "预处理非首要，应先尝试澄清"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "低置信度时主动追问，符合工程要点"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "语义纠错在识别后进行，非首要改进"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "端到端理解仍可能因模糊失败"
+      }
+    ],
+    "duplicate_of": "11-5179"
+  },
+  "new-11-12-4": {
+    "qid": "new-11-12-4",
+    "classification": "own",
+    "chapter": 11,
+    "quality": "ok",
+    "reason": "考查多模态教育场景端到端链路必备组件",
+    "answer": [
+      "A",
+      "B",
+      "C"
+    ],
+    "supported": true,
+    "quote": "OCR/视觉/语音模型 + LLM | ASR + LLM + TTS 管道 | 视频理解 = 视觉（帧）+ 语音（ASR）+ 文本（字幕/LLM）联合",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "拍照题目需OCR识别公式文字"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "语音提问需ASR转为文本"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "视频摘要需抽帧与视觉理解"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "题干未要求语音反馈，TTS非必需"
+      }
+    ],
+    "duplicate_of": "11-5174"
+  },
+  "new-11-12-5": {
+    "qid": "new-11-12-5",
+    "classification": "own",
+    "chapter": 11,
+    "quality": "ok",
+    "reason": "考查医疗多模态场景中人工复核的评测原则",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "医疗决策必须由医生做出，不可替代诊断；需可解释与留痕",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "CLIP Score无法可靠评估专业医学特征"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "医生人工盲审最符合医疗辅助复核原则"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "token聚集非可解释性的直接验证"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "统计指标无法回答特定特征遗漏原因"
+      }
+    ],
+    "duplicate_of": "11-5183"
+  }
+}

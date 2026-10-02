@@ -1,0 +1,240 @@
+{
+  "5-0888": {
+    "qid": "5-0888",
+    "classification": "own",
+    "chapter": 5,
+    "quality": "ok",
+    "reason": "五项均符合第5章微调实践原则",
+    "answer": [
+      "A",
+      "B",
+      "C",
+      "D"
+    ],
+    "supported": true,
+    "quote": "质量从四个维度把关，其重要性远高于数量：正确性、多样性、一致性、无重复",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "数据清洗提升质量，原文强调正确性/一致性"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "LoRA可省显存防过拟合，原文明确指出"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "划分三集防泄漏，原文要求训练/验证/测试相互独立"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "选匹配基座模型，原文强调任务适配性"
+      },
+      {
+        "label": "E",
+        "selected": false,
+        "why": "过大lr致震荡，原文称学习率太大会loss飙升"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "5-0978": {
+    "qid": "5-0978",
+    "classification": "own",
+    "chapter": 5,
+    "quality": "ok",
+    "reason": "D违反余弦退火等动态lr策略",
+    "answer": [
+      "D"
+    ],
+    "supported": true,
+    "quote": "warmup常配合余弦退火逐步缩小步长",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "正确，原文称lr太大导致loss飙升"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "正确，原文称lr太小收敛极慢"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "正确，原文要求按数据分布选超参"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "错误，原文明确使用余弦退火等动态策略"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "5-0985": {
+    "qid": "5-0985",
+    "classification": "cross",
+    "chapter": 6,
+    "quality": "fixable",
+    "reason": "响应速度属部署优化范畴，应归第6章",
+    "answer": [
+      "A",
+      "B",
+      "C",
+      "D",
+      "E"
+    ],
+    "supported": true,
+    "quote": "模型部署本质是服务化",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "量化降延迟，第6章核心知识"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "缓存提响应，第6章隐含实践"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "精简提示词减TTFT，第6章指标定义"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "解码策略影响TPOT，第6章提及top_p/top_k"
+      },
+      {
+        "label": "E",
+        "selected": true,
+        "why": "连续批处理提吞吐，第6章明确技术"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "5-1000": {
+    "qid": "5-1000",
+    "classification": "own",
+    "chapter": 5,
+    "quality": "ok",
+    "reason": "batch size影响在5.7节明确分析",
+    "answer": [
+      "B",
+      "C",
+      "D"
+    ],
+    "supported": true,
+    "quote": "Batch Size：每次更新用的样本数；大→梯度稳、显存高、通常需配套调大 lr",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "过大易过拟合，原文未提充分学习"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "大batch易过拟合，原文称过拟合泛化下降"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "大batch加速训练，原文称梯度稳"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "大batch显存高，原文称显存高"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "5-1057": {
+    "qid": "5-1057",
+    "classification": "misplaced",
+    "chapter": 5,
+    "quality": "remove",
+    "reason": "代码细节超出教材范围，无原文依据",
+    "answer": [],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "未在教材中出现具体代码"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "损失函数定义非学习率设置"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "调度器非直接设置lr"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "变量赋值不等于设置训练lr"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "5-1162": {
+    "qid": "5-1162",
+    "classification": "own",
+    "chapter": 5,
+    "quality": "ok",
+    "reason": "loss值和准确率是5.7节核心监控指标",
+    "answer": [
+      "E",
+      "F"
+    ],
+    "supported": true,
+    "quote": "必须同时盯两条曲线：训练 loss 和验证 loss",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "训练时间非性能指标"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "生成速度属部署指标"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "batch size是超参非监控指标"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "精准率未在训练监控中提及"
+      },
+      {
+        "label": "E",
+        "selected": true,
+        "why": "loss是核心监控指标，原文明确要求"
+      },
+      {
+        "label": "F",
+        "selected": true,
+        "why": "准确率用于评测，原文三方对比表格含此指标"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

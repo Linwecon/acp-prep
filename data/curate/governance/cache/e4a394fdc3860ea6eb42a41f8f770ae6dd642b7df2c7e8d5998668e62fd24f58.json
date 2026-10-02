@@ -1,0 +1,218 @@
+{
+  "new-10-126-0": {
+    "qid": "new-10-126-0",
+    "classification": "own",
+    "chapter": 10,
+    "quality": "ok",
+    "reason": "考查百炼与DashScope共用API Key的权限细节，有原文依据。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "百炼与DashScope共用API Key，但百炼控制台默认未开通DashScope模型服务权限，需在RAM角色策略中显式授权dashscope:CallModel",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "原文明确二者共用API Key，无需单独申请。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "原文指出需在RAM中显式授权dashscope:CallModel。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "原文未提原生SDK需手动设置base_url。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "原文未提及主账号AK/SK要求，且强调Key共用。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-10-126-1": {
+    "qid": "new-10-126-1",
+    "classification": "own",
+    "chapter": 10,
+    "quality": "ok",
+    "reason": "考查百炼应用集成到自有系统的约束条件，涉及发布、权限、插件配置。",
+    "answer": [
+      "B",
+      "C",
+      "D"
+    ],
+    "supported": true,
+    "quote": "百炼应用需先发布为API服务，获取其专属endpoint和token，而非直接调用DashScope底层模型；调用方必须持有与百炼控制台登录账号相同的阿里云主账号或具备modelstudio:InvokeApp权限的子账号；若工作流中启用了自定义插件，该插件的认证凭据必须在百炼侧完成配置并启用",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "原文未强制要求必须使用OpenAI兼容接口，原生SDK也可用。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "原文指出百炼应用需发布为API服务，获取专属endpoint。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "原文强调调用方需具备相应账号或权限。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "原文说明自定义插件认证凭据需在百炼侧配置。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-10-126-2": {
+    "qid": "new-10-126-2",
+    "classification": "own",
+    "chapter": 10,
+    "quality": "ok",
+    "reason": "考查DashScope配额与调用路径差异，有原文依据。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "百炼控制台调用走的是内部通道，享有更高配额；而外部SDK调用走公网，受更严格的默认RPM/TPM限制",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "原文未提及OpenAI SDK连接池触发单会话限流。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "原文明确百炼内部通道与外部SDK调用配额不同。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "原文未提及User-Agent或Referer头影响限流。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "原文未提及‘OpenAI兼容模式开关’概念。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-10-126-3": {
+    "qid": "new-10-126-3",
+    "classification": "own",
+    "chapter": 10,
+    "quality": "ok",
+    "reason": "考查ModelScope开源模型+PAI部署方案的必要条件，涉及模型、训练、部署、网络。",
+    "answer": [
+      "A",
+      "B",
+      "D"
+    ],
+    "supported": true,
+    "quote": "ModelScope提供的Qwen2-7B开源模型权重需支持LoRA微调，且PAI-DLC训练环境预装对应框架；PAI-EAS部署的模型服务endpoint必须配置为VPC内网地址，且后端服务与EAS实例部署在同一VPC；企业需在阿里云开通PAI服务并购买GPU实例，且ModelScope下载的模型需与PAI支持的镜像版本兼容",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "原文指出开源模型需支持微调，且PAI环境需预装框架。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "原文强调数据不出域需VPC内网部署。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "方案使用开源模型+PAI，无需通过百炼API。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "原文指出需开通PAI服务、购买GPU并确保版本兼容。"
+      }
+    ],
+    "duplicate_of": "10-5162"
+  },
+  "new-10-126-4": {
+    "qid": "new-10-126-4",
+    "classification": "own",
+    "chapter": 10,
+    "quality": "ok",
+    "reason": "考查百炼知识库切片策略与长上下文模型的关系，有原文依据。",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "qwen-long模型虽支持长上下文，但百炼知识库默认切片长度仍为512字符，导致章节语义被截断，需手动启用‘语义分块’并调整chunk_size",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "原文指出默认切片长度可能导致语义截断，需调整。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "知识库状态‘已就绪’，说明Embedding权限正常。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "题干已明确使用qwen-long，且未提及模型未发布。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "文档解析日志无报错，说明OCR提取成功。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-10-126-5": {
+    "qid": "new-10-126-5",
+    "classification": "own",
+    "chapter": 10,
+    "quality": "ok",
+    "reason": "考查DashScope兼容接口流式响应的潜在问题，涉及缓冲、前端解析、参数设置。",
+    "answer": [
+      "A",
+      "B",
+      "C"
+    ],
+    "supported": true,
+    "quote": "DashScope兼容层对stream=True请求的缓冲策略与原生OpenAI不同，存在默认chunk_size限制，导致Token分批延迟；前端未正确处理SSE流式响应，遗漏了部分data:字段或未监听done事件；调用时未设置max_tokens参数，导致模型生成过长内容，触发DashScope服务端流式截断保护机制",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "原文指出兼容层缓冲策略不同可能导致延迟。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "前端SSE处理不当可能导致接收不全或截断。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "未设max_tokens可能导致生成长回复触发截断。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "原文未提及qwen-plus在兼容模式下不支持流式。"
+      }
+    ],
+    "duplicate_of": "10-5182"
+  }
+}

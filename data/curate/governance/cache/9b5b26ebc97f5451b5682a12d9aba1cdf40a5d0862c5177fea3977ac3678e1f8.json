@@ -1,0 +1,162 @@
+{
+  "items": [
+    {
+      "type": 0,
+      "stem": "某RAG知识库中，一条薪酬制度文档在kb_position_ref.csv中记录为position_ids='[3,4]'（对应manager/ceo），当前查询用户在user.csv中position_id=2（teamleader）。当该用户提问'我的年终奖怎么算？'时，系统检索出该文档并送入模型上下文。审计日志显示模型未引用该文档，但该条目已进入Prompt。此做法违反了RAG访问控制的哪一核心原则？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "未在检索前对知识库做元数据预过滤，导致无效检索"
+        },
+        {
+          "option_label": "B",
+          "option_text": "过滤时机错误：应在检索完成后、拼接Prompt前剔除无权条目，而非依赖模型自觉不使用"
+        },
+        {
+          "option_label": "C",
+          "option_text": "缺少向量加密，导致语义泄露风险"
+        },
+        {
+          "option_label": "D",
+          "option_text": "未启用RAM角色最小权限，导致数据库被越权读取"
+        }
+      ],
+      "answer": "B",
+      "analysis": "依据原文8.8.1节‘知识库访问控制的三步流程’明确指出：‘过滤发生在检索之后、拼Prompt之前’，且强调‘关键在于：过滤发生在检索之后、拼Prompt之前，而不是靠模型自觉不回答。模型不做权限判断，权限必须由应用层强制’。选项B精准对应这一教材原意——即使模型最终未引用该文档，只要无权条目已进入Prompt，就构成越权暴露风险（稀释注意力、增加泄露面、违反纵深防御原则）。A错误：预过滤（如ES filter）虽可优化性能，但教材强调的强制性防线是‘检索后过滤’，非‘检索前’；C是加密维度问题，与本题权限过滤时机无关；D混淆了云资源权限（RAM）与RAG应用层权限控制，原文8.8.2明确区分二者为不同防线。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 0,
+      "stem": "开发团队实现RAG职位过滤时，代码逻辑正确读取user_position_id=2（teamleader），但在关联kb_position_ref.csv后，仍返回了position_ids='[3,4]'的知识条目。经排查，kb_position_ref.csv中该条目position_ids字段存储为字符串'[3,4]'，而代码使用in操作符直接判断2 in '[3,4]'。此故障的根本原因属于哪一类必要条件缺失？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "缺少数据类型转换：未将字符串'[3,4]'解析为Python列表"
+        },
+        {
+          "option_label": "B",
+          "option_text": "未配置KMS密钥管理，导致元数据解密失败"
+        },
+        {
+          "option_label": "C",
+          "option_text": "未启用WAF对API请求参数做SQL注入防护"
+        },
+        {
+          "option_label": "D",
+          "option_text": "缺少多模态检测，无法识别PDF中嵌入的恶意元数据"
+        }
+      ],
+      "answer": "A",
+      "analysis": "原文8.8.1节代码示例明确使用ast.literal_eval(row['position_ids'])将字符串解析为列表，再执行if user_position_id in position_ids判断。本题中直接对字符串'[3,4]'使用in操作符，会导致'2' in '[3,4]'返回True（因字符'2'存在于字符串中），这是典型的数据类型处理错误。A项直指教材示例中强调的必要步骤——字符串需解析为结构化数据才能进行逻辑比对。B、C、D均属其他安全维度（加密、网络防护、多模态），与RAG元数据解析的编程逻辑无关，且原文未将KMS/WAF/多模态列为RAG访问控制的必要条件。",
+      "difficulty_label": "入门"
+    },
+    {
+      "type": 0,
+      "stem": "某企业RAG知识库采用按部门过滤策略，但测试发现：市场部员工提问时，系统返回了研发部上传的《AI模型训练日志》文档。经查，该文档在kb_position_ref.csv中department字段值为'research'，而过滤逻辑仅检查了position_ids字段。此现象暴露的核心约束缺陷是？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "未实现多维权限组合：教材要求职位、部门、密级等维度应作为元数据标签共同参与过滤"
+        },
+        {
+          "option_label": "B",
+          "option_text": "缺少指令与数据隔离，导致文档被误判为可执行指令"
+        },
+        {
+          "option_label": "C",
+          "option_text": "未对向量做DCPE加密，致使语义聚类暴露部门归属"
+        },
+        {
+          "option_label": "D",
+          "option_text": "未启用RAM子账号独立凭据，导致跨部门数据被共享AK读取"
+        }
+      ],
+      "answer": "A",
+      "analysis": "原文8.8.2节‘权限隔离的三个常见维度’明确指出：‘工程上一般把这些维度（职位、部门、密级）做成知识条目的元数据标签，检索时作为filter一起下推’，并强调‘别只做一个’。本题中仅依赖position_ids过滤，却忽略department字段，直接违反教材‘多维组合’的强制性设计约束。B属于提示注入防护范畴（8.3节），与部门越权无关；C是加密维度（8.8.2），不影响元数据过滤逻辑；D是云账号权限管理（8.7节），与RAG应用层过滤无关。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 1,
+      "stem": "在RAG知识库访问控制实施中，以下哪些措施符合教材8.8节关于‘双保险’机制的要求？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "在检索后、拼Prompt前，根据用户position_id过滤Top-K结果"
+        },
+        {
+          "option_label": "B",
+          "option_text": "对知识库原始文本使用AES-256加密存储"
+        },
+        {
+          "option_label": "C",
+          "option_text": "在系统提示词中添加‘你只能回答该用户有权看的内容’"
+        },
+        {
+          "option_label": "D",
+          "option_text": "对知识库向量使用DCPE（加噪、缩放、归一化、洗牌）处理"
+        },
+        {
+          "option_label": "E",
+          "option_text": "为RAG服务创建独立RAM子账号，并授予OSS只读权限"
+        }
+      ],
+      "answer": "ABD",
+      "analysis": "教材8.8.2节标题即为‘为什么访问控制+加密要双保险’，并明确定义第一道防线为‘访问控制（应用层）’——对应A项（检索后过滤）；第二道防线为‘双重加密（数据层）’——对应B项（文本加密）和D项（向量DCPE加密）。C项被原文8.8.2‘常见误区’明确否定：‘在提示词里告诉模型只能回答有权内容’是❌错误做法，因模型不做权限判定；E项属于云资源权限（8.7节RAM），虽重要但不属于RAG‘双保险’特指的访问控制+加密组合，而是更上层的基础设施权限隔离。",
+      "difficulty_label": "挑战"
+    },
+    {
+      "type": 0,
+      "stem": "运维审计发现：RAG知识库中一份标为‘薪酬管理制度（绝密）’的文档，其kb_position_ref.csv中position_ids字段值为'[1,2]'（employer/teamleader），但普通员工（position_id=1）成功检索并引用了该文档。进一步检查发现，过滤代码中user_position_id变量始终为None。此故障最可能源于哪个必要条件的缺失？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "未建立user.csv与position.csv的正确关联，导致position_id查询失败"
+        },
+        {
+          "option_label": "B",
+          "option_text": "未启用阿里云内容安全服务的自定义词库功能"
+        },
+        {
+          "option_label": "C",
+          "option_text": "未对OSS存储桶开启服务端加密"
+        },
+        {
+          "option_label": "D",
+          "option_text": "未在WAF中配置针对/kb_filter接口的CC攻击防护"
+        }
+      ],
+      "answer": "A",
+      "analysis": "原文8.8.1节‘三步流程’第一步即为‘查用户权限：根据user_id查出该用户的position_id’，并给出代码user_table[user_table['user_id'] == user_id]['position_id'].values[0]。若user_position_id为None，说明第一步查询失败，根源必然是user.csv与position.csv关联异常（如字段名不匹配、join条件错误、数据缺失）。B、C、D分别属于内容审核、存储加密、网络防护范畴，与用户权限元数据查询无直接因果关系，且原文未将其列为RAG访问控制的前提条件。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 1,
+      "stem": "根据教材8.8节，以下哪些场景必须同时满足‘应用层访问控制’与‘数据层加密’双重要求？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "知识库中存储员工薪资明细表，需防止普通员工越权查看"
+        },
+        {
+          "option_label": "B",
+          "option_text": "RAG服务部署在公有云ECS上，数据库管理员拥有高权限账号"
+        },
+        {
+          "option_label": "C",
+          "option_text": "知识库向量被用于跨租户共享检索服务"
+        },
+        {
+          "option_label": "D",
+          "option_text": "用户上传的PDF文档需OCR提取文字后存入知识库"
+        },
+        {
+          "option_label": "E",
+          "option_text": "系统需支持审计人员导出全量知识库CSV用于合规检查"
+        }
+      ],
+      "answer": "ABC",
+      "analysis": "教材8.8.2节‘为什么双保险’明确指出：‘只做访问控制不够，因为应用层过滤可以被获取高级权限的人轻易绕过’，并举例‘高权限账号被盗、数据库文件被拷走时，明文数据照样泄露’。A项（薪资明细）和B项（DBA高权限）直接对应教材所述‘高级权限绕过’场景；C项（跨租户共享向量）对应教材‘向量携带语义，可能通过距离/聚类推断主题’的风险，需DCPE加密。D项OCR处理属输入流程，未涉及权限或加密必要性；E项导出CSV是审计需求，教材未要求导出时必须加密（且导出后加密失去意义），重点在存储和检索时加密。",
+      "difficulty_label": "挑战"
+    }
+  ]
+}

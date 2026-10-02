@@ -1,0 +1,79 @@
+{
+  "new-4-150-0": {
+    "qid": "new-4-150-0",
+    "classification": "own",
+    "chapter": 4,
+    "quality": "ok",
+    "reason": "题目考查Function Calling流程中程序执行阶段的职责，与原文核心约定一致。",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "关键约定：工具返回结果必须回灌到上下文，否则模型等于“做完就忘”；要给模型“失败出口”：工具超时、报错时能重试或换方案，而不是整轮崩溃。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "工具定义阶段主要声明工具功能与参数，不负责定义运行时重试策略。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "模型决策阶段输出调用意图，但重试逻辑应由程序控制。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "程序执行阶段应捕获异常并处理，如重试或换方案，这是核心设计约定。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "结果回传是必要步骤，但前提是程序已捕获并处理了异常。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-4-150-1": {
+    "qid": "new-4-150-1",
+    "classification": "own",
+    "chapter": 4,
+    "quality": "ok",
+    "reason": "题目考查Function Calling流程中程序与模型的分工，是本章核心考点。",
+    "answer": [
+      "B",
+      "C",
+      "D"
+    ],
+    "supported": true,
+    "quote": "模型只输出结构化的“调用哪个工具、传什么参数”；由你的应用代码解析tool_calls、真正执行对应函数，并把结果包装成role=\"tool\"的消息。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "判断是否需要调用工具由模型根据输入和Schema完成。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "解析tool_calls并提取参数是应用程序代码的职责。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "实际调用函数或API接口必须由应用程序代码执行。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "将工具结果包装为role=\"tool\"消息并追加历史由程序完成。"
+      },
+      {
+        "label": "E",
+        "selected": false,
+        "why": "基于工具结果生成最终回复是模型的职责。"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

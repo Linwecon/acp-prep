@@ -1,0 +1,154 @@
+{
+  "items": [
+    {
+      "type": 0,
+      "stem": "某教育公司新人答疑机器人初期仅需单轮问答，两周后需支持RAG知识库、多轮对话、调用三个内部系统、链路追踪与前端API接入。此时工程师发现代码迅速膨胀至数百行，messages手工拼接、历史重复维护、检索逻辑处处复现。依据第12章核心观点，导致该困境的根本原因是什么？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "未选用最新版LangChain，导致LCEL流式能力缺失"
+        },
+        {
+          "option_label": "B",
+          "option_text": "缺乏对共性工程模式的抽象，导致重复实现提示词拼装、记忆管理、检索流程等脏活"
+        },
+        {
+          "option_label": "C",
+          "option_text": "模型API响应延迟高，迫使开发者手动添加重试和缓存逻辑"
+        },
+        {
+          "option_label": "D",
+          "option_text": "团队未统一使用DashScopeEmbeddings，造成向量不一致"
+        }
+      ],
+      "answer": "B",
+      "analysis": "依据12.1节'共性脏活'表格及'框架的本质价值'定义：'把大模型应用中反复出现的工程模式抽象成可组合的组件'。题干描述的'手工拼messages、手动维护history、重复写检索逻辑'正是裸调SDK时必须自行实现的共性脏活（教材原文：'多轮对话历史→手动维护messages列表'；'文档加载、切片、向量化、检索→每个项目重写一遍'）。A错误：LCEL是解决方案而非原因，且题干未提流式需求；C错误：题干未涉及性能问题，属干扰项；D错误：向量一致性是RAG质量子问题，非代码膨胀主因。本题考查对框架存在必要性的底层归因，紧扣'工程化编排'这一核心价值。",
+      "difficulty_label": "基础"
+    },
+    {
+      "type": 1,
+      "stem": "某团队为上线'合同条款智能解读机器人'，需满足：①精准解析扫描件PDF中的表格与条款结构；②支持法务人员通过Web界面自助上传/更新合同；③生成结果需严格基于合同原文，禁止幻觉；④IT仅提供百炼API Key，无专职AI工程师。根据第12章12.5节与12.6.2节，以下哪些技术选型符合'务实分层'原则？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "使用DashScopeParse进行OCR与版面结构化解析"
+        },
+        {
+          "option_label": "B",
+          "option_text": "采用SimpleDirectoryReader作为默认解析器"
+        },
+        {
+          "option_label": "C",
+          "option_text": "通过Dify平台构建知识库与工作流"
+        },
+        {
+          "option_label": "D",
+          "option_text": "用LangChain自建Agent处理合同条款抽取"
+        }
+      ],
+      "answer": "AC",
+      "analysis": "依据12.5节'选型决策路径'：'文档是扫描件、复杂表格→上DashScopeParse（OCR+版面结构化）'，故A正确、B错误（SimpleDirectoryReader对扫描件无效）；依据12.6.2节'场景题'：'HR想自己搭制度问答机器人，IT只提供API Key→Dify是最优选'，且'合同解读'属于典型知识库问答+非工程人员自助场景，C正确；D错误：题干明确'无专职AI工程师'，LangChain自建Agent违背'少写代码'原则，且12.6.2节强调'Dify可替代可视化工作流，无需写代码'。本题综合考查文档解析与低代码平台的交叉场景判断，避免孤立记忆工具功能。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 0,
+      "stem": "在调试一个基于LlamaIndex的RAG应用时，发现模型回答总是偏离用户问题，经日志检查发现检索返回的context_str内容与用户提问高度无关。进一步排查发现QueryEngine初始化时未传入llm参数，但代码仍能运行。依据第12章12.3节，最可能的根本原因是什么？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "未配置StorageContext，导致索引未持久化，每次查询重建空索引"
+        },
+        {
+          "option_label": "B",
+          "option_text": "QueryEngine默认使用本地嵌入模型，而文档未经过向量化"
+        },
+        {
+          "option_label": "C",
+          "option_text": "未在index.as_query_engine()中指定llm，导致默认使用无意义的fallback模型或纯检索模式"
+        },
+        {
+          "option_label": "D",
+          "option_text": "Document解析时未设置metadata，使Retriever无法按元数据过滤"
+        }
+      ],
+      "answer": "C",
+      "analysis": "依据12.3节示例代码：`query_engine = index.as_query_engine(streaming=True, llm=...)`，明确要求传入llm参数；且12.3节指出'QueryEngine = Retriever + ResponseSynthesizer'，其中ResponseSynthesizer需LLM生成答案。若未传llm，QueryEngine可能退化为仅执行检索（返回原始Node）而不合成答案，或使用不可控的默认模型，导致context_str被误用为答案来源。A错误：索引未持久化影响性能而非检索相关性；B错误：LlamaIndex默认不自动向量化，但题干已确认'retrieval返回context_str'，说明索引已建；D错误：元数据过滤是可选增强，非检索失效主因。本题考查对QueryEngine组件职责的深度理解，聚焦'llm缺失'这一易忽略的初始化陷阱。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 1,
+      "stem": "某金融风控团队需构建'多Agent协同审批系统'：风控Agent分析交易风险，合规Agent核查监管条款，主管Agent汇总决策并通知。三者需实时交换中间结论，并支持异步消息广播。根据第12章12.6.1节，以下哪些是AgentScope相比LangChain/LangGraph的差异化优势？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "提供MsgHub抽象，原生支持多Agent群聊式消息广播"
+        },
+        {
+          "option_label": "B",
+          "option_text": "内置DashScopeMultiAgentFormatter，统一处理多角色消息序列化"
+        },
+        {
+          "option_label": "C",
+          "option_text": "通过LangGraph StateGraph可直接实现Blackboard协作模式"
+        },
+        {
+          "option_label": "D",
+          "option_text": "ReActAgent封装了标准思考-行动-观察循环，降低Agent开发门槛"
+        }
+      ],
+      "answer": "ABD",
+      "analysis": "依据12.6.1节'核心抽象'：'Msg / MsgHub：Agent之间通过消息通信，MsgHub实现群聊式共创协作（Blackboard模式）'，故A正确；'Formatter：如DashScopeMultiAgentFormatter...把Agent消息序列化成模型能接受的格式'，故B正确；'Agent：如ReActAgent，封装模型、系统提示词、工具与思考—行动—观察循环'，故D正确。C错误：12.6.1节'compare'明确指出'LangChain/LangGraph更偏单/多Agent工作流与状态机编排'，而'AgentScope更偏多Agent之间的消息通信与协作模式'，且Blackboard是AgentScope特有设计，LangGraph不原生支持。本题考查对框架定位差异的精准辨析，避免混淆'状态机编排'与'消息协作'两个维度。",
+      "difficulty_label": "高阶"
+    },
+    {
+      "type": 0,
+      "stem": "在评估一个RAG应用效果时，团队使用RAGAS计算context_recall指标得分偏低。经分析，发现检索到的上下文片段虽包含答案关键词，但大量无关段落混杂其中。依据第12章12.7.1节与12.3节，以下哪项优化措施最直接对应RAGAS的context_recall设计目标？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "在LlamaIndex中启用MetadataReplacementPostProcessor，替换窗口文本"
+        },
+        {
+          "option_label": "B",
+          "option_text": "调整Retriever的similarity_top_k参数，减少召回数量"
+        },
+        {
+          "option_label": "C",
+          "option_text": "在QueryEngine中配置reranker，对召回结果重排序"
+        },
+        {
+          "option_label": "D",
+          "option_text": "使用SentenceWindowNodeParser重构Node，扩大上下文窗口"
+        }
+      ],
+      "answer": "C",
+      "analysis": "依据12.7.1节：RAGAS的context_recall指标衡量'检索到的上下文中包含答案所需全部信息的比例'，其提升依赖于提高**相关片段的排序位置**，而非单纯增减数量。12.3节明确'检索后处理（如Rerank、相似度过滤）'是LlamaIndex强项，且'Rerank'直接优化召回结果的相关性排序。A错误：MetadataReplacementPostProcessor用于文本替换，不提升召回质量；B错误：减少top_k可能漏掉关键片段，违背recall定义；D错误：扩大窗口可能引入更多噪声，无助于精准召回。本题考查对评估指标与技术手段的因果匹配，紧扣'context_recall需靠rerank提升'这一教材隐含逻辑。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 1,
+      "stem": "某团队在生产环境部署答疑机器人时，需同时满足：①对外提供标准化HTTP API供APP调用；②为内部运营人员提供实时聊天Demo界面；③对RAG效果进行周度回归评测。依据第12章12.7节技术栈分层图，以下哪些工具组合符合'各司其职、互不耦合'原则？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "FastAPI封装QueryEngine为/api/ask接口"
+        },
+        {
+          "option_label": "B",
+          "option_text": "Gradio直接集成LlamaIndex的QueryEngine对象"
+        },
+        {
+          "option_label": "C",
+          "option_text": "RAGAS使用冻结数据集定期评估FastAPI暴露的API端点"
+        },
+        {
+          "option_label": "D",
+          "option_text": "将Gradio UI逻辑与RAG业务逻辑写在同一Python文件中"
+        }
+      ],
+      "answer": "ABC",
+      "analysis": "依据12.7节'技术栈分层速查'：FastAPI属'服务层'（给系统调用），Gradio属'UI层'（给人用的Demo），RAGAS属'评估层'（量化效果）。A正确：FastAPI封装业务逻辑符合'服务层'定位；B正确：Gradio调用QueryEngine是标准用法，且12.7.2节强调'Gradio只负责界面，不承载业务逻辑'，即调用外部模块；C正确：RAGAS评估API端点是生产环境典型实践，12.7.1节示例显示其可与LangChain/LlamaIndex解耦；D错误：12.7.2节明确警告'否则一旦要把Demo变成正式产品，所有逻辑都和UI耦在一起'，违反'各司其职'原则。本题考查对分层架构的实践理解，强调解耦与职责分离。",
+      "difficulty_label": "基础"
+    }
+  ]
+}

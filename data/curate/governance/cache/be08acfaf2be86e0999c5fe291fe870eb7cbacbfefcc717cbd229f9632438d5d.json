@@ -1,0 +1,236 @@
+{
+  "2-1085": {
+    "qid": "2-1085",
+    "classification": "own",
+    "chapter": 2,
+    "quality": "ok",
+    "reason": "考查提示词优化措施，选项符合教材知识。",
+    "answer": [
+      "B",
+      "D",
+      "E"
+    ],
+    "supported": true,
+    "quote": "六要素需要落成一个稳定的结构。推荐的通用结构是：角色 + 任务 + 上下文 + 示例 + 输出格式与约束",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "长文档分段处理是审阅策略，非摘要生成通用优化。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "明确任务目标是六要素之一，能引导模型聚焦。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "不使用模板是脆弱做法，违背工程化实践。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "提供样例是Few-shot技巧，可对齐格式风格。"
+      },
+      {
+        "label": "E",
+        "selected": true,
+        "why": "详细输出格式要求是六要素之一，约束输出。"
+      }
+    ],
+    "duplicate_of": "2-1305"
+  },
+  "2-1290": {
+    "qid": "2-1290",
+    "classification": "own",
+    "chapter": 2,
+    "quality": "ok",
+    "reason": "考查意图分类提示词修改，需更新清单和逻辑。",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "分类提示词必须包含的三要素（缺一即不完整）：1. 意图清单：每个意图一句话定义 + 1 个示例；2. 输出格式；3. 低置信度处理规则。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "仅改输入query不更新意图清单，分类会出错。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "输出格式通常不变，关键是更新意图清单。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "需修改任务要求中的意图清单，并可能更新函数逻辑。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "未提及Q_S_Line函数，且修改不全面。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "2-1305": {
+    "qid": "2-1305",
+    "classification": "own",
+    "chapter": 2,
+    "quality": "ok",
+    "reason": "与2-1085考点、选项、解题路径完全相同。",
+    "answer": [
+      "B",
+      "D",
+      "E"
+    ],
+    "supported": true,
+    "quote": "六要素需要落成一个稳定的结构。推荐的通用结构是：角色 + 任务 + 上下文 + 示例 + 输出格式与约束",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "不使用模板是脆弱做法，违背工程化实践。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "明确任务目标是六要素之一，能引导模型聚焦。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "长文档分段处理是审阅策略，非摘要生成通用优化。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "提供样例是Few-shot技巧，可对齐格式风格。"
+      },
+      {
+        "label": "E",
+        "selected": true,
+        "why": "详细输出格式要求是六要素之一，约束输出。"
+      }
+    ],
+    "duplicate_of": "2-1085"
+  },
+  "2-1447": {
+    "qid": "2-1447",
+    "classification": "own",
+    "chapter": 2,
+    "quality": "ok",
+    "reason": "考查风格控制和语法检查的提示优化措施。",
+    "answer": [
+      "A",
+      "B",
+      "C",
+      "D"
+    ],
+    "supported": true,
+    "quote": "六要素：角色（定义身份、语气、写作风格）、样例（给 1~3 个范例对齐格式与风格）、输出格式（指定格式、枚举值、禁止项）",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "明确风格要求是角色或任务要素，有效。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "提供示例是Few-shot技巧，有效对齐风格。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "要求检查语法是补充任务约束，可能有效。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "结构化输出是输出格式要求，有效控制结构。"
+      },
+      {
+        "label": "E",
+        "selected": false,
+        "why": "不做优化依赖模型自动判断，效果不稳定。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "2-5007": {
+    "qid": "2-5007",
+    "classification": "own",
+    "chapter": 2,
+    "quality": "ok",
+    "reason": "考查使用分隔符解决指令与数据混淆问题。",
+    "answer": [
+      "D"
+    ],
+    "supported": true,
+    "quote": "分隔符（Delimiters）是用特殊符号或标签，把提示词中不同部分（指令、上下文、样例、待处理内容）显式切分开的写法。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "语气礼貌不解决指令数据混淆的结构问题。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "降低temperature调节随机性，不解决混淆。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "输出长度限制不解决指令数据混淆问题。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "使用分隔符隔离并声明原文是数据，最直接有效。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "2-5009": {
+    "qid": "2-5009",
+    "classification": "own",
+    "chapter": 2,
+    "quality": "ok",
+    "reason": "考查分隔符的常见作用，选项B、C、D正确。",
+    "answer": [
+      "B",
+      "C",
+      "D"
+    ],
+    "supported": true,
+    "quote": "分隔符看起来是“排版小事”，实则承担三个关键作用：结构化、防注入、易解析。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "分隔符不能完全消除幻觉，幻觉根因复杂。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "分隔符能将不同区域区分开，实现结构化。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "隔离数据可降低用户输入被误读为指令的概率。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "清晰边界便于程序按固定格式解析输出。"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

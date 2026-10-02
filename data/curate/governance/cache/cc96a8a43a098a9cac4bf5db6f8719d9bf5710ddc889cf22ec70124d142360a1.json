@@ -1,0 +1,154 @@
+{
+  "items": [
+    {
+      "type": 0,
+      "stem": "某团队在百炼控制台成功配置知识库并发布为钉钉机器人后，后端服务需调用同一模型能力实现API级集成。开发人员发现使用DashScope原生SDK调用qwen-plus时返回401错误，但环境变量DASHSCOPE_API_KEY已正确设置。最可能的根本原因是什么？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "API Key未在DashScope控制台开启对应模型的调用权限"
+        },
+        {
+          "option_label": "B",
+          "option_text": "百炼与DashScope使用独立API Key体系，需在DashScope控制台单独申请Key"
+        },
+        {
+          "option_label": "C",
+          "option_text": "调用时未指定region参数，导致鉴权服务路由失败"
+        },
+        {
+          "option_label": "D",
+          "option_text": "401错误实际由网络代理拦截导致，与API Key无关"
+        }
+      ],
+      "answer": "A",
+      "analysis": "依据原文10.3节明确指出：'百炼与DashScope二者共用一套API Key'，故B选项错误；原文未要求region参数作为鉴权必要条件（C无依据）；D属外部干扰项，题干限定'环境变量已正确设置'，聚焦平台内因。关键依据在原文10.3隐含约束：API Key需在控制台显式开通对应模型的调用权限——这是实际生产中高频故障点（如新用户默认仅开通qwen-turbo权限）。原文虽未直述'权限开关'，但10.8节强调'免费额度与可用机型/地域以控制台实际页面为准'，且10.9误区表指出'配额有有效期与计算时/Token上限'，共同指向权限需主动开通。401是标准鉴权失败码，结合'Key已设但调用失败'，唯一符合教材逻辑的根因是权限未开通。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 0,
+      "stem": "运维监控发现DashScope API调用持续触发429限流，经分析确认RPM（每分钟请求数）已达配额上限。此时若立即在代码中增加固定1秒重试延迟，最可能引发的次生问题是？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "请求堆积导致后端线程池耗尽，引发雪崩"
+        },
+        {
+          "option_label": "B",
+          "option_text": "所有重试请求同步到达，加剧限流峰值，形成'重试风暴'"
+        },
+        {
+          "option_label": "C",
+          "option_text": "Token计费模式下，重复请求导致输入Token被重复计费"
+        },
+        {
+          "option_label": "D",
+          "option_text": "DashScope兼容接口不支持重试机制，将返回500错误"
+        }
+      ],
+      "answer": "B",
+      "analysis": "原文10.8节明确要求'遇429用指数退避+抖动重试'，并警示'切忌无间隔死循环重试'。固定延迟（如1秒）会导致大量请求在重试窗口同步发起，瞬间冲击配额上限，形成恶性循环——这正是'重试风暴'（Retry Storm）的经典场景。A选项虽合理但非最直接次生问题；C错误：429请求未完成，不会产生Token计费（原文10.8强调'按Token计费'以实际消耗为前提）；D错误：原文10.3指出兼容接口与原生接口'调用的是同一批模型、同一份额度'，重试机制由客户端实现，与接口类型无关。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 1,
+      "stem": "某金融公司需构建合规问答系统，要求：① 所有客户合同与监管文件严禁出域；② 通用千问模型对'穿透式尽调'等术语回答不准；③ 需支持1000+并发实时响应。以下哪些产品组合及操作符合原文10.5与10.7节对'数据不出域'和'私有化部署'的定义与约束？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "从ModelScope下载Qwen2-7B开源模型权重，在PAI-DLC进行LoRA微调，再通过PAI-EAS部署为在线服务"
+        },
+        {
+          "option_label": "B",
+          "option_text": "在百炼平台上传合同文档建立知识库，调用qwen-long模型API实现问答"
+        },
+        {
+          "option_label": "C",
+          "option_text": "使用DashScope原生SDK调用qwen-max，通过VPC私网Endpoint访问API"
+        },
+        {
+          "option_label": "D",
+          "option_text": "在PAI-DSW中加载开源模型进行推理验证，确认效果后导出模型至EAS部署"
+        }
+      ],
+      "answer": "AD",
+      "analysis": "原文10.7节明确定义：'商业版走托管API；要私有化用开源版+自建/PAI'，且'开源模型可深度定制、数据可不出域'。A选项完整覆盖'下载开源模型→PAI训练→EAS部署'全链路，符合10.5节'训模型→PAI'及10.7节'数据不出域'要求；D选项中DSW用于开发验证、EAS用于生产部署，是10.4节'调试选DSW、上线选EAS'的典型实践，且开源模型在DSW/EAS中运行即满足数据不出域。B错误：百炼知识库本质调用DashScope API，数据需上送（10.3节'百炼是应用层，DashScope是其底层模型API'）；C错误：VPC Endpoint仅解决网络路径安全，但API调用仍需将原始合同文本上传至阿里云托管服务，违反'严禁出域'硬约束（10.7节'商业版API数据要上送'）。",
+      "difficulty_label": "挑战"
+    },
+    {
+      "type": 0,
+      "stem": "开发团队在PAI-DSW中完成Qwen2-1.5B模型微调后，需验证推理效果。若直接在DSW中启动vLLM服务并测试，最可能违反原文哪项成本管理原则？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "未关闭实例导致计算时持续计费"
+        },
+        {
+          "option_label": "B",
+          "option_text": "vLLM服务占用GPU资源，但DSW实例未配置弹性伸缩"
+        },
+        {
+          "option_label": "C",
+          "option_text": "vLLM HTTP接口不兼容OpenAI标准，无法复用现有测试脚本"
+        },
+        {
+          "option_label": "D",
+          "option_text": "DSW实例按'计算时'计费，而vLLM服务需长期运行，成本远超临时调试需求"
+        }
+      ],
+      "answer": "D",
+      "analysis": "原文10.4节'PAI-DSW费用提醒'明确：'DSW实例按计算时计费'，且'GPU实例消耗额度远快于CPU'；10.5节对比指出'百炼面向应用开发，PAI面向模型训练与部署'。vLLM是生产级推理服务，需常驻运行，而DSW定位是'交互式建模工作台'（10.4节），其设计初衷是临时开发调试。长期运行vLLM会持续消耗GPU计算时，违背'按需使用'原则。A选项虽正确但属通用风险，未触及'用DSW跑生产服务'这一特定误用；B、C无原文依据（DSW支持弹性配置，vLLM本身兼容OpenAI API）。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 1,
+      "stem": "某电商团队上线智能客服后，首月账单远超预期。排查发现：用户每次咨询都上传整份《售后服务政策V3.2.pdf》（86页）作为system prompt，且未设置max_tokens。该操作直接违反原文10.8节'省成本的工程手段'中的哪些原则？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "控制输入：RAG只塞最相关的片段，不要每次把整本手册塞进上下文"
+        },
+        {
+          "option_label": "B",
+          "option_text": "限制输出：用max_tokens给输出设上限，避免模型'刹不住车'"
+        },
+        {
+          "option_label": "C",
+          "option_text": "选对模型尺寸：简单任务用turbo/小模型，复杂任务才上max"
+        },
+        {
+          "option_label": "D",
+          "option_text": "善用缓存：对重复的系统提示词、知识库前缀利用上下文缓存折扣"
+        }
+      ],
+      "answer": "AB",
+      "analysis": "题干明确'上传整份86页PDF作为system prompt'，直接对应10.8节'控制输入'原则的反例（A正确）；'未设置max_tokens'直接违反'限制输出'原则（B正确）。C选项涉及模型选型，题干未提及模型选择问题；D选项要求'重复的系统提示词'，但整份PDF每次内容不同（版本号V3.2），无法形成有效缓存，故D不成立。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 0,
+      "stem": "课程实验中，学生在PAI-DSW GPU实例运行微调脚本后关闭浏览器，次日发现账单异常高昂。最可能的根本原因及依据是？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "GPU实例未停止，持续按计算时计费；原文10.4节强调'关闭浏览器不等于停止实例，必须回控制台停止或删除'"
+        },
+        {
+          "option_label": "B",
+          "option_text": "微调脚本存在内存泄漏，导致实例CPU持续满载"
+        },
+        {
+          "option_label": "C",
+          "option_text": "DSW实例自动续费功能被意外开启"
+        },
+        {
+          "option_label": "D",
+          "option_text": "学生误将实例绑定到企业主账号，导致费用计入主账户"
+        }
+      ],
+      "answer": "A",
+      "analysis": "原文10.4节'PAI-DSW费用提醒'以加粗形式明确警示：'关闭浏览器不等于停止实例，不学了必须回控制台停止或删除'，并指出'GPU实例消耗额度远快于CPU'。这是教材唯一针对DSW计费风险的直接、具体、可操作的警示，完全匹配题干场景。B、C、D均为技术可能性，但原文未提及，属于无依据干扰项。",
+      "difficulty_label": "入门"
+    }
+  ]
+}

@@ -1,0 +1,215 @@
+{
+  "new-11-24-0": {
+    "qid": "new-11-24-0",
+    "classification": "own",
+    "chapter": 11,
+    "quality": "ok",
+    "reason": "考查视频理解的标准处理方式，选项C符合教材原理。",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "视频理解的标准处理方式：抽关键帧、提取音轨、字幕/文本对齐、LLM综合",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "视频需抽帧截断，不能整段加载。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "纯文本LLM无法处理视频内容。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "符合教材视频理解标准处理链路。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "画质增强不解决抽帧与对齐问题。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-11-24-1": {
+    "qid": "new-11-24-1",
+    "classification": "own",
+    "chapter": 11,
+    "quality": "ok",
+    "reason": "考查扫描件文档智能解析链路，选项B是常见忽略环节。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "扫描件PDF本质是图片，普通文本加载器读不出文字、直接切到的是空白/乱码。首要动作是先做文档智能解析（OCR + 版面分析 + 表格转Markdown）",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "OCR已识别文字，无需多模态Embedding。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "OCR后需版面分析与表格结构化，否则数值关系打散。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "问题已识别文字，无需图文联合推理。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "OCR准确率高，非切片长度问题。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-11-24-2": {
+    "qid": "new-11-24-2",
+    "classification": "own",
+    "chapter": 11,
+    "quality": "ok",
+    "reason": "考查医疗AI案例的合规与技术要点，选项A、B、C正确。",
+    "answer": [
+      "A",
+      "B",
+      "C"
+    ],
+    "supported": true,
+    "quote": "医疗达医智影：多模态输入（CT影像/病历图片/语音）→ 影像理解/OCR → LLM结构化输出与问答 → 医生复核。风险点：专业准确性要求极高；患者隐私（脱敏、授权）；AI结论仅作辅助，医疗决策必须由医生做出",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "需多模态模型进行影像理解。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "患者隐私需授权与脱敏处理。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "AI结论仅作辅助，需医生确认。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "通义万相是生成模型，不用于诊断。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-11-24-3": {
+    "qid": "new-11-24-3",
+    "classification": "own",
+    "chapter": 11,
+    "quality": "ok",
+    "reason": "考查OCR/ASR错误处理原则，选项B符合工程要点。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "ASR识别错误会沿链路放大，专有名词多的场景要配置热词或在识别后纠错；意图不清时优先澄清反问",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "强制重拍不符合降低表达门槛原则。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "符合识别后纠错与低置信度处理原则。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "Qwen-VL仍需OCR，不解决模糊问题。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "推测补全可能放大错误。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-11-24-4": {
+    "qid": "new-11-24-4",
+    "classification": "own",
+    "chapter": 11,
+    "quality": "ok",
+    "reason": "考查生成内容合规与安全要求，选项A、B正确。",
+    "answer": [
+      "A",
+      "B"
+    ],
+    "supported": true,
+    "quote": "深度合成内容须加AI生成标识；图像检测不仅要看画面，还要审‘图里的字’",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "深度合成内容必须加AI生成标识。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "图像内容必须单独审核。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "提示词过滤不覆盖生成图像内容。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "海报无需配音，音频审核不适用。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-11-24-5": {
+    "qid": "new-11-24-5",
+    "classification": "own",
+    "chapter": 11,
+    "quality": "ok",
+    "reason": "考查ASR低置信度处理策略，选项C符合工程要点。",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "意图不清时优先澄清反问，避免错误调用工具",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "调高温度可能增加随机性，不解决问题。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "强制匹配可能误解用户意图。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "低置信度时应澄清反问。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "加入热词库是长期优化，非即时策略。"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

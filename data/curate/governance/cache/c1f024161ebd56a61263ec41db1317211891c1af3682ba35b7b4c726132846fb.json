@@ -1,0 +1,217 @@
+{
+  "new-10-54-0": {
+    "qid": "new-10-54-0",
+    "classification": "own",
+    "chapter": 10,
+    "quality": "ok",
+    "reason": "综合考查阿里云平台分层选型与约束匹配，题干条件清晰，选项覆盖典型路径。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "开源模型的价值集中在三点：① 数据隐私与合规（数据不出域）；② 可深度定制（任意微调/改结构）；③ 大规模稳定流量下的长期成本可控。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "百炼知识库数据托管，不满足‘不得出域’要求。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "开源模型微调部署在PAI，满足不出域、定制、高并发、运维少。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "DashScope API数据上送，违反不出域；全文本传入成本高。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "百炼工作流调用DashScope，数据仍需上送，违反不出域。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-10-54-1": {
+    "qid": "new-10-54-1",
+    "classification": "own",
+    "chapter": 10,
+    "quality": "ok",
+    "reason": "考查成本优化工程实践，针对具体低效场景，选项有明确原文依据。",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "省成本的工程手段：控制输入：RAG 只塞最相关的片段，不要每次把整本手册塞进上下文。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "切换模型单价降，但输入Token量未减，非最直接有效。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "自托管涉及GPU运维，不符合‘最直接有效’且流式输出无关成本。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "知识库自动切片检索，直接减少输入Token，符合原文控制输入建议。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "仅限制输出，未解决输入Token过多根本问题。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-10-54-2": {
+    "qid": "new-10-54-2",
+    "classification": "own",
+    "chapter": 10,
+    "quality": "ok",
+    "reason": "多选题，考查百炼平台核心能力与边界，选项均可在原文找到对应描述。",
+    "answer": [
+      "A",
+      "B",
+      "C",
+      "D"
+    ],
+    "supported": true,
+    "quote": "百炼的核心能力可以理解为把前几章的技术‘产品化’了：知识库（RAG）、工作流编排、模型广场、一键发布。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "知识库是百炼核心能力，支持上传PDF自动处理。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "工作流编排是百炼提供的低代码搭建稳定流程能力。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "模型广场选型并配置模型是百炼功能。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "百炼调试好的智能体可通过API集成，符合其定位。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-10-54-3": {
+    "qid": "new-10-54-3",
+    "classification": "own",
+    "chapter": 10,
+    "quality": "ok",
+    "reason": "考查限流（429）处理原则，选项与原文风险应对建议直接对应。",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "处理限流：遇 429 用指数退避 + 抖动重试，必要时降级到更小模型。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "申请提升配额非最及时应对，且未提及重试退避。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "立即重试会加剧限流，违反指数退避原则。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "指数退避+抖动重试和降级模型，完全符合原文处理原则。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "批量调用不解决TPM（Token数）限流本质。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-10-54-4": {
+    "qid": "new-10-54-4",
+    "classification": "own",
+    "chapter": 10,
+    "quality": "ok",
+    "reason": "多选题，考查私有化部署开源模型的全流程产品组合。",
+    "answer": [
+      "A",
+      "B",
+      "C"
+    ],
+    "supported": true,
+    "quote": "开源模型从 ModelScope 下载。PAI 三件套：在 DSW 里做开发，大规模训练可提交 DLC，最后用 EAS 部署。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "ModelScope是下载开源模型权重的社区。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "PAI-DSW用于本地微调开发，是训练部署流程一环。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "PAI-EAS提供在线服务部署，支持弹性伸缩与蓝绿发布。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "DashScope是商业API服务，不符合私有化部署要求。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-10-54-5": {
+    "qid": "new-10-54-5",
+    "classification": "own",
+    "chapter": 10,
+    "quality": "ok",
+    "reason": "考查PAI-DSW计费关键风险点，题干场景与原文提醒完全对应。",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "DSW 实例按‘计算时’计费，关闭浏览器不等于停止实例，不学了必须回控制台停止或删除。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "原文明确提醒关闭浏览器不等于停止实例，会持续计费。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "账单异常来自DSW实例计费，而非DashScope API调用。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "OSS存储费用非题干所述‘账单异常高昂’最可能根本原因。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "自动续费机制原文未提及，非依据。"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

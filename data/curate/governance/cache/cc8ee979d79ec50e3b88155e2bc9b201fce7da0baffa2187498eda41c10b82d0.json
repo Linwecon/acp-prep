@@ -1,0 +1,107 @@
+{
+  "new-11-54-0": {
+    "qid": "new-11-54-0",
+    "classification": "own",
+    "chapter": 11,
+    "quality": "ok",
+    "reason": "考查扫描件PDF在RAG中的处理，需先做文档智能解析。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "扫描件PDF本质是图片，文本切片器一行字都读不出来。需要文档智能解析先把结构还原出来。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "升级模型不能解决前端解析问题，且看图问答非RAG标准流程。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "扫描件需先OCR和结构化，才能被RAG正确切片和检索。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "通用加载器无法处理图片，重试无效。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "多模态Embedding用于图片检索，不解决扫描件文字提取问题。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-11-54-3": {
+    "qid": "new-11-54-3",
+    "classification": "own",
+    "chapter": 11,
+    "quality": "ok",
+    "reason": "考查OCR低置信度时的优化策略，需结合纠错与知识库校验。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "ASR识别错误会沿链路放大，专有名词多的场景要配置热词或在识别后纠错。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "低置信度应追问澄清，避免错误放大。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "纠错并利用知识库校验，符合工程要点。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "端到端模型仍可能受模糊图片影响，且非首选优化。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "不提供容错违背用户体验，非优化策略。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-11-54-5": {
+    "qid": "new-11-54-5",
+    "classification": "own",
+    "chapter": 11,
+    "quality": "ok",
+    "reason": "考查会话记忆的实现方式，需结构化并受上下文窗口限制。",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "提取用户偏好（如年假天数、查询习惯）形成结构化记忆，受上下文窗口限制选择性注入。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "全文检索效率低，且受上下文窗口限制。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "硬编码无法动态更新，不符合个性化。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "结构化记忆并选择性注入，符合原文原则。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "缓存原始语音文件无意义，且涉及隐私。"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

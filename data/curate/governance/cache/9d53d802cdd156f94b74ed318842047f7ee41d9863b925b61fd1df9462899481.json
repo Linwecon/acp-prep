@@ -1,0 +1,219 @@
+{
+  "new-8-6-0": {
+    "qid": "new-8-6-0",
+    "classification": "own",
+    "chapter": 8,
+    "quality": "ok",
+    "reason": "考查间接提示注入与多模态检测的关联，题干明确攻击成功前提，选项A符合教材描述。",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "图像可能包含违禁画面，也可能在图里用文字写下‘忽略以上指令’等注入话术",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "PDF中嵌入的指令需通过OCR识别，未检测则导致间接注入成功。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "上传OSS是获取URL的步骤，非攻击成功的关键前提。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "越狱话术检测针对用户输入，非PDF内容。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "异步轮询是调用方式，与攻击前提无关。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-8-6-1": {
+    "qid": "new-8-6-1",
+    "classification": "own",
+    "chapter": 8,
+    "quality": "ok",
+    "reason": "考查音频检测的规范调用，教材明确需先上传OSS获取URL。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "需要检测本地文件时，课程用oss_service.py先把文件上传到OSS，再把URL传给审核接口",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "KMS用于加密存储，与接口调用错误无关。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "音频检测需公网URL，直接传二进制流违反规范。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "service参数配置错误不会直接导致HTTP 400。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "教材未要求Base64编码传输音频。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-8-6-2": {
+    "qid": "new-8-6-2",
+    "classification": "own",
+    "chapter": 8,
+    "quality": "ok",
+    "reason": "考查security_manager聚合逻辑，教材明确任一fail则整体fail。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "文本/图像/音频/视频任意一类判定为fail，整体状态就是fail",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "描述调用方式差异，非聚合逻辑约束。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "任一模态fail应导致整体fail，题干现象违反此约束。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "自定义词库适用范围，非题干核心问题。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "service选择要求，非聚合逻辑。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-8-6-3": {
+    "qid": "new-8-6-3",
+    "classification": "own",
+    "chapter": 8,
+    "quality": "ok",
+    "reason": "考查多模态检测的必要步骤，A、B、C符合教材规范。",
+    "answer": [
+      "A",
+      "B",
+      "C"
+    ],
+    "supported": true,
+    "quote": "图像审核既能审画面，也能识别图中文字；音视频因为要转码、抽帧、识别音轨，通常走异步任务",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "image_moderation内置OCR能力，可识别PDF和图片文字。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "音频/视频检测需异步提交task_id并轮询结果。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "本地文件需先上传OSS获取公网URL再检测。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "live_stream_detection用于直播流，非视频文件。"
+      },
+      {
+        "label": "E",
+        "selected": false,
+        "why": "baselineCheck_pro是示例，非强制要求。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-8-6-4": {
+    "qid": "new-8-6-4",
+    "classification": "own",
+    "chapter": 8,
+    "quality": "ok",
+    "reason": "考查资源耗尽型DDoS与检测顺序的关联，D选项符合教材防护措施。",
+    "answer": [
+      "D"
+    ],
+    "supported": true,
+    "quote": "资源耗尽型DDoS是AI应用的新风险……应用层对单个用户设token/算力上限并对超复杂请求做成本预估与熔断",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "规则过滤是粗筛，非解决性能瓶颈的根本。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "PDF审核本身异步，但未解决高计算请求堆积。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "教材未规定固定顺序串行调用。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "高计算请求应先做成本预估与熔断，而非依赖检测。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-8-6-5": {
+    "qid": "new-8-6-5",
+    "classification": "own",
+    "chapter": 8,
+    "quality": "ok",
+    "reason": "考查图像检测service参数选择，A选项符合教材示例。",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "课程示例service选用大模型查询审核模型……图像检测service选用baselineCheck_pro",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "未指定baselineCheck_pro可能导致检测能力不足。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "HTTPS协议非检测失败的根本原因。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "教材未提及图片尺寸缩放要求。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "customized标签用于文本检测，非图像。"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

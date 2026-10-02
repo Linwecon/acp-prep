@@ -1,0 +1,154 @@
+{
+  "items": [
+    {
+      "type": 0,
+      "stem": "某企业微信答疑机器人在早高峰连续收到327次请求，服务端返回大量429错误。运维发现客户端未做任何并发控制，且对429错误采用固定500ms延迟、立即重试3次的策略。该设计违反API无状态性本质下哪一关键工程约束？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "未将历史消息完整传入messages，导致模型无法维持上下文连贯性"
+        },
+        {
+          "option_label": "B",
+          "option_text": "将429错误等同于临时网络抖动，忽略了其本质是服务端配额耗尽的确定性拒绝"
+        },
+        {
+          "option_label": "C",
+          "option_text": "未在客户端维护对话状态，错误地依赖服务端记忆用户提问序列"
+        },
+        {
+          "option_label": "D",
+          "option_text": "混淆了流式与同步调用的响应结构，误将delta.content当作完整message.content解析"
+        }
+      ],
+      "answer": "B",
+      "analysis": "本题考查API无状态性在故障诊断中的深层体现：429不是瞬时异常，而是服务端基于RPM/TPM/并发配额做出的确定性拒绝（原文9.8节明确‘429是限流，代表超出RPM/TPM/并发配额’）。固定短延时重试会加剧配额耗尽，形成‘重试风暴’，这违背了无状态调用中‘客户端必须尊重服务端配额决策并主动退避’这一根本约束。选项A、C虽涉及无状态性，但属于messages组织问题，与429无关；选项D属流式解析错误，与重试策略无关。教材依据：9.8节‘常见HTTP错误码与处置策略’表格及‘重试风暴’案例；9.11节故障排查地图中‘429→指数退避+抖动重试’。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 1,
+      "stem": "开发团队实现Function Calling时，模型首次返回tool_calls，程序执行工具后回传role='tool'消息，但第二次调用仍返回空回答或报错。以下哪些环节遗漏可能直接导致此现象？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "未将首次调用返回的response_message（含tool_calls）追加进messages数组"
+        },
+        {
+          "option_label": "B",
+          "option_text": "回传的role='tool'消息中缺失tool_call_id字段"
+        },
+        {
+          "option_label": "C",
+          "option_text": "在第二次调用前，将system消息重复添加到messages开头"
+        },
+        {
+          "option_label": "D",
+          "option_text": "使用temperature=1.5进行第二次调用，导致模型忽略tool结果而自由发挥"
+        }
+      ],
+      "answer": "AB",
+      "analysis": "Function Calling闭环依赖严格的消息结构完整性。选项A错误：若未追加response_message，模型第二次调用时完全不知自己曾提议调用工具，失去决策上下文（原文9.7节‘忘了把response_message追加进messages→模型不知道自己之前决策了什么’）；选项B错误：tool_call_id是模型关联工具结果与原始调用的唯一标识，缺失则无法绑定（原文9.7节‘漏tool_call_id→模型无法把结果和之前的调用对应起来’）。选项C虽不推荐（system应固定在开头），但重复添加不会导致空回答；选项D中temperature影响随机性，但不会使模型‘忽略tool结果’，且原文强调tool结果是作为输入Token参与推理，非可被temperature覆盖的指令。教材依据：9.7节‘API层最常见的错误’列表及代码示例第4步。",
+      "difficulty_label": "挑战"
+    },
+    {
+      "type": 0,
+      "stem": "财务部门分析账单发现，同一员工连续5轮问答产生的Token费用是单轮的3.2倍。经检查，每次调用均将全部历史（含首轮system prompt、3轮user/assistant消息）原样传入，且system prompt中嵌入了动态时间戳。此成本异常最根本地违背了API无状态性的哪一工程推论？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "无状态性要求客户端承担上下文管理责任，但未意识到历史复用需主动压缩而非全量传递"
+        },
+        {
+          "option_label": "B",
+          "option_text": "无状态性意味着每次调用都是独立计费事件，输入Token必然随历史长度线性增长"
+        },
+        {
+          "option_label": "C",
+          "option_text": "无状态性决定了服务端无法缓存跨请求的上下文，因此必须为每轮重复支付system prompt费用"
+        },
+        {
+          "option_label": "D",
+          "option_text": "无状态性迫使客户端将历史作为输入Token重新提交，而动态时间戳破坏了前缀稳定性，导致缓存失效"
+        }
+      ],
+      "answer": "D",
+      "analysis": "本题聚焦无状态性与成本控制的耦合机制。选项D直指核心：无状态性要求客户端每次提交完整上下文，而教材9.9节明确指出‘要享受到缓存，关键是保持前缀稳定’，动态时间戳使system prompt每轮都不同，导致平台无法对重复前缀（如固定知识库切片）启用低价缓存，所有输入Token均按标准价计费。选项A、B、C虽部分正确，但未触及‘缓存失效’这一成本激增的直接技术原因；B中‘线性增长’是现象，非根本推论；C中‘无法缓存跨请求上下文’表述错误——缓存是服务端对请求前缀的优化，非存储上下文。教材依据：9.9节‘上下文缓存为什么能省钱’及‘保持前缀稳定’原则。",
+      "difficulty_label": "挑战"
+    },
+    {
+      "type": 0,
+      "stem": "新人答疑机器人支持企业微信@提及，要求首字响应延迟（TTFT）低于600ms。当前采用同步调用，实测TTFT为1800ms。若仅从API无状态性本质出发，以下哪项措施最直接有效？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "将temperature从0.7降至0.1，减少模型采样不确定性"
+        },
+        {
+          "option_label": "B",
+          "option_text": "在messages中移除所有assistant历史消息，仅保留system和当前user消息"
+        },
+        {
+          "option_label": "C",
+          "option_text": "启用stream=True，并在客户端实时渲染首个delta.content"
+        },
+        {
+          "option_label": "D",
+          "option_text": "将model从qwen-max切换为qwen-turbo，降低模型推理复杂度"
+        }
+      ],
+      "answer": "C",
+      "analysis": "TTFT（首Token延迟）是流式输出的核心优化指标（原文9.6节‘用户感知延迟→首Token延迟（TTFT）’）。启用stream=True后，模型生成首个Token即刻推送，客户端无需等待全部完成，这是对无状态调用传输方式的改造，不改变上下文逻辑。选项A中temperature影响随机性，与TTFT无直接关系；选项B虽减少输入Token，但可能损害多轮理解，且原文9.5节强调‘历史越长理解越充分’，非TTFT主因；选项D可能降低整体延迟，但原文未承诺turbo档位必然改善TTFT，且牺牲质量。教材依据：9.6节‘流式输出’原理表及‘在线对话默认开启流式，显著降低TTFT’最佳实践。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 1,
+      "stem": "某HR系统需夜间批量生成500份培训摘要，采用Batch API。任务完成后，输出JSONL文件比输入少17行，且多条摘要内容明显错位（如第3行摘要实际对应第12份录音）。以下哪些操作违反了Batch API的必要约束？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "提交任务时未在每行JSON中设置唯一request_id字段"
+        },
+        {
+          "option_label": "B",
+          "option_text": "下载结果后，直接按行顺序将输出JSONL内容逐行映射至输入文件的行号"
+        },
+        {
+          "option_label": "C",
+          "option_text": "使用同步接口替代Batch，因担心异步流程复杂"
+        },
+        {
+          "option_label": "D",
+          "option_text": "未校验输入输出JSONL文件的行数是否严格相等"
+        }
+      ],
+      "answer": "ABD",
+      "analysis": "Batch API的可靠性依赖严格的行级对齐（原文9.10节‘必须校验输入输出行数、请求ID是否一一对应’）。选项A错误：无request_id则无法跨文件精准匹配，当行数不等时无法定位缺失行；选项B错误：直接按行号映射是典型错位风险，必须通过request_id字段关联；选项D错误：行数不等是首要告警信号，原文强调‘必须校验’。选项C是方案选型错误，但不导致错位或丢失。教材依据：9.10节‘Batch的常见误区’中‘结果文件不用校验直接用→必须校验行数、ID对齐’及‘标准流程’第5步。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 0,
+      "stem": "开发团队调试多轮对话时发现：第一轮问‘公司用什么项目管理工具’，模型答‘Jira’；第二轮问‘那怎么申请账号’，模型却回答‘访问公司门户注册’。检查代码确认messages构造逻辑正确，但第二轮请求体中的messages数组长度仅为2（system + 当前user）。此现象最准确地印证了API无状态性的哪一定义？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "服务端不会保存任何对话历史，每次请求必须显式携带全部必要上下文"
+        },
+        {
+          "option_label": "B",
+          "option_text": "无状态性要求客户端自行管理会话生命周期，包括超时与销毁"
+        },
+        {
+          "option_label": "C",
+          "option_text": "模型推理过程与HTTP连接状态解耦，故无法继承上一轮TCP连接上下文"
+        },
+        {
+          "option_label": "D",
+          "option_text": "API Key鉴权是无状态的，每次请求需独立验证凭证有效性"
+        }
+      ],
+      "answer": "A",
+      "analysis": "题干明确指出‘第二轮messages数组长度仅为2’，即只含system和当前user，缺失第一轮的user（问Jira）和assistant（答Jira）消息。这直接对应原文9.5节核心定义：‘大模型API是无状态的——每次HTTP请求之间相互独立，服务端不会保存任何对话历史。所谓多轮对话能力，本质是客户端把历史消息按角色组织好，每次调用都完整地放进messages里再传一遍’。选项B、C、D虽涉及无状态概念，但B属会话管理、C属网络层、D属鉴权，均不解释‘为何第二轮答非所问’。教材依据：9.5节‘concept’框及‘为什么第二轮就失忆了’原理说明。",
+      "difficulty_label": "入门"
+    }
+  ]
+}

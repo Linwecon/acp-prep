@@ -1,0 +1,213 @@
+{
+  "3-1001": {
+    "qid": "3-1001",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "考查RAG方案选型，区分合理与不合理方案。",
+    "answer": [
+      "B",
+      "D"
+    ],
+    "supported": true,
+    "quote": "RAG（Retrieval-Augmented Generation，检索增强生成）的核心思路可以用四个字概括：\"开卷考试\"。不让模型凭记忆答题，而是在它回答前，先从企业知识库里检索出最相关的几段资料，连同问题一起交给模型，让它\"看着资料作答\"。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "上下文窗口有限，会稀释注意力。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "微调可用于行为风格适配。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "无法解决私域知识和时效性问题。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "RAG是解决知识不足的首选方案。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-1053": {
+    "qid": "3-1053",
+    "classification": "misplaced",
+    "chapter": 5,
+    "quality": "ok",
+    "reason": "考查数据预处理中的标签编码，属于微调数据准备。",
+    "answer": [
+      "D"
+    ],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "文本标准化是另一概念。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "词嵌入是文本向量化。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "特征缩放是数值处理。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "标签编码是分类标签数字化。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-1132": {
+    "qid": "3-1132",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "考查LlamaIndex构建RAG应用的标准流程。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "RAG 两阶段全景：1.文档收集 2.文档解析 3.文本切片 4.向量化 Embedding 5.写入向量库。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "顺序错误，Node在Document之后。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "Document→Node→index→query_engine是标准流程。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "Node不应在Document之前。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "index在Node之后，顺序错误。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-1140": {
+    "qid": "3-1140",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "考查RAG评估先行原则，POC后应优先构建评测集。",
+    "answer": [
+      "D"
+    ],
+    "supported": true,
+    "quote": "评估需要一份数据集，每条包含四个字段：question、ground_truth、answer、contexts。ground_truth 必须由业务领域专家提供。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "盲目调参无依据，应先评估。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "界面优化非当前技术重点。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "反复优化前需有量化评估基准。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "专家构建评测集是评估先行的关键。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-1143": {
+    "qid": "3-1143",
+    "classification": "beyond",
+    "chapter": 11,
+    "quality": "ok",
+    "reason": "考查多模态交互中视觉理解的应用，非RAG核心。",
+    "answer": [
+      "B"
+    ],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "安全审核不解决精准定位问题。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "视觉理解模型适合识别UI元素。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "RAG用于知识检索，非视觉定位。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "提示词工程无法直接推断UI元素。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-1160": {
+    "qid": "3-1160",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "考查LlamaIndex中StorageContext的加载功能。",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "开发测试可用 LlamaIndex 内置的内存向量库；生产环境可选用云服务（如阿里云 DashVector）或自建开源库（Milvus、Qdrant）。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "from_defaults是加载而非创建新对象。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "保存操作通常用persist方法。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "从持久化目录加载已保存的上下文。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "指定目录不会被忽略。"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

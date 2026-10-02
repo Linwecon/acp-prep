@@ -1,0 +1,109 @@
+{
+  "new-11-30-0": {
+    "qid": "new-11-30-0",
+    "classification": "own",
+    "chapter": 11,
+    "quality": "ok",
+    "reason": "考查扫描件PDF在RAG中的处理，需先OCR解析再切片入库。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "扫描件PDF本质是图片，普通文本加载器读不出文字、直接切到的是空白/乱码。首要动作是先做文档智能解析（OCR + 版面分析 + 表格转 Markdown）",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "乱码源于未解析，换模型无效。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "扫描件需先OCR和结构化，才能正确切片。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "生成约束不解决检索不到的问题。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "端到端问答不解决知识库构建问题。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-11-30-2": {
+    "qid": "new-11-30-2",
+    "classification": "own",
+    "chapter": 11,
+    "quality": "ok",
+    "reason": "考查多模态应用中的合规与工程要点，需结合安全、解析、标识等知识。",
+    "answer": [
+      "A",
+      "C",
+      "D"
+    ],
+    "supported": true,
+    "quote": "内容审核必须覆盖文本、图像、音频、视频全部模态；深度合成内容须加AI生成标识；扫描件先OCR/版面/表格结构化再切片入库",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "视频必须进行内容安全检测。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "音频也需单独检测，不能仅靠文本过滤。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "AI生成的语音需添加标识。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "手写公式需OCR和版面分析还原结构。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-11-30-5": {
+    "qid": "new-11-30-5",
+    "classification": "own",
+    "chapter": 11,
+    "quality": "ok",
+    "reason": "考查视频理解中因上下文窗口限制导致摘要丢失内容的问题。",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "视频要抽帧/截断，受上下文窗口限制；超出上下文窗口的内容会被丢弃",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "题干未提及超时，且ASR转写通常异步。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "Q&A环节主要依赖音频，非画面信息。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "长视频摘要受LLM上下文窗口限制被压缩。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "对齐问题可能导致关联错误，但非摘要遗漏主因。"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

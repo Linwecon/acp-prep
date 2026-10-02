@@ -1,0 +1,212 @@
+{
+  "3-0175": {
+    "qid": "3-0175",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "考查切片策略调整，题干明确指向文档切片长度过大的改进策略。",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "chunk 太大引入干扰 → 减小切片长度",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "原文指出切片过大会引入干扰，应减小长度。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "增加训练数据与解决切片过大无关。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "减少推理时间不是针对切片过大的改进策略。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "增加参数数量与解决切片过大无关。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-0179": {
+    "qid": "3-0179",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "考查Top K参数在检索阶段的作用，原文有明确说明。",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "Top K：每次检索返回的最相关 chunk 数量",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "Top K定义就是一次检索返回的chunk数量。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "Top K与增加训练数据无关。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "Top K与减少推理时间无直接关系。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "Top K与增加模型参数数量无关。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-0182": {
+    "qid": "3-0182",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "fixable",
+    "reason": "题干“检索召回阶段”与选项“问题扩写”对应关系模糊，但A选项“问题扩写”在原文有提及（HyDE）。",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "HyDE（假设文档嵌入）... 先让 LLM 编一段“假想答案”，用假想答案的向量去检索真实文档",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "问题扩写（如HyDE）可增加信息让检索更全面。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "问题改写主要解决指代不清，不一定是增加信息。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "重排序是精排，不是增加召回信息。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "增加训练数据不是检索召回阶段的方法。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-0201": {
+    "qid": "3-0201",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "直接考查HyDE方法，原文有明确描述。",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "HyDE（假设文档嵌入）... 先让 LLM 编一段“假想答案”，用假想答案的向量去检索真实文档",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "HyDE即用假设文档增强检索。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "重排序是另一项技术。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "滑动窗口检索是切片策略。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "增加训练数据不是问题改写方法。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-0203": {
+    "qid": "3-0203",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "考查问题改写中的大模型扩充方法，属于查询改写范畴。",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "查询改写... 先用 LLM 把含代词的问题改写成完整问题",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "使用大模型扩充用户问题是查询改写的一种。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "重排序是另一项技术。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "滑动窗口检索是切片策略。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "增加训练数据不是问题改写方法。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-0205": {
+    "qid": "3-0205",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "review",
+    "reason": "题干“将单一查询改写为多步骤查询”原文未明确提及，但属于问题分解的合理扩展。",
+    "answer": [
+      "A"
+    ],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "分解复杂问题为子问题是合理的查询改写策略。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "重排序是另一项技术。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "滑动窗口检索是切片策略。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "增加训练数据不是问题改写方法。"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

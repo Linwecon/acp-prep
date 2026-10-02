@@ -1,0 +1,219 @@
+{
+  "7-0961": {
+    "qid": "7-0961",
+    "classification": "own",
+    "chapter": 7,
+    "quality": "ok",
+    "reason": "题目考查传统自动指标ROUGE的适用场景，属于模型评估章节知识。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "ROUGE：文本摘要，基于 n-gram 与最长公共子序列（LCS），默认侧重召回率",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "ROUGE不评估代码。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "原文明确ROUGE用于文本摘要，衡量与参考摘要的重合度。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "ROUGE不评估图像。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "ROUGE不评估速度。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "7-0997": {
+    "qid": "7-0997",
+    "classification": "own",
+    "chapter": 7,
+    "quality": "ok",
+    "reason": "题目考查对自动化评测的理解，涉及评测集构建和专家参与。",
+    "answer": [
+      "C",
+      "D"
+    ],
+    "supported": true,
+    "quote": "自动化评估的核心是‘让机器批量阅卷’：用固定的评测集运行待测系统，收集输出，再用规则或大模型逐项打分。标准答案来自领域专家",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "指标由人设计，非模型制定。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "评测集应来自真实用户问题，非模型生成。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "自动化指机器批量阅卷，减少人工查验。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "标准答案必须由业务领域专家编写/审定。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "7-1294": {
+    "qid": "7-1294",
+    "classification": "own",
+    "chapter": 7,
+    "quality": "ok",
+    "reason": "题目考查RAGAS指标分类，区分检索端与生成端指标。",
+    "answer": [
+      "B",
+      "D"
+    ],
+    "supported": true,
+    "quote": "Faithfulness（忠实度）：生成端，衡量答案是否忠于检索资料；Answer Correctness：生成端，衡量答案与标准答案的整体一致程度",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "context_precision是检索端指标。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "Faithfulness是生成端指标，关注答案是否忠于资料。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "context_recall是检索端指标。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "Answer Correctness是生成端指标，关注答案本身正确性。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "7-1341": {
+    "qid": "7-1341",
+    "classification": "own",
+    "chapter": 7,
+    "quality": "ok",
+    "reason": "题目考查传统评估指标的分类任务适用性。",
+    "answer": [
+      "B",
+      "D"
+    ],
+    "supported": true,
+    "quote": "Accuracy：分类，正确预测数 / 总数；F1：分类（尤其类别不平衡），精确率 P 与召回率 R 的调和平均",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "mAP常用于目标检测，非一般分类任务。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "准确率是分类任务常见评估指标。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "BLEU用于机器翻译等生成任务。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "F1分数是分类任务常见评估指标。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "7-1459": {
+    "qid": "7-1459",
+    "classification": "own",
+    "chapter": 7,
+    "quality": "ok",
+    "reason": "题目考查ROUGE指标的具体评估维度。",
+    "answer": [
+      "A",
+      "B",
+      "C"
+    ],
+    "supported": true,
+    "quote": "ROUGE：基于 n-gram 与最长公共子序列（LCS），默认侧重召回率",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "ROUGE默认侧重召回率。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "ROUGE基于n-gram，可计算精确率。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "F1是精确率和召回率的调和平均，是常见综合维度。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "余弦相似度非ROUGE核心维度。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "7-0064": {
+    "qid": "7-0064",
+    "classification": "own",
+    "chapter": 7,
+    "quality": "ok",
+    "reason": "题目考查如何提高自动化评测可信度，涉及校准和专家参与。",
+    "answer": [
+      "A",
+      "B",
+      "D"
+    ],
+    "supported": true,
+    "quote": "自动评分容易系统性偏高；专业领域代价极高，必须由领域专家参与评测；评测集需要持续运营",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "调整提示词和阈值可校准评委模型。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "修正测试样本分布使其更贴近真实场景。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "增加频次不解决系统性偏高问题。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "业务专家参与是保证评测质量的关键。"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

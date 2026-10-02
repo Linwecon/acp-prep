@@ -1,0 +1,154 @@
+{
+  "items": [
+    {
+      "type": 0,
+      "stem": "某企业微信答疑机器人开启流式响应后，前端持续收到SSE帧，但最终拼接出的文本缺失标点且语义断裂（如'请登录Jira系统然后点击右上角头像进入账户设置页面重置密码'）。经检查服务端代码使用chunk.choices[0].delta.content逐帧拼接。最可能的根本原因是什么？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "未处理delta.content为None的帧（如首帧或工具调用帧），导致空值插入破坏字符串结构"
+        },
+        {
+          "option_label": "B",
+          "option_text": "客户端未按SSE协议解析data:前缀，错误将整个HTTP响应体当作JSON解析"
+        },
+        {
+          "option_label": "C",
+          "option_text": "stream_options={'include_usage': True}启用后，最后一帧携带usage字段但未跳过，污染了内容拼接"
+        },
+        {
+          "option_label": "D",
+          "option_text": "messages中system prompt含动态时间戳，导致每轮输入Token不一致，缓存失效引发生成逻辑异常"
+        }
+      ],
+      "answer": "A",
+      "analysis": "依据原文9.6节‘流式开发的三个高频坑’及9.7节Function Calling机制：SSE流式响应中，部分帧的delta.content可能为None（如首帧仅含role、tool_calls帧、或包含usage的最后一帧），若未判空直接拼接，会引入NoneType导致字符串断裂或格式错乱。原文明确指出‘流式是一帧一帧的增量数据’，且9.7节示例中response_message.tool_calls存在时，其delta.content为空；9.6节风险提示‘必须逐帧拼接’隐含需校验delta字段有效性。选项B描述的是‘把流式响应当完整JSON解析’的典型错误，但题干已说明‘使用delta.content逐帧拼接’，排除；选项C中include_usage需显式启用且仅在最后一帧出现，但题干未启用该参数，且usage字段本身不参与content拼接；选项D属成本问题，与语义断裂无因果关系。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 1,
+      "stem": "在实现SSE流式响应时，以下哪些条件是确保客户端能正确还原完整语义的必要前提？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "服务端必须在HTTP响应头中设置Content-Type: text/event-stream"
+        },
+        {
+          "option_label": "B",
+          "option_text": "客户端必须忽略所有不含data:前缀的SSE行（如event:、id:、retry:）"
+        },
+        {
+          "option_label": "C",
+          "option_text": "每一帧的delta.content必须是非空字符串，否则无法保证语义连续性"
+        },
+        {
+          "option_label": "D",
+          "option_text": "客户端需按SSE协议规范解析换行符（\\n\\n分隔帧），并去除每行末尾的\\n"
+        }
+      ],
+      "answer": "ABD",
+      "analysis": "依据原文9.6节‘SSE协议’定义及SSE标准规范：A正确——SSE协议强制要求Content-Type为text/event-stream，否则浏览器不会启用EventSource机制；B正确——SSE协议规定event:、id:、retry:等控制字段不参与data内容传输，客户端必须过滤；D正确——SSE帧以\\n\\n分隔，每行以\\n结尾，客户端需规范剥离换行符才能提取纯data内容。C错误——原文9.7节明确展示tool_calls帧的delta.content为None，且9.6节强调‘增量（delta）’而非‘完整内容’，语义连续性依赖客户端对空delta的容错处理（如跳过），非必要前提。",
+      "difficulty_label": "挑战"
+    },
+    {
+      "type": 0,
+      "stem": "某团队为降低TTFT，在流式接口中将temperature从0.7降至0.1，但监控显示首Token延迟（TTFT）反而增加300ms。最符合原文原理的解释是？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "低temperature导致模型计算logits softmax时数值更集中，服务端需更高精度浮点运算，增加推理耗时"
+        },
+        {
+          "option_label": "B",
+          "option_text": "temperature只影响随机性，与TTFT无关；延迟增加实际源于网络抖动或客户端解析开销"
+        },
+        {
+          "option_label": "C",
+          "option_text": "低temperature使模型更依赖上下文精确匹配，触发更多缓存未命中，增加服务端检索延迟"
+        },
+        {
+          "option_label": "D",
+          "option_text": "服务端对低temperature请求启用更严格的token合法性校验，增加预处理时间"
+        }
+      ],
+      "answer": "C",
+      "analysis": "依据原文9.6节‘流式输出显著降低TTFT’与9.9节‘上下文缓存’原理：TTFT主要受服务端推理启动延迟影响，而缓存命中可大幅降低此延迟。原文9.9节明确‘保持前缀稳定’才能命中缓存，而temperature本身不改变输入前缀；但低temperature常伴随更严谨的prompt工程（如强约束格式），若system prompt或历史消息因低temperature需求而变长/动态化，会导致缓存前缀不稳定。选项C直指缓存机制——低temperature任务更易采用固定、简洁的prompt（应提升缓存率），但若因追求确定性而增加冗余约束（如重复强调‘严格按格式输出’），反而破坏前缀稳定性，导致缓存未命中。A、D为虚构技术细节，原文未提及；B否认temperature与TTFT关联，但原文9.6节强调流式‘降低TTFT’是传输优化，temperature属生成参数，不影响传输层延迟，故延迟增加必源于服务端处理逻辑变化，C最契合缓存原理。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 1,
+      "stem": "当流式响应遭遇网络中断时，以下哪些恢复策略符合原文9.6节与9.8节的工程原则？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "客户端记录最后成功接收的SSE事件ID，重连后通过Last-Event-ID头请求续传"
+        },
+        {
+          "option_label": "B",
+          "option_text": "服务端在断连后主动保存未发送完的delta序列，待客户端重连时从断点续发"
+        },
+        {
+          "option_label": "C",
+          "option_text": "客户端对429错误采用指数退避+抖动重试，但对网络超时错误立即重试"
+        },
+        {
+          "option_label": "D",
+          "option_text": "客户端重连后发起全新请求，放弃未完成的流式会话"
+        }
+      ],
+      "answer": "AD",
+      "analysis": "依据原文9.6节‘流式开发高频坑’中‘读取超时要放宽’及9.8节‘错误处理’：A正确——SSE协议原生支持Last-Event-ID续传，是标准容错方案，符合‘降低TTFT’目标；D正确——原文9.5节强调API无状态，流式仅改变传输方式，不改变服务端状态维护逻辑，重连即新会话是符合无状态设计的合理降级；B错误——原文未提及服务端流式状态持久化，且违背无状态原则；C错误——原文9.8节明确‘4xx（429除外）不该重试’，但网络超时属客户端/网络层错误（通常为5xx或连接异常），原文未将其归类为429，且‘立即重试’违反指数退避原则，9.8节强调对5xx才适用退避重试。",
+      "difficulty_label": "挑战"
+    },
+    {
+      "type": 0,
+      "stem": "某批量摘要任务采用Batch API提交，但输出JSONL文件中第127行结果对应输入第128行请求，后续行全部错位。运维确认输入文件为合法JSONL且无空行。最可能违反原文9.10节哪项关键实践？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "未在输入JSONL每行中嵌入唯一request_id字段，导致结果对齐时依赖行号顺序"
+        },
+        {
+          "option_label": "B",
+          "option_text": "Batch任务提交时未启用异步回调，改用短间隔轮询，引发状态同步偏差"
+        },
+        {
+          "option_label": "C",
+          "option_text": "输入文件编码非UTF-8，导致某行解析失败后整行被跳过，造成后续行号偏移"
+        },
+        {
+          "option_label": "D",
+          "option_text": "未校验输入输出行数是否相等，直接按行索引映射结果"
+        }
+      ],
+      "answer": "A",
+      "analysis": "依据原文9.10节‘Batch任务的标准流程’第5步：‘必须校验输入输出行数、请求ID是否一一对应，防止错位或丢失’。原文强调‘自定义请求ID，便于结果对齐’，核心在于避免依赖脆弱的行号顺序（如某行处理失败、平台内部重排等均可能导致错位）。选项A直指根本——缺少request_id导致只能靠行号对齐，一旦某行异常（如超时被跳过），后续全错位；D是现象而非原因，原文要求‘必须校验’，但错位根源是缺乏ID；B、C属实施细节，原文未提及编码或回调对齐机制，且题干已确认输入文件合法，排除。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 0,
+      "stem": "开发团队在调试流式SSE时发现：Chrome浏览器开发者工具Network面板中，响应体显示为'data: {\"id\":\"...\",\"choices\":[{\"delta\":{\"content\":\"H\"}}]}\\n\\n'，但JavaScript EventSource.onmessage事件未触发。最符合原文9.6节原理的排查方向是？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "检查服务端是否遗漏设置Access-Control-Allow-Origin响应头，导致跨域请求被浏览器拦截"
+        },
+        {
+          "option_label": "B",
+          "option_text": "验证EventSource构造时URL是否使用HTTPS协议，HTTP协议在现代浏览器中被禁用"
+        },
+        {
+          "option_label": "C",
+          "option_text": "确认服务端返回的Content-Type是否为text/event-stream，而非application/json"
+        },
+        {
+          "option_label": "D",
+          "option_text": "检查EventSource事件监听器是否绑定到onmessage而非onopen，因首帧可能不含data字段"
+        }
+      ],
+      "answer": "C",
+      "analysis": "依据原文9.6节‘SSE协议’定义及浏览器规范：SSE要求服务端必须返回Content-Type: text/event-stream，否则浏览器不会触发EventSource事件流。题干明确显示响应体含标准SSE格式（data: + \\n\\n），证明服务端已生成SSE帧，但onmessage未触发，最直接原因是MIME类型不匹配。A、B属通用Web安全限制，但若被拦截，Network面板不会显示响应体；D错误——onmessage专用于接收data帧，首帧必含data:（即使content为空），且题干已显示有效data帧；C是SSE协议强制要求，原文虽未明写header，但‘底层使用SSE协议’即隐含此前提。",
+      "difficulty_label": "进阶"
+    }
+  ]
+}

@@ -1,0 +1,154 @@
+{
+  "items": [
+    {
+      "type": 0,
+      "stem": "某企业升级新人答疑机器人为报销查询助手。用户输入“帮我查一下我上个月提交的报销单审批到哪一步了”，模型返回包含 tool_calls 的结构化响应，但系统未返回最终答案，而是陷入静默。经排查，工具执行代码已正确解析参数并调用内部报销服务，结果也成功生成。最可能的根本原因是什么？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "模型在首轮响应中未输出 Thought/Action 标记，导致 ReAct 循环未被框架识别为需继续迭代"
+        },
+        {
+          "option_label": "B",
+          "option_text": "工具返回结果未以 role=\"tool\" 消息格式追加回上下文，模型无法感知 Observation"
+        },
+        {
+          "option_label": "C",
+          "option_text": "Planner 组件未启用，导致 LLM 输出纯自然语言而非结构化 tool_calls"
+        },
+        {
+          "option_label": "D",
+          "option_text": "Memory 模块未启用滚动摘要，导致第2轮上下文超出 token 限制而被截断"
+        }
+      ],
+      "answer": "B",
+      "analysis": "依据教材4.3节Function Calling流程铁律：'模型只提议，程序才执行'；且明确强调'工具返回结果必须由程序作为 role=\"tool\" 消息追加回上下文，模型才“知道”发生了什么'（原文风险栏）。若执行后未将结果封装为 role=\"tool\" 消息并注入 messages，后续调用时模型上下文缺失 Observation，将无法生成下一步动作或最终回答，表现为静默卡顿。A错误：ReAct Agent 框架（如 AgentScope）不依赖显式Thought/Action标记，而是通过 tool_calls 字段和 role=\"tool\" 消息驱动循环；C错误：tool_calls 已存在，说明 Planner（内置于提示词或框架）已生效；D错误：静默发生在首轮工具执行后、第二轮调用前，与摘要无关，且截断不会导致静默而是报错或乱码。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 0,
+      "stem": "某金融Agent需完成‘评估客户A的贷款申请’任务，涉及调用征信查询、收入验证、风控模型三个工具。当前采用固定流水线工作流：征信→收入→风控。但近期因征信API临时不可用，整个流程卡死。为提升鲁棒性，以下哪些调整符合本章‘规划策略’的最佳实践？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "将征信工具替换为本地缓存数据，并强制所有步骤按原顺序执行"
+        },
+        {
+          "option_label": "B",
+          "option_text": "引入Plan-and-Execute模式，在每步Observation后动态决定下一步：若征信失败则跳过，直接调用收入验证"
+        },
+        {
+          "option_label": "C",
+          "option_text": "为每个工具添加超时重试逻辑，并在提示词中要求模型忽略失败步骤继续执行"
+        },
+        {
+          "option_label": "D",
+          "option_text": "将三个工具合并为一个复合函数，由程序统一处理异常并返回兜底值"
+        }
+      ],
+      "answer": "B",
+      "analysis": "依据教材4.6.3节‘自主规划（Plan-and-Execute）’定义：'让Agent围绕用户的高阶目标，先生成计划，再逐项执行；遇到障碍时重新规划，而不是死守预设流程图'；并强调'固定工作流的致命问题是“卡不起”'（原文）。B选项精准体现该原则——基于真实Observation（征信失败）动态调整计划，是ReAct闭环的核心价值。A错误：替换为缓存违背'用事实修正想法'本质，且未解决流程僵化；C错误：'忽略失败步骤继续执行'违反教材4.2节关键约定'要给模型“失败出口”：工具超时、报错时能重试或换方案，而不是整轮崩溃'，被动忽略≠主动决策；D错误：合并函数是工程降级，非规划策略，且丧失Agent的自主决策能力。",
+      "difficulty_label": "挑战"
+    },
+    {
+      "type": 1,
+      "stem": "某团队采用MCP协议接入多个内部系统工具（OA、HRIS、CRM）。部署后发现：新上线的CRM工具无法被Agent自动发现；同时，Agent在调用HRIS工具时偶发将员工身份证号明文写入日志。以下哪些做法符合本章对MCP的规范要求与风险警示？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "检查CRM Server是否已正确实现MCP标准接口（如/health、/tools），并确保其在启动时向Host注册"
+        },
+        {
+          "option_label": "B",
+          "option_text": "在MCP Client与Server间启用TLS加密，并在Server端对敏感字段（如身份证号）进行脱敏后再返回"
+        },
+        {
+          "option_label": "C",
+          "option_text": "将CRM工具Schema硬编码进Agent代码，绕过MCP动态发现机制以快速上线"
+        },
+        {
+          "option_label": "D",
+          "option_text": "在HRIS Server的日志配置中关闭所有调试日志，避免敏感信息泄露"
+        }
+      ],
+      "answer": "AB",
+      "analysis": "依据教材4.5节MCP内容：'Server对外暴露三类原语'，且'Agent启动时客户端自动连接并拉取工具清单'（原文架构描述），故A正确——CRM未被发现必然是Server未正确注册或Client未成功拉取。B正确：教材明确警示'MCP Server本身需要鉴权'且'返回内容也可能被投毒，要防提示注入'（原文risk栏），对敏感字段脱敏是基础安全实践。C错误：硬编码直接违背MCP'让工具提供方定义工具'的核心价值，属于倒退；D错误：关闭日志是粗暴手段，教材强调'隐私过滤：敏感信息不应进入长期记忆'（4.8节），但日志治理需结构化脱敏而非简单关闭，且未触及MCP协议层风险。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 0,
+      "stem": "一个课程审查Agent在连续30轮对话中逐渐丢失首轮设定的'严谨学术风'要求，当前采用固定窗口截断（保留最近10轮）。工程师计划升级Memory策略。以下哪种方案最符合教材推荐的'组合策略'且能根治该问题？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "将全部30轮历史拼接后使用LLM压缩为单段摘要，替换原始上下文"
+        },
+        {
+          "option_label": "B",
+          "option_text": "启用向量化长期记忆，将'严谨学术风'等关键偏好作为元数据存入向量库，每次任务前按语义检索注入"
+        },
+        {
+          "option_label": "C",
+          "option_text": "扩大固定窗口至50轮，并增加上下文长度预算"
+        },
+        {
+          "option_label": "D",
+          "option_text": "在每轮对话末尾强制追加系统指令：'请始终使用严谨学术风回答'"
+        }
+      ],
+      "answer": "B",
+      "analysis": "依据教材4.8节Memory策略：'短期记忆维持本次对话连贯，长期记忆持久化用户偏好、业务事实'；并明确指出'向量化召回...摆脱窗口限制、海量记忆按需取用'；且在exam示例中直接给出'Agent连续工作30轮后忘记第1轮设定的“严谨学术风”，当前用简单截断，怎么改？→ 引入向量化长期记忆'（原文）。B选项完全匹配。A错误：滚动摘要虽被提及，但教材强调'摘要质量决定效果'，且对'严谨学术风'这类抽象约束，LLM摘要极易失真；C错误：教材明确警示'单纯扩窗口只是延后爆炸'，且会引发'注意力稀释/中间迷失'；D错误：重复指令污染上下文，违背'有选择地记'原则（4.8节best practice），且无法保证模型遵守。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 1,
+      "stem": "某多Agent客服系统设计中，Leader Agent负责分派工单给Worker Agent处理。当前所有Worker共用同一套数据库API Key，并将全部Worker的系统提示词拼接后一次性注入Leader的上下文。上线后出现两个严重问题：1）某Worker误操作删除了核心业务表；2）Leader响应延迟显著升高。根据本章四条硬原则，这两个问题分别违反了哪两条？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "问题1违反'独立凭据'原则"
+        },
+        {
+          "option_label": "B",
+          "option_text": "问题1违反'明确职责'原则"
+        },
+        {
+          "option_label": "C",
+          "option_text": "问题2违反'避免全量注入'原则"
+        },
+        {
+          "option_label": "D",
+          "option_text": "问题2违反'中央调度'原则"
+        }
+      ],
+      "answer": "AC",
+      "analysis": "依据教材4.7节多Agent四原则：'独立凭据：不同Agent不得共用同一套账号/API凭据，按最小权限分别授权，防止越权与横向扩散'（原文原则2）——问题1中Worker误删表，根源正是共用高权限Key，故A正确。'避免全量注入：不要把所有Agent的知识/工具清单一次性写进主Prompt，应按需加载'（原文原则4）——问题2中Leader上下文因拼接全部Worker提示词而膨胀，导致token成本飙升、推理延迟，故C正确。B错误：误删表是权限失控，非职责不清；D错误：延迟升高源于上下文膨胀，与调度逻辑无关。",
+      "difficulty_label": "挑战"
+    },
+    {
+      "type": 0,
+      "stem": "某团队对报销查询Agent进行白盒评测时，发现其在工具调用失败后未触发重试或降级逻辑，而是直接生成模糊回答。评测脚本成功捕获了该问题：解析执行轨迹发现'get_reimbursement'调用后无重试tool_calls，且最终回复中缺失关键状态字段。这种评测方式最核心依赖的是哪一方法？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "LLM-as-Judge：用另一个大模型对Agent输出进行主观评分"
+        },
+        {
+          "option_label": "B",
+          "option_text": "Rubric：按预定义细则（如'必须含状态字段'）结构化判定"
+        },
+        {
+          "option_label": "C",
+          "option_text": "确定性检查：用代码解析trace，验证'是否调用重试工具'等客观事件"
+        },
+        {
+          "option_label": "D",
+          "option_text": "端到端评测：仅检查最终用户可见输出的满意度"
+        }
+      ],
+      "answer": "C",
+      "analysis": "依据教材4.10节评测方法论：'确定性检查（Deterministic Checks）：用代码/脚本判断“该发生的步骤有没有发生”。例如解析执行 trace，验证“是否调了报销查询工具”“输出是否符合 JSON Schema”'（原文principle）。题干中'解析执行轨迹''验证无重试tool_calls''检查字段缺失'均为可编程、可复现的客观校验，完全匹配确定性检查定义。A错误：LLM-as-Judge用于主观项，且题干未提模型打分；B错误：Rubric需结构化JSON输出与逐项判定，题干未体现；D错误：端到端是黑盒，无法定位'轨迹中无重试'这一白盒细节。",
+      "difficulty_label": "进阶"
+    }
+  ]
+}

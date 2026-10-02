@@ -1,0 +1,212 @@
+{
+  "1-1457": {
+    "qid": "1-1457",
+    "classification": "own",
+    "chapter": 1,
+    "quality": "ok",
+    "reason": "考查上下文窗口核心定义，原文明确其为输入与输出共用的Token预算，且强调'输入+输出共享预算'，选项B错误地限定为'仅输入'，需识别该关键偏差。",
+    "answer": [
+      "B"
+    ],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "原文明确指出'上下文窗口越大效果越好'是高频误区，且大窗口会稀释注意力、增加延迟和成本，故推理速度不会变快。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "原文定义：'上下文窗口是模型一次能看到的最大Token数'，且强调'输入（system/user消息、历史对话、检索资料）与输出（模型生成）共用的Token预算'，因此B选项'仅影响最大输入文本长度'错误——它同时限制输入和输出总和。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "原文未提及所有模型窗口不可调；实际中不同模型规格（如qwen-turbo/plus/max）窗口大小不同，且部分API支持配置max_tokens，故'固定不可调整'无依据。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "原文指出上下文窗口影响'输入+输出共用预算'，而理解能力依赖于输入信息的完整性，若窗口过小导致关键上下文被截断，则理解能力必然受损，故'仅影响生成能力'错误。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "1-1459": {
+    "qid": "1-1459",
+    "classification": "own",
+    "chapter": 1,
+    "quality": "ok",
+    "reason": "考查任务类型识别，题干明确要求'提取客户姓名、联系方式、问题类型等关键信息'，属于典型结构化信息抽取，原文在1.7节调参建议中明确将'结构化抽取'列为独立任务类型。",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "事实问答 / 代码生成 / 结构化抽取：低 temperature（如 0.1–0.3）+ 低 top_p，必要时固定 seed，追求稳定可复现",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "文本分类是将整段文本归入预设类别（如'投诉/咨询/建议'），不涉及字段级抽取，与题干'提取姓名、联系方式'不符。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "文本摘要是压缩原文核心内容，保留主旨但丢失细节字段，无法满足'提取具体字段'的要求。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "命名实体识别（NER）与信息抽取正是从非结构化文本中识别并提取特定类型实体（如人名、电话、问题类型）的任务，原文在1.7节调参建议中明确将'结构化抽取'列为需低temperature的典型场景。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "文本翻译是语言转换任务，不涉及字段提取，与题干需求无关。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "1-0025": {
+    "qid": "1-0025",
+    "classification": "own",
+    "chapter": 1,
+    "quality": "ok",
+    "reason": "考查五阶段流程起始点，原文1.3节明确'第一阶段：文本分词（Tokenization）'，且流程图标题为'大模型文本生成五阶段'，顺序不可颠倒。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "第一阶段：文本分词（Tokenization）\n计算机读不懂文字。分词器（Tokenizer）把文本切成一个个 Token",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "Token向量化是第二阶段，发生在分词之后，原文明确'第二阶段：Token 向量化（Embedding）'。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "原文1.3节开篇即定义'第一阶段：文本分词（Tokenization）'，并说明'分词器把文本切成一个个Token'，是处理输入文本的第一步。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "计算候选Token概率属于第四阶段解码环节，在推理（第三阶段）生成logits后才进行softmax，不是第一步。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "计算Embedding后的向量是第二阶段的子步骤，前提是已完成分词获得Token ID，故非第一步。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "1-0026": {
+    "qid": "1-0026",
+    "classification": "own",
+    "chapter": 1,
+    "quality": "ok",
+    "reason": "考查temperature作用机制，原文1.7.1节给出公式和解释，明确温度升高使分布更平坦，低概率Token机会增加，随机性提高。",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "temperature（温度）对模型输出的原始分数（logits）做缩放后再 softmax：p_i = e^{z_i/T}/∑_j e^{z_j/T}。T 越大 → 分布越平坦，低概率 Token 也有机会被选中，输出越发散",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "原文明确'温度越大→分布越平坦'，即高概率与低概率Token的概率值差距缩小，随机性提高，符合描述。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "原文指出温度越高分布越平坦，即概率值差距变小而非变大，故B错误。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "温度调节的是softmax后的概率分布，不会导致低概率Token概率超过高概率Token（即不改变相对排序），只是让低概率Token有非零概率被采样。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "原文1.7.4节调参建议明确'事实问答/代码生成/结构化抽取'等确定性需求应使用低temperature（0.1–0.3），高温适合创意写作，故D错误。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "1-0357": {
+    "qid": "1-0357",
+    "classification": "cross",
+    "chapter": 1,
+    "quality": "review",
+    "reason": "题干问'与当前时间相关的问题'，但原文第1章未提及任何插件或工具调用概念，该考点属于第4章Agent（Function Calling）或第9章API工具使用范畴，需确认是否误标章节。",
+    "answer": [
+      "C"
+    ],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "代码审查插件用于分析代码质量，与时间无关，且第1章未涉及插件概念。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "天气查询插件可能返回实时天气，但'当前时间'本身是基础系统信息，无需专门插件；且第1章未讨论插件。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "时间插件可提供当前时间，但第1章全文未出现'插件'一词，所有知识均围绕模型原生能力，此考点超出本章范围。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "翻译插件处理语言转换，与时间无关，且第1章未涉及。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "1-0435": {
+    "qid": "1-0435",
+    "classification": "misplaced",
+    "chapter": 1,
+    "quality": "remove",
+    "reason": "题干明确指向'RAG应用'，而RAG是第3章核心内容，原文第1章未涉及'语义独立性与完整性'、'表格处理'、'数据类型差异'等RAG切片策略知识，属于章节错位。",
+    "answer": [
+      "A"
+    ],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "将标题所有文本合成一个段落会破坏原始语义结构（如标题与正文关系），损害语义独立性，但此考点完全属于第3章'文本切片策略与重叠机制'，第1章无相关内容。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "扩写表格单元格并添加标题说明是RAG中提升语义完整性的常见做法，但第1章未讨论表格处理。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "确保语义单元边界清晰是RAG切片原则，但第1章知识体系中无此概念。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "对多模态数据差异化处理属于第11章多模态AI或第3章RAG扩展，第1章仅提'文本'处理。"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

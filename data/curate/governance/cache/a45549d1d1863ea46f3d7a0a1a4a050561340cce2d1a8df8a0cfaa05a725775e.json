@@ -1,0 +1,216 @@
+{
+  "new-10-36-0": {
+    "qid": "new-10-36-0",
+    "classification": "own",
+    "chapter": 10,
+    "quality": "ok",
+    "reason": "综合考查平台选型决策，需结合数据不出域、深度推理、无GPU运维等条件判断。",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "开源模型的价值集中在三点：① 数据隐私与合规（数据不出域）；② 可深度定制（任意微调/改结构）；③ 大规模稳定流量下的长期成本可控。PAI三件套对应模型生命周期的三个阶段：DSW开发、DLC训练、EAS上线。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "百炼在线问答数据上送，不符合数据不出内网要求。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "DashScope API调用数据上送，且qwen-long未强调深度推理。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "开源模型数据不出域，PAI支持微调训练部署，符合所有条件。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "DashScope API数据上送，不符合数据不出内网要求。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-10-36-1": {
+    "qid": "new-10-36-1",
+    "classification": "own",
+    "chapter": 10,
+    "quality": "ok",
+    "reason": "考查成本优化措施，需匹配原文10.8节列举的工程手段。",
+    "answer": [
+      "A",
+      "B",
+      "C"
+    ],
+    "supported": true,
+    "quote": "省成本的工程手段：1. 选对模型尺寸：简单任务用 turbo/小模型；2. 控制输入：RAG 只塞最相关的片段；5. 处理限流：遇 429 用指数退避 + 抖动重试。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "对应‘控制输入：RAG只塞最相关片段’。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "对应‘选对模型尺寸’和‘限制输出’。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "对应‘处理限流：遇429用指数退避+抖动重试’。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "提升配额是管理操作，非原文列举的工程手段。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-10-36-2": {
+    "qid": "new-10-36-2",
+    "classification": "own",
+    "chapter": 10,
+    "quality": "ok",
+    "reason": "考查创业团队快速上线、无运维场景下的平台选型。",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "选型决策：要快速搭知识库问答/智能体/工作流并发布 → 百炼。自测题6解析：三个约束（千问系列、无运维、快速上线）共同指向百炼。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "PAI微调部署需GPU运维，不符合无运维要求。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "自行开发后端非最快速路径，百炼更优。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "百炼零代码建知识库、一键发布钉钉，最符合场景。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "本地部署需运维，不符合无运维要求。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-10-36-3": {
+    "qid": "new-10-36-3",
+    "classification": "own",
+    "chapter": 10,
+    "quality": "ok",
+    "reason": "考查OpenAI兼容模式迁移的必要操作。",
+    "answer": [
+      "A",
+      "B",
+      "C"
+    ],
+    "supported": true,
+    "quote": "OpenAI兼容模式：把 base_url 指向 DashScope 兼容地址、把 api_key 换成阿里云的 Key，原本基于 OpenAI Python SDK 写的程序几乎不用改就能调用通义千问。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "修改base_url是兼容模式核心操作。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "替换API Key是必要操作。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "更换模型参数是调用通义模型的必要操作。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "改用dashscope包非最小化改造，违背兼容模式初衷。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-10-36-4": {
+    "qid": "new-10-36-4",
+    "classification": "own",
+    "chapter": 10,
+    "quality": "fixable",
+    "reason": "题干要求FDA认证，原文未提及任何模型通过FDA认证，条件缺失。",
+    "answer": [
+      "C"
+    ],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "DashScope API数据上送，且未提FDA认证。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "万相生图，qwen-plus处理文本，未整合多模态且未提FDA认证。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "开源模型可私有化微调部署，相对最合理，但FDA认证无依据。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "百炼平台数据托管，且未提FDA认证。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-10-36-5": {
+    "qid": "new-10-36-5",
+    "classification": "own",
+    "chapter": 10,
+    "quality": "ok",
+    "reason": "考查百炼知识库RAG能力及针对分散条款的优化措施。",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "百炼的核心能力可以理解为把前几章的技术'产品化'了：知识库（RAG）对应第3章RAG，内置文档解析、切片、向量化、检索。工作流编排对应Workflow，拖拽节点把'检索→改写→生成→审核'串成稳定流程。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "工作流添加条件判断节点可处理分散条款和条件逻辑。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "转换文档格式未解决分散和条件判断的核心问题。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "仅调整提示词未解决信息分散和条件判断问题。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "关闭知识库改用长上下文，未利用RAG切片检索优势。"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

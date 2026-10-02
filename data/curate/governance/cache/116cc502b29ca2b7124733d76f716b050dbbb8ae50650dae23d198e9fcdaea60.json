@@ -1,0 +1,166 @@
+{
+  "items": [
+    {
+      "type": 0,
+      "stem": "某企业采用 MCP 协议接入 OA、HRIS、CRM 三类内部系统工具。部署后发现：新上线的 CRM 工具未被 Agent 自动发现；同时，Agent 调用 HRIS 工具时，其返回的员工身份证号明文出现在日志中。依据第4章原文，以下哪项整改最符合 MCP 的规范要求与风险警示？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "要求 CRM 团队补全 MCP Server 的 Tools 原语定义并重启服务；对 HRIS Server 启用响应内容脱敏中间件，并在 MCP Client 层配置敏感字段过滤规则"
+        },
+        {
+          "option_label": "B",
+          "option_text": "在 Host（Agent 应用）侧手动将 CRM 工具 Schema 硬编码进 tools 参数；为所有 MCP Server 统一关闭日志输出以规避泄露风险"
+        },
+        {
+          "option_label": "C",
+          "option_text": "强制所有 MCP Server 改用 stdio 模式通信以提升安全性；要求 HRIS Server 将身份证号改用 Base64 编码后再返回"
+        },
+        {
+          "option_label": "D",
+          "option_text": "由 Agent 开发者自行编写脚本轮询各 Server 的 HTTP 接口获取工具清单；在日志系统中增加正则匹配自动打码"
+        }
+      ],
+      "answer": "A",
+      "analysis": "依据4.5节‘MCP：让工具即插即用的标准协议’：① MCP 的核心是‘谁提供工具，谁定义工具’，Server 必须正确暴露三类原语（Tools/Resources/Prompts），CRM 未被发现，根源在于其 Server 未完整实现 Tools 原语定义（原文：‘Server 对外暴露三类原语’）；② 原文明确警示‘MCP Server 本身需要鉴权，不能裸奔；其返回内容也可能被投毒，要防提示注入’，且4.8节强调‘隐私过滤：敏感信息不应进入长期记忆’，故对 HRIS 返回的身份证号必须在传输链路中主动脱敏——Client 层过滤是可控、可审计的工程实践，符合‘Harness’中‘标准-验证-记录-写回’闭环（4.11节）。B 错：硬编码违背 MCP ‘动态发现’初衷；关闭日志是逃避而非治理。C 错：stdio 模式不提升安全性，仅适于本地调试；Base64 非脱敏，属可逆编码。D 错：轮询破坏协议标准性；日志打码是事后补救，未从源头（Server 响应/Client 解析）控制。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 1,
+      "stem": "某金融 Agent 执行‘评估客户贷款申请’任务，需调用征信查询、收入验证、风控模型三个工具。当前采用固定流水线工作流（征信→收入→风控），但因征信 API 临时不可用导致流程卡死。为提升鲁棒性，以下哪些调整符合第4章‘规划策略’的最佳实践？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "将整个流水线封装为一个 Skill，通过 YAML frontmatter 声明其适用场景，并在触发时由 Planner Agent 全局加载"
+        },
+        {
+          "option_label": "B",
+          "option_text": "改用 Plan-and-Execute 模式：Agent 先生成含重试逻辑与备选路径（如切换至人工审核接口）的 JSON 计划，再逐项执行并根据 Observation 动态重规划"
+        },
+        {
+          "option_label": "C",
+          "option_text": "在征信工具调用失败时，由 ReAct Agent 主动追问用户是否提供替代凭证（如银行流水截图），并将该交互作为 Observation 输入下一轮推理"
+        },
+        {
+          "option_label": "D",
+          "option_text": "为每个工具添加确定性校验脚本（如验证征信返回 JSON 是否含 score 字段），并在校验失败时触发 LLM-as-Judge 进行主观评分"
+        },
+        {
+          "option_label": "E",
+          "option_text": "将征信、收入、风控三个工具合并为一个复合工具函数，在内部实现容错与降级逻辑"
+        }
+      ],
+      "answer": "B,C",
+      "analysis": "依据4.6.3节‘自主规划（Plan-and-Execute）’及4.4节‘ReAct’：① B 正确——原文指出‘固定工作流的致命问题是卡不起’，而 Plan-and-Execute 的核心是‘围绕目标生成计划，遇到障碍时重新规划’，且明确支持‘动态创造新工具’，重试与备选路径正是其典型应用（教材案例：竞品网站改版导致爬虫失效，预设流程无分支则僵住）；② C 正确——ReAct 的‘Observation’环节必须被用于修正后续步骤，原文强调‘工具失败时要能换方案’，且4.3节‘Function Calling’风险提示‘工具超时、报错时能重试或换方案，而不是整轮崩溃’，主动追问是标准 fallback；③ A 错：Skill 用于固化‘稳定复用’的 SOP（4.9节‘探索-固化混合模式’），而此处是‘环境多变、需要真实反馈动态调整’，应属探索阶段，非固化场景；④ D 错：确定性校验是评测手段（4.10节），用于事后定位问题，不能解决运行时流程卡死；⑤ E 错：违反‘组件职责解耦’原则（4.2节），合并工具将故障域扩大，且违背 MCP/FC 中‘工具应独立暴露’的设计哲学。",
+      "difficulty_label": "挑战"
+    },
+    {
+      "type": 0,
+      "stem": "一个课程审查 Skill 目录已编写完成，包含 SKILL.md、code-quality.md 及 validate_code.py。当 Agent 首次收到‘请审查这份 Pandas 教程代码’请求时，它仅加载了 SKILL.md 中的 YAML frontmatter（含 name/description），并未立即读取子文档或执行脚本。这种分阶段加载行为主要体现了第4章强调的哪一核心设计原则？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "渐进式披露（Progressive Disclosure）"
+        },
+        {
+          "option_label": "B",
+          "option_text": "避免全量注入"
+        },
+        {
+          "option_label": "C",
+          "option_text": "组件职责解耦"
+        },
+        {
+          "option_label": "D",
+          "option_text": "探索-固化混合模式"
+        }
+      ],
+      "answer": "A",
+      "analysis": "依据4.9节‘Skill：把专家经验固化为可复用流程’：原文明确将 Skill 与 RAG 对比，指出‘Skill 与 RAG 的关键区别——“选择-展开” vs “检索-注入”’，并定义‘渐进式披露’为‘Agent 启动时只看到所有 Skill 的 description（很短），由模型判断当前任务要不要激活；激活后才读 SKILL.md，执行到具体步骤时再读对应子文件’。题干描述完全吻合此定义：先看 description 判断是否启用（选择），启用后才加载主文件，后续按需展开子资源。B 错：‘避免全量注入’特指多 Agent 场景中‘不要把所有 Agent 的知识/工具清单一次性写进主 Prompt’（4.7节），与 Skill 加载无关；C 错：解耦指 LLM/Planner/Tool/Memory 分离（4.2节），非 Skill 内部加载机制；D 错：‘探索-固化’是 Skill 的生命周期策略（新任务先探索再固化），非加载行为原则。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 1,
+      "stem": "某多 Agent 客服系统中，Leader Agent 负责分派工单，Worker A（查订单）、Worker B（查物流）并行处理。审计发现：Worker A 与 Worker B 共用同一套数据库账号；所有 Worker 的完整系统提示词被拼入 Leader 的初始 Prompt；且 Worker 间存在直接互调现象。依据第4章 4.7 节‘多 Agent 设计四条硬原则’，这些设计违反了哪些原则？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "明确职责"
+        },
+        {
+          "option_label": "B",
+          "option_text": "独立凭据"
+        },
+        {
+          "option_label": "C",
+          "option_text": "中央调度"
+        },
+        {
+          "option_label": "D",
+          "option_text": "避免全量注入"
+        },
+        {
+          "option_label": "E",
+          "option_text": "组件职责解耦"
+        }
+      ],
+      "answer": "B,C,D",
+      "analysis": "依据4.7节‘多 Agent 设计四条硬原则’原文：① ‘独立凭据’：‘不同 Agent 不得共用同一套账号/API 凭据，按最小权限分别授权’——Worker A/B 共用数据库账号，直接违反此条；② ‘中央调度’：‘设置 Planner / Leader Agent 统一判断何时调哪个 Agent，避免 Agent 之间无序互调、循环等待（死锁）’——Worker 间直接互调，破坏中央调度，易引发死锁；③ ‘避免全量注入’：‘不要把所有 Agent 的知识/工具清单一次性写进主 Prompt’——将全部 Worker 提示词拼入 Leader Prompt，是典型反模式；④ A 错：‘明确职责’指各 Agent 职能边界清晰（如 Worker A 专查订单），题干未体现职责重叠；⑤ E 错：‘组件职责解耦’是单 Agent 架构原则（4.2节），非多 Agent 四原则之一。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 0,
+      "stem": "某企业升级新人答疑机器人为报销进度查询助手。用户输入‘帮我查一下我上个月提交的报销单审批到哪一步了’，模型返回 tool_calls=[{'name':'get_reimbursement','args':{'user_id':'U123','month':'2024-07'}}]。此时若工具执行超时返回空结果，Agent 下一步最应采取的行动是？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "立即向用户返回‘系统繁忙，请稍后再试’，并终止任务"
+        },
+        {
+          "option_label": "B",
+          "option_text": "将空结果作为 Observation 追加至上下文，交由模型生成 Thought 并决定下一步（如重试、换参数、追问工单号）"
+        },
+        {
+          "option_label": "C",
+          "option_text": "由应用程序代码自动重试 3 次，成功后才将结果回传给模型"
+        },
+        {
+          "option_label": "D",
+          "option_text": "跳过该工具，直接调用另一个无关工具（如天气查询）尝试恢复上下文"
+        }
+      ],
+      "answer": "B",
+      "analysis": "依据4.2节‘各组件如何协作’及4.4节‘ReAct’：原文明确‘工具返回结果必须回灌到上下文，否则模型等于做完就忘’，且‘要给模型失败出口：工具超时、报错时能重试或换方案，而不是整轮崩溃’；ReAct 循环本质是‘Thought → Action → Observation → Thought...’，Observation 是模型决策的唯一事实依据。B 项严格遵循此闭环：空结果即 Observation，模型据此生成新 Thought（如‘超时，需重试或索要更精确工单号’），体现‘基于中间结果决定下一步’的核心能力（4.1节）。A 错：放弃闭环，违背‘能换方案’原则；C 错：自动重试剥夺模型规划权，违反‘模型负责规划、程序负责执行’分工（4.3节）；D 错：调用无关工具污染上下文，违背‘规划-行动-观察’逻辑连贯性。",
+      "difficulty_label": "入门"
+    },
+    {
+      "type": 1,
+      "stem": "某团队开发代码审查 Agent，目标是检测‘未处理的空指针异常’。当前采用 LLM-as-Judge 评测：用另一个大模型对审查报告打分。上线后发现，该评测分数与实际线上故障率相关性极低。依据第4章 4.10 节‘Agent 评测’，造成此问题的根本原因可能包括？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "未建立黄金测试集进行校准，导致 LLM Judge 存在系统性偏见"
+        },
+        {
+          "option_label": "B",
+          "option_text": "未使用 Rubric 将‘空指针检测’拆解为可判定细则（如‘是否定位到具体行号’‘是否给出修复建议’）"
+        },
+        {
+          "option_label": "C",
+          "option_text": "未对代码生成环节实施白盒化评测（如用代码解释器真实执行并捕获 NullPointerException）"
+        },
+        {
+          "option_label": "D",
+          "option_text": "未将审查报告与原始代码片段一同输入 Judge，导致上下文缺失"
+        },
+        {
+          "option_label": "E",
+          "option_text": "未在 Skill 中固化‘空指针检查’的确定性验证脚本"
+        }
+      ],
+      "answer": "A,B,C",
+      "analysis": "依据4.10节‘Agent 评测’：① A 正确——原文强调‘LLM-as-Judge 有偏见，必须用黄金集校准 + 人工抽检’，无校准则偏见无法收敛；② B 正确——Rubric 的价值是‘把模糊目标拆成逐条可判定的细则’，若仅让 Judge 主观打分‘好不好’，无法精准衡量‘空指针检测’这一客观能力；③ C 正确——原文指出‘问题常出在过程而非最终答案’，端到端评测掩盖细节，‘白盒化评测’（如真实执行代码）才能定位‘代码跑不起来’等环节缺陷；④ D 错：虽属工程实践，但原文未将‘输入完整性’列为 LLM-as-Judge 失效主因；⑤ E 错：确定性脚本是 Skill 的组成部分（4.9节），用于执行阶段，非评测手段；其缺失影响的是生成质量，而非评测相关性。",
+      "difficulty_label": "挑战"
+    }
+  ]
+}

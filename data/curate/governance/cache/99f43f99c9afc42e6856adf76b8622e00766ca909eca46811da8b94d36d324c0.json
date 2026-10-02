@@ -1,0 +1,114 @@
+{
+  "2-0669": {
+    "qid": "2-0669",
+    "classification": "own",
+    "chapter": 1,
+    "quality": "ok",
+    "reason": "考查LLM能力维度，原文明确列出擅长项",
+    "answer": [
+      "A",
+      "B",
+      "C",
+      "E"
+    ],
+    "supported": true,
+    "quote": "✅ 擅长 | 语言理解、文本生成、知识问答、代码编写、总结改写、一定的推理分析",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "原文明确列为擅长项"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "原文明确列为擅长项"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "多轮对话属语言理解与生成"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "原文明确列为不擅精确计算"
+      },
+      {
+        "label": "E",
+        "selected": true,
+        "why": "原文‘一定推理分析’即指此"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "5-0402": {
+    "qid": "5-0402",
+    "classification": "misplaced",
+    "chapter": 5,
+    "quality": "fixable",
+    "reason": "考点属微调数据准备，非大模型基础原理",
+    "answer": [],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "原文未提训练成本"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "分词不简化内容"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "原文未提结构理解"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "原文未提传输效率"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "11-1295": {
+    "qid": "11-1295",
+    "classification": "cross",
+    "chapter": 1,
+    "quality": "ok",
+    "reason": "GPT本质属大模型基础，多模态非本章重点",
+    "answer": [
+      "A",
+      "B"
+    ],
+    "supported": true,
+    "quote": "大语言模型（Large Language Model, LLM）是在海量文本上训练出来的大规模神经网络。它的工作方式不是'查表回答'，而是根据已有上文，预测下一个最可能的 Token",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "原文定义即自回归"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "原文明确‘预测下一个Token’"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "原文未限定英语"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "多模态属第11章，本章未提"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

@@ -1,0 +1,204 @@
+{
+  "1-1049": {
+    "qid": "1-1049",
+    "classification": "unsure",
+    "chapter": 1,
+    "quality": "remove",
+    "reason": "题目考查通用编程数据结构选择，与大模型基础知识点无关，无考查价值。",
+    "answer": [],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "列表适合顺序存储，但非结构化结果的最佳选择。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "集合无序且元素唯一，不适合存储带描述的检测结果。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "字符串难以结构化存储和处理多条检测结果。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "字典适合键值对，但题干未明确检测项与结果的映射关系。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "1-1052": {
+    "qid": "1-1052",
+    "classification": "cross",
+    "chapter": 5,
+    "quality": "ok",
+    "reason": "考查微调的核心优势，属于模型微调章节知识点。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "微调解决行为适配而非知识更新",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "微调通常训练时间更短，而非更长。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "微调利用预训练模型的通用知识，适应特定任务。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "微调通常比从头训练需要更少的计算资源。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "微调通常对特定任务表现更好，而非更差。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "1-1135": {
+    "qid": "1-1135",
+    "classification": "unsure",
+    "chapter": 1,
+    "quality": "remove",
+    "reason": "题目考查通用算法数据结构，与大模型基础知识点无关，无考查价值。",
+    "answer": [],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "栈是后进先出结构，不适合关键词匹配。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "数组适合顺序访问，关键词匹配效率不高。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "链表适合动态插入删除，匹配效率低。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "字典树适合前缀匹配，但题干未明确匹配类型。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "1-1154": {
+    "qid": "1-1154",
+    "classification": "unsure",
+    "chapter": 1,
+    "quality": "review",
+    "reason": "题目涉及AI数字NPC的技术挑战，可能属于多模态或Agent范畴，需结合具体知识判断。",
+    "answer": [
+      "C"
+    ],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "根据情绪调整语气属于情感分析，相对可实现。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "识别语音指令执行任务属于语音识别与指令理解，技术较成熟。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "实时生成符合设定的剧情分支需要强推理与一致性，目前最难。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "动作捕捉复现预设动作属于成熟技术，非AI生成难点。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "1-1249": {
+    "qid": "1-1249",
+    "classification": "unsure",
+    "chapter": 1,
+    "quality": "remove",
+    "reason": "题目考查函数计算FC的计费模式，属于云服务产品知识，与大模型基础无关。",
+    "answer": [],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "函数计算通常不采用按月订阅模式。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "按调用次数是常见计费模式之一。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "按数据存储量可能不是主要计费模式。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "固定年费不是函数计算的主要计费模式。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "1-1281": {
+    "qid": "1-1281",
+    "classification": "unsure",
+    "chapter": 1,
+    "quality": "remove",
+    "reason": "题目考查索引存储的通用缺点，属于数据库或系统设计知识，与大模型基础无关。",
+    "answer": [],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "内存存储数据在重启后会丢失，无法持久化。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "内存存储通常不支持超大规模数据，是缺点而非优点。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "内存存储可能提高检索速度，但不一定提高准确性。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "内存存储可能增加运维复杂度，而非降低。"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

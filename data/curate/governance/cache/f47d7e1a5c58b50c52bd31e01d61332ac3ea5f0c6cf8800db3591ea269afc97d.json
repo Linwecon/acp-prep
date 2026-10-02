@@ -1,0 +1,108 @@
+{
+  "new-12-36-1": {
+    "qid": "new-12-36-1",
+    "classification": "own",
+    "chapter": 12,
+    "quality": "ok",
+    "reason": "考查LlamaIndex QueryEngine溯源配置，属于框架工具章节核心知识点。",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "QueryEngine：Retriever + ResponseSynthesizer，端到端回答",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "ChatEngine用于多轮对话，不解决溯源问题。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "tree_summarize是摘要模式，不返回出处。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "response_synthesizer可返回含source_nodes的响应对象，支持溯源。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "替换框架非最佳实践，LlamaIndex本身支持溯源。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-12-36-2": {
+    "qid": "new-12-36-2",
+    "classification": "own",
+    "chapter": 12,
+    "quality": "ok",
+    "reason": "考查扫描件PDF解析选型，属于文档解析工具链核心考点。",
+    "answer": [
+      "B",
+      "C"
+    ],
+    "supported": true,
+    "quote": "文档是扫描件、截图、复杂表格、图文混排 PDF → 上 DashScopeParse（OCR + 版面结构化）",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "扫描件PDF需OCR，SimpleDirectoryReader无法处理。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "DashScopeParse提供OCR与版面分析，适合扫描件。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "解析结果存为结构化Markdown保留表格结构，是RAG最佳实践。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "NodeParser是切片策略，非解析阶段操作。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-12-36-3": {
+    "qid": "new-12-36-3",
+    "classification": "own",
+    "chapter": 12,
+    "quality": "ok",
+    "reason": "考查多Agent协作框架选型，对比AgentScope与LangChain差异化优势。",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "AgentScope 更偏'多 Agent 之间的消息通信与协作模式'，对分布式、多角色对话抽象更直接",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "向量索引类型是LlamaIndex优势，非AgentScope核心。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "模型适配器非差异化优势，LangChain也支持。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "AgentScope将Agent间通信协作作为一等公民抽象，是其核心优势。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "LCEL声明式编排是LangChain特性，非AgentScope优势。"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

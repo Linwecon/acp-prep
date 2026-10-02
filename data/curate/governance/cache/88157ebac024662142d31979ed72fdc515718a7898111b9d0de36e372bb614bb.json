@@ -1,0 +1,214 @@
+{
+  "new-4-0-0": {
+    "qid": "new-4-0-0",
+    "classification": "own",
+    "chapter": 4,
+    "quality": "ok",
+    "reason": "考察MCP协议规范与风险控制，选项B符合教材要求。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "MCP Server本身需要鉴权，不能裸奔；其返回内容也可能被投毒，要防提示注入。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "未解决CRM未出现的问题，且脱敏应在Server端。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "检查Schema端点解决发现，鉴权与禁止明文日志符合安全要求。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "重启非根本解决，日志过滤应在Server端。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "手动注入违反MCP动态发现原则，参数清洗非根本。"
+      }
+    ],
+    "duplicate_of": "4-5156"
+  },
+  "new-4-0-1": {
+    "qid": "new-4-0-1",
+    "classification": "own",
+    "chapter": 4,
+    "quality": "ok",
+    "reason": "考察Function Calling中参数收集与Schema质量要求。",
+    "answer": [
+      "A",
+      "D"
+    ],
+    "supported": true,
+    "quote": "参数可以在多轮对话中逐步收集，缺参时Agent应主动追问。Schema字段名含糊、描述缺失，会直接导致参数提取错误。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "缺参时应主动追问，而非传入空值。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "题干故障与迭代轮数上限无关。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "故障涉及FC的Schema，非MCP原语。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "Schema必填项未清晰定义，导致空参调用。"
+      }
+    ],
+    "duplicate_of": "4-5186"
+  },
+  "new-4-0-2": {
+    "qid": "new-4-0-2",
+    "classification": "own",
+    "chapter": 4,
+    "quality": "ok",
+    "reason": "考察Skill的渐进式披露设计原则。",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "Skill：Agent启动时只看到所有Skill的description（很短），由模型判断当前任务要不要激活；激活后才读SKILL.md，执行到具体步骤时再读对应子文件——这就是渐进式披露。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "分阶段加载正是渐进式披露。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "避免全量注入是多Agent原则，非Skill加载。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "独立凭据是多Agent原则。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "滚动摘要属于记忆管理策略。"
+      }
+    ],
+    "duplicate_of": "4-5157"
+  },
+  "new-4-0-3": {
+    "qid": "new-4-0-3",
+    "classification": "own",
+    "chapter": 4,
+    "quality": "ok",
+    "reason": "考察Plan-and-Execute与探索-固化混合模式的最佳实践。",
+    "answer": [
+      "B",
+      "C"
+    ],
+    "supported": true,
+    "quote": "探索-固化混合模式：1.探索阶段：新出现、流程不明的任务，派自主规划Agent去试错、找路径；2.固化阶段：一旦某条路径被反复验证稳定，就把它抽象成固定工作流/Skill。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "预设fallback分支仍是固定工作流，非自主规划。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "改用Plan-and-Execute，允许动态生成含条件判断的计划。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "将稳定路径固化，为失败场景新建Skill，符合混合模式。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "ReAct中重新规划是具体实现，但题干问最佳实践模式。"
+      }
+    ],
+    "duplicate_of": "4-5158"
+  },
+  "new-4-0-4": {
+    "qid": "new-4-0-4",
+    "classification": "own",
+    "chapter": 4,
+    "quality": "ok",
+    "reason": "考察多Agent设计四条硬原则。",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "多Agent设计四原则：1.明确职责；2.独立凭据；3.中央调度；4.避免全量注入。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "共用账号违反独立凭据，但未涉及明确职责。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "共用账号违反独立凭据，但提示词拼入违反避免全量注入。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "共用账号违反独立凭据，Worker互调违反中央调度。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "Worker互调违反中央调度，但提示词拼入违反避免全量注入。"
+      }
+    ],
+    "duplicate_of": "4-5174"
+  },
+  "new-4-0-5": {
+    "qid": "new-4-0-5",
+    "classification": "own",
+    "chapter": 4,
+    "quality": "ok",
+    "reason": "考察白盒评测中的确定性检查方法。",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "确定性检查（Deterministic Checks）：用代码/脚本判断‘该发生的步骤有没有发生’。例如解析执行trace，验证‘是否调了报销查询工具’‘输出是否符合JSON Schema’。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "LLM-as-Judge是主观打分，非代码解析轨迹。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "Rubric是评分量表，题干强调脚本解析轨迹。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "脚本解析轨迹验证必有行为，是确定性检查。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "题干是白盒脚本评测，非端到端人工抽检。"
+      }
+    ],
+    "duplicate_of": "4-5178"
+  }
+}

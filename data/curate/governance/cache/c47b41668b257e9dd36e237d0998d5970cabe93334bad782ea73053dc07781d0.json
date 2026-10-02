@@ -1,0 +1,268 @@
+{
+  "2-1157": {
+    "qid": "2-1157",
+    "classification": "own",
+    "chapter": 2,
+    "quality": "ok",
+    "reason": "考查分隔符定义，原文明确列举多种形式。",
+    "answer": [
+      "A",
+      "B",
+      "D",
+      "E"
+    ],
+    "supported": true,
+    "quote": "分隔符（Delimiters）是用特殊符号或标签，把提示词中不同部分（指令、上下文、样例、待处理内容）显式切分开的写法。常见形式有：三引号 `\"\"\"...\"\"\"`、XML 标签 `<context>...</context>`、Markdown 代码块、分隔线 `---`/`-----`、方括号 `【】`、`<< >>`、`###` 等。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "原文明确列出XML标签为常见形式。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "<context></context>是XML标签的具体示例。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "不加标记违反分隔符结构化原则。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "...是原文未穷举但符合分隔符定义的省略符。"
+      },
+      {
+        "label": "E",
+        "selected": true,
+        "why": "##是原文明确列出的Markdown分隔符。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "2-1450": {
+    "qid": "2-1450",
+    "classification": "own",
+    "chapter": 2,
+    "quality": "ok",
+    "reason": "考查输出格式要素定义，需匹配原文六要素中该要素内涵。",
+    "answer": [
+      "B",
+      "D",
+      "F"
+    ],
+    "supported": true,
+    "quote": "输出格式（Output Format）：指定格式、枚举值、禁止项 | \"只输出 JSON，不要多余解释\"",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "属于任务目标而非输出格式。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "表格形式是明确的格式约束。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "属于角色要素。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "JSON格式是典型输出格式要求。"
+      },
+      {
+        "label": "E",
+        "selected": false,
+        "why": "人称口吻属风格，非结构化格式。"
+      },
+      {
+        "label": "F",
+        "selected": true,
+        "why": "字段枚举是输出格式核心要求。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "2-0606": {
+    "qid": "2-0606",
+    "classification": "own",
+    "chapter": 2,
+    "quality": "ok",
+    "reason": "考查Few-shot示例选择原则，原文强调质量重于数量。",
+    "answer": [
+      "A",
+      "B",
+      "C",
+      "F"
+    ],
+    "supported": true,
+    "quote": "Few-shot 之所以有效，是因为示例让模型通过上下文学习对齐\"输出什么格式、什么口吻\"；示例不在多而在精，2~5 个高质量范例通常足够。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "覆盖各种情况确保泛化性。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "体现难点可强化关键能力。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "避免混淆是原文强调的质量要求。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "原文明确指出示例不在多而在精。"
+      },
+      {
+        "label": "E",
+        "selected": false,
+        "why": "未提及避免重复已知知识的要求。"
+      },
+      {
+        "label": "F",
+        "selected": true,
+        "why": "真实场景示例提升上下文学习效果。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "2-0677": {
+    "qid": "2-0677",
+    "classification": "own",
+    "chapter": 2,
+    "quality": "ok",
+    "reason": "考查事实错误改善方法，需区分提示工程与RAG/微调边界。",
+    "answer": [
+      "A",
+      "B",
+      "C",
+      "D"
+    ],
+    "supported": true,
+    "quote": "提示工程是上下文工程（Context Engineering）的一部分——上下文工程的核心是\"在正确的时间，把最相关、最精准的信息加载进上下文窗口\"，其四大手段是 Prompt、RAG、Tool、Memory。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "RAG提供外部知识源，属上下文工程。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "要求注明来源可增强事实约束。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "CoT提升推理链可靠性，减少幻觉。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "微调可适配领域行为，属优化顺序末位。"
+      },
+      {
+        "label": "E",
+        "selected": false,
+        "why": "完全依赖内置知识无法解决事实错误。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "2-0745": {
+    "qid": "2-0745",
+    "classification": "own",
+    "chapter": 2,
+    "quality": "ok",
+    "reason": "考查提示词要素完整性，需同时满足角色、任务、维度约束。",
+    "answer": [
+      "B",
+      "C",
+      "D"
+    ],
+    "supported": true,
+    "quote": "【任务】审查下面合同片段的风险条款。【审阅维度】主体资格、金额与支付、期限、违约责任、争议解决、合规性。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "未指定维度，信息不全。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "含角色+多维度审查，要素完整。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "聚焦安全漏洞，符合具体维度要求。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "PEP8是代码规范的具体维度。"
+      },
+      {
+        "label": "E",
+        "selected": false,
+        "why": "“随便看看”无任何要素约束。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "2-0762": {
+    "qid": "2-0762",
+    "classification": "own",
+    "chapter": 2,
+    "quality": "ok",
+    "reason": "考查风格与语法控制方法，需匹配Few-shot和结构化输出原则。",
+    "answer": [
+      "A",
+      "B",
+      "C",
+      "D"
+    ],
+    "supported": true,
+    "quote": "Few-shot 之所以有效，是因为示例让模型通过上下文学习对齐\"输出什么格式、什么口吻\"；结构化输出（JSON Mode）要求严格按格式输出。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "明确风格要求是角色/受众要素。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "提供示例是Few-shot核心方法。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "自我检查是提示词约束语法的有效方式。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "结构化提示可强制文本框架。"
+      },
+      {
+        "label": "E",
+        "selected": false,
+        "why": "无提示优化无法保证风格与语法。"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

@@ -1,0 +1,108 @@
+{
+  "new-7-30-0": {
+    "qid": "new-7-30-0",
+    "classification": "own",
+    "chapter": 7,
+    "quality": "ok",
+    "reason": "题目考察RAGAS指标组合诊断与优化方向判断，符合第7章定位故障知识点。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "Faithfulness 低：检索到了却还在编造；Precision 低（Recall 高）：找回来了但噪声多、排得靠后；检索指标都好（Recall、Precision 高），但 Faithfulness / Correctness 低 → 问题在生成阶段",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "模型被强制使用靠前无关上下文，更易产生幻觉。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "检索噪声多，强制使用错误上下文会加剧幻觉。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "Faithfulness计算依赖所有contexts，但排序影响模型使用。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "提示词约束生成，不改变检索模块排序逻辑。"
+      }
+    ],
+    "duplicate_of": "7-5083"
+  },
+  "new-7-30-1": {
+    "qid": "new-7-30-1",
+    "classification": "own",
+    "chapter": 7,
+    "quality": "ok",
+    "reason": "题目考察Faithfulness低分原因诊断，需结合其他指标排除检索问题。",
+    "answer": [
+      "A",
+      "D"
+    ],
+    "supported": true,
+    "quote": "检索指标都好（Recall、Precision 高），但 Faithfulness / Correctness 低 → 问题在生成阶段；Faithfulness 低：检索到了却还在编造",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "Recall=1.0且contexts有依据，说明检索无缺失。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "语义相似度高但事实F1低，可能因检索缺失或生成错误。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "Precision低且正确片段靠后，是检索排序问题。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "Faithfulness低且陈述无支撑，是生成端编造幻觉。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-7-30-2": {
+    "qid": "new-7-30-2",
+    "classification": "own",
+    "chapter": 7,
+    "quality": "ok",
+    "reason": "题目考察Answer Correctness公式理解及优化原则，符合第7章核心知识点。",
+    "answer": [
+      "D"
+    ],
+    "supported": true,
+    "quote": "Answer Correctness = 0.25 × 语义相似度 + 0.75 × 事实准确度；权重 0.75 给了'事实对错'，说明该指标更看重事实正确性而非字面相似",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "调整评委temperature未直接违反此原则。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "调整评委参数，未混用输入字段。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "题目未涉及检索端优化顺序。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "事实F1极低是主因，调temperature无法解决。"
+      }
+    ],
+    "duplicate_of": "7-5082"
+  }
+}

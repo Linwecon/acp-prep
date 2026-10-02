@@ -1,0 +1,108 @@
+{
+  "new-6-0-0": {
+    "qid": "new-6-0-0",
+    "classification": "own",
+    "chapter": 6,
+    "quality": "ok",
+    "reason": "考查vLLM并发调优与KV Cache瓶颈，符合本章知识。",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "KV Cache随序列长度×并发数线性增长，长上下文、高并发时KV Cache往往成为显存大头。超出并发上限通常直接返回错误（如429）",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "调高并发上限会加剧KV Cache显存压力，导致排队、RT劣化和限流错误。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "TTFT由Prefill决定，与并发上限参数无直接关系。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "KV Cache占用随并发增长，但不会因调参而立即线性翻倍或OOM。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "TPOT由Decode效率决定，调高并发上限不会直接提升它。"
+      }
+    ],
+    "duplicate_of": "6-5135"
+  },
+  "new-6-0-1": {
+    "qid": "new-6-0-1",
+    "classification": "own",
+    "chapter": 6,
+    "quality": "ok",
+    "reason": "考查TTFT问题诊断，聚焦Prefill阶段与输入长度关系。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "Prefill（预填充阶段）把用户输入的整段prompt一次性喂进去，决定了TTFT。长prompt会让“等很久才开口”（Prefill变慢）",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "GPU利用率正常，说明计算非瓶颈，应先查输入特征。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "TTFT高且GPU正常，最可能是输入prompt长度突增导致Prefill变慢。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "KV Cache占用率低，页表分配问题可能性小。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "Decode带宽饱和影响TPOT，而非TTFT。"
+      }
+    ],
+    "duplicate_of": "6-5139"
+  },
+  "new-6-0-4": {
+    "qid": "new-6-0-4",
+    "classification": "own",
+    "chapter": 6,
+    "quality": "ok",
+    "reason": "考查vLLM性能瓶颈分析与优化措施，符合本章实践。",
+    "answer": [
+      "A",
+      "B"
+    ],
+    "supported": true,
+    "quote": "并发受KV Cache限制；长上下文、高并发时KV Cache往往成为显存大头。要扛更高并发，要么上更大/更多的卡，要么主动限制单次请求长度",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "并发增加导致RT劣化，应首先检查显存和KV Cache是否已达瓶颈。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "限制序列长度可直接降低单请求KV Cache占用，缓解显存压力。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "扩容是后续手段，非优先检查项。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "量化是优化选项，但非题干要求的“优先执行”操作。"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

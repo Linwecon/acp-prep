@@ -1,0 +1,216 @@
+{
+  "new-9-84-0": {
+    "qid": "new-9-84-0",
+    "classification": "own",
+    "chapter": 9,
+    "quality": "ok",
+    "reason": "考查Function Calling中tool_call_id字段的核心作用，属于本章核心知识点。",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "回传结果时漏 `tool_call_id`——模型无法把结果和之前的调用对应起来",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "tool_call_id用于关联意图与结果，非路由作用。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "原文未提及客户端校验签名功能。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "tool_call_id是匹配工具调用意图与结果的唯一关联凭证。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "Token消耗统计与tool_call_id无关。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-9-84-1": {
+    "qid": "new-9-84-1",
+    "classification": "own",
+    "chapter": 9,
+    "quality": "ok",
+    "reason": "考查Function Calling两次调用闭环的必要条件，知识点明确。",
+    "answer": [
+      "A",
+      "C",
+      "D"
+    ],
+    "supported": true,
+    "quote": "必须把 `response_message` 追加进 messages；回传结果时漏 `tool_call_id` 会导致模型无法对应；`name` 字段需与 `function.name` 一致",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "第一次调用的response_message必须追加，否则模型不知决策。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "第二次调用通常无需重复tools参数。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "第二次调用messages需包含完整历史，即第一次响应和tool结果。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "role='tool'消息的name字段需与tool_calls中的function.name一致。"
+      }
+    ],
+    "duplicate_of": "9-5165"
+  },
+  "new-9-84-2": {
+    "qid": "new-9-84-2",
+    "classification": "own",
+    "chapter": 9,
+    "quality": "ok",
+    "reason": "考查JSON Schema中required字段遗漏导致工具调用失败，符合原文。",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "Schema 描述含糊——字段名歧义、`required` 漏标、类型写错（number 写成 string）都会导致参数提取失败",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "required字段遗漏属于工具描述含糊，导致参数提取失败。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "题干问题在于参数定义，非执行主体。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "tool_choice='auto'依赖理解，但根本是Schema缺陷。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "题干问题在首次调用前，非回传阶段。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-9-84-3": {
+    "qid": "new-9-84-3",
+    "classification": "own",
+    "chapter": 9,
+    "quality": "ok",
+    "reason": "考查多工具并行调用的API层工程实践，属于Function Calling进阶。",
+    "answer": [
+      "A",
+      "C",
+      "D"
+    ],
+    "supported": true,
+    "quote": "程序执行工具的是**你的应用程序**；回传结果时漏 `tool_call_id` 会导致模型无法对应；第二次调用时模型不知道自己之前决策了什么",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "应用程序应遍历并执行所有tool_calls，可异步并发。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "每个tool_call应有独立的role='tool'消息。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "每个tool_call需生成独立role='tool'消息并携带各自id。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "第二次调用messages需包含所有tool_calls响应及对应tool结果。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-9-84-4": {
+    "qid": "new-9-84-4",
+    "classification": "own",
+    "chapter": 9,
+    "quality": "ok",
+    "reason": "考查Function Calling中工具执行失败后跳过回传的后果，逻辑合理。",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "模型返回 `tool_calls` 是否等于工具已执行？ → **不等于**，必须由应用程序执行并回传结果",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "messages结构可能仍合法，非400主因。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "模型不会因未回传而重复相同tool_calls。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "模型未收到工具结果，会回答无法获取信息。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "服务端校验非拒绝请求的主因。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-9-84-5": {
+    "qid": "new-9-84-5",
+    "classification": "own",
+    "chapter": 9,
+    "quality": "ok",
+    "reason": "考查JSON Schema设计缺陷导致参数解析异常，属于常见错误。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "类型写错（number 写成 string）都会导致参数提取失败",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "description模糊可能导致生成不准，但JSONDecodeError是类型/格式问题。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "parameters类型声明与实际生成内容不匹配可能导致解析失败。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "required遗漏导致参数缺失，非JSON解析错误主因。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "tools数组格式错误通常导致首次调用失败。"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

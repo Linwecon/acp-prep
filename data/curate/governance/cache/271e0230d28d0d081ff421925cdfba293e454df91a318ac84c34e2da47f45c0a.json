@@ -1,0 +1,215 @@
+{
+  "new-11-30-0": {
+    "qid": "new-11-30-0",
+    "classification": "own",
+    "chapter": 11,
+    "quality": "ok",
+    "reason": "考查视频理解中关键帧抽取密度不足导致信息遗漏",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "视频要抽大量帧，token 消耗随帧数线性增长，长视频必须抽帧/截断/分段",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "题干未提及ASR延迟，且问题在于帧密度"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "每90秒1帧密度过低，无法覆盖动态内容"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "题干未提字幕，且问题在于视觉帧密度"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "TTS与纪要生成无关，且非根本缺陷"
+      }
+    ],
+    "duplicate_of": "11-5189"
+  },
+  "new-11-30-1": {
+    "qid": "new-11-30-1",
+    "classification": "own",
+    "chapter": 11,
+    "quality": "ok",
+    "reason": "考查文档智能解析中表格结构保留的必要性",
+    "answer": [
+      "B",
+      "C"
+    ],
+    "supported": true,
+    "quote": "把表格转成 Markdown/HTML 保留行列关系，输出结构化文档",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "固定长度切片会破坏表格结构，导致检索失败"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "版面分析区分区域是保留结构的前提"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "表格转Markdown确保字段与数值在同一单元"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "纯文本LLM无法处理扫描件，需多模态模型"
+      }
+    ],
+    "duplicate_of": "11-5166"
+  },
+  "new-11-30-2": {
+    "qid": "new-11-30-2",
+    "classification": "own",
+    "chapter": 11,
+    "quality": "ok",
+    "reason": "考查语音助手中意图模糊时的追问机制缺失",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "意图不清时优先澄清反问，避免错误调用工具",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "ASR识别正确，非热词问题"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "意图误判未追问澄清，导致错误调用"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "TTS音色与故障无关"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "会话记忆非本故障主因"
+      }
+    ],
+    "duplicate_of": "11-5185"
+  },
+  "new-11-30-3": {
+    "qid": "new-11-30-3",
+    "classification": "own",
+    "chapter": 11,
+    "quality": "ok",
+    "reason": "考查多模态生成评测中自动指标的局限性",
+    "answer": [
+      "B",
+      "C"
+    ],
+    "supported": true,
+    "quote": "图文一致性、指令跟随等需人工评测校准兜底",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "自动指标不可靠，不能有效衡量图文一致性"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "需人工或多模态审核兜底，自动指标不可靠"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "印证了'多模态评测靠自动指标就够了'是误区"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "原文未提及VAE超参数调整"
+      }
+    ],
+    "duplicate_of": "11-5173"
+  },
+  "new-11-30-4": {
+    "qid": "new-11-30-4",
+    "classification": "own",
+    "chapter": 11,
+    "quality": "ok",
+    "reason": "考查医疗AI场景中细粒度验证需人工比对",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "AI 结论仅作辅助，医疗决策必须由医生做出，不可替代诊断",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "CLIP相似度无法验证细粒度解剖描述"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "医生双盲比对最符合医疗场景验证要求"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "loss曲线收敛无法证明理解影像细节"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "字段完整性无法验证细粒度特征标注"
+      }
+    ],
+    "duplicate_of": "11-5183"
+  },
+  "new-11-30-5": {
+    "qid": "new-11-30-5",
+    "classification": "own",
+    "chapter": 11,
+    "quality": "ok",
+    "reason": "考查音视频异步审核必须轮询结果的原则",
+    "answer": [
+      "A",
+      "D"
+    ],
+    "supported": true,
+    "quote": "音视频检测是异步任务模式（提交 task_id、轮询结果）",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "音视频检测必须采用异步任务并轮询结果"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "题干未涉及覆盖四类模态的缺失"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "上下文窗口限制非本设计违反的原则"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "音视频检测不能假设实时返回，必须等待结果"
+      }
+    ],
+    "duplicate_of": "11-5176"
+  }
+}

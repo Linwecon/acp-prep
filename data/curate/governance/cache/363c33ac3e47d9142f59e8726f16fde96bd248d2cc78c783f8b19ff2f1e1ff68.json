@@ -1,0 +1,166 @@
+{
+  "items": [
+    {
+      "type": 0,
+      "stem": "某企业将新人答疑机器人升级为报销查询助手。用户输入“帮我查一下我上个月提交的报销单审批到哪一步了”，模型返回包含 tool_calls 的结构化响应，但系统未返回最终答案，而是陷入静默。经排查，工具执行代码已正确解析参数并调用内部报销服务，结果也成功生成。最可能的根本原因是什么？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "Planner 未解耦，导致工具结果无法触发下一轮规划"
+        },
+        {
+          "option_label": "B",
+          "option_text": "工具返回结果未以 role=\"tool\" 消息回传至模型上下文"
+        },
+        {
+          "option_label": "C",
+          "option_text": "Memory 组件未启用滚动摘要，导致历史轨迹被截断"
+        },
+        {
+          "option_label": "D",
+          "option_text": "Function Calling 的 tools 参数中缺少该工具的 JSON-Schema 定义"
+        }
+      ],
+      "answer": "B",
+      "analysis": "依据原文4.3节Function Calling流程第四步：“结果回传：带着工具结果再次调用模型，模型据此生成最终回复，或决定继续调下一个工具”；且4.3节风险提示明确强调：“❌‘工具结果模型自己能看到’ → ✅ 结果必须由程序作为 role='tool' 消息追加回上下文，模型才‘知道’发生了什么”。选项B直接对应此核心约定——若应用代码未将工具执行结果封装为 role=\"tool\" 消息并追加至 messages，模型在下一次调用时将缺失 Observation，无法进入后续 Thought/Action 循环，导致静默卡死。A错误：Planner解耦与否影响可维护性，但不阻断基础闭环；C错误：截断影响长期连贯性，但首轮回传失败是即时性阻断；D错误：若Schema缺失，模型根本不会输出 tool_calls，与题干“已返回结构化响应”矛盾。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 1,
+      "stem": "某金融Agent需完成“评估客户A的贷款申请”任务，涉及调用征信查询、收入验证、风控模型三个工具。当前采用固定流水线工作流：征信→收入→风控。但近期因征信API临时不可用，整个流程卡死。为提升鲁棒性，以下哪些调整符合本章‘规划策略’的最佳实践？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "将征信工具替换为本地缓存查询，并在Schema中声明其为降级方案"
+        },
+        {
+          "option_label": "B",
+          "option_text": "引入ReAct模式，在每次Observation后由模型动态决定下一步：若征信失败则跳过，直接调用收入验证"
+        },
+        {
+          "option_label": "C",
+          "option_text": "为每个工具配置超时重试机制，并在工具返回error时自动触发备用工具调用"
+        },
+        {
+          "option_label": "D",
+          "option_text": "将整个流水线固化为Skill，通过渐进式披露加载各步骤检查清单"
+        },
+        {
+          "option_label": "E",
+          "option_text": "改用Plan-and-Execute策略，允许Agent在征信失败时重新生成包含替代路径（如人工审核入口）的新计划"
+        }
+      ],
+      "answer": "B,E",
+      "analysis": "依据原文4.6.3节“自主规划（Plan-and-Execute）”定义：“让Agent围绕用户的高阶目标，先生成一份包含多步骤的计划，再逐项执行；遇到障碍时重新规划，而不是死守预设流程图”；4.6节对比表明确指出：“步骤明确、可预测→固定工作流；环境多变、需要真实反馈动态调整→ReAct / 自主规划”。选项B符合ReAct“基于Observation修正后续步骤”的核心机制（4.4节），E直接对应Plan-and-Execute的“重新规划”能力（4.6.3节）。A错误：替换工具属架构变更，非规划策略调整；C错误：超时重试是工程实现细节，原文4.2节“关键约定”仅要求“给模型失败出口”，但未将重试逻辑内置为规划策略；D错误：Skill用于固化SOP，而题干问题恰是SOP僵化所致，固化会加剧卡死。",
+      "difficulty_label": "挑战"
+    },
+    {
+      "type": 0,
+      "stem": "一个课程审查Skill已封装‘代码可执行性检查’为validate_code.py脚本，并返回结构化JSON。当评测该Skill的SOP合规性时，发现Agent在未运行该脚本的情况下就给出了‘代码可运行’结论。为精准定位此环节失效，应优先采用哪种评测手段？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "LLM-as-Judge：用大模型判断审查报告是否可信"
+        },
+        {
+          "option_label": "B",
+          "option_text": "确定性检查：解析执行trace，验证是否调用validate_code.py及返回JSON结构"
+        },
+        {
+          "option_label": "C",
+          "option_text": "Rubric评分：按‘是否执行脚本’‘是否引用脚本输出’等细则打分"
+        },
+        {
+          "option_label": "D",
+          "option_text": "端到端黑盒评测：仅检查最终报告语言质量"
+        }
+      ],
+      "answer": "B",
+      "analysis": "依据原文4.10节“三种核心评测手段”定义：“确定性检查（Deterministic Checks）：用代码/脚本判断‘该发生的步骤有没有发生’。例如解析执行 trace，验证‘是否调了报销查询工具’‘输出是否符合 JSON Schema’”。题干明确要求“精准定位SOP合规性失效”，即验证“脚本是否被执行”这一客观、可判定的动作，确定性检查是唯一能直接捕获执行轨迹缺失的手段。A错误：LLM-as-Judge适用于主观判断，无法可靠检测脚本调用行为；C错误：Rubric需人工或LLM评判，本质仍是主观，且题干未提供评分细则；D错误：端到端评测只看最终输出，完全掩盖中间步骤缺失。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 1,
+      "stem": "某多Agent客服系统设计中，Leader Agent负责分派工单给Worker Agent处理。当前所有Worker共用同一套数据库API Key，并将全部Worker的系统提示词拼接后一次性注入Leader的上下文。上线后出现两个严重问题：1）某Worker误操作删除了核心业务表；2）Leader响应延迟显著升高。根据本章四条硬原则，这两个问题分别违反了哪两条？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "问题1违反‘独立凭据’原则"
+        },
+        {
+          "option_label": "B",
+          "option_text": "问题1违反‘明确职责’原则"
+        },
+        {
+          "option_label": "C",
+          "option_text": "问题2违反‘避免全量注入’原则"
+        },
+        {
+          "option_label": "D",
+          "option_text": "问题2违反‘中央调度’原则"
+        },
+        {
+          "option_label": "E",
+          "option_text": "问题1违反‘中央调度’原则"
+        }
+      ],
+      "answer": "A,C",
+      "analysis": "依据原文4.7节“多Agent设计四原则”：①“独立凭据”明确要求“不同Agent不得共用同一套账号/API凭据，按最小权限分别授权，防止越权与横向扩散”——问题1中Worker误删表，根源正是共用高权限Key，直接违反此条；②“避免全量注入”强调“不要把所有Agent的知识/工具清单一次性写进主Prompt，应按需加载”，否则导致“上下文膨胀、注意力稀释、token成本飙升”——问题2中Leader延迟升高，正是全量注入导致上下文过大、模型推理变慢的典型表现。B错误：职责不明确会导致任务错配，但不直接导致越权删表；D错误：中央调度指防无序互调，与延迟无关；E错误：中央调度失灵表现为死锁或循环调用，非越权操作。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 0,
+      "stem": "某团队对报销查询Agent进行白盒评测时，发现其在工具调用失败后未触发重试或降级逻辑，而是直接生成模糊回答。评测脚本成功捕获了该问题：解析执行轨迹发现'get_reimbursement'调用后无重试tool_calls，且最终回复中缺失关键状态字段。这种评测方式最核心依赖的是哪一方法？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "Rubric结构化评分"
+        },
+        {
+          "option_label": "B",
+          "option_text": "LLM-as-Judge主观打分"
+        },
+        {
+          "option_label": "C",
+          "option_text": "确定性检查"
+        },
+        {
+          "option_label": "D",
+          "option_text": "向量化长期记忆检索"
+        }
+      ],
+      "answer": "C",
+      "analysis": "依据原文4.10节定义：“确定性检查（Deterministic Checks）：用代码/脚本判断‘该发生的步骤有没有发生’。例如解析执行 trace，验证‘是否调了报销查询工具’‘输出是否符合 JSON Schema’‘必填字段是否齐全’”。题干中“解析执行轨迹”“发现无重试tool_calls”“缺失关键字段”均为客观、可编程验证的行为，完全匹配确定性检查的核心特征——结果确定、可调试、针对中间步骤。A错误：Rubric需人工定义细则并结构化输出，题干未提评分过程；B错误：LLM-as-Judge依赖大模型判断，非脚本解析；D错误：向量检索用于长期记忆管理，与轨迹分析无关。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 1,
+      "stem": "某企业升级新人答疑机器人为报销查询助手。用户输入'帮我查一下我上个月提交的报销单审批到哪一步了'，模型返回tool_calls=[{'name':'get_reimbursement','args':{'user_id':'U123','month':'2024-07'}}]。此时若工具执行超时返回空结果，Agent下一步最应采取的行动是？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "立即向用户返回'系统暂未返回结果'并结束会话"
+        },
+        {
+          "option_label": "B",
+          "option_text": "根据4.2节关键约定，提供失败出口：重试get_reimbursement或切换至备用工具（如工单号查询）"
+        },
+        {
+          "option_label": "C",
+          "option_text": "调用Memory工具检索历史报销单号，补充参数后重试"
+        },
+        {
+          "option_label": "D",
+          "option_text": "触发HITL机制，暂停并请求人工介入"
+        },
+        {
+          "option_label": "E",
+          "option_text": "依据4.4节ReAct铁律，必须设置最大轮数上限，因此直接终止循环"
+        }
+      ],
+      "answer": "B,C",
+      "analysis": "依据原文4.2节“关键约定”第三条：“要给模型‘失败出口’：工具超时、报错时能重试或换方案，而不是整轮崩溃”——B选项直接落实此约定。C选项符合4.8节“主动管理记忆”理念：“让Agent自己决定‘什么时候记、什么时候回忆’”，利用Memory工具补全缺失参数是典型的失败应对策略。A错误：直接返回模糊回答违反“失败出口”约定；D错误：HITL适用于高风险操作（4.6.2节），报销查询属常规任务，非首选；E错误：轮数上限是防死循环的兜底机制，非失败时的首选动作，且题干未达上限。",
+      "difficulty_label": "挑战"
+    }
+  ]
+}

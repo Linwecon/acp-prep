@@ -1,0 +1,217 @@
+{
+  "new-5-6-0": {
+    "qid": "new-5-6-0",
+    "classification": "own",
+    "chapter": 5,
+    "quality": "ok",
+    "reason": "考查微调前置评估顺序，题干明确提示词与RAG已穷尽，应选微调。",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "标准的优化顺序（务必背下来）：提示词优化 → RAG → （仍不满足才考虑）微调",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "未优先评估提示词与RAG，且全参微调非首选。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "题干已反复优化提示词，应进入下一阶段。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "符合微调前置评估流程，解决行为/风格问题。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "蒸馏是微调的一种，应先确认微调必要性。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-5-6-1": {
+    "qid": "new-5-6-1",
+    "classification": "own",
+    "chapter": 5,
+    "quality": "ok",
+    "reason": "考查数据质量过滤标准，需剔除格式错误、值越界、不一致样本。",
+    "answer": [
+      "A",
+      "B",
+      "D"
+    ],
+    "supported": true,
+    "quote": "质量过滤：逐条校验——JSON能否解析、5个必填字段是否齐全、字段值是否在合法范围内，不合格直接丢弃",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "JSON解析失败，违反正确性。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "字段值越界，违反正确性。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "语义集合相同，顺序不同可接受。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "system内容不一致，违反一致性原则。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-5-6-2": {
+    "qid": "new-5-6-2",
+    "classification": "own",
+    "chapter": 5,
+    "quality": "ok",
+    "reason": "考查过拟合现象与后果，验证loss上升表明泛化能力恶化。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "验证 loss 先降后升 → 过拟合：模型在'背题'，减轮次/补数据/加正则",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "过拟合通常导致F1下降，但合规率未必提升。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "过拟合使模型泛化能力变差，上线表现不佳。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "增加轮数不直接导致显存骤增。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "秩r不会自动增大，是超参数。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-5-6-3": {
+    "qid": "new-5-6-3",
+    "classification": "own",
+    "chapter": 5,
+    "quality": "ok",
+    "reason": "考查lora_rank选择原则，需根据任务复杂度与数据量调整。",
+    "answer": [
+      "A",
+      "B"
+    ],
+    "supported": true,
+    "quote": "lora_rank（r）... r越大表达越强、成本越高；简单任务8足够，复杂/多字段任务可加大",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "多字段复杂任务，r=8合理。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "数据少时降低r可减少过拟合风险。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "验证loss不降应先查其他原因，非直接提r。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "r=1可能容量不足，非推荐做法。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-5-6-4": {
+    "qid": "new-5-6-4",
+    "classification": "own",
+    "chapter": 5,
+    "quality": "ok",
+    "reason": "考查根据评测指标定位问题并改进，F1低因多意图样本覆盖不足。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "意图识别有遗漏 → 多意图/边界/相似意图样本覆盖不足 → 补多意图、易混淆、真实业务边界样本",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "过拟合风险下增加轮次可能恶化。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "补充相关样本是解决判断病的直接方法。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "提升r非首要，应先补数据。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "全参微调成本高且可能过拟合，非优先。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-5-6-5": {
+    "qid": "new-5-6-5",
+    "classification": "own",
+    "chapter": 5,
+    "quality": "ok",
+    "reason": "考查数据合成蒸馏适用场景，需固定输出、不依赖实时知识、只需教师API。",
+    "answer": [
+      "A",
+      "B",
+      "D"
+    ],
+    "supported": true,
+    "quote": "数据合成蒸馏 → 黑盒蒸馏 → 只需教师 API | 适用场景：教师是商业 API、结构化输出任务",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "摘要任务输出格式相对固定，可用API生成数据。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "法律问答不涉实时更新，符合黑盒蒸馏场景。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "需内部权重，属于白盒蒸馏，非数据合成。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "结构化路由决策，高频任务适合蒸馏降本。"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

@@ -1,0 +1,214 @@
+{
+  "3-1369": {
+    "qid": "3-1369",
+    "classification": "unsure",
+    "chapter": 3,
+    "quality": "remove",
+    "reason": "题干‘标签提取增强检索’概念未在原文定义，选项D明显错误，但其余选项缺乏明确判断依据，考查价值低。",
+    "answer": [],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "原文未定义‘标签提取增强检索’及其必要步骤。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "原文未定义‘标签提取增强检索’及其必要步骤。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "原文未定义‘标签提取增强检索’及其必要步骤。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "忽略语义关联明显错误，但不足以确定其他选项。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-1371": {
+    "qid": "3-1371",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "考查相似度阈值对检索结果的影响，原文有明确依据。",
+    "answer": [
+      "C",
+      "D"
+    ],
+    "supported": true,
+    "quote": "放宽阈值是召回率↑、精确率↓（必考）。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "提高阈值（收紧）会减少召回数量。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "提高阈值（收紧）会减少无用知识。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "提高阈值（收紧）过滤更严，无用知识减少。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "提高阈值（收紧）使相似度要求更高，召回数量减少。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-1383": {
+    "qid": "3-1383",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "考查内存向量存储的优缺点，原文有明确依据。",
+    "answer": [
+      "A",
+      "B",
+      "C"
+    ],
+    "supported": true,
+    "quote": "开发测试可用LlamaIndex内置的内存向量库；生产环境可选用云服务（如阿里云DashVector）或自建开源库。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "本地内存存储可控性强。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "内置库功能完整，适合开发测试。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "内置库无需额外配置即可使用。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "内存存储无法自动扩容，是云服务的优点。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-1384": {
+    "qid": "3-1384",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "考查云服务向量存储的优缺点，与上题形成对比，原文有依据。",
+    "answer": [
+      "A",
+      "B",
+      "C",
+      "D"
+    ],
+    "supported": true,
+    "quote": "生产环境可选用云服务（如阿里云DashVector）或自建开源库（Milvus、Qdrant）。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "云服务通常支持自动扩容。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "云服务通常按量付费。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "云服务由提供商负责运维。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "云服务提供完善的监控和管理工具。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-1397": {
+    "qid": "3-1397",
+    "classification": "cross",
+    "chapter": -1,
+    "quality": "remove",
+    "reason": "考点为模型评估指标选择，属于第7章‘模型评估’，但题干条件‘医疗诊断’过于宽泛，选项间无明确优先级，考查价值低。",
+    "answer": [],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "重要但非最重要，且无明确比较依据。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "重要但非唯一最重要，且无明确比较依据。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "重要但非最重要，且无明确比较依据。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "重要但非最重要，且无明确比较依据。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-1400": {
+    "qid": "3-1400",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "fixable",
+    "reason": "考查compare_embeddings函数作用，但选项表述模糊，C选项最可能正确。",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "Embedding（向量化/嵌入）是把一段文本转换成一串数字（高维向量）。它的核心性质是：语义相近的文本，向量在空间中的距离也近。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "函数用于比较相似度，不直接影响推理时间。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "函数用于比较相似度，不增加训练数据。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "比较向量距离即评估文本相似度。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "函数用于比较相似度，不增加模型参数。"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

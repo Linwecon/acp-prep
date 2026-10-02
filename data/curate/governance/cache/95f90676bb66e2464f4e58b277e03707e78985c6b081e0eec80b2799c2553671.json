@@ -1,0 +1,216 @@
+{
+  "new-11-24-0": {
+    "qid": "new-11-24-0",
+    "classification": "own",
+    "chapter": 11,
+    "quality": "ok",
+    "reason": "考查意图理解模块职责，题干与原文描述一致，选项清晰。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "意图理解：识别用户想做什么（查制度/办报销/闲聊）",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "题干明确ASR输出准确，非ASR问题。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "意图模块未正确分类HR制度查询，属领域适配缺陷。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "TTS影响感知，与意图识别故障无关。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "会话记忆支持推理，但故障核心是意图分类错误。"
+      }
+    ],
+    "duplicate_of": "11-5181"
+  },
+  "new-11-24-1": {
+    "qid": "new-11-24-1",
+    "classification": "own",
+    "chapter": 11,
+    "quality": "ok",
+    "reason": "考查扫描件PDF处理流程，符合文档智能解析链路。",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "扫描件/图片文档：OCR + 版面分析 → 结构化文本 → 常规 RAG",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "扫描件无文本，增加重叠窗口无效。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "二进制向量化无法提取文本内容，无法检索。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "扫描件必须先OCR和结构化，才能提取文本信息。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "提示词无法解决底层文本未提取的问题。"
+      }
+    ],
+    "duplicate_of": "11-5166"
+  },
+  "new-11-24-2": {
+    "qid": "new-11-24-2",
+    "classification": "own",
+    "chapter": 11,
+    "quality": "ok",
+    "reason": "考查ASR低置信度处理原则，符合工程要点。",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "意图不清时优先澄清反问，避免错误调用工具",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "调高阈值会过滤更多有效输入，非即时应对策略。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "自动纠错可能引入新错误，非首选即时策略。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "低置信度时澄清反问是规范应对策略。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "依赖LLM纠错非即时策略，且可能放大错误。"
+      }
+    ],
+    "duplicate_of": "11-5180"
+  },
+  "new-11-24-3": {
+    "qid": "new-11-24-3",
+    "classification": "own",
+    "chapter": 11,
+    "quality": "ok",
+    "reason": "综合考查多模态教育应用的安全、合规与体验设计。",
+    "answer": [
+      "A",
+      "B",
+      "C"
+    ],
+    "supported": true,
+    "quote": "视频理解：抽关键帧...送入视觉模型分析画面内容；语音链路对延迟敏感，实时通话要做流式 ASR/TTS 与首包优化；ASR 识别错误会沿链路放大，专有名词多的场景要配置热词",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "视频内容必须进行异步安全审核，符合多模态安全要求。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "数学题截图需多模态模型进行图文联合理解。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "配置领域热词可提升ASR对专有名词识别准确率。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "原文未提及实时人脸脱敏是必须措施，属过度推断。"
+      }
+    ],
+    "duplicate_of": "11-5182"
+  },
+  "new-11-24-4": {
+    "qid": "new-11-24-4",
+    "classification": "own",
+    "chapter": 11,
+    "quality": "ok",
+    "reason": "考查AI生成内容的合规、安全与评测实践。",
+    "answer": [
+      "A",
+      "B",
+      "D"
+    ],
+    "supported": true,
+    "quote": "深度合成内容必须按规定加 AI 生成标识；图像检测不仅要看画面，还要审'图里的字'；图文一致性、指令跟随等需人工评测校准兜底",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "AI生成海报必须添加标识，是合规要求。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "生成图像必须进行内容安全审核，防范风险。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "自动指标不可靠，需人工或多模态审核兜底。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "OCR比对可校验生成图中文字准确性，属必要操作。"
+      }
+    ],
+    "duplicate_of": "11-5193"
+  },
+  "new-11-24-5": {
+    "qid": "new-11-24-5",
+    "classification": "own",
+    "chapter": 11,
+    "quality": "ok",
+    "reason": "考查多模态医疗场景下，对模型理解细节的验证原则。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "图文一致性、指令跟随等需人工评测校准兜底",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "自动指标不可靠，无法验证具体医学特征。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "由领域专家人工盲评是验证理解准确性的黄金标准。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "关键词检查无法证明模型真正理解了影像特征。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "重新训练是改进措施，非验证方式。"
+      }
+    ],
+    "duplicate_of": "11-5183"
+  }
+}

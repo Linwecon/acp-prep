@@ -1,0 +1,232 @@
+{
+  "new-4-24-0": {
+    "qid": "new-4-24-0",
+    "classification": "own",
+    "chapter": 4,
+    "quality": "ok",
+    "reason": "考查Function Calling流程中工具结果回传的关键步骤。",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "工具返回结果必须回灌到上下文，否则模型等于‘做完就忘’",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "题干已说明模型输出了tool_calls，意图识别成功。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "执行后未回传结果才会报错，而非未执行。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "结果未以role='tool'消息回传，导致模型无结果可用。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "Schema问题可能导致参数错误，但不会直接导致此报错。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-4-24-1": {
+    "qid": "new-4-24-1",
+    "classification": "own",
+    "chapter": 4,
+    "quality": "ok",
+    "reason": "考查ReAct循环必须设置停止条件及对工具失败的处理。",
+    "answer": [
+      "A",
+      "B"
+    ],
+    "supported": true,
+    "quote": "ReAct不是无限循环：必须设置最大迭代轮数 / 超时 / token 预算上限",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "必须设轮数上限防死循环，是ReAct铁律。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "Planner应处理工具空结果，决定换方案或终止。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "MCP解决工具发现，不解决循环控制逻辑。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "Memory存储事实，元规则应由Planner或提示词定义。"
+      },
+      {
+        "label": "E",
+        "selected": false,
+        "why": "超时重试是细节，但根本问题是未设轮数上限和分支判断。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-4-24-2": {
+    "qid": "new-4-24-2",
+    "classification": "own",
+    "chapter": 4,
+    "quality": "ok",
+    "reason": "考查多Agent设计原则中的职责明确原则。",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "明确职责：每个 Agent 有清晰、不重叠的职责边界",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "账单查询Agent越权调用技术工具，职责不清。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "题干未涉及凭据共用问题。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "中央调度指统一规划，题干是Agent间无序互调。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "避免全量注入指提示词，题干是工具调用越界。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-4-24-3": {
+    "qid": "new-4-24-3",
+    "classification": "own",
+    "chapter": 4,
+    "quality": "ok",
+    "reason": "考查长期记忆管理策略，特别是向量召回与滚动摘要。",
+    "answer": [
+      "A",
+      "D",
+      "E"
+    ],
+    "supported": true,
+    "quote": "向量化召回：每轮对话切片入向量库，新问题按语义检索相关历史再注入",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "向量化召回是长期记忆最佳实践，摆脱窗口限制。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "扩窗口只是延后问题，且会注意力稀释。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "准入机制是写入策略，但题干是已有关键信息丢失。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "滚动摘要可压缩历史保留核心，是推荐策略。"
+      },
+      {
+        "label": "E",
+        "selected": true,
+        "why": "Mem0LongTermMemory是框架提供的长期记忆模块。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-4-24-4": {
+    "qid": "new-4-24-4",
+    "classification": "own",
+    "chapter": 4,
+    "quality": "ok",
+    "reason": "考查Skill渐进式披露原则与全量注入的缺陷。",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "Skill：Agent 启动时只看到所有 Skill 的 description（很短），由模型判断当前任务要不要激活；激活后才读 SKILL.md",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "全量注入导致无关任务也被冗余规则污染，未渐进披露。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "题干是固化方法，未涉及RAG事实补全的混淆。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "配置脚本是Skill编写要点，但非题干主要缺陷。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "YAML声明是Skill结构，但缺陷核心是注入方式。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-4-24-5": {
+    "qid": "new-4-24-5",
+    "classification": "own",
+    "chapter": 4,
+    "quality": "ok",
+    "reason": "考查白盒化评测手段，针对过程而非最终答案。",
+    "answer": [
+      "A",
+      "C",
+      "D"
+    ],
+    "supported": true,
+    "quote": "白盒化评测：关键组件/中间步骤（工具调用序列、参数、轨迹）",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "解析轨迹检查是否调用正确工具，是白盒评测。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "语言流畅度是端到端主观评测，不解决数据时效问题。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "检查工具返回数据新鲜度，是确定性检查。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "用Rubric拆解时效性细则，是结构化白盒评测。"
+      },
+      {
+        "label": "E",
+        "selected": false,
+        "why": "人工抽检是验证手段，但非优先的自动化白盒手段。"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

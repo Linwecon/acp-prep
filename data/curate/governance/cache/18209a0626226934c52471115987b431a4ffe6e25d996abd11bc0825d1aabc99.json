@@ -1,0 +1,210 @@
+{
+  "9-0073": {
+    "qid": "9-0073",
+    "classification": "own",
+    "chapter": 9,
+    "quality": "ok",
+    "reason": "考查temperature参数的核心作用，题干清晰，选项区分度高。",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "temperature 控制随机性，越高越发散。事实类调低，创意类调高。temperature 越小，高分 token 被放得越大、分布越尖锐，输出越确定。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "temperature越低，输出越确定。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "高temperature才增加创造性。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "高temperature才增加多样性。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "temperature不控制输出长度。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "9-0089": {
+    "qid": "9-0089",
+    "classification": "own",
+    "chapter": 9,
+    "quality": "ok",
+    "reason": "考查temperature参数在明确答案场景下的设置建议。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "事实问答、代码生成、信息抽取要稳定、少随机，temperature 建议 0 ~ 0.3。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "高temperature增加随机性，不利明确答案。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "低temperature使输出更稳定确定。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "默认值0.7可能过高，不适合明确答案。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "随机设置不可取，无法保证稳定。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "9-0190": {
+    "qid": "9-0190",
+    "classification": "own",
+    "chapter": 9,
+    "quality": "ok",
+    "reason": "考查temperature参数在创意场景下的设置建议。",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "文案、头脑风暴、起名要多样性，temperature 建议 0.8 ~ 1.2。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "高temperature增加多样性和创造性。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "低temperature减少多样性。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "默认值可能不足以保证创意。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "随机设置不可取，无法保证效果。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "9-0244": {
+    "qid": "9-0244",
+    "classification": "own",
+    "chapter": 9,
+    "quality": "remove",
+    "reason": "题干‘is_chat_model=True’在教材原文中未提及，无法确定其作用，无考查价值。",
+    "answer": [],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "教材未提及此参数。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "教材未提及此参数。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "教材未提及此参数。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "教材未提及此参数。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "9-0810": {
+    "qid": "9-0810",
+    "classification": "own",
+    "chapter": 9,
+    "quality": "review",
+    "reason": "考查避免重复内容的参数设置，但教材未明确提及‘重复惩罚’参数，需结合工程实践判断。",
+    "answer": [
+      "A"
+    ],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "高重复惩罚可抑制重复内容生成。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "低temperature减少多样性，可能适得其反。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "高top-p增加多样性，但不直接抑制重复。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "增加长度可能加剧重复。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "9-0932": {
+    "qid": "9-0932",
+    "classification": "own",
+    "chapter": 9,
+    "quality": "ok",
+    "reason": "考查创意写作场景下temperature参数的设置，题干清晰。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "文案、头脑风暴、起名要多样性，temperature 建议 0.8 ~ 1.2。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "低temperature减少新颖性。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "高temperature增加多样性和新颖性。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "top-p=0.1过于保守，减少多样性。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "重复惩罚为0可能增加重复，不利新颖。"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

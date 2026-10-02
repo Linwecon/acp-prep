@@ -1,0 +1,154 @@
+{
+  "items": [
+    {
+      "type": 0,
+      "stem": "某团队上线新版本答疑机器人后，RAGAS评测显示：Context Recall=0.98、Context Precision=0.32、Faithfulness=0.41、Answer Correctness=0.39。用户反馈中‘报销流程’类问题回答更详细但常含无关步骤，而‘年假计算’类问题开始回避作答（如‘我无法确定具体规则’）。此时最应优先执行的诊断动作是？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "立即重写生成提示词，强化‘不得回避问题’约束"
+        },
+        {
+          "option_label": "B",
+          "option_text": "检查知识库是否缺失年假政策文档，并补充相关切片"
+        },
+        {
+          "option_label": "C",
+          "option_text": "在保持Top K=5不变前提下，接入Rerank模块并验证其对contexts排序的影响"
+        },
+        {
+          "option_label": "D",
+          "option_text": "将评测集中的ground_truth全部交由LLM重写，提升答案表述多样性"
+        }
+      ],
+      "answer": "C",
+      "analysis": "依据教材7.5节‘定位问题的黄金法则’：Recall高（0.98）说明信息基本找全；Precision极低（0.32）表明相关片段被大量无关内容稀释且排名靠后，直接导致模型在生成时注意力分散（‘Lost in the Middle’），进而引发Faithfulness和Correctness双低，以及Relevancy下降（回避式回答正是Answer Relevancy低的典型表现）。此时病根在检索端排序质量，而非知识库缺失（B错，Recall已高）或提示词缺陷（A是生成端优化，但教材明确‘检索指标差时应先修检索’）；D违反‘ground_truth必须由领域专家提供’铁律（7.2.1节），且重写ground_truth会破坏基线可比性。C项直击Precision低的核心解法——Rerank（7.5节表格明确列为Precision低的优化方向），且强调‘保持Top K不变’符合教材‘调大Top K会加剧噪声’的风险警示（7.5节踩坑提醒）。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 1,
+      "stem": "在构建新人答疑机器人的自动化评测集时，以下哪些操作严格符合教材7.2.1节‘评测集构建的两条铁律’及7.8.2节关于黄金集的要求？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "从近3个月客服工单中按问题类型与频次抽样，覆盖‘入职流程’‘IT权限’‘报销标准’等6类高频场景"
+        },
+        {
+          "option_label": "B",
+          "option_text": "邀请HRBP和薪酬福利专家共同编写每道题的ground_truth，并标注关键业务约束（如‘年假天数需区分司龄’）"
+        },
+        {
+          "option_label": "C",
+          "option_text": "为提升评测效率，将训练阶段使用的100条内部FAQ直接作为question字段纳入评测集"
+        },
+        {
+          "option_label": "D",
+          "option_text": "将首批20个线上失败案例（如‘张伟部门答错’）人工标注后加入评测集，形成动态更新的‘活文档’"
+        }
+      ],
+      "answer": "ABD",
+      "analysis": "A正确：符合‘问题来自真实用户场景’铁律（7.2.1节），且覆盖多类业务场景；B正确：符合‘标准答案来自领域专家’铁律（7.2.1节），并体现‘业务专家深度参与’价值（7.2.1节best实践），标注业务约束更是教材强调的‘领域知识合规性’要求；D正确：符合7.8.2节‘活文档’理念——将线上失败案例持续补充进评测集，是防止评估漂移的关键；C错误：严重违反7.8.2节‘防止数据泄漏’原则（‘绝不能用训练数据当评测集’），会导致分数虚高、失去回归价值。",
+      "difficulty_label": "中等"
+    },
+    {
+      "type": 0,
+      "stem": "某Agent在课程写作任务中端到端评测得分为4.3/5，但用户投诉‘生成的Python代码示例无法运行’。开发团队决定增加白盒评测，以下哪项指标设计最能精准定位该故障？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "使用LLM-as-Judge对代码段进行‘教学有效性’打分（1-5分）"
+        },
+        {
+          "option_label": "B",
+          "option_text": "定义确定性检查规则：提取代码块→在沙箱中执行→验证返回值与预期一致"
+        },
+        {
+          "option_label": "C",
+          "option_text": "在评测集中增加‘代码长度’维度，要求代码行数在15-30行之间"
+        },
+        {
+          "option_label": "D",
+          "option_text": "用ROUGE-L计算生成代码与参考代码的相似度"
+        }
+      ],
+      "answer": "B",
+      "analysis": "依据教材7.6节核心观点：Agent故障常在过程里，‘光看最终答案发现不了’；端到端得分高但功能失效，正是‘端到端看不出、需要白盒’的典型场景（7.6节举例）。B项采用‘确定性检查’（7.6.1节三类方法之一），直接验证代码可执行性这一客观硬指标，信号清晰、可调试、成本低，完全匹配教材‘适合评价客观项：代码能否运行’的定位。A是主观语义评价，无法验证运行结果；C是无关约束，与‘能否运行’无因果；D的ROUGE衡量字面相似，无法判断逻辑正确性（7.2.3节risk指出ROUGE不衡量语义等价），且教材明确其适用于摘要/翻译，非代码评测。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 1,
+      "stem": "在使用RAGAS评估一个中文HR问答系统时，为确保Answer Correctness指标计算准确，以下哪些配置或操作是教材7.4.4节明确要求或强烈建议的？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "使用text-embedding-v3模型计算answer与ground_truth的余弦相似度"
+        },
+        {
+          "option_label": "B",
+          "option_text": "将chinese_prompt.py中的提示词模板替换为适配中文业务语境的版本"
+        },
+        {
+          "option_label": "C",
+          "option_text": "在计算事实F1前，用同一LLM对answer和ground_truth分别进行观点分解"
+        },
+        {
+          "option_label": "D",
+          "option_text": "为加速评测，将temperature设为1.0以增加答案多样性"
+        }
+      ],
+      "answer": "ABC",
+      "analysis": "A正确：教材7.4.4节‘计算口径’明确‘语义相似度用Embedding模型（text-embedding-v3）’；B正确：同节‘exam’部分强调‘RAGAS的中文场景可替换chinese_prompt.py里的中文提示词模板’，这是保证评委理解中文业务的关键；C正确：教材7.4.4节定义事实F1时要求‘LLM把answer和ground_truth各自分解为观点列表’，且7.4.3节Faithfulness计算也使用相同观点分解逻辑，说明该步骤是RAGAS官方流程；D错误：违反7.2.4节‘控制变量’原则——temperature必须冻结（教材强调‘推理参数（temperature/seed）都要固定’），否则分数不可比，且1.0会增加随机性，损害评测稳定性。",
+      "difficulty_label": "中等"
+    },
+    {
+      "type": 0,
+      "stem": "某团队发现其LLM-as-Judge评测结果存在系统性偏差：对长答案评分普遍高于短答案，即使二者事实正确性一致。为校准该偏见，依据教材7.8.1节，以下哪项是最直接有效的缓解措施？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "在评分提示词中明确添加‘答案长度不影响评分，仅依据事实正确性与完整性打分’"
+        },
+        {
+          "option_label": "B",
+          "option_text": "对所有待评答案统一截断至200字后再提交给评委"
+        },
+        {
+          "option_label": "C",
+          "option_text": "采用多评委投票机制，取三个不同LLM评委的平均分"
+        },
+        {
+          "option_label": "D",
+          "option_text": "在评测集构建时，只收录长度在150-250字之间的答案样本"
+        }
+      ],
+      "answer": "A",
+      "analysis": "教材7.8.1节明确将‘长度偏见’列为LLM-as-Judge四大固有偏见之一，并在‘校准标准动作’中首条即要求‘评分提示词明确维度、量表’（7.8.1节principle）。A项直接在提示词中约束评委行为，是教材指定的源头治理方案。B项虽能消除长度差异，但可能截断关键信息，违背‘完整性’要求，且教材未推荐此法；C项（多评委）是教材建议的缓解手段之一，但针对的是‘自我偏好’等综合偏见，对单一长度偏见不如A直接；D项是评测集设计缺陷（违反‘分层/分难度覆盖’原则），且无法解决评委自身偏好问题，教材7.8.2节强调‘分层覆盖’包括不同长度文本。",
+      "difficulty_label": "基础"
+    },
+    {
+      "type": 1,
+      "stem": "在实施评测驱动开发（EDD）流程时，以下哪些做法严格遵循教材7.1节‘评测先行’原则及7.5节故障定位逻辑？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "在优化前，先用冻结的评测集跑出基线分数，明确当前各指标短板"
+        },
+        {
+          "option_label": "B",
+          "option_text": "当Answer Correctness下降时，仅查看该总分变化，不再分析Context Recall与Faithfulness等子指标"
+        },
+        {
+          "option_label": "C",
+          "option_text": "每次代码合并前，CI流水线自动运行回归评测，对比与上一版本的指标差异"
+        },
+        {
+          "option_label": "D",
+          "option_text": "为快速上线，先部署提示词优化版本，再根据用户反馈补建评测集"
+        }
+      ],
+      "answer": "AC",
+      "analysis": "A正确：完全对应教材7.1节‘评测先行’定义——‘先建评测集、拿到基线分数，再动手优化’，且‘明确短板’是EDD五大用途之一（7.1节value）；C正确：符合‘评测驱动开发’中‘度量反馈越快越准，改进效率越高’原则（7.1节concept），且‘回归评测’是防止跷跷板效应的核心机制（7.1节principle）；B错误：严重违背7.5节‘黄金法则’——‘只看Answer Correctness一个总分’是教材明确警告的踩坑行为（7.5节risk），必须结合子指标定位；D错误：是教材7.1节明确反对的‘先优化，效果好了再补评测’（7.1节exam），违反‘评测先行’根本原则。",
+      "difficulty_label": "中等"
+    }
+  ]
+}

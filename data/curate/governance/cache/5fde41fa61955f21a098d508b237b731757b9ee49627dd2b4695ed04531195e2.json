@@ -1,0 +1,216 @@
+{
+  "4-0393": {
+    "qid": "4-0393",
+    "classification": "own",
+    "chapter": 4,
+    "quality": "ok",
+    "reason": "考查多Agent核心优势，C选项与单Agent本质矛盾",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "单Agent即可处理所有市场参与者的策略制定与执行，简化系统设计",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "符合多Agent模拟独立决策优势"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "符合竞争合作建模优势"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "违背多Agent设计初衷"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "符合异构性探索优势"
+      }
+    ],
+    "duplicate_of": "4-1225"
+  },
+  "4-0585": {
+    "qid": "4-0585",
+    "classification": "cross",
+    "chapter": 4,
+    "quality": "review",
+    "reason": "ModelScope-Agent非本章核心内容，需确认框架原文",
+    "answer": [],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "框架是否自动分解未明确"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "依赖关系处理未说明"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "与ReAct闭环矛盾"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "自动编排暗示无需手动"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "4-0899": {
+    "qid": "4-0899",
+    "classification": "own",
+    "chapter": 4,
+    "quality": "ok",
+    "reason": "直接对应多Agent四原则",
+    "answer": [
+      "A",
+      "B",
+      "D"
+    ],
+    "supported": true,
+    "quote": "多 Agent 设计四条硬原则（明确职责、独立凭据、中央调度、避免全量注入）",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "对应明确职责原则"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "通信机制是协作基础"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "中央调度≠集中决策"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "对应职责明确与互补"
+      },
+      {
+        "label": "E",
+        "selected": false,
+        "why": "违反避免全量注入"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "4-1225": {
+    "qid": "4-1225",
+    "classification": "own",
+    "chapter": 4,
+    "quality": "ok",
+    "reason": "与4-0393完全重复题干和选项",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "单一Agent即可处理所有市场参与者的策略制定与执行，简化系统设计",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "符合异构性优势"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "符合动态建模优势"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "违背多Agent设计本质"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "符合独立决策优势"
+      }
+    ],
+    "duplicate_of": "4-0393"
+  },
+  "4-1229": {
+    "qid": "4-1229",
+    "classification": "own",
+    "chapter": 4,
+    "quality": "ok",
+    "reason": "考查单Agent四件套实现步骤",
+    "answer": [
+      "A",
+      "C"
+    ],
+    "supported": true,
+    "quote": "工具必须以 JSON-Schema 描述自己（名称、参数、用途），让模型知道'有什么可用、怎么用'",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "工具定义是前提"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "API创建非必要步骤"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "映射确保调用正确"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "分布式非单Agent必需"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "4-1271": {
+    "qid": "4-1271",
+    "classification": "cross",
+    "chapter": 4,
+    "quality": "review",
+    "reason": "百炼平台属第10章内容，需确认原文是否覆盖多Agent编排",
+    "answer": [],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "可视化属平台特性"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "协作逻辑需验证"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "低代码不等于零代码"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "效果验证需实证"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

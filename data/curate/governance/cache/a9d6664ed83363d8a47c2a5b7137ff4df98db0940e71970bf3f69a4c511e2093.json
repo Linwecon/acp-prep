@@ -1,0 +1,154 @@
+{
+  "items": [
+    {
+      "type": 0,
+      "stem": "某金融风控团队构建智能Agent，需依次执行：①从扫描件PDF财报中提取关键指标；②调用内部API获取行业均值；③对比生成风险摘要；④触发预警。团队要求链路可观测、可灰度、状态可调试。根据第12章12.4节‘LangChain vs LlamaIndex组合’与12.6.1节AgentScope定位，以下哪项框架分工最符合‘各司其职’原则？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "全程使用AgentScope：用DashScopeParse解析PDF，内置ReActAgent串联API调用与摘要生成"
+        },
+        {
+          "option_label": "B",
+          "option_text": "LlamaIndex负责PDF解析与指标提取（Document→Node→Index），LangChain Agent负责API调用、状态管理与多步编排"
+        },
+        {
+          "option_label": "C",
+          "option_text": "Dify可视化工作流拖拽完成全部节点，因支持OCR和HTTP工具，无需代码框架"
+        },
+        {
+          "option_label": "D",
+          "option_text": "LangChain统一处理所有环节：用UnstructuredReader加载PDF，Chain串联Embedding、API调用与LLM合成"
+        }
+      ],
+      "answer": "B",
+      "analysis": "依据原文12.4节‘二者不是互斥，而是可以组合’及图示架构：LlamaIndex专精‘数据层’（文档解析/切片/索引/检索），其12.5节明确指出‘扫描件PDF应上DashScopeParse’，且12.3节强调LlamaIndex的QueryEngine天然适配结构化上下文生成；而LangChain在12.2节定义为‘通用编排框架’，其Agent/Tool/Memory抽象专为‘多步骤流程、工具调用、状态机’设计——本题中‘调用API→对比→触发预警’正是典型多步状态流转，非LlamaIndex主战场。选项A错误：AgentScope虽支持多Agent协作，但12.6.1节指出其核心优势在‘消息广播与角色协同’，而非‘单Agent深度RAG+复杂工具链’；选项C错误：12.6.2节强调Dify是‘低代码平台’，适合原型与非工程人员，但‘可观测、可灰度、可调试’属代码框架能力，Dify无法满足；选项D错误：12.1节‘risk’明确警示‘在同一个项目里用两套抽象同时建索引、写检索逻辑’是反模式，且LangChain的Retrieval模块不如LlamaIndex对扫描件解析生态完善。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 1,
+      "stem": "在将LlamaIndex的VectorStoreIndex封装为LangChain Tool供Agent调用时，若Agent反复调用却返回无关内容，以下哪些原因符合第12章对组合约束的描述？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "Tool的args_schema未声明query_str参数，导致Agent无法向检索器传递用户问题"
+        },
+        {
+          "option_label": "B",
+          "option_text": "LlamaIndex QueryEngine的prompt_template中{context_str}与{query_str}被互换，使模型误将用户问题当上下文"
+        },
+        {
+          "option_label": "C",
+          "option_text": "未持久化LlamaIndex索引，每次调用Tool均重建索引，导致检索目标文档丢失"
+        },
+        {
+          "option_label": "D",
+          "option_text": "LangChain Agent的Tool注册时未设置return_direct=True，造成结果被二次LLM处理"
+        }
+      ],
+      "answer": "A,B,C",
+      "analysis": "A正确：12.2节明确‘Tool的参数必须用JSON Schema声明’，这是Function Calling协议基础，缺失则Agent无法构造有效tool_calls；B正确：12.3节‘两个高频考点细节’第一条强调‘{context_str}是检索到的上下文，不是用户问题’，且12.8节自测题解析指出‘写反会导致模型把问题当资料、把资料当问题’，直接导致答非所问；C正确：12.3节明确‘索引需要持久化，避免每次重建’，若每次调用都重建，旧文档未纳入索引，必然召回失效；D错误：return_direct控制是否跳过最终LLM生成，与‘返回无关内容’无直接因果，且12.2节未将其列为组合必要约束，属于高级配置项而非根本性故障原因。",
+      "difficulty_label": "挑战"
+    },
+    {
+      "type": 0,
+      "stem": "调试一个基于LangChain+LlamaIndex组合的RAG Agent时，发现Agent调用知识库Tool后，返回的context_str内容始终是固定模板文本（如‘请提供具体问题’），而非实际检索结果。检查LlamaIndex端日志显示检索器正常返回Node列表。根据第12章12.3节与12.4节，此故障最可能的根本原因是？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "LlamaIndex的QueryEngine未正确注入LLM，导致synthesizer使用默认fallback提示词"
+        },
+        {
+          "option_label": "B",
+          "option_text": "LangChain Tool封装时未将LlamaIndex Retriever的retrieve方法结果映射到context_str字段"
+        },
+        {
+          "option_label": "C",
+          "option_text": "LlamaIndex Index未调用as_retriever()生成Retriever，导致Tool调用的是原始索引对象"
+        },
+        {
+          "option_label": "D",
+          "option_text": "LangChain Agent的Tool定义中，func参数指向了index.query()而非retriever.retrieve()"
+        }
+      ],
+      "answer": "D",
+      "analysis": "依据12.4节组合模式图示与文字描述：‘用LlamaIndex建好向量索引、封装成一个Retriever，再把这个Retriever作为Tool挂到LangChain的Agent上’。关键约束在于‘Retriever负责召回，QueryEngine负责端到端回答’。若Tool指向index.query()（即QueryEngine），则其返回的是完整Response对象，其中context_str已被合成器处理；但题目现象是‘返回固定模板文本’，说明Tool实际执行的是index.query()的fallback行为（如未配置LLM时的默认响应）。而12.3节明确‘Retriever负责召回相关Node’，其返回值是Node列表，需由LangChain Tool自行组织为context_str。选项D直指组合核心错误：Tool应调用retriever.retrieve()获取原始Node，再格式化为context_str；若错误调用index.query()，则绕过Retriever，触发QueryEngine的兜底逻辑。A、B、C均非原文强调的组合必要条件：A涉及QueryEngine配置，但故障现象指向Tool执行路径错误；B、C属于实现细节，原文未将‘映射字段’或‘as_retriever调用’列为强制约束。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 1,
+      "stem": "某团队采用‘LlamaIndex做数据层 + LangChain做编排层’组合架构。以下哪些操作违反第12章12.4节明确指出的‘反模式’？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "在LangChain Chain中重复实现Document加载与向量化逻辑，与LlamaIndex索引并存"
+        },
+        {
+          "option_label": "B",
+          "option_text": "为兼容历史代码，同时引入langchain-community.llms.tongyi和llama-index-llms.tongyi两个模型封装包"
+        },
+        {
+          "option_label": "C",
+          "option_text": "将LlamaIndex的SimpleDirectoryReader与LangChain的DirectoryLoader配置相同路径，分别触发两次文档解析"
+        },
+        {
+          "option_label": "D",
+          "option_text": "使用LangChain的VectorStoreRetriever Memory存储对话历史，同时用LlamaIndex的VectorStoreIndex存储知识库"
+        }
+      ],
+      "answer": "A,C",
+      "analysis": "原文12.4节‘反模式’明确列出：‘❌ 在同一个项目里用两套抽象同时建索引、写检索逻辑，导致数据结构和配置重复维护’。A选项‘在LangChain Chain中重复实现Document加载与向量化’直接对应‘写检索逻辑’，且与LlamaIndex索引并存，构成重复维护；C选项‘分别触发两次文档解析’对应‘数据结构重复维护’，因同一路径文档被解析两次，产生冗余Node/Embedding。B选项虽有依赖冗余风险，但12.1节‘risk’仅警告‘版本不匹配’，未列为组合反模式；D选项是合理分层：LangChain Memory用于对话状态，LlamaIndex Index用于知识库，二者作用域不同，12.4节图示亦显示二者并存于不同层级，不构成冲突。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 0,
+      "stem": "在AgentScope与LangChain混合部署场景中，若LangGraph节点调用AgentScope ReActAgent Tool后，Agent返回答案质量显著下降，且日志显示‘Formatter not set, using default’。根据第12章12.6.1节对Formatter作用的定义及12.4节组合原则，此问题的根本原因是什么？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "AgentScope Agent未配置Formatter，导致消息序列化为模型不可解析格式，LangChain无法正确提取tool_calls"
+        },
+        {
+          "option_label": "B",
+          "option_text": "LangChain Tool封装时未将AgentScope的MsgHub地址注入，导致消息广播失败"
+        },
+        {
+          "option_label": "C",
+          "option_text": "AgentScope ReActAgent的system_prompt与LangChain Chain的PromptTemplate冲突，引发提示词污染"
+        },
+        {
+          "option_label": "D",
+          "option_text": "LangGraph节点未启用asyncio事件循环，而AgentScope Agent默认异步执行"
+        }
+      ],
+      "answer": "A",
+      "analysis": "原文12.6.1节明确定义Formatter作用：‘如DashScopeChatFormatter、DashScopeMultiAgentFormatter，把Agent消息序列化成模型能接受的格式’。若未设置Formatter，‘using default’意味着使用基础序列化，无法保证符合千问等模型的输入格式（如缺少role字段、message结构错乱），导致LLM无法识别思考-行动-观察循环，答案质量必然下降。这直接违反12.4节‘组合’前提——组件间接口契约必须满足。B选项错误：MsgHub用于多Agent广播，单Tool调用无需广播；C选项错误：system_prompt与PromptTemplate分属不同抽象层，无直接冲突机制；D选项错误：12.2节LCEL明确支持异步，LangGraph亦原生支持，非根本原因。",
+      "difficulty_label": "挑战"
+    },
+    {
+      "type": 0,
+      "stem": "某教育公司新人答疑机器人演进至‘RAG知识库+多Agent协作+评测+上线’阶段。根据第12章12.8节‘务实选型主线’与12.4节组合原则，当需求明确包含‘查制度文档’和‘调请假系统API’时，技术栈中LlamaIndex与LangChain的必要性关系是？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "LlamaIndex为可选，LangChain为必需：因API调用必须用LangChain Tool，RAG可用裸SDK实现"
+        },
+        {
+          "option_label": "B",
+          "option_text": "二者均为必需：LlamaIndex保障RAG深度检索质量，LangChain保障多工具编排可靠性"
+        },
+        {
+          "option_label": "C",
+          "option_text": "LlamaIndex为必需，LangChain为可选：因RAG是核心需求，API调用可用裸SDK硬编码"
+        },
+        {
+          "option_label": "D",
+          "option_text": "二者均为可选：Dify可一站式覆盖RAG与API调用，无需代码框架"
+        }
+      ],
+      "answer": "B",
+      "analysis": "依据12.8节选型表：‘RAG + Agent 都要、且都复杂 → LlamaIndex 做数据 + LangChain 做编排’；12.4节场景题明确‘应用以 RAG 为主，但需要一个会查知识库也会调请假/报销 API 的 Agent’的正解是‘LlamaIndex 做检索 + LangChain/LangGraph 做 Agent 编排’。此处‘查制度文档’对应LlamaIndex强项（12.3节‘RAG是主战场’），‘调请假系统API’对应LangChain强项（12.2节‘Agent/Tool是核心抽象’）。A、C错误：忽略二者在各自领域的不可替代性，12.1节指出裸SDK在复杂场景下‘代码迅速膨胀’；D错误：12.6.2节强调Dify是‘低代码平台’，适合原型，但‘多Agent协作+评测+上线’需代码级控制，Dify无法满足‘可观测、可调试’要求。",
+      "difficulty_label": "进阶"
+    }
+  ]
+}

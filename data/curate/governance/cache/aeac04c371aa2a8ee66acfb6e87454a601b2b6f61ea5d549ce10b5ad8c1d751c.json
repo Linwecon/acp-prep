@@ -1,0 +1,154 @@
+{
+  "items": [
+    {
+      "type": 0,
+      "stem": "某多Agent报销查询系统中，Leader Agent将任务分派给Worker A（查单据）和Worker B（查审批流）。上线后发生两起事故：1）Worker A因权限过高误删了审批日志表；2）Leader响应延迟飙升至8秒。经审计发现：两个Worker共用同一数据库账号，且所有Worker的完整系统提示词被拼接进Leader初始Prompt。这两起事故分别违反了多Agent设计四条硬原则中的哪两条？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "①违反明确职责，②违反中央调度"
+        },
+        {
+          "option_label": "B",
+          "option_text": "①违反独立凭据，②违反避免全量注入"
+        },
+        {
+          "option_label": "C",
+          "option_text": "①违反中央调度，②违反明确职责"
+        },
+        {
+          "option_label": "D",
+          "option_text": "①违反避免全量注入，②违反独立凭据"
+        }
+      ],
+      "answer": "B",
+      "analysis": "①误删审批日志表源于Worker A拥有超出其子任务（查单据）所需的数据库权限，本质是未按最小权限原则分配凭据——直接违反'独立凭据'原则（教材4.7节原文：'不同Agent不得共用同一套账号/API凭据，按最小权限分别授权，防止越权与横向扩散'）；②Leader响应延迟飙升主因是将全部Worker提示词一次性注入，导致上下文膨胀、注意力稀释、token成本激增——直接违反'避免全量注入'原则（教材4.7节原文：'不要把所有Agent的知识/工具清单一次性写进主Prompt，应按需加载、按需调用，否则上下文膨胀、注意力被稀释、token成本飙升'）。A、C、D选项均错配原则与现象：'明确职责'指任务边界不重叠（如Worker A不应处理审批流逻辑），但题干未体现职责混淆；'中央调度'指Leader统一决策分派，题干中分派行为本身恰恰体现了该原则，延迟是注入副作用而非调度失效。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 0,
+      "stem": "一个课程审查Skill已封装为目录结构，含SKILL.md（含YAML frontmatter）、code-quality.md及validate_code.py。当用户首次请求'审查Pandas教程代码'时，Agent仅加载SKILL.md中的name/description字段，未读取子文档或执行脚本。这种分阶段加载机制主要服务于哪一核心设计目标？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "降低LLM推理延迟，避免长上下文导致的中间迷失"
+        },
+        {
+          "option_label": "B",
+          "option_text": "实现Skill的版本化管理与Git协作流程"
+        },
+        {
+          "option_label": "C",
+          "option_text": "确保渐进式披露，防止无关知识污染当前任务上下文"
+        },
+        {
+          "option_label": "D",
+          "option_text": "提升确定性检查覆盖率，使验证器能独立运行"
+        }
+      ],
+      "answer": "C",
+      "analysis": "该行为精准对应教材4.9节定义的'渐进式披露（Progressive Disclosure）'：Agent启动时只看到所有Skill的description（极短文本），由模型自主判断是否激活；激活后才读取SKILL.md正文，执行到具体步骤时再按需加载子文档或调用脚本。此举核心价值是'不重复交代、不污染无关任务、不撑爆上下文'（教材原文）。A虽是客观收益，但非设计目标（延迟是结果，非机制初衷）；B是Skill工程实践，但与加载时机无直接因果；D是评测手段，与加载策略无关。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 1,
+      "stem": "某金融风控Agent需完成'评估客户贷款申请'，涉及征信查询、收入验证、风控模型三个工具。当前采用固定流水线：征信→收入→风控。但征信API临时不可用导致流程卡死。为提升鲁棒性，以下哪些调整符合本章4.6节'规划策略'的最佳实践？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "引入ReAct模式，在每轮Observation后动态决定下一步：若征信超时，则改用备用渠道或主动向用户索要征信报告编号"
+        },
+        {
+          "option_label": "B",
+          "option_text": "将整个流程固化为Skill，并在SKILL.md中预设'征信失败时跳过并记录风险项'的分支逻辑"
+        },
+        {
+          "option_label": "C",
+          "option_text": "采用Plan-and-Execute策略，先生成含条件分支的JSON计划（如'若征信返回error_code=503，则执行income_validation_first'），再逐项执行"
+        },
+        {
+          "option_label": "D",
+          "option_text": "增加外部反馈环节，用代码解释器实时验证征信API连通性，将结果作为Observation输入模型"
+        }
+      ],
+      "answer": "A,C,D",
+      "analysis": "A正确：ReAct的核心价值正是'用真实反馈修正后续步骤'（教材4.4节），超时即Observation，模型可据此重试/换方案/求助用户；C正确：Plan-and-Execute要求围绕目标生成含条件分支的计划（教材4.6.3节），'征信失败则先验收入'是典型动态路径；D正确：外部反馈通过真实执行校验环境状态（教材4.6.1节），连通性验证是前置保障。B错误：Skill固化的是稳定SOP，而'征信不可用'属异常场景，预设分支会破坏Skill的稳定性与可维护性；教材4.6.3节明确'探索-固化'混合模式——异常路径应先经ReAct/自主规划探索，验证稳定后再固化，而非强行塞入Skill。",
+      "difficulty_label": "挑战"
+    },
+    {
+      "type": 0,
+      "stem": "某企业接入OA、HRIS、CRM等15个内部工具，当前每个Agent均硬编码所有工具Schema，工具方参数变更需全量重新部署。为根治此问题，应优先引入哪项技术？其与Function Calling的关系应如何理解？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "引入MCP协议；MCP解决工具'如何被发现与管理'，Function Calling解决模型'如何触发调用'，二者互补"
+        },
+        {
+          "option_label": "B",
+          "option_text": "升级Function Calling Schema描述能力；Function Calling已内置工具发现机制，只需优化JSON-Schema字段"
+        },
+        {
+          "option_label": "C",
+          "option_text": "构建统一工具网关；网关负责Schema转换，Function Calling仍为唯一调用入口"
+        },
+        {
+          "option_label": "D",
+          "option_text": "采用ReAct模式动态学习工具；模型通过多轮Observation自主归纳工具接口"
+        }
+      ],
+      "answer": "A",
+      "analysis": "教材4.5节明确：MCP是解决'工具怎么被发现、被管理、被复用'的标准化协议，其Server端由工具提供方维护Schema，Agent通过Client动态拉取，新增工具无需改Agent代码（原文：'让工具作为独立Server暴露，Agent通过标准协议动态发现'）。Function Calling则解决'模型会不会、怎么调用工具'（调用机制），二者关系是'互补，不是替代'（原文：'MCP解决接入标准化，FC解决调用机制'）。B错误：FC API层不提供自动发现能力，Schema必须由开发者显式传入；C错误：网关是工程方案，但无法解决跨Agent Schema同步与版本管理；D错误：ReAct不学习接口，它基于已知Schema做决策。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 1,
+      "stem": "某课程审查Agent在连续30轮对话中丢失首轮设定的'严谨学术风'要求，当前采用固定窗口截断（保留最近10轮）。工程师计划升级Memory策略。以下哪些方案符合教材4.8节推荐的'组合策略'且能根治该问题？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "将'严谨学术风'偏好存入向量库，每次新任务前按语义检索并注入上下文"
+        },
+        {
+          "option_label": "B",
+          "option_text": "改用滚动摘要策略，用LLM将前20轮对话压缩为200字摘要，替换原始历史"
+        },
+        {
+          "option_label": "C",
+          "option_text": "对关键偏好建立写入准入机制，仅当用户显式声明'请记住学术风格'时才持久化"
+        },
+        {
+          "option_label": "D",
+          "option_text": "将风格要求写入QWEN.md全局配置文件，由Harness工程强制注入每轮上下文"
+        }
+      ],
+      "answer": "A,C",
+      "analysis": "A正确：向量化长期记忆专为跨会话关键事实（如用户偏好）设计，能摆脱窗口限制按需检索（教材4.8节：'向量化召回：海量记忆按需取用'）；C正确：教材4.8节强调'有选择地记'，建立写入准入机制防止噪声污染，'显式声明'是典型准入条件。B错误：滚动摘要虽优于截断，但摘要质量不稳定，且30轮后首轮关键信息仍可能在压缩中丢失；D错误：QWEN.md属于Harness范畴（教材4.11节），用于全局约束，但'学术风格'是用户个性化偏好，应由Memory管理而非全局配置，且教材未提及其可自动注入每轮。",
+      "difficulty_label": "挑战"
+    },
+    {
+      "type": 0,
+      "stem": "某医疗咨询Agent检索到若干药品说明片段，用户询问'我能不能自行加量服用'。根据教材4.6.1节反思策略，最稳妥的处理方式是？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "调用药品说明书解析工具提取剂量禁忌条款，将结构化结果作为Observation输入模型，由模型结合用户病史生成建议"
+        },
+        {
+          "option_label": "B",
+          "option_text": "启用自我反馈模式，让同一模型再次审查初稿，确认是否提及'禁止自行加量'"
+        },
+        {
+          "option_label": "C",
+          "option_text": "直接调用外部药品数据库API，获取该药最新临床指南中关于剂量调整的权威结论"
+        },
+        {
+          "option_label": "D",
+          "option_text": "启动HITL流程，暂停执行并将问题转交执业医师人工审核"
+        }
+      ],
+      "answer": "A",
+      "analysis": "教材4.6.1节明确区分反思模式：'外部反馈（External Feedback）'是'用工具真实执行/校验，把报错、日志、截图喂回模型'，其核心是'让事实说话'（原文）。A选项正是典型外部反馈：用工具解析说明书→获取结构化禁忌条款→作为Observation喂回模型→模型据此生成合规建议，全程基于客观事实而非模型自证。B是自我反馈，易带相同偏差；C虽是外部数据，但未体现'校验-反馈'闭环，而是直接替代模型决策；D是HITL，适用于高风险操作，但本题未达需人工介入的紧急程度（教材4.6.2节：HITL用于'高风险操作、模糊需求'），且题干强调'最稳妥'而非'最保守'，外部反馈更符合工程最佳实践。",
+      "difficulty_label": "进阶"
+    }
+  ]
+}

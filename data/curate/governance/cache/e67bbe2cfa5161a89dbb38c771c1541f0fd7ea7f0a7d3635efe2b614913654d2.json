@@ -1,0 +1,154 @@
+{
+  "items": [
+    {
+      "type": 0,
+      "stem": "某企业微信答疑机器人开启流式响应后，前端持续收到SSE帧，但最终拼接出的完整回答缺失首句。经抓包发现首帧内容为空字符串（delta.content为None），第二帧才开始输出文字。该现象最可能违反了SSE协议哪一必要约束？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "未在首帧中发送event: message标识事件类型"
+        },
+        {
+          "option_label": "B",
+          "option_text": "服务端未在首帧返回非空delta.content，导致客户端跳过初始化逻辑"
+        },
+        {
+          "option_label": "C",
+          "option_text": "缺少data:字段前缀，导致首帧被浏览器SSE解析器丢弃"
+        },
+        {
+          "option_label": "D",
+          "option_text": "未设置Content-Type: text/event-stream响应头"
+        }
+      ],
+      "answer": "B",
+      "analysis": "依据原文9.6节‘流式输出：SSE原理与逐Token实现’及配套代码示例：流式响应中每一帧的增量内容必须通过chunk.choices[0].delta.content提取；当delta.content为None时（常见于首帧含system/user角色元数据或finish_reason等控制信息），客户端若未做空值容错处理，直接跳过该帧，则会导致首句丢失。原文明确强调‘SSE帧是增量（delta）而不是完整结果’，且风险提示第1条指出‘把流式响应当完整JSON解析’是高频坑——本题考查的是对delta语义的深度理解：delta.content为空不等于无效帧，而是SSE协议中合法的控制帧（如携带role、tool_calls等元信息），客户端必须兼容空content并维护状态机。选项A、C、D虽属SSE规范要求，但原文未将其列为API调用层故障主因；而B项直指教材强调的‘逐帧拼接’工程实践本质，符合‘实际场景+故障诊断’命题要求。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 1,
+      "stem": "开发团队为新人答疑机器人实现流式响应，但上线后出现TTFT（首Token延迟）高达3.2秒，远超用户可接受阈值。已确认模型为qwen-plus、prompt无冗余。以下哪些配置或实现问题可能导致此现象？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "客户端HTTP读取超时设置为2秒，导致连接被强制中断后重试"
+        },
+        {
+          "option_label": "B",
+          "option_text": "messages中system prompt包含动态时间戳（如'当前时间：2024-06-15 08:30'），破坏上下文缓存命中"
+        },
+        {
+          "option_label": "C",
+          "option_text": "未启用stream_options={'include_usage': True}，导致服务端无法优化token预分配"
+        },
+        {
+          "option_label": "D",
+          "option_text": "前端未使用EventSource API，而是轮询普通HTTP接口模拟流式"
+        }
+      ],
+      "answer": "A,B,D",
+      "analysis": "依据原文9.6节‘流式输出’原理与9.8节‘错误处理’：A项正确——原文9.6风险提示第2条明确‘读取超时设得太短…会被误判为超时断开’，2秒超时必然中断长连接，造成TTFT劣化；B项正确——原文9.9节‘上下文缓存为什么能省钱’指出‘保持前缀稳定’是命中缓存前提，动态时间戳使每次system prompt不同，导致无法利用缓存加速首Token生成；D项正确——轮询普通HTTP接口违背SSE长连接本质，每次请求需重建TCP/SSL，显著增加TTFT。C项错误——stream_options={'include_usage': True}仅影响最后一帧的usage统计，与TTFT无关，原文9.6风险提示第3条已说明其用途限于Token用量统计，不参与推理调度。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 0,
+      "stem": "某HR系统采用流式SSE向员工展示培训摘要生成过程，但运维监控发现大量SSE连接在传输中途异常关闭。日志显示服务端返回HTTP 200但Connection: close，且客户端报错'NetworkError when attempting to fetch resource'。该故障最可能源于哪一服务端配置缺失？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "未在响应头中设置Cache-Control: no-cache"
+        },
+        {
+          "option_label": "B",
+          "option_text": "未在响应头中设置X-Accel-Buffering: no（Nginx反向代理场景）"
+        },
+        {
+          "option_label": "C",
+          "option_text": "未在响应体中每帧末尾添加\\n\\n分隔符"
+        },
+        {
+          "option_label": "D",
+          "option_text": "未在请求头中设置Accept: text/event-stream"
+        }
+      ],
+      "answer": "B",
+      "analysis": "依据原文9.6节SSE协议实现背景及工程实践：SSE依赖HTTP长连接，而Nginx等反向代理默认启用缓冲（buffering），会累积多帧后统一发送，导致客户端长时间收不到数据而触发超时断连。原文虽未直接提及Nginx配置，但9.6节强调‘SSE协议报文形如data: {...}\\n\\n’，且9.8节‘超时分开设置’隐含对网络中间件的影响认知。选项B是生产环境SSE部署的典型必要配置，符合‘组合约束’考查要求；A项Cache-Control: no-cache是SSE标准要求，但缺失不会导致连接关闭；C项\\n\\n分隔符缺失会导致客户端解析失败而非连接关闭；D项Accept头缺失通常返回406错误而非200+close。",
+      "difficulty_label": "挑战"
+    },
+    {
+      "type": 1,
+      "stem": "为保障流式响应的可靠性，开发团队需设计容错机制。以下哪些措施符合原文9.6节‘流式开发的三个高频坑’及9.8节重试原则？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "对流式响应中的每一帧delta.content进行非空校验，空值帧跳过拼接但保留计数"
+        },
+        {
+          "option_label": "B",
+          "option_text": "当检测到SSE连接中断时，记录最后成功接收的frame_id，重连后发送resume参数请求续传"
+        },
+        {
+          "option_label": "C",
+          "option_text": "为避免重试风暴，对429错误采用指数退避+抖动策略，但对流式连接超时错误（如network error）立即重试"
+        },
+        {
+          "option_label": "D",
+          "option_text": "在客户端维护一个buffer数组，按序存储所有received delta.content，最终join()生成完整文本"
+        }
+      ],
+      "answer": "A,D",
+      "analysis": "依据原文9.6节风险提示：A项对应‘必须逐帧拼接’原则，且空content帧（如首帧含role信息）需容错处理，符合教材‘逐帧拼接’核心要求；D项是流式拼接的标准实现，原文示例代码yield chunk.choices[0].delta.content即隐含此逻辑。B项错误——原文未提及SSE断点续传机制，且SSE协议本身不支持resume，重连需全量重发；C项错误——原文9.8节明确‘4xx（429除外）重试毫无意义’，而网络错误属于客户端问题，立即重试可能加剧雪崩，应结合退避策略，不符合‘对症下药’原则。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 0,
+      "stem": "某在线客服系统启用流式响应后，用户反馈‘打字机效果卡顿，每隔1.5秒才蹦出一个词’。经排查，服务端生成速度正常（各token间隔<100ms），但客户端EventSource收到帧的时间间隔呈规律性1.5秒周期。该现象最可能由哪一网络层约束导致？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "CDN节点对text/event-stream响应启用了1.5秒缓冲策略"
+        },
+        {
+          "option_label": "B",
+          "option_text": "客户端EventSource的readyState在connecting状态停留1.5秒"
+        },
+        {
+          "option_label": "C",
+          "option_text": "服务端未在每帧末尾发送comment:行（以:开头），触发浏览器SSE心跳超时重连"
+        },
+        {
+          "option_label": "D",
+          "option_text": "负载均衡器对长连接设置了1.5秒空闲超时"
+        }
+      ],
+      "answer": "A",
+      "analysis": "依据原文9.6节SSE协议特性及工程现实：SSE要求服务端持续发送数据维持连接，而CDN/网关常对text/event-stream启用缓冲以减少小包传输。原文虽未明述CDN，但9.6节强调‘SSE协议报文形如data: {...}\\n\\n’，且9.8节‘超时分开设置’暗示中间件影响。选项A是生产环境典型瓶颈，符合‘实际场景’要求；B项readyState停留属连接建立阶段，与已建立连接后的卡顿无关；C项comment:行用于注释，非必需，缺失不会导致周期性卡顿；D项空闲超时会直接断连而非周期性延迟。",
+      "difficulty_label": "挑战"
+    },
+    {
+      "type": 1,
+      "stem": "在实现流式SSE时，以下哪些条件同时满足才能确保客户端正确解析并拼接出完整语义？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "服务端每帧必须包含data:前缀且以\\n\\n结尾"
+        },
+        {
+          "option_label": "B",
+          "option_text": "客户端必须忽略所有delta.content为None的帧"
+        },
+        {
+          "option_label": "C",
+          "option_text": "客户端需按帧到达顺序拼接delta.content，不可并行处理"
+        },
+        {
+          "option_label": "D",
+          "option_text": "服务端需保证同一请求的所有帧按生成顺序发送，无乱序"
+        }
+      ],
+      "answer": "A,C,D",
+      "analysis": "依据原文9.6节‘SSE协议报文形如data: {...}\\n\\n’及‘逐帧拼接’原则：A项是SSE协议强制要求，缺失将导致解析失败；C项正确——流式语义依赖顺序，原文示例代码for chunk in response即体现顺序迭代；D项正确——乱序帧将破坏语言连贯性，属协议基础约束。B项错误——原文9.6风险提示及代码示例均表明需处理delta.content为None的帧（如首帧含role信息），忽略将导致语义缺失，违反‘增量帧’本质。",
+      "difficulty_label": "进阶"
+    }
+  ]
+}

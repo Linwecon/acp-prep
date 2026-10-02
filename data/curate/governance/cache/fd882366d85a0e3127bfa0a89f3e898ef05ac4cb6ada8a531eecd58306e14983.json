@@ -1,0 +1,206 @@
+{
+  "8-0953": {
+    "qid": "8-0953",
+    "classification": "own",
+    "chapter": 8,
+    "quality": "ok",
+    "reason": "红队测试专用于主动攻击模型以暴露安全缺陷",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "红队测试（Red Teaming）是AI安全中专门用于主动探测模型有害输出、偏见、越狱等安全漏洞的评估方法",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "MMLU测知识能力，非安全性"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "红队测试专攻安全漏洞挖掘"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "单元测试验证代码逻辑，不测内容安全"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "压力测试验系统负载，非内容风险"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "8-1127": {
+    "qid": "8-1127",
+    "classification": "own",
+    "chapter": 8,
+    "quality": "ok",
+    "reason": "流式输出实时扫描兼顾合规与体验，符合三层防御要求",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "通过百炼调用时，只要在请求里加上特定请求头（如 X-DashScope-DataInspection）并完成授权，即可触发安全审查",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "正则易被绕过，且破坏流式体验"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "实时扫描不中断流式，符合输入/输出双向审查"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "直接终止响应损害用户体验"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "重写增加延迟，未提实时性保障"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "8-1212": {
+    "qid": "8-1212",
+    "classification": "misplaced",
+    "chapter": 8,
+    "quality": "remove",
+    "reason": "本地部署优势属部署架构题，非安全合规考点",
+    "answer": [],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "动态扩展是云优势"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "延迟受网络影响，非绝对优势"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "数据安全需结合加密等措施，非本地独有"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "本地运维成本通常更高"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "8-1222": {
+    "qid": "8-1222",
+    "classification": "misplaced",
+    "chapter": 8,
+    "quality": "remove",
+    "reason": "端云协同属部署架构，超出本章安全范畴",
+    "answer": [],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "端云协同仍依赖云端"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "效率与体验平衡非安全考点"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "硬件成本非本章重点"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "隐私等级提升需具体技术支撑"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "8-1251": {
+    "qid": "8-1251",
+    "classification": "own",
+    "chapter": 8,
+    "quality": "ok",
+    "reason": "内网域名泄露属数据安全风险，必须阻断",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "数据脱敏（去标识化）是在数据进入训练、评测、RAG链路之前，对姓名、手机号、证件号、地址、银行卡号等个人可识别信息（PII）做掩码、替换、泛化或删除",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "自动修正无法消除泄露风险"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "阻断是防止内网信息外泄的必要手段"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "响应速度与合规无关"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "仅记录日志违反最小必要原则"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "8-1279": {
+    "qid": "8-1279",
+    "classification": "misplaced",
+    "chapter": 8,
+    "quality": "remove",
+    "reason": "私有云部署优势属部署架构题，非安全合规考点",
+    "answer": [],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "私有云维护成本高"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "动态扩展是公有云优势"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "安全需加密+权限等组合，非部署模式独有"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "私有云需自建硬件"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

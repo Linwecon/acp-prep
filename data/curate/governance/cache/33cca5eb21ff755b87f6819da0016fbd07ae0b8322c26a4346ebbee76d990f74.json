@@ -1,0 +1,213 @@
+{
+  "new-7-6-0": {
+    "qid": "new-7-6-0",
+    "classification": "own",
+    "chapter": 7,
+    "quality": "ok",
+    "reason": "题目考察RAGAS指标变化与故障定位，需结合指标计算逻辑与依赖关系判断。",
+    "answer": [
+      "D"
+    ],
+    "supported": true,
+    "quote": "Context Precision = 各片段 precision 分之和 / 相关片段总数。这就是为什么'正确片段存在但排在后面'Precision 会低——它惩罚的正是把无关内容塞在前面、稀释模型注意力的排序",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "题干强调‘仅依据RAGAS输入依赖与计算逻辑’，未提及Embedding不一致。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "Faithfulness计算需要contexts，题干未提供证据表明未提供。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "Answer Correctness计算不需要contexts，题干描述与此矛盾。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "Recall升但Correctness降，Precision计算依赖排序，切片优化可能改变拼装顺序。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-7-6-1": {
+    "qid": "new-7-6-1",
+    "classification": "own",
+    "chapter": 7,
+    "quality": "ok",
+    "reason": "题目考察评测集构建铁律，需判断哪些操作违反‘问题真实’和‘答案专家提供’。",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "标准答案来自领域专家：技术人员能判断'系统有没有检索到相关内容'，但只有业务专家才知道'这个答案在业务上是否正确、完整、合规'",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "AI工程师生成ground_truth，违反‘必须由业务领域专家编写/审定’。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "人工构造对抗性问题不违反铁律，铁律关注问题来源和答案来源。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "使用历史对话作为question和ground_truth，可能同时满足‘问题真实’和‘答案专家提供’。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "邀请HRBP终审并签署确认书，符合‘领域专家审定’的要求。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-7-6-2": {
+    "qid": "new-7-6-2",
+    "classification": "own",
+    "chapter": 7,
+    "quality": "ok",
+    "reason": "题目考察根据RAGAS指标组合定位问题，需应用黄金法则和Precision计算逻辑。",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "Precision 低（Recall 高） → 找回来了但噪声多、排得靠后 → 加 Rerank、缩小 Top K、相似度阈值过滤、混合检索",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "Precision低Recall高，表明相关片段排名靠后，应检查前几条是否相关。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "Faithfulness高(0.91)表明生成端幻觉少，非优先排查项。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "Answer Correctness低但检索指标好，问题在生成端，但Faithfulness高，非最优先。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "Recall高(0.89)表明信息已检索到，非切片割裂导致。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-7-6-3": {
+    "qid": "new-7-6-3",
+    "classification": "own",
+    "chapter": 7,
+    "quality": "ok",
+    "reason": "题目考察Answer Correctness计算失效原因，需依据官方口径判断。",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "Answer Correctness = 0.25 × 语义相似度（余弦）+ 0.75 × 事实准确度（F1）。Faithfulness 用 question/answer/contexts；Answer Correctness 用 question/answer/ground_truth",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "未传入ground_truth，语义相似度和事实F1均无法计算，指标完全失效。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "观点拆分错误可能影响事实F1准确性，但不会导致计算‘失效’。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "Embedding模型升级不兼容影响相似度计算，但非官方口径明确指出的失效原因。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "temperature影响随机性，可能降低稳定性，但非计算‘失效’的直接原因。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-7-6-4": {
+    "qid": "new-7-6-4",
+    "classification": "own",
+    "chapter": 7,
+    "quality": "ok",
+    "reason": "题目考察Answer Relevancy低的原因，需依据其计算口径（含noncommittal判断）分析。",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "同时判断答案是否模棱两可（noncommittal）——含糊回避（如'我不知道''我不确定'）标记为 1",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "答案以‘无法确定’开头，属于noncommittal，提示词缺乏约束是直接原因。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "Relevancy低可能由检索差导致，但题干未提供检索指标，非最直接缺陷。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "评委LLM能力弱可能影响评分，但非系统本身的缺陷。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "ground_truth未覆盖边界场景影响评测基准，但非导致模型生成noncommittal答案的直接原因。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-7-6-5": {
+    "qid": "new-7-6-5",
+    "classification": "own",
+    "chapter": 7,
+    "quality": "ok",
+    "reason": "题目考察回归评测的控制变量原则，需判断哪些配置未冻结会导致分数不可比。",
+    "answer": [
+      "A",
+      "B"
+    ],
+    "supported": true,
+    "quote": "回归评测的前提是除了待测改动，其他一切都冻结：评测集版本、评测脚本、推理参数（temperature、seed）、模型版本、甚至当评委的大模型版本都要固定",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "评委LLM的temperature影响评分稳定性，未冻结导致分数不可比。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "被测系统的top_k检索参数直接影响检索结果，属于待测改动外的变量，需冻结。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "API endpoint地址是基础设施，不影响模型输出逻辑和评分逻辑。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "JSON Schema定义是数据结构，版本冻结重要，但未提及变化会导致分数不可比。"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

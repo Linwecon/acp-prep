@@ -1,0 +1,154 @@
+{
+  "items": [
+    {
+      "type": 0,
+      "stem": "某企业微信机器人在早高峰（8:30-9:00）频繁返回429错误，监控显示RPM配额每分钟达上限后突降，随后重试请求集中爆发。开发团队将重试逻辑改为“失败后立即重试3次”，结果错误率翻倍。根本原因及正确修复路径是？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "429是服务端过载，应升级模型档位以提升配额；修复方式是申请qwen-max专属配额"
+        },
+        {
+          "option_label": "B",
+          "option_text": "客户端未做并发控制，导致瞬时请求洪峰；应引入令牌桶限流，并对429采用指数退避+抖动重试"
+        },
+        {
+          "option_label": "C",
+          "option_text": "API Key权限不足，需联系管理员开通高RPM权限；修复方式是提交工单提升账户等级"
+        },
+        {
+          "option_label": "D",
+          "option_text": "流式响应未设置足够长的读取超时，导致连接中断被误判为429；应将read_timeout设为60秒"
+        }
+      ],
+      "answer": "B",
+      "analysis": "依据原文9.8节‘错误处理、限流与重试’：429明确归因为‘超过RPM/TPM/并发配额’（教材表），且‘重试风暴’案例与题干现象完全一致（早高峰触发限流→盲目重试加剧雪崩）。教材强调‘429该重试，但必须用指数退避+抖动’，并指出‘主动控并发’是生产环境checklist第一条（9.8::best）。选项A错误——升级模型档位不改变RPM配额（配额独立于model）；选项C错误——429非权限问题（403才是），教材明确区分403‘禁止访问’与429‘限流’；选项D错误——读取超时影响流式连接稳定性，但不会导致429（429由服务端限流模块返回，与客户端超时无关），且题干未提流式。故B为唯一符合教材全链路分析（现象→病根→修复）的选项。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 0,
+      "stem": "财务部门发现本月Token费用超支300%，排查日志发现：每次员工提问‘我们公司用什么项目管理工具’，系统均将全部历史对话（含5轮闲聊）+完整知识库切片（12KB）传入messages。而实际回答仅需Jira名称。最直接有效的成本优化措施是？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "将system prompt从‘你负责教育内容开发公司的答疑...’压缩为‘答Jira’，减少固定输入"
+        },
+        {
+          "option_label": "B",
+          "option_text": "启用上下文缓存，通过在messages开头添加时间戳确保前缀唯一性"
+        },
+        {
+          "option_label": "C",
+          "option_text": "实施滑动窗口截断，仅保留最近2轮user/assistant消息，并对早期对话生成摘要"
+        },
+        {
+          "option_label": "D",
+          "option_text": "改用qwen-turbo模型，其单价更低且支持更大上下文窗口"
+        }
+      ],
+      "answer": "C",
+      "analysis": "依据原文9.9节‘计费与 Token 配额’：账单暴涨主因是‘每次对话都把全部历史消息原封不动传给模型，输入Token一个月涨了5倍’（9.9::scenario），教材明确指出‘历史越长，输入Token越多、费用越高’（9.9::cost），并给出三大优化手段——‘滑动窗口截断’‘摘要压缩’‘RAG检索片段控制’（9.9::cost表格）。选项C完全对应教材‘滑动窗口截断’和‘摘要压缩’双策略，直击输入Token膨胀根源。选项A错误——system prompt压缩有效但贡献极小（题干中爆增来自12KB知识库+5轮闲聊）；选项B错误——缓存需‘保持前缀稳定’（9.9::principle），加时间戳反而破坏稳定性，导致缓存失效；选项D错误——qwen-turbo单价虽低，但无法解决输入Token过长问题，且‘更大上下文窗口’会纵容更长输入，违背成本控制原则（9.9::cost优先级第1条是‘先选对模型档位’，但前提是输入合理）。",
+      "difficulty_label": "高阶"
+    },
+    {
+      "type": 0,
+      "stem": "新人答疑机器人上线后，员工问‘怎么申请Jira账号’，模型回复‘请访问公司IT门户填写申请表’，但未提及Jira。经检查，第二轮调用的messages仅包含system和当前user消息，缺失第一轮assistant回复。此时最应优先验证的工程环节是？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "检查API Key是否在环境变量中正确加载，避免401错误干扰上下文"
+        },
+        {
+          "option_label": "B",
+          "option_text": "确认messages数组是否按‘system→user→assistant→user’顺序组织，且assistant消息已追加"
+        },
+        {
+          "option_label": "C",
+          "option_text": "验证temperature是否设为0.7，默认值可能导致指代消解失败"
+        },
+        {
+          "option_label": "D",
+          "option_text": "审查tool_calls字段是否存在，判断是否需调用IT系统API获取账号流程"
+        }
+      ],
+      "answer": "B",
+      "analysis": "依据原文9.5节‘messages结构与多轮对话’：核心概念是‘API无状态，多轮对话本质是客户端每次传全历史’（9.5::concept），且‘第二轮就失忆’的典型原因正是‘第二次调用时messages里只放user消息’（9.5::principle）。教材9.11故障排查地图明确将‘多轮对话失忆’对应到‘历史消息没放进messages’（9.11::table）。选项B直接指向教材定义的‘病根’——messages组织逻辑。选项A错误——401会导致请求失败而非答非所问；选项C错误——temperature影响随机性，与指代连贯性无关（教材9.4::exam指出‘答非所问首要查messages’）；选项D错误——题干无工具调用需求，且‘tool_calls’属于Function Calling范畴（9.7），与基础多轮对话无关。",
+      "difficulty_label": "基础"
+    },
+    {
+      "type": 1,
+      "stem": "某批量摘要任务需夜间处理2000份培训录音转写稿，要求次日9点前完成。技术负责人评估三种方案：①同步接口循环调用；②流式输出+拼接；③Batch API。根据教材9.10节，选择Batch API的核心优势包括？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "显著降低首Token延迟（TTFT），提升用户实时交互体验"
+        },
+        {
+          "option_label": "B",
+          "option_text": "通过异步后台调度，实现更高吞吐量，避免同步调用排队等待限流"
+        },
+        {
+          "option_label": "C",
+          "option_text": "通常提供比同步接口更经济的单价，降低大批量任务总成本"
+        },
+        {
+          "option_label": "D",
+          "option_text": "支持JSONL格式输入，便于按行校验结果对齐，保障2000份摘要的完整性"
+        }
+      ],
+      "answer": "BCD",
+      "analysis": "依据原文9.10节‘批量生成（Batch API）’：教材明确定义Batch优势为‘更高吞吐、更低单价’（9.10::concept），并对比表格指出其‘成本更经济’（9.10::table）、‘异步离线处理’（9.10::table）、‘JSONL输入输出’（9.10::principle）。选项B、C、D分别对应教材‘更高吞吐’‘更经济’‘JSONL校验’三大核心优势。选项A错误——教材9.10::risk明确指出‘Batch让单个请求更快返回’是常见误区，且9.6节强调TTFT优化是流式专属优势（‘在线对话默认开启流式，显著降低TTFT’），Batch反而延迟更高（‘几分钟到几十小时后’）。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 1,
+      "stem": "开发Function Calling功能时，模型返回了tool_calls，但最终答案仍为空白。以下哪些操作违反教材9.7节API视角规范？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "将tool_calls中的参数直接作为HTTP请求体发送至业务API，未解析JSON字符串"
+        },
+        {
+          "option_label": "B",
+          "option_text": "执行工具后，将结果以role='assistant'消息追加到messages中"
+        },
+        {
+          "option_label": "C",
+          "option_text": "第二次调用时未将第一次的response_message（含tool_calls）追加进messages"
+        },
+        {
+          "option_label": "D",
+          "option_text": "在tools定义中，将required字段设为空列表[]，导致模型无法提取必填参数"
+        }
+      ],
+      "answer": "BCD",
+      "analysis": "依据原文9.7节‘Function Calling从API视角’：教材9.7::risk列出四大API层错误——‘忘了把response_message追加进messages’（对应选项C）、‘回传结果时漏tool_call_id’（B选项用role='assistant'替代必需的role='tool'，即漏传关键字段）、‘Schema描述含糊’（D选项required=[]违反‘required漏标’错误）。选项A未违反规范——‘将参数直接发送’是程序执行环节，教材只要求‘真正调用业务函数’（9.7::code），未限定解析方式；且JSON字符串解析是常规操作，不属于教材定义的API层错误。故BCD为教材明文禁止的操作。",
+      "difficulty_label": "高阶"
+    },
+    {
+      "type": 0,
+      "stem": "前端工程师为快速联调，将DASHSCOPE_API_KEY硬编码在React组件中并提交至GitHub公开仓库。次日发现账单异常飙升。依据教材9.3节，应急处置的正确优先级是？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "立即在GitHub删除密钥文件 → 检查DashScope控制台调用记录 → 向财务报备损失"
+        },
+        {
+          "option_label": "B",
+          "option_text": "立刻禁用或轮换该API Key → 审查近24小时调用日志定位异常源 → 评估额度损失并告警"
+        },
+        {
+          "option_label": "C",
+          "option_text": "紧急回滚Git提交 → 在代码中添加环境变量读取逻辑 → 重新部署前端"
+        },
+        {
+          "option_label": "D",
+          "option_text": "联系阿里云客服冻结账户 → 下载全量API调用日志 → 提交漏洞赏金报告"
+        }
+      ],
+      "answer": "B",
+      "analysis": "依据原文9.3节‘API Key安全最佳实践’：教材9.3::exam明确给出泄漏后应急顺序——‘立即禁用/轮换Key → 检查近期调用记录 → 评估损失’（原文逐字引用）。选项B完全匹配教材标准流程。选项A错误——删除GitHub文件无法消除已泄露风险（Git历史仍存在），且未优先禁用Key；选项C错误——回滚和重构是事后加固，非应急优先级（教材强调‘立即禁用’）；选项D错误——冻结账户过度反应（应仅禁用Key），且‘漏洞赏金’非教材提及流程（教材聚焦内部处置）。教材9.3::risk强调‘GitHub爬虫7×24扫描’，印证B中‘检查调用记录’的紧迫性。",
+      "difficulty_label": "基础"
+    }
+  ]
+}

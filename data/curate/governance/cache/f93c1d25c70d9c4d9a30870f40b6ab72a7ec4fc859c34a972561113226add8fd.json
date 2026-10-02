@@ -1,0 +1,154 @@
+{
+  "items": [
+    {
+      "type": 0,
+      "stem": "某团队上线新版本答疑机器人后，RAGAS评测显示：Context Recall从0.82升至0.95，Context Precision从0.31降至0.24，Answer Correctness从0.68微降至0.65，Faithfulness稳定在0.89。用户反馈'复杂问题答得更全了，但简单问题响应变慢且偶有啰嗦'。该现象最可能反映的系统性问题是？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "检索端噪声增加导致生成模型注意力分散，触发'Lost in the Middle'效应"
+        },
+        {
+          "option_label": "B",
+          "option_text": "ground_truth标注质量下降，导致Answer Correctness计算失真"
+        },
+        {
+          "option_label": "C",
+          "option_text": "LLM-as-Judge评委模型版本未冻结，造成指标漂移"
+        },
+        {
+          "option_label": "D",
+          "option_text": "提示词中新增的'请详细解释'指令引发长度偏见，被自动评测误判为质量提升"
+        }
+      ],
+      "answer": "A",
+      "analysis": "依据原文7.4.2节Context Precision计算原理：Precision低（0.24）表明相关片段被大量无关内容稀释且排名靠后；Recall高（0.95）说明信息找全但信噪比恶化。原文明确指出'Precision低→相关片段排得靠后→惩罚把无关内容塞在前面、稀释模型注意力的排序，与Lost in the Middle现象直接对应'（7.4.2）。用户反馈'响应变慢、偶有啰嗦'正是模型在冗长低质上下文中挣扎生成的典型表现。B错误：ground_truth质量下降会同步拉低Correctness和Faithfulness，但Faithfulness稳定；C错误：若评委漂移，所有指标应同向波动，而非Recall↑/Precision↓的结构性矛盾；D错误：长度偏见影响的是LLM-as-Judge对答案的评分，但此处Correctness仅微降，且Precision下降主因是检索排序而非生成长度——题干未提评测用LLM变更，且原文7.8.1强调长度偏见需通过'评分细则明确冗余扣分'缓解，非根本原因。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 1,
+      "stem": "在构建新人答疑机器人的自动化评测集时，以下哪些操作符合原文强调的'评测先行'与'领域专家主导'原则？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "从近三个月线上工单中按问题类型频率抽样，覆盖入职流程、薪酬福利、IT支持等核心场景"
+        },
+        {
+          "option_label": "B",
+          "option_text": "由HRBP和法务专员联合编写ground_truth，确保答案符合最新劳动法规与公司政策"
+        },
+        {
+          "option_label": "C",
+          "option_text": "使用历史对话日志中的用户提问作为question，但剔除所有含敏感词的问题以规避风险"
+        },
+        {
+          "option_label": "D",
+          "option_text": "将开发团队预设的100个测试问题作为评测集主体，因其覆盖了技术实现的所有边界条件"
+        }
+      ],
+      "answer": "AB",
+      "analysis": "A正确：原文7.2.1节'评测集构建的两条铁律'明确要求'问题来自真实用户场景：从线上用户问题、客服工单、投诉反馈中按频率和类型抽样'，A完全符合。B正确：原文7.2.1表强调'ground_truth必须由业务领域专家编写/审定'，并指出'只有业务专家才知道答案在业务上是否正确、完整、合规'，HRBP与法务正是该场景的领域专家。C错误：原文7.8.2强调'防止数据泄漏'指训练数据不能当评测集，但未要求剔除敏感词问题；相反，'分层/分难度覆盖'要求包含对抗样本（7.8.2），且'正例+负例'需测'不该触发的'场景（7.8.2），剔除敏感词反而降低评测真实性。D错误：原文7.2.1铁律明确反对'技术人员凭空编造'，而D中'开发团队预设问题'属于典型的技术人员主观构造，违背'问题来自真实用户场景'原则。",
+      "difficulty_label": "中等"
+    },
+    {
+      "type": 0,
+      "stem": "某Agent在课程写作任务中端到端评测得分为4.3/5，但用户投诉'生成的Python代码示例无法运行'。团队决定引入白盒评测，以下哪项指标设计最能精准定位该故障？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "使用LLM-as-Judge评估'代码示例的教学有效性'，按1-5分打分"
+        },
+        {
+          "option_label": "B",
+          "option_text": "定义确定性检查规则：提取代码块→在沙箱中执行→验证exit_code=0且无语法错误"
+        },
+        {
+          "option_label": "C",
+          "option_text": "计算代码与HumanEval基准题目的BLEU相似度，筛选相似度>0.7的输出"
+        },
+        {
+          "option_label": "D",
+          "option_text": "用Rubric量表评估'代码完整性'，包含'变量命名规范''注释覆盖率'等子项"
+        }
+      ],
+      "answer": "B",
+      "analysis": "依据原文7.6节：Agent故障常在过程里，'光看最终答案发现不了'；白盒评测需'对关键组件/中间步骤单独打分'。B选项'确定性检查'直接对应原文7.6.1表格中'确定性检查（规则/断言）'方法，且明确针对'代码能否运行'这一客观硬指标，符合'结果确定、可调试、成本低'特点。A错误：'教学有效性'是主观语义，属LLM-as-Judge范畴，但原文7.6.1指出其'评委自身有偏见'，且无法验证可执行性；C错误：BLEU衡量字面重合，与代码功能无关，原文7.2.3明确'BLEU只认字面重合，同义改写会被误伤'；D错误：'变量命名''注释'是风格维度，原文7.6.1强调Rubric用于'定性要求'，而'无法运行'是客观功能性缺陷，需确定性检查而非主观量表。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 1,
+      "stem": "当RAGAS评测显示Answer Correctness=0.42、Context Recall=0.91、Context Precision=0.87、Faithfulness=0.35时，依据原文'黄金法则'，以下哪些推断和优化方向是正确的？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "病根在生成端，因检索指标（Recall/Precision）均高，但Faithfulness极低，表明模型存在严重幻觉"
+        },
+        {
+          "option_label": "B",
+          "option_text": "应优先强化提示词中'仅依据检索资料回答'的约束，并降低temperature抑制随机性"
+        },
+        {
+          "option_label": "C",
+          "option_text": "需立即补充知识库内容，因为Context Recall=0.91说明仍有9%的关键信息未被检索到"
+        },
+        {
+          "option_label": "D",
+          "option_text": "应检查上下文拼装逻辑，确保检索片段完整传递给生成模型，避免信息截断"
+        }
+      ],
+      "answer": "ABD",
+      "analysis": "A正确：原文7.5'黄金法则'第2条明确'检索指标都好（Recall、Precision高），但Faithfulness/Correctness低→问题在生成阶段'；且7.5表格指出'Faithfulness低→检索到了却还在编造→强化提示词约束'。B正确：原文7.5表格'优化方向'列明'Faithfulness低→强化只依据资料回答的提示词约束、降低temperature'。D正确：原文7.5'价值'部分强调'上下文是RAG的生命线'，且7.5表格中'Faithfulness低'的优化方向包含'改善上下文拼装'。C错误：原文7.5'踩坑提醒'明确反对'Context Recall低就一味调大Top K'，而此处Recall=0.91已属高位，盲目补库会加剧噪声；且原文7.5'黄金法则'第4条指出'Answer Correctness低+检索指标也低才先修检索'，本题检索指标高，故不应优先补库。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 0,
+      "stem": "某团队用RAGAS评测报销流程问答，发现Answer Relevancy得分显著低于其他指标。人工抽检发现：模型对'如何提交电子发票'问题，回答'根据公司最新政策，报销需通过OA系统完成'，但未说明具体操作路径。该现象最符合原文对Answer Relevancy低分的哪种归因？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "答案含糊回避（noncommittal），如使用'我不确定''可能需要咨询财务'等表述"
+        },
+        {
+          "option_label": "B",
+          "option_text": "反向生成的问题与原始question不匹配，即答非所问"
+        },
+        {
+          "option_label": "C",
+          "option_text": "答案虽切题但存在事实错误，与ground_truth不符"
+        },
+        {
+          "option_label": "D",
+          "option_text": "检索片段中缺乏操作路径细节，导致Context Recall不足"
+        }
+      ],
+      "answer": "B",
+      "analysis": "依据原文7.4.5节Answer Relevancy计算口径：'让LLM根据answer反向生成一个它认为答案在回答的问题，同时判断答案是否模棱两可'，并明确'答非所问（反向生成的问题对不上原题）'是Relevancy低的主因。题干中模型回答'报销需通过OA系统完成'，反向生成的问题可能是'公司报销通过什么系统？'，与原始question'如何提交电子发票'（聚焦操作路径）不匹配，属于典型答非所问。A错误：题干回答是肯定式陈述，无'我不确定'等含糊表述；C错误：事实错误影响的是Answer Correctness，非Relevancy；D错误：Context Recall不足会导致检索指标低，但题干未提供检索指标数据，且Relevancy计算不依赖contexts（原文7.4.5仅需answer及context辅助反向生成），故非直接归因。",
+      "difficulty_label": "中等"
+    },
+    {
+      "type": 1,
+      "stem": "在实施评测驱动开发（EDD）时，以下哪些做法能有效防止'跷跷板效应'？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "每次优化后，用同一套冻结的评测集（含问题、ground_truth、contexts）进行回归测试"
+        },
+        {
+          "option_label": "B",
+          "option_text": "建立覆盖简单/中等/困难问题的分层评测集，并按题型细分分析分数变化"
+        },
+        {
+          "option_label": "C",
+          "option_text": "将评测集版本与模型版本、推理参数（temperature/seed）一同纳入CI/CD流水线管理"
+        },
+        {
+          "option_label": "D",
+          "option_text": "优先采用公开基准（如C-Eval）作为核心评测集，因其题目标准化程度高"
+        }
+      ],
+      "answer": "ABC",
+      "analysis": "A正确：原文7.1节'跷跷板效应'定义为'一处变好、另一处变差'，而'回归评测机制'正是解决方案——'冻结一份覆盖各类题型的评测集，每次改动后用同一套题、同一配置重新跑分'（7.9解析）。B正确：原文7.8.2'评测集设计要点'强调'分层/分难度覆盖'，并指出'不只看平均分，要按题型、难度、类别细分找短板'，这能及时发现某类题型恶化。C正确：原文7.2.4'控制变量'明确要求'评测集版本、评测脚本、推理参数（temperature/seed）、模型版本都要固定'，否则'分数变化无法归因'；CI/CD管理正是工程化落实该原则。D错误：原文7.7'风险'明确指出'公开基准只用于选型初筛'，因其'题目分布、语言、领域知识与企业真实业务不一致'，无法检测业务特有跷跷板问题，违背'评测先行'中'问题来自真实用户场景'原则。",
+      "difficulty_label": "中等"
+    }
+  ]
+}

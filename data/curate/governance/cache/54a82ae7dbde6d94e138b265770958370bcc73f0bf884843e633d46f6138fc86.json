@@ -1,0 +1,215 @@
+{
+  "new-12-0-0": {
+    "qid": "new-12-0-0",
+    "classification": "own",
+    "chapter": 12,
+    "quality": "ok",
+    "reason": "考查框架解决共性工程模式抽象的核心价值",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "框架的本质价值是‘把大模型应用中反复出现的工程模式抽象成可组合的组件’",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "未提及LCEL流式能力缺失是根本原因"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "题干困境源于缺乏对共性脏活的抽象"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "未提及API延迟是根本原因"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "向量不一致非题干描述困境主因"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-12-0-1": {
+    "qid": "new-12-0-1",
+    "classification": "own",
+    "chapter": 12,
+    "quality": "ok",
+    "reason": "考查扫描件PDF解析选型，DashScopeParse是正解",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "文档是扫描件、截图、复杂表格、图文混排 PDF → 上 DashScopeParse（OCR + 版面结构化）",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "扫描件无文字层，PyMuPDF无能为力"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "后处理器无法解决解析阶段空白问题"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "扫描件需OCR与版面结构化解析"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "调整切片参数无法解决解析空白"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-12-0-2": {
+    "qid": "new-12-0-2",
+    "classification": "own",
+    "chapter": 12,
+    "quality": "ok",
+    "reason": "考查多框架组合选型，A、C符合最佳实践",
+    "answer": [
+      "A",
+      "C"
+    ],
+    "supported": true,
+    "quote": "LlamaIndex 做数据/RAG，LangChain 做 Agent/流程；LangGraph 更偏‘单/多 Agent 的工作流与状态机编排’",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "LlamaIndex强于检索，封装为LangChain工具"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "题干为三步协作，非多Agent群聊场景"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "LangGraph适合编排多步状态机"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "Dify无法完全避免代码，深度定制需框架"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-12-0-3": {
+    "qid": "new-12-0-3",
+    "classification": "own",
+    "chapter": 12,
+    "quality": "ok",
+    "reason": "考查索引持久化与更新要求",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "新增/修改文档后必须重新走‘解析→切片→建索引’流程",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "file_extractor影响解析，非索引更新"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "新增文档后未重建索引导致旧缓存"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "Embedding版本非根本原因"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "流式参数不影响检索结果"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-12-0-4": {
+    "qid": "new-12-0-4",
+    "classification": "own",
+    "chapter": 12,
+    "quality": "ok",
+    "reason": "考查复杂场景下务实技术选型组合",
+    "answer": [
+      "A",
+      "B",
+      "D"
+    ],
+    "supported": true,
+    "quote": "文档是扫描件、截图、复杂表格、图文混排 PDF → 上 DashScopeParse；Dify 与代码框架互补；FastAPI 用来把大模型应用封装成生产级 HTTP API",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "复杂表格PDF需结构化解析"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "Dify做原型，核心逻辑代码封装"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "Gradio是UI层，不适合生产API服务"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "FastAPI适合生产服务与监控集成"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-12-0-5": {
+    "qid": "new-12-0-5",
+    "classification": "own",
+    "chapter": 12,
+    "quality": "ok",
+    "reason": "考查context_str与query_str混淆后果",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "context_str 是检索到的上下文，不是用户问题；用户问题由 query_str 注入",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "问题当资料，导致答案脱离知识库"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "变量名错误不会导致索引加载失败"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "RAGAS评估不受提示词变量名影响"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "变量名错误不影响NodeParser切片"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

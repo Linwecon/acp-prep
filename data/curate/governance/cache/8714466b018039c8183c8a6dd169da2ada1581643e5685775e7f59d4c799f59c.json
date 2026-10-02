@@ -1,0 +1,219 @@
+{
+  "new-4-12-0": {
+    "qid": "new-4-12-0",
+    "classification": "own",
+    "chapter": 4,
+    "quality": "ok",
+    "reason": "考查Function Calling流程中工具结果回传的关键步骤，是本章核心考点。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "结果必须由程序作为 `role=\"tool\"` 消息追加回上下文，模型才\"知道\"发生了什么。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "tool_choice设置不影响结果回传，且非根本原因。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "工具结果未以role='tool'消息回传，模型无法生成最终答案。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "Pydantic校验非Function Calling标准流程，且原文未提及。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "temperature影响随机性，不导致静默，且非根本原因。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-4-12-1": {
+    "qid": "new-4-12-1",
+    "classification": "own",
+    "chapter": 4,
+    "quality": "ok",
+    "reason": "考查ReAct模式常见问题及改进措施，涉及轮数上限、状态管理和错误处理。",
+    "answer": [
+      "A",
+      "B",
+      "D"
+    ],
+    "supported": true,
+    "quote": "ReAct **不是无限循环**：必须设置**最大迭代轮数 / 超时 / token 预算上限**；工具超时、报错时能重试或换方案。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "设置最大轮数上限是ReAct铁律，防止死循环。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "记录失败原因避免重复调用，符合错误处理原则。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "MCP解决工具接入标准化，不直接解决重复调用和错误处理。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "对超时错误强制切换备用源，符合换方案原则。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-4-12-2": {
+    "qid": "new-4-12-2",
+    "classification": "own",
+    "chapter": 4,
+    "quality": "ok",
+    "reason": "考查多Agent设计四原则，直接对应原文考点。",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "独立凭据：不同 Agent **不得共用同一套账号/API 凭据**；避免全量注入：**不要把所有 Agent 的知识/工具清单一次性写进主 Prompt**。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "共用API Key违反独立凭据；全量注入导致上下文膨胀延迟升高。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "中央调度指避免无序互调，明确职责指边界清晰，与问题不符。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "问题1是凭据共用，非注入；问题2是注入导致延迟，非凭据。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "问题1非职责不清，问题2非调度问题。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-4-12-3": {
+    "qid": "new-4-12-3",
+    "classification": "own",
+    "chapter": 4,
+    "quality": "ok",
+    "reason": "考查多Agent设计原则和记忆管理，选项涉及注意力稀释、凭据、调度和记忆隔离。",
+    "answer": [
+      "A",
+      "B",
+      "C",
+      "D"
+    ],
+    "supported": true,
+    "quote": "简单任务不要上复杂架构；独立凭据：不同 Agent **不得共用同一套账号/API 凭据**；中央调度：设置 Planner / Leader Agent 统一判断；记忆不是越多越好，低价值噪声会污染检索。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "单Agent做多事易注意力稀释，违反简单任务不堆架构。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "共用向量库凭据存在数据越权风险，违反独立凭据。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "Leader职责未说明如何分派，违反中央调度原则。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "共享向量库可能污染检索，应按需隔离。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-4-12-4": {
+    "qid": "new-4-12-4",
+    "classification": "own",
+    "chapter": 4,
+    "quality": "ok",
+    "reason": "考查Agent评测方法，强调确定性检查对客观问题的重要性。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "确定性检查（Deterministic Checks）：用代码/脚本判断\"该发生的步骤有没有发生\"。结果**确定、可调试**，适合客观项。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "评委偏见是问题，但非‘代码跑不起来’相关性低的根本原因。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "空指针检测是客观问题，需脚本验证而非仅主观打分。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "Rubric可提升评分稳定性，但仍属主观评测，非根本。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "白盒评测追踪轨迹有用，但题干核心是检测结果不可靠。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-4-12-5": {
+    "qid": "new-4-12-5",
+    "classification": "own",
+    "chapter": 4,
+    "quality": "ok",
+    "reason": "考查探索-固化混合模式的具体实践，涉及自主规划、Skill封装和确定性验证。",
+    "answer": [
+      "A",
+      "B",
+      "D"
+    ],
+    "supported": true,
+    "quote": "探索阶段：新出现、流程不明的任务，派自主规划 Agent 去试错、找路径；固化阶段：一旦某条路径被反复验证稳定，就把它抽象成**固定工作流 / Skill**；让脚本做它擅长的（执行、验证、计算）。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "首次用自主规划探索路径，符合探索阶段。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "稳定流程封装为Skill，符合固化阶段。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "为每个平台开发专用Worker是多Agent设计，非探索-固化核心。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "Skill中嵌入校验脚本，让脚本做验证，符合最佳实践。"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

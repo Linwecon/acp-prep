@@ -1,0 +1,210 @@
+{
+  "3-0399": {
+    "qid": "3-0399",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "切片目的在原文明确说明",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "文本切片（Chunking）是把解析后的长文档，切成若干长度合适、语义相对完整的小文本块。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "未提存储空间优化"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "非用户浏览目的"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "适配上下文窗口并提升检索质量"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "未提简化预处理"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-0407": {
+    "qid": "3-0407",
+    "classification": "cross",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "规则匹配属传统方法，原文对比RAG时提及",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "关键词/规则问答：只能匹配字面词。员工问\"带薪假\"，文档写\"年假\"，字面不同就匹配失败",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "情感需语义理解"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "品牌广告需语义泛化"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "违禁词为字面精确匹配"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "深层含义需语义推理"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-0410": {
+    "qid": "3-0410",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "核心思想定义在原文开篇",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "RAG（Retrieval-Augmented Generation，检索增强生成）的核心思路可以用四个字概括：\"开卷考试\"",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "忽略检索环节"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "准确对应开卷考试定义"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "微调改变参数，RAG不改"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "未提知识图谱构建"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-0415": {
+    "qid": "3-0415",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "切片策略选择依据原文明确",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "切得太大：一个 chunk 里混了好几个主题，向量被\"平均\"得没有重点",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "简短文档无需切分"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "主题单一宜用大块"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "多主题需小块避免混淆"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "格式简单非切分依据"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-0420": {
+    "qid": "3-0420",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "句子窗口作用原文直接定义",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "句子窗口检索：建索引时以\"单个句子\"为可检索单元（小块，便于精准命中），同时在每个句子的元数据里存下它\"前后各 N 句\"组成的窗口",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "未提速率提升"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "未提注意力机制"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "精准命中+上下文完整"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "未提存储空间"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-0422": {
+    "qid": "3-0422",
+    "classification": "misplaced",
+    "chapter": 3,
+    "quality": "review",
+    "reason": "StorageContext属LlamaIndex框架细节，原文未提及",
+    "answer": [],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "非创建索引功能"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "非加载内存索引"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "原文未定义该概念"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "非执行查询功能"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

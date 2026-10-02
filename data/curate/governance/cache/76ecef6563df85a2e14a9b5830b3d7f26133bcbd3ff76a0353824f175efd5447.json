@@ -1,0 +1,215 @@
+{
+  "new-11-30-0": {
+    "qid": "new-11-30-0",
+    "classification": "own",
+    "chapter": 11,
+    "quality": "ok",
+    "reason": "考查视频理解中抽帧策略对内容覆盖的影响，符合本章知识",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "视频理解的标准处理方式：抽关键帧：按固定间隔或场景切换抽取画面帧，送入视觉模型分析画面内容",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "题干未提及上下文窗口截断，故障源于抽帧覆盖不足"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "抽帧间隔过长，未覆盖动作密集时段，导致关键操作遗漏"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "题干未提及时间轴对齐问题，故障在抽帧而非对齐"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "题干未涉及动态分辨率或高清细节丢失问题"
+      }
+    ],
+    "duplicate_of": "11-5186"
+  },
+  "new-11-30-1": {
+    "qid": "new-11-30-1",
+    "classification": "own",
+    "chapter": 11,
+    "quality": "ok",
+    "reason": "考查视频理解中场景切换检测对快速变化内容的适应性",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "场景切换检测算法对PPT翻页类渐变过渡的敏感度不足",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "题干焦点是抽帧策略，非编码器高帧率支持"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "PPT快速翻页可能未被检测为场景切换，导致关键帧遗漏"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "题干问抽帧环节，ASR辅助定位非首要检查项"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "LLM摘要模块非抽帧环节，非首要检查项"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-11-30-2": {
+    "qid": "new-11-30-2",
+    "classification": "own",
+    "chapter": 11,
+    "quality": "ok",
+    "reason": "考查视频理解工程实践，涉及抽帧策略、对齐与成本权衡",
+    "answer": [
+      "B",
+      "C"
+    ],
+    "supported": true,
+    "quote": "启用场景切换检测，在PPT翻页、讲师手势变化处自动增采关键帧；将ASR转写文本与关键帧按毫秒级时间戳对齐，构建多模态索引",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "固定间隔抽帧可能遗漏关键动作，非最佳实践"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "动态增采关键帧可更好覆盖内容变化"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "时间戳对齐是多模态理解的基础"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "强制分析所有帧成本高，应预过滤"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-11-30-3": {
+    "qid": "new-11-30-3",
+    "classification": "own",
+    "chapter": 11,
+    "quality": "ok",
+    "reason": "考查视频理解链路中抽帧与ASR的并行处理关系",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "视频理解不是一项孤立技术，而是图像、语音、文本能力的组合",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "无需先ASR再定位关键帧，二者可并行"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "抽帧与ASR可并行执行，输出联合供LLM理解"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "抽帧与音轨分离无严格先后依赖"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "ASR无需在抽帧前完成，时间轴对齐可后处理"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-11-30-4": {
+    "qid": "new-11-30-4",
+    "classification": "own",
+    "chapter": 11,
+    "quality": "ok",
+    "reason": "考查视频理解输出偏差的多模态根因分析",
+    "answer": [
+      "A",
+      "B",
+      "C"
+    ],
+    "supported": true,
+    "quote": "视频理解=视觉（帧）+语音（ASR）+文本（字幕/LLM）联合；视觉模型未在训练数据中见过冲浪板，泛化能力不足",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "抽帧未覆盖相关镜头，视觉模型无输入可分析"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "ASR误识别会影响LLM对语音内容的判断"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "视觉模型训练数据不足可能导致识别错误"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "题干未提及RAG知识库，且常识非根本原因"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-11-30-5": {
+    "qid": "new-11-30-5",
+    "classification": "own",
+    "chapter": 11,
+    "quality": "ok",
+    "reason": "考查多模态内容安全必须覆盖所有模态的核心原则",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "内容审核必须覆盖文本、图像、音频、视频全部模态，只做文本过滤等于给大门上锁却开着窗",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "系统仅基于ASR文本审核，未覆盖画面违规内容"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "原则正确，但题干焦点是安全审核，非理解"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "题干是画面违规，非图片中的文字"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "题干未涉及上下文窗口限制问题"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

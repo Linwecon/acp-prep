@@ -1,0 +1,154 @@
+{
+  "items": [
+    {
+      "type": 0,
+      "stem": "某金融企业需构建合规问答系统，要求原始合同与监管文件严禁出域，且必须支持LoRA微调以适配'穿透式尽调'等专业术语。团队计划从ModelScope下载Qwen2-7B开源模型后部署。以下哪项是该方案能成功落地的必要前提条件？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "在ModelScope上直接调用qwen2-7B的在线推理API完成微调与服务发布"
+        },
+        {
+          "option_label": "B",
+          "option_text": "使用PAI-EAS部署模型时，将EAS服务配置为仅允许VPC内网访问，并关闭公网SLB"
+        },
+        {
+          "option_label": "C",
+          "option_text": "通过百炼平台上传合同文档并启用知识库RAG功能，底层自动调用ModelScope模型"
+        },
+        {
+          "option_label": "D",
+          "option_text": "在PAI-DSW中完成微调后，必须将模型权重重新上传至ModelScope才能被EAS加载"
+        }
+      ],
+      "answer": "B",
+      "analysis": "依据原文10.7节：'开源版...可从ModelScope/HuggingFace下载，部署到自建GPU或PAI'；10.4节明确EAS是'模型在线服务'，支持'弹性伸缩、蓝绿发布、版本管理'；10.5节强调私有化核心是'数据不出域程度更高'。选项B是保障'数据不出域'的技术实现必要条件——EAS若暴露公网，则模型服务可能被外部调用，导致输入数据（如合同片段）经网络流出，违背'严禁出域'刚性约束。A错误：ModelScope是模型仓库/社区，不提供托管API服务（原文10.7：'ModelScope不是按Token计费的API服务'）；C错误：百炼知识库底层调用DashScope API（原文10.1），数据会上送云端，违反'严禁出域'；D错误：PAI-EAS可直接加载本地或OSS中的模型权重，无需回传ModelScope（原文10.4表及10.5'三者可组合'逻辑）。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 0,
+      "stem": "开发团队在ModelScope Notebook中成功运行了Qwen3-0.6B的推理Demo，但当尝试执行LoRA微调时遭遇OOM（内存溢出）。以下最根本的故障原因及对应教材依据是？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "ModelScope免费Notebook的GPU显存有限，而微调需要远高于推理的显存资源"
+        },
+        {
+          "option_label": "B",
+          "option_text": "Qwen3-0.6B模型权重未正确加载，导致计算图异常膨胀"
+        },
+        {
+          "option_label": "C",
+          "option_text": "Notebook默认使用CPU模式，未手动切换至GPU运行时"
+        },
+        {
+          "option_label": "D",
+          "option_text": "ModelScope不支持任何微调操作，仅提供推理体验"
+        }
+      ],
+      "answer": "A",
+      "analysis": "依据原文10.7节末尾注：'ModelScope Notebook免费但通常有连续运行时长限制（如单次4小时自动关闭）'；结合10.4节PAI-DSW费用提醒：'GPU实例消耗额度远快于CPU'，反向印证ModelScope Notebook的GPU资源是轻量级、非生产级的。教材明确区分场景：ModelScope用于'下载/开源模型、数据集，免费Notebook体验'（10.7开头），而'大规模/分布式训练'必须使用PAI-DLC（10.4表）。微调对显存需求远高于推理（需存储梯度、优化器状态等），免费Notebook的GPU（如T4）无法满足，这是资源规格与任务需求的硬性不匹配。B、C属具体技术排查点，非教材强调的根本约束；D错误：ModelScope Notebook支持基础微调实验，但受限于资源，非'不支持'（原文未否定其能力，而是强调适用边界）。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 1,
+      "stem": "某医疗AI项目需实现患者病历结构化报告生成，严格要求病历数据不出医院内网。团队决定采用'ModelScope开源模型 + PAI部署'方案。以下哪些操作是确保该方案满足'数据不出域'要求的必要组合？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "从ModelScope下载Qwen2-7B-Chat模型权重至本地服务器"
+        },
+        {
+          "option_label": "B",
+          "option_text": "在PAI-EAS部署时，选择'专有网络VPC'网络类型并禁用公网访问"
+        },
+        {
+          "option_label": "C",
+          "option_text": "使用百炼知识库功能，将病历文本作为文档上传并启用RAG"
+        },
+        {
+          "option_label": "D",
+          "option_text": "通过DashScope OpenAI兼容接口调用qwen-max模型处理病历"
+        }
+      ],
+      "answer": "AB",
+      "analysis": "依据原文10.7节核心定义：'开源版...可下载...自行部署'，'数据可不出域'；10.5节对比表明确'PAI...数据不出域程度更高'；10.4节指出EAS是'模型在线服务'，其网络配置是控制数据流向的关键。A是开源模型私有化部署的前提（下载到本地/内网环境）；B是PAI-EAS实现数据不出域的技术强制手段（VPC隔离+禁用公网，确保所有请求在内网闭环）。C错误：百炼知识库底层调用DashScope API（10.1），数据必然上送阿里云；D错误：DashScope是托管API服务，数据必须上传（10.3节'按Token计费'即基于云端处理）。二者均直接违反'不出域'要求。",
+      "difficulty_label": "挑战"
+    },
+    {
+      "type": 0,
+      "stem": "运维工程师发现，某基于ModelScope开源模型+PAI-EAS部署的客服系统，在流量高峰时出现大量503错误。监控显示EAS实例CPU使用率持续低于40%，但请求队列堆积严重。最可能的根本原因及教材依据是？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "EAS服务未配置自动扩缩容策略，导致并发请求数超过单实例处理能力"
+        },
+        {
+          "option_label": "B",
+          "option_text": "ModelScope下载的模型未经过量化，导致推理延迟过高触发EAS超时"
+        },
+        {
+          "option_label": "C",
+          "option_text": "PAI-DSW实例仍在运行，占用同一账号下GPU配额导致EAS无法获取算力"
+        },
+        {
+          "option_label": "D",
+          "option_text": "DashScope API的RPM限流被触发，返回503而非标准429"
+        }
+      ],
+      "answer": "A",
+      "analysis": "依据原文10.4节对EAS的定义：'Elastic Algorithm Service，模型在线服务'，'支持弹性伸缩、蓝绿发布、版本管理、监控告警'；10.5节'三者关系表'中EAS核心动作是'上线自有模型'，且强调'高并发服务'。503错误（Service Unavailable）在EAS语境下典型表现为服务实例无法及时响应请求，主因是水平扩展不足——当并发突增，固定数量的EAS实例无法承载，而未启用自动扩缩容（Auto Scaling）时，请求在队列中堆积直至超时。教材虽未直述'503'，但'弹性伸缩'正是为解决此问题设计（10.4原理）。B是性能优化点，但CPU低负载说明非计算瓶颈；C错误：DSW与EAS资源独立，无配额共享（10.4表未提及其关联）；D错误：DashScope返回429（原文10.8），且本题场景是PAI-EAS自托管服务，与DashScope无关。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 1,
+      "stem": "某团队在ModelScope下载Qwen2-1.5B模型后，计划在PAI上完成全流程：开发、训练、部署。以下哪些步骤顺序及组件选择符合教材10.4节推荐的典型流程？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "在PAI-DSW的GPU实例中编写LoRA微调代码并验证效果"
+        },
+        {
+          "option_label": "B",
+          "option_text": "将微调后的模型权重提交至PAI-DLC进行全参数微调"
+        },
+        {
+          "option_label": "C",
+          "option_text": "使用PAI-EAS将最终模型部署为HTTP服务，供前端调用"
+        },
+        {
+          "option_label": "D",
+          "option_text": "在ModelScope Notebook中完成全部微调，再导出模型至PAI"
+        }
+      ],
+      "answer": "AC",
+      "analysis": "依据原文10.4节'PAI三件套'定义：DSW是'交互式建模（IDE）'，用于'写代码、做实验'；DLC是'分布式训练'，用于'大规模/分布式训练任务'；EAS是'在线服务'，用于'一键部署为在线推理服务'。10.4原理示例明确流程：'1. 在PAI-DSW...写代码、用ms-swift做LoRA微调；2. 大规模/分布式训练可提交到DLC；3. ...再用PAI-EAS部署'。A正确：DSW是开发调试首选环境；C正确：EAS是生产部署标准路径。B错误：LoRA微调属轻量级，通常在DSW完成，DLC用于'大规模/分布式'场景（如全参微调），非必要步骤；D错误：ModelScope Notebook资源受限（10.7），教材推荐使用PAI-DSW进行开发（10.4），且'导出至PAI'非标准流程，PAI可直接加载OSS/本地模型。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 0,
+      "stem": "某开发者试图在ModelScope社区搜索'通义千问商业版API'，但未找到相关模型卡片。以下最准确的解释是？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "通义千问商业版模型权重未开源，因此不在ModelScope开源模型库中展示"
+        },
+        {
+          "option_label": "B",
+          "option_text": "ModelScope已下架所有通义千问相关模型，统一迁移至DashScope控制台"
+        },
+        {
+          "option_label": "C",
+          "option_text": "商业版模型需通过百炼控制台访问，ModelScope仅索引开源模型"
+        },
+        {
+          "option_label": "D",
+          "option_text": "搜索关键词应改为'qwen-turbo'而非'通义千问商业版API'"
+        }
+      ],
+      "answer": "A",
+      "analysis": "依据原文10.7节核心对比：'商业版（turbo/plus/max/long等）：通过百炼/DashScope以API方式使用...免运维、能力强，但数据要上送、按Token付费；开源版（如Qwen系列...）：权重公开，可从ModelScope/HuggingFace下载'。这明确划分了商业版（API服务）与开源版（权重下载）的二元路径。ModelScope定位是'开源模型与数据集社区'（10.7开头），其本质是模型权重分发平台，而商业版模型不开放权重，故不可能出现在ModelScope。A精准对应此逻辑。B、C错误：ModelScope仍存在Qwen开源模型（如Qwen/Qwen3-0.6B，原文10.7提及）；D错误：'qwen-turbo'是商业API模型名，非ModelScope上的开源模型标识，搜索亦无结果。",
+      "difficulty_label": "入门"
+    }
+  ]
+}

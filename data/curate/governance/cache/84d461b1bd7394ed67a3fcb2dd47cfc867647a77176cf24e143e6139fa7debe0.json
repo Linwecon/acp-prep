@@ -1,0 +1,72 @@
+{
+  "new-10-48-0": {
+    "qid": "new-10-48-0",
+    "classification": "own",
+    "chapter": 10,
+    "quality": "ok",
+    "reason": "综合考查阿里云平台选型，结合数据不出域、微调、无运维等约束，需判断最佳落地路径。",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "开源模型的价值集中在三点：① 数据隐私与合规（数据不出域）；② 可深度定制（任意微调/改结构）...要自己训练、微调、蒸馏，或部署开源模型 → PAI（DSW 开发 + DLC 训练 + EAS 部署）",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "百炼托管，数据可能出域，且不支持深度微调。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "DashScope是托管API，数据需上送，不符合数据不出域要求。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "开源模型+PAI全流程满足数据不出域、深度微调、部署服务，且PAI托管算力无需专职运维。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "百炼知识库仍调用托管API，数据可能出域，且未涉及深度微调。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-10-48-2": {
+    "qid": "new-10-48-2",
+    "classification": "own",
+    "chapter": 10,
+    "quality": "ok",
+    "reason": "考查DashScope限流（429错误）的处理逻辑，需优先诊断前端代码问题。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "限流（RPM/TPM、QPM）：每分钟请求数/Token 数有配额，超限返回 429...生产环境必须考虑重试、退避与降级，不能假设无限并发。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "应先诊断问题根源，而非直接申请提额。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "429常因请求频率超限，优先检查前端重复提交等代码逻辑。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "切换模型可能降低单次消耗，但未解决请求频率超限的根本问题。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "训练缓存模型非紧急处置动作，且不能直接解决429限流。"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

@@ -1,0 +1,74 @@
+{
+  "new-9-6-0": {
+    "qid": "new-9-6-0",
+    "classification": "own",
+    "chapter": 9,
+    "quality": "ok",
+    "reason": "考查限流根因与主动控制并发，符合本章工程实践。",
+    "answer": [
+      "D"
+    ],
+    "supported": true,
+    "quote": "应在调用前加令牌桶限流，将峰值压至≤100次/分钟",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "题干明确RPM配额超限，非TPM或服务端过载。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "重试策略是缓解手段，非根因；根因是并发超配额。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "429是配额超限，非权限不足；无需升级权限。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "根因是并发超RPM配额，主动限流是首步修复。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-9-6-3": {
+    "qid": "new-9-6-3",
+    "classification": "own",
+    "chapter": 9,
+    "quality": "ok",
+    "reason": "考查结构化输出参数配置与成本控制，符合本章知识点。",
+    "answer": [
+      "A",
+      "C",
+      "D"
+    ],
+    "supported": true,
+    "quote": "设置temperature=0.0并配合JSON Schema约束输出；使用qwen-turbo模型而非qwen-max，降低Token单价；在messages中添加role='system'消息，明确指令‘仅输出合法JSON，不要任何解释’",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "低temperature保障格式稳定，JSON Schema约束输出。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "PDF全文作system prompt会大幅增加输入Token成本。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "简单任务用低档模型降低成本，符合选型原则。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "system消息明确指令，保障输出格式符合要求。"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

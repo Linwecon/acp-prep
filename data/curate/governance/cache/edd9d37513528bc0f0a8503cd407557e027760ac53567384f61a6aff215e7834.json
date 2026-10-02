@@ -1,0 +1,215 @@
+{
+  "new-6-0-0": {
+    "qid": "new-6-0-0",
+    "classification": "own",
+    "chapter": 6,
+    "quality": "ok",
+    "reason": "典型部署选型场景题，考查数据出域、流量稳定、企业级能力三个约束下的决策。",
+    "answer": [
+      "D"
+    ],
+    "supported": true,
+    "quote": "数据不出域 → 排除百炼等公有 MaaS；私有自定义模型、实时在线、弹性 + 灰度/版本管理是 EAS 的典型场景",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "百炼MaaS数据会出域，不符合严禁出域约束。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "FC有冷启动和时长限制，不适合稳定高吞吐的实时在线服务。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "ECS自建可控但需自运维，且灰度发布等企业级能力不如EAS完善。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "PAI-EAS支持私有部署、模型预热与蓝绿发布，最符合全部约束。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-6-0-1": {
+    "qid": "new-6-0-1",
+    "classification": "own",
+    "chapter": 6,
+    "quality": "ok",
+    "reason": "考查并发超限时的表现与max-num-seqs参数作用，符合教材对并发瓶颈的论述。",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "并发已超过服务最优处理能力，GPU/显存成为瓶颈，请求开始排队导致 RT 劣化和超时。应通过压测找到最优并发阈值并做限流",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "限制并发可避免KV Cache溢出，不会直接导致OOM。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "限制并发会降低QPS，但能改善RT和错误率。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "限制并发可避免KV Cache溢出与调度争抢，改善RT和错误率。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "max-num-seqs限制总并发，影响整个推理过程，非仅Prefill。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-6-0-2": {
+    "qid": "new-6-0-2",
+    "classification": "own",
+    "chapter": 6,
+    "quality": "ok",
+    "reason": "考查量化效果分析，选项均可在教材中找到直接或间接依据。",
+    "answer": [
+      "A",
+      "C"
+    ],
+    "supported": true,
+    "quote": "量化省显存通常也能因显存带宽下降而加速；INT4 在敏感任务上可能掉点更明显，需要用业务评测集验证",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "Decode阶段是显存带宽密集型，量化减少带宽压力可加速TPOT。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "Prefill是计算密集型，但权重读取带宽变化也可能影响TTFT，教材未明确排除。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "INT4在敏感任务上掉点更明显，需用业务评测集验证，符合教材描述。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "理论降幅75%，实际58%有差距，教材未说明此情况是否正常。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-6-0-3": {
+    "qid": "new-6-0-3",
+    "classification": "own",
+    "chapter": 6,
+    "quality": "ok",
+    "reason": "考查高显存占用、低计算利用率的典型根因排查，符合KV Cache瓶颈分析。",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "KV Cache 随序列长度 × 并发数线性增长，长上下文、高并发时 KV Cache 往往成为显存大头",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "高显存占用、低计算利用常因KV Cache过大，排查相关指标合理。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "TTFT/TPOT/QPS是性能结果指标，非直接根因排查指标。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "错误率等是现象，非高显存占用的直接排查组合。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "模型精度等是静态配置，非运行时显存占用的直接排查指标。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-6-0-4": {
+    "qid": "new-6-0-4",
+    "classification": "own",
+    "chapter": 6,
+    "quality": "ok",
+    "reason": "考查高并发、低延迟、降本三个需求的技术手段，选项均为教材明确方案。",
+    "answer": [
+      "A",
+      "B",
+      "C"
+    ],
+    "supported": true,
+    "quote": "PagedAttention 提升显存利用率以支撑更高并发；连续批处理减少 GPU 空转；上下文缓存复用公共前缀",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "PagedAttention提升显存利用率，支撑高并发。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "连续批处理减少GPU空转，提升整体吞吐。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "上下文缓存复用公共提示词KV块，降低重复计算。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "GQA是模型结构改造，非部署时可配置的技术手段。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-6-0-5": {
+    "qid": "new-6-0-5",
+    "classification": "own",
+    "chapter": 6,
+    "quality": "ok",
+    "reason": "考查FC冷启动现象分析与应对，符合教材对FC边界及缓解措施的描述。",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "FC 存在冷启动延迟；可通过预留实例/预热缓解，但会重新产生持续资源费用",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "首次请求慢是FC冷启动典型现象，预留实例和预热是标准应对。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "量化可减小模型，但FC冷启动根本原因在于实例回收与拉起。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "FC支持轻量推理，并非完全不支持，迁移非首选应对。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "首次请求慢主因是冷启动模型加载，非网络抖动。"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

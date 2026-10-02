@@ -1,0 +1,224 @@
+{
+  "new-6-54-0": {
+    "qid": "new-6-54-0",
+    "classification": "own",
+    "chapter": 6,
+    "quality": "ok",
+    "reason": "典型部署选型场景题，考察四步决策法，题干条件明确指向PAI-EAS。",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "数据能否出域？不能（敏感/合规）→ 排除百炼等公有 MaaS，选 ECS 自建或 PAI-EAS 私有部署；能 → MaaS 可选。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "百炼MaaS数据需出域，违反题干严禁出域要求。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "FC有冷启动，不适合日均2000+的稳定实时请求。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "PAI-EAS支持私有模型、灰度发布、版本回滚，符合全部要求。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "ECS方案可行，但题干要求灰度发布与秒级回滚，EAS更匹配。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-6-54-1": {
+    "qid": "new-6-54-1",
+    "classification": "own",
+    "chapter": 6,
+    "quality": "ok",
+    "reason": "考察并发超限时的性能瓶颈诊断，典型场景。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "并发受 KV Cache 限制，超并发返回错误（429）而非无限排队。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "应先诊断瓶颈，而非盲目扩容。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "RT飙升和错误率跃升典型是显存/KV Cache瓶颈。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "调整参数是后续动作，非优先诊断。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "量化是优化手段，非优先诊断动作。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-6-54-2": {
+    "qid": "new-6-54-2",
+    "classification": "own",
+    "chapter": 6,
+    "quality": "ok",
+    "reason": "考察TTFT优化手段，需区分Prefill与Decode阶段。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "Prefill（预填充阶段）...决定了 TTFT（Time To First Token，首 token 延迟）——也就是用户感知的'开口快慢'。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "PagedAttention优化KV Cache管理，主要影响Decode和并发。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "精简输入prompt可直接减少Prefill计算量，降低TTFT。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "量化主要省显存和可能加速Decode，对Prefill的TTFT影响不直接。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "张量并行主要解决大模型放不下的问题，不直接降低TTFT。"
+      },
+      {
+        "label": "E",
+        "selected": false,
+        "why": "连续批处理优化吞吐和GPU利用率，不直接降低单请求TTFT。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-6-54-3": {
+    "qid": "new-6-54-3",
+    "classification": "own",
+    "chapter": 6,
+    "quality": "ok",
+    "reason": "考察FC冷启动现象与教材依据，场景典型。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "为什么会有冷启动？Serverless 为了省成本，无流量时会回收实例；请求突然到来需要重新拉起实例、加载模型，导致首个请求明显变慢。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "现象是首个请求慢，非实例老化，依据不匹配。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "流量高峰和低峰期首个请求都慢，是典型冷启动现象。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "超时时间配置不影响首个请求的冷启动延迟。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "现象是延迟高而非OOM重启，依据不匹配。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-6-54-4": {
+    "qid": "new-6-54-4",
+    "classification": "own",
+    "chapter": 6,
+    "quality": "ok",
+    "reason": "综合考察大模型实时部署的合规、性能与运维要求。",
+    "answer": [
+      "A",
+      "B",
+      "E"
+    ],
+    "supported": true,
+    "quote": "数据能否出域？不能（敏感/合规）→ 排除百炼等公有 MaaS，选 ECS 自建或 PAI-EAS 私有部署；能 → MaaS 可选。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "ECS+vLLM可控、无冷启动，PagedAttention优化性能，符合要求。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "PAI-EAS支持私有模型、预热、蓝绿发布，满足合规与AB测试。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "FC有冷启动，不适合70B大模型实时客服的TTFT要求。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "百炼私有化部署版教材未提及，且MaaS通常数据出域。"
+      },
+      {
+        "label": "E",
+        "selected": true,
+        "why": "ACK+GPU节点是容器化自建方案，可控且支持AB测试。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-6-54-5": {
+    "qid": "new-6-54-5",
+    "classification": "own",
+    "chapter": 6,
+    "quality": "ok",
+    "reason": "考察KV Cache瓶颈时强行提高并发的风险。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "KV Cache 随序列长度 × 并发数线性增长，长上下文、高并发时 KV Cache 往往成为显存大头。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "显存已近饱和，增大并发将导致OOM，QPS无法提升。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "KV Cache占用率95%以上，增大并发最可能导致显存溢出OOM。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "TPOT不会因此下降，KV Cache无压缩算法自动生效一说。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "TTFT由Prefill决定，与并发参数增大无直接关系。"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

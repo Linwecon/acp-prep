@@ -1,0 +1,240 @@
+{
+  "3-0898": {
+    "qid": "3-0898",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "题目考查RAG系统构建的必要组件，属于RAG核心流程知识。",
+    "answer": [
+      "A",
+      "B",
+      "C",
+      "D",
+      "E"
+    ],
+    "supported": true,
+    "quote": "RAG 由两个阶段组成...第一阶段：离线建库...文档解析...文本切片...向量化...入库...第二阶段：在线问答...检索...LLM 生成答案",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "文档解析是RAG建库第一步，处理多模态内容。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "多模态理解模型处理图文混合内容，属于解析或生成环节。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "向量数据库存储嵌入，是检索的基础。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "检索器根据查询找到相关片段，是RAG核心。"
+      },
+      {
+        "label": "E",
+        "selected": true,
+        "why": "生成模型基于检索结果生成答案，是RAG最后一步。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-0917": {
+    "qid": "3-0917",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "题目考查影响RAG答案质量的关键因素，覆盖RAG全链路。",
+    "answer": [
+      "A",
+      "B",
+      "C",
+      "D",
+      "E"
+    ],
+    "supported": true,
+    "quote": "检索质量差的三大根因...① Embedding 模型不够好 ② 切片策略不当 ③ 文档格式丢失了结构信息...生成阶段做三件事...拼装上下文...提示词约束...生成与溯源",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "知识库质量是答案正确性的基础。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "文档切分和向量化策略直接影响检索质量。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "相似度算法和阈值影响召回与精确的权衡。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "提示词模板设计约束模型依据资料生成。"
+      },
+      {
+        "label": "E",
+        "selected": true,
+        "why": "大模型能力影响最终理解和生成。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-0939": {
+    "qid": "3-0939",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "题目考查RAG系统回答准确性不高的原因及改进措施，符合RAG评估与优化逻辑。",
+    "answer": [
+      "A",
+      "B",
+      "C",
+      "E"
+    ],
+    "supported": true,
+    "quote": "检索质量差的三大根因...① Embedding 模型不够好 ② 切片策略不当 ③ 文档格式丢失了结构信息...定位问题的黄金法则...检索指标都好，但 Answer Correctness / Faithfulness 低 → 问题出在生成阶段...Recall 低：补充知识库、换更强的 Embedding...Precision 低：加 Rerank",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "文档质量不高需优化预处理和向量化，对应检索端问题。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "模型能力有限可更换更强模型，对应生成端优化。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "提示词不合理需优化，对应生成端约束。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "要求用户简化问题不是系统改进措施。"
+      },
+      {
+        "label": "E",
+        "selected": true,
+        "why": "调整阈值召回更多文档，可提高Context Recall。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-1013": {
+    "qid": "3-1013",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "题目考查RAG中文本被截断的现象原因，对应文档解析与切片知识点。",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "文档解析...是把 PDF、Word、Markdown、网页等格式的文档，加载并转换为大模型可读文本的过程...解析阶段丢失的结构，后面用再复杂的算法也补不回来...对于扫描件 PDF、含图片和复杂表格的文档，可以用阿里云百炼的文档智能解析",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "Embedding模型不改变文本顺序，只生成向量。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "Rerank模型重排序候选片段，不重排字符顺序。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "文档解析未正确处理分栏PDF导致文本顺序错乱，是可能原因。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "大模型还原内容能力不是文本被截断的直接原因。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-1014": {
+    "qid": "3-1014",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "题目考查如何按需集成RAG功能，涉及意图识别与RAG流程。",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "RAG 由两个阶段组成...在线问答...必要时先做查询改写（消代词、补全指代）...把检索到的资料与问题拼装进提示词模板",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "意图识别判断是否需RAG，多轮对话改写是RAG常见优化。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "已有聊天应用，无需从零实现RAG全功能。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "每轮对话都检索不符合按需使用需求。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "要求用户输入文本段不合理，应自动检索。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-1068": {
+    "qid": "3-1068",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "题目考查因切片导致上下文缺失的改进方案，对应切片策略知识点。",
+    "answer": [
+      "A",
+      "B",
+      "C"
+    ],
+    "supported": true,
+    "quote": "文本切片...切得太小：语义被截断（一句话被切成两半），即使检索命中也信息不全...工程上通常会设置重叠（overlap）——相邻 chunk 之间保留一小段重复文字，防止一句话正好被从中间切断...句子窗口检索...建索引时以'单个句子'为可检索单元...同时在每个句子的元数据里存下它'前后各 N 句'组成的窗口",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "语义切片可切出更完整语义单元，避免截断。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "调整切片大小覆盖更大段落，可保留完整上下文。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "滑动窗口重叠策略可防止语义被切断。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "temperature控制输出多样性，不解决上下文缺失问题。"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

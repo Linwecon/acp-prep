@@ -1,0 +1,236 @@
+{
+  "9-0053": {
+    "qid": "9-0053",
+    "classification": "own",
+    "chapter": 4,
+    "quality": "ok",
+    "reason": "考查Agent核心能力：多步任务闭环执行",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "Agent 是由大模型驱动、具备自主感知、规划、调用工具并根据反馈迭代能力的应用。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "未体现工具调用与闭环，仅指派非执行"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "规则系统非LLM驱动，不属Agent范畴"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "符合ReAct式多步规划+工具调用闭环"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "不调用系统，无法真实完成任务"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "9-1031": {
+    "qid": "9-1031",
+    "classification": "misplaced",
+    "chapter": 9,
+    "quality": "remove",
+    "reason": "Assistant API非本章内容，且原文未定义其能力范围",
+    "answer": [],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "教材未提及Assistant类功能"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "教材未提及Assistant类功能"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "教材未提及Assistant类功能"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "教材未提及Assistant类功能"
+      },
+      {
+        "label": "E",
+        "selected": false,
+        "why": "教材未提及Assistant类功能"
+      },
+      {
+        "label": "F",
+        "selected": false,
+        "why": "教材未提及Assistant类功能"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "9-1163": {
+    "qid": "9-1163",
+    "classification": "misplaced",
+    "chapter": 9,
+    "quality": "remove",
+    "reason": "同上题，纯API接口细节，本章未覆盖",
+    "answer": [],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "教材未提及Assistant类功能"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "教材未提及Assistant类功能"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "教材未提及Assistant类功能"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "教材未提及Assistant类功能"
+      },
+      {
+        "label": "E",
+        "selected": false,
+        "why": "教材未提及Assistant类功能"
+      },
+      {
+        "label": "F",
+        "selected": false,
+        "why": "教材未提及Assistant类功能"
+      }
+    ],
+    "duplicate_of": "9-1031"
+  },
+  "9-1387": {
+    "qid": "9-1387",
+    "classification": "misplaced",
+    "chapter": 9,
+    "quality": "remove",
+    "reason": "同上题，重复考查未定义的API能力",
+    "answer": [],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "教材未提及Assistant类功能"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "教材未提及Assistant类功能"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "教材未提及Assistant类功能"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "教材未提及Assistant类功能"
+      },
+      {
+        "label": "E",
+        "selected": false,
+        "why": "教材未提及Assistant类功能"
+      },
+      {
+        "label": "F",
+        "selected": false,
+        "why": "教材未提及Assistant类功能"
+      }
+    ],
+    "duplicate_of": "9-1031"
+  },
+  "10-1459": {
+    "qid": "10-1459",
+    "classification": "own",
+    "chapter": 4,
+    "quality": "ok",
+    "reason": "考查Agent中敏感问题识别与人工转接机制",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "HITL（人机协作）在关键节点暂停，交人类审批/决策。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "未处理敏感问题，违反HITL原则"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "分类触发人工转接，符合HITL设计"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "回避非解决，且示例学习非Agent标准做法"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "限制提问违反用户体验，非Agent方案"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "10-1430": {
+    "qid": "10-1430",
+    "classification": "own",
+    "chapter": 4,
+    "quality": "ok",
+    "reason": "考查Function Calling中结果获取关键步骤",
+    "answer": [
+      "D"
+    ],
+    "supported": true,
+    "quote": "结果必须由程序作为 role=\"tool\" 消息追加回上下文，模型才\"知道\"发生了什么。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "创建Run是启动，非获取答案"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "list是获取消息列表，非解析答案"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "submit_outputs是处理工具调用，非最终答案"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "解析msgs提取value才是最终答案"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

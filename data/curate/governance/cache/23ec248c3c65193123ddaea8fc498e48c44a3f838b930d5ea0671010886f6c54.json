@@ -1,0 +1,231 @@
+{
+  "4-1451": {
+    "qid": "4-1451",
+    "classification": "own",
+    "chapter": 4,
+    "quality": "ok",
+    "reason": "考查Function Calling适用场景，区分是否需要外部工具。",
+    "answer": [
+      "A",
+      "C",
+      "D"
+    ],
+    "supported": true,
+    "quote": "Function Calling（函数调用 / 工具调用）...让模型自己决定'要不要调工具、调哪个、传什么参'",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "需要调用外部天气API，适合。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "无需外部工具，不适合。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "需要调用Excel解析API，适合。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "需要调用外部航班API，适合。"
+      },
+      {
+        "label": "E",
+        "selected": false,
+        "why": "无需外部工具，不适合。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "4-1468": {
+    "qid": "4-1468",
+    "classification": "own",
+    "chapter": 4,
+    "quality": "ok",
+    "reason": "考查多Agent思想，即分工协作处理复杂任务。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "多 Agent：像人类团队一样分工协作...把它拆给'教学设计师、数据科学家、内容编辑'三个专家 Agent",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "手动完成非多Agent思想。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "拆分子任务，分工协作，符合。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "整合到单一prompt，不符合。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "仅用单一模型，不符合。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "4-1175": {
+    "qid": "4-1175",
+    "classification": "own",
+    "chapter": 4,
+    "quality": "ok",
+    "reason": "考查Function Calling流程中应用侧执行函数并提交结果。",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "Function Calling 完整流程四步...3. 程序执行：由你的应用代码解析 tool_calls、真正执行对应函数...4. 结果回传",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "代码执行函数并提交结果，符合。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "非提交用户query。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "非等待Run完成。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "非获取Assistant回复。"
+      },
+      {
+        "label": "E",
+        "selected": false,
+        "why": "非创建Assistant。"
+      },
+      {
+        "label": "F",
+        "selected": false,
+        "why": "非创建Thread。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "4-5103": {
+    "qid": "4-5103",
+    "classification": "own",
+    "chapter": 4,
+    "quality": "ok",
+    "reason": "考查Function Calling流程中工具执行后的正确步骤。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "结果必须以 role=\"tool\" 回传...带着工具结果再次调用模型，模型据此生成最终回复",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "删除Thread错误。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "提交结果并继续等待，正确。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "修改instructions错误。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "直接结束对话错误。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "4-5104": {
+    "qid": "4-5104",
+    "classification": "own",
+    "chapter": 4,
+    "quality": "ok",
+    "reason": "考查智能体（Assistant API）的核心组件。",
+    "answer": [
+      "A",
+      "B",
+      "C"
+    ],
+    "supported": true,
+    "quote": "单 Agent 四大组件（LLM / Planner / Tool / Memory）...Function Calling...工具必须以 JSON-Schema 描述",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "绑定模型与指令是核心。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "Thread保存上下文是核心。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "工具调用对接外部是核心。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "API不自动训练权重。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "4-5105": {
+    "qid": "4-5105",
+    "classification": "own",
+    "chapter": 4,
+    "quality": "ok",
+    "reason": "考查Agent在医疗等高风险领域的稳妥处理原则。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "高风险操作要'先验证计划再执行'...Agent 是协作伙伴，但'结果对不对...始终是人的责任'",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "直接生成建议风险高。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "建议遵医嘱，稳妥。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "凭记忆给处方风险高。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "一律拒绝过于绝对。"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

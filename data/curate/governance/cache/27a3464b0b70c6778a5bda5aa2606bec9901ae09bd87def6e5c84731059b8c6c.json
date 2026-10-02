@@ -1,0 +1,37 @@
+{
+  "new-1-36-0": {
+    "qid": "new-1-36-0",
+    "classification": "own",
+    "chapter": 1,
+    "quality": "ok",
+    "reason": "题干聚焦LLM本质与RAG失效根因，属大模型基础核心考点",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "抑制幻觉 | \"只依据资料回答\" + 引用溯源 | 指望模型\"自觉\"",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "RAG片段未入messages属工程实现错误，非本章考查的模型本质问题"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "模型依赖参数化知识而非RAG内容，正因缺少约束提示"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "top_p过小不会跳过关键Token，只会缩小候选集"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "Token超限会报错或截断，但题干已明确未超窗"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

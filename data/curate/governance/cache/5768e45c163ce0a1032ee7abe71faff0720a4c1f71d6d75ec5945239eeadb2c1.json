@@ -1,0 +1,154 @@
+{
+  "items": [
+    {
+      "type": 0,
+      "stem": "某金融企业需构建高合规性合同审查系统，要求：① 所有客户合同原文严禁出域；② 必须支持LoRA微调以适配'穿透式尽调'等监管术语；③ 需提供1000+ QPS稳定推理服务。技术团队决定采用开源模型方案。根据第10章模型选型四维评估（速度/能力/长文本/成本），以下哪项约束直接决定了必须放弃qwen-turbo而选用qwen-plus作为微调基座？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "qwen-turbo不支持LoRA微调，仅qwen-plus及以上规格开放微调接口"
+        },
+        {
+          "option_label": "B",
+          "option_text": "qwen-turbo上下文窗口过小，无法容纳完整合同条款与监管条文的联合输入"
+        },
+        {
+          "option_label": "C",
+          "option_text": "qwen-turbo推理能力不足，无法准确理解'穿透式尽调'等复杂金融语义，导致微调后仍答不准"
+        },
+        {
+          "option_label": "D",
+          "option_text": "qwen-turbo输出Token单价虽低，但因微调后生成长度增加，总成本反超qwen-plus"
+        }
+      ],
+      "answer": "C",
+      "analysis": "依据原文10.6节'通义千问模型家族'明确指出：'qwen-turbo适用于高频、简单、对延迟敏感的任务（简单问答、分类、摘要）'；'qwen-plus能力与成本均衡，课程默认模型'；'max能力最强，适合复杂推理'。题干中'穿透式尽调'属于高度专业化、需深度语义理解与逻辑推演的金融监管术语，属于'复杂推理'范畴——这正是qwen-turbo的能力边界之外（原文强调'把复杂法律推理交给turbo又会答不好'）。A错误：微调能力取决于平台（百炼/PAI）而非模型规格本身，原文10.2与10.4均未限定turbo不可微调；B错误：长文本约束对应qwen-long，非plus/turbo选择依据；D错误：成本是结果而非必要条件，题干问的是'必须放弃turbo'的**直接决定性约束**，能力不足才是根本原因，且原文10.8明确'按任务难度分级路由'的首要依据是能力匹配。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 0,
+      "stem": "运维团队监控到DashScope API调用中qwen-long模型的输出Token费用持续高于输入，且远超同类任务使用qwen-plus时的账单。经排查，用户请求中system prompt固定为32KB法律条文，user content平均仅200字符。该现象最符合原文哪项四维评估维度的权衡失效？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "速度维度失效：qwen-long因长上下文解析导致首Token延迟升高，触发更多重试请求"
+        },
+        {
+          "option_label": "B",
+          "option_text": "成本维度失效：未利用上下文缓存机制，导致重复加载的system prompt被重复计费"
+        },
+        {
+          "option_label": "C",
+          "option_text": "长文本维度误用：qwen-long虽支持长上下文，但将静态条文硬塞入system prompt违反RAG最佳实践"
+        },
+        {
+          "option_label": "D",
+          "option_text": "能力维度错配：qwen-long在法律条文理解上能力弱于qwen-plus，需更长输出补偿"
+        }
+      ],
+      "answer": "B",
+      "analysis": "原文10.8节'省成本的工程手段'第4条明确：'善用缓存：对重复的系统提示词、知识库前缀利用上下文缓存折扣'；同时10.8表格强调'输入/输出分别计价，输出通常更贵'。题干中32KB固定system prompt被每次请求重复发送，既未启用缓存（导致输入Token浪费），又因模型需反复处理相同内容而生成冗余解释性输出（推高更昂贵的输出Token）。A错误：首Token延迟与重试无数据支撑；C是架构问题，但题干焦点在'费用异常高'这一成本现象，B直接对应计费规则；D错误：原文未提long能力弱于plus，相反long专为长文档设计。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 1,
+      "stem": "某医疗AI项目需实现'200页PDF指南全文问答'，技术方案确定为ModelScope下载Qwen2-7B + PAI-EAS部署。根据第10章模型选型四维评估，以下哪些条件若同时成立，将构成该方案不可行的**必要故障原因**？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "PAI-EAS当前地域未提供支持200页PDF所需显存的GPU机型"
+        },
+        {
+          "option_label": "B",
+          "option_text": "Qwen2-7B开源模型最大上下文窗口为4K tokens，无法覆盖200页PDF的token总量"
+        },
+        {
+          "option_label": "C",
+          "option_text": "ModelScope社区中Qwen2-7B模型权重文件下载链接已失效"
+        },
+        {
+          "option_label": "D",
+          "option_text": "PAI-DLC训练模块不支持Qwen2-7B的LoRA微调框架"
+        }
+      ],
+      "answer": "AB",
+      "analysis": "考查'必要条件'与'执行顺序'：题干方案是'下载→部署'，非'训练→部署'，故D（训练支持）非必要；C（下载链接失效）属临时性运维问题，非模型选型维度的固有约束。A正确：EAS部署需硬件资源支撑，若无足够显存GPU，则无法加载200页PDF对应的长上下文模型，这是物理层面的**执行前提**（原文10.4强调EAS提供'弹性伸缩'但依赖可用机型）；B正确：原文10.6明确qwen-long的价值在于'支持超长上下文窗口'，反向推导——若基座模型（Qwen2-7B）自身上下文窗口上限低于任务需求（200页PDF约>500K tokens），则无论部署多强算力也无法完成整文处理，这是**模型能力维度的根本限制**。二者缺一不可，构成方案不可行的必要故障链。",
+      "difficulty_label": "挑战"
+    },
+    {
+      "type": 0,
+      "stem": "开发团队在PAI-DSW中调试qwen-turbo微调脚本时，发现GPU实例费用飙升。日志显示模型每轮训练仅消耗12秒，但实例持续运行72小时。该现象违反原文哪项四维评估中的隐含成本约束？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "速度维度被误读：将'推理快'等同于'训练快'，未意识到turbo并非为训练优化"
+        },
+        {
+          "option_label": "B",
+          "option_text": "成本维度失控：未遵循'PAI-DSW费用提醒'——关闭浏览器不等于停止实例，必须手动停止"
+        },
+        {
+          "option_label": "C",
+          "option_text": "能力维度错配：turbo参数量小，需更多训练轮次才能收敛，拉长了GPU占用时间"
+        },
+        {
+          "option_label": "D",
+          "option_text": "长文本维度冲突：turbo的短上下文导致数据切片增多，增加训练迭代次数"
+        }
+      ],
+      "answer": "B",
+      "analysis": "题干核心矛盾是'费用飙升'与'实例持续运行'，直接指向原文10.4节'PAI-DSW费用提醒'的明确警示：'关闭浏览器不等于停止实例，不学了必须回控制台停止或删除'。这是成本控制中最基础、最易忽视的操作规范，属于**执行顺序错误**（先关浏览器，后忘停实例），而非模型维度的技术权衡。A、C、D均试图从模型特性解释费用高，但题干已说明'每轮仅12秒'，证明训练本身高效，费用源于闲置计费。原文10.4将此列为'课程反复强调'的风险点，B是唯一有直接教材依据的答案。",
+      "difficulty_label": "入门"
+    },
+    {
+      "type": 1,
+      "stem": "某电商客服系统上线后出现两类问题：① 用户提问'退货流程'时，模型常返回'请参考《售后服务政策》第5章'而非具体步骤；② 高峰期API响应延迟超2s，触发前端超时。根据第10章四维评估，以下哪些组合措施能同时解决两大问题且符合'权衡优先级'原则？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "将知识库切片策略从固定字符改为语义分块，并启用RAG检索结果精排"
+        },
+        {
+          "option_label": "B",
+          "option_text": "将模型从qwen-plus切换为qwen-turbo，降低单次推理延迟"
+        },
+        {
+          "option_label": "C",
+          "option_text": "在DashScope调用中设置max_tokens=512，防止模型过度生成"
+        },
+        {
+          "option_label": "D",
+          "option_text": "对高频问题（如退货流程）预生成答案并加入缓存层"
+        }
+      ],
+      "answer": "ABD",
+      "analysis": "考查'组合约束'与'权衡优先级'：问题①是效果问题（RAG精度不足），问题②是性能问题（延迟高）。A正确：语义分块提升检索相关性，精排确保返回最精准片段，直接解决①；B正确：turbo速度显著优于plus（原文10.6），可降低首Token延迟，缓解②；D正确：缓存高频答案绕过模型调用，零延迟解决①②。C错误：设置max_tokens可防'刹不住车'（原文10.8），但题干问题非输出过长，而是延迟高和答案不精准，且盲目设限可能截断有效回答，违背'按任务路由'原则。原文10.8降本顺序强调'选对模型→控制上下文→缓存'，ABD严格遵循此优先级。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 0,
+      "stem": "当百炼应用需调用PAI-EAS部署的私有qwen-long模型时，若出现'429 Too Many Requests'错误，且监控显示EAS服务端QPS正常，但DashScope侧RPM持续超限。该故障的根本原因及对应教材依据是？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "EAS服务未配置自动扩缩容，导致并发请求堆积，触发DashScope网关限流——依据10.4节'EAS支持弹性伸缩'"
+        },
+        {
+          "option_label": "B",
+          "option_text": "百炼应用未对EAS调用做客户端限流，导致突发流量冲击DashScope配额——依据10.8节'429要指数退避'"
+        },
+        {
+          "option_label": "C",
+          "option_text": "DashScope与EAS共用同一套RPM配额，EAS调用计入DashScope总配额——依据10.5节'三者可组合'但未说明配额隔离"
+        },
+        {
+          "option_label": "D",
+          "option_text": "百炼调用EAS时未使用OpenAI兼容模式，导致协议转换开销增大，延长了请求生命周期——依据10.3节'兼容模式迁移成本低'"
+        }
+      ],
+      "answer": "C",
+      "analysis": "题干关键线索：'EAS服务端QPS正常'但'DashScope侧RPM超限'，说明限流发生在DashScope网关层，而非EAS自身。原文10.5节明确'百炼应用也可以调用部署在PAI-EAS上的私有模型'，但未提及配额隔离；而10.8节'限流（RPM/TPM）'定义其为'API调用'的配额，且百炼调用EAS本质仍是通过DashScope API网关发起（原文10.1'百炼底层调用DashScope的Embedding/生成模型'，10.5'百炼应用再去调用EAS上的私有模型'）。因此，当百炼调用EAS服务时，该请求仍经DashScope网关计费与限流，计入百炼/DashScope的RPM配额。A、B、D均将问题归因于EAS或客户端，与监控现象矛盾。C是唯一能解释'服务端正常但网关报429'的教材依据。",
+      "difficulty_label": "挑战"
+    }
+  ]
+}

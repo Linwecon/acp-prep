@@ -1,0 +1,155 @@
+{
+  "new-4-138-0": {
+    "qid": "new-4-138-0",
+    "classification": "own",
+    "chapter": 4,
+    "quality": "ok",
+    "reason": "考查Function Calling流程中工具结果必须回传的核心步骤",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "结果必须由程序作为 `role=\"tool\"` 消息追加回上下文，模型才\"知道\"发生了什么",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "工具结果未以role=\"tool\"消息回传，模型无法生成最终答复"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "题干未提及循环中断，且静默非因轮数上限"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "模型已返回tool_calls，说明工具识别正常"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "Memory缺失不影响单轮工具调用与结果回传"
+      }
+    ],
+    "duplicate_of": "4-5159"
+  },
+  "new-4-138-1": {
+    "qid": "new-4-138-1",
+    "classification": "own",
+    "chapter": 4,
+    "quality": "ok",
+    "reason": "考查规划策略中ReAct与Plan-and-Execute应对不确定性的适用性",
+    "answer": [
+      "B",
+      "D"
+    ],
+    "supported": true,
+    "quote": "ReAct 比一次性 FC 调用更强大……工具失败、数据异常时，它能换工具、改参数、求助用户",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "替换工具未解决流程僵化问题，非最佳实践"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "ReAct允许失败时重试、切换方案，提升鲁棒性"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "固化为Skill仍属固定工作流，未解决动态重规划"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "Plan-and-Execute遇阻可重新规划，适应动态环境"
+      },
+      {
+        "label": "E",
+        "selected": false,
+        "why": "健康检查属预防，未解决失败后流程卡死问题"
+      }
+    ],
+    "duplicate_of": "4-5158"
+  },
+  "new-4-138-4": {
+    "qid": "new-4-138-4",
+    "classification": "own",
+    "chapter": 4,
+    "quality": "ok",
+    "reason": "考查Agent本质特征：规划-行动-观察闭环",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "Agent 则反复执行下面这个循环，直到任务完成或触达停止条件：感知（读入任务/工具结果）→ 规划（决定下一步）→ 行动（调用工具）→ 观察（读回结果）→ 回到感知",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "表述宽泛，未直接对应题干具体行为"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "未调用工具，直接回答，违反感知-规划-行动-观察闭环"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "题干未涉及RAG，非核心违反点"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "缺乏多步推理是结果，非最核心本质特征"
+      }
+    ],
+    "duplicate_of": "4-5164"
+  },
+  "new-4-138-5": {
+    "qid": "new-4-138-5",
+    "classification": "own",
+    "chapter": 4,
+    "quality": "ok",
+    "reason": "考查Agent评测中白盒化与确定性检查的组合使用",
+    "answer": [
+      "A",
+      "C",
+      "E"
+    ],
+    "supported": true,
+    "quote": "白盒化评测……关键组件/中间步骤（工具调用序列、参数、轨迹）……确定性检查（Deterministic Checks）……用代码/脚本判断\"该发生的步骤有没有发生\"",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "确定性检查可验证输出是否含来源标识"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "LLM-as-Judge适合主观评分，但题干需定位过程问题"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "Rubric拆解细则，配合结构化输出可精准定位"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "自定义命令属Harness工程，非评测定位手段"
+      },
+      {
+        "label": "E",
+        "selected": true,
+        "why": "白盒化评测检查执行轨迹，定位工具调用与注入问题"
+      }
+    ],
+    "duplicate_of": "4-5173"
+  }
+}

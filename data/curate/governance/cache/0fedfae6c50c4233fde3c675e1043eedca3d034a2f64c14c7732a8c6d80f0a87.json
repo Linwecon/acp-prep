@@ -1,0 +1,144 @@
+{
+  "new-6-84-0": {
+    "qid": "new-6-84-0",
+    "classification": "own",
+    "chapter": 6,
+    "quality": "ok",
+    "reason": "题干描述典型高并发瓶颈现象，考查根因定位与应对路径，符合本章性能调优考点。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "监控显示GPU显存占用率达98%，KV Cache占比94%。这说明并发已超过服务最优处理能力，GPU/显存成为瓶颈，请求开始排队导致RT劣化和超时。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "教材强调先定位根因，而非盲目扩容。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "教材指出KV Cache是并发瓶颈，应检查其利用率。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "调高参数会加剧显存压力，与应对方向相反。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "连续批处理提升吞吐，关闭会恶化性能。"
+      }
+    ],
+    "duplicate_of": "6-5140"
+  },
+  "new-6-84-1": {
+    "qid": "new-6-84-1",
+    "classification": "own",
+    "chapter": 6,
+    "quality": "ok",
+    "reason": "考查PagedAttention参数调整对KV Cache占用率的影响，属于核心优化手段。",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "缓解KV Cache压力的常用手段包括：KV Cache量化——对缓存本身低精度存储。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "增大块大小不直接降低KV Cache存储精度。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "减小块大小可能增加管理开销，不直接缓解存储压力。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "启用低精度存储可直接减少KV Cache显存占用。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "禁用PagedAttention会加剧碎片，是倒退。"
+      }
+    ],
+    "duplicate_of": "6-5145"
+  },
+  "new-6-84-2": {
+    "qid": "new-6-84-2",
+    "classification": "own",
+    "chapter": 6,
+    "quality": "ok",
+    "reason": "综合考查量化对显存、速度、精度的影响，覆盖量化核心知识点。",
+    "answer": [
+      "A",
+      "B",
+      "C"
+    ],
+    "supported": true,
+    "quote": "量化（Quantization）：把模型参数从高精度压缩到低精度，以可控的精度损失换取显存占用下降、显存带宽压力减小、推理速度提升。INT4在敏感任务上可能掉点更明显，需要用业务评测集验证。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "INT4相对FP16体积降为1/4，是量化基本原理。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "Decode阶段带宽密集，量化减少带宽压力可加速。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "Prefill计算密集，不受量化后读取带宽影响。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "教材指出INT4损失‘可能’更明显，非‘必然’。"
+      }
+    ],
+    "duplicate_of": "6-5136"
+  },
+  "new-6-84-5": {
+    "qid": "new-6-84-5",
+    "classification": "own",
+    "chapter": 6,
+    "quality": "ok",
+    "reason": "考查连续批处理对TTFT的影响机制，涉及两阶段调度细节。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "连续批处理（Continuous Batching，又称动态/持续批处理）：请求不再‘整批齐步走’，而是完成一个就立刻返回、新请求立刻补进batch。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "连续批处理不导致Prefill串行执行。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "动态调度可能导致长prompt请求被短请求抢占资源。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "调度开销通常较小，不是TTFT上升主因。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "页表查询延迟主要影响Decode，而非TTFT。"
+      }
+    ],
+    "duplicate_of": "6-5148"
+  }
+}

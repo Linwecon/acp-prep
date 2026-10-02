@@ -1,0 +1,79 @@
+{
+  "items": [
+    {
+      "type": 0,
+      "stem": "某HR团队优化新人答疑机器人后，RAGAS评测显示Context Recall=1.0、Context Precision=0.35，Faithfulness=0.22，Answer Correctness=0.24。日志确认检索片段中明确包含'张伟是教研部的'这一完整事实，但该片段位于第18位，前17个均为行政/IT类无关内容。此时若仅强化生成端提示词（如增加'必须严格依据排位最靠前的相关上下文作答'），最可能产生的实际效果是？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "Faithfulness显著提升，因模型被强制约束使用靠前上下文"
+        },
+        {
+          "option_label": "B",
+          "option_text": "Answer Correctness小幅改善，但Faithfulness可能进一步下降，因模型被迫从错误上下文中强行推导"
+        },
+        {
+          "option_label": "C",
+          "option_text": "指标无明显变化，因Faithfulness计算不依赖context排序，只判断陈述是否可由任意context支撑"
+        },
+        {
+          "option_label": "D",
+          "option_text": "Context Precision被动提升，因提示词约束改变了检索模块的排序逻辑"
+        }
+      ],
+      "answer": "B",
+      "analysis": "依据教材7.4.3节Faithfulness官方口径：'把answer拆成简单陈述，对照contexts逐条判定能否由上下文直接推断'——它不要求使用'最靠前'的context，只要任一context能支撑即判为1。当正确信息深埋第18位、前17位均为错误信息时，强化提示词要求'依据最靠前相关上下文'，实则引导模型从错误上下文中强行编造答案（如将'行政部考勤流程'误推为'张伟所属部门'），导致幻觉加剧，Faithfulness与Answer Correctness同步恶化。选项A错误：约束'用靠前上下文'无法提升Faithfulness，反因错误上下文引发新幻觉；C错误：虽然Faithfulness计算不依赖排序，但提示词改变模型行为，会直接影响其陈述生成质量；D错误：提示词作用于生成端，不改变检索模块输出的contexts顺序，故Context Precision不受影响。本题考查Faithfulness对'上下文内容真实性'的必要条件（需有正确支撑材料），而非'上下文位置合理性'。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 1,
+      "stem": "在诊断Faithfulness低分故障时，以下哪些现象组合可排除'检索资料本身缺失关键事实'这一原因，并锁定问题纯属生成端？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "Context Recall=1.0，且人工核查contexts列表中明确存在ground_truth所有观点的原文依据"
+        },
+        {
+          "option_label": "B",
+          "option_text": "Answer Correctness中语义相似度子项≥0.9，但事实F1子项≤0.2"
+        },
+        {
+          "option_label": "C",
+          "option_text": "Context Precision=0.4，且contexts中正确片段排位靠后（如第12位）"
+        },
+        {
+          "option_label": "D",
+          "option_text": "Faithfulness=0.3，但所有answer陈述经人工比对均无法在contexts中找到对应支撑"
+        }
+      ],
+      "answer": "ABD",
+      "analysis": "本题考查Faithfulness与Correctness的必要条件辨析及故障归因。A正确：Context Recall=1.0（教材7.4.1节）定义为'ground_truth所有观点均能在contexts中找到支撑'，人工核查确认则彻底排除资料缺失；B正确：Answer Correctness=0.25×语义相似度+0.75×事实F1（教材7.4.4节），语义相似度高说明answer与ground_truth字面/语义接近，但事实F1极低，证明answer中大量陈述（如'张伟在人事部'）虽与标准答案相似却无上下文支撑——这正是Faithfulness低的核心表现（幻觉），且因语义相似度高反证资料中必有正确信息（否则无法生成相似文本）；D正确：Faithfulness直接判定'answer陈述能否由contexts支撑'，全不匹配即证实生成端未忠实使用资料。C错误：Context Precision低反映排序问题（教材7.4.2节），但正确片段存在即说明资料不缺失，然而Precision低本身不构成'排除资料缺失'的证据——它与Recall共同判断资料完整性，单独Precision低不能证伪缺失。本题紧扣'Faithfulness低的充分必要条件是answer陈述无上下文支撑'，而Correctness的子项分解提供了交叉验证路径。",
+      "difficulty_label": "挑战"
+    },
+    {
+      "type": 0,
+      "stem": "某团队发现RAGAS评测中Answer Correctness持续低于0.4，深入拆解发现：其语义相似度子项均值为0.85，而事实F1子项均值仅为0.08。此时若仅通过提升LLM评委的温度参数（temperature）来试图改善Answer Correctness，最违背教材哪项核心原则？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "违反'算法指标是手段，业务指标才是目标'原则（7.2.2节）"
+        },
+        {
+          "option_label": "B",
+          "option_text": "违反'Faithfulness与Answer Correctness输入字段不可混用'原则（7.4.4节考试要点）"
+        },
+        {
+          "option_label": "C",
+          "option_text": "违反'先修检索、再优生成'的总体优化顺序（7.5节价值框）"
+        },
+        {
+          "option_label": "D",
+          "option_text": "违反'Answer Correctness权重设计体现事实正确性优先'原则（7.4.4节官方口径）"
+        }
+      ],
+      "answer": "D",
+      "analysis": "本题直击Answer Correctness公式设计意图。教材7.4.4节明确指出：'Answer Correctness = 0.25×语义相似度 + 0.75×事实F1'，并强调'权重0.75给了事实F1，说明该指标更看重事实正确性而非字面相似'。当前语义相似度高达0.85而事实F1仅0.08，表明答案虽与标准答案形似（如'张伟是XX部的'），但事实完全错误（XX部非教研部）。此时调高temperature会增大生成随机性，进一步降低事实准确性（F1），与指标设计的'事实优先'导向背道而驰。A错误：该原则针对指标层级关系，与参数调整无关；B错误：temperature是生成模型参数，非评委输入字段问题；C错误：此处故障已明确为生成端事实错误（F1极低），且语义相似度高反证检索无问题，故无需先修检索。本题通过参数操作反向验证指标权重设计的业务含义，考查对'0.75权重'这一数字背后工程决策的理解。",
+      "difficulty_label": "进阶"
+    }
+  ]
+}

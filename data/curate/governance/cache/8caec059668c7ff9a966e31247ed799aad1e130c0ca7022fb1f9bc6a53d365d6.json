@@ -1,0 +1,104 @@
+{
+  "items": [
+    {
+      "type": 0,
+      "stem": "某金融企业需构建合同智能解读系统，输入为扫描件PDF（含页眉‘不可抗力’条款）和带复杂表格的监管报表。团队要求解析结果严格保留表格结构、标题层级及OCR识别文本，且所有处理必须离线完成。根据第12章12.5节文档解析工具链选型原则，以下哪项组合最符合‘必要条件刚性约束’？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "SimpleDirectoryReader + PyMuPDF4LLM：利用PyMuPDF高效提取PDF文字层，SimpleDirectoryReader统一调度"
+        },
+        {
+          "option_label": "B",
+          "option_text": "Unstructured（本地部署）+ custom partitioner：启用partition_pdf(mode='ocr_only')并配置table_extraction=True"
+        },
+        {
+          "option_label": "C",
+          "option_text": "DashScopeParse：调用百炼云端OCR与版面分析API，输出结构化Markdown"
+        },
+        {
+          "option_label": "D",
+          "option_text": "自定义Reader继承BaseReader，内嵌Tesseract+LayoutParser实现端到端离线解析"
+        }
+      ],
+      "answer": "B",
+      "analysis": "依据原文12.5节‘选型决策路径’：① 扫描件PDF需OCR → 排除A（PyMuPDF对无文字层PDF无效）；② 复杂表格需结构化保留 → C虽支持但违反‘所有处理必须离线’硬约束（DashScopeParse为云端服务）；③ D虽满足离线，但原文明确指出‘自定义Reader’仅适用于‘内部专有格式’，而PDF/表格是通用格式，不应重复造轮子；④ B中Unstructured支持本地OCR（mode='ocr_only'）、表格提取（table_extraction=True），且原文表头明确将其列为‘需要完全离线、多格式统一分区’的首选方案，完全匹配题干三重刚性约束（扫描件+表格结构+离线）。A错在无法处理扫描件；C错在违背离线要求；D错在过度工程化，违反‘务实分层’原则。",
+      "difficulty_label": "挑战"
+    },
+    {
+      "type": 1,
+      "stem": "在调试一个基于LlamaIndex的RAG应用时，发现QueryEngine返回的答案频繁出现‘根据资料，年假有5天’，但知识库最新政策明确写‘司龄满3年员工年假10天’。日志显示检索召回了包含‘5天’的旧制度片段，而新政策未被命中。根据第12章12.3节索引持久化要求与12.5节解析质量关联性，以下哪些原因可能共同导致该故障？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "索引未持久化，每次查询均重建，但新增文档未纳入load_data()调用范围"
+        },
+        {
+          "option_label": "B",
+          "option_text": "使用SimpleDirectoryReader解析扫描件PDF，导致新政策关键条款因OCR失败而丢失"
+        },
+        {
+          "option_label": "C",
+          "option_text": "NodeParser配置为SentenceSplitter，将‘司龄满3年’与‘年假10天’切分至不同Node，破坏语义完整性"
+        },
+        {
+          "option_label": "D",
+          "option_text": "Embedding模型未更新，仍使用旧版text-embedding-v1向量化新文档"
+        }
+      ],
+      "answer": "A,B,C",
+      "analysis": "依据原文12.3节：‘索引需要持久化，避免每次重建’——A直接对应‘未持久化+新增文档未加载’，是根本操作错误；依据12.5节：‘扫描件PDF读出来是空的→需要OCR/DashScopeParse’——B指出SimpleDirectoryReader对扫描件解析失效，导致新政策文本未进入Document，是数据源头污染；依据12.3节NodeParser作用及12.5节‘结构化Markdown’要求——C中SentenceSplitter粗暴切分会割裂关键语义单元（如‘司龄满3年员工年假10天’被切成两段），使向量检索无法召回完整上下文，原文强调‘后续切片与检索才能利用语义边界’；D错误：Embedding模型版本不一致会影响向量质量，但原文未将模型版本列为索引重建失败的归因，且题干现象是‘旧政策被召回、新政策未命中’，主因是新政策未进入索引流程（A/B）或被错误切分（C），而非向量表示偏差。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 0,
+      "stem": "某HR部门需自助搭建制度问答机器人，文档含扫描件PDF与复杂财务报表，IT仅提供百炼API Key，且严禁数据出域。根据第12章12.5节与12.6.2节的‘务实分层’原则，以下哪项技术选型最能同时满足‘非技术人员可维护’与‘解析能力刚性达标’？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "Dify平台 + 内置文档解析器：上传扫描件PDF后由Dify自动调用其集成的OCR服务解析"
+        },
+        {
+          "option_label": "B",
+          "option_text": "LlamaIndex + DashScopeParse：HR通过脚本上传文件，工程师定期运行索引重建"
+        },
+        {
+          "option_label": "C",
+          "option_text": "Dify平台 + 自定义DashScopeParse插件：在Dify中配置百炼OCR API作为解析后端"
+        },
+        {
+          "option_label": "D",
+          "option_text": "Unstructured本地服务 + Dify知识库：将Unstructured部署为内部API，Dify调用其进行PDF解析"
+        }
+      ],
+      "answer": "C",
+      "analysis": "依据原文12.6.2节：Dify定位是‘让产品、运营和业务人员也能参与’的低代码平台，满足‘HR自助’核心需求；依据12.5节：扫描件/复杂表格必须用DashScopeParse（OCR+版面分析），而原文明确Dify支持‘可视化配置’和‘模型接入’，其扩展机制允许集成外部解析服务；C选项将DashScopeParse作为Dify的解析后端，在Dify界面上完成上传→解析→问答全流程，既满足HR零代码操作（Dify UI），又刚性保障解析质量（DashScopeParse OCR），且数据全程在私有环境流转（API Key由IT管控，解析在Dify内部调用百炼，符合‘数据不出域’）；A错误：Dify内置解析器未说明支持OCR，原文12.5节强调‘扫描件需DashScopeParse’；B错误：HR无法自助运行脚本，违背‘非技术人员可维护’；D错误：Unstructured需额外部署运维，增加IT负担，且原文12.5节将Unstructured列为‘百炼不满足合规时的替代方案’，而本题明确可用百炼API，应优先选用更优解。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 1,
+      "stem": "开发团队在将LlamaIndex的VectorStoreIndex封装为LangChain Tool供Agent调用时，发现Agent反复调用该Tool却始终返回无关内容。经调试，确认QueryEngine执行正常，但注入提示词的{context_str}字段值恒为固定字符串。依据第12章12.3节对{context_str}的定义及12.4节组合使用规范，以下哪些配置错误可能导致此现象？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "Tool的args_schema未正确定义query_str参数，导致QueryEngine无法接收用户问题"
+        },
+        {
+          "option_label": "B",
+          "option_text": "封装时未将LlamaIndex的QueryEngine设置为流式（streaming=True），导致context_str未实时生成"
+        },
+        {
+          "option_label": "C",
+          "option_text": "LangChain Tool执行函数中，直接返回了index.as_query_engine().query('固定问题')，未动态传入用户输入"
+        },
+        {
+          "option_label": "D",
+          "option_text": "LlamaIndex默认QA提示词模板被覆盖，且新模板中{context_str}被误写为{query_str}"
+        }
+      ],
+      "answer": "A,C",
+      "analysis": "依据原文12.3节：‘{context_str}是检索到的上下文，不是用户问题’，其值由QueryEngine根据用户问题动态检索生成；A正确：若Tool的args_schema未声明query_str参数，则LangChain无法将用户问题传递给Tool执行函数，导致QueryEngine只能执行无意义的默认查询（如空字符串），返回固定无关context；C正确：若执行函数硬编码了固定问题（如query('固定问题')），则每次检索都基于同一问题，必然返回相同context_str；B错误：streaming参数影响输出形式（流式vs全量），不影响context_str内容生成；D错误：{context_str}是QueryEngine内部变量，模板中写错会影响最终回答，但不会导致context_str恒为固定字符串——该现象本质是检索输入未动态化，根源在A/C；原文12.4节强调‘二者组合时，LlamaIndex负责检索，LangChain负责编排’，此处正是编排层（Tool）未正确传递问题到检索层（QueryEngine）的典型故障。",
+      "difficulty_label": "挑战"
+    }
+  ]
+}

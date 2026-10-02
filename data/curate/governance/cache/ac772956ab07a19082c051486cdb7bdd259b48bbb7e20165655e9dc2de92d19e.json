@@ -1,0 +1,217 @@
+{
+  "2-0481": {
+    "qid": "2-0481",
+    "classification": "own",
+    "chapter": 2,
+    "quality": "ok",
+    "reason": "题目考查提示词六要素中明确输出格式的要素，属于本章核心知识点。",
+    "answer": [
+      "A",
+      "B"
+    ],
+    "supported": true,
+    "quote": "六要素：任务目标、上下文、角色、受众、样例、输出格式。输出格式把自然语言输出约束成程序可解析的结构。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "输出格式要素直接用于明确输出格式。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "样例提供输出格式与风格的锚点。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "任务目标明确要完成什么，不直接约束格式。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "上下文提供背景事实，不直接约束格式。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "2-0484": {
+    "qid": "2-0484",
+    "classification": "own",
+    "chapter": 2,
+    "quality": "fixable",
+    "reason": "题干提及ask_llm_route函数，但未提供其定义或上下文，无法确定其功能。选项与意图分类路由相关，但缺乏关键信息。",
+    "answer": [
+      "D"
+    ],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "无资料支持此函数输出文档审查结果。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "无资料支持此函数输出内部文档查询结果。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "无资料支持此函数输出翻译结果。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "意图分类低置信度或未匹配时，可能输出澄清或兜底信息。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "2-0505": {
+    "qid": "2-0505",
+    "classification": "own",
+    "chapter": 2,
+    "quality": "ok",
+    "reason": "题目考查自定义提示词模板中用于约束模型行为的注意事项，属于本章模板设计知识点。",
+    "answer": [
+      "A",
+      "C"
+    ],
+    "supported": true,
+    "quote": "模板设计要点：固定部分写规则，如角色、注意事项、输出格式。示例模板包含注意事项：依据上下文信息来回答，只回答用户的问题。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "依据上下文回答是常见约束，防止幻觉。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "安全提醒是输出内容，非约束行为的注意事项。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "只回答用户问题是常见约束，防止多余输出。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "增加训练数据不属于提示词模板的注意事项。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "2-0517": {
+    "qid": "2-0517",
+    "classification": "own",
+    "chapter": 2,
+    "quality": "ok",
+    "reason": "题目考查自定义提示词模板中处理用户问题的步骤，与上题类似但角度不同。",
+    "answer": [
+      "A",
+      "C"
+    ],
+    "supported": true,
+    "quote": "模板设计要点：固定部分写规则，如角色、注意事项、输出格式。示例模板包含注意事项：依据上下文信息来回答，只回答用户的问题。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "根据上下文回答是处理问题的核心步骤。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "安全提醒是输出内容，非处理问题的步骤。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "只回答用户问题是处理问题的约束步骤。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "增加训练数据不属于处理问题的步骤。"
+      }
+    ],
+    "duplicate_of": "2-0505"
+  },
+  "2-0524": {
+    "qid": "2-0524",
+    "classification": "own",
+    "chapter": 2,
+    "quality": "fixable",
+    "reason": "题干提及ask_llm_route函数及其提示词，但未提供具体内容，无法确定其规定的角色背景。",
+    "answer": [
+      "A",
+      "B"
+    ],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "意图分类可能涉及文档审查，角色可能相关。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "意图分类可能涉及翻译任务，角色可能相关。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "增加训练数据不是提示词中规定的角色背景。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "减少推理时间不是提示词中规定的角色背景。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "2-0542": {
+    "qid": "2-0542",
+    "classification": "own",
+    "chapter": 2,
+    "quality": "ok",
+    "reason": "题目考查使用分隔符的主要优点，属于本章核心知识点。",
+    "answer": [
+      "A",
+      "B"
+    ],
+    "supported": true,
+    "quote": "分隔符承担三个关键作用：结构化（指令与数据边界清晰，模型能抓住目标）、防注入、易解析。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "分隔符使指令与数据边界清晰，模型能抓住目标。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "分隔符隔离不必要信息，减少混淆。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "分隔符不增加模型的训练数据。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "分隔符不直接减少模型的推理时间。"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

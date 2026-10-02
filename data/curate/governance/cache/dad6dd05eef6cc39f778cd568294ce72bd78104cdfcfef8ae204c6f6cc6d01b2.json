@@ -1,0 +1,37 @@
+{
+  "new-6-168-0": {
+    "qid": "new-6-168-0",
+    "classification": "own",
+    "chapter": 6,
+    "quality": "ok",
+    "reason": "考点精准对应PagedAttention作用边界与TTFT决定机制",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "PagedAttention（分页管理 KV Cache、消除碎片）+ 连续批处理（请求动态进出、GPU 不空转）；Prefill 计算密集、决定 TTFT",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "PagedAttention只优化KV Cache显存分配，不改变Prefill计算量"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "连续批处理影响Decode调度，与TTFT无关"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "原文未提vLLM自动序列截断机制"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "KV Cache量化非Prefill阶段优化目标"
+      }
+    ],
+    "duplicate_of": "6-5143"
+  }
+}

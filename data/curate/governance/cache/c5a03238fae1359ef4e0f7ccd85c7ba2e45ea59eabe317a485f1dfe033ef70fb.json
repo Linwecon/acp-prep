@@ -1,0 +1,154 @@
+{
+  "items": [
+    {
+      "type": 0,
+      "stem": "某团队优化新人答疑机器人后，RAGAS评测显示Context Recall=1.0、Context Precision=0.35，但Faithfulness骤降至0.21，Answer Correctness同步跌至0.24。日志确认检索片段中明确包含'张伟是教研部的'等完整事实，且该陈述位于第18个context中，前17个均为无关内容（如'公司成立年份''办公地址'）。此时若仅调整生成端提示词强化'忠于上下文'，最可能产生的根本性后果是？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "Faithfulness小幅回升，但因模型仍需从噪声中定位关键信息，幻觉率未实质性降低"
+        },
+        {
+          "option_label": "B",
+          "option_text": "Answer Correctness显著提升，因提示词约束使模型更聚焦于正确片段"
+        },
+        {
+          "option_label": "C",
+          "option_text": "Context Precision被动升高，因模型自动忽略靠前的无关片段"
+        },
+        {
+          "option_label": "D",
+          "option_text": "Faithfulness与Answer Correctness均无改善，因低Precision导致模型注意力被严重稀释"
+        }
+      ],
+      "answer": "D",
+      "analysis": "依据教材7.4.3节Faithfulness官方口径：其计算仅依赖answer与contexts，判定每句陈述是否能由contexts‘直接推断’；而7.4.2节明确Context Precision=0.35表明相关片段深埋噪声中（本例为第18位），触发‘Lost in the Middle’现象——模型无法稳定聚焦关键信息，导致即使提示词强调‘忠于上下文’，其实际推理仍受前17个无关片段干扰，产生幻觉。教材7.5节‘黄金法则’第2条指出：‘检索指标都好但Faithfulness低才属生成病’；本例Precision=0.35属检索端严重信噪比失衡（7.5节表格明确‘Precision低→加Rerank’），故单改生成端属方向性错误。选项A错误：教材7.5节‘踩坑提醒’强调‘Precision低时调大Top K会加剧噪声’，提示词无法解决注意力机制固有缺陷；B、C违背RAGAS指标设计原理——提示词不改变contexts排序，故Precision不会被动升高，Correctness亦无法绕过注意力失效而提升。",
+      "difficulty_label": "挑战"
+    },
+    {
+      "type": 1,
+      "stem": "在Faithfulness与Answer Correctness的辨析中，以下哪些组合条件必然导致Faithfulness高但Answer Correctness低？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "contexts中仅包含部分正确信息（如'张伟是教研部工程师'），但遗漏关键限定（如'试用期不享受年假'）"
+        },
+        {
+          "option_label": "B",
+          "option_text": "contexts完整覆盖ground_truth所有观点，但answer中存在与contexts矛盾的陈述"
+        },
+        {
+          "option_label": "C",
+          "option_text": "contexts准确包含'张伟是教研部的'，answer严格复述该句，但ground_truth实际要求'张伟是教研部高级工程师'"
+        },
+        {
+          "option_label": "D",
+          "option_text": "contexts中存在与ground_truth冲突的信息（如'张伟是人事部'），answer忠实复述该错误信息"
+        }
+      ],
+      "answer": "A,C",
+      "analysis": "依据教材7.3节‘易混指标辨析’：Faithfulness只问‘答案是否忠于contexts’，Correctness只问‘答案是否匹配ground_truth’。A项：contexts部分覆盖→answer可完全忠于contexts（Faithfulness高），但因缺失限定导致与ground_truth不一致（Correctness低），符合‘资料没召回全’的经典场景（教材7.3节直觉示例）。C项：contexts正确但ground_truth更精细→answer忠于contexts（Faithfulness高），却因粒度不足与ground_truth不等价（Correctness低），体现Correctness对业务标准的严苛性（7.4.4节权重0.75给事实F1）。B项：answer与contexts矛盾→Faithfulness必低（7.4.3节‘不能直接推断则判0’）；D项：answer忠于错误contexts→Faithfulness高，但Correctness低，此情形虽存在，但教材7.3节强调‘Faithfulness低才暴露幻觉’，而D属于‘资料本身错误’，非Faithfulness设计目标（其作用是检测模型编造，非校验资料真伪），且题干要求‘必然导致’，D需额外假设contexts错误被模型100%采纳，非必然；教材未将资料错误作为Faithfulness/Correctness差异的典型归因。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 0,
+      "stem": "当Answer Correctness得分显著低于基线，而Context Recall与Context Precision均维持高位（>0.85）时，若进一步分析发现其事实F1子项均值仅为0.12，语义相似度子项均值达0.83，依据教材7.4.4节官方口径及指标分层逻辑，该故障最根本的定位层级是？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "算法指标层：需优化Answer Correctness的计算方式"
+        },
+        {
+          "option_label": "B",
+          "option_text": "核心技术指标层：应提升响应时间或吞吐量"
+        },
+        {
+          "option_label": "C",
+          "option_text": "业务指标层：说明用户满意度已实质性受损"
+        },
+        {
+          "option_label": "D",
+          "option_text": "算法指标层：反映生成环节的事实准确性存在系统性缺陷"
+        }
+      ],
+      "answer": "D",
+      "analysis": "教材7.4.4节明确Answer Correctness=0.25×语义相似度+0.75×事实F1，且权重0.75凸显‘事实正确性’为绝对核心。本例F1极低（0.12）而语义相似度高（0.83），证明answer与ground_truth在字面/语义层面接近（如使用同义词、结构调整），但关键事实严重错漏（TP极少，FP/FN极高），这直接指向生成端对事实的把握失效。教材7.2.2节指标分层定义：算法指标是‘自动化评测，快速迭代验证’的手段，此处正是算法指标精准暴露生成环节缺陷。A错误：计算方式是官方固定口径，非优化对象；B错误：响应时间属核心技术指标，与事实F1无直接关联；C错误：业务指标（如满意度）是最终目标，但本题问的是‘指标分析揭示的根本定位层级’，教材7.5节强调‘必须结合指标分层定位’，此处故障需先在算法层诊断，再映射到业务影响。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 1,
+      "stem": "以下哪些现象同时构成Faithfulness指标失效的必要条件，且教材明确将其列为RAGAS应用的前提约束？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "contexts字段缺失或为空"
+        },
+        {
+          "option_label": "B",
+          "option_text": "question字段由技术人员虚构而非来自真实用户日志"
+        },
+        {
+          "option_label": "C",
+          "option_text": "answer字段未经过固定temperature和seed的批量运行收集"
+        },
+        {
+          "option_label": "D",
+          "option_text": "评测时未冻结评委LLM版本，导致多次运行使用不同模型"
+        }
+      ],
+      "answer": "A,C,D",
+      "analysis": "教材7.2.1节表格明确：Faithfulness计算必需字段为question/answer/**contexts**，缺contexts则无法执行‘对照contexts判定陈述可推断性’（7.4.3节），故A是必要条件。C、D属教材7.2.4节‘控制变量’铁律：C对应‘推理参数冻结’（temperature/seed），D对应‘评委模型版本冻结’，二者缺失将导致Faithfulness分数不可复现、无法归因（7.2.4节‘否则分数变化无法归因’）。B错误：question来源影响评测集真实性（7.2.1节铁律），但Faithfulness计算本身不依赖question真实性，仅需question存在即可参与判定；其失效主因是contexts或配置失控，非question虚构。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 0,
+      "stem": "某团队发现RAGAS评测中Faithfulness持续低于0.4，但深入检查answer与contexts后确认：所有answer陈述均能在contexts中找到直接依据。经排查，问题源于contexts列表中混入了与question无关的‘公司简介’类通用文档（如‘我司成立于2010年’），且该文档被模型在拼装时前置。此时最应优先执行的故障诊断动作是？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "立即重写生成提示词，增加‘忽略公司简介类通用信息’约束"
+        },
+        {
+          "option_label": "B",
+          "option_text": "核查Context Precision指标，确认是否因无关文档前置导致Precision偏低"
+        },
+        {
+          "option_label": "C",
+          "option_text": "人工抽检ground_truth，验证领域专家标注是否准确"
+        },
+        {
+          "option_label": "D",
+          "option_text": "调用TruLens工具追溯单次运行的检索路径，定位无关文档来源"
+        }
+      ],
+      "answer": "B",
+      "analysis": "教材7.4.2节Context Precision计算原理明确：其核心是惩罚‘相关片段排位靠后’，而本例‘公司简介’等无关文档前置，直接导致Precision分母增大、分子不变，Precision必然偏低。教材7.5节‘黄金法则’第2条指出：‘检索指标都好但Faithfulness低才属生成病’；若Precision低，则病根在检索端（7.5节表格‘Precision低→加Rerank’），此时盲目优化生成端（A）属方向错误。D虽为白盒手段，但教材7.6节强调TruLens用于‘Agent过程诊断’，而本题是RAG基础链路，且教材7.5节已提供更直接的指标定位法。C无关：ground_truth准确性影响Correctness，与Faithfulness（仅依赖contexts）无关。B是教材7.5节‘定位问题的黄金法则’规定的标准动作：先看检索指标，再定责任域。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 1,
+      "stem": "在Faithfulness与Answer Correctness的执行顺序约束中，以下哪些操作违反教材7.4节规定的必要输入字段组合？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "使用question、answer、ground_truth三字段计算Faithfulness"
+        },
+        {
+          "option_label": "B",
+          "option_text": "使用question、answer、contexts三字段计算Answer Correctness"
+        },
+        {
+          "option_label": "C",
+          "option_text": "使用question、ground_truth、contexts三字段计算Context Recall"
+        },
+        {
+          "option_label": "D",
+          "option_text": "使用answer、contexts两字段独立计算Faithfulness"
+        }
+      ],
+      "answer": "A,B",
+      "analysis": "教材7.4.3节明确Faithfulness输入为question/answer/**contexts**（不要ground_truth），A项引入ground_truth，违反其设计初衷（Faithfulness只检验‘对资料的忠诚’，非‘对标准答案的服从’）。教材7.4.4节明确Answer Correctness输入为question/answer/**ground_truth**（不要contexts），B项用contexts替代ground_truth，混淆了Correctness与Faithfulness的本质区别（7.3节‘易混辨析’）。C正确：Context Recall官方口径（7.4.1节）确需question/ground_truth/contexts，符合教材。D正确：Faithfulness计算只需answer与contexts（7.4.3节‘对照contexts判定’），question用于辅助理解上下文相关性，但教材未将其列为绝对必要（7.2.1节表格列question为必需，但7.4.3节公式描述聚焦answer/contexts），且D未引入错误字段，故不违规。",
+      "difficulty_label": "挑战"
+    }
+  ]
+}

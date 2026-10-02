@@ -1,0 +1,215 @@
+{
+  "2-0522": {
+    "qid": "2-0522",
+    "classification": "own",
+    "chapter": 2,
+    "quality": "ok",
+    "reason": "题目考查对错别字审阅提示词中任务要求的识别，属于提示工程章节内容。",
+    "answer": [
+      "A",
+      "B",
+      "C"
+    ],
+    "supported": true,
+    "quote": "【任务要求】你将看到一句话或一段话。你需要审查这段话中有没有错别字。如果出现了错别字，你要指出错误，并给出解释。'的'和'地'混淆不算错别字，没有错误。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "原文明确要求审查文档中有没有错别字。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "原文要求如果出现错别字，指出错误并给出解释。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "原文明确说明'的'和'地'混淆不算错别字。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "增加训练数据不属于提示词任务要求。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "2-0524": {
+    "qid": "2-0524",
+    "classification": "own",
+    "chapter": 2,
+    "quality": "fixable",
+    "reason": "题干提及ask_llm_route函数，但原文未提供其具体提示词，无法确定角色背景。",
+    "answer": [],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "无原文支持，无法确定。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "无原文支持，无法确定。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "增加训练数据不属于角色背景。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "减少推理时间不属于角色背景。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "2-0542": {
+    "qid": "2-0542",
+    "classification": "own",
+    "chapter": 2,
+    "quality": "ok",
+    "reason": "题目考查分隔符的主要优点，属于提示工程章节核心知识点。",
+    "answer": [
+      "A",
+      "B"
+    ],
+    "supported": true,
+    "quote": "分隔符看起来是'排版小事'，实则承担三个关键作用：结构化、防注入、易解析。结构化：指令与数据边界清晰，模型能抓住目标",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "分隔符使指令与数据边界清晰，模型能抓住目标。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "分隔符隔离无关信息，减少对不必要信息的处理。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "分隔符不增加模型训练数据。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "分隔符不直接减少模型推理时间。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "2-0546": {
+    "qid": "2-0546",
+    "classification": "own",
+    "chapter": 2,
+    "quality": "fixable",
+    "reason": "题干提及ask_llm_route函数，但原文未提供其具体提示词，无法确定任务要求。",
+    "answer": [],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "无原文支持，无法确定。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "无原文支持，无法确定。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "增加训练数据不属于提示词任务要求。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "减少推理时间不属于提示词任务要求。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "2-0548": {
+    "qid": "2-0548",
+    "classification": "own",
+    "chapter": 2,
+    "quality": "ok",
+    "reason": "题目考查提示词框架的必要要素，属于提示工程章节核心知识点。",
+    "answer": [
+      "A",
+      "B",
+      "C",
+      "D"
+    ],
+    "supported": true,
+    "quote": "官方教程给出的提示词框架包含六个基本要素，它们共同构成一份完整的'上下文蓝图'。要素 | 作用 | 示例 | **任务目标（Object）** | 明确要完成什么，让模型聚焦 | '审查这段话有没有错别字' | **上下文（Context）** | 提供背景、事实、范围 | 附上参考资料、业务规则 | **角色（Role）** | 定义身份、语气、写作风格 | '你是一名耐心的入职伙伴' | **受众（Audience）** | 指定为谁而写，约束内容深度 | '面向零编程基础的新员工'",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "任务目标是六个基本要素之一。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "上下文是六个基本要素之一。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "角色是六个基本要素之一。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "受众是六个基本要素之一。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "2-0568": {
+    "qid": "2-0568",
+    "classification": "own",
+    "chapter": 2,
+    "quality": "ok",
+    "reason": "题目考查提示词模板的优点，属于提示工程章节核心知识点。",
+    "answer": [
+      "A",
+      "B"
+    ],
+    "supported": true,
+    "quote": "提示词模板（Prompt Template）：把角色、规则、注意事项等固定内容预设好，把'每次变化的部分'抽象成变量。这是企业实践中把提示词工程化、可配置化的标准做法。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "模板预设固定信息以约束模型行为。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "模板标准化应用行为，便于版本管理。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "模板不增加模型训练数据。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "模板不直接减少模型推理时间。"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

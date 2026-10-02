@@ -1,0 +1,154 @@
+{
+  "items": [
+    {
+      "type": 0,
+      "stem": "某金融系统调用DashScope qwen-plus模型进行实时风控问答，日均请求量稳定在12万次。运维监控发现TPM（Tokens Per Minute）配额持续触顶，且429错误率超15%。此时最应优先执行的故障根因排查动作是？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "立即申请提升TPM配额，并同步增加前端重试逻辑"
+        },
+        {
+          "option_label": "B",
+          "option_text": "检查每次请求的输入Token是否包含冗余文档全文，确认RAG是否未做切片过滤"
+        },
+        {
+          "option_label": "C",
+          "option_text": "将模型切换为qwen-turbo以降低单次Token消耗"
+        },
+        {
+          "option_label": "D",
+          "option_text": "在PAI-EAS上自建qwen-plus服务以绕过DashScope限流"
+        }
+      ],
+      "answer": "B",
+      "analysis": "依据原文10.8节'省成本的工程手段'第2条：'控制输入：RAG只塞最相关的片段，不要每次把整本手册塞进上下文'；以及10.8节'关于配额的两个高频误区'中强调'API调用有TPM限流，超限返回429'。本题考查故障诊断——429高发且TPM触顶，首要排除输入侧异常（如未做检索过滤导致整份制度文档被重复送入），而非盲目提配额（A）、降模型（C）或过度架构升级（D）。C虽能降Token但牺牲能力，且未解决根本输入膨胀问题；D违反MaaS设计初衷，且PAI-EAS无法直接部署商业版模型（原文10.7明确'商业版走托管API，开源版才可私有化'）。B直指原文明确指出的典型成本失控场景，符合'先诊断必要条件、再权衡方案'的故障处理逻辑。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 0,
+      "stem": "开发团队使用DashScope OpenAI兼容接口调用qwen-long模型处理长合同，但发现账单中输出Token费用异常高于输入。以下哪项操作最能解释该现象并符合原文计费规则？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "启用了stream=True，导致每个Token单独计费"
+        },
+        {
+          "option_label": "B",
+          "option_text": "未设置max_tokens参数，模型生成了远超需求的冗长回复"
+        },
+        {
+          "option_label": "C",
+          "option_text": "将合同文本分块后并行调用，触发多次输入计费"
+        },
+        {
+          "option_label": "D",
+          "option_text": "使用了qwen-long的Embedding模型而非chat模型"
+        }
+      ],
+      "answer": "B",
+      "analysis": "依据原文10.8节核心计费规则：'输入/输出分别计价，输出通常更贵'；以及'省成本的工程手段'第3条：'限制输出：用max_tokens给输出设上限，避免模型刹不住车'。本题考查Token计费的实际权衡——输出费用异常高，最直接原因是模型生成内容失控（如未设max_tokens导致输出数千Token），而原文明确指出'输出更贵'，故B是唯一同时满足现象解释与教材依据的选项。A错误：stream模式不改变计费粒度，仍按实际生成Token计费（原文10.3示例代码含stream=True，但未提计费变化）；C虽增加输入费用，但无法解释'输出费用异常高'这一特定现象；D错误：Embedding模型调用不产生输出Token（其输出为向量，非文本生成），且qwen-long是chat模型规格，非Embedding专用型号。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 1,
+      "stem": "某政务系统需通过百炼平台构建政策解读机器人，要求严格满足等保三级合规。以下哪些配置组合能同时满足'数据不出域'与'符合百炼平台能力边界'的双重约束？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "知识库上传本地PDF文件，启用百炼内置RAG检索，模型选用qwen-plus"
+        },
+        {
+          "option_label": "B",
+          "option_text": "在百炼工作流中接入PAI-EAS部署的私有qwen2-7b模型服务"
+        },
+        {
+          "option_label": "C",
+          "option_text": "关闭百炼所有外部网络访问权限，仅允许内网VPC调用"
+        },
+        {
+          "option_label": "D",
+          "option_text": "使用ModelScope下载Qwen2-7b开源模型，在本地服务器部署后通过百炼插件调用"
+        }
+      ],
+      "answer": "B",
+      "analysis": "依据原文10.1节全景表：百炼属'应用开发层'，底层调用DashScope API（即数据需上送）；原文10.5节明确'百炼能否用自定义/私有模型：可在平台能力范围内调优、可对接'，且'三者可组合：百炼应用可回调PAI-EAS服务'；原文10.7节强调'商业版模型不可私有化，开源版+PAI才满足数据不出域'。A错误：百炼知识库底层调用DashScope模型，数据必然上送云端，不满足'不出域'；C错误：百炼是SaaS服务，无法关闭其外部网络访问（控制台无此配置项），且原文未提VPC集成能力；D错误：百炼插件机制不支持直接调用本地服务器模型（原文10.2未列此项，且本地服务无法被百炼控制台纳管）；B正确：百炼作为应用层调用PAI-EAS上的私有模型，数据全程在用户可控的PAI环境内流转，符合'百炼对接PAI-EAS'的官方组合路径（原文10.1末句），且PAI-EAS可部署开源模型实现数据不出域。",
+      "difficulty_label": "挑战"
+    },
+    {
+      "type": 0,
+      "stem": "算法团队在PAI-DSW中调试qwen2-1.5b微调脚本时，发现训练任务提交后立即失败，日志提示'QuotaExceeded: TPM limit exceeded for model qwen2-1.5b'. 该错误最可能的根本原因及依据是？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "PAI-DLC训练任务误用了DashScope的TPM配额，需切换至专用训练配额"
+        },
+        {
+          "option_label": "B",
+          "option_text": "DSW实例中运行的调试代码调用了DashScope API，而非本地模型"
+        },
+        {
+          "option_label": "C",
+          "option_text": "模型名称拼写错误，系统误识别为DashScope商业模型"
+        },
+        {
+          "option_label": "D",
+          "option_text": "PAI平台对所有模型调用统一实施TPM限流，与模型来源无关"
+        }
+      ],
+      "answer": "B",
+      "analysis": "依据原文10.4节PAI组件定位：DSW是'交互式建模（IDE）'，用于'写代码、做实验'；原文10.8节明确'限流（RPM/TPM）'针对的是'API调用'，且429是HTTP状态码（原文10.8示例中resp.status_code == HTTPStatus.OK对应API调用）。本题考查执行顺序与故障归因：DSW本身不触发TPM限流（其计费按计算时，原文10.4成本提醒），但若在DSW中编写并执行了调用DashScope API的代码（如误用client.chat.completions.create），则会消耗DashScope配额。A错误：DLC训练不走DashScope API，无TPM概念；C错误：模型名拼写错误通常报404或模型不存在，非429；D错误：TPM是DashScope API层的限流机制，PAI平台自身无TPM概念（原文10.4/10.8均未提PAI限流）。B精准对应'在DSW中调试时误调API'这一典型新手错误，且符合原文对TPM仅作用于API调用的界定。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 1,
+      "stem": "某电商客服系统上线DashScope API后，出现偶发性429错误。根据原文10.8节'处理限流'原则，以下哪些措施构成符合规范的完整重试策略？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "捕获429响应后，立即发起下一次重试请求"
+        },
+        {
+          "option_label": "B",
+          "option_text": "捕获429后，采用指数退避（如1s, 2s, 4s）并加入随机抖动（±100ms）"
+        },
+        {
+          "option_label": "C",
+          "option_text": "在重试前检查当前RPM使用率，若>80%则降级至qwen-turbo模型"
+        },
+        {
+          "option_label": "D",
+          "option_text": "将重试逻辑封装为独立服务，由DataWorks统一调度"
+        }
+      ],
+      "answer": "B,C",
+      "analysis": "依据原文10.8节'省成本的工程手段'第5条：'处理限流：遇429用指数退避+抖动重试，必要时降级到更小模型'；以及'关于配额的两个高频误区'中强调'生产环境必须考虑重试、退避与降级'。B完全复现原文'指数退避+抖动'的原话，是标准做法；C中的'降级至更小模型'是原文明确推荐的'必要时'应对措施，且qwen-turbo符合'更小模型'定义（原文10.6）。A错误：'立即重试'违反指数退避原则，会加剧限流（原文10.8风险提示'切忌无间隔死循环重试'）；D错误：DataWorks是数据ETL调度工具（原文10.1表格），与API重试无技术关联，属荒谬选项。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 0,
+      "stem": "企业使用百炼平台构建HR答疑机器人，上传《员工手册》后测试发现：当提问'年假天数'时，模型回答'请参考第3章第2条'，但用户期望直接给出数字。经排查，知识库切片设置为固定512字符，未启用语义分块。该问题违反了原文哪项Token成本优化原则？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "选对模型尺寸：应改用qwen-max提升理解精度"
+        },
+        {
+          "option_label": "B",
+          "option_text": "控制输入：RAG只塞最相关的片段"
+        },
+        {
+          "option_label": "C",
+          "option_text": "限制输出：用max_tokens设上限"
+        },
+        {
+          "option_label": "D",
+          "option_text": "善用缓存：对知识库前缀启用上下文缓存"
+        }
+      ],
+      "answer": "B",
+      "analysis": "依据原文10.8节'省成本的工程手段'第2条：'控制输入：RAG只塞最相关的片段，不要每次把整本手册塞进上下文'。本题考查条件权衡——固定长度切片导致相关条款被截断（如'年假'定义在段落中间被切开），迫使模型依赖不完整上下文，进而生成模糊指引而非直接答案。这本质是输入信息质量不足，属于'控制输入'范畴。A错误：qwen-max无法解决输入片段不完整问题，且原文10.6强调'无脑上max是浪费'；C错误：问题在于输入不精准导致输出偏差，非输出过长；D错误：缓存针对重复前缀（如系统提示词），与知识库切片质量无关。B直指原文明确列出的首要成本优化手段，且'塞最相关片段'隐含了语义分块的必要性。",
+      "difficulty_label": "进阶"
+    }
+  ]
+}

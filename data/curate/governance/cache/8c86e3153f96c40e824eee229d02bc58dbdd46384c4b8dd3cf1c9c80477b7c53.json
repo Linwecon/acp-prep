@@ -1,0 +1,207 @@
+{
+  "1-0406": {
+    "qid": "1-0406",
+    "classification": "own",
+    "chapter": -1,
+    "quality": "remove",
+    "reason": "题目无考查价值，选项与LLM核心知识无关，属于主观工作建议。",
+    "answer": [],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "题干问‘优先目标’，但原文未定义优化录音稿目标。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "原文未提及保持原文长度复杂度为目标。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "原文未提及引用细节是优化录音稿目标。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "原文未提及技术化、专业术语是优化录音稿目标。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "1-0411": {
+    "qid": "1-0411",
+    "classification": "own",
+    "chapter": -1,
+    "quality": "remove",
+    "reason": "题目条件缺失，未说明为何‘不建议一次输出全部结果’，选项均无原文支持。",
+    "answer": [],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "原文未提及信息量过大导致模型难理解。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "原文未提及注意力机制导致漏掉错误。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "原文未提及输出超时问题。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "原文未提及分处理可降低成本。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "1-0419": {
+    "qid": "1-0419",
+    "classification": "cross",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "考查RAG工作流程中如何整合查询与文档，属于RAG核心知识。",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "使用预设的提示词模板，将用户问题和文档块整合到模板中，然后提交给大模型",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "直接拼接可能混淆问题与文档边界。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "分别提交再合并不符合RAG单次生成逻辑。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "使用提示词模板整合是标准RAG做法。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "文档块作为上下文，问题单独输入描述不准确。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "1-0432": {
+    "qid": "1-0432",
+    "classification": "own",
+    "chapter": 1,
+    "quality": "ok",
+    "reason": "考查使用大模型进行翻译任务时的基本配置要求。",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "提供明确的系统消息和翻译任务提示",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "系统消息和任务提示是指导模型行为的基础。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "转为图片格式不必要且可能增加处理难度。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "固定模板非必须，可根据需要调整。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "手动输入所有文本非必须，可批量处理。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "1-0450": {
+    "qid": "1-0450",
+    "classification": "own",
+    "chapter": -1,
+    "quality": "remove",
+    "reason": "题目考查具体应用方法，但选项描述模糊矛盾，无标准答案依据。",
+    "answer": [],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "一次性生成所有结果可能不全面。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "逐条单独识别效率低且可能遗漏关联。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "仅识别错误部分忽略营销表达检测目标。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "描述矛盾，‘每段完成所有类型识别’与‘汇总后一次性返回’逻辑不清。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "1-0477": {
+    "qid": "1-0477",
+    "classification": "cross",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "考查RAG检索与生成阶段的主要优势，属于RAG核心价值。",
+    "answer": [
+      "A",
+      "B"
+    ],
+    "supported": true,
+    "quote": "提高大模型输出的准确性，提高大模型输出的相关性",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "RAG通过提供外部知识减少幻觉，提高准确性。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "RAG检索相关文档，使输出更贴合问题。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "RAG增加检索步骤，通常不减少推理时间。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "RAG不改变模型参数数量。"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

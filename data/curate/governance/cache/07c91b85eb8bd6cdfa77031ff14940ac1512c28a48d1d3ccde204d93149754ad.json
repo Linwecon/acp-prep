@@ -1,0 +1,212 @@
+{
+  "2-0271": {
+    "qid": "2-0271",
+    "classification": "own",
+    "chapter": 2,
+    "quality": "ok",
+    "reason": "考查temperature超参数作用，属于提示工程核心调控机制，原文明确其影响输出确定性而非准确度本身。",
+    "answer": [
+      "A"
+    ],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "temperature调节输出确定性（原文'probability distribution'），不直接提升'准确度'；正确答案应为'控制输出随机性/多样性'，但题干问'好处'且选项仅此最接近，需结合常识判断；原文未定义'answer correctness'与temperature的因果关系，故无直接支持"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "temperature是推理时超参数，不影响训练数据量，原文未提及此关联"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "temperature不影响推理时间，原文未提及其与TTFT/TPOT等延迟指标的关系"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "temperature不改变模型参数数量，原文明确'不改动模型参数'"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "2-0276": {
+    "qid": "2-0276",
+    "classification": "own",
+    "chapter": 2,
+    "quality": "ok",
+    "reason": "直接考查提示词六要素定义，原文表格明确'任务目标（Object）'作用为'明确要完成什么，让模型聚焦'。",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "任务目标（Object）：明确要完成什么，让模型聚焦",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "原文表格第一行明确定义'任务目标（Object）'作用为'明确要完成什么，让模型聚焦'"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "上下文（Context）提供背景、事实、范围，非具体任务"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "角色（Role）定义身份、语气、写作风格，非具体任务"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "受众（Audience）指定为谁而写，约束内容深度，非具体任务"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "2-0659": {
+    "qid": "2-0659",
+    "classification": "own",
+    "chapter": 2,
+    "quality": "ok",
+    "reason": "考查六要素中'受众'与'任务目标'的组合应用，原文强调'受众'决定内容深度，'任务目标'需明确具体要求。",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "受众（Audience）：指定为谁而写，约束内容深度",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "生成更多题目不解决难度控制问题，原文未将数量与难度关联"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "'容易的题目'表述模糊，未指定受众和具体任务，违反'六要素'中'受众+任务'双约束原则"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "完整包含'受众（初中二年级学生）'+'任务目标（生成5道...选择题）'+'上下文（教科书内容）'+'约束（一元一次方程、难度适中）'，符合原文'六要素'框架"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "翻译不解决难度适配问题，原文未提翻译作为难度控制手段"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "2-0662": {
+    "qid": "2-0662",
+    "classification": "own",
+    "chapter": 2,
+    "quality": "ok",
+    "reason": "考查'角色'与'任务目标'协同设计共情回复，原文强调角色激活模式、任务需分步明确。",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "角色（Role）：定义身份、语气、写作风格",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "'解决问题'过于笼统，未体现共情步骤，违反原文'分模块组织'原则"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "'告诉用户冷静下来'是命令式语气，与共情相悖，原文强调'耐心的入职伙伴'等正向角色"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "明确分步任务（先安抚情绪→再解决问题），且隐含'共情角色'，符合原文'角色+任务'双要素设计"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "忽略情绪违背客服场景基本要求，原文'贯穿案例'强调'新人答疑机器人'需考虑用户感受"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "2-0699": {
+    "qid": "2-0699",
+    "classification": "own",
+    "chapter": 2,
+    "quality": "ok",
+    "reason": "考查Zero-shot定义，原文'2.6节'明确其为'不给示例，直接提问'，对应'未见过任务仅通过提示词完成'。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "Zero-shot（零样本）：不给示例，直接提问",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "Zero-shot指推理时无示例，非训练时零数据，原文未提训练数据量"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "原文'2.6节'定义Zero-shot为'不给示例，直接提问'，即通过提示词完成新任务，符合描述"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "原文'2.6节'指出Few-shot在格式敏感任务中更有效，未断言Zero-shot准确率更高"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "原文'2.6节'明确使用Zero-shot，证明大模型普遍支持"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "2-0734": {
+    "qid": "2-0734",
+    "classification": "own",
+    "chapter": 2,
+    "quality": "ok",
+    "reason": "考查'上下文'要素与意图显式标注，原文强调'补充上下文与约束'是解决'生成内容不相关'的第一对策。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "生成内容不相关'的第一对策是补充上下文与约束",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "仅输入搜索词缺乏上下文，原文指出这是'信息不全'导致跑偏的典型"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "明确标注核心需求（季节/功能/品类）属于'补充上下文与约束'，原文'2.2节'强调此为解决不相关问题的第一对策"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "提供示例属Few-shot，原文'2.6节'指出Few-shot适用于格式/风格敏感任务，非意图理解"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "更换模型属微调层级，原文'2.1节'强调优化顺序为'提示词→RAG→微调'，不应优先换模型"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

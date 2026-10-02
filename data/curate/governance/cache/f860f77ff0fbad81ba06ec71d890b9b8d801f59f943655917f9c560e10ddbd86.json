@@ -1,0 +1,212 @@
+{
+  "3-1352": {
+    "qid": "3-1352",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "题干问“不符合最佳实践”，选项B明显违背RAG建库流程",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "第一阶段：离线建库（Indexing，一次做好、多次复用）1. 文档解析：把 PDF / Word / Markdown 等加载并解析成纯文本（尽量保留标题、表格等结构）；2. 文本切片（Chunking）：把长文切成一个个小段（chunk）；3. 向量化：用 Embedding 模型把每个 chunk 转成一串数字（向量）；4. 入库：把“向量 + 原文 + 元数据”存进向量数据库，建立索引。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "选择性使用视觉模型是合理优化"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "不预处理直接入库违背建库流程"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "用API润色目录是增强结构"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "使用DashScope Parse解析是推荐做法"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-1364": {
+    "qid": "3-1364",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "题干描述切片过长引入干扰，选项B是直接正确对策",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "切片之所以关键，是因为它直接决定了检索的“颗粒度”：切得太大：一个 chunk 里混了好几个主题，向量被“平均”得没有重点，检索时容易“沾边但不精准”，还浪费 token、引入噪声；出现以下问题时这样调：chunk 太大引入干扰 → 减小切片长度；",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "增加文档数量不解决切片过长问题"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "减小切片长度或优化策略是直接对策"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "高级算法不直接解决切片过长问题"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "提升模型训练不解决切片策略问题"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-1388": {
+    "qid": "3-1388",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "题干问问题描述不完整，查询改写是标准解决方案",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "查询改写：多轮对话中“他/这个”指代不清 → 先用 LLM 把含代词的问题改写成完整问题（如“他的主管是谁”→“张伟的主管是谁”）再检索",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "返回空答案不是提升效果的方法"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "增加切片长度不解决问题不完整"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "问题改写或扩写是标准解决方案"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "降低Embedding版本可能降低效果"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-1396": {
+    "qid": "3-1396",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "题干问“不属于常见文档切片方法”，按词性分割非常见",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "常见切片策略：Token 切片、句子切片、Markdown 切片、语义切片、句子窗口切片",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "按语义分割是常见方法"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "按词性分割不是常见切片方法"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "按token长度分割是常见方法"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "按字符分割可视为Token切片变体"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-1470": {
+    "qid": "3-1470",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "题干问“最可能保留完整语义信息”，语义分割模型最直接",
+    "answer": [
+      "D"
+    ],
+    "supported": true,
+    "quote": "语义切片：用模型判断语义边界，在话题转换处切 → 高价值、结构复杂的文档（成本更高）",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "按标点分割可能切断语义"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "按字符数分割易切断语义"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "按token长度分割易切断语义"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "语义分割模型专为保留语义设计"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-0015": {
+    "qid": "3-0015",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "题干描述提高相似度阈值后回答不满意，C选项符合阈值影响",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "Top K 与召回/精确的权衡：K 调小 → 结果更“干净”，但可能漏掉关键文档。放宽相似度阈值能提高精确率 → 放宽阈值是 召回率 ↑、精确率 ↓（必考）。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "阈值提高不直接影响推理速度"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "语言风格不一致非阈值提高直接原因"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "严格阈值过滤有用信息导致回答不全面"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "与题干“得不到满意回答”矛盾"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

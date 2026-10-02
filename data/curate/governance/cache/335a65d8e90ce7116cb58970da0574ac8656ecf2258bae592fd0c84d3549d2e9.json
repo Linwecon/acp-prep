@@ -1,0 +1,214 @@
+{
+  "new-9-0-0": {
+    "qid": "new-9-0-0",
+    "classification": "own",
+    "chapter": 9,
+    "quality": "ok",
+    "reason": "考查temperature参数对输出确定性的影响，符合本章核心知识点。",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "temperature 越小，高分 token 被放得越大、分布越尖锐，输出越确定；T 越大，分布越平坦，输出越多样。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "原文指出temperature=0仍可能有微小差异，未达绝对确定。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "原文建议固定一个调另一个，但未说叠加是根本原因。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "原文提及seed可复现，但未说分布式差异是根本原因。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "原文未提及模型档位影响输出确定性。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-9-0-1": {
+    "qid": "new-9-0-1",
+    "classification": "own",
+    "chapter": 9,
+    "quality": "ok",
+    "reason": "考查top_p参数的核心机制，符合本章知识点。",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "top_p（核采样）：把候选按概率从高到低累加，直到累积概率达到 p，只在这个“核心集合”内采样。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "原文明确top_p通过累积概率截断改变候选集。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "原文建议固定一个调另一个，未提乘法耦合。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "原文未提top_p控制多样性下限。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "原文未提top_p越大越倾向低概率token。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-9-0-2": {
+    "qid": "new-9-0-2",
+    "classification": "own",
+    "chapter": 9,
+    "quality": "ok",
+    "reason": "考查temperature与结构化输出的关系，符合本章参数调节知识点。",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "需程序解析的结构化输出 → temperature 0 ~ 0.3，配合 JSON 模式，格式优先。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "原文未提及贪婪解码优化导致格式错乱。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "题干未提输入过长，且temperature与截断无直接关系。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "原文指出结构化输出需低temperature并配合格式约束。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "原文未提及Batch API在temperature=0时禁用缓存。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-9-0-3": {
+    "qid": "new-9-0-3",
+    "classification": "own",
+    "chapter": 9,
+    "quality": "ok",
+    "reason": "考查降低随机性以稳定输出的参数调整方法，符合本章核心。",
+    "answer": [
+      "A",
+      "B"
+    ],
+    "supported": true,
+    "quote": "事实问答、代码生成、信息抽取 → temperature 0 ~ 0.3，top_p 低，要稳定、少随机。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "降低temperature可减少随机性，稳定输出。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "降低top_p可缩小候选集，提高确定性。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "同时大幅降低两者可能过拟合，且原文建议固定一个调另一个。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "添加提示词是提示工程手段，非参数调整。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-9-0-4": {
+    "qid": "new-9-0-4",
+    "classification": "own",
+    "chapter": 9,
+    "quality": "ok",
+    "reason": "考查导致输出矛盾的参数配置问题，符合本章知识点。",
+    "answer": [
+      "A",
+      "D"
+    ],
+    "supported": true,
+    "quote": "事实类任务要低 temperature（如 0.1），追求稳定可复现。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "temperature=0.6高于事实类推荐值，引入随机性。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "原文未要求top_p必须同步下调。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "stream与TTFT影响体验，非导致内容矛盾的必要条件。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "system message未明确定义政策，可能导致模型理解不一致。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-9-0-5": {
+    "qid": "new-9-0-5",
+    "classification": "own",
+    "chapter": 9,
+    "quality": "ok",
+    "reason": "考查在低随机性参数下仍出现术语不一致的排查思路，符合本章工程实践。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "system 消息用于设置大模型的角色和任务。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "题干未提及遗漏合同全文，且参数已很低。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "system message定义核心约束，是优先检查环节。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "temperature=0.05已极低，且题干确认参数有效。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "题干未提客户端截断，且参数已保证低随机性。"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

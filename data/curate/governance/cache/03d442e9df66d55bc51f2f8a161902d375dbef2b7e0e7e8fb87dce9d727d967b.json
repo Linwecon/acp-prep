@@ -1,0 +1,233 @@
+{
+  "4-1450": {
+    "qid": "4-1450",
+    "classification": "own",
+    "chapter": 4,
+    "quality": "ok",
+    "reason": "考查Function Calling适用场景，需调用外部实时数据",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "Function Calling（函数调用 / 工具调用）……让模型自己决定'要不要调工具、调哪个、传什么参'。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "纯生成任务，无需调用外部工具"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "依赖模型内部知识，非实时外部数据"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "需调用天气API获取实时数据"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "纯文本理解与摘要，无外部交互"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "4-0593": {
+    "qid": "4-0593",
+    "classification": "own",
+    "chapter": 4,
+    "quality": "ok",
+    "reason": "考查Agent能力增强方式，原文明确工具/插件/API为关键",
+    "answer": [
+      "B",
+      "D"
+    ],
+    "supported": true,
+    "quote": "Tool：Agent 可调用的外部能力：搜索、数据库、API、代码解释器、文件读写等",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "Agent不改模型参数，训练数据无效"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "插件即工具，是Agent核心能力"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "Agent不调整学习率，属训练阶段"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "第三方API属于Tool范畴"
+      },
+      {
+        "label": "E",
+        "selected": false,
+        "why": "Agent不更改模型架构，属部署层"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "4-1010": {
+    "qid": "4-1010",
+    "classification": "own",
+    "chapter": 4,
+    "quality": "ok",
+    "reason": "考查Function Calling失败主因，原文强调Schema质量",
+    "answer": [
+      "D"
+    ],
+    "supported": true,
+    "quote": "参数提取准不准，取决于三件事：Schema 质量（名称、描述、必填项是否清晰）、模型能力、上下文清晰度",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "并行处理非Function Calling机制问题"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "超时属执行层，非调用错误主因"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "内存泄漏非Agent设计关注点"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "Schema描述不清导致模型误判"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "4-1203": {
+    "qid": "4-1203",
+    "classification": "misplaced",
+    "chapter": 4,
+    "quality": "remove",
+    "reason": "纯Python面向对象设计题，无Agent领域知识支撑",
+    "answer": [],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "未在Agent章节提及构造函数简化"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "Python支持多继承，说法错误"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "未涉及query方法定义"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "未讨论私有属性保护"
+      },
+      {
+        "label": "E",
+        "selected": false,
+        "why": "未提call方法统一性"
+      },
+      {
+        "label": "F",
+        "selected": false,
+        "why": "未提接口共享与复用"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "4-1451": {
+    "qid": "4-1451",
+    "classification": "own",
+    "chapter": 4,
+    "quality": "ok",
+    "reason": "多选题，考查Function Calling适用场景",
+    "answer": [
+      "A",
+      "C",
+      "D"
+    ],
+    "supported": true,
+    "quote": "Tool：Agent 可调用的外部能力：搜索、数据库、API、代码解释器、文件读写等",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "调用天气API，符合Tool定义"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "纯生成，无外部工具调用"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "调用Excel解析API，属Tool范畴"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "调用航班API，属实时外部交互"
+      },
+      {
+        "label": "E",
+        "selected": false,
+        "why": "纯文本总结，无外部依赖"
+      }
+    ],
+    "duplicate_of": "4-1450"
+  },
+  "4-1468": {
+    "qid": "4-1468",
+    "classification": "cross",
+    "chapter": 3,
+    "quality": "review",
+    "reason": "RAG优化任务应属第3章，但多Agent拆解思想在4.7节有支撑",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "把多个步骤按固定关系编排起来就是工作流……分支 Branching：路由节点'多选一'，把任务导向不同专家/流水线",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "仅用解析工具，未体现多Agent"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "拆分子任务对应多Agent分层规划"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "单prompt违背多Agent分工原则"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "未使用多Agent或工具组合"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

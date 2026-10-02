@@ -1,0 +1,225 @@
+{
+  "3-6003": {
+    "qid": "3-6003",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "表格结构丢失是RAG常见问题，原文明确给出对策",
+    "answer": [
+      "B",
+      "C"
+    ],
+    "supported": true,
+    "quote": "表格若被当成普通文字按固定长度切碎，行列关系会被打散...对策：表格转 Markdown、以完整表格为切片边界",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "关键词提取不能解决表格结构丢失"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "保留行列信息可维持表格语义完整性"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "JSON格式能结构化保存表格行列关系"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "OCR用于扫描件，非Markdown文档"
+      },
+      {
+        "label": "E",
+        "selected": false,
+        "why": "Embedding模型无法修复结构丢失"
+      },
+      {
+        "label": "F",
+        "selected": false,
+        "why": "微调不解决RAG中表格解析问题"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-5025": {
+    "qid": "3-5025",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "定义题，原文有明确定义",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "句子窗口检索：建索引时以'单个句子'为可检索单元...检索命中某句后，后处理器自动把内容替换成整个窗口",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "完全匹配原文定义"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "整篇文档索引是粗粒度做法"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "标题索引无法覆盖表格等细节"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "随机抽取违背精准检索原则"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-5026": {
+    "qid": "3-5026",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "优势题，原文明确对比",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "句子窗口检索：建索引时以'单个句子'为可检索单元（小块，便于精准命中），同时在每个句子的元数据里存下它'前后各 N 句'组成的窗口",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "存储量与切片粒度正相关"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "仍需embedding做向量检索"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "原文明确指出平衡精准与上下文"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "窗口扩展可能增加延迟"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-5027": {
+    "qid": "3-5027",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "流程题，原文有三步描述",
+    "answer": [
+      "A",
+      "B",
+      "C"
+    ],
+    "supported": true,
+    "quote": "建索引时以'单个句子'为可检索单元...检索命中某句后，后处理器自动把内容替换成整个窗口",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "对应建索引步骤"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "对应检索步骤"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "对应窗口扩展步骤"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "删除上下文违背设计目标"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-5028": {
+    "qid": "3-5028",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "窗口截断策略，原文有风险提示",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "窗口不是越大越好：窗口过大，会把无关句子也带进来，重新稀释注意力。窗口大小要按文档段落长度调整",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "符合原文平衡原则"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "丢弃结果降低召回率"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "违背窗口不宜过大的原则"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "无上下文导致信息不全"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-5029": {
+    "qid": "3-5029",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "父子块概念，原文虽未提但属句子窗口变体",
+    "answer": [
+      "C"
+    ],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "仅索引大块会降低精度"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "合并单块失去检索粒度"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "父子块本质是小块检索+大块补全"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "自动合并仍依赖向量检索"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

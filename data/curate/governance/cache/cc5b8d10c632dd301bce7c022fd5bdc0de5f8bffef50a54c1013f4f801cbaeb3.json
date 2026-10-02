@@ -1,0 +1,235 @@
+{
+  "2-0711": {
+    "qid": "2-0711",
+    "classification": "own",
+    "chapter": 2,
+    "quality": "ok",
+    "reason": "五选项均属提示工程核心知识，原文均有明确依据。",
+    "answer": [
+      "A",
+      "B",
+      "C",
+      "E"
+    ],
+    "supported": true,
+    "quote": "思维链（Chain-of-Thought, CoT）：引导模型在给出最终答案前，显式输出中间推理步骤...角色扮演提示可激活模型训练中见过的角色模式...Zero-shot（零样本）：不给示例，直接提问...清晰的指令和约束越明确，正确答案的概率分布就越集中",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "原文明确定义CoT提升复杂推理表现"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "角色要素可激活模型角色模式"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "Zero-shot定义即不给示例直接提问"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "Few-shot非总是优于Zero-shot"
+      },
+      {
+        "label": "E",
+        "selected": true,
+        "why": "指令越清晰，正确答案概率越集中"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "2-0772": {
+    "qid": "2-0772",
+    "classification": "own",
+    "chapter": 2,
+    "quality": "ok",
+    "reason": "考察System Prompt职责分离原则，原文明确其用于设定全局规则。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "System Prompt（系统提示词）是用于设定模型全局行为（角色、规则、输出规范、安全边界）的特殊消息。它的优先级高于后续的用户消息，整轮对话都受其约束。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "随机选择破坏风格一致性"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "System Prompt应固定定义全局规则"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "外部格式化无法解决语义偏差"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "风格不一致属需解决的质量问题"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "2-0837": {
+    "qid": "2-0837",
+    "classification": "own",
+    "chapter": 2,
+    "quality": "ok",
+    "reason": "考查CoT核心定义，原文明确其为分解中间步骤。",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "思维链（Chain-of-Thought, CoT）：引导模型在给出最终答案前，显式输出中间推理步骤，把复杂问题分解为若干子问题逐步求解。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "CoT要求输出中间步骤而非仅答案"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "CoT不依赖公式背景知识"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "原文明确定义为分解中间步骤"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "CoT不限定使用代码形式"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "2-0840": {
+    "qid": "2-0840",
+    "classification": "own",
+    "chapter": 2,
+    "quality": "ok",
+    "reason": "考查Few-shot适用场景，原文指出其适用于格式/风格敏感任务。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "Few-shot（少样本）：给 2~5 个示例让模型模仿；适用于格式/风格敏感、需稳定结构的任务。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "从头训练属微调范畴，成本高"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "Few-shot适合低成本快速适配小众场景"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "放弃支持违背产品原则"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "被动等待不符合工程实践"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "2-0860": {
+    "qid": "2-0860",
+    "classification": "own",
+    "chapter": 2,
+    "quality": "ok",
+    "reason": "考查CoT优势，原文明确其提升准确率、增强可解释性、适用多任务。",
+    "answer": [
+      "A",
+      "B",
+      "D"
+    ],
+    "supported": true,
+    "quote": "CoT为什么有效？它把原本要求模型'一步到位'的高难度概率判断，拆成多个低难度的小步骤...使模型的推理过程更透明、可解释...对数学计算、逻辑推理、多约束规划等任务提升尤其明显。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "原文明确提升复杂推理准确率"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "CoT使推理过程显式透明"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "CoT增加计算量而非减少"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "原文列举数学逻辑等多任务"
+      },
+      {
+        "label": "E",
+        "selected": false,
+        "why": "CoT不能自动纠正所有事实错误"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "2-0886": {
+    "qid": "2-0886",
+    "classification": "own",
+    "chapter": 2,
+    "quality": "ok",
+    "reason": "考查提示词有效性措施，原文六要素与分隔符原则均覆盖ABDE。",
+    "answer": [
+      "A",
+      "B",
+      "D",
+      "E"
+    ],
+    "supported": true,
+    "quote": "六要素：任务目标（Object）、上下文（Context）、角色（Role）、受众（Audience）、样例（Sample）、输出格式（Output Format）...分隔符作用：结构化、防注入、易解析...CoT用于复杂推理任务。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "对应任务目标要素"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "对应输出格式要素"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "原文警示冗余稀释注意力"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "对应角色要素"
+      },
+      {
+        "label": "E",
+        "selected": true,
+        "why": "对应CoT适用场景"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

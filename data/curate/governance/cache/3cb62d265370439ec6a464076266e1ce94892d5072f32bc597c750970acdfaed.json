@@ -1,0 +1,212 @@
+{
+  "3-0088": {
+    "qid": "3-0088",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "语义切片专用于高价值、结构复杂文档，原文明确指出其适用场景。",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "语义切片：用模型判断语义边界，在话题转换处切 → 高价值、结构复杂的文档（成本更高）",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "原文明确语义切片适用于高价值、结构复杂文档"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "Token切片适用于长度受限场景"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "句子切片是通用默认策略"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "句子窗口是检索阶段技术，非切片方法"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-0091": {
+    "qid": "3-0091",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "RAG核心解决私域知识接入，内部知识查询是典型场景。",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "RAG（Retrieval-Augmented Generation，检索增强生成）的核心思路可以用四个字概括：'开卷考试'。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "RAG专为私域知识查询设计"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "文档审查未在RAG流程中提及"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "增加训练数据属微调范畴"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "减少推理时间非RAG目标"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-0093": {
+    "qid": "3-0093",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "余弦相似度是向量检索首选度量，原文明确说明。",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "余弦相似度：两个向量的方向夹角 → 最常用，只看方向、不受长度影响",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "原文明确余弦相似度最常用"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "欧氏距离对长度敏感，非首选"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "曼哈顿距离未在原文提及"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "选项与相似度计算无关"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-0094": {
+    "qid": "3-0094",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "生产环境需高可用向量库，原文推荐云服务方案。",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "生产环境可选用云服务（如阿里云 DashVector）或自建开源库（Milvus、Qdrant）",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "原文明确云服务适用于生产环境"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "内存库仅用于开发测试"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "本地数据库未被列为生产推荐"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "选项与存储方案无关"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-0095": {
+    "qid": "3-0095",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "元数据过滤需提前提取标签，原文表格明确列出该技术。",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "元数据过滤：权限、时效、部门隔离 → 检索前按来源/时间/部门等标签先过滤候选集",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "原文表格明确元数据过滤需提取标签"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "问题改写解决指代不清"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "重排序用于精排候选"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "选项与标签提取无关"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-0096": {
+    "qid": "3-0096",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "Rerank核心作用是提升相关片段排名，原文明确说明。",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "Rerank（重排序）：...对候选逐篇精细打分、重新排序，只把最相关的少数交给大模型",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "原文明确rerank提升相关片段排名"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "增加训练数据属微调范畴"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "rerank增加计算量，不减推理时间"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "rerank不改变模型参数"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

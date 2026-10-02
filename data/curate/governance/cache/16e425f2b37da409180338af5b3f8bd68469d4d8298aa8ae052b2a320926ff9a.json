@@ -1,0 +1,154 @@
+{
+  "items": [
+    {
+      "type": 0,
+      "stem": "某新人答疑机器人在第二轮对话中答非所问：第一轮用户问'我们用什么项目管理工具？'，模型答'Jira'；第二轮用户问'那怎么申请账号？'，模型却回复通用注册流程，未提及Jira。经检查，第二轮请求的messages数组仅含system和当前user消息，不含历史assistant回复。此故障最根本违反了第9章强调的哪项messages结构约束？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "system消息未置于数组首位"
+        },
+        {
+          "option_label": "B",
+          "option_text": "缺少role='tool'消息导致Function Calling中断"
+        },
+        {
+          "option_label": "C",
+          "option_text": "未将上一轮assistant回复追加进messages，破坏了无状态服务的上下文完整性"
+        },
+        {
+          "option_label": "D",
+          "option_text": "user消息content中未显式引用前文实体（如'Jira账号'）"
+        }
+      ],
+      "answer": "C",
+      "analysis": "依据9.5节核心概念：'大模型API是无状态的……所谓多轮对话能力，本质是客户端把历史消息按角色组织好，每次调用都完整地放进messages里再传一遍'；且9.5节principle明确指出：'如果第二次调用时messages里只放{\"role\":\"user\",\"content\":\"怎么申请账号\"}，模型看到的就是这一句话，根本无法知道这个账号指的是上一轮的Jira'。选项C直接对应原文对'无状态服务的上下文完整性'的定义与要求。A错误——system位置虽有最佳实践（建议开头），但非必要约束，不影响基础功能；B错误——本场景未启用Function Calling，无tool消息需求；D错误——指代消解是模型能力问题，而本题根源是客户端未提供足够上下文，属工程实现缺陷，非提示词优化范畴。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 1,
+      "stem": "开发团队实现Function Calling时，模型首次返回tool_calls，程序执行工具后回传role='tool'消息，但第二次调用后最终回答仍不包含工具结果。以下哪些环节的遗漏可能直接导致该现象？（多选）",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "未将首次调用返回的response_message（含tool_calls）追加进messages数组"
+        },
+        {
+          "option_label": "B",
+          "option_text": "回传的role='tool'消息中缺失tool_call_id字段"
+        },
+        {
+          "option_label": "C",
+          "option_text": "两次调用使用了不同model参数（如首次qwen-plus，二次qwen-turbo）"
+        },
+        {
+          "option_label": "D",
+          "option_text": "在回传role='tool'消息时，将content设为原始JSON字符串而非解析后的字典对象"
+        }
+      ],
+      "answer": "AB",
+      "analysis": "依据9.7节risk部分：'❌ 忘了把response_message追加进messages——第二次调用时模型不知道自己之前决策了什么，会报上下文错误'（对应A）；'❌ 回传结果时漏tool_call_id——模型无法把结果和之前的调用对应起来'（对应B）。C错误——model档位变更不影响Function Calling闭环逻辑，只要支持tools即可，且教材未要求必须一致；D错误——content字段应为字符串（见9.7示例中json.dumps(tool_result)），SDK要求即为字符串，非字典，故D非错误原因。教材9.7节principle表格亦明确'role=\"tool\"'消息需含'tool_call_id'，且示例代码第4步明确'append(response_message)'。",
+      "difficulty_label": "挑战"
+    },
+    {
+      "type": 0,
+      "stem": "某企业微信机器人在早高峰持续收到429错误，运维发现重试请求高度集中在每分钟整点后第3秒触发。代码中对429采用固定3秒延迟+3次重试。此设计违背第9章强调的哪项关键重试原则？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "429错误不应重试，应立即熔断并告警"
+        },
+        {
+          "option_label": "B",
+          "option_text": "未区分4xx与5xx错误码，对429误用指数退避"
+        },
+        {
+          "option_label": "C",
+          "option_text": "缺乏随机抖动（Jitter），导致大量客户端同步重试加剧雪崩"
+        },
+        {
+          "option_label": "D",
+          "option_text": "最大重试次数设置过少，应提升至5次以上"
+        }
+      ],
+      "answer": "C",
+      "analysis": "依据9.8节principle：'指数退避 + 抖动（Exponential Backoff with Jitter）是处理429/5xx的标准做法'，并明确说明抖动作用是'避免大量客户端踩点同时重试把服务再次打爆'；9.8节exam进一步强调'429是限流，正确做法是指数退避+抖动后重试'。题干中'固定3秒延迟'且'高度集中于整点后第3秒'，正是缺乏抖动的典型表现。A错误——教材明确429✅应重试；B错误——429属于应重试的错误码，且指数退避正是为其设计；D错误——教材建议设最大重试次数（如3次），过多重试反而恶化问题，非原则性错误。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 1,
+      "stem": "财务部门发现本月Token费用异常飙升300%，分析显示每次多轮对话均将全部历史（含50轮闲聊）原样传入，且system prompt长达800字并含动态时间戳。根据第9.9节'成本控制的优先级'与'上下文缓存'原理，以下哪些措施能直接降低输入Token成本？（多选）",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "将system prompt精简至200字以内，并移除所有动态时间戳"
+        },
+        {
+          "option_label": "B",
+          "option_text": "对历史消息实施滑动窗口截断，仅保留最近5轮对话"
+        },
+        {
+          "option_label": "C",
+          "option_text": "将temperature从0.7降至0.1以减少输出Token"
+        },
+        {
+          "option_label": "D",
+          "option_text": "改用qwen-turbo模型替代qwen-plus"
+        }
+      ],
+      "answer": "AB",
+      "analysis": "依据9.9节'成本控制的优先级'第一条：'先选对模型档位'（D属此条，但题干问题聚焦'输入Token成本'，而D主要影响单价，非直接降低输入量）；第二条明确'控制输入长度——压缩历史、过滤无关检索结果、精简system prompt'，A对应'精简system prompt'，B对应'压缩历史'；且9.9节principle指出'保持前缀稳定'可命中缓存，A中'移除动态时间戳'正是为稳定前缀。C错误——temperature影响随机性，与Token数量无直接关系（教材9.4节risk明确'`max_tokens`越大越好'是误区，但temperature不控长度）；D虽可降单价，但题干要求'直接降低输入Token成本'，A、B是唯一直接减少输入Token数的措施，符合'优先级'中前两位。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 0,
+      "stem": "开发团队为培训部门实现夜间批量生成500份课程摘要，采用Batch API。任务完成后，输出JSONL文件比输入少23行，且部分摘要内容明显错位（如A课程摘要出现在B课程位置）。此现象最可能的根本原因是什么？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "未在输入JSONL中为每行请求设置唯一request_id，导致结果无法对齐"
+        },
+        {
+          "option_label": "B",
+          "option_text": "Batch任务提交时未启用stream_options={'include_usage': True}，导致Token统计缺失"
+        },
+        {
+          "option_label": "C",
+          "option_text": "未校验输入输出行数及request_id一一对应，违反9.10节'必须校验对齐'原则"
+        },
+        {
+          "option_label": "D",
+          "option_text": "部分请求因400错误被整体跳过，Batch系统未返回失败行详情"
+        }
+      ],
+      "answer": "C",
+      "analysis": "依据9.10节principle：'必须校验输入输出行数、请求ID是否一一对应，防止错位或丢失'；且9.10节risk明确'误区：结果文件不用校验直接用→必须校验行数、ID对齐，防止结果错位'。题干中'少23行'+'内容错位'正是未校验对齐的典型后果。A是良好实践但非根本原因（即使无ID，行数对齐也可初步判断）；B错误——include_usage用于Token统计，与行对齐无关；D错误——教材9.10节risk指出'批内一行失败通常不影响其他行'，且会返回失败详情，不会导致'错位'，错位必源于对齐机制失效。",
+      "difficulty_label": "挑战"
+    },
+    {
+      "type": 0,
+      "stem": "前端工程师将DASHSCOPE_API_KEY硬编码在React组件中并提交至GitHub公开仓库，次日账单激增。依据第9.3节'API Key安全的五条军规'，应急处置的黄金顺序应是？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "立即禁用/轮换Key → 检查近期调用记录 → 评估损失"
+        },
+        {
+          "option_label": "B",
+          "option_text": "检查Git历史确认Key是否已删除 → 在前端代码中替换新Key → 向平台申请提高配额"
+        },
+        {
+          "option_label": "C",
+          "option_text": "打印Key前5位确认加载成功 → 在日志中记录Key使用情况 → 提交密钥文件到私有仓库"
+        },
+        {
+          "option_label": "D",
+          "option_text": "向团队邮件通报Key泄露 → 修改前端代码 → 等待平台自动封禁恶意调用"
+        }
+      ],
+      "answer": "A",
+      "analysis": "依据9.3节exam明确结论：'泄漏后的应急顺序：立即禁用/轮换 Key → 检查近期调用记录 → 评估损失'。这是教材唯一指定的黄金顺序。B错误——Git历史已存在，删除代码无法消除历史泄露；C错误——打印Key前5位是开发期校验手段，非应急操作，且日志记录Key更危险；D错误——通报和修改代码是善后，非首要止损动作，平台不会自动封禁，必须主动禁用Key。",
+      "difficulty_label": "入门"
+    }
+  ]
+}

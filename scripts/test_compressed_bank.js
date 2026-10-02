@@ -30,8 +30,10 @@ const eq = (label, got, want) => {
     if (!ok) fails.push(label);
 };
 
-// 注意：删题/补题后需同步此数字（与 data/quiz_categorized.json 的 total 一致）
-eq('total questions', ACP.BANK.length, 1656);
+// Verify runtime export agrees with the actual active source records.
+const sourceBank = JSON.parse(fs.readFileSync('data/quiz_categorized.json', 'utf8'));
+const activeCount = Object.values(sourceBank.questions_by_chapter).flat().filter(q => !q.deleted).length;
+eq('total questions', ACP.BANK.length, activeCount);
 eq('chapters', Object.keys(ACP.BY_CH).length, 12);
 const q1 = ACP.BANK[0];
 eq('q1 has options', q1.options.length > 0 && !!q1.options[0].text, true);

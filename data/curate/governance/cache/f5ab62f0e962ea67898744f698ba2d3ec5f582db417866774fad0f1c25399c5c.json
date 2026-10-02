@@ -1,0 +1,212 @@
+{
+  "3-1011": {
+    "qid": "3-1011",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "题干描述输入超长报错，原文明确指出‘上下文窗口’限制和RAG是首选方案",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "不让模型凭记忆答题，而是在它回答前，先从企业知识库里检索出最相关的几段资料，连同问题一起交给模型，让它\"看着资料作答\"。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "RAG解决上下文超长问题"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "增加生成token不解决输入超长"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "temperature影响输出确定性"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "模型最大输入长度不可调大"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-1040": {
+    "qid": "3-1040",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "原文明确区分Embedding模型与向量数据库职责",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "Embedding 模型负责\"把文本变向量\"，用于检索，不生成回答；向量数据库用近似最近邻（ANN）索引实现毫秒级检索。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "检索是核心功能"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "构建索引是基本作用"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "训练Embedding非向量库职责"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "存储向量是基本功能"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-1058": {
+    "qid": "3-1058",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "原文强调文档解析是RAG质量地基，必须预处理",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "文档解析是把PDF/Word/Markdown等加载并转换为大模型可读文本的过程。它看似简单，却是RAG质量的\"地基\"——解析阶段丢失的结构，后面用再复杂的算法也补不回来。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "DashScopeParse符合解析要求"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "视觉解析属多模态扩展"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "原始PDF不预处理违反地基原则"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "润色目录属结构化增强"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-1065": {
+    "qid": "3-1065",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "人事流程答非所问说明知识缺失，对应Recall低",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "Context Recall：标准答案需要的信息，有多少被检索到了（找得全不全）",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "多次检索非标准解法"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "temperature影响幻觉非答非所问"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "缺少文档导致Recall低"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "资源不足影响延迟非准确性"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-1106": {
+    "qid": "3-1106",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "原文强调RAGAS需分离评估检索端与生成端",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "RAGAS把RAG链路拆成\"检索端\"和\"生成端\"分别打分，核心思想是\"让大模型当评委\"。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "知识能力非生成模块核心"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "单侧优化违背分离评估原则"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "分离评测是RAGAS核心"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "仅看答案忽略溯源要求"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-1109": {
+    "qid": "3-1109",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "Markdown结构化切片天然按标题层级切分，防职责信息拆散",
+    "answer": [
+      "D"
+    ],
+    "supported": true,
+    "quote": "文档有标题层级（如分部门、分章节的员工手册）→ 优先 Markdown 切片，天然把不同部门拆成独立块，避免\"市场部和研发部制度混在一块\"。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "Token切片易切断语义"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "随机分段无结构保障"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "句子切片仍可能跨段落"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "Markdown切片保标题结构"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

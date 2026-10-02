@@ -1,0 +1,154 @@
+{
+  "items": [
+    {
+      "type": 0,
+      "stem": "某电商客服系统调用DashScope qwen-plus模型时，监控发现TPM（每分钟Token数）持续达上限，且输出Token费用占比达78%。经分析，用户提问后模型常生成冗长解释性回复（平均输出Token达1200+）。以下哪项操作最直接符合原文10.8节关于'省成本的工程手段'的核心要求？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "将模型切换为qwen-turbo以降低单价"
+        },
+        {
+          "option_label": "B",
+          "option_text": "在请求中显式设置max_tokens=300，并启用stop=['\\n', '。']参数截断"
+        },
+        {
+          "option_label": "C",
+          "option_text": "启用DashScope上下文缓存功能，复用系统提示词"
+        },
+        {
+          "option_label": "D",
+          "option_text": "改用PAI-EAS自托管模型以规避Token计费"
+        }
+      ],
+      "answer": "B",
+      "analysis": "依据原文10.8节'省成本的工程手段'第3条：'限制输出：用 `max_tokens` 给输出设上限，避免模型“刹不住车”'。题干明确问题根源是'输出Token过多且费用占比高'，B项通过硬性约束输出长度，直接响应该原则；A项虽降单价但无法解决输出过长本质问题，且可能牺牲质量；C项针对输入缓存，对输出费用无影响；D项属过度架构升级，违反原文'规模化后才评估自托管'的成本演进逻辑（10.8末段），且不满足'最直接'要求。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 0,
+      "stem": "运维团队收到告警：DashScope API调用在早高峰时段集中返回429错误，日志显示RPM（每分钟请求数）超限，但TPM（每分钟Token数）仅使用45%。此时若立即执行'指数退避重试'，最可能引发的次生风险是？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "触发TPM限流，导致所有请求被拒绝"
+        },
+        {
+          "option_label": "B",
+          "option_text": "因重试请求叠加，RPM超限加剧，形成雪崩效应"
+        },
+        {
+          "option_label": "C",
+          "option_text": "缓存命中率下降，输入Token费用上升"
+        },
+        {
+          "option_label": "D",
+          "option_text": "OpenAI兼容模式自动降级为同步非流式响应"
+        }
+      ],
+      "answer": "B",
+      "analysis": "原文10.8节明确'429 表示触发了限流（RPM/TPM 配额）'，且'处理限流'需'指数退避 + 抖动'。题干关键条件是'RPM超限而TPM未超'，说明瓶颈在并发请求数而非Token消耗量。若无抖动地执行重试，大量客户端同时重试将导致RPM峰值进一步飙升（如原1000QPM超限后，1000客户端1秒后重试→瞬间新增1000请求），直接违反'退避+抖动'的防雪崩设计（10.8成本要点第5条）。A项错误：TPM未超限，不会因此触发；C、D项在原文中无依据支撑。",
+      "difficulty_label": "挑战"
+    },
+    {
+      "type": 1,
+      "stem": "某金融合规系统需调用DashScope API处理监管问询，要求严格控制成本与稳定性。根据原文10.8节计费与限流机制，以下哪些条件同时成立时，必须在代码中实现RPM/TPM双维度配额感知与动态降级？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "系统采用多线程并发调用，且各线程独立管理重试逻辑"
+        },
+        {
+          "option_label": "B",
+          "option_text": "业务要求首Token延迟<500ms，故必须启用stream=True"
+        },
+        {
+          "option_label": "C",
+          "option_text": "调用方混合使用qwen-plus（输出单价高）和qwen-long（输入Token消耗大）"
+        },
+        {
+          "option_label": "D",
+          "option_text": "系统已配置全局API Key，且所有服务共享同一DashScope项目配额"
+        }
+      ],
+      "answer": "A,C,D",
+      "analysis": "原文10.8强调'有 RPM/TPM 限流'且'生产环境必须考虑重试、退避与降级'。A项：多线程独立重试会导致RPM统计失真，无法协同退避，必须统一配额感知；C项：混合模型使TPM消耗结构复杂（qwen-long推高输入，qwen-plus推高输出），需分别监控；D项：共享配额意味着所有服务竞争同一RPM/TPM池，必须全局协调。B项错误：stream=True影响延迟体验，但与配额感知无必然因果——原文10.3明确其为'对话类应用标配'，未要求为此增加配额逻辑。",
+      "difficulty_label": "挑战"
+    },
+    {
+      "type": 0,
+      "stem": "开发团队在百炼平台构建知识库问答机器人，上传《员工手册V2.1.pdf》后测试发现：当提问'年假天数'时，模型回答'详见第3章第2条'，但实际知识库切片被机械分割为固定512字符块，导致关键条款被截断。该故障的根本原因违反了原文哪项Token计费与限流机制的隐含前提？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "未利用上下文缓存折扣，导致重复切片Token浪费"
+        },
+        {
+          "option_label": "B",
+          "option_text": "输入Token无效膨胀：无关文本挤占有效上下文窗口"
+        },
+        {
+          "option_label": "C",
+          "option_text": "输出Token未设上限，模型生成冗余引导语"
+        },
+        {
+          "option_label": "D",
+          "option_text": "RPM限流未配置，前端高频重试放大无效请求"
+        }
+      ],
+      "answer": "B",
+      "analysis": "原文10.8'省成本的工程手段'第2条：'控制输入：RAG 只塞最相关的片段，不要每次把整本手册塞进上下文'。题干中'固定512字符切片'导致关键信息被截断，迫使模型在缺失完整语义的上下文中推理，进而生成模糊指引（'详见第3章第2条'），这本质是输入Token被无效内容占用，有效信息密度不足，违反了'精准输入'这一成本优化前提。A项缓存针对重复前缀，与切片质量无关；C、D项与输出长度和重试无关，题干未体现。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 1,
+      "stem": "以下哪些场景中，DashScope API返回429错误的直接原因必然与TPM（每分钟Token数）限流相关，而非RPM（每分钟请求数）？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "单次请求输入10万字合同文本（qwen-long），且max_tokens=4000"
+        },
+        {
+          "option_label": "B",
+          "option_text": "10个并发请求均调用qwen-max生成2000字报告"
+        },
+        {
+          "option_label": "C",
+          "option_text": "单个请求启用stream=True，但前端未及时消费Token流导致连接堆积"
+        },
+        {
+          "option_label": "D",
+          "option_text": "批量任务中连续发送50个短请求（每个输入50Token，输出200Token）"
+        }
+      ],
+      "answer": "A,B",
+      "analysis": "TPM限流触发于单位时间总Token消耗超标。A项：单次输入10万字+输出4000Token，Token量极大，极易触TPM上限；B项：10个qwen-max请求×(输入+输出)≈10×2200=2.2万Token/分钟，远超常规TPM配额。C项：stream连接堆积影响的是连接数或内存，非TPM统计维度；D项：50个短请求总Token量小，更易触发RPM限流。原文10.8明确区分RPM/TPM双维度限流，此题考查对'Token总量'这一TPM核心判据的识别能力。",
+      "difficulty_label": "挑战"
+    },
+    {
+      "type": 0,
+      "stem": "算法团队在PAI-DSW中调试DashScope API调用代码时，发现同一份测试数据在不同GPU实例上Token计费差异达35%。经排查，所有请求均使用qwen-plus模型，但部分实例返回的response.usage对象中prompt_tokens值波动显著。最可能的根本原因是？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "不同实例调用的qwen-plus模型快照版本不同，分词器实现存在差异"
+        },
+        {
+          "option_label": "B",
+          "option_text": "部分实例未启用DashScope上下文缓存，导致系统提示词重复计费"
+        },
+        {
+          "option_label": "C",
+          "option_text": "OSS存储的文档解析结果编码格式不一致（UTF-8 vs GBK），影响字符到Token映射"
+        },
+        {
+          "option_label": "D",
+          "option_text": "PAI-DSW实例地域与DashScope服务端地域不匹配，网络延迟导致分词超时"
+        }
+      ],
+      "answer": "C",
+      "analysis": "原文10.8指出'按 Token 计费'，而Token计算依赖文本编码与分词器。C项直指Token计量基础：不同编码（如GBK中文字符占2字节，UTF-8占3字节）会导致相同文本在底层字节序列不同，进而影响分词器切分结果（如'年假'在UTF-8为6字节，在GBK为4字节），最终改变prompt_tokens统计值。A项错误：模型快照版本影响效果，但分词器作为基础设施应保持一致；B项缓存影响的是费用是否减免，不改变prompt_tokens原始数值；D项延迟不影响Token计数逻辑。",
+      "difficulty_label": "进阶"
+    }
+  ]
+}

@@ -1,0 +1,254 @@
+{
+  "5-1238": {
+    "qid": "5-1238",
+    "classification": "own",
+    "chapter": 5,
+    "quality": "ok",
+    "reason": "全题干选项均在原文有依据或可推导",
+    "answer": [
+      "A",
+      "D",
+      "E"
+    ],
+    "supported": true,
+    "quote": "数据少时全参微调反而容易过拟合，LoRA扰动小、更稳",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "原文明确指出数据少易过拟合"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "原文称微调是最后手段"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "原文未提欠拟合风险"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "偏见属安全边界问题，原文提及"
+      },
+      {
+        "label": "E",
+        "selected": true,
+        "why": "验证loss先降后升即过拟合"
+      },
+      {
+        "label": "F",
+        "selected": false,
+        "why": "原文未强调预训练模型可获得性"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "5-1245": {
+    "qid": "5-1245",
+    "classification": "own",
+    "chapter": 5,
+    "quality": "ok",
+    "reason": "loss判断完全对应原文表格",
+    "answer": [
+      "A",
+      "B",
+      "C"
+    ],
+    "supported": true,
+    "quote": "训练 loss 下降 | 验证 loss 先降后升 | 过拟合",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "原文表明确为欠拟合"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "原文表明确为过拟合"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "原文表明确为训练失败"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "loss不变不等于收敛"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "5-1298": {
+    "qid": "5-1298",
+    "classification": "own",
+    "chapter": 5,
+    "quality": "ok",
+    "reason": "PEFT定义与LoRA/Adapter均在原文",
+    "answer": [
+      "C",
+      "D"
+    ],
+    "supported": true,
+    "quote": "PEFT（Parameter-Efficient Fine-Tuning）是LoRA、Prefix Tuning等方法的总称",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "全参微调非PEFT"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "梯度累积非PEFT技术"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "原文明确定义LoRA属PEFT"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "Adapter Tuning属PEFT范畴"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "5-1299": {
+    "qid": "5-1299",
+    "classification": "own",
+    "chapter": 5,
+    "quality": "ok",
+    "reason": "所有因素原文均有覆盖",
+    "answer": [
+      "A",
+      "B",
+      "C",
+      "D",
+      "E",
+      "F"
+    ],
+    "supported": true,
+    "quote": "预训练让模型掌握了通用语言能力，微调则通过领域样本让它学会岗位该怎么说话",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "预训练模型是微调基础"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "原文强调资源紧选LoRA"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "epochs影响过拟合"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "多样性属质量四维度"
+      },
+      {
+        "label": "E",
+        "selected": true,
+        "why": "超参选择需按数据分布"
+      },
+      {
+        "label": "F",
+        "selected": true,
+        "why": "质量优于数量原则"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "5-1307": {
+    "qid": "5-1307",
+    "classification": "own",
+    "chapter": 5,
+    "quality": "ok",
+    "reason": "分工关系原文有明确对比表",
+    "answer": [
+      "B",
+      "C",
+      "F"
+    ],
+    "supported": true,
+    "quote": "预训练 | 学通用语言能力 | 微调 | 适配特定任务行为",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "微调是继续梯度下降"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "原文称微调是继续训练"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "原文定义微调目标"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "提示词/RAG才不改模型"
+      },
+      {
+        "label": "E",
+        "selected": false,
+        "why": "微调强调领域适配"
+      },
+      {
+        "label": "F",
+        "selected": true,
+        "why": "预训练提供通用能力基础"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "5-1309": {
+    "qid": "5-1309",
+    "classification": "own",
+    "chapter": 5,
+    "quality": "ok",
+    "reason": "LoRA原理描述与原文完全一致",
+    "answer": [
+      "D"
+    ],
+    "supported": true,
+    "quote": "LoRA冻结原权重，只训练一对低秩小矩阵来学习变化量ΔW",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "实现简单非原文重点"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "回退非原文讨论点"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "降成本是正确描述"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "原文明确冻结原权重"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

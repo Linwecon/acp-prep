@@ -1,0 +1,154 @@
+{
+  "items": [
+    {
+      "type": 0,
+      "stem": "某团队在未构建评测集、未获取基线分数的情况下，直接调整切片策略并上线新人答疑机器人。上线后发现'年假计算'类问题回答准确率提升，但'试用期社保缴纳'类问题错误率翻倍。该现象最根本违反了教材中哪项核心原则？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "未冻结评测配置，导致分数不可比"
+        },
+        {
+          "option_label": "B",
+          "option_text": "未遵循'评测先行'原则，缺乏基线无法归因改动效果"
+        },
+        {
+          "option_label": "C",
+          "option_text": "未使用领域专家提供ground_truth，导致标准答案失真"
+        },
+        {
+          "option_label": "D",
+          "option_text": "未区分检索端与生成端指标，造成故障定位失效"
+        }
+      ],
+      "answer": "B",
+      "analysis": "题干描述的是典型'先优化、后验证'的反模式：无基线、无冻结评测集，仅凭局部效果上线，结果引发跷跷板效应（修好A、弄坏B）。教材7.1节'评测先行'原则明确指出：'先建评测集、拿到基线分数，再动手优化'，并强调'没有基线，你无法判断改动是否有效；没有冻结的评测集，你无法判断分数变化来自改动还是题目本身'。选项A虽属控制变量要求（7.2.4节），但题干未提配置变更，是结果而非原因；C涉及评测集构建铁律（7.2.1节），但题干未说明ground_truth来源问题；D是故障诊断方法（7.5节），非本例根本症结。B项直指'无基线即无评估依据'这一评测驱动开发（EDD）的起点性原则，有明确教材依据。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 1,
+      "stem": "在实施评测驱动开发（EDD）时，为同时满足'防止回归'与'精准定位问题'双重目标，以下哪些操作被教材明确要求或强烈建议？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "每次优化后，使用同一套冻结版本的评测集进行回归测试"
+        },
+        {
+          "option_label": "B",
+          "option_text": "将RAGAS五大指标按检索端（Context Precision/Recall）与生成端（Faithfulness/Answer Correctness/Relevancy）分层分析"
+        },
+        {
+          "option_label": "C",
+          "option_text": "在评测集中仅覆盖高频简单问题，以快速获得高平均分"
+        },
+        {
+          "option_label": "D",
+          "option_text": "使用同一版本的评委LLM、Embedding模型及推理参数（temperature/seed）"
+        }
+      ],
+      "answer": "ABD",
+      "analysis": "A正确：教材7.1节'评测先行'原则与7.2.4节'控制变量'均强调'冻结评测集版本'是回归评测的前提，否则无法确认'修好A没弄坏B'（防止回归）；B正确：教材7.5节'定位问题的黄金法则'明确要求通过指标分层（如Recall/Precision低→检索病；Faithfulness低→生成病）实现精准归因，这是定位问题的核心机制；D正确：教材7.2.4节'控制变量'明确要求'评测脚本、推理参数、模型版本都要固定'，否则分数变化无法归因于系统改动。C错误：教材7.8.2节'评测集设计要点'明确反对'只含简单题'，指出'只含简单题会导致分数虚高'，且要求'分层/分难度覆盖'，违背此条将导致短板无法暴露，既不能防止回归也不能准确定位。",
+      "difficulty_label": "挑战"
+    },
+    {
+      "type": 0,
+      "stem": "某团队使用RAGAS评测发现：Context Recall=0.95、Context Precision=0.32、Faithfulness=0.28、Answer Correctness=0.31。日志确认检索片段中包含完整正确信息（如'张伟是教研部的'），但该信息位于第15个context中，前14个均为无关内容。此时若仅优化生成端（如强化提示词约束），最可能产生的后果是？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "Answer Correctness小幅提升，但Faithfulness持续偏低，因模型仍受大量噪声上下文干扰"
+        },
+        {
+          "option_label": "B",
+          "option_text": "Context Precision显著提升，因提示词能引导模型忽略无关片段"
+        },
+        {
+          "option_label": "C",
+          "option_text": "Answer Relevancy大幅下降，因模型被迫在噪声中强行作答导致答非所问"
+        },
+        {
+          "option_label": "D",
+          "option_text": "Faithfulness和Answer Correctness同步跃升，证明生成端优化可弥补检索缺陷"
+        }
+      ],
+      "answer": "A",
+      "analysis": "题干呈现典型'检索端信噪比低'场景：Recall高（找得全）但Precision极低（排得差），导致相关片段被淹没（7.4.2节公式直觉：Precision=0.32源于大量无关片段前置）。教材7.5节'定位问题的黄金法则'明确指出：'Context Recall / Precision 低 → 问题在检索阶段'，且'上下文是RAG的生命线——检索质量决定上限'。此时若仅优化生成端（如改提示词），无法解决'模型注意力被前14个无关片段劫持'的根本问题，Faithfulness（依赖上下文支撑）与Answer Correctness（依赖事实准确性）仍将受限于低质量输入，仅可能因提示词微调产生小幅波动（A项符合'事倍功半'的教材风险提示）。B错误：提示词无法改变检索排序，Precision是检索端指标；C错误：Relevancy衡量是否切题/回避，与噪声干扰无直接因果；D错误：教材7.5节'踩坑提醒'明确警告'检索指标都好还去改知识库'是错误方向，反之亦然。",
+      "difficulty_label": "挑战"
+    },
+    {
+      "type": 1,
+      "stem": "为校准LLM-as-Judge在Answer Correctness评测中的系统性偏见，以下哪些措施被教材7.8.1节明确推荐？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "对同一组候选答案随机打乱顺序后多次打分，取平均值"
+        },
+        {
+          "option_label": "B",
+          "option_text": "使用与被测模型同架构的评委LLM（如均用Qwen系列），以增强风格一致性"
+        },
+        {
+          "option_label": "C",
+          "option_text": "用业务专家标注的黄金测试集定期校准评委打分阈值"
+        },
+        {
+          "option_label": "D",
+          "option_text": "在评分提示词中明确要求'答案长度不得超过50字'以抑制长度偏见"
+        }
+      ],
+      "answer": "ACD",
+      "analysis": "A正确：教材7.8.1节'位置偏见'缓解手段明确写'交换候选顺序多次打分取平均'，随机打乱即其实现方式；C正确：教材7.8.2节'黄金集与人工抽检'及7.8.1节'校准标准动作'均强调'定期用人工标注校准阈值'；D正确：教材7.8.1节'长度偏见'缓解手段明确要求'评分细则中明确冗余扣分、控制输出长度'，限定字数是直接控制手段。B错误：教材7.8.1节'自我偏好'缓解手段明确建议'用与被测模型不同的评委'，同架构会加剧自我偏好，违背教材原则。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 0,
+      "stem": "某团队构建新人答疑机器人评测集时，技术负责人从客服工单抽取120个高频问题，并邀请3位资深HRBP共同审定每条问题对应的标准答案。该做法最直接满足教材7.2.1节提出的哪条铁律？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "问题必须来自真实用户场景"
+        },
+        {
+          "option_label": "B",
+          "option_text": "标准答案必须由领域专家编写/审定"
+        },
+        {
+          "option_label": "C",
+          "option_text": "评测集必须覆盖主要业务场景与边界情况"
+        },
+        {
+          "option_label": "D",
+          "option_text": "四个字段（question/ground_truth/answer/contexts）必须齐全"
+        }
+      ],
+      "answer": "B",
+      "analysis": "题干关键动作是'邀请3位资深HRBP（人力资源业务伙伴，即领域专家）共同审定标准答案'，这完全对应教材7.2.1节'评测集构建的两条铁律'中第二条：'标准答案必须由业务领域专家编写/审定'。A项虽提及'客服工单'（符合真实场景），但题干强调的是'审定标准答案'这一动作，核心落点在ground_truth权威性；C项'覆盖边界情况'题干未体现；D项'四字段齐全'是基础要求，但题干仅描述question与ground_truth构建过程，未提answer/contexts。教材原文'只有业务专家才知道这个答案在业务上是否正确、完整、合规'，HRBP正是此类专家，B项为最直接、最精准匹配。",
+      "difficulty_label": "入门"
+    },
+    {
+      "type": 1,
+      "stem": "某团队对新人答疑机器人执行切片优化后，RAGAS评测显示Context Recall从0.62升至0.89，但Answer Correctness仅微升0.02，且Faithfulness下降0.15；日志确认检索返回的contexts中明确包含'张伟是教研部的'等完整事实。此时若要验证是否因控制变量失效导致分数失真，最应优先核查哪几项配置？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "评测脚本版本是否与基线评测一致"
+        },
+        {
+          "option_label": "B",
+          "option_text": "评委LLM（qwen-plus）与Embedding模型（text-embedding-v3）版本是否冻结"
+        },
+        {
+          "option_label": "C",
+          "option_text": "推理参数（temperature=0.3, seed=42）是否与基线完全相同"
+        },
+        {
+          "option_label": "D",
+          "option_text": "线上日志抽样问题是否与基线评测集问题完全重合"
+        }
+      ],
+      "answer": "ABC",
+      "analysis": "题干描述'指标异常变化'（Recall升但Correctness/Faithfulness未同步改善甚至恶化），需排查是否因评测环境变动导致分数不可比。教材7.2.4节'控制变量'明确要求：'评测集版本、评测脚本、推理参数（temperature/seed）、模型版本、甚至当评委的大模型版本都要固定'，否则'分数变化无法归因'。A、B、C分别对应脚本、评委模型、推理参数三大冻结要素，是验证控制变量是否失效的直接检查项。D错误：教材7.2.1节要求'问题来自真实用户场景'，但未要求'与基线完全重合'；回归评测只需'同一套冻结评测集'，其问题集合本身是固定的，无需与线上日志实时对齐，D项混淆了'评测集构建'与'回归评测执行'两个环节。",
+      "difficulty_label": "进阶"
+    }
+  ]
+}

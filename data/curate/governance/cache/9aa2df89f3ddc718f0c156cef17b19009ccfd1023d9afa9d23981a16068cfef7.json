@@ -1,0 +1,213 @@
+{
+  "3-0789": {
+    "qid": "3-0789",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "考查RAG在数据安全场景下的方案选型，原文明确要求知识库不对外泄露且需精准回答密信息。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "RAG 是上下文工程（Context Engineering）四大手段之一——在正确的时间把最相关的信息加载进上下文窗口。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "公有云API会泄露涉密信息，违反‘数据不对外泄露’要求"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "私有化部署+RAG可完全控制数据流，满足密信息与溯源双需求"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "脱敏后仍调用第三方API，存在泄露风险且无法保证密信息精度"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "免费通用模型无RAG能力，无法接入内部知识库"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-0847": {
+    "qid": "3-0847",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "考查文本切片策略的适配性，原文强调需按文档类型选择策略。",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "切片选型与排错经验：初学先用默认的句子切片；文档有标题层级→优先 Markdown 切片",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "原文指出切得太大易稀释语义、混入噪声"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "原文指出切得太小会丢上下文，命中也答不全"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "原文明确按文档类型选策略，非统一大小"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "原文强调保留标题/表格结构提升检索准确率"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-0871": {
+    "qid": "3-0871",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "考查向量数据库索引对检索效率的作用，原文明确提及ANN索引实现毫秒级检索。",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "向量数据库用 近似最近邻（ANN）索引（如 HNSW、IVF）实现毫秒级检索。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "增加维度会降低检索效率，原文未提此法"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "更大模型不提升检索效率，原文未提此法"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "原文明确ANN索引是实现毫秒级检索的关键"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "更小片段增加检索量，降低效率，原文未提此法"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-0921": {
+    "qid": "3-0921",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "考查生成阶段幻觉根因与提示词约束作用，原文强调‘只能依据资料’抑制幻觉。",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "注意事项：1. 根据上下文信息而非先验知识来回答问题。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "提高阈值会降低召回，可能漏关键片段"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "提高temperature加剧幻觉，原文要求低temperature保稳定"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "原文模板明确要求‘只依据资料’以抑制幻觉"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "更短片段加剧上下文丢失，原文反对切太小"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-0987": {
+    "qid": "3-0987",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "考查混合检索适用场景，原文表格明确列出‘混合检索’解决‘错误码、型号等字面匹配差’。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "混合检索（Hybrid）：关键词检索（BM25）+ 向量检索融合，各取所长",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "完全替换放弃语义检索优势，原文反对"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "原文表格明确混合检索解决字面匹配差问题"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "增加维度不解决实体匹配问题，原文未提"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "限制用户查询违背可用性原则，原文未提"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-0999": {
+    "qid": "3-0999",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "考查RAG与开卷考试类比的核心共性，原文定义RAG为‘开卷考试’并强调外部知识与不改参数。",
+    "answer": [
+      "A",
+      "C"
+    ],
+    "supported": true,
+    "quote": "RAG（Retrieval-Augmented Generation，检索增强生成）的核心思路可以用四个字概括：‘开卷考试’。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "原文定义RAG为‘开卷考试’，核心即引入外部知识"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "原文强调RAG不改变模型参数，人脑改变不符"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "原文‘建库’阶段含‘元数据’标签，用于检索过滤"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "RAG需理解问题向量化，原文未提无需理解"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

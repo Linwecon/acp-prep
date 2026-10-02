@@ -1,0 +1,212 @@
+{
+  "3-0126": {
+    "qid": "3-0126",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "考查文档解析与切片对RAG效果的影响，符合本章知识。",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "切片之所以关键，是因为它直接决定了检索的'颗粒度'：切得太大...检索时容易'沾边但不精准'；切得太小...即使检索命中也信息不全，模型无法据此回答。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "切片缺少关键信息会导致模型无法据此回答。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "增加训练数据属于微调范畴，非解析切片阶段。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "减少推理时间非解析切片阶段的主要影响。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "增加参数数量属于模型训练范畴，非解析切片阶段。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-0131": {
+    "qid": "3-0131",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "考查多轮对话中查询改写的作用，符合本章知识。",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "查询改写：多轮对话中'他/这个'指代不清...先用 LLM 把含代词的问题改写成完整问题再检索。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "改写问题以包含历史信息，提升检索准确性。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "增加训练数据与查询改写无关。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "减少推理时间非查询改写的主要作用。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "增加参数数量与查询改写无关。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-0134": {
+    "qid": "3-0134",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "考查query_engine在RAG多轮对话中的基本作用。",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "query_engine = index.as_query_engine(...) 用于执行检索与生成。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "query_engine是执行检索与生成的核心组件。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "增加训练数据非query_engine的作用。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "减少推理时间非其主要作用。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "增加参数数量非query_engine的作用。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-0143": {
+    "qid": "3-0143",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "考查结构化文档对检索效率的提升，符合本章知识。",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "同样的信息，放在结构清晰的表格里，比散落在大段文字中更容易被切片和检索命中。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "结构化格式便于切片和检索，提升效率。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "增加训练数据非优化检索效果的方法。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "减少推理时间非优化检索效果的方法。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "增加参数数量非优化检索效果的方法。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-0144": {
+    "qid": "3-0144",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "考查默认切片策略，符合本章知识。",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "初学先用默认的句子切片。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "句子切片是默认策略。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "Token切片是按固定token数切，非默认。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "句子窗口切片是进阶策略，非默认。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "语义切片是成本更高的策略，非默认。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-0146": {
+    "qid": "3-0146",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "考查重排序在减少无关信息中的作用，符合本章知识。",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "Rerank（重排序）...第二阶段用更强的重排序模型对候选逐篇精细打分、重新排序，只把最相关的少数交给大模型。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "重排序可精排过滤，减少无关信息。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "问题改写旨在提升检索准确性，非直接减少无关信息。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "问题扩写（如HyDE）旨在改善查询表示，非直接减少无关信息。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "增加训练数据与检索后减少无关信息无关。"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

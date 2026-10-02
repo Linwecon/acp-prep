@@ -1,0 +1,162 @@
+{
+  "items": [
+    {
+      "type": 0,
+      "stem": "某金融公司需构建合规问答系统，要求：① 严格保障客户合同数据不出内网；② 模型需理解法律条文与金融术语；③ 工程团队具备GPU运维能力。以下哪组技术选型最符合本章分层原则与实际约束？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "百炼知识库上传合同PDF → 调用DashScope qwen-max API → 钉钉发布"
+        },
+        {
+          "option_label": "B",
+          "option_text": "从ModelScope下载Qwen2.5-7B-Instruct开源模型 → 在PAI-DSW中微调 → 用PAI-DLC训练 → 部署至PAI-EAS"
+        },
+        {
+          "option_label": "C",
+          "option_text": "使用DashScope原生SDK调用qwen-long → 开启RPM限流白名单 → 将API接入内部OA"
+        },
+        {
+          "option_label": "D",
+          "option_text": "在百炼中启用‘模型调优’功能训练qwen-plus → 导出为ONNX格式 → 自建K8s部署"
+        }
+      ],
+      "answer": "B",
+      "analysis": "依据原文10.1节‘分层定位’表及10.5节选型决策：①‘数据不出域’明确排除所有托管API（百炼、DashScope），必须使用开源模型+私有部署（10.7节‘商业版走托管API；要私有化用开源版+自建/PAI’）；②‘理解专业术语’需微调，属PAI训练范畴（10.4节‘PAI面向自己造/改模型的人’）；③‘具备GPU运维能力’支持选择PAI三件套（DSW开发→DLC训练→EAS部署）。选项A、C均违反数据不出域；D中百炼导出ONNX非标准流程，且百炼调优不满足深度定制需求（10.2节‘不直接替代底层训练平台’）；B完整覆盖ModelScope下载→PAI-DSW开发→DLC训练→EAS部署全链路，符合10.4节‘调试选DSW、训练选DLC、上线选EAS’口诀及10.5节‘要自己训练、微调、蒸馏，或部署开源模型→PAI’。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 1,
+      "stem": "某电商团队需为客服系统实现多轮对话能力，要求：① 前端H5页面嵌入实时聊天窗口；② 后端服务需兼容现有Python微服务架构；③ 对话延迟敏感（首Token<800ms）；④ 预算有限，需控制API成本。以下哪些措施符合本章成本优化与技术选型原则？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "选用qwen-turbo模型，因其在简单问答场景下速度最快、成本最低"
+        },
+        {
+          "option_label": "B",
+          "option_text": "在DashScope OpenAI兼容接口中设置stream=True，实现流式响应降低用户等待感"
+        },
+        {
+          "option_label": "C",
+          "option_text": "将整份《售后服务政策》作为system prompt每次发送，确保信息完整"
+        },
+        {
+          "option_label": "D",
+          "option_text": "对高频问题（如‘退货流程’）启用上下文缓存，复用固定前缀提示词"
+        },
+        {
+          "option_label": "E",
+          "option_text": "当API返回429时，采用无间隔循环重试直至成功"
+        }
+      ],
+      "answer": "ABD",
+      "analysis": "依据原文10.6节‘turbo适合高频、简单、对延迟敏感的任务’（A正确）；10.3节‘stream=True是对话类应用降低等待感的标配’（B正确）；10.8节‘善用缓存：对重复的系统提示词、知识库前缀利用上下文缓存折扣’（D正确）；C错误：10.8节明确警示‘不要每次把整本手册塞进上下文’，应通过RAG检索相关片段；E错误：10.8节强调‘遇429用指数退避+抖动重试’，无间隔重试会加剧限流并推高成本（10.8节‘切忌无间隔死循环重试’）。所有选项均需结合10.6/10.3/10.8节具体规则判断，非泛泛而谈。",
+      "difficulty_label": "中等"
+    },
+    {
+      "type": 0,
+      "stem": "某教育科技公司计划为教师开发备课助手，需支持：① 解析上传的PPT/PDF课件；② 根据教学大纲生成分层习题；③ 支持教师在Web界面调整Prompt风格（如‘更幽默’‘更严谨’）；④ 无需后端开发即可快速交付MVP。以下哪个平台最能覆盖全部需求且符合本章‘应用层’定位？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "PAI-EAS部署自研模型，前端通过WebSocket直连推理服务"
+        },
+        {
+          "option_label": "B",
+          "option_text": "DashScope原生SDK调用qwen-max，封装为内部REST API供前端调用"
+        },
+        {
+          "option_label": "C",
+          "option_text": "百炼平台：上传课件至知识库 → 搭建‘备课智能体’配置角色与工具 → 可视化调Prompt → 一键发布为网页应用"
+        },
+        {
+          "option_label": "D",
+          "option_text": "ModelScope下载Qwen-VL模型，在PAI-DSW中编写多模态解析代码"
+        }
+      ],
+      "answer": "C",
+      "analysis": "依据原文10.2节‘百炼是一站式大模型应用开发平台’及核心能力表：①‘知识库’支持上传PPT/PDF并自动解析（10.2节‘内置文档解析、切片、向量化’）；②‘智能体’可配置角色（如‘资深数学教师’）与工具（如‘生成习题’插件）（10.2节‘配置角色、工具、知识库，低代码搭智能体’）；③‘Prompt调试’提供可视化调参界面（10.2节‘可视化调提示词、管理版本’）；④‘一键发布’直接生成网页应用（10.2节‘发布为API、网页应用’）。A、B、D均需写代码或运维，违背‘无需后端开发’和‘快速交付MVP’要求；C完全匹配10.2节‘HR希望自己上传员工手册、调一调口吻、试问到满意后发布’的贯穿案例，且符合10.5节‘要快速验证业务想法、做Demo或内部工具→百炼’。",
+      "difficulty_label": "基础"
+    },
+    {
+      "type": 1,
+      "stem": "关于阿里云AI产品矩阵的分层关系，以下哪些描述符合原文10.1节‘分层定位’与10.5节对比表？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "百炼与DashScope共用同一套API Key，二者是应用层与接口层的关系"
+        },
+        {
+          "option_label": "B",
+          "option_text": "PAI的DSW组件提供JupyterLab环境，用于交互式模型开发与实验"
+        },
+        {
+          "option_label": "C",
+          "option_text": "ModelScope是按Token计费的商业API服务，与DashScope功能重叠"
+        },
+        {
+          "option_label": "D",
+          "option_text": "OSS、MaxCompute、DataWorks属于数据底座层，为百炼知识库提供原始数据支撑"
+        },
+        {
+          "option_label": "E",
+          "option_text": "百炼上可进行轻量微调，但大规模分布式训练必须使用PAI-DLC"
+        }
+      ],
+      "answer": "ABDE",
+      "analysis": "A正确：10.3节明确‘百炼是应用层，DashScope是接口层，二者共用一套API Key’；B正确：10.4节定义DSW为‘基于JupyterLab的云端Notebook开发环境’；D正确：10.1节分层表将OSS/MaxCompute/DataWorks列为‘数据底座层’，且10.1节链路示例‘OSS存放企业文档→DataWorks清洗→百炼知识库’证实其支撑关系；E正确：10.2节‘百炼上能做轻量微调，但自研结构、大规模训练是PAI主场’及10.4节‘DLC用于容器化大规模/分布式训练’；C错误：10.7节强调‘ModelScope是开源模型社区/Hub，不是按Token计费的API服务’，与DashScope有本质区别（10.7节‘DashScope是商业API服务，ModelScope是开源模型社区’）。",
+      "difficulty_label": "中等"
+    },
+    {
+      "type": 0,
+      "stem": "某政务部门需建设公文智能处理系统，要求：① 公文PDF需OCR识别文字；② 提取关键字段（如发文机关、文号、签发日期）；③ 生成摘要并归档至内部数据库；④ 所有处理环节数据不出政务专网。以下技术组合最符合本章‘分层选型’与‘私有化’原则的是？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "调用DashScope通义听悟API识别语音 → 百炼工作流编排字段提取 → EAS部署OCR模型"
+        },
+        {
+          "option_label": "B",
+          "option_text": "使用PAI-DSW加载开源OCR模型（如PaddleOCR）→ 训练专用字段识别模型 → PAI-EAS部署为微服务 → 对接内部数据库"
+        },
+        {
+          "option_label": "C",
+          "option_text": "在百炼中上传PDF → 启用‘文档解析’功能 → 调用DashScope qwen-long生成摘要 → 通过API同步至数据库"
+        },
+        {
+          "option_label": "D",
+          "option_text": "从ModelScope下载Qwen-VL多模态模型 → 在本地服务器部署 → 调用其OCR与文本理解能力"
+        }
+      ],
+      "answer": "B",
+      "analysis": "依据原文10.1节分层原则：①‘数据不出政务专网’强制排除所有托管API（DashScope、百炼），锁定私有化方案（10.7节‘数据可不出域→开源版+自建/PAI’）；②‘OCR识别’与‘字段提取’属计算机视觉+文本结构化任务，需定制模型训练（10.4节‘PAI面向自己造/改模型的人’）；③‘对接内部数据库’需稳定在线服务，EAS提供弹性伸缩与监控（10.4节‘EAS是模型对外服务的门面’）。B完整覆盖DSW开发→DLC训练（若需）→EAS部署闭环，且PAI为阿里云原生私有化平台；A、C含DashScope调用，违反数据不出域；D虽用ModelScope下载，但‘本地服务器部署’未体现阿里云平台能力，且缺乏EAS的生产级服务保障（10.4节‘EAS支持弹性伸缩、蓝绿发布、监控告警’），不符合‘阿里云AI平台’章节考查范围。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 0,
+      "stem": "开发团队发现线上答疑机器人API费用超支，经分析：① 用户提问常包含整段制度原文；② 未设置max_tokens限制；③ 高峰期频繁触发429限流。依据10.8节成本优化原则，以下哪项措施能最直接解决‘输出失控导致费用激增’的问题？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "将用户输入通过RAG检索压缩为100字内关键片段再送入模型"
+        },
+        {
+          "option_label": "B",
+          "option_text": "在API请求中显式设置max_tokens参数，限制模型生成长度"
+        },
+        {
+          "option_label": "C",
+          "option_text": "将qwen-plus替换为qwen-turbo以降低单Token单价"
+        },
+        {
+          "option_label": "D",
+          "option_text": "对429错误实施指数退避重试，并降级至qwen-turbo"
+        }
+      ],
+      "answer": "B",
+      "analysis": "题干明确问题为‘输出失控导致费用激增’，对应原文10.8节‘控制输出：用max_tokens给输出设上限，避免模型刹不住车’——这是最直接、最精准的解决方案。A针对输入冗余（10.8节‘控制输入’），解决的是输入Token浪费；C虽降低单价，但若输出长度失控，总费用仍可能很高；D解决的是限流应对，非费用根源。所有选项均需紧扣‘输出失控’这一题干限定条件，B是唯一在技术层面直接约束输出长度的措施，符合10.8节‘省成本的工程手段’第3条。",
+      "difficulty_label": "基础"
+    }
+  ]
+}

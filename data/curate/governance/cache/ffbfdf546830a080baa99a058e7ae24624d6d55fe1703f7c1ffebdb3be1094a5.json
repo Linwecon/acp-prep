@@ -1,0 +1,212 @@
+{
+  "3-0766": {
+    "qid": "3-0766",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "知识库未更新是最新文档不可检索的直接原因",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "知识库新增/修改文档后，必须重新走'解析→切片→向量化→入库'，否则新内容检索不到",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "原文明确指出新文档需重走建库流程"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "上下文窗口影响输入长度，不导致文档不可检索"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "阈值过高会降低召回率，但题干是'无法检索到'而非'排名靠后'"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "分块不当影响精度，但不会导致完全不可检索"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-0844": {
+    "qid": "3-0844",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "提示词约束时效性是缓解过时信息的最轻量方案",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "根据上下文信息而非先验知识来回答问题。工具咨询类问题，请给出下载地址链接。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "原文提示词模板含时效约束逻辑"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "绕过检索违背RAG开卷考试本质"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "改写关键词不能解决知识过时问题"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "降低召回率会加剧信息缺失"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-0870": {
+    "qid": "3-0870",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "文本切片核心目标是提升检索颗粒度与精度",
+    "answer": [
+      "D"
+    ],
+    "supported": true,
+    "quote": "切片之所以关键，是因为它直接决定了检索的'颗粒度'：切得太大...切得太小...语义被截断",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "索引时间非切片主要目的"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "存储空间非切片设计目标"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "多样性非切片关注点"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "原文明确切片决定检索颗粒度"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-0937": {
+    "qid": "3-0937",
+    "classification": "cross",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "RAG适用于专业术语等私域知识增强",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "RAG的核心思路是'开卷考试'，不让模型凭记忆答题，而是在它回答前，先从企业知识库里检索出最相关的几段资料",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "纯模型翻译无法保证术语准确性"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "术语词典属私域知识，RAG可精准注入"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "用户无法提供系统级术语保障"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "在线API无领域适配能力"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-0945": {
+    "qid": "3-0945",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "摘要融合可整合零散片段形成完整推理上下文",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "把检索到的资料与问题拼装进提示词模板；LLM依据资料生成答案，并标注引用来源",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "提高阈值会进一步减少召回"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "原文强调拼装上下文以支持生成"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "增加数量不解决片段零散问题"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "拆分问题违背用户自然交互习惯"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-1006": {
+    "qid": "3-1006",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "极简查询需通过改写补全语义以提升检索效果",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "查询改写：多轮对话中'他/这个'指代不清；先用LLM把含代词的问题改写成完整问题再检索",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "Wiki不解决检索语义匹配问题"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "修改提问非系统可控技术手段"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "原文明确查询改写解决指代不清"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "增加关键词属用户侧操作，非技术改进"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

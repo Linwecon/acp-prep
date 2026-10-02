@@ -1,0 +1,154 @@
+{
+  "items": [
+    {
+      "type": 0,
+      "stem": "某金融合规问答服务要求每次对同一监管条款的解释必须严格一致，且需通过审计复核。开发团队发现上线后相同问题偶现术语表述差异（如'审慎义务'与'谨慎义务'交替出现）。经排查，temperature=0.3、top_p=0.95，messages结构无误。最可能的根本原因及依据是？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "temperature=0.3仍引入微小随机性，应降至0.0并启用seed参数确保确定性"
+        },
+        {
+          "option_label": "B",
+          "option_text": "top_p=0.95过大，导致模型在高概率尾部采样，应降至0.1以逼近贪婪解码"
+        },
+        {
+          "option_label": "C",
+          "option_text": "temperature与top_p同时启用且未遵循‘固定一个、调另一个’原则，叠加扩大了候选集"
+        },
+        {
+          "option_label": "D",
+          "option_text": "未设置stop参数截断冗余解释，导致模型在末尾自由发挥产生术语漂移"
+        }
+      ],
+      "answer": "C",
+      "analysis": "依据原文9.4节‘principle’框：‘为什么不能同时把两个都拉高：temperature 和 top_p 都会扩大候选范围，叠加使用会让输出失控。课程明确建议：固定一个、调另一个，优先调 temperature，必要时再微调 top_p。’选项C直指该核心约束——即使单个参数值看似合理（0.3和0.95均在常规范围内），其组合违反了教材强调的‘互斥调控’工程原则，导致本应稳定的输出出现不可控波动。A错误：原文9.4节‘risk’明确指出‘temperature=0 输出绝对一致’是误区，受分布式系统影响仍可能有微小差异，且seed无法跨版本复现；B错误：top_p=0.1虽更保守，但原文未将‘降低top_p’列为事实类任务首选，且0.95本身不构成错误；D错误：stop参数用于主动截断，与术语一致性无直接因果，原文未将其列为事实类任务关键参数。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 0,
+      "stem": "在调试一个新人答疑机器人时，发现当temperature=0.0、top_p=0.8时，对‘公司报销流程’的连续10次请求中，7次返回完整流程，3次仅返回‘请参考OA系统’。而将top_p改为0.2后，10次全部返回完整流程。此现象最能印证原文关于top_p机制的哪项关键描述？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "top_p定义为‘累积概率达p的候选集合’，p越小，核心集合越窄，输出越收敛"
+        },
+        {
+          "option_label": "B",
+          "option_text": "temperature=0时模型采用贪婪解码，top_p失效，故p值变化不应影响结果"
+        },
+        {
+          "option_label": "C",
+          "option_text": "top_p与temperature存在耦合效应，p值过大会使temperature=0的确定性被破坏"
+        },
+        {
+          "option_label": "D",
+          "option_text": "p=0.8意味着允许80%概率质量的token参与采样，包含大量低频但合法的简略表达"
+        }
+      ],
+      "answer": "D",
+      "analysis": "依据原文9.4节对top_p的定义：‘top_p（核采样）：把候选按概率从高到低累加，直到累积概率达到p，只在这个“核心集合”内采样。top_p=0.001 几乎等于贪婪解码，top_p=0.8 则允许一定的多样性。’题干中temperature=0.0本应强制贪婪解码，但实际出现3次简略回答，说明在服务端实现中，当top_p>0时，即使temperature=0，系统仍会按top_p划定的集合进行采样（非严格贪婪），而p=0.8的集合宽泛，包含了‘请参考OA系统’这类概率较低但语义合法的简略表达。D项精准对应原文‘允许一定多样性’的实质——多样性不仅来自temperature，也来自top_p划定的候选广度。A项虽正确但未解释‘为何p=0.8导致不一致’；B项错误，原文未称top_p在temperature=0时失效；C项属臆断，原文未提‘耦合破坏确定性’。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 1,
+      "stem": "某企业知识库问答API需支持两种模式：①HR专员批量校验500条政策问答的准确性（要求输出绝对稳定）；②市场部头脑风暴生成100个新品Slogan（要求高度发散）。以下参数配置组合中，符合原文9.4节‘场景化选型建议’且满足各自约束条件的是？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "模式①：temperature=0.0, top_p=0.1；模式②：temperature=1.0, top_p=0.9"
+        },
+        {
+          "option_label": "B",
+          "option_text": "模式①：temperature=0.1, top_p=0.0；模式②：temperature=0.9, top_p=0.95"
+        },
+        {
+          "option_label": "C",
+          "option_text": "模式①：temperature=0.0, top_p=0.0；模式②：temperature=1.2, top_p=0.8"
+        },
+        {
+          "option_label": "D",
+          "option_text": "模式①：temperature=0.2, top_p=0.2；模式②：temperature=0.85, top_p=0.9"
+        }
+      ],
+      "answer": "AD",
+      "analysis": "依据原文9.4节‘场景化选型建议’表格：事实问答类（模式①）应选‘temperature 0~0.3, top_p 低’；文案/头脑风暴类（模式②）应选‘temperature 0.8~1.2, top_p 0.9’。A项：①中temperature=0.0（属0~0.3）、top_p=0.1（低值）；②中temperature=1.0（属0.8~1.2）、top_p=0.9（匹配）→ 符合。D项：①中temperature=0.2（属0~0.3）、top_p=0.2（低值）；②中temperature=0.85（属0.8~1.2）、top_p=0.9（匹配）→ 符合。B项错误：top_p=0.0非法（原文取值范围为(0,1]）；C项错误：top_p=0.0非法，且模式②top_p=0.8低于建议的0.9；此外原文强调‘固定一个、调另一个’，但所有选项均同时设置两参数，需判断是否在合理范围内——A、D的组合均在建议区间内，且未违反互斥原则（因未要求‘必须只调一个’，而是‘优先调temperature，必要时微调top_p’）。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 0,
+      "stem": "开发团队为客服对话系统配置参数时，将temperature设为0.6、top_p设为0.95。上线后发现用户投诉‘回答太啰嗦，经常重复解释同一概念’。技术负责人检查发现输入Token已超上下文窗口70%，且max_tokens设为2048。最可能的故障根源及依据是？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "top_p=0.95过大，导致模型在长尾token中反复采样同义词，应降至0.5以下"
+        },
+        {
+          "option_label": "B",
+          "option_text": "temperature=0.6偏高，结合长上下文易引发循环生成，应降至0.3并压缩历史"
+        },
+        {
+          "option_label": "C",
+          "option_text": "max_tokens=2048过高，在输入已占70%窗口时，模型为填满长度而冗余展开"
+        },
+        {
+          "option_label": "D",
+          "option_text": "temperature与top_p双高叠加，且输入过长触发模型注意力稀释，导致逻辑连贯性下降"
+        }
+      ],
+      "answer": "C",
+      "analysis": "依据原文9.4节‘risk’框：‘max_tokens 越大越好’是误区，‘受上下文窗口限制，过大会报错且增加成本’；更关键的是9.9节‘上下文窗口是输入+输出共享的上限’，当输入已占70%窗口，max_tokens=2048意味着模型需生成极长输出，极易导致为凑足长度而重复解释、自我引用。C项直指该物理约束——输出长度上限与输入长度存在硬性资源竞争关系。A、B、D均聚焦参数组合，但题干明确给出‘输入Token已超上下文窗口70%’这一关键条件，原文9.5节‘cost’部分强调‘历史越长，输入Token越多...可能撞上上下文窗口上限’，而9.4节未将‘啰嗦’归因于top_p或temperature单独作用。D项‘注意力稀释’属过度引申，原文未提及此机制。",
+      "difficulty_label": "挑战"
+    },
+    {
+      "type": 1,
+      "stem": "在诊断一个故障：某代码生成API在temperature=0.0、top_p=0.1时，对同一函数签名的10次请求中，7次生成正确代码，3次生成语法错误。运维日志显示这3次请求均发生在集群负载高峰时段。以下哪些原因符合原文对temperature=0的工程约束描述？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "原文明确指出‘temperature=0 不等于绝对确定’，分布式系统调度差异可能导致token选择微变"
+        },
+        {
+          "option_label": "B",
+          "option_text": "服务端在高负载时启用精度降级策略，主动放宽采样约束"
+        },
+        {
+          "option_label": "C",
+          "option_text": "原文‘risk’框强调‘temperature=0 输出绝对一致’是高频误区，实际受服务端优化影响仍可能有微小差异"
+        },
+        {
+          "option_label": "D",
+          "option_text": "top_p=0.1虽小，但在高并发下网络抖动导致部分请求的top_p阈值计算偏差"
+        }
+      ],
+      "answer": "AC",
+      "analysis": "依据原文9.4节‘risk’框原话：‘temperature=0 输出绝对一致’是高频误区；‘temperature=0 不等于绝对确定’，受分布式系统、服务端优化影响，仍可能有微小差异。A、C项均为原文直接引述或同义转述，准确对应题干中‘高峰时段出现不一致’的现象——这是系统级不确定性，非参数配置错误。B项‘精度降级策略’原文未提及，属无依据推测；D项‘网络抖动导致top_p计算偏差’原文未涉及，且top_p是客户端传入的标量，服务端不会因网络抖动改变其计算逻辑。",
+      "difficulty_label": "挑战"
+    },
+    {
+      "type": 0,
+      "stem": "某教育机构开发试题生成API，要求对同一知识点生成10道风格各异的选择题。工程师尝试temperature=1.5、top_p=0.9，但发现题目难度严重失衡：3道过于简单，4道超出大纲。查阅原文后，他改用temperature=0.9、top_p=0.95，并添加system prompt：‘请严格依据《高中数学课程标准》生成中等难度题目’。此调整最核心的依据是？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "temperature=0.9在原文建议的文案类区间（0.8~1.2）内，能平衡多样性与可控性"
+        },
+        {
+          "option_label": "B",
+          "option_text": "top_p=0.95扩大候选集，配合system prompt可引导模型在宽泛范围内聚焦大纲"
+        },
+        {
+          "option_label": "C",
+          "option_text": "原文强调‘固定一个、调另一个’，原方案双高失控，新方案以temperature为主、top_p为辅微调"
+        },
+        {
+          "option_label": "D",
+          "option_text": "temperature=1.5超出Qwen-Max取值范围[0,2)，属非法参数，必然导致行为异常"
+        }
+      ],
+      "answer": "C",
+      "analysis": "依据原文9.4节‘principle’框：‘为什么不能同时把两个都拉高：temperature 和 top_p 都会扩大候选范围，叠加使用会让输出失控。课程明确建议：固定一个、调另一个，优先调 temperature，必要时再微调 top_p。’题干中temperature=1.5虽在[0,2)内（D项错误），但与top_p=0.9双高叠加，导致输出完全失控（难度失衡）；而新方案temperature=0.9（主调参数，在建议区间内）搭配top_p=0.95（微调，略高于默认0.8），符合‘优先调temperature，必要时微调top_p’的工程原则。A、B项虽部分正确，但未触及题干‘从失败到成功’转变的核心——即从‘双高失控’到‘主辅协同’的范式转换。C项直指原文最根本的调控机制约束。",
+      "difficulty_label": "进阶"
+    }
+  ]
+}

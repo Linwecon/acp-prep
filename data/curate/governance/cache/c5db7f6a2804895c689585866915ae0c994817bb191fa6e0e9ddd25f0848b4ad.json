@@ -1,0 +1,154 @@
+{
+  "items": [
+    {
+      "type": 0,
+      "stem": "某教育公司新人答疑机器人初期仅需单轮问答，两周后需支持RAG知识库、多轮对话、调用三个内部系统、人工评测及前端API接入。此时代码迅速膨胀至数百行，出现大量手动拼接messages、重复检索逻辑和历史维护混乱。根据第12章核心观点，导致该困境的根本原因是什么？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "未选用最新版LangChain，导致LCEL流式能力缺失"
+        },
+        {
+          "option_label": "B",
+          "option_text": "缺乏对共性工程模式的抽象，如提示词管理、记忆维护、检索封装与流程编排"
+        },
+        {
+          "option_label": "C",
+          "option_text": "模型选择错误，qwen-plus不支持多轮对话和工具调用"
+        },
+        {
+          "option_label": "D",
+          "option_text": "未使用Dify低代码平台，致使非工程人员无法参与迭代"
+        }
+      ],
+      "answer": "B",
+      "analysis": "依据12.1节‘为什么需要框架’小节：裸调SDK时需手工处理‘提示词拼装、多轮历史维护、文档加载切片向量化检索、多步骤流程编排、工具调用循环、链路追踪’等共性脏活；框架的价值正是将这些反复出现的工程模式抽象为可组合组件（PromptTemplate/Memory/Retriever/Chain/Agent）。选项A错误——LCEL是解决方案而非原因；C错误——qwen-plus完全支持多轮与工具调用，问题不在模型能力；D错误——Dify适用于非工程人员自助搭建，但本阶段是工程师主导开发，且需求演进本质是工程复杂度上升，非协作角色问题。教材原文明确指出：'真实应用通常会反复出现几类共性脏活……框架帮你抽象成'。",
+      "difficulty_label": "基础"
+    },
+    {
+      "type": 0,
+      "stem": "在构建一个需同时满足‘高精度合同条款问答’和‘动态调用法务审批系统API’的智能助手时，技术选型需兼顾RAG深度检索与复杂Agent状态机。根据12.4节对比分析，最符合课程推荐实践的组合方案是？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "仅用LangChain：通过自定义Retriever接入向量库，再用LangGraph编排Agent"
+        },
+        {
+          "option_label": "B",
+          "option_text": "仅用LlamaIndex：启用其ReAct Agent并扩展Tool注册机制"
+        },
+        {
+          "option_label": "C",
+          "option_text": "LlamaIndex负责文档解析→索引→检索→生成，LangChain/LangGraph负责Agent规划、工具调用与Memory管理"
+        },
+        {
+          "option_label": "D",
+          "option_text": "弃用二者，直接用AgentScope实现全链路多Agent协同"
+        }
+      ],
+      "answer": "C",
+      "analysis": "依据12.4节‘二者不是互斥，而是可以组合’及图表：LlamaIndex强项在数据层（Document/Node/Index/Retriever），原生设计更专注RAG质量；LangChain强项在编排层（Agent/Tool/Memory/Chain），尤其LangGraph支持复杂状态机。题干中‘高精度合同条款问答’对应RAG深度能力（需LlamaIndex的句子窗口、Rerank、结构化切片），‘动态调用法务API’对应多步决策与工具调度（LangChain Agent优势）。选项A虽可行但违背‘各司其职’原则——LangChain的Retrieval模块不如LlamaIndex丰富；B错误——教材明确指出LlamaIndex的Agent能力‘不是主战场’，复杂状态机生态弱于LangChain；D错误——AgentScope聚焦多Agent消息协作（如Leader-Worker/Blackboard），本题是单Agent多工具场景，过度设计。教材案例与exam提示均强调此组合为‘典型正解’。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 0,
+      "stem": "某团队使用LlamaIndex构建RAG系统，发现用户提问‘2024年Q3销售目标是多少？’时，模型常忽略表格中的数值而泛泛作答。经排查，原始PDF含复杂表格，但SimpleDirectoryReader解析后表格被转为无结构纯文本。根据12.5节文档解析选型原则，应优先采取哪项措施？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "在LlamaIndex中启用MetadataReplacementPostProcessor进行后处理"
+        },
+        {
+          "option_label": "B",
+          "option_text": "改用DashScopeParse进行OCR与版面结构化解析"
+        },
+        {
+          "option_label": "C",
+          "option_text": "在QueryEngine中增加Rerank节点提升数值相关性"
+        },
+        {
+          "option_label": "D",
+          "option_text": "调整SentenceWindowNodeParser的window_size参数"
+        }
+      ],
+      "answer": "B",
+      "analysis": "依据12.5节‘选型决策路径’及exam提示：‘扫描件/复杂表格PDF → 上DashScopeParse（OCR+版面结构化）’；‘合同/报表中的数值类问题总答错’病根是‘解析阶段表格被打散成纯文本’。SimpleDirectoryReader对复杂版面处理有限，而DashScopeParse专精OCR+表格识别+输出结构化Markdown，能保留行列关系，使后续切片与检索利用语义边界。选项A错误——PostProcessor作用于Node元数据替换，无法恢复已丢失的表格结构；C错误——Rerank在检索后排序，若召回内容本身无表格结构，重排序无效；D错误——window_size影响上下文窗口大小，不解决结构丢失问题。教材明确将‘复杂表格’列为DashScopeParse适用场景。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 1,
+      "stem": "某金融企业需上线合规问答机器人，要求：① 支持HR上传扫描版制度PDF并自动解析；② 非技术人员可自主配置知识库与工作流；③ 系统需通过RAGAS进行月度效果评测；④ 对外提供标准REST API供OA系统集成。根据12.6–12.7节分层定位，以下哪些工具必须纳入技术栈？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "DashScopeParse"
+        },
+        {
+          "option_label": "B",
+          "option_text": "Dify"
+        },
+        {
+          "option_label": "C",
+          "option_text": "RAGAS"
+        },
+        {
+          "option_label": "D",
+          "option_text": "FastAPI"
+        }
+      ],
+      "answer": "ABCD",
+      "analysis": "依据12.6.2节：Dify满足‘非技术人员自助配置知识库与工作流’（②）且内置文档解析能力，结合12.5节‘扫描件PDF需OCR’，Dify可集成DashScopeParse或调用其能力（①）；12.7.1节明确RAGAS是RAG评估框架，用于量化效果（③）；12.7.3节指出FastAPI用于封装生产级HTTP服务，供OA等系统调用（④）。四项均被教材明确定位为对应需求的必要组件。教材‘技术栈分层速查’表将Dify列于‘低代码层’、RAGAS于‘评估层’、FastAPI于‘服务层’，12.5节将DashScopeParse列为扫描件解析首选。缺一不可：无DashScopeParse则PDF解析失败；无Dify则非技术人员无法配置；无RAGAS则无法量化评测；无FastAPI则无法对外提供标准API。",
+      "difficulty_label": "综合"
+    },
+    {
+      "type": 0,
+      "stem": "开发团队在调试一个基于LangChain LCEL链的RAG应用时，发现流式响应中部分字符乱序（如‘答案：是’显示为‘案：是答’）。经检查，链路为‘ChatPromptTemplate | Tongyi | StrOutputParser’。根据12.2节LCEL原理，最可能的根本原因是什么？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "Tongyi模型不支持流式输出，需更换为qwen-max"
+        },
+        {
+          "option_label": "B",
+          "option_text": "StrOutputParser未实现streaming接口，导致解析器阻塞流式数据"
+        },
+        {
+          "option_label": "C",
+          "option_text": "ChatPromptTemplate的system message中包含未转义的特殊字符"
+        },
+        {
+          "option_label": "D",
+          "option_text": "未启用LangChain的CallbackHandler，导致流式事件未被正确捕获"
+        }
+      ],
+      "answer": "B",
+      "analysis": "依据12.2节LCEL说明：‘所有实现了Runnable协议的组件都天然支持流式、异步、批处理……’，而StrOutputParser是langchain-core标准组件，其streaming支持依赖于正确实现Runnable.stream()方法。若解析器未适配流式（如简单字符串split而非逐chunk处理），会导致模型输出的流式token被阻塞、缓冲后一次性解析，引发乱序。选项A错误——qwen-plus明确支持流式（课程代码示例即用其streaming=True）；C错误——特殊字符影响提示词内容，不导致流式乱序；D错误——CallbackHandler用于日志/追踪，不影响流式数据流向。教材强调LCEL流式能力是‘Runnable协议’的契约，组件必须各自实现stream()，否则破坏管道完整性。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 1,
+      "stem": "某团队误将LlamaIndex QueryEngine的默认提示词中{context_str}与{query_str}位置互换，部署后用户反馈‘回答完全不相关’。根据12.3节提示词模板与12.8节误区分析，以下哪些现象会必然发生？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "模型将用户问题当作参考上下文，将检索到的资料当作待回答的问题"
+        },
+        {
+          "option_label": "B",
+          "option_text": "检索模块返回的Node内容被错误注入到问题字段，导致向量查询失真"
+        },
+        {
+          "option_label": "C",
+          "option_text": "模型生成的回答严重偏离用户意图，且常虚构不存在的细节"
+        },
+        {
+          "option_label": "D",
+          "option_text": "RAGAS评测时context_precision指标异常升高"
+        }
+      ],
+      "answer": "AC",
+      "analysis": "依据12.3节模板示例：{context_str}是检索到的参考信息，{query_str}是用户问题；12.8节误区明确‘写反会导致模型把问题当资料、把资料当问题，几乎必然答非所问’。A正确——直接描述模板互换后果；C正确——因输入逻辑颠倒，模型基于错误前提推理，必然答非所问并幻觉。B错误——检索发生在QueryEngine调用前，{context_str}/{query_str}仅影响提示词组装，不改变检索过程；D错误——context_precision衡量检索结果是否包含答案所需信息，互换提示词不影响检索本身，故该指标不变。教材QA自测第3题解析直接佐证A、C为必然现象。",
+      "difficulty_label": "进阶"
+    }
+  ]
+}

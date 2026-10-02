@@ -1,0 +1,154 @@
+{
+  "items": [
+    {
+      "type": 0,
+      "stem": "某金融公司需构建合规审查助手，要求：① 仅使用内部审计报告和监管条例PDF；② 答案必须严格引用原文段落；③ 数据绝对不可出域；④ 团队无GPU运维能力但有1名算法工程师。以下最符合实际约束的落地路径是？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "在百炼控制台上传PDF建知识库，启用RAG问答，发布为钉钉机器人"
+        },
+        {
+          "option_label": "B",
+          "option_text": "用DashScope OpenAI兼容接口调qwen-max，将整本PDF切片后逐段送入messages"
+        },
+        {
+          "option_label": "C",
+          "option_text": "从ModelScope下载Qwen2-7B-Instruct开源模型，在PAI-DSW中微调，用DLC训练后部署至EAS"
+        },
+        {
+          "option_label": "D",
+          "option_text": "在PAI-DSW中加载开源模型权重，用OSS存储PDF，通过自研RAG服务调用本地vLLM API"
+        }
+      ],
+      "answer": "D",
+      "analysis": "依据教材10.5节选型决策与10.7节私有化要求：①‘数据绝对不可出域’排除A（百炼知识库数据上送平台）、B（DashScope为托管API，输入必然出域）；②‘无GPU运维能力’排除C（DLC训练需分布式作业管理能力，且EAS部署需配置监控/扩缩容等生产级运维）；③D方案中PAI-DSW提供免运维GPU环境（教材10.4），OSS为阿里云同地域内网存储（10.1数据底座层），vLLM本地服务可完全闭环于VPC内，满足数据不出域+免自建ECS运维双重约束。教材10.7明确指出‘开源版可部署到PAI，数据可不出域’，且10.4强调DSW是‘交互式建模工作台’，适合算法工程师快速验证RAG流程。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 0,
+      "stem": "某电商APP上线智能客服，首月API账单超预期300%。技术团队排查发现：用户咨询常含长截图（平均800 Token图片描述文本），且所有请求均强制使用qwen-max并设置max_tokens=4096。根据教材10.8成本要点，最根本的优化措施应是？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "申请提升TPM配额，避免429限流导致重试放大费用"
+        },
+        {
+          "option_label": "B",
+          "option_text": "将图片描述文本预处理为关键词摘要，再送入qwen-plus模型"
+        },
+        {
+          "option_label": "C",
+          "option_text": "改用qwen-long模型，利用其超长上下文窗口减少切片次数"
+        },
+        {
+          "option_label": "D",
+          "option_text": "在PAI-EAS上部署轻量蒸馏模型替代API调用"
+        }
+      ],
+      "answer": "B",
+      "analysis": "教材10.8明确成本优化优先级：‘选对模型→控制上下文→限制max_tokens→缓存→限流重试→（规模足够大才）蒸馏/微调’。题干中‘长截图描述文本’属于冗余输入（非必要高Token信息），直接违反‘控制输入’原则（10.8）；‘强制qwen-max+max_tokens=4096’造成能力浪费与输出成本飙升（输出更贵）。B选项通过预处理降维输入Token，同时切换至更经济的plus模型，双管齐下解决根本问题。A未解决输入膨胀本质；C中qwen-long虽支持长文本但单价更高，且不解决描述文本冗余问题；D属最后阶段优化，不符合‘首月超支’的初期场景。",
+      "difficulty_label": "中阶"
+    },
+    {
+      "type": 1,
+      "stem": "某政务系统需实现‘政策文件智能解读’功能，要求：① 支持上传100页PDF并精准定位条款出处；② 解读结果需附带法规效力等级标识；③ 后端服务需对接现有Java Spring Boot架构。以下哪些组合符合教材10.3与10.5的推荐实践？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "用百炼知识库上传PDF，配置自定义元数据字段存储效力等级，通过百炼API嵌入Java应用"
+        },
+        {
+          "option_label": "B",
+          "option_text": "在PAI-DSW中开发PDF解析+条款分类模型，训练后部署至EAS，Java应用调用EAS HTTP接口"
+        },
+        {
+          "option_label": "C",
+          "option_text": "用DashScope原生SDK调用qwen-long进行全文理解，结合TextReRank对条款匹配度排序"
+        },
+        {
+          "option_label": "D",
+          "option_text": "用DashScope OpenAI兼容接口调用qwen-plus，将PDF切片后分批请求，Java应用聚合结果"
+        }
+      ],
+      "answer": "A,C",
+      "analysis": "A正确：教材10.2明确百炼知识库‘内置文档解析、切片、向量化’，且10.5指出‘百炼应用可发布为API被代码集成’，符合Java对接需求；C正确：教材10.3说明DashScope提供TextReRank服务（原生SDK示例），且10.6强调qwen-long适合长文档问答，二者组合满足精准定位要求；B错误：PAI-EAS部署需强运维能力（10.4），而政务系统通常要求高稳定性，且‘条款效力等级’属结构化标签，非通用模型能力，需定制开发，但题干未提算法团队支撑；D错误：教材10.8警示‘不要把整本手册塞入上下文’，100页PDF切片后仍会因重复上下文导致Token浪费，且qwen-plus非长文本最优选。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 0,
+      "stem": "开发团队需将现有基于OpenAI GPT-4的客服系统迁移至阿里云，要求最小化代码改动。查阅DashScope文档后，发现其兼容模式返回的response对象结构与OpenAI略有差异：OpenAI中content在message.content，而DashScope兼容模式需从choices[0].delta.content获取流式响应。此时最符合教材10.3价值主张的应对策略是？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "放弃兼容模式，全面改用DashScope原生SDK重构"
+        },
+        {
+          "option_label": "B",
+          "option_text": "在流式响应处理逻辑处增加条件判断，兼容两种结构"
+        },
+        {
+          "option_label": "C",
+          "option_text": "使用DashScope兼容模式的非流式接口（stream=False），统一取choices[0].message.content"
+        },
+        {
+          "option_label": "D",
+          "option_text": "要求前端改造，由客户端处理流式响应差异"
+        }
+      ],
+      "answer": "C",
+      "analysis": "教材10.3核心价值是‘改两行代码就迁移’，其前提是保持接口语义一致。题干明确差异仅存在于流式响应路径，而非流式接口（stream=False）在DashScope兼容模式中完全复刻OpenAI结构（教材10.3代码示例即使用stream=True，但未提非流式差异）。C选项选择非流式调用，既规避结构差异，又无需修改业务逻辑，完美契合‘迁移成本极低’目标。A违背兼容模式设计初衷；B增加维护复杂度，违反‘最小改动’原则；D推卸责任给前端，且流式是对话类应用标配（教材10.3），非流式已满足基础需求。",
+      "difficulty_label": "中阶"
+    },
+    {
+      "type": 1,
+      "stem": "某医疗AI初创公司计划构建临床指南问答系统，面临关键决策：是否采用开源模型。根据教材10.7与10.5，以下哪些因素会显著增强其选择ModelScope开源模型+PAI部署的合理性？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "公司已通过等保三级认证，要求患者数据全程不出本地机房"
+        },
+        {
+          "option_label": "B",
+          "option_text": "团队拥有3名NLP算法工程师，具备LoRA微调与vLLM部署经验"
+        },
+        {
+          "option_label": "C",
+          "option_text": "预计日均调用量将稳定在50万次以上，当前DashScope账单已达月均20万元"
+        },
+        {
+          "option_label": "D",
+          "option_text": "需要快速验证市场反馈，6周内必须上线MVP版本"
+        }
+      ],
+      "answer": "A,B,C",
+      "analysis": "A正确：教材10.7明确‘开源版可私有化部署，数据可不出域’，等保三级强制本地化是典型驱动因素；B正确：教材10.4指出PAI面向‘算法工程师’，且10.7强调开源模型需‘自己承担GPU与运维成本’，团队能力是前提；C正确：教材10.7结论‘当流量足够大，自托管可能更经济’，50万次/日对应年调用量超1.8亿次，账单20万/月印证成本临界点；D错误：教材10.5明确‘三人团队、无运维、要尽快上线→选百炼’，MVP阶段应优先百炼或DashScope，而非投入资源部署开源模型。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 0,
+      "stem": "运维人员发现PAI-DSW实例持续产生费用，经查该实例已闲置3天。登录控制台发现实例状态为‘运行中’，但浏览器已关闭。根据教材10.4成本提醒，最直接有效的止损操作是？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "在DSW Notebook中执行!kill -9 -1命令终止所有进程"
+        },
+        {
+          "option_label": "B",
+          "option_text": "在PAI控制台找到该DSW实例，点击‘停止’按钮"
+        },
+        {
+          "option_label": "C",
+          "option_text": "提交工单申请退还过去3天的计算时费用"
+        },
+        {
+          "option_label": "D",
+          "option_text": "修改实例自动休眠策略为‘空闲5分钟自动停止’"
+        }
+      ],
+      "answer": "B",
+      "analysis": "教材10.4‘PAI-DSW费用提醒’明确：‘关闭浏览器不等于停止实例，不学了必须回控制台停止或删除’。B选项是教材指定的标准操作，可立即终止计费。A错误：Notebook内命令无法释放GPU资源，实例仍在运行；C错误：教材强调‘免费额度用尽后按量计费’，无退费机制；D属预防性配置，但无法解决已产生的费用，且教材未提及自动休眠策略（属干扰项）。",
+      "difficulty_label": "基础"
+    }
+  ]
+}

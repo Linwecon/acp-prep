@@ -1,0 +1,154 @@
+{
+  "items": [
+    {
+      "type": 0,
+      "stem": "某金融公司需构建合规问答系统，要求：① 所有客户合同与监管文件严禁出域；② 通用千问模型对'穿透式尽调'等术语回答不准；③ 需支持1000+并发实时响应。技术团队决定基于Qwen2-7B开源模型微调后部署。以下哪组阿里云产品组合最符合全链路需求？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "ModelScope下载模型 → 百炼知识库上传合同 → DashScope API调用qwen-plus"
+        },
+        {
+          "option_label": "B",
+          "option_text": "ModelScope下载Qwen2-7B → PAI-DSW开发LoRA微调代码 → PAI-DLC分布式训练 → PAI-EAS部署为高可用服务"
+        },
+        {
+          "option_label": "C",
+          "option_text": "DashScope开通qwen-max专属实例 → 在百炼中配置自定义Prompt模板 → 发布为钉钉机器人"
+        },
+        {
+          "option_label": "D",
+          "option_text": "OSS存储合同PDF → DataWorks清洗文本 → 百炼工作流调用DashScope Embedding + qwen-long生成答案"
+        }
+      ],
+      "answer": "B",
+      "analysis": "题干明确要求'数据不出域、微调开源模型、高并发部署'，三者共同指向PAI训练部署层：ModelScope是开源模型下载渠道（教材10.7节），DSW提供交互式开发环境（10.4节），DLC支持分布式训练（10.4节），EAS提供弹性伸缩的生产级服务（10.4节）。A错在百炼/DashScope均需数据上送，违反'不出域'；C错在DashScope无专属实例且百炼不支持自研结构微调；D虽用RAG但全程依赖托管API，数据仍需上送且无法满足专业术语微调需求。教材10.5节选型决策第4条明确'要数据完全不出域、强私有化→开源模型+PAI/EAS'。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 1,
+      "stem": "某电商中台团队需将大模型能力嵌入现有Java订单系统，要求：① 最小化代码改造；② 支持流式响应降低用户等待感；③ 后续可无缝切换至自研蒸馏模型。以下哪些实践符合阿里云平台最佳工程规范？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "使用DashScope OpenAI兼容接口，仅修改base_url和API Key，保持原有OpenAI SDK调用逻辑"
+        },
+        {
+          "option_label": "B",
+          "option_text": "在百炼控制台创建智能体后，直接调用其生成的REST API接入Java系统"
+        },
+        {
+          "option_label": "C",
+          "option_text": "开启stream=True参数，并在Java客户端实现逐Token解析与前端实时渲染"
+        },
+        {
+          "option_label": "D",
+          "option_text": "将PAI-EAS部署的自研模型服务地址配置为DashScope兼容模式的base_url，实现零代码切换"
+        }
+      ],
+      "answer": "A,C,D",
+      "analysis": "A正确：教材10.3节明确OpenAI兼容模式价值是'改两行代码就迁移'，符合最小改造要求；C正确：教材10.3节强调'stream=True是对话类应用降低等待感的标配'，且10.8节成本要点指出流式可提升用户体验；D正确：教材10.5节指出'百炼应用可回调PAI-EAS服务'，而EAS部署的vLLM服务本身兼容OpenAI API（10.4节原理），因此通过切换base_url即可实现模型替换，符合无缝切换要求。B错误：百炼生成的API是应用层封装接口，其输入输出格式与标准OpenAI API不一致（如含额外元数据字段），Java系统需适配新协议，违背'最小改造'原则，教材10.2节说明百炼API用于快速发布而非系统集成。",
+      "difficulty_label": "高阶"
+    },
+    {
+      "type": 0,
+      "stem": "运维同学发现生产环境DashScope API调用量突增300%，排查日志发现大量429错误。监控显示TPM（Tokens Per Minute）持续超限，但RPM（Requests Per Minute）未达阈值。以下哪项措施最能精准解决该问题？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "在客户端增加指数退避重试机制，并对重复请求添加随机抖动"
+        },
+        {
+          "option_label": "B",
+          "option_text": "将所有qwen-max调用降级为qwen-turbo，降低单次Token消耗"
+        },
+        {
+          "option_label": "C",
+          "option_text": "启用DashScope上下文缓存功能，对高频系统提示词设置固定前缀"
+        },
+        {
+          "option_label": "D",
+          "option_text": "调整max_tokens参数上限，限制模型输出长度"
+        }
+      ],
+      "answer": "D",
+      "analysis": "题干关键信息是'TPM超限但RPM未超'，说明问题根源在于单次请求消耗Token过多（如长输入+长输出），而非请求数量过多。D选项直接控制输出长度，从源头减少Token消耗，符合教材10.8节'控制输出：用max_tokens设上限，避免模型刹不住车'的降本手段。A虽是429标准处理（10.8节），但仅缓解症状不解决根本；B会降低质量且未针对TPM问题（turbo单价未必更低）；C针对缓存优化，但题干未提缓存命中率问题，且缓存主要影响输入Token，对输出无作用。教材10.8节明确'429反映RPM/TPM限流'，需区分两类限流的应对策略。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 1,
+      "stem": "某政务云项目需建设'政策解读机器人'，要求：① 全流程国产化适配；② 支持PDF/PPT等多格式政策文件解析；③ 知识库更新需经人工审核后生效。以下哪些阿里云产品能力组合可满足？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "使用百炼知识库的文档解析能力自动提取PDF文本"
+        },
+        {
+          "option_label": "B",
+          "option_text": "在PAI-DSW中调用国产OCR SDK解析扫描版PDF"
+        },
+        {
+          "option_label": "C",
+          "option_text": "通过百炼工作流编排'解析→人工审核→向量化→上线'四步流程"
+        },
+        {
+          "option_label": "D",
+          "option_text": "将政策文件直接上传至OSS，由DataWorks调度MaxCompute进行文本清洗"
+        }
+      ],
+      "answer": "A,C",
+      "analysis": "A正确：教材10.2节百炼知识库能力明确包含'内置文档解析、切片、向量化'，且支持PDF等格式（课程实践验证），符合国产化要求；C正确：教材10.2节指出工作流可'拖拽节点把检索→改写→生成→审核串成稳定流程'，人工审核环节可通过'审批节点'或对接政务OA实现。B错误：PAI-DSW是开发环境，非生产级文档解析服务，且题干要求'全流程'，不应在DSW中手动调用OCR；D错误：OSS+MaxCompute属于数据底座层（10.1节），仅做存储与离线计算，无法支撑知识库的实时向量化与审核流程，且DataWorks不提供人工审核节点。教材10.1节强调'百炼是应用层，解决应用组装问题'，正匹配此场景。",
+      "difficulty_label": "高阶"
+    },
+    {
+      "type": 0,
+      "stem": "算法团队在PAI-DSW中完成Qwen2-1.5B模型微调后，需验证推理效果。以下哪种操作最符合教材推荐的验证路径？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "直接在DSW中启动vLLM服务，用curl测试HTTP接口，确认返回符合预期"
+        },
+        {
+          "option_label": "B",
+          "option_text": "将模型导出为ONNX格式，在本地Python脚本中加载验证"
+        },
+        {
+          "option_label": "C",
+          "option_text": "提交至PAI-DLC进行全量训练验证，再导出模型"
+        },
+        {
+          "option_label": "D",
+          "option_text": "在百炼平台新建应用，选择'自定义模型'并指向DSW中的模型路径"
+        }
+      ],
+      "answer": "A",
+      "analysis": "教材10.4节原理部分明确指出：'得到合并后的模型，用vLLM本地起服务验证（其HTTP接口本身兼容OpenAI API）'，这是PAI官方推荐的DSW阶段验证方式。A选项完全复现该路径，且vLLM服务在DSW中可一键启动（课程实验验证）。B错误：ONNX转换非必需步骤，且可能损失精度，教材未提及；C错误：DLC用于大规模分布式训练，验证效果无需耗用DLC资源；D错误：百炼不支持直接挂载DSW本地路径的模型（10.2节说明百炼调用的是平台预置或EAS部署模型）。教材10.4节成本提醒强调'DSW按计算时计费'，故本地验证比提交DLC更经济高效。",
+      "difficulty_label": "基础"
+    },
+    {
+      "type": 1,
+      "stem": "关于阿里云AI产品分层定位，以下哪些描述准确反映了教材10.1节的核心观点？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "百炼属于应用开发层，核心价值是将RAG、Agent等技术封装为可视化操作"
+        },
+        {
+          "option_label": "B",
+          "option_text": "DashScope与ModelScope同属模型服务层，区别仅在于商业版与开源版API"
+        },
+        {
+          "option_label": "C",
+          "option_text": "PAI的DSW、DLC、EAS分别对应模型生命周期的开发、训练、部署阶段"
+        },
+        {
+          "option_label": "D",
+          "option_text": "OSS、MaxCompute、DataWorks构成数据底座层，为上层AI应用提供数据支撑"
+        }
+      ],
+      "answer": "A,C,D",
+      "analysis": "A正确：教材10.2节'价值'段落明确'把复杂的工程链路封装成可视化操作：知识库背后就是RAG...'，10.1节分层表也定义百炼为'应用开发层'；C正确：教材10.4节表格清晰列出DSW=开发、DLC=训练、EAS=部署，且口诀'调试选DSW、训练选DLC、上线选EAS'；D正确：教材10.1节分层表将OSS/MaxCompute/DataWorks归为'数据底座层'，并说明其作用。B错误：教材10.7节严格区分DashScope（商业API服务）与ModelScope（开源模型社区），二者分属不同层次——DashScope是模型服务层（MaaS），ModelScope是开源社区（非服务层），且ModelScope不提供API计费服务（10.7节'exam'强调'ModelScope不是按Token计费的API服务'）。",
+      "difficulty_label": "基础"
+    }
+  ]
+}

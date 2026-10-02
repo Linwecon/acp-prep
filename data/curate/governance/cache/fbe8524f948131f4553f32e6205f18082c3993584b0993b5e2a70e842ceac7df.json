@@ -1,0 +1,154 @@
+{
+  "items": [
+    {
+      "type": 0,
+      "stem": "某企业需将蒸馏后的Qwen3-0.6B模型部署为内部知识问答服务，要求数据100%不出域、支持灰度发布与AB测试、日均稳定请求2000 QPS，且运维团队具备GPU调优能力。在PAI-EAS与ECS+vLLM两种方案中，应优先选择哪一种？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "PAI-EAS：因其提供开箱即用的蓝绿发布、版本回滚和自动弹性，可完全规避自运维风险"
+        },
+        {
+          "option_label": "B",
+          "option_text": "ECS+vLLM：因该场景对吞吐与TTFT敏感，且团队具备调优能力，可深度启用PagedAttention与连续批处理实现更高资源利用率"
+        },
+        {
+          "option_label": "C",
+          "option_text": "PAI-EAS：因ECS无法满足灰度发布需求，而EAS原生支持模型预热与流量权重配置"
+        },
+        {
+          "option_label": "D",
+          "option_text": "ECS+vLLM：因PAI-EAS不支持自定义量化参数与vLLM高级调度策略，限制性能优化空间"
+        }
+      ],
+      "answer": "B",
+      "analysis": "依据教材6.12节‘选型决策四步法’及6.10.2节对比：该场景满足‘数据不出域’（排除百炼）、‘流量稳定高吞吐’（非FC适用场景）、‘有GPU运维能力’——此时核心权衡点在于‘可控性 vs 托管便利性’。教材6.9节明确指出：ECS自建的核心优势是‘可控、无冷启动、可深度优化’；6.5节强调vLLM的PagedAttention与连续批处理需在底层框架级调优才能释放最大吞吐，而PAI-EAS虽提供弹性与灰度，但其底层封装可能屏蔽vLLM原生参数（如--block-size、--max-num-seqs等），教材6.10.2表中亦指出EAS‘适合私有模型上线’但未承诺‘支持vLLM全量高级特性’。选项A、C错误地假设PAI-EAS在性能上优于自建，违背教材6.9节‘ECS适合深度定制’的定位；选项D中‘PAI-EAS不支持自定义量化参数’属无依据臆断——教材6.10.2仅说明其支持模型上传与部署，并未否定量化支持，故过度推断。正确答案B紧扣教材‘追求极致吞吐与显存利用率、有GPU团队→ECS+vLLM’的考试结论（6.12节典型场景表最后一行）。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 0,
+      "stem": "压测发现：当并发从8提升至16时，QPS仅从42.3升至48.7，但平均RT从382ms飙升至1120ms，且错误率从0.2%跃升至12.6%。此时最应优先排查的显存构成项是？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "模型权重FP16体积是否超出单卡显存容量"
+        },
+        {
+          "option_label": "B",
+          "option_text": "KV Cache显存占用是否已逼近显存上限，导致请求排队或OOM Killer触发"
+        },
+        {
+          "option_label": "C",
+          "option_text": "CUDA context与运行时缓冲区是否因多进程竞争产生碎片"
+        },
+        {
+          "option_label": "D",
+          "option_text": "ECS实例是否被其他租户共享GPU资源（MPS模式干扰）"
+        }
+      ],
+      "answer": "B",
+      "analysis": "依据教材6.3节‘高频误区’与6.6节显存原理：题干现象（并发翻倍但QPS增幅微弱、RT剧烈劣化、错误率陡增）是典型的‘显存带宽/容量瓶颈’特征，而非算力瓶颈（否则RT应相对稳定）。教材6.3节明确警示：‘超出并发上限通常直接返回错误（如429）’，且6.6节指出KV Cache‘随序列长度×并发数线性增长’，是长上下文高并发下‘真正的并发瓶颈’；6.3节Little定律示例中，wrk压测并发提升导致RT上升+超时，教材归因为‘超过服务处理能力’，而6.6节工程估算案例（DeepSeek-R1）直接证明KV Cache在高并发下占比远超权重。选项A错误：权重为固定值，不随并发变化，若权重超限则并发=1时即OOM；选项C属次要因素，教材未将其列为压测异常主因；选项D在阿里云ECS独占物理GPU前提下不成立，教材6.9节‘实例选型’强调按显存总量规划，未提MPS干扰。故B为唯一符合教材显存构成三要素（权重/ KV Cache/运行时）中‘唯一随并发线性膨胀项’的解析。",
+      "difficulty_label": "高阶"
+    },
+    {
+      "type": 1,
+      "stem": "某团队使用vLLM部署Qwen3-0.6B，观察到TPOT显著高于基线。以下哪些措施可能有效降低TPOT？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "启用AWQ INT4量化并确认vLLM加载了INT4算子内核"
+        },
+        {
+          "option_label": "B",
+          "option_text": "将--max-model-len从8192降至2048以缩短平均序列长度"
+        },
+        {
+          "option_label": "C",
+          "option_text": "增加--gpu-memory-utilization参数至0.95以压榨显存"
+        },
+        {
+          "option_label": "D",
+          "option_text": "启用GQA（分组查询注意力）并确保模型架构支持"
+        }
+      ],
+      "answer": "ABD",
+      "analysis": "TPOT（Time Per Output Token）由Decode阶段决定，本质是显存带宽密集型任务（教材6.2节）。A正确：教材6.4节指出量化‘通常也加速’，因Decode阶段需频繁读取权重，INT4减少显存读取字节数，但前提是‘框架有对应低比特算子’——vLLM 0.6+已支持AWQ INT4内核，符合教材‘需框架算子支持’的约束条件；B正确：教材6.6节明确‘序列长度翻倍→KV Cache显存翻倍’，而TPOT直接受KV Cache访问延迟影响，缩短max-model-len可降低单token解码时的KV Cache寻址开销；D正确：教材6.6节‘缓解KV Cache压力’表中，GQA通过‘多个Q头共享一组KV头’直接减少KV Cache体积，从而降低带宽压力。C错误：教材6.6节强调‘预留余量’，6.9节‘实例选型’要求‘为运行时开销留余量’，盲目提高显存利用率会导致OOM或调度失败，与降低TPOT无关，反增风险。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 0,
+      "stem": "开发团队需为客服对话系统设计监控告警体系。根据教材6.11.2节，以下哪项指标组合最能同时反映‘用户体验质量’与‘成本失控风险’？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "TTFT P95 + 单请求Token消耗量 + 敏感词命中率"
+        },
+        {
+          "option_label": "B",
+          "option_text": "QPS + GPU显存占用率 + 模型加载耗时"
+        },
+        {
+          "option_label": "C",
+          "option_text": "TPOT P90 + 并发请求数 + 错误率（429）"
+        },
+        {
+          "option_label": "D",
+          "option_text": "RT P99 + 日总Token消耗 + 回答合规性得分"
+        }
+      ],
+      "answer": "A",
+      "analysis": "教材6.11.2节定义可观测性三维度：‘成本、性能、质量安全’，并明确‘成本看Token消耗排行’、‘性能看TTFT/P95延迟’、‘安全看敏感提问命中’。选项A中：TTFT P95直接对应用户‘开口快慢’感知（教材6.2节），是对话类业务SLO核心（6.3节表格）；单请求Token消耗量是成本最细粒度指标（教材6.11.2表）；敏感词命中率属于‘安全’维度（同节表格）。三者覆盖教材要求的三大观测维度。B中GPU显存占用率属基础设施层，不直接反映用户体验或成本；C中TPOT P90侧重‘吐字速度’，但客服更关注首响应（TTFT），且429错误率属稳定性问题，非成本指标；D中RT P99含Decode时间，受输出长度干扰大，不如TTFT纯净；日总Token消耗是宏观成本，缺乏单请求粒度，无法定位‘哪个对话在烧钱’（教材6.11.2表）。故A是唯一严格匹配教材‘成本+性能+安全’三维监控设计的选项。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 1,
+      "stem": "某金融客户需部署自研风控模型，要求：①数据绝对不出域；②支持每秒500次实时评分；③能快速回滚至前一稳定版本；④避免冷启动导致的首请求延迟超标。以下哪些部署组件组合可同时满足全部要求？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "GPU ECS集群 + vLLM + SLB负载均衡 + ESS弹性伸缩"
+        },
+        {
+          "option_label": "B",
+          "option_text": "PAI-EAS + 模型预热 + 蓝绿发布 + ARMS监控"
+        },
+        {
+          "option_label": "C",
+          "option_text": "函数计算FC + 预留实例 + 版本别名 + 日志服务"
+        },
+        {
+          "option_label": "D",
+          "option_text": "ACK容器集群 + vLLM StatefulSet + Istio灰度路由 + Prometheus监控"
+        }
+      ],
+      "answer": "ABD",
+      "analysis": "依据教材6.12节四步决策法及各方案边界：①数据不出域→排除百炼/MaaS；②500 QPS实时→排除FC（教材6.10.1强调FC‘不适合实时性要求高’）；③快速回滚→需版本管理（EAS/ACK支持，FC版本别名不等同于模型回滚）；④避免冷启动→FC必有冷启动（6.10.1），ECS/ACK常驻无此问题，EAS提供‘模型预热’（6.10.2）。A正确：ECS+vLLM满足①②④，SLB+ESS实现高可用与弹性，回滚可通过镜像版本切换实现；B正确：PAI-EAS明确支持①（私有部署）、②（企业级在线推理）、③（蓝绿发布）、④（模型预热）；D正确：ACK容器化是教材6.7节‘复杂微服务’方案，StatefulSet保障常驻，Istio支持灰度与回滚，符合所有要求。C错误：FC无法满足②④，教材6.10.1‘冷启动明显’且‘实时性要求高不适合FC’；其版本别名仅用于函数版本，不等同于模型权重回滚，不满足③。",
+      "difficulty_label": "高阶"
+    },
+    {
+      "type": 0,
+      "stem": "在vLLM服务中，当客户端发起流式请求（stream=true）时，PagedAttention机制对KV Cache管理的影响是？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "使KV Cache块可被不同请求的相同前缀共享，但流式场景下因响应不可预测，实际共享率极低"
+        },
+        {
+          "option_label": "B",
+          "option_text": "允许KV Cache块按token粒度动态分配与释放，避免为整条长响应预分配显存"
+        },
+        {
+          "option_label": "C",
+          "option_text": "将每个token生成步骤的KV Cache独立分页，导致显存碎片化加剧"
+        },
+        {
+          "option_label": "D",
+          "option_text": "因流式响应需逐token返回，PagedAttention必须禁用以保证内存连续性"
+        }
+      ],
+      "answer": "B",
+      "analysis": "教材6.5节定义PagedAttention核心价值：‘按需分配，不再按最大长度预分配浪费’，并类比操作系统分页。流式请求（stream=true）的典型特征是：客户端不等待完整响应，服务端生成一个token即推送一个。此时，传统预分配方式需按‘预估最大输出长度’分配KV Cache，造成大量闲置；而PagedAttention的‘块（block）’机制天然支持‘生成多少token就分配多少block’，教材6.5节图示‘每步Decode后调度’正体现此动态性。选项B精准对应教材‘按需分配’定义。A错误：前缀共享（6.5节）针对请求间相同prompt，与流式与否无关；C错误：PagedAttention正是为‘消除碎片’而生（6.5节）；D错误：教材6.5节明确vLLM默认启用PagedAttention且支持流式，其OpenAI兼容接口（6.2节）包含stream参数，证明二者兼容。故B为唯一符合教材原理的选项。",
+      "difficulty_label": "高阶"
+    }
+  ]
+}

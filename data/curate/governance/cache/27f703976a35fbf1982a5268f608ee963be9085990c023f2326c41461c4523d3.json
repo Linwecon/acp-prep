@@ -1,0 +1,212 @@
+{
+  "8-1043": {
+    "qid": "8-1043",
+    "classification": "own",
+    "chapter": 8,
+    "quality": "ok",
+    "reason": "输出审查环节专拦有害/泄露内容",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "3.输出审查：拦有害言论/幻觉/数据泄漏/事实风险",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "格式问题属输入校验，非内容安全"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "内部代码泄露属数据泄漏，输出审查拦截"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "用户输入含辱词应由输入过滤处理"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "理解失败是质量问题，非安全风险"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "8-1071": {
+    "qid": "8-1071",
+    "chapter": 8,
+    "classification": "own",
+    "quality": "ok",
+    "reason": "System Prompt定义角色与边界",
+    "answer": [
+      "D"
+    ],
+    "supported": true,
+    "quote": "System Prompt与User Message职责分离",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "user角色是用户输入，不可控"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "assistant是模型输出，已晚于限制"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "必须在system层设初始约束"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "system角色定义行为边界，最前置"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "8-1075": {
+    "qid": "8-1075",
+    "chapter": 8,
+    "classification": "own",
+    "quality": "ok",
+    "reason": "多模态输入需在处理前检测",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "输入过滤：Prompt 进模型前检测，拦截越狱/注入/敏感词/违规内容",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "检索时已进入RAG流程，滞后"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "返回后检查无法阻止泄露"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "图片处理前即需检测防敏感信息"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "返回前检查属输出审查，非最早"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "8-1151": {
+    "qid": "8-1151",
+    "chapter": 8,
+    "classification": "own",
+    "quality": "ok",
+    "reason": "工具描述宽泛易致误调用",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "工具必须JSON-Schema定义",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "资源不足表现为延迟或失败，非高频"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "接口漏洞会直接报错，非频繁出错"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "描述宽泛导致模型错误匹配任务"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "用户输入错误通常触发拒绝而非高频调用"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "8-1266": {
+    "qid": "8-1266",
+    "chapter": 8,
+    "classification": "own",
+    "quality": "ok",
+    "reason": "不相关内容属质量缺陷",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "模型答错一个报销数字、检索到了无关段落、回答跑题 → 质量/相关性缺陷",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "违法信息属典型内容安全风险"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "虚假内容即幻觉，属内容安全"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "不相关是质量缺陷，非安全风险"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "偏见属内容安全四大风险之一"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "8-0341": {
+    "qid": "8-0341",
+    "chapter": 8,
+    "classification": "own",
+    "quality": "ok",
+    "reason": "人工判断非API调用必要步骤",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "API调用无状态性",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "依赖库是调用基础前提"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "循环调用是批量处理必需"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "LLM可自动分析，无需人工逻辑"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "API密钥是访问授权必要条件"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

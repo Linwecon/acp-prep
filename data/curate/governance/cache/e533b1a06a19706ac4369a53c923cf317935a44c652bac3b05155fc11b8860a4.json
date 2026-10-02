@@ -1,0 +1,213 @@
+{
+  "3-0746": {
+    "qid": "3-0746",
+    "classification": "cross",
+    "chapter": 2,
+    "quality": "ok",
+    "reason": "题目考查提示工程约束，属于第2章知识。选项B最有效，符合RAG思想。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "RAG（Retrieval-Augmented Generation，检索增强生成）的核心思路可以用四个字概括：\"开卷考试\"。不让模型凭记忆答题，而是在它回答前，先从企业知识库里检索出最相关的几段资料，连同问题一起交给模型，让它\"看着资料作答\"。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "非RAG改进措施，偏离题干优化目标。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "基于代码分析生成文档符合RAG“开卷考试”思想，最有效。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "仅口头约束效果有限，未解决知识源问题。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "人工校对成本高，非最有效的技术改进措施。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-0847": {
+    "qid": "3-0847",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "题目考查文本切片（分块）策略，属于第3章核心知识。选项C错误。",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "常见切片策略：Token切片、句子切片、Markdown切片、语义切片、句子窗口切片。切片选型与排错经验：初学先用默认的句子切片；文档有标题层级→优先Markdown切片。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "正确，切片过大会引入噪声降低相关性。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "正确，切片过小会丢失上下文信息。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "错误，不同文档类型应采用不同切片策略。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "正确，保留元数据（如章节名）可提升检索准确性。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-0987": {
+    "qid": "3-0987",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "题目考查混合检索（Hybrid Retrieval）技术，属于第3章进阶检索知识。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "混合检索（Hybrid）：错误码、型号、编号等字面精确匹配差→关键词检索（BM25）+向量检索融合，各取所长。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "完全替换会丢失语义检索优势，非最佳。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "混合检索能兼顾字面匹配与语义检索优势。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "增加维度不能解决实体名称字面匹配问题。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "要求用户改变习惯不现实，非技术改进。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-1001": {
+    "qid": "3-1001",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "题目考查RAG方案选型与对比，属于第3章核心知识。BD合理。",
+    "answer": [
+      "B",
+      "D"
+    ],
+    "supported": true,
+    "quote": "直接把问题丢给大模型，会撞上三道坎：知识截止、没有私域知识、幻觉。RAG的核心思路：\"开卷考试\"。不让模型凭记忆答题，而是在它回答前，先从企业知识库里检索出最相关的几段资料。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "不合理，知识文件可能远超上下文窗口。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "合理，通过微调适配行为风格是可行方案。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "不合理，大模型缺乏私域知识，会幻觉。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "合理，RAG是解决私域知识问答的首选方案。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-1053": {
+    "qid": "3-1053",
+    "classification": "misplaced",
+    "chapter": 5,
+    "quality": "fixable",
+    "reason": "考点是数据预处理中的标签编码，属于模型训练/微调范畴，与RAG无关。",
+    "answer": [
+      "D"
+    ],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "文本标准化通常指大小写、标点等处理。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "词嵌入是将词转为向量，非标签转化。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "特征缩放是针对连续数值特征。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "标签编码是将分类标签转化为数字。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-1132": {
+    "qid": "3-1132",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "题目考查LlamaIndex创建RAG应用的数据流，属于第3章实践知识。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "在LlamaIndex中，最基础的加载器是SimpleDirectoryReader，一行代码读入整个目录。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "顺序错误，Document对象应在Node对象之前。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "正确，流程为Document→Node→index→query_engine。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "顺序错误，Node对象由Document对象生成。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "顺序错误，index由Node对象构建。"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

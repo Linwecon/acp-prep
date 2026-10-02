@@ -1,0 +1,232 @@
+{
+  "new-4-30-0": {
+    "qid": "new-4-30-0",
+    "classification": "own",
+    "chapter": 4,
+    "quality": "ok",
+    "reason": "考查Function Calling流程中工具执行失败后的标准处理步骤。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "工具返回结果必须回灌到上下文，否则模型等于'做完就忘'；要给模型'失败出口'：工具超时、报错时能重试或换方案",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "未遵循Function Calling结果回传流程，未给模型决策机会。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "符合Function Calling流程：程序执行后结果以role='tool'回传，模型再生成新响应。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "未利用模型决策，盲目重试，不符合'失败出口'设计原则。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "跳过模型决策，直接调用其他工具，不符合ReAct或FC的闭环逻辑。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-4-30-1": {
+    "qid": "new-4-30-1",
+    "classification": "own",
+    "chapter": 4,
+    "quality": "ok",
+    "reason": "考查长期记忆管理策略，特别是向量化召回与主动记忆工具化。",
+    "answer": [
+      "B",
+      "C"
+    ],
+    "supported": true,
+    "quote": "长期记忆：跨会话持久化的用户偏好、业务事实、经验教训，按需检索；向量化召回：每轮对话切片入向量库，新问题按语义检索相关历史再注入；可以让Agent主动管理记忆：把记忆做成工具（如record_to_memory）",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "全文嵌入浪费token，且无法应对上下文截断。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "向量化长期记忆可持久化关键要求，按语义检索注入，摆脱窗口限制。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "使用record_to_memory工具主动持久化，符合主动记忆管理最佳实践。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "滚动摘要仅适用于单次会话压缩，无法保证跨会话持久化。"
+      },
+      {
+        "label": "E",
+        "selected": false,
+        "why": "单纯扩大窗口延后问题，且会注意力稀释、成本高。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-4-30-2": {
+    "qid": "new-4-30-2",
+    "classification": "own",
+    "chapter": 4,
+    "quality": "ok",
+    "reason": "考查MCP协议解决工具Schema动态发现和管理问题的核心价值。",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "MCP（模型上下文协议）是Anthropic提出的开源标准化协议，用来统一Agent接入外部工具与数据源的方式。它的核心思想是'谁提供工具，谁定义工具'",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "MCP标准化工具发现与管理，使Function Calling能动态加载Schema，根治问题。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "ReAct是多轮执行框架，不解决Schema动态发现和管理的根本问题。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "Skill封装SOP，主要用于固化'怎么做'，不解决工具Schema的集中管理和动态发现。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "Harness是工程闭环，用于持续改进，不直接解决工具Schema的集中管理和动态发现。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-4-30-3": {
+    "qid": "new-4-30-3",
+    "classification": "own",
+    "chapter": 4,
+    "quality": "ok",
+    "reason": "考查高风险场景下反思（外部反馈）与自主规划（Plan-and-Execute）的应用。",
+    "answer": [
+      "B",
+      "C",
+      "D"
+    ],
+    "supported": true,
+    "quote": "外部反馈：用工具真实执行/校验，把报错、日志、截图喂回模型；自我反馈：再调一次模型当'审查员'；Plan-and-Execute让Agent围绕用户的高阶目标，先生成一份包含多步骤的计划，再逐项执行；遇到障碍时重新规划",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "未经过模型重新决策或反馈验证，不符合反思或自主规划原则。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "调用人工审核是外部反馈，将结果回传模型决策，符合高风险场景处理原则。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "用审查Agent重读报告是自我反馈，可确认判定合规性。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "切换至Plan-and-Execute重新规划，符合遇到障碍时重新规划的原则。"
+      },
+      {
+        "label": "E",
+        "selected": false,
+        "why": "忽略关键风险信号，不符合任何反思或规划原则，是错误做法。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-4-30-4": {
+    "qid": "new-4-30-4",
+    "classification": "own",
+    "chapter": 4,
+    "quality": "ok",
+    "reason": "考查白盒化评测与确定性检查在定位具体组件故障时的优势。",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "白盒化评测：关键组件/中间步骤（工具调用序列、参数、轨迹）；确定性检查：用代码/脚本判断'该发生的步骤有没有发生'",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "LLM-as-Judge适合主观判断，不擅长精确检测代码结构缺失。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "Rubric拆解细则，但仍依赖模型判断，不如脚本检查确定。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "用脚本解析代码验证异常处理关键词，是确定、可调试的白盒检查。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "人工检查轨迹效率低，且不一定能直接定位代码结构问题。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-4-30-5": {
+    "qid": "new-4-30-5",
+    "classification": "own",
+    "chapter": 4,
+    "quality": "ok",
+    "reason": "考查多Agent设计四原则：明确职责、独立凭据、中央调度、避免全量注入。",
+    "answer": [
+      "A",
+      "B",
+      "D"
+    ],
+    "supported": true,
+    "quote": "多Agent设计四原则：明确职责、独立凭据、中央调度、避免全量注入；分层模式常用handoff（Leader把Worker当工具调用）",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "为各Agent申请独立API Key，符合'独立凭据'原则。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "中央Leader统一接收并handoff，符合'中央调度'和分层规划模式。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "拼接全部提示词注入，违反'避免全量注入'原则。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "Worker仅接收子任务，符合'明确职责'和上下文隔离。"
+      },
+      {
+        "label": "E",
+        "selected": false,
+        "why": "共享缓存可能违反职责边界和最小权限，需具体设计，非原则直接体现。"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

@@ -1,0 +1,213 @@
+{
+  "new-6-102-0": {
+    "qid": "new-6-102-0",
+    "classification": "own",
+    "chapter": 6,
+    "quality": "ok",
+    "reason": "考查vLLM默认上下文长度配置，符合部署实践。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "vLLM 默认 max_model_len 为 1024，未显式配置时无法支持超过该长度的输入",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "错误信息与权重加载无关。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "vLLM默认max_model_len为1024，超长会报错。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "max_tokens非强制，且是输出长度。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "错误信息非内存越界，是长度超限。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-6-102-1": {
+    "qid": "new-6-102-1",
+    "classification": "own",
+    "chapter": 6,
+    "quality": "fixable",
+    "reason": "选项A表述绝对，但考点是接口调用前提，可修正。",
+    "answer": [
+      "B",
+      "C"
+    ],
+    "supported": true,
+    "quote": "vLLM 等框架直接提供了兼容 OpenAI API 的接口",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "model字段可用别名，不必绝对路径。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "模型权重成功加载是推理前提。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "messages需包含用户输入才能触发Prefill。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "PagedAttention按需分配，非预分配。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-6-102-2": {
+    "qid": "new-6-102-2",
+    "classification": "own",
+    "chapter": 6,
+    "quality": "ok",
+    "reason": "考查高并发下TTFT劣化根因，符合性能监控考点。",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "Prefill 速度、排队时长、prompt 长度",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "无429错误，SLB健康检查非主因。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "调度延迟是现象，非根本原因。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "长prompt阻塞Prefill队列，导致TTFT飙升。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "CUDA context初始化非每次请求执行。"
+      }
+    ],
+    "duplicate_of": "6-5139"
+  },
+  "new-6-102-3": {
+    "qid": "new-6-102-3",
+    "classification": "own",
+    "chapter": 6,
+    "quality": "review",
+    "reason": "部分选项依赖vLLM具体实现细节，教材依据不足。",
+    "answer": [
+      "A"
+    ],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "model字段为空且无别名，服务端无法路由。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "max_tokens=1可能生成，非必然失败。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "role='function'支持性依赖版本，非必然失败。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "客户端处理不当不会导致服务端返回非200。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-6-102-4": {
+    "qid": "new-6-102-4",
+    "classification": "own",
+    "chapter": 6,
+    "quality": "ok",
+    "reason": "考查量化对不同推理阶段的影响，符合教材原理。",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "Prefill 计算密集、决定 TTFT；Decode 显存带宽密集、决定 TPOT",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "量化主要缓解Decode带宽压力，Prefill受益有限。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "TTFT受Prefill计算影响，非仅KV Cache。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "教材未提及PagedAttention禁用量化加速。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "TTFT主要由Prefill计算决定。"
+      }
+    ],
+    "duplicate_of": "6-5136"
+  },
+  "new-6-102-5": {
+    "qid": "new-6-102-5",
+    "classification": "own",
+    "chapter": 6,
+    "quality": "ok",
+    "reason": "考查vLLM接口模型列表注册机制，符合部署实践。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "vLLM 的 OpenAI 兼容服务",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "调度策略与模型列表无关。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "未指定served-model-name，模型未注册到列表。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "vLLM默认无需API Key认证。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "教材未提及版本不支持/v1/models。"
+      }
+    ],
+    "duplicate_of": "6-5150"
+  }
+}

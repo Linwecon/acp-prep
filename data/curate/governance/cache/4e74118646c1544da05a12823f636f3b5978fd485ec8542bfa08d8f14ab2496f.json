@@ -1,0 +1,78 @@
+{
+  "new-4-132-0": {
+    "qid": "new-4-132-0",
+    "classification": "own",
+    "chapter": 4,
+    "quality": "ok",
+    "reason": "题目考查Function Calling流程中工具结果回传的关键步骤，是本章核心考点。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "结果必须由程序作为 `role=\"tool\"` 消息追加回上下文，模型才\"知道\"发生了什么。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "Planner解耦与否不影响结果回传流程。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "工具结果未回传，模型无法生成最终答案。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "Memory摘要策略非此问题根本原因。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "模型已返回tool_calls，说明Schema定义存在。"
+      }
+    ],
+    "duplicate_of": "4-5159"
+  },
+  "new-4-132-1": {
+    "qid": "new-4-132-1",
+    "classification": "own",
+    "chapter": 4,
+    "quality": "ok",
+    "reason": "题目考查固定工作流在工具失败时的改进策略，涉及ReAct和Plan-and-Execute。",
+    "answer": [
+      "B",
+      "E"
+    ],
+    "supported": true,
+    "quote": "环境多变、需要真实反馈动态调整 → **ReAct / 自主规划**；不确定→Plan-and-Execute；稳定→固化成工作流",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "仅替换工具未改变固定流程的僵化本质。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "ReAct模式允许模型根据Observation动态决策。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "自动重试是工程措施，非规划策略层面的改进。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "固化为Skill未解决流程僵化、无法动态调整的问题。"
+      },
+      {
+        "label": "E",
+        "selected": true,
+        "why": "Plan-and-Execute允许生成包含替代路径的新计划。"
+      }
+    ],
+    "duplicate_of": "4-5158"
+  }
+}

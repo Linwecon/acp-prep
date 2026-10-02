@@ -209,9 +209,15 @@ def main() -> int:
             r2 = ask(cfg, secondary, q)
             calls["secondary"] += 1
             v2 = verdict(r2["answer"], q["ans"])
+        # 绑定题目内容指纹（题干+选项）：题目日后被修改则本结果自动失效
+        import curate_core as cc
+        fp = cc.q_fingerprint({"stem": q["stem"],
+                               "options": [{"option_label": l, "option_text": t}
+                                           for l, t in q["options"]]})
         return q["id"], {
             "ch": q["ch"], "seq": q["seq"], "multi": q["multi"],
             "bank": q["ans"], "kind": "多选" if q["multi"] else "单选",
+            "fingerprint": fp,
             "primary": {**r1, "verdict": v1},
             "secondary": None if r2 is None else {**r2, "verdict": v2},
         }

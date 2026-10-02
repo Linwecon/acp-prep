@@ -1,0 +1,218 @@
+{
+  "5-1213": {
+    "qid": "5-1213",
+    "classification": "own",
+    "chapter": 5,
+    "quality": "ok",
+    "reason": "考查训练loss异常排查，选项合理有区分度。",
+    "answer": [
+      "B",
+      "C"
+    ],
+    "supported": true,
+    "quote": "训练 loss 大幅震荡 | 学习率偏高 / batch 太小导致梯度不稳 | 调低 lr",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "增大batch可能加剧震荡，应减小。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "降低学习率可缓解震荡。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "数据或逻辑错误会导致loss异常。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "增加轮次会加剧过拟合。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "5-1234": {
+    "qid": "5-1234",
+    "classification": "own",
+    "chapter": 5,
+    "quality": "ok",
+    "reason": "考查LoRA核心概念，选项明确。",
+    "answer": [
+      "B",
+      "D"
+    ],
+    "supported": true,
+    "quote": "LoRA（低秩适配）不直接更新原始权重矩阵 W₀，而是在它旁边“挂”一对小矩阵来学习变化量 ΔW",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "LoRA只训练少量参数。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "通过低秩矩阵B·A调整模型。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "间接修改，通过增量影响。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "省显存，适合资源受限。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "5-1244": {
+    "qid": "5-1244",
+    "classification": "own",
+    "chapter": 5,
+    "quality": "fixable",
+    "reason": "选项C表述模糊易歧义，D错误明显。",
+    "answer": [
+      "A",
+      "B"
+    ],
+    "supported": true,
+    "quote": "训练完成后把 LoRA 增量合并回基座，得到可直接部署的完整模型",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "可动态加载适配器。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "合并低秩参数是标准操作。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "表述不清，可能误解为直接覆盖。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "应选验证集最优checkpoint。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "5-1264": {
+    "qid": "5-1264",
+    "classification": "own",
+    "chapter": 5,
+    "quality": "ok",
+    "reason": "考查loss持续增加的解决方案，选项合理。",
+    "answer": [
+      "B",
+      "D"
+    ],
+    "supported": true,
+    "quote": "训练 loss 大幅震荡 | 学习率偏高 / batch 太小导致梯度不稳 | 调低 lr",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "增大学习率会加剧震荡。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "数据质量问题是常见原因。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "减少轮次不能解决根本问题。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "增加dropout可作正则化尝试。"
+      }
+    ],
+    "duplicate_of": "5-1213"
+  },
+  "5-1290": {
+    "qid": "5-1290",
+    "classification": "own",
+    "chapter": 5,
+    "quality": "ok",
+    "reason": "考查微调数据构建原则，选项符合教材。",
+    "answer": [
+      "B",
+      "C",
+      "D"
+    ],
+    "supported": true,
+    "quote": "质量从四个维度把关：正确性、多样性、一致性、无重复",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "单一类别主导违背多样性原则。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "数据需持续迭代优化。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "场景覆盖全面即多样性。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "标注准确性即正确性。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "5-1311": {
+    "qid": "5-1311",
+    "classification": "own",
+    "chapter": 5,
+    "quality": "ok",
+    "reason": "考查LoRA技术细节，问法清晰。",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "LoRA（低秩适配）不直接更新原始权重矩阵 W₀，而是在它旁边“挂”一对小矩阵来学习变化量 ΔW",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "正确，通过低秩矩阵间接影响。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "未提及，但非本题错误项。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "不直接修改原始权重。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "训练效率通常更高。"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

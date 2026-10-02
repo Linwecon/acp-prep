@@ -1,0 +1,109 @@
+{
+  "new-1-6-0": {
+    "qid": "new-1-6-0",
+    "classification": "own",
+    "chapter": 1,
+    "quality": "ok",
+    "reason": "考查分词器与词表差异，考点明确，符合教材知识。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "不同模型使用独立构建的词表（vocabulary），BPE训练数据与合并策略不同，导致同一文本切分结果不同",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "上下文窗口大小不影响分词结果。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "教材指出不同模型词表不同，分词结果不同。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "top_p是生成参数，不影响分词。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "seed不影响分词过程。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-1-6-2": {
+    "qid": "new-1-6-2",
+    "classification": "own",
+    "chapter": 1,
+    "quality": "ok",
+    "reason": "考查上下文窗口过长导致注意力稀释，符合教材原理。",
+    "answer": [
+      "D"
+    ],
+    "supported": true,
+    "quote": "过长的无关上下文会稀释注意力、引入噪声（'Lost in the Middle'现象）",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "top_p设置错误是参数问题，非根本原因。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "题干未提及输出被截断，且延迟增加非主因。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "描述接近，但D选项更直接对应教材术语。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "教材明确过长上下文会稀释注意力，导致关键信息被弱化。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-1-6-3": {
+    "qid": "new-1-6-3",
+    "classification": "own",
+    "chapter": 1,
+    "quality": "ok",
+    "reason": "考查temperature对生成确定性的影响及LLM计算边界。",
+    "answer": [
+      "A",
+      "B",
+      "C"
+    ],
+    "supported": true,
+    "quote": "temperature（温度）对模型输出的原始分数（logits）做缩放后再softmax；T越小→概率越集中在高概率Token上，输出越确定；T越大→分布越平坦，低概率Token也有机会被选中；LLM的本质是条件概率模型；不擅精确计算",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "低temperature使输出更确定，减少随机错误。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "高temperature使候选集扩大，易采样到干扰符号。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "现象印证LLM是概率生成器，不擅精确计算。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "增大top_k可能增加多样性，无法补偿计算错误。"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

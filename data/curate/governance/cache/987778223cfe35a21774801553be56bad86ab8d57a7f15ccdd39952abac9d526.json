@@ -1,0 +1,104 @@
+{
+  "items": [
+    {
+      "type": 0,
+      "stem": "某金融企业需将微调后的Qwen3-0.6B模型部署为实时客服对话服务，要求：①客户对话数据严禁出域；②首token延迟TTFT必须稳定<800ms；③支持灰度发布与秒级故障回滚。在不增加额外运维人力的前提下，最符合全部约束的部署方案是？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "百炼MaaS：直接调用千问API，配置专属模型版本"
+        },
+        {
+          "option_label": "B",
+          "option_text": "函数计算FC：部署vLLM函数，启用预留实例缓解冷启动"
+        },
+        {
+          "option_label": "C",
+          "option_text": "PAI-EAS：上传模型权重，配置弹性资源组与蓝绿发布策略"
+        },
+        {
+          "option_label": "D",
+          "option_text": "GPU ECS：自建vLLM集群，手动配置SLB+ESS+Ansible自动化回滚"
+        }
+      ],
+      "answer": "C",
+      "analysis": "依据教材6.12节‘部署选型四步决策法’：①‘数据能否出域’——金融数据严禁出域，直接排除百炼（6.7节明确‘百炼数据发到平台侧处理’）；②‘流量形态’——实时客服属稳定高吞吐、低TTFT敏感场景，FC存在冷启动（6.10.1节‘首个响应明显变慢’），且其执行时长/并发限制难以保障TTFT稳定性；③‘运维能力’——题干强调‘不增加额外运维人力’，ECS方案需自运维（6.9节‘自运维门槛高’），而PAI-EAS提供托管弹性、模型预热（6.10.2节‘上线即就绪’）、蓝绿/灰度/一键回滚（6.10.2节‘版本控制、回滚’），完美匹配三重约束。D虽满足数据合规与TTFT，但违背‘不增加运维人力’前提；B的预留实例仅缓解冷启动，无法解决FC固有的时长/资源限制对TTFT的干扰。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 0,
+      "stem": "压测发现：当并发从5提升至20时，vLLM服务的QPS从18.2升至32.5，但P95 TTFT从412ms飙升至2180ms，且出现大量429错误。此时若仅调整一个参数以快速恢复服务可用性，最应优先修改的是？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "增大--max-num-seqs参数以提升最大并发请求数"
+        },
+        {
+          "option_label": "B",
+          "option_text": "减小--max-model-len参数以限制单次请求最大序列长度"
+        },
+        {
+          "option_label": "C",
+          "option_text": "启用--quantization awq参数进行INT4量化"
+        },
+        {
+          "option_label": "D",
+          "option_text": "增加--gpu-memory-utilization参数至0.95"
+        }
+      ],
+      "answer": "B",
+      "analysis": "题干现象本质是KV Cache显存过载（6.6节‘KV Cache随序列长度×并发数线性增长’）：并发翻4倍导致KV Cache暴涨，显存不足引发调度排队→TTFT劣化+429限流。A错误：--max-num-seqs是vLLM内部调度上限，增大它会加剧OOM而非缓解；C虽能降显存（6.4节‘INT4体积降为1/8’），但需重新量化模型且INT4精度风险需验证，非‘快速’手段；D错误：该参数用于控制vLLM显存预留比例，调高反而压缩可用空间。B正确：--max-model-len直接限制单请求最大序列长度（6.6节‘限制最大序列长度可牺牲长上下文换并发’），立竿见影降低KV Cache峰值，是教材6.6节明确推荐的‘快速应对并发瓶颈’操作，且无需模型变更或重启服务。",
+      "difficulty_label": "中等"
+    },
+    {
+      "type": 1,
+      "stem": "某团队使用vLLM部署Qwen3-0.6B模型，观测到GPU显存占用达92%，其中KV Cache占比78%。为在不降低服务质量（TTFT/TPOT达标）的前提下优化显存，以下哪些措施符合教材原理且工程可行？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "启用PagedAttention（vLLM默认开启，无需额外配置）"
+        },
+        {
+          "option_label": "B",
+          "option_text": "将模型权重从FP16量化为INT4，并使用AWQ算法校准"
+        },
+        {
+          "option_label": "C",
+          "option_text": "在业务层实现系统提示词前缀缓存，复用相同system prompt的KV块"
+        },
+        {
+          "option_label": "D",
+          "option_text": "关闭连续批处理，改用静态批处理以减少调度开销"
+        }
+      ],
+      "answer": "A,B,C",
+      "analysis": "A正确：PagedAttention是vLLM核心机制（6.5节‘消除碎片、按需分配’），默认启用，能显著提升显存利用率（6.5节‘同样显存塞下更多并发’），题干显存紧张正需此特性；B正确：INT4量化使权重体积降至FP16的1/4（6.4节表格），AWQ在低比特下更稳（6.4节‘AWQ在INT4下通常更稳’），且量化后显存下降常伴随加速（6.4节‘显存带宽下降通常带来加速’）；C正确：教材6.6节‘上下文缓存/前缀复用’明确指出‘相同前缀（系统提示词）的KV结果复用’可降本提速，且vLLM原生支持（6.5节‘天然支持共享’）；D错误：静态批处理会导致GPU空转（6.5节‘整批齐步走，完成早的请求干等’），不仅不省显存，反而因等待降低吞吐，与‘不降低服务质量’矛盾。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 0,
+      "stem": "运维监控告警显示：某日02:15-02:23期间，模型服务TPOT突增300%，但TTFT、QPS、GPU利用率均正常，且无错误率上升。经排查，该时段无新版本发布或配置变更。最可能的根本原因是？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "用户输入prompt长度突增，导致Prefill阶段计算负载升高"
+        },
+        {
+          "option_label": "B",
+          "option_text": "输出token数量激增，触发了KV Cache分页块频繁申请与映射"
+        },
+        {
+          "option_label": "C",
+          "option_text": "客户端未启用流式响应，导致所有token累积后一次性返回"
+        },
+        {
+          "option_label": "D",
+          "option_text": "生成内容中出现大量重复token，触发了vLLM的repetition penalty重计算"
+        }
+      ],
+      "answer": "B",
+      "analysis": "题干关键线索：TPOT（每token时间）单独飙升，而TTFT（Prefill决定）和GPU利用率正常——说明Prefill无压力，问题在Decode阶段。A错误：Prompt长度影响Prefill，应导致TTFT升高；C错误：流式与否影响客户端感知延迟，不改变TPOT计算逻辑；D错误：repetition penalty是轻量计算，不会导致TPOT突增300%。B正确：TPOT由Decode效率决定，而Decode需高频读取KV Cache（6.2节‘Decode每步读取KV Cache’）。当输出token数激增（如长回答），KV Cache块数量线性增长，若PagedAttention页表映射或块分配出现瓶颈（如显存碎片化、块索引查找延迟），将直接拖慢每步Decode速度，表现为TPOT飙升。教材6.5节强调PagedAttention解决‘显存碎片’，而6.6节指出KV Cache是‘随序列长度×并发数线性增长’的瓶颈，此现象正是长输出场景下KV Cache管理压力的典型体现。",
+      "difficulty_label": "高阶"
+    }
+  ]
+}

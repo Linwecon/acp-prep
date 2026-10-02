@@ -1,0 +1,213 @@
+{
+  "new-7-12-0": {
+    "qid": "new-7-12-0",
+    "classification": "own",
+    "chapter": 7,
+    "quality": "ok",
+    "reason": "考查控制变量原则，题干明确违反教材要求",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "回归评测的前提是除了待测改动，其他一切都冻结：评测集版本、评测脚本、推理参数（temperature、seed）、模型版本、甚至当评委的大模型版本都要固定。否则分数变化无法归因",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "题干未提及未建基线，而是已有评测但分数波动"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "评委LLM的temperature未冻结，直接违反控制变量要求"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "题干未涉及ground_truth审定问题，焦点在配置冻结"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "题干未讨论指标分层混淆，而是分数可比性问题"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-7-12-1": {
+    "qid": "new-7-12-1",
+    "classification": "own",
+    "chapter": 7,
+    "quality": "ok",
+    "reason": "考查LLM-as-Judge的固有偏见，题干描述符合长度偏见",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "长度偏见：倾向认为更长更详细的答案'更完整'，惩罚简洁但切题的答案",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "简洁答案打分低于冗长答案，是典型长度偏见"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "题干未涉及候选顺序或位置影响"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "题干未提及评委与答案风格一致性"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "题干未涉及对特定风格的偏好"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-7-12-2": {
+    "qid": "new-7-12-2",
+    "classification": "own",
+    "chapter": 7,
+    "quality": "ok",
+    "reason": "考查检索端问题定位，仅调生成端提示词无法根本解决",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "检索指标都好（Recall、Precision高），但Faithfulness/Correctness低→问题在生成阶段。但本题Recall高但Precision低，病根在检索端排序",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "关键信息被截断，模型无法依据完整资料，导致幻觉"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "Context Precision计算基于全部contexts，截断不影响其计算"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "Faithfulness计算使用全部contexts，评委可访问"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "题干未提及不同问题类型表现差异"
+      }
+    ],
+    "duplicate_of": "7-5083"
+  },
+  "new-7-12-3": {
+    "qid": "new-7-12-3",
+    "classification": "own",
+    "chapter": 7,
+    "quality": "ok",
+    "reason": "考查评测集构建铁律与数据泄漏",
+    "answer": [
+      "A",
+      "B"
+    ],
+    "supported": true,
+    "quote": "问题来自真实用户场景；标准答案来自领域专家；绝不能用训练数据当评测集，否则分数虚高、毫无参考价值",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "使用训练数据导致数据泄漏，分数虚高，破坏可信度"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "ground_truth未由领域专家审定，答案可能业务错误"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "教材未提及此操作，且可能引入额外偏差"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "temperature影响答案生成，但不直接破坏指标计算有效性"
+      }
+    ],
+    "duplicate_of": "7-5055"
+  },
+  "new-7-12-4": {
+    "qid": "new-7-12-4",
+    "classification": "own",
+    "chapter": 7,
+    "quality": "ok",
+    "reason": "考查评委模型更换导致分数不可比，违反控制变量",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "回归评测的前提是除了待测改动，其他一切都冻结：评测集版本、评测脚本、推理参数（temperature、seed）、模型版本、甚至当评委的大模型版本都要固定",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "评委'品味'漂移是现象，根本原因是违反控制变量"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "更换评委模型，使回归评测失效，分数不可比"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "未采用多评委是优化点，非题干暴露的根本缺陷"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "题干未提及评测集版本变更"
+      }
+    ],
+    "duplicate_of": "7-5084"
+  },
+  "new-7-12-5": {
+    "qid": "new-7-12-5",
+    "classification": "own",
+    "chapter": 7,
+    "quality": "ok",
+    "reason": "考查评测集构建铁律，ground_truth必须由领域专家提供",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "标准答案来自领域专家：必须由业务领域专家编写/审定",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "题干未提及未建基线，而是标准答案来源错误"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "AI工程师编写ground_truth，导致业务违规，违反铁律"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "题干焦点是答案错误，非指标分层问题"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "题干未提及评测配置未冻结"
+      }
+    ],
+    "duplicate_of": "7-5066"
+  }
+}

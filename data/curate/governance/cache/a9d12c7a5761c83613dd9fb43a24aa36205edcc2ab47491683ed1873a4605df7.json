@@ -1,0 +1,154 @@
+{
+  "items": [
+    {
+      "type": 0,
+      "stem": "某金融企业需构建合规审查机器人，要求：① 严格保障客户合同数据不出内网；② 需对法律条文与内部制度进行深度推理；③ 团队具备算法工程师但无专职GPU运维人员。以下最符合该场景的平台组合与实施路径是？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "直接使用百炼知识库上传合同模板，调用qwen-max模型在线问答"
+        },
+        {
+          "option_label": "B",
+          "option_text": "在DashScope OpenAI兼容接口中调用qwen-long，通过OSS加密存储合同并设置max_tokens=8192"
+        },
+        {
+          "option_label": "C",
+          "option_text": "从ModelScope下载Qwen3-7B开源模型，在PAI-DSW中完成LoRA微调，用DLC训练后部署至PAI-EAS服务"
+        },
+        {
+          "option_label": "D",
+          "option_text": "使用通义法睿API（DashScope）处理法律问题，将合同文本分段后批量调用，结果存入DataWorks做审计溯源"
+        }
+      ],
+      "answer": "C",
+      "analysis": "依据原文10.4节'PAI三件套'与10.7节'开源模型价值'：① '数据不出域'明确排除DashScope/百炼等托管API（原文10.5表'数据与模型控制'栏、10.9误区'商业版不可私有化部署'）；② '深度推理+定制需求'超出通用模型能力，需微调（原文10.4'百炼不替代底层训练'、10.5'自研结构/大规模训练是PAI主场'）；③ PAI-EAS提供生产级部署能力（弹性伸缩、监控告警），且无需自购GPU（原文10.4'PAI面向算法工程师，可弹性租用云端算力'）。A、B、D均违反'数据不出域'核心约束（原文10.5'DashScope是托管API'、10.7'商业版需上送数据'）；D虽用垂类模型但仍是API调用，数据仍上送。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 1,
+      "stem": "某电商公司上线智能客服，初期日调用量约5000次，用户反馈响应延迟高、偶发429错误。运维团队排查发现：前端未做请求限流，且每次请求均将整份《售后服务政策》（12万字）作为system prompt传入。以下哪些成本优化措施符合原文10.8节'省成本的工程手段'？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "将《售后服务政策》全文切片后存入百炼知识库，仅检索最相关片段注入上下文"
+        },
+        {
+          "option_label": "B",
+          "option_text": "将模型从qwen-plus切换为qwen-turbo，并设置max_tokens=256限制输出长度"
+        },
+        {
+          "option_label": "C",
+          "option_text": "在前端代码中增加指数退避重试逻辑，遇429时按2^retry_delay * random(0,1)秒间隔重试"
+        },
+        {
+          "option_label": "D",
+          "option_text": "申请提升DashScope RPM配额至1000，避免因并发不足触发限流"
+        }
+      ],
+      "answer": "A,B,C",
+      "analysis": "原文10.8节明确给出降本四步法：①选对模型→B项符合'简单任务用turbo'（客服问答属高频简单任务）；②控制输入→A项对应'RAG只塞最相关片段，不要塞整本手册'；③限制输出→B项设置max_tokens即'给输出设上限'；④处理限流→C项'指数退避+抖动'是原文指定标准方案。D项错误：原文10.8强调'生产环境必须考虑重试、退避与降级，不能假设无限并发'，提升配额是治标，而A/B/C是治本；且原文10.8风险提示'免费额度有上限，用尽后按量计费'，盲目提配额可能推高成本。",
+      "difficulty_label": "中阶"
+    },
+    {
+      "type": 0,
+      "stem": "一个由3名全栈工程师组成的创业团队，计划两周内上线HR新人答疑机器人。需求：支持员工手册问答、可发布到钉钉、无需GPU运维、预算有限。根据原文10.5节'选型决策'与10.9节'自测题6解析'，最合理的落地方式是？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "在PAI-DSW中用CPU实例微调Qwen2-1.5B模型，训练完成后部署至EAS，再通过Webhook接入钉钉"
+        },
+        {
+          "option_label": "B",
+          "option_text": "使用DashScope原生SDK调用qwen-plus API，自行开发Flask后端并集成钉钉Bot SDK"
+        },
+        {
+          "option_label": "C",
+          "option_text": "在百炼平台上传员工手册建立知识库，配置Prompt和智能体，一键发布至钉钉群"
+        },
+        {
+          "option_label": "D",
+          "option_text": "从ModelScope下载Qwen3-0.6B模型，在本地服务器部署vLLM服务，通过Nginx反向代理暴露API"
+        }
+      ],
+      "answer": "C",
+      "analysis": "原文10.5'选型决策'第5条明确：'三人团队、无运维、用千问、要尽快上线 → 百炼一键部署/发布（课程4.2原题结论）'；10.9自测题6解析进一步佐证：'三个约束（千问系列、无运维、快速上线）共同指向百炼'。A/D需GPU运维与模型训练，违反'无运维'；B虽可行但需开发后端、集成SDK，违背'两周上线'时效性（原文10.2'百炼价值在于封装工程链路，非工程人员能独立搭原型'）；C完全匹配百炼定位：零代码知识库、一键发布钉钉（原文10.2表'一键发布'能力）。",
+      "difficulty_label": "基础"
+    },
+    {
+      "type": 1,
+      "stem": "某客户系统需对接阿里云大模型能力，其技术栈已深度集成OpenAI Python SDK。现要求最小化改造实现迁移。根据原文10.3节'OpenAI兼容模式'与10.9节'考试要点'，以下哪些操作是必要且充分的？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "将OpenAI SDK的base_url参数修改为'https://dashscope.aliyuncs.com/compatible-mode/v1'"
+        },
+        {
+          "option_label": "B",
+          "option_text": "将openai.api_key替换为os.getenv('DASHSCOPE_API_KEY')"
+        },
+        {
+          "option_label": "C",
+          "option_text": "将所有model参数从'gpt-3.5-turbo'改为'qwen-turbo'，并确保调用chat.completions.create方法"
+        },
+        {
+          "option_label": "D",
+          "option_text": "安装dashscope包并改用TextGeneration.call方法替代原OpenAI调用"
+        }
+      ],
+      "answer": "A,B,C",
+      "analysis": "原文10.3节明确：'把base_url指向DashScope兼容地址、把api_key换成阿里云Key，原本基于OpenAI SDK写的程序几乎不用改就能调用通义千问'；10.3代码示例证实model参数直接填'qwen-plus'等；10.9'考试要点3'强调'OpenAI兼容模式'是迁移首选。A/B/C三项即原文所述三要素。D错误：原文10.3对比指出'原生SDK用于特有功能（如重排序）'，而迁移目标是复用现有OpenAI代码，不应改用dashscope原生包。",
+      "difficulty_label": "中阶"
+    },
+    {
+      "type": 0,
+      "stem": "某医疗科技公司需构建病理报告分析系统，要求：① 模型必须通过FDA认证；② 输入为显微镜图像+结构化文本；③ 输出需符合HL7标准。根据原文10.6节'通义家族映射'与10.7节'开源vs商业'，以下哪项产品选型最合理？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "调用DashScope的qwen-vl-plus多模态API，将图像Base64编码后与文本拼接传入"
+        },
+        {
+          "option_label": "B",
+          "option_text": "使用通义万相生成病理可视化图表，再用qwen-plus解析文本描述"
+        },
+        {
+          "option_label": "C",
+          "option_text": "从ModelScope下载Qwen-VL开源模型，在PAI-DLC中基于医疗数据集微调，部署至EAS并对接HL7网关"
+        },
+        {
+          "option_label": "D",
+          "option_text": "在百炼平台创建多模态智能体，接入通义万相插件处理图像，qwen-plus处理文本"
+        }
+      ],
+      "answer": "C",
+      "analysis": "原文10.6表明确'通义万相'负责图像生成，'Qwen-VL'才是多模态理解模型；10.7节强调'开源模型可深度定制'且'数据可不出域'，而FDA认证要求模型可验证、可审计，商业API无法满足（原文10.9'商业版不可私有化部署'）。C项：ModelScope下载开源Qwen-VL（原文10.7'课程蒸馏实验下载Qwen/Qwen3-0.6B'）、PAI-DLC微调（原文10.4'DLC用于分布式训练'）、EAS部署（原文10.4'EAS提供生产级服务'）完整闭环。A项错误：qwen-vl-plus是商业API，数据上送且无法满足FDA审计；B/D混淆能力——万相是'文生图'而非'图理解'，且未解决FDA认证与HL7输出。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 0,
+      "stem": "某客户在使用百炼平台调试知识库问答时，发现模型对'年假天数'的回答准确率仅60%。经分析，员工手册中'年假'条款分散在3个不同章节，且存在'司龄满1年'等条件判断。根据原文10.2节'知识库（RAG）'能力说明与10.5节'百炼适用场景'，以下哪项操作最能针对性提升效果？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "在百炼工作流中添加'条件判断'节点，用if-else逻辑分支处理不同司龄区间"
+        },
+        {
+          "option_label": "B",
+          "option_text": "将员工手册PDF转为Word后重新上传，确保百炼文档解析器正确识别表格结构"
+        },
+        {
+          "option_label": "C",
+          "option_text": "在百炼Prompt调试中增加系统提示词：'请严格依据以下3个章节内容回答，若信息冲突以第2章为准'"
+        },
+        {
+          "option_label": "D",
+          "option_text": "关闭百炼知识库，改用DashScope qwen-max API直接提问，通过长上下文窗口读取全部手册"
+        }
+      ],
+      "answer": "A",
+      "analysis": "原文10.2表明确百炼核心能力包含'工作流编排'，定义为'拖拽节点把检索→改写→生成→审核串成稳定流程'；10.2'价值'强调'工作流背后就是可控的多步编排'。本题场景本质是RAG结果需二次加工（多源信息整合+条件判断），恰是工作流的典型用途。B项无关：PDF/Word格式不影响百炼解析（原文10.2'内置文档解析、切片、向量化'）；C项无效：系统提示词无法强制模型遵守多源优先级（原文10.8'控制输入'指减少冗余，非解决信息冲突）；D项违背百炼定位：原文10.5'百炼适合知识库问答'，且qwen-max长上下文成本高（原文10.6'long才支持超长上下文'，max非专为长文本设计）。",
+      "difficulty_label": "中阶"
+    }
+  ]
+}

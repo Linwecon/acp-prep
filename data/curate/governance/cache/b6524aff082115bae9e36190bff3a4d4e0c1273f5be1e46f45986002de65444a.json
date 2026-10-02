@@ -1,0 +1,154 @@
+{
+  "items": [
+    {
+      "type": 0,
+      "stem": "某团队使用AgentScope构建'合同协同审阅'系统，采用Blackboard模式：法务、HR、风控三Agent通过MsgHub广播消息讨论。上线后发现，当法务Agent发送含Markdown表格的分析时，HR Agent解析出的表格严重错乱（行列颠倒、单元格合并失效）。日志显示法务Agent未调用Formatter，直接传入原始字典。依据第12章12.6.1节，此故障的根本原因是什么？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "MsgHub不支持Markdown格式传输，需改用纯文本"
+        },
+        {
+          "option_label": "B",
+          "option_text": "AgentScope强制要求所有消息必须经Formatter序列化为模型可接受格式，缺失Formatter导致消息结构丢失"
+        },
+        {
+          "option_label": "C",
+          "option_text": "HR Agent未安装pandoc依赖，无法渲染Markdown表格"
+        },
+        {
+          "option_label": "D",
+          "option_text": "DashScopeMultiAgentFormatter仅支持JSON Schema，不兼容Markdown"
+        }
+      ],
+      "answer": "B",
+      "analysis": "原文12.6.1节明确指出：'Formatter（如DashScopeChatFormatter、DashScopeMultiAgentFormatter）把Agent消息序列化成模型能接受的格式'；课程`agent.py`样例中`ReActAgent`构造时显式传入`formatter=DashScopeMultiAgentFormatter()`，说明Formatter是ReActAgent正常工作的必要组件。缺失Formatter时，原始字典消息未经标准化序列化，导致接收方（HR Agent）无法正确解析语义结构（如表格行列关系），这直接违背了AgentScope对消息通信的抽象契约。A项错误——MsgHub是消息总线，不校验内容格式；C项属环境依赖，原文未提及且非核心机制；D项错误——DashScopeMultiAgentFormatter专为多Agent协作设计，支持结构化消息（含Markdown），其作用正是保障跨Agent语义一致性。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 1,
+      "stem": "在AgentScope框架中，以下哪些组合约束若被违反，将直接导致ReActAgent无法进入正常的'思考—行动—观察'循环？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "未配置Model实例（如DashScopeChatModel）"
+        },
+        {
+          "option_label": "B",
+          "option_text": "未指定sys_prompt参数"
+        },
+        {
+          "option_label": "C",
+          "option_text": "未传入Formatter实例"
+        },
+        {
+          "option_label": "D",
+          "option_text": "未注册任何Tool"
+        }
+      ],
+      "answer": "A,C",
+      "analysis": "原文12.6.1节定义ReActAgent核心抽象：'封装模型、系统提示词、工具与‘思考—行动—观察’循环'；课程`agent.py`代码中`ReActAgent`构造函数强制要求`model`和`formatter`参数（见`return ReActAgent(...)`调用），缺一则初始化失败。A项正确——无Model则无法执行LLM调用，循环无法启动；C项正确——无Formatter则消息无法被模型正确解析，导致'观察'阶段输入失真，循环中断。B项错误——sys_prompt虽重要，但原文未声明为强制参数（可为空或由模型默认处理）；D项错误——ReActAgent支持无工具场景（纯推理），此时'行动'步骤跳过，仍可完成'思考→观察'基础循环。",
+      "difficulty_label": "挑战"
+    },
+    {
+      "type": 0,
+      "stem": "团队将AgentScope的ReActAgent封装为LangChain Tool供LangGraph节点调用。运行中发现，AgentScope Agent日志显示'Formatter not set, using default'，且返回答案质量显著下降。依据第12章12.6.1节对Formatter作用的阐述及12.4节框架组合原则，此问题最可能的原因是？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "LangChain Tool封装层覆盖了AgentScope Agent的Formatter配置"
+        },
+        {
+          "option_label": "B",
+          "option_text": "LangGraph节点未启用流式输出，导致Formatter无法生效"
+        },
+        {
+          "option_label": "C",
+          "option_text": "AgentScope与LangChain的Runnable协议不兼容，Formatter被自动忽略"
+        },
+        {
+          "option_label": "D",
+          "option_text": "封装时未在ReActAgent构造中显式传入Formatter实例"
+        }
+      ],
+      "answer": "D",
+      "analysis": "原文12.6.1节强调Formatter是ReActAgent的**显式构造参数**（`ReActAgent(..., formatter=...)`），且12.4节'风险'部分警示'不要在同一个项目里用两套抽象同时建索引'，反向印证组件配置需显式传递。D项直指根本——封装为Tool时若未在`ReActAgent`初始化时传入Formatter，则Agent内部使用默认（可能不匹配当前多Agent上下文），导致消息格式错误，影响模型理解。A项错误——LangChain Tool封装不修改Agent内部状态；B项无关——流式与Formatter无因果；C项错误——二者均为Python框架，无协议级不兼容，原文12.4节明确二者可组合。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 0,
+      "stem": "调试AgentScope多Agent系统时，Leader-Agent发出handoff指令未被Worker-Agent响应，MsgHub监控显示消息未被消费。检查发现所有Worker-Agent均用'worker_1'、'worker_2'硬编码名称创建，而Leader-Agent handoff目标地址写为'hr_worker'。依据第12章12.6.1节，此故障的根本原因是？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "MsgHub要求所有Agent必须使用统一命名空间，'worker_1'与'hr_worker'冲突"
+        },
+        {
+          "option_label": "B",
+          "option_text": "handoff机制依赖Agent名称精确匹配，目标名称不存在导致消息路由失败"
+        },
+        {
+          "option_label": "C",
+          "option_text": "AgentScope强制Worker-Agent必须继承WorkerAgent基类"
+        },
+        {
+          "option_label": "D",
+          "option_text": "handoff仅支持Blackboard模式，不适用于Leader-Worker分层规划"
+        }
+      ],
+      "answer": "B",
+      "analysis": "原文12.6.1节描述AgentScope两种协作模式：'分层规划（Leader-Worker，通过handoff转交任务）'和'共创协作（Blackboard，通过MsgHub群聊讨论）'，明确handoff是Leader-Worker模式的核心机制。handoff本质是消息路由，其目标地址即Worker-Agent的`name`参数（见`create_agent(name: str, ...)`代码），必须与接收方实际注册名称严格一致。B项准确对应此机制——'hr_worker'名称未被任何Worker-Agent注册，故MsgHub无法投递。A项错误——无统一命名空间要求；C项错误——原文未提基类继承强制；D项错误——handoff正是Leader-Worker模式专属能力。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 1,
+      "stem": "某团队需构建支持'员工身份识别→查考勤记录→查请假政策→综合生成休假建议'的多步Agent系统。根据第12章对框架定位的对比，以下哪些组合既满足技术需求又符合'各司其职'原则？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "LlamaIndex负责考勤/政策文档的向量检索"
+        },
+        {
+          "option_label": "B",
+          "option_text": "LangChain/LangGraph负责多步状态机编排与Memory管理"
+        },
+        {
+          "option_label": "C",
+          "option_text": "AgentScope负责员工身份识别环节的单Agent推理"
+        },
+        {
+          "option_label": "D",
+          "option_text": "Dify平台负责最终休假建议的Web界面展示"
+        }
+      ],
+      "answer": "A,B",
+      "analysis": "原文12.4节明确：'LlamaIndex最强项是文档接入、索引、检索'，考勤/政策文档属RAG核心场景，A正确；'LangChain/LangGraph最适合复杂多步流程、状态机'，多步决策+Memory（员工身份）是其强项，B正确。C错误——员工身份识别是单步推理，无需AgentScope的多Agent协作能力（其优势在'多Agent之间如何说话'），属过度设计；D错误——Web界面属UI层，原文12.7.2节指出Gradio/FastAPI负责服务与UI，Dify是低代码平台，此处无非工程人员参与需求，且'展示'非Dify核心价值（其价值在'搭建工作流'），违背'务实选型'原则。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 0,
+      "stem": "某教育公司HR部门需3天内上线制度问答原型，文档为扫描件PDF和带复杂表格的员工手册，IT仅提供百炼API Key。根据第12章12.6.2节对Dify的定位及12.5节解析能力要求，以下哪项是Dify能直接满足而裸调SDK或手写LlamaIndex无法满足的必要条件？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "自动调用DashScopeParse进行OCR与版面结构化解析"
+        },
+        {
+          "option_label": "B",
+          "option_text": "提供可视化界面让HR自主上传、更新文档"
+        },
+        {
+          "option_label": "C",
+          "option_text": "支持将检索结果注入自定义Prompt模板"
+        },
+        {
+          "option_label": "D",
+          "option_text": "实现基于SentenceWindowNodeParser的句子窗口检索"
+        }
+      ],
+      "answer": "B",
+      "analysis": "原文12.6.2节定义Dify为'低代码LLM应用开发平台'，核心价值是'让产品、运营和业务人员也能参与'，并举例'HR想自己搭一个制度问答机器人，IT只提供API Key'，明确其不可替代性在于**非工程人员自助能力**。B项直接对应此定位——裸调SDK或手写LlamaIndex必须由开发者编码实现上传逻辑，无法让HR操作。A项错误——DashScopeParse能力可通过代码调用（12.5节已说明），非Dify独有；C、D项均为代码层能力，任何框架均可实现，不构成Dify的必要条件。原文12.6.2节'exam'强调：'场景题：HR想自己搭... → Dify是最优选'，B项即该场景的本质解。",
+      "difficulty_label": "入门"
+    }
+  ]
+}

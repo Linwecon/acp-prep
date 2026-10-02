@@ -1,0 +1,72 @@
+{
+  "new-1-18-0": {
+    "qid": "new-1-18-0",
+    "classification": "own",
+    "chapter": 1,
+    "quality": "ok",
+    "reason": "考查多轮对话中模型无状态特性及messages结构完整性，是本章核心知识点。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "所谓'多轮对话'，本质是客户端把历史消息拼进 messages，每次重新发一遍。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "system消息通常只需一条，遗漏不是主因。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "assistant回复内容为空，模型无法获知Jira信息。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "流式输出只改传输方式，不截断上下文。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "联网搜索会补充信息，但题干未提及启用。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-1-18-2": {
+    "qid": "new-1-18-2",
+    "classification": "own",
+    "chapter": 1,
+    "quality": "ok",
+    "reason": "考查上下文窗口超限导致的'Lost in the Middle'现象，是本章关键风险点。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "过长的无关上下文会稀释注意力、引入噪声（'Lost in the Middle'现象），又慢又贵。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "top_p过高影响多样性，非事实错误主因。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "窗口超限导致关键信息被稀释，引发错误和延迟。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "分词差异影响Token计数，但非根本原因。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "自注意力本身不限制序列长度，不会梯度消失。"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

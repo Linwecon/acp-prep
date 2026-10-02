@@ -1,0 +1,210 @@
+{
+  "12-0808": {
+    "qid": "12-0808",
+    "classification": "beyond",
+    "chapter": 12,
+    "quality": "remove",
+    "reason": "时间解析属NLP通用能力，非本章框架与工具考点",
+    "answer": [],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "非框架工具题"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "未在第12章提及"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "未在第12章提及"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "未在第12章提及"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "12-0209": {
+    "qid": "12-0209",
+    "classification": "own",
+    "chapter": 12,
+    "quality": "ok",
+    "reason": "考LlamaIndex多轮对话组件，原文明确指出ChatEngine",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "LlamaIndex 也提供 ChatEngine（RAG 场景下的多轮对话）",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "原文明确指出ChatEngine"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "仅文档加载器"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "索引构建类"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "嵌入模型类"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "12-0438": {
+    "qid": "12-0438",
+    "classification": "own",
+    "chapter": 12,
+    "quality": "ok",
+    "reason": "考LlamaIndex文档读取入口，原文示例用SimpleDirectoryReader",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "documents = SimpleDirectoryReader(\"./docs\").load_data()",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "索引构建类"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "原文示例入口"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "存储上下文类"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "加载已有索引"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "12-0154": {
+    "qid": "12-0154",
+    "classification": "own",
+    "chapter": 12,
+    "quality": "ok",
+    "reason": "考LlamaIndex RAG入门文档，原文推荐精简用法",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "课程 `course_core/chatbot/rag.py` 展示了最精简的 LlamaIndex 用法",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "GraphRAG非基础RAG"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "对应精简入门文档"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "属AgentScope/Dify"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "API文档非教程"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "12-0213": {
+    "qid": "12-0213",
+    "classification": "own",
+    "chapter": 12,
+    "quality": "ok",
+    "reason": "考GraphRAG专项教程，原文明确列出该标题",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "使用 LlamaIndex 构建 GraphRAG 应用",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "原文直接命名"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "0代码属Dify场景"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "属AgentScope/Dify"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "API文档非教程"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "12-0267": {
+    "qid": "12-0267",
+    "classification": "own",
+    "chapter": 12,
+    "quality": "ok",
+    "reason": "考百炼LlamaIndex组件目的，原文强调API兼容性",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "百炼提供了一系列 LlamaIndex 组件，其主要目的是方便继续使用熟悉的 LlamaIndex API 构建 RAG应用",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "原文明确目的"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "非训练相关"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "非存储优化"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "非多样性控制"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

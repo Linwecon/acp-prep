@@ -1,0 +1,210 @@
+{
+  "3-0994": {
+    "qid": "3-0994",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "检索器效果评估看相似度得分",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "向量检索与余弦相似度",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "属生成端指标"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "原文明确相似度是检索核心"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "长度非评估指标"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "推理时间非检索效果指标"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-1004": {
+    "qid": "3-1004",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "建库四步顺序必须完整",
+    "answer": [
+      "D"
+    ],
+    "supported": true,
+    "quote": "1. 文档解析 2. 文本切片 3. 向量化 Embedding 4. 写入向量库",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "无文档解析步骤"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "缺文档解析步骤"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "缺文本切片步骤"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "完全匹配原文四阶段"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-1069": {
+    "qid": "3-1069",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "部门混淆需元数据过滤或查询改写",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "元数据过滤：权限、时效、部门隔离",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "增加K会引入噪声"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "减少K加剧漏检"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "结合部门信息改写可精准定位"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "重复检索不解决指代问题"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-1076": {
+    "qid": "3-1076",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "用户问题向量化属在线问答阶段",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "第二阶段：在线问答（Retrieval & Generation，每次请求都执行）",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "属在线问答非建库阶段"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "文本切片属建库阶段"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "文档解析属建库阶段"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "向量化属建库阶段"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-1081": {
+    "qid": "3-1081",
+    "classification": "misplaced",
+    "chapter": 3,
+    "quality": "review",
+    "reason": "题干“文档审阅”未在RAG章节定义",
+    "answer": [],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "无关营销表达"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "未提漏错场景"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "错误需处理"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "RAG未提信息量理解问题"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-1108": {
+    "qid": "3-1108",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "过度召回导致噪声增多",
+    "answer": [
+      "D"
+    ],
+    "supported": true,
+    "quote": "K 调大 → 召回率↑，但无关噪声也增多、精确率↓、token成本↑",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "召回不足是K过小"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "K过小才结果少"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "条件严格属阈值问题"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "原文明确K大会引入无关信息"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

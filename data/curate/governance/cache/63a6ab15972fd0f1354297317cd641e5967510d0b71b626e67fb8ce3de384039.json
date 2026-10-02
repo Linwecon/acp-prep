@@ -1,0 +1,74 @@
+{
+  "new-10-60-0": {
+    "qid": "new-10-60-0",
+    "classification": "own",
+    "chapter": 10,
+    "quality": "ok",
+    "reason": "场景题考查平台选型，条件明确，有考查价值。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "团队要对一个开源模型做 LoRA 微调并部署成高并发在线服务，且要求数据不出域，应选用哪组产品？请对应到开发、训练、部署三个阶段。解析：用 PAI 三件套：在 DSW（GPU Notebook）里做数据处理与 LoRA 微调开发，大规模训练可提交 DLC，最后用 EAS 部署为弹性伸缩的在线服务；开源模型从 ModelScope 下载。数据全程在云端私有环境，满足不出域要求。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "DashScope API数据上送，不符合数据不出域要求。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "PAI三件套满足开发、训练、部署全流程，且数据不出域。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "DashScope调用通用模型，无法解决术语不准问题。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "自建Nginx运维复杂，不符合无GPU运维能力要求。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-10-60-2": {
+    "qid": "new-10-60-2",
+    "classification": "own",
+    "chapter": 10,
+    "quality": "ok",
+    "reason": "多选题考查技术选型，符合教材推荐实践。",
+    "answer": [
+      "A",
+      "B",
+      "C"
+    ],
+    "supported": true,
+    "quote": "DashScope 提供 OpenAI 兼容模式；百炼既能可视化搭，也能发布成 API 被代码调用；要稳定对外提供高并发服务时，再用 PAI-EAS 部署，获得弹性伸缩、预热、监控等生产能力。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "OpenAI兼容模式利于客户快速集成，教材推荐。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "百炼可发布为标准API，符合要求。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "vLLM服务启用OpenAI兼容API，符合生态集成要求。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "强制统一部署不符合客户自主选择要求。"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

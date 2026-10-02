@@ -1,0 +1,210 @@
+{
+  "10-1105": {
+    "qid": "10-1105",
+    "classification": "own",
+    "chapter": 10,
+    "quality": "ok",
+    "reason": "考查阿里云平台组合架构设计能力",
+    "answer": [
+      "D"
+    ],
+    "supported": true,
+    "quote": "OSS 存放企业文档 → DataWorks/MaxCompute 做清洗加工 → 百炼知识库（底层调用 DashScope 的 Embedding/生成模型）完成问答",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "FC不能直接调OCR服务，且百炼不提供结果链接"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "百炼不支持直接解析PDF原始文件"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "百炼不支持PDF直传全流程处理"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "符合OSS存源→FC解析→百炼生成→OSS存结果链路"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "10-1211": {
+    "qid": "10-1211",
+    "classification": "own",
+    "chapter": 10,
+    "quality": "ok",
+    "reason": "考查百炼平台定位",
+    "answer": [
+      "D"
+    ],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "百炼不部署闭源模型"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "百炼非边缘计算平台"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "百炼是托管服务非私有化"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "百炼支持开源模型本地部署"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "10-1259": {
+    "qid": "10-1259",
+    "classification": "own",
+    "chapter": 10,
+    "quality": "ok",
+    "reason": "考查PAI-EAS核心能力",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "EAS：Elastic Algorithm Service，模型在线服务。把训练好的模型一键部署为在线推理服务，支持弹性伸缩、蓝绿发布、版本管理、监控告警",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "FC更适合临时任务"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "EAS专为高并发实时推理设计"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "OSS负责存储"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "EAS不用于硬件测试"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "10-1269": {
+    "qid": "10-1269",
+    "classification": "own",
+    "chapter": 10,
+    "quality": "ok",
+    "reason": "考查Qwen-Turbo适用场景",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "qwen-turbo：速度快、延迟低、成本低；适合高频、简单、对延迟敏感的任务（简单问答、分类、摘要）",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "直接翻译未利用Turbo优势"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "生成-评估-优化适配Turbo特性"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "增加长度降低Turbo效率"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "减少长度不提升质量"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "10-1278": {
+    "qid": "10-1278",
+    "classification": "own",
+    "chapter": 10,
+    "quality": "review",
+    "reason": "FC是否支持Serverless GPU需验证",
+    "answer": [],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "ECS需自管GPU"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "FC支持Serverless GPU实例"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "EAS需手动配置GPU"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "百炼不提供GPU服务"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "10-1457": {
+    "qid": "10-1457",
+    "classification": "own",
+    "chapter": 10,
+    "quality": "ok",
+    "reason": "考查PAI-EAS核心优势",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "EAS：Elastic Algorithm Service，模型在线服务。把训练好的模型一键部署为在线推理服务，支持弹性伸缩、蓝绿发布、版本管理、监控告警",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "EAS不托管源模型"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "自动扩展和版本管理是核心"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "EAS支持CPU/GPU"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "EAS需网络连接"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

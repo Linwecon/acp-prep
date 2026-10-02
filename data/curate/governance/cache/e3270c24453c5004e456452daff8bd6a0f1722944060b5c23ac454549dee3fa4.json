@@ -1,0 +1,154 @@
+{
+  "items": [
+    {
+      "type": 0,
+      "stem": "某医疗科技公司需构建药品说明书问答系统，要求：① 严格遵循NMPA审评标准；② 支持10万字说明书全文问答；③ 输出必须带引用来源页码；④ 模型需通过等保三级认证。技术团队评估后决定采用ModelScope开源模型+PAI-EAS私有化部署方案。该决策最直接依赖的ModelScope核心定位是？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "提供免费Notebook环境用于快速验证模型效果"
+        },
+        {
+          "option_label": "B",
+          "option_text": "作为开源模型与数据集社区，支持下载可私有化部署的模型权重"
+        },
+        {
+          "option_label": "C",
+          "option_text": "提供按Token计费的托管API服务，满足高并发低延迟需求"
+        },
+        {
+          "option_label": "D",
+          "option_text": "内置RAG知识库引擎，可直接上传PDF并自动完成页码级引用标注"
+        }
+      ],
+      "answer": "B",
+      "analysis": "依据原文10.7节明确界定：'ModelScope（魔搭社区）是阿里云主导的开源模型与数据集社区，类似“模型界的GitHub”'，其核心功能是'下载开源模型权重和数据集'；而'商业版走托管API；要私有化用开源版 + 自建/PAI'。选项A虽提及Notebook，但原文10.7末尾强调'Notebook免费但有运行时长限制'，且非私有化部署必要条件；选项C混淆ModelScope与DashScope（灵积），后者才是API服务；选项D错误将百炼的知识库能力嫁接至ModelScope——百炼才提供RAG知识库（10.2节），ModelScope不提供在线服务或引用标注功能。本题考查ModelScope不可替代的'开源模型分发枢纽'这一必要条件。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 1,
+      "stem": "开发团队在ModelScope Notebook中成功加载Qwen3-0.6B进行推理，但执行LoRA微调时持续报OOM（内存溢出）。以下哪些因素是导致该故障的必要原因，且教材明确指出其约束关系？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "ModelScope Notebook默认GPU显存有限，不支持训练类任务"
+        },
+        {
+          "option_label": "B",
+          "option_text": "LoRA微调需完整加载模型参数并保留梯度，对显存要求远高于纯推理"
+        },
+        {
+          "option_label": "C",
+          "option_text": "Qwen3-0.6B属于大参数量模型，无法在任何Notebook环境中运行"
+        },
+        {
+          "option_label": "D",
+          "option_text": "ModelScope仅提供模型权重下载，不提供训练框架支持"
+        }
+      ],
+      "answer": "AB",
+      "analysis": "依据原文10.7节：'ModelScope Notebook免费但通常有连续运行时长限制（如单次4小时自动关闭）'，隐含其资源规格（CPU/GPU）为轻量级，专为'体验在线Demo'设计，而非训练（10.7末尾）；同时10.4节明确PAI-DLC才是'分布式训练'组件，DSW虽支持微调实验但需'GPU实例'（10.4原理部分），而ModelScope Notebook未被赋予同等算力。选项B是技术本质：LoRA虽降低参数量，但仍需加载全量模型权重+优化器状态+梯度缓存，显存需求显著高于推理（课程实践已验证）。选项C错误——原文10.7示例`modelscope download --model Qwen/Qwen3-0.6B`即用于蒸馏实验，且0.6B属中小规模，可在合理GPU上训练；选项D错误——ModelScope本身不提供训练框架，但用户可自行安装ms-swift等库（课程4.1使用），其定位是模型仓库而非运行平台。本题聚焦'必要故障原因'，AB共同构成'环境能力不足+任务需求超限'的组合约束。",
+      "difficulty_label": "挑战"
+    },
+    {
+      "type": 0,
+      "stem": "运维工程师发现生产环境DashScope API调用频繁返回429错误，监控显示TPM（每分钟Token数）持续超限。此时若直接在代码中增加无间隔重试逻辑，最可能违反原文哪项成本与稳定性原则？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "未利用上下文缓存折扣降低Token消耗"
+        },
+        {
+          "option_label": "B",
+          "option_text": "未按任务难度路由至更小模型以节省Token"
+        },
+        {
+          "option_label": "C",
+          "option_text": "未采用指数退避+抖动策略处理限流"
+        },
+        {
+          "option_label": "D",
+          "option_text": "未设置max_tokens限制输出长度"
+        }
+      ],
+      "answer": "C",
+      "analysis": "原文10.8节'省成本的工程手段'第5条明确要求：'遇429用指数退避 + 抖动重试'；并在'风险'部分警示：'切忌无间隔死循环重试，那会加剧限流、推高成本'。选项C直接对应此原则。选项A、B、D虽均为有效降本手段（10.8节1-4条），但均不针对'429重试行为本身'——A/B关乎输入优化，D关乎输出控制，而C是处理429响应的专属规范。本题考查对'故障响应动作'与'教材明确定义的反模式'的精准匹配，避免泛化理解。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 1,
+      "stem": "当百炼应用需要调用部署在PAI-EAS上的私有模型时，以下哪些条件是必须同时满足的？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "PAI-EAS服务必须配置为公网可访问，并开放HTTP/HTTPS端口"
+        },
+        {
+          "option_label": "B",
+          "option_text": "百炼应用需通过EAS生成的公网Endpoint URL发起HTTP请求"
+        },
+        {
+          "option_label": "C",
+          "option_text": "EAS服务需启用OpenAI兼容API协议（如/v1/chat/completions）"
+        },
+        {
+          "option_label": "D",
+          "option_text": "百炼与PAI需处于同一阿里云地域（Region）以保障内网互通"
+        }
+      ],
+      "answer": "CD",
+      "analysis": "依据原文10.5节'三者可组合'描述：'百炼应用可以调用部署在PAI-EAS上的私有模型'，且10.4节说明EAS提供'弹性伸缩、蓝绿发布、版本管理'，其本质是标准HTTP服务。选项C正确——因百炼工作流/智能体调用外部模型时，需解析标准API响应（如choices[0].message.content），故EAS服务必须实现OpenAI兼容接口（课程4.2 vLLM部署即为此模式）；选项D正确——跨地域调用需走公网，产生延迟与安全风险，而原文10.1全链路示例强调'百炼应用再去调用EAS上的私有模型'，隐含内网直连前提（阿里云VPC内网互通需同地域）。选项A错误——EAS支持VPC内网Endpoint，无需暴露公网（更安全合规）；选项B错误——若使用内网Endpoint，则URL非公网地址。本题考查'跨平台集成'的最小必要网络与协议约束。",
+      "difficulty_label": "挑战"
+    },
+    {
+      "type": 0,
+      "stem": "某金融公司需构建合规问答系统，要求：① 所有客户合同与监管文件严禁出域；② 通用千问模型对'穿透式尽调'等术语回答不准；③ 需支持1000+并发实时响应。技术团队决定基于Qwen2-7B开源模型微调后部署。以下哪组阿里云产品组合最符合全链路需求，且严格遵循原文分层定位？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "ModelScope（下载模型）→ PAI-DSW（微调开发）→ PAI-DLC（大规模训练）→ PAI-EAS（高并发部署）"
+        },
+        {
+          "option_label": "B",
+          "option_text": "DashScope（调用qwen-max）→ 百炼（知识库增强）→ OSS（存储合同）→ DataWorks（数据清洗）"
+        },
+        {
+          "option_label": "C",
+          "option_text": "ModelScope（下载模型）→ PAI-DSW（微调开发）→ 百炼（封装为应用）→ EAS（部署）"
+        },
+        {
+          "option_label": "D",
+          "option_text": "OSS（存储模型）→ MaxCompute（训练）→ PAI-EAS（部署）→ DashScope（API网关）"
+        }
+      ],
+      "answer": "A",
+      "analysis": "依据原文10.1分层表：ModelScope是'开源模型社区'（下载权重），PAI-DSW是'交互式建模'（开发调试），DLC是'分布式训练'（大规模训练），EAS是'在线服务'（高并发部署）——完全匹配题干'下载→开发→训练→部署'四阶段。选项B使用DashScope/API，违反'数据严禁出域'；选项C错误将百炼用于'封装自有模型'，但原文10.2明确百炼'核心动作是建知识库、调Prompt、搭Agent'，其模型调优能力限于平台内轻量微调，不支持接入自定义EAS服务（10.5表未列此能力）；选项D中MaxCompute是'海量离线计算'（10.1表），非模型训练平台，且DashScope是API服务层，非网关组件。本题考查对'开源模型私有化全链路'与'各产品不可替代职能'的精确映射。",
+      "difficulty_label": "挑战"
+    },
+    {
+      "type": 0,
+      "stem": "HR希望零代码搭建新人答疑机器人，上传员工手册后能回答'年假几天'等问题，并发布到钉钉群。若在PAI-DSW中创建Jupyter Notebook编写RAG流水线代码实现该功能，此做法最根本的问题在于？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "PAI-DSW实例需手动管理启停，存在计费失控风险"
+        },
+        {
+          "option_label": "B",
+          "option_text": "违背'谁该用控制台、谁该写代码、谁必须训模型'的选型原则"
+        },
+        {
+          "option_label": "C",
+          "option_text": "RAG流水线在DSW中无法调用DashScope Embedding模型"
+        },
+        {
+          "option_label": "D",
+          "option_text": "DSW不支持PDF文档解析与向量化"
+        }
+      ],
+      "answer": "B",
+      "analysis": "原文10.5节'选型决策'第一条明确：'要快速搭知识库问答/智能体/工作流并发布 → 百炼'；且10.2节强调百炼价值在于'把复杂的工程链路封装成可视化操作：知识库背后就是RAG的解析→切片→向量化→检索'。题干场景（HR零代码、上传手册、发布钉钉）完全匹配百炼核心能力（10.2表），而PAI-DSW定位是'算法工程师写代码'（10.4表），属于'过度工程化'。选项A、C、D虽为事实（10.4成本提醒、10.3 DashScope可被DSW调用、10.2百炼内置文档解析），但均非'最根本问题'——根本矛盾是产品分层错配。本题考查对'使用者角色-产品定位'强约束关系的理解，避免陷入技术细节陷阱。",
+      "difficulty_label": "进阶"
+    }
+  ]
+}

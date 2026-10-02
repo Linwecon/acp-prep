@@ -1,0 +1,205 @@
+{
+  "2-0034": {
+    "qid": "2-0034",
+    "classification": "own",
+    "chapter": 2,
+    "quality": "ok",
+    "reason": "考查提示词六要素中上下文与约束的运用，选项对比清晰。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "六要素需要落成一个稳定的结构。推荐的通用结构是：角色 + 任务 + 上下文 + 示例 + 输出格式与约束",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "仅提任务，未包含编码规范上下文。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "明确要求符合编码规范，提供了关键上下文与约束。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "强调逐步分析（CoT），但未提及编码规范约束。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "参考开源风格，与公司内部规范要求不符。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "2-0057": {
+    "qid": "2-0057",
+    "classification": "own",
+    "chapter": 2,
+    "quality": "ok",
+    "reason": "考查RAG场景下提示词模板的结构化设计，选项区分度好。",
+    "answer": [
+      "A",
+      "D"
+    ],
+    "supported": true,
+    "quote": "模板设计要点：固定部分写规则...变化部分用变量...用分隔符分段...让模型和程序都能识别边界",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "结构清晰，明确区分检索内容与用户问题，并给出指令。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "仅提供用户问题，缺少检索到的上下文信息。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "仅提供检索内容，缺少用户问题与回答指令。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "结构合理，将检索内容作为背景信息，并基于此回答。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "2-0127": {
+    "qid": "2-0127",
+    "classification": "cross",
+    "chapter": 2,
+    "quality": "remove",
+    "reason": "题干提及的函数和具体提示词名称在教材中无依据，属于代码实现细节，无考查价值。",
+    "answer": [],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "教材未提及reviewed_prompt这一具体命名。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "教材未提及translate_prompt这一具体命名。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "query_engine非提示词，是RAG中的组件。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "ra ask非提示词，可能是自定义函数。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "2-0141": {
+    "qid": "2-0141",
+    "classification": "cross",
+    "chapter": 2,
+    "quality": "remove",
+    "reason": "题干提及的函数和具体提示词名称在教材中无依据，属于代码实现细节，无考查价值。",
+    "answer": [],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "教材未提及translate_prompt这一具体命名。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "教材未提及reviewed_prompt这一具体命名。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "query_engine非提示词，是RAG中的组件。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "ra ask非提示词，可能是自定义函数。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "2-0207": {
+    "qid": "2-0207",
+    "classification": "cross",
+    "chapter": -1,
+    "quality": "remove",
+    "reason": "题干提及的函数和方法名在教材中无依据，且场景与RAG相关，但具体方法名未知，无考查价值。",
+    "answer": [],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "ra ask在教材中无定义，无法判断。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "reviewed_prompt在教材中无定义，无法判断。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "translate_prompt在教材中无定义，无法判断。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "llm.invoke是通用调用方法，非场景特定。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "2-0210": {
+    "qid": "2-0210",
+    "classification": "cross",
+    "chapter": -1,
+    "quality": "remove",
+    "reason": "题干提及的函数和返回内容在教材中无依据，属于代码实现细节，无考查价值。",
+    "answer": [],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "可能是合理兜底回复，但教材无依据。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "reviewed_prompt是提示词，非返回内容。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "translate_prompt是提示词，非返回内容。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "ra ask是方法调用，非返回内容。"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

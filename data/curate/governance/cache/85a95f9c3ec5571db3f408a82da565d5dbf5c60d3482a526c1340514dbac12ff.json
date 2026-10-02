@@ -1,0 +1,215 @@
+{
+  "new-9-12-0": {
+    "qid": "new-9-12-0",
+    "classification": "own",
+    "chapter": 9,
+    "quality": "ok",
+    "reason": "题目考查RPM/TPM配额与429错误码的关联，属于本章核心知识点。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "429 是限流（Too Many Requests） | 超过 RPM/TPM/并发配额",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "题干未提及上下文截断或重试，且单次请求Token数未超典型窗口。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "RPM=60，实际72次，超限触发429。原文明确429因超RPM/TPM/并发配额。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "计算错误，72*(280+120)=28800，未超TPM=30000，故非TPM原因。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "题干未提供并发连接数信息，且RPM已超限是明确原因。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-9-12-1": {
+    "qid": "new-9-12-1",
+    "classification": "own",
+    "chapter": 9,
+    "quality": "fixable",
+    "reason": "题目考查Batch API输入规范与失败处理，但选项A与C关于整批失败的说法矛盾，需修正。",
+    "answer": [
+      "A",
+      "C"
+    ],
+    "supported": true,
+    "quote": "必须校验输入输出行数、请求 ID 是否一一对应，防止错位或丢失 | 批内单行失败通常不影响其他行",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "缺失custom_id违反对齐规范，可能导致整批解析失败或结果错位。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "动态时间戳影响缓存，但题干未提TPM超限，且非Batch失败主因。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "单行格式错误可能导致该行失败，但其他行仍可处理，符合教材原则。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "Token长度波动非TPM超限直接原因，且题干未提供TPM超限证据。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-9-12-2": {
+    "qid": "new-9-12-2",
+    "classification": "own",
+    "chapter": 9,
+    "quality": "ok",
+    "reason": "题目考查messages结构与多轮对话历史维护，属于本章核心。",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "多轮对话答非所问、指代不清 → 首先检查“历史消息有没有完整放进 messages”",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "员工投诉忘记之前的话，最可能是未正确追加assistant消息到历史中。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "system消息通常应稳定在开头，截断逻辑错误非题干描述重点。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "题干未描述RAG片段如何传入，且非导致“忘记”的主因。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "合并传入是RAG常规做法，但非导致模型失忆的直接违反项。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-9-12-3": {
+    "qid": "new-9-12-3",
+    "classification": "own",
+    "chapter": 9,
+    "quality": "ok",
+    "reason": "题目考查多场景配额管理与Batch API选型，综合性强。",
+    "answer": [
+      "A",
+      "C",
+      "D"
+    ],
+    "supported": true,
+    "quote": "配额维度与限流：RPM（Requests Per Minute）、TPM（Tokens Per Minute） | 批量生成（Batch API）是把大量请求打包成一个异步离线任务",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "为不同场景申请独立Key并配置差异化配额，符合最小权限和精准管控。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "随机抖动是重试策略，用于应对429，非根治配额不足的根本措施。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "将离线批量任务迁移至Batch API，可移出实时配额体系，缓解压力。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "客户端主动限流确保关键场景不超配额，为其他场景预留余量。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-9-12-4": {
+    "qid": "new-9-12-4",
+    "classification": "own",
+    "chapter": 9,
+    "quality": "ok",
+    "reason": "题目考查TPM超限与429错误码的关联，计算明确。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "429 是限流（Too Many Requests） | 超过 RPM/TPM/并发配额",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "输入Token超窗口可能报400，但题干未提供具体窗口值，且计算显示TPM超限。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "TPM=30000，实际60*12000=720000，严重超限，应触发429。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "输入过长通常导致400或截断，而非服务端崩溃（500）。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "TPM严重超限，服务端应返回429限流错误，而非200成功。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-9-12-5": {
+    "qid": "new-9-12-5",
+    "classification": "own",
+    "chapter": 9,
+    "quality": "ok",
+    "reason": "题目考查上下文缓存机制对成本的影响，知识点明确。",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "上下文缓存为什么能省钱：部分平台对请求中“重复出现的前缀”做缓存 | 要享受到缓存，关键是保持前缀稳定",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "动态日期破坏前缀稳定性，使缓存命中率为零，导致成本上升。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "12个Token增量过小，不足以解释27%的成本显著上升。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "教材未提及推理复杂度导致降级计费，且非成本上升主因。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "题干明确“保持每轮都传入完整history”，未提及重复追加错误。"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

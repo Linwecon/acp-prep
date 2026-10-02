@@ -1,0 +1,215 @@
+{
+  "new-1-6-0": {
+    "qid": "new-1-6-0",
+    "classification": "own",
+    "chapter": 1,
+    "quality": "ok",
+    "reason": "考查多轮对话无状态特性，需客户端维护历史消息。",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "大模型 API 是无状态（Stateless）的：每次 HTTP 请求相互独立，服务端不会因为你上次调过就'记得'你。所谓'多轮对话'，本质是客户端把历史消息拼进 messages，每次重新发一遍。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "temperature过高增加随机性，但题干已排查历史消息完整，非主因。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "参数冻结是模型特性，但不会导致单轮内忽略已提供的上下文。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "无状态API要求每次调用必须包含完整历史，否则模型不知指代。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "top_p扩大候选集可能增加多样性，但题干已说明历史消息完整，非根本原因。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-1-6-1": {
+    "qid": "new-1-6-1",
+    "classification": "own",
+    "chapter": 1,
+    "quality": "ok",
+    "reason": "考查模型不擅精确计算，应使用工具调用。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "不擅精确计算：自回归逐 Token 生成，缺乏真正的符号运算机制，多位数进位、大数乘除很容易出错。精确计算应交给计算器/代码工具（Function Calling，见 Agent 章）。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "仅提示词无法改变模型生成机制，不能根本规避计算错误。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "Function Calling调用外部计算工具，可根本规避模型计算缺陷。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "调低temperature仅增加输出稳定性，不改变模型不擅计算的根本局限。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "RAG提供数字，但交由模型心算仍会出错，未根本解决。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-1-6-2": {
+    "qid": "new-1-6-2",
+    "classification": "own",
+    "chapter": 1,
+    "quality": "ok",
+    "reason": "考查不同模型因词表不同导致Token数差异。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "同一段文字在不同模型上 Token 数可能不同，因为词表不同。主流模型使用 BPE（Byte Pair Encoding，字节对编码）等子词算法构建词表。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "原文未明确区分Qwen与LLaMA所用分词算法，且BPE和WordPiece均为子词算法。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "词表大小和构成不同，导致相同文本被切分成不同数量与粒度的Token。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "原文未说明特定模型对空格标点的处理规则，且通常会计入Token。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "BPE在字节级别操作，与字符编码方式无关。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-1-6-3": {
+    "qid": "new-1-6-3",
+    "classification": "own",
+    "chapter": 1,
+    "quality": "ok",
+    "reason": "考查长上下文'Lost in the Middle'现象及RAG优化策略。",
+    "answer": [
+      "A",
+      "B"
+    ],
+    "supported": true,
+    "quote": "过长的无关上下文会稀释注意力、引入噪声（'Lost in the Middle'现象）。上下文工程的核心不是'喂得多'，而是'喂得准'。检索相关片段（RAG）：只把最相关的几段放进来。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "RAG检索最相关片段，精准注入，符合'喂得准'理念。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "滑动窗口分块注入，避免一次性注入过长无关内容，有效缓解注意力稀释。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "全局摘要会丢失细节，无法保证中间章节关键政策被准确回答。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "增大窗口直接输入全文，会加剧'Lost in the Middle'现象，不符合'喂得准'理念。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-1-6-4": {
+    "qid": "new-1-6-4",
+    "classification": "own",
+    "chapter": 1,
+    "quality": "ok",
+    "reason": "考查流式输出与子词Token解码特性。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "由于 Token 可能是子词片段，流式显示时偶尔会看到一个词被拆成几部分蹦出、或空格出现的时机有点怪，这是正常现象。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "流式输出只改变传输方式，不改变模型推理质量和过程。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "BPE子词分词将单词切分为多个Token，流式输出时逐Token解码显示。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "temperature影响采样随机性，与单词被拆分成多个Token输出的现象无关。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "题干现象是逐词输出，非截断导致的内容缺失。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-1-6-5": {
+    "qid": "new-1-6-5",
+    "classification": "own",
+    "chapter": 1,
+    "quality": "ok",
+    "reason": "考查模型选型原则：根据任务难度权衡能力、成本与延迟。",
+    "answer": [
+      "A",
+      "B",
+      "C"
+    ],
+    "supported": true,
+    "quote": "工程选型口诀：先看任务难度，再看成本与延迟。能用小模型解决的绝不上大模型。Turbo 快省、Max 最强、Plus 均衡。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "RAG+私域数据问答属中等难度，Qwen-Plus平衡能力与成本，符合原则。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "简单FAQ对能力要求低，Qwen-Turbo优先保障延迟和成本，符合原则。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "复杂推理与合规校验需高能力，接受高成本选用Qwen-Max，符合原则。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "所有场景默认用Max不符合'先看任务难度'的成本优化原则。"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

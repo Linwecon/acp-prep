@@ -1,0 +1,252 @@
+{
+  "2-1446": {
+    "qid": "2-1446",
+    "classification": "own",
+    "chapter": 2,
+    "quality": "ok",
+    "reason": "题目考查提示词有效性提升措施，属于提示工程核心知识点，选项清晰。",
+    "answer": [
+      "A",
+      "B",
+      "D",
+      "E"
+    ],
+    "supported": true,
+    "quote": "明确任务目标，避免模糊表述；提供清晰的输出格式要求；赋予模型具体角色；针对复杂任务，采用思维链提示引导分步推理",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "明确任务目标是六要素之一，可提升效果。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "输出格式要求是六要素之一，可稳定输出。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "冗余指令会稀释注意力，是误区。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "赋予角色是六要素之一，可激活特定模式。"
+      },
+      {
+        "label": "E",
+        "selected": true,
+        "why": "思维链提示可提升复杂推理任务准确率。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "2-6001": {
+    "qid": "2-6001",
+    "classification": "own",
+    "chapter": 2,
+    "quality": "ok",
+    "reason": "题目考查少样本提示解决特定类别识别率低的问题，属于提示工程技巧选型。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "Few-shot（少样本）给 2~5 个示例让模型模仿；格式/风格敏感、需稳定结构的任务",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "增加训练数据属于微调，非提示工程。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "少样本提示可提供示例对齐模型输出。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "换模型非提示工程优化首选。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "简化任务可能丢失信息，非最佳。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "2-0603": {
+    "qid": "2-0603",
+    "classification": "own",
+    "chapter": 2,
+    "quality": "ok",
+    "reason": "题目考查提升思维链提示效果的因素，属于CoT知识点，选项明确。",
+    "answer": [
+      "A",
+      "B",
+      "C",
+      "F"
+    ],
+    "supported": true,
+    "quote": "引导模型在给出最终答案前，显式输出中间推理步骤；把复杂问题分解为若干子问题逐步求解",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "明确背景有助于模型理解问题。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "提供中间步骤是CoT核心。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "简洁语言减少干扰。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "无关信息会干扰推理。"
+      },
+      {
+        "label": "E",
+        "selected": false,
+        "why": "增加难度不必然提升效果。"
+      },
+      {
+        "label": "F",
+        "selected": true,
+        "why": "逻辑连贯是有效推理链关键。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "2-0669": {
+    "qid": "2-0669",
+    "classification": "cross",
+    "chapter": 1,
+    "quality": "ok",
+    "reason": "题目考查大模型擅长任务，属于大模型基础能力认知，非提示工程专属。",
+    "answer": [
+      "A",
+      "B",
+      "C"
+    ],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "文本摘要和改写是LLM常见能力。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "代码生成和解释是LLM常见能力。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "多轮对话交互是LLM常见能力。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "精确数学计算非LLM强项。"
+      },
+      {
+        "label": "E",
+        "selected": false,
+        "why": "复杂逻辑推理需CoT辅助，非直接出色。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "2-0822": {
+    "qid": "2-0822",
+    "classification": "own",
+    "chapter": 2,
+    "quality": "ok",
+    "reason": "题目考查结构化数据提取的提示技巧，涉及输出格式和温度调控，属于提示工程。",
+    "answer": [
+      "C",
+      "D"
+    ],
+    "supported": true,
+    "quote": "结构化输出（JSON Mode）要求严格按 JSON 等格式输出，配合 Schema 校验；下游程序要解析模型输出 → 用结构化输出（JSON Mode）+ 枚举约束 + Schema 校验",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "调低温度有助于稳定，但非最直接措施。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "分两步可能增加复杂度，非必需。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "明确JSON格式是结构化输出关键。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "提供示例是少样本提示，可对齐格式。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "2-1016": {
+    "qid": "2-1016",
+    "classification": "own",
+    "chapter": 2,
+    "quality": "ok",
+    "reason": "题目考查提示词六要素中“上下文”的识别，属于核心知识点，选项清晰。",
+    "answer": [
+      "A",
+      "F"
+    ],
+    "supported": true,
+    "quote": "上下文（Context）提供背景、事实、范围；附上参考资料、业务规则",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "用户偏好是背景信息，属上下文。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "数量要求是任务目标或约束。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "输出格式是格式要素。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "扮演角色是角色要素。"
+      },
+      {
+        "label": "E",
+        "selected": false,
+        "why": "根据行程安排是任务指令。"
+      },
+      {
+        "label": "F",
+        "selected": true,
+        "why": "行程时间地点是具体背景，属上下文。"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

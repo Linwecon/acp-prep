@@ -1,0 +1,219 @@
+{
+  "6-0877": {
+    "qid": "6-0877",
+    "classification": "own",
+    "chapter": 6,
+    "quality": "ok",
+    "reason": "考查高并发下保障服务稳定性的核心措施，与本章高可用、弹性伸缩内容一致。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "保障稳定性的四类手段：弹性伸缩 + 负载均衡；限流、重试与降级熔断",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "分配过多资源浪费成本，非核心措施。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "限流和扩缩容是应对高并发、保障稳定性的关键。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "不现实，用户无法预知所有请求。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "关闭日志损害可观测性，不利于稳定性。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "6-0878": {
+    "qid": "6-0878",
+    "classification": "own",
+    "chapter": 6,
+    "quality": "fixable",
+    "reason": "选项D“动态批处理”主要提升吞吐，不直接降低模型本身显存占用，题干表述易引发歧义。",
+    "answer": [
+      "A",
+      "B",
+      "C"
+    ],
+    "supported": true,
+    "quote": "量化主要省显存；张量并行能把单卡放不下的权重切到多卡；知识蒸馏（用大模型教小模型）",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "量化通过降低精度直接减少权重显存占用。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "模型并行将权重拆分到多卡，降低单卡显存压力。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "蒸馏得到的小模型参数量更少，显存占用更低。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "动态批处理提升吞吐，不减少模型权重显存。"
+      }
+    ],
+    "duplicate_of": "6-1364"
+  },
+  "6-1124": {
+    "qid": "6-1124",
+    "classification": "own",
+    "chapter": 6,
+    "quality": "ok",
+    "reason": "考查多轮对话场景下兼顾质量、成本与速度的优化手段，与上下文缓存知识点对应。",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "上下文缓存复用公共前缀降本提速；如千问系列缓存token单价约为输入token的40%",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "Batch API适合离线任务，不提升实时响应速度。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "并行调用增加成本，不直接降低成本。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "上下文缓存复用前缀，减少重复计算，降本提速。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "量化降显存，但题干强调多轮对话场景。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "6-1256": {
+    "qid": "6-1256",
+    "classification": "cross",
+    "chapter": -1,
+    "quality": "review",
+    "reason": "考点“模型小型化”属于模型压缩范畴，教材中分散在量化、蒸馏等章节，无专章。选项C“轻量化模型微调”表述模糊。",
+    "answer": [
+      "A",
+      "B",
+      "C"
+    ],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "参数量化是常见的小型化方案。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "网络剪枝通过移除冗余参数实现小型化。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "微调可适配小模型，但“轻量化模型微调”表述不标准。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "增加维度会使模型更大，非小型化。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "6-1280": {
+    "qid": "6-1280",
+    "classification": "own",
+    "chapter": 6,
+    "quality": "ok",
+    "reason": "考查私有云部署（如ECS自建）的核心优势，与部署形态对比内容一致。",
+    "answer": [
+      "A",
+      "B"
+    ],
+    "supported": true,
+    "quote": "ECS自建的核心优势是可控、无冷启动、可深度优化；数据不出域、稳定高吞吐、深度定制",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "私有部署数据自主控制权高。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "支持深度定制化是私有部署优势。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "私有部署需自运维，成本不低。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "高并发需自设计弹性伸缩，非自动。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "6-1364": {
+    "qid": "6-1364",
+    "classification": "own",
+    "chapter": 6,
+    "quality": "fixable",
+    "reason": "与6-0878完全相同，为重复题目。选项D“动态批处理”不直接降低模型显存占用。",
+    "answer": [
+      "A",
+      "B",
+      "C"
+    ],
+    "supported": true,
+    "quote": "量化主要省显存；张量并行能把单卡放不下的权重切到多卡；知识蒸馏（用大模型教小模型）",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "量化直接减少权重显存占用。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "模型并行降低单卡显存压力。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "蒸馏得到的小模型参数量更少。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "动态批处理提升吞吐，不减少模型权重显存。"
+      }
+    ],
+    "duplicate_of": "6-0878"
+  }
+}

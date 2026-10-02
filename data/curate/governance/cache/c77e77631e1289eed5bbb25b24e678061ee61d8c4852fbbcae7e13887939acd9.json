@@ -1,0 +1,212 @@
+{
+  "3-1455": {
+    "qid": "3-1455",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "考点明确，选项C正确对应原文描述",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "Markdown 切片：按标题层级（`#`/`##`/`###`）切；适用场景：有清晰标题结构的制度、手册、文档",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "原文明确指出其适用于有标题结构的文档"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "原文未提图片处理能力"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "原文限定适用场景为有标题结构文档"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "原文未提自动提取表格和图片"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-0013": {
+    "qid": "3-0013",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "考点明确，放宽阈值影响Recall与Precision",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "放宽相似度阈值是 召回率 ↑、精确率 ↓（必考）",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "原文明确指出放宽阈值使召回率上升"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "与原文结论相反"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "原文明确说明会变化"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "精度即Precision，原文说会降低"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-0014": {
+    "qid": "3-0014",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "结构丢失是解析阶段核心问题",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "文档解析是RAG质量的地基——解析阶段丢失的结构，后面用再复杂的算法也补不回来",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "原文强调结构化对检索的关键作用"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "ZIP压缩不影响文本语义"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "temperature影响生成而非解析质量"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "停用词删除不解决结构丢失问题"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-0016": {
+    "qid": "3-0016",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "元数据过滤是权限控制标准方案",
+    "answer": [
+      "D"
+    ],
+    "supported": true,
+    "quote": "元数据过滤：权限、时效、部门隔离；检索前按来源/时间/部门等标签先过滤候选集",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "提示词无法强制执行权限控制"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "微调不解决实时权限过滤"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "加密钥匙非RAG权限控制机制"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "原文明确列为元数据过滤应用场景"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-0017": {
+    "qid": "3-0017",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "召回不足需增大Top K",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "K 调大 → 召回率（相关文档被找到的比例）↑，但无关噪声也增多、精确率 ↓、token 成本 ↑",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "模型参数量不解决召回不足"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "原文明确K调大提升召回率"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "放弃知识库违背RAG本质"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "界面外观不影响检索逻辑"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-0018": {
+    "qid": "3-0018",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "专业术语需动态查证，RAG最适配",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "RAG的核心思路是“开卷考试”，在回答前先从企业知识库检索出最相关的几段资料，连同问题一起交给模型，让它“看着资料作答”",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "少量示例无法覆盖千条术语"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "零样本无法保证专业术语准确"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "RAG可动态查询统一术语标准"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "穷举不现实且非RAG优势"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

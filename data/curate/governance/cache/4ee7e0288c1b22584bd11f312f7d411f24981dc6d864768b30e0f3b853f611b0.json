@@ -1,0 +1,212 @@
+{
+  "new-11-66-0": {
+    "qid": "new-11-66-0",
+    "classification": "own",
+    "chapter": 11,
+    "quality": "ok",
+    "reason": "考查视频理解机制，选项B符合教材对时序对齐的阐述。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "视频理解的标准处理方式：把画面、语音、字幕按时间轴对齐，交给LLM综合。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "延迟非根本原因，教材未强调实时流式ASR是视频理解关键。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "教材强调视频理解需对齐关键帧、音轨与字幕，为LLM提供时序锚点。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "Qwen-VL是图文模型，不直接处理MP4文件，且上下文窗口非视频理解核心。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "视频理解不依赖知识库切片，题干问题在理解阶段而非检索阶段。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-11-66-1": {
+    "qid": "new-11-66-1",
+    "classification": "own",
+    "chapter": 11,
+    "quality": "ok",
+    "reason": "考查文档智能解析链路，表格错乱需优先启用版面分析与结构化还原。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "文档智能解析链路：OCR、版面分析、结构化还原（表格转Markdown保留行列关系）。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "正则提取不能解决表格行列错乱的根本结构问题。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "教材明确表格需转Markdown保留结构，是修复表格错乱的首要动作。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "Qwen-VL用于看图作答，不解决PDF解析阶段的表格结构化问题。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "纠错润色在结构化之后，不能优先解决表格行列错乱问题。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-11-66-2": {
+    "qid": "new-11-66-2",
+    "classification": "own",
+    "chapter": 11,
+    "quality": "ok",
+    "reason": "考查医疗案例合规要求，必须标识AI辅助并需医师复核。",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "医疗决策必须由医生做出，不可替代诊断；需可解释与留痕。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "内容安全检测病灶非教材强调的医疗合规核心，且image_moderation用于安全审核。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "联合检索是技术手段，非必须的合规或保障措施。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "教材明确医疗案例必须坚持AI辅助、人工复核，并添加标识。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "部署方式非必须的合规保障，且端到端推理未强调复核要求。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-11-66-3": {
+    "qid": "new-11-66-3",
+    "classification": "own",
+    "chapter": 11,
+    "quality": "ok",
+    "reason": "考查生成类应用风险，图文一致性错误需多模态审核校验。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "图文一致性：模型可能生成'看起来对但细节错'的内容，必须靠人工抽检或多模态审核模型兜底。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "调整采样参数是生成调优，非应对已生成错误内容的立即流程。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "教材指出图文一致性需多模态审核模型兜底，是应对数字渲染错误的直接措施。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "修改提示词是预防措施，非对已发生错误的立即应对流程。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "更改数字表述是规避方法，非教材推荐的应对生成错误的流程。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-11-66-4": {
+    "qid": "new-11-66-4",
+    "classification": "own",
+    "chapter": 11,
+    "quality": "ok",
+    "reason": "考查管道式架构组件，需OCR识别、LLM分析、TTS语音合成。",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "语音助手是典型的管道式架构，由多个各司其职的模型串成，ASR和TTS是不同模型。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "通义听悟是ASR（语音转文字），不用于手写体OCR识别。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "Qwen-VL用于图文理解，但手写作文识别首要任务是OCR，非必须用Qwen-VL。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "语音播报反馈需TTS将评语文字合成语音，CosyVoice是TTS产品。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "手写作文通常无需复杂版面分析，DashScopeParse非必需环节。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-11-66-5": {
+    "qid": "new-11-66-5",
+    "classification": "own",
+    "chapter": 11,
+    "quality": "ok",
+    "reason": "考查多模态内容安全原则，视频需拆分帧与音轨分别检测。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "多模态安全 = 文本 + 图像 + 音频 + 视频四类检测，缺一不可。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "异步检测是模式问题，但根本违反原则是未对视频画面（图像）做检测。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "教材强调多模态安全需四类检测，仅文本过滤违反了该原则。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "凭证管理是安全实践，非题干所述内容安全原则的核心违反。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "OCR文字二次审核是增强措施，但视频画面本身未检测是主要违规。"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

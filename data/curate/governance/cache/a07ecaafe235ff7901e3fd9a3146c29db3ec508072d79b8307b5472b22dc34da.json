@@ -1,0 +1,208 @@
+{
+  "10-1458": {
+    "qid": "10-1458",
+    "classification": "own",
+    "chapter": 10,
+    "quality": "ok",
+    "reason": "考查PAI模型服务化核心能力，原文明确EAS支持RESTful/gRPC部署",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "EAS：Elastic Algorithm Service，模型在线服务。把训练好的模型一键部署为在线推理服务，支持弹性伸缩、蓝绿发布、版本管理、监控告警",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "PAI支持开源/微调模型部署"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "EAS支持RESTful/gRPC服务化"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "EAS支持监控与弹性伸缩"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "EAS是云端弹性服务"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "10-0594": {
+    "qid": "10-0594",
+    "classification": "cross",
+    "chapter": 10,
+    "quality": "review",
+    "reason": "模型能力对比需结合第1章LLM本质与第10章千问家族，原文未直接比较三者专业性",
+    "answer": [],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "Qwen-7B缺乏领域微调可能影响专业性，但原文未提"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "对话微调提升理解力，但原文未提广度对比"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "Qwen-Max能力最强，但原文未提参数量与数据量"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "微调不能突破模型固有上限，原文未提"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "10-1179": {
+    "qid": "10-1179",
+    "classification": "misplaced",
+    "chapter": 12,
+    "quality": "fixable",
+    "reason": "代码涉及LlamaIndex框架配置，属第12章框架知识",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "LlamaIndex核心链：Document→Node→Index→Retriever→QueryEngine",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "流式输出由stream参数控制"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "Embedding不参与生成过程"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "Settings全局配置避免重复指定"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "定义是过程，非目的"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "10-1183": {
+    "qid": "10-1183",
+    "classification": "own",
+    "chapter": 10,
+    "quality": "ok",
+    "reason": "考查OpenAI兼容接口消息内容修改位置，原文示例明确content字段",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "response = client.chat.completions.create( model=\"qwen-plus\", messages=[{\"role\": \"user\", \"content\": \"年假有几天？\"}], stream=True)",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "用户输入内容在messages.content"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "API Key用于认证"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "base_url指定接口地址"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "model指定模型规格"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "10-1187": {
+    "qid": "10-1187",
+    "classification": "own",
+    "chapter": 10,
+    "quality": "ok",
+    "reason": "考查OpenAI兼容接口响应解析路径，原文示例隐含标准结构",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "response = client.chat.completions.create( model=\"qwen-plus\", messages=[{\"role\": \"user\", \"content\": \"年假有几天？\"}], stream=True)",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "仅获取choices列表"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "message属性不存在"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "标准OpenAI响应路径"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "choices无content属性"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "10-1430": {
+    "qid": "10-1430",
+    "classification": "cross",
+    "chapter": 4,
+    "quality": "review",
+    "reason": "代码含thread/assistant/run等Agent概念，属第4章Agent闭环流程",
+    "answer": [],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "Runs.create触发执行但非获取结果"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "Messages.list获取历史消息"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "submit_outputs处理工具调用"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "解析是最后步骤但非关键环节"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

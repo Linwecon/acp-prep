@@ -1,0 +1,109 @@
+{
+  "new-6-42-0": {
+    "qid": "new-6-42-0",
+    "classification": "own",
+    "chapter": 6,
+    "quality": "ok",
+    "reason": "场景题考查部署选型决策，结合数据合规、灰度发布、吞吐、运维能力等关键条件，符合本章考点。",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "PAI-EAS（Elastic Algorithm Service）是阿里云PAI平台的模型在线服务，可把开源社区模型或自训练/微调模型部署为在线服务，提供弹性扩缩容、蓝绿/灰度发布、资源组管理、版本控制、资源监控等企业级能力。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "题干要求数据不出域、支持灰度发布与AB测试，PAI-EAS提供开箱即用的蓝绿发布和自动弹性，符合需求且规避自运维风险。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "ECS+vLLM虽可控，但题干明确要求灰度发布，而ECS自建需额外实现，PAI-EAS更匹配。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "ECS可通过负载均衡和版本管理实现灰度，并非无法满足，但EAS更便捷。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "PAI-EAS支持自定义模型部署，性能优化空间足够，且题干更强调企业级发布能力而非极致调优。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-6-42-2": {
+    "qid": "new-6-42-2",
+    "classification": "own",
+    "chapter": 6,
+    "quality": "ok",
+    "reason": "考查TPOT优化措施，涉及量化、序列长度、显存利用、模型架构等本章知识点。",
+    "answer": [
+      "A",
+      "B",
+      "D"
+    ],
+    "supported": true,
+    "quote": "量化通常也加速：因为Decode阶段是显存带宽密集型，从显存读权重的字节数变少了。GQA（分组查询注意力）多个Q头共享一组KV头，KV头数成倍减少。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "AWQ INT4量化可减少显存带宽压力，若框架支持对应算子，可加速Decode阶段从而降低TPOT。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "缩短序列长度可减少KV Cache大小，减轻Decode阶段显存带宽压力，可能降低TPOT。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "提高显存利用率主要影响并发能力，与TPOT（每输出token时间）无直接关系。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "GQA减少KV头数，可降低KV Cache大小，从而可能降低Decode阶段的显存带宽压力，优化TPOT。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-6-42-3": {
+    "qid": "new-6-42-3",
+    "classification": "own",
+    "chapter": 6,
+    "quality": "ok",
+    "reason": "考查监控告警指标选择，需结合教材中成本、性能、质量安全三个观测维度。",
+    "answer": [
+      "D"
+    ],
+    "supported": true,
+    "quote": "从成本、性能、质量与安全三个维度观测LLM应用。监控告警要为关键指标设定正常范围与告警阈值（如单请求Token数、日消耗、总响应时间、敏感命中）。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "TTFT和敏感词命中率反映体验与安全，但单请求Token消耗不能直接反映成本失控风险（需看总量）。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "QPS和GPU占用反映性能与资源，模型加载耗时非持续监控项，未直接体现成本与用户体验质量。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "TPOT和错误率反映性能与稳定性，并发数反映负载，但未包含成本消耗指标。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "RT（总响应时间）直接关联用户体验，日总Token消耗反映成本风险，回答合规性得分关联质量安全，组合最全面。"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

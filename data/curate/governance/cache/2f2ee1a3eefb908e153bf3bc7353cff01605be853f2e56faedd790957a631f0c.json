@@ -1,0 +1,212 @@
+{
+  "1-0020": {
+    "qid": "1-0020",
+    "classification": "own",
+    "chapter": 1,
+    "quality": "ok",
+    "reason": "考查Tokenization定义，原文明确'分词器（Tokenizer）把文本切成一个个Token'，且'是模型处理文本的最小单位'，选项B准确对应'分割成单词、子词或字符等更小的语义单元'。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "分词器（Tokenizer）把文本切成一个个 Token，并映射为词表里的整数 ID。Token 通常是子词片段，不一定是完整的词。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "将文本转为固定长度向量是Embedding阶段（第二阶段）的作用，非分词作用；原文明确分词输出是ID序列，非向量。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "原文明确定义：'分词器（Tokenizer）把文本切成一个个 Token'，且说明Token是'子词片段'，对应'单词、子词或字符等更小的语义单元'。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "提取情感值属于下游NLP任务，非分词器功能；原文未提及情感计算。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "提供上下文信息是messages结构和system prompt的作用，分词本身不提供上下文；原文强调分词是预处理步骤。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "1-0080": {
+    "qid": "1-0080",
+    "classification": "misplaced",
+    "chapter": 1,
+    "quality": "remove",
+    "reason": "题干问'用于文本扩写和润色的提示词'，考点是提示词设计目的，属于第2章'提示工程'核心内容（提示词六要素中'任务'定义），原文1.1-1.12全篇未出现'扩写/润色'作为提示词任务示例，也未定义提示词功能。",
+    "answer": [
+      "A"
+    ],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "虽语义正确，但本章知识体系未覆盖提示词的具体任务类型定义；'扩写和润色'在第2章'提示工程'中作为典型任务出现。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "增加训练数据是数据合成或蒸馏任务，与提示词无关；本章未提及此关联。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "推理时间由模型规模、量化、部署优化决定，提示词不直接影响；本章1.6/1.10讨论延迟但未链接提示词。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "参数数量由模型架构决定，提示词无法改变；本章1.10明确参数是训练时冻结的。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "1-0097": {
+    "qid": "1-0097",
+    "classification": "beyond",
+    "chapter": 1,
+    "quality": "remove",
+    "reason": "'extract_tags函数'在第1章原文中完全未出现，所有知识条目及全文均无该函数定义或描述；属于代码实现细节或外部库（如langchain）特有API，超出本章'大模型基础'范畴。",
+    "answer": [
+      "A"
+    ],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "函数名暗示功能，但本章未定义任何函数；'标签提取'在RAG（第3章）或评估（第7章）可能涉及，但非本章内容。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "关键词提取属NLP传统任务，本章未提及；第3章RAG提到'文本切片'但非extract_tags。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "句子提取在1.3五阶段中未涉及；第3章RAG有'句子窗口检索'但非函数调用。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "段落提取同理，本章无相关函数或概念；文档解析在第3章RAG中提及但非本章考点。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "1-0151": {
+    "qid": "1-0151",
+    "classification": "own",
+    "chapter": 1,
+    "quality": "ok",
+    "reason": "考查seed作用，原文1.7.3明确'seed：在每次调用时传入相同 seed 且其他参数不变，模型会尽最大努力返回相同结果'，且1.7.4风险提示'temperature=0 就能保证每次输出完全相同 → 只能最大限度降低随机性'，直接支持A选项。",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "seed：在每次调用时传入相同 seed 且其他参数不变，模型会尽最大努力返回相同结果；但官方明确：无法 100% 保证完全一致。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "原文明确seed作用是'尽力复现'，即'使输出可重现'，虽不能100%保证但目标是可重现。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "增加多样性是调高temperature/top_p的作用，seed与多样性无关；原文1.7.4指出seed用于复现而非增加多样性。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "使输出更具确定性是低temperature的作用，seed本身不改变确定性程度，只影响复现性；原文将temperature与seed分列不同小节。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "控制输出长度由max_tokens参数决定，seed无此功能；原文1.3第四阶段明确停止条件含'达到最大生成长度'，未提seed。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "1-0172": {
+    "qid": "1-0172",
+    "classification": "beyond",
+    "chapter": 1,
+    "quality": "remove",
+    "reason": "'score.to_pandas()'是pandas库或特定评估框架（如RAGAS）的API方法，第1章原文完全未出现该函数或任何pandas相关内容；属于第7章'模型评估'或第12章'框架与工具'的技术细节，超出本章基础范畴。",
+    "answer": [
+      "A"
+    ],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "虽pandas转换是常见操作，但本章未涉及任何评估结果的数据结构或转换方法；第7章RAGAS评估可能涉及但非本章内容。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "增加训练数据与评估结果转换无关；本章1.10讨论数据但未链接to_pandas。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "推理时间优化在1.6/1.10讨论，但to_pandas是后处理，不影响推理；原文无此关联。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "参数数量由模型架构决定，to_pandas不改变模型；本章1.10明确参数冻结。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "1-0177": {
+    "qid": "1-0177",
+    "classification": "cross",
+    "chapter": 1,
+    "quality": "fixable",
+    "reason": "分隔符作用在第1章未直接定义，但第2章'提示工程'知识条目明确'分隔符的结构化与防注入作用'；本题虽归入第1章，但原文1.7.4调参建议中提及'不要同时大改temperature和top_p'，隐含结构化提示必要性，且1.12误区表有'指令冲突'，间接支持分隔符防冲突作用；但最直接证据在第2章，故为cross。",
+    "answer": [
+      "A"
+    ],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "分隔符核心作用是结构化提示、减少歧义，本章1.12误区表'指令冲突'暗示需清晰界定指令边界，虽未明说分隔符，但逻辑连贯；第2章明确其作用。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "增加训练数据与分隔符无关；本章未建立此联系。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "推理时间由模型和部署决定，分隔符不优化性能；本章1.6/1.10未提及其对延迟影响。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "参数数量不可通过提示词改变；本章1.10强调参数冻结。"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

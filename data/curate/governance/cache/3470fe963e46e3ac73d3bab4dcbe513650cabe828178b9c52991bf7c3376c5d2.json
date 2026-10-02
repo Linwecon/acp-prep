@@ -1,0 +1,154 @@
+{
+  "items": [
+    {
+      "type": 0,
+      "stem": "某教育公司新人答疑机器人初期仅需单轮问答，两周后需支持RAG知识库、多轮对话、调用三个内部系统及上线评测。此时工程师发现代码从几十行膨胀至数百行，频繁重复编写messages拼接、历史维护和检索逻辑。依据第12章，该现象最根本地揭示了框架的核心价值在于：",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "提升大模型的推理能力与知识覆盖范围"
+        },
+        {
+          "option_label": "B",
+          "option_text": "将反复出现的工程模式（如提示词拼装、记忆管理、检索流程）抽象为可组合组件"
+        },
+        {
+          "option_label": "C",
+          "option_text": "自动优化向量嵌入质量与检索召回率"
+        },
+        {
+          "option_label": "D",
+          "option_text": "替代人工编写提示词，生成更符合业务语义的system prompt"
+        }
+      ],
+      "answer": "B",
+      "analysis": "依据12.1节'框架的本质价值是把大模型应用中反复出现的工程模式抽象成可组合的组件'，并明确指出其解决的是'工程化编排、组件复用、流程标准化'，而非提升模型智力（排除A、D）或自动优化数据层（排除C）。题干中'重复写检索逻辑、手工维护messages'正是'共性脏活'的典型表现，对应表格中'文档加载/切片/检索'和'多轮对话历史'需被框架抽象的场景。教材原文强调'它不提升模型本身的智力，而是降低拼装复杂度、统一接口约定'，故B为唯一正确答案。",
+      "difficulty_label": "基础"
+    },
+    {
+      "type": 1,
+      "stem": "某团队正为内部制度问答系统选型：文档含大量扫描件PDF与复杂财务报表，需支持HR非技术人员上传/更新文档，且IT仅提供百炼API Key。根据第12章12.5节与12.6.2节，以下哪些工具组合及理由符合课程推荐的最佳实践？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "选用DashScopeParse作为文档解析器——因其具备OCR与版面分析能力，可结构化提取扫描件中的表格与图文混排内容"
+        },
+        {
+          "option_label": "B",
+          "option_text": "选用SimpleDirectoryReader——因其支持PDF/DOCX/MD，且课程默认入口，对扫描件处理效果稳定"
+        },
+        {
+          "option_label": "C",
+          "option_text": "选用Dify平台——因其提供可视化知识库管理界面，允许HR自助上传、解析、调试问答，无需编写代码"
+        },
+        {
+          "option_label": "D",
+          "option_text": "选用LangChain+LlamaIndex组合——因二者可组合使用，且LangChain的Agent能动态调用DashScopeParse进行解析"
+        }
+      ],
+      "answer": "AC",
+      "analysis": "A正确：12.5节明确指出'扫描件、复杂表格、图文混排PDF → 上DashScopeParse（OCR + 版面结构化）'，并强调其输出结构化Markdown，保留表格行列结构，直击'合同/报表数值类问题答错'的病根；C正确：12.6.2节案例'HR想自己搭制度问答机器人，IT只提供API Key'直接对应本题场景，结论为'Dify这类低代码平台是最优选'；B错误：12.5节明确警示'SimpleDirectoryReader对扫描件、复杂表格处理有限'，且'扫描件PDF读出来是空的'需OCR方案；D错误：DashScopeParse是文档解析服务，非LangChain Tool，且12.5节强调其应作为file_extractor注入SimpleDirectoryReader，而非由LangChain Agent动态调用——这属于混淆解析层与编排层职责。教材'选型决策路径'与'自测题1解析'均支持AC。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 0,
+      "stem": "在构建一个需同时满足'企业知识库RAG'与'动态调用报销/请假API'的智能助手时，课程12.4节明确指出一种典型生产架构。该架构中，LlamaIndex与LangChain的分工边界应如何划分？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "LlamaIndex负责Agent规划与工具调用决策，LangChain负责向量索引构建与检索"
+        },
+        {
+          "option_label": "B",
+          "option_text": "LlamaIndex负责文档解析、索引构建与检索，LangChain负责将检索结果封装为Tool并交由Agent执行多步流程"
+        },
+        {
+          "option_label": "C",
+          "option_text": "LlamaIndex与LangChain各自独立建索引，通过统一向量库实现数据同步"
+        },
+        {
+          "option_label": "D",
+          "option_text": "LangChain的Retriever模块完全替代LlamaIndex，因此无需引入LlamaIndex"
+        }
+      ],
+      "answer": "B",
+      "analysis": "依据12.4节'二者不是互斥，而是可以组合'的图表与文字描述：'LlamaIndex负责数据层（文档解析/切片/索引/检索），LangChain负责编排层（Agent规划/工具调用/多步流程）'，且明确举例'用LlamaIndex建好向量索引、封装成Retriever，再把这个Retriever作为Tool挂到LangChain的Agent上'。B项精准复现此分工；A项颠倒职责（规划属LangChain，检索属LlamaIndex）；C项是12.4节明确批判的'反模式：在同一个项目里用两套抽象同时建索引'；D项违背12.4节核心论断'LlamaIndex原生设计，索引/检索抽象更丰富、更一站式'，LangChain Retriever仅为通用接口，不替代LlamaIndex的数据处理深度。教材'自测题4解析'亦佐证B。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 1,
+      "stem": "某开发者在调试RAG应用时发现：用户问'年假有几天？'，模型回答却严重偏离制度文档内容，甚至虚构条款。经检查，其LlamaIndex QueryEngine使用的提示词模板中，{context_str}与{query_str}变量被意外互换。依据第12章12.3节与12.8节，以下哪些现象最可能由此导致？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "模型将用户问题误认为参考上下文，而将检索到的制度文档当作待回答的问题"
+        },
+        {
+          "option_label": "B",
+          "option_text": "检索召回率显著下降，因向量相似度计算基于错误文本"
+        },
+        {
+          "option_label": "C",
+          "option_text": "模型生成答案时缺乏有效约束，导致幻觉加剧"
+        },
+        {
+          "option_label": "D",
+          "option_text": "QueryEngine初始化失败，抛出KeyError异常"
+        }
+      ],
+      "answer": "AC",
+      "analysis": "A正确：12.3节明确指出'{context_str}是检索到的参考上下文，{query_str}是用户问题'，且'自测题3解析'直接说明'写反会导致模型把问题当资料、把资料当问题'，必然答非所问；C正确：当上下文与问题角色互换，模型接收的输入信息严重失真，失去事实依据，必然加剧幻觉——这呼应12.8节'七大误区'中'效果仍取决于...数据与检索'的警示；B错误：检索召回发生在QueryEngine调用前，由Retriever完成，与提示词模板无关；D错误：LlamaIndex提示词模板为字符串格式化，变量名错误会引发KeyError，但'互换'是值传递错误，不会导致初始化异常。教材'自测题3'及'exam'栏'`context_str`是用户输入的问题→❌'均指向AC。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 0,
+      "stem": "某团队计划为客服系统构建多Agent协作助手，需支持'专家分层诊断（Leader分配子任务给Worker）'与'跨部门群聊共创（如法务+HR共同审阅合同）'两种模式。根据第12章12.6.1节，以下哪项最能体现AgentScope区别于LangChain/LangGraph的核心设计优势？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "提供更丰富的向量索引类型（如树索引、知识图谱索引）"
+        },
+        {
+          "option_label": "B",
+          "option_text": "将Agent间消息通信（Msg）、广播机制（MsgHub）与协作模式（Blackboard）作为一等公民抽象"
+        },
+        {
+          "option_label": "C",
+          "option_text": "内置更强大的Function Calling参数校验与JSON Schema生成能力"
+        },
+        {
+          "option_label": "D",
+          "option_text": "支持通过LCEL管道符（|）声明式编排多Agent状态机"
+        }
+      ],
+      "answer": "B",
+      "analysis": "依据12.6.1节'AgentScope的核心抽象包括Msg / MsgHub...把多Agent之间如何说话、由谁发言、消息怎么广播做成了一等公民'，并明确对比'LangChain/LangGraph更偏单/多Agent的工作流与状态机编排'，而AgentScope'对分布式、多角色对话抽象更直接'。B项完全复现此定义；A项属LlamaIndex强项（12.3节）；C项属LangChain Tool规范（12.2节'exam'栏）；D项属LangChain LCEL特性（12.2节），且AgentScope不使用LCEL。教材'compare'表与'course_core/chatbot/agent.py'样例均支撑B。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 0,
+      "stem": "在评估一个已上线的RAG问答系统效果时，团队需量化'检索是否召回了关键段落'与'生成答案是否忠实于检索内容'。依据第12章12.7.1节，以下关于RAGAS的定位与使用方式，哪项表述最准确？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "RAGAS是一个RAG编排框架，可替代LlamaIndex构建检索流程"
+        },
+        {
+          "option_label": "B",
+          "option_text": "RAGAS是评估框架，需配合LangChain封装的LLM与Embeddings进行指标计算，其评估对象是LlamaIndex或LangChain构建的RAG系统"
+        },
+        {
+          "option_label": "C",
+          "option_text": "RAGAS仅支持离线批量评估，无法与Gradio实时交互界面集成"
+        },
+        {
+          "option_label": "D",
+          "option_text": "RAGAS的context_precision指标直接依赖于FastAPI服务的响应延迟"
+        }
+      ],
+      "answer": "B",
+      "analysis": "依据12.7.1节'RAGAS是主流的开源RAG评估框架...不是编排框架，而是评测框架'，并明确给出代码示例：'用LangChain封装当评委'，'LlamaIndex是被评估的RAG系统'，三者'各居其位，而不是互相替代'。B项完整涵盖此定位、依赖关系与作用对象；A项直接违背'不是编排框架'的定性；C项错误：12.7.2节指出Gradio是UI层，RAGAS是评估层，二者无集成限制，且评估本身可离线/在线；D项错误：context_precision是语义相关性指标，与网络延迟无关。教材'exam'栏' RAGAS 是一个 RAG 编排框架 → ❌'及'自测题6解析'均确认B。",
+      "difficulty_label": "基础"
+    }
+  ]
+}

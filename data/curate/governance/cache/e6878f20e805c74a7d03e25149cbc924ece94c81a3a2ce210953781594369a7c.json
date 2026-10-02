@@ -1,0 +1,49 @@
+{
+  "10-1415": {
+    "qid": "10-1415",
+    "classification": "own",
+    "chapter": 11,
+    "quality": "ok",
+    "reason": "考查多模态工具协同流程，涉及产品定位与功能理解。",
+    "answer": [
+      "A",
+      "E",
+      "F"
+    ],
+    "supported": true,
+    "quote": "CosyVoice 对应'文字→语音/合成'；语音助手是典型的管道式架构；视频理解不是一项孤立技术，而是图像、语音、文本能力的组合",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "CosyVoice是语音合成TTS。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "CosyVoice是TTS，非视频剪辑。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "moviepy是视频处理库，不能直接文本转视频。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "Qwen-Max是文本大模型，非专门生成字幕。"
+      },
+      {
+        "label": "E",
+        "selected": true,
+        "why": "moviepy可处理音频，获取时长合理。"
+      },
+      {
+        "label": "F",
+        "selected": true,
+        "why": "典型流程：文本生成→语音合成→视频处理。"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

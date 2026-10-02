@@ -1,0 +1,73 @@
+{
+  "new-6-126-0": {
+    "qid": "new-6-126-0",
+    "classification": "own",
+    "chapter": 6,
+    "quality": "ok",
+    "reason": "题目考察PAI-EAS与ECS自建方案的核心能力差异，符合本章部署形态对比考点。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "PAI-EAS（Elastic Algorithm Service）是阿里云PAI平台的模型在线服务，提供弹性扩缩容、蓝绿/灰度发布、资源组管理、版本控制",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "ECS自建可通过脚本预热，非EAS独有。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "EAS原生提供蓝绿/灰度发布与版本控制，ECS需自研。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "SLB负载均衡ECS可自行配置，非EAS独有。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "监控告警ECS可自建，非EAS独有关键能力。"
+      }
+    ],
+    "duplicate_of": "6-5151"
+  },
+  "new-6-126-5": {
+    "qid": "new-6-126-5",
+    "classification": "own",
+    "chapter": 6,
+    "quality": "ok",
+    "reason": "多选题考察在给定约束下可行的部署方案组合，符合本章选型决策考点。",
+    "answer": [
+      "A",
+      "B"
+    ],
+    "supported": true,
+    "quote": "PAI-EAS（Elastic Algorithm Service）是阿里云PAI平台的模型在线服务，可把开源社区模型或自训练/微调模型部署为在线服务，提供弹性扩缩容、蓝绿/灰度发布",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "PAI-EAS支持私有模型、预热、蓝绿发布，满足全部约束。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "ECS+vLLM自建方案通过组合技术栈也可满足约束。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "FC有冷启动和时长限制，不适合实时大模型推理。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "百炼MaaS数据需出域，不满足数据不出域要求。"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

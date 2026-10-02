@@ -1,0 +1,215 @@
+{
+  "5-1402": {
+    "qid": "5-1402",
+    "classification": "cross",
+    "chapter": 6,
+    "quality": "ok",
+    "reason": "题目考查模型训练部署的资源评估，属于部署优化范畴。",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "QPS/延迟/并发/显存四维评估",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "GPU是核心计算资源，属于关键指标。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "存储容量对保存模型和中间状态至关重要。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "界面美观程度与资源评估无关。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "网络带宽影响数据传输效率，是关键指标。"
+      }
+    ],
+    "duplicate_of": "5-0299"
+  },
+  "5-1403": {
+    "qid": "5-1403",
+    "classification": "own",
+    "chapter": 5,
+    "quality": "ok",
+    "reason": "考查训练超参数batch size的作用，属于微调核心知识。",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "Batch Size：每次更新用的样本数；大 → 梯度稳、显存高",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "学习率影响更新步长，不直接决定单次处理数据量。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "动态策略调整学习率，不决定单次数据量。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "批大小直接影响单次处理样本数和内存使用。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "正则化防止过拟合，不决定单次数据量。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "5-0065": {
+    "qid": "5-0065",
+    "classification": "own",
+    "chapter": 5,
+    "quality": "ok",
+    "reason": "考查高质量微调数据集的要素，符合数据准备原则。",
+    "answer": [
+      "A",
+      "B",
+      "C",
+      "D"
+    ],
+    "supported": true,
+    "quote": "质量从四个维度把关：正确性、多样性、一致性、无重复",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "大量数据是基础，但需保证质量。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "覆盖多种思路体现多样性要求。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "统一格式符合一致性原则。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "详细推导保证答案正确性和完整性。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "5-0293": {
+    "qid": "5-0293",
+    "classification": "own",
+    "chapter": 5,
+    "quality": "ok",
+    "reason": "考查LoRA核心原理，选项设计清晰。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "LoRA不直接更新原始权重矩阵W₀，而是在它旁边‘挂’一对小矩阵来学习变化量ΔW",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "正确，LoRA通过减少训练参数降低成本。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "错误，LoRA冻结原权重，不直接修改。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "正确，LoRA实现相对简单易集成。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "正确，LoRA增量可合并或移除，易于回退。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "5-0299": {
+    "qid": "5-0299",
+    "classification": "cross",
+    "chapter": 6,
+    "quality": "ok",
+    "reason": "与5-1402完全相同，考查部署资源评估。",
+    "answer": [
+      "D"
+    ],
+    "supported": true,
+    "quote": "QPS/延迟/并发/显存四维评估",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "GPU是核心计算资源，属于关键指标。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "存储容量对保存模型和中间状态至关重要。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "网络带宽影响数据传输效率，是关键指标。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "界面美观程度与资源评估无关。"
+      }
+    ],
+    "duplicate_of": "5-1402"
+  },
+  "5-0323": {
+    "qid": "5-0323",
+    "classification": "beyond",
+    "chapter": 5,
+    "quality": "review",
+    "reason": "RLHF未在教材中提及，但属于微调相关高级技术。",
+    "answer": [
+      "B"
+    ],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "RLHF主要目标不是泛化能力。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "RLHF核心是使模型输出符合人类偏好。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "RLHF不直接增加参数量。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "RLHF通常不会加速训练。"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

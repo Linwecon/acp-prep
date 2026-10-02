@@ -1,0 +1,210 @@
+{
+  "5-1072": {
+    "qid": "5-1072",
+    "classification": "own",
+    "chapter": 5,
+    "quality": "ok",
+    "reason": "考查微调训练流程核心步骤，原文明确反向传播求梯度",
+    "answer": [
+      "D"
+    ],
+    "supported": true,
+    "quote": "前向传播算出预测 → 对比标准答案算损失 → 反向传播求梯度 → 优化器更新参数。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "正向传播计算预测，不计算梯度"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "批标准化非微调训练必需步骤"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "优化算法选择是超参配置，不直接计算梯度"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "反向传播专门用于计算损失对参数的梯度"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "5-1104": {
+    "qid": "5-1104",
+    "classification": "own",
+    "chapter": 5,
+    "quality": "ok",
+    "reason": "考查LoRA训练波动应对，原文明确学习率过大导致震荡",
+    "answer": [
+      "D"
+    ],
+    "supported": true,
+    "quote": "太大 → 震荡/不收敛甚至 loss 飙升；太小 → 收敛极慢",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "loss震荡需调整超参，不能硬训"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "batch减小会加剧梯度噪声"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "增大rank不解决震荡问题"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "学习率过大是loss震荡主因"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "5-1120": {
+    "qid": "5-1120",
+    "classification": "own",
+    "chapter": 5,
+    "quality": "ok",
+    "reason": "考查模型能力边界，原文强调幻觉/计算缺陷属模型三边界",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "幻觉/知识截止/计算缺陷三边界",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "提示词无法修复固有计算缺陷"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "工具调用可绕过模型计算缺陷"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "样例无法突破模型计算能力上限"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "微调不提升模型固有计算能力"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "5-1216": {
+    "qid": "5-1216",
+    "classification": "own",
+    "chapter": 5,
+    "quality": "ok",
+    "reason": "考查超参作用，原文定义学习率是每次参数更新的步长",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "学习率（lr）：每次参数更新的步长",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "学习率直接控制参数更新步长"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "正则化抑制过拟合，不控学习速度"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "batch影响梯度稳定性，不直接控速度"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "轮数决定总迭代次数，非单次更新速度"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "5-1218": {
+    "qid": "5-1218",
+    "classification": "misplaced",
+    "chapter": 5,
+    "quality": "remove",
+    "reason": "考查多模态提示词设计，属第11章内容",
+    "answer": [],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "过于简略，无视觉描述"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "概念宽泛，缺乏具体画面"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "符合多模态提示词要求，但本章未覆盖"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "术语抽象，无法生成插图"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "5-1219": {
+    "qid": "5-1219",
+    "classification": "own",
+    "chapter": 5,
+    "quality": "ok",
+    "reason": "考查过拟合判断，原文明确验证loss先降后升为过拟合铁证",
+    "answer": [
+      "D"
+    ],
+    "supported": true,
+    "quote": "验证 loss 先降后升 = 过拟合的铁证",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "lr小导致loss下降慢，非上升"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "显存溢出会导致训练中断"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "数据少易致过拟合，但非直接原因"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "eval_loss上升是过拟合典型表现"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

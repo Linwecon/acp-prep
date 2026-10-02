@@ -1,0 +1,208 @@
+{
+  "5-1241": {
+    "qid": "5-1241",
+    "classification": "own",
+    "chapter": 5,
+    "quality": "ok",
+    "reason": "B项'仅需关注训练过程'与原文'微调SOP含部署灰度'矛盾",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "完整微调 SOP：...测试集评测 + 人工抽检 + 小流量灰度 → 全量上线",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "原文要求掌握技术以执行微调"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "原文SOP含部署灰度，非仅训练"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "原文明确'负责技术细节调整'"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "原文要求'根据反馈调整策略'"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "5-1253": {
+    "qid": "5-1253",
+    "classification": "own",
+    "chapter": 5,
+    "quality": "ok",
+    "reason": "融合目的为推理零开销，即提升效率",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "推理时：合并后就是普通模型，没有任何额外计算或延迟",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "合并后无额外延迟，即提效"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "未提及存储空间优化"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "融合后权重已更新"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "未涉及多任务并行支持"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "5-1320": {
+    "qid": "5-1320",
+    "classification": "own",
+    "chapter": 5,
+    "quality": "ok",
+    "reason": "C项准确描述LoRA低秩分解本质",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "LoRA不直接更新原始权重矩阵W₀，而是在它旁边'挂'一对小矩阵来学习变化量ΔW",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "原文未限定任务类型"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "原文明确冻结原权重"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "原文核心是ΔW=BA间接调整"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "原文强调质量优于数量"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "5-1346": {
+    "qid": "5-1346",
+    "classification": "own",
+    "chapter": 5,
+    "quality": "ok",
+    "reason": "Adapter Tuning属PEFT范畴，原文明确LoRA是PEFT子类",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "PEFT（Parameter-Efficient Fine-Tuning）是LoRA、Prefix Tuning等'只更新极少参数'方法的总称",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "全参微调非PEFT"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "随机初始化非微调方法"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "Adapter是PEFT典型方法"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "数据增强非参数高效微调"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "5-1353": {
+    "qid": "5-1353",
+    "classification": "misplaced",
+    "chapter": 11,
+    "quality": "remove",
+    "reason": "文生图属多模态章节，本章未覆盖",
+    "answer": [],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "深度学习是领域非提示结构"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "属多模态提示实践"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "过于笼统不符合最佳实践"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "超参数是概念非提示结构"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "5-1378": {
+    "qid": "5-1378",
+    "classification": "misplaced",
+    "chapter": 11,
+    "quality": "remove",
+    "reason": "Qwen-Max文生图属多模态，本章未涉及",
+    "answer": [],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "关键词过少影响质量"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "属多模态提示工程"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "反向提示属多模态安全"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "链接复制非提示词方式"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

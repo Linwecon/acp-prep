@@ -1,0 +1,113 @@
+{
+  "new-8-0-0": {
+    "qid": "new-8-0-0",
+    "classification": "own",
+    "chapter": 8,
+    "quality": "ok",
+    "reason": "题干清晰，考查间接提示注入的识别，属于本章核心考点。",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "间接提示注入：恶意指令藏于网页/文档/PDF/邮件，被 RAG/Agent 读入上下文后悄悄生效",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "用户未在对话中直接发出指令，而是通过上传文档嵌入。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "题干未涉及SQL语句或数据库篡改，是指令内容而非执行。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "恶意指令藏于外部PDF文档，被RAG检索后生效，符合定义。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "未涉及角色扮演或虚构身份，是直接的指令覆盖。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-8-0-2": {
+    "qid": "new-8-0-2",
+    "classification": "own",
+    "chapter": 8,
+    "quality": "ok",
+    "reason": "考查RAG权限过滤的核心原则，属于本章重点知识。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "过滤发生在‘检索之后、拼 Prompt 之前’，而不是靠模型‘自觉不回答’",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "用户提问‘IT部实际支出’本身不一定是越狱话术。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "员工有权看文档，但模型引用了无权部分，说明过滤时机或粒度有误。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "题干未提及向量加密或攻击者反推，是权限控制问题。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "核心是模型引用了无权数据，而非输出内容本身违规。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-8-0-4": {
+    "qid": "new-8-0-4",
+    "classification": "own",
+    "chapter": 8,
+    "quality": "ok",
+    "reason": "考查国内法规的刚性要求，属于本章合规考点。",
+    "answer": [
+      "A",
+      "C"
+    ],
+    "supported": true,
+    "quote": "面向境内公众提供生成式 AI 服务须依法备案；AI 生成/合成的文本、图片、音视频须添加显著‘AI 生成’标识",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "《暂行办法》要求面向公众的服务必须备案。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "脱敏是安全最佳实践，但题干问‘合规刚性要求’，非绝对强制。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "《互联网信息服务深度合成管理规定》要求添加AI生成标识。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "RAM最小权限是安全最佳实践，非法规明文规定的刚性要求。"
+      },
+      {
+        "label": "E",
+        "selected": false,
+        "why": "加密传输和存储是安全要求，但题干聚焦‘合规刚性要求’。"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

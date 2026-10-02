@@ -1,0 +1,216 @@
+{
+  "new-6-6-0": {
+    "qid": "new-6-6-0",
+    "classification": "own",
+    "chapter": 6,
+    "quality": "ok",
+    "reason": "场景题考查部署选型决策，结合数据合规、性能要求、运维能力等关键条件，符合本章考点。",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "企业要把内部微调后的私有模型上线为实时在线服务，要求数据不出域、支持灰度发布和弹性伸缩，最合适的方案是？PAI-EAS（或数据不出域前提下的 ECS+vLLM 自建）。私有自定义模型、实时在线、弹性 + 灰度/版本管理是 EAS 的典型场景",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "EAS内置蓝绿发布、模型预热和自动弹性，符合灰度发布、弹性伸缩要求，且托管方案运维负担更轻。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "题干强调团队有运维能力，但EAS的托管特性在满足灰度发布等企业级需求上更直接，且自建深度调优非必须。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "EAS对千问系列有加速是优势，但题干未指定模型为千问，且此非选择EAS的核心原因。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "EAS支持自定义模型部署，并非不支持TTFT指标控制，且题干未提必须自定义vLLM内核。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-6-6-1": {
+    "qid": "new-6-6-1",
+    "classification": "own",
+    "chapter": 6,
+    "quality": "ok",
+    "reason": "考查KV Cache瓶颈的缓解措施，涉及PagedAttention、量化、限长等本章核心知识点。",
+    "answer": [
+      "A",
+      "C"
+    ],
+    "supported": true,
+    "quote": "缓解 KV Cache 压力的常用手段：量化（INT8/INT4）、GQA（分组查询注意力）、PagedAttention 分页、限制最大序列长度。PagedAttention 分页管理 KV Cache、消除碎片与预分配浪费",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "PagedAttention通过分页按需分配KV Cache，能直接缓解OOM和提升并发。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "量化降低权重显存，可为KV Cache腾出空间，但非直接缓解KV Cache OOM的措施。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "限制上下文长度可直接减少单请求KV Cache占用，缓解OOM。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "GQA需模型结构支持，且是模型设计阶段特性，非部署时可直接启用的措施。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-6-6-2": {
+    "qid": "new-6-6-2",
+    "classification": "own",
+    "chapter": 6,
+    "quality": "ok",
+    "reason": "考查TPOT指标异常与Decode阶段瓶颈的诊断，紧扣本章性能指标与优化知识点。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "Decode（解码阶段）：一次生成一个新 token，每一步都要读取全部历史 token 的 KV Cache。这一步是显存带宽密集型，决定了 TPOT（Time Per Output Token，每生成一个 token 的时间）",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "Prefill阶段影响TTFT，题干TPOT高且GPU利用率低，非计算密集型瓶颈。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "TPOT高而GPU利用率低，符合Decode阶段显存带宽饱和特征，KV Cache是主因。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "网络传输延迟可能影响总RT，但不会单独导致TPOT指标持续偏高。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "权重加载IO阻塞影响启动或首次请求，不会导致TPOT持续偏高。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-6-6-3": {
+    "qid": "new-6-6-3",
+    "classification": "own",
+    "chapter": 6,
+    "quality": "ok",
+    "reason": "考查高可用实践组合，涉及负载均衡、弹性伸缩、监控告警与降级，符合本章内容。",
+    "answer": [
+      "A",
+      "B",
+      "C"
+    ],
+    "supported": true,
+    "quote": "保障稳定性的四类手段：弹性伸缩 + 负载均衡；限流、重试与降级熔断。ECS 自建要实现高可用，通常要搭配 SLB 负载均衡 + ESS 弹性伸缩 + 监控告警",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "SLB+多台ECS实例实现负载均衡与冗余，符合高可用实践。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "ESS弹性伸缩应对突发流量，符合高可用要求。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "监控告警联动降级兜底，是保障服务可用的关键措施。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "每日手动备份恢复无法满足5分钟内自动恢复的要求，非推荐的高可用实践。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-6-6-4": {
+    "qid": "new-6-6-4",
+    "classification": "own",
+    "chapter": 6,
+    "quality": "ok",
+    "reason": "考查vLLM并发控制参数调整的效果，基于压测现象分析，符合本章性能调优内容。",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "并发一旦升高，同等并发下吞吐就会下降。官方教程的压测实验很直观：用 wrk 把并发从 1 提到 10，QPS 从 3.30 提升到约 20.08（约 6 倍），但平均延迟从 324.61ms 涨到 426.84ms（约 +30%），还出现了 2 个超时错误——因为并发过高已经超过了服务处理能力",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "降低最大并发数可减少排队和资源争抢，从而降低RT和超时，但QPS会下降。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "降低并发上限应能减少超时，不会仅小幅下降且超时仍存在。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "降低并发上限不会导致QPS上升和RT进一步升高。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "降低并发上限可能使QPS下降，但应有助于降低RT和减少超时，而非升高和增多。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-6-6-5": {
+    "qid": "new-6-6-5",
+    "classification": "own",
+    "chapter": 6,
+    "quality": "ok",
+    "reason": "考查TPOT飙升的可能原因，涉及KV Cache、显存带宽、Decode阶段瓶颈等核心概念。",
+    "answer": [
+      "A",
+      "C"
+    ],
+    "supported": true,
+    "quote": "Decode（解码阶段）：一次生成一个新 token，每一步都要读取全部历史 token 的 KV Cache。这一步是显存带宽密集型，决定了 TPOT。KV Cache 随序列长度 × 并发数线性增长",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "超长上下文导致单请求KV Cache暴涨，增加Decode时间，可能推高TPOT。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "未启用PagedAttention会导致显存浪费和碎片，但题干显存占用率不高，非主因。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "Decode阶段显存带宽饱和是TPOT升高的直接原因，流量激增加剧争抢。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "Prefill阶段瓶颈主要影响TTFT，与TPOT飙升关联度低。"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

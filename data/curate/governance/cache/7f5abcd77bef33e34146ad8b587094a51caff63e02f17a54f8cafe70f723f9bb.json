@@ -1,0 +1,246 @@
+{
+  "8-0629": {
+    "qid": "8-0629",
+    "classification": "own",
+    "chapter": 8,
+    "quality": "ok",
+    "reason": "考查API密钥安全实践，属于数据安全与密钥管理范畴。",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "阿里云账号 AccessKey 拥有所有 API 的访问权限，建议使用 RAM 用户进行 API 访问……强烈建议不要把 AccessKey ID 和 Secret 保存到工程代码里。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "防止密钥硬编码泄露。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "SDK需显式读取，非自动。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "环境变量不加快速度。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "减少代码行数非主因。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "8-0875": {
+    "qid": "8-0875",
+    "classification": "own",
+    "chapter": 8,
+    "quality": "ok",
+    "reason": "考查部署大规模服务时的安全措施组合，覆盖输入过滤、限流、输出监控、认证和审计。",
+    "answer": [
+      "A",
+      "B",
+      "C",
+      "D",
+      "E"
+    ],
+    "supported": true,
+    "quote": "输入过滤、运行监控、输出审查三层实时防御；RAM最小权限；审计日志：谁、何时、从哪个 IP、调了什么、返回了什么。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "防止提示注入，属输入过滤。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "防资源滥用，属限流熔断。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "输出审查，拦截有害内容。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "API密钥认证，属权限控制。"
+      },
+      {
+        "label": "E",
+        "selected": true,
+        "why": "审计日志，用于追溯。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "8-0895": {
+    "qid": "8-0895",
+    "classification": "cross",
+    "chapter": 8,
+    "quality": "review",
+    "reason": "题目问代码生成工具的安全和质量必要措施，但选项超出本章安全范畴。",
+    "answer": [
+      "A",
+      "D"
+    ],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "安全漏洞扫描属安全措施。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "代码风格属质量，非安全必要。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "性能测试属质量，非安全必要。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "依赖包审计属安全措施。"
+      },
+      {
+        "label": "E",
+        "selected": false,
+        "why": "仅功能测试不全面。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "8-0907": {
+    "qid": "8-0907",
+    "classification": "cross",
+    "chapter": 8,
+    "quality": "review",
+    "reason": "题目问企业级大模型应用重要考虑因素，选项广泛，部分超出本章安全合规核心。",
+    "answer": [
+      "A",
+      "B",
+      "C",
+      "D",
+      "E"
+    ],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "数据隐私安全是核心。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "可解释性有助于审计。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "系统集成是工程考虑。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "成本效益是商业考虑。"
+      },
+      {
+        "label": "E",
+        "selected": true,
+        "why": "技术债务是工程考虑。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "8-1033": {
+    "qid": "8-1033",
+    "classification": "own",
+    "chapter": 8,
+    "quality": "ok",
+    "reason": "考查国内生成式AI服务备案合规要求，是本章核心考点。",
+    "answer": [
+      "F"
+    ],
+    "supported": true,
+    "quote": "面向境内公众提供生成式 AI 服务须依法备案；未备案有下架风险。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "未备案上线有风险。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "应用商店审核非算法备案。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "无需下架，应备案。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "联系百炼非必须步骤。"
+      },
+      {
+        "label": "E",
+        "selected": false,
+        "why": "必须备案。"
+      },
+      {
+        "label": "F",
+        "selected": true,
+        "why": "先备案后上线是规定。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "8-1418": {
+    "qid": "8-1418",
+    "classification": "own",
+    "chapter": 8,
+    "quality": "ok",
+    "reason": "与8-0629完全相同，属重复题。",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "阿里云账号 AccessKey 拥有所有 API 的访问权限，建议使用 RAM 用户进行 API 访问……强烈建议不要把 AccessKey ID 和 Secret 保存到工程代码里。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "防止密钥硬编码泄露。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "SDK需显式读取，非自动。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "减少代码行数非主因。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "环境变量不加快速度。"
+      }
+    ],
+    "duplicate_of": "8-0629"
+  }
+}

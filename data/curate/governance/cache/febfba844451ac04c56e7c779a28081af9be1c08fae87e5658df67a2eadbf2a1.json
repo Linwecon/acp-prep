@@ -1,0 +1,221 @@
+{
+  "3-1221": {
+    "qid": "3-1221",
+    "classification": "own",
+    "chapter": 4,
+    "quality": "ok",
+    "reason": "题目考查Agent根据用户意图选择工具的能力，属于Agent核心功能。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "工具调用（Function Calling）：模型输出结构化的'调用哪个工具、传什么参数'",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "工具名与查询员工信息无关。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "工具名与查询员工信息意图匹配。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "工具名与查询员工信息无关。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "工具名与查询员工信息无关。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-0785": {
+    "qid": "3-0785",
+    "classification": "own",
+    "chapter": 4,
+    "quality": "ok",
+    "reason": "题目考查构建智能运维Agent所需的核心组件，属于Agent架构设计。",
+    "answer": [
+      "A",
+      "B",
+      "C",
+      "D"
+    ],
+    "supported": true,
+    "quote": "单 Agent 架构：LLM、Planner、Tool、Memory 四件套...Tool（手脚）：Agent 可调用的外部能力",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "日志分析工具是获取外部数据的必要工具。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "文本分类模型可作为工具或LLM能力的一部分。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "调用大模型生成解决方案是Agent的核心行动。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "向量数据库存储案例供参考，属于记忆或RAG工具。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "5-0394": {
+    "qid": "5-0394",
+    "classification": "own",
+    "chapter": 4,
+    "quality": "ok",
+    "reason": "题目考查代码解释器作为Agent工具的核心作用。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "Tool（手脚）：Agent 可调用的外部能力：搜索、数据库、API、代码解释器、文件读写等",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "理解自然语言是LLM本身的能力。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "代码解释器允许模型执行代码并获取结果。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "高级图像处理非代码解释器主要作用。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "协助训练模型非代码解释器主要作用。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "6-1119": {
+    "qid": "6-1119",
+    "classification": "own",
+    "chapter": 4,
+    "quality": "ok",
+    "reason": "题目考查Function Calling中参数提取失败的根本原因。",
+    "answer": [
+      "D"
+    ],
+    "supported": true,
+    "quote": "参数提取准不准，取决于三件事：Schema 质量（名称、描述、必填项是否清晰）",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "系统资源限制非参数格式错误主因。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "用户输入不规范可由清晰Schema引导。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "工具函数变化非模型生成错误参数主因。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "Schema描述不足是参数提取偏差的根本原因。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "7-0935": {
+    "qid": "7-0935",
+    "classification": "own",
+    "chapter": 4,
+    "quality": "ok",
+    "reason": "题目考查Agent中Memory（记忆）管理的核心技术。",
+    "answer": [
+      "A",
+      "B",
+      "C",
+      "D"
+    ],
+    "supported": true,
+    "quote": "Memory（记忆）分两类：短期记忆...长期记忆...三种主流管理策略：固定窗口截断、滚动摘要、向量化召回",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "对话状态跟踪是记忆管理的核心。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "关键信息提取和存储是记忆功能。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "长度优化对应截断、摘要等策略。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "相关性评估对应向量召回等策略。"
+      },
+      {
+        "label": "E",
+        "selected": false,
+        "why": "每次独立处理违背记忆管理目的。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "9-0463": {
+    "qid": "9-0463",
+    "classification": "cross",
+    "chapter": -1,
+    "quality": "remove",
+    "reason": "题目仅提供选项描述，缺失题干和代码，无法判断考点和解题。",
+    "answer": [],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "题干缺失，无法判断。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "题干缺失，无法判断。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "题干缺失，无法判断。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "题干缺失，无法判断。"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

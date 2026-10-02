@@ -1,0 +1,221 @@
+{
+  "10-1189": {
+    "qid": "10-1189",
+    "classification": "own",
+    "chapter": -1,
+    "quality": "remove",
+    "reason": "题干与选项均无考查价值，属于纯代码语法题，与阿里云平台知识无关。",
+    "answer": [],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "路径错误，无message属性。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "路径不完整，未取到content。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "路径错误，choices是列表。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "正确路径，获取生成文本。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "10-1446": {
+    "qid": "10-1446",
+    "classification": "beyond",
+    "chapter": 11,
+    "quality": "remove",
+    "reason": "题目考查多模态音视频同步工具，属于第11章多模态AI范畴，与第10章阿里云平台无关。",
+    "answer": [],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "ffmpeg是音视频处理工具。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "moviepy是视频编辑库。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "CosyVoice是语音生成模型。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "Marp是Markdown幻灯片工具。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "10-1460": {
+    "qid": "10-1460",
+    "classification": "own",
+    "chapter": 10,
+    "quality": "ok",
+    "reason": "考查对阿里云大模型生态核心产品的识别，属于本章核心知识。",
+    "answer": [
+      "A",
+      "B",
+      "C",
+      "D",
+      "E"
+    ],
+    "supported": true,
+    "quote": "百炼（Model Studio）是一站式大模型应用开发平台。PAI（Platform for AI，人工智能平台）是阿里云面向算法工程师的机器学习全流程平台。OSS 存放企业文档。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "通义千问是基础大模型，是生态核心。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "PAI-EAS是模型部署服务，属于PAI。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "PAI-Studio（即DSW）是模型开发平台，属于PAI。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "向量数据库是RAG生态重要组件。"
+      },
+      {
+        "label": "E",
+        "selected": true,
+        "why": "OSS是存储模型与数据的对象存储服务。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "10-0447": {
+    "qid": "10-0447",
+    "classification": "own",
+    "chapter": 10,
+    "quality": "ok",
+    "reason": "考查调用DashScope（百炼底层API）的正确代码格式，属于OpenAI兼容接口知识。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "response = client.chat.completions.create(model=\"qwen-plus\", messages=[{\"role\": \"user\", \"content\": \"年假有几天？\"}])",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "方法名错误，应为chat.completions.create。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "方法名和参数messages均正确。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "方法名错误，且参数应为messages。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "参数records错误，应为messages。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "10-0692": {
+    "qid": "10-0692",
+    "classification": "own",
+    "chapter": 10,
+    "quality": "ok",
+    "reason": "考查对PAI平台核心功能的正确理解，属于本章重点。",
+    "answer": [
+      "A",
+      "B",
+      "C"
+    ],
+    "supported": true,
+    "quote": "PAI（Platform for AI，人工智能平台）是阿里云面向算法工程师的机器学习全流程平台，覆盖模型开发、分布式训练、在线推理部署。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "PAI支持基于自有数据微调模型。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "PAI-EAS可将模型部署为API服务。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "PAI集成数据处理工具。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "错误，PAI兼容开源模型。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "10-1363": {
+    "qid": "10-1363",
+    "classification": "own",
+    "chapter": 10,
+    "quality": "ok",
+    "reason": "考查针对高并发、低延迟场景的PAI-EAS关键配置，属于部署优化知识。",
+    "answer": [
+      "A",
+      "B",
+      "D"
+    ],
+    "supported": true,
+    "quote": "PAI-EAS（Elastic Algorithm Service，模型在线服务）：把训练好的模型一键部署为在线推理服务，支持弹性伸缩、蓝绿发布、版本管理、监控告警。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "容器化部署是EAS的基础。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "自动扩缩容满足弹性扩展。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "模型微调不直接解决部署性能。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "性能监控与告警保障服务稳定。"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

@@ -1,0 +1,214 @@
+{
+  "7-1341": {
+    "qid": "7-1341",
+    "classification": "own",
+    "chapter": 7,
+    "quality": "ok",
+    "reason": "考查分类任务传统指标，原文明确列出Accuracy/F1",
+    "answer": [
+      "B",
+      "D"
+    ],
+    "supported": true,
+    "quote": "Accuracy（分类）...F1（分类，尤其类别不平衡）",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "mAP属目标检测，原文未提"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "原文明确列为分类指标"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "BLEU属机器翻译，非分类"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "原文明确列为分类指标"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "7-1459": {
+    "qid": "7-1459",
+    "classification": "own",
+    "chapter": 7,
+    "quality": "ok",
+    "reason": "ROUGE评估维度原文明确为召回率和精确率",
+    "answer": [
+      "A",
+      "B"
+    ],
+    "supported": true,
+    "quote": "ROUGE（文本摘要）...默认侧重召回率...n-gram与最长公共子序列（LCS）",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "原文称ROUGE侧重召回率"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "原文称ROUGE基于n-gram，含精确率"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "F1是独立指标，非ROUGE维度"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "余弦相似度属Embedding，非ROUGE"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "7-0064": {
+    "qid": "7-0064",
+    "classification": "own",
+    "chapter": 7,
+    "quality": "ok",
+    "reason": "提升可信度需校准、分布修正、专家参与",
+    "answer": [
+      "A",
+      "B",
+      "D"
+    ],
+    "supported": true,
+    "quote": "必须由业务领域专家编写/审定...问题来自真实用户场景...定期抽样校验自动评测结果与人工判断的一致性",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "提示词校准可对齐人工判断"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "问题分布修正提升真实性"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "频次增加不解决偏高问题"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "专家打分是黄金集核心要求"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "7-0160": {
+    "qid": "7-0160",
+    "classification": "own",
+    "chapter": 7,
+    "quality": "ok",
+    "reason": "Answer Correctness是RAGAS整体回答质量综合指标",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "Answer Correctness：语义相似度 + 事实 F1（官方加权）...RAG 整体回答质量的综合指标",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "原文明确定义为综合指标"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "Answer Relevancy只管切题性"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "Faithfulness只管忠于资料"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "Context Precision属检索端指标"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "7-0370": {
+    "qid": "7-0370",
+    "classification": "beyond",
+    "chapter": 7,
+    "quality": "remove",
+    "reason": "题干问API优势，属部署或工程实践，非本章评测主题",
+    "answer": [],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "速度慢与事实不符"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "人力投入非优势"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "属部署效能，非评测范畴"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "理解自由文本是LLM能力"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "7-0413": {
+    "qid": "7-0413",
+    "classification": "own",
+    "chapter": 7,
+    "quality": "ok",
+    "reason": "faithfulness专评生成端答案是否忠于资料",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "Faithfulness（忠实度）...生成端...答案是否忠于检索资料，有没有脱离资料编造（幻觉）",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "原文明确定义为生成端指标"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "context_precision属检索端"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "context_recall属检索端"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "answer_correctness需ground_truth，非纯生成端"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

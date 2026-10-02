@@ -1,0 +1,214 @@
+{
+  "new-6-96-0": {
+    "qid": "new-6-96-0",
+    "classification": "own",
+    "chapter": 6,
+    "quality": "ok",
+    "reason": "题目考察连续批处理下TTFT上升的原因，与原文关于Prefill阶段决定TTFT、计算密集的描述一致。",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "Prefill（预填充阶段）...把用户输入的整段 prompt 一次性喂进去，并行计算所有输入 token 的表示。这一步是计算密集型，处理完后吐出第一个 token，决定了 TTFT",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "长prompt增加Prefill计算负载，直接导致TTFT上升。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "PagedAttention解决碎片，不会因分配失败拖慢Decode初始化。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "连续批处理不强制共享attention mask，无此干扰。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "题干未提及INT2量化，且TTFT上升主因是Prefill计算负载。"
+      }
+    ],
+    "duplicate_of": "6-5148"
+  },
+  "new-6-96-1": {
+    "qid": "new-6-96-1",
+    "classification": "own",
+    "chapter": 6,
+    "quality": "ok",
+    "reason": "题目考察高并发下KV Cache占用率高但总显存占用低的处理，与PagedAttention原理相关。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "KV Cache随‘序列长度 × 并发数’线性增长，长上下文、高并发时 KV Cache 往往成为显存大头。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "增大block-size不减少总KV Cache需求，无法立即缓解。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "限制最大并发数可直接减少KV Cache总量。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "前缀缓存可节省显存，但非立即缓解高占用率的最直接操作。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "调高阈值允许使用更多显存，但未解决KV Cache占用率高的问题。"
+      }
+    ],
+    "duplicate_of": "6-5145"
+  },
+  "new-6-96-2": {
+    "qid": "new-6-96-2",
+    "classification": "own",
+    "chapter": 6,
+    "quality": "ok",
+    "reason": "题目考察高TTFT但GPU和KV Cache正常的诊断思路，涉及Prefill阶段和排队。",
+    "answer": [
+      "A",
+      "B"
+    ],
+    "supported": true,
+    "quote": "Prefill...决定了 TTFT；并发过高已经超过了服务处理能力，请求开始排队导致 RT 劣化。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "TTFT由Prefill决定，需检查其耗时。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "排队等待时间直接影响TTFT。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "服务已运行，权重已加载，不应有拷贝阻塞。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "页表碎片化主要影响吞吐和显存利用率，非TTFT主因。"
+      }
+    ],
+    "duplicate_of": "6-5139"
+  },
+  "new-6-96-3": {
+    "qid": "new-6-96-3",
+    "classification": "own",
+    "chapter": 6,
+    "quality": "ok",
+    "reason": "题目考察量化效果与教材结论的对应，涉及量化省显存、加速及精度损失。",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "量化主要省显存；INT4 在敏感任务上可能掉点更明显；显存带宽下降通常带来加速。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "原文支持量化省显存，且INT4在敏感任务上掉点可能更明显。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "原文说低比特通常加速，而非必然提升TPOT。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "TTFT不变不能证明量化对Prefill无影响，可能负载均衡。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "58%下降不能直接反推原占比72%，推理不严谨。"
+      }
+    ],
+    "duplicate_of": "6-5136"
+  },
+  "new-6-96-4": {
+    "qid": "new-6-96-4",
+    "classification": "own",
+    "chapter": 6,
+    "quality": "ok",
+    "reason": "题目考察PagedAttention的显存节省机制，与原文描述完全对应。",
+    "answer": [
+      "A",
+      "B"
+    ],
+    "supported": true,
+    "quote": "PagedAttention...把 KV Cache 切成固定大小的块，按需分配，消除碎片；不再按最大长度预分配浪费。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "按需分配避免为短请求预分配长空间。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "非连续存放消除内存碎片，提高利用率。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "PagedAttention本身不涉及KV Cache量化存储。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "前缀缓存是节省机制，但非PagedAttention核心原理。"
+      }
+    ],
+    "duplicate_of": "6-5147"
+  },
+  "new-6-96-5": {
+    "qid": "new-6-96-5",
+    "classification": "own",
+    "chapter": 6,
+    "quality": "ok",
+    "reason": "题目考察FC冷启动现象与教材依据的对应，描述与原文一致。",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "Serverless 为了省成本，无流量时会回收实例；请求突然到来需要重新拉起实例、加载模型，导致首个请求明显变慢。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "现象符合FC冷启动定义，教材有明确依据。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "现象是模型加载慢，与PagedAttention启用无关。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "超时配置过短会导致中断而非延迟高，与现象不符。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "HTTPS终止耗时非根本原因，且教材未强调此点。"
+      }
+    ],
+    "duplicate_of": "6-5152"
+  }
+}

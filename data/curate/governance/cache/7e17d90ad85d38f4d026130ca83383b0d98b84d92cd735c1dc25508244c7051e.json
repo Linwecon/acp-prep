@@ -1,0 +1,217 @@
+{
+  "new-7-48-0": {
+    "qid": "new-7-48-0",
+    "classification": "own",
+    "chapter": 7,
+    "quality": "ok",
+    "reason": "考查控制变量原则，题干明确归因错误，教材有对应原文支持。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "回归评测的前提是除了待测改动，其他一切都冻结：评测集版本、评测脚本、推理参数（temperature、seed）、模型版本、甚至当评委的大模型版本都要固定。否则分数变化无法归因",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "题干已优化并评测，不涉及未建基线。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "评委LLM版本未冻结违反控制变量原则，导致分数不可比。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "题干未涉及混淆指标分层。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "题干未提及ground_truth审定问题。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-7-48-1": {
+    "qid": "new-7-48-1",
+    "classification": "own",
+    "chapter": 7,
+    "quality": "ok",
+    "reason": "综合考查评测集构建铁律和控制变量原则，选项有明确教材依据。",
+    "answer": [
+      "A",
+      "B",
+      "C"
+    ],
+    "supported": true,
+    "quote": "问题来自真实用户场景；标准答案来自领域专家；回归评测的前提是除了待测改动，其他一切都冻结",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "符合问题来自真实工单、答案由业务专家编写的铁律。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "冻结评测集、脚本、模型等配置，符合控制变量要求。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "对抗性question由法务审核，符合领域专家审定铁律。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "动态追加违反冻结评测集要求，无法防止回归。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-7-48-2": {
+    "qid": "new-7-48-2",
+    "classification": "own",
+    "chapter": 7,
+    "quality": "ok",
+    "reason": "考查事实F1低时盲目调参的风险，需结合Faithfulness定义推理。",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "Faithfulness抓的就是幻觉：答案里那些资料里根本没有、模型自己脑补出来的内容",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "事实F1低表明多编/错编，升温增加多样性会加剧幻觉。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "Context Precision是检索端指标，不受生成温度直接影响。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "升温通常不会直接导致Answer Relevancy升高。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "Context Recall是检索端指标，不受生成温度直接影响。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-7-48-3": {
+    "qid": "new-7-48-3",
+    "classification": "own",
+    "chapter": 7,
+    "quality": "ok",
+    "reason": "考查Agent白盒评测方法，选项与教材中三类方法对应。",
+    "answer": [
+      "A",
+      "C"
+    ],
+    "supported": true,
+    "quote": "确定性检查（规则/断言）用代码规则直接判断；Rubric评分量表把模糊目标拆成多条可检查细则",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "检查工具调用序列属于确定性检查，能定位过程故障。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "OCR识别是事后检查，非白盒评测的中间过程分析。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "定义Rubric量表针对完整性维度，属于白盒评测。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "LLM评估最终输出是端到端评测，非精准定位过程的白盒评测。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-7-48-4": {
+    "qid": "new-7-48-4",
+    "classification": "own",
+    "chapter": 7,
+    "quality": "ok",
+    "reason": "考查公开基准的局限性，与教材核心论断直接对应。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "公开基准的三个坑：基准分高 = 业务表现好 → 基准只反映通用能力，和你的业务题型、语言分布、领域知识可能完全不同",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "题干未提及数据污染，主要矛盾是能力不匹配。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "基准通用能力与业务领域不一致，导致自建评测分数低。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "题干未强调语言问题，核心是领域知识不一致。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "是正确论断，但题干结果更直接印证能力不一致。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-7-48-5": {
+    "qid": "new-7-48-5",
+    "classification": "own",
+    "chapter": 7,
+    "quality": "ok",
+    "reason": "综合考查EDD中防止回归和定位问题的实践，选项有教材依据。",
+    "answer": [
+      "A",
+      "B",
+      "D"
+    ],
+    "supported": true,
+    "quote": "防止回归；定位问题的黄金法则：Context Recall / Precision 低 → 问题在检索阶段；检索指标都好，但 Faithfulness / Correctness 低 → 问题在生成阶段",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "运行冻结集并按题型细分，既能防止回归又能定位问题场景。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "结合检索和生成端指标判断病根，符合定位问题黄金法则。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "仅测3个问题样本不足，无法有效防止回归。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "设置自动拦截阈值并细分题型，能防止回归并定位问题。"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

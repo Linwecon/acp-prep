@@ -1,0 +1,212 @@
+{
+  "8-1139": {
+    "qid": "8-1139",
+    "classification": "own",
+    "chapter": 8,
+    "quality": "ok",
+    "reason": "考查API Key安全存储，原文明确要求不硬编码",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "强烈建议不要把 AccessKey ID 和 Secret 保存到工程代码里。代码里也是从环境变量读取",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "硬编码违反密钥管理四件事"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "环境变量符合密钥管理规范"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "注释中记录仍属暴露密钥"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "公开配置文件等同于泄露"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "8-1207": {
+    "qid": "8-1207",
+    "classification": "own",
+    "chapter": 8,
+    "quality": "ok",
+    "reason": "考查内容安全自定义能力，原文明确支持私域词库",
+    "answer": [
+      "B",
+      "C",
+      "D"
+    ],
+    "supported": true,
+    "quote": "AI 安全护栏还支持自定义词库：把企业内部项目代号、未公开产品名等'私域敏感词'传成词库",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "模型架构参数不可由用户修改"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "私域关键词库是明确支持项"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "审核规则模板可配置"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "风险等级阈值可设置"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "8-1214": {
+    "qid": "8-1214",
+    "classification": "own",
+    "chapter": 8,
+    "quality": "ok",
+    "reason": "考查备案核心要求，原文强调算法备案是必选项",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "面向境内公众提供生成式 AI 服务须依法备案；未备案有下架风险",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "算法备案是《暂行办法》强制要求"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "内容过滤是防护手段非备案要求"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "开源参数非法规要求"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "每日报告非备案条款"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "8-1223": {
+    "qid": "8-1223",
+    "classification": "misplaced",
+    "chapter": 8,
+    "quality": "remove",
+    "reason": "端云协同部署在章节目录和原文中均未提及",
+    "answer": [],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "完全替代说法错误且无依据"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "原文未提端云协同"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "原文未提边缘设备"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "原文未提带宽压力"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "8-1276": {
+    "qid": "8-1276",
+    "classification": "own",
+    "chapter": 8,
+    "quality": "ok",
+    "reason": "考查视频检测步骤，原文未提缩略图生成",
+    "answer": [
+      "C"
+    ],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "分段处理是视频检测基础"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "音频转录是视频检测环节"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "缩略图生成非合规检测步骤"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "版权水印识别属合规检测"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "8-1297": {
+    "qid": "8-1297",
+    "classification": "own",
+    "chapter": 8,
+    "quality": "ok",
+    "reason": "考查内容安全风险分类，原文将不相关归为质量问题",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "模型答错一个报销数字、检索到了无关段落、回答跑题 → 质量/相关性缺陷",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "违法信息属内容安全风险"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "不相关内容属质量问题"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "虚假内容即幻觉属安全风险"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "偏见内容属内容安全风险"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

@@ -1,0 +1,79 @@
+{
+  "new-8-30-2": {
+    "qid": "new-8-30-2",
+    "classification": "own",
+    "chapter": 8,
+    "quality": "ok",
+    "reason": "考查多模态检测技术约束，原文明确PDF需OCR提取文本",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "图像审核既能审画面，也能识别图中文字；音视频因为要转码、抽帧、识别音轨，通常走异步任务。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "PDF中隐藏指令需OCR识别，未开启则漏检"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "text_moderation不支持二进制PDF，必先OSS上传"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "无pdf_moderation专用接口，课程只提image_moderation"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "自定义词库绕过属语义问题，与首次漏报无关"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-8-30-3": {
+    "qid": "new-8-30-3",
+    "classification": "own",
+    "chapter": 8,
+    "quality": "ok",
+    "reason": "考查幻觉与间接提示注入的本质区别及处置路径",
+    "answer": [
+      "A",
+      "D",
+      "E"
+    ],
+    "supported": true,
+    "quote": "虚假信息（幻觉）| 模型概率生成 | 无依据时仍\"自信地编\"...提示注入/越狱 | 恶意输入 | 角色扮演、指令覆盖、文档藏毒",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "现象①是典型幻觉，需输出审查兜底"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "现象②是注入非偏见，偏见源于训练数据"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "现象①是质量问题，非安全问题"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "现象②是间接提示注入，需检索内容检测"
+      },
+      {
+        "label": "E",
+        "selected": true,
+        "why": "幻觉无主观意图，偏见是统计规律反映"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

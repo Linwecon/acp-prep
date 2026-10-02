@@ -1,0 +1,154 @@
+{
+  "items": [
+    {
+      "type": 0,
+      "stem": "某教育公司新人答疑机器人初期仅需单轮问答，两周后需支持RAG知识库、多轮对话、调用三个内部系统、效果评测及前端API接入。此时工程师发现代码从20行膨胀至600行，充斥手动拼接messages、重复检索逻辑和硬编码历史管理。根据第12章核心观点，导致此困境的根本原因是什么？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "未选用最新版LangChain，导致LCEL流式能力缺失"
+        },
+        {
+          "option_label": "B",
+          "option_text": "缺乏对共性工程模式的抽象，导致重复实现提示词拼装、记忆维护、检索流程等脏活"
+        },
+        {
+          "option_label": "C",
+          "option_text": "模型API响应延迟高，迫使开发者用同步阻塞方式重写调用链"
+        },
+        {
+          "option_label": "D",
+          "option_text": "团队未统一使用DashScopeEmbeddings，造成向量不一致"
+        }
+      ],
+      "answer": "B",
+      "analysis": "依据12.1节‘共性问题’表格与‘框架的本质价值’定义：裸调SDK时需反复手写‘提示词拼装、多轮历史维护、文档检索逻辑’等共性脏活，而框架的核心价值正是将这些工程模式抽象为可复用组件（PromptTemplate/Memory/Retriever）。选项A错误——LCEL是解决方案而非原因；C、D属具体技术细节，非根本性工程范式缺失。原文明确指出‘这时候框架的价值才显现出来’，正因裸调无法应对复杂度演进。",
+      "difficulty_label": "基础"
+    },
+    {
+      "type": 0,
+      "stem": "在构建‘合同条款智能解读’RAG应用时，用户常问‘若甲方违约，乙方能否解除合同并索赔？’，但模型总忽略‘不可抗力’例外条款。经排查，原始PDF中该条款位于扫描件页眉且被SimpleDirectoryReader解析为空白。根据12.5节文档解析选型原则，应优先采取哪项措施？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "改用PyMuPDF直接提取PDF文字层"
+        },
+        {
+          "option_label": "B",
+          "option_text": "在LlamaIndex中启用MetadataReplacementPostProcessor进行关键词替换"
+        },
+        {
+          "option_label": "C",
+          "option_text": "切换为DashScopeParse进行OCR与版面结构化解析"
+        },
+        {
+          "option_label": "D",
+          "option_text": "调整SentenceWindowNodeParser的window_size参数"
+        }
+      ],
+      "answer": "C",
+      "analysis": "依据12.5节‘选型决策路径’：扫描件PDF导致解析为空，根源是‘无文字层’，必须依赖OCR能力。原文明确要求‘扫描件/复杂表格→上DashScopeParse（OCR+版面结构化）’，且‘DashScopeParse能做什么’考点强调其OCR与结构化输出能力。A错误——PyMuPDF对扫描件无效；B、D属于后处理与切片环节，无法解决源头解析失败；C直击问题本质，符合‘第一公里’质量决定RAG上限的核心论断。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 1,
+      "stem": "某团队需开发一个支持‘查制度→判合规→生成审批单’三步协作的HR助手，涉及RAG知识库、调用OA系统API、多轮确认员工身份。根据12.4节LangChain与LlamaIndex对比及12.6.1节AgentScope定位，以下哪些组合方案符合课程推荐的最佳实践？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "用LlamaIndex构建企业制度向量索引，并将其Retriever封装为LangChain Tool供Agent调用"
+        },
+        {
+          "option_label": "B",
+          "option_text": "用AgentScope的MsgHub实现HR专员、法务Agent、OA接口Agent的群聊式Blackboard协作"
+        },
+        {
+          "option_label": "C",
+          "option_text": "用LangChain的LangGraph编排‘意图识别→知识检索→API调用→结果合成’状态机"
+        },
+        {
+          "option_label": "D",
+          "option_text": "用Dify的可视化工作流拖拽完成全部逻辑，避免任何Python代码"
+        }
+      ],
+      "answer": "A,C",
+      "analysis": "依据12.4节‘二者可以组合’图示：LlamaIndex专注数据层（索引/检索），LangChain专注编排层（Agent/Tool），A正确体现分工；C符合12.2节‘LangChain最适合场景’中‘多工具/多步流程’及LangGraph对状态机的支持。B错误——AgentScope虽支持Blackboard，但本题是单任务多步骤（非多角色协同决策），LangGraph更匹配；D错误——12.6.2节明确‘Dify不替代代码框架’，复杂状态机需代码定制，且‘调用OA API’需深度集成，Dify局限性在此凸显。答案需同时满足‘RAG强项归LlamaIndex’和‘复杂Agent归LangChain’双原则。",
+      "difficulty_label": "高阶"
+    },
+    {
+      "type": 0,
+      "stem": "在调试一个基于LlamaIndex的RAG应用时，发现模型回答‘根据资料，年假有5天’，但实际知识库中明确写着‘司龄满3年员工年假10天’。检查QueryEngine日志显示检索返回了包含‘5天’的旧政策片段，而新政策未被召回。根据12.3节索引持久化要求，最可能的根本原因是什么？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "未在SimpleDirectoryReader中设置file_extractor参数"
+        },
+        {
+          "option_label": "B",
+          "option_text": "新增政策文档后未重建索引，仍使用旧persist_dir中的缓存索引"
+        },
+        {
+          "option_label": "C",
+          "option_text": "DashScopeEmbedding的model_name配置为text-embedding-v1而非v2"
+        },
+        {
+          "option_label": "D",
+          "option_text": "QueryEngine未启用streaming=True参数"
+        }
+      ],
+      "answer": "B",
+      "analysis": "依据12.3节‘索引需要持久化’考点：‘新增/修改文档后必须重新走解析→切片→建索引流程’，且‘通过StorageContext.persist保存索引’。若未重建索引，旧索引无法包含新文档，导致召回遗漏。A影响解析质量但非本题现象主因；C可能导致向量质量下降，但不会完全漏掉整篇文档；D与流式输出无关。原文强调‘避免每次重建’是为效率，但‘必须重建’是数据一致性前提，B直指运维疏漏这一高频故障点。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 1,
+      "stem": "某金融公司需上线客户经理AI助手，要求：①支持私有财报PDF问答（含复杂表格）；②对接内部风控API与CRM系统；③由产品经理用可视化界面配置工作流；④生产环境需全链路监控与审计。根据12.6.2节Dify定位、12.7.3节FastAPI作用及12.8节选型表，以下哪些技术选型符合‘务实主线’？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "用DashScopeParse解析财报PDF，确保表格结构化"
+        },
+        {
+          "option_label": "B",
+          "option_text": "用Dify搭建工作流原型，但核心风控逻辑用LangChain Python代码封装为自定义Tool"
+        },
+        {
+          "option_label": "C",
+          "option_text": "用Gradio替代FastAPI提供生产API服务"
+        },
+        {
+          "option_label": "D",
+          "option_text": "用FastAPI暴露RESTful接口，并集成prometheus-fastapi-instrumentator实现监控"
+        }
+      ],
+      "answer": "A,B,D",
+      "analysis": "A正确——12.5节明确扫描件/复杂表格必选DashScopeParse；B正确——12.6.2节‘Dify能力边界’指出‘超复杂逻辑仍需代码’，且‘自定义Tool’是Dify官方支持的扩展方式；D正确——12.7.3节定义FastAPI为‘生产级HTTP服务’，并点名prometheus-fastapi-instrumentator用于埋点监控。C错误——12.7.3节严格区分：Gradio用于‘Demo/给人用’，FastAPI用于‘给系统调的服务’，生产API绝不可用Gradio替代。答案体现‘低代码+代码混合’的务实分层策略。",
+      "difficulty_label": "高阶"
+    },
+    {
+      "type": 0,
+      "stem": "团队在评估RAG效果时，发现RAGAS报告Context Recall得分极低（0.2），但人工检查发现检索结果包含所有关键段落。进一步分析QueryEngine日志，发现默认提示词中{context_str}被误写为{query_str}。根据12.3节提示词模板规范，此错误会导致什么直接后果？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "模型将用户问题当作参考上下文，导致生成答案脱离知识库约束"
+        },
+        {
+          "option_label": "B",
+          "option_text": "检索器无法加载向量索引，抛出FileNotFoundError"
+        },
+        {
+          "option_label": "C",
+          "option_text": "RAGAS评估时因变量名错误无法解析prompt，跳过该指标计算"
+        },
+        {
+          "option_label": "D",
+          "option_text": "NodeParser切片时丢失元数据，导致检索精度下降"
+        }
+      ],
+      "answer": "A",
+      "analysis": "依据12.3节‘高频考点细节’：‘{context_str}是检索到的上下文，{query_str}是用户问题’，且‘二者互换作为错误选项’。若模板中误写，模型输入变为‘问题：[用户问题]；以下是参考信息：[用户问题]’，导致模型无视真实知识库，自由编造答案，这正是Context Recall低分的根源（召回内容未被有效利用）。B、D属基础设施错误，与模板变量无关；C错误——RAGAS不解析prompt模板，它只评估最终输出。原文警示‘写反会导致模型把问题当资料、把资料当问题’，A为精准复述。",
+      "difficulty_label": "进阶"
+    }
+  ]
+}

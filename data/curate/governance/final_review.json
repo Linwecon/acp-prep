@@ -1,0 +1,116 @@
+{
+  "overrides": [
+    {
+      "qid": "1-1310",
+      "model_action": "answer_fix",
+      "final_action": "review",
+      "reason": "最终复核：模型将未提及误当错误，或题干存在必要性/条件歧义，不修改原答案。"
+    },
+    {
+      "qid": "1-0609",
+      "model_action": "remove",
+      "final_action": "review",
+      "reason": "最终复核：错章、常识题或资料不足不能作为删除依据，保留待核验。"
+    },
+    {
+      "qid": "2-0548",
+      "model_action": "answer_fix",
+      "final_action": "review",
+      "reason": "最终复核：模型将未提及误当错误，或题干存在必要性/条件歧义，不修改原答案。"
+    },
+    {
+      "qid": "3-0535",
+      "model_action": "move",
+      "final_action": "move",
+      "reason": "官方版本文档确认默认计算为余弦相似度；原多选设计误将其他距离方法列为实现步骤，修正为明确版本的单选题，并移至模型评估章。"
+    },
+    {
+      "qid": "3-1340",
+      "model_action": "answer_fix",
+      "final_action": "review",
+      "reason": "最终复核：模型将未提及误当错误，或题干存在必要性/条件歧义，不修改原答案。"
+    },
+    {
+      "qid": "3-1445",
+      "model_action": "remove",
+      "final_action": "review",
+      "reason": "最终复核：错章、常识题或资料不足不能作为删除依据，保留待核验。"
+    },
+    {
+      "qid": "4-0368",
+      "model_action": "remove",
+      "final_action": "review",
+      "reason": "最终复核：错章、常识题或资料不足不能作为删除依据，保留待核验。"
+    },
+    {
+      "qid": "4-0333",
+      "model_action": "answer_fix",
+      "final_action": "review",
+      "reason": "最终复核：模型将未提及误当错误，或题干存在必要性/条件歧义，不修改原答案。"
+    },
+    {
+      "qid": "4-1226",
+      "model_action": "remove",
+      "final_action": "review",
+      "reason": "最终复核：错章、常识题或资料不足不能作为删除依据，保留待核验。"
+    },
+    {
+      "qid": "5-0440",
+      "model_action": "remove",
+      "final_action": "review",
+      "reason": "最终复核：错章、常识题或资料不足不能作为删除依据，保留待核验。"
+    },
+    {
+      "qid": "5-1218",
+      "model_action": "remove",
+      "final_action": "review",
+      "reason": "最终复核：错章、常识题或资料不足不能作为删除依据，保留待核验。"
+    },
+    {
+      "qid": "6-1190",
+      "model_action": "remove",
+      "final_action": "review",
+      "reason": "最终复核：错章、常识题或资料不足不能作为删除依据，保留待核验。"
+    },
+    {
+      "qid": "7-0370",
+      "model_action": "remove",
+      "final_action": "review",
+      "reason": "最终复核：错章、常识题或资料不足不能作为删除依据，保留待核验。"
+    },
+    {
+      "qid": "8-0629",
+      "model_action": "answer_fix",
+      "final_action": "review",
+      "reason": "最终复核：模型将未提及误当错误，或题干存在必要性/条件歧义，不修改原答案。"
+    },
+    {
+      "qid": "8-1418",
+      "model_action": "answer_fix",
+      "final_action": "review",
+      "reason": "最终复核：模型将未提及误当错误，或题干存在必要性/条件歧义，不修改原答案。"
+    },
+    {
+      "qid": "9-1188",
+      "model_action": "remove",
+      "final_action": "review",
+      "reason": "最终复核：错章、常识题或资料不足不能作为删除依据，保留待核验。"
+    },
+    {
+      "qid": "10-0361",
+      "model_action": "remove",
+      "final_action": "review",
+      "reason": "最终复核：错章、常识题或资料不足不能作为删除依据，保留待核验。"
+    },
+    {
+      "qid": "10-1446",
+      "model_action": "remove",
+      "final_action": "review",
+      "reason": "最终复核：错章、常识题或资料不足不能作为删除依据，保留待核验。"
+    }
+  ],
+  "official_sources": [
+    "https://docs.ragas.io/en/v0.1.21/concepts/metrics/semantic_similarity.html",
+    "https://github.com/dashscope/dashscope-sdk-nodejs"
+  ]
+}

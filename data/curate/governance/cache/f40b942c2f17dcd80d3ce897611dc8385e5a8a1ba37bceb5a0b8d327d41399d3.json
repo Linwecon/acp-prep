@@ -1,0 +1,247 @@
+{
+  "3-0636": {
+    "qid": "3-0636",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "全选项均在原文3.3节有明确依据",
+    "answer": [
+      "A",
+      "B",
+      "D",
+      "E"
+    ],
+    "supported": true,
+    "quote": "文档解析是把 PDF / Word / Markdown 等加载并转换为大模型可读文本的过程。它看似简单，却是 RAG 质量的\"地基\"——解析阶段丢失的结构，后面用再复杂的算法也补不回来。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "原文称解析是RAG质量的地基，工具问题会导致出错"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "不同格式导致解析结果不同属常见现象"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "原文指出PDF需OCR，比纯文本更难"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "在线文档动态特性增加解析难度"
+      },
+      {
+        "label": "E",
+        "selected": true,
+        "why": "原文强调选择合适工具对准确率至关重要"
+      },
+      {
+        "label": "F",
+        "selected": false,
+        "why": "原文指出解析影响RAG质量，与业务强相关"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-0668": {
+    "qid": "3-0668",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "B是RAG核心思想“开卷考试”的直接体现",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "RAG（Retrieval-Augmented Generation，检索增强生成）的核心思路可以用四个字概括：\"开卷考试\"。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "原文明确否定定期重训，称成本高周期长"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "RAG本质是开卷考试，接入外部知识"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "原文未建议限制用户提问范围"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "原文指出幻觉根因是编造，非合理推测"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-0712": {
+    "qid": "3-0712",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "B、E、F均被3.4节切片风险明确指出",
+    "answer": [
+      "B",
+      "E",
+      "F"
+    ],
+    "supported": true,
+    "quote": "切片太大：一个 chunk 里混了好几个主题，向量被\"平均\"得没有重点；切得太小：语义被截断（一句话被切成两半），即使检索命中也信息不全",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "原文称Token切片是常见策略，不难"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "原文明确说切太小会语义被截断"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "原文未提存储空间问题"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "原文未提计算复杂度"
+      },
+      {
+        "label": "E",
+        "selected": true,
+        "why": "原文指出固定长度切片易切断语义"
+      },
+      {
+        "label": "F",
+        "selected": true,
+        "why": "原文说切太小导致信息不全即上下文丢失"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-0726": {
+    "qid": "3-0726",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "B、C对应3.4/3.5节切片与Embedding优化，A错误因放宽阈值才升Recall降Precision",
+    "answer": [
+      "B",
+      "C"
+    ],
+    "supported": true,
+    "quote": "K 调大 → 召回率↑，但无关噪声也增多、精确率 ↓；放宽相似度阈值是召回率 ↑、精确率 ↓",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "提高阈值会降低召回，加剧精度问题"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "原文强调按语义逻辑分块提升检索质量"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "原文指出查询改写可补全指代提升匹配"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "删除文档会降低召回，非精度优化手段"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-0785": {
+    "qid": "3-0785",
+    "classification": "cross",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "A、C、D构成RAG+工具链闭环，B属传统ML非RAG核心",
+    "answer": [
+      "A",
+      "C",
+      "D"
+    ],
+    "supported": true,
+    "quote": "RAG 是上下文工程四大手段之一——在正确的时间把最相关的信息加载进上下文窗口。另外三个是提示词（Prompt）、工具（Tool）、记忆（Memory）",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "日志提取是文档解析前置步骤"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "文本分类非RAG必要组件，属独立技术"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "大模型生成是RAG最终环节"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "向量库存历史案例是典型RAG知识库"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-0805": {
+    "qid": "3-0805",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "A、B、C是3.9节RAG选型与3.3节解析要求的直接应用",
+    "answer": [
+      "A",
+      "B",
+      "C"
+    ],
+    "supported": true,
+    "quote": "RAG 是私域知识问答的首选方案；文档解析阶段丢失的结构，后面用再复杂的算法也补不回来",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "路由到专家模型属上下文工程中的工具调用"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "专业领域必须用RAG接入私域知识"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "术语理解依赖结构化解析与切片"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "原文强调通用模型无法处理私域知识"
+      },
+      {
+        "label": "E",
+        "selected": false,
+        "why": "原文未将用户输入责任转嫁为架构设计"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

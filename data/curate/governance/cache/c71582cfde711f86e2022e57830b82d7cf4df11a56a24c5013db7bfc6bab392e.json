@@ -1,0 +1,214 @@
+{
+  "new-6-18-0": {
+    "qid": "new-6-18-0",
+    "classification": "own",
+    "chapter": 6,
+    "quality": "ok",
+    "reason": "典型部署选型场景题，综合考查数据出域、流量、运维、功能需求。",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "企业要把内部微调后的私有模型上线为实时在线服务，要求数据不出域、支持灰度发布和弹性伸缩，最合适的方案是？PAI-EAS（或数据不出域前提下的 ECS+vLLM 自建）。私有自定义模型、实时在线、弹性 + 灰度/版本管理是 EAS 的典型场景",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "百炼MaaS数据需出域，违反约束①。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "FC有冷启动和时长限制，不适合稳定高吞吐实时推理。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "PAI-EAS支持私有模型、数据不出域、弹性伸缩与灰度发布，最匹配。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "ECS自建需较强运维，题干无专职SRE，且EAS更匹配灰度发布需求。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-6-18-1": {
+    "qid": "new-6-18-1",
+    "classification": "own",
+    "chapter": 6,
+    "quality": "ok",
+    "reason": "考查高并发下性能瓶颈分析与优化措施优先级。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "监控显示GPU显存占用98%、KV Cache占比82%。缓解 KV Cache 压力的常用手段：量化（INT8/INT4）权重体积成倍下降，腾出显存给 KV Cache",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "扩容是后续手段，应先优化单实例瓶颈。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "量化可直接降低显存占用，缓解KV Cache压力。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "GQA需模型结构支持，非部署时可调整；调整max_model_len是限制长度，非优先优化。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "重试是客户端容错，不解决服务端显存瓶颈。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-6-18-2": {
+    "qid": "new-6-18-2",
+    "classification": "own",
+    "chapter": 6,
+    "quality": "ok",
+    "reason": "考查TPOT波动的影响因素，TPOT由Decode阶段决定。",
+    "answer": [
+      "A",
+      "B"
+    ],
+    "supported": true,
+    "quote": "Decode（解码阶段）：从第一个 token 开始，一次生成一个新 token，每一步都要读取全部历史 token 的 KV Cache。这一步是显存带宽密集型，决定了 TPOT",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "输出token数过多会直接增加Decode步数，拉高TPOT。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "显存带宽被占导致KV Cache读取变慢，直接影响TPOT。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "PagedAttention主要影响显存利用率和并发，不直接决定单步TPOT。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "前缀缓存复用会降低TPOT，而非升高。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-6-18-3": {
+    "qid": "new-6-18-3",
+    "classification": "own",
+    "chapter": 6,
+    "quality": "ok",
+    "reason": "考查FC与EAS的选型对比，聚焦成本与场景匹配。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "函数计算 FC：Serverless 轻量推理。按调用量和实际资源消耗计费，无流量时不产生费用。非常适合：流量波动大、低频访问、对成本敏感的小工具",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "EAS提供模型预热针对实时服务，FC预热缓解冷启动但仍有延迟。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "FC按调用付费，适合低频波动场景，成本低于EAS固定资源。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "FC的Serverless GPU单卡算力并无天然优于EAS的说法。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "EAS支持蓝绿/灰度发布，FC的企业级能力较弱。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-6-18-4": {
+    "qid": "new-6-18-4",
+    "classification": "own",
+    "chapter": 6,
+    "quality": "ok",
+    "reason": "考查基于可观测性（OpenTelemetry三支柱）排查RT问题的思路。",
+    "answer": [
+      "A",
+      "C"
+    ],
+    "supported": true,
+    "quote": "生产环境的可观测性基于 OpenTelemetry 标准，采集三类数据：Metrics（指标）、Traces（链路追踪）、Logs（日志）",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "Traces可定位请求在RAG等环节的耗时异常。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "429错误属于限流，与QPS正常、RT飙升但利用率低的现象不符。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "分析TTFT/TPOT分项指标可定位延迟具体在哪个阶段异常。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "SLB健康检查失败率上升是网络或实例健康问题，与题干描述的RT飙升但QPS正常、GPU利用率低关联度不高。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-6-18-5": {
+    "qid": "new-6-18-5",
+    "classification": "own",
+    "chapter": 6,
+    "quality": "ok",
+    "reason": "考查TTFT差异大的可能原因，TTFT由Prefill阶段决定。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "请求排队等待时间波动，因并发数超过vLLM配置的max_num_seqs限制。超出并发上限通常直接返回错误（如 429），需要客户端重试与降级配合",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "连续批处理主要影响Decode阶段GPU利用率，不直接导致Prefill时间差异。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "请求排队等待时间波动会导致TTFT差异，是教材提及的可能原因。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "模型权重未加载到GPU显存会导致所有请求TTFT都很高，而非差异大。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "流式响应影响输出方式，不影响首token的生成时间(TTFT)。"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

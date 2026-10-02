@@ -1,0 +1,181 @@
+{
+  "new-10-78-0": {
+    "qid": "new-10-78-0",
+    "classification": "own",
+    "chapter": 10,
+    "quality": "ok",
+    "reason": "考查私有化部署开源模型方案的必要前提，符合本章选型逻辑。",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "开源模型的价值集中在三点：① 数据隐私与合规（数据不出域）；② 可深度定制（任意微调/改结构）；③ 大规模稳定流量下的长期成本可控。代价是需要 GPU、算法与运维能力，且要自己扛高可用、扩缩容、版本升级。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "数据严禁出域，需私有化部署。PAI-EAS部署并配置VPC内网访问是必要前提。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "ModelScope是开源社区，不提供在线微调并导出服务。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "使用DashScope API意味着数据离开私有云，违反约束①。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "百炼知识库是应用层功能，与私有化部署开源模型无关。"
+      }
+    ],
+    "duplicate_of": "10-5190"
+  },
+  "new-10-78-1": {
+    "qid": "new-10-78-1",
+    "classification": "own",
+    "chapter": 10,
+    "quality": "ok",
+    "reason": "考查限流处理原则，原文有明确依据。",
+    "answer": [
+      "B",
+      "C"
+    ],
+    "supported": true,
+    "quote": "遇 429 用**指数退避 + 抖动**重试，必要时降级到更小模型；降本顺序：选对模型 → 控制上下文与 `max_tokens` → 缓存 → 限流重试 →（规模足够大才）蒸馏/微调 + 自托管。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "无间隔循环重试会加剧限流，不符合规范。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "指数退避加随机抖动是原文推荐的重试机制。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "降级到更小模型（如turbo）是原文提到的降级策略。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "申请配额是长期措施，非完整重试降级策略的一部分。"
+      }
+    ],
+    "duplicate_of": "10-5188"
+  },
+  "new-10-78-2": {
+    "qid": "new-10-78-2",
+    "classification": "own",
+    "chapter": 10,
+    "quality": "ok",
+    "reason": "考查PAI-DSW微调后的验证路径，原文有明确流程。",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "以课程 4.1/4.2 的蒸馏+部署为例，典型流程是：1. 在 **PAI-DSW** 的 GPU 实例里写代码、用 ms-swift 做 LoRA 微调（DSW 提供交互式环境与课程预置镜像）；... 3. 得到合并后的模型，用 vLLM 本地起服务验证（其 HTTP 接口本身兼容 OpenAI API）；",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "在DSW中用vLLM启动服务验证，是原文推荐的验证路径。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "百炼模型广场用于托管模型，非DSW微调后的直接验证路径。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "ModelScope Notebook非PAI-DSW环境，且loss曲线用于训练诊断。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "DLC用于大规模训练，非验证推理效果的推荐路径。"
+      }
+    ],
+    "duplicate_of": "10-5163"
+  },
+  "new-10-78-3": {
+    "qid": "new-10-78-3",
+    "classification": "own",
+    "chapter": 10,
+    "quality": "ok",
+    "reason": "考查基于开源模型微调部署的全链路产品组合，符合本章核心内容。",
+    "answer": [
+      "A",
+      "B",
+      "C",
+      "D"
+    ],
+    "supported": true,
+    "quote": "开源模型的价值集中在三点：① 数据隐私与合规（数据不出域）；② 可深度定制（任意微调/改结构）；③ 大规模稳定流量下的长期成本可控。... 典型流程是：1. 在 **PAI-DSW** 的 GPU 实例里写代码、用 ms-swift 做 LoRA 微调... 2. 大规模/分布式训练可提交到 **DLC**；3. ... 再用 **PAI-EAS** 部署，获得弹性伸缩、预热、监控等生产能力。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "ModelScope用于下载开源模型权重，是起点。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "PAI-DSW用于LoRA微调开发与调试。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "PAI-DLC用于大规模分布式训练，可选。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "PAI-EAS用于部署为高并发在线服务，满足约束③。"
+      }
+    ],
+    "duplicate_of": "10-5162"
+  },
+  "new-10-78-4": {
+    "qid": "new-10-78-4",
+    "classification": "own",
+    "chapter": 10,
+    "quality": "ok",
+    "reason": "考查ModelScope Notebook资源限制与微调需求差异，原文有依据。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "ModelScope Notebook免费但通常有连续运行时长限制（如单次 4 小时自动关闭）；PAI-DSW 实例可保留但需主动管理计费。... DSW 提供交互式环境与课程预置镜像... 大规模/分布式训练可提交到 **DLC**；",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "引用依据正确，但根本原因是微调显存需求远超推理。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "根本原因是微调显存需求远超推理，DSW提供专用GPU环境。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "权重文件损坏无原文依据，且推理Demo成功排除了此可能。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "未安装库是具体错误，非根本的显存不足原因。"
+      }
+    ],
+    "duplicate_of": "10-5191"
+  }
+}

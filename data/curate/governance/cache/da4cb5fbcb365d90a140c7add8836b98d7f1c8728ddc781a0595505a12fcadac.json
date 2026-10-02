@@ -1,0 +1,212 @@
+{
+  "3-0045": {
+    "qid": "3-0045",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "考查Rerank作用，原文明确其用于精排过滤低相关候选",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "用更强的重排序模型对候选逐篇精细打分、重新排序，只把最相关的少数交给大模型",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "温度影响生成确定性，不解决检索过滤"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "手动删除非自动化过滤手段"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "Rerank专用于精排过滤低相关切片"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "截断无法区分相关性"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-0071": {
+    "qid": "3-0071",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "考查RAG核心目的，原文定义为开卷考试提供参考资料",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "RAG（Retrieval-Augmented Generation，检索增强生成）的核心思路可以用四个字概括：'开卷考试'",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "RAG不增加训练数据"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "原文定义RAG为提供参考资料作答"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "RAG可能增加推理时间"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "RAG不改变模型参数"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-0074": {
+    "qid": "3-0074",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "考查Embedding模型定义，原文明确其负责文本向量化",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "Embedding（向量化 / 嵌入）是把一段文本转换成一串数字（高维向量）",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "原文定义Embedding模型负责向量化"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "大模型负责生成而非向量化"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "选项内容与题干无关"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "选项内容与题干无关"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-0081": {
+    "qid": "3-0081",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "考查Embedding版本更新，原文提及text-embedding-v3为当前提供版本",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "阿里云百炼提供 `text-embedding-v3` 等 Embedding 模型，可同时用于建库与查询",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "原文明确v3为当前提供版本"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "v2未在原文中提及为更新版"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "选项内容与题干无关"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "选项内容与题干无关"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-0084": {
+    "qid": "3-0084",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "考查query_engine作用，原文代码示例显示其构建查询引擎",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "query_engine = index.as_query_engine( similarity_top_k=5, streaming=True, node_postprocessors=[...])",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "代码注释明确其创建查询引擎"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "similarity_top_k参数控制数量"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "rerank参数控制重排序数量"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "similarity_cutoff参数控制阈值"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-0132": {
+    "qid": "3-0132",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "考查ask函数作用，原文代码示例显示其调用查询引擎获取答案",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "response = ask(\"张伟是哪个部门的\", query_engine=query_engine)",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "代码调用ask函数获取答案"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "该功能由similarity_top_k控制"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "该功能由rerank参数控制"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "该功能由similarity_cutoff控制"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

@@ -1,0 +1,251 @@
+{
+  "11-1413": {
+    "qid": "11-1413",
+    "classification": "own",
+    "chapter": 11,
+    "quality": "ok",
+    "reason": "考查CosyVoice使用实践，原文明确其为TTS且需调参与环境优化",
+    "answer": [
+      "A",
+      "D",
+      "E"
+    ],
+    "supported": true,
+    "quote": "TTS（文字→语音，CosyVoice）；音色、语速、情绪一致性；可做个性化音色",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "原文提TTS需调语速/情绪"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "原文未提多模型比较"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "原文未提音量调节"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "安静环境是语音合成基础"
+      },
+      {
+        "label": "E",
+        "selected": true,
+        "why": "文本优化提升TTS质量"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "11-1441": {
+    "qid": "11-1441",
+    "classification": "own",
+    "chapter": 11,
+    "quality": "ok",
+    "reason": "考查语音转文本链路，原文强调ASR→LLM管道式架构",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "ASR → LLM（意图+检索+生成）→ TTS；各环节可独立替换",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "纯文本模型无法处理语音"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "符合ASR→LLM标准链路"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "大模型不直接接收语音"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "题目只要求文本回复"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "11-0784": {
+    "qid": "11-0784",
+    "classification": "own",
+    "chapter": 11,
+    "quality": "ok",
+    "reason": "考查图文理解→文案生成链路，原文明确图像识别+LLM组合",
+    "answer": [
+      "A",
+      "B"
+    ],
+    "supported": true,
+    "quote": "图像理解：物体/场景/关系识别；LLM生成自然语言；风格、温度按场景设定",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "对应图像识别API"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "对应LLM文案生成"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "原文未提少样本提示"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "原文未提向量库复用"
+      },
+      {
+        "label": "E",
+        "selected": false,
+        "why": "不支持图片违反多模态前提"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "11-1032": {
+    "qid": "11-1032",
+    "classification": "own",
+    "chapter": 11,
+    "quality": "ok",
+    "reason": "考查多模态处理库，OpenCV/moviepy是标准图像视频库",
+    "answer": [
+      "B",
+      "F"
+    ],
+    "supported": true,
+    "quote": "文档智能解析链路：OCR + 版面分析 → 结构化文本；视频理解=抽帧+音轨+字幕联合",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "numpy非专用图像库"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "OpenCV是图像视频处理标准库"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "pandas不处理图像视频"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "TensorFlow E不存在"
+      },
+      {
+        "label": "E",
+        "selected": false,
+        "why": "requests用于HTTP请求"
+      },
+      {
+        "label": "F",
+        "selected": true,
+        "why": "moviepy是视频处理专用库"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "11-0740": {
+    "qid": "11-0740",
+    "classification": "own",
+    "chapter": 11,
+    "quality": "ok",
+    "reason": "考查语音→纪要→待办链路，原文明确ASR+LLM+信息抽取三环节",
+    "answer": [
+      "A",
+      "B",
+      "C"
+    ],
+    "supported": true,
+    "quote": "ASR语音识别→LLM生成文字回复→会话记忆；会议纪要、风险标记；提取待办事项",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "ASR转文字是第一步"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "LLM生成结构化纪要"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "待办事项需专门抽取"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "检索非核心需求"
+      },
+      {
+        "label": "E",
+        "selected": false,
+        "why": "手动输入违背自动化目标"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "11-0786": {
+    "qid": "11-0786",
+    "classification": "own",
+    "chapter": 11,
+    "quality": "ok",
+    "reason": "考查文档解析工具，原文强调OCR对扫描件的必要性",
+    "answer": [
+      "A",
+      "B",
+      "C",
+      "D"
+    ],
+    "supported": true,
+    "quote": "OCR + 版面分析 → 结构化文本；表格转Markdown保留结构；扫描件必须先OCR",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "PDF解析必备"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "Word解析必备"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "Excel结构化数据提取"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "OCR处理扫描图文字"
+      },
+      {
+        "label": "E",
+        "selected": false,
+        "why": "不支持多格式违反题干要求"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

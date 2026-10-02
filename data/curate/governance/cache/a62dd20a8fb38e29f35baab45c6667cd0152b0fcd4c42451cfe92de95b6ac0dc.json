@@ -1,0 +1,72 @@
+{
+  "new-11-12-0": {
+    "qid": "new-11-12-0",
+    "classification": "own",
+    "chapter": 11,
+    "quality": "ok",
+    "reason": "考查扫描件PDF在RAG中的处理流程，需先解析再切片。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "扫描件PDF本质是图片，普通文本加载器读不出文字、直接切到的是空白/乱码。首要动作是先做文档智能解析（OCR + 版面分析 + 表格转Markdown）",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "多模态模型看图作答，但无法直接解决检索命中问题。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "必须先OCR解析提取文字，才能被后续RAG检索命中。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "扫描件是图片，通用文本加载器无法读取，增大chunk无效。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "图像向量化适用于以图搜图，不解决文字检索问题。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-11-12-2": {
+    "qid": "new-11-12-2",
+    "classification": "own",
+    "chapter": 11,
+    "quality": "ok",
+    "reason": "考查多模态生成评测的局限性，图文一致性需人工或多模态审核。",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "图文一致性、指令跟随等需人工评测校准兜底。自动指标很难评判，必须靠人工抽检或多模态审核模型兜底",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "文本指标无法评估图像的空间布局和渲染质量。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "OCR提取文字后计算文本指标，仍无法评估布局问题。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "业务数据是另一维度，不否定技术指标本身的问题。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "通义听悟是语音转写，不适用于图像质量评测。"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

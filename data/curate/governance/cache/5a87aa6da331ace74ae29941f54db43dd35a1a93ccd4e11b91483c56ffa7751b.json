@@ -1,0 +1,216 @@
+{
+  "new-11-60-0": {
+    "qid": "new-11-60-0",
+    "classification": "own",
+    "chapter": 11,
+    "quality": "ok",
+    "reason": "考查扫描件PDF在RAG中的处理流程，核心是文档解析环节缺失OCR与结构化还原。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "扫描件PDF本质是图片，普通文本加载器读不出文字、直接切到的是空白/乱码。首要动作是先做文档智能解析（OCR + 版面分析 + 表格转Markdown）",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "答错是因检索到乱码，生成阶段模型选择非首要原因。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "扫描件必须先OCR和版面分析还原结构，否则切片无效。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "问题在于文本未正确提取，非向量模型类型。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "召回策略非根本，检索内容本身是乱码。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-11-60-1": {
+    "qid": "new-11-60-1",
+    "classification": "own",
+    "chapter": 11,
+    "quality": "ok",
+    "reason": "考查语音助手链路中ASR识别错误的风险控制，强调热词与纠错机制。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "ASR识别错误会沿链路放大，专有名词多的场景要配置热词或在识别后纠错",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "TTS合成语义校验非针对ASR输入错误。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "ASR输出后需热词配置与纠错，防止错误放大。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "事实核查工具非解决ASR识别错误的关键。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "前端降噪有助但非针对专有名词识别错误。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-11-60-2": {
+    "qid": "new-11-60-2",
+    "classification": "own",
+    "chapter": 11,
+    "quality": "ok",
+    "reason": "考查多模态教育应用中的合规与效果保障措施，需结合内容安全与模型选型。",
+    "answer": [
+      "A",
+      "B",
+      "C"
+    ],
+    "supported": true,
+    "quote": "内容审核必须覆盖文本、图像、音频、视频全部模态；看图作答需要Qwen-VL这类多模态模型；语音文件/直播流，先转写再判内容风险",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "上传图片需调用图像内容安全检测。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "图文输入需Qwen-VL等多模态模型处理。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "语音转写结果需敏感词过滤并异步审核。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "解题视频非AI生成内容，无需强制标识。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-11-60-3": {
+    "qid": "new-11-60-3",
+    "classification": "own",
+    "chapter": 11,
+    "quality": "ok",
+    "reason": "考查医疗影像辅助诊断系统的技术本质，区分理解、生成、转换等概念。",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "多模态输入（CT影像/病历图片/语音）→ 影像理解/OCR → LLM结构化输出与问答",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "输出是理解后的描述，非从无到有的生成。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "转换通常指模态映射（如ASR），此处是理解后输出。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "从影像提取特征并关联知识，属于多模态理解。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "案例未提及检索影像知识库生成摘要。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-11-60-4": {
+    "qid": "new-11-60-4",
+    "classification": "own",
+    "chapter": 11,
+    "quality": "ok",
+    "reason": "考查长视频理解的处理方式，需平衡效果、成本与上下文窗口限制。",
+    "answer": [
+      "B",
+      "C"
+    ],
+    "supported": true,
+    "quote": "视频要抽大量帧，token消耗随帧数线性增长，长视频必须抽帧/截断/分段；视频理解=视觉（帧）+语音（ASR）+文本（字幕/LLM）联合",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "全帧抽样成本过高，不符合平衡原则。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "关键帧抽取+ASR转写+对齐是标准处理方式。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "分段处理符合长视频截断约束。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "通义万相是生成模型，非用于理解生成纪要。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-11-60-5": {
+    "qid": "new-11-60-5",
+    "classification": "own",
+    "chapter": 11,
+    "quality": "ok",
+    "reason": "考查AI生成图像（海报）的合规性审查步骤，结合内容安全与标识要求。",
+    "answer": [
+      "B",
+      "C"
+    ],
+    "supported": true,
+    "quote": "深度合成内容必须按规定加AI生成标识；图像检测不仅要看画面，还要审'图里的字'",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "OCR校验准确性非强制合规步骤。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "必须调用image_moderation检测画面与图中文字。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "深度合成内容必须添加AI生成标识。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "海报是图像，非视频，无需video_moderation。"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

@@ -1,0 +1,154 @@
+{
+  "items": [
+    {
+      "type": 0,
+      "stem": "某企业已在PAI-EAS上成功部署一个经LoRA微调的Qwen2-7B私有模型服务，地址为https://xxx.eas.aliyuncs.com。现需在百炼平台中配置该模型作为知识库问答的后端生成引擎。以下哪项是调用该EAS服务前必须完成的必要条件？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "在百炼工作流中启用‘自定义HTTP调用’节点，并将EAS服务URL填入请求地址"
+        },
+        {
+          "option_label": "B",
+          "option_text": "在百炼模型广场中手动注册该EAS服务为‘自定义模型’，并配置其OpenAI兼容API格式（含model字段映射）"
+        },
+        {
+          "option_label": "C",
+          "option_text": "确保该PAI-EAS服务已开启公网访问权限，且其HTTP接口严格遵循OpenAI Chat Completions API规范（含/compatible-mode/v1路径结构）"
+        },
+        {
+          "option_label": "D",
+          "option_text": "在百炼应用设置中绑定同一阿里云主账号下的PAI资源目录，并在EAS服务详情页开启‘百炼直连授权’开关"
+        }
+      ],
+      "answer": "C",
+      "analysis": "依据原文10.4节‘PAI三件套’与10.5节‘三者可组合’明确指出：‘百炼应用可回调PAI-EAS服务’，但未提供自动集成机制；而10.3节强调DashScope OpenAI兼容模式的核心是‘base_url指向兼容地址+标准参数’，且10.4节原理说明中明确‘vLLM本地起服务验证（其HTTP接口本身兼容OpenAI API）’——这表明百炼调用外部服务的前提是该服务具备标准OpenAI API契约。选项C准确指出两个刚性约束：①公网可达（百炼为SaaS服务，无法内网直连VPC中EAS）；②接口协议必须兼容（否则百炼工作流或智能体无法解析响应）。A错误：百炼工作流HTTP节点不支持直接对接非标准API；B错误：百炼模型广场仅展示平台预置模型，不支持用户注册任意EAS服务；D错误：原文无‘百炼直连授权’概念，且资源目录绑定非必要条件（百炼与EAS跨产品调用依赖网络与协议，非账号级开关）。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 1,
+      "stem": "开发团队在PAI-DSW中完成Qwen2-1.5B模型微调后，使用vLLM启动本地推理服务验证，其API符合OpenAI规范。当尝试将该服务部署至PAI-EAS时，发现服务始终无法健康就绪（Health Check失败）。以下哪些原因可能构成故障的直接技术约束？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "EAS服务配置中未正确设置‘健康检查路径’为/v1/models（vLLM默认健康检查端点）"
+        },
+        {
+          "option_label": "B",
+          "option_text": "EAS部署时选择的实例规格GPU显存小于vLLM加载模型所需最小显存（如Qwen2-1.5B量化后仍需≥8GB）"
+        },
+        {
+          "option_label": "C",
+          "option_text": "vLLM服务启动时未监听0.0.0.0:8000，而是仅绑定127.0.0.1:8000，导致EAS容器内网探测失败"
+        },
+        {
+          "option_label": "D",
+          "option_text": "未在PAI-EAS控制台为该服务配置‘环境变量’注入DASHSCOPE_API_KEY，因vLLM内部依赖DashScope重排序模块"
+        }
+      ],
+      "answer": "A,B,C",
+      "analysis": "依据原文10.4节‘EAS是模型对外服务的门面’及原理说明‘vLLM本地起服务验证（其HTTP接口本身兼容OpenAI API）’，EAS部署需满足三个底层约束：①网络可达性（C项：vLLM必须监听0.0.0.0而非localhost，否则EAS健康检查从容器网络发起会超时）；②资源匹配性（B项：EAS实例GPU显存必须满足模型加载需求，原文10.4‘成本提醒’强调GPU规格直接影响可行性）；③协议一致性（A项：EAS健康检查默认探测/v1/models，若vLLM未暴露该端点则持续失败）。D项错误：vLLM是独立推理框架，不依赖DashScope API Key；原文10.3/10.4均未提及EAS服务需注入DashScope密钥，此为混淆干扰。",
+      "difficulty_label": "挑战"
+    },
+    {
+      "type": 0,
+      "stem": "某金融公司要求HR答疑机器人必须满足‘员工手册原文永不离开内网’，因此决定采用ModelScope下载Qwen2-7B开源模型，在PAI-DLC训练后通过PAI-EAS部署。但在百炼工作流中配置‘调用EAS服务’节点后，测试发现所有请求均返回401 Unauthorized。最可能的根本原因及教材依据是？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "EAS服务未配置API认证，而百炼工作流HTTP节点强制要求Bearer Token，需在EAS服务代码中添加JWT校验逻辑"
+        },
+        {
+          "option_label": "B",
+          "option_text": "百炼工作流调用EAS时未携带Authorization头，因EAS默认开启鉴权且未在百炼节点中配置对应Token字段"
+        },
+        {
+          "option_label": "C",
+          "option_text": "PAI-EAS服务默认启用RAM鉴权，而百炼与EAS属于不同产品域，必须通过阿里云RAM角色授权打通，否则401拒绝访问"
+        },
+        {
+          "option_label": "D",
+          "option_text": "EAS服务监听端口未在安全组中放行，导致百炼请求被防火墙拦截，但EAS日志误报为401而非连接超时"
+        }
+      ],
+      "answer": "C",
+      "analysis": "依据原文10.5节‘数据与模型控制’对比表明确：PAI支持‘数据不出域程度更高’，而百炼与EAS的组合调用需解决跨产品权限问题。原文10.4节虽未明述EAS鉴权细节，但阿里云官方实践及10.1节‘分层定位’隐含前提：EAS作为生产级服务，默认启用RAM（Resource Access Management）鉴权，需显式授予百炼所在账号对EAS服务的调用权限（如AliyunEASFullAccess），否则返回401。A、B错误：百炼工作流HTTP节点不强制Token，且EAS服务本身不内置Bearer校验；D错误：安全组拦截通常导致连接失败（Connection Refused）或超时，而非401状态码，401专指认证失败。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 1,
+      "stem": "为实现百炼应用调用PAI-EAS私有模型，以下哪些条件必须同时满足才能保证链路成功？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "EAS服务已发布为公网可访问的Endpoint，且域名已备案（如涉及中国大陆地区）"
+        },
+        {
+          "option_label": "B",
+          "option_text": "EAS服务的HTTP接口严格兼容OpenAI Chat Completions API规范（包括路径、方法、请求体结构、响应字段）"
+        },
+        {
+          "option_label": "C",
+          "option_text": "百炼工作流中使用的HTTP调用节点已配置正确的Content-Type: application/json及Accept: application/json头"
+        },
+        {
+          "option_label": "D",
+          "option_text": "EAS服务实例的GPU型号与显存容量满足所部署模型的推理最低要求"
+        }
+      ],
+      "answer": "A,B,D",
+      "analysis": "依据原文10.4节‘EAS是模型对外服务的门面’及10.5节‘百炼应用可回调PAI-EAS服务’，成功调用需三重保障：①网络可达（A项：百炼为SaaS服务，必须通过公网Endpoint访问EAS；备案要求属中国区合规硬约束）；②协议兼容（B项：原文10.4明确vLLM服务‘兼容OpenAI API’，百炼工作流仅支持标准API交互）；③资源充足（D项：原文10.4‘成本提醒’强调GPU规格决定可行性，显存不足将导致服务启动失败或OOM）。C项非必要：HTTP节点默认发送标准JSON头，且OpenAI规范未强制Accept头，百炼自身解析逻辑不依赖此头。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 0,
+      "stem": "算法团队在PAI-DSW中调试Qwen2-7B微调脚本时，发现模型输出质量不稳定。为快速验证是否为EAS部署环节引入问题，他们计划在DSW中直接调用已部署的EAS服务进行AB测试。以下哪项操作最符合教材推荐的验证路径？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "在DSW Notebook中使用requests库构造POST请求，目标URL为EAS服务Endpoint，请求体完全复现百炼工作流中的messages结构"
+        },
+        {
+          "option_label": "B",
+          "option_text": "在DSW中安装dashscope SDK，调用TextGeneration.call()方法，将EAS Endpoint设为base_url参数"
+        },
+        {
+          "option_label": "C",
+          "option_text": "在DSW中运行curl命令，向EAS服务发送GET /health请求，确认服务存活后即认为部署无问题"
+        },
+        {
+          "option_label": "D",
+          "option_text": "在DSW中使用OpenAI Python SDK，设置base_url为EAS Endpoint，调用client.chat.completions.create()发起标准请求"
+        }
+      ],
+      "answer": "D",
+      "analysis": "依据原文10.4节原理说明：‘vLLM本地起服务验证（其HTTP接口本身兼容OpenAI API）’，以及10.3节‘OpenAI兼容模式’价值在于‘改两行代码就迁移’。D项精准复现了教材验证路径：用标准OpenAI SDK + 自定义base_url调用EAS，既验证协议兼容性，又复用成熟SDK错误处理逻辑。A项虽可行但非教材推荐（原文强调‘兼容模式’为首选）；B项错误：dashscope SDK不支持自定义base_url指向EAS；C项仅验证健康检查，无法验证推理功能。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 1,
+      "stem": "当百炼应用通过工作流调用PAI-EAS私有模型失败时，以下哪些现象可直接归因为EAS服务侧配置缺陷，而非百炼或网络问题？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "EAS服务监控面板显示‘CPU使用率持续为0%，GPU显存占用恒定’，且所有请求均返回503 Service Unavailable"
+        },
+        {
+          "option_label": "B",
+          "option_text": "百炼工作流日志显示‘HTTP 404 Not Found’，而EAS服务Endpoint在浏览器中可正常访问/v1/models"
+        },
+        {
+          "option_label": "C",
+          "option_text": "EAS服务实例状态为‘Running’，但健康检查探针持续失败（Health Check Failed），且服务日志无任何启动成功记录"
+        },
+        {
+          "option_label": "D",
+          "option_text": "百炼工作流执行超时（Timeout），而EAS服务监控显示‘请求到达数为0’"
+        }
+      ],
+      "answer": "A,C",
+      "analysis": "依据原文10.4节‘EAS是模型对外服务的门面’及原理，EAS服务侧缺陷表现为：①服务未真正承载流量（A项：CPU/GPU无活动+503，表明模型未加载或服务进程崩溃）；②健康检查失败（C项：探针失败且无启动日志，说明服务未成功初始化）。B项属路径配置错误（404），但EAS已响应，证明服务存活；D项属网络层问题（百炼请求未抵达EAS），非EAS配置缺陷。原文10.4强调EAS提供‘弹性伸缩、预热、监控’，其监控面板数据（A/C）是诊断服务侧问题的直接依据。",
+      "difficulty_label": "挑战"
+    }
+  ]
+}

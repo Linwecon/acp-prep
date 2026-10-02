@@ -1,0 +1,177 @@
+{
+  "new-6-162-0": {
+    "qid": "new-6-162-0",
+    "classification": "own",
+    "chapter": 6,
+    "quality": "ok",
+    "reason": "题目综合考查量化效果、TPOT/TTFT差异及精度损失，考点清晰，选项有原文依据。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "量化通常也加速：因为Decode阶段是显存带宽密集型，从显存读权重的字节数变少了。但能否加速取决于推理框架/硬件是否有对应的低比特算子——不是任何量化都自动变快",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "原文未直接支持AWQ INT4精度损失更小的结论，且1.3分下降是否属预期波动无依据。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "原文明确量化因显存带宽减小可能加速TPOT，但需框架支持低比特算子。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "TTFT不变与AWQ机制无关的结论无原文支持；AWQ保护权重通道，原文未提其与Prefill关系。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "原文未提及AWQ引入额外稀疏性优化，且显存下降58%超出理论值无依据。"
+      }
+    ],
+    "duplicate_of": "6-5136"
+  },
+  "new-6-162-1": {
+    "qid": "new-6-162-1",
+    "classification": "own",
+    "chapter": 6,
+    "quality": "ok",
+    "reason": "考查高TTFT故障排查，需结合Prefill计算特征与监控指标分析，选项有区分度。",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "Prefill（预填充阶段）：把用户输入的整段prompt一次性喂进去，并行计算所有输入token的表示。这一步是计算密集型，处理完后吐出第一个token，决定了TTFT",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "长prompt导致Prefill计算量激增，是TTFT高的直接原因，符合原文描述。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "PagedAttention按需分配，无预分配浪费；且KV Cache占用率仅30%，此选项矛盾。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "权重损坏通常导致推理失败而非仅TTFT高，且监控显示GPU利用率正常。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "SLB超时中断会导致请求失败而非高TTFT，且与监控显示的TTFT>8s现象不符。"
+      }
+    ],
+    "duplicate_of": "6-5139"
+  },
+  "new-6-162-2": {
+    "qid": "new-6-162-2",
+    "classification": "own",
+    "chapter": 6,
+    "quality": "ok",
+    "reason": "考查PagedAttention核心机制，选项区分了按需分配、量化、前缀复用等不同概念。",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "PagedAttention（分页注意力）：把KV Cache切成一个个固定大小的块（block），按需分配，再用一张‘页表’记录逻辑位置到物理块的映射。带来的好处：消除碎片、按需分配、不再按最大长度预分配浪费",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "原文明确PagedAttention将KV Cache分块、按需分配，避免为最长请求预分配连续显存。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "PagedAttention本身不涉及INT4量化，量化是另一优化手段。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "前缀复用是PagedAttention带来的好处之一，但非其显存节省的核心机制。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "动态调整block数量是实现方式，但核心机制是按需分配避免预分配浪费。"
+      }
+    ],
+    "duplicate_of": "6-5147"
+  },
+  "new-6-162-3": {
+    "qid": "new-6-162-3",
+    "classification": "own",
+    "chapter": 6,
+    "quality": "ok",
+    "reason": "考查PagedAttention优化边界，需区分其对Prefill和Decode阶段的影响。",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "Prefill（预填充阶段）：把用户输入的整段prompt一次性喂进去，并行计算所有输入token的表示。这一步是计算密集型，处理完后吐出第一个token，决定了TTFT",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "PagedAttention管理KV Cache，无法优化Prefill阶段的计算复杂度，这是TTFT未改善的根本原因。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "GPU显存带宽影响Decode阶段（TPOT），而非Prefill阶段（TTFT）。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "FlashAttention-2优化Prefill计算，但非PagedAttention机制本身无法优化的原因。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "页表查询开销可能影响效率，但非TTFT未改善的根本原因；且原文未提及此开销。"
+      }
+    ],
+    "duplicate_of": "6-5143"
+  },
+  "new-6-162-4": {
+    "qid": "new-6-162-4",
+    "classification": "own",
+    "chapter": 6,
+    "quality": "ok",
+    "reason": "考查FC冷启动现象及教材依据，选项明确指向Serverless核心边界。",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "为什么会有冷启动？Serverless为了省成本，无流量时会回收实例；请求突然到来需要重新拉起实例、加载模型，导致首个请求明显变慢",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "现象符合FC冷启动特征，教材6.7节明确解释了冷启动导致首个请求变慢。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "AWQ加速低比特加载非根本原因；且教材未提AWQ可加速加载耗时。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "超时设置触发重试可能导致延迟，但非题干描述现象（首次调用延迟）的根本原因。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "缺少预留实例是缓解手段，非根本原因；根本原因是实例回收与重新加载。"
+      }
+    ],
+    "duplicate_of": "6-5152"
+  }
+}

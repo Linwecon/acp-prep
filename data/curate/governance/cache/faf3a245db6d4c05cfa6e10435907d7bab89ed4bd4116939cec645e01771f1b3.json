@@ -1,0 +1,212 @@
+{
+  "10-1209": {
+    "qid": "10-1209",
+    "classification": "own",
+    "chapter": 10,
+    "quality": "ok",
+    "reason": "四选项均在原文10.1/10.4/10.5节明确列为部署形态或平台",
+    "answer": [
+      "A",
+      "B",
+      "C",
+      "D"
+    ],
+    "supported": true,
+    "quote": "四种部署形态对比（FC/PAI-EAS/百炼/ECS）",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "原文明确ECS为部署形态之一"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "原文明确FC为部署形态之一"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "原文明确PAI-EAS为部署形态之一"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "原文明确百炼为部署形态之一"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "10-1314": {
+    "qid": "10-1314",
+    "classification": "own",
+    "chapter": 10,
+    "quality": "fixable",
+    "reason": "仅C语法正确且符合原文示例",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "client = OpenAI(api_key=os.getenv(\"DASHSCOPE_API_KEY\"), base_url=\"https://dashscope.aliyuncs.com/compatible-mode/v1\")",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "参数顺序错误，无base_url"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "Api_key大小写错误，应为api_key"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "语法正确，匹配原文示例"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "缺少api_key参数，无法认证"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "10-1337": {
+    "qid": "10-1337",
+    "classification": "cross",
+    "chapter": 2,
+    "quality": "review",
+    "reason": "属提示工程优化范畴，原文未提Turbo质量优化方法",
+    "answer": [],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "原文未提该循环方法"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "原文未提输入长度影响"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "原文未提领域术语作用"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "原文未提模型校验功能"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "10-1344": {
+    "qid": "10-1344",
+    "classification": "own",
+    "chapter": 10,
+    "quality": "fixable",
+    "reason": "仅C参数名和模型名正确",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "response = client.chat.completions.create(model=\"qwen-plus\", messages=[{\"role\": \"user\", \"content\": \"年假有几天？\"}], stream=True)",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "Records参数名错误，应为messages"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "模型名qwe-n-max拼写错误"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "参数名和模型名均正确"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "模型名拼写错误且records参数名错误"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "10-1345": {
+    "qid": "10-1345",
+    "classification": "own",
+    "chapter": 10,
+    "quality": "ok",
+    "reason": "通义听悟仅聚焦语音处理，AD属多模态能力",
+    "answer": [
+      "A",
+      "D"
+    ],
+    "supported": true,
+    "quote": "通义听悟：语音识别、会议转写（ASR）",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "图像转视频属通义万相范畴"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "ASR是听悟核心能力"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "摘要翻译属听悟能力"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "图文生成属多模态模型范畴"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "10-1459": {
+    "qid": "10-1459",
+    "classification": "cross",
+    "chapter": 4,
+    "quality": "review",
+    "reason": "属Agent决策逻辑，原文未提敏感问题转人工方案",
+    "answer": [],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "原文未提直接生成方案"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "原文未提文本分类方案"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "原文未提回避学习方案"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "原文未提限制提问方案"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

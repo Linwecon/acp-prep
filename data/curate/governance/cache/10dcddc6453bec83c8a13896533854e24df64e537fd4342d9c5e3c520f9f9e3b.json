@@ -1,0 +1,256 @@
+{
+  "3-0787": {
+    "qid": "3-0787",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "考查RAG实现精准溯源页码的技术方案，符合本章知识。",
+    "answer": [
+      "A",
+      "B",
+      "C",
+      "D"
+    ],
+    "supported": true,
+    "quote": "文档解析：把 PDF / Word / Markdown 等加载并解析成纯文本（尽量保留标题、表格等结构）；文本切片（Chunking）...切片时保留页码元数据；向量化...存入向量数据库；检索时返回匹配向量对应的页码信息",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "文档解析是RAG建库第一步，需提取文本与页码。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "切片时保留页码元数据是实现精准定位的关键。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "向量化并存入向量数据库是RAG检索的标准流程。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "检索时返回页码信息是实现溯源要求的具体操作。"
+      },
+      {
+        "label": "E",
+        "selected": false,
+        "why": "模型无法直接读取原始文档格式，必须经过解析。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-1026": {
+    "qid": "3-1026",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "考查RAG处理表格文档问题的解决方案，符合本章知识。",
+    "answer": [
+      "A",
+      "B",
+      "C"
+    ],
+    "supported": true,
+    "quote": "表格若被当成普通文字按固定长度切碎，行列关系会被打散，后面问“违约金比例”“对比数值”就会答错。对策：表格转 Markdown、以完整表格为切片边界、为表格额外生成摘要。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "预处理提问有助于更精准地检索表格内容。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "切片时保留表格行列信息可防止结构丢失。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "将表格转为结构化格式（如JSON）有助于保留语义。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "Markdown文档本身是文本，无需OCR识别文字。"
+      },
+      {
+        "label": "E",
+        "selected": false,
+        "why": "Embedding模型主要影响语义匹配，不解决表格结构问题。"
+      },
+      {
+        "label": "F",
+        "selected": false,
+        "why": "增加训练数据是微调思路，不符合RAG优先原则。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-1204": {
+    "qid": "3-1204",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "fixable",
+    "reason": "代码存在明显错误，但考查RAG配置知识有价值。题干不完整，需修正。",
+    "answer": [
+      "A",
+      "B",
+      "C"
+    ],
+    "supported": true,
+    "quote": "query_engine = index.as_query_engine(...)；重排序（Rerank）...对候选重新精排、过滤；相似度阈值...放宽阈值是 召回率 ↑、精确率 ↓",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "query_engine应调用query，而非retrieval方法。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "重排top_n=8大于初步召回similarity_top_k=3，逻辑错误。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "相似度阈值1过高，可能过滤掉所有结果。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "Llamaindex支持流式输出，代码中streaming=True正确。"
+      }
+    ],
+    "duplicate_of": "3-1465"
+  },
+  "3-1461": {
+    "qid": "3-1461",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "与3-0787完全相同，考查RAG实现精准溯源页码的技术方案。",
+    "answer": [
+      "A",
+      "B",
+      "C",
+      "D"
+    ],
+    "supported": true,
+    "quote": "文档解析：把 PDF / Word / Markdown 等加载并解析成纯文本（尽量保留标题、表格等结构）；文本切片（Chunking）...切片时保留页码元数据；向量化...存入向量数据库；检索时返回匹配向量对应的页码信息",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "文档解析是RAG建库第一步，需提取文本与页码。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "切片时保留页码元数据是实现精准定位的关键。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "向量化并存入向量数据库是RAG检索的标准流程。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "检索时返回页码信息是实现溯源要求的具体操作。"
+      },
+      {
+        "label": "E",
+        "selected": false,
+        "why": "模型无法直接读取原始文档格式，必须经过解析。"
+      }
+    ],
+    "duplicate_of": "3-0787"
+  },
+  "3-1465": {
+    "qid": "3-1465",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "fixable",
+    "reason": "代码存在明显错误，但考查RAG配置知识有价值。题干不完整，需修正。",
+    "answer": [
+      "A",
+      "B",
+      "C"
+    ],
+    "supported": true,
+    "quote": "query_engine = index.as_query_engine(...)；重排序（Rerank）...对候选重新精排、过滤；相似度阈值...放宽阈值是 召回率 ↑、精确率 ↓",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "query_engine应调用query，而非retrieve方法。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "重排top_n=8大于初步召回similarity_top_k=3，逻辑错误。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "相似度阈值1过高，可能过滤掉所有结果。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "Llamaindex支持流式输出，代码中streaming=True正确。"
+      }
+    ],
+    "duplicate_of": "3-1204"
+  },
+  "3-6003": {
+    "qid": "3-6003",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "考查RAG处理表格文档问题的解决方案，与3-1026高度相似。",
+    "answer": [
+      "A",
+      "B",
+      "C"
+    ],
+    "supported": true,
+    "quote": "表格若被当成普通文字按固定长度切碎，行列关系会被打散，后面问“违约金比例”“对比数值”就会答错。对策：表格转 Markdown、以完整表格为切片边界、为表格额外生成摘要。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "预处理提问有助于更精准地检索表格内容。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "切片时保留表格行列信息可防止结构丢失。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "将表格转为结构化格式（如JSON）有助于保留语义。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "Markdown文档本身是文本，无需OCR识别文字。"
+      },
+      {
+        "label": "E",
+        "selected": false,
+        "why": "Embedding模型主要影响语义匹配，不解决表格结构问题。"
+      },
+      {
+        "label": "F",
+        "selected": false,
+        "why": "增加训练数据是微调思路，不符合RAG优先原则。"
+      }
+    ],
+    "duplicate_of": "3-1026"
+  }
+}

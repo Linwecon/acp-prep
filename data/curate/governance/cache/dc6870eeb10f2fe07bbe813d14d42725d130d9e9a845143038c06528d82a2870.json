@@ -1,0 +1,215 @@
+{
+  "new-7-0-0": {
+    "qid": "new-7-0-0",
+    "classification": "own",
+    "chapter": 7,
+    "quality": "ok",
+    "reason": "考查评测集构建铁律，题干明确违反教材刚性约束。",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "标准答案来自领域专家：必须由业务领域专家编写/审定",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "题干未提及评测配置变更。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "有评测分数，并非缺少基线。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "标准答案由AI生成未经验证，违反铁律。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "题干核心是答案来源错误，非指标混淆。"
+      }
+    ],
+    "duplicate_of": "7-5066"
+  },
+  "new-7-0-1": {
+    "qid": "new-7-0-1",
+    "classification": "own",
+    "chapter": 7,
+    "quality": "ok",
+    "reason": "考查故障定位与控制变量，需结合指标表现和原文要求判断。",
+    "answer": [
+      "A",
+      "D"
+    ],
+    "supported": true,
+    "quote": "Precision 低（Recall 高）...加 Rerank...回归评测的前提是除了待测改动，其他一切都冻结",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "Precision低需加Rerank，且冻结配置符合控制变量。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "Recall已很高，调大Top K会加剧噪声。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "病根在检索排序，仅优化提示词效果有限。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "固定评测集字段，仅变Rerank，符合控制变量。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-7-0-2": {
+    "qid": "new-7-0-2",
+    "classification": "own",
+    "chapter": 7,
+    "quality": "ok",
+    "reason": "直接考查LLM-as-Judge的偏见类型识别。",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "长度偏见：倾向认为更长更详细的答案‘更完整’，惩罚简洁但切题的答案",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "题干未涉及候选顺序。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "未提及模型风格偏好。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "简洁答案分低，冗长分高，符合长度偏见。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "未涉及特定代码或行文风格。"
+      }
+    ],
+    "duplicate_of": "7-5060"
+  },
+  "new-7-0-3": {
+    "qid": "new-7-0-3",
+    "classification": "own",
+    "chapter": 7,
+    "quality": "ok",
+    "reason": "考查Agent白盒评测方法，需区分端到端与组件级检查。",
+    "answer": [
+      "B",
+      "D"
+    ],
+    "supported": true,
+    "quote": "白盒评测（White-box）：深入链路，对关键组件/中间步骤单独打分",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "仍属端到端评测，未单独检查组件。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "对代码生成组件单独测试，是白盒确定性检查。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "检查关键词是表面检查，无法验证可运行性。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "分析执行trace验证步骤，属白盒确定性检查。"
+      }
+    ],
+    "duplicate_of": "7-5059"
+  },
+  "new-7-0-4": {
+    "qid": "new-7-0-4",
+    "classification": "own",
+    "chapter": 7,
+    "quality": "ok",
+    "reason": "考查公开基准的局限性及正确使用方法。",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "公开基准仅用于选型初筛，业务决策必须用自建评测集 + 领域专家验证",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "子集仍属通用基准，未解决领域适配问题。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "直接上线风险高，应先离线验证。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "先用基准初筛，再用自建领域集终选，符合正确定位。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "修改基准指标，仍非自建领域集。"
+      }
+    ],
+    "duplicate_of": "7-5061"
+  },
+  "new-7-0-5": {
+    "qid": "new-7-0-5",
+    "classification": "own",
+    "chapter": 7,
+    "quality": "ok",
+    "reason": "考查控制变量失效的核查点，需结合指标异常判断。",
+    "answer": [
+      "A",
+      "C"
+    ],
+    "supported": true,
+    "quote": "回归评测的前提是除了待测改动，其他一切都冻结：评测集版本、评测脚本、推理参数（temperature、seed）、模型版本、甚至当评委的大模型版本都要固定",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "temperature变化影响生成，可能导致Faithfulness下降。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "ground_truth若被重新审定，则评测集已变，非控制变量问题。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "评委LLM版本变化直接影响打分，是核心核查点。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "question替换属评测集变更，非控制变量失效。"
+      }
+    ],
+    "duplicate_of": "7-5089"
+  }
+}

@@ -1,0 +1,211 @@
+{
+  "new-1-12-0": {
+    "qid": "new-1-12-0",
+    "classification": "own",
+    "chapter": 1,
+    "quality": "ok",
+    "reason": "考查多轮对话中模型无状态特性与messages构造，是本章核心考点。",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "大模型 API 是无状态（Stateless）的：每次 HTTP 请求相互独立，服务端不会因为你上次调过就'记得'你。所谓'多轮对话'，本质是客户端把历史消息拼进 messages，每次重新发一遍。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "题干已确认messages完整，但模型无状态，每次请求独立，必须包含历史assistant回复。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "终止符影响生成停止，与理解指代词无关，且题干未提生成截断。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "messages数组要求结构化JSON，纯文本无法正确传入，但题干已确认数组完整。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "流式输出只改传输方式，不影响messages处理，题干已确认数组完整。"
+      }
+    ],
+    "duplicate_of": "1-1478"
+  },
+  "new-1-12-1": {
+    "qid": "new-1-12-1",
+    "classification": "own",
+    "chapter": 1,
+    "quality": "ok",
+    "reason": "考查messages结构实践与无状态特性，是本章核心工程实践。",
+    "answer": [
+      "A",
+      "D"
+    ],
+    "supported": true,
+    "quote": "大模型 API 是无状态（Stateless）的：每次 HTTP 请求相互独立，服务端不会因为你上次调过就'记得'你。所谓'多轮对话'，本质是客户端把历史消息拼进 messages，每次重新发一遍。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "无状态特性要求每次请求携带完整历史，模型才能理解指代。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "assistant消息内容可人工编辑或摘要，以压缩历史、节省窗口。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "system消息通常置首且一次，但非严格必要，API允许无system。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "客户端必须维护对话历史，服务端不保存状态，是工程要求。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-1-12-2": {
+    "qid": "new-1-12-2",
+    "classification": "own",
+    "chapter": 1,
+    "quality": "ok",
+    "reason": "考查指代理解失效的具体原因，涉及messages内容细节。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "要让模型'记住'前文，就必须由你的程序维护对话历史，并在每次调用时带上；",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "自注意力不限长，题干已确认token数远低于窗口上限，能关注到。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "若首轮回复未显式包含'Jira'，模型无法建立'它'与'Jira'的指代关联。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "role设错会导致模型误解对话结构，但题干已确认数组经校验完整。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "temperature过高可能导致忽略约束，但题干未提参数异常，非最可能根本原因。"
+      }
+    ],
+    "duplicate_of": "1-1473"
+  },
+  "new-1-12-3": {
+    "qid": "new-1-12-3",
+    "classification": "own",
+    "chapter": 1,
+    "quality": "ok",
+    "reason": "辨析不同问题的根因，考查对模型无状态、幻觉、计算缺陷的理解。",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "大模型 API 是无状态（Stateless）的：每次 HTTP 请求相互独立，服务端不会因为你上次调过就'记得'你。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "指代失效因未包含历史assistant回复，直接源于无状态特性与messages构造。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "计算错误源于自回归生成缺乏符号运算机制，属模型能力边界。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "答案不同源于temperature引入的采样随机性，属生成参数影响。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "推荐错误源于训练数据频率导致的幻觉，属知识截止与私域知识缺失。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-1-12-4": {
+    "qid": "new-1-12-4",
+    "classification": "own",
+    "chapter": 1,
+    "quality": "fixable",
+    "reason": "题干描述已隐含原因（首轮回复包含'Jira'，指代应有效），选项均属边缘技术细节，无考查价值。",
+    "answer": [],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "不可见字符导致分词异常可能性低，非优先检查项。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "丢失'那'字可能削弱指代，但'Jira'已在历史中，模型应能关联。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "重复添加导致冗余，但可能干扰而非直接导致指代失效。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "编码或转义破坏属低级错误，题干未提示此类迹象。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-1-12-5": {
+    "qid": "new-1-12-5",
+    "classification": "own",
+    "chapter": 1,
+    "quality": "ok",
+    "reason": "考查长对话下基于无状态原理的工程解决方案。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "历史消息越多，占用的上下文窗口越大、成本越高；超长后需要截断、摘要或用长期记忆机制",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "调高temperature增加随机性，不提升对长上下文的关注度。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "客户端实现摘要压缩历史，是解决长对话遗忘的根本工程路径。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "换更大窗口模型可延缓问题，但非根本解决路径，且成本高。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "system指令无法改变模型无状态特性，不能解决长上下文遗忘。"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

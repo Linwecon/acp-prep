@@ -1,0 +1,249 @@
+{
+  "5-1067": {
+    "qid": "5-1067",
+    "classification": "own",
+    "chapter": 5,
+    "quality": "ok",
+    "reason": "考查欠拟合的优化措施，属于微调训练过程知识点",
+    "answer": [
+      "A",
+      "B",
+      "C"
+    ],
+    "supported": true,
+    "quote": "训练 loss 下降 + 验证 loss 下降 = 欠拟合；还在学，可继续训练；LoRA 容量不足 → 适当提高 lr 或增加 epochs，复杂任务加大 lora_rank",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "增加数据量可缓解欠拟合"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "增加epochs可让模型充分学习"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "增加lora_rank可提升模型容量"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "学习率过大可能导致震荡"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "5-0859": {
+    "qid": "5-0859",
+    "classification": "cross",
+    "chapter": 10,
+    "quality": "ok",
+    "reason": "考查大模型应用开发全流程，属于平台与工程实践",
+    "answer": [
+      "A",
+      "B",
+      "C",
+      "D",
+      "E"
+    ],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "需求分析是开发起点"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "技术选型是必要环节"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "模型开发包括提示工程与微调"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "部署与监控是上线步骤"
+      },
+      {
+        "label": "E",
+        "selected": true,
+        "why": "运维优化是迭代过程"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "5-1454": {
+    "qid": "5-1454",
+    "classification": "own",
+    "chapter": 5,
+    "quality": "ok",
+    "reason": "考查LoRA微调的核心特性，选项B描述有误",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "LoRA（Low-Rank Adaptation，低秩适配）不直接更新原始权重矩阵 W₀，而是在它旁边“挂”一对小矩阵来学习变化量 ΔW",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "正确，LoRA只训练少量新增参数"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "错误，LoRA仍需加载完整模型权重"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "正确，权重合并便于部署"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "正确，适用于资源有限场景"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "5-1171": {
+    "qid": "5-1171",
+    "classification": "cross",
+    "chapter": 5,
+    "quality": "fixable",
+    "reason": "考查训练参数设置，但部分选项与训练无关，需修正",
+    "answer": [
+      "A",
+      "D",
+      "E",
+      "F"
+    ],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "学习率是训练参数"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "模型选择不是训练参数"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "设备选择不是训练参数"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "优化器设置是训练参数"
+      },
+      {
+        "label": "E",
+        "selected": true,
+        "why": "批次大小是训练参数"
+      },
+      {
+        "label": "F",
+        "selected": true,
+        "why": "训练轮数是训练参数"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "5-1201": {
+    "qid": "5-1201",
+    "classification": "cross",
+    "chapter": 5,
+    "quality": "ok",
+    "reason": "考查训练中的正则化与优化策略，属于微调知识点",
+    "answer": [
+      "A",
+      "C",
+      "D",
+      "E"
+    ],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "权重衰减是正则化策略"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "仅SGD名称不涉及策略"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "SGD带动量是优化策略"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "学习率调度是优化策略"
+      },
+      {
+        "label": "E",
+        "selected": true,
+        "why": "Dropout是正则化策略"
+      },
+      {
+        "label": "F",
+        "selected": false,
+        "why": "损失函数不是正则化策略"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "5-5113": {
+    "qid": "5-5113",
+    "classification": "own",
+    "chapter": 5,
+    "quality": "ok",
+    "reason": "考查LoRA相比全参微调的核心优势",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "LoRA 冻结了原权重，只为那一对小矩阵计算梯度和优化器状态，因此显存随训练参数量骤降",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "不一定更强，可能接近"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "需要训练数据"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "只训练增量参数，开销更低"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "推理仍需加载原始模型"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

@@ -1,0 +1,154 @@
+{
+  "items": [
+    {
+      "type": 0,
+      "stem": "某报销查询Agent在工具调用超时后返回空结果，当前代码已正确解析tool_calls并执行函数，但Agent未重试、未切换工具、也未向用户澄清，而是直接生成模糊回答：“系统暂未返回结果”。该故障最根本违反了本章强调的哪一条核心设计约定？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "ReAct必须设置最大迭代轮数上限"
+        },
+        {
+          "option_label": "B",
+          "option_text": "工具返回结果必须回灌到上下文"
+        },
+        {
+          "option_label": "C",
+          "option_text": "要给模型'失败出口'：工具超时、报错时能重试或换方案，而不是整轮崩溃"
+        },
+        {
+          "option_label": "D",
+          "option_text": "Function Calling中模型只提议、程序才执行"
+        }
+      ],
+      "answer": "C",
+      "analysis": "题干明确指向'工具超时后无应对策略'这一典型失败场景。教材4.2节【各组件如何协作】末尾关键约定原文：'要给模型\"失败出口\"：工具超时、报错时能重试或换方案，而不是整轮崩溃。' 选项A虽为ReAct铁律，但考查的是循环失控风险，与'不处理失败'无直接因果；B是Observation回传基础要求，题干已说明'返回空结果'，说明回传动作存在，问题在于后续决策；D是FC流程常识，与失败响应机制无关。只有C精准对应原文强制性设计约定，且直指'失败出口缺失'这一本题唯一根因。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 1,
+      "stem": "在设计报销查询Agent的失败出口机制时，以下哪些组合符合教材对'必要条件'与'执行顺序'的双重约束？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "当get_reimbursement工具返回'网络超时'时，Agent必须在下一轮Thought中显式声明'重试调用get_reimbursement'"
+        },
+        {
+          "option_label": "B",
+          "option_text": "当工具返回'未找到单据'时，Agent应主动追问用户工单号，而非尝试用默认值重试"
+        },
+        {
+          "option_label": "C",
+          "option_text": "若重试3次仍失败，必须触发HITL（人机协作）节点交由人工处理"
+        },
+        {
+          "option_label": "D",
+          "option_text": "工具Schema中month字段需定义pattern正则，确保模型无法传入非法格式参数"
+        }
+      ],
+      "answer": "AB",
+      "analysis": "本题考查失败出口的'必要条件'（必须有兜底）与'执行顺序'（先验证再行动/先追问再执行）。A正确：教材4.4节ReAct铁律强调'Observation可被用于修正后续步骤'，且4.2节明确失败时需'重试或换方案'，'显式声明重试'是ReAct闭环内标准动作；B正确：教材4.3节【高频考点】指出'参数可以在多轮对话中逐步收集，缺参时Agent应主动追问而不是瞎猜'，这是避免无效调用的前置必要条件。C错误：HITL是4.6.2节工作流模式之一，属'可选策略'而非'必要条件'，教材未强制要求所有失败必须升级人工；D错误：Schema pattern是参数校验手段（4.3节），属于预防性措施，但'失败出口'特指工具执行后（即Observation阶段）的响应机制，非执行前约束。故AB为唯二同时满足'必要性'与'ReAct执行顺序'的选项。",
+      "difficulty_label": "挑战"
+    },
+    {
+      "type": 0,
+      "stem": "一个ReAct Agent调用报销查询工具时，JSON-Schema将month字段定义为{'type': 'string', 'pattern': '^\\\\d{4}-\\\\d{2}$'}，required=['user_id']。用户提问'查我上月报销'，模型传入'2024-7'（缺前导零）导致工具报错'Invalid month format'。该故障最直接暴露JSON-Schema定义中的哪一缺陷？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "未将month设为required字段，导致模型可随意传入不合规值"
+        },
+        {
+          "option_label": "B",
+          "option_text": "pattern正则表达式未启用case-insensitive标志"
+        },
+        {
+          "option_label": "C",
+          "option_text": "缺少对参数语义的清晰description，未说明'月份必须为YYYY-MM格式'"
+        },
+        {
+          "option_label": "D",
+          "option_text": "未在Schema中提供example示例，降低模型参数提取准确性"
+        }
+      ],
+      "answer": "C",
+      "analysis": "题干核心是'模型传入非法格式'，根源在于Schema描述不足。教材4.3节【高频考点】明确：'参数提取准不准，取决于三件事：Schema质量（名称、描述、必填项是否清晰）、模型能力、上下文清晰度'，并强调'Schema字段名含糊、描述缺失，会直接导致参数提取错误'。C选项直指'description缺失'这一教材明示的Schema质量硬伤——仅靠pattern无法让模型理解'2024-7'不符合业务要求，必须通过description文字说明'月份必须为YYYY-MM格式'。A错误：month非required不影响其校验功能，pattern仍生效；B错误：正则匹配数字无需case-insensitive；D错误：example是增强项，非教材强调的'核心三要素'（name/description/required）。故C为最直接、教材依据最充分的答案。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 1,
+      "stem": "某金融Agent采用固定流水线工作流处理贷款申请（征信→收入→风控），但因征信API临时不可用导致流程卡死。为提升鲁棒性，以下哪些调整符合本章'规划策略'的最佳实践？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "将流水线改为Plan-and-Execute模式，允许Agent在征信失败时动态选择'调用备用征信接口'或'启动人工审核通道'"
+        },
+        {
+          "option_label": "B",
+          "option_text": "为每个工具添加超时熔断配置，并在工具返回错误时自动触发预设的降级脚本"
+        },
+        {
+          "option_label": "C",
+          "option_text": "在Planner组件中硬编码'征信失败则跳过，直接进入收入验证'的分支逻辑"
+        },
+        {
+          "option_label": "D",
+          "option_text": "将征信、收入、风控三个工具封装为单一Skill，通过渐进式披露加载子文档"
+        }
+      ],
+      "answer": "AB",
+      "analysis": "本题考查'失败出口'在不同规划策略下的实现方式。A正确：教材4.6.3节定义Plan-and-Execute为'遇到障碍时重新规划，而不是死守预设流程图'，且4.2节强调'失败出口'需'换方案'，'选择备用接口或人工通道'正是动态重规划的典型；B正确：教材4.11节Harness工程强调'标准-验证-记录-写回'，其中'验证'包含'确定性检查'，而'超时熔断+降级脚本'是典型的外部确定性防护机制，符合'让脚本做它擅长的执行与验证'原则。C错误：硬编码分支仍是固定工作流（4.6.2节），未实现'自主规划'，且教材4.6.3节明确反对为每种意外预设if/else；D错误：Skill解决的是SOP固化问题（4.9节），不改变工作流刚性，封装后仍按预设顺序执行，无法应对运行时失败。故AB为唯二符合'提升鲁棒性'且契合教材策略分层的答案。",
+      "difficulty_label": "挑战"
+    },
+    {
+      "type": 0,
+      "stem": "某团队对报销查询Agent进行白盒评测，发现其在工具调用失败后未触发任何重试逻辑，评测脚本通过解析执行轨迹确认：'get_reimbursement'调用后无后续tool_calls，且最终回复缺失关键状态字段。这种评测方式最核心依赖的是哪一方法？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "LLM-as-Judge"
+        },
+        {
+          "option_label": "B",
+          "option_text": "Rubric评分量表"
+        },
+        {
+          "option_label": "C",
+          "option_text": "确定性检查（Deterministic Checks）"
+        },
+        {
+          "option_label": "D",
+          "option_text": "端到端黑盒评测"
+        }
+      ],
+      "answer": "C",
+      "analysis": "题干关键词'解析执行轨迹''确认无后续tool_calls''缺失关键字段'，完全匹配教材4.10节对'确定性检查'的定义：'用代码/脚本判断\"该发生的步骤有没有发生\"。例如解析执行 trace，验证\"是否调了报销查询工具\"\"输出是否符合 JSON Schema\"'。该方法结果确定、可调试，专为定位过程缺陷设计。A和B属于主观或半主观评测，无法'解析轨迹'；D是黑盒，只看最终输出，无法发现中间步骤缺失。教材4.10节明确将'工具调用序列'列为白盒评测核心对象，而确定性检查是其实现基石，故C为唯一正确答案。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 0,
+      "stem": "某企业报销查询Agent在用户未提供报销单ID时，不再主动追问，而是传入空字符串调用工具并失败。该现象最直接违反了教材4.3节关于Function Calling的哪一条核心约定？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "模型会自己执行工具"
+        },
+        {
+          "option_label": "B",
+          "option_text": "参数必须一轮提取完"
+        },
+        {
+          "option_label": "C",
+          "option_text": "参数可以在多轮对话中逐步收集，缺参时Agent应主动追问而不是瞎猜"
+        },
+        {
+          "option_label": "D",
+          "option_text": "工具结果模型自己能看到"
+        }
+      ],
+      "answer": "C",
+      "analysis": "题干描述'未提供ID时传空字符串'，本质是缺参未追问，直接违反教材4.3节【高频考点】原文：'参数可以在多轮对话中逐步收集，缺参时Agent应主动追问而不是瞎猜'。这是Function Calling流程中保障鲁棒性的关键约定。A是常见误区，但题干未涉及执行主体；B是反例（教材明确否定'必须一轮提取完'）；D是另一误区，与参数收集无关。C选项逐字复现教材原文，且精准对应题干故障现象，为唯一正确答案。",
+      "difficulty_label": "入门"
+    }
+  ]
+}

@@ -1,0 +1,217 @@
+{
+  "9-0492": {
+    "qid": "9-0492",
+    "classification": "own",
+    "chapter": 9,
+    "quality": "ok",
+    "reason": "考查temperature/top_p对随机性的调控，原文明确二者为控制随机性核心参数",
+    "answer": [
+      "A",
+      "B"
+    ],
+    "supported": true,
+    "quote": "生成参数决定模型\"怎么说\"，而不是\"说什么\"。temperature 和 top_p 都会扩大候选范围",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "temperature直接控制随机性"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "top_p核采样影响候选范围"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "learning_rate属训练参数"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "batch_size属训练参数"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "9-0499": {
+    "qid": "9-0499",
+    "classification": "own",
+    "chapter": 9,
+    "quality": "ok",
+    "reason": "考查top_p数值与多样性关系，原文明确其调节作用",
+    "answer": [
+      "A",
+      "B"
+    ],
+    "supported": true,
+    "quote": "top_p（核采样）：把候选按概率从高到低累加，直到累积概率达到p，只在这个\"核心集合\"内采样",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "p越大候选集越广"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "p越小越接近贪婪解码"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "p值直接影响输出"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "p值不改变生成速度"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "9-0519": {
+    "qid": "9-0519",
+    "classification": "own",
+    "chapter": 9,
+    "quality": "ok",
+    "reason": "考查多样性影响因素，原文仅提及temperature/seed，presence_penalty未出现",
+    "answer": [
+      "A",
+      "D"
+    ],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "temperature直接调控"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "max_tokens限长度不控多样性"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "presence_penalty未在原文提及"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "seed用于复现输出"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "9-0530": {
+    "qid": "9-0530",
+    "classification": "own",
+    "chapter": 9,
+    "quality": "ok",
+    "reason": "考查创造性文本生成方法，原文明确temperature与创意场景正相关",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "文案、头脑风暴、起名 | 0.8 ~ 1.2 | 0.9 | 要多样性",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "高temperature提升多样性"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "max_tokens不控创造性"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "presence_penalty未提及"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "固定seed降低多样性"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "9-0558": {
+    "qid": "9-0558",
+    "classification": "own",
+    "chapter": 9,
+    "quality": "ok",
+    "reason": "考查temperature场景化选型，原文表格明确分档建议",
+    "answer": [
+      "A",
+      "B"
+    ],
+    "supported": true,
+    "quote": "事实问答、代码生成、信息抽取 | 0 ~ 0.3 | 低 | 要稳定、少随机；文案、头脑风暴、起名 | 0.8 ~ 1.2 | 0.9 | 要多样性",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "事实类需低temperature"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "创意类需高temperature"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "默认值不适用所有场景"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "温度值需按任务设定"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "9-0565": {
+    "qid": "9-0565",
+    "classification": "own",
+    "chapter": 9,
+    "quality": "ok",
+    "reason": "考查top_p场景化选型，原文表格明确分档建议",
+    "answer": [
+      "A",
+      "B"
+    ],
+    "supported": true,
+    "quote": "文案、头脑风暴、起名 | 0.8 ~ 1.2 | 0.9 | 要多样性；事实问答、代码生成、信息抽取 | 0 ~ 0.3 | 低 | 要稳定、少随机",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "创意类需高top_p"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "明确场景需低top_p"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "默认值不适用所有场景"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "top_p需按任务设定"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

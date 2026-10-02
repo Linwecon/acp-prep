@@ -1,0 +1,154 @@
+{
+  "items": [
+    {
+      "type": 0,
+      "stem": "某团队使用 FastAPI 封装了基于 LlamaIndex 的 RAG 服务，并同时用 Gradio 启动了一个聊天 Demo。上线后发现：Gradio 界面响应正常，但 FastAPI 的 /api/ask 接口持续返回 500 错误，日志提示 'query_engine is not defined'。经检查，query_engine 实例仅在 Gradio 的 answer 函数内部初始化。此故障最直接违反了第12章中关于技术栈分层的哪一核心原则？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "RAGAS 评估必须与业务逻辑解耦，否则无法复现评测结果"
+        },
+        {
+          "option_label": "B",
+          "option_text": "Gradio 作为 UI 层应仅调用已封装好的业务模块，不可承载核心 RAG 初始化逻辑"
+        },
+        {
+          "option_label": "C",
+          "option_text": "FastAPI 必须通过 LangChain 的 Runnable 协议暴露接口，否则不支持异步"
+        },
+        {
+          "option_label": "D",
+          "option_text": "LlamaIndex 的 QueryEngine 必须持久化到 Redis 才能被多进程共享"
+        }
+      ],
+      "answer": "B",
+      "analysis": "依据原文 12.7.2 节明确指出：'Gradio 只负责界面，不承载业务逻辑。RAG、Agent、提示词这些应放在下层可独立测试的模块里，UI 只调用它们的接口。否则一旦要把 Demo 变成正式产品，所有逻辑都和 UI 耦在一起，无法重写。' 本题中 query_engine 在 Gradio 函数内初始化，导致 FastAPI 路由无法访问该实例，本质是将业务逻辑（索引加载、QueryEngine 构建）错误地绑定在 UI 层，违反了“UI 层与业务逻辑层严格分离”的分层原则。A 项混淆了评估层职责（RAGAS 不涉及运行时初始化）；C 项错误——FastAPI 并不要求必须用 LangChain Runnable，裸调 LlamaIndex 亦可；D 项无教材依据，原文 12.3 节强调索引需持久化到磁盘（`persist_dir`），而非 Redis。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 0,
+      "stem": "在调试一个 RAG 应用时，RAGAS 评测报告显示 Faithfulness 得分极低（0.12），但人工核验发现检索到的 `context_str` 完全准确且覆盖关键事实。进一步检查发现：QueryEngine 使用的提示词模板中，`{context_str}` 被意外替换为 `{retrieved_context}`，而模型未识别该变量名，导致实际注入的上下文为空字符串。根据第12章 12.3 节对默认提示词机制的说明，此配置错误会直接导致什么后果？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "模型因缺少上下文而拒绝回答，返回空响应"
+        },
+        {
+          "option_label": "B",
+          "option_text": "模型基于自身知识自由生成答案，与检索内容无关，造成幻觉"
+        },
+        {
+          "option_label": "C",
+          "option_text": "检索阶段失效，`Retriever` 返回空 Node 列表"
+        },
+        {
+          "option_label": "D",
+          "option_text": "LlamaIndex 自动降级为纯 LLM 模式，跳过索引查询"
+        }
+      ],
+      "answer": "B",
+      "analysis": "原文 12.3 节明确指出：'`{context_str}` 注入的是从向量库召回的资料，用户问题由 `{query_str}` 注入'，并强调'考试常把二者互换作为错误选项'。当 `{context_str}` 变量名错误导致模板渲染失败时，实际传入模型的上下文为空，模型失去约束依据，只能依赖参数化知识作答，这正是 Faithfulness（忠实性）指标所衡量的'答案是否严格基于给定上下文'。A 项错误——模型通常不会因变量缺失而拒答；C、D 项混淆层级——变量名错误发生在 QueryEngine 的 prompt 渲染阶段，不影响 Retriever 或 Index 的底层执行；B 项精准对应 Faithfulness 低分的本质原因：答案脱离检索上下文，产生幻觉。该题考查对 `context_str` 语义及评测指标归因的深度理解。",
+      "difficulty_label": "挑战"
+    },
+    {
+      "type": 1,
+      "stem": "某金融风控团队需构建一个端到端 Agent：输入财报 PDF → OCR 解析 → 提取关键指标 → 对比行业均值 → 生成风险摘要 → 调用内部风控 API 触发预警。团队要求链路可观测、可调试、可灰度发布。根据第12章 12.2、12.4、12.6.1 节对框架定位的对比分析，以下哪些技术选型组合及理由符合‘各司其职’原则？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "使用 DashScopeParse 进行 PDF OCR 与版面解析，因其专为扫描件/复杂表格设计，输出结构化 Markdown"
+        },
+        {
+          "option_label": "B",
+          "option_text": "采用 LangChain + LangGraph 编排 Agent 工作流，因其在多工具调用、状态机、回调追踪方面生态最完整"
+        },
+        {
+          "option_label": "C",
+          "option_text": "选用 AgentScope 实现多角色协作，因其 MsgHub 天然支持风控专家与法务专家的群聊共创模式"
+        },
+        {
+          "option_label": "D",
+          "option_text": "用 Dify 可视化搭建全流程，因其拖拽节点即可完成意图分类、工具调用与发布，降低开发门槛"
+        }
+      ],
+      "answer": "AB",
+      "analysis": "A 正确：原文 12.5 节明确将 DashScopeParse 定位为'OCR + 版面分析 + 表格识别'方案，适用于'扫描件 PDF'场景，且强调其输出'结构化 Markdown'，符合财报解析需求；B 正确：原文 12.2 节指出 LangChain/LangGraph '最适合的场景'包括'需要 Agent 动态选择工具'和'需要链路追踪、调试与评测'，12.4 节对比表确认其'最强项'是'Agent、工具调用、多步流程、状态机'，完全匹配本题'多步骤、可灰度、可观测'要求；C 错误：本题是单 Agent 执行多步任务（非多 Agent 协作），原文 12.6.1 节定义 AgentScope 核心价值在于'多 Agent 之间的消息通信与协作模式'，如 Leader-Worker 或 Blackboard，而本题无角色分工需求；D 错误：原文 12.6.2 节强调 Dify 适合'快速原型、非工程人员参与'，但本题明确要求'可观测、可调试、可灰度发布'，属于深度定制生产场景，原文 12.8 节'七大误区'警示'为了技术先进强行上低代码平台'是典型反模式。",
+      "difficulty_label": "挑战"
+    },
+    {
+      "type": 0,
+      "stem": "某团队将 LlamaIndex 的 VectorStoreIndex 封装为 LangChain Tool 供 ReAct Agent 调用。测试中发现 Agent 频繁重复调用该 Tool，但每次返回的 `context_str` 内容高度相似且与用户问题无关。依据第12章 12.3 节对 `context_str` 的定义及 QueryEngine 默认行为，最可能的根本原因是？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "Tool 的 `args_schema` 未正确声明 JSON Schema，导致 Agent 无法解析用户问题"
+        },
+        {
+          "option_label": "B",
+          "option_text": "QueryEngine 初始化时未传入 `llm` 参数，导致检索后合成阶段失效"
+        },
+        {
+          "option_label": "C",
+          "option_text": "Tool 执行时未将用户问题作为 `query_str` 传入 `query_engine.query()`，导致默认执行空查询"
+        },
+        {
+          "option_label": "D",
+          "option_text": "LlamaIndex 的 Retriever 未配置 `similarity_top_k`，导致返回全部向量结果"
+        }
+      ],
+      "answer": "C",
+      "analysis": "原文 12.3 节明确：'`{context_str}` 是检索到的上下文，不是用户问题'，且默认 QA 模板中 `{query_str}` 才注入用户问题。当 Tool 封装 QueryEngine 时，若执行逻辑写为 `query_engine.query()`（无参数），则触发 LlamaIndex 默认行为——执行空查询（`query_str=''`），此时 Retriever 基于空字符串检索，通常返回向量空间中最'通用'或'高频'的 Node，导致 `context_str` 固定且无关。A 项属于 LangChain Tool 注册规范（12.2 节考点），影响工具能否被识别，但不导致内容无关；B 项错误——`llm` 仅影响最终生成，不影响检索阶段 `context_str` 内容；D 项影响召回数量，不改变内容相关性。C 项直指问题本质：`query_str` 缺失导致检索锚点丢失，是教材明确定义的易错点。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 1,
+      "stem": "某教育公司计划上线新人答疑机器人，当前仅需单轮问答，但已规划3个月内演进至：接入扫描件PDF制度文档、支持多轮对话、调用HR系统API、并进行量化效果评估。团队仅有1名全栈工程师，无专职AI运维。依据第12章 12.8 节'务实的选型主线'及'框架选型决策表'，以下哪些初始选型策略符合'务实演进路径'？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "初期直接使用 DashScope SDK 裸调 qwen-plus，实现单轮问答，确保'能用'"
+        },
+        {
+          "option_label": "B",
+          "option_text": "初期即引入 LangChain + LangGraph，预置 Memory 和 Tool 框架，为后续扩展预留接口"
+        },
+        {
+          "option_label": "C",
+          "option_text": "初期选用 Dify 搭建原型，因 HR 可自行上传扫描件，且 Dify 内置文档解析能力"
+        },
+        {
+          "option_label": "D",
+          "option_text": "初期采用 LlamaIndex 构建 RAG，因课程案例显示其是答疑机器人的主链路"
+        }
+      ],
+      "answer": "A",
+      "analysis": "原文 12.8 节'务实的选型主线'明确四步：'1. 能用：先用 SDK 把核心问答跑通；2. 好用：私域知识多 → 上 LlamaIndex 做 RAG...'。本题关键条件是'当前仅需单轮问答'，且团队资源有限（1人、无运维），因此第一步必须是'最轻、最可控'的 SDK 直调（对应 12.1 节 `llm.py` 示例）。A 项完全契合；B 项违背'不要为用框架而用框架'原则（12.1 节风险），且 LangGraph 学习成本高，不符合入门场景；C 项错误——Dify 虽支持扫描件，但其优势在于'非工程人员自助'，而本题使用者是工程师，且初期无扫描件需求，过早引入增加运维负担；D 项错误——LlamaIndex 是'好用'阶段（RAG 需求出现后）的选型，当前无知识库需求，强行使用属'为用框架而用框架'（12.8 节七大误区）。故仅 A 正确。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 0,
+      "stem": "运维团队收到告警：某基于 LlamaIndex 的 RAG 服务响应延迟突增300%，日志显示索引重建耗时异常。经排查，代码中每次用户查询均执行 `VectorStoreIndex.from_documents(documents, embed_model=...)`。此问题根源及最优解最直接对应第12章哪一知识点？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "12.3 节：索引需要持久化，避免每次重建；应使用 `StorageContext.from_defaults(persist_dir=...)` + `index.storage_context.persist(...)`"
+        },
+        {
+          "option_label": "B",
+          "option_text": "12.5 节：扫描件 PDF 应使用 DashScopeParse 替代 SimpleDirectoryReader"
+        },
+        {
+          "option_label": "C",
+          "option_text": "12.7.1 节：RAGAS 评估需使用冻结数据集，否则分数不可比"
+        },
+        {
+          "option_label": "D",
+          "option_text": "12.2 节：LangChain 的 LCEL 链天然支持异步，应改用 `|` 组合提升并发性能"
+        }
+      ],
+      "answer": "A",
+      "analysis": "原文 12.3 节明确指出：'索引需要持久化，避免每次重建。通过 `StorageContext.from_defaults(persist_dir=...)` + `index.storage_context.persist(...)` 把索引落到本地；新增/修改文档后必须重新走\"解析→切片→建索引\"流程'。本题中'每次查询都重建索引'正是该知识点警示的典型反模式，导致 CPU/IO 峰值飙升。A 项精准对应；B 项解决解析质量，与性能无关；C 项关乎评测一致性，非运行时性能；D 项讨论 LangChain 的异步能力，而本题是 LlamaIndex 原生问题，且异步不能解决重复建索引的计算开销。该题考查对 RAG 数据流中'索引生命周期管理'这一关键工程实践的掌握。",
+      "difficulty_label": "进阶"
+    }
+  ]
+}

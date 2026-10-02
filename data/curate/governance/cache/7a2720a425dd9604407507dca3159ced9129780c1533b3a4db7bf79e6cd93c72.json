@@ -1,0 +1,107 @@
+{
+  "new-4-48-0": {
+    "qid": "new-4-48-0",
+    "classification": "own",
+    "chapter": 4,
+    "quality": "ok",
+    "reason": "考查Function Calling流程中工具结果回传的关键步骤。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "结果必须由程序作为 `role=\"tool\"` 消息追加回上下文，模型才“知道”发生了什么。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "报错信息指向结果缺失，非解析失败。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "根本原因是未执行工具并回传结果。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "参数提取失败会导致不同错误。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "上下文截断是可能原因，但非最根本。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-4-48-2": {
+    "qid": "new-4-48-2",
+    "classification": "own",
+    "chapter": 4,
+    "quality": "ok",
+    "reason": "考查MCP解决工具动态发现与接入标准化的核心价值。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "MCP（模型上下文协议）是……用来统一 Agent 接入外部工具与数据源的方式。它的核心思想是 “谁提供工具，谁定义工具”——把工具 Schema 的维护职责从 Agent（消费方）转移到工具服务（提供方）。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "配置中心未解决标准化接入问题。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "MCP Server让工具方定义，Agent动态发现。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "RAG用于补事实，非工具调用。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "通用解析器未解决职责转移问题。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-4-48-4": {
+    "qid": "new-4-48-4",
+    "classification": "own",
+    "chapter": 4,
+    "quality": "ok",
+    "reason": "考查长期记忆策略解决关键信息遗忘的根本方法。",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "长期记忆：跨会话持久化的用户偏好、业务事实、经验教训，按需检索。……向量化召回：每轮对话切片入向量库，新问题按语义检索相关历史再注入——摆脱窗口限制、海量记忆按需取用。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "扩窗口仅延后问题，且会注意力稀释。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "滚动摘要可行，但非最治本方案。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "向量化长期记忆可持久化关键指令并检索。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "重复指令增加成本，非优化方案。"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

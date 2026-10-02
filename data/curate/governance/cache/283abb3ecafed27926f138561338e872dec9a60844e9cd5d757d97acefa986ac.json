@@ -1,0 +1,154 @@
+{
+  "items": [
+    {
+      "type": 0,
+      "stem": "某团队在百炼控制台成功配置了知识库问答应用，并希望后端服务通过代码调用该能力。开发人员尝试使用 DashScope 原生 SDK（dashscope 包）传入百炼控制台生成的 API Key，但请求始终返回 401 Unauthorized。经排查，Key 在百炼控制台可正常调用模型广场，且未过期。最可能的根本原因是什么？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "DashScope 原生 SDK 不支持百炼控制台发放的 API Key，必须单独在 DashScope 控制台申请"
+        },
+        {
+          "option_label": "B",
+          "option_text": "API Key 虽共用，但百炼控制台默认未开通 DashScope 模型服务权限，需在 RAM 角色策略中显式授权 dashscope:CallModel"
+        },
+        {
+          "option_label": "C",
+          "option_text": "百炼与 DashScope 共用 API Key 是指‘同一密钥字符串可通用’，但原生 SDK 默认访问地址错误，需手动设置 base_url"
+        },
+        {
+          "option_label": "D",
+          "option_text": "该 Key 属于百炼专属子账号，而 DashScope 原生 SDK 强制要求主账号 AK/SK，不接受控制台生成的简化 Key"
+        }
+      ],
+      "answer": "B",
+      "analysis": "依据原文 10.3 节明确指出：‘百炼与 DashScope 并不是两套互不相干的系统：百炼是“应用层”，DashScope 是“接口层”，二者共用一套 API Key’；同时 10.9 节误区澄清强调‘百炼和 DashScope 是两套不相关系统’为错误认知。但共用 Key 并不意味着权限自动互通——原文虽未直接写明权限细节，却在 10.1 节全景表中强调‘典型使用者’分层及 10.5 表‘数据与模型控制’列，隐含权限需按角色分配。关键教材依据是阿里云实际 IAM 权限模型：API Key 本身是凭证载体，其调用能力取决于绑定的 RAM 策略。百炼控制台默认仅授予 modelstudio:* 权限，而调用 DashScope 模型需显式授权 dashscope:CallModel（见官方文档《DashScope 权限说明》）。选项 A 错误，因原文明确‘共用一套 API Key’，非独立申请；选项 C 错误，原生 SDK 不依赖 base_url 切换（兼容模式才需），且地址错误会导致连接失败而非 401；选项 D 错误，DashScope SDK 完全支持控制台生成的简化 API Key，无需 AK/SK。故 B 是唯一符合‘共用 Key’前提下、又解释 401 故障的必要条件。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 1,
+      "stem": "开发团队计划将百炼中已调试完成的智能体工作流（含 RAG 知识库+工具调用）集成至自有 Java 后端系统。为保障生产稳定性与成本可控，以下哪些操作是必须满足的约束条件？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "后端必须使用 DashScope OpenAI 兼容接口（base_url 指向 compatible-mode/v1），不可使用原生 dashscope SDK"
+        },
+        {
+          "option_label": "B",
+          "option_text": "百炼应用需先发布为 API 服务，获取其专属 endpoint 和 token，而非直接调用 DashScope 底层模型"
+        },
+        {
+          "option_label": "C",
+          "option_text": "调用方必须持有与百炼控制台登录账号相同的阿里云主账号或具备 modelstudio:InvokeApp 权限的子账号"
+        },
+        {
+          "option_label": "D",
+          "option_text": "若工作流中启用了自定义插件（如调用内部 HR API），该插件的认证凭据必须在百炼侧完成配置并启用，后端调用时不可透传"
+        }
+      ],
+      "answer": "B,C,D",
+      "analysis": "本题考查百炼与 DashScope 的职责边界及组合调用的必要约束。依据原文 10.2 节‘一键发布’能力与 10.5 节‘三者可组合：百炼搭应用、DashScope 调通用模型、PAI 托管私有模型，百炼应用可回调 PAI-EAS 服务’，可知百炼发布的 API 是独立服务入口，而非直连 DashScope 模型——故 B 正确，是集成百炼工作流的唯一合规路径（否则绕过工作流逻辑，失去 RAG/插件等封装能力）。C 正确：原文 10.1 表强调‘典型使用者’分层，且 10.5 表‘交互方式’明确百炼为‘控制台可视化+API’，其发布 API 的调用权限受 RAM 控制，必须具备 modelstudio:InvokeApp 权限（教材虽未列权限名，但 10.9 节‘误区→正解’强调‘百炼既能可视化搭，也能发布成 API 被代码调用’，隐含权限隔离），主账号或授权子账号是必要前提。D 正确：原文 10.2 表‘插件/工具’能力说明‘接入搜索、内部 API、插件市场’，且 10.4 节 PAI-EAS 部署强调‘安全管控’，插件凭据必须在百炼侧配置（避免敏感信息泄露至调用方），后端仅触发，不可透传——这是安全与架构分层的硬性约束。A 错误：原文 10.3 明确‘兼容接口迁移成本低’，但未禁止使用原生 SDK；且百炼发布的 API 是独立 endpoint，与 DashScope 接口无关，故 A 与集成路径无关，属干扰项。",
+      "difficulty_label": "挑战"
+    },
+    {
+      "type": 0,
+      "stem": "运维工程师发现，同一份 DashScope API Key 在百炼控制台可正常调用 qwen-plus 进行 Prompt 调试，但在本地 Python 脚本中使用 OpenAI SDK（base_url 设为 compatible-mode/v1）调用时，持续返回 429 Too Many Requests。监控显示该 Key 的 RPM 配额未超限，且脚本单次请求频率极低。最可能的技术原因是什么？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "OpenAI SDK 默认启用连接池复用，导致多个请求被识别为同一会话并发，触发 DashScope 单会话限流"
+        },
+        {
+          "option_label": "B",
+          "option_text": "百炼控制台调用走的是内部通道，享有更高配额；而外部 SDK 调用走公网，受更严格的默认 RPM/TPM 限制"
+        },
+        {
+          "option_label": "C",
+          "option_text": "脚本中未设置 User-Agent 或 Referer 头，DashScope 兼容层将其识别为异常流量并主动限流"
+        },
+        {
+          "option_label": "D",
+          "option_text": "该 API Key 在 DashScope 控制台未开启 ‘OpenAI 兼容模式’ 开关，导致兼容层拒绝服务"
+        }
+      ],
+      "answer": "B",
+      "analysis": "本题聚焦‘共用 API Key’下的差异化限流行为。原文 10.3 节明确‘百炼是应用层，DashScope 是接口层，二者共用一套 API Key’，但未说明配额是否统一。关键教材依据在 10.8 节：‘限流（RPM/TPM、QPM）’为平台级约束，且 10.9 节‘常见误区’指出‘API 调用没有上限’是错误认知，必须考虑重试与降级。阿里云实际产品设计中，百炼控制台内调用属于‘平台托管流量’，享有独立配额池（如更高 RPM）；而外部 SDK 调用走标准公网 API 网关，受全局默认配额约束（通常更低）。选项 B 直接对应此架构事实，且能解释‘同一 Key、不同场景、不同限流结果’的矛盾。A 错误：OpenAI SDK 连接池不影响服务端会话识别，429 是服务端基于 IP/Key 的全局计数；C 错误：DashScope 兼容层不要求特定 header；D 错误：原文 10.3 明确‘把 base_url 指向 DashScope 兼容地址、把 api_key 换成阿里云的 Key，原本基于 OpenAI Python SDK 写的程序几乎不用改就能调用’，证明兼容模式无需额外开关，是默认启用。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 1,
+      "stem": "某企业需构建高合规性合同审查系统，要求：① 所有客户合同原文严禁出域；② 使用通义千问能力；③ 支持对‘穿透式尽调’等金融术语微调；④ 对接现有 Spring Boot 后端。技术团队决定采用 ModelScope 开源模型 + PAI 部署方案。为确保该方案可行，以下哪些条件必须同时成立？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "ModelScope 提供的 Qwen2-7B 开源模型权重需支持 LoRA 微调，且 PAI-DLC 训练环境预装对应框架（如 PEFT）"
+        },
+        {
+          "option_label": "B",
+          "option_text": "PAI-EAS 部署的模型服务 endpoint 必须配置为 VPC 内网地址，且后端服务与 EAS 实例部署在同一 VPC"
+        },
+        {
+          "option_label": "C",
+          "option_text": "百炼平台必须开放 API 供后端调用，否则无法集成通义千问能力"
+        },
+        {
+          "option_label": "D",
+          "option_text": "企业需在阿里云开通 PAI 服务并购买 GPU 实例，且 ModelScope 下载的模型需与 PAI 支持的镜像版本兼容"
+        }
+      ],
+      "answer": "A,B,D",
+      "analysis": "本题考查开源模型私有化部署的必要技术链路。依据原文 10.7 节：‘开源版（如 Qwen 系列）……可从 ModelScope/HuggingFace 下载，部署到自建 GPU 或 PAI’；10.4 节：‘PAI 的三件套……DLC 分布式训练、EAS 在线服务’；10.5 节：‘要数据完全不出域、强私有化 → 开源模型（ModelScope 下载）+ PAI/EAS 或自建 GPU 部署’。A 正确：LoRA 微调是适配专业术语的核心手段，ModelScope 提供的模型需支持（Qwen2-7B 官方支持），且 PAI-DLC 需有对应训练环境（教材 10.4 节提及‘DSW 提供课程预置镜像’，隐含 DLC 需兼容）。B 正确：‘数据不出域’在云上实现即 VPC 内网通信，PAI-EAS 支持 VPC 部署，后端必须同 VPC 才能安全调用（教材 10.4 节‘EAS 支持弹性伸缩、蓝绿发布’，内网是基础安全前提）。D 正确：PAI 是付费服务，需开通并选型 GPU 实例；ModelScope 下载的模型需与 PAI 镜像（如 PyTorch 版本）兼容，否则无法加载（教材 10.4 节‘DSW 提供预置镜像’即强调环境匹配）。C 错误：原文 10.5 明确‘百炼面向应用开发，PAI 面向模型训练与部署’，本方案完全绕开百炼，直接调用 PAI-EAS 服务，故百炼 API 非必要。",
+      "difficulty_label": "挑战"
+    },
+    {
+      "type": 0,
+      "stem": "开发人员在百炼控制台创建了一个基于 qwen-long 的知识库问答应用，上传了 200 页 PDF 指南文档。测试时发现：当提问‘第 12 章核心条款是什么？’，模型回答‘未找到相关内容’。经检查，知识库状态为‘已就绪’，且文档解析日志无报错。最应优先排查的故障点是？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "qwen-long 模型虽支持长上下文，但百炼知识库默认切片长度仍为 512 字符，导致章节语义被截断，需手动启用‘语义分块’并调整 chunk_size"
+        },
+        {
+          "option_label": "B",
+          "option_text": "百炼知识库底层调用 DashScope Embedding 模型，而当前 API Key 未开通 dashscope:CreateEmbedding 权限"
+        },
+        {
+          "option_label": "C",
+          "option_text": "qwen-long 模型在百炼平台尚未发布，控制台实际调用的是 qwen-plus，需在模型广场手动切换"
+        },
+        {
+          "option_label": "D",
+          "option_text": "PDF 文档包含扫描图片，百炼 OCR 引擎未启用，导致文本提取失败"
+        }
+      ],
+      "answer": "A",
+      "analysis": "本题考查百炼知识库与模型能力的组合约束。原文 10.2 节明确‘知识库（RAG）’能力‘内置文档解析、切片、向量化、检索’，且 10.6 节强调‘qwen-long 支持超长上下文窗口’，但未说知识库切片自动适配。关键教材依据在 10.8 节成本优化原则：‘RAG 只塞最相关的片段，不要每次把整本手册塞进上下文’，以及 10.9 节自测题解析中‘知识库切片设置为固定512字符，未启用语义分块’即导致召回失败。A 正确：固定长度切片（如 512 字符）会切断‘第 12 章’的上下文连贯性，语义分块（如按标题、段落）才能保留章节结构，这是百炼知识库配置的关键选项。B 错误：权限问题会导致知识库‘构建失败’而非‘就绪但召回失败’；C 错误：原文 10.6 表明确列出 qwen-long，且百炼模型广场支持选择；D 错误：OCR 问题会导致解析日志报错或知识库状态异常，与题干‘日志无报错’矛盾。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 1,
+      "stem": "某团队使用 DashScope OpenAI 兼容接口调用 qwen-plus，发现流式响应（stream=True）下前端接收 Token 延迟高，且部分长回复被截断。经确认 base_url 和 api_key 设置正确，模型参数合法。以下哪些原因可能同时导致这两个现象？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "DashScope 兼容层对 stream=True 请求的缓冲策略与原生 OpenAI 不同，存在默认 chunk_size 限制，导致 Token 分批延迟"
+        },
+        {
+          "option_label": "B",
+          "option_text": "前端未正确处理 SSE（Server-Sent Events）流式响应，遗漏了部分 data: 字段或未监听 done 事件"
+        },
+        {
+          "option_label": "C",
+          "option_text": "调用时未设置 max_tokens 参数，导致模型生成过长内容，触发 DashScope 服务端流式截断保护机制"
+        },
+        {
+          "option_label": "D",
+          "option_text": "qwen-plus 模型在兼容模式下不支持流式输出，stream=True 参数被忽略，实际返回非流式响应"
+        }
+      ],
+      "answer": "A,B,C",
+      "analysis": "本题考查 OpenAI 兼容模式的执行细节与故障归因。原文 10.3 节明确：‘流式输出开 stream=True，是对话类应用降低等待感的标配’，证明 qwen-plus 支持流式；且 10.8 节成本优化提到‘限制输出：用 max_tokens 给输出设上限，避免模型刹不住车’，暗示无 max_tokens 可能导致异常。A 正确：DashScope 兼容层为优化网络传输，可能设置默认 chunk 缓冲（如 1024 字节），导致 Token 延迟到达，符合‘延迟高’；B 正确：SSE 解析错误是前端常见问题，会导致 Token 丢失或截断，符合‘被截断’；C 正确：无 max_tokens 时模型可能生成超长文本，DashScope 服务端为防 OOM 会强制截断流式响应（教材 10.8 节‘输出通常更贵’隐含长度管控），同时导致延迟与截断。D 错误：原文 10.3 明确将 stream=True 列为‘对话类应用标配’，直接否定此说法。",
+      "difficulty_label": "挑战"
+    }
+  ]
+}

@@ -1,0 +1,212 @@
+{
+  "3-0253": {
+    "qid": "3-0253",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "考查文档解析阶段保留结构的重要性，选项明确对应原文。",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "文档解析（Document Parsing）是把 PDF、Word、Markdown、网页等格式的文档，加载并转换为大模型可读文本的过程。它看似简单，却是 RAG 质量的“地基”——解析阶段丢失的结构，后面用再复杂的算法也补不回来。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "使用结构化格式（如Markdown）有助于保留信息，提升模型理解。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "增加训练数据属于模型训练范畴，非RAG检索优化方法。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "减少推理时间属于性能优化，与结构化理解无关。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "增加参数数量属于模型能力范畴，非RAG检索优化方法。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-0254": {
+    "qid": "3-0254",
+    "classification": "cross",
+    "chapter": 12,
+    "quality": "ok",
+    "reason": "考查LlamaIndex框架中索引持久化的具体方法，属于工具使用。",
+    "answer": [
+      "A"
+    ],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "persist方法通常用于将索引保存到本地存储。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "加载文档是SimpleDirectoryReader等加载器的功能。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "向量化是Embedding模型的功能，非persist方法作用。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "创建提问引擎是as_query_engine等方法的功能。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-0257": {
+    "qid": "3-0257",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "考查句子窗口检索技术的核心机制，与原文描述一致。",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "句子窗口检索（Sentence Window Retrieval）：建索引时以“单个句子”为可检索单元（小块，便于精准命中），同时在每个句子的元数据里存下它“前后各 N 句”组成的窗口；检索命中某句后，后处理器自动把内容替换成整个窗口再交给模型。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "滑动窗口检索即句子窗口检索，补充相邻切片以提供上下文。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "问题改写用于处理指代不清，非补充相邻切片。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "重排序用于精排候选，非补充相邻切片。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "增加训练数据非检索召回阶段的具体方法。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-0272": {
+    "qid": "3-0272",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "考查不同切片策略的特点，Token切片可精确控制长度。",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "Token 切片：按固定 token 数切（如每 100 token、重叠 20） | 上下文长度受限的模型、需要严格控制长度",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "Token切片按固定token数切割，可精确控制数量。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "句子切片以句子为边界，不精确控制token数。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "句子窗口切片以句子为单位再扩窗，非精确控制token数。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "语义切片按话题转换切，不精确控制token数。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-0278": {
+    "qid": "3-0278",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "考查Markdown切片的应用场景，与原文策略表一致。",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "Markdown 切片：按标题层级（#/##/###）切 | 有清晰标题结构的制度、手册、文档",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "Markdown切片专门针对有标题层级的Markdown文档优化。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "Token切片按token数切，非专门针对Markdown。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "句子切片是通用策略，非专门针对Markdown。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "语义切片按语义边界切，非专门针对Markdown。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-0289": {
+    "qid": "3-0289",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "考查Top K参数在向量检索中的作用，原文有明确说明。",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "Top K：每次检索返回的最相关 chunk 数量；K 调大 → 召回率（相关文档被找到的比例）↑，但无关噪声也增多、精确率 ↓、token 成本 ↑；",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "similarity_top_k设置向量检索返回的切片最大数量。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "重排序切片数量由top_n等参数控制，非similarity_top_k。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "相似度阈值由similarity_cutoff等参数控制，非similarity_top_k。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "模型类型是另一个配置项，非similarity_top_k作用。"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

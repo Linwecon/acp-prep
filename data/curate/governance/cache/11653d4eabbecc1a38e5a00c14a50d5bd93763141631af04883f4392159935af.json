@@ -1,0 +1,37 @@
+{
+  "3-0149": {
+    "qid": "3-0149",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "题目考查RAG的核心应用场景，属于本章基础知识点。",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "RAG（Retrieval-Augmented Generation，检索增强生成）的核心思路可以用四个字概括：\"开卷考试\"。不让模型凭记忆答题，而是在它回答前，先从企业知识库里检索出最相关的几段资料，连同问题一起交给模型，让它\"看着资料作答\"。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "RAG用于接入私域知识，如公司内部文档查询。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "检查文档错误不是RAG的核心应用场景。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "RAG不增加模型的训练数据，它外挂知识库。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "RAG不减少推理时间，反而可能增加检索开销。"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

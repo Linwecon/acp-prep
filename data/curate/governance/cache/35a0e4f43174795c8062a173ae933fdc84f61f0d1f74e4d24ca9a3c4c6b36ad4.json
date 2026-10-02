@@ -1,0 +1,228 @@
+{
+  "3-0552": {
+    "qid": "3-0552",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "考查Embedding模型本质作用，原文明确其功能",
+    "answer": [
+      "A",
+      "B"
+    ],
+    "supported": true,
+    "quote": "Embedding（向量化 / 嵌入）是把一段文本转换成一串数字（高维向量，如 1024 维）。它的核心性质是：语义相近的文本，向量在空间中的距离也近。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "原文明确定义向量化为转高维向量"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "原文指出向量表示语义相近性"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "Embedding不增加训练数据"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "与推理时间无直接关系"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-0559": {
+    "qid": "3-0559",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "考查向量化原理，原文覆盖全部正确选项",
+    "answer": [
+      "A",
+      "B",
+      "C"
+    ],
+    "supported": true,
+    "quote": "Embedding（向量化 / 嵌入）是把一段文本转换成一串数字（高维向量，如 1024 维）。它的核心性质是：语义相近的文本，向量在空间中的距离也近。Embedding 是怎么训练出来的：采用对比学习",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "原文定义向量化为转数字形式"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "原文明确余弦相似度最常用"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "原文指出训练用对比学习"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "向量化不减少推理时间"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-0566": {
+    "qid": "3-0566",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "考查Context Precision优化路径，原文明确rerank是首选",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "Context Precision 低 → 无关内容排前面，加 Rerank",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "原文明确加Rerank提升Precision"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "检查知识库针对Recall低"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "换Embedding针对Recall低"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "Query改写针对指代不清"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-0570": {
+    "qid": "3-0570",
+    "classification": "cross",
+    "chapter": 3,
+    "quality": "review",
+    "reason": "API参数属平台工程细节，原文未提OpenAIEmbedding类",
+    "answer": [],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "属SDK实现细节，原文未提及"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "属SDK实现细节，原文未提及"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "属SDK实现细节，原文未提及"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "属查询引擎参数，非Embedding类参数"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-0572": {
+    "qid": "3-0572",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "考查建库核心步骤，原文三阶段完整覆盖",
+    "answer": [
+      "A",
+      "B",
+      "C"
+    ],
+    "supported": true,
+    "quote": "1. 文档解析 2. 文本切片 3. 向量化 Embedding 4. 写入向量库",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "对应切片与向量化步骤"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "原文要求专用Embedding模型"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "原文强调保留语义信息"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "建库不增加模型训练数据"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-0651": {
+    "qid": "3-0651",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "考查切片方法，原文明确结构化切片与语义补充",
+    "answer": [
+      "B",
+      "C",
+      "E",
+      "F"
+    ],
+    "supported": true,
+    "quote": "Markdown 切片：按标题层级切；主题接近的内容互相混淆 → 扩写标题、加元数据标签；根据文档类型选择合适的解析与切片策略",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "原文反对合并大文件"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "原文推荐Markdown切片"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "原文建议扩写标题加语义"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "原文反对等长硬切"
+      },
+      {
+        "label": "E",
+        "selected": true,
+        "why": "原文强调按提问习惯调优"
+      },
+      {
+        "label": "F",
+        "selected": true,
+        "why": "原文要求OCR/结构化解析"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

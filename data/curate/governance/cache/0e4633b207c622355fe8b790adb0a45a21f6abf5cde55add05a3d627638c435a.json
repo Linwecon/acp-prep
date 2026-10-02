@@ -1,0 +1,117 @@
+{
+  "2-0669": {
+    "qid": "2-0669",
+    "classification": "own",
+    "chapter": 1,
+    "quality": "ok",
+    "reason": "题目考查大模型能力边界，属于本章核心知识点，选项设置合理。",
+    "answer": [
+      "A",
+      "B",
+      "C",
+      "E"
+    ],
+    "supported": true,
+    "quote": "它擅长什么、不擅长什么：语言理解、文本生成、知识问答、代码编写、总结改写、一定的推理分析。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "文本摘要和改写属于模型擅长的文本生成能力。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "代码生成和解释是模型典型能力。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "多轮对话交互是模型核心应用场景。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "模型不擅精确计算，易出错。"
+      },
+      {
+        "label": "E",
+        "selected": true,
+        "why": "复杂逻辑推理属于模型具备的一定推理分析能力。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "5-0402": {
+    "qid": "5-0402",
+    "classification": "cross",
+    "chapter": -1,
+    "quality": "review",
+    "reason": "题目核心是分词（Tokenization）原理，属于第1章知识，但被错放在第5章。",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "第一阶段：文本分词（Tokenization）计算机读不懂文字。分词器（Tokenizer）把文本切成一个个 Token，并映射为词表里的整数 ID。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "分词目的不是降低训练成本。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "分词不是简化文本内容。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "分词将文本转为模型可处理的Token，帮助理解结构。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "分词主要目的不是提高数据传输效率。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "11-1295": {
+    "qid": "11-1295",
+    "classification": "own",
+    "chapter": 1,
+    "quality": "ok",
+    "reason": "题目考查大模型（GPT）的基本工作原理，属于本章基础概念。",
+    "answer": [
+      "A",
+      "B",
+      "D"
+    ],
+    "supported": true,
+    "quote": "LLM 的本质是条件概率模型：给定上文，模型计算下一个词的概率分布 P(下一个词 | 上文)。课程还展示了两类扩展能力，了解即可：推理模型（如 Qwen3-Thinking）... 多模态。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "GPT是自回归语言模型，逐Token生成。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "模型根据上文预测下一个Token，以此生成文本。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "GPT支持多种语言，不只英语。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "最新GPT版本已集成多模态功能（如图文理解）。"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

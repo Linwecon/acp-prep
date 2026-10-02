@@ -1,0 +1,216 @@
+{
+  "8-5141": {
+    "qid": "8-5141",
+    "classification": "own",
+    "chapter": 8,
+    "quality": "ok",
+    "reason": "考查VPC内网通信与安全组最小权限原则，符合云安全章节知识。",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "数据库、管理后台只放内网，通过负载均衡/跳板机访问……安全组决定‘包能不能进机器’",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "公网明文传输不安全，违背传输加密原则。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "关闭所有安全组规则会完全暴露服务，不安全。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "VPC私网低延迟，安全组限制来源符合最小权限原则。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "每次调用重新购买实例不现实且成本高。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "8-5143": {
+    "qid": "8-5143",
+    "classification": "own",
+    "chapter": 8,
+    "quality": "ok",
+    "reason": "考查安全组收紧与公网暴露面收敛的应急响应。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "安全组默认拒绝、最小开放：只放行80/443等必要端口，源限白名单IP/安全组",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "继续观察会放任攻击，不安全。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "立即收紧安全组并关闭不必要公网暴露是直接有效处置。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "删除日志违反审计留痕原则，且无法解决问题。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "增加公网端口会扩大攻击面，加剧风险。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "8-5145": {
+    "qid": "8-5145",
+    "classification": "own",
+    "chapter": 8,
+    "quality": "ok",
+    "reason": "考查DDoS防护的合理措施组合，符合纵深防御思想。",
+    "answer": [
+      "A",
+      "B",
+      "D"
+    ],
+    "supported": true,
+    "quote": "DDoS防护（高防）……挡SYN Flood、UDP Flood等流量洪峰……结合WAF和限流缓解应用层攻击……隐藏源站真实IP并收敛暴露面",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "接入云上抗D清洗或高防服务是基础防护。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "结合WAF和限流可缓解应用层攻击。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "关闭日志与监控违反审计要求，且无法避免攻击。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "隐藏源站IP并收敛暴露面是有效防护手段。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "8-5146": {
+    "qid": "8-5146",
+    "classification": "own",
+    "chapter": 8,
+    "quality": "ok",
+    "reason": "考查WAF针对CC攻击的防护原理，属于应用层安全知识。",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "WAF（Web应用防火墙）……拦SQL注入、XSS、CC、恶意爬虫、漏洞利用",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "增加模型参数量与CC攻击防护无关。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "重写训练数据集是模型训练行为，非WAF功能。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "识别异常频率和行为进行拦截是WAF防CC的核心思路。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "用GPU替换CPU与防御CC攻击无直接关系。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "8-5149": {
+    "qid": "8-5149",
+    "classification": "own",
+    "chapter": 8,
+    "quality": "ok",
+    "reason": "考查RAM最小权限原则的具体实践，是云安全核心考点。",
+    "answer": [
+      "D"
+    ],
+    "supported": true,
+    "quote": "RAM（访问控制）……子账号/角色最小权限、独立凭据、MFA、定期轮换AK",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "授予AdministratorAccess违反最小权限原则。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "共享根账号密码是严重安全违规。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "长期使用同一高权限密钥且不轮换不安全。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "只授予完成任务所需的具体权限是最小权限原则体现。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "8-5150": {
+    "qid": "8-5150",
+    "classification": "own",
+    "chapter": 8,
+    "quality": "ok",
+    "reason": "考查API Key安全管理的最佳实践，符合数据安全与密钥管理要求。",
+    "answer": [
+      "A",
+      "B",
+      "D"
+    ],
+    "supported": true,
+    "quote": "阿里云账号AccessKey拥有所有API的访问权限，建议使用RAM用户进行API访问……强烈建议不要把AccessKey ID和Secret保存到工程代码里",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "密钥存于管理服务，不硬编码是基本安全要求。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "定期轮换并监控是密钥管理的重要措施。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "密钥写进前端源码会暴露，极不安全。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "为不同应用分配不同密钥并最小授权符合最小权限原则。"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

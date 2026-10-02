@@ -1,0 +1,154 @@
+{
+  "items": [
+    {
+      "type": 0,
+      "stem": "某团队将Qwen3-0.6B模型通过vLLM部署于GPU ECS，压测中发现：当并发从16增至32时，QPS仅提升12%，平均RT翻倍，429错误率升至8%。此时若仅调整--max-num-seqs参数（最大并发请求数），最可能产生的效果是？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "QPS进一步提升，RT下降，错误率归零"
+        },
+        {
+          "option_label": "B",
+          "option_text": "429错误率显著降低，但RT继续恶化，QPS基本不变"
+        },
+        {
+          "option_label": "C",
+          "option_text": "错误率下降，RT略有改善，QPS小幅上升"
+        },
+        {
+          "option_label": "D",
+          "option_text": "错误率不变，RT和QPS无明显变化"
+        }
+      ],
+      "answer": "B",
+      "analysis": "依据原文6.3节'高频误区'与6.5节vLLM原理：--max-num-seqs限制的是vLLM调度器允许同时处理的最大请求数（即并发上限），其本质是**显存安全阀**——当KV Cache+权重已逼近显存极限时，强行提高该值不会增加实际吞吐，反而因请求排队加剧导致RT飙升；而降低该值可主动触发限流（返回429），避免系统过载崩溃，从而降低错误率。但RT恶化源于底层资源瓶颈（显存带宽/计算饱和），非调度参数能缓解（原文明确'超出并发限制通常直接返回429，而非排队慢慢处理'）。选项A错误——违背Little定律与压测现象；C、D未体现'限流保稳定'的核心机制。教材依据：6.3节风险框'❌ 超出并发限制会排队慢慢处理 → 实际直接返回429'；6.5节'连续批处理提升吞吐的前提是显存与算力未达瓶颈'。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 0,
+      "stem": "当vLLM服务处理一批混合长度请求（128/2048/16384 tokens）时，PagedAttention相比传统连续内存分配，其显存节省主要来源于以下哪一机制？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "将KV Cache按固定大小块切分，支持非连续物理内存分配，消除预分配浪费"
+        },
+        {
+          "option_label": "B",
+          "option_text": "对每个请求的KV Cache进行INT4量化存储"
+        },
+        {
+          "option_label": "C",
+          "option_text": "复用相同前缀（如系统提示词）的KV块，减少重复缓存"
+        },
+        {
+          "option_label": "D",
+          "option_text": "动态压缩长序列的KV Cache，按token重要性丢弃低秩分量"
+        }
+      ],
+      "answer": "A",
+      "analysis": "依据原文6.5节PagedAttention定义：其核心是'借鉴操作系统虚拟内存分页思想，把KV Cache切成固定大小的块（block），按需分配，用页表映射逻辑位置到物理块'，直接解决'传统框架为每个请求按最大可能长度预分配连续显存，导致大量闲置与碎片'的问题（原文6.5原理框）。选项B属量化范畴（6.4节），非PagedAttention机制；C是PagedAttention的衍生优势（'天然支持共享'），但非显存节省的主因；D描述的是MLA等压缩技术（6.6节），与PagedAttention无关。教材依据：6.5节'PagedAttention带来的好处：消除碎片、按需分配、不再按最大长度预分配浪费'。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 0,
+      "stem": "某金融企业需上线内部合规问答机器人，要求：①全部业务数据严禁出域；②日均稳定请求2000+，P95 TTFT需<1.2s；③支持灰度发布与秒级故障回滚。运维团队具备GPU调优能力，但无专职SRE。以下部署方案中，最符合全量约束的是？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "百炼MaaS：调用千问API，配置专属VPC网络隔离"
+        },
+        {
+          "option_label": "B",
+          "option_text": "函数计算FC：部署vLLM函数，配置预留实例与HTTP触发器"
+        },
+        {
+          "option_label": "C",
+          "option_text": "PAI-EAS：上传自研模型，启用模型预热与蓝绿发布"
+        },
+        {
+          "option_label": "D",
+          "option_text": "GPU ECS + vLLM：自建服务，搭配SLB负载均衡与ESS弹性伸缩"
+        }
+      ],
+      "answer": "D",
+      "analysis": "依据原文6.12节'部署选型四步决策法'及各方案边界：①'数据严禁出域'直接排除百炼（6.7节'数据出域需评估'）和FC（6.7节'FC属于Serverless，实例在平台侧'）；②'P95 TTFT<1.2s'要求极低首token延迟，FC存在冷启动（6.7/6.10.1节'冷启动导致首个请求明显变慢'），不满足实时性；③'支持灰度发布与秒级回滚'——PAI-EAS虽支持（6.10.2节），但其前提需'数据可出域'，且原文强调'PAI-EAS适合私有模型上线'，但本题未说明模型是否已在PAI生态内；而ECS方案可通过CI/CD+版本管理+SLB权重切换实现灰度，且'数据不出域'与'GPU调优能力'完全匹配ECS定位（6.9节'适合数据不出域、稳定高吞吐、深度定制'）。选项C中PAI-EAS若部署在专有云或VPC内可满足数据不出域，但原文6.7对比表明确'PAI-EAS由平台托管+用户配置'，未承诺数据不出域，且'无专职SRE'下ECS运维压力大于EAS（6.10.2节'有一定学习成本'），但题干强调'具备GPU调优能力'，故ECS更优。教材依据：6.12节典型场景表'企业私有知识问答，数据严禁出域、流量稳定→ECS+vLLM或PAI-EAS'；6.9节'ECS核心优势：可控、无冷启动、可深度优化'。",
+      "difficulty_label": "挑战"
+    },
+    {
+      "type": 1,
+      "stem": "在诊断一个突然出现高TTFT（>8s）的线上vLLM服务时，监控显示GPU利用率正常、KV Cache占用率仅30%、无429错误。此时最应优先检查的日志线索是？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "Prefill阶段的CUDA kernel执行耗时日志"
+        },
+        {
+          "option_label": "B",
+          "option_text": "请求排队等待调度的时间（queue_time）"
+        },
+        {
+          "option_label": "C",
+          "option_text": "模型权重加载失败或校验异常日志"
+        },
+        {
+          "option_label": "D",
+          "option_text": "SLB/ALB层的HTTPS终止或WAF拦截日志"
+        }
+      ],
+      "answer": "B,D",
+      "analysis": "依据原文6.2节'推理两阶段'与6.3节指标关系：TTFT = Prefill计算时间 + 排队时长（原文6.3表'受什么影响：Prefill速度、排队时长、prompt长度'）。题干中GPU利用率正常（排除Prefill算力瓶颈）、KV Cache占用低（排除Decode阶段显存争抢）、无429（说明未超限流阈值），故高TTFT必源于'排队时长'异常。而排队可能发生在：①vLLM调度队列（选项B，对应6.5节连续批处理调度逻辑）；②前置网络层（SLB/ALB），如HTTPS证书协商、WAF规则匹配、连接池耗尽等（选项D，原文6.9节架构图明确SLB在vLLM之前）。选项A错误——GPU利用率正常说明Prefill计算未卡住；选项C属启动期问题，若权重加载失败则服务无法启动，与'突然出现'矛盾。教材依据：6.2节'一次请求的总延迟 ≈ TTFT + TPOT × 输出 token 数'；6.3节'TTFT受排队时长影响'；6.9节架构图'客户端→SLB→ECS'。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 1,
+      "stem": "某团队在vLLM中启用PagedAttention后，发现长上下文（64K tokens）请求的并发数从3提升至8，但单请求TTFT未改善。以下哪项是PagedAttention机制本身无法直接优化的根本原因？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "PagedAttention仅优化KV Cache的显存管理，不影响Prefill阶段的矩阵乘法计算"
+        },
+        {
+          "option_label": "B",
+          "option_text": "TTFT由Prefill阶段决定，而Prefill是计算密集型，依赖GPU算力而非显存布局"
+        },
+        {
+          "option_label": "C",
+          "option_text": "长上下文导致Prefill输入长度激增，计算量呈平方级增长"
+        },
+        {
+          "option_label": "D",
+          "option_text": "PagedAttention的页表查询引入额外CPU开销，抵消了显存优化收益"
+        }
+      ],
+      "answer": "A,B,C",
+      "analysis": "依据原文6.2节'推理两阶段'与6.5节PagedAttention定位：TTFT完全由Prefill阶段决定（6.2节'Prefill...决定了TTFT'），而Prefill是'计算密集型'（6.2节原理框），其性能取决于GPU算力、显存带宽、算法优化（如FlashAttention），与KV Cache管理无关。PagedAttention专为解决Decode阶段KV Cache的显存碎片问题（6.5节'解决KV Cache的显存碎片与预分配浪费'），对Prefill无任何作用。选项A、B直接对应教材定义；选项C解释了为何长prompt导致TTFT高（6.2节'长prompt会让等很久才开口'），属根本成因。选项D错误——PagedAttention的页表查询开销极小，教材未提及此为瓶颈，且'无法直接优化TTFT'的根源是阶段错位，非开销抵消。教材依据：6.2节'Prefill计算密集、决定TTFT；Decode显存带宽密集、决定TPOT'；6.5节'PagedAttention解决KV Cache显存碎片'。",
+      "difficulty_label": "挑战"
+    },
+    {
+      "type": 0,
+      "stem": "团队使用 curl 调用 vLLM 的 /v1/chat/completions 接口时，始终收到 400 Bad Request 错误，响应体为 '{\"error\":{\"message\":\"model not found\",\"type\":\"invalid_request_error\"}}'。已确认模型路径 '/mnt/workspace/model/Qwen3-0.6B' 在服务器上真实存在且权限正确。最可能被忽略的必要条件是？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "未在curl请求中指定--model参数，或参数值与vLLM启动时加载的模型名不一致"
+        },
+        {
+          "option_label": "B",
+          "option_text": "vLLM服务未启用OpenAI兼容模式，需添加--enable-sampling参数"
+        },
+        {
+          "option_label": "C",
+          "option_text": "请求体中messages字段格式不符合OpenAI API规范"
+        },
+        {
+          "option_label": "D",
+          "option_text": "vLLM启动命令中未指定--host 0.0.0.0，导致服务仅监听localhost"
+        }
+      ],
+      "answer": "A",
+      "analysis": "依据原文6.5节vLLM OpenAI兼容接口示例及6.2节接口形态：vLLM的OpenAI兼容API要求请求体中必须包含'model'字段，且其值需与启动时加载的模型路径或名称严格匹配（原文示例curl中'data'含\"model\": \"/mnt/workspace/model/Qwen3-0.6B\"）。错误信息'model not found'明确指向模型标识解析失败，而非网络或格式问题。选项A直指该核心约束；选项B错误——'enable-sampling'非必需参数，且与模型识别无关；选项C会导致其他错误（如422），非'model not found'；选项D会导致连接拒绝（curl: (7) Failed to connect），非400错误。教材依据：6.5节'vLLM的OpenAI兼容服务'代码块中curl请求明确包含\"model\"字段；6.2节'业务系统把请求（messages、参数）POST过来'，参数包含model。",
+      "difficulty_label": "进阶"
+    }
+  ]
+}

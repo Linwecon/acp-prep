@@ -1,0 +1,225 @@
+{
+  "3-1131": {
+    "qid": "3-1131",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "题干问‘疾病症回答总不正确’，属RAG整体失效，应优先排查知识是否在库中。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "知识截止：不知道公司内部制度、新产品、最新政策",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "Embedding问题影响检索质量，但题干未提检索失败"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "知识不在库中则无法回答，是根本前提"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "资源不足影响性能，不导致答案错误"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "生成错误需先确认检索结果正确"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-1144": {
+    "qid": "3-1144",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "已明确‘召回文本含必要信息’，说明检索端OK，问题在生成端。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "检索指标都好，但 Answer Correctness / Faithfulness 低 → 问题出在生成阶段",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "向量库选型影响速度，不解决生成错误"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "生成效果差且检索正确，应换更强模型"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "Embedding已召回，无需更换"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "框架非根因，逻辑一致即可"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-1146": {
+    "qid": "3-1146",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "多轮对话指代不清，原文明确要求‘结合历史改写问题’。",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "多轮对话里后续问题检索不准 → 应先结合历史改写问题",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "原文明确推荐查询改写策略"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "相关性判断属检索环节，非多轮适配核心"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "历史对话直接入库会稀释语义"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "单轮检索，未解决指代问题"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-1152": {
+    "qid": "3-1152",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "恶意文档注入属知识库源头污染，需前置防控。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "RAG 知识库访问控制",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "输出审查是后置，非根本"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "源头扫描可阻断恶意内容入库"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "限制生成治标不治本"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "数字签名防篡改，不防恶意内容"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-1169": {
+    "qid": "3-1169",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "多选题，所有选项均被原文覆盖或隐含。",
+    "answer": [
+      "A",
+      "C",
+      "E",
+      "F"
+    ],
+    "supported": true,
+    "quote": "RAG 评估需要一份数据集，每条包含四个字段：question、ground_truth、answer、contexts",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "可维护性对应建库/问答分离设计"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "原文未要求追新模型，重实效"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "文档结构直接影响解析与切片"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "大模型理解能力非RAG可控因素"
+      },
+      {
+        "label": "E",
+        "selected": true,
+        "why": "检索效率是RAG核心性能指标"
+      },
+      {
+        "label": "F",
+        "selected": true,
+        "why": "提问习惯决定查询改写与切片策略"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-1285": {
+    "qid": "3-1285",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "LlamaIndex中node_postprocessors专用于检索后处理。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "node_postprocessors=[MetadataReplacementPostProcessor...",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "prompt修改用template，非postprocessor"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "原文示例明确用于rerank和阈值"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "句子滑窗由SentenceWindowNodeParser实现"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "召回个数由similarity_top_k控制"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

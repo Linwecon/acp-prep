@@ -1,0 +1,162 @@
+{
+  "items": [
+    {
+      "type": 0,
+      "stem": "某企业升级新人答疑机器人为办事型Agent，用户问'帮我查一下我上个月提交的报销单审批到哪一步了'。系统首次调用模型后返回tool_calls=[{'name':'get_reimbursement_status','args':{'employee_id':'E12345','month':'2024-07'}}]。此时下一步必须由谁执行该函数？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "模型自身立即执行该函数并返回结果"
+        },
+        {
+          "option_label": "B",
+          "option_text": "前端JavaScript代码解析参数并发起HTTP请求"
+        },
+        {
+          "option_label": "C",
+          "option_text": "后端应用代码解析tool_calls、调用对应服务接口，并将结果以role='tool'消息回传"
+        },
+        {
+          "option_label": "D",
+          "option_text": "用户手动输入工单号后，模型再重新生成完整答案"
+        }
+      ],
+      "answer": "C",
+      "analysis": "依据4.3节Function Calling流程四步铁律：第1步定义工具Schema；第2步模型仅输出结构化tool_calls（提议）；第3步必须由应用代码（即后端服务）真正执行函数；第4步将结果作为role='tool'消息追加至上下文后再次调用模型。原文明确强调'模型只提议、程序才执行'，且'结果必须由程序作为role=\"tool\"的消息追加回上下文，模型才\"知道\"发生了什么'。A违反'模型不执行'核心原则；B错误限定为前端，而实际执行必在可信后端；D违背闭环设计，Agent应自主追问而非依赖用户补全。",
+      "difficulty_label": "基础"
+    },
+    {
+      "type": 1,
+      "stem": "某ReAct Agent在处理'分析竞品A和B的Q3财报差异并生成PPT大纲'时陷入循环：连续5轮调用财报工具但Observation均为空。根据本章规范，以下哪些措施符合ReAct铁律与工程实践？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "在初始化时设置max_iterations=3，超限后直接返回'暂无法获取数据，请稍后重试'"
+        },
+        {
+          "option_label": "B",
+          "option_text": "第3轮Observation为空时，主动触发外部反馈：调用网页截图工具捕获财报页面状态并注入上下文"
+        },
+        {
+          "option_label": "C",
+          "option_text": "允许无限重试直到Observation非空，确保任务完成"
+        },
+        {
+          "option_label": "D",
+          "option_text": "第4轮自动切换为调用搜索引擎工具，用关键词'竞品A Q3财报 site:investor.com'重新检索"
+        },
+        {
+          "option_label": "E",
+          "option_text": "将前4轮轨迹压缩为摘要，替换原始历史以节省token，继续循环"
+        }
+      ],
+      "answer": "A,B,D",
+      "analysis": "依据4.4节ReAct铁律：'ReAct不是无限循环，必须设置最大迭代轮数/超时/token预算上限'——A正确；'Observation可能含噪声甚至恶意内容，模型不能盲目信任'，需交叉验证——B通过截图提供客观外部反馈，符合外部反馈模式；D体现ReAct动态调整能力，当原工具失效时换方案，是'用事实修正想法'的典型实践。C直接违反'必须设上限'铁律；E虽属Memory策略，但滚动摘要用于长期记忆管理，此处是实时故障应对，且摘要会丢失关键失败细节，不符合'用真实反馈修正'原则。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 0,
+      "stem": "某公司需接入OA、CRM、BI看板等12个内部系统作为Agent工具。当前各Agent硬编码工具Schema，每次系统API变更需全量更新部署。为根治此问题，技术负责人应优先引入哪项协议？其与Function Calling的核心关系是什么？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "MCP协议；它定义工具调用的底层通信机制，替代Function Calling"
+        },
+        {
+          "option_label": "B",
+          "option_text": "MCP协议；它解决工具的标准化发现与管理，Function Calling仍负责模型侧调用触发"
+        },
+        {
+          "option_label": "C",
+          "option_text": "ReAct框架；它内置多工具路由逻辑，可自动适配API变更"
+        },
+        {
+          "option_label": "D",
+          "option_text": "Skill机制；将各系统API封装为可版本化的技能模块"
+        }
+      ],
+      "answer": "B",
+      "analysis": "依据4.5节MCP定义：'MCP是让工具即插即用的标准协议'，其核心是'谁提供工具，谁定义工具'，通过Server暴露Tools/Resources/Prompts三类原语，Agent通过Client动态发现——这直接解决'硬编码Schema、随改随部署'痛点。原文明确对比：'Function Calling解决模型会不会、怎么调用工具（调用机制）；MCP解决工具怎么被发现、被管理、被复用（接入标准化）'，二者互补而非替代。A错误地将MCP视为FC替代；C中ReAct不解决工具发现；D中Skill解决SOP固化，不解决工具接入标准化。",
+      "difficulty_label": "基础"
+    },
+    {
+      "type": 1,
+      "stem": "某多Agent客服系统采用分层规划架构，但出现严重故障：用户投诉'修改手机号'操作后，账户被误删。经排查，所有Agent共用同一套管理员API Key，且主Prompt中拼接了全部8个Agent的完整系统提示词。该设计违反了本章哪几条硬原则？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "明确职责"
+        },
+        {
+          "option_label": "B",
+          "option_text": "独立凭据"
+        },
+        {
+          "option_label": "C",
+          "option_text": "中央调度"
+        },
+        {
+          "option_label": "D",
+          "option_text": "避免全量注入"
+        },
+        {
+          "option_label": "E",
+          "option_text": "短期/长期Memory分离"
+        }
+      ],
+      "answer": "B,D",
+      "analysis": "依据4.7节多Agent四原则：'独立凭据'要求'不同Agent不得共用同一套账号/API凭据，按最小权限分别授权'，共用管理员Key导致越权风险，直接解释账户被删原因；'避免全量注入'明确指出'不要把所有Agent的知识/工具清单一次性写进主Prompt'，否则'上下文膨胀、注意力稀释、token成本飙升'，这与题干'拼接全部8个Agent提示词'完全对应。A'明确职责'未被违反（分层架构本身已隐含职责划分）；C'中央调度'是分层架构的固有特性，题干未体现缺失；E属于Memory范畴，与故障无关。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 0,
+      "stem": "一个课程审查Agent持续给出'建议增加注释'等泛泛而谈反馈，却漏掉团队特有规范如'禁止使用eval()函数'、'必须用pandas.DataFrame.copy()避免链式赋值'。开发团队决定将这些规范固化。相比简单存入长期记忆，最符合本章Skill设计原则的做法是？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "将规范写入QWEN.md全局配置文件，每次启动Agent时加载"
+        },
+        {
+          "option_label": "B",
+          "option_text": "创建course-review Skill目录，SKILL.md中YAML头声明适用场景，正文链接code-quality.md子文档列出禁用函数清单"
+        },
+        {
+          "option_label": "C",
+          "option_text": "用向量化召回将规范存入知识库，每次审查前检索注入上下文"
+        },
+        {
+          "option_label": "D",
+          "option_text": "在主Prompt末尾添加'请严格遵守：1.禁用eval；2.用copy()...'等10条规则'"
+        }
+      ],
+      "answer": "B",
+      "analysis": "依据4.9节Skill定义：'Skill是把在什么场景下、按什么流程、用什么标准、调用什么工具打包成的模块化、可复用、可版本化的能力单元'，其核心价值在于'渐进式披露'——启动时仅加载YAML description（轻量判断是否激活），激活后才读取SKILL.md及子文档（如code-quality.md）。B完全符合：YAML头定义适用场景（满足'要不要用'），子文档承载具体检查项（满足'怎么做'）。A中QWEN.md属Harness配置，不支持按需展开；C中RAG是'检索-注入'，会污染无关任务上下文；D是反模式'一次性说太多'，违反渐进式披露且易撑爆上下文。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 0,
+      "stem": "某金融Agent需生成交易报告，评测时发现端到端得分95分，但用户反馈'关键指标计算错误'。为精准定位问题环节，应优先采用哪种评测手段？其理论依据是什么？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "LLM-as-Judge：用另一个大模型对最终报告打分，因其能理解金融语义"
+        },
+        {
+          "option_label": "B",
+          "option_text": "确定性检查：解析执行轨迹，验证'calculate_roi'工具是否被调用且返回数值型结果"
+        },
+        {
+          "option_label": "C",
+          "option_text": "Rubric：拆解为'数据完整性'、'公式准确性'、'可视化质量'三项打分"
+        },
+        {
+          "option_label": "D",
+          "option_text": "白盒化评测：单独检查工具调用序列与参数，因问题常出在过程而非最终答案"
+        }
+      ],
+      "answer": "D",
+      "analysis": "依据4.10节评测原则：'Agent评测比RAG更难，问题常出在过程而非最终答案'，因此需'白盒化评测'；而'确定性检查'是白盒评测的核心手段之一，适用于'该发生的步骤有没有发生'等客观项。D选项直指本章核心方法论'白盒化评测'，且说明其必要性（过程出错），是最精准的答案。B虽是确定性检查的具体做法，但未点明'白盒化'这一上位概念，且'验证是否调用'不足以覆盖'计算错误'（可能调用了但参数错）；A和C属于主观评测，无法定位计算错误的技术根源；原文强调'光看最终结果根本发现不了'过程缺陷。",
+      "difficulty_label": "基础"
+    }
+  ]
+}

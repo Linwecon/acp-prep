@@ -1,0 +1,75 @@
+{
+  "new-10-12-3": {
+    "qid": "new-10-12-3",
+    "classification": "own",
+    "chapter": 10,
+    "quality": "ok",
+    "reason": "题目结合分层、合规、长文档、RAG等考点，考查平台选型与路径设计，有综合考查价值。",
+    "answer": [
+      "A",
+      "C",
+      "D"
+    ],
+    "supported": true,
+    "quote": "开源模型的价值集中在三点：① 数据隐私与合规（数据不出域）；② 可深度定制（任意微调/改结构）；③ 大规模稳定流量下的长期成本可控。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "合规要求数据不出私有云，必须使用开源模型，从ModelScope下载。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "百炼是托管平台，数据需上送，不符合‘绝对不出私有云’要求。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "在PAI-DSW本地化实现RAG，符合数据不出域和长文档处理需求。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "最终需将模型部署至私有云环境，PAI-EAS支持此场景。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-10-12-4": {
+    "qid": "new-10-12-4",
+    "classification": "own",
+    "chapter": 10,
+    "quality": "ok",
+    "reason": "题目考查成本控制原则的具体应用，与原文知识点对应明确。",
+    "answer": [
+      "A",
+      "B"
+    ],
+    "supported": true,
+    "quote": "省成本的工程手段：1. 选对模型尺寸；2. 控制输入：RAG只塞最相关的片段，不要每次把整本手册塞进上下文；3. 限制输出：用max_tokens给输出设上限，避免模型‘刹不住车’。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "每次上传整本PDF作为prompt，违反了‘控制输入’原则。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "未设置max_tokens，违反了‘限制输出’原则。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "题干未提及模型选型不当，问题在于输入和输出控制。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "题干未涉及缓存利用或429限流问题。"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

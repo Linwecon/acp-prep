@@ -1,0 +1,144 @@
+{
+  "12-5063": {
+    "qid": "12-5063",
+    "classification": "misplaced",
+    "chapter": 12,
+    "quality": "review",
+    "reason": "富文本渲染属框架能力，非百炼专属功能",
+    "answer": [
+      "C"
+    ],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "文本清洗不涉及高亮"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "答案生成输出文本，不渲染"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "富文本渲染支持高亮展示"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "关键词提取仅识别不渲染"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "12-5066": {
+    "qid": "12-5066",
+    "classification": "misplaced",
+    "chapter": 12,
+    "quality": "review",
+    "reason": "Dify解析PDF属框架层知识，非阿里云平台内容",
+    "answer": [
+      "A"
+    ],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "Dify需手动开启自动解析"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "10MB非Dify默认限制"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "Dify内置解析能力"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "PDF属非结构化数据"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "12-5068": {
+    "qid": "12-5068",
+    "classification": "cross",
+    "chapter": 4,
+    "quality": "ok",
+    "reason": "工具调用节点支持任意JSON Schema定义的API",
+    "answer": [
+      "A",
+      "B",
+      "C"
+    ],
+    "supported": true,
+    "quote": "插件/工具：接入搜索、内部 API、插件市场扩展能力",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "内部API可封装为工具"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "SQL可封装为工具调用"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "TTS服务可封装为工具"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "错别字修正属模型内生能力"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "12-5089": {
+    "qid": "12-5089",
+    "classification": "cross",
+    "chapter": 4,
+    "quality": "ok",
+    "reason": "意图识别+工具调用是Agent核心闭环",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "应用（智能体/Agent）：配置角色、工具、知识库，低代码搭智能体",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "条件分支需预设规则"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "Tool Calling原生支持意图路由"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "LLM节点需额外CoT提示"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "文本处理无工具调度能力"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

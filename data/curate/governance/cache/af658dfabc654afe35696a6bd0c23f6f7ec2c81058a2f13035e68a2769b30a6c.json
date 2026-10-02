@@ -1,0 +1,221 @@
+{
+  "2-5012": {
+    "qid": "2-5012",
+    "classification": "own",
+    "chapter": 2,
+    "quality": "ok",
+    "reason": "考查结构化输出与分隔符使用，选项符合教材原则。",
+    "answer": [
+      "B",
+      "C",
+      "D"
+    ],
+    "supported": true,
+    "quote": "分隔符（Delimiters）是用特殊符号或标签，把提示词中不同部分（指令、上下文、样例、待处理内容）显式切分开的写法。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "连续一段易混淆指令与数据，不符合分隔原则。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "起止标记命名区块是分隔符的结构化作用。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "明确声明数据角色可防混淆与提示注入。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "固定模板或示例是结构化输出的关键。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "2-5013": {
+    "qid": "2-5013",
+    "classification": "own",
+    "chapter": 2,
+    "quality": "ok",
+    "reason": "考查意图分类提示词设计关键要素，选项D正确。",
+    "answer": [
+      "D"
+    ],
+    "supported": true,
+    "quote": "分类提示词必须包含的三要素（缺一即不完整）：1. 意图清单：每个意图一句话定义 + 1 个示例；2. 输出格式：结构化；3. 低置信度处理规则。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "自由发挥无法保证稳定路由。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "信息不全，无法分类。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "不限格式无法被程序解析路由。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "明确标准与预定义类别是意图分类核心。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "2-5014": {
+    "qid": "2-5014",
+    "classification": "own",
+    "chapter": 2,
+    "quality": "ok",
+    "reason": "考查意图分类中低置信度与兜底处理策略，选项合理。",
+    "answer": [
+      "A",
+      "B"
+    ],
+    "supported": true,
+    "quote": "低置信度处理规则：低于阈值怎么办（追问 / 兜底 / 转人工）。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "设置兜底类别是处理未知输入的合理策略。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "低置信度转人工或确认避免错误路由。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "强制归类可能导致错误，应澄清或兜底。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "删除类别会降低分类能力，不合理。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "2-5018": {
+    "qid": "2-5018",
+    "classification": "own",
+    "chapter": 2,
+    "quality": "ok",
+    "reason": "考查文档审阅的输出约束设计，选项符合降低漏报原则。",
+    "answer": [
+      "A",
+      "C",
+      "D"
+    ],
+    "supported": true,
+    "quote": "审阅提示词要同时给出四样东西：维度定义 + 输出字段 + 严重度分级 + 引用原文定位。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "清单与原文引用便于定位与复核，降低漏报。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "二分类无法指导修改，业务价值低，易漏报。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "分级标注有助于优先处理高风险条款。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "列出不确定项供人工复核是审阅的合理补充。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "2-5021": {
+    "qid": "2-5021",
+    "classification": "own",
+    "chapter": 2,
+    "quality": "ok",
+    "reason": "考查自动文档修订的提示词约束，选项符合留痕与可控原则。",
+    "answer": [
+      "A",
+      "B",
+      "D"
+    ],
+    "supported": true,
+    "quote": "自动文档修订（Automated Revision）：依据上一步审阅输出的“问题清单”，让模型逐条修改文档。它的核心原则是有依据、留痕、可回退。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "不得更改关键信息是保留原文原则的体现。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "明确输出形式（完整版或差异）是留痕要求。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "无条件接受且不需复核违反可回退原则。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "说明修改理由是有依据、留痕的核心。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "2-5024": {
+    "qid": "2-5024",
+    "classification": "own",
+    "chapter": 2,
+    "quality": "ok",
+    "reason": "考查三类提示工程任务的共同原则，选项符合工程化实践。",
+    "answer": [
+      "B",
+      "C",
+      "D"
+    ],
+    "supported": true,
+    "quote": "意图分类、文档审阅和自动修订都强调明确任务边界、结构化输出以及对不确定结果的人工复核。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "让模型自行决定违反可控可复用原则。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "明确边界和标准是三类任务的共同基础。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "结构化、可解析输出是工程化对接下游的共性要求。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "对不确定或高风险结果安排人工复核是通用安全策略。"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

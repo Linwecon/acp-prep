@@ -1,0 +1,226 @@
+{
+  "new-5-12-0": {
+    "qid": "new-5-12-0",
+    "classification": "own",
+    "chapter": 5,
+    "quality": "ok",
+    "reason": "考查微调前置评估顺序，题干符合教材场景",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "标准的优化顺序（务必背下来）：提示词优化 → RAG → （仍不满足才考虑）微调",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "微调是最后手段，应先优化提示词"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "风格格式不稳定，应优先优化提示词"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "RAG解决知识问题，非格式问题"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "蒸馏也是微调，成本高，非优先"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-5-12-1": {
+    "qid": "new-5-12-1",
+    "classification": "own",
+    "chapter": 5,
+    "quality": "ok",
+    "reason": "考查知识蒸馏离线数据合成阶段步骤",
+    "answer": [
+      "A",
+      "B",
+      "D"
+    ],
+    "supported": true,
+    "quote": "离线数据合成阶段（教师侧）：1.设计schema...2.生成多样化提问...3.教师标注...4.质量过滤...5.格式化",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "教师低温度标注是必要环节"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "格式化messages是必要环节"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "属于学生侧训练阶段"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "设计稳定输出schema是必要环节"
+      },
+      {
+        "label": "E",
+        "selected": false,
+        "why": "属于训练与验证阶段"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-5-12-2": {
+    "qid": "new-5-12-2",
+    "classification": "own",
+    "chapter": 5,
+    "quality": "ok",
+    "reason": "考查过拟合现象与后果",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "验证loss先降后升 = 过拟合的铁证...部署应选验证集表现最优的checkpoint",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "过拟合会损害泛化能力"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "过拟合导致泛化能力下降"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "秩r不会自动降低"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "过拟合不解决灾难性遗忘"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-5-12-3": {
+    "qid": "new-5-12-3",
+    "classification": "own",
+    "chapter": 5,
+    "quality": "ok",
+    "reason": "考查资源受限时的微调优化策略",
+    "answer": [
+      "A",
+      "B",
+      "D"
+    ],
+    "supported": true,
+    "quote": "lora_rank...r越大表达越强、成本越高...max_length依据样本token长度的P95设定...梯度检查点教材未明确提及但属通用优化",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "降低rank可减少训练参数量"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "梯度检查点是通用显存优化手段"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "增大batch会消耗更多显存"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "缩短max_length可减少显存占用"
+      },
+      {
+        "label": "E",
+        "selected": false,
+        "why": "关闭warmup可能导致训练不稳定"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-5-12-4": {
+    "qid": "new-5-12-4",
+    "classification": "own",
+    "chapter": 5,
+    "quality": "ok",
+    "reason": "考查按评测指标定位问题并改进",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "合规但F1/路由低 → 判断病：多意图、边界意图、相似意图样本覆盖不足，应补充这些样本",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "过拟合时增加epoch有害"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "F1低需补充多意图样本"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "提升rank非首要改进措施"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "提示词无法解决训练数据不足"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-5-12-5": {
+    "qid": "new-5-12-5",
+    "classification": "own",
+    "chapter": 5,
+    "quality": "ok",
+    "reason": "考查蒸馏与普通微调的核心区别",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "蒸馏和普通微调的关系：二者的训练流程几乎完全相同，唯一区别是训练数据的来源",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "蒸馏有黑盒路径，只需API"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "蒸馏不提升知识时效性"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "原文明确表述此区别"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "学生能力上限受教师约束"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

@@ -1,0 +1,72 @@
+{
+  "new-10-42-0": {
+    "qid": "new-10-42-0",
+    "classification": "own",
+    "chapter": 10,
+    "quality": "ok",
+    "reason": "综合考查阿里云平台选型与组合能力，符合本章核心考点。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "开源模型的价值集中在三点：① 数据隐私与合规（数据不出域）；② 可深度定制（任意微调/改结构）；③ 大规模稳定流量下的长期成本可控。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "使用百炼知识库和qwen-max，数据需上送，违反‘不得出域’要求。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "开源模型微调部署于PAI-EAS，数据不出域；百炼调用EAS服务，满足并发与响应要求。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "直接调用DashScope API，数据出域，且未解决术语不准问题。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "仅涉及数据处理和检索，未解决模型微调和部署问题，且数据可能出域。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-10-42-2": {
+    "qid": "new-10-42-2",
+    "classification": "own",
+    "chapter": 10,
+    "quality": "ok",
+    "reason": "考查计费、限流与RAG优化实践，属于本章核心知识点。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "省成本的工程手段：控制输入：RAG 只塞最相关的片段，不要每次把整本手册塞进上下文；限制输出：用 `max_tokens` 给输出设上限",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "切换为max模型可能增加单次调用成本和延迟，不利于降本。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "启用RAG减少输入Token，限制输出Token，直接降低计费并可能减少请求量。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "提升配额和固定间隔重试不能解决输入输出Token过高导致的成本问题。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "ModelScope Notebook免费但有运行时长限制，不适合生产环境高并发。"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

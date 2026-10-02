@@ -1,0 +1,218 @@
+{
+  "3-1286": {
+    "qid": "3-1286",
+    "classification": "own",
+    "chapter": 12,
+    "quality": "fixable",
+    "reason": "题干不完整，缺少代码，无法准确判断选项。但根据近似题可推测考点。",
+    "answer": [
+      "B",
+      "C",
+      "D"
+    ],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "代码未体现乱码清洗功能。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "转换标点符号可避免chunk过长。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "SimpleDirectoryReader加载文件为Document。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "join操作合并多个Document为一个。"
+      }
+    ],
+    "duplicate_of": "3-0638"
+  },
+  "3-0638": {
+    "qid": "3-0638",
+    "classification": "own",
+    "chapter": 12,
+    "quality": "ok",
+    "reason": "考查LlamaIndex文档加载与预处理，代码清晰，选项明确。",
+    "answer": [
+      "A",
+      "B",
+      "C"
+    ],
+    "supported": true,
+    "quote": "documents = SimpleDirectoryReader(path).load_data()\n    document = Document(text=\"\\n\\n\".join([doc.text for doc in documents]))\n    replacements = {\n        ',': ',',\n        '!': '!',\n        '?': '?'\n    }",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "SimpleDirectoryReader加载指定文件夹文件。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "替换中文标点为英文，避免切分过长。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "join操作合并所有Document为一个。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "代码未体现乱码清洗功能。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "4-0305": {
+    "qid": "4-0305",
+    "classification": "cross",
+    "chapter": -1,
+    "quality": "remove",
+    "reason": "考点为ModelScope-Agent，教材第12章未提及，且无足够信息解题。",
+    "answer": [],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "教材未提及，且与可定制性矛盾。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "教材未提及ModelScope-Agent。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "限制性接口设计不利于可定制性。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "固定工具集减少选择，与可定制性矛盾。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "4-0310": {
+    "qid": "4-0310",
+    "classification": "cross",
+    "chapter": -1,
+    "quality": "remove",
+    "reason": "考点为MetaGPT等具体项目，教材第12章未提及，无法判断。",
+    "answer": [],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "教材未提及斯坦福小镇。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "教材未提及虚拟动物社区。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "教材未提及MetaGPT。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "教材未提及AutoGen。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "4-0617": {
+    "qid": "4-0617",
+    "classification": "cross",
+    "chapter": -1,
+    "quality": "remove",
+    "reason": "考点为斯坦福小镇、AgentScope、MetaGPT、AutoGen，教材第12章未提及。",
+    "answer": [],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "教材未提及斯坦福小镇。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "教材提及AgentScope，但未详述这些演示。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "教材未提及MetaGPT。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "教材未提及AutoGen。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "4-1203": {
+    "qid": "4-1203",
+    "classification": "cross",
+    "chapter": -1,
+    "quality": "remove",
+    "reason": "考点为面向对象编程设计原则，与第12章框架工具知识无关。",
+    "answer": [],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "属于通用编程设计，非本章考点。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "Python支持多继承，说法错误。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "属于通用编程设计，非本章考点。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "属于通用编程设计，非本章考点。"
+      },
+      {
+        "label": "E",
+        "selected": false,
+        "why": "属于通用编程设计，非本章考点。"
+      },
+      {
+        "label": "F",
+        "selected": false,
+        "why": "属于通用编程设计，非本章考点。"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

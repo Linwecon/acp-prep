@@ -1,0 +1,46 @@
+{
+  "8-0958": {
+    "qid": "8-0958",
+    "classification": "own",
+    "chapter": 7,
+    "quality": "ok",
+    "reason": "五维度均属模型评估核心质量维度",
+    "answer": [
+      "A",
+      "B",
+      "C",
+      "D",
+      "E"
+    ],
+    "supported": true,
+    "quote": "评测集构建的两条铁律：问题来自真实用户场景……标准答案来自领域专家",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "相关性与准确性是RAGAS核心指标"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "流畅连贯属生成质量基础维度"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "安全合规是AI评估必要维度"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "信息量深度影响业务指标达成"
+      },
+      {
+        "label": "E",
+        "selected": true,
+        "why": "风格语调恰当性属Rubric评分项"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

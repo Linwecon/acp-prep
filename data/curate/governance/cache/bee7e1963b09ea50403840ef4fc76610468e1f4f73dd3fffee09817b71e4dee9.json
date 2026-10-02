@@ -1,0 +1,217 @@
+{
+  "new-10-24-0": {
+    "qid": "new-10-24-0",
+    "classification": "own",
+    "chapter": 10,
+    "quality": "ok",
+    "reason": "考查开源模型微调部署全链路选型，符合章节核心考点",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "开源模型的价值集中在三点：① 数据隐私与合规（数据不出域）；② 可深度定制（任意微调/改结构）；③ 大规模稳定流量下的长期成本可控。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "DashScope API调用数据需上送，违反严禁出域要求"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "开源模型下载、DSW开发、DLC训练、EAS部署，满足不出域、微调、高并发"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "专属实例仍为托管API，数据可能出域，且未涉及开源模型微调"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "使用DashScope API，数据需上送，违反出域要求"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-10-24-1": {
+    "qid": "new-10-24-1",
+    "classification": "own",
+    "chapter": 10,
+    "quality": "ok",
+    "reason": "考查DashScope兼容接口、流式响应及模型切换工程实践",
+    "answer": [
+      "A",
+      "C",
+      "D"
+    ],
+    "supported": true,
+    "quote": "OpenAI兼容模式的价值：把base_url指向DashScope兼容地址、把api_key换成阿里云的Key，原本基于OpenAI Python SDK写的程序几乎不用改就能调用通义千问。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "符合OpenAI兼容模式，最小化代码改造"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "百炼智能体可发布为API，支持集成"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "stream=True是流式响应标准做法，降低等待感"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "EAS部署模型兼容OpenAI接口，可实现无缝切换"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-10-24-2": {
+    "qid": "new-10-24-2",
+    "classification": "own",
+    "chapter": 10,
+    "quality": "ok",
+    "reason": "考查TPM限流问题诊断与针对性解决措施",
+    "answer": [
+      "D"
+    ],
+    "supported": true,
+    "quote": "省成本的工程手段：用max_tokens给输出设上限，避免模型“刹不住车”。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "指数退避处理限流，但未直接降低TPM消耗"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "降级模型可能降低单次Token，但非最精准措施"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "缓存主要针对输入，对输出TPM超限作用有限"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "限制输出长度可直接降低输出Token，精准解决TPM超限"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-10-24-3": {
+    "qid": "new-10-24-3",
+    "classification": "own",
+    "chapter": 10,
+    "quality": "ok",
+    "reason": "考查百炼知识库、工作流及国产化适配能力组合",
+    "answer": [
+      "A",
+      "C"
+    ],
+    "supported": true,
+    "quote": "百炼的核心能力可以理解为把前几章的技术“产品化”了：知识库（RAG）内置文档解析、切片、向量化、检索，上传文档即可问答。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "百炼知识库支持文档解析，符合要求"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "题干未要求扫描版PDF，且DSW非必须"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "工作流可编排人工审核步骤，满足更新流程"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "DataWorks/MaxCompute用于离线计算，非实时知识库更新"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-10-24-4": {
+    "qid": "new-10-24-4",
+    "classification": "own",
+    "chapter": 10,
+    "quality": "ok",
+    "reason": "考查PAI-DSW微调后模型验证的推荐路径",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "要稳定对外提供高并发服务时，再用PAI-EAS部署，获得弹性伸缩、预热、监控等生产能力。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "在DSW中用vLLM启动服务测试，是部署前验证的合理步骤"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "教材未提及导出ONNX为推荐验证路径"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "DLC用于大规模训练，非验证推理效果"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "百炼自定义模型通常指向EAS服务，非DSW路径"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-10-24-5": {
+    "qid": "new-10-24-5",
+    "classification": "own",
+    "chapter": 10,
+    "quality": "ok",
+    "reason": "考查对阿里云AI产品分层定位的理解",
+    "answer": [
+      "A",
+      "C",
+      "D"
+    ],
+    "supported": true,
+    "quote": "选平台的第一步不是记产品名，而是先分层：你要解决的是“应用层”“模型接口层”“训练部署层”还是“数据底座层”的问题？",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "百炼属应用开发层，封装RAG、Agent等技术"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "ModelScope是开源社区，非模型服务层"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "DSW、DLC、EAS对应开发、训练、部署三阶段"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "OSS、MaxCompute、DataWorks构成数据底座层"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

@@ -1,0 +1,73 @@
+{
+  "new-9-42-0": {
+    "qid": "new-9-42-0",
+    "classification": "own",
+    "chapter": 9,
+    "quality": "ok",
+    "reason": "题干描述了典型的“重试风暴”场景，考查对429错误处理最佳实践的理解。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "对429/5xx采用指数退避 + 随机抖动重试（1s、2s、4s…），设最大重试次数",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "题干明确是429错误，非鉴权问题。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "固定间隔重试易导致“重试风暴”，需指数退避与抖动。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "400错误不应重试，但题干焦点是429。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "题干未提及流式或超时设置，焦点是重试逻辑。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-9-42-3": {
+    "qid": "new-9-42-3",
+    "classification": "own",
+    "chapter": 9,
+    "quality": "ok",
+    "reason": "考查Batch API的核心特性、适用场景及工程实践要点。",
+    "answer": [
+      "B",
+      "C"
+    ],
+    "supported": true,
+    "quote": "Batch任务需准备JSONL格式输入文件，每行一个请求并含唯一request_id；结果文件下载后必须校验行数与request_id，防止错位",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "Batch是异步离线处理，单请求延迟更高，非优势。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "JSONL格式输入是Batch API的标准要求。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "校验行数与ID对齐是防止结果错位的必要步骤。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "失败行通常单独重试，整批重跑浪费资源。"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

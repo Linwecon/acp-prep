@@ -1,0 +1,212 @@
+{
+  "9-0932": {
+    "qid": "9-0932",
+    "classification": "own",
+    "chapter": 9,
+    "quality": "ok",
+    "reason": "考查temperature对多样性的调控作用",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "temperature 越高，分布越平坦，输出越多样。教程通过同一问题请求10次的实验清晰展示了这一点",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "低temperature降低多样性"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "高temperature提升多样性"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "top_p=0.1限制候选集，降低多样性"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "重复惩罚未在原文中定义或考查"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "9-1178": {
+    "qid": "9-1178",
+    "classification": "own",
+    "chapter": 9,
+    "quality": "ok",
+    "reason": "考查temperature与top_p组合对多样性的叠加影响",
+    "answer": [
+      "D"
+    ],
+    "supported": true,
+    "quote": "temperature 和 top_p 都会扩大候选范围，叠加使用会让输出失控。课程明确建议：固定一个、调另一个，优先调 temperature",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "temperature低抑制多样性"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "两个参数都低，最保守"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "top_p低限制候选，削弱temperature效果"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "两个参数都高，多样性最大"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "9-1193": {
+    "qid": "9-1193",
+    "classification": "own",
+    "chapter": 9,
+    "quality": "ok",
+    "reason": "考查temperature的数学含义与作用",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "temperature 的数学含义：模型先算出每个候选 token 的得分（logits），除以 temperature 后再做 softmax",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "GPU数量不由temperature控制"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "权重加载不由temperature控制"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "控制生成文本的多样性"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "长度由max_tokens控制"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "9-1217": {
+    "qid": "9-1217",
+    "classification": "own",
+    "chapter": 9,
+    "quality": "ok",
+    "reason": "考查top_p的定义与作用机制",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "top_p（核采样）：把候选按概率从高到低累加，直到累积概率达到 p，只在这个'核心集合'内采样",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "长度由max_tokens控制"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "只考虑累积概率达p的候选"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "CPU核心数无关"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "格式由提示词和JSON模式控制"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "9-0159": {
+    "qid": "9-0159",
+    "classification": "own",
+    "chapter": 9,
+    "quality": "ok",
+    "reason": "考查低temperature下的输出确定性特征",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "T 越小，高分 token 被放得越大、分布越尖锐，输出越确定；T 越大，分布越平坦，输出越多样",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "多样化需高temperature"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "低temperature导致输出单一"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "完全随机需高temperature"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "低temperature可预测"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "9-0227": {
+    "qid": "9-0227",
+    "classification": "own",
+    "chapter": 9,
+    "quality": "ok",
+    "reason": "考查控制随机性的核心参数组合",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "生成参数决定模型'怎么说'，而不是'说什么'。同样一个 qwen-max，参数不同可以是严谨的事实查询助手，也可以是天马行空的文案写手",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "temperature和top_p调控随机性"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "学习率和dropout属训练参数"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "batch_size和epochs属训练参数"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "precision和recall属评估指标"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

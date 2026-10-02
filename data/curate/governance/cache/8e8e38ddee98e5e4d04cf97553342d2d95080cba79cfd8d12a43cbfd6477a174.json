@@ -1,0 +1,214 @@
+{
+  "new-6-60-0": {
+    "qid": "new-6-60-0",
+    "classification": "own",
+    "chapter": 6,
+    "quality": "ok",
+    "reason": "考查KV Cache显存瓶颈对TTFT的影响，符合本章知识。",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "KV Cache随序列长度与并发数线性增长，长上下文高并发下KV Cache往往成为显存大头。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "GPU利用率未达瓶颈，非算力不足。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "无429错误，非限流或调度问题。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "KV Cache占用率94%接近饱和，影响内存分配与Prefill。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "TPOT稳定，非Decode带宽问题。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-6-60-1": {
+    "qid": "new-6-60-1",
+    "classification": "own",
+    "chapter": 6,
+    "quality": "ok",
+    "reason": "考查量化对TPOT和显存的影响，符合教材内容。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "量化通常也加速：因为Decode阶段是显存带宽密集型，从显存读权重的字节数变少了。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "教材支持AWQ更稳，但未直接支持TPOT改善更明显。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "TPOT降低源于Decode阶段显存带宽压力减小。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "教材未直接支持量化对Prefill加速有限。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "理论降幅75%，58%不符，且教材未直接支持此结论。"
+      }
+    ],
+    "duplicate_of": "6-5136"
+  },
+  "new-6-60-2": {
+    "qid": "new-6-60-2",
+    "classification": "own",
+    "chapter": 6,
+    "quality": "ok",
+    "reason": "考查高TTFT诊断思路，符合性能监控知识。",
+    "answer": [
+      "B",
+      "C"
+    ],
+    "supported": true,
+    "quote": "Prefill速度、排队时长、prompt长度影响TTFT。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "PagedAttention是vLLM核心，非高TTFT直接原因。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "Prefill阶段耗时异常直接影响TTFT。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "请求排队等待时间增加会直接导致TTFT升高。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "服务已运行，权重加载非实时TTFT主因。"
+      }
+    ],
+    "duplicate_of": "6-5139"
+  },
+  "new-6-60-3": {
+    "qid": "new-6-60-3",
+    "classification": "own",
+    "chapter": 6,
+    "quality": "ok",
+    "reason": "考查通过vLLM参数优化TTFT，符合部署调优知识。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "Prefill速度、排队时长、prompt长度影响TTFT。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "GPU空闲，增并发可能恶化TTFT。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "限制最大序列长度可降低Prefill内存压力。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "前缀缓存主要优化共享前缀，对单次TTFT改善有限。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "压榨显存利用率不直接优化Prefill计算。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-6-60-4": {
+    "qid": "new-6-60-4",
+    "classification": "own",
+    "chapter": 6,
+    "quality": "ok",
+    "reason": "考查PagedAttention节省显存的必要条件，符合其原理。",
+    "answer": [
+      "A",
+      "C"
+    ],
+    "supported": true,
+    "quote": "PagedAttention：把KV Cache切成固定大小的块，按需分配，消除碎片与预分配浪费。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "实际长度远小于预分配，才能避免浪费。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "块大小是配置，非节省的必要条件。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "共享前缀可复用KV块，减少存储。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "物理容量大于需求是基础，非PagedAttention特有。"
+      }
+    ],
+    "duplicate_of": "6-5144"
+  },
+  "new-6-60-5": {
+    "qid": "new-6-60-5",
+    "classification": "own",
+    "chapter": 6,
+    "quality": "ok",
+    "reason": "考查连续批处理对TTFT的潜在负面影响，符合调度机制。",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "连续批处理（Continuous Batching，又称动态/持续批处理）：请求不再‘整批齐步走’。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "教材未提及调度粒度变细增加通信开销。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "高SM利用率不直接导致显存带宽争用拖慢Prefill。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "短prompt需等待长prompt完成Prefill，增加等待。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "TTFT上升，非Decode阶段问题。"
+      }
+    ],
+    "duplicate_of": "6-5148"
+  }
+}

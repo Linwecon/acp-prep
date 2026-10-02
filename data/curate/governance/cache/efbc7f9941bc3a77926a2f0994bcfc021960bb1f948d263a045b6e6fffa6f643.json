@@ -1,0 +1,216 @@
+{
+  "new-7-0-0": {
+    "qid": "new-7-0-0",
+    "classification": "own",
+    "chapter": 7,
+    "quality": "ok",
+    "reason": "题目考查RAGAS指标定位故障能力，符合第7章核心考点。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "检索指标都好（Recall、Precision 高），但 Faithfulness / Correctness 低 → 问题在生成阶段",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "题干已确认检索返回信息正确，向量偏移不成立。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "检索指标高但生成错误，提示词约束不足是首要排查点。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "Top K过大影响Precision，但Recall已很高，非主因。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "ground_truth错误不影响Faithfulness，且题干未提。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-7-0-1": {
+    "qid": "new-7-0-1",
+    "classification": "own",
+    "chapter": 7,
+    "quality": "ok",
+    "reason": "题目考查评测集构建原则，符合7.2.1节内容。",
+    "answer": [
+      "A",
+      "C"
+    ],
+    "supported": true,
+    "quote": "问题来自真实用户场景；标准答案来自领域专家",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "问题来自工单，答案由HRBP写，符合两条铁律。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "技术人员模拟问题，大模型生成答案，均不符合铁律。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "真实用户提问，答案由部门负责人确认，符合铁律。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "对抗性问题非真实场景，且拒答标注不违背但非典型。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-7-0-2": {
+    "qid": "new-7-0-2",
+    "classification": "own",
+    "chapter": 7,
+    "quality": "ok",
+    "reason": "题目考查端到端与白盒评测区别，符合7.6节内容。",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "端到端评测看最终输出，白盒评测对关键组件/中间步骤单独打分",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "仅提阈值不解决具体问题，用户抱怨将持续。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "长度偏见存在，但题干未提代码变冗长。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "触发正确性指标是Skill评测维度，与题干无关。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "白盒评测分数虚高是可能结果，但非最直接后果。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-7-0-3": {
+    "qid": "new-7-0-3",
+    "classification": "own",
+    "chapter": 7,
+    "quality": "ok",
+    "reason": "题目考查指标分析与Rubric应用，符合7.6节内容。",
+    "answer": [
+      "A",
+      "C"
+    ],
+    "supported": true,
+    "quote": "Rubric 评分量表把模糊目标拆成多条可检查细则",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "增加提示词约束是直接解决生成格式问题。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "修改ground_truth以匹配错误输出，违背评测原则。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "引入Rubric将出处标注作为独立项，符合教材方法。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "调高temperature可能增加幻觉，无助于解决格式要求。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-7-0-4": {
+    "qid": "new-7-0-4",
+    "classification": "own",
+    "chapter": 7,
+    "quality": "ok",
+    "reason": "题目考查Context Precision低下的优化策略，符合7.5节内容。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "Precision 低（Recall 高） → 加 Rerank、缩小 Top K、相似度阈值过滤",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "Recall已很高，扩充知识库非优先。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "无关内容排前，Rerank重排序是教材推荐方案。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "扩大召回会引入更多噪声，恶化Precision。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "提示词提醒是辅助，不能解决检索排序根本问题。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-7-0-5": {
+    "qid": "new-7-0-5",
+    "classification": "own",
+    "chapter": 7,
+    "quality": "ok",
+    "reason": "题目考查LLM-as-Judge偏见缓解措施，符合7.8.1节内容。",
+    "answer": [
+      "A",
+      "C",
+      "D"
+    ],
+    "supported": true,
+    "quote": "随机打乱/交换候选顺序多次打分取平均以抵消位置偏见；用黄金集校准阈值；评分细则中明确冗余扣分",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "交换顺序取平均可缓解位置偏见，有教材依据。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "使用同架构模型可能强化自我偏好，非缓解措施。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "构建黄金集用于校准评委，是教材标准动作。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "明确字数扣分规则可对抗长度偏见，有教材依据。"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

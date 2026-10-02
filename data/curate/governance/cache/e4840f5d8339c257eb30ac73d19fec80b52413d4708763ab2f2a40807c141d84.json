@@ -1,0 +1,166 @@
+{
+  "items": [
+    {
+      "type": 0,
+      "stem": "某企业升级新人答疑机器人为报销查询助手。用户问'帮我查一下我上个月提交的报销单审批到哪一步了'，模型返回tool_calls=[{'name':'get_reimbursement','args':{'user_id':'U123'}}]。此时若工具执行后返回'未找到匹配单据'，系统下一步最应采取的行动是？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "立即终止流程，向用户返回'未找到报销单'并结束对话"
+        },
+        {
+          "option_label": "B",
+          "option_text": "由应用代码将错误结果以role='tool'消息回传，再调用模型生成新响应"
+        },
+        {
+          "option_label": "C",
+          "option_text": "自动重试三次get_reimbursement，参数不变"
+        },
+        {
+          "option_label": "D",
+          "option_text": "跳过该工具，直接调用另一个工具如list_recent_submissions"
+        }
+      ],
+      "answer": "B",
+      "analysis": "依据4.3节Function Calling流程铁律：模型只输出tool_calls（提议），执行与结果回传必须由应用代码完成；且工具结果必须作为role='tool'消息追加至上下文，模型才能基于Observation继续推理（教材原文：'结果必须由程序作为role=\"tool\"的消息追加回上下文，模型才\"知道\"发生了什么'）。选项A违反ReAct闭环原则（未利用反馈迭代）；C违背'失败出口'设计原则（盲目重试不改参）；D跳过工具属无依据决策，违反Planner职责。B项完整符合'提议→执行→回传→再规划'四步闭环。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 1,
+      "stem": "在部署一个跨会话的企业知识助手时，用户多次强调'回答需引用最新版《采购合规手册》第3.2条'。为确保该约束长期生效且不因上下文截断丢失，以下哪些Memory策略组合符合本章最佳实践？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "将手册全文嵌入每轮system prompt"
+        },
+        {
+          "option_label": "B",
+          "option_text": "使用向量化长期记忆，将手册条款切片入库，按语义检索注入"
+        },
+        {
+          "option_label": "C",
+          "option_text": "在首次会话中用record_to_memory工具持久化该要求，并设置高优先级标签"
+        },
+        {
+          "option_label": "D",
+          "option_text": "采用滚动摘要，每次会话结束前让LLM生成'用户核心合规要求摘要'"
+        },
+        {
+          "option_label": "E",
+          "option_text": "强制扩大短期窗口至32K token，避免截断"
+        }
+      ],
+      "answer": "BCD",
+      "analysis": "依据4.8节Memory原则：A错误——违反'避免全量注入'（手册全文会严重稀释注意力、推高token成本）；E错误——单纯扩窗无法解决'中间迷失'和成本问题（教材明确指出'单纯扩窗口只是延后爆炸'）；B正确——向量召回可跨会话按需取用关键条款，符合'长期记忆'定义；C正确——主动管理记忆（教材：'把记忆做成工具，让模型自己决定什么时候记'），且'高优先级标签'支持精准检索；D正确——滚动摘要能压缩历史并保留核心约束，教材称其'适合长篇创作、项目规划'。三者组合（B+C+D）覆盖长期存储、主动写入、动态压缩，是工程推荐方案。",
+      "difficulty_label": "高阶"
+    },
+    {
+      "type": 0,
+      "stem": "团队需接入15个内部系统（OA、HRIS、CRM等），每个系统提供API但Schema频繁变更。现有Agent每次更新都需手动修改tools参数并重新部署。为根治此问题，应优先引入哪项技术？其与Function Calling的核心关系是？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "MCP协议；它标准化工具发现与管理，使Function Calling能动态加载Schema"
+        },
+        {
+          "option_label": "B",
+          "option_text": "ReAct框架；它通过多轮Thought-Action-Observation自动适配API变更"
+        },
+        {
+          "option_label": "C",
+          "option_text": "Skill机制；将各系统API封装为渐进式披露的模块化技能"
+        },
+        {
+          "option_label": "D",
+          "option_text": "Harness工程；通过标准-验证-记录-写回闭环捕获Schema变更"
+        }
+      ],
+      "answer": "A",
+      "analysis": "依据4.5节MCP定义：MCP解决'工具怎么被发现、被管理、被复用'，其Server端暴露Schema，Client端动态拉取，新增/变更工具无需改Agent代码（教材案例：'新增十几个内部系统工具...引入MCP，让工具作为独立Server暴露，Agent通过标准协议动态发现'）。Function Calling负责'模型如何触发调用'，二者互补（教材：'MCP解决接入标准化，FC解决调用机制'）。B错误——ReAct处理运行时失败，不解决Schema维护；C错误——Skill固化SOP而非管理Schema；D错误——Harness是闭环方法论，不直接解决工具发现。A项精准对应'动态发现'与'互补关系'两大考点。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 1,
+      "stem": "某金融风控Agent需执行'评估客户贷款申请'任务，涉及信用分查询、收入验证、反欺诈扫描三步。当反欺诈工具返回'风险等级：高'时，Agent应如何响应？以下哪些做法符合本章'反思'与'规划策略'原则？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "立即拒绝申请，并向用户发送标准化拒贷通知"
+        },
+        {
+          "option_label": "B",
+          "option_text": "启动外部反馈：调用人工审核接口，将风险报告作为tool消息回传，再由模型生成待审结论"
+        },
+        {
+          "option_label": "C",
+          "option_text": "执行自我反馈：用审查Agent重读风险报告，确认'高风险'判定是否符合规则库"
+        },
+        {
+          "option_label": "D",
+          "option_text": "切换至Plan-and-Execute模式，重新规划'是否需补充材料'子目标"
+        },
+        {
+          "option_label": "E",
+          "option_text": "直接调用下一个工具（如征信报告生成），忽略风险信号"
+        }
+      ],
+      "answer": "BCD",
+      "analysis": "依据4.6.1反思与4.6.3自主规划：B正确——外部反馈用真实工具（人工审核）校验，符合'让事实说话'原则（教材：'外部反馈的关键是让事实说话'）；C正确——自我反馈由审查Agent专项核查，避免角色偏见（教材：'审查Agent只负责发现问题，不直接重写'）；D正确——环境突变（高风险）触发重新规划，体现'Plan-and-Execute应对障碍'（教材：'遇到障碍时重新规划，而不是死守预设流程图'）。A错误——未反思即决策，违反'不验证输出'风险；E错误——无视关键信号，违背'观察结果驱动下一步'闭环逻辑。BCD覆盖反思双模式与自主规划，直击故障诊断核心。",
+      "difficulty_label": "高阶"
+    },
+    {
+      "type": 0,
+      "stem": "在评测一个课程内容审查Agent时，端到端得分95%，但用户反馈'示例代码缺少异常处理'。为定位该问题，应优先采用哪种评测手段？其核心优势是什么？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "LLM-as-Judge；它能模拟专家对教学有效性的主观判断"
+        },
+        {
+          "option_label": "B",
+          "option_text": "Rubric评分量表；可将'异常处理完整性'拆解为可判定细则"
+        },
+        {
+          "option_label": "C",
+          "option_text": "确定性检查；用脚本解析代码片段，验证try-catch或error handling关键词"
+        },
+        {
+          "option_label": "D",
+          "option_text": "白盒化轨迹分析；人工检查所有tool_calls序列是否包含code_validation"
+        }
+      ],
+      "answer": "C",
+      "analysis": "依据4.10节评测原则：题干明确'示例代码缺少异常处理'是客观、可编程验证的缺陷，确定性检查专为此类'该发生的步骤有没有发生'而设（教材：'用代码/脚本判断...是否调了报销查询工具、输出是否符合JSON Schema'）。C项直接命中'代码可执行性'这一确定性指标。A错误——LLM-as-Judge有偏见，不适合验证具体技术点；B错误——Rubric用于主观维度（如'教学有效性'），非技术细节；D错误——白盒分析是人工手段，非本章推荐的自动化评测法。教材强调'白盒评测针对中间步骤'，而确定性检查正是白盒评测的自动化实现。",
+      "difficulty_label": "基础"
+    },
+    {
+      "type": 1,
+      "stem": "设计一个'智能会议纪要助手'，需完成语音转写、要点提取、待办事项识别、责任人分配四步。以下哪些架构选择符合本章'多Agent设计四原则'？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "为转写、提取、识别、分配四个Agent分别申请独立API Key，按最小权限授权"
+        },
+        {
+          "option_label": "B",
+          "option_text": "由中央Leader Agent统一接收原始音频，拆解任务并handoff给Worker Agent"
+        },
+        {
+          "option_label": "C",
+          "option_text": "将全部四个Agent的系统提示词拼接后注入Leader的初始prompt"
+        },
+        {
+          "option_label": "D",
+          "option_text": "各Worker Agent仅接收分配到的子任务文本，不访问完整会议记录"
+        },
+        {
+          "option_label": "E",
+          "option_text": "所有Agent共享一个Redis缓存，实时同步待办事项状态"
+        }
+      ],
+      "answer": "ABD",
+      "analysis": "依据4.7节多Agent四原则：A正确——'独立凭据'原则要求'不同Agent不得共用同一套账号/API凭据'；B正确——'中央调度'原则要求'设置Planner/Leader Agent统一判断何时调哪个Agent'，handoff是AgentScope推荐模式；D正确——'明确职责'隐含信息隔离，Worker专注子任务可提升输出聚焦度（教材：'每个Worker拥有独立的上下文窗口，只看自己那部分任务'）。C错误——直接违反'避免全量注入'；E错误——共享缓存虽可行，但未体现'独立凭据'（若共用Redis凭据则违规），且可能引发状态竞争，不符合'明确职责'的边界控制。ABD严格对应四原则中的三项核心要求。",
+      "difficulty_label": "进阶"
+    }
+  ]
+}

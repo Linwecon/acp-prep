@@ -1,0 +1,208 @@
+{
+  "3-0153": {
+    "qid": "3-0153",
+    "classification": "misplaced",
+    "chapter": 3,
+    "quality": "remove",
+    "reason": "题干问'没有理解用户意图'，但RAG原文未定义或归因'理解意图'问题；选项全为无关模型参数/训练项",
+    "answer": [],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "上下文干扰属检索阶段问题，非意图理解"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "增加训练数据属微调范畴，非RAG机制"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "推理时间与意图理解无直接因果"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "参数数量不影响意图解析能力"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-0155": {
+    "qid": "3-0155",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "原文明确指出Markdown格式利于结构化，是文档解析核心要求",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "Markdown 因层次分明（`#`/`##`/`###`）、语法简单，被推荐作为 RAG 文档的中间格式",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "原文明确推荐Markdown作中间格式"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "训练数据属微调，非结构化手段"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "推理时间与结构化无关"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "参数数量不解决结构化问题"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-0156": {
+    "qid": "3-0156",
+    "classification": "beyond",
+    "chapter": 3,
+    "quality": "remove",
+    "reason": "GraphRAG未在本章出现；NLP/ML/DL为泛领域技术，非RAG特有方案",
+    "answer": [],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "GraphRAG未在原文提及"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "NLP是通用技术，非RAG专用"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "ML是通用技术，非RAG专用"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "DL是通用技术，非RAG专用"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-0157": {
+    "qid": "3-0157",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "原文表格明确将Token切片列为'上下文长度受限的模型'适用策略",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "常见切片策略：Token 切片：按固定 token 数切（如每 100 token、重叠 20） | 适用场景：上下文长度受限的模型、需要严格控制长度",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "原文明确对应严格token要求"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "句子切片适配通用文本"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "句子窗口用于精准命中+扩窗"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "语义切片成本更高，非严格token场景"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-0158": {
+    "qid": "3-0158",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "原文表格明确将Markdown切片列为'有清晰标题结构的制度、手册、文档'适用策略",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "常见切片策略：Markdown 切片：按标题层级（`#`/`##`/`###`）切 | 适用场景：有清晰标题结构的制度、手册、文档",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "原文明确对应Markdown文档"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "语义切片需额外模型成本"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "Token切片关注长度非结构"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "句子切片不利用标题层级"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-0164": {
+    "qid": "3-0164",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "原文明确说明similarity_top_k控制召回数量，且增大K可提升召回率",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "Top K：每次检索返回的最相关 chunk 数量；K 调大 → 召回率（相关文档被找到的比例）↑",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "similarity_top_k即Top K参数"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "训练数据属微调范畴"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "推理时间与召回数量无关"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "参数数量不改变召回逻辑"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

@@ -1,0 +1,215 @@
+{
+  "new-10-6-0": {
+    "qid": "new-10-6-0",
+    "classification": "own",
+    "chapter": 10,
+    "quality": "ok",
+    "reason": "考查开源模型私有化部署的必要前提，符合本章知识。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "开源模型的价值集中在三点：① 数据隐私与合规（数据不出域）；② 可深度定制（任意微调/改结构）；③ 大规模稳定流量下的长期成本可控。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "ModelScope是开源社区，不提供在线推理API微调服务。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "EAS配置VPC内网访问是确保数据不出域的必要网络隔离措施。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "百炼知识库调用DashScope托管API，数据会上送，违反不出域要求。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "EAS可直接加载本地或OSS的模型权重，无需回传ModelScope。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-10-6-1": {
+    "qid": "new-10-6-1",
+    "classification": "own",
+    "chapter": 10,
+    "quality": "ok",
+    "reason": "考查ModelScope Notebook资源限制与微调需求差异。",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "ModelScope Notebook免费但通常有连续运行时长限制（如单次4小时自动关闭）；PAI-DSW实例可保留但需主动管理计费。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "免费Notebook资源有限，微调显存需求远高于推理。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "权重未正确加载是可能原因，但非题干最根本的通用原因。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "Notebook通常提供GPU选项，且CPU模式不会导致OOM。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "ModelScope支持下载模型用于微调，并非仅推理。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-10-6-2": {
+    "qid": "new-10-6-2",
+    "classification": "own",
+    "chapter": 10,
+    "quality": "ok",
+    "reason": "考查‘开源模型+PAI部署’方案满足数据不出域的具体操作组合。",
+    "answer": [
+      "A",
+      "B"
+    ],
+    "supported": true,
+    "quote": "开源模型的价值集中在三点：① 数据隐私与合规（数据不出域）；② 可深度定制（任意微调/改结构）。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "下载开源模型至本地是私有化部署的第一步。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "EAS配置VPC并禁用公网是确保服务不出域的关键。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "百炼知识库使用托管API，数据会上传，违反不出域要求。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "DashScope API调用数据需上送公网，违反不出域要求。"
+      }
+    ],
+    "duplicate_of": "10-5177"
+  },
+  "new-10-6-3": {
+    "qid": "new-10-6-3",
+    "classification": "own",
+    "chapter": 10,
+    "quality": "ok",
+    "reason": "考查PAI-EAS部署服务的性能瓶颈分析与教材依据。",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "EAS服务未配置自动扩缩容策略，导致并发请求数超过单实例处理能力",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "CPU使用率低但队列堆积，表明实例处理能力不足且未自动扩容。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "推理延迟高可能导致超时，但监控未显示高CPU，非最可能原因。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "DSW占用GPU配额不影响EAS CPU实例的算力获取。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "DashScope限流返回429，且题干系统基于EAS部署，未调用DashScope。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-10-6-4": {
+    "qid": "new-10-6-4",
+    "classification": "own",
+    "chapter": 10,
+    "quality": "ok",
+    "reason": "考查PAI三件套（DSW/DLC/EAS）典型工作流程。",
+    "answer": [
+      "A",
+      "B",
+      "C"
+    ],
+    "supported": true,
+    "quote": "典型流程是：1. 在PAI-DSW的GPU实例里写代码、用ms-swift做LoRA微调；2. 大规模/分布式训练可提交到DLC；3. 要稳定对外提供高并发服务时，再用PAI-EAS部署。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "DSW用于开发调试和初步验证，符合流程第一步。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "DLC用于大规模训练，是流程第二步。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "EAS用于最终部署上线，是流程第三步。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "ModelScope Notebook不适合完成全部微调，应使用PAI-DSW。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-10-6-5": {
+    "qid": "new-10-6-5",
+    "classification": "own",
+    "chapter": 10,
+    "quality": "ok",
+    "reason": "考查ModelScope与DashScope（商业API）的定位区别。",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "ModelScope（魔搭）是开源模型与数据集社区；DashScope（灵积）是商业模型API服务平台。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "商业版模型权重未开源，故不在ModelScope开源库中。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "ModelScope未下架通义千问开源模型，与商业版无关。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "商业版模型通过DashScope调用，百炼是应用层。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "搜索关键词正确与否，不改变商业版不在ModelScope的事实。"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

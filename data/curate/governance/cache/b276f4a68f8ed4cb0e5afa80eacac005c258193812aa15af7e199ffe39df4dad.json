@@ -1,0 +1,180 @@
+{
+  "new-12-48-0": {
+    "qid": "new-12-48-0",
+    "classification": "own",
+    "chapter": 12,
+    "quality": "ok",
+    "reason": "考查框架引入的根本原因，题干与原文场景高度一致",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "裸调 SDK 时要自己写 | 框架帮你抽象成 | 框架的本质价值是'把大模型应用中反复出现的工程模式抽象成可组合的组件'",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "题干未提性能问题，核心是工程模式抽象"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "原文指出裸调SDK缺乏对共性工程模式的抽象，导致重复造轮子"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "题干未提模型能力不足，是工程编排问题"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "LCEL是解决方案，非根本问题"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-12-48-1": {
+    "qid": "new-12-48-1",
+    "classification": "own",
+    "chapter": 12,
+    "quality": "ok",
+    "reason": "考查文档解析与低代码平台选型组合，符合分层原则",
+    "answer": [
+      "A",
+      "C",
+      "D"
+    ],
+    "supported": true,
+    "quote": "文档是扫描件、截图、复杂表格、图文混排 PDF → 上 DashScopeParse | Dify 是一个开源的**低代码 LLM 应用开发平台**",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "Dify适合HR自助，内置解析可处理扫描件"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "PyMuPDF无法处理扫描件，且自研违反分层原则"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "DashScopeParse专用于扫描件，符合按文件类型分派"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "Dify配置DashScopeParse后端，实现结构化输出"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-12-48-2": {
+    "qid": "new-12-48-2",
+    "classification": "own",
+    "chapter": 12,
+    "quality": "ok",
+    "reason": "考查LlamaIndex中context_str与query_str互换的后果",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "context_str 是检索到的上下文，不是用户问题 | 考试常把二者互换作为错误选项",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "未提及token超限，是语义错位"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "原文指出互换会导致模型把问题当资料，答非所问"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "未提及模块报错，是提示词错误"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "未提及自动降级，是输入错位"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-12-48-4": {
+    "qid": "new-12-48-4",
+    "classification": "own",
+    "chapter": 12,
+    "quality": "ok",
+    "reason": "考查RAGAS评估中Faithfulness指标的计算依赖",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "Faithfulness需比对答案与contexts的一致性 | RAGAS评估的是RAG系统输出质量",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "RAGAS不要求必须用LangChain"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "Faithfulness依赖上下文，未配置Retriever无法获取contexts"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "Faithfulness需比对答案与contexts，未配置Retriever则无contexts"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "与C类似，但未强调数据集需ground_truth"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-12-48-5": {
+    "qid": "new-12-48-5",
+    "classification": "own",
+    "chapter": 12,
+    "quality": "ok",
+    "reason": "考查复杂场景下的框架选型与安全合规误区",
+    "answer": [
+      "A",
+      "C"
+    ],
+    "supported": true,
+    "quote": "私有部署 ≠ 自动合规 | LlamaIndex 做数据 + LangChain 做编排 | FastAPI 封装服务",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "FastAPI适合生产服务，埋点监控符合审计要求"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "私有部署不等于满足全部安全要求，是常见误区"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "LlamaIndex做RAG，LangGraph做工作流，符合组合原则"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "放弃评测不符合评测驱动开发原则"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

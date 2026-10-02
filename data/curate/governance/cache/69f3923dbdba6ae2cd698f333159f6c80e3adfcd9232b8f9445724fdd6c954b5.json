@@ -1,0 +1,244 @@
+{
+  "1-0609": {
+    "qid": "1-0609",
+    "classification": "beyond",
+    "chapter": 12,
+    "quality": "remove",
+    "reason": "题干与选项均与大模型基础无关，考查的是通用数据处理流程，无考查价值。",
+    "answer": [],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "题干问自动化处理步骤，调用API是可能的，但非本章考点。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "人工审阅与自动化处理相悖，但非本章考点。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "数据可视化是分析步骤，但非本章考点。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "统计分析是处理步骤，但非本章考点。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "1-0631": {
+    "qid": "1-0631",
+    "classification": "cross",
+    "chapter": 2,
+    "quality": "ok",
+    "reason": "考查提示词设计，属于提示工程核心知识。",
+    "answer": [
+      "A",
+      "B",
+      "C",
+      "E"
+    ],
+    "supported": true,
+    "quote": "提示词六要素（角色/任务/上下文/受众/样例/输出格式）",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "明确要求改写成口语化，符合改写任务。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "直接要求语气变得更轻松友好，任务明确。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "要求用更随意的语气，符合改写目标。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "要求翻译，未涉及语气改写。"
+      },
+      {
+        "label": "E",
+        "selected": true,
+        "why": "要求适合朋友间交流的语气，符合轻松友好。"
+      },
+      {
+        "label": "F",
+        "selected": false,
+        "why": "要求去掉非专业表达，与轻松友好目标相反。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "1-0653": {
+    "qid": "1-0653",
+    "classification": "beyond",
+    "chapter": -1,
+    "quality": "remove",
+    "reason": "考查通用智能辅导系统功能设计，与大模型基础无直接关联。",
+    "answer": [],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "动态调整难度是通用功能，非本章考点。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "个性化学习路径是通用功能，非本章考点。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "生成练习是通用功能，非本章考点。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "多轮互动是通用功能，非本章考点。"
+      },
+      {
+        "label": "E",
+        "selected": false,
+        "why": "记录进度是通用功能，非本章考点。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "1-0729": {
+    "qid": "1-0729",
+    "classification": "cross",
+    "chapter": -1,
+    "quality": "review",
+    "reason": "考查推荐系统技术方案，涉及大模型与传统算法结合，超出基础范围。",
+    "answer": [
+      "A",
+      "B",
+      "D",
+      "E"
+    ],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "用户画像用于提示词，可支持个性化推荐。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "协同过滤生成推荐，模型生成理由，是混合方案。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "完全依赖模型，未利用传统算法，不合适。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "对话状态跟踪支持多轮交互，是合理设计。"
+      },
+      {
+        "label": "E",
+        "selected": true,
+        "why": "为不同类别设计专门策略，可提升推荐效果。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "1-0739": {
+    "qid": "1-0739",
+    "classification": "own",
+    "chapter": 1,
+    "quality": "ok",
+    "reason": "考查多轮对话中模型无状态特性及解决方案，属于核心知识。",
+    "answer": [
+      "A",
+      "B",
+      "C",
+      "D"
+    ],
+    "supported": true,
+    "quote": "大模型 API 是无状态（Stateless）的：每次 HTTP 请求相互独立，服务端不会因为你上次调过就“记得”你。所谓“多轮对话”，本质是客户端把历史消息拼进 messages，每次重新发一遍。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "将历史记录与当前问题一起输入，是解决无状态的基本方法。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "实体标注提示可帮助模型理解指代，是有效增强手段。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "增加上下文窗口可容纳更多历史，是工程解决方案。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "总结前文要点压缩信息，是处理长对话的有效策略。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "1-0940": {
+    "qid": "1-0940",
+    "classification": "beyond",
+    "chapter": -1,
+    "quality": "remove",
+    "reason": "考查跨文化本地化通用原则，与大模型基础无直接关联。",
+    "answer": [
+      "A",
+      "B",
+      "C"
+    ],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "本地化示例和比喻是文化适配的重要考虑。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "文化敏感性和禁忌避免是跨文化应用的关键。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "符合当地法律法规是产品合规的基本要求。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "仅语言翻译不符合文化适配的题干要求。"
+      },
+      {
+        "label": "E",
+        "selected": false,
+        "why": "统一全球策略可能忽视本地化需求，不符合题干。"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

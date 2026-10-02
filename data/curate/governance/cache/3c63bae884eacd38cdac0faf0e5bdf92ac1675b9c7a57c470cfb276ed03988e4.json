@@ -1,0 +1,109 @@
+{
+  "new-7-24-0": {
+    "qid": "new-7-24-0",
+    "classification": "own",
+    "chapter": 7,
+    "quality": "ok",
+    "reason": "题目考查根据RAGAS指标组合和用户反馈定位系统问题的能力，符合第7章核心考点。",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "Context Precision低说明相关片段被大量无关内容淹没、排名靠后（信噪比低），模型容易'Lost in the Middle'",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "Context Precision下降，Recall上升，符合'噪声增加、注意力分散'的'Lost in the Middle'效应。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "题干未提及ground_truth变化，且指标变化趋势与标注质量下降无直接证据。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "题干未提及评委模型版本变化，且Faithfulness稳定，不支持指标漂移推断。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "用户反馈'啰嗦'可能相关，但题干未提供提示词修改证据，且与检索指标变化关联弱。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-7-24-2": {
+    "qid": "new-7-24-2",
+    "classification": "own",
+    "chapter": 7,
+    "quality": "ok",
+    "reason": "题目考查Agent白盒评测方法选择，区分确定性检查与主观评估，符合第7章Agent评测考点。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "确定性检查（规则/断言）用代码规则直接判断，结果确定；客观项：代码能否运行",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "LLM-as-Judge评估教学有效性是主观指标，无法直接验证代码可运行性。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "确定性检查直接验证代码能否执行，是定位'无法运行'故障的最精准方法。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "BLEU相似度衡量字面重合，与代码可执行性无直接关系。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "Rubric评估代码完整性包含命名、注释等，但无法直接验证代码可运行。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-7-24-3": {
+    "qid": "new-7-24-3",
+    "classification": "own",
+    "chapter": 7,
+    "quality": "ok",
+    "reason": "题目考查根据RAGAS指标组合应用'黄金法则'定位问题并选择优化方向的能力。",
+    "answer": [
+      "A",
+      "B",
+      "D"
+    ],
+    "supported": true,
+    "quote": "检索指标都好（Recall、Precision高），但Faithfulness / Correctness低 → 问题在生成阶段；Faithfulness低表明模型存在严重幻觉；应强化提示词约束、降低temperature、检查上下文拼装",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "检索指标高但Faithfulness极低，符合'生成端幻觉'的病根判断。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "针对生成端幻觉，强化提示词约束和降低temperature是合理优化方向。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "Context Recall=0.91已属较高，不应优先补充知识库，病根在生成端。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "检查上下文拼装逻辑是改善Faithfulness（忠于检索资料）的合理措施。"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

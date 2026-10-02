@@ -1,0 +1,154 @@
+{
+  "items": [
+    {
+      "type": 0,
+      "stem": "某企业报销查询Agent在工具调用失败（如网络超时）后，未重试、未切换方案、也未向用户澄清，而是直接生成模糊回答：“系统暂未返回结果”。该行为最根本违反本章强调的哪一条核心设计约定？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "ReAct必须设置最大轮数上限"
+        },
+        {
+          "option_label": "B",
+          "option_text": "工具返回结果必须回灌到上下文"
+        },
+        {
+          "option_label": "C",
+          "option_text": "要给模型'失败出口'：工具超时、报错时能重试或换方案"
+        },
+        {
+          "option_label": "D",
+          "option_text": "Function Calling中模型只提议、程序才执行"
+        }
+      ],
+      "answer": "C",
+      "analysis": "题干描述的是工具执行失败后的响应缺失，直指4.2节'单Agent架构'中明确提出的'关键约定'第三条：'要给模型“失败出口”：工具超时、报错时能重试或换方案，而不是整轮崩溃。' 选项A虽为ReAct铁律，但题干问题不在无限循环，而在无应对策略；B是工具结果回传的必要动作，但题干中失败已发生，问题在于后续决策缺失；D是Function Calling的基本分工，与故障响应逻辑无关。教材原文依据见4.2节'principle'框内第三点。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 1,
+      "stem": "一个课程审查Skill已封装‘代码可执行性检查’为validate_code.py脚本，并返回结构化JSON。当评测该Skill的SOP合规性时，发现Agent在未运行该脚本的情况下就给出了‘代码可运行’结论。为精准定位此环节失效，应优先采用哪种评测手段？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "确定性检查：解析执行轨迹，验证是否调用了validate_code.py工具"
+        },
+        {
+          "option_label": "B",
+          "option_text": "LLM-as-Judge：让另一模型判断审查报告是否体现可执行性验证"
+        },
+        {
+          "option_label": "C",
+          "option_text": "Rubric：按'是否引用脚本输出'等细则逐项打分"
+        },
+        {
+          "option_label": "D",
+          "option_text": "白盒化评测：检查代码生成环节是否被真实执行并捕获异常"
+        }
+      ],
+      "answer": "A,D",
+      "analysis": "题干聚焦'未运行脚本却声称可运行'这一**客观、可判定的流程缺失**，本质是SOP执行路径断裂。确定性检查（A）可直接解析trace日志，验证`tool_calls`中是否存在`validate_code`调用及对应`role=\"tool\"`消息回传，符合4.10节定义的'用代码/脚本判断该发生的步骤有没有发生'；白盒化评测（D）是方法论层级，其具体实现即包含对工具调用序列的检查，且教材明确指出白盒评测用于'关键组件/中间步骤（工具调用序列、参数、轨迹）'，故D正确。B和C属于主观/间接评估，无法精准定位'是否调用'这一原子动作，且LLM-as-Judge易受偏见影响（4.10节风险），Rubric需先定义'调用脚本'为必查项，但不如确定性检查直接高效。教材依据见4.10节'确定性检查'定义及'白盒化评测'目标描述。",
+      "difficulty_label": "挑战"
+    },
+    {
+      "type": 0,
+      "stem": "某团队将'课程代码审查'流程固化为Skill，但将全部检查规则（可执行性、依赖完整性、异常覆盖率）硬编码进主系统提示词。上线后发现：新员工修改提示词时误删关键检查项，且不同项目间规则难以复用。该做法最直接违背教材4.9节Skill设计的哪一核心原则？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "Skill应采用渐进式披露：主文件精简，按需加载子资源"
+        },
+        {
+          "option_label": "B",
+          "option_text": "Skill应模块化、可版本化，由领域团队拥有与维护"
+        },
+        {
+          "option_label": "C",
+          "option_text": "Skill解决的是'怎么做'的SOP，而非RAG式的事实检索"
+        },
+        {
+          "option_label": "D",
+          "option_text": "写好指令三原则：简洁、自由度匹配风险、渐进式披露"
+        }
+      ],
+      "answer": "B",
+      "analysis": "题干核心问题是'硬编码进主提示词'导致'误删'和'难以复用'，这直接违反4.9节'best'实践中的关键要求：'Skill 可进入 Git，走 PR → Review → CI 评测 → 部署 的 Skills-as-Code 生命周期，并由最懂业务的领域团队拥有与维护。' 模块化、可版本化、独立维护是Skill区别于零散提示词的根本特征。A和D虽提及渐进式披露，但题干问题不在披露方式，而在**缺乏工程化治理**；C是Skill与RAG的本质区分，但不解释'误删/难复用'现象。教材原文依据见4.9节'best'框内最后一句。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 1,
+      "stem": "某金融Agent需完成‘评估客户A的贷款申请’任务，涉及调用征信查询、收入验证、风控模型三个工具。当前采用固定流水线工作流：征信→收入→风控。但近期因征信API临时不可用，整个流程卡死。为提升鲁棒性，以下哪些调整符合本章‘规划策略’的最佳实践？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "将征信查询设为可选步骤，若失败则启用备用数据源（如历史信用分）"
+        },
+        {
+          "option_label": "B",
+          "option_text": "改用Plan-and-Execute模式，允许Agent根据实时反馈动态调整执行顺序或跳过失败步骤"
+        },
+        {
+          "option_label": "C",
+          "option_text": "为每个工具添加超时重试机制，并在重试失败后自动降级到人工审核"
+        },
+        {
+          "option_label": "D",
+          "option_text": "将三个工具合并为一个复合函数，减少API调用次数"
+        }
+      ],
+      "answer": "A,B,C",
+      "analysis": "题干场景是'固定流程因单点故障而卡死'，教材4.6.3节明确指出：'固定工作流的致命问题是“卡不起”……你无法为每一种意外都预先 if/else。' 因此，A（提供备用路径）、B（自主规划动态调整）、C（内置容错机制）均符合'探索-固化'混合模式中'探索阶段'的鲁棒性设计，且A、C呼应4.2节'失败出口'约定，B是4.6.3节核心概念。D违背'解耦'原则（4.2节'best'），合并工具会降低可维护性与可观测性，且未解决单点失败问题。教材依据见4.6.3节概念定义及4.2节'失败出口'约定。",
+      "difficulty_label": "挑战"
+    },
+    {
+      "type": 0,
+      "stem": "某企业升级新人答疑机器人为报销进度查询助手。用户输入'帮我查一下我上个月提交的报销单审批到哪一步了'，模型返回tool_calls=[{'name':'get_reimbursement','args':{'user_id':'U123','month':'2024-07'}}]。此时若工具执行超时返回空结果，Agent下一步最应采取的行动是？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "立即向用户返回'系统繁忙，请稍后再试'"
+        },
+        {
+          "option_label": "B",
+          "option_text": "将空结果作为Observation回传给模型，由模型决定是否重试、换参或追问"
+        },
+        {
+          "option_label": "C",
+          "option_text": "由应用程序代码自动重试get_reimbursement三次"
+        },
+        {
+          "option_label": "D",
+          "option_text": "忽略空结果，直接生成最终回答"
+        }
+      ],
+      "answer": "B",
+      "analysis": "题干考查Function Calling流程闭环与ReAct循环本质。教材4.3节明确流程第四步：'结果回传，让模型再生成（最终答案或下一次tool_calls）'；4.4节ReAct定义强调'Observation结果追加回上下文，模型基于完整轨迹决策'。因此，空结果必须作为`role=\"tool\"`消息回传（B），使模型能基于Observation进行Thought（如'超时，需重试或追问月份'）。A和D跳过循环，D更违反'失败出口'约定；C是程序层硬编码，剥夺了模型的规划权，违背ReAct'边想边做'核心。教材依据见4.3节流程图及4.4节ReAct定义。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 0,
+      "stem": "一个用于代码审查的Skill目录已编写完成，包含SKILL.md、code-quality.md及validate_code.py脚本。当Agent首次收到‘请审查这份Pandas教程代码’请求时，它仅加载了SKILL.md中的YAML frontmatter（含name/description），并未立即读取子文档或执行脚本。这种分阶段加载行为主要体现了本章强调的哪一核心设计原则？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "Skill与RAG的关键区别：选择-展开 vs 检索-注入"
+        },
+        {
+          "option_label": "B",
+          "option_text": "渐进式披露（Progressive Disclosure）"
+        },
+        {
+          "option_label": "C",
+          "option_text": "避免全量注入"
+        },
+        {
+          "option_label": "D",
+          "option_text": "组件职责解耦"
+        }
+      ],
+      "answer": "B",
+      "analysis": "题干描述'仅加载YAML frontmatter，不立即读子文档'，正是4.9节'principle'框内明确定义的'渐进式披露（Progressive Disclosure）'：Agent启动时只看到所有Skill的`description`（很短），由模型判断是否激活；激活后才读`SKILL.md`，执行到具体步骤时再读对应子文件。A是Skill与RAG的对比维度，但未点明'分阶段加载'这一行为本质；C是多Agent设计原则，针对Prompt注入，不适用Skill内部加载；D是架构原则，但不特指加载时机。教材原文依据见4.9节'principle'框第二段首句。",
+      "difficulty_label": "入门"
+    }
+  ]
+}

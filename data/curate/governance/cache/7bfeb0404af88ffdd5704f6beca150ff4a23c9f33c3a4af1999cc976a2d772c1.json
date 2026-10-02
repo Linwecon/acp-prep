@@ -1,0 +1,217 @@
+{
+  "3-0281": {
+    "qid": "3-0281",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "Answer Correctness需大模型生成观点列表对比，原文明确其依赖LLM-as-Judge",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "RAGAS 核心指标……让大模型当评委",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "RAGAS用大模型当评委生成观点列表"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "Embedding仅用于向量化"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "与训练数据无关"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "与推理时间无关"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-0429": {
+    "qid": "3-0429",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "node_postprocessors在LlamaIndex中专用于rerank等后处理，原文有代码示例",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "node_postprocessors=[MetadataReplacementPostProcessor",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "原文代码明确其作用"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "similarity_top_k控制召回数"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "句子窗口由SentenceWindowNodeParser实现"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "prompt模板独立配置"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-0525": {
+    "qid": "3-0525",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "查询改写解决指代不清和信息缺失，原文明确其处理“他/这个”指代问题",
+    "answer": [
+      "A",
+      "B"
+    ],
+    "supported": true,
+    "quote": "查询改写（消代词、补全指代）",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "提升准确率即Context Precision"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "补全指代即处理缺信息提问"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "不涉及训练数据"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "与推理时间无关"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-0535": {
+    "qid": "3-0535",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "余弦相似度和欧氏距离均为原文明确列出的相似度计算方法",
+    "answer": [
+      "A",
+      "B"
+    ],
+    "supported": true,
+    "quote": "余弦相似度……欧氏距离……点积",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "原文列为首选相似度"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "原文明确列出"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "原文未提曼哈顿距离"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "与训练数据无关"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-0589": {
+    "qid": "3-0589",
+    "classification": "cross",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "Multi-query等属查询改写技术，原文3.6.3表格明确列出HyDE等增强方法",
+    "answer": [
+      "A",
+      "B",
+      "C"
+    ],
+    "supported": true,
+    "quote": "查询改写……HyDE（假设文档嵌入）",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "Multi-query属查询改写范畴"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "Step back是问题摘要技术"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "Decomposition是问题分解技术"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "GraphDB未在原文提及"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-0622": {
+    "qid": "3-0622",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "相似度阈值越高，匹配要求越严，召回数量越少，原文明确‘放宽阈值→召回率↑’",
+    "answer": [
+      "B",
+      "D"
+    ],
+    "supported": true,
+    "quote": "放宽相似度阈值能提高精确率",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "阈值高则召回减少"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "阈值高则匹配更严，召回减少"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "无用知识随召回减少而减少"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "阈值高则噪声减少"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

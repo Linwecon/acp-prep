@@ -1,0 +1,219 @@
+{
+  "1-0521": {
+    "qid": "1-0521",
+    "classification": "own",
+    "chapter": 1,
+    "quality": "remove",
+    "reason": "题干和选项均无意义，'Tone的处理'未定义，无法解题。",
+    "answer": [],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "题干'Tone的处理'含义不明，无法判断。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "题干'Tone的处理'含义不明，无法判断。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "题干'Tone的处理'含义不明，无法判断。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "题干'Tone的处理'含义不明，无法判断。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "1-0536": {
+    "qid": "1-0536",
+    "classification": "own",
+    "chapter": 1,
+    "quality": "ok",
+    "reason": "考查直接传入私域知识的问题，属于模型边界与RAG补位逻辑。",
+    "answer": [
+      "A",
+      "B",
+      "D"
+    ],
+    "supported": true,
+    "quote": "上下文窗口是输入输出共用的Token预算。窗口像计算机的'内存'，容量有限。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "参考信息过长会超出提示词长度限制。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "输入过长会增加计算量，降低处理效率。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "模型能理解文本，但可能因幻觉生成不准确内容。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "模型可能产生幻觉，生成不准确内容。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "1-0551": {
+    "qid": "1-0551",
+    "classification": "own",
+    "chapter": 1,
+    "quality": "ok",
+    "reason": "考查大模型五阶段工作流程，所有阶段都是必要的。",
+    "answer": [
+      "A",
+      "B",
+      "C",
+      "D"
+    ],
+    "supported": true,
+    "quote": "五阶段顺序要能背：分词 → 向量化 → 推理 → 解码/自回归 → 输出。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "分词是第一阶段，将文本切为Token。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "Token向量化是第二阶段，将ID转为向量。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "大模型推理是第三阶段，进行前向计算。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "输出Token是第四阶段解码与自回归的结果。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "1-0576": {
+    "qid": "1-0576",
+    "classification": "own",
+    "chapter": 1,
+    "quality": "ok",
+    "reason": "考查影响Token选择的因素，涉及解码阶段。",
+    "answer": [
+      "A",
+      "C"
+    ],
+    "supported": true,
+    "quote": "Logits经softmax变成'下一个Token的概率分布'，再按解码策略选出一个Token。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "解码策略基于候选Token的概率分布进行选择。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "输入文本长度影响上下文窗口，但不直接影响Token选择。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "训练数据决定了模型学到的概率分布。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "输出文本格式是结果，不是选择Token的影响因素。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "1-0605": {
+    "qid": "1-0605",
+    "classification": "cross",
+    "chapter": 8,
+    "quality": "review",
+    "reason": "考点属于AI安全与模型鲁棒性，但教材第8章未提供具体原文支持。",
+    "answer": [
+      "A",
+      "B"
+    ],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "增加数据多样性是提升模型泛化能力的常见方法。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "对抗性测试可发现漏洞并增强鲁棒性。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "缩小模型规模通常可能降低能力，而非增强鲁棒性。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "提升参数数量不直接等同于增强鲁棒性。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "1-0626": {
+    "qid": "1-0626",
+    "classification": "beyond",
+    "chapter": 1,
+    "quality": "remove",
+    "reason": "考查机器学习基本分类，超出大模型基础章节范围，无考查价值。",
+    "answer": [
+      "A",
+      "C",
+      "D"
+    ],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "无监督学习是机器学习范畴。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "'超监督学习'不是标准机器学习范畴。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "监督学习是机器学习范畴。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "强化学习是机器学习范畴。"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

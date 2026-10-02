@@ -1,0 +1,215 @@
+{
+  "new-5-6-0": {
+    "qid": "new-5-6-0",
+    "classification": "own",
+    "chapter": 5,
+    "quality": "ok",
+    "reason": "考查过拟合诊断原则，题干描述典型，选项明确指向教材核心结论。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "验证 loss 先降后升 = 过拟合的铁证，应回退到验证 loss 最低的 checkpoint。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "题干问违反诊断原则，A是数据划分原则，非诊断原则。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "教材明确指出验证loss先降后升是过拟合铁证，应选最低点。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "题干训练loss已下降并稳定，此原则不适用。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "是部署原则，非题干所问的诊断原则。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-5-6-1": {
+    "qid": "new-5-6-1",
+    "classification": "own",
+    "chapter": 5,
+    "quality": "ok",
+    "reason": "考查训练失败排查，输出格式错误优先查数据格式一致性。",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "统一 JSON schema、清理代码块/多余文本、训练推理用同一套要求。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "输出非JSON，首要排查训练时system prompt是否强制JSON。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "容量不足可能导致效果差，但不会导致输出格式完全错误。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "数据泄漏导致评估虚假，但不会导致模型学不会JSON格式。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "截断可能导致信息丢失，但不会导致输出完全变成自然语言。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-5-6-2": {
+    "qid": "new-5-6-2",
+    "classification": "own",
+    "chapter": 5,
+    "quality": "fixable",
+    "reason": "题干要求“同时满足”，但选项C和D教材未明确作为过拟合确诊条件。",
+    "answer": [
+      "A",
+      "B"
+    ],
+    "supported": true,
+    "quote": "验证 loss 先降后升 = 过拟合的铁证。训练 loss 持续下降是正常的。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "教材明确验证loss先降后升是过拟合铁证。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "训练loss持续下降是过拟合的常见伴随现象。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "教材未将测试集指标显著低于验证集作为过拟合确诊条件。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "分布一致是前提，但非过拟合的确诊条件。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-5-6-3": {
+    "qid": "new-5-6-3",
+    "classification": "own",
+    "chapter": 5,
+    "quality": "ok",
+    "reason": "考查LoRA rank作用，双loss停滞可能因容量不足。",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "r 越大表达越强、成本越高；简单任务 8 足够，复杂/多字段任务可加大。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "提升rank可增加低秩矩阵容量，可能突破学习瓶颈。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "梯度方差与batch size更相关，与rank提升无直接关系。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "灾难性遗忘是能力损伤，与当前loss停滞学习无关。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "提升rank会增加参数量和显存，而非减少。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-5-6-4": {
+    "qid": "new-5-6-4",
+    "classification": "own",
+    "chapter": 5,
+    "quality": "ok",
+    "reason": "考查导致训练失败且超参无法修复的数据与配置根本问题。",
+    "answer": [
+      "A",
+      "B",
+      "D"
+    ],
+    "supported": true,
+    "quote": "指令问 A、答案答 B'的错位样本，是最隐蔽也最致命的脏数据，必须清洗。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "数据格式错误（含代码块）是脏数据，超参调整无法修复。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "角色顺序错误导致数据错位，是根本性数据问题。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "训练数据少可能导致欠拟合，但超参（如增加epoch）可能缓解。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "LoRA未正确注入导致参数未更新，是配置故障，超参无效。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-5-6-5": {
+    "qid": "new-5-6-5",
+    "classification": "own",
+    "chapter": 5,
+    "quality": "review",
+    "reason": "考查训练异常排查，但教材未明确loss飙升且震荡的具体排查顺序。",
+    "answer": [
+      "A"
+    ],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "loss飙升可能因优化异常，LoRA初始化错误是可能原因。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "截断通常不会导致loss飙升和剧烈震荡。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "weight_decay过大可能导致loss上升，但通常不会剧烈震荡。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "设备错误通常导致运行失败，而非loss有值但飙升。"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

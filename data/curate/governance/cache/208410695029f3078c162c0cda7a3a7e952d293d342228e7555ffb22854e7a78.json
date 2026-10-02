@@ -1,0 +1,209 @@
+{
+  "1-0411": {
+    "qid": "1-0411",
+    "classification": "own",
+    "chapter": 1,
+    "quality": "review",
+    "reason": "题干问'最可能的原因'，但四个选项均未在第1章原文中直接支持。A、B涉及注意力机制理解，但原文明确指出'自注意力不限制序列长度'且未提'理解困难'或'漏错'；C'超时'属部署层问题（第6章），原文未提；D'降低成本'虽合理，但第1章未讨论成本优化策略，仅在1.11提及模型选型与成本关系，未涉及分批输出降本。所有选项缺乏原文依据。",
+    "answer": [],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "原文未提及'信息量过大导致难以理解'，且'理解'非LLM工作原理描述术语；自注意力机制设计目的正是处理长上下文。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "原文未将'注意力机制'与'漏掉错误'建立因果关系；'Lost in the Middle'现象在1.6提到但归因为'无关上下文稀释注意力'，非本题场景。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "超时属于推理服务性能指标（TTFT/TPOT），属第6章部署内容，第1章未涉及。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "第1章1.11仅对比不同模型的成本，未提及'分批处理降低使用成本'；Token计费逻辑在1.5仅说明按Token计，未延伸至分批策略。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "1-0419": {
+    "qid": "1-0419",
+    "classification": "cross",
+    "chapter": 1,
+    "quality": "fixable",
+    "reason": "本题考点为RAG中如何构造messages输入，核心是'提示词工程'（第2章）与'RAG两阶段流程'（第3章），但题干指定'大语言模型RAG应用的基本工作流程'，而第1章仅定义RAG为'开卷考试'（3.1），未描述具体提交方式。正确做法应属第2章'提示词六要素'（含上下文整合）和第3章'文档解析与结构保留'，但因题干强行归入第1章，需修正分类。",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "使用预设的提示词模板,将用户问题和文档块整合到模板中,然后提交给大模型",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "原文未支持'直接拼接'；第2章强调提示词需结构化，第3章要求'文档解析与结构保留'，简单拼接易导致格式失控。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "原文未提'分别提交再合并'；大模型无状态，无法跨请求保持上下文，此操作违反基本工作流。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "第2章'提示词六要素'明确包含'上下文'要素，且'提示词模板与变量插值'知识项支持模板化整合；第3章'RAG两阶段：离线建库+在线问答'隐含在线问答需将检索结果作为上下文注入提示词。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "原文未定义'上下文信息'与'单独输入'的分离操作；messages结构要求所有输入统一组织，'上下文'本身即通过system/user消息承载。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "1-0432": {
+    "qid": "1-0432",
+    "classification": "own",
+    "chapter": 1,
+    "quality": "ok",
+    "reason": "题干问'必须的'，考查LLM基础交互规范。第1章1.8明确'messages结构'含system/user/assistant角色，且1.8.1指出system role用于'设定模型的人设、任务、规则、约束'，翻译任务需明确系统指令，故A正确。其他选项均非必须：B图片格式属多模态（第11章），C固定模板非必须（可动态生成），D手动输入违背API调用本质。",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "system role用于设定模型的人设、任务、规则、约束",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "第1章1.8.1明确system role作用为'设定模型的人设、任务、规则、约束'，翻译任务必须通过system message明确指令，否则模型无法知晓任务目标。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "图片格式属多模态处理（第11章），第1章未提及，且Qwen-Turbo为纯文本模型，不支持图像输入。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "第1章未要求'固定模板'；提示词可动态构造，模板仅为工程实践优化手段，非基础必须。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "API调用支持批量文本输入，'手动输入所有文本'违背自动化原则，第1章1.7示例显示content可为长字符串。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "1-0450": {
+    "qid": "1-0450",
+    "classification": "own",
+    "chapter": 1,
+    "quality": "review",
+    "reason": "题干问'更全面地识别问题'，但所有选项均未在第1章原文中讨论'营销表达检测'方法。第1章聚焦LLM基础原理（概率生成、五阶段流程等），未涉及具体业务场景的检测策略。B选项'逐条单独识别'可能关联'思维链'（第2章），D选项'按段落处理'可能关联'文本切片'（第3章），但第1章无对应知识项。题目超出本章范围。",
+    "answer": [],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "原文未提'一次性生成所有类型结果'的优劣；第1章强调自回归生成特性，但未延伸至业务检测策略。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "原文未涉及'按分类逐条识别'；思维链（CoT）属第2章提示工程内容，非第1章知识。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "原文未定义'内容错误'与'营销表达'的关系；幻觉/知识截止等边界不覆盖营销检测场景。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "原文未提'按段落处理'；文本切片策略属第3章RAG内容，第1章仅提Token和上下文窗口。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "1-0459": {
+    "qid": "1-0459",
+    "classification": "own",
+    "chapter": 1,
+    "quality": "ok",
+    "reason": "题干问temperature=0的特点，第1章1.7.1明确'temperature越小→概率越集中在高概率Token上，输出越确定；T→0时近似贪婪解码（每次取概率最高者）'，故B正确。A与温度定义相反，C/D与temperature无关（长度由max_tokens控制）。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "T 越小 → 概率越集中在高概率 Token 上，输出越确定；T→0 时近似贪婪解码（每次取概率最高者）",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "temperature=0对应最低随机性，A描述的是temperature增大时的效果，与题干矛盾。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "原文明确'温度越小输出越确定，T→0时近似贪婪解码'，即总是选择概率最高的词，结果高度确定。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "生成长度由max_tokens参数控制，temperature仅影响采样分布，不改变长度。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "同上，temperature不影响生成长度，仅影响Token选择的确定性。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "1-0477": {
+    "qid": "1-0477",
+    "classification": "cross",
+    "chapter": 1,
+    "quality": "fixable",
+    "reason": "本题考点为RAG的核心优势，但第1章仅在1.2以'开卷考试'类比RAG，并列于提示词/工具补位逻辑，未展开'准确性/相关性'优势。第3章'3.1 RAG核心思想：开卷考试'及'3.14 幻觉根因：知识截止/无私域/生成机制'明确指出RAG可缓解幻觉、提升事实准确性，'3.13 RAG与微调的本质区别'强调RAG提供私域知识增强相关性。因此A、B正确，但需修正章节归属。",
+    "answer": [
+      "A",
+      "B"
+    ],
+    "supported": true,
+    "quote": "RAG核心思想：开卷考试",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "第3章'幻觉根因：知识截止/无私域/生成机制'指出RAG通过提供可核查资料抑制幻觉，提升准确性；第1章1.2表格亦将'最新/私域知识'补位对应RAG。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "第3章'3.1 RAG核心思想：开卷考试'及'3.13 RAG与微调的本质区别'强调RAG使模型回答基于检索到的相关文档，提升相关性；第1章1.2对比表中'正确手段'列明RAG用于'最新/私域知识'。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "RAG增加检索步骤，通常延长端到端延迟；第6章'推理优化'未提RAG可减少推理时间。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "RAG不改变模型参数数量，第3章明确其与微调的本质区别在于'不修改模型参数'。"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

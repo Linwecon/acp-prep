@@ -1,0 +1,212 @@
+{
+  "5-0049": {
+    "qid": "5-0049",
+    "classification": "own",
+    "chapter": 5,
+    "quality": "ok",
+    "reason": "考查训练loss曲线诊断，属于本章核心知识点。",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "训练 loss 下降；验证 loss 下降；状态：欠拟合；应对：还在学，可继续训练",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "原文指出双loss下降为欠拟合，应继续训练。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "过拟合是验证loss先降后升，不是同时下降。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "欠拟合状态不应停止训练。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "学习率过高会导致loss震荡，而非同时下降。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "5-0317": {
+    "qid": "5-0317",
+    "classification": "beyond",
+    "chapter": 5,
+    "quality": "remove",
+    "reason": "题目考查RLHF，但本章教材未提及此概念，属于知识范围外。",
+    "answer": [
+      "D"
+    ],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "预训练是学习通用语言能力。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "监督微调是行为适配，不涉及人类偏好。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "部署阶段不调整模型输出。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "RLHF通过人类反馈调整模型偏好。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "5-0390": {
+    "qid": "5-0390",
+    "classification": "beyond",
+    "chapter": 5,
+    "quality": "remove",
+    "reason": "题目考查RLHF，但本章教材未提及此概念，属于知识范围外。",
+    "answer": [
+      "C"
+    ],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "预训练不涉及人类反馈。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "SFT是有监督训练，不涉及奖励惩罚。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "RLHF通过人类反馈进行奖励或惩罚。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "自监督学习不依赖人类反馈。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "5-0394": {
+    "qid": "5-0394",
+    "classification": "cross",
+    "chapter": 4,
+    "quality": "ok",
+    "reason": "考查代码解释器插件作用，属于Agent工具使用范畴。",
+    "answer": [
+      "B"
+    ],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "理解自然语言是模型基础能力。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "代码解释器允许模型执行代码并反馈结果。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "高级图像处理非其主要作用。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "协助训练模型非其主要作用。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "5-0408": {
+    "qid": "5-0408",
+    "classification": "own",
+    "chapter": 5,
+    "quality": "ok",
+    "reason": "考查数据预处理中文本清洗的作用，属于数据质量范畴。",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "质量从四个维度把关：正确性、多样性、一致性、无重复。数据规模上，领域微调通常几千到几万条高质量样本即可",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "文本清洗旨在减少噪声，提高数据质量。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "序列填充是统一长度，非清洗噪声。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "特征选择非文本预处理典型步骤。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "数据增强是增加多样性，非清洗噪声。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "5-0436": {
+    "qid": "5-0436",
+    "classification": "own",
+    "chapter": 5,
+    "quality": "ok",
+    "reason": "考查批大小对显存的影响，属于训练超参数知识。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "Batch Size：每次更新用的样本数。大 → 梯度稳、显存高、通常需配套调大 lr；小 → 梯度噪声大",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "学习率影响收敛速度，不直接决定显存。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "批大小决定单次处理样本数，影响显存占用。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "正则化防止过拟合，不决定显存。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "动态学习率策略调整lr，不决定显存。"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

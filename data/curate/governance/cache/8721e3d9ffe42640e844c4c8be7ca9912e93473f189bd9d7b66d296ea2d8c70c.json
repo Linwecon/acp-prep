@@ -1,0 +1,212 @@
+{
+  "4-1224": {
+    "qid": "4-1224",
+    "classification": "own",
+    "chapter": 4,
+    "quality": "ok",
+    "reason": "考查多Agent协作核心原则",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "多 Agent 设计四条硬原则：明确职责、独立凭据、中央调度、避免全量注入",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "动态调路径符合协作原则"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "不共享信息违反中央调度"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "请求协助符合协作机制"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "环境建模属合理规划策略"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "4-1428": {
+    "qid": "4-1428",
+    "classification": "own",
+    "chapter": 4,
+    "quality": "ok",
+    "reason": "考查多Agent优势辨析",
+    "answer": [
+      "D"
+    ],
+    "supported": true,
+    "quote": "多 Agent 设计四条硬原则：明确职责、独立凭据、中央调度、避免全量注入",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "任务分配是多Agent优势"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "路径优化需多Agent协同"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "适应性是多Agent核心特征"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "违背明确职责原则"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "4-1439": {
+    "qid": "4-1439",
+    "classification": "own",
+    "chapter": 4,
+    "quality": "ok",
+    "reason": "考查单Agent四大组件职责",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "Planner：拆解复杂任务、决定何时调哪个工具/Agent；可写在提示词里，也可独立成模块",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "Tool组件执行工具"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "LLM生成最终响应"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "Planner负责任务分发"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "监控日志非Planner职责"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "4-0011": {
+    "qid": "4-0011",
+    "classification": "own",
+    "chapter": 4,
+    "quality": "ok",
+    "reason": "考查Agent与RAG本质区别",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "Agent 解决'做什么、怎么做'。两者不是替代关系——把检索器封装成 Agent 的一个工具，Agent 就能在需要时自主检索",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "RAG解决知识不足问题"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "Agent可执行账户操作"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "微调不改变行为适配"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "数据增强非本章考点"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "4-0304": {
+    "qid": "4-0304",
+    "classification": "own",
+    "chapter": 4,
+    "quality": "ok",
+    "reason": "考查多Agent适用场景",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "让一个 Agent 独立完成'写一门 Pandas 课程'……但你把它拆给'教学设计师、数据科学家、内容编辑'三个专家 Agent，并由一个主管统筹，质量立刻提升",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "简单任务无需多Agent"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "单目标任务单Agent即可"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "千台机器人需分布式调度"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "个人电脑资源管理属单体"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "4-0314": {
+    "qid": "4-0314",
+    "classification": "own",
+    "chapter": 4,
+    "quality": "ok",
+    "reason": "考查单Agent能力边界",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "让一个 Agent 独立完成'写一门 Pandas 课程'（设计大纲、写代码示例、撰写文稿、技术审校），它会丢三落四、前后矛盾",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "自动驾驶可单Agent实现"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "单房间控制属简单任务"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "产线优化需多Agent协同"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "个人助理单Agent足够"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

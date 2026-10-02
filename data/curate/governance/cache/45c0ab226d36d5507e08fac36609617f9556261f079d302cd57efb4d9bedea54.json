@@ -1,0 +1,37 @@
+{
+  "new-9-42-0": {
+    "qid": "new-9-42-0",
+    "classification": "own",
+    "chapter": 9,
+    "quality": "ok",
+    "reason": "TTFT高需优先排查流式配置",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "在线对话、聊天机器人等面向用户的场景默认开启流式，显著降低 TTFT、提升体感速度",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "未启用stream导致整段生成完才返回首Token"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "缓存影响成本非TTFT"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "temperature影响输出多样性非首Token延迟"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "401会阻断请求非延迟高"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

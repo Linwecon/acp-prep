@@ -1,0 +1,206 @@
+{
+  "1-0178": {
+    "qid": "1-0178",
+    "classification": "misplaced",
+    "chapter": 1,
+    "quality": "remove",
+    "reason": "题干'ask_lm_route 规定的输入格式是什么？'中'ask_lm_route'在第1章原文中完全未出现，无任何上下文定义，属于外部代码/框架术语，超出本章知识范围；选项A'【输入如下】'语义不完整且无依据，其余选项均为干扰项，与题干无关；该题无法根据给定资料作答。",
+    "answer": [],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "原文未定义'ask_lm_route'，'【输入如下】'无出处、无上下文，无法判断是否为正确格式"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "增加训练数据属于微调章节（Ch5）内容，与输入格式无关"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "减少推理时间属部署优化（Ch6）范畴，非输入格式问题"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "增加参数数量属模型架构/Scaling Law（Ch1.10），但与'输入格式'无逻辑关联"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "1-0181": {
+    "qid": "1-0181",
+    "classification": "misplaced",
+    "chapter": 1,
+    "quality": "remove",
+    "reason": "'data_samples 字典'在第1章原文中从未出现，无定义、无示例、无上下文；所有选项均与字典作用无直接对应，B/C/D明显偏离题干，A虽看似合理但纯属猜测，原文无任何关于'data_samples'的描述，无法支持任何选项。",
+    "answer": [],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "原文未提及'data_samples'字典，'存储问题、答案和真实答案'是评测或微调环节概念（Ch5/Ch7），本章未涉及数据结构设计"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "增加训练数据属微调章节（Ch5）目标，非字典作用"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "减少推理时间属部署优化（Ch6），与字典功能无关"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "增加参数数量属模型规模讨论（Ch1.10），与字典用途无关"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "1-0184": {
+    "qid": "1-0184",
+    "classification": "cross",
+    "chapter": 1,
+    "quality": "review",
+    "reason": "题干考查'避免知识信息干扰大模型推理'，核心指向提示词工程中的上下文控制与工作流适配，属于Ch2提示工程范畴；但第1章原文确有相关论述：1.2节'遇到问题该用什么补位？'表格明确指出'最新/私域知识→RAG检索'，1.6节强调'上下文工程的核心不是喂得多，而是喂得准'，1.12误区表含'上下文窗口只算输入、不算输出'等，说明本章已覆盖'精准喂入'原则；选项A'根据问题类型选择不同的提示词和工作流程'符合原文'对症下药'思想，但'工作流程'一词在Ch1中未明确定义（Ch2才系统讲工作流程），需确认是否超纲。",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "上下文工程的核心不是\"喂得多\"，而是\"喂得准\"。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "原文1.6节明确'上下文工程的核心不是喂得多，而是喂得准'，1.2节表格指出不同问题应选不同手段（如私域知识用RAG），'选择不同提示词和工作流程'即体现精准喂入，符合本章'补位逻辑'知识"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "增加训练数据属模型训练阶段（Ch5），无法在推理时避免知识干扰"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "减少推理时间是性能优化目标（Ch6），与知识干扰无关"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "增加参数数量可能加剧幻觉（Ch1.10风险），且属模型能力提升，不解决知识干扰问题"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "1-0186": {
+    "qid": "1-0186",
+    "classification": "misplaced",
+    "chapter": 1,
+    "quality": "remove",
+    "reason": "'evaluate 函数'在第1章原文中完全未出现，无定义、无上下文；选项A'评估数据集的答案正确性'属于模型评估章节（Ch7）核心内容，但本章知识列表及全文未涉及具体函数名或评估实现细节；其余选项明显无关，该题无法依据本章资料作答。",
+    "answer": [],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "原文未定义'evaluate函数'，'评估答案正确性'属Ch7评测范畴，本章仅提'评测驱动开发'但未展开函数级实现"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "增加训练数据属Ch5微调内容，与函数作用无关"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "减少推理时间属Ch6部署优化，非函数功能"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "增加参数数量属Ch1.10模型规模讨论，与函数无关"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "1-0195": {
+    "qid": "1-0195",
+    "classification": "own",
+    "chapter": 1,
+    "quality": "ok",
+    "reason": "题干明确考查大模型五阶段工作流程中'将句子分割成更小且具有独立语义的词语'，对应1.3节'第一阶段：文本分词（Tokenization）'，原文定义'Token是模型处理文本的最小单位'，'分词器把文本切成一个个Token'，且1.5节强调Token是'子词片段'，具有独立语义；选项A'输入文本分词化'即指Tokenization阶段，完全匹配。",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "第一阶段：文本分词（Tokenization）\n计算机读不懂文字。分词器（Tokenizer）把文本切成一个个 Token",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "原文1.3节明确'第一阶段：文本分词（Tokenization）'，'分词器把文本切成一个个Token'，且1.5节指出Token是'子词片段'，具有独立语义，完全匹配题干描述"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "Token向量化是第二阶段，将Token ID映射为向量，不涉及分割句子"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "大模型推理是第三阶段，处理已向量化的序列，不执行分割"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "输出Token是第五阶段解码结果，非分割动作"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "1-0219": {
+    "qid": "1-0219",
+    "classification": "cross",
+    "chapter": 1,
+    "quality": "review",
+    "reason": "题干'节省答疑机器人资源消耗'涉及成本优化，本章1.10节'Scaling Law'与1.11节'模型选型'明确讨论'能力—成本—延迟权衡'，指出'简单任务用小模型更划算'、'快而省→Turbo'，1.12误区表强调'简单任务不要一上来就用Max'；选项A'根据问题类型选择不同的提示词和工作流程'可关联到1.2节'对症下药'表格（如简单问题用提示词，复杂问题用RAG/工具），但'工作流程'一词在Ch1未明确定义（Ch2详述），需确认是否应归Ch2；其他选项明显错误。",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "简单任务不要一上来就用 Max——这是常见的成本优化考点。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "原文1.12节明确'简单任务不要一上来就用Max'，1.2节表格指出不同问题应选不同手段（如事实问答用提示词约束），'根据问题类型选择不同提示词和工作流程'即体现资源优化，符合本章成本意识"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "增加训练数据会显著增加训练成本（Ch5），与节省资源相悖"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "减少推理时间是性能目标，但需通过模型选型/量化等实现，非直接方法；且题干问'更合适的方法'，选项C未说明如何减少"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "增加参数数量会大幅提高推理成本（Ch1.10表），违背节省资源目标"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

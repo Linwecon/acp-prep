@@ -1,0 +1,212 @@
+{
+  "12-0456": {
+    "qid": "12-0456",
+    "classification": "own",
+    "chapter": 12,
+    "quality": "ok",
+    "reason": "考查LlamaIndex数据存储的默认方式，属于核心抽象知识。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "Document -> NodeParser -> Node -> Index -> Retriever -> QueryEngine -> Response",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "原文未提及默认存储在云服务中。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "数据加载后经解析、切片、向量化建索引，默认在内存中。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "原文未提及直接写入数据库。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "持久化存储需显式调用persist，非默认方式。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "12-0755": {
+    "qid": "12-0755",
+    "classification": "cross",
+    "chapter": 2,
+    "quality": "ok",
+    "reason": "考查通过提示词（如布鲁姆分类法）系统化控制生成内容，属提示工程。",
+    "answer": [
+      "B"
+    ],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "随机生成无法系统化控制难度。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "基于认知层次明确要求是系统化控制难度的有效方法。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "简单要求不够系统化，缺乏层次控制。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "人工编写不符合自动化、系统化要求。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "12-0808": {
+    "qid": "12-0808",
+    "classification": "cross",
+    "chapter": -1,
+    "quality": "review",
+    "reason": "考查改善模糊时间描述理解的方法，可能涉及工具使用或提示工程，但章节归属不明确。",
+    "answer": [
+      "B"
+    ],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "要求用户改变行为非技术改善方法。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "使用专用库预处理是改善准确性的典型工程方法。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "依赖模型能力不够可靠，需工程化增强。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "忽略描述无法解决问题。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "12-0213": {
+    "qid": "12-0213",
+    "classification": "own",
+    "chapter": 12,
+    "quality": "ok",
+    "reason": "考查GraphRAG在LlamaIndex中的实践教程参考，属框架工具生态知识。",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "LlamaIndex 核心数据流是每个考生都应该能默写的一条链：Document -> NodeParser -> Node -> Index -> Retriever -> QueryEngine -> Response",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "使用LlamaIndex构建GraphRAG应用是直接相关的实践教程。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "0代码构建应用可能涉及低代码平台，非GraphRAG专属教程。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "可视化工作流编排更偏通用Agent，非GraphRAG教程。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "API文档是参考，非具体实践教程。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "12-0267": {
+    "qid": "12-0267",
+    "classification": "own",
+    "chapter": 12,
+    "quality": "ok",
+    "reason": "考查百炼提供LlamaIndex组件的目的，属阿里云AI平台与框架集成知识。",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "百炼提供了一系列 LlamaIndex 组件，其主要目的是什么？",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "方便继续使用熟悉的LlamaIndex API构建RAG应用是主要目的。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "组件不涉及模型训练速度。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "组件不直接减少数据存储需求。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "组件主要目的是兼容与集成，非增加输出多样性。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "12-0996": {
+    "qid": "12-0996",
+    "classification": "own",
+    "chapter": 12,
+    "quality": "ok",
+    "reason": "考查SimpleDirectoryReader的返回值类型，属LlamaIndex核心抽象。",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "Document -> NodeParser -> Node -> Index -> Retriever -> QueryEngine -> Response",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "返回的是Document对象列表，非单个对象。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "索引是后续步骤，非第一步解析结果。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "SimpleDirectoryReader.load_data()返回Document对象列表。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "返回的是结构化Document对象列表，非纯字符串。"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

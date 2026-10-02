@@ -1,0 +1,37 @@
+{
+  "new-10-84-0": {
+    "qid": "new-10-84-0",
+    "classification": "own",
+    "chapter": 10,
+    "quality": "ok",
+    "reason": "题干明确要求数据不出域、微调开源模型、高并发部署，考查阿里云产品组合选型。",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "开源模型的价值集中在三点：① 数据隐私与合规（数据不出域）；② 可深度定制（任意微调/改结构）；③ 大规模稳定流量下的长期成本可控。PAI 的三件套对应模型生命周期的三个阶段：DSW 开发、DLC 训练、EAS 部署。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "符合数据不出域、微调开源模型、高并发部署全链路。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "使用DashScope和百炼，数据需上送公网，违反不出域要求。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "涉及DashScope和百炼，数据出域，且未包含模型微调。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "DashScope SDK部署是托管API，无法部署私有开源模型。"
+      }
+    ],
+    "duplicate_of": "10-5162"
+  }
+}

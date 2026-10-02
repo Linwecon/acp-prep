@@ -1,0 +1,212 @@
+{
+  "3-0900": {
+    "qid": "3-0900",
+    "classification": "unsure",
+    "chapter": 3,
+    "quality": "review",
+    "reason": "题干与RAG核心考点关联弱，选项涉及法律合规与工程实践，教材未明确覆盖。",
+    "answer": [
+      "D"
+    ],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "完全依赖模型易产生幻觉，不可靠。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "模板填充可能不完整，非最可靠。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "律师审核虽可靠，但非最有效方法。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "结合知识库和生成，更符合RAG思想。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-0902": {
+    "qid": "3-0902",
+    "classification": "unsure",
+    "chapter": 3,
+    "quality": "review",
+    "reason": "题干涉及术语一致性，属于RAG潜在应用，但教材未明确讨论此具体场景。",
+    "answer": [
+      "B"
+    ],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "重新生成易导致不一致。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "构建术语库强制使用，最有效。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "模型本身无法保证术语一致性。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "人工后期统一效率低，非最有效。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-0903": {
+    "qid": "3-0903",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "考查RAG核心价值：基于文档检索生成答案以确保准确性。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "RAG（Retrieval-Augmented Generation，检索增强生成）的核心思路可以用四个字概括：\"开卷考试\"。不让模型凭记忆答题，而是在它回答前，先从企业知识库里检索出最相关的几段资料，连同问题一起交给模型，让它\"看着资料作答\"。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "依赖模型知识易产生幻觉。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "基于文档检索生成，是RAG核心。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "要求用户提供不现实。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "人工回答所有问题不具可扩展性。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-0920": {
+    "qid": "3-0920",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "考查RAG解决知识频繁更新的优势，对比微调。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "知识更新 = 更新知识库，实时生效，无需重训模型；成本远低于微调，是私域知识问答的首选方案。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "静态微调模型无法适应频繁更新。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "RAG结合可更新知识库，适应变化。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "模型内置知识有截止时间。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "定期重新微调成本高、周期长。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-0947": {
+    "qid": "3-0947",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "考查在专业领域确保安全性的方法，RAG基于权威资料是核心手段。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "RAG（Retrieval-Augmented Generation，检索增强生成）的核心思路可以用四个字概括：\"开卷考试\"。不让模型凭记忆答题，而是在它回答前，先从企业知识库里检索出最相关的几段资料，连同问题一起交给模型，让它\"看着资料作答\"。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "新版本模型未必包含正确知识。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "基于权威资料构建RAG，确保专业性。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "仅靠提示词无法保证安全准确。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "免责声明不能替代安全性保障。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-0992": {
+    "qid": "3-0992",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "考查文本切片（Chunking）策略，强调重叠和边界以保持上下文完整。",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "因此工程上通常会设置重叠（overlap）——相邻chunk之间保留一小段重复文字，防止一句话正好被从中间切断。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "固定极小字符数重叠可能仍切断语义。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "整个文档作为片段易超出上下文窗口。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "重叠分割并在句子段落边界切分，保持完整。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "随机抽取句子会破坏上下文连贯性。"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

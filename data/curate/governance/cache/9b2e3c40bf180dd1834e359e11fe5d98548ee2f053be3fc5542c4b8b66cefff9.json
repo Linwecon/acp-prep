@@ -1,0 +1,74 @@
+{
+  "new-9-0-0": {
+    "qid": "new-9-0-0",
+    "classification": "own",
+    "chapter": 9,
+    "quality": "ok",
+    "reason": "考查错误码429的限流本质、错误重试策略及并发控制，属于API调用核心工程实践。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "429 是限流（Too Many Requests） | 超过 RPM/TPM/并发配额 | ✅ 退避后重试。指数退避 + 抖动（Exponential Backoff with Jitter）是处理 429/5xx 的标准做法",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "429是配额超限，非服务端过载；升级模型不直接提升配额。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "正确指出并发控制和指数退避+抖动是处理429的正确方法。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "429是配额超限，非API Key权限问题。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "429是配额错误，非读取超时导致。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-9-0-3": {
+    "qid": "new-9-0-3",
+    "classification": "own",
+    "chapter": 9,
+    "quality": "ok",
+    "reason": "考查Batch API适用场景与核心优势，与教材9.10节内容完全对应。",
+    "answer": [
+      "B",
+      "C",
+      "D"
+    ],
+    "supported": true,
+    "quote": "批量生成（Batch API）是把大量请求打包成一个异步离线任务提交给平台...优势不是更快返回单个结果，而是更高吞吐、更低单价",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "Batch是异步离线处理，单请求延迟更高，不降低TTFT。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "Batch通过异步调度实现高吞吐，避免同步调用排队。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "Batch通常提供更经济的单价，降低大批量任务成本。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "Batch支持JSONL格式输入输出，便于校验结果对齐。"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

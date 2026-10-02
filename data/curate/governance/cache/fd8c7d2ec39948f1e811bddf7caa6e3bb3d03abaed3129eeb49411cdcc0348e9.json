@@ -1,0 +1,245 @@
+{
+  "6-0703": {
+    "qid": "6-0703",
+    "classification": "own",
+    "chapter": 6,
+    "quality": "ok",
+    "reason": "题目考查推理速度优化的有效手段，选项覆盖量化、模型大小、并行、上下文窗口等关键知识点。",
+    "answer": [
+      "A",
+      "B",
+      "D"
+    ],
+    "supported": true,
+    "quote": "用更小的模型；量化 / 剪枝 / 蒸馏；精简输入输出 token；上下文缓存复用公共前缀降本提速",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "轻量化模型参数少，推理更快。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "量化可降低显存占用和带宽压力，常能加速。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "模型并行用于训练或超大模型推理，非通用速度优化手段。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "减少上下文窗口可降低KV Cache显存占用，提升速度。"
+      },
+      {
+        "label": "E",
+        "selected": false,
+        "why": "增加迭代次数是训练概念，与推理速度无关。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "6-0716": {
+    "qid": "6-0716",
+    "classification": "own",
+    "chapter": 6,
+    "quality": "ok",
+    "reason": "题目考查GPU显存不足的解决方案，覆盖量化、模型并行等核心知识点。",
+    "answer": [
+      "A",
+      "B"
+    ],
+    "supported": true,
+    "quote": "量化（INT8/INT4）原理与取舍；张量并行能把单卡放不下的权重切到多卡",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "量化可成倍降低模型权重显存占用。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "模型并行可将模型拆分到多卡，解决单卡显存不足。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "蒸馏是生成小模型，但1.3B蒸馏为3B参数变多，不合逻辑。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "大模型推理依赖GPU显存，CPU内存无法替代。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "6-0768": {
+    "qid": "6-0768",
+    "classification": "own",
+    "chapter": 6,
+    "quality": "ok",
+    "reason": "题目考查高并发低延迟的部署配置，覆盖弹性伸缩、量化、批处理等关键实践。",
+    "answer": [
+      "A",
+      "B",
+      "C"
+    ],
+    "supported": true,
+    "quote": "PAI-EAS（弹性扩缩容、蓝绿/灰度发布、版本控制）；量化（INT8/INT4）原理与取舍；连续批处理（Continuous Batching）",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "自动扩缩容可应对流量波动，保障高并发。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "GPU实例提供算力，量化可降低延迟。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "动态批处理提升GPU利用率，有助于高并发。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "CPU实例算力不足，无法满足低延迟要求。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "6-0876": {
+    "qid": "6-0876",
+    "classification": "own",
+    "chapter": 6,
+    "quality": "ok",
+    "reason": "题目考查优化系统性能和成本的措施，覆盖量化、批处理、缓存、超时重试等运维要点。",
+    "answer": [
+      "A",
+      "B",
+      "D",
+      "E"
+    ],
+    "supported": true,
+    "quote": "量化省显存也常加速；连续批处理（请求动态进出、GPU不空转）；限流场景下，客户端应配合指数退避重试 + 降级；上下文缓存复用公共前缀降本提速",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "量化减少内存占用，常能加速推理。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "动态批处理提高GPU利用率，提升吞吐。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "预训练是训练阶段行为，与部署优化无关。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "合理超时和重试机制保障系统稳定性。"
+      },
+      {
+        "label": "E",
+        "selected": true,
+        "why": "缓存频繁请求响应可降低计算成本，加速响应。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "6-0908": {
+    "qid": "6-0908",
+    "classification": "own",
+    "chapter": 6,
+    "quality": "ok",
+    "reason": "题目考查生产环境大模型应用的重要运维实践，覆盖监控、版本管理、弹性伸缩等核心内容。",
+    "answer": [
+      "A",
+      "B",
+      "C"
+    ],
+    "supported": true,
+    "quote": "监控推理服务必须同时看 QPS、RT/TTFT、错误率、GPU 利用率与 KV Cache 占用；保留多版本支持快速回滚；弹性伸缩 + 负载均衡",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "监控性能和资源是保障服务稳定的基础。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "版本管理和回滚是容灾与灰度发布的关键。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "自动扩展容错策略应对流量波动，保障高可用。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "盲目更新到最新版本可能引入不稳定因素。"
+      },
+      {
+        "label": "E",
+        "selected": false,
+        "why": "忽略监控无法保障服务稳定运行。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "6-0967": {
+    "qid": "6-0967",
+    "classification": "own",
+    "chapter": 6,
+    "quality": "ok",
+    "reason": "题目考查生产环境大模型应用的关键监控指标，覆盖性能、错误率、资源使用等核心维度。",
+    "answer": [
+      "A",
+      "B",
+      "C",
+      "D"
+    ],
+    "supported": true,
+    "quote": "监控推理服务必须同时看 QPS、RT/TTFT、错误率、GPU 利用率与 KV Cache 占用；从成本、性能、质量与安全三个维度观测 LLM 应用",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "响应时间和吞吐量直接反映服务性能。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "错误率和异常检测是服务健康度的关键指标。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "资源使用率（尤其是GPU）是容量规划和成本控制依据。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "模型输出质量评估属于质量监控维度。"
+      },
+      {
+        "label": "E",
+        "selected": false,
+        "why": "用户行为分析通常属于业务层面，非核心运维监控指标。"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

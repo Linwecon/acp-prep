@@ -1,0 +1,262 @@
+{
+  "5-0066": {
+    "qid": "5-0066",
+    "classification": "own",
+    "chapter": 5,
+    "quality": "ok",
+    "reason": "显存峰值由batch_size和lora_rank直接决定",
+    "answer": [
+      "A",
+      "D"
+    ],
+    "supported": true,
+    "quote": "全参微调要为每一个参数保存这些量；LoRA冻结了原权重，只为那一对小矩阵计算梯度和优化器状态",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "batch_size越大显存峰值越高"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "evaluation_step不影响显存峰值"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "epoch不改变单步显存占用"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "lora_rank决定训练参数量，影响梯度显存"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "5-0377": {
+    "qid": "5-0377",
+    "classification": "beyond",
+    "chapter": 5,
+    "quality": "remove",
+    "reason": "题干未提微调，纯API调用属第9章",
+    "answer": [],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "手工处理非API调用范畴"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "Excel操作与API无关"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "代码调用API属第9章知识"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "训练模型非本题语境"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "5-0639": {
+    "qid": "5-0639",
+    "classification": "own",
+    "chapter": 5,
+    "quality": "ok",
+    "reason": "预训练提供初始化，微调是延续并适配任务",
+    "answer": [
+      "A",
+      "C",
+      "E"
+    ],
+    "supported": true,
+    "quote": "预训练让模型掌握了通用语言能力，微调则通过领域样本让它学会这个岗位该怎么说话",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "预训练提供良好初始化"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "微调是梯度更新而非复制"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "微调在预训练权重上继续更新"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "微调强调领域相关特征"
+      },
+      {
+        "label": "E",
+        "selected": true,
+        "why": "微调使模型适应特定任务"
+      },
+      {
+        "label": "F",
+        "selected": false,
+        "why": "预训练模型需提示词/RAG/微调才能应用"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "5-0641": {
+    "qid": "5-0641",
+    "classification": "own",
+    "chapter": 5,
+    "quality": "ok",
+    "reason": "微调标准流程含选模、建数、调参、训练、评估",
+    "answer": [
+      "A",
+      "C",
+      "D",
+      "E",
+      "F"
+    ],
+    "supported": true,
+    "quote": "需求分析→前置评估→准备数据→选方法→设超参→训练并监控→选最优checkpoint→合并→评测+灰度",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "选定预训练模型是第一步"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "减少层数非标准微调步骤"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "构建数据集是核心环节"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "调整优化器和学习率必做"
+      },
+      {
+        "label": "E",
+        "selected": true,
+        "why": "在数据上训练是微调本质"
+      },
+      {
+        "label": "F",
+        "selected": true,
+        "why": "评估性能是SOP最后环节"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "5-0647": {
+    "qid": "5-0647",
+    "classification": "own",
+    "chapter": 5,
+    "quality": "ok",
+    "reason": "过拟合、数据少、偏见加剧是明确提及的挑战",
+    "answer": [
+      "A",
+      "B",
+      "D"
+    ],
+    "supported": true,
+    "quote": "过拟合（Overfitting）：模型容量大而数据少/重复时，会把训练集里的噪声也背下来",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "过度微调导致泛化下降"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "数据不足限制性能提升"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "微调可能无效或负向"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "微调可能加剧原有偏见"
+      },
+      {
+        "label": "E",
+        "selected": false,
+        "why": "微调更易过拟合而非欠拟合"
+      },
+      {
+        "label": "F",
+        "selected": false,
+        "why": "教材未提预测模型可获得性问题"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "5-0670": {
+    "qid": "5-0670",
+    "classification": "own",
+    "chapter": 5,
+    "quality": "ok",
+    "reason": "微调相比预训练更省资源、更快收敛、更准",
+    "answer": [
+      "C",
+      "D",
+      "E",
+      "F"
+    ],
+    "supported": true,
+    "quote": "微调之所以成本可控、收敛快，是因为模型底层的语言规律已经学到了，微调主要调整的是上层行为",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "偏差修正非微调优势重点"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "泛化能力仍需关注"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "微调只需少量标注数据"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "微调提升特定领域准确性"
+      },
+      {
+        "label": "E",
+        "selected": true,
+        "why": "微调比预训练资源需求低"
+      },
+      {
+        "label": "F",
+        "selected": true,
+        "why": "微调收敛速度显著加快"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

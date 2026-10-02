@@ -1,0 +1,70 @@
+{
+  "7-5050": {
+    "qid": "7-5050",
+    "classification": "own",
+    "chapter": 7,
+    "quality": "ok",
+    "reason": "题目考查RAGAS核心指标定义，属于本章重点知识。",
+    "answer": [
+      "D"
+    ],
+    "supported": true,
+    "quote": "Context Precision：召回的片段中，相关项是否排名靠前、占比高（信噪比）",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "语法正确率非RAGAS关注点，属于生成质量。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "用户界面美观度与RAGAS评测无关。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "模型训练损失值非RAGAS评测指标。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "原文明确Context Precision衡量相关项是否排名靠前及精确程度。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "7-5015": {
+    "qid": "7-5015",
+    "classification": "cross",
+    "chapter": -1,
+    "quality": "remove",
+    "reason": "题目考查意图分类应用问题排查，但考点是模型评估前的数据/任务定义问题，非本章核心。题干条件缺失，未提供评估结果或指标，无法基于评估定位问题。",
+    "answer": [],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "GPU运行与否与分类误判无直接必然联系。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "中文标点非分类准确性的核心因素。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "网络延迟可能导致超时，但不直接导致大量误判。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "类别定义清晰和语义重叠是可能原因，但题干未提供评估数据支持此为最优先项。"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

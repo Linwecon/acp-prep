@@ -1,0 +1,266 @@
+{
+  "8-1418": {
+    "qid": "8-1418",
+    "classification": "own",
+    "chapter": 8,
+    "quality": "ok",
+    "reason": "考查密钥管理最佳实践，原文明确要求不硬编码AK",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "强烈建议不要把 AccessKey ID 和 Secret 保存到工程代码里。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "原文明确禁止硬编码AK，防泄露是主因"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "SDK是否自动读取取决于实现，非安全原因"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "减少行数非安全考量，原文未提及"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "环境变量不影响运行速度，原文未提及"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "8-1450": {
+    "qid": "8-1450",
+    "classification": "own",
+    "chapter": 8,
+    "quality": "ok",
+    "reason": "考查算法备案强制性，原文强调未备案有下架风险",
+    "answer": [
+      "F"
+    ],
+    "supported": true,
+    "quote": "面向境内公众提供生成式 AI 服务须依法备案；未备案有下架风险",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "直接上线违规，原文明确须先备案"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "应用商店审核不替代算法备案"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "下架是后果而非前置操作"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "备案主体是服务提供方，非阿里云"
+      },
+      {
+        "label": "E",
+        "selected": false,
+        "why": "面向公众服务必须备案，原文明确"
+      },
+      {
+        "label": "F",
+        "selected": true,
+        "why": "原文要求先备案再上线，否则下架"
+      }
+    ],
+    "duplicate_of": "8-0649"
+  },
+  "8-0649": {
+    "qid": "8-0649",
+    "classification": "own",
+    "chapter": 8,
+    "quality": "ok",
+    "reason": "考查备案适用范围，原文定义‘面向境内公众’为前提",
+    "answer": [
+      "A",
+      "B",
+      "D",
+      "F"
+    ],
+    "supported": true,
+    "quote": "面向境内公众提供生成式人工智能服务须依法备案",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "AI写作工具面向公众，需备案"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "图像生成软件属AIGC，面向公众需备案"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "企业内部工具不面向公众，原文排除"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "智能客服系统面向公众，需备案"
+      },
+      {
+        "label": "E",
+        "selected": false,
+        "why": "个人研究不面向公众，原文排除"
+      },
+      {
+        "label": "F",
+        "selected": true,
+        "why": "小程序面向公众，需备案"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "8-1168": {
+    "qid": "8-1168",
+    "classification": "own",
+    "chapter": 8,
+    "quality": "ok",
+    "reason": "考查输入清洗目的，原文强调防注入与越狱",
+    "answer": [
+      "C",
+      "D",
+      "E"
+    ],
+    "supported": true,
+    "quote": "输入过滤：拦越狱/注入/敏感词/违规内容",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "emoji替换与安全无直接关联"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "转小写无法防语义注入，原文未提"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "限长可防资源耗尽型DDoS，原文提及"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "去HTML标签防XSS等注入，属输入过滤"
+      },
+      {
+        "label": "E",
+        "selected": true,
+        "why": "URL占位符防恶意链接注入，属输入过滤"
+      },
+      {
+        "label": "F",
+        "selected": false,
+        "why": "翻译不提升安全性，原文未提"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "8-1287": {
+    "qid": "8-1287",
+    "classification": "own",
+    "chapter": 8,
+    "quality": "ok",
+    "reason": "考查敏感词检测逻辑，原文指出黑名单易被绕过但仍是粗筛手段",
+    "answer": [
+      "B",
+      "C"
+    ],
+    "supported": true,
+    "quote": "关键词黑名单防不住……有无数种绕法；规则审核适合粗筛",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "按空格切分漏掉连写敏感词，不鲁棒"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "子串匹配是基础检测，符合粗筛定位"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "大小写归一化+异常处理，更鲁棒"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "NLTK依赖重且未解决变形绕过"
+      },
+      {
+        "label": "E",
+        "selected": false,
+        "why": "text in list是全等匹配，漏子串"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "8-1300": {
+    "qid": "8-1300",
+    "classification": "own",
+    "chapter": 8,
+    "quality": "ok",
+    "reason": "与8-0649考点完全一致，选项顺序不同但内容相同",
+    "answer": [
+      "A",
+      "B",
+      "C",
+      "E"
+    ],
+    "supported": true,
+    "quote": "面向境内公众提供生成式人工智能服务须依法备案",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "小程序面向公众，需备案"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "智能客服面向公众，需备案"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "AI写作工具面向公众，需备案"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "个人研究不面向公众，原文排除"
+      },
+      {
+        "label": "E",
+        "selected": true,
+        "why": "图像生成软件属AIGC，面向公众需备案"
+      },
+      {
+        "label": "F",
+        "selected": false,
+        "why": "企业内部工具不面向公众，原文排除"
+      }
+    ],
+    "duplicate_of": "8-0649"
+  }
+}

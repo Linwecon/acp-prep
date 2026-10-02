@@ -1,0 +1,216 @@
+{
+  "8-5140": {
+    "qid": "8-5140",
+    "classification": "own",
+    "chapter": 8,
+    "quality": "ok",
+    "reason": "VPC/安全组/账号隔离是云环境标准实践",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "VPC 隔离；安全组默认拒绝、最小开放；数据库/后台不暴露公网；通过负载均衡/跳板机访问。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "VPC与账号隔离是纵深防御基础"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "共用IP和密钥违反最小权限"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "单ECS多环境无隔离风险高"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "仅命名区分无实际防护作用"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "8-5141": {
+    "qid": "8-5141",
+    "classification": "own",
+    "chapter": 8,
+    "quality": "ok",
+    "reason": "VPC私网+安全组是低延迟安全调用标准方案",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "VPC 隔离；安全组默认拒绝、最小开放；数据库/后台不暴露公网；通过负载均衡/跳板机访问。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "公网明文传输不安全"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "关闭安全组等于无防护"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "VPC私网保障低延迟与安全"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "重购实例成本高且不必要"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "8-5142": {
+    "qid": "8-5142",
+    "classification": "own",
+    "chapter": 8,
+    "quality": "ok",
+    "reason": "安全组与ACL特性描述符合云安全规范",
+    "answer": [
+      "A",
+      "B",
+      "D"
+    ],
+    "supported": true,
+    "quote": "安全组 = 网络准入；WAF = 应用层攻击；DDoS = 流量洪峰；RAM = 权限最小化。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "安全组是有状态实例级控制"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "ACL是无状态子网级控制"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "两者均为云上核心安全产品"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "安全组可随实例灵活绑定"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "8-5143": {
+    "qid": "8-5143",
+    "classification": "own",
+    "chapter": 8,
+    "quality": "ok",
+    "reason": "公网暴露端口需立即收紧安全组",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "安全组规则配 0.0.0.0/0 全开图方便 → ❌ 数据库、管理后台、Redis 等绝不能对公网开放",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "观察等于放任风险扩大"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "收紧安全组是最直接处置"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "删日志掩盖问题非解决"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "增端口扩大攻击面"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "8-5144": {
+    "qid": "8-5144",
+    "classification": "own",
+    "chapter": 8,
+    "quality": "ok",
+    "reason": "密钥泄露必须立即禁用并轮换",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "密钥管理四件事：① 放环境变量/KMS，不硬编码；② 用 RAM 子账号 AK，不用主账号 AK；③ 定期轮换；④ 配异常调用监控与最小权限。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "禁用→检查→轮换是标准流程"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "延迟处置加剧泄露风险"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "密码与AK属不同密钥体系"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "扩散密钥违反最小权限"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "8-5145": {
+    "qid": "8-5145",
+    "classification": "own",
+    "chapter": 8,
+    "quality": "ok",
+    "reason": "DDoS防护需清洗+限流+收敛暴露面",
+    "answer": [
+      "A",
+      "B",
+      "D"
+    ],
+    "supported": true,
+    "quote": "DDoS 高防能清洗洪水，但管不了'谁能删 OSS Bucket'这种权限问题；正确姿势是DDoS高防清洗异常流量 + WAF/API网关做频率限制",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "抗DDoS清洗是核心手段"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "WAF限流缓解应用层攻击"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "关日志破坏审计追溯能力"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "隐藏源站收敛暴露面"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

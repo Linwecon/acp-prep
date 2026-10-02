@@ -1,0 +1,154 @@
+{
+  "items": [
+    {
+      "type": 0,
+      "stem": "某企业微信答疑机器人在早高峰出现大量429错误，运维日志显示重试请求集中于每分钟第0秒触发。代码中对429实现了3次立即重试。该设计最核心的工程缺陷是什么？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "未校验API Key有效性，导致鉴权失败被误判为限流"
+        },
+        {
+          "option_label": "B",
+          "option_text": "重试未引入随机抖动，引发重试风暴，加剧服务端压力"
+        },
+        {
+          "option_label": "C",
+          "option_text": "将429与400错误混用同一重试逻辑，违反错误分类处置原则"
+        },
+        {
+          "option_label": "D",
+          "option_text": "未设置最大重试次数，存在无限循环风险"
+        }
+      ],
+      "answer": "B",
+      "analysis": "依据9.8节'指数退避 + 抖动'原理：'在等待时间上加一个随机抖动，避免大量客户端\\\"踩点同时重试\\\"把服务再次打爆'。题干中'重试请求集中于每分钟第0秒'正是缺乏抖动的典型表现，直接导致重试风暴（教材明确称为'典型的\\\"重试风暴\\\"'）。A项对应401排查，与429无关；C项错误——429是唯一应重试的4xx，教材表格明确标注'✅ 退避后重试'，而400/401/403/404均❌不重试；D项虽合理但非'最核心'缺陷，教材强调'抖动'是防雪崩的关键机制，且'最大重试次数'属于基础防护，而抖动缺失才是引发集群性故障的直接原因。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 0,
+      "stem": "财务部门发现本月Token费用异常增长300%，经分析发现每次多轮对话均将全部历史（含50轮闲聊）原样传入。若需在保障对话连贯性前提下控制成本，以下哪项措施最符合本章'成本控制优先级'原则？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "将模型从qwen-max降级为qwen-turbo以降低单价"
+        },
+        {
+          "option_label": "B",
+          "option_text": "启用上下文缓存，通过固定system prompt前缀提升命中率"
+        },
+        {
+          "option_label": "C",
+          "option_text": "实施滑动窗口截断，仅保留最近5轮对话消息"
+        },
+        {
+          "option_label": "D",
+          "option_text": "为所有请求添加max_tokens=100限制输出长度"
+        }
+      ],
+      "answer": "C",
+      "analysis": "依据9.9节'成本控制的优先级'：'1. 先选对模型档位；2. 控制输入长度；3. 限制输出长度...'。题干问题根源是'输入Token暴涨'（历史消息过长），因此第二优先级'控制输入长度'为最直接解法。C项'滑动窗口截断'正是9.5节明确推荐的生产实践：'生产环境通常需要：1. 持久化存储；2. 滑动窗口截断——只保留最近N轮'。A项虽属第一优先级，但会牺牲质量且未解决输入膨胀本质；B项'缓存'需'保持前缀稳定'，但题干中'50轮闲聊'导致前缀持续变化，缓存效果有限；D项针对输出而非输入，无法解决题干所述'输入Token涨5倍'的核心矛盾。",
+      "difficulty_label": "高阶"
+    },
+    {
+      "type": 1,
+      "stem": "新人答疑机器人上线后，员工连续追问'那怎么申请账号'时，机器人回答通用注册流程而非Jira账号。开发团队检查发现messages结构如下：[{'role':'system','content':'...'},{'role':'user','content':'我们公司用什么项目管理工具？'}]。以下哪些操作能根本解决此问题？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "在第二次调用时，将第一次的assistant回复追加到messages中"
+        },
+        {
+          "option_label": "B",
+          "option_text": "将system消息中的'项目管理工具'替换为具体名称'Jira'"
+        },
+        {
+          "option_label": "C",
+          "option_text": "在第二次调用时，将第一次的user和assistant消息按顺序完整加入messages"
+        },
+        {
+          "option_label": "D",
+          "option_text": "为user消息添加'请基于上文回答'的提示词"
+        }
+      ],
+      "answer": "AC",
+      "analysis": "依据9.5节核心原理：'大模型API是无状态的...所谓\\\"多轮对话能力\\\"，本质是客户端把历史消息按角色组织好，每次调用都完整地放进messages里再传一遍'。题干中第二次调用仅传入新user消息，缺失历史，导致模型'失忆'。A项正确——'追加assistant回复'是维护上下文的必要动作（教程代码示例第三步）；C项正确——'完整加入user和assistant消息'即实现'每次全传'（教材强调'必须把system/user/assistant历史按顺序每次全传'）。B项错误：system消息用于设定角色规则，不应硬编码业务细节（且Jira可能变更）；D项错误：提示词无法弥补上下文缺失，教材明确指出'这不是模型笨，而是上下文里根本没有Jira这个词'，必须传真实数据。",
+      "difficulty_label": "高阶"
+    },
+    {
+      "type": 0,
+      "stem": "某HR系统需夜间批量生成500份培训录音摘要，要求次日9点前完成，且成本敏感。技术负责人对比同步调用与Batch API方案。以下哪项是选择Batch API最根本的工程依据？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "Batch支持JSONL格式，便于与现有ETL管道集成"
+        },
+        {
+          "option_label": "B",
+          "option_text": "Batch提供异步回调机制，可减少服务端长连接资源占用"
+        },
+        {
+          "option_label": "C",
+          "option_text": "Batch通过后台调度实现更高吞吐与更经济单价，契合离线大批量场景"
+        },
+        {
+          "option_label": "D",
+          "option_text": "Batch自动处理失败行重试，无需开发额外容错逻辑"
+        }
+      ],
+      "answer": "C",
+      "analysis": "依据9.10节核心定义：'批量生成（Batch API）是把大量请求打包成一个异步离线任务...它的优势不是\\\"更快返回单个结果\\\"，而是更高吞吐、更低单价地处理大批量、对实时性不敏感的任务'。题干关键词'夜间批量''500份''成本敏感''次日9点前'完全匹配教材描述的'离线、大批量、对实时性无要求'典型场景。C项直接引用教材原文'更高吞吐、更低单价'，并点明'契合离线大批量场景'，是最根本依据。A、B、D均为Batch的技术特性，但非'最根本'选型依据——教材明确指出选型逻辑是'按实时性和任务形态选择'，而成本与吞吐是Batch区别于同步调用的本质优势。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 1,
+      "stem": "开发Function Calling功能时，模型返回tool_calls但最终答案未包含工具结果。排查发现代码已执行工具函数并获取结果。以下哪些环节遗漏可能导致此现象？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "未将第一次调用的response_message追加到messages中"
+        },
+        {
+          "option_label": "B",
+          "option_text": "回传tool结果时未携带tool_call_id字段"
+        },
+        {
+          "option_label": "C",
+          "option_text": "第二次调用时未将tool结果作为role='tool'的消息加入messages"
+        },
+        {
+          "option_label": "D",
+          "option_text": "tools参数中function.description描述过于简略"
+        }
+      ],
+      "answer": "ABC",
+      "analysis": "依据9.7节API闭环原理：'整个过程是两次API调用：第一次让模型决策，第二次把工具结果送回去生成答案'，且'必须把response_message追加进messages'（教材风险提示第二条）、'回传结果时必须带tool_call_id'（第三条）、'role=\"tool\"消息'（概念定义）。A项对应教材'忘了把response_message追加进messages'的错误；B项对应'漏tool_call_id'；C项对应'role=\"tool\"消息'缺失。三者任一缺失都会导致第二次调用缺少关键上下文，使模型无法生成含工具结果的答案。D项错误：description简略影响的是第一次调用的参数提取准确率（可能导致tool_calls为空），但题干已明确'模型返回tool_calls'，说明第一次决策成功，问题出在第二次闭环。",
+      "difficulty_label": "高阶"
+    },
+    {
+      "type": 0,
+      "stem": "前端工程师为快速联调，将DASHSCOPE_API_KEY硬编码在React组件中并提交至GitHub公开仓库。次日发现账单激增。根据本章API Key安全军规，以下哪项应急操作顺序最符合教材要求？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "立即禁用Key → 检查调用记录 → 评估损失 → 更新密钥服务配置"
+        },
+        {
+          "option_label": "B",
+          "option_text": "重新生成Key → 修改前端代码 → 提交新版本 → 清理Git历史"
+        },
+        {
+          "option_label": "C",
+          "option_text": "禁用Key → 在Git中删除密钥文件 → 重新部署前端 → 启用新Key"
+        },
+        {
+          "option_label": "D",
+          "option_text": "检查日志确认泄漏源 → 禁用Key → 轮换新Key → 通知安全团队"
+        }
+      ],
+      "answer": "A",
+      "analysis": "依据9.3节'泄漏后的应急顺序'：'立即禁用/轮换 Key → 检查近期调用记录 → 评估损失'。A项完全匹配教材三步法，且'更新密钥服务配置'是轮换后的必要动作，符合'最小权限+定期轮换'军规。B项错误：'重新生成Key'应在禁用后进行，且'清理Git历史'无法彻底消除已泄露风险（历史commit仍可访问）；C项错误：'在Git中删除密钥文件'不能撤销已泄露事实，且'重新部署前端'未解决Key暴露本质；D项错误：'检查日志确认泄漏源'非首要动作，教材强调'立即禁用'是止损第一步，延迟禁用会导致持续损失。",
+      "difficulty_label": "进阶"
+    }
+  ]
+}

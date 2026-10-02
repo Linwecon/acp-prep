@@ -1,0 +1,226 @@
+{
+  "new-8-18-0": {
+    "qid": "new-8-18-0",
+    "classification": "own",
+    "chapter": 8,
+    "quality": "ok",
+    "reason": "考查资源耗尽型DDoS攻击的识别，属于本章核心考点。",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "资源耗尽型 DDoS（高耗 token/GPU 请求打爆算力）……攻击基础设施：瘫痪服务、窃密、越权",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "高频调用克隆模型是攻击模型本身，与GPU利用率100%现象不符。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "间接提示注入旨在劫持对话或操纵Agent，不直接导致GPU持续满载。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "原文明确将高计算请求导致GPU100%归为资源耗尽型DDoS，攻击基础设施。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "PDF嵌入指令是间接提示注入，属于攻击应用，与GPU持续满载的直接现象不符。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-8-18-1": {
+    "qid": "new-8-18-1",
+    "classification": "own",
+    "chapter": 8,
+    "quality": "ok",
+    "reason": "考查RAG访问控制实现细节，属于知识库权限隔离考点。",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "position_ids = ast.literal_eval(row['position_ids'])……只保留用户职位有权看的条目",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "原文代码显示需用ast.literal_eval解析字符串列表，否则无法正确匹配。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "安全组是网络层防护，与应用程序逻辑解析错误无关。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "WAF防Web攻击，不涉及应用层CSV数据解析逻辑。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "输出审查管模型输出内容，不涉及检索阶段的权限过滤逻辑。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-8-18-2": {
+    "qid": "new-8-18-2",
+    "classification": "own",
+    "chapter": 8,
+    "quality": "ok",
+    "reason": "考查多模态内容安全检测中音频异步调用的正确流程。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "音频/视频因为要转码、抽帧、识别音轨，通常走异步任务……先 voice_moderation 提交拿 task_id，再轮询 voice_moderation_result",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "text_moderation_plus是文本检测接口，不能用于音频。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "原文明确音频检测需先提交任务获取task_id，再轮询结果。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "image_moderation是图像检测接口，且音频不能base64编码后传入。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "videoDetection是视频检测接口，且流程描述不符合音频异步调用规范。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-8-18-3": {
+    "qid": "new-8-18-3",
+    "classification": "own",
+    "chapter": 8,
+    "quality": "ok",
+    "reason": "综合考查RAG数据安全与权限隔离的“双保险”措施。",
+    "answer": [
+      "B",
+      "C",
+      "D"
+    ],
+    "supported": true,
+    "quote": "第一道：访问控制（应用层）……第二道：双重加密（数据层）……文本内容……AES-CTR-256 等对称加密……向量……DCPE",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "RAM子账号权限是云资源操作控制，非RAG知识库内容本身的“双保险”。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "对文本内容加密是数据层第二道防线，构成双保险之一。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "按用户属性过滤是应用层第一道防线，构成双保险之一。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "对向量应用DCPE加密是数据层第二道防线，构成双保险之一。"
+      },
+      {
+        "label": "E",
+        "selected": false,
+        "why": "WAF规则拦截关键词是应用层粗筛，非RAG特有的权限与加密双保险。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-8-18-4": {
+    "qid": "new-8-18-4",
+    "classification": "own",
+    "chapter": 8,
+    "quality": "ok",
+    "reason": "考查隐私拼凑泄露的根本原因与防护环节。",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "脱敏不是'可选项'：模型有'记忆'效应，训练数据里的 PII 可能在后续对话中被一点点'问'出来",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "越狱话术检测防角色扮演绕过对齐，与PII泄露根本原因不符。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "输出侧拦截是兜底，根本在于数据源头未脱敏导致模型记忆并生成PII。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "原文指出PII在训练/入库数据中未脱敏，是模型泄露隐私的根本原因。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "禁止关联检索过于绝对，且非原文提出的根本防护缺失。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-8-18-5": {
+    "qid": "new-8-18-5",
+    "classification": "own",
+    "chapter": 8,
+    "quality": "ok",
+    "reason": "考查《生成式人工智能服务管理暂行办法》的核心合规要求。",
+    "answer": [
+      "B",
+      "C",
+      "D"
+    ],
+    "supported": true,
+    "quote": "面向境内公众提供生成式 AI 服务须依法备案……AI 生成/合成的文本、图片、音视频须添加显著'AI 生成'标识……建立投诉举报机制",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "明示幻觉风险是良好实践，但非《暂行办法》明文规定的强制性义务。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "原文明确面向公众提供服务须依法备案，否则有下架风险。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "原文规定AI生成内容须添加显著标识，是强制性要求。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "建立投诉举报机制是《暂行办法》对服务提供者的要求。"
+      },
+      {
+        "label": "E",
+        "selected": false,
+        "why": "使用KMS加密是数据安全技术措施，非该法规特有的强制性合规义务。"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

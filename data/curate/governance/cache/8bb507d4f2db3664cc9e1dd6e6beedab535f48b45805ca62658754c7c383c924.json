@@ -1,0 +1,118 @@
+{
+  "10-1179": {
+    "qid": "10-1179",
+    "classification": "own",
+    "chapter": 12,
+    "quality": "ok",
+    "reason": "考查LlamaIndex全局设置作用，代码片段清晰，选项明确。",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "Settings.embed_model=EMBED_MODEL Settings.llm=LLM_MODEL ...",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "流式输出由QueryEngine参数控制，非全局设置。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "Embedding模型用于向量化，不参与生成。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "全局设置后，后续步骤无需重复指定。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "定义了变量，但非主要作用，是过程。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "10-5054": {
+    "qid": "10-5054",
+    "classification": "own",
+    "chapter": 12,
+    "quality": "ok",
+    "reason": "考查Dify平台核心能力，选项均为其标准模块。",
+    "answer": [
+      "A",
+      "B",
+      "C",
+      "D"
+    ],
+    "supported": true,
+    "quote": "可视化界面把'知识库（RAG）、工作流、Agent、模型接入、工具调用、发布'串成一条流水线。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "拖拽节点的工作流编排是核心能力。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "知识库构建与检索是RAG产品化模块。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "支持多家模型API接入配置。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "提供调试、日志与运营数据能力。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "11-1032": {
+    "qid": "11-1032",
+    "classification": "misplaced",
+    "chapter": 11,
+    "quality": "remove",
+    "reason": "题目考查通用Python库，与第12章框架工具核心考点无关，无考查价值。",
+    "answer": [],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "numpy是数值计算库，非专用处理。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "OpenCV是计算机视觉库。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "pandas是数据分析库。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "TensorFlow是深度学习框架。"
+      },
+      {
+        "label": "E",
+        "selected": false,
+        "why": "requests是HTTP库。"
+      },
+      {
+        "label": "F",
+        "selected": false,
+        "why": "moviepy是视频编辑库。"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

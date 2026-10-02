@@ -1,0 +1,202 @@
+{
+  "1-0125": {
+    "qid": "1-0125",
+    "classification": "misplaced",
+    "chapter": 1,
+    "quality": "remove",
+    "reason": "response_format={'type': 'json_object'} 是 OpenAI API 的参数，属于 API 调用规范，核心考点在第9章 'API 调用与工具使用'（knowledge: '结构化输出（JSON Mode）与约束控制'），原文中第1章未提及该参数；所有选项混淆'格式'与'内容'，题干问'作用'，但A选项'指定返回的标签格式为JSON'表述错误——它指定的是整个响应内容必须是合法JSON对象，非'标签格式'；且'标签格式'属无定义术语，题干与选项均存在严重术语误用。",
+    "answer": [],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "原文第1章未出现response_format参数；'标签格式'是错误术语，该参数作用是强制模型输出严格JSON对象（如{'name':'张三','age':25}），而非控制'标签'样式；JSON Mode属于第9章知识范畴。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "XML未在第1章任何位置被提及；response_format不支持XML；该选项完全偏离原文知识体系。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "文本格式是默认行为，无需指定；response_format=json_object明确排除纯文本；原文第1章未讨论此API参数。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "CSV未在第1章出现；response_format无CSV取值；属于无依据臆测。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "1-0273": {
+    "qid": "1-0273",
+    "classification": "misplaced",
+    "chapter": 1,
+    "quality": "remove",
+    "reason": "completion.choices[0].message.content 是 OpenAI 兼容 API 的 SDK 返回对象字段，属于客户端解析逻辑，原文第1章仅描述 messages 结构（role/content）和五阶段流程，从未涉及 Python SDK 对象属性访问语法；该知识点属于第9章 'API 调用与工具使用'（knowledge: 'messages角色化结构'、'OpenAI兼容接口原理'），且需结合具体SDK文档理解，非第1章考查范围。",
+    "answer": [],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "原文第1章只说明assistant消息的content字段承载模型生成内容，但未定义Python SDK中completion.choices[0].message.content这一具体属性路径；该路径属于OpenAI Python SDK实现细节，不在第1章知识范围内。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "用户输入对应user role的content，而非completion.choices[0].message.content；该字段专指模型输出，原文未将此SDK语法作为考点。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "系统消息对应system role的content；completion.choices[0].message始终指向assistant角色输出，原文未混淆角色归属。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "模型训练结果是权重参数，不可通过API调用直接获取；该字段是推理输出，非训练产物；原文第1章明确区分训练与推理阶段。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "1-0431": {
+    "qid": "1-0431",
+    "classification": "misplaced",
+    "chapter": 1,
+    "quality": "remove",
+    "reason": "题干要求'修改生成摘要的函数'，涉及代码实现层面的截断逻辑，但第1章全文未出现任何函数定义、字符串切片（[:80]）或后处理操作；该题本质考查工程实践中的输出后处理，属于第9章（API调用后解析）或第12章（框架/工具链路）范畴；选项B/C的Python语法在第1章零提及，且A选项'提示词中写明不超过80字'虽属提示工程，但第1章未讨论长度约束的提示词写法（第2章提示工程knowledge中亦无此条），缺乏原文支持。",
+    "answer": [],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "第1章未讨论如何用提示词约束输出长度；'摘要本身的内容不超过80个字'属于模糊指令，原文第1章强调提示词需明确（如'只依据资料回答'），但未给出长度控制范式；该能力更接近第2章提示工程，但原文未覆盖。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "Python字符串切片document[:80]会破坏语义完整性，且原文第1章未出现任何代码示例或后处理概念；该操作属于客户端工程，非模型生成机制。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "document[:80]截断输入而非输出，与题干'生成的摘要不超过80个字'目标矛盾；原文第1章五阶段流程明确输出由模型生成，输入截断无法保证输出长度。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "四个选项均无原文依据：A属提示工程未覆盖点，B/C是错误代码逻辑，D因前三个均错而看似合理，但题干要求'如何修改函数'，本质是考工程实现，完全超出第1章知识边界。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "1-0497": {
+    "qid": "1-0497",
+    "classification": "beyond",
+    "chapter": 1,
+    "quality": "remove",
+    "reason": "OpenAILike类是LangChain等框架的抽象，属于第12章 '框架与工具' 范畴（knowledge: 'LangChain核心抽象'、'框架的本质是工程化编排'）；第1章全文未出现任何类定义、参数列表或框架API；model/api_base/api_key/is_chat_model均为框架封装层参数，与第1章'大模型基础'的五阶段、Token、temperature等核心概念无直接关联；该题考查点完全在框架层，非模型底层原理。",
+    "answer": [],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "model参数是框架向底层模型传递的标识符，第1章只讨论模型选型（如qwen-max），未涉及框架如何传参；属于第12章框架抽象范畴。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "api_base是框架配置远程API地址的字段，第1章未提及API服务端地址概念；原文只出现base_url示例，但未定义为类参数。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "api_key是认证密钥，第1章仅在代码示例中用os.getenv读取，未将其列为类参数；安全相关知识在第8章。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "is_chat_model是框架判断模型类型的方法，第1章未区分chat/model类型；该布尔值用于框架路由，非模型基础特性。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "1-0580": {
+    "qid": "1-0580",
+    "classification": "misplaced",
+    "chapter": 1,
+    "quality": "remove",
+    "reason": "题干'提取标签的过程'未在第1章定义：第1章仅在1.5节提'分词器把文本切成Token'，但Token是模型处理单位，非业务标签；'标签'（如产品名、问题类型）属于下游NLP任务（命名实体识别等），原文第1章未涉及任何标签提取方法论；选项A/B关于'未识别到是否输出'是业务规则设计，C/D关于JSON/XML格式是序列化选择，均属第2章提示工程或第9章API调用范畴，第1章无对应知识支撑。",
+    "answer": [],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "第1章未定义'标签'概念，也未讨论缺失值处理策略；该选项属于应用层业务逻辑，原文只强调模型输出需符合提示词约束，未规定字段必填性。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "强制输出所有标签类型可能引发幻觉（编造不存在的值），第1章1.2节明确'幻觉来自上下文不足时仍续写'，但未给出标签提取的格式规范。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "JSON格式输出属于结构化输出控制，原文第1章未提及；该能力在第2章提示工程knowledge中有'结构化输出（JSON Mode）与约束控制'，但第1章无此内容。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "XML未在第1章任何位置出现；分词器BPE处理的是子词，非XML标签；该选项完全脱离原文知识体系。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "1-0602": {
+    "qid": "1-0602",
+    "classification": "own",
+    "chapter": 1,
+    "quality": "ok",
+    "reason": "题干考查分词化本质，对应第1章1.5节 'Token 与分词：计费和窗口的真正单位'，原文明确'分词器按词表把文本切成 Token'、'Token 是模型处理文本的最小单位'、'主流模型使用 BPE（Byte Pair Encoding，字节对编码）等子词算法构建词表'，并指出'常见词/常见字常是 1 个 Token，生僻词可能被拆成多个子词'；选项D称'子句粒度(Subword-Level) 分词化是中文最直接的分词方法，它是以单个汉字为单位进行分词化'错误，因BPE是子词（subword）而非单字（character）切分，且'最直接'无依据，原文强调BPE通过合并高频相邻片段形成多级词表，单汉字只是最底层可能单元，非主要切分方式。",
+    "answer": [
+      "D"
+    ],
+    "supported": true,
+    "quote": "主流模型使用 BPE（Byte Pair Encoding，字节对编码）等子词算法构建词表：先从字符开始，反复合并出现频率最高的相邻片段，最终形成一张\"从常见词组到单字节\"的多级词表。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "正确。原文1.3节'第二阶段：Token 向量化'指出'ID 本身只是编号，数字大小没有语义。模型用一个巨大的 Embedding 矩阵按 ID \"查表\"，把每个 Token 换成一个高维向量'，即分词化是将文本转为可计算的向量表示的第一步。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "错误但非本题答案。分词化输出是Token ID整数序列，非字节码；字节码是底层存储格式，原文未提及；该选项混淆概念，但D选项错误更根本且原文有直接反证。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "正确。原文1.5节首句'Token（词元）是模型处理文本的最小单位。分词器按词表把文本切成 Token'，明确分词化是分解为更小单元（Token）的过程。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "错误。原文明确BPE是'从字符开始，反复合并出现频率最高的相邻片段'，形成'多级词表'，并非'以单个汉字为单位'；且'子句粒度'术语错误，应为'子词粒度（subword-level）'；原文指出'常见词/常见字常是1个Token'，说明单汉字只是可能情况，非主要方法。"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

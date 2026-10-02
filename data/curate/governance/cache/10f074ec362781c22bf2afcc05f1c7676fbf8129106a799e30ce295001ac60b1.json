@@ -1,0 +1,154 @@
+{
+  "items": [
+    {
+      "type": 0,
+      "stem": "某企业将新人答疑机器人升级为报销进度查询助手。用户输入“帮我查一下我上个月提交的报销单审批到哪一步了”，Agent首次响应中未调用工具，而是直接回答“一般3–5个工作日”。该行为违反了Agent最核心的哪一本质特征？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "未实现LLM与Tool的解耦协作"
+        },
+        {
+          "option_label": "B",
+          "option_text": "缺失短期记忆对历史任务的回溯能力"
+        },
+        {
+          "option_label": "C",
+          "option_text": "未启动‘感知-规划-行动-观察’闭环"
+        },
+        {
+          "option_label": "D",
+          "option_text": "未正确配置Function Calling的tools参数"
+        }
+      ],
+      "answer": "C",
+      "analysis": "根据4.1节原文：“Agent的本质不是‘更能聊的模型’，而是一个LLM驱动的闭环执行系统”，其核心是反复执行‘感知→规划→行动→观察’循环，直到任务完成。题干中Agent未调用工具、未进入任何一轮行动，仅做一次静态回答，完全停留在普通对话模式（即‘一次问答’），根本未启动闭环——这直接违背了教材定义的Agent最本质特征（见4.1节‘:::concept’及对比表格）。A项错误：解耦是架构最佳实践（4.2节），非本质要求；B项错误：短期记忆缺失影响连贯性，但本例是首轮即失效，与记忆无关；D项是技术实现细节，即使tools已配置，若模型未触发调用，仍属闭环未启动，故C为最根本、最上游的违反。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 0,
+      "stem": "一个课程审查Skill目录已编写完成，包含SKILL.md、code-quality.md及validate_code.py脚本。当Agent首次收到‘请审查这份Pandas教程代码’请求时，它仅加载了SKILL.md中的YAML frontmatter（含name/description），并未立即读取子文档或执行脚本。这种分阶段加载行为主要体现了本章强调的哪一核心设计原则？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "避免全量注入"
+        },
+        {
+          "option_label": "B",
+          "option_text": "渐进式披露"
+        },
+        {
+          "option_label": "C",
+          "option_text": "明确职责"
+        },
+        {
+          "option_label": "D",
+          "option_text": "探索-固化混合"
+        }
+      ],
+      "answer": "B",
+      "analysis": "依据4.9节原文：“Skill与RAG的关键区别……这就是渐进式披露（Progressive Disclosure）”，并明确指出“Agent启动时只看到所有Skill的description（很短），由模型判断当前任务要不要激活；激活后才读SKILL.md，执行到具体步骤时再读对应子文件”。题干描述的“先加载YAML头→再按需加载子文档/脚本”正是该原则的典型实现。A项“避免全量注入”针对多Agent场景下主Prompt塞入全部Worker提示词（4.7节），对象是Agent间知识注入，非Skill内部加载逻辑；C项“明确职责”属多Agent设计原则（4.7节），不适用于单Skill结构；D项“探索-固化”是策略演进模式（4.6.3节），描述的是Skill生命周期，而非加载机制。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 0,
+      "stem": "某金融Agent需完成‘评估客户A的贷款申请’任务，涉及调用征信查询、收入验证、风控模型三个工具。当前采用固定流水线工作流：征信→收入→风控。但近期因征信API临时不可用，整个流程卡死。为提升鲁棒性，以下哪些调整符合本章‘规划策略’的最佳实践？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "在流水线中为每个工具添加重试逻辑，并设置最大重试次数"
+        },
+        {
+          "option_label": "B",
+          "option_text": "将固定流水线替换为Plan-and-Execute模式，允许Agent在征信失败时自主选择替代方案（如调用备用信用报告服务）"
+        },
+        {
+          "option_label": "C",
+          "option_text": "增加一个专门的‘故障诊断Agent’，在每步执行后自动检查返回状态"
+        },
+        {
+          "option_label": "D",
+          "option_text": "将三个工具合并为一个复合工具函数，在内部处理所有异常分支"
+        }
+      ],
+      "answer": "B",
+      "analysis": "依据4.6.3节原文：“Plan-and-Execute让Agent围绕用户的高阶目标，先生成计划，再逐项执行；遇到障碍时重新规划，而不是死守预设流程图”，并强调“固定工作流的致命问题是‘卡不起’：竞品网站改版导致爬虫失效，预设流程里没这条分支，整个流程就僵住”。题干中征信API不可用导致卡死，正是固定流程的典型缺陷，而B项直接对应教材推荐的“自主规划”解法。A项虽合理，但属于底层容错（4.2节“要给模型失败出口”），未触及规划策略升级；C项引入新Agent，但未解决“中央调度”和“职责明确”问题（4.7节），且未说明如何利用诊断结果重新规划；D项违反“解耦”原则（4.2节），将工具逻辑硬编码，丧失灵活性与可维护性。",
+      "difficulty_label": "挑战"
+    },
+    {
+      "type": 1,
+      "stem": "某团队采用MCP协议接入多个内部系统工具（OA、HRIS、CRM）。部署后发现：新上线的CRM工具无法被Agent自动发现；同时，Agent在调用HRIS工具时偶发将员工身份证号明文写入日志。以下哪些做法符合本章对MCP的规范要求与风险警示？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "检查CRM工具的MCP Server是否已正确启动并注册到服务发现中心"
+        },
+        {
+          "option_label": "B",
+          "option_text": "在HRIS MCP Server中强制启用敏感字段脱敏中间件，对身份证号等PII字段进行掩码处理"
+        },
+        {
+          "option_label": "C",
+          "option_text": "将CRM工具Schema手动硬编码到Agent代码中作为临时兜底"
+        },
+        {
+          "option_label": "D",
+          "option_text": "在Agent Host层统一拦截所有tool消息，对含PII字段的日志进行过滤"
+        }
+      ],
+      "answer": "AB",
+      "analysis": "依据4.5节原文：MCP的核心是“谁提供工具，谁定义工具”，Server需主动暴露能力供Client动态发现（A项符合“动态发现”机制，是MCP设计初衷）；同时原文明确警示“MCP Server本身需要鉴权……其返回内容也可能被投毒，要防提示注入”，B项通过Server端脱敏直接从源头治理PII泄露，符合“工具提供方负责自身安全”的MCP责任划分（4.5节risk）。C项违背MCP“避免硬编码”的根本价值（4.5节scenario），属倒退；D项虽能缓解日志风险，但属于Host层补救，未解决Server端数据污染根源，且教材强调“防提示注入”需在Server侧控制输出（4.5节risk），故D非最优合规实践。",
+      "difficulty_label": "挑战"
+    },
+    {
+      "type": 1,
+      "stem": "某企业升级新人答疑机器人为报销查询助手。用户问“帮我查一下我上个月提交的报销单审批到哪一步了”，模型返回tool_calls=[{'name':'get_reimbursement','args':{'user_id':'U123','month':'2024-07'}}]。此时若工具执行超时返回空结果，Agent下一步最应采取的行动是？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "立即向用户返回“系统繁忙，请稍后再试”"
+        },
+        {
+          "option_label": "B",
+          "option_text": "将空结果作为Observation回传给模型，由模型决定后续动作（如重试、换参、追问工单号）"
+        },
+        {
+          "option_label": "C",
+          "option_text": "由应用代码自动重试三次，失败后再通知用户"
+        },
+        {
+          "option_label": "D",
+          "option_text": "触发HITL流程，暂停任务并交由人工审核"
+        }
+      ],
+      "answer": "B",
+      "analysis": "依据4.2节原文：“关键约定：……工具返回结果必须回灌到上下文，否则模型等于‘做完就忘’”；4.4节ReAct铁律：“Observation可能含噪声甚至恶意内容……模型不能盲目信任外部返回”；4.2节还强调“要给模型‘失败出口’：工具超时、报错时能重试或换方案，而不是整轮崩溃”。B项严格遵循“工具结果→role='tool'消息→回传上下文→模型决策”这一Function Calling标准流程（4.3节四步），并将失败处置权交给具备推理能力的模型，符合ReAct“用事实修正想法”的设计哲学。A项放弃闭环，退化为普通对话；C项越俎代庖，剥夺模型规划权，违反“模型提议、程序执行”分工（4.3节risk）；D项过度升级，HITL适用于高风险操作（4.6.2表），工具超时属常规异常，应优先由Agent自主处理。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 1,
+      "stem": "一个用于生成财务报告的Agent进行评测时，发现端到端分数达标但用户投诉‘数据引用来源缺失’。依据第4章4.10节评测方法论，应组合使用哪些手段定位并解决该问题？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "增加确定性检查：解析报告输出，验证每个数据点是否附带source_id或URL字段"
+        },
+        {
+          "option_label": "B",
+          "option_text": "使用LLM-as-Judge，让另一个模型按‘是否标注来源’打分"
+        },
+        {
+          "option_label": "C",
+          "option_text": "构建Rubric评分量表，将‘来源标注完整性’拆解为‘所有数值均有来源’‘来源可追溯至原始数据库表’等可判定细则"
+        },
+        {
+          "option_label": "D",
+          "option_text": "扩大上下文窗口，将全部原始数据源文本拼入messages以增强模型记忆"
+        }
+      ],
+      "answer": "AC",
+      "analysis": "依据4.10节原文：端到端评测掩盖过程缺陷，需“白盒化评测”；“确定性检查”适合客观项（如字段存在性），可精准定位“来源缺失”这一结构化缺陷（A项符合）；“Rubric”价值在于“把模糊目标拆成逐条可判定的细则”，C项将“来源标注”拆解为可验证的原子条件，符合教材定义（4.10节principle）。B项LLM-as-Judge虽可用，但原文警示其有“位置偏见、长度偏见”，对结构化字段缺失这类客观问题，确定性检查更可靠、可调试（4.10节principle）；D项是Memory反模式（4.8节exam），会加剧注意力稀释，且无法解决生成逻辑缺陷，属错误方向。",
+      "difficulty_label": "挑战"
+    }
+  ]
+}

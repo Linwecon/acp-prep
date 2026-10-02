@@ -1,0 +1,49 @@
+{
+  "new-6-66-1": {
+    "qid": "new-6-66-1",
+    "classification": "own",
+    "chapter": 6,
+    "quality": "ok",
+    "reason": "题干明确指向第6章核心指标TTFT，所有选项均可在原文中验证。无歧义、有考查价值。",
+    "answer": [
+      "A",
+      "B",
+      "D"
+    ],
+    "supported": true,
+    "quote": "TTFT | 馁 token 延迟，用户'等多久才开口' | Prefill 速度、排队时长、prompt 长度",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "Prefill是计算密集型，决定TTFT；若其成瓶颈则TTFT必超限"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "TTFT受“排队时长”影响；队列有等待则TTFT必然增加"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "量化可降显存但非TTFT必要条件；未提及其与TTFT的必然关系"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "TTFT受prompt长度影响；过长prompt直接拖慢Prefill导致TTFT超标"
+      }
+    ],
+    "duplicate_of": "",
+    "references": [
+      {
+        "chapter": 6,
+        "id": 25
+      },
+      {
+        "chapter": 18,
+        "id": 25
+      }
+    ]
+  }
+}

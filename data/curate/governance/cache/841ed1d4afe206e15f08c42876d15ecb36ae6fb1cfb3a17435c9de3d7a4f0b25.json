@@ -1,0 +1,215 @@
+{
+  "new-11-54-0": {
+    "qid": "new-11-54-0",
+    "classification": "own",
+    "chapter": 11,
+    "quality": "ok",
+    "reason": "考查扫描件PDF处理，需先解析再切片，符合文档智能解析链路",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "扫描件 PDF 本质是图片，普通文本加载器读不出文字、直接切到的是空白/乱码。首要动作是先做文档智能解析（OCR + 版面分析 + 表格转 Markdown）",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "看图问答是多模态模型能力，但问题根源是文本切片器读不出文字，应先解析"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "扫描件需先OCR和结构化解析，才能被RAG正常处理，是首要修复动作"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "通用文本加载器无法处理扫描图片，重试无效"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "多模态Embedding用于图片检索，不解决扫描件文字提取问题"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-11-54-1": {
+    "qid": "new-11-54-1",
+    "classification": "own",
+    "chapter": 11,
+    "quality": "ok",
+    "reason": "考查视频理解的成本与架构约束，异步抽帧+ASR符合管道式处理",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "视频理解 = 视觉（帧）+ 语音（ASR）+ 文本（字幕/LLM）联合，不是单一魔法模型。音视频文件通常走异步任务（提交 → 轮询结果），而非实时返回",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "整段视频原始帧序列会超出上下文窗口，且成本过高"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "异步任务、抽关键帧、ASR转写、LLM综合，符合视频理解标准处理方式"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "仅分析首尾会丢失大量内容，不符合完整纪要生成需求"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "忽略画面内容不完整，且通义听悟是ASR，同步处理长视频不合适"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-11-54-2": {
+    "qid": "new-11-54-2",
+    "classification": "own",
+    "chapter": 11,
+    "quality": "ok",
+    "reason": "考查医疗AI风险管控，需标识辅助性、隐私保护、医生复核",
+    "answer": [
+      "A",
+      "C"
+    ],
+    "supported": true,
+    "quote": "AI 结论仅作辅助，医疗决策必须由医生做出，不可替代诊断；患者隐私（脱敏、授权）",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "必须添加标识说明AI结论仅供参考，医生最终判断"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "通义万相是生成模型，用于生成增强图可能引入不实信息，不符合原则"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "患者影像数据涉及隐私，必须脱敏并获取授权"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "AI报告不能直接开处方，必须由医生复核决策"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-11-54-3": {
+    "qid": "new-11-54-3",
+    "classification": "own",
+    "chapter": 11,
+    "quality": "ok",
+    "reason": "考查OCR低准确率优化，纠错与知识库校验符合工程要点",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "ASR 识别错误会沿链路放大，专有名词多的场景要配置热词或在识别后纠错",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "基于低置信度结果硬答会放大错误，不符合澄清反问原则"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "OCR后增加纠错，利用领域知识库校验，是合理优化策略"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "Qwen-VL是多模态理解模型，但题干已明确OCR环节，替换模型不一定解决识别率问题"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "不提供容错机制用户体验差，且高清图片也可能存在识别问题"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-11-54-4": {
+    "qid": "new-11-54-4",
+    "classification": "own",
+    "chapter": 11,
+    "quality": "ok",
+    "reason": "考查生成内容合规，需标识、多模态审核、版权授权",
+    "answer": [
+      "A",
+      "B",
+      "D"
+    ],
+    "supported": true,
+    "quote": "深度合成内容须加 AI 生成标识；图像/音频/视频要分别用多模态审核单独检测；版权与肖像权",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "深度合成内容必须添加AI生成标识"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "生成的海报需用image_moderation接口进行图像内容安全审核"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "仅文字敏感词过滤不够，需多模态审核覆盖画面"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "使用品牌VI需确保训练数据有授权，避免版权风险"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-11-54-5": {
+    "qid": "new-11-54-5",
+    "classification": "own",
+    "chapter": 11,
+    "quality": "ok",
+    "reason": "考查语音助手记忆实现，结构化记忆、受窗口限制选择性注入符合原则",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "提取用户偏好（如年假天数、查询习惯）形成结构化记忆，受上下文窗口限制选择性注入",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "全部历史对话存入检索，成本高且可能超出上下文窗口"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "硬编码不更新，无法实现个性化记忆"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "提取偏好形成结构化记忆，选择性注入，符合会话记忆管理原则"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "缓存原始语音文件无必要，且涉及隐私存储问题"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

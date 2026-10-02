@@ -1,0 +1,153 @@
+{
+  "items": [
+    {
+      "type": 0,
+      "stem": "某企业微信答疑机器人在早高峰持续收到429错误，监控显示重试请求集中在每分钟第0秒整点爆发。代码中对429采用固定1.5秒延迟+3次重试。该设计违反了本章强调的哪项核心工程原则？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "429应立即重试以抢占配额空窗"
+        },
+        {
+          "option_label": "B",
+          "option_text": "未设置最大重试次数，导致无限重试雪崩"
+        },
+        {
+          "option_label": "C",
+          "option_text": "未使用指数退避+随机抖动，引发重试风暴"
+        },
+        {
+          "option_label": "D",
+          "option_text": "429属于客户端错误，不应重试而应降级"
+        }
+      ],
+      "answer": "C",
+      "analysis": "依据原文9.8节‘指数退避 + 抖动（Exponential Backoff with Jitter）’明确指出：‘在等待时间上加一个随机抖动，避免大量客户端\\\"踩点同时重试\\\"把服务再次打爆’；表格中429被明确认定为‘✅ 退避后重试’，且‘4xx（429除外）重试毫无意义’的例外说明印证其可重试性。选项A违背‘退避’原则；B虽设3次但未提无限，非最直接错误；D错误将429归类为客户端错误（原文表明确为限流，属服务端配额问题）。C精准对应‘固定延迟+整点爆发’与‘抖动缺失’的教材定义。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 0,
+      "stem": "财务系统每日定时拉取前一日Token用量报表，需确保结果完整准确且不增加实时调用压力。根据第9章原理，以下哪种实现方式最符合工程规范？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "使用同步API逐条查询每条历史调用记录"
+        },
+        {
+          "option_label": "B",
+          "option_text": "开启stream=True获取增量用量数据"
+        },
+        {
+          "option_label": "C",
+          "option_text": "调用平台提供的用量统计API（非LLM推理API）"
+        },
+        {
+          "option_label": "D",
+          "option_text": "将用量统计逻辑嵌入每次LLM调用的响应解析中"
+        }
+      ],
+      "answer": "C",
+      "analysis": "原文9.8节‘日志可追溯’要求‘记录请求ID、模型名、Token用量、耗时和错误码’，9.9节强调‘输入/输出Token分别计费’并提及‘监控与告警’，但全章从未建议用LLM API本身获取用量——用量统计是平台运维API职责。A会因高频查询触发429且成本高；B流式不适用于用量统计（非LLM生成内容）；D将业务监控耦合进推理链路，违反关注点分离。C符合‘用专用API解决专用问题’的工程本质，且原文9.11故障排查地图中‘Token用量’列为独立监控维度，隐含其由平台侧提供。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 1,
+      "stem": "开发Function Calling功能时，模型返回tool_calls后，最终回答未体现工具结果。经排查，代码已执行工具函数并获取结果。以下哪些环节遗漏可能导致此现象？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "未将第一次调用的response_message追加到messages中"
+        },
+        {
+          "option_label": "B",
+          "option_text": "回传tool消息时漏传tool_call_id字段"
+        },
+        {
+          "option_label": "C",
+          "option_text": "将tool_result作为role='user'消息追加而非role='tool'"
+        },
+        {
+          "option_label": "D",
+          "option_text": "第二次调用时未传入tools参数"
+        }
+      ],
+      "answer": "A,B,C",
+      "analysis": "依据原文9.7节‘API层最常见的错误’：❌‘忘了把response_message追加进messages’（对应A）；❌‘回传结果时漏tool_call_id’（对应B）；❌‘拿到tool_calls就以为工具已执行’（但C是更深层错误：role错用导致模型无法识别工具结果）。D错误——第二次调用无需tools，因工具结果已通过role='tool'注入上下文，原文示例代码中final_response调用无tools参数。A/B/C均直接引用教材风险条款，构成完整闭环失败链。",
+      "difficulty_label": "挑战"
+    },
+    {
+      "type": 0,
+      "stem": "新人答疑机器人第二轮提问‘那怎么申请账号’时答非所问，检查发现messages仅含新问题。若修复时仅添加system消息而未包含第一轮assistant回复，该方案是否能解决问题？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "能，system消息已设定角色，模型可自行推断上下文"
+        },
+        {
+          "option_text": "不能，缺少关键实体‘Jira’，模型无法建立指代关系"
+        },
+        {
+          "option_label": "C",
+          "option_text": "能，只要messages包含role字段即满足无状态要求"
+        },
+        {
+          "option_label": "D",
+          "option_text": "不能，system消息必须放在messages末尾才生效"
+        }
+      ],
+      "answer": "B",
+      "analysis": "原文9.5节明确：‘如果第二次调用时messages里只放{\\\"role\\\":\\\"user\\\",\\\"content\\\":\\\"怎么申请账号\\\"}，模型看到的就是这一句话，根本无法知道\\\"这个账号\\\"指的是上一轮的Jira’；9.11故障排查表中‘多轮对话失忆’根因直指‘历史消息没放进messages’。A错误（system不承载具体事实）；C错误（role字段存在≠内容完整）；D错误（原文强调system应‘固定在数组开头’）。B精准复现教材场景，强调‘Jira’这一实体缺失导致指代断裂。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 1,
+      "stem": "某批量摘要任务使用Batch API提交后，次日发现输出JSONL比输入少23行，且部分摘要内容错位（如A课程摘要出现在B课程位置）。以下哪些原因最可能？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "未在输入JSONL中为每行设置唯一request_id"
+        },
+        {
+          "option_label": "B",
+          "option_text": "未校验输入输出行数及request_id一一对应"
+        },
+        {
+          "option_label": "C",
+          "option_text": "Batch任务中单行失败导致整批中断"
+        },
+        {
+          "option_label": "D",
+          "option_text": "使用了stream=True参数提交Batch任务"
+        }
+      ],
+      "answer": "A,B",
+      "analysis": "原文9.10节‘Batch任务的标准流程’第5步强调：‘必须校验输入输出行数、请求ID是否一一对应，防止错位或丢失’；‘常见误区’明确指出‘结果文件不用校验直接用’是错误。A和B共同构成错位根源：无request_id则无法对齐，不校验则无法发现错位。C错误——原文‘批内一行失败通常不影响其他行’；D荒谬——Batch API不接受stream参数，属概念混淆。A/B是教材唯一直接指向‘错位’的技术约束。",
+      "difficulty_label": "挑战"
+    },
+    {
+      "type": 0,
+      "stem": "安全审计发现前端JS硬编码API Key且.gitignore未排除密钥文件。根据9.3节‘API Key安全的五条军规’，应急处置的黄金顺序应是？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "立即禁用Key → 检查调用记录 → 评估损失"
+        },
+        {
+          "option_label": "B",
+          "option_text": "重新生成Key → 更新前端代码 → 提交Git"
+        },
+        {
+          "option_label": "C",
+          "option_text": "扫描Git历史 → 删除密钥文件 → 配置.gitignore"
+        },
+        {
+          "option_label": "D",
+          "option_text": "启用KMS托管 → 重写前端代理 → 轮换所有Key"
+        }
+      ],
+      "answer": "A",
+      "analysis": "原文9.3节‘exam’部分明确给出泄漏后应急顺序：‘立即禁用/轮换Key → 检查近期调用记录 → 评估损失’。A完全复刻教材原句。B错误（前端放Key本身违规，不应更新而是重构为代理）；C是事后补救但非‘黄金顺序’（禁用Key才是止损第一步）；D是长期加固措施，非紧急响应。本题考查对教材应急SOP的精确记忆，A为唯一原文依据。",
+      "difficulty_label": "入门"
+    }
+  ]
+}

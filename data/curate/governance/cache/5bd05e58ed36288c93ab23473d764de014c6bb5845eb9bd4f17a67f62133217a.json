@@ -1,0 +1,72 @@
+{
+  "new-11-6-0": {
+    "qid": "new-11-6-0",
+    "classification": "own",
+    "chapter": 11,
+    "quality": "ok",
+    "reason": "题干考查视频理解的核心技术约束，选项涉及抽帧、对齐、上下文窗口等知识点。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "视频理解不是一项孤立技术，而是图像、语音、文本能力的组合：抽关键帧...送入视觉模型分析画面内容",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "题干强调遗漏重要画面动作，是视觉问题，非语音丢失。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "未抽帧分析画面是遗漏动作的根本原因，符合原文。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "上下文窗口限制是普遍约束，但非题干‘遗漏画面动作’的主因。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "时间轴对齐影响综合，但非遗漏视觉动作的根本原因。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-11-6-5": {
+    "qid": "new-11-6-5",
+    "classification": "own",
+    "chapter": 11,
+    "quality": "ok",
+    "reason": "考查管道式架构解耦原则及流式处理优化延迟，符合原文工程要点。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "语音链路对延迟敏感，实时通话要做流式 ASR/TTS 与首包优化",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "合并为端到端模型违反解耦原则，且未必降延迟。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "流式处理符合解耦原则，能显著降低端到端延迟。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "增加算力非根本优化，且未体现架构解耦。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "换小模型可能牺牲质量，非基于管道架构的优化。"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

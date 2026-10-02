@@ -1,0 +1,216 @@
+{
+  "12-1391": {
+    "qid": "12-1391",
+    "classification": "own",
+    "chapter": 12,
+    "quality": "ok",
+    "reason": "考查LlamaIndex构建RAG应用时，无索引情况下的初始建库流程。",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "课程 `course_core/chatbot/rag.py` 展示了最精简的 LlamaIndex 用法：`documents = SimpleDirectoryReader(\"./docs\").load_data()`",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "StorageContext用于持久化存储，非初始读取。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "VectorStoreIndex用于创建索引，但需先有文档。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "SimpleDirectoryReader用于读取文档，是建索引前提。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "load_index_from_storage用于加载已有索引，与题意相反。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "12-0573": {
+    "qid": "12-0573",
+    "classification": "own",
+    "chapter": 12,
+    "quality": "ok",
+    "reason": "考查流式输出的优势，属于框架工具章节的工程实践。",
+    "answer": [
+      "C",
+      "D"
+    ],
+    "supported": true,
+    "quote": "流式响应与SSE协议；Gradio 只负责界面，不承载业务逻辑。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "流式不改变答案质量，原文有明确说明。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "流式不加快模型回复速度，可能增加总延迟。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "流式能改善用户体验，逐步显示结果。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "长内容逐步返回可避免超时，是工程优势。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "12-1197": {
+    "qid": "12-1197",
+    "classification": "own",
+    "chapter": 12,
+    "quality": "ok",
+    "reason": "考查LlamaIndex句子窗口检索与后处理机制的具体实现。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "句子窗口检索机制；`MetadataReplacementPostProcessor` 在句子窗口检查中，将扩展后的句子传入上下文并进行回复",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "代码未涉及rerank，是窗口替换。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "准确描述了句子窗口解析与元数据替换后处理。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "描述的是自动合并检索，与句子窗口无关。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "代码是建库阶段的解析，非加载索引查询。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "12-1461": {
+    "qid": "12-1461",
+    "classification": "own",
+    "chapter": 12,
+    "quality": "ok",
+    "reason": "考查RAGAS评估时自定义LangChain LLM封装的优势。",
+    "answer": [
+      "A",
+      "B"
+    ],
+    "supported": true,
+    "quote": "课程 `evaluate.py` 展示了它如何与 LangChain 配合：`llm=Tongyi(model_name=\"qwen-plus\")`",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "自定义封装可支持更多参数，灵活适配。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "官方封装有限，自定义可接入更多模型。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "打印中间结果非主要优点，且非封装独有。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "API Key仍需输入，封装不改变鉴权需求。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "12-1288": {
+    "qid": "12-1288",
+    "classification": "own",
+    "chapter": 12,
+    "quality": "ok",
+    "reason": "考查文档加载与预处理（标点替换）的工程实践。",
+    "answer": [
+      "A",
+      "C",
+      "D"
+    ],
+    "supported": true,
+    "quote": "`documents = SimpleDirectoryReader(path).load_data()`；将解析结果存为结构化 Markdown",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "代码将多个Document合并为一个。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "替换标点非处理乱码，是预处理。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "中英文标点替换可避免切分时chunk过长。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "SimpleDirectoryReader加载指定文件夹文件。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "12-1291": {
+    "qid": "12-1291",
+    "classification": "misplaced",
+    "chapter": 9,
+    "quality": "fixable",
+    "reason": "考查Python异常处理语法，属于API调用与工具使用的编程基础，但无实质考查价值。",
+    "answer": [
+      "C"
+    ],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "finally块总会执行，但未捕获异常。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "except未与try配对，语法错误。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "正确使用try-except捕获并打印错误。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "使用if判断而非异常处理，逻辑错误。"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

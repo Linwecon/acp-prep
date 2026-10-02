@@ -1,0 +1,208 @@
+{
+  "1-0273": {
+    "qid": "1-0273",
+    "classification": "own",
+    "chapter": -1,
+    "quality": "remove",
+    "reason": "题干和选项均与第1章知识无关，考查的是特定SDK的API调用细节，无考查价值。",
+    "answer": [],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "原文未提及此内容。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "原文未提及此内容。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "原文未提及此内容。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "原文未提及此内容。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "1-0431": {
+    "qid": "1-0431",
+    "classification": "own",
+    "chapter": 2,
+    "quality": "ok",
+    "reason": "考查通过提示词控制输出格式，属于提示工程核心知识。",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "提示词六要素（角色/任务/上下文/受众/样例/输出格式）",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "通过提示词明确约束输出格式是正确方法。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "后处理截断可能破坏语义，非最佳实践。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "截断输入文档会丢失信息，错误。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "A选项正确，故D错误。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "1-0497": {
+    "qid": "1-0497",
+    "classification": "own",
+    "chapter": -1,
+    "quality": "remove",
+    "reason": "考查特定框架类的构造参数，属于框架细节，无通用考查价值。",
+    "answer": [],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "原文未提及此内容。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "原文未提及此内容。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "原文未提及此内容。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "原文未提及此内容。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "1-0580": {
+    "qid": "1-0580",
+    "classification": "own",
+    "chapter": 2,
+    "quality": "ok",
+    "reason": "考查结构化输出（JSON）的规范，属于提示工程内容。",
+    "answer": [
+      "A",
+      "C"
+    ],
+    "supported": true,
+    "quote": "结构化输出（JSON Mode）与约束控制",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "未识别到的标签不输出，符合JSON格式规范。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "输出未识别到的标签类型可能导致空值混乱。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "JSON是常用的结构化输出格式。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "XML非主流，教材未提及。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "1-0602": {
+    "qid": "1-0602",
+    "classification": "own",
+    "chapter": 1,
+    "quality": "ok",
+    "reason": "考查分词化（Tokenization）的基本概念，属于大模型基础核心知识。",
+    "answer": [
+      "B",
+      "D"
+    ],
+    "supported": true,
+    "quote": "Token（词元）是模型处理文本的最小单位。分词器按词表把文本切成Token",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "描述基本正确，分词化是将词语转换为Token ID。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "错误，分词化输出Token ID序列，非字节码。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "描述正确，分词化将文本分解为更小单元。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "错误，中文常用BPE子词分词，非单汉字。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "1-0609": {
+    "qid": "1-0609",
+    "classification": "own",
+    "chapter": -1,
+    "quality": "remove",
+    "reason": "题干宽泛，选项为通用数据处理步骤，与大模型应用开发核心知识关联弱，无考查价值。",
+    "answer": [],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "原文未提及此具体场景。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "原文未提及此具体场景。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "原文未提及此具体场景。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "原文未提及此具体场景。"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

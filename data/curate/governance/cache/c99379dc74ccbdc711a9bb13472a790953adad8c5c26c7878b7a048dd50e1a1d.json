@@ -1,0 +1,215 @@
+{
+  "7-0959": {
+    "qid": "7-0959",
+    "classification": "own",
+    "chapter": 7,
+    "quality": "ok",
+    "reason": "考查传统自动指标BLEU的定义与适用场景",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "BLEU：机器翻译，生成文本与参考译文的 n-gram 重合度，侧重精确率",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "ROUGE侧重召回率，用于文本摘要"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "BLEU衡量n-gram重合度，侧重词序词组匹配"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "Perplexity衡量模型预测把握程度"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "F1 Score用于分类任务，非文本生成"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "7-1367": {
+    "qid": "7-1367",
+    "classification": "own",
+    "chapter": 7,
+    "quality": "ok",
+    "reason": "考查RAGAS中Answer Correctness指标的作用",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "Answer Correctness：生成端，答案与标准答案的整体一致程度",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "与训练数据无关"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "描述不准确，非评估contexts与ground_truth"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "是RAG整体回答质量的综合指标"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "与推理时间无关"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "7-1368": {
+    "qid": "7-1368",
+    "classification": "own",
+    "chapter": 7,
+    "quality": "ok",
+    "reason": "考查RAGAS中Context Precision指标的作用",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "Context Precision：召回的片段中，相关项是否排名靠前、占比高（信噪比）",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "准确描述其衡量检索排序与信噪比"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "与训练数据无关"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "与推理时间无关"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "描述的是其他指标的作用"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "7-0472": {
+    "qid": "7-0472",
+    "classification": "own",
+    "chapter": 7,
+    "quality": "fixable",
+    "reason": "选项C/D明显无关，应修正或删除，但考查点明确",
+    "answer": [
+      "A",
+      "B"
+    ],
+    "supported": true,
+    "quote": "Context Precision / Recall：检索端，衡量检索质量",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "Context Precision评估检索排序与信噪比"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "Context Recall评估检索信息覆盖度"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "与训练数据无关，无关选项"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "与推理时间无关，无关选项"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "7-0488": {
+    "qid": "7-0488",
+    "classification": "own",
+    "chapter": 7,
+    "quality": "fixable",
+    "reason": "选项C/D明显无关，应修正或删除，但考查计算步骤正确",
+    "answer": [
+      "A",
+      "B"
+    ],
+    "supported": true,
+    "quote": "LLM把 ground_truth 分解成若干观点；逐条判断每个观点能否在 contexts 中找到依据",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "是计算Context Recall的必要步骤"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "是计算Context Recall的必要步骤"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "与训练数据无关，无关选项"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "与推理时间无关，无关选项"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "7-0595": {
+    "qid": "7-0595",
+    "classification": "cross",
+    "chapter": 8,
+    "quality": "review",
+    "reason": "考点为AI安全风险评估步骤，属于第8章内容",
+    "answer": [
+      "A",
+      "B"
+    ],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "定义风险类型是安全评估基础步骤"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "构建评估基准是系统化评估方法"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "优化用户界面非核心安全评估步骤"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "增加计算资源非安全评估步骤"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

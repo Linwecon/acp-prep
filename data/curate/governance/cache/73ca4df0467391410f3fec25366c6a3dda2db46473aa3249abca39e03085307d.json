@@ -1,0 +1,212 @@
+{
+  "3-0101": {
+    "qid": "3-0101",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "考查RAG必要性，原文明确指出上下文窗口限制",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "公司文档动辄几十上百万字，远超模型的上下文窗口（一次能读入的文本长度上限）",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "原文未提效率降低"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "原文明确指出上下文窗口限制"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "模型可理解私域知识，但需正确输入"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "不准确是结果，非直接缺点"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-0102": {
+    "qid": "3-0102",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "HyDE定义明确，原文有完整名称和原理",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "HyDE（假设文档嵌入）：先让 LLM 编一段'假想答案'，用假想答案的向量去检索真实文档",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "原文明确定义HyDE原理"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "未说明是否生成假想文档"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "未提及多步骤查询改写"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "重排序是精排，非生成假想文档"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-0103": {
+    "qid": "3-0103",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "Embedding定义与作用原文清晰",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "Embedding（向量化 / 嵌入）是把一段文本转换成一串数字（高维向量）...语义相近的文本，向量在空间中的距离也近",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "向量化不增加训练数据"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "原文明确定义向量化作用"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "未提推理时间减少"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "向量化不改变模型参数"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-0104": {
+    "qid": "3-0104",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "Markdown结构化优势原文强调",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "Markdown 因层次分明（`#`/`##`/`###`）、语法简单，被推荐作为 RAG 文档的中间格式",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "原文明确推荐Markdown格式"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "与训练数据无关"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "未提推理时间"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "与参数数量无关"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-0108": {
+    "qid": "3-0108",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "多轮对话需历史信息，原文明确要求查询改写",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "多轮对话中'他/这个'指代不清...先用 LLM 把含代词的问题改写成完整问题再检索",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "历史信息用于指代消解"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "与训练数据无关"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "未提推理时间"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "与参数数量无关"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-0109": {
+    "qid": "3-0109",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "索引目的为加速检索，原文明确说明",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "向量数据库用近似最近邻（ANN）索引（如 HNSW、IVF）实现毫秒级检索",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "原文明确索引提升检索速度"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "索引不增加训练数据"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "未提推理时间减少"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "索引不改变模型参数"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

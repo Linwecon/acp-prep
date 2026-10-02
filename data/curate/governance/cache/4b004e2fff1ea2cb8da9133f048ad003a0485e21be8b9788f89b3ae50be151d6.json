@@ -1,0 +1,154 @@
+{
+  "items": [
+    {
+      "type": 0,
+      "stem": "某团队上线新版答疑机器人后，评测集显示：Context Recall 从 0.62→0.89（↑），Context Precision 从 0.71→0.33（↓），Answer Correctness 从 0.75→0.64（↓）。用户反馈“答案更全了但更啰嗦，关键信息反而被埋没”。此时最应优先采取的优化动作是？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "扩大知识库覆盖范围，补充年假政策原文"
+        },
+        {
+          "option_label": "B",
+          "option_text": "引入 Rerank 模块，对检索结果重排序并过滤低相似度片段"
+        },
+        {
+          "option_label": "C",
+          "option_text": "在生成提示词中增加‘请用一句话直接回答核心问题’约束"
+        },
+        {
+          "option_label": "D",
+          "option_text": "将 temperature 从 0.7 降至 0.3，降低生成随机性"
+        }
+      ],
+      "answer": "B",
+      "analysis": "题干呈现典型‘Recall 升、Precision 降、Correctness 反而下降’现象，对应教材7.5节‘黄金法则’：Recall 高说明资料找得全，Precision 低说明相关片段被无关内容稀释或排位靠后（如‘Lost in the Middle’），导致生成端注意力分散、答案冗长失焦。教材7.5明确指出‘Precision 低（Recall 高）→ 加 Rerank’为首选方案（见‘按指标组合定位故障并开方’表）。A项针对Recall低才有效；C、D属生成端优化，但教材强调‘检索质量决定上限’（7.5末段），且当前问题根源是检索噪声干扰生成，非提示词或温度问题。故B为唯一符合教材定位逻辑与优化优先级的选项。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 0,
+      "stem": "在构建新人答疑机器人评测集时，技术团队从线上日志抽取100个高频问题，并由AI工程师编写标准答案。上线后发现：自动化评测分数虚高，但人工抽检发现多处业务违规（如将‘试用期可休年假’答为‘不可休’）。该问题的根本原因违反了教材哪条铁律？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "未冻结评测配置（如temperature/seed）"
+        },
+        {
+          "option_label": "B",
+          "option_text": "ground_truth未由领域专家提供"
+        },
+        {
+          "option_label": "C",
+          "option_text": "question未覆盖边界场景"
+        },
+        {
+          "option_label": "D",
+          "option_text": "未使用LLM-as-Judge进行主观评分"
+        }
+      ],
+      "answer": "B",
+      "analysis": "题干核心矛盾是‘自动化分数虚高’与‘人工发现业务违规’，直指ground_truth权威性缺失。教材7.2.1明确‘ground_truth必须由业务领域专家编写/审定’，并强调‘技术人员能判断检索是否相关，但只有业务专家才知道答案在业务上是否正确、完整、合规’（加粗强调）。7.2.1‘两条铁律’第一条即‘标准答案来自领域专家’。A项影响分数可比性，但不导致系统性业务错误；C项影响覆盖率，非本题主因；D项是评分方法选择，与ground_truth质量无关。故B为教材明确定义的根本原因。",
+      "difficulty_label": "基础"
+    },
+    {
+      "type": 1,
+      "stem": "某Agent在课程写作任务中端到端评测得分为4.3/5，但用户持续投诉‘生成的Python代码无法运行’。为精准定位故障，以下哪些白盒评测动作符合教材7.6节推荐实践？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "对Agent输出的代码片段执行确定性检查：调用Python解释器验证语法与运行时错误"
+        },
+        {
+          "option_label": "B",
+          "option_text": "用LLM-as-Judge对比新旧版本代码，按‘代码风格一致性’打分"
+        },
+        {
+          "option_label": "C",
+          "option_text": "分析Agent执行trace，检查‘代码生成’Skill是否被正确触发且输出符合JSON Schema"
+        },
+        {
+          "option_label": "D",
+          "option_text": "将端到端评测阈值从4.0提升至4.5，强制淘汰低分样本"
+        }
+      ],
+      "answer": "AC",
+      "analysis": "题干要求‘精准定位故障’，对应教材7.6节‘白盒评测’定义：‘深入链路，对关键组件/中间步骤单独打分’。A项‘确定性检查代码可执行性’是教材7.6.1明确列举的‘客观项’（‘代码能否运行’），且属‘确定性检查’三类方法之一；C项‘分析执行trace检查Skill触发与Schema’直接对应教材7.6.1‘过程是否符合SOP’及‘触发是否正确’的特有维度，属于白盒核心实践。B项‘代码风格一致性’属主观风格偏好，教材7.6.1指出LLM-as-Judge易受‘风格偏见’影响，且非定位‘无法运行’的技术故障；D项‘提高端到端阈值’是端到端层面操作，无法定位具体组件故障，违背教材‘端到端看不出、需要白盒’的典型场景描述（7.6节）。故AC正确。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 0,
+      "stem": "当RAGAS评测显示Faithfulness=0.42、Answer Correctness=0.38，但Context Recall=0.95、Context Precision=0.87时，若需验证‘模型存在幻觉’这一假设，最直接有效的诊断操作是？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "人工比对answer中每句话与contexts，确认是否存在contexts未支撑的陈述"
+        },
+        {
+          "option_label": "B",
+          "option_text": "检查ground_truth是否由HR专家审定"
+        },
+        {
+          "option_label": "C",
+          "option_text": "用ROUGE-L计算answer与ground_truth的相似度"
+        },
+        {
+          "option_label": "D",
+          "option_text": "增大Top K值并重新运行检索"
+        }
+      ],
+      "answer": "A",
+      "analysis": "Faithfulness低（0.42）直接定义为‘答案中存在contexts无法支撑的陈述’（教材7.4.3），其计算口径正是‘把answer拆成简单陈述，逐条判定能否由contexts直接推断’。因此，人工逐句比对answer与contexts是验证幻觉最直接、最符合指标定义的操作。B项关乎ground_truth权威性，但题干中Recall/Precision高说明contexts与ground_truth匹配良好，非此问题；C项ROUGE-L衡量字面覆盖，无法检测事实幻觉（教材7.2.3风险提示）；D项会进一步降低Precision，恶化问题。教材7.5‘定位问题的黄金法则’第2条明确‘检索指标都好但Faithfulness低→问题在生成端’，诊断应聚焦生成输出与上下文关系，故A为唯一符合指标定义与教材诊断逻辑的选项。",
+      "difficulty_label": "中等"
+    },
+    {
+      "type": 1,
+      "stem": "为防止LLM-as-Judge在评估课程稿时产生系统性偏见，依据教材7.8.1，以下哪些校准措施是必要且有效的？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "在评分提示词中明确‘答案长度超过300字需额外扣分’以抑制长度偏见"
+        },
+        {
+          "option_label": "B",
+          "option_text": "对同一组候选答案，随机交换其顺序后多次打分并取平均值"
+        },
+        {
+          "option_label": "C",
+          "option_text": "仅使用与被测模型同架构的评委（如被测为Qwen，评委也用Qwen）"
+        },
+        {
+          "option_label": "D",
+          "option_text": "用初期标注的黄金测试集定期校准评委的评分阈值"
+        }
+      ],
+      "answer": "ABD",
+      "analysis": "教材7.8.1明确列出LLM-as-Judge四大偏见及缓解手段：A项对应‘长度偏见’，教材建议‘评分细则中明确冗余扣分’；B项对应‘位置偏见’，教材明确要求‘随机打乱/交换候选顺序多次打分取平均’；D项对应‘校准标准动作’第⑤条‘定期用人工标注校准阈值’。C项‘使用同架构评委’会加剧‘自我偏好’偏见（教材7.8.1表格），教材建议‘用与被测模型不同的评委’以规避此问题。故ABD正确，C错误。",
+      "difficulty_label": "中等"
+    },
+    {
+      "type": 0,
+      "stem": "某团队计划用公开基准MMLU初筛大模型，但业务场景是中文HR政策问答。依据教材7.7节，以下哪项行动最符合‘正确定位’原则？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "将MMLU英文题翻译为中文后直接用于评测"
+        },
+        {
+          "option_label": "B",
+          "option_text": "仅选用MMLU中‘社会科学’子集，因其最接近HR领域"
+        },
+        {
+          "option_label": "C",
+          "option_text": "用MMLU筛选出Top 3模型后，再用自建中文HR评测集进行终验"
+        },
+        {
+          "option_label": "D",
+          "option_text": "放弃MMLU，直接构建全量中文HR评测集"
+        }
+      ],
+      "answer": "C",
+      "analysis": "教材7.7节‘正确定位’明确指出：‘公开基准仅用于选型初筛，业务决策必须用自建评测集+领域专家验证’。C项完全遵循此原则——先用MMLU（通用能力）初筛，再用自建集（业务真实场景）终验。A项违反‘数据污染’风险（翻译可能引入偏差）且MMLU非为中文设计；B项仍属‘基准分高=业务表现好’误区（教材7.7风险第一条）；D项否定初筛价值，违背教材‘仅用于初筛’的务实定位。故C为唯一符合教材明确定义的选项。",
+      "difficulty_label": "基础"
+    }
+  ]
+}

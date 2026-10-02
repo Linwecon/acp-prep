@@ -1,0 +1,225 @@
+{
+  "new-4-66-0": {
+    "qid": "new-4-66-0",
+    "classification": "own",
+    "chapter": 4,
+    "quality": "ok",
+    "reason": "题干描述ReAct Agent在工具连续失败后未调整，违反ReAct铁律。",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "ReAct 不是无限循环：必须设置最大迭代轮数 / 超时 / token 预算上限，超限要主动收尾或向用户澄清，否则会陷入死循环并烧光预算",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "题干描述死循环，违反轮数上限铁律。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "题干未涉及噪声或恶意内容。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "题干是复杂任务，非简单任务。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "题干已调用工具，非结果未回传。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-4-66-1": {
+    "qid": "new-4-66-1",
+    "classification": "own",
+    "chapter": 4,
+    "quality": "ok",
+    "reason": "题干描述仅内部推理未调用工具，符合CoT定义。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "CoT（思维链）只在脑子里推理，不调工具",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "ReAct需调用工具，题干未调用。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "仅内部推理，符合CoT定义。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "题干未提及计划阶段。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "题干未提及预设流程。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-4-66-2": {
+    "qid": "new-4-66-2",
+    "classification": "own",
+    "chapter": 4,
+    "quality": "ok",
+    "reason": "ReAct核心是推理与工具调用交替，基于反馈调整。",
+    "answer": [
+      "A",
+      "C",
+      "E"
+    ],
+    "supported": true,
+    "quote": "ReAct = Reasoning（推理）+ Action（行动）。它让模型把'想'和'做'显式交替：先基于当前状态思考（Thought）下一步，再行动（Action）调用工具，随后读入观察（Observation）结果，继续思考",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "显式标签是ReAct特征。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "CoT也可单次生成推理链。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "基于Observation调整是ReAct核心。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "耗时非本质证据，RAG也可能耗时。"
+      },
+      {
+        "label": "E",
+        "selected": true,
+        "why": "提示词要求调用工具是ReAct特征。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-4-66-3": {
+    "qid": "new-4-66-3",
+    "classification": "own",
+    "chapter": 4,
+    "quality": "ok",
+    "reason": "题干故障是模型传入格式错误，因Schema描述缺失。",
+    "answer": [
+      "D"
+    ],
+    "supported": true,
+    "quote": "参数提取准不准，取决于三件事：Schema 质量（名称、描述、必填项是否清晰）",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "题干是格式错误，非缺参。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "month非required，但模型已传参。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "pattern有锚点，但模型未遵守。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "description缺失导致模型不理解格式。"
+      }
+    ],
+    "duplicate_of": "4-5187"
+  },
+  "new-4-66-4": {
+    "qid": "new-4-66-4",
+    "classification": "own",
+    "chapter": 4,
+    "quality": "ok",
+    "reason": "题干行为未进入闭环且未调用工具，违反Agent本质与ReAct/CoT区别。",
+    "answer": [
+      "A",
+      "D"
+    ],
+    "supported": true,
+    "quote": "Agent（智能体）是由大模型驱动、具备自主感知、规划、调用工具并根据反馈迭代能力的应用。它的本质不是'更能聊的模型'，而是一个 LLM 驱动的闭环执行系统。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "未调用工具，未进入行动-观察闭环。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "题干未涉及轮数上限。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "题干未涉及Function Calling流程。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "未调用工具，符合CoT特征。"
+      },
+      {
+        "label": "E",
+        "selected": false,
+        "why": "表述正确，但非题干最直接违反点。"
+      }
+    ],
+    "duplicate_of": "4-5164"
+  },
+  "new-4-66-5": {
+    "qid": "new-4-66-5",
+    "classification": "own",
+    "chapter": 4,
+    "quality": "ok",
+    "reason": "题干描述工具超时后Agent未处理，违反失败出口约定。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "要给模型'失败出口'：工具超时、报错时能重试或换方案，而不是整轮崩溃",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "题干结果已返回，非未回灌。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "工具超时未重试或换方案。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "题干未涉及Planner职责。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "题干未涉及组件解耦问题。"
+      }
+    ],
+    "duplicate_of": "4-5155"
+  }
+}

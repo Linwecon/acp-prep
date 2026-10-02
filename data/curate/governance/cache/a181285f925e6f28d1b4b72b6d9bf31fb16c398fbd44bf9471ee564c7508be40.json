@@ -1,0 +1,149 @@
+{
+  "new-8-18-0": {
+    "qid": "new-8-18-0",
+    "classification": "own",
+    "chapter": 8,
+    "quality": "ok",
+    "reason": "考查资源耗尽型DDoS攻击的识别，题干描述与原文案例高度一致。",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "资源耗尽型 DDoS（高耗 token/GPU 请求打爆算力）",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "题干未提及模型权重克隆，属于其他攻击面。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "题干未提及RAG或文档注入，与间接提示注入不符。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "高频高耗请求导致GPU满载，符合资源耗尽型DDoS特征。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "题干未提及PDF或指令劫持，与间接注入场景不符。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-8-18-2": {
+    "qid": "new-8-18-2",
+    "classification": "own",
+    "chapter": 8,
+    "quality": "ok",
+    "reason": "考查音频异步检测的正确调用流程，原文有明确说明。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "音频/视频是异步任务（提交 task_id → 轮询结果）——这是常考的接口差异。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "text_moderation_plus用于文本，不能处理音频。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "先提交获取task_id再轮询，符合音频异步检测规范。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "image_moderation用于图像，base64编码音频不符合接口用途。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "videoDetection用于视频，且未遵循先提交后轮询的异步流程。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-8-18-4": {
+    "qid": "new-8-18-4",
+    "classification": "own",
+    "chapter": 8,
+    "quality": "ok",
+    "reason": "考查隐私拼凑泄露的根因与防护环节，原文有对应分析。",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "模型有'记忆'效应，训练数据里的 PII 可能在后续对话中被一点点'问'出来",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "越狱话术检测针对绕过对齐，与隐私数据泄露根因不同。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "输出审查是兜底，但根因在于数据源头未脱敏。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "根本原因是训练或入库数据包含PII，导致模型记忆并泄露。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "禁止关联不切实际，且非原文提出的防护措施。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-8-18-5": {
+    "qid": "new-8-18-5",
+    "classification": "own",
+    "chapter": 8,
+    "quality": "ok",
+    "reason": "考查《暂行办法》的强制性合规义务，原文有明确列举。",
+    "answer": [
+      "B",
+      "C",
+      "D"
+    ],
+    "supported": true,
+    "quote": "面向境内公众提供生成式 AI 服务须依法备案；AI 生成/合成的文本、图片、音视频须添加显著'AI 生成'标识；建立投诉举报机制",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "明示幻觉风险是良好实践，但非《暂行办法》强制要求。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "算法备案是面向公众提供服务的强制性义务。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "添加AI生成标识是《深度合成管理规定》的强制要求。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "建立投诉举报机制是《暂行办法》的核心要求之一。"
+      },
+      {
+        "label": "E",
+        "selected": false,
+        "why": "KMS加密是数据安全最佳实践，非该法规的强制性义务。"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

@@ -1,0 +1,166 @@
+{
+  "items": [
+    {
+      "type": 0,
+      "stem": "某金融公司需构建合规问答系统，要求：① 所有客户合同与监管文件严禁出域；② 通用千问模型对'穿透式尽调'等术语回答不准；③ 需支持1000+并发实时响应。技术团队决定基于Qwen2-7B开源模型微调后部署。以下哪组阿里云产品组合最符合全链路需求？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "ModelScope下载模型 → PAI-DSW开发微调代码 → PAI-DLC分布式训练 → PAI-EAS部署服务"
+        },
+        {
+          "option_label": "B",
+          "option_text": "百炼知识库上传合同 → DashScope调用qwen-max → 百炼工作流编排 → 发布为API"
+        },
+        {
+          "option_label": "C",
+          "option_text": "OSS存储合同 → DataWorks清洗 → DashScope Embedding向量化 → 百炼RAG应用"
+        },
+        {
+          "option_label": "D",
+          "option_text": "ModelScope Notebook微调 → DashScope原生SDK部署 → 通过百炼控制台发布"
+        }
+      ],
+      "answer": "A",
+      "analysis": "依据原文10.4节PAI三件套定义：DSW用于交互式开发（'调试选DSW'），DLC用于大规模/分布式训练（'训练选DLC'），EAS用于高并发在线服务部署（'上线选EAS'）；同时10.7节明确'要私有化部署开源模型→ModelScope下载+PAI/EAS'，且'数据不出域'必须避开DashScope/百炼的托管API（二者均需上送数据）。选项B/C依赖数据上送，违反①；选项D中ModelScope Notebook无分布式训练能力且不支持生产级部署，DLC缺失导致无法满足③；选项A完整覆盖'下载→开发→训练→生产部署'闭环，且全程可控、数据不出域，符合10.5节'训模型→PAI'及10.7节'开源模型价值'全部依据。",
+      "difficulty_label": "挑战"
+    },
+    {
+      "type": 1,
+      "stem": "运维工程师发现生产环境DashScope API调用频繁返回429错误，日志显示RPM（每分钟请求数）持续超限。此时应采取哪些符合原文10.8节成本与稳定性原则的措施？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "立即在客户端实现指数退避+随机抖动重试机制"
+        },
+        {
+          "option_label": "B",
+          "option_text": "将所有请求路由至qwen-turbo以降低单次Token消耗"
+        },
+        {
+          "option_label": "C",
+          "option_text": "申请提升RPM配额，并同步评估是否需降级至更小模型"
+        },
+        {
+          "option_label": "D",
+          "option_text": "关闭前端请求缓存，强制每次请求都走最新上下文"
+        },
+        {
+          "option_label": "E",
+          "option_text": "在服务端增加请求队列和限流熔断，避免雪崩"
+        }
+      ],
+      "answer": "A,C,E",
+      "analysis": "原文10.8节'处理限流'明确要求'遇429用指数退避+抖动重试'（A正确）；'必要时降级到更小模型'与'申请提升配额'并列为标准应对（C正确）；'规模化后算账'隐含服务端治理责任，而10.8风险提示强调'不能假设无限并发'，故E是生产级稳定性必需（E正确）。B错误：RPM超限是请求数而非Token数问题，换turbo不解决RPM瓶颈；D错误：关闭缓存会加剧RPM压力，违背'省成本'中'善用缓存'原则（10.8）。所有正确项均直接对应原文'处理限流'子章节的工程手段与风险警示。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 0,
+      "stem": "一教育科技公司用百炼搭建'课件生成工作流'：①教师输入知识点→②调用qwen-plus生成大纲→③调用qwen-turbo生成每页PPT文案→④合成PDF。上线后发现步骤③生成文案过于简略，影响教学效果。技术负责人提出'统一用qwen-plus替代qwen-turbo'，但被否决。否决的最核心教材依据是？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "qwen-plus不支持流式输出，会导致前端等待时间过长"
+        },
+        {
+          "option_label": "B",
+          "option_text": "未遵循'按任务难度分级路由'原则，对简单生成任务使用高成本强模型造成浪费"
+        },
+        {
+          "option_label": "C",
+          "option_text": "qwen-turbo的上下文窗口更小，更适合短文本生成场景"
+        },
+        {
+          "option_label": "D",
+          "option_text": "百炼平台不支持在同一工作流中混合调用不同规格的qwen模型"
+        }
+      ],
+      "answer": "B",
+      "analysis": "原文10.6节'四个维度的选型思路'明确指出：'按任务难度分级路由才是工程上的最优解'，并警示'无脑上max是浪费'；10.6对比表中qwen-turbo定位为'高频、简单、对延迟敏感的任务（简单问答、分类、摘要）'，而PPT文案生成属结构化短文本生成，符合'简单任务'范畴。选项B直接复现原文'按任务难度分级路由'这一核心权衡逻辑，是唯一指向四维评估（速度/能力/长文本/成本）中'成本'与'能力'主动权衡的依据。A/C/D均无原文支撑：10.3节确认所有模型均支持stream；10.6未提turbo窗口更小（实际long才专攻长文本）；10.2节百炼工作流明确支持多模型节点编排。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 1,
+      "stem": "开发团队使用DashScope OpenAI兼容接口调用qwen-long模型处理长合同，但发现账单中输出Token费用异常高于输入。以下哪些操作能解释该现象并符合原文计费规则？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "模型生成了冗长的法律分析段落，导致输出Token远超输入"
+        },
+        {
+          "option_label": "B",
+          "option_text": "未设置max_tokens参数，模型自由生成直至达到上下文上限"
+        },
+        {
+          "option_label": "C",
+          "option_text": "将整份100页PDF作为system prompt传入，使输入Token激增"
+        },
+        {
+          "option_label": "D",
+          "option_text": "qwen-long模型的输出Token单价本就高于输入单价"
+        },
+        {
+          "option_label": "E",
+          "option_text": "使用了RAG检索结果拼接进messages，导致输入Token膨胀"
+        }
+      ],
+      "answer": "A,B,D",
+      "analysis": "原文10.8节'按Token计费'明确'输入/输出分别计价，输出通常更贵'（D正确）；'限制输出：用max_tokens给输出设上限，避免模型刹不住车'（B正确）；'控制输入：RAG只塞最相关的片段，不要每次把整本手册塞进上下文'（A是输出侧典型失控，符合'刹不住车'描述）。C和E属于输入侧问题，会导致输入费用高，但题干明确'输出费用异常高于输入'，故C/E解释的是输入成本而非输出成本，与现象不匹配。A/B/D共同构成'输出Token量大+单价高'的双重成本驱动，完全对应10.8'省成本'中'控制输出'与'计费规则'两条依据。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 0,
+      "stem": "课程实验中，学生在PAI-DSW GPU实例运行微调脚本后关闭浏览器，次日发现账单异常高昂。最可能的根本原因及依据是？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "GPU实例未停止，仍在后台持续计费；依据：10.4节'DSW实例按计算时计费，关闭浏览器不等于停止实例'"
+        },
+        {
+          "option_label": "B",
+          "option_text": "微调脚本触发了自动重试机制，导致重复训练；依据：10.8节'429需指数退避'"
+        },
+        {
+          "option_label": "C",
+          "option_text": "模型权重上传至OSS产生额外存储费用；依据：10.1节'OSS存文件'"
+        },
+        {
+          "option_label": "D",
+          "option_text": "DSW实例默认开启自动续费功能；依据：10.4节'费用提醒'"
+        }
+      ],
+      "answer": "A",
+      "analysis": "原文10.4节'PAI-DSW费用提醒'三处强调：'DSW实例按计算时计费'、'关闭浏览器不等于停止实例'、'不学了必须回控制台停止或删除'。选项A完整复现该原文警示，且'关闭浏览器'与'账单高昂'形成直接因果链。B错误：429是API限流错误，与DSW本地训练无关；C错误：OSS存储费用极低，且非'异常高昂'主因；D错误：原文从未提及'自动续费'，属无依据臆测。本题精准考查'执行顺序'（先关浏览器→误以为结束→未手动停实例）与'故障原因'（计费机制误解），紧扣10.4成本管理硬性规定。",
+      "difficulty_label": "入门"
+    },
+    {
+      "type": 1,
+      "stem": "当百炼应用需要调用部署在PAI-EAS上的私有模型时，以下哪些条件是必须同时满足的？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "PAI-EAS服务已配置公网访问或VPC内网互通"
+        },
+        {
+          "option_label": "B",
+          "option_text": "百炼应用中需配置正确的EAS服务Endpoint和认证凭据"
+        },
+        {
+          "option_label": "C",
+          "option_text": "EAS服务必须启用DashScope OpenAI兼容接口"
+        },
+        {
+          "option_label": "D",
+          "option_text": "模型必须是通义千问商业版（如qwen-plus）"
+        },
+        {
+          "option_label": "E",
+          "option_text": "百炼工作流中需添加HTTP请求节点并编写调用逻辑"
+        }
+      ],
+      "answer": "A,B,E",
+      "analysis": "原文10.1节全链路描述明确：'百炼应用再去调用EAS上的私有模型'，此为跨平台调用，必然要求网络连通（A正确）和调用方配置Endpoint/凭证（B正确）；10.2节百炼工作流能力说明其支持'拖拽节点串成流程'，而HTTP调用是标准集成方式（E正确）。C错误：EAS可部署任意模型（包括自研/开源），无需OpenAI兼容（10.3节仅DashScope提供兼容模式）；D错误：EAS部署的是私有模型，与商业版无关（10.7节强调'商业版走托管API'）。本题考查'组合约束'——网络、认证、调用方式三者缺一不可，且全部依据来自10.1链路图与10.2/10.4能力描述。",
+      "difficulty_label": "挑战"
+    }
+  ]
+}

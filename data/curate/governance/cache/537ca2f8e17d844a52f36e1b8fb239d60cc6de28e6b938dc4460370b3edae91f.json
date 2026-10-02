@@ -1,0 +1,233 @@
+{
+  "2-0469": {
+    "qid": "2-0469",
+    "classification": "own",
+    "chapter": 2,
+    "quality": "ok",
+    "reason": "题目考查对结构化输出约束的理解，属于提示工程核心知识点。",
+    "answer": [
+      "A",
+      "B",
+      "C",
+      "D"
+    ],
+    "supported": true,
+    "quote": "请你只输出 json 格式，不要输出代码段。其中，label 只能取 0 或 1，0 代表有错误，1 代表没有错误；reason 是错误的原因；correct 是修正后的文档内容。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "原文明确要求输出JSON格式。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "原文规定label只能取0或1。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "原文说明reason是错误的原因。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "原文说明correct是修正后的文档内容。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "2-0523": {
+    "qid": "2-0523",
+    "classification": "own",
+    "chapter": 2,
+    "quality": "ok",
+    "reason": "题目考查对分隔符形式的识别，属于提示工程基础知识点。",
+    "answer": [
+      "A",
+      "B",
+      "C"
+    ],
+    "supported": true,
+    "quote": "常见形式有：三引号 `\"\"\"...\"\"\"`、XML 标签 `<context>...</context>`、Markdown 代码块、分隔线 `---`/`-----`、方括号 `【】`、`<< >>`、`###` 等。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "方括号`【】`是原文列举的分隔符形式之一。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "XML标签`<context></context>`是原文列举的分隔符形式之一。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "`###`是原文列举的分隔符形式之一，`##`类似。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "2-0541": {
+    "qid": "2-0541",
+    "classification": "cross",
+    "chapter": 4,
+    "quality": "remove",
+    "reason": "题干不完整，ask_llm_route函数未定义，无法判断其处理流程。选项涉及Agent路由逻辑，但缺乏上下文。",
+    "answer": [],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "无上下文支持。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "无上下文支持。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "无上下文支持。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "无上下文支持。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "2-0633": {
+    "qid": "2-0633",
+    "classification": "own",
+    "chapter": 2,
+    "quality": "ok",
+    "reason": "题目考查提高生成内容质量的通用方法，符合提示工程优化迭代理念。",
+    "answer": [
+      "A",
+      "C",
+      "D"
+    ],
+    "supported": true,
+    "quote": "工程化的提示词优化流程：明确任务 → 起草提示词 → 小样本测试 → 分析失败案例（Bad Case） → 迭代优化",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "提供清晰提示词是基础，符合六要素原则。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "增加输入数据数量非提示工程核心手段。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "根据反馈优化提示词是迭代流程的一部分。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "使用多个模型比较是Meta Prompting或评估思路。"
+      },
+      {
+        "label": "E",
+        "selected": false,
+        "why": "固定模板可能僵化，需根据反馈迭代优化。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "2-0645": {
+    "qid": "2-0645",
+    "classification": "own",
+    "chapter": 2,
+    "quality": "ok",
+    "reason": "题目考查提升基于LLM应用用户体验的工程实践，涉及提示词、交互设计等。",
+    "answer": [
+      "A",
+      "C",
+      "D"
+    ],
+    "supported": true,
+    "quote": "为每个任务制定详细的系统提示词，确保大模型理解上下文；引入多轮对话机制；实现自动检测用户查询类型并调用相应的大型模型处理策略",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "制定详细系统提示词是基础，符合角色与任务分离原则。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "截断策略非本章核心考点，且原文未提及具体字数。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "多轮对话机制允许细化需求，是良好交互设计。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "自动检测查询类型是意图分类的应用。"
+      },
+      {
+        "label": "E",
+        "selected": false,
+        "why": "大模型准确性非极高，需反馈机制迭代优化。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "2-0661": {
+    "qid": "2-0661",
+    "classification": "cross",
+    "chapter": -1,
+    "quality": "review",
+    "reason": "题目考查客服机器人设计考虑，涉及提示词模板、知识库、情绪识别等综合实践，超出单一章节范围。",
+    "answer": [
+      "A",
+      "B",
+      "C",
+      "D",
+      "E"
+    ],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "为不同场景设计提示词模板是合理实践。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "建立知识库是RAG的典型应用。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "情绪识别和安抚是客服合理设计。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "转人工是意图分类后的合理路由。"
+      },
+      {
+        "label": "E",
+        "selected": true,
+        "why": "记录对话历史是Memory的合理应用。"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

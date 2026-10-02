@@ -1,0 +1,212 @@
+{
+  "6-0685": {
+    "qid": "6-0685",
+    "classification": "own",
+    "chapter": 6,
+    "quality": "ok",
+    "reason": "考查部署选型，云托管服务弹性好，符合教材对比。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "百炼 / DashScope（MaaS）...零运维、按量付费、弹性、开箱即用",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "单台本地服务器弹性差。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "云托管服务弹性好，免运维。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "笔记本电脑无法高并发。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "不部署无法提供服务。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "6-0773": {
+    "qid": "6-0773",
+    "classification": "own",
+    "chapter": 6,
+    "quality": "ok",
+    "reason": "考查推理速度优化，增加CPU核心数对GPU推理无效。",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "推理（Inference）...参数冻结，只做前向计算...硬件诉求...单卡/多卡均可",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "量化可减少显存带宽压力。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "减少上下文窗口可降低计算量。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "模型仅依赖GPU，加CPU无效。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "蒸馏可简化模型，提升速度。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "6-1206": {
+    "qid": "6-1206",
+    "classification": "own",
+    "chapter": 6,
+    "quality": "ok",
+    "reason": "考查ECS部署适用场景，适合自主管控、长期稳定业务。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "ECS（Elastic Compute Service）是 IaaS 层的云服务器，用户对操作系统、驱动、框架、依赖拥有完全控制权...适合长期运行的大模型、深度定制、数据合规要求高的场景。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "无运维团队应选托管服务。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "ECS提供完全控制，适合长期稳定。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "闭源模型高并发也需考虑弹性。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "临时任务更适合FC。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "6-1248": {
+    "qid": "6-1248",
+    "classification": "own",
+    "chapter": 6,
+    "quality": "ok",
+    "reason": "考查函数计算FC的核心特点，即免运维、按调用计费。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "函数计算 FC（Function Compute）...平台负责运行、弹性与运维，按调用量和实际资源消耗计费",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "FC可能有冷启动延迟。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "FC核心是免运维、按调用付费。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "FC也支持GPU。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "FC适合轻量低频任务。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "6-1255": {
+    "qid": "6-1255",
+    "classification": "own",
+    "chapter": 6,
+    "quality": "ok",
+    "reason": "考查量化技术的主要优势，即减少显存占用和响应时间。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "量化（Quantization）...以可控的精度损失换取显存占用下降、显存带宽压力减小、推理速度提升",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "量化通常有精度损失。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "量化主要省显存，常能加速。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "量化不是零代价。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "与多模态扩展无关。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "6-0825": {
+    "qid": "6-0825",
+    "classification": "cross",
+    "chapter": 7,
+    "quality": "ok",
+    "reason": "考查评测优先级，意图理解准确率是功能核心，属模型评估范畴。",
+    "answer": [
+      "D"
+    ],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "界面设计非核心功能评测。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "并发处理能力属部署后性能评测。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "响应时间属性能，非功能核心。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "意图理解准确率是功能核心。"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

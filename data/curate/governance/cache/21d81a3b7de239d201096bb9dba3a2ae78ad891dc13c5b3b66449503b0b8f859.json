@@ -1,0 +1,214 @@
+{
+  "new-9-42-0": {
+    "qid": "new-9-42-0",
+    "classification": "own",
+    "chapter": 9,
+    "quality": "ok",
+    "reason": "考查TTFT延迟分析，需结合监控数据定位工程瓶颈，符合本章知识。",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "流式输出显著降低TTFT、提升体感速度；非流式调用时，模型要把整段回答全部生成完才一次性返回",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "未启用流式，服务端需生成完才返回，是TTFT高的主因。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "缓存影响成本，但题干TTFT高主因是生成方式。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "temperature影响随机性，不直接导致TTFT大幅升高。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "401错误会直接返回，不会造成TTFT高达1800ms。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-9-42-1": {
+    "qid": "new-9-42-1",
+    "classification": "own",
+    "chapter": 9,
+    "quality": "ok",
+    "reason": "考查流式输出实现细节，需正确处理增量帧，符合本章知识。",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "流式是一帧一帧的增量数据，必须逐帧拼接，不能json.loads(response.text)",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "未处理None帧会导致拼接逻辑错乱，可能引发乱序。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "题干已确认SSE帧顺序完整，非解析格式问题。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "delta.role非必需，且system消息不会混入delta.content。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "题干已确认每帧为非空字符串，非编码问题。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-9-42-2": {
+    "qid": "new-9-42-2",
+    "classification": "own",
+    "chapter": 9,
+    "quality": "ok",
+    "reason": "考查Batch API结果校验的工程实践，符合本章知识。",
+    "answer": [
+      "A",
+      "B"
+    ],
+    "supported": true,
+    "quote": "必须校验输入输出行数、请求ID是否一一对应，防止错位或丢失",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "校验行数相等是防止结果丢失的基本要求。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "校验ID一致是防止结果错位的强制要求。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "检查截断原因有助于分析，但非原文强调的强制要求。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "单独验证模型可用性非Batch结果可靠性的强制要求。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-9-42-3": {
+    "qid": "new-9-42-3",
+    "classification": "own",
+    "chapter": 9,
+    "quality": "ok",
+    "reason": "考查多轮对话失忆原因，需理解messages结构，符合本章知识。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "多轮对话答非所问、指代不清 → 首先检查历史消息有没有完整放进messages",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "流式影响TTFT，不影响语义连贯性。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "缺少assistant历史回复，模型丢失指代锚点。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "temperature影响随机性，非指代关系失效主因。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "system prompt声明非必需，模型依赖完整历史。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-9-42-4": {
+    "qid": "new-9-42-4",
+    "classification": "own",
+    "chapter": 9,
+    "quality": "ok",
+    "reason": "考查TTFT升高的工程配置原因，需区分模型推理与调用配置，符合本章知识。",
+    "answer": [
+      "A",
+      "B"
+    ],
+    "supported": true,
+    "quote": "非流式调用时，模型要把整段回答全部生成完才一次性返回；稳定前缀可命中缓存",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "未启用流式，服务端需完整生成，直接导致TTFT升高。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "动态时间戳破坏缓存，重复计算前缀，增加TTFT。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "读取超时是客户端等待策略，不直接导致服务端TTFT升高。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "采样空间窄是模型推理行为，非API工程配置引发。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-9-42-5": {
+    "qid": "new-9-42-5",
+    "classification": "own",
+    "chapter": 9,
+    "quality": "ok",
+    "reason": "考查TTFT波动的工程排查，需结合监控数据定位网络或连接问题，符合本章知识。",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "连接超时短一点（如5秒），读取超时要宽一点（流式场景尤其）",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "连接复用不足导致频繁握手，是TTFT波动的常见工程原因。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "max_tokens影响内存预留，但监控显示推理耗时稳定，非主因。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "temperature影响随机性，但不会导致TTFT剧烈波动。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "权限受限通常返回401，不会导致TTFT波动。"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

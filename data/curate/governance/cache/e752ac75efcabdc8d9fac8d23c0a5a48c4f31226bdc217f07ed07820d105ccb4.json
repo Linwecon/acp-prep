@@ -1,0 +1,222 @@
+{
+  "3-0537": {
+    "qid": "3-0537",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "考查RAGAS指标优化，选项涉及提升Context Recall的合理手段。",
+    "answer": [
+      "A",
+      "B",
+      "C"
+    ],
+    "supported": true,
+    "quote": "Context Recall 低 → 有遗漏，查知识库/Embedding/改写",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "原文指出需检查知识库内容以定位遗漏。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "更换Embedding模型是提升检索质量的根因之一。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "查询改写可解决指代不清，提升召回。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "增加训练数据属于微调范畴，非RAG必要步骤。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-0539": {
+    "qid": "3-0539",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "考查查询改写技术，选项区分了不同改写方法。",
+    "answer": [
+      "A",
+      "B",
+      "C"
+    ],
+    "supported": true,
+    "quote": "查询改写：多轮对话中'他/这个'指代不清 → 先用 LLM 把含代词的问题改写成完整问题",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "使用大模型扩充用户问题是查询改写的一种。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "将单一查询改写为多步骤查询属于问题改写。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "HyDE（假设文档嵌入）通过生成假想答案增强检索。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "重排序是检索后的精排步骤，不属于问题改写。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-0540": {
+    "qid": "3-0540",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "考查RAG在线检索阶段的核心步骤。",
+    "answer": [
+      "A",
+      "B"
+    ],
+    "supported": true,
+    "quote": "在线问答：用户提问；把问题也向量化；在向量库中检索与问题向量最相似的 Top K 个 chunk",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "将用户问题转化为向量是检索的必要步骤。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "在向量数据库中找出最相似的向量是检索核心。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "增加训练数据不属于在线检索的必要步骤。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "减少推理时间不是检索阶段的必要步骤。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-0544": {
+    "qid": "3-0544",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "考查通过增加信息提升检索全面性的方法。",
+    "answer": [
+      "A",
+      "B",
+      "C"
+    ],
+    "supported": true,
+    "quote": "查询改写：多轮对话中'他/这个'指代不清 → 先用 LLM 把含代词的问题改写成完整问题",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "问题扩写可增加信息，使检索更全面。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "基于用户画像扩展上下文可增加检索信息。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "问题改写（如消代词）可生成更完整的问题。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "重排序是精排步骤，不直接增加检索信息。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-0550": {
+    "qid": "3-0550",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "考查文档解析与切片阶段影响回答效果的问题。",
+    "answer": [
+      "A",
+      "B"
+    ],
+    "supported": true,
+    "quote": "切得太大：一个 chunk 里混了好几个主题，向量被'平均'得没有重点；切得太小：语义被截断",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "切片缺少关键信息（太小）会导致信息不全。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "切片包含过多非关联信息（太大）会引入噪声。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "增加训练数据不属于解析切片阶段的问题。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "减少推理时间不属于解析切片阶段的问题。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-0553": {
+    "qid": "3-0553",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "考查重排序（Rerank）过程的关键步骤。",
+    "answer": [
+      "A",
+      "B",
+      "C"
+    ],
+    "supported": true,
+    "quote": "Rerank（重排序）：第一阶段向量检索快速'海选'出较多候选，第二阶段用更强的重排序模型对候选逐篇精细打分、重新排序",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "从向量数据库召回切片是重排序的前提。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "使用重排序模型选择最相关的切片是核心步骤。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "设置相似度阈值过滤是重排序后的常见步骤。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "增加模型训练次数与重排序过程无关。"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

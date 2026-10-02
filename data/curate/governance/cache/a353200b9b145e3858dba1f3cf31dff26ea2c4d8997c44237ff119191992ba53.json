@@ -1,0 +1,242 @@
+{
+  "2-0801": {
+    "qid": "2-0801",
+    "classification": "cross",
+    "chapter": 2,
+    "quality": "ok",
+    "reason": "RAG属上下文工程四大手段之一，但本题核心是可靠性保障，需结合提示词约束与免责声明，涉及安全与RAG章节",
+    "answer": [
+      "A",
+      "B",
+      "C",
+      "D"
+    ],
+    "supported": true,
+    "quote": "上下文工程的核心是'在正确的时间，把最相关、最精准的信息加载进上下文窗口'，其四大手段是 Prompt、RAG、Tool、Memory。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "RAG接入权威指南是知识供给基础"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "提示词明确约束是行为控制关键"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "Few-shot对齐输出结构与依据引用"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "免责声明属安全边界与用户告知"
+      },
+      {
+        "label": "E",
+        "selected": false,
+        "why": "违背RAG开卷考试原则，不可靠"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "2-0998": {
+    "qid": "2-0998",
+    "classification": "own",
+    "chapter": 2,
+    "quality": "ok",
+    "reason": "聚焦提示词优化解决遗漏问题，属六要素中任务与角色补全，符合本章高频考点",
+    "answer": [
+      "C",
+      "D"
+    ],
+    "supported": true,
+    "quote": "模型回答跑偏，绝大多数情况不是模型笨，而是提示词信息不全。官方教程给出的提示词框架包含六个基本要素",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "微调非提示工程范畴"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "格式要求不解决内容遗漏"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "补足角色要素提升聚焦度"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "CoT式分步标记强化关键信息提取"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "2-1091": {
+    "qid": "2-1091",
+    "classification": "own",
+    "chapter": 2,
+    "quality": "ok",
+    "reason": "多样性调控属提示工程参数调优，temperature与提示词设计均在本章明确覆盖",
+    "answer": [
+      "B",
+      "D"
+    ],
+    "supported": true,
+    "quote": "temperature调节输出确定性",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "模糊指令导致失控，违反六要素"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "补全多维约束提升可控多样性"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "top_p=0.1缩小选择范围，降多样性"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "小幅调高temperature可增多样性"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "2-1405": {
+    "qid": "2-1405",
+    "classification": "own",
+    "chapter": 2,
+    "quality": "ok",
+    "reason": "CoT设计要点在2.6节完整阐述，所有正确选项均对应原文原则",
+    "answer": [
+      "A",
+      "B",
+      "F"
+    ],
+    "supported": true,
+    "quote": "CoT：引导模型在给出最终答案前，显式输出中间推理步骤，把复杂问题分解为若干子问题逐步求解。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "背景明确支撑推理起点"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "中间步骤是CoT本质特征"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "简洁性非CoT核心要求"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "无关信息破坏逻辑连贯性"
+      },
+      {
+        "label": "E",
+        "selected": false,
+        "why": "难度非设计因素"
+      },
+      {
+        "label": "F",
+        "selected": true,
+        "why": "逻辑连贯是CoT有效性前提"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "2-1446": {
+    "qid": "2-1446",
+    "classification": "own",
+    "chapter": 2,
+    "quality": "ok",
+    "reason": "五项均为提示词六要素及模板实践的直接体现，原文多处印证",
+    "answer": [
+      "A",
+      "B",
+      "D",
+      "E"
+    ],
+    "supported": true,
+    "quote": "任务目标（Object）明确要完成什么，让模型聚焦；输出格式（Output Format）指定格式、枚举值、禁止项；角色（Role）定义身份、语气、写作风格",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "对应任务目标要素"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "对应输出格式要素"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "原文警示'越长越好'是误区"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "对应角色要素"
+      },
+      {
+        "label": "E",
+        "selected": true,
+        "why": "对应CoT适用场景"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "2-6001": {
+    "qid": "2-6001",
+    "classification": "own",
+    "chapter": 2,
+    "quality": "ok",
+    "reason": "小众类别识别弱属典型Few-shot适用场景，2.6节明确其对格式/风格敏感任务有效",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "Few-shot（少样本）：给 2~5 个示例让模型模仿；适用：格式/风格敏感、需稳定结构的任务",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "增加数据属微调范畴"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "Few-shot可快速对齐小众类模式"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "换模型非提示工程手段"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "降低任务精度非优化方向"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

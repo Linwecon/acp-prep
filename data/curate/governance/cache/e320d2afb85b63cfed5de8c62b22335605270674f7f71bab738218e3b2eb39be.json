@@ -1,0 +1,154 @@
+{
+  "items": [
+    {
+      "type": 0,
+      "stem": "某团队在vLLM中启用PagedAttention后，长上下文（64K tokens）请求的并发数从3提升至8，但单请求TTFT未改善。以下哪项是PagedAttention机制本身无法直接优化的根本原因？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "TTFT由Prefill阶段计算密集性决定，而PagedAttention仅优化Decode阶段的KV Cache显存管理"
+        },
+        {
+          "option_label": "B",
+          "option_text": "PagedAttention需额外页表查询开销，抵消了显存分配效率提升"
+        },
+        {
+          "option_label": "C",
+          "option_text": "64K长度下页表过大导致CPU调度延迟升高"
+        },
+        {
+          "option_label": "D",
+          "option_text": "vLLM默认禁用Prefill阶段的分页优化以保障数值稳定性"
+        }
+      ],
+      "answer": "A",
+      "analysis": "依据原文6.5节：'Prefill（预填充阶段）……是计算密集型，处理完后吐出第一个 token，决定了TTFT'；'PagedAttention……把KV Cache切成块……解决的是KV Cache的显存碎片与预分配浪费'；且6.5节明确指出PagedAttention是为了解决'Decode阶段显存带宽密集型'带来的KV Cache膨胀问题。TTFT完全取决于Prefill的并行计算效率（如矩阵乘法吞吐、CUDA kernel调度），与KV Cache管理无关——PagedAttention不参与Prefill计算流程，也不改变其计算量或访存模式。B、C、D均为无教材依据的臆测：原文未提页表开销抵消、未提CPU调度瓶颈、未提Prefill分页禁用（实际Prefill不涉及KV Cache，故无需分页）。因此A是唯一被原文原理性明确支持的结论。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 0,
+      "stem": "当vLLM服务处理一批混合长度请求（128/2048/16384 tokens）时，PagedAttention相比传统连续内存分配，其显存节省主要来源于以下哪一机制？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "按需分配物理块，避免为最长请求预分配整段连续显存造成的闲置"
+        },
+        {
+          "option_label": "B",
+          "option_text": "对不同长度请求的KV Cache进行INT4量化压缩"
+        },
+        {
+          "option_label": "C",
+          "option_text": "将短请求的KV Cache合并到同一物理块中共享存储"
+        },
+        {
+          "option_label": "D",
+          "option_text": "动态释放已完成请求的KV Cache块，供新请求立即复用"
+        }
+      ],
+      "answer": "A",
+      "analysis": "原文6.5节明确定义PagedAttention核心价值：'把KV Cache切成一个个固定大小的块（block），按需分配'；'消除碎片'；'不再按最大可能长度预分配浪费'。A项精准复述该原理——传统方案为每个请求按'最大可能长度'（如16384）预分配连续显存，导致128长度请求浪费99%空间；PagedAttention则只为实际生成长度分配所需块数，消除预分配浪费。B错误：量化是独立技术（见6.4节），非PagedAttention固有机制；C错误：'共享'在原文中特指'相同前缀'（如系统提示词）的块复用，非不同长度请求的块合并；D描述的是连续批处理的调度行为，非PagedAttention的内存管理机制（原文6.5节将二者并列介绍，属不同技术）。因此A是唯一符合教材定义的必要条件。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 0,
+      "stem": "运维人员观察到vLLM服务在高并发下KV Cache占用率持续95%以上，但GPU显存总占用仅60%。此时若仅调整PagedAttention相关参数，以下哪项操作最可能立即缓解该现象？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "增大--block-size参数，减少页表元数据开销"
+        },
+        {
+          "option_label": "B",
+          "option_text": "减小--block-size参数，增加块数量以提升分配粒度"
+        },
+        {
+          "option_label": "C",
+          "option_text": "启用--enable-prefix-caching复用公共前缀"
+        },
+        {
+          "option_label": "D",
+          "option_text": "调大--max-num-seqs限制并发请求数"
+        }
+      ],
+      "answer": "D",
+      "analysis": "题干矛盾点在于：KV Cache占用率95%（显存紧张），但总显存占用仅60%（权重+运行时余量充足）。这说明瓶颈是KV Cache容量已达上限，而非总显存不足。原文6.5节指出PagedAttention'大幅提升吞吐：同样的显存能塞下更多并发请求'，即其本质是提升KV Cache的显存利用效率，但**不增加KV Cache总容量上限**——上限仍由GPU总显存减去权重/运行时开销决定。因此，当KV Cache已近饱和时，唯一能立即缓解的措施是降低并发请求数（D），从而减少KV Cache总需求。A、B均属PagedAttention内部调优：增大block-size会降低碎片率但可能加剧内部碎片（小请求浪费块内空间），减小block-size提升粒度但增加页表开销，二者均不能突破KV Cache总容量硬限；C虽能降本（6.6节），但需请求具备'相同前缀'才能命中，非即时生效的通用解法。D是教材6.3节'必须通过压测确定最优并发阈值'和6.5节'同样显存塞下更多并发'的逆向应用，符合故障诊断逻辑。",
+      "difficulty_label": "挑战"
+    },
+    {
+      "type": 1,
+      "stem": "在vLLM服务中，以下哪些条件同时满足时，PagedAttention的显存利用率提升效果会显著减弱？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "所有请求的序列长度高度一致（如全部为2048 tokens）"
+        },
+        {
+          "option_label": "B",
+          "option_text": "模型权重已量化至INT4，显存压力主要来自权重而非KV Cache"
+        },
+        {
+          "option_label": "C",
+          "option_text": "启用了GQA（分组查询注意力），KV Cache体积本身已大幅压缩"
+        },
+        {
+          "option_label": "D",
+          "option_text": "请求间存在大量重复前缀（如统一系统提示词），前缀缓存命中率>90%"
+        }
+      ],
+      "answer": "A,C,D",
+      "analysis": "PagedAttention的核心价值是解决'显存碎片'与'预分配浪费'（6.5节）。A正确：当所有请求长度一致时，传统连续分配几乎无浪费，PagedAttention的'按需分配'优势消失；C正确：GQA已在6.6节明确列为'缓解KV Cache压力的常用手段'，若KV Cache本身已因GQA大幅缩小，则碎片问题自然弱化，PagedAttention增益边际递减；D正确：前缀缓存（6.6节）直接复用KV块，显著降低新分配需求，削弱PagedAttention的必要性。B错误：原文6.6节强调'权重只占一份，与并发无关'，而PagedAttention专为KV Cache设计，权重显存占比变化不影响其对KV Cache的优化效果——即使权重占大头，只要KV Cache存在碎片，PagedAttention仍有价值。",
+      "difficulty_label": "挑战"
+    },
+    {
+      "type": 0,
+      "stem": "开发人员尝试在vLLM中禁用PagedAttention（通过--disable-visual-batch等非标准参数），发现服务启动失败并报错'PagedAttention is required for vLLM v0.4+'.以下哪项最准确解释该现象？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "vLLM v0.4+架构已深度耦合PagedAttention，其连续批处理调度器依赖页表映射实现动态块管理"
+        },
+        {
+          "option_label": "B",
+          "option_text": "禁用后KV Cache无法加载，触发安全熔断机制"
+        },
+        {
+          "option_label": "C",
+          "option_text": "官方移除了传统连续内存分配的代码路径以精简维护成本"
+        },
+        {
+          "option_label": "D",
+          "option_text": "PagedAttention是OpenAI兼容接口的强制认证要求"
+        }
+      ],
+      "answer": "A",
+      "analysis": "原文6.5节将PagedAttention与连续批处理并列为vLLM'两大核心发明'，并强调'连续批处理：请求不再整批齐步走……GPU调度粒度从整批细化到每一步解码'。这种细粒度调度必须依赖PagedAttention的块级地址映射能力——传统连续分配无法支持单个token生成后立即释放部分内存块供新请求复用。A项准确指出二者架构耦合性，符合'连续批处理需要PagedAttention支撑'的隐含逻辑（教材虽未直说，但6.5节将二者作为协同技术并列提出，且连续批处理的'动态进出'特性必然要求底层内存可离散管理）。B、D无原文依据；C属主观推测，教材未提代码移除决策。因此A是唯一能从教材技术原理推导出的合理解释。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 1,
+      "stem": "当使用函数计算FC部署AI助手时，观察到工作日早9点首次调用延迟达3.2s，夜间低峰后再次调用仍重现该现象。若监控显示冷启动期间GPU显存占用从0%突增至85%，且模型加载耗时占总延迟70%，此时最根本的原因及教材依据是？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "FC实例在无流量时被平台回收，新请求需重新拉起实例并加载模型——教材6.7节明确'冷启动延迟：Serverless为了省成本，无流量时会回收实例'"
+        },
+        {
+          "option_label": "B",
+          "option_text": "模型权重文件过大导致磁盘IO瓶颈——教材6.4节提及'量化可加速'，暗示IO是潜在瓶颈"
+        },
+        {
+          "option_label": "C",
+          "option_text": "GPU驱动未预热，首次调用触发驱动初始化——教材6.9节提到ECS需'安装驱动'，但未提FC驱动问题"
+        },
+        {
+          "option_label": "D",
+          "option_text": "FC的GPU资源配额不足，需申请提升——教材6.10.1节指出FC有'并发上限等约束'，但未将冷启动归因于配额"
+        }
+      ],
+      "answer": "A",
+      "analysis": "题干关键证据链：'首次调用延迟高'+'无流量后重现'+'GPU显存从0%突增'+'模型加载耗时占比高'，完全匹配教材6.7节对冷启动的定义：'Serverless为了省成本，无流量时会回收实例；请求突然到来需要重新拉起实例、加载模型，导致首个请求明显变慢'。A项逐字引用原文，且因果链完整。B错误：教材6.4节'量化可加速'针对的是推理计算阶段，非IO加载；C错误：教材未提FC驱动问题，且'GPU显存突增'证明驱动已就绪；D错误：配额不足会导致429错误或排队，而非冷启动式延迟。因此A是唯一被教材明确定义且完全匹配现象的选项。",
+      "difficulty_label": "入门"
+    }
+  ]
+}

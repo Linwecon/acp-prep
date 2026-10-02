@@ -1,0 +1,212 @@
+{
+  "7-0290": {
+    "qid": "7-0290",
+    "classification": "own",
+    "chapter": 7,
+    "quality": "ok",
+    "reason": "考点为RAGAS中Context Recall计算步骤，原文明确第一步是分解ground_truth",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "1. LLM 把 `ground_truth` 分解成若干观点（statements），如\"张伟是教研部的\"→ [\"张伟是教研部的\"]；",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "原文明确第一步是分解ground_truth"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "训练数据与Recall计算无关"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "推理时间非计算步骤"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "参数数量不影响计算流程"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "7-0292": {
+    "qid": "7-0292",
+    "classification": "own",
+    "chapter": 7,
+    "quality": "ok",
+    "reason": "考点为RAGAS指标定义，Answer Relevancy专用于评估答案与问题的相关性",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "Answer Relevancy（答案相关性）：答案是否切题、有没有答非所问或含糊其辞",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "原文明确定义该指标衡量切题性"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "Faithfulness衡量忠实度"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "Context Precision管检索端"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "Context Recall管检索端"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "7-0796": {
+    "qid": "7-0796",
+    "classification": "own",
+    "chapter": 7,
+    "quality": "ok",
+    "reason": "考点为业务指标设计，可行性对应资源匹配度",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "业务指标：用户问答满意度 > 90%、问题解决率；核心技术指标：召回准确率 > 85%、响应时间 < 2s",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "前所未有属新颖性"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "匹配技术资源即可行性"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "生动有趣非核心维度"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "响亮度非可行性指标"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "7-0833": {
+    "qid": "7-0833",
+    "classification": "own",
+    "chapter": 7,
+    "quality": "ok",
+    "reason": "考点为人工评估核心维度，事实一致性是摘要质量根本",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "领域专家提供ground_truth；业务要的是\"用户满意度、问题解决率\"，模型产出的是 token，中间必须经过\"任务定义 → 指标设计 → 评测集\"的转译",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "词汇丰富度非核心"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "事实一致是摘要根本要求"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "句子长度非关键"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "排版格式非质量维度"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "7-0942": {
+    "qid": "7-0942",
+    "classification": "own",
+    "chapter": 7,
+    "quality": "ok",
+    "reason": "考点为类别不平衡处理，过采样是标准解法",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "❌ \"只看 Accuracy 就够了\" → 类别不平衡时 Accuracy 会失真（99% 负样本时全猜负也有 99%），应看 P/R/F1 和混淆矩阵。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "Accuracy在不平衡时失真"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "过采样是标准应对方法"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "忽略会导致评估失效"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "忽略少数类不可取"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "7-0963": {
+    "qid": "7-0963",
+    "classification": "own",
+    "chapter": 7,
+    "quality": "ok",
+    "reason": "考点为公平性评估，子群体性能分析是直接手段",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "不要为了\"刷高 Context Recall\"而优化，而要为了\"提升用户满意度\"而优化。一个 Recall 很高但答案啰嗦、答非所问的系统，业务上依然是失败的。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "不考虑来源加剧偏见"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "分析子群体性能最直接"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "单一文化加剧不公平"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "忽略子群体违背公平"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

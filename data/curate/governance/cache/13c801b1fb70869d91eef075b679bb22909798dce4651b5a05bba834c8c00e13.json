@@ -1,0 +1,257 @@
+{
+  "1-1470": {
+    "qid": "1-1470",
+    "classification": "own",
+    "chapter": 1,
+    "quality": "ok",
+    "reason": "题目考查大模型应用开发的核心流程环节，属于本章对开发流程的宏观理解。",
+    "answer": [
+      "A",
+      "B",
+      "C",
+      "D",
+      "E"
+    ],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "需求分析是任何应用开发的起点。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "技术选型是开发的关键决策。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "模型开发/微调是核心环节。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "部署与监控是上线必需步骤。"
+      },
+      {
+        "label": "E",
+        "selected": true,
+        "why": "运维优化是持续迭代的环节。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "1-1172": {
+    "qid": "1-1172",
+    "classification": "cross",
+    "chapter": 5,
+    "quality": "remove",
+    "reason": "题目考查文本序列化和标准化的具体代码实现，属于模型微调与训练中的数据预处理环节，与第1章大模型基础的核心考点（如LLM本质、工作流程、参数等）无关。且题目本身无考查价值，仅为代码片段识别。",
+    "answer": [],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "文本序列化是预处理步骤。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "填充序列是标准化步骤。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "词表大小计算是预处理。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "序列截断是标准化步骤。"
+      },
+      {
+        "label": "E",
+        "selected": false,
+        "why": "文本预处理是标准化步骤。"
+      },
+      {
+        "label": "F",
+        "selected": false,
+        "why": "初始化嵌入矩阵是预处理。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "1-1200": {
+    "qid": "1-1200",
+    "classification": "cross",
+    "chapter": 8,
+    "quality": "ok",
+    "reason": "题目考查敏感词检测的代码实现，属于AI安全与合规中的输入过滤环节。",
+    "answer": [
+      "A",
+      "B",
+      "C",
+      "D"
+    ],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "遍历分割单词检查，逻辑正确。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "使用any函数检查子串，逻辑正确。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "包含错误处理和小写转换，逻辑正确。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "使用NLTK分词后检查，逻辑正确。"
+      },
+      {
+        "label": "E",
+        "selected": false,
+        "why": "检查整个文本是否等于敏感词，逻辑错误。"
+      }
+    ],
+    "duplicate_of": "1-1393"
+  },
+  "1-0632": {
+    "qid": "1-0632",
+    "classification": "cross",
+    "chapter": -1,
+    "quality": "remove",
+    "reason": "题目考查一个未定义的抽象函数的具体实现细节，题干和选项均未提供足够信息（如函数定义、上下文）来判断正误，条件严重缺失，无法解答。",
+    "answer": [],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "无法判断，函数未定义。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "无法判断，函数未定义。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "无法判断，函数未定义。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "无法判断，函数未定义。"
+      },
+      {
+        "label": "E",
+        "selected": false,
+        "why": "无法判断，函数未定义。"
+      }
+    ],
+    "duplicate_of": "1-1379"
+  },
+  "1-1379": {
+    "qid": "1-1379",
+    "classification": "cross",
+    "chapter": -1,
+    "quality": "remove",
+    "reason": "题目考查一个未定义的抽象函数的具体实现细节，题干和选项均未提供足够信息（如函数定义、上下文）来判断正误，条件严重缺失，无法解答。",
+    "answer": [],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "无法判断，函数未定义。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "无法判断，函数未定义。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "无法判断，函数未定义。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "无法判断，函数未定义。"
+      },
+      {
+        "label": "E",
+        "selected": false,
+        "why": "无法判断，函数未定义。"
+      }
+    ],
+    "duplicate_of": "1-0632"
+  },
+  "1-1393": {
+    "qid": "1-1393",
+    "classification": "cross",
+    "chapter": 8,
+    "quality": "ok",
+    "reason": "题目考查敏感词检测的代码实现，属于AI安全与合规中的输入过滤环节。",
+    "answer": [
+      "B",
+      "C",
+      "D",
+      "E",
+      "F"
+    ],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "检查整个文本是否等于敏感词，逻辑错误。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "遍历分割单词检查，逻辑正确。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "包含错误处理和小写转换，逻辑正确。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "使用any函数检查子串，逻辑正确。"
+      },
+      {
+        "label": "E",
+        "selected": true,
+        "why": "使用NLTK分词后检查，逻辑正确。"
+      },
+      {
+        "label": "F",
+        "selected": true,
+        "why": "使用正则表达式匹配，逻辑正确。"
+      }
+    ],
+    "duplicate_of": "1-1200"
+  }
+}

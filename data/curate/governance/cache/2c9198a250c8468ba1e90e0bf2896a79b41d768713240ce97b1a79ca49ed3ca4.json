@@ -1,0 +1,231 @@
+{
+  "1-0605": {
+    "qid": "1-0605",
+    "classification": "beyond",
+    "chapter": 5,
+    "quality": "remove",
+    "reason": "鲁棒性属模型训练/微调范畴，原文未提；'缩小规模''提升参数'无依据",
+    "answer": [],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "原文未提训练数据多样性"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "原文未提对抗性测试"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "原文未提缩小模型规模"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "原文未提提升参数"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "1-1329": {
+    "qid": "1-1329",
+    "classification": "beyond",
+    "chapter": 8,
+    "quality": "remove",
+    "reason": "版权风险非本章内容，原文未涉及",
+    "answer": [],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "原文未提训练数据版权"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "原文未提内容相似性版权"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "原文未提水印与版权关系"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "原文未提用户授权场景"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "1-0646": {
+    "qid": "1-0646",
+    "classification": "own",
+    "chapter": 8,
+    "quality": "ok",
+    "reason": "敏感信息泄露是本章核心风险，四措施均在原文覆盖",
+    "answer": [
+      "A",
+      "B",
+      "D"
+    ],
+    "supported": true,
+    "quote": "输入过滤、运行监控、输出审查三层实时防御",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "对应输入过滤防线"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "对应输出审查防线"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "微调不解决安全问题"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "对应RAG权限过滤"
+      },
+      {
+        "label": "E",
+        "selected": false,
+        "why": "模型无自我意识"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "1-1200": {
+    "qid": "1-1200",
+    "classification": "misplaced",
+    "chapter": 8,
+    "quality": "fixable",
+    "reason": "代码题考查规则检测能力，但选项含语法错误需修正",
+    "answer": [
+      "B",
+      "D"
+    ],
+    "supported": true,
+    "quote": "规则审核（关键词/正则/黑白名单）：快、便宜、确定，但易被变形绕过",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "分词逻辑错误，漏匹配"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "正确实现子串匹配"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "语法错误lower()未定义"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "正确实现子串匹配"
+      },
+      {
+        "label": "E",
+        "selected": false,
+        "why": "逻辑反了"
+      }
+    ],
+    "duplicate_of": "1-1393"
+  },
+  "1-1393": {
+    "qid": "1-1393",
+    "classification": "misplaced",
+    "chapter": 8,
+    "quality": "fixable",
+    "reason": "同1-1200，代码题需修正语法错误",
+    "answer": [
+      "D"
+    ],
+    "supported": true,
+    "quote": "规则审核（关键词/正则/黑白名单）：快、便宜、确定，但易被变形绕过",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "逻辑反了"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "Word未定义变量"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "Text未定义变量"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "正确实现子串匹配"
+      },
+      {
+        "label": "E",
+        "selected": false,
+        "why": "Tokens未定义变量"
+      },
+      {
+        "label": "F",
+        "selected": false,
+        "why": "语法错误D,E,F混写"
+      }
+    ],
+    "duplicate_of": "1-1200"
+  },
+  "3-1318": {
+    "qid": "3-1318",
+    "classification": "cross",
+    "chapter": 8,
+    "quality": "ok",
+    "reason": "规则匹配适用违禁词检测，原文明确举例",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "规则审核（关键词/正则/黑白名单）：快、便宜、确定，但易被变形绕过",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "需语义理解，非规则匹配"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "品牌广告需上下文，非纯规则"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "违禁词匹配是规则典型场景"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "需深度语义理解"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

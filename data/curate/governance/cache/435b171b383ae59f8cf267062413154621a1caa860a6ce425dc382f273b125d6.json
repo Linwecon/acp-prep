@@ -1,0 +1,216 @@
+{
+  "new-7-54-0": {
+    "qid": "new-7-54-0",
+    "classification": "own",
+    "chapter": 7,
+    "quality": "ok",
+    "reason": "考查控制变量失效对归因的影响，符合评测核心原则。",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "回归评测的前提是除了待测改动，其他一切都冻结：评测集版本、评测脚本、推理参数（temperature、seed）、模型版本、甚至当评委的大模型版本都要固定。否则分数变化无法归因",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "题干强调未冻结temperature导致随机性不同，这正是控制变量失效，会使分数不可比，从而误判故障。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "题干未提及Rerank，且问题焦点是控制变量失效，而非优化方向错误。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "题干未暗示ground_truth标注错误或问题抽样偏离。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "题干未涉及Answer Relevancy低或上下文拼装逻辑缺陷。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-7-54-1": {
+    "qid": "new-7-54-1",
+    "classification": "own",
+    "chapter": 7,
+    "quality": "ok",
+    "reason": "综合考查评测集构建铁律和评测先行原则，考点明确。",
+    "answer": [
+      "B",
+      "C"
+    ],
+    "supported": true,
+    "quote": "标准答案来自领域专家：技术人员能判断'系统有没有检索到相关内容'，但只有业务专家才知道'这个答案在业务上是否正确、完整、合规'。评测先行（Eval First）的正确顺序是：先建评测集、拿到基线分数，再动手优化",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "技术团队自编测试题验证效果，虽不理想但未同时违反两条铁律和评测先行原则。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "AI工程师编写ground_truth，违反'标准答案来自领域专家'的铁律。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "未建立基线分数前即部署，直接违反'评测先行'原则。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "使用训练数据违反防数据泄漏要求，但未同时违反两条铁律和评测先行原则。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-7-54-2": {
+    "qid": "new-7-54-2",
+    "classification": "own",
+    "chapter": 7,
+    "quality": "ok",
+    "reason": "考查Precision低时调大Top K的风险，符合检索优化逻辑。",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "Context Precision低（Recall高）说明找回来了但噪声多、排得靠后。调大Top K以进一步提升Recall至0.98，最可能加剧的系统性风险是触发'Lost in the Middle'现象",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "Precision已很低，调大Top K会增加更多无关内容，加剧'Lost in the Middle'。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "题干未提及'年假天数'类问题，且跷跷板效应是整体现象，非此操作直接导致。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "数据泄漏是评测集构建问题，与调参操作无关。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "无关上下文增加可能影响Faithfulness和Correctness，但题干未直接指向Answer Relevancy。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-7-54-3": {
+    "qid": "new-7-54-3",
+    "classification": "own",
+    "chapter": 7,
+    "quality": "ok",
+    "reason": "考查白盒评测定位Agent组件故障的方法，符合教材框架。",
+    "answer": [
+      "A",
+      "B"
+    ],
+    "supported": true,
+    "quote": "白盒评测（White-box）深入链路，对关键组件/中间步骤单独打分。确定性检查（规则/断言）用代码规则直接判断，结果确定，适合客观项：代码能否运行",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "解析执行trace检查组件输出，是白盒评测，能定位代码生成环节。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "用确定性检查器运行代码验证可执行性，是精准定位故障的白盒方法。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "评估教学有效性和理论深度是主观评价，属于LLM-as-Judge，不直接定位'无法运行'故障。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "在Rubric中增加维度并输出JSON评分，是端到端或主观评测的细化，非精准定位故障的白盒方法。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-7-54-4": {
+    "qid": "new-7-54-4",
+    "classification": "own",
+    "chapter": 7,
+    "quality": "ok",
+    "reason": "考查LLM-as-Judge长度偏见的校准方法，符合教材内容。",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "长度偏见：倾向认为更长更详细的答案'更完整'，惩罚简洁但切题的答案。缓解手段：评分细则中明确'冗余扣分'、控制输出长度",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "明确加入'冗余扣分'条款并提供few-shot，是直接针对长度偏见的校准动作。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "随机打乱顺序用于缓解位置偏见，与题干描述的长度偏见不符。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "更换评委模型可能引入新偏见，非优先校准动作，且教材未提及gpt-4-turbo更擅长简洁表达。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "人工抽检和黄金集校准是长期必要手段，但非针对长度偏见的优先直接校准动作。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-7-54-5": {
+    "qid": "new-7-54-5",
+    "classification": "own",
+    "chapter": 7,
+    "quality": "ok",
+    "reason": "综合考查防止回归和控制变量的具体实践，符合评测流程要求。",
+    "answer": [
+      "A",
+      "B",
+      "D"
+    ],
+    "supported": true,
+    "quote": "防止回归：每次改动后跑同一套题，确保'修好 A、没弄坏 B'。控制变量：除了待测改动，其他一切都冻结：评测集版本、评测脚本、推理参数（temperature、seed）、模型版本",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "使用冻结评测集、固定参数、多次取平均，同时满足防止回归和控制变量要求。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "将评测相关组件版本化并锁定，是控制变量的工程化实践，有助于防止回归。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "每月复核ground_truth是质量保证，但非直接满足防止回归和控制变量的核心实践。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "CI/CD集成自动回归评测，是防止回归的自动化实践，且隐含控制变量。"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

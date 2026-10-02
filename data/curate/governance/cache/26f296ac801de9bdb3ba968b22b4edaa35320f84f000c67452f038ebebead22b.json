@@ -1,0 +1,154 @@
+{
+  "items": [
+    {
+      "type": 0,
+      "stem": "某团队在压测vLLM服务时发现：当并发从16提升至32，QPS仅增长12%，平均RT翻倍，429错误率升至8%。此时若仅通过调整--max-num-seqs参数强行提高并发上限，最可能加剧的系统瓶颈是？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "模型权重加载延迟"
+        },
+        {
+          "option_label": "B",
+          "option_text": "KV Cache显存碎片导致的调度失败"
+        },
+        {
+          "option_label": "C",
+          "option_text": "Decode阶段显存带宽饱和与请求排队"
+        },
+        {
+          "option_label": "D",
+          "option_text": "Prefill阶段CUDA kernel启动开销"
+        }
+      ],
+      "answer": "C",
+      "analysis": "根据教材6.3节'高频误区'与6.5节原理：429错误表明已超出服务承载能力，本质是资源超限后主动拒绝而非排队；RT翻倍+QPS增长乏力说明系统进入严重排队状态。教材明确指出：'超出并发上限通常直接返回429错误'（6.3风险框），且'并发数受KV Cache容量与调度策略限制'（6.3表格）；而KV Cache在Decode阶段随并发线性膨胀，其读取是显存带宽密集型（6.2原理框）。选项C精准对应Decode带宽瓶颈与排队恶化逻辑。A错误——权重只加载一次，不随并发变化；B错误——PagedAttention已消除碎片，且碎片不会导致429；D错误——Prefill开销影响TTFT，但题干现象以RT整体飙升和429为主，属Decode与并发调度问题。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 1,
+      "stem": "在部署Qwen3-0.6B模型时，为满足P95 TTFT<1.2s的SLO，以下哪些条件必须同时成立？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "Prefill阶段计算资源（GPU算力）未成为瓶颈"
+        },
+        {
+          "option_label": "B",
+          "option_text": "请求队列中无等待调度的请求"
+        },
+        {
+          "option_label": "C",
+          "option_text": "模型权重已量化至INT4且加载到GPU显存"
+        },
+        {
+          "option_label": "D",
+          "option_text": "单次请求的prompt长度被限制在合理范围（如≤2048 tokens）"
+        }
+      ],
+      "answer": "ABD",
+      "analysis": "TTFT = Prefill耗时 + 排队时长（教材6.2原理框）。A正确：Prefill是计算密集型，若GPU算力不足（如低频卡或未启用FP16加速），TTFT必然劣化；B正确：教材6.3强调'并发过高导致排队，RT飙升'，P95 TTFT包含排队尾部效应，无排队是低TTFT必要条件；D正确：教材6.2明确'长prompt会让等很久才开口'，prompt长度与Prefill耗时正相关。C错误：量化主要降低显存占用和Decode阶段带宽压力（6.4节），对Prefill计算耗时影响有限（权重读取非瓶颈），且INT4非必需——FP16下Qwen3-0.6B本身即可满足该TTFT目标，教材未将量化列为TTFT硬性前提。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 0,
+      "stem": "运维人员监控到vLLM服务GPU显存总占用率65%，但KV Cache占用率持续>95%。此时若仅增加GPU显存容量，最可能无法缓解的根本问题是？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "长上下文请求导致单请求KV Cache需求过大"
+        },
+        {
+          "option_label": "B",
+          "option_text": "并发请求数超过当前显存能容纳的最大并发阈值"
+        },
+        {
+          "option_label": "C",
+          "option_text": "PagedAttention页表元数据开销挤占有效显存"
+        },
+        {
+          "option_label": "D",
+          "option_text": "模型权重与运行时开销占比异常升高"
+        }
+      ],
+      "answer": "B",
+      "analysis": "教材6.6节明确：'KV Cache随序列长度×并发数线性增长'，且'长上下文高并发下KV Cache常是显存大头、是并发瓶颈'。题干中KV Cache占用率95%而总显存仅65%，说明KV Cache已逼近其分配上限，但权重+运行时开销占比小——这恰恰证明当前并发数已触达显存允许的理论最大值（即'并发阈值'）。增加显存可提升该阈值，但题干问'最可能无法缓解的根本问题'，B选项描述的是'当前并发数已超限'这一状态，增加显存正是为解决此问题，故B不是'无法缓解'的问题；需重新审题——'无法缓解的根本问题'指增加显存后仍存在的瓶颈。A正确：若单请求序列长度极大（如64K），即使增加显存，新阈值下并发数仍很低，业务吞吐受限于长度而非显存总量，教材6.6案例中DeepSeek-R1在8卡上并发仅4个即因64K长度所致；B是可通过增显存缓解的；C错误：页表开销极小，教材未将其列为瓶颈；D错误：题干已表明权重+运行时占比小（总显存65% vs KV 95%），非问题根源。",
+      "difficulty_label": "挑战"
+    },
+    {
+      "type": 1,
+      "stem": "诊断一个突然出现高TTFT（>8s）的线上vLLM服务时，监控显示GPU利用率正常、KV Cache占用率仅30%、无429错误。以下哪些日志线索最应优先检查？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "Prefill阶段CUDA kernel执行耗时日志"
+        },
+        {
+          "option_label": "B",
+          "option_text": "请求调度队列长度与等待时间日志"
+        },
+        {
+          "option_label": "C",
+          "option_text": "模型权重加载路径权限与磁盘IO延迟日志"
+        },
+        {
+          "option_label": "D",
+          "option_text": "vLLM中PagedAttention块分配失败重试日志"
+        }
+      ],
+      "answer": "BC",
+      "analysis": "TTFT = Prefill耗时 + 排队时长（6.2原理框）。GPU利用率正常排除Prefill算力瓶颈（A非首要）；KV Cache占用率低排除Decode阶段显存瓶颈（D无关）；无429说明未触发限流，但排队仍可能存在。B正确：教材6.3强调'延迟一旦升高，同等并发下吞吐下降'，排队是TTFT升高的常见原因，需查调度队列。C正确：教材6.9提到ECS部署需关注'实例选型'与'模型权重加载'，若权重存储在慢速磁盘（如NAS）或权限错误导致反复IO重试，会显著拖慢Prefill前的数据准备，这是TTFT突增的典型根因，且监控无法覆盖磁盘层。A虽相关，但GPU利用率正常已暗示kernel执行不慢；D中PagedAttention分配失败会导致OOM或429，与题干现象矛盾。",
+      "difficulty_label": "挑战"
+    },
+    {
+      "type": 0,
+      "stem": "某金融企业需上线内部合规问答机器人，要求：①数据严禁出域；②日均稳定请求2000+，P95 TTFT<1.2s；③支持灰度发布与秒级回滚。运维团队具备GPU调优能力但无专职SRE。若选择PAI-EAS方案，其相比GPU ECS自建方案必须额外依赖平台提供的哪项关键能力才能满足全部约束？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "PagedAttention显存管理"
+        },
+        {
+          "option_label": "B",
+          "option_text": "模型预热（Warm-up）"
+        },
+        {
+          "option_label": "C",
+          "option_text": "蓝绿/灰度发布"
+        },
+        {
+          "option_label": "D",
+          "option_text": "OpenAI兼容API接口"
+        }
+      ],
+      "answer": "C",
+      "analysis": "题干核心约束是'支持灰度发布与秒级回滚'。教材6.10.2明确：PAI-EAS提供'蓝绿/灰度发布、版本控制、回滚'，是其区别于ECS自建的关键企业级能力（6.10.2概念框）；而ECS自建需自行实现CI/CD、流量切分、版本管理等复杂运维（6.9节未提及原生支持灰度）。A错误：PagedAttention是vLLM框架能力，ECS+vLLM同样具备；B错误：模型预热PAI-EAS提供，但ECS也可通过脚本预加载实现；D错误：OpenAI兼容接口由vLLM提供，ECS部署同样支持。只有C是PAI-EAS原生托管、ECS必须额外开发的核心差异点，且直接对应题干第三条硬性要求。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 1,
+      "stem": "当vLLM服务处理混合长度请求（128/2048/16384 tokens）时，PagedAttention机制相比传统连续内存分配，其显存节省效果在以下哪些条件下会显著减弱？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "所有请求的prompt长度高度一致（如均≈2048 tokens）"
+        },
+        {
+          "option_label": "B",
+          "option_text": "启用GQA（分组查询注意力）大幅减少KV头数"
+        },
+        {
+          "option_label": "C",
+          "option_text": "请求平均序列长度极短（<128 tokens）且并发数很低"
+        },
+        {
+          "option_label": "D",
+          "option_text": "KV Cache采用INT4量化存储"
+        }
+      ],
+      "answer": "AC",
+      "analysis": "PagedAttention的核心价值是消除显存碎片与按需分配（6.5概念框）。A正确：若所有请求长度一致，传统预分配连续内存几乎无浪费，碎片少，PagedAttention优势不明显；C正确：当序列极短且并发低时，KV Cache总量小，碎片影响微乎其微，节省效果不显著。B错误：GQA减少KV头数是独立于内存管理的优化，与PagedAttention互补，不削弱其效果；D错误：INT4量化降低单块KV体积，反而放大PagedAttention按需分配的价值（更细粒度利用），教材6.4明确量化与PagedAttention同属显存优化手段，无冲突。",
+      "difficulty_label": "挑战"
+    }
+  ]
+}

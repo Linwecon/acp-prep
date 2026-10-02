@@ -1,0 +1,212 @@
+{
+  "3-0023": {
+    "qid": "3-0023",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "知识更新需重建索引，原文明确要求重新走建库流程",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "知识库新增/修改文档后，必须重新走\"解析→切片→向量化→入库\"，否则新内容检索不到",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "新增文档需更新向量库"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "超上下文窗口且稀释注意力"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "微调不解决知识时效性"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "关键词匹配无法解决语义问题"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-0024": {
+    "qid": "3-0024",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "多轮对话指代需改写，原文明确指出应结合历史改写问题",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "多轮对话里后续问题检索不准 → 应先结合历史改写问题，而不是把全部对话历史塞进检索",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "同义词扩展非首选方案"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "提高阈值会降低召回率"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "解决指代不清问题"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "混合检索非多轮对话首选"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-0038": {
+    "qid": "3-0038",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "答错前提是有无知识，原文强调先检查知识库是否含相关内容",
+    "answer": [
+      "D"
+    ],
+    "supported": true,
+    "quote": "RAG主要解决大模型知识不足/私有知识接入/知识时效性，不是提升模型推理能力",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "提示词无法补充缺失知识"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "改写不能解决知识缺失"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "切分策略不影响知识存在性"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "知识库缺失是根本原因"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-0039": {
+    "qid": "3-0039",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "query信息不全需改写，原文指出用LLM改写含代词问题",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "查询改写：先用LLM把含代词的问题改写成完整问题（如\"他的主管是谁\"→\"张伟的主管是谁\"）再检索",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "数据库速度不解决query缺陷"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "解决query信息不全"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "top_p影响生成多样性"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "切分策略不解决query缺陷"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-0042": {
+    "qid": "3-0042",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "无关细节多说明召回噪声大，原文建议调小Top N或加Rerank",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "答非所问、跑题 → 召回噪声大 → 调小Top K / 加Rerank / 上下文压缩",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "减少噪声提升精度"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "增大max_tokens加重噪声"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "Redis不解决内容筛选"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "强制用户非工程解法"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-0044": {
+    "qid": "3-0044",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "召回率低且知识充足，说明Embedding质量差，原文列其为根因",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "检索质量差的三大根因：① Embedding模型不够好 ② 切片策略不当 ③ 文档格式丢失了结构信息",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "Embedding差导致召回低"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "知识已充足无需增加"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "提高阈值降低召回率"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "并发量不影响召回率"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

@@ -1,0 +1,72 @@
+{
+  "new-10-132-0": {
+    "qid": "new-10-132-0",
+    "classification": "own",
+    "chapter": 10,
+    "quality": "ok",
+    "reason": "考查EAS部署模型的格式要求，属PAI-EAS实操细节",
+    "answer": [
+      "B"
+    ],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "原文未提GPU配额与tokenizer加载失败的因果"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "Hugging Face标准格式是EAS加载前提"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "OSS权限问题会导致拉取失败而非tokenizer缺失"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "ms-swift export非唯一合并方式，原文未限定"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-10-132-2": {
+    "qid": "new-10-132-2",
+    "classification": "own",
+    "chapter": 10,
+    "quality": "ok",
+    "reason": "考查DLC训练前镜像依赖，属PAI-DLC实操细节",
+    "answer": [
+      "C"
+    ],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "modelscope download非DLC必需前置步骤"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "vLLM用于推理，非DLC训练必需依赖"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "镜像需预装适配版本库"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "RAM权限缺失会导致拉取失败，非初始化卡住主因"
+      }
+    ],
+    "duplicate_of": "10-5162"
+  }
+}

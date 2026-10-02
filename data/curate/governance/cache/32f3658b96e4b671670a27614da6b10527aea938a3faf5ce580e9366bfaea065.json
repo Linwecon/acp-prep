@@ -1,0 +1,210 @@
+{
+  "5-0047": {
+    "qid": "5-0047",
+    "classification": "cross",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "题目考查幻觉问题的优化组合，涉及RAG与微调定位，考点属RAG章",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "微调主要改变输出行为/风格/格式/领域适配，而不是'注入新知识'。知识时效与可溯源交给 RAG。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "调整LoRA秩和学习率不直接解决幻觉"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "增加训练轮次和阈值非解决幻觉优先手段"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "RAG解决知识幻觉，微调优化领域行为"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "更换微调方法不解决知识缺失"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "5-0120": {
+    "qid": "5-0120",
+    "classification": "misplaced",
+    "chapter": 2,
+    "quality": "remove",
+    "reason": "题干表述模糊，选项与题干逻辑断裂，无明确考查价值",
+    "answer": [],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "文档审查可作为任务输入"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "内部知识查询可作为任务输入"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "增加训练数据非模型输入任务"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "减少推理时间非模型输入任务"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "5-0148": {
+    "qid": "5-0148",
+    "classification": "cross",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "考查私域知识问题解法，RAG是简便高效手段",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "RAG 已经能回答制度问题。知识时效与可溯源交给 RAG。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "微调不擅长注入新知识"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "训练新模型成本高不简便"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "提示词结合RAG传递知识高效"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "默认模型无法回答私域知识"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "5-0169": {
+    "qid": "5-0169",
+    "classification": "own",
+    "chapter": 5,
+    "quality": "ok",
+    "reason": "考查微调定义，涉及参数调整",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "微调（Fine-tuning）：在已经预训练好的模型权重基础上，用一批'指令—回答'样本继续做梯度下降",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "微调会调整模型参数"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "提示词不改变模型参数"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "增加数据本身不涉及参数调整"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "减少推理时间不涉及参数调整"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "5-0298": {
+    "qid": "5-0298",
+    "classification": "beyond",
+    "chapter": 5,
+    "quality": "ok",
+    "reason": "考查项目职责认知，属工程实践",
+    "answer": [
+      "B"
+    ],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "准确，属技术团队职责"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "不准确，技术团队常需参与部署维护"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "准确，属技术团队职责"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "准确，属技术团队职责"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "5-0309": {
+    "qid": "5-0309",
+    "classification": "own",
+    "chapter": 5,
+    "quality": "ok",
+    "reason": "考查对话任务适配的微调技术",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "SFT（监督微调）：用'指令—回答'标注样本做有监督训练",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "SFT是常用微调形式"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "RLHF用于对齐，非本题所指"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "MAML是元学习，不常见"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "GAN用于生成，不适用"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

@@ -1,0 +1,166 @@
+{
+  "items": [
+    {
+      "type": 0,
+      "stem": "某企业升级新人答疑机器人为办事型Agent，用户问'帮我查我上个月提交的报销单审批到哪一步了'。系统首次调用模型后返回tool_calls=[{'name':'get_reimbursement','args':{'user_id':'U123','month':'2024-07'}}]。此时下一步必须由谁执行该函数？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "模型自身立即执行该函数并返回结果"
+        },
+        {
+          "option_label": "B",
+          "option_text": "前端界面自动解析参数并发起HTTP请求"
+        },
+        {
+          "option_label": "C",
+          "option_text": "应用服务端代码解析tool_calls，调用内部报销服务，并将结果以role='tool'消息回传"
+        },
+        {
+          "option_label": "D",
+          "option_text": "用户需手动输入工单号后，模型才重新生成调用指令"
+        }
+      ],
+      "answer": "C",
+      "analysis": "依据4.3节Function Calling流程四步铁律：模型只输出结构化tool_calls（提议），执行必须由应用代码完成；工具结果必须包装为role='tool'消息回传至上下文，模型才能基于Observation继续推理。选项A违反'模型不执行'核心原则（教材明确标注❌陷阱）；B错误将执行权交给前端，违背服务端安全与状态管理要求；D违背'缺参应主动追问'原则——此处参数已完整，无需用户干预。C完全符合教材'程序执行→结果回传'闭环定义。",
+      "difficulty_label": "基础"
+    },
+    {
+      "type": 1,
+      "stem": "在排查一个ReAct Agent反复失败的故障时，发现其轨迹中Thought步骤逻辑合理，但Action调用的工具始终返回空结果。以下哪些措施符合教材4.4节ReAct铁律与4.6节反思策略？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "检查是否设置了最大迭代轮数上限，避免因超限未触发收尾逻辑导致用户无响应"
+        },
+        {
+          "option_label": "B",
+          "option_text": "启用外部反馈机制，让代码解释器执行工具返回的JSON，捕获实际报错信息并注入下一轮Observation"
+        },
+        {
+          "option_label": "C",
+          "option_text": "将所有历史对话拼入messages，扩大上下文窗口以增强模型记忆"
+        },
+        {
+          "option_label": "D",
+          "option_text": "在Planner组件中硬编码fallback逻辑：当工具返回空时自动切换至备用API"
+        },
+        {
+          "option_label": "E",
+          "option_text": "使用LLM-as-Judge对每轮Thought进行独立评分，筛选高分轨迹用于微调"
+        }
+      ],
+      "answer": "ABD",
+      "analysis": "A正确：教材4.4节明确'必须设置最大迭代轮数/超时/预算上限'，超限未处理是典型死循环风险；B正确：4.6.1节强调外部反馈用真实执行结果校验，代码解释器报错是最可靠Observation来源；D正确：4.2节'关键约定'指出'要给模型失败出口'，Planner实现fallback是标准工程实践。C错误：4.8节明确反对'全量拼接历史'，会引发注意力稀释和Lost in Middle；E错误：LLM-as-Judge用于评测而非运行时故障诊断，且教材强调其需黄金集校准，直接用于微调违背'确定性检查优先'原则。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 0,
+      "stem": "某团队需接入20+内部系统（OA、HR、CRM、BI），每个系统提供方希望自主维护工具能力。若采用Function Calling硬编码Schema，每次接口变更需全量更新所有Agent代码。根据教材4.5节，最根本的解法及其与Function Calling的关系是？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "引入MCP协议，由工具提供方部署MCP Server暴露Tools/Resource/Prompts原语；Function Calling作为MCP Client调用工具的具体执行机制"
+        },
+        {
+          "option_label": "B",
+          "option_text": "改用RAG模式，将各系统API文档向量化，让模型实时检索调用方式"
+        },
+        {
+          "option_label": "C",
+          "option_text": "构建统一API网关，所有Agent通过网关调用，Schema由网关集中管理"
+        },
+        {
+          "option_label": "D",
+          "option_text": "使用LangChain工具链自动解析OpenAPI规范，动态生成Function Calling Schema"
+        }
+      ],
+      "answer": "A",
+      "analysis": "教材4.5节明确MCP解决'工具如何被发现、被管理、被复用'，其三层架构（Host/Client/Server）和三类原语（Tools/Resources/Prompts）直击题干痛点；且4.5节对比表强调'MCP与Function Calling互补：MCP管接入标准化，FC管调用机制'。B错误：RAG解决知识检索，不解决工具执行；C错误：网关仍是中心化硬编码，未实现'谁提供谁定义'；D错误：LangChain非教材内容，且动态解析无法解决Schema维护责任归属问题。",
+      "difficulty_label": "中等"
+    },
+    {
+      "type": 1,
+      "stem": "设计一个跨会话的项目进度跟踪Agent，用户首次说'请跟进XX项目'，后续多轮询问'当前阻塞点？''下周计划？'。当前采用固定窗口截断，第15轮后丢失初始项目ID。以下哪些Memory策略组合符合教材4.8节最佳实践？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "将项目ID等关键元数据写入长期记忆向量库，每次新问题按语义检索相关记忆片段注入上下文"
+        },
+        {
+          "option_label": "B",
+          "option_text": "在短期记忆中强制保留前5轮对话，其余轮次滚动摘要压缩"
+        },
+        {
+          "option_label": "C",
+          "option_text": "为每个项目创建独立会话线程，避免不同项目记忆混淆"
+        },
+        {
+          "option_label": "D",
+          "option_text": "要求用户每轮都重复项目名称，由模型提取后存入临时变量"
+        },
+        {
+          "option_label": "E",
+          "option_text": "使用Mem0LongTermMemory模块，配置自动过滤敏感字段并支持用户手动删除"
+        }
+      ],
+      "answer": "ABCE",
+      "analysis": "A正确：4.8节向量化召回策略明确解决'跨会话持久化关键事实'；B正确：教材推荐'短期用窗口/摘要保连贯'，滚动摘要可保留核心信息；C正确：4.7节多Agent原则虽针对Agent，但'独立上下文'思想可迁移，避免记忆污染；E正确：教材'持续治理'要求'支持用户查看/修改/删除自己记忆'，Mem0是教材提及的开箱即用方案。D错误：违背'有选择地记'原则，增加用户负担且不可靠，教材强调应由系统主动管理记忆。",
+      "difficulty_label": "中等"
+    },
+    {
+      "type": 0,
+      "stem": "某教育平台开发课程审查Agent，需检查'代码能否运行''概念是否准确''风格是否学术'。当前提示词反复强调'不要用小说式开头'，但新会话仍出现。根据教材4.9节，最本质的解决方案是？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "将审查标准写入QWEN.md全局配置文件，确保所有会话加载"
+        },
+        {
+          "option_label": "B",
+          "option_text": "在每次会话开始时，将'禁止小说式开头'规则作为system prompt首行强制注入"
+        },
+        {
+          "option_label": "C",
+          "option_text": "封装为course-review Skill，YAML头声明适用场景，正文定义风格正反例模板，子文档script验证格式"
+        },
+        {
+          "option_label": "D",
+          "option_text": "使用LLM-as-Judge对每段输出打分，低于阈值则重生成"
+        }
+      ],
+      "answer": "C",
+      "analysis": "教材4.9节定义Skill本质是'固化SOP'，其'渐进式披露'机制（仅激活时加载详情）完美解决'每会话重申'痛点；YAML frontmatter+子文档结构正是教材示例。A错误：QWEN.md属Harness范畴，但教材强调其用于'三级配置'，非Skill级SOP固化；B错误：违背'避免全量注入'原则，且零散规则易失效；D错误：LLM-as-Judge是评测手段（4.10节），非生产环境执行逻辑。",
+      "difficulty_label": "基础"
+    },
+    {
+      "type": 1,
+      "stem": "某金融风控Agent需执行'查询客户信用分→判断是否放贷→生成报告→邮件发送'。近期出现两起故障：①信用分查询超时后Agent直接崩溃；②邮件发送失败但未通知用户。依据教材4.2节组件职责与4.11节Harness原则，应强化哪些环节？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "在Tool组件中为信用查询API添加超时重试与降级逻辑（如返回默认分）"
+        },
+        {
+          "option_label": "B",
+          "option_text": "在Planner中预设'邮件失败→短信通知'的fallback工作流"
+        },
+        {
+          "option_label": "C",
+          "option_text": "将全部四步流程写入单个LLM提示词，依赖模型自主决策"
+        },
+        {
+          "option_label": "D",
+          "option_text": "在Harness中配置确定性检查：验证邮件API调用后必有status=200或error字段"
+        },
+        {
+          "option_label": "E",
+          "option_text": "要求LLM在每轮Thought中显式声明'下一步是否可能失败'，并提前规划应对"
+        }
+      ],
+      "answer": "ABD",
+      "analysis": "A正确：4.2节'关键约定'强调'要给模型失败出口'，Tool层实现重试是标准做法；B正确：4.6.2节工作流模式明确'分支（Branching）'用于路由异常路径；D正确：4.10节确定性检查定义'验证该发生的步骤有没有发生'，状态码校验是典型客观项。C错误：违背'简单任务不上复杂架构'原则，且4.2节强调组件解耦便于定位；E错误：教材未要求模型自我声明失败概率，属过度设计，4.4节ReAct铁律已通过轮数上限保障安全。",
+      "difficulty_label": "进阶"
+    }
+  ]
+}

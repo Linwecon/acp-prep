@@ -1,0 +1,219 @@
+{
+  "new-8-48-0": {
+    "qid": "new-8-48-0",
+    "classification": "own",
+    "chapter": 8,
+    "quality": "ok",
+    "reason": "考查多模态检测短路逻辑，教材有明确依据",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "文本/图像/音频/视频任意一类判定为 fail，整体状态就是 fail",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "教材规定多模态检测任一失败即整体失败"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "音视频是异步，非必须同步"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "教材未要求上传前本地脱敏"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "image_moderation可识别OCR文字"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-8-48-1": {
+    "qid": "new-8-48-1",
+    "classification": "own",
+    "chapter": 8,
+    "quality": "ok",
+    "reason": "考查RAG权限过滤执行顺序，教材有明确流程",
+    "answer": [
+      "D"
+    ],
+    "supported": true,
+    "quote": "过滤发生在检索之后、拼 Prompt 之前；关键在于：过滤发生在检索之后、拼 Prompt 之前",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "过滤应在检索后，非检索前"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "过滤应在拼Prompt前，非之后"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "过滤应在模型推理前，非输出后"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "位置正确但未解析字符串是可能缺陷"
+      }
+    ],
+    "duplicate_of": "8-5159"
+  },
+  "new-8-48-2": {
+    "qid": "new-8-48-2",
+    "classification": "own",
+    "chapter": 8,
+    "quality": "ok",
+    "reason": "考查数据安全防护中加密与脱敏的关系",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "PII 必须在进入训练、评测、RAG 链路之前做掩码、替换、泛化或删除",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "虽需闭环，但非本题核心"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "教材未强制要求KMS托管"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "加密不能替代脱敏，PII需先脱敏"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "虽应覆盖全链路，但非本题核心"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-8-48-3": {
+    "qid": "new-8-48-3",
+    "classification": "own",
+    "chapter": 8,
+    "quality": "ok",
+    "reason": "考查间接提示注入的针对性防护措施",
+    "answer": [
+      "A",
+      "B",
+      "E"
+    ],
+    "supported": true,
+    "quote": "间接提示注入来自文档/网页，检索回来的内容也要过滤；指令与数据隔离：用清晰的分隔符把 System Prompt、用户输入、检索文档包起来",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "检索内容需做注入检测"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "指令数据隔离是明确要求"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "工具最小权限是通用防护"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "转图片检测非针对性措施"
+      },
+      {
+        "label": "E",
+        "selected": true,
+        "why": "分隔符标记边界是明确要求"
+      }
+    ],
+    "duplicate_of": "8-5164"
+  },
+  "new-8-48-4": {
+    "qid": "new-8-48-4",
+    "classification": "own",
+    "chapter": 8,
+    "quality": "ok",
+    "reason": "考查资源耗尽型DDoS的防护维度",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "应用层对单个用户设 token/算力上限并对超复杂请求做成本预估与熔断",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "需对单用户设算力熔断"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "WAF的CC防护已包含频率限制"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "SYN Flood非此类攻击特征"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "K8s约束非教材明确防护维度"
+      }
+    ],
+    "duplicate_of": "8-5158"
+  },
+  "new-8-48-5": {
+    "qid": "new-8-48-5",
+    "classification": "own",
+    "chapter": 8,
+    "quality": "ok",
+    "reason": "考查RAG访问控制失效后的底层数据安全缺陷",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "向量携带语义，攻击者可通过向量距离/聚类推断主题，甚至近似反推原文",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "访问控制逻辑正确，非文件加密问题"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "向量未加密可能导致语义泄露"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "审计日志缺失非底层数据缺陷"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "SQL注入非题干描述场景"
+      }
+    ],
+    "duplicate_of": "8-5161"
+  }
+}

@@ -1,0 +1,215 @@
+{
+  "1-0068": {
+    "qid": "1-0068",
+    "classification": "own",
+    "chapter": 1,
+    "quality": "ok",
+    "reason": "考查幻觉定义，选项区分度好",
+    "answer": [
+      "A",
+      "C"
+    ],
+    "supported": true,
+    "quote": "幻觉（Hallucination）：上下文不足时，模型仍会按概率'编'出一个看似合理但错误的答案。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "虚构人物是典型幻觉"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "生成作文是模型能力"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "解释错误属于事实幻觉"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "翻译是正常功能"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "1-0069": {
+    "qid": "1-0069",
+    "classification": "own",
+    "chapter": 1,
+    "quality": "ok",
+    "reason": "考查幻觉缓解措施，符合教材",
+    "answer": [
+      "A",
+      "B",
+      "C"
+    ],
+    "supported": true,
+    "quote": "幻觉无法100%消除，只能缓解：用RAG提供可核查的资料、在提示词中要求'只依据资料回答'、让模型标注引用、再配合人工抽检。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "提示词约束可减少虚构"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "RAG补充知识缓解幻觉"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "后处理验证是有效手段"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "参数小不直接减少幻觉"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "1-0111": {
+    "qid": "1-0111",
+    "classification": "own",
+    "chapter": 1,
+    "quality": "ok",
+    "reason": "考查五阶段流程中的解码阶段",
+    "answer": [
+      "D"
+    ],
+    "supported": true,
+    "quote": "第四阶段：解码与自回归（Decoding & Autoregression）...循环直到遇到终止符（EOS）、达到最大生成长度，或命中停用词。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "分词是第一阶段"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "向量化是第二阶段"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "推理是第三阶段"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "输出Token阶段循环生成"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "1-0325": {
+    "qid": "1-0325",
+    "classification": "own",
+    "chapter": 1,
+    "quality": "ok",
+    "reason": "考查模型基于概率选择Token的原理",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "LLM的本质是条件概率模型：给定上文，模型计算下一个词的概率分布P(下一个词 | 上文)。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "模型按概率分布选择"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "默认不会为多样性选低概率"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "不会同时包含两个词"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "非随机，按概率分布选择"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "1-0378": {
+    "qid": "1-0378",
+    "classification": "cross",
+    "chapter": -1,
+    "quality": "review",
+    "reason": "考点属于工具集成，但教材未明确对应章节",
+    "answer": [
+      "B"
+    ],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "通常不直接修改源码"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "API是常见集成方式"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "硬件升级非插件方式"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "操作系统插件不相关"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "1-0385": {
+    "qid": "1-0385",
+    "classification": "beyond",
+    "chapter": -1,
+    "quality": "remove",
+    "reason": "考查AI子领域分类，超出教材范围，无考查价值",
+    "answer": [
+      "A"
+    ],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "深度学习是机器学习子集"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "描述正确"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "描述正确"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "描述正确"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

@@ -1,0 +1,154 @@
+{
+  "items": [
+    {
+      "type": 0,
+      "stem": "某团队对新人答疑机器人进行优化后，RAGAS评测显示Context Recall从0.62升至0.91，但Answer Correctness仅从0.43微升至0.45，且Faithfulness下降0.18。此时最应优先排查的环节是？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "知识库是否缺失关键政策文档（如年假实施细则）"
+        },
+        {
+          "option_label": "B",
+          "option_text": "检索返回的contexts中存在大量无关片段，导致模型注意力被稀释"
+        },
+        {
+          "option_label": "C",
+          "option_text": "生成提示词未强制约束‘仅依据上下文作答’，引发幻觉编造"
+        },
+        {
+          "option_label": "D",
+          "option_text": "ground_truth标注未覆盖多义场景（如‘年假’在不同职级下的计算规则）"
+        }
+      ],
+      "answer": "C",
+      "analysis": "根据教材7.5节‘定位问题的黄金法则’：Context Recall显著提升（0.62→0.91）说明检索端已能覆盖标准答案所需信息；但Faithfulness下降且Answer Correctness几乎无改善，表明问题已转移至生成端——模型虽获得正确资料，却未忠实使用，反而编造错误内容（即幻觉）。教材7.4.3明确Faithfulness专用于检测‘答案每句话能否由contexts直接推断’，其下降直接指向生成环节的提示词约束失效或上下文拼装逻辑缺陷。A选项对应Recall低时的优化方向（教材7.5表），与当前Recall高矛盾；B选项会导致Precision低而非Recall高，且会同步拉低Faithfulness和Correctness，但题干未提Precision变化；D选项影响的是ground_truth权威性，若ground_truth本身有缺陷，Recall计算（依赖ground_truth分解观点）将失真，但题干中Recall反常升高，说明ground_truth仍有效，故非首要排查项。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 1,
+      "stem": "在构建新人答疑机器人的评测集时，以下哪些操作违反了教材强调的‘评测集构建铁律’？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "从客服系统导出近3个月所有用户提问，按出现频次抽样形成question字段"
+        },
+        {
+          "option_label": "B",
+          "option_text": "由算法工程师根据常见HR政策编写ground_truth，并用BLEU分数验证与线上历史答案一致性"
+        },
+        {
+          "option_label": "C",
+          "option_text": "为覆盖边界场景，人工构造‘张伟同时在教研部和行政部兼职’等对抗性question"
+        },
+        {
+          "option_label": "D",
+          "option_text": "将上一版本模型在测试集上的输出answer直接作为新版本评测的ground_truth"
+        }
+      ],
+      "answer": "B,D",
+      "analysis": "教材7.2.1‘评测集构建的两条铁律’明确要求：① question必须来自真实用户场景（A符合，导出线上日志抽样是正解）；② ground_truth‘必须由业务领域专家编写/审定’（B错误：算法工程师非HR领域专家，且用BLEU验证ground_truth违背教材7.2.3风险提示——‘BLEU只认字面重合，同义改写会被误伤’，更严重的是混淆了ground_truth定义权）；C是教材7.8.2‘分层/分难度覆盖’提倡的对抗样本补充，属正确实践；D是教材7.8.2明令禁止的‘数据泄漏’行为（‘绝不能用训练数据当评测集’），且将模型输出当作ground_truth彻底违背‘ground_truth必须由领域专家提供’原则，导致评测失去基准。因此B、D均违规。",
+      "difficulty_label": "高阶"
+    },
+    {
+      "type": 0,
+      "stem": "某Agent在课程写作任务中端到端评测得分为4.3/5，但用户反馈‘生成的Python代码示例无法运行’。此时若仅增加LLM-as-Judge对代码可执行性的主观评分，最可能忽视的根本问题是？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "LLM评委存在长度偏见，倾向给冗长代码更高分"
+        },
+        {
+          "option_label": "B",
+          "option_text": "代码可执行性属于客观硬指标，需确定性检查而非主观判断"
+        },
+        {
+          "option_label": "C",
+          "option_text": "未校准评委对‘Python语法正确性’的评分阈值"
+        },
+        {
+          "option_label": "D",
+          "option_text": "缺少对工具调用序列（ToolCallAccuracy）的白盒评测"
+        }
+      ],
+      "answer": "B",
+      "analysis": "教材7.6.1明确区分三类Agent评测方法：‘确定性检查（规则/断言）’适用于‘代码能否运行、是否含必需章节’等客观项，特点是‘确定、可调试、成本低’；而LLM-as-Judge适用于‘内容准确性、教学有效性’等主观语义。题干中‘代码无法运行’是确定性事实（可通过解释器执行验证），非主观评价范畴。若仅用LLM评委主观打分，既违背教材‘确定性检查管客观硬指标’的分工原则（7.6.1表），又因LLM自身无法真正执行代码而必然失效。A、C是LLM-as-Judge的固有偏见（7.8.1），但非本题根本问题；D虽涉及白盒，但ToolCallAccuracy针对工具调用正确性，而题干问题在代码生成组件本身，非调用链路。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 1,
+      "stem": "在使用RAGAS评估时，若发现Answer Relevancy得分持续偏低（<0.5），而其他指标（Context Recall/Precision/Faithfulness）均正常，以下哪些优化措施符合教材推荐路径？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "在系统提示词中增加约束：‘不得使用“我不确定”“可能”等模糊表述’"
+        },
+        {
+          "option_label": "B",
+          "option_text": "扩大Top K检索数量，确保更多潜在相关信息被召回"
+        },
+        {
+          "option_label": "C",
+          "option_text": "修改提示词，要求模型先复述问题再作答，强化意图锚定"
+        },
+        {
+          "option_label": "D",
+          "option_text": "为ground_truth添加多粒度答案变体（如‘年假’‘带薪休假’‘vacation’）"
+        }
+      ],
+      "answer": "A,C",
+      "analysis": "教材7.4.5定义Answer Relevancy衡量‘答案是否切题、是否含糊’，并指出其专治‘答非所问’和‘甩锅式回答（noncommittal）’；7.5节定位法则明确‘Relevancy低 → 查提示词与意图理解’。A直接针对noncommittal问题（教材7.4.5‘含糊回避标记为1’），C通过复述问题强化意图理解，均属教材7.5表‘优化方向’推荐（‘查意图识别、改写问题、约束不得回避问题’）。B扩大Top K会恶化Precision（教材7.5风险提醒‘Recall低就一味调大Top K’是踩坑），且Relevancy不依赖检索量；D针对的是Answer Correctness中的语义相似度（需ground_truth覆盖同义词），但Relevancy计算不依赖ground_truth（教材7.4.5‘根据answer结合context反向生成问题’），故无效。",
+      "difficulty_label": "中阶"
+    },
+    {
+      "type": 0,
+      "stem": "某团队用公开基准C-Eval筛选出表现最优的大模型，但在自建新人答疑评测集上，该模型Answer Correctness仅为0.38（基线模型0.52）。造成此落差的最核心原因是什么？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "C-Eval题目存在数据污染，该模型在预训练阶段已见过部分试题"
+        },
+        {
+          "option_label": "B",
+          "option_text": "C-Eval评测通用知识广度，而答疑场景需特定HR政策领域知识"
+        },
+        {
+          "option_label": "C",
+          "option_text": "团队未冻结评测配置（如temperature=0.7 vs 0.3），导致分数不可比"
+        },
+        {
+          "option_label": "D",
+          "option_text": "C-Eval使用英文评测，中文场景下模型能力被低估"
+        }
+      ],
+      "answer": "B",
+      "analysis": "教材7.7‘公开基准的三个坑’首条即强调：‘基准只反映通用能力，和你的业务题型、语言分布、领域知识可能完全不同’，并明确‘正确定位：仅用于选型初筛，业务决策必须用自建评测集+领域专家验证’。题干中C-Eval高分与自建集低分的矛盾，本质是通用能力（C-Eval）与垂直领域能力（HR政策）的错配，B项直指此核心。A是教材提及的‘数据污染/刷分’风险，但属次要可能性，非‘最核心’；C违反教材7.2.4‘控制变量’原则，但题干未提配置变动，属无依据猜测；D错误——C-Eval是中文基准（教材7.7表明确列出），且题干未提语言问题。",
+      "difficulty_label": "中阶"
+    },
+    {
+      "type": 1,
+      "stem": "在实施评测驱动开发（EDD）时，以下哪些做法能有效防止‘跷跷板效应’？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "每次优化后，用同一套冻结评测集运行，对比各题型细分分数变化"
+        },
+        {
+          "option_label": "B",
+          "option_text": "建立回归评测流水线，在CI/CD中自动触发全量评测"
+        },
+        {
+          "option_label": "C",
+          "option_text": "将评测集按难度分层，确保简单/中等/困难题型均被覆盖"
+        },
+        {
+          "option_label": "D",
+          "option_text": "在优化前，先用小样本快速验证改动方向，再扩展至全量"
+        }
+      ],
+      "answer": "A,B,C",
+      "analysis": "教材7.1节将‘跷跷板效应’定义为‘一处变好、另一处变差’，并指出‘评测集就是那块能同时看到两端的跷跷板’；7.1‘评测先行’原则强调‘没有基线，无法判断改动是否有效；没有冻结的评测集，无法判断分数变化来自改动还是题目本身’。A直接对应教材7.1‘自测题解析’：‘建立回归评测机制：冻结评测集，每次改动后用同一套题对比各题型分数变化’；B是教材7.9提到DeepEval‘便于接入CI/CD做自动化回归’的实践延伸，保障回归评测执行；C是教材7.8.2‘评测集设计要点’：‘分层/分难度覆盖...只含简单题会导致分数虚高’，确保评测集能全面暴露短板，避免优化单一题型导致其他题型退化。D属于敏捷验证，但教材未将其列为防跷跷板的核心机制，且‘小样本快速验证’无法替代全量回归评测的统计可靠性。",
+      "difficulty_label": "高阶"
+    }
+  ]
+}

@@ -1,0 +1,154 @@
+{
+  "items": [
+    {
+      "type": 0,
+      "stem": "某团队对新人答疑机器人执行切片优化后，RAGAS评测显示Context Recall从0.62升至0.89，但Faithfulness下降0.15且Answer Correctness仅微升0.02；日志确认检索返回的contexts中完整包含'张伟是教研部的'等关键信息。此时若要验证是否因控制变量失效导致分数失真，最应优先核查哪项配置？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "评测用LLM（qwen-plus）的temperature是否从0.3调整为0.7"
+        },
+        {
+          "option_label": "B",
+          "option_text": "评测集question字段是否被重新采样替换为新一批线上日志问题"
+        },
+        {
+          "option_label": "C",
+          "option_text": "ground_truth是否由原HRBP专家组更新为实习生编写的版本"
+        },
+        {
+          "option_label": "D",
+          "option_text": "embedding模型是否从text-embedding-v3切换为bge-zh-v1.5"
+        }
+      ],
+      "answer": "A",
+      "analysis": "依据教材7.2.4节'控制变量：让分数可比'，回归评测前提必须冻结所有非待测变量，尤其强调'推理参数（temperature、seed）、模型版本、当评委的大模型版本都要固定'。temperature升高会显著增加生成随机性，直接导致Faithfulness（依赖逐句判定）和Answer Correctness（含事实F1）波动，且与检索端指标变化无因果关系——这正是分数失真而非真实性能提升的典型信号。B选项虽违反'评测集冻结'原则，但会导致所有指标系统性偏移，无法解释为何Recall上升而Faithfulness下降；C选项违反7.2.1节'ground_truth必须由领域专家提供'铁律，属根本性错误，但其影响是整体可信度崩塌，而非特定指标反向变动；D选项更换embedding模型会影响Context Recall/Precision计算（因Recall依赖embedding相似度判断支撑性），但教材明确指出'不要频繁更换评测用的Embedding模型'，且该变更通常同步影响Recall与Precision，难以单独解释Faithfulness下降。故A是唯一符合'控制变量失效→生成端指标异常波动'逻辑链的必要核查项。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 1,
+      "stem": "在实施评测驱动开发（EDD）时，以下哪些做法能同时满足‘防止回归’与‘定位问题’双重目标？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "每次优化后，使用同一套冻结的评测集（含question/ground_truth/contexts）运行全量指标"
+        },
+        {
+          "option_label": "B",
+          "option_text": "将评测集按业务场景分层（如入职/报销/年假），并分别统计各层Context Recall与Answer Correctness"
+        },
+        {
+          "option_label": "C",
+          "option_text": "仅监控Answer Correctness总分，当其提升即判定优化成功"
+        },
+        {
+          "option_label": "D",
+          "option_text": "在自动化脚本中强制固定temperature=0、seed=42，并使用qwen-plus作为唯一评委LLM"
+        }
+      ],
+      "answer": "ABD",
+      "analysis": "A正确：教材7.1节'评测先行'强调'没有冻结的评测集，无法判断分数变化来自改动还是题目本身'，且7.5节'定位问题的黄金法则'要求结合多指标分析，全量指标覆盖是定位基础；B正确：教材7.8.2节'评测集设计要点'要求'分层/分难度覆盖'，分层统计可识别'修好A弄坏B'的跷跷板效应（如报销层Recall↑但年假层Correctness↓），实现精准定位与回归验证；D正确：教材7.2.4节明确要求'temperature/seed/模型版本冻结'，这是保证分数可比、归因准确的前提，缺失则无法区分是优化有效还是配置漂移。C错误：教材7.5节'踩坑提醒'明确指出'只看Answer Correctness一个总分→总分低时分不清是检索还是生成的锅'，更无法发现回归问题，违背定位与防回归双重目标。",
+      "difficulty_label": "挑战"
+    },
+    {
+      "type": 0,
+      "stem": "某团队使用qwen-plus作为RAGAS评委模型计算Answer Correctness，但发现对简洁答案（如‘张伟是教研部的’）打分偏低，而对冗长解释（如‘根据资料，张伟是教研部的一名工程师，负责...’）打分偏高。依据本章7.8.1节LLM-as-Judge偏见分析，应优先采取哪项校准动作？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "在评分提示词中加入约束：'答案长度超过50字时，每多10字扣0.05分'"
+        },
+        {
+          "option_label": "B",
+          "option_text": "将同一问题的两个候选答案随机交换顺序，分别调用评委模型打分后取平均"
+        },
+        {
+          "option_label": "C",
+          "option_text": "用黄金测试集（含专家标注的简洁/冗长答案）校准评委阈值，重设'优秀'得分下限"
+        },
+        {
+          "option_label": "D",
+          "option_text": "更换评委模型为gpt-4-turbo，因其更擅长理解简洁表达"
+        }
+      ],
+      "answer": "C",
+      "analysis": "题干描述的是典型的'长度偏见'（教材7.8.1节明确列出），但校准动作需遵循'原则→实践'逻辑：教材7.8.1节'校准LLM评委的标准动作'第四条强调'定期用人工标注校准阈值'，且7.8.2节定义'黄金测试集'为'由业务专家标注的高质量基准'，用于定义'什么是好'。C选项直接对应此标准动作，通过黄金集校准可量化修正偏见。A选项虽针对长度，但'硬性扣分'违背教材'评分细则中明确冗余扣分'的柔性原则，且未解决根本校准问题；B选项针对'位置偏见'，与题干无关；D选项违反教材7.2.4节'不要频繁更换评测用的LLM'，且可能引入新偏见（如自我偏好），属于治标不治本。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 1,
+      "stem": "团队在优化RAG系统时观察到：Context Precision从0.35升至0.72，Context Recall却从0.88降至0.75，且Answer Correctness小幅下降。此时最合理的归因与应对策略是？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "归因：过度过滤噪声导致相关片段被误删；策略：降低相似度阈值或减少Rerank截断数"
+        },
+        {
+          "option_label": "B",
+          "option_text": "归因：知识库内容被意外删除；策略：立即回滚切片配置并检查知识库完整性"
+        },
+        {
+          "option_label": "C",
+          "option_text": "归因：Top K设置过小，导致部分相关片段未被召回；策略：在保持Precision前提下适度增大Top K并配合Rerank"
+        },
+        {
+          "option_label": "D",
+          "option_text": "归因：embedding模型精度不足；策略：立即更换为更强embedding模型"
+        }
+      ],
+      "answer": "AC",
+      "analysis": "A正确：教材7.5节'踩坑提醒'明确指出'Context Recall低就一味调大Top K→噪声暴涨，Precision跟着掉'，反之亦然——Precision↑+Recall↓正是'过度追求信噪比而牺牲覆盖率'的典型表现，降低阈值/减少截断可平衡二者。C正确：教材7.5节'定位问题的黄金法则'及'优化方向'表指出，Precision低时'加Rerank'，Recall低时'调大Top K'，此处需协同优化：增大Top K可提升Recall，但需Rerank保障Precision不回落，符合'先检索后生成'总体顺序。B错误：Recall下降主因通常是检索策略（如Top K、embedding、改写），知识库删除会导致Recall断崖式下跌（如0.88→0.3），与'小幅下降'不符；D错误：embedding更换通常同步影响Recall与Precision，且教材7.5节强调'先查检索策略再换模型'，属过度反应。",
+      "difficulty_label": "挑战"
+    },
+    {
+      "type": 0,
+      "stem": "某团队对新人答疑机器人进行切片优化后，RAGAS评测显示Context Recall从0.62升至0.91，但Answer Correctness反而从0.78降至0.53，且Faithfulness同步下降。日志确认检索返回的contexts中包含完整正确信息（如'张伟是教研部的'），但模型生成答案为'张伟在人事部工作'。此时最应优先排查的环节是？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "检索模块的切片逻辑是否导致上下文拼接错乱，使关键信息被截断或语义失真"
+        },
+        {
+          "option_label": "B",
+          "option_text": "生成模块的提示词是否缺少'严格依据上下文回答，禁止编造'的强约束"
+        },
+        {
+          "option_label": "C",
+          "option_text": "评测集ground_truth是否由AI工程师编写而非HR专家审定"
+        },
+        {
+          "option_label": "D",
+          "option_text": "RAGAS评委模型qwen-plus的embedding维度是否与text-embedding-v3不匹配"
+        }
+      ],
+      "answer": "B",
+      "analysis": "题干呈现'检索端指标（Recall）显著提升+生成端指标（Faithfulness/Correctness）同步恶化'，且日志证实上下文含正确信息——这完全符合教材7.5节'黄金法则'第2条：'检索指标都好，但Faithfulness/Correctness低→问题在生成阶段'。B选项直指生成端核心：Faithfulness低的本质是'答案脱离资料编造'（教材7.3节定义），而教材7.5节'优化方向'明确给出'强化只依据资料回答的提示词约束'。A选项属检索端问题，但Recall已升至0.91，说明关键信息被召回，拼接错乱通常导致Recall下降；C选项违反7.2.1节'ground_truth必须由领域专家提供'，但若ground_truth错误，Correctness下降而Faithfulness可能不变（因Faithfulness不依赖ground_truth），与题干'Faithfulness同步下降'矛盾；D选项属7.2.4节控制变量问题，但embedding不匹配主要影响Recall/Precision计算，不会导致Faithfulness下降。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 1,
+      "stem": "在构建新人答疑机器人评测集时，以下哪些操作同时违反教材7.2.1节'评测集构建的两条铁律'及7.2.2节'指标分层'原则？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "技术团队从线上日志抽取100个高频问题，由AI工程师编写标准答案，并用BLEU分数作为最终验收指标"
+        },
+        {
+          "option_label": "B",
+          "option_text": "邀请3位HRBP编写ground_truth，但问题全部来自技术团队凭空编造的'理想化场景'"
+        },
+        {
+          "option_label": "C",
+          "option_text": "评测集覆盖入职/报销/年假三类场景，但仅用Accuracy作为唯一评估指标"
+        },
+        {
+          "option_label": "D",
+          "option_text": "从客服工单抽样问题，由HRBP审定ground_truth，但评测时仅报告Answer Correctness总分而不分析分层指标"
+        }
+      ],
+      "answer": "AB",
+      "analysis": "A正确：违反'铁律1-问题来自真实用户'（线上日志符合），但违反'铁律2-标准答案由领域专家提供'（AI工程师编写）；同时违反'指标分层'原则——教材7.2.2节强调'算法指标是手段，业务指标才是目标'，BLEU是传统自动指标，'仅用BLEU验收'即本末倒置，忽略业务目标（用户满意度）。B正确：违反'铁律1-问题来自真实用户'（凭空编造），也违反'铁律2'（HRBP编写答案但问题不真实，导致答案失去业务锚点）；'指标分层'要求问题覆盖真实场景，否则分层分析无意义。C错误：'仅用Accuracy'违反指标分层中'不要本末倒置'，但未违反两条铁律（问题来源、答案提供者合规）；D错误：'仅报告总分'违背教材7.5节'必须结合多指标定位'，但问题来源（工单）、答案提供者（HRBP）均合规，未违反铁律。",
+      "difficulty_label": "挑战"
+    }
+  ]
+}

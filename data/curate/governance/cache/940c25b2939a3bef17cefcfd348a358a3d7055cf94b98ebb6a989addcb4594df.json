@@ -1,0 +1,226 @@
+{
+  "new-4-48-0": {
+    "qid": "new-4-48-0",
+    "classification": "own",
+    "chapter": 4,
+    "quality": "ok",
+    "reason": "考查组件协作原则，工具结果必须回传上下文。",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "工具返回结果必须回灌到上下文，否则模型等于'做完就忘'",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "结果未写入Memory，LLM无法感知Observation。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "题干已说明工具执行成功。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "模型已输出tool_calls，说明进入闭环。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "题干未提及无限等待。"
+      }
+    ],
+    "duplicate_of": "4-5159"
+  },
+  "new-4-48-1": {
+    "qid": "new-4-48-1",
+    "classification": "own",
+    "chapter": 4,
+    "quality": "ok",
+    "reason": "考查RAG作为Agent工具的互补关系。",
+    "answer": [
+      "A",
+      "B",
+      "D"
+    ],
+    "supported": true,
+    "quote": "把检索器封装成 Agent 的一个工具，Agent 就能在需要时自主检索",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "Agent调用RAG工具获取知识。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "Agent调用API和RAG，RAG辅助解释。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "全程未调用Agent，是独立RAG。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "Agent调用API和RAG，RAG验证规则。"
+      },
+      {
+        "label": "E",
+        "selected": false,
+        "why": "跳过RAG，未体现互补。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-4-48-2": {
+    "qid": "new-4-48-2",
+    "classification": "own",
+    "chapter": 4,
+    "quality": "ok",
+    "reason": "考查Plan-and-Execute策略的核心改进。",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "遇到障碍时重新规划，而不是死守预设流程图",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "Plan阶段生成备选路径，体现重新规划。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "硬编码Schema是旧问题，非核心改进。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "工具重试是局部优化，非策略核心。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "记录失败非Plan-and-Execute核心。"
+      }
+    ],
+    "duplicate_of": "4-5158"
+  },
+  "new-4-48-3": {
+    "qid": "new-4-48-3",
+    "classification": "own",
+    "chapter": 4,
+    "quality": "ok",
+    "reason": "考查RAG与Agent组合的约束和误区。",
+    "answer": [
+      "A",
+      "B",
+      "D"
+    ],
+    "supported": true,
+    "quote": "避免全量注入：不要把所有 Agent 的知识/工具清单一次性写进主 Prompt",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "一次性全量注入，违反避免全量注入原则。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "Schema缺description，违反工具定义要求。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "优先调用RAG是合理选择，非违反。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "全文写入正文，违反渐进式披露原则。"
+      },
+      {
+        "label": "E",
+        "selected": false,
+        "why": "结果作为tool消息回传，符合规范。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-4-48-4": {
+    "qid": "new-4-48-4",
+    "classification": "own",
+    "chapter": 4,
+    "quality": "ok",
+    "reason": "考查Skill模块化、可版本化的核心原则。",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "Skill（技能）是把...打包成的模块化、可复用、可版本化的能力单元",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "YAML frontmatter是入口，非核心违背点。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "配好工具是编写要点，非本题核心。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "硬编码进提示词，违背模块化、可版本化。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "建立基线是验证方法，非本题核心。"
+      }
+    ],
+    "duplicate_of": "4-5184"
+  },
+  "new-4-48-5": {
+    "qid": "new-4-48-5",
+    "classification": "own",
+    "chapter": 4,
+    "quality": "ok",
+    "reason": "考查Function Calling中缺参时应主动追问的约定。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "参数可以在多轮对话中逐步收集，缺参时 Agent 应主动追问",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "模型提议程序执行已发生，非本题核心。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "缺参未追问，直接调用失败，违反约定。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "题干未说明Schema描述缺失。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "结果回传是另一约定，非本题核心。"
+      }
+    ],
+    "duplicate_of": "4-5186"
+  }
+}

@@ -1,0 +1,44 @@
+{
+  "new-8-12-2": {
+    "qid": "new-8-12-2",
+    "classification": "own",
+    "chapter": 8,
+    "quality": "ok",
+    "reason": "考查最小权限原则在工具、权限、数据三维度的落地，题干与本章目标8完全匹配。",
+    "answer": [
+      "A",
+      "B",
+      "D"
+    ],
+    "supported": true,
+    "quote": "工具权限最小化：Agent使用的数据库/OS账号只给'必需的权限'，禁止它删库、改工资；RAG知识库按职位/部门做Top-K过滤；检索内容无害化：RAG取回的文档同样要过一遍注入检测",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "RAM角色+邮箱白名单，符合工具最小权限"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "按position_id交集过滤，是RAG权限标准流程"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "同一Bucket无细粒度控制，违反最小权限"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "PDF送检是间接注入防护必要措施"
+      },
+      {
+        "label": "E",
+        "selected": false,
+        "why": "主账号硬编码，严重违反密钥管理四件事"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

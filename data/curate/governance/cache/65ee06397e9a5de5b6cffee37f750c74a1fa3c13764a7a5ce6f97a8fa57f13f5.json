@@ -1,0 +1,154 @@
+{
+  "items": [
+    {
+      "type": 0,
+      "stem": "某教育公司新人答疑机器人初期仅需单轮问答，两周后需求演进为RAG知识库+多轮对话+调用三个内部系统+效果评测+前端API接入。工程师发现代码从20行膨胀至600行，充斥手动拼接messages、重复检索逻辑和硬编码历史管理。根据第12章核心观点，导致此困境的根本原因是什么？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "模型能力不足，需升级至更强的大语言模型"
+        },
+        {
+          "option_label": "B",
+          "option_text": "未及时引入LangChain进行Agent编排"
+        },
+        {
+          "option_label": "C",
+          "option_text": "缺乏对‘共性脏活’的工程化抽象，导致重复造轮子"
+        },
+        {
+          "option_label": "D",
+          "option_text": "文档解析质量差，造成RAG效果不稳定"
+        }
+      ],
+      "answer": "C",
+      "analysis": "依据12.1节‘为什么需要框架’：真实应用反复出现‘提示词拼装、多轮历史维护、文档加载切片向量化、多步骤编排、工具调用循环、链路追踪’等共性脏活；裸调SDK时需在每个项目中重写，而框架价值正在于将这些模式抽象为可组合组件（如PromptTemplate/Memory/Retriever/Chain/Agent）。题干中‘手动拼接messages、重复写检索逻辑、手工维护历史’正是未做工程化抽象的典型表现。A错误——框架不提升模型智力（12.1节value）；B错误——此时尚未到Agent阶段，且LangChain非唯一解（12.8节误区强调‘不要为用框架而用框架’）；D是后续RAG阶段问题，非代码膨胀主因。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 0,
+      "stem": "在调试一个基于LlamaIndex的RAG应用时，发现模型回答‘根据资料，年假有5天’，但知识库明确写着‘司龄满3年员工年假10天’。日志显示检索返回了含‘5天’的旧政策片段，新政策未被召回。根据12.3节索引持久化要求，最可能的根本原因是什么？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "未配置Reranker，导致相关性排序不准"
+        },
+        {
+          "option_label": "B",
+          "option_text": "新增文档后未重建索引，仍使用旧索引"
+        },
+        {
+          "option_label": "C",
+          "option_text": "SimpleDirectoryReader未启用递归读取，遗漏新目录"
+        },
+        {
+          "option_label": "D",
+          "option_text": "QueryEngine未设置streaming=True，影响上下文注入"
+        }
+      ],
+      "answer": "B",
+      "analysis": "依据12.3节‘两个高频考点细节’第2点：‘索引需要持久化，避免每次重建’，并明确指出‘新增/修改文档后必须重新走解析→切片→建索引流程’。题干中‘新政策未被召回’与‘检索返回旧政策’直接对应索引未更新。A错误——Rerank影响排序而非是否召回；C是数据加载问题，但题干未提目录结构变更；D与流式无关，且不影响检索结果内容。该题考查对‘索引是静态快照’这一本质的理解，属执行顺序约束。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 0,
+      "stem": "团队在评估RAG效果时，RAGAS报告Context Recall得分极低（0.2），但人工检查确认检索结果包含所有关键段落。进一步分析发现默认提示词中{context_str}被误写为{query_str}。根据12.3节提示词模板规范，此错误会导致什么直接后果？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "模型将用户问题误认为参考上下文，导致生成答案脱离实际资料"
+        },
+        {
+          "option_label": "B",
+          "option_text": "模型无法解析JSON格式输出，引发tool_calls解析失败"
+        },
+        {
+          "option_label": "C",
+          "option_text": "检索模块因变量名错误而跳过上下文注入，返回空字符串"
+        },
+        {
+          "option_label": "D",
+          "option_text": "RAGAS评估器因模板不匹配拒绝计算，返回默认分0"
+        }
+      ],
+      "answer": "A",
+      "analysis": "依据12.3节明确说明：‘{context_str} 是检索到的上下文，不是用户问题’；默认模板中‘{context_str}’注入参考资料，‘{query_str}’注入用户问题。若二者互换，模型接收的输入变为‘问题作为上下文，上下文作为问题’，必然导致生成答案基于错误前提（如用‘年假几天’当资料，用‘司龄满3年政策’当问题），答非所问。12.3节exam部分直接警示‘二者互换作为错误选项’。B、C、D均无教材依据：LangChain/LlamaIndex不因模板变量名错误而崩溃或拒绝执行，而是静默注入错误内容。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 1,
+      "stem": "某团队需构建一个同时满足‘高精度合同条款问答’和‘动态调用法务审批系统API’的智能助手。技术选型需兼顾RAG深度检索与复杂Agent状态机。根据12.4节对比分析，以下哪些组合符合课程推荐的‘各司其职’原则？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "用LlamaIndex构建向量索引并封装为Retriever，再作为Tool注册到LangChain Agent中"
+        },
+        {
+          "option_label": "B",
+          "option_text": "用LangChain的RetrievalQAChain统一处理检索与生成，不再引入LlamaIndex"
+        },
+        {
+          "option_label": "C",
+          "option_text": "用AgentScope实现多Agent协作，由法务Agent负责检索、审批Agent负责API调用"
+        },
+        {
+          "option_label": "D",
+          "option_text": "用LlamaIndex的ReActAgent直接调用法务API，放弃LangChain生态"
+        }
+      ],
+      "answer": "A",
+      "analysis": "依据12.4节‘二者不是互斥，而是可以组合’及图示架构：LlamaIndex负责‘数据层’（文档解析/索引/检索），LangChain负责‘编排层’（Agent规划/工具调用/状态机）。A项完全复现该组合，且12.4节exam明确给出同类场景正解。B错误——LangChain RetrievalQAChain能力弱于LlamaIndex原生RAG链路，且违背‘各司其职’；C错误——本场景是单Agent多工具，非多Agent协作，AgentScope在此属过度设计（12.6.1节强调其定位是‘多Agent消息通信’）；D错误——LlamaIndex的Agent工具生态弱于LangChain，且12.4节best指出‘复杂Agent应优先LangChain+LangGraph’。",
+      "difficulty_label": "挑战"
+    },
+    {
+      "type": 1,
+      "stem": "某团队计划将‘新人答疑机器人’上线为正式服务，需同时满足：内部员工通过网页聊天界面试用、外部HR系统通过HTTP API集成、运维团队需监控调用量与延迟。根据第12章12.7节配套工具层与12.8节技术栈分层，以下哪些部署策略符合‘分层解耦、各司其职’原则？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "用Gradio提供内部演示界面，FastAPI暴露生产级HTTP API，二者共享同一套RAG核心模块"
+        },
+        {
+          "option_label": "B",
+          "option_text": "将Gradio界面与FastAPI服务合并为单一Flask应用，统一处理所有请求"
+        },
+        {
+          "option_label": "C",
+          "option_text": "在FastAPI中集成Prometheus监控埋点，在Gradio中启用独立日志系统"
+        },
+        {
+          "option_label": "D",
+          "option_text": "用RAGAS定期离线评测核心模块效果，结果同步至运维监控大盘"
+        }
+      ],
+      "answer": "A,C,D",
+      "analysis": "依据12.7.3节‘技术栈分层速查’：Gradio是UI层（给人用），FastAPI是服务层（给系统调），二者应复用底层业务逻辑（如LlamaIndex QueryEngine）。A项完全符合。C项：12.7.3节明确FastAPI用于‘对外提供API’并可加监控，Gradio用于‘Demo’，分层监控合理。D项：12.7.1节指出RAGAS是评估层，应与编排层分离，‘定期离线评测’是标准实践。B错误——12.7.2节强调‘Gradio只负责界面，不承载业务逻辑’，合并会导致耦合，违背分层原则（12.7.2节exam警示）。",
+      "difficulty_label": "挑战"
+    },
+    {
+      "type": 0,
+      "stem": "开发团队在引入LangChain后，发现原本100ms响应的单轮问答变慢至800ms，且栈追踪长达50行。日志显示框架自动注入了额外system prompt并执行了两次嵌套回调。根据第12章12.1节‘risk’，这体现了框架引入的哪类典型负担？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "学习成本"
+        },
+        {
+          "option_label": "B",
+          "option_text": "版本依赖"
+        },
+        {
+          "option_label": "C",
+          "option_text": "抽象泄漏"
+        },
+        {
+          "option_label": "D",
+          "option_text": "调试黑盒"
+        }
+      ],
+      "answer": "D",
+      "analysis": "依据12.1节‘risk’：引入框架会带来‘学习成本、版本依赖、抽象泄漏和调试黑盒’四类负担，并具体描述‘框架封装越深，出错时栈追踪越长，为什么框架多塞了一段system prompt / 多调了一次模型常常要翻源码’。题干中‘栈追踪长达50行’‘自动注入额外prompt’‘需查日志定位’正是‘调试黑盒’的典型表现。C（抽象泄漏）指框架底层行为意外暴露（如HTTP连接池超时），而本题是框架主动封装导致的不可见性；A、B与性能下降无直接因果。",
+      "difficulty_label": "进阶"
+    }
+  ]
+}

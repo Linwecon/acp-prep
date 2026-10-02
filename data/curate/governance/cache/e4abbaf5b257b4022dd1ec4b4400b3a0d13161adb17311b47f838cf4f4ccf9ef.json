@@ -1,0 +1,214 @@
+{
+  "new-10-48-0": {
+    "qid": "new-10-48-0",
+    "classification": "own",
+    "chapter": 10,
+    "quality": "ok",
+    "reason": "综合考查阿里云平台选型，涉及数据不出域、微调、部署、集成等核心决策点。",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "开源模型的价值集中在三点：① 数据隐私与合规（数据不出域）；② 可深度定制（任意微调/改结构）；③ 大规模稳定流量下的长期成本可控。PAI 三件套对应模型生命周期的三个阶段：DSW 开发、DLC 训练、EAS 上线。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "百炼托管，数据可能出域，且不支持深度微调。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "DashScope API调用数据需上送，违反数据不出域要求。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "开源模型+PAI微调部署，满足数据不出域、深度微调、集成需求。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "百炼知识库仍依赖DashScope，数据可能出域，且未涉及微调。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-10-48-1": {
+    "qid": "new-10-48-1",
+    "classification": "own",
+    "chapter": 10,
+    "quality": "ok",
+    "reason": "考查成本优化策略，涉及模型选型、输入控制、输出限制和部署方式。",
+    "answer": [
+      "A",
+      "C"
+    ],
+    "supported": true,
+    "quote": "qwen-turbo：速度快、延迟低、成本低，适合高频、简单任务。省成本的工程手段：用 max_tokens 给输出设上限，避免模型“刹不住车”。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "turbo适合高频简单任务，成本低。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "整本手册作system prompt会大幅增加输入Token和成本。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "限制输出长度可控制输出Token，降低成本。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "自托管有GPU和运维成本，未必更省，且未提规模。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-10-48-2": {
+    "qid": "new-10-48-2",
+    "classification": "own",
+    "chapter": 10,
+    "quality": "ok",
+    "reason": "考查限流（429）错误的诊断与处理，是平台使用常见问题。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "限流（RPM/TPM、QPM）：每分钟请求数/Token 数有配额，超限返回 429。生产环境必须考虑重试、退避与降级，不能假设无限并发。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "应先排查自身代码，而非直接申请提额。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "日志显示高频请求，应优先检查前端防抖等逻辑。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "切换模型可能缓解，但非根本原因，且可能影响效果。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "训练缓存模型周期长，非优先处置动作。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-10-48-3": {
+    "qid": "new-10-48-3",
+    "classification": "own",
+    "chapter": 10,
+    "quality": "ok",
+    "reason": "考查百炼平台核心能力组合，覆盖知识库、Prompt调试、工作流、集成。",
+    "answer": [
+      "A",
+      "C"
+    ],
+    "supported": true,
+    "quote": "百炼的核心能力可以理解为把前几章的技术“产品化”了：知识库（RAG）、Prompt 调试、工作流编排、一键发布。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "知识库解析PDF，Prompt调试优化生成，覆盖需求。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "PAI-DSW写代码非低代码，且未提集成钉钉。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "工作流编排完整流程，符合需求。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "部署EAS非必须，且未覆盖Prompt调试等需求。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-10-48-4": {
+    "qid": "new-10-48-4",
+    "classification": "own",
+    "chapter": 10,
+    "quality": "ok",
+    "reason": "考查PAI-EAS部署性能问题排查，涉及推理框架和模型权重处理。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "要稳定对外提供高并发服务时，再用 PAI-EAS 部署，获得弹性伸缩、预热、监控等生产能力。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "预热只影响首次请求，不会导致持续延迟突增300%。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "推理框架未优化是导致性能差异的常见原因。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "高并发会导致延迟升高，但题干未提并发变化。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "权重未合并可能影响，但本地vLLM验证通过，说明权重可用。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-10-48-5": {
+    "qid": "new-10-48-5",
+    "classification": "own",
+    "chapter": 10,
+    "quality": "ok",
+    "reason": "考查涉密场景下，兼顾安全、精度和开发周期的方案选择。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "开源模型的价值集中在三点：① 数据隐私与合规（数据不出域）。PAI 三件套对应模型生命周期的三个阶段：DSW 开发、DLC 训练、EAS 部署。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "本地服务器部署需自有GPU和运维，周期可能超2周。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "PAI-DSW内RAG，数据不出域，精度高，开发相对快。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "百炼知识库依赖DashScope，数据可能出域。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "DashScope API调用数据需上送，违反涉密要求。"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

@@ -1,0 +1,180 @@
+{
+  "new-9-42-0": {
+    "qid": "new-9-42-0",
+    "classification": "own",
+    "chapter": 9,
+    "quality": "ok",
+    "reason": "考查错误重试策略，题干描述典型重试风暴，选项B正确且教材有依据。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "指数退避 + 抖动（Exponential Backoff with Jitter）是处理 429/5xx 的标准做法",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "题干明确是429错误，非鉴权问题。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "教材指出对429应指数退避加抖动，防重试风暴。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "400错误不应重试，且题干未提非法role。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "题干未提流式超时，且429是限流非连接中断。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-9-42-1": {
+    "qid": "new-9-42-1",
+    "classification": "own",
+    "chapter": 9,
+    "quality": "ok",
+    "reason": "考查成本控制措施，选项A、B、C均有教材依据，D无依据。",
+    "answer": [
+      "A",
+      "B",
+      "C"
+    ],
+    "supported": true,
+    "quote": "system prompt 长度：每次都作为输入计费，优化手段：简洁、稳定；历史消息长度：轮次越多输入越长，优化手段：滑动窗口；模型档位：Turbo/Plus/Max 单价不同，优化手段：简单任务用低档",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "教材建议精简system prompt并保持稳定。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "教材建议用滑动窗口截断历史消息。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "教材建议按任务复杂度选模型档位和控制max_tokens。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "清空Key会导致调用失败，非成本优化措施。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-9-42-2": {
+    "qid": "new-9-42-2",
+    "classification": "own",
+    "chapter": 9,
+    "quality": "ok",
+    "reason": "考查多轮对话失忆原因，选项B正确且教材有明确说明。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "大模型 API 是无状态的——每次 HTTP 请求之间相互独立，服务端不会保存任何对话历史。所谓“多轮对话能力”，本质是客户端把历史消息按角色组织好，每次调用都完整地放进 messages 里再传一遍",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "题干未提及Function Calling。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "教材指出多轮对话需维护历史消息并全量传入。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "temperature高可能导致不一致，但非失忆主因。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "题干未提及开启流式。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-9-42-3": {
+    "qid": "new-9-42-3",
+    "classification": "own",
+    "chapter": 9,
+    "quality": "ok",
+    "reason": "考查Batch API特性，选项B、C正确，A、D错误。",
+    "answer": [
+      "B",
+      "C"
+    ],
+    "supported": true,
+    "quote": "Batch 任务的标准流程：准备输入文件：通常是 JSONL 格式，每行是一个独立请求（含自定义请求 ID，便于结果对齐）；校验对齐：必须校验输入输出行数、请求 ID 是否一一对应，防止错位或丢失",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "Batch是异步离线处理，单请求延迟更高。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "教材指出Batch输入需JSONL格式含请求ID。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "教材强调必须校验行数与ID对齐防错位。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "教材指出失败行可单独重试，非整批重跑。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-9-42-4": {
+    "qid": "new-9-42-4",
+    "classification": "own",
+    "chapter": 9,
+    "quality": "ok",
+    "reason": "考查API Key安全军规，选项C正确且教材有明确禁止。",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "前端绝不放 Key：浏览器端请求走后端代理，由后端附加 Key",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "违反此条，但题干行为更直接违反前端不放Key。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "题干是前端硬编码，非提交Git。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "教材明确禁止前端放Key，题干行为直接违反。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "题干未涉及权限和轮换。"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

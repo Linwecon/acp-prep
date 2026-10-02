@@ -1,0 +1,210 @@
+{
+  "3-0214": {
+    "qid": "3-0214",
+    "classification": "unsure",
+    "chapter": 3,
+    "quality": "remove",
+    "reason": "题干提及GraphRAG技术，但本章原文未涉及此概念，无法依据资料解题。",
+    "answer": [],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "资料未提及GraphRAG，无法判断。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "资料未提及GraphRAG，无法判断。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "资料未提及GraphRAG，无法判断。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "资料未提及GraphRAG，无法判断。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-0216": {
+    "qid": "3-0216",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "考查语义切片定义，原文有明确描述。",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "语义切片：用模型判断语义边界，在话题转换处切",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "原文定义语义切片为用模型判断语义边界。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "Token切片按固定token数切，非自适应。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "句子切片以句子为边界，非自适应。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "句子窗口切片以单句为单位，检索后扩窗。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-0217": {
+    "qid": "3-0217",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "考查查询改写方法，将单一查询改写为多步骤查询符合分解复杂问题的描述。",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "查询改写：先用 LLM 把含代词的问题改写成完整问题",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "将单一查询改写为多步骤查询即分解复杂问题。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "扩充用户问题不等于分解为子问题。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "HyDE是编假想答案增强检索，非分解问题。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "重排序是对检索结果精排，非问题改写。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-0223": {
+    "qid": "3-0223",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "考查index.as_query_engine方法作用，原文示例中用于创建查询引擎。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "query_engine = index.as_query_engine",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "加载文档是SimpleDirectoryReader的作用。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "方法名及示例表明其用于创建提问引擎。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "向量化由Embedding模型完成。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "存储索引是向量数据库的职责。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-0235": {
+    "qid": "3-0235",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "考查语义切片适用场景，原文指出其适用于高价值、结构复杂的文档。",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "语义切片：用模型判断语义边界，在话题转换处切 | 高价值、结构复杂的文档（成本更高）",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "逻辑性强、内容专业符合高价值复杂文档描述。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "Token切片适用于长度受限场景，非逻辑性强。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "句子切片通用，非专为逻辑性强场景设计。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "句子窗口切片兼顾精准命中与上下文完整。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-0238": {
+    "qid": "3-0238",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "考查HyDE方法，原文明确描述其通过生成假想答案增强检索。",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "HyDE（假设文档嵌入）：先让 LLM 编一段“假想答案”，用假想答案的向量去检索真实文档",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "HyDE即通过生成假想文档增强检索。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "重排序是对检索结果精排，非生成假想文档。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "滑动窗口检索是句子窗口技术，非生成假想文档。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "增加训练数据是微调范畴，非问题改写方法。"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

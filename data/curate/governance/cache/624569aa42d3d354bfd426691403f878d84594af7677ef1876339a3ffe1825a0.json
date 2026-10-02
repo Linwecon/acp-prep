@@ -1,0 +1,216 @@
+{
+  "4-5103": {
+    "qid": "4-5103",
+    "classification": "own",
+    "chapter": 4,
+    "quality": "ok",
+    "reason": "考察Function Calling四步流程中第三步执行后的正确操作",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "应用代码真正执行对应函数，并把结果包装成 role=\"tool\" 的消息",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "Thread是上下文容器，不应删除重创"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "工具结果必须作为tool消息回传模型"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "instructions是静态配置，不可运行时修改"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "必须获取模型最终回复，不能提前结束"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "4-5104": {
+    "qid": "4-5104",
+    "classification": "own",
+    "chapter": 4,
+    "quality": "ok",
+    "reason": "考察百炼Assistant API构建Agent的核心能力组件",
+    "answer": [
+      "A",
+      "B",
+      "C"
+    ],
+    "supported": true,
+    "quote": "百炼：应用开发平台",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "绑定模型与系统指令是基础配置"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "Thread用于保存多轮对话上下文"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "工具调用对接外部系统是Agent核心能力"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "API不负责模型权重训练，属微调范畴"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "4-5105": {
+    "qid": "4-5105",
+    "classification": "own",
+    "chapter": 4,
+    "quality": "ok",
+    "reason": "考察Agent在医疗场景下的安全边界处理",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "安全问题与质量问题边界",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "直接生成加量建议违反医疗安全规范"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "说明信息局限并建议专业咨询最稳妥"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "模型无资质给出确定性处方"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "拒绝回答所有问题过度保守，应有条件响应"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "4-5106": {
+    "qid": "4-5106",
+    "classification": "own",
+    "chapter": 4,
+    "quality": "ok",
+    "reason": "考察教育类Agent的动态生成与约束设计",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "最小权限原则（工具/权限/数据）",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "固定题库无法动态适配薄弱点"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "无约束生成易导致超纲和不当内容"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "结合画像、大纲和审核最符合工程实践"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "不收集反馈无法实现动态生成"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "4-5107": {
+    "qid": "4-5107",
+    "classification": "own",
+    "chapter": 4,
+    "quality": "ok",
+    "reason": "考察儿童教育Agent的安全与体验措施",
+    "answer": [
+      "A",
+      "B",
+      "D"
+    ],
+    "supported": true,
+    "quote": "AI 安全护栏与内容安全服务",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "适龄过滤保障内容安全性"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "监护人可见记录符合儿童保护要求"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "完全开放搜索且无审核存在重大风险"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "友好语气提升儿童交互体验"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "4-5108": {
+    "qid": "4-5108",
+    "classification": "own",
+    "chapter": 4,
+    "quality": "ok",
+    "reason": "考察角色一致性维护的关键控制点",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "系统提示词与User Message职责分离",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "人设与边界约束是角色稳定基础"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "temperature过高会加剧不一致"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "删除历史消息反而破坏连贯性"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "模型参数量与角色一致性无直接关系"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

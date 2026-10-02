@@ -1,0 +1,145 @@
+{
+  "new-7-54-2": {
+    "qid": "new-7-54-2",
+    "classification": "own",
+    "chapter": 7,
+    "quality": "ok",
+    "reason": "考查Context Precision低与Lost in the Middle的因果关系",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "这就是为什么\"正确片段存在但排在后面\"Precision 会低——它惩罚的正是把无关内容塞在前面、稀释模型注意力的排序，与\"Lost in the Middle\"现象直接对应。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "Precision低因无关内容前置，调大Top K加剧噪声，触发Lost in the Middle"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "跷跷板需跨题型对比，本题未提其他题型变化"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "数据泄漏指评测集进训练，与调Top K无关"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "Answer Relevancy低主因答非所问或含糊，非上下文量"
+      }
+    ],
+    "duplicate_of": "7-5076"
+  },
+  "new-7-54-3": {
+    "qid": "new-7-54-3",
+    "classification": "own",
+    "chapter": 7,
+    "quality": "ok",
+    "reason": "考查白盒评测定义及代码可执行性验证方式",
+    "answer": [
+      "A",
+      "B"
+    ],
+    "supported": true,
+    "quote": "白盒评测（White-box）：深入链路，对关键组件/中间步骤单独打分；确定性检查（规则/断言）：用代码规则直接判断，结果确定",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "解析trace属白盒，检查code_generation组件输出是确定性检查"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "运行单元测试验证可执行性，是确定性检查的典型白盒手段"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "LLM-as-Judge评整体教学性，属端到端主观评价"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "Rubric加维度仍属端到端评分，未深入组件内部"
+      }
+    ],
+    "duplicate_of": "7-5059"
+  },
+  "new-7-54-4": {
+    "qid": "new-7-54-4",
+    "classification": "own",
+    "chapter": 7,
+    "quality": "ok",
+    "reason": "考查LLM-as-Judge长度偏见校准动作",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "长度偏见：倾向认为更长更详细的答案\"更完整\"，惩罚简洁但切题的答案；评分细则中明确\"冗余扣分\"、控制输出长度",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "直击长度偏见，用提示词约束+few-shot校准"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "交换顺序缓解位置偏见，非长度偏见"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "换模型不解决偏见，且可能引入新偏好"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "人工抽检是最终校准，非优先动作"
+      }
+    ],
+    "duplicate_of": "7-5060"
+  },
+  "new-7-54-5": {
+    "qid": "new-7-54-5",
+    "classification": "own",
+    "chapter": 7,
+    "quality": "ok",
+    "reason": "考查回归评测中防止回归与控制变量的实践",
+    "answer": [
+      "A",
+      "B",
+      "D"
+    ],
+    "supported": true,
+    "quote": "回归评测的前提是除了待测改动，其他一切都冻结：评测集版本、评测脚本、推理参数（temperature、seed）、模型版本、甚至当评委的大模型版本都要固定。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "冻结评测集+固定参数，满足防止回归与控制变量"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "Git打标签锁定所有依赖版本，保障可复现"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "HRBP复核ground_truth属维护，非控制变量"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "CI/CD集成DeepEval实现自动化回归，冻结配置"
+      }
+    ],
+    "duplicate_of": "7-5090"
+  }
+}

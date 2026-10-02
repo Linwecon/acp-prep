@@ -1,0 +1,216 @@
+{
+  "new-12-54-0": {
+    "qid": "new-12-54-0",
+    "classification": "own",
+    "chapter": 12,
+    "quality": "ok",
+    "reason": "题干描述与12.1节场景完全一致，考查框架价值核心观点",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "新人工程师第一次接答疑机器人时，用 OpenAI 兼容 SDK 十几行代码就调通了 qwen-plus……可两周后需求变成'要接公司文档、要多轮对话、要调三个内部系统、要能评测、要给前端调用'，代码迅速膨胀到几百行，到处是拼接 messages、手工维护历史、重复写检索逻辑——这时候框架的价值才显现出来。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "困境根本非特定框架版本缺失"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "困境源于工程模式，非模型或提示词"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "裸调SDK无法抽象共性工程模式，导致重复造轮子"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "根本原因非未用低代码平台"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-12-54-1": {
+    "qid": "new-12-54-1",
+    "classification": "own",
+    "chapter": 12,
+    "quality": "ok",
+    "reason": "综合考查文档解析、低代码平台、工具集成与评估选型",
+    "answer": [
+      "A",
+      "B",
+      "C"
+    ],
+    "supported": true,
+    "quote": "文档是扫描件、截图、复杂表格、图文混排 PDF → 上 DashScopeParse（OCR + 版面结构化）。Dify 是一个开源的**低代码 LLM 应用开发平台**，用可视化界面把'知识库（RAG）、工作流、Agent、模型接入、工具调用、发布'串成一条流水线。LangChain 的 Agent / Tool / Toolkit 管'模型如何根据问题动态选择并调用工具'。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "DashScopeParse具备OCR+版面分析+表格识别能力"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "Dify支持可视化知识库与非技术人员维护"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "LangChain可封装API为Tool并集成至Agent"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "SimpleDirectoryReader对扫描件处理有限"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-12-54-2": {
+    "qid": "new-12-54-2",
+    "classification": "own",
+    "chapter": 12,
+    "quality": "ok",
+    "reason": "考查LangChain与LlamaIndex组合选型原则",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "一种非常常见的生产架构是：LlamaIndex 负责'数据层'（文档解析 / 切片 / 索引 / 检索 / Rerank），LangChain / LangGraph 负责'编排层'（Agent 规划 / 工具调用 / Memory / 多步流程）。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "全部LangChain非最务实组合，未发挥各自优势"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "AgentScope强在多Agent协作，非本场景必需"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "LlamaIndex负责数据层，LangChain负责编排层"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "Dify是低代码平台，非代码框架组合"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-12-54-3": {
+    "qid": "new-12-54-3",
+    "classification": "own",
+    "chapter": 12,
+    "quality": "ok",
+    "reason": "考查Gradio与FastAPI分层解耦实践",
+    "answer": [
+      "A",
+      "B",
+      "D"
+    ],
+    "supported": true,
+    "quote": "Gradio 只负责界面，不承载业务逻辑。RAG、Agent、提示词这些应放在下层可独立测试的模块里，UI 只调用它们的接口。Gradio 适合'给人用的 Demo'，FastAPI 适合'给系统调的服务'——二者常常**同时存在**。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "共用同一QueryEngine实例符合逻辑复用"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "核心逻辑封装为独立模块符合解耦原则"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "Gradio中实现完整RAG流程会导致耦合"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "FastAPI暴露接口供Gradio调用是前后端分离"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-12-54-4": {
+    "qid": "new-12-54-4",
+    "classification": "own",
+    "chapter": 12,
+    "quality": "ok",
+    "reason": "考查框架风险中的版本依赖负担",
+    "answer": [
+      "D"
+    ],
+    "supported": true,
+    "quote": "引入框架会同时带来**学习成本、版本依赖、抽象泄漏和调试黑盒**四类负担：课程 `requirements.txt` 里同时钉住了 `langchain==0.3.27`、`llama-index-core==0.14.23` 等数十个依赖，版本不匹配是新手最常见的'第一天就跑不起来'的原因。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "问题直接是版本冲突，非抽象泄漏"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "问题明确为版本冲突，非调试黑盒"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "根本原因是依赖冲突，非学习成本"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "多框架共存时依赖树冲突是常见问题"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-12-54-5": {
+    "qid": "new-12-54-5",
+    "classification": "own",
+    "chapter": 12,
+    "quality": "ok",
+    "reason": "考查RAGAS在技术栈中的定位",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "**RAGAS** 是主流的开源 RAG 评估框架。它不是编排框架，而是**评测框架**：用大模型当评委，对检索端和生成端分别打分。RAGAS 是评估器，LangChain 是模型适配器，LlamaIndex 是被评估的 RAG 系统。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "RAGAS是评估框架，非RAG编排框架"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "RAGAS是评估框架，需配合LangChain的LLM"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "RAGAS非文档解析工具"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "RAGAS非低代码平台"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

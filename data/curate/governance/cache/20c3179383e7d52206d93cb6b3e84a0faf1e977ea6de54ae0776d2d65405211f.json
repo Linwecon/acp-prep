@@ -1,0 +1,251 @@
+{
+  "3-0765": {
+    "qid": "3-0765",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "考查RAG检索质量优化措施，选项均属合理优化方向",
+    "answer": [
+      "A",
+      "B",
+      "C",
+      "D"
+    ],
+    "supported": true,
+    "quote": "检索质量差的三大根因（要背）：① Embedding 模型不够好 ② 切片策略不当 ③ 文档格式丢失了结构信息",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "优化切片策略可提升语义完整性"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "调整阈值可平衡召回与精确"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "关键词标注辅助检索，属元数据过滤"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "更换更强Embedding模型提升语义匹配"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-0855": {
+    "qid": "3-0855",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "考查RAG适用场景，紧扣私域知识、实时性需求",
+    "answer": [
+      "A",
+      "B",
+      "D"
+    ],
+    "supported": true,
+    "quote": "RAG（Retrieval-Augmented Generation，检索增强生成）的核心思路可以用四个字概括：“开卷考试”。不让模型凭记忆答题，而是在它回答前，先从企业知识库里检索出最相关的几段资料",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "企业私有文档是RAG典型场景"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "最新时事需实时知识，RAG可更新"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "创作虚构内容非RAG主要目标"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "产品手册技术支持属知识问答"
+      },
+      {
+        "label": "E",
+        "selected": false,
+        "why": "通用教程非私域或实时知识"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-0856": {
+    "qid": "3-0856",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "考查检索器性能提升技术，选项均为教材提及方法",
+    "answer": [
+      "A",
+      "B",
+      "C",
+      "E"
+    ],
+    "supported": true,
+    "quote": "检索质量差的三大根因（要背）：① Embedding 模型不够好 ② 切片策略不当 ③ 文档格式丢失了结构信息。Rerank（重排序）...兼顾质量与成本",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "优化切片策略是检索质量三要素之一"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "更换更强Embedding模型提升语义匹配"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "重排序可提升相关片段排名"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "单纯增加数量可能引入噪声"
+      },
+      {
+        "label": "E",
+        "selected": true,
+        "why": "混合检索融合字面与语义匹配"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-0924": {
+    "qid": "3-0924",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "考查提升RAG答案准确性的措施，覆盖检索与生成端",
+    "answer": [
+      "A",
+      "B",
+      "C",
+      "E"
+    ],
+    "supported": true,
+    "quote": "定位问题的黄金法则（必考逻辑）：Context Recall / Precision 低 → 问题出在检索阶段；检索指标都好，但 Answer Correctness / Faithfulness 低 → 问题出在生成阶段",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "优化检索器确保召回相关性"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "提示词约束模型基于上下文作答"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "合理切片和重叠保持语义完整"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "忽略检索质量无法保证准确性"
+      },
+      {
+        "label": "E",
+        "selected": true,
+        "why": "重排序提升相关片段排名"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-1023": {
+    "qid": "3-1023",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "考查语义切片理念，选项涵盖多种切片策略",
+    "answer": [
+      "A",
+      "B",
+      "C",
+      "F"
+    ],
+    "supported": true,
+    "quote": "语义切片：用模型判断语义边界，在话题转换处切。Markdown 切片：按标题层级（#/##/###）切。句子切片：以句子为边界，按长度聚合",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "使用模型分析语义边界是语义切片"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "添加上下文信息属结构化保留"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "代码块单独处理属保留结构"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "固定长度切分非语义切片理念"
+      },
+      {
+        "label": "E",
+        "selected": false,
+        "why": "表格单元格独立切分易失结构"
+      },
+      {
+        "label": "F",
+        "selected": true,
+        "why": "按文档结构切分如Markdown切片"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-1036": {
+    "qid": "3-1036",
+    "classification": "cross",
+    "chapter": 7,
+    "quality": "fixable",
+    "reason": "题干将RAGAS误写为RAGS，但考点属模型评估章",
+    "answer": [
+      "D"
+    ],
+    "supported": true,
+    "quote": "RAGAS（RAG Assessment）是主流的开源 RAG 评估框架，它把 RAG 链路拆成“检索端”和“生成端”分别打分",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "answer_correctness评估不依赖embedding"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "剔除离群点非RAGAS标准流程"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "faithfulness评估不依赖embedding"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "answer_relevancy评估query与answer相似度"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

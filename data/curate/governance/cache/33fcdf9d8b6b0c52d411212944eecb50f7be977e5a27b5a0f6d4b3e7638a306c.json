@@ -1,0 +1,215 @@
+{
+  "new-7-36-0": {
+    "qid": "new-7-36-0",
+    "classification": "own",
+    "chapter": 7,
+    "quality": "ok",
+    "reason": "考查指标联动分析与隐性风险识别，符合本章定位问题的黄金法则",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "切片长度从256字符缩短为128字符……Context Recall下降5%……关键信息被截断",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "切片过短直接导致信息截断，Recall下降印证此风险"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "Rerank旨在缓解Lost in the Middle，题干未提Top K未调"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "Relevancy下降未必因约束失效，题干无此依据"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "Correctness提升幅度比较非本章强调的隐性风险"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-7-36-1": {
+    "qid": "new-7-36-1",
+    "classification": "own",
+    "chapter": 7,
+    "quality": "ok",
+    "reason": "考查评测集构建铁律，明确ground_truth必须由领域专家提供",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "ground_truth必须由业务领域专家编写/审定……技术人员能判断……但只有业务专家才知道",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "技术人员编写ground_truth违反铁律，导致业务偏差"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "题干已说明问题来自线上工单，覆盖真实场景"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "分数波动根源是答案偏差，非配置未冻结"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "题干问题在于基准答案错误，非指标混淆"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-7-36-2": {
+    "qid": "new-7-36-2",
+    "classification": "own",
+    "chapter": 7,
+    "quality": "ok",
+    "reason": "考查Agent白盒评测方法，区分端到端与组件级评测",
+    "answer": [
+      "A",
+      "C"
+    ],
+    "supported": true,
+    "quote": "白盒评测（White-box）……深入链路，对关键组件/中间步骤单独打分……单独测‘代码生成组件’的代码能否运行",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "检查Skill调用trace是白盒评测，可定位过程故障"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "对最终稿整体评分是端到端评测，非白盒"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "对代码生成组件单独运行单元测试是典型白盒评测"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "端到端评测中增加Rubric仍是端到端视角"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-7-36-3": {
+    "qid": "new-7-36-3",
+    "classification": "own",
+    "chapter": 7,
+    "quality": "ok",
+    "reason": "考查LLM-as-Judge长度偏见的识别与校准措施",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "长度偏见……倾向认为更长更详细的答案‘更完整’，惩罚简洁但切题的答案……评分细则中明确‘冗余扣分’",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "在提示词中明确指令是缓解长度偏见的直接手段"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "更换模型可能仍存在长度偏见，非优先校准动作"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "随机打乱顺序用于缓解位置偏见，非长度偏见"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "黄金集校准是后期手段，非题干描述的优先动作"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-7-36-4": {
+    "qid": "new-7-36-4",
+    "classification": "own",
+    "chapter": 7,
+    "quality": "ok",
+    "reason": "考查根据指标变化组合定位问题并推导正确结论",
+    "answer": [
+      "A",
+      "B",
+      "D"
+    ],
+    "supported": true,
+    "quote": "Recall低……该找的没找全……Precision低（Recall高）……找回来了但噪声多、排得靠后……加Rerank",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "Recall升Precision降表明噪声增加，需Rerank或过滤"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "Faithfulness和Correctness同步提升，说明生成端有效利用检索改善"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "Recall与Precision反向变动是典型现象，未必因Top K过大"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "Correctness提升幅度小于Recall提升，提示生成端仍有优化空间"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-7-36-5": {
+    "qid": "new-7-36-5",
+    "classification": "own",
+    "chapter": 7,
+    "quality": "ok",
+    "reason": "考查公开基准的局限性及正确使用方式",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "公开基准仅用于选型初筛，业务决策必须用自建评测集 + 领域专家验证",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "将公开基准作为初筛后切换自建评测集，是规避风险的正确做法"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "仅用子集评估仍属公开基准，未解决与业务不一致的根本问题"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "翻译或换中文基准仍是公开基准，风险未变"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "在公开基准中混入少量真实问题，未改变其作为初筛的定位"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

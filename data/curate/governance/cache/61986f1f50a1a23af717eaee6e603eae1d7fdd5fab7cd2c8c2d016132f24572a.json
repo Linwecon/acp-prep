@@ -1,0 +1,142 @@
+{
+  "new-6-60-0": {
+    "qid": "new-6-60-0",
+    "classification": "own",
+    "chapter": 6,
+    "quality": "ok",
+    "reason": "综合考查部署选型决策，题干条件明确，选项覆盖典型方案，符合教材决策逻辑。",
+    "answer": [
+      "D"
+    ],
+    "supported": true,
+    "quote": "数据能否出域？不能（敏感/合规）→ 排除百炼等公有 MaaS，选 ECS 自建或 PAI-EAS 私有部署；私有微调模型上线，需弹性伸缩与灰度发布 → PAI-EAS",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "百炼MaaS数据会出域，不符合‘数据100%不出域’要求。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "FC有冷启动和时长限制，不适合稳定高并发的实时在线服务。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "ECS自建可控，但企业级治理能力（如灰度发布）需额外开发，不如PAI-EAS开箱即用。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "PAI-EAS支持私有部署、模型预热、蓝绿发布与监控，最符合题干所有要求。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-6-60-2": {
+    "qid": "new-6-60-2",
+    "classification": "own",
+    "chapter": 6,
+    "quality": "ok",
+    "reason": "考查推理两阶段性能瓶颈分析，TPOT对应Decode阶段，显存带宽高利用是关键线索。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "Decode（解码阶段）：从第一个 token 开始，一次生成一个新 token，每一步都要读取全部历史 token 的 KV Cache。这一步是显存带宽密集型，决定了 TPOT",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "TTFT正常，说明Prefill阶段无异常，与TPOT高无关。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "TPOT高且显存带宽利用率达98%，符合Decode阶段KV Cache读取瓶颈特征。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "网络延迟影响整体RT，但TPOT是模型内部生成速度，不受网络直接影响。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "模型权重加载是启动时行为，不影响运行时的TPOT指标。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-6-60-4": {
+    "qid": "new-6-60-4",
+    "classification": "own",
+    "chapter": 6,
+    "quality": "ok",
+    "reason": "考查vLLM核心优化原理，并发提升但TTFT不变，符合连续批处理提升吞吐的特征。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "连续批处理（Continuous Batching，又称动态/持续批处理）：请求不再‘整批齐步走’，而是完成一个就立刻返回、新请求立刻补进 batch。GPU 调度粒度从‘整批’细化到‘每一步解码’，因此 GPU 几乎全程满载，吞吐量显著提升。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "PagedAttention主要优化显存利用以承载更多并发，但题干强调TTFT不变，提升的是吞吐。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "连续批处理让GPU在Decode阶段不空转，提升单位时间token产出（即吞吐/并发能力），TTFT由Prefill决定故不变。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "题干未提及Prefill加速，且TTFT无明显变化，与此选项不符。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "vLLM默认不启用INT8量化，且量化主要影响显存和带宽，对Prefill计算负载影响非根本原因。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-6-60-5": {
+    "qid": "new-6-60-5",
+    "classification": "own",
+    "chapter": 6,
+    "quality": "ok",
+    "reason": "考查多租户、中等流量场景下的部署选型，需平衡隔离、成本与运维复杂度。",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "PAI-EAS（Elastic Algorithm Service）是阿里云 PAI 平台的模型在线服务，可把开源社区模型或自训练/微调模型部署为在线服务，提供弹性扩缩容、蓝绿/灰度发布、资源组管理、版本控制、资源监控等企业级能力。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "为每校单独购买ECS实例成本极高，且运维复杂，不符合成本可控原则。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "FC适合轻量低频，100校并发且需隔离版本，管理100个独立函数实例不现实。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "PAI-EAS资源组可隔离租户，支持弹性伸缩与统一监控，最符合多租户、中等流量、需隔离的企业场景。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "百炼MaaS是逻辑隔离，可能无法满足严格的按校数据隔离要求，且所有学校模型版本需一致。"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

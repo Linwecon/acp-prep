@@ -1,0 +1,162 @@
+{
+  "items": [
+    {
+      "type": 0,
+      "stem": "某算法团队在PAI-DSW中完成Qwen2-1.5B的LoRA微调后，需验证模型推理效果。为确保验证结果具备生产参考价值，教材明确推荐的下一步操作是？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "直接将DSW中训练好的模型权重导出，在本地Python脚本中用transformers加载并测试"
+        },
+        {
+          "option_label": "B",
+          "option_text": "在DSW中使用vLLM启动HTTP服务（兼容OpenAI API），通过curl或SDK发起请求进行端到端验证"
+        },
+        {
+          "option_label": "C",
+          "option_text": "将模型上传至ModelScope社区发布为公开模型，再通过DashScope API调用测试"
+        },
+        {
+          "option_label": "D",
+          "option_text": "跳过本地验证，直接提交至DLC进行全量分布式训练，以训练过程指标代替推理验证"
+        }
+      ],
+      "answer": "B",
+      "analysis": "依据原文10.4节'PAI三件套'原理与10.4节'典型流程'明确指出：'得到合并后的模型，用vLLM本地起服务验证（其HTTP接口本身兼容OpenAI API）'。该步骤是DSW开发→EAS生产部署前的关键验证环节，既保证了API协议一致性（便于后续无缝迁移到EAS），又避免了本地环境差异导致的误判。A项未体现'兼容OpenAI API'这一教材强调的标准化验证路径；C项违背数据不出域前提且引入非必要公网依赖；D项跳过验证违反工程闭环原则，且DLC用于大规模训练而非效果验证。故B为唯一符合教材推荐路径的选项。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 0,
+      "stem": "运维同学发现PAI-DSW GPU实例持续运行72小时后产生高额费用，而业务方声称'只是关掉了浏览器标签页'。该现象最直接违反原文哪项成本管理提醒？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "PAI-DSW费用按'计算时'计费，关闭浏览器不等于停止实例，必须回控制台主动停止或删除"
+        },
+        {
+          "option_label": "B",
+          "option_text": "GPU实例消耗额度远快于CPU，课程仅在微调和部署两节建议使用GPU"
+        },
+        {
+          "option_label": "C",
+          "option_text": "免费额度有有效期与计算时上限，用尽后按量计费"
+        },
+        {
+          "option_label": "D",
+          "option_text": "是否启用免费试用以控制台实际页面为准，不可凭经验假设"
+        }
+      ],
+      "answer": "A",
+      "analysis": "原文10.4节'PAI-DSW费用提醒'首条即明确：'DSW实例按\"计算时\"计费，**关闭浏览器不等于停止实例**，不学了必须回控制台**停止或删除**'。题干中'关掉浏览器标签页'与'持续运行72小时'形成精准对应，直指该核心风险点。B、C、D虽同属成本提醒，但B强调GPU选型场景、C/D强调额度规则，均未触及'关闭浏览器≠停止计费'这一最直接、最易被忽视的操作误区。教材将此列为'课程反复强调'事项，故A为唯一精准匹配原文警示的选项。",
+      "difficulty_label": "入门"
+    },
+    {
+      "type": 1,
+      "stem": "当百炼应用需要调用部署在PAI-EAS上的私有模型时，以下哪些条件是必须同时满足的？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "PAI-EAS服务已开启公网访问或配置VPC内网互通，且百炼工作流中正确填写EAS服务的Endpoint地址"
+        },
+        {
+          "option_label": "B",
+          "option_text": "EAS服务已配置有效的API鉴权（如Token或AK/SK），并在百炼插件/自定义工具中正确传入"
+        },
+        {
+          "option_label": "C",
+          "option_text": "百炼知识库必须先将EAS服务的Swagger文档导入，才能生成调用代码"
+        },
+        {
+          "option_label": "D",
+          "option_text": "EAS部署的模型必须使用与百炼默认模型完全一致的输入输出JSON Schema"
+        },
+        {
+          "option_label": "E",
+          "option_text": "百炼应用与PAI-EAS服务需部署在同一地域（Region），否则无法建立网络连接"
+        }
+      ],
+      "answer": "ABE",
+      "analysis": "依据原文10.1节链路描述：'百炼应用再去调用EAS上的私有模型'，及10.5节'三者可组合'说明，该集成需满足基础网络连通性（A、E）、安全访问控制（B）。A项对应网络可达性——EAS服务必须可被百炼访问（公网或VPC内网）；E项是阿里云资源跨地域访问的基本约束，不同Region间默认网络隔离；B项是API调用必备鉴权，原文虽未明说但属于云服务调用通用前提，且10.4节EAS提及'监控告警'隐含服务治理能力。C项错误：百炼插件支持手动配置HTTP请求，无需Swagger导入；D项错误：EAS支持自定义模型，输入输出格式由开发者定义，百炼可通过自定义工具适配，无需Schema强一致。故ABE为必须同时满足的三项。",
+      "difficulty_label": "挑战"
+    },
+    {
+      "type": 0,
+      "stem": "某医疗AI初创公司计划构建临床指南问答系统，技术负责人提出采用‘ModelScope下载Qwen2-7B开源模型 + PAI-EAS部署’方案。根据原文10.7节对开源模型价值的阐述，以下哪项因素会显著增强该方案的合理性？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "团队已采购多台A10 GPU服务器，希望复用现有硬件资源降低初期投入"
+        },
+        {
+          "option_label": "B",
+          "option_text": "临床指南PDF长达200页，需支持整篇向量化与检索，qwen-long商业API的上下文窗口仍不足"
+        },
+        {
+          "option_label": "C",
+          "option_text": "项目预算有限，预计月调用量低于DashScope免费额度，无需考虑长期成本"
+        },
+        {
+          "option_label": "D",
+          "option_text": "团队无算法工程师，仅有一名熟悉Flask的后端开发，需快速上线"
+        }
+      ],
+      "answer": "B",
+      "analysis": "原文10.7节明确指出开源模型三大价值：'① 数据隐私与合规（数据不出域）；② 可深度定制（任意微调/改结构）；③ 大规模稳定流量下的长期成本可控'。B项'200页PDF需整篇处理'直接指向'可深度定制'——开源模型可自由调整RAG流程（如自定义分块策略、更换向量模型）、或微调长文本理解能力，而qwen-long作为商业API，其上下文窗口是固定上限，无法突破。A项'复用A10服务器'属于自建方案，与PAI-EAS云服务无关；C项'免费额度内'恰恰削弱自托管必要性，因商业API此时更省事；D项'无算法工程师'反证应选百炼而非PAI。故B是唯一同时契合'开源模型价值'与'PAI-EAS部署场景'的选项。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 1,
+      "stem": "开发团队在ModelScope Notebook中成功运行了Qwen3-0.6B的推理Demo，但当尝试执行LoRA微调时遭遇OOM（内存溢出）。以下哪些原因分析符合教材逻辑？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "ModelScope免费Notebook的GPU显存有限（通常≤16GB），而LoRA微调需额外显存存储优化器状态与梯度"
+        },
+        {
+          "option_label": "B",
+          "option_text": "Qwen3-0.6B模型权重在FP16精度下已占用约1.2GB显存，LoRA微调需双倍显存加载模型"
+        },
+        {
+          "option_label": "C",
+          "option_text": "ModelScope Notebook默认不支持梯度检查点（Gradient Checkpointing）技术，导致显存峰值过高"
+        },
+        {
+          "option_label": "D",
+          "option_text": "课程实验要求使用PAI-DSW的预置镜像，因其已集成ms-swift等优化框架并配置合理显存策略"
+        },
+        {
+          "option_label": "E",
+          "option_text": "ModelScope Notebook的Python环境未安装flash-attn库，导致注意力计算显存效率低下"
+        }
+      ],
+      "answer": "ACD",
+      "analysis": "依据原文10.4节'PAI三件套'原理及10.7节'ModelScope Notebook免费但有连续运行时长限制'，可推断其资源受限本质。A项正确：ModelScope免费Notebook显存有限（如T4 16GB），而LoRA微调需存储模型参数+优化器状态+梯度，显存需求远超纯推理；C项正确：梯度检查点是显存优化关键技术，免费Notebook环境通常不预装或未启用；D项正确：原文10.4节明确'PAI-DSW提供课程预置镜像'，且10.4节原理指出'DSW是写代码、做实验的工作台'，暗示其环境专为训练优化。B项错误：FP16下0.6B模型约1.2GB，但LoRA仅微调少量参数，显存增量远非'双倍'；E项属技术细节，原文未提及flash-attn，且非根本性约束。故ACD为符合教材资源分层逻辑的选项。",
+      "difficulty_label": "挑战"
+    },
+    {
+      "type": 0,
+      "stem": "HR希望零代码搭建新人答疑机器人，上传员工手册后能回答‘年假几天’等问题，并发布到钉钉群。若在PAI-DSW中创建Jupyter Notebook编写RAG流水线代码实现该功能，此做法最根本的问题在于？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "PAI-DSW不支持文档解析与向量化，无法构建知识库"
+        },
+        {
+          "option_label": "B",
+          "option_text": "违背'谁该用控制台、谁该写代码、谁必须训模型'的选型原则：该场景属应用层问题，应由百炼解决"
+        },
+        {
+          "option_label": "C",
+          "option_text": "PAI-EAS不支持一键发布到钉钉，无法满足交付要求"
+        },
+        {
+          "option_label": "D",
+          "option_text": "Qwen系列模型未在PAI平台预置，需手动下载模型权重，增加实施复杂度"
+        }
+      ],
+      "answer": "B",
+      "analysis": "原文10.5节'选型决策'明确将'要快速搭知识库问答/智能体/工作流并发布'归类为'百炼'场景，并强调'三人团队、无运维、用千问、要尽快上线→百炼一键部署/发布（课程4.2原题结论）'。题干中'HR零代码''上传手册''发布钉钉'三要素完全匹配百炼的核心能力（10.2节'知识库（RAG）''一键发布'）。B项直指教材最顶层的选型原则——分层定位错误：PAI面向'训模型'，而此任务本质是'搭应用'。A、C、D均为技术细节干扰项：A错（PAI可实现RAG但非最优）；C错（EAS可对接钉钉但非'一键'）；D错（Qwen模型可在PAI使用）。故B是唯一触及根本原则的选项。",
+      "difficulty_label": "入门"
+    }
+  ]
+}

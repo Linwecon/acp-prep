@@ -1,0 +1,154 @@
+{
+  "items": [
+    {
+      "type": 0,
+      "stem": "某团队对Qwen3-0.6B基座模型执行QLoRA蒸馏训练，训练命令中同时指定了--quantization_bit 4和--lora_target_modules all-linear。训练启动后立即报错：'RuntimeError: Cannot apply QLoRA to module ... because it is not quantized.'。根据教材5.3与5.6节原理，该错误最根本的原因是？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "lora_target_modules配置了all-linear，但QLoRA要求仅对已量化模块启用LoRA适配"
+        },
+        {
+          "option_label": "B",
+          "option_text": "4bit量化未在模型加载时生效，需显式设置load_in_4bit=True且bnb_4bit_compute_dtype=torch.bfloat16"
+        },
+        {
+          "option_label": "C",
+          "option_text": "all-linear包含非线性层（如LayerNorm），而QLoRA仅支持对Linear层进行低秩适配"
+        },
+        {
+          "option_label": "D",
+          "option_text": "ms-swift框架不支持同时启用4bit量化和LoRA，必须二选一"
+        }
+      ],
+      "answer": "B",
+      "analysis": "依据教材5.3节'QLoRA'定义及5.6节原理：QLoRA = LoRA + 4bit量化基座，其前提是基座模型必须**真实完成4bit量化加载**，而非仅声明量化位宽。教材明确指出QLoRA依赖bitsandbytes库的4bit加载机制（见5.3表头说明及5.6隐含前提）。选项B准确指出错误根源——未在模型加载阶段启用bnb_4bit_compute_dtype等必要参数，导致模型未被实际量化，后续LoRA注入时因底层权重非4bit类型而失败。选项A错误：QLoRA可对所有线性层应用LoRA，'已量化'是前提而非限制条件；选项C错误：all-linear在ms-swift中特指Linear类，不含LayerNorm；选项D错误：教材5.3明确将QLoRA列为独立方法，且5.8实操命令即为QLoRA组合。",
+      "difficulty_label": "挑战"
+    },
+    {
+      "type": 1,
+      "stem": "在'请求理解'任务的QLoRA蒸馏全流程中，以下哪些操作属于**必须严格遵循的执行顺序约束**，违反将直接导致训练失效或能力退化？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "必须先完成教师模型的高质量数据合成与质量过滤，再开始学生模型的LoRA训练"
+        },
+        {
+          "option_label": "B",
+          "option_text": "必须在LoRA训练完成后，再将增量权重合并回基座模型，才能进行JSON合规率评测"
+        },
+        {
+          "option_label": "C",
+          "option_text": "必须在加载学生基座模型时启用4bit量化，然后才可配置LoRA参数"
+        },
+        {
+          "option_label": "D",
+          "option_text": "必须在训练前将system prompt统一写入每条messages样本，且该prompt需与推理时完全一致"
+        }
+      ],
+      "answer": "ACD",
+      "analysis": "依据教材5.4节'数据合成蒸馏全流程'图示及5.5节原则：A正确——教材明确将'教师生成→过滤→格式化'作为离线阶段前置步骤（5.4流程图），若跳过此步直接训练，将无有效监督信号；C正确——5.3节定义QLoRA为'LoRA+4bit量化基座'，5.6节强调'原权重被冻结'，若未先量化则无法冻结4bit权重，LoRA注入失去基础；D正确——5.5节强调'system角色设定所有样本保持一致'，且5.9节指出'训练与推理输出约束不一致'是JSON不稳主因，属执行顺序依赖（训练约束→推理约束必须同源）。B错误——教材5.9节评测明确使用'蒸馏模型（0.6B）'指标，即评测对象是合并后的完整模型，但5.8节SOP注明'测试集评测'在'合并LoRA权重'之后，而验证loss监控需在合并前通过LoRA adapter实时评估，故合并非评测前置必要条件；且5.6节'推理零开销'说明合并仅为部署优化，非能力评估必需。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 0,
+      "stem": "团队使用QLoRA对Qwen3-0.6B进行蒸馏训练，观察到训练loss持续下降但验证loss在第2 epoch后即停滞不升不降。此时若强行增加lora_rank从8到16并继续训练，最可能违反教材哪项核心原则？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "LoRA扰动小可缓解灾难性遗忘（5.6节）"
+        },
+        {
+          "option_label": "B",
+          "option_text": "超参数选择应基于数据分布而非默认值（5.8节）"
+        },
+        {
+          "option_label": "C",
+          "option_text": "质量优于数量，低质数据有害（5.5节）"
+        },
+        {
+          "option_label": "D",
+          "option_text": "验证loss先降后升才是过拟合铁证（5.7节）"
+        }
+      ],
+      "answer": "B",
+      "analysis": "教材5.8节'超参数选择的正确姿势'明确强调：'先分析数据（样本条数、token长度分布、输出字段复杂度），再据此决定参数，而不是照搬默认值或文档'。本题中验证loss停滞表明当前容量（r=8）已足够拟合任务，盲目增大r=16属于脱离数据复杂度的机械调参，直接违背该原则。选项A虽正确但与此现象无关；选项C指向数据质量，而题干未提数据问题；选项D描述的是过拟合判据，但'停滞不升不降'不属于'先降后升'，故不触发该原则。教材5.8表中亦指出'lora_rank应由任务复杂度决定'，本任务5字段联合映射在r=8时已收敛，印证复杂度匹配原则。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 1,
+      "stem": "在QLoRA蒸馏训练中，以下哪些故障现象可直接归因于**QLoRA特有的量化-适配耦合约束**，而非普通LoRA或全参微调共有的问题？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "训练过程中出现CUDA out of memory，但降低batch_size后仍报错，检查发现显存峰值出现在bnb.matmul_4bit函数调用栈"
+        },
+        {
+          "option_label": "B",
+          "option_text": "训练loss正常下降，但推理时JSON解析失败率高达80%，而相同数据用全参微调可达95%"
+        },
+        {
+          "option_label": "C",
+          "option_text": "合并LoRA权重后模型体积比原始基座大，且推理速度变慢"
+        },
+        {
+          "option_label": "D",
+          "option_text": "使用4bit量化基座训练时，lora_alpha设置为32（远大于r=8）导致梯度爆炸"
+        }
+      ],
+      "answer": "AD",
+      "analysis": "依据教材5.3节'QLoRA'定义及5.6节原理：A正确——bnb.matmul_4bit是bitsandbytes库4bit矩阵乘法核心算子，其显存异常是QLoRA独有特征（普通LoRA无量化计算，全参微调无bnb算子）；D正确——教材5.6节指出'lora_alpha控制增量缩放系数，常设为r的1~2倍'，但4bit量化后权重动态范围压缩，过大alpha会放大量化噪声导致梯度失稳，此为量化与LoRA耦合引发的特有问题。B错误——JSON失败主因是schema不统一或提示词不一致（5.5/5.9节），与量化无关；C错误——教材5.6节明确'合并后就是普通模型，无额外开销'，体积增大或变慢说明合并未成功，属操作失误而非QLoRA固有约束。",
+      "difficulty_label": "挑战"
+    },
+    {
+      "type": 0,
+      "stem": "某团队尝试用QLoRA蒸馏提升0.6B模型的'请求理解'能力，但训练后JSON合规率仅从48%提升至52%。经日志分析发现：训练数据中35%的assistant字段含Markdown代码块（```json{...}```），且验证集评测脚本直接对原始输出字符串做json.loads()。根据教材5.4-5.5节，该问题最本质的故障环节是？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "质量过滤缺失——未在教师侧过滤掉含代码块的样本"
+        },
+        {
+          "option_label": "B",
+          "option_text": "训练数据格式错误——assistant内容应为纯JSON字符串，而非带代码块的文本"
+        },
+        {
+          "option_label": "C",
+          "option_text": "评测方式偏差——应先正则提取代码块内JSON再解析，而非直接loads"
+        },
+        {
+          "option_label": "D",
+          "option_text": "LoRA配置不当——lora_rank过小无法学习去除代码块的模式"
+        }
+      ],
+      "answer": "B",
+      "analysis": "教材5.4节'质量过滤'要求'JSON能否解析'，5.5节强调'assistant内容为期望输出（标准答案）'且'一致性'指'输出schema、字段名、模板完全统一'。题干中代码块属于**非标准输出格式**，违反5.5节'一致性'原则——训练样本的assistant不是纯JSON，导致模型学习目标错误。A选项虽合理但非根本：过滤是手段，根本问题是数据格式不符合messages规范；C选项错误：教材5.9节评测明确以'JSON合规率'为门槛指标，定义即'能否解析为合法JSON'，评测脚本按规范实现无错；D选项错误：LoRA学习的是映射关系，输入user内容与错误assistant标签将导致模型模仿错误格式，与rank无关。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 1,
+      "stem": "在知识蒸馏的QLoRA实施中，以下哪些条件同时满足时，才能确保'QLoRA双降本'（训练成本↓+推理成本↓）目标真正达成？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "训练阶段使用4bit量化基座 + LoRA适配，且lora_rank足够小（如r=8）"
+        },
+        {
+          "option_label": "B",
+          "option_text": "推理阶段将LoRA增量合并回基座权重，得到标准FP16/BF16模型"
+        },
+        {
+          "option_label": "C",
+          "option_text": "学生模型规模（0.6B）显著小于教师（qwen3.6-plus），且任务为高频结构化输出"
+        },
+        {
+          "option_label": "D",
+          "option_text": "训练数据全部来自教师API生成，未混入人工标注数据"
+        }
+      ],
+      "answer": "ABC",
+      "analysis": "依据教材5.3节'QLoRA'定义、5.6节'推理零开销'及5.4节'降本动机'：A正确——'4bit+LoRA'是QLoRA双降本的技术基础，小r保障训练显存节省；B正确——教材5.6节'推理零开销'明确'合并后就是普通模型'，这是实现推理成本下降（无需额外LoRA计算）的充要条件；C正确——教材5.4节'降本动机'强调'高频、固定域、结构化输出任务才适合蒸馏'，且'GPU按运行时长计费'，小模型本地推理必然降低推理成本；D错误——教材5.5节'⚠️混入真实数据'建议'避免训练分布与生产不匹配'，混入真实数据反而提升效果，非必要条件。",
+      "difficulty_label": "进阶"
+    }
+  ]
+}

@@ -1,0 +1,215 @@
+{
+  "new-5-6-0": {
+    "qid": "new-5-6-0",
+    "classification": "own",
+    "chapter": 5,
+    "quality": "ok",
+    "reason": "题干考查数据合成蒸馏流程中温度设计的核心目的，选项D为无中生有的成本考量，符合教材对温度作用的描述。",
+    "answer": [
+      "D"
+    ],
+    "supported": true,
+    "quote": "生成多样化提问：用高温度（如 temperature=0.9）让教师批量造问，覆盖8类意图 × 4部门、正式/口语/含糊等风格；教师标注：用精确的system prompt约束输出JSON，低温度（temperature=0.1）保证标注一致性",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "教材明确高温度用于保障提问多样性，覆盖真实分布。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "教材明确低温度用于保证标注一致性，确保JSON结构稳定。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "高温度可避免意图覆盖不全，符合教材覆盖多意图的意图。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "教材未提及温度设计旨在降低API调用成本，此项无依据。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-5-6-1": {
+    "qid": "new-5-6-1",
+    "classification": "own",
+    "chapter": 5,
+    "quality": "ok",
+    "reason": "题干考查数据质量四维度中的“正确性”，故障源于未校验字段值合法性，导致语义错误，符合教材定义。",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "正确性：答案/标注无误。蒸馏时教师也会犯错（JSON截断、字段缺失、取值越界），必须自动过滤",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "字段值超出预定义范围属语义错误，违反正确性要求。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "schema定义统一，但字段值错误，非一致性破坏。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "故障源于过滤不严（未校验值），而非过滤过严。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "题干未涉及数据集划分污染问题。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-5-6-2": {
+    "qid": "new-5-6-2",
+    "classification": "own",
+    "chapter": 5,
+    "quality": "ok",
+    "reason": "考查数据合成蒸馏离线阶段的强制顺序与条件，A、C符合教材流程描述，B、D表述绝对化或非强制。",
+    "answer": [
+      "A",
+      "C"
+    ],
+    "supported": true,
+    "quote": "1.设计schema：先定义稳定的输出结构。本课工单含intents/department/urgency/entities/route五个字段及取值范围；2.生成多样化提问；3.教师标注；4.质量过滤；5.格式化为messages(JSONL)格式",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "教材明确必须先完成schema设计再生成提问。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "生成提问与标注prompt可不同，教材未要求同一。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "质量过滤在格式化前完成，否则非法JSON破坏加载。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "教材强调自动过滤，人工抽检非强制必要。"
+      }
+    ],
+    "duplicate_of": "5-5120"
+  },
+  "new-5-6-3": {
+    "qid": "new-5-6-3",
+    "classification": "own",
+    "chapter": 5,
+    "quality": "ok",
+    "reason": "题干考查调参失效的根本原因，根据教材，学生能力上限受教师约束，但F1差距大更可能源于数据缺陷。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "学生能力上限受教师约束——教师本身不稳，学生不可能更好；多意图识别仍常漏判，最有效的改进是补充这些样本而非盲目加轮次",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "基座能力不足可能，但教材指出F1低常因多意图样本覆盖不足。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "教材指出意图识别问题常因多意图样本覆盖不足，属数据缺陷。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "rank增大可能过拟合，但题干未给出过拟合现象（如验证loss升）。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "lora_alpha常设为rank的1~2倍，但非根本原因。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-5-6-4": {
+    "qid": "new-5-6-4",
+    "classification": "own",
+    "chapter": 5,
+    "quality": "ok",
+    "reason": "考查离线阶段系统性故障的识别，A、C、D均符合教材所述需回溯教师侧的问题，B属轻微不一致。",
+    "answer": [
+      "A",
+      "C",
+      "D"
+    ],
+    "supported": true,
+    "quote": "质量过滤：逐条校验——JSON能否解析、5个必填字段是否齐全、字段值是否在合法范围内，不合格直接丢弃；教师也会犯错（JSON截断、字段缺失、取值越界），必须自动过滤",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "合格率过低且多因JSON解析失败，表明教师标注或prompt有严重问题。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "字段值写法轻微不一致，属一致性小问题，非系统性故障。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "教师生成虚构政策，输出内容错误，违反正确性，需回溯。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "assistant含多余标记，格式不纯，影响学习目标，需回溯清洗。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-5-6-5": {
+    "qid": "new-5-6-5",
+    "classification": "own",
+    "chapter": 5,
+    "quality": "ok",
+    "reason": "考查蒸馏流程中不可或缺的核心环节，缺失多样性设计将导致学生无法学到真实判断逻辑，符合教材原理。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "生成多样化提问：用高温度（如temperature=0.9）让教师批量造问，覆盖8类意图×4部门、正式/口语/含糊等风格，并刻意混入约30%多意图问题",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "三方评测用于效果验证，非学习判断逻辑的必要前提。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "缺失多样性设计，学生无法覆盖真实分布，学不到完整逻辑。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "未合并权重仅影响推理效率，不影响已学到的逻辑。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "未校验字段值合法性影响正确性，但后续训练可部分弥补。"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

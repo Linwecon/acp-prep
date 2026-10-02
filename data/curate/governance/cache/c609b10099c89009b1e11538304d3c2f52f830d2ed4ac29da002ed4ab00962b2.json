@@ -1,0 +1,212 @@
+{
+  "2-0036": {
+    "qid": "2-0036",
+    "classification": "own",
+    "chapter": 2,
+    "quality": "ok",
+    "reason": "考查意图分类与追问机制设计，选项区分度好。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "分类提示词必须包含的三要素（缺一即不完整）：1. 意图清单：每个意图一句话定义 + 1 个示例；2. 输出格式：结构化；3. 低置信度处理规则：低于阈值怎么办（追问 / 兜底 / 转人工）。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "机械要求每次回复后追加问题，不区分意图与信息缺失。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "明确意图（订票）、信息完整标准（出发地等）、追问规则，最有效。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "未明确追问的具体信息项，不如B精准。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "未规定模糊请求时的追问机制，无法满足题干要求。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "2-0110": {
+    "qid": "2-0110",
+    "classification": "own",
+    "chapter": 2,
+    "quality": "ok",
+    "reason": "考查输出格式的作用，选项区分明确。",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "输出格式把自然语言输出约束成程序可解析的结构。结构化输出（JSON Mode）要求严格按 JSON 等格式输出，配合 Schema 校验。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "输出格式的核心作用是约束模型输出结构化数据。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "提示工程不改变模型训练数据。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "输出格式不直接影响推理时间。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "提示工程不改变模型参数数量。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "2-0129": {
+    "qid": "2-0129",
+    "classification": "own",
+    "chapter": 2,
+    "quality": "ok",
+    "reason": "考查提示词六要素中受众的作用，选项区分明确。",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "受众（Audience）指定为谁而写，约束内容深度。受众直接决定内容深度——问同一个问题，给算法工程师和小学生的回答深度完全不同。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "受众的作用是明确模型输出针对的特定对象。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "提供背景信息是上下文的作用。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "定义角色是角色要素的作用。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "指定输出格式是输出格式要素的作用。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "2-0130": {
+    "qid": "2-0130",
+    "classification": "own",
+    "chapter": 2,
+    "quality": "ok",
+    "reason": "考查提示词六要素中任务目标的作用，选项区分明确。",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "任务目标（Object）明确要完成什么，让模型聚焦。任务目标的作用是明确要求大模型完成的具体任务。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "任务目标的作用是明确具体任务。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "提供背景信息是上下文的作用。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "定义角色是角色要素的作用。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "指定输出格式是输出格式要素的作用。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "2-0142": {
+    "qid": "2-0142",
+    "classification": "own",
+    "chapter": 2,
+    "quality": "ok",
+    "reason": "考查提示词六要素中上下文的作用，选项区分明确。",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "上下文（Context）提供背景、事实、范围。上下文的作用是提供任务的背景信息。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "上下文的作用是提供背景信息。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "样例用于提供输出格式与风格的锚点。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "任务目标用于明确具体任务。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "角色用于定义身份、语气、写作风格。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "2-0166": {
+    "qid": "2-0166",
+    "classification": "own",
+    "chapter": 2,
+    "quality": "ok",
+    "reason": "考查提示词六要素中上下文的作用，选项区分明确。",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "上下文（Context）提供背景、事实、范围。上下文的作用是提供任务的背景信息。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "上下文的作用是提供背景信息。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "明确具体任务是任务目标的作用。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "定义角色是角色要素的作用。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "指定输出格式是输出格式要素的作用。"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

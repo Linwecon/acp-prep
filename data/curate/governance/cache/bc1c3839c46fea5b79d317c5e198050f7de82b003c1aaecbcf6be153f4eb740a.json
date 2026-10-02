@@ -1,0 +1,216 @@
+{
+  "new-6-42-0": {
+    "qid": "new-6-42-0",
+    "classification": "own",
+    "chapter": 6,
+    "quality": "ok",
+    "reason": "考察部署选型决策，结合数据合规、功能需求、运维能力综合判断。",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "PAI-EAS（企业级模型在线服务平台）...提供弹性扩缩容、蓝绿/灰度发布、版本控制、资源监控、模型预热",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "EAS提供灰度发布、版本回滚和弹性，符合需求且规避自运维风险。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "ECS+vLLM虽可控，但题干强调灰度发布，EAS开箱即用更优先。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "ECS可通过额外组件实现灰度，但EAS原生支持是优势，非唯一原因。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "PAI-EAS支持自定义模型部署，性能优化空间并非主要限制。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-6-42-1": {
+    "qid": "new-6-42-1",
+    "classification": "own",
+    "chapter": 6,
+    "quality": "ok",
+    "reason": "考察高并发下性能瓶颈分析，聚焦KV Cache对显存和并发的影响。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "KV Cache随‘序列长度 × 并发数’线性增长，长上下文、高并发时 KV Cache 往往成为显存大头",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "模型权重固定，不随并发变化，非此时主要瓶颈。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "KV Cache随并发线性增长，易成显存瓶颈导致排队或OOM。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "运行时缓冲区非主要因素，且原文未强调此场景。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "ECS实例资源干扰非教材讨论重点，无依据。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-6-42-2": {
+    "qid": "new-6-42-2",
+    "classification": "own",
+    "chapter": 6,
+    "quality": "ok",
+    "reason": "考察降低TPOT（解码阶段延迟）的具体优化措施。",
+    "answer": [
+      "A",
+      "B",
+      "D"
+    ],
+    "supported": true,
+    "quote": "Decode（解码阶段）...决定了 TPOT（Time Per Output Token，每生成一个 token 的时间）...量化...通常也加速...GQA（分组查询注意力）...KV 头数成倍减少",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "INT4量化可减少显存带宽，若支持对应算子可加速Decode。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "缩短序列长度可减少Decode步数及KV Cache读取量。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "提高显存利用率不直接加速Decode，可能加剧竞争。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "GQA减少KV头数，可降低KV Cache大小和带宽压力。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-6-42-3": {
+    "qid": "new-6-42-3",
+    "classification": "own",
+    "chapter": 6,
+    "quality": "ok",
+    "reason": "考察监控指标选择，需同时反映用户体验和成本风险。",
+    "answer": [
+      "D"
+    ],
+    "supported": true,
+    "quote": "从成本、性能、质量与安全三个维度观测 LLM 应用...成本：按模型/会话/用户的 Token 消耗排行...性能：各阶段耗时、TTFT、P95 延迟",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "包含TTFT和Token消耗，但敏感词命中率属安全，非成本风险核心。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "QPS和显存占用反映吞吐和资源，未直接体现用户体验延迟和成本。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "TPOT和错误率反映生成质量，但未包含成本消耗指标。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "RT（总延迟）和日总Token消耗直接对应体验和成本，合规性属质量安全。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-6-42-4": {
+    "qid": "new-6-42-4",
+    "classification": "own",
+    "chapter": 6,
+    "quality": "ok",
+    "reason": "综合考察部署方案对数据合规、性能、高可用和冷启动要求的满足情况。",
+    "answer": [
+      "A",
+      "B",
+      "D"
+    ],
+    "supported": true,
+    "quote": "ECS（Elastic Compute Service）...数据不出域...PAI-EAS...提供模型预热，服务上线前就把模型加载好（缓解首次请求慢）...支持蓝绿部署、版本控制、回滚",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "ECS自建数据不出域，SLB+ESS支持高可用和弹性，无冷启动。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "PAI-EAS数据不出域（私有部署），模型预热避冷启动，蓝绿发布支持回滚。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "FC有冷启动风险，且更适合轻量低频任务，非实时高QPS首选。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "ACK容器自建数据不出域，StatefulSet和Istio支持高可用和灰度，无冷启动。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-6-42-5": {
+    "qid": "new-6-42-5",
+    "classification": "own",
+    "chapter": 6,
+    "quality": "ok",
+    "reason": "考察PagedAttention机制原理，特别是其按需分配特性。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "PagedAttention（分页注意力）...把 KV Cache 切成一个个固定大小的块（block），按需分配",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "共享前缀是PagedAttention优势，但流式不影响其按需分配核心机制。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "PagedAttention核心是按需分配块，避免为整条响应预分配显存。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "PagedAttention设计目的正是消除碎片，而非加剧。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "流式响应与PagedAttention机制不冲突，无需禁用。"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

@@ -1,0 +1,79 @@
+{
+  "new-4-36-0": {
+    "qid": "new-4-36-0",
+    "classification": "own",
+    "chapter": 4,
+    "quality": "ok",
+    "reason": "题目考查Agent核心设计约定，原文明确强调失败出口。",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "要给模型'失败出口'：工具超时、报错时能重试或换方案，而不是整轮崩溃",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "ReAct轮数上限是防死循环，非本题核心。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "结果回灌是基础，但非针对失败处理。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "原文明确要求工具失败时能重试或换方案。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "FC分工是基础机制，非针对失败处理。"
+      }
+    ],
+    "duplicate_of": "4-5155"
+  },
+  "new-4-36-1": {
+    "qid": "new-4-36-1",
+    "classification": "own",
+    "chapter": 4,
+    "quality": "ok",
+    "reason": "题目考查规划策略最佳实践，原文对比了固定工作流与自主规划。",
+    "answer": [
+      "B",
+      "C",
+      "D"
+    ],
+    "supported": true,
+    "quote": "固定工作流的致命问题是'卡不起'：竞品网站改版导致爬虫失效，预设流程里没这条分支，整个流程就僵住。你无法为每一种意外都预先 if/else。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "强制使用缓存仍是固定流程，未解决动态调整。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "Plan-and-Execute模式可动态判断和启用备用方案。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "外部反馈获取真实错误信息并重新规划，符合反思策略。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "分支工作流在工具不可用时路由至人工审核，是固定工作流的一种改进。"
+      },
+      {
+        "label": "E",
+        "selected": false,
+        "why": "重试和timeout是工程细节，非本章规划策略核心。"
+      }
+    ],
+    "duplicate_of": "4-5158"
+  }
+}

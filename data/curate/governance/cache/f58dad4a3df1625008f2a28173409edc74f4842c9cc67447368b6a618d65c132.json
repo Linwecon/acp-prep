@@ -1,0 +1,212 @@
+{
+  "5-0975": {
+    "qid": "5-0975",
+    "classification": "own",
+    "chapter": 5,
+    "quality": "ok",
+    "reason": "考查训练损失下降慢的归因，原文明确列出原因",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "训练 loss 下降很慢 | lr 偏低 / 步数不够 / LoRA 容量不足",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "学习率过低是原文明确列出的原因"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "接近收敛时loss下降变慢属正常"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "原文未提数据量大会导致loss下降慢"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "优化器不当会导致不收敛或震荡"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "5-0980": {
+    "qid": "5-0980",
+    "classification": "own",
+    "chapter": 5,
+    "quality": "ok",
+    "reason": "考查学习率过高后果，原文有直接描述",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "太大 → 震荡/不收敛甚至 loss 飙升",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "lr高不会导致速度慢"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "原文明确说lr太大会震荡发散"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "完美拟合需验证集同步下降"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "lr对训练影响显著"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "5-1078": {
+    "qid": "5-1078",
+    "classification": "own",
+    "chapter": 5,
+    "quality": "ok",
+    "reason": "考查checkpoint选择依据，原文强调验证集最优",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "部署应选验证集表现最优的 checkpoint",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "原文明确要求选验证集最优"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "最后一个可能已过拟合"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "保存所有迭代不现实且无必要"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "初期模型未充分训练"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "5-1147": {
+    "qid": "5-1147",
+    "classification": "own",
+    "chapter": 5,
+    "quality": "ok",
+    "reason": "考查loss双降稳定状态判断，原文定义为训练成功",
+    "answer": [
+      "D"
+    ],
+    "supported": true,
+    "quote": "训练 loss 趋于平稳 | 验证 loss 趋于平稳 | 训练成功",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "过拟合需验证loss上升"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "欠拟合时loss仍在下降"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "双降平稳属正常收敛"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "原文明确定义为训练成功"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "5-1149": {
+    "qid": "5-1149",
+    "classification": "own",
+    "chapter": 5,
+    "quality": "ok",
+    "reason": "考查过拟合判定标准，原文有铁证描述",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "验证 loss 先降后升 = 过拟合的铁证",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "欠拟合时双loss均下降"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "原文明确将此列为过拟合铁证"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "失败指loss不降或飙升"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "成功需双loss平稳"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "5-1155": {
+    "qid": "5-1155",
+    "classification": "own",
+    "chapter": 5,
+    "quality": "ok",
+    "reason": "考查loss双降阶段判断，原文指出属正常学习过程",
+    "answer": [
+      "D"
+    ],
+    "supported": true,
+    "quote": "下降 | 下降 | 欠拟合 | 还在学，可继续训练",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "收敛需loss平稳而非下降"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "过拟合需验证loss上升"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "lr过高会导致震荡而非双降"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "原文说还在学，可继续训练"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

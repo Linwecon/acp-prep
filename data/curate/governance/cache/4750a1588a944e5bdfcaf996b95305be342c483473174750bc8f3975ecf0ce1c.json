@@ -1,0 +1,154 @@
+{
+  "items": [
+    {
+      "type": 0,
+      "stem": "某算法团队在PAI-DSW中完成LoRA微调后，需将模型部署为高并发、可弹性伸缩的在线服务，并要求支持蓝绿发布与实时监控告警。此时应选用PAI哪个组件？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "PAI-DSW，因其提供GPU Notebook环境，可直接启动vLLM服务对外暴露API"
+        },
+        {
+          "option_label": "B",
+          "option_text": "PAI-DLC，因其专为分布式训练设计，支持自动扩缩容推理实例"
+        },
+        {
+          "option_label": "C",
+          "option_text": "PAI-EAS，因其专为模型在线服务设计，原生支持弹性伸缩、蓝绿发布、版本管理与监控"
+        },
+        {
+          "option_label": "D",
+          "option_text": "ModelScope Notebook，因其免费且预装vLLM，适合生产级服务部署"
+        }
+      ],
+      "answer": "C",
+      "analysis": "依据原文10.4节‘PAI三件套’表格及原理说明：EAS（Elastic Algorithm Service）明确定义为‘模型在线服务’，核心能力包括‘弹性伸缩、蓝绿发布、版本管理、监控告警’，完全匹配题干中‘高并发、弹性伸缩、蓝绿发布、实时监控’四重需求。A错误：DSW是开发调试环境（‘工作台’），非生产服务载体，原文明确警示‘关闭浏览器不等于停止实例’，且无蓝绿/监控等生产特性；B错误：DLC专用于‘分布式训练’，非推理部署；D错误：ModelScope Notebook是社区体验环境，有运行时长限制（原文10.7注），不提供生产级SLA、弹性伸缩或告警能力。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 0,
+      "stem": "运维工程师发现线上DashScope API调用频繁返回HTTP 429状态码，日志显示TPM（每分钟Token数）持续超限。此时若立即执行‘增加max_tokens参数上限’操作，最可能引发的后果是？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "缓解429错误，因增大输出长度可降低请求频次"
+        },
+        {
+          "option_label": "B",
+          "option_text": "加剧429错误并推高成本，因单次请求消耗Token量增加，更快耗尽TPM配额"
+        },
+        {
+          "option_label": "C",
+          "option_text": "触发RPM（每分钟请求数）限流，因系统误判为恶意高频请求"
+        },
+        {
+          "option_label": "D",
+          "option_text": "导致模型输出截断，因max_tokens超出模型上下文窗口限制"
+        }
+      ],
+      "answer": "B",
+      "analysis": "依据原文10.8节‘限流（RPM/TPM）’定义及‘省成本的工程手段’第3条：‘限制输出：用max_tokens给输出设上限，避免模型刹不住车’；同时明确‘输入/输出分别计价，输出通常更贵’。TPM即每分钟Token总数配额，增大max_tokens会显著提升单次请求的输出Token消耗，加速TPM耗尽，从而加剧429错误并同步推高费用。A错误：max_tokens控制单次输出长度，与请求频次（RPM）无关；C错误：429由TPM/RPM任一超限触发，但增大max_tokens直接影响TPM而非RPM；D错误：超出上下文窗口会报400类错误（如context_length_exceeded），非429。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 1,
+      "stem": "某金融公司需构建合规问答系统，严格满足：① 所有客户合同与监管文件严禁出域；② 通用千问模型对‘穿透式尽调’等术语回答不准；③ 需支持1000+并发实时响应。以下阿里云产品组合中，哪些环节必须使用PAI组件才能满足全部约束？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "使用PAI-DSW进行LoRA微调，适配金融领域术语"
+        },
+        {
+          "option_label": "B",
+          "option_text": "使用PAI-DLC进行大规模分布式训练，提升模型泛化能力"
+        },
+        {
+          "option_label": "C",
+          "option_text": "使用PAI-EAS部署微调后模型，实现数据不出域的高并发服务"
+        },
+        {
+          "option_label": "D",
+          "option_text": "使用百炼知识库上传监管文档，调用DashScope API生成答案"
+        }
+      ],
+      "answer": "A,C",
+      "analysis": "依据原文10.5节选型决策第4条：‘要数据完全不出域、强私有化 → 开源模型（ModelScope下载）+ PAI/EAS或自建GPU部署’；10.4节明确PAI三件套分工：DSW用于‘写代码、做实验’（微调开发），EAS用于‘模型对外服务的门面’（高并发部署）。A正确：微调需在可控环境（DSW）中完成，确保训练数据不出域；C正确：EAS提供私有化部署能力，满足数据不出域+高并发。B非必须：题干未要求‘大规模’训练，LoRA微调在DSW单卡即可完成，DLC是可选优化；D错误：百炼+DashScope需上传文档至平台，违反‘严禁出域’约束（原文10.5对比表‘数据与模型控制’栏明确百炼为‘平台托管’）。",
+      "difficulty_label": "挑战"
+    },
+    {
+      "type": 0,
+      "stem": "团队在PAI-DSW中完成Qwen2-1.5B模型微调后，需验证推理效果。若直接在DSW中启动vLLM服务并通过curl测试，该做法最可能违反原文哪项关键原则？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "违反‘调试选DSW、训练选DLC、上线选EAS’的生命周期分层原则"
+        },
+        {
+          "option_label": "B",
+          "option_text": "违反PAI-DSW费用管理原则：vLLM服务长期运行将导致GPU计算时持续计费"
+        },
+        {
+          "option_label": "C",
+          "option_text": "违反模型服务化原则：vLLM接口不兼容OpenAI标准，无法被业务系统调用"
+        },
+        {
+          "option_label": "D",
+          "option_text": "违反数据安全原则：vLLM服务暴露在公网将导致微调模型权重泄露"
+        }
+      ],
+      "answer": "B",
+      "analysis": "依据原文10.4节‘PAI-DSW费用提醒’：‘DSW实例按计算时计费，关闭浏览器不等于停止实例，不学了必须回控制台停止或删除’；且强调‘GPU实例消耗额度远快于CPU’。在DSW中启动vLLM服务属于长期占用GPU资源，会持续产生计算时费用，而DSW定位仅为‘交互式建模工作台’（10.4概念），非生产服务载体。A错误：vLLM本地验证属调试范畴，未违反分层（EAS才是上线）；C错误：原文10.4原理明确‘vLLM本地起服务验证（其HTTP接口本身兼容OpenAI API）’；D错误：DSW默认内网访问，无公网暴露风险，且原文未提此安全约束。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 1,
+      "stem": "某医疗AI初创公司计划构建临床指南问答系统，技术负责人提出采用‘ModelScope下载Qwen2-7B开源模型 + PAI-EAS部署’方案。根据原文10.7节对开源模型价值的阐述，以下哪些因素会显著增强该方案的合理性？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "需满足HIPAA等医疗数据合规要求，患者病历数据绝对不可上传至公网"
+        },
+        {
+          "option_label": "B",
+          "option_text": "团队已具备GPU服务器运维能力，可承担自建成本"
+        },
+        {
+          "option_label": "C",
+          "option_text": "系统需支持对新发布的《诊疗指南》进行快速微调并上线"
+        },
+        {
+          "option_label": "D",
+          "option_text": "初期日均调用量仅200次，预算有限，需最小化初始投入"
+        }
+      ],
+      "answer": "A,C",
+      "analysis": "依据原文10.7节‘开源模型的价值集中在三点’：①数据隐私与合规（数据不出域）；②可深度定制（任意微调/改结构）；③大规模稳定流量下长期成本可控。A正确：直接对应价值点①，HIPAA要求数据不出域，开源+PAI-EAS可完全私有化部署；C正确：对应价值点②，开源模型支持任意微调，满足‘快速微调指南’需求。B错误：原文明确‘代价是需要GPU、算法与运维能力’，但‘具备能力’是前提而非增强合理性的因素；D错误：原文10.7价值分析指出‘业务初期、规模不确定...直接用百炼/DashScope最划算’，200次/日属极低频，自托管反而增加初始成本（GPU租用+运维），违背‘初期最划算’原则。",
+      "difficulty_label": "挑战"
+    },
+    {
+      "type": 0,
+      "stem": "HR希望零代码搭建新人答疑机器人，上传员工手册后能回答‘年假几天’等问题，并发布到钉钉群。若在PAI-DSW中创建Jupyter Notebook编写RAG流水线代码实现该功能，此做法最根本的问题在于？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "PAI-DSW不支持文档解析与向量化，无法实现RAG核心能力"
+        },
+        {
+          "option_label": "B",
+          "option_text": "违背使用者分层原则：HR是应用开发者/运营，应使用百炼而非PAI"
+        },
+        {
+          "option_label": "C",
+          "option_text": "PAI-EAS无法发布服务至钉钉，缺少渠道集成能力"
+        },
+        {
+          "option_label": "D",
+          "option_text": "Qwen系列模型未在PAI镜像中预置，需手动下载导致流程中断"
+        }
+      ],
+      "answer": "B",
+      "analysis": "依据原文10.1节产品全景表及10.2节‘百炼的价值’：百炼明确定位为‘一站式大模型应用开发平台’，使用者为‘应用开发者、产品、运营’，核心能力包含‘知识库（RAG）、一键发布到钉钉’；而PAI定位为‘面向算法工程师的机器学习全流程平台’（10.4概念）。题干中‘HR零代码’‘上传手册’‘发布钉钉’完全匹配百炼场景（原文10.2场景描述），强行用PAI-DSW编码属于严重错配使用者角色。A错误：PAI-DSW可安装任何Python包（如langchain），支持RAG；C错误：EAS可提供API，钉钉可通过自建机器人调用，但非‘一键发布’；D错误：PAI-DSW预置镜像含常用模型（原文10.4原理提及‘课程预置镜像’）。",
+      "difficulty_label": "入门"
+    }
+  ]
+}

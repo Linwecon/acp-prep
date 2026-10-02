@@ -1,0 +1,83 @@
+{
+  "items": [
+    {
+      "type": 0,
+      "stem": "某企业升级新人答疑机器人为可办事的Agent，用户问'帮我查一下我上个月提交的报销单审批到哪一步了'。系统首次调用模型后，模型返回包含tool_calls的响应。此时，下一步最关键的执行主体和动作应是？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "由LLM自身立即执行get_reimbursement函数，并将结果直接渲染为最终回答"
+        },
+        {
+          "option_label": "B",
+          "option_text": "由应用代码解析tool_calls，调用对应工具函数，再将结构化结果以role='tool'消息回传给模型"
+        },
+        {
+          "option_label": "C",
+          "option_text": "由Planner组件接管，重新生成不含工具调用的新规划，避免依赖外部系统"
+        },
+        {
+          "option_label": "D",
+          "option_text": "由Memory模块自动检索历史报销记录并填充上下文，触发模型二次生成"
+        }
+      ],
+      "answer": "B",
+      "analysis": "依据4.3节Function Calling流程铁律：模型仅输出结构化tool_calls（提议），执行必须由应用代码完成；且工具结果必须作为role='tool'消息追加回上下文，模型才具备观察基础（教材原文：'由你的应用代码解析tool_calls、真正执行对应函数，并把结果包装成role=\"tool\"的消息'）。A错误——模型从不执行函数，属高频陷阱；C错误——Planner不替代执行，其职责是规划而非绕过工具；D错误——Memory不主动检索或填充业务数据，报销状态需实时调用工具获取，非历史缓存。本题聚焦'条件权衡'：在工具调用链中，必须严格区分模型能力边界与程序责任，否则导致系统不可控。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 1,
+      "stem": "某金融风控Agent需处理'客户信用评估'任务，涉及查询征信API、计算风险分、生成报告三步。当前采用ReAct模式但频繁超时失败。以下哪些改进措施符合本章4.4节ReAct铁律与4.6节规划策略原则？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "取消轮数上限，允许Agent无限重试直至成功，确保任务100%完成"
+        },
+        {
+          "option_label": "B",
+          "option_text": "将三步固化为流水线工作流，征信查询失败时自动切换至备用数据库接口"
+        },
+        {
+          "option_label": "C",
+          "option_text": "为征信查询步骤添加确定性检查：若返回HTTP 503，则触发重试逻辑而非交由模型推理"
+        },
+        {
+          "option_label": "D",
+          "option_text": "在每轮Observation后插入LLM-as-Judge进行自我审查，强制要求模型对参数合法性打分"
+        },
+        {
+          "option_label": "E",
+          "option_text": "设置最大迭代轮数为5，超限时由HITL节点转人工审核并提供兜底结论"
+        }
+      ],
+      "answer": "BCE",
+      "analysis": "B正确：4.6.2节明确流水线模式适用于'流程稳定、可预测'场景，且分支/重试机制符合'工具失败时能换方案'的贯穿案例要求；C正确：4.10节确定性检查定义为'用代码/脚本判断该发生的步骤有没有发生'，HTTP状态码校验是典型客观检查，避免模型对错误信号误判；E正确：4.4节ReAct铁律强调'必须设置最大迭代轮数/超时/预算上限'，HITL是4.6.2节列出的五种工作流模式之一，符合'任何模式都应在关键节点叠加HITL'原则。A错误：直接违反ReAct'三条铁律'中'不是无限循环'；D错误：LLM-as-Judge用于主观项（如风格、准确性），而参数合法性属客观规则，应由确定性检查覆盖，且4.10节指出LLM Judge存在'位置偏见、长度偏见'，不应替代确定性验证。",
+      "difficulty_label": "高阶"
+    },
+    {
+      "type": 0,
+      "stem": "某多Agent系统设计用于跨部门协作审批，其中Leader Agent负责拆解'合同签署'任务并分派给法务、财务、合规三个Worker Agent。审计发现：所有Worker共用同一套OA系统管理员Token，且Leader的系统提示词中硬编码了全部三个Worker的完整工具Schema与职责描述。该设计违反本章哪两条硬性原则？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "明确职责、避免全量注入"
+        },
+        {
+          "option_label": "B",
+          "option_text": "独立凭据、避免全量注入"
+        },
+        {
+          "option_label": "C",
+          "option_text": "中央调度、明确职责"
+        },
+        {
+          "option_label": "D",
+          "option_text": "独立凭据、中央调度"
+        }
+      ],
+      "answer": "B",
+      "analysis": "依据4.7节'多Agent设计四条硬原则'：'独立凭据'明确要求'不同Agent不得共用同一套账号/API凭据'，共用管理员Token直接违反此条，导致越权与横向扩散风险；'避免全量注入'强调'不要把所有Agent的知识/工具清单一次性写进主Prompt'，硬编码全部Worker Schema造成上下文膨胀、注意力稀释（教材原文：'否则上下文膨胀、注意力被稀释、token成本飙升'）。A中'明确职责'未被违反（Leader拆解、Worker各司其职即体现职责清晰）；C中'中央调度'恰被满足（Leader统一拆解分派）；D中'中央调度'是正确实践而非违反项。本题考查'故障诊断'：从真实审计问题反推原则漏洞，紧扣'硬原则'的强制性表述。",
+      "difficulty_label": "进阶"
+    }
+  ]
+}

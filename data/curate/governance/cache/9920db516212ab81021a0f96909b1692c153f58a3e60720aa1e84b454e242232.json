@@ -1,0 +1,154 @@
+{
+  "items": [
+    {
+      "type": 0,
+      "stem": "某Function Calling流程中，模型首次返回tool_calls并指定了tool_call_id，程序也成功执行了工具函数并获取结果，但第二次API调用后模型回答仍为'我无法获取该信息'。经检查，回传的role='tool'消息中缺失了一个关键字段。该字段在API层面起什么作用？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "标识工具调用所属的messages会话上下文，用于服务端路由"
+        },
+        {
+          "option_label": "B",
+          "option_text": "作为客户端校验工具执行结果完整性的签名"
+        },
+        {
+          "option_label": "C",
+          "option_text": "供模型匹配此前tool_calls意图与本次执行结果的唯一关联凭证"
+        },
+        {
+          "option_label": "D",
+          "option_text": "用于服务端统计单次Function Calling链路的Token消耗"
+        }
+      ],
+      "answer": "C",
+      "analysis": "依据原文9.7节‘API视角的四个关键字段’表格及‘risk’部分：'回传结果时漏tool_call_id → 模型无法把结果和之前的调用对应起来'；且原理明确指出'role=\"tool\"消息必须带tool_call_id'。选项C准确复现教材原意——tool_call_id是模型在第二次调用时将tool_calls意图与程序回传的content进行语义绑定的唯一锚点，缺失则导致模型视作无效或孤立工具响应。A错误：上下文路由由整个messages数组决定，非靠此字段；B错误：无签名机制描述；D错误：Token统计由usage字段承载，与tool_call_id无关。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 1,
+      "stem": "在实现Function Calling两次调用闭环时，以下哪些操作是确保模型能基于工具结果生成正确最终回答的必要条件？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "第一次调用返回的response_message必须追加到messages数组中，再构造第二次请求"
+        },
+        {
+          "option_label": "B",
+          "option_text": "tools参数需在两次调用中均保持完全一致"
+        },
+        {
+          "option_label": "C",
+          "option_text": "第二次调用的messages必须包含第一次的response_message和完整的role='tool'消息"
+        },
+        {
+          "option_label": "D",
+          "option_text": "role='tool'消息中的name字段必须与第一次tool_calls中function.name严格一致"
+        }
+      ],
+      "answer": "ACD",
+      "analysis": "依据原文9.7节代码示例及‘risk’部分：A正确——‘忘了把response_message追加进messages → 第二次调用时模型不知道自己之前决策了什么’；C正确——第二次调用的messages需同时含模型决策（assistant角色）和工具结果（tool角色），缺一不可；D正确——name不一致会导致模型无法识别该tool消息归属哪个工具调用，属Schema约束失效。B错误——tools仅需在第一次调用时声明，第二次调用无需重复传递（教材示例中第二次create未传tools），否则可能引发冗余或冲突。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 0,
+      "stem": "开发团队发现Function Calling流程中，模型始终不触发tool_calls，即使用户问题明确要求查询外部系统。排查发现tools定义中parameters的required字段遗漏了必填参数名。该问题最直接违反原文强调的哪条Function Calling工程约束？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "工具描述含糊会导致参数提取失败"
+        },
+        {
+          "option_label": "B",
+          "option_text": "模型不执行工具，执行工具的是应用程序"
+        },
+        {
+          "option_label": "C",
+          "option_text": "tool_choice='auto'依赖模型对工具能力的理解"
+        },
+        {
+          "option_label": "D",
+          "option_text": "role='tool'消息必须带tool_call_id"
+        }
+      ],
+      "answer": "A",
+      "analysis": "原文9.7节‘risk’部分明确列出：'Schema描述含糊——字段名歧义、required漏标、类型写错（number写成string）都会导致参数提取失败'。required字段缺失属于典型的Schema描述不严谨，直接导致模型无法确认参数完整性，从而拒绝生成tool_calls。B、C、D均与required遗漏无直接因果关系：B描述执行主体，C描述调用策略，D描述回传规范，均非本故障根因。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 1,
+      "stem": "某Function Calling场景中，用户提问'查一下张三的工号和部门'，模型返回两个tool_calls（分别查工号、查部门），但程序只执行了第一个并回传，第二次调用后模型回答不完整。为支持多工具并行调用，以下哪些修改符合API层工程实践？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "在第一次响应中遍历所有tool_calls，异步并发执行全部工具函数"
+        },
+        {
+          "option_label": "B",
+          "option_text": "将多个tool_calls的结果按顺序拼接为单个role='tool'消息回传"
+        },
+        {
+          "option_label": "C",
+          "option_text": "为每个tool_call生成独立的role='tool'消息，均携带各自tool_call_id"
+        },
+        {
+          "option_label": "D",
+          "option_text": "第二次调用时messages需包含全部tool_calls响应及对应role='tool'消息"
+        }
+      ],
+      "answer": "ACD",
+      "analysis": "依据原文9.7节原理：A正确——模型可返回多个tool_calls，程序应并行执行（教材虽未明说并发，但‘每个tool_call’隐含独立性，且工程实践必然支持）；C正确——每个tool_call需对应独立role='tool'消息并带其专属tool_call_id，这是模型关联结果的唯一方式（见9.7节表格）；D正确——第二次调用的messages必须包含所有历史（含全部assistant/tool消息）以维持上下文。B错误——将多个结果拼入单个role='tool'消息会破坏tool_call_id与结果的1:1映射，模型无法解析，属严重违规。",
+      "difficulty_label": "挑战"
+    },
+    {
+      "type": 0,
+      "stem": "当Function Calling第一次调用返回tool_calls后，程序执行工具函数时发生网络超时，未能获取结果。此时若直接跳过回传、立即发起第二次API调用，最可能导致的故障现象是？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "第二次调用返回400错误，提示messages结构非法"
+        },
+        {
+          "option_label": "B",
+          "option_text": "模型在第二次响应中仍返回相同的tool_calls，形成死循环"
+        },
+        {
+          "option_label": "C",
+          "option_text": "模型回答'我无法获取该信息'，且不尝试再次调用工具"
+        },
+        {
+          "option_label": "D",
+          "option_text": "服务端因缺少tool_call_id校验而拒绝第二次请求"
+        }
+      ],
+      "answer": "C",
+      "analysis": "依据原文9.7节核心逻辑：Function Calling闭环依赖'模型决策→程序执行→结果回传→模型生成答案'四步。若跳过执行与回传，第二次调用的messages中既无assistant角色的tool_calls响应，也无role='tool'消息，模型看到的仍是原始user问题+system指令，它无法凭空生成答案，只能按普通对话逻辑回应（如'我无法获取该信息'）。A错误：messages结构合法（无tool消息不违法）；B错误：模型不会重复返回相同tool_calls，因输入上下文已变（多了assistant消息）；D错误：tool_call_id校验发生在回传环节，非第二次请求准入条件。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 0,
+      "stem": "在调试Function Calling时，开发者观察到：第一次调用返回的tool_calls中function.arguments为'{\"query\": \"Transformer paper\"}'，但程序解析时抛出JSONDecodeError。该异常最可能源于原文强调的哪类Schema设计缺陷？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "description字段未清晰说明参数语义，导致模型生成非标准JSON"
+        },
+        {
+          "option_label": "B",
+          "option_text": "parameters中类型声明与实际生成内容不匹配"
+        },
+        {
+          "option_label": "C",
+          "option_text": "required字段未标注必填项，使模型省略了引号"
+        },
+        {
+          "option_label": "D",
+          "option_text": "tools数组未按JSON Schema格式定义，导致SDK序列化失败"
+        }
+      ],
+      "answer": "B",
+      "analysis": "原文9.7节‘risk’明确指出：'Schema描述含糊……类型写错（number写成string）都会导致参数提取失败'。JSONDecodeError通常因字符串未加引号（如query: Transformer paper而非\"query\": \"Transformer paper\"）或类型不匹配（如期望string却生成object）引起。B项直指'类型声明与实际生成内容不匹配'这一教材明确定义的根源。A错误：description影响模型理解，但不直接导致JSON语法错误；C错误：required缺失影响是否生成该字段，不影响已有字段的JSON格式；D错误：tools定义在请求体，SDK序列化失败属客户端问题，非API层Schema缺陷。",
+      "difficulty_label": "进阶"
+    }
+  ]
+}

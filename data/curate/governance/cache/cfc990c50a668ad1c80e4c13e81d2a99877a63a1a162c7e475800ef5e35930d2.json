@@ -1,0 +1,37 @@
+{
+  "new-6-174-0": {
+    "qid": "new-6-174-0",
+    "classification": "own",
+    "chapter": 6,
+    "quality": "ok",
+    "reason": "题目考查PagedAttention机制的核心作用边界，区分Prefill与Decode阶段优化重点，符合本章知识。",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "Prefill（预填充阶段）：把用户输入的整段 prompt 一次性喂进去，并行计算所有输入 token 的表示。这一步是计算密集型，处理完后吐出第一个 token，决定了 TTFT（Time To First Token，首 token 延迟）——也就是用户感知的“开口快慢”。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "原文明确TTFT由Prefill阶段决定，PagedAttention仅优化Decode阶段的KV Cache管理。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "原文未提及页表查询开销会抵消显存节省的计算收益。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "原文未提及vLLM默认禁用FlashAttention优化。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "原文未提及64K长度超出GPU显存带宽上限，且PagedAttention旨在优化显存利用。"
+      }
+    ],
+    "duplicate_of": "6-5143"
+  }
+}

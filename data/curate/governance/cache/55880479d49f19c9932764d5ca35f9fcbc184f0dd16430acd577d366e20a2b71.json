@@ -1,0 +1,221 @@
+{
+  "2-1243": {
+    "qid": "2-1243",
+    "classification": "own",
+    "chapter": 2,
+    "quality": "ok",
+    "reason": "题目考查CoT提示的设计原则，属于提示工程核心知识。选项设计合理，有明确答案。",
+    "answer": [
+      "B",
+      "C"
+    ],
+    "supported": true,
+    "quote": "CoT为什么有效？它把原本要求模型“一步到位”的高难度概率判断，拆成多个低难度的小步骤。Zero-shot / Few-shot / CoT三者怎么选：Zero-shot（零样本）不给示例，直接提问，简单、明确的任务",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "原文未提及忽略模型归纳能力，且与CoT设计无关。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "CoT通过分解复杂问题提升准确率，隐含了平衡问题深度与广度的思想。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "CoT可与Zero-shot结合使用，原文有Zero-shot/CoT选择策略。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "CoT不依赖大量示例，Few-shot才需要示例，且示例不在多而在精。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "2-1263": {
+    "qid": "2-1263",
+    "classification": "own",
+    "chapter": 2,
+    "quality": "ok",
+    "reason": "题目考查如何设计具体任务的提示词，属于提示词六要素中“任务”和“输出格式”的应用。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "六要素需要落成一个稳定的结构。推荐的通用结构是：角色 + 任务 + 上下文 + 示例 + 输出格式与约束。输出格式把自然语言输出约束成程序可解析的结构。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "仅要求阅读，未明确任务目标和输出格式，指令模糊。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "明确了任务（总结）、输出格式（每页PPT对应一个要点），指令清晰。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "指令过于模糊，未提供文本和具体要求。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "指定了工具但未给出任务和输入，不符合有效提示词设计。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "2-1437": {
+    "qid": "2-1437",
+    "classification": "cross",
+    "chapter": 4,
+    "quality": "remove",
+    "reason": "题目涉及ask_llm_route函数的具体返回值，但题干和选项中的reviewed_prompt、translate_prompt、query_engine、rag.ask等概念在提供的第2章原文中均未提及，属于条件缺失，无法根据给定资料解答。",
+    "answer": [],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "资料未提及reviewed_prompt，无法判断。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "资料未提及translate_prompt，无法判断。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "资料未提及query_engine，无法判断。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "资料未提及rag.ask，无法判断。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "2-1444": {
+    "qid": "2-1444",
+    "classification": "own",
+    "chapter": 2,
+    "quality": "ok",
+    "reason": "题目考查在具体场景下选择最适配的提示策略，涉及结构化输出、Few-shot等知识点。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "结构化输出（JSON Mode）要求严格按JSON等格式输出，配合Schema校验。Few-shot（少样本）给2~5个示例让模型模仿，格式/风格敏感、需稳定结构的任务。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "仅输入文本和要求，指令模糊，缺乏结构和约束，易导致输出不稳定。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "采用结构化提示，明确输出格式和约束，最适配生成针对性、结构化面试问题的需求。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "提供示例（Few-shot）有效，但未如B选项那样明确结构化输出格式，控制力稍弱。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "分两步（总结再生成）增加复杂度，且未明确输出格式，不如B直接高效。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "2-1448": {
+    "qid": "2-1448",
+    "classification": "own",
+    "chapter": 2,
+    "quality": "ok",
+    "reason": "题目考查提示词六要素中“样例”的作用，属于基础知识点。",
+    "answer": [
+      "D"
+    ],
+    "supported": true,
+    "quote": "样例（Sample）给1~3个范例对齐格式与风格。Few-shot示例提供输出格式与风格的锚点，模型通过上下文学习隐式模仿。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "确定目标用户是“受众”要素的作用，不是“样例”。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "样例是提供参考，辅助生成符合要求的输出，而非生成单一答案。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "限制回答长度属于“输出格式”或约束，不是“样例”的主要作用。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "“样例”的作用就是提供有指导性的案例，让模型模仿格式和风格。"
+      },
+      {
+        "label": "E",
+        "selected": false,
+        "why": "设定情感色彩通常由“角色”要素决定，不是“样例”的主要作用。"
+      },
+      {
+        "label": "F",
+        "selected": false,
+        "why": "抽象出实现方案不是“样例”的典型作用。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "2-0033": {
+    "qid": "2-0033",
+    "classification": "own",
+    "chapter": 2,
+    "quality": "ok",
+    "reason": "题目考查在分类任务中如何设计提示词以提升准确性和便于程序解析，涉及结构化输出、思维链等知识点。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "结构化输出（JSON Mode）要求严格按JSON等格式输出，配合Schema校验。下游程序要解析模型输出→用结构化输出（JSON Mode）+枚举约束+Schema校验。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "仅要求输出类别，未指定结构化格式，不利于程序解析。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "明确要求JSON格式输出，包含原因和类别，便于程序解析，且结构清晰。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "要求输出思考过程（CoT）对于简单分类任务可能冗余，且未指定易解析的格式。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "用符号分隔不如JSON格式标准，不利于程序稳定解析。"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

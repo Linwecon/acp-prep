@@ -1,70 +1,19 @@
 {
-  "generated_at": "2026-10-02T12:45:34",
+  "generated_at": "2026-10-02T14:38:01",
   "mode": "llm",
+  "sim_threshold": 0.6,
+  "min_score": 3,
+  "threshold_calibrated": false,
   "summary": {
-    "scanned": 1644,
-    "candidates": 16,
-    "suggest_remove": 15,
-    "keep": 1
+    "scanned": 58,
+    "candidates": 6,
+    "dup_groups": 5,
+    "verdict_ok": 0,
+    "verdict_fixable": 5,
+    "verdict_remove": 1,
+    "verdict_review": 0
   },
   "items": [
-    {
-      "qid": "1-0620",
-      "chapter": 1,
-      "chapter_name": "大模型基础",
-      "seq": "0620",
-      "type": 1,
-      "answer": "A,B,C,D",
-      "stem": "大模型具有以下哪些特点?",
-      "rule_score": 3,
-      "signals": [
-        "题干过短(12字)",
-        "无解析"
-      ],
-      "llm": {
-        "verdict": "remove",
-        "keep_score": 2,
-        "reason": "考点模糊，选项宽泛无ACP认证针对性，纯常识题"
-      }
-    },
-    {
-      "qid": "1-1335",
-      "chapter": 1,
-      "chapter_name": "大模型基础",
-      "seq": "1335",
-      "type": 1,
-      "answer": "A,B",
-      "stem": "以下哪些是问题修改的方法?",
-      "rule_score": 3,
-      "signals": [
-        "题干过短(13字)",
-        "无解析"
-      ],
-      "llm": {
-        "verdict": "remove",
-        "keep_score": 2,
-        "reason": "考点模糊，选项C/D与‘问题修改’无关，术语不标准且无解析支撑"
-      }
-    },
-    {
-      "qid": "10-1210",
-      "chapter": 10,
-      "chapter_name": "阿里云 AI 平台",
-      "seq": "1210",
-      "type": 1,
-      "answer": "A,B,D",
-      "stem": "百炼平台的核心优势包括?",
-      "rule_score": 3,
-      "signals": [
-        "题干过短(12字)",
-        "无解析"
-      ],
-      "llm": {
-        "verdict": "remove",
-        "keep_score": 2,
-        "reason": "选项C明显错误且与百炼平台实际不符，考点模糊，缺乏权威依据"
-      }
-    },
     {
       "qid": "11-0376",
       "chapter": 11,
@@ -79,237 +28,217 @@
         "无解析"
       ],
       "llm": {
-        "verdict": "keep",
-        "keep_score": 8,
-        "reason": "考点明确（多模态定义），A是典型跨模态生成，其余为单模态或非转化任务"
+        "dims": {
+          "goal_match": true,
+          "logic_sound": true,
+          "clarity": true,
+          "distractors": false,
+          "no_leak": true,
+          "difficulty": true
+        },
+        "fatal_logic": false,
+        "defects": [
+          {
+            "dim": "distractors",
+            "evidence": "B、D也属多模态（视频-表情、语音-设备控制），干扰不足"
+          }
+        ],
+        "fix_suggestion": "将B改为'仅分析静态人脸图像识别情绪'，D改为'仅用文本指令控制设备'，确保仅A涉及跨模态生成",
+        "verdict": "fixable",
+        "reason": "干扰项未有效排除其他多模态场景，需增强区分度"
       }
     },
     {
-      "qid": "3-0224",
-      "chapter": 3,
-      "chapter_name": "RAG 检索增强生成",
-      "seq": "0224",
-      "type": 0,
-      "answer": "A",
-      "stem": "在问题改写中，以下哪种方法将单一查询改写为多步骤查询？",
-      "rule_score": 3,
-      "signals": [
-        "无解析",
-        "正确选项在题干中原文出现(送分题)"
-      ],
-      "llm": {
-        "verdict": "remove",
-        "keep_score": 2,
-        "reason": "选项A是题干的同义重复，纯循环定义，无考查价值"
-      }
-    },
-    {
-      "qid": "3-0262",
-      "chapter": 3,
-      "chapter_name": "RAG 检索增强生成",
-      "seq": "0262",
-      "type": 0,
-      "answer": "A",
-      "stem": "在问题改写中，以下哪种方法使用大模型扩充用户问题？",
-      "rule_score": 3,
-      "signals": [
-        "无解析",
-        "正确选项在题干中原文出现(送分题)"
-      ],
-      "llm": {
-        "verdict": "remove",
-        "keep_score": 2,
-        "reason": "题干与选项A完全重复，属敷衍凑数，无考查价值"
-      }
-    },
-    {
-      "qid": "3-0291",
-      "chapter": 3,
-      "chapter_name": "RAG 检索增强生成",
-      "seq": "0291",
-      "type": 0,
-      "answer": "A",
-      "stem": "在检索召回阶段，以下哪种方法会通过思考并规划多次检索来解决问题？",
-      "rule_score": 3,
-      "signals": [
-        "无解析",
-        "正确选项在题干中原文出现(送分题)"
-      ],
-      "llm": {
-        "verdict": "remove",
-        "keep_score": 2,
-        "reason": "选项A与题干重复，属循环定义，无考查价值"
-      }
-    },
-    {
-      "qid": "5-1153",
-      "chapter": 5,
-      "chapter_name": "模型微调与训练",
-      "seq": "1153",
-      "type": 0,
-      "answer": "C",
-      "stem": "模型微调适合解决哪种任务？",
-      "rule_score": 3,
-      "signals": [
-        "题干过短(13字)",
-        "无解析"
-      ],
-      "llm": {
-        "verdict": "remove",
-        "keep_score": 3,
-        "reason": "题干模糊，'模型微调'未限定LLM/传统模型；选项A/C/D均可能合理，考点不清、答案不自洽"
-      }
-    },
-    {
-      "qid": "5-1254",
-      "chapter": 5,
-      "chapter_name": "模型微调与训练",
-      "seq": "1254",
+      "qid": "11-1246",
+      "chapter": 11,
+      "chapter_name": "多模态 AI",
+      "seq": "1246",
       "type": 1,
+      "answer": "B,C,D,E",
+      "stem": "关于智能体场景下图片合规检测的技术手段，下列说法正确的有哪些？",
+      "rule_score": 1,
+      "signals": [
+        "语义重复(与11-0637同组:11-0637,11-1246)"
+      ],
+      "llm": {
+        "dims": {
+          "goal_match": true,
+          "logic_sound": true,
+          "clarity": true,
+          "distractors": false,
+          "no_leak": false,
+          "difficulty": true
+        },
+        "fatal_logic": false,
+        "defects": [
+          {
+            "dim": "distractors",
+            "evidence": "A和F均为明显错误陈述，但A表述绝对化且与常识严重冲突，干扰性弱"
+          },
+          {
+            "dim": "no_leak",
+            "evidence": "参考答案列出B,C,D,E，F被明确标注为错误，暗示其余均正确，泄露答案结构"
+          }
+        ],
+        "fix_suggestion": "将A选项改为合理干扰项（如'水印检测仅用于版权溯源，不参与内容合规判定'）；删除解析中对各选项正误的逐条说明，改用概括性解释；题干末尾避免暗示多选数量。",
+        "verdict": "fixable",
+        "reason": "2项可修复缺陷：干扰项薄弱+答案泄露"
+      }
+    },
+    {
+      "qid": "11-1410",
+      "chapter": 11,
+      "chapter_name": "多模态 AI",
+      "seq": "1410",
+      "type": 1,
+      "answer": "C,D,E",
+      "stem": "在使用大模型提炼图文课程内容时，以下哪些表达策略是正确的？",
+      "rule_score": 1,
+      "signals": [
+        "语义重复(与11-0464同组:11-0464,11-1410)"
+      ],
+      "llm": {
+        "dims": {
+          "goal_match": true,
+          "logic_sound": false,
+          "clarity": false,
+          "distractors": false,
+          "no_leak": true,
+          "difficulty": true
+        },
+        "fatal_logic": false,
+        "defects": [
+          {
+            "dim": "logic_sound",
+            "evidence": "题干未限定‘大模型提炼’的技术约束或目标场景，选项A/B缺乏判断依据"
+          },
+          {
+            "dim": "clarity",
+            "evidence": "‘表达策略’定义模糊，未说明是面向模型提示、输出呈现还是教学设计层面"
+          },
+          {
+            "dim": "distractors",
+            "evidence": "A与D逻辑对立但未说明评判标准；B明显错误却无上下文支撑，干扰性弱"
+          }
+        ],
+        "fix_suggestion": "明确限定场景（如：面向学员的AI生成课程讲义），将‘表达策略’定义为‘面向学习者的输出呈现原则’，并为A/B补充可判别依据（如‘会降低可读性’/‘违反提炼目的’）",
+        "verdict": "fixable",
+        "reason": "3项缺陷，均属概念界定不清，可精准修复"
+      }
+    },
+    {
+      "qid": "11-1413",
+      "chapter": 11,
+      "chapter_name": "多模态 AI",
+      "seq": "1413",
+      "type": 1,
+      "answer": "A,B,E",
+      "stem": "在使用 CosyVoice 合成语音时，哪些方式有助于提升最终音频的自然度与质量？",
+      "rule_score": 1,
+      "signals": [
+        "语义重复(与11-0643同组:11-0643,11-1413)"
+      ],
+      "llm": {
+        "dims": {
+          "goal_match": true,
+          "logic_sound": false,
+          "clarity": true,
+          "distractors": false,
+          "no_leak": true,
+          "difficulty": true
+        },
+        "fatal_logic": false,
+        "defects": [
+          {
+            "dim": "logic_sound",
+            "evidence": "D选项‘保持录音环境安静’与CosyVoice纯TTS特性矛盾，条件错误但未被排除"
+          },
+          {
+            "dim": "distractors",
+            "evidence": "C和D均为明显无关干扰项，但C（音量）属音频后处理，D（录音环境）完全不适用，二者类型不同、无合理区分度"
+          }
+        ],
+        "fix_suggestion": "将D改为‘使用高质量的文本标点和停顿标记（如<break>）’；C可保留但需明确其无效性，或替换为更贴近TTS质量影响因素的干扰项（如‘增加模型推理时长’）",
+        "verdict": "fixable",
+        "reason": "2项可修复缺陷：逻辑前提错位、干扰项设计不合理"
+      }
+    },
+    {
+      "qid": "11-1414",
+      "chapter": 11,
+      "chapter_name": "多模态 AI",
+      "seq": "1414",
+      "type": 2,
       "answer": "A,B,C",
-      "stem": "模型过拟合的抑制策略包括?",
-      "rule_score": 3,
+      "stem": "在大模型多模态应用开发中（如文本 + 图像），以下哪些技术组件是必要的？（多选，4 个选项）",
+      "rule_score": 1,
       "signals": [
-        "题干过短(13字)",
-        "无解析"
+        "语义重复(与11-0882同组:11-0882,11-1414)"
       ],
       "llm": {
+        "dims": {
+          "goal_match": true,
+          "logic_sound": false,
+          "clarity": false,
+          "distractors": false,
+          "no_leak": false,
+          "difficulty": true
+        },
+        "fatal_logic": true,
+        "defects": [
+          {
+            "dim": "logic_sound",
+            "evidence": "题干标‘多选’但题型写‘单选’，矛盾且无法作答"
+          },
+          {
+            "dim": "clarity",
+            "evidence": "题干要求‘哪些是必要的’，但未限定技术层级（算法/基础设施/工程组件），标准模糊"
+          },
+          {
+            "dim": "distractors",
+            "evidence": "D选项‘仅处理文本’与B选项‘大模型（处理文本与图像描述）’功能重叠，逻辑不互斥"
+          },
+          {
+            "dim": "no_leak",
+            "evidence": "解析中明确说‘D错误’并引用阿里云文档，暗示答案不含D，泄露答案"
+          }
+        ],
+        "fix_suggestion": "统一题型为‘多选’；明确定义‘必要’指架构中不可替代的跨模态协同组件；删除D或重构为真正干扰项（如‘OCR专用模型’）；解析不得提前否定选项。",
         "verdict": "remove",
-        "keep_score": 3,
-        "reason": "D选项错误（应增加而非减少正则化），考点混淆，解析缺失"
+        "reason": "存在fatal_logic（题型矛盾），且4项缺陷"
       }
     },
     {
-      "qid": "5-1327",
-      "chapter": 5,
-      "chapter_name": "模型微调与训练",
-      "seq": "1327",
+      "qid": "11-1441",
+      "chapter": 11,
+      "chapter_name": "多模态 AI",
+      "seq": "1441",
       "type": 1,
-      "answer": "A,B",
-      "stem": "以下哪些是 PEFT 技术？",
-      "rule_score": 3,
+      "answer": "B",
+      "stem": "某开发者开发大模型应用时，需实现 “用户输入语音指令，模型生成文本回复” 的功能。以下哪种技术组合最完整？",
+      "rule_score": 1,
       "signals": [
-        "题干过短(14字)",
-        "无解析"
+        "语义重复(与11-0764同组:11-0764,11-1441)"
       ],
       "llm": {
-        "verdict": "remove",
-        "keep_score": 3,
-        "reason": "C、D明显错误但干扰性弱，考点模糊，缺乏解析支撑"
-      }
-    },
-    {
-      "qid": "6-1357",
-      "chapter": 6,
-      "chapter_name": "模型部署与推理优化",
-      "seq": "1357",
-      "type": 1,
-      "answer": "A,B,C",
-      "stem": "云端部署的典型特征包括?",
-      "rule_score": 3,
-      "signals": [
-        "题干过短(12字)",
-        "无解析"
-      ],
-      "llm": {
-        "verdict": "remove",
-        "keep_score": 2,
-        "reason": "B选项‘服务冷启动延迟’是缺点而非典型特征，考点混淆且答案错误"
-      }
-    },
-    {
-      "qid": "7-0258",
-      "chapter": 7,
-      "chapter_name": "模型评估",
-      "seq": "0258",
-      "type": 0,
-      "answer": "A",
-      "stem": "在 context recall 的计算过程中，ground_truth 观点列表的生成依据主要是什么？",
-      "rule_score": 3,
-      "signals": [
-        "无解析",
-        "正确选项在题干中原文出现(送分题)"
-      ],
-      "llm": {
-        "verdict": "remove",
-        "keep_score": 2,
-        "reason": "题干与选项逻辑混乱，A选项循环定义，考点不清"
-      }
-    },
-    {
-      "qid": "7-1080",
-      "chapter": 7,
-      "chapter_name": "模型评估",
-      "seq": "1080",
-      "type": 0,
-      "answer": "C",
-      "stem": "如果你从faithfulness,context_recall,context_precision,answer_correctness中选择一个最能代表RAG应用整体性能的指标，你会选哪个？",
-      "rule_score": 3,
-      "signals": [
-        "无解析",
-        "正确选项在题干中原文出现(送分题)"
-      ],
-      "llm": {
-        "verdict": "remove",
-        "keep_score": 3,
-        "reason": "题干未定义指标含义，考点模糊，答案缺乏依据"
-      }
-    },
-    {
-      "qid": "8-1228",
-      "chapter": 8,
-      "chapter_name": "AI 安全与合规",
-      "seq": "1228",
-      "type": 1,
-      "answer": "A,B,C",
-      "stem": "公有云部署的特点包括哪些?",
-      "rule_score": 3,
-      "signals": [
-        "题干过短(13字)",
-        "无解析"
-      ],
-      "llm": {
-        "verdict": "remove",
-        "keep_score": 3,
-        "reason": "D选项明显错误且与公有云定义矛盾，考点混淆，选项质量差"
-      }
-    },
-    {
-      "qid": "8-1292",
-      "chapter": 8,
-      "chapter_name": "AI 安全与合规",
-      "seq": "1292",
-      "type": 1,
-      "answer": "A,B",
-      "stem": "文本合规检测的典型方法包括?",
-      "rule_score": 3,
-      "signals": [
-        "题干过短(14字)",
-        "无解析"
-      ],
-      "llm": {
-        "verdict": "remove",
-        "keep_score": 3,
-        "reason": "C、D选项明显无关，考点模糊，缺乏有效区分度"
-      }
-    },
-    {
-      "qid": "8-1358",
-      "chapter": 8,
-      "chapter_name": "AI 安全与合规",
-      "seq": "1358",
-      "type": 1,
-      "answer": "A,B,D",
-      "stem": "云端部署的潜在缺点包括哪些",
-      "rule_score": 3,
-      "signals": [
-        "题干过短(13字)",
-        "无解析"
-      ],
-      "llm": {
-        "verdict": "remove",
-        "keep_score": 3,
-        "reason": "C是优点而非缺点，选项存在明显逻辑错误"
+        "dims": {
+          "goal_match": true,
+          "logic_sound": true,
+          "clarity": true,
+          "distractors": true,
+          "no_leak": false,
+          "difficulty": true
+        },
+        "fatal_logic": false,
+        "defects": [
+          {
+            "dim": "no_leak",
+            "evidence": "题干明确要求‘用户输入语音指令，模型生成文本回复’，而D选项只提语音合成，暗示其不完整，泄露B为正确答案"
+          }
+        ],
+        "fix_suggestion": "将D选项改为‘使用语音识别+语音合成API，全程处理语音输入与输出’以消除单向暗示；或调整题干为‘实现语音输入→文本回复’的核心链路，避免干扰项功能外延过窄导致答案可推断",
+        "verdict": "fixable",
+        "reason": "no_leak缺陷1处，其余维度均合格"
       }
     }
   ]

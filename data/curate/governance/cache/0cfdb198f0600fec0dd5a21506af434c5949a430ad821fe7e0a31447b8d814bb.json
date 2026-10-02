@@ -1,0 +1,215 @@
+{
+  "4-1338": {
+    "qid": "4-1338",
+    "classification": "own",
+    "chapter": 4,
+    "quality": "ok",
+    "reason": "考查Multi-Agent核心组件，原文明确Planner Agent为四大组件之一",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "| 组件 | 角色 | 核心职责 |\n|------|------|----------|\n| **Planner** | 规划器 | 拆解复杂任务、决定何时调哪个工具/Agent；可写在提示词里，也可独立成模块 |",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "日志存储非核心组件，原文未列"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "Planner是单Agent四大组件之一"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "执行工具的是程序代码，非Agent"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "Summary Agent未被列为核心组件"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "4-1351": {
+    "qid": "4-1351",
+    "classification": "own",
+    "chapter": 4,
+    "quality": "ok",
+    "reason": "考查Planner指令更新场景，新增执行Agent需调整规划逻辑",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "多 Agent 设计四条硬原则（明确职责、独立凭据、中央调度、避免全量注入）",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "新增Agent需更新Planner调度逻辑"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "日志级别属运维配置，无关Planner"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "API密钥属安全配置，不改Planner"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "切片长度属RAG范畴，非Planner职责"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "4-1370": {
+    "qid": "4-1370",
+    "classification": "own",
+    "chapter": 4,
+    "quality": "ok",
+    "reason": "考查Agent测试必要步骤，需验证规划与工具映射",
+    "answer": [
+      "B",
+      "C",
+      "D"
+    ],
+    "supported": true,
+    "quote": "三种核心评测手段：确定性检查（工具调用序列）、LLM-as-Judge、Rubric",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "向量库路径属部署配置，非测试步骤"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "检查任务分配属白盒评测核心"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "工具映射验证是确定性检查重点"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "最终回答评估是端到端评测必需"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "4-1438": {
+    "qid": "4-1438",
+    "classification": "own",
+    "chapter": 4,
+    "quality": "ok",
+    "reason": "考查异常处理作用，需防崩溃和兜底",
+    "answer": [
+      "A",
+      "B"
+    ],
+    "supported": true,
+    "quote": "要给模型'失败出口'：工具超时、报错时能重试或换方案，而不是整轮崩溃。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "兜底策略是失败出口设计要求"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "防崩溃是异常处理基本功能"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "向量检索属RAG，非异常处理范畴"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "自动生成数据非异常处理功能"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "4-0055": {
+    "qid": "4-0055",
+    "classification": "own",
+    "chapter": 4,
+    "quality": "ok",
+    "reason": "考查Agent适用场景，预定教室需调用外部API",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "Agent解决'事情做不完，需要多步操作'，可调用搜索、数据库、API等工具",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "写死列表无法实时更新，违背Agent本质"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "调用API符合Agent执行外部动作特征"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "推测属纯LLM对话，非Agent能力"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "备用数据属RAG范畴，非Agent执行"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "4-0302": {
+    "qid": "4-0302",
+    "classification": "own",
+    "chapter": 4,
+    "quality": "ok",
+    "reason": "考查多Agent协调，强制统一逻辑违背职责分离原则",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "多 Agent 设计四条硬原则（明确职责、独立凭据、中央调度、避免全量注入）",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "中心化协调符合中央调度原则"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "博弈论属高级协调方法，非禁止项"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "强制统一逻辑违反明确职责原则"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "自适应学习符合Loop Engineering理念"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

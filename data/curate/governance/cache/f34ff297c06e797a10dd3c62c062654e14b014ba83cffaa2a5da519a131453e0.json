@@ -1,0 +1,209 @@
+{
+  "4-0688": {
+    "qid": "4-0688",
+    "classification": "own",
+    "chapter": 4,
+    "quality": "ok",
+    "reason": "题目考查多Agent思想的核心：将复杂任务拆解为子任务，由不同专家处理。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "多 Agent 设计四原则（每条都是考点）：明确职责：每个 Agent 有清晰、不重叠的职责边界，只专注自己的子任务",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "仅用单一模型不符合多Agent分工协作思想。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "符合多Agent将复杂任务拆解、分工协作的核心思想。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "将所有步骤整合到一个大型prompt易导致注意力稀释和错误级联。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "手动完成不符合Agent自动化执行任务的设计目标。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "4-1018": {
+    "qid": "4-1018",
+    "classification": "cross",
+    "chapter": -1,
+    "quality": "remove",
+    "reason": "题目不完整，缺少关键代码片段，无法判断考查点。",
+    "answer": [],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "无代码，无法判断。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "无代码，无法判断。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "无代码，无法判断。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "无代码，无法判断。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "4-1226": {
+    "qid": "4-1226",
+    "classification": "cross",
+    "chapter": -1,
+    "quality": "remove",
+    "reason": "考查Python标准库函数，与Agent核心知识无关，无考查价值。",
+    "answer": [],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "是ast.literal_eval的功能，但与Agent核心考点无关。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "与ast.literal_eval功能无关。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "与ast.literal_eval功能无关。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "与ast.literal_eval功能无关。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "4-1261": {
+    "qid": "4-1261",
+    "classification": "own",
+    "chapter": 4,
+    "quality": "ok",
+    "reason": "考查多Agent设计中避免策略冲突的方法，符合多Agent设计原则。",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "多 Agent 设计四原则（每条都是考点）：明确职责：每个 Agent 有清晰、不重叠的职责边界",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "强制所有Agent采用相同逻辑违背了明确职责、独立决策的原则，不能有效避免冲突。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "建立中心化协调机制是有效避免冲突的方法。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "采用博弈论模型是解决潜在冲突的有效方法。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "自适应学习算法是让Agent自我调整的有效方法。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "4-1338": {
+    "qid": "4-1338",
+    "classification": "own",
+    "chapter": 4,
+    "quality": "ok",
+    "reason": "考查多Agent系统的核心组件，符合单Agent四大组件及多Agent设计知识。",
+    "answer": [
+      "B",
+      "C"
+    ],
+    "supported": true,
+    "quote": "单 Agent 架构：LLM、Planner、Tool、Memory 四件套",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "日志存储Agent不是核心组件，属于辅助功能。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "Planner Agent是核心组件，负责规划与任务拆解。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "执行工具函数的Agent是核心组件，负责行动。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "Summary Agent不是核心组件，属于特定功能模块。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "4-1351": {
+    "qid": "4-1351",
+    "classification": "own",
+    "chapter": 4,
+    "quality": "ok",
+    "reason": "考查Planner Agent职责，其指令更新应与任务拆解和调度相关。",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "Planner 决定何时调哪个工具/Agent；可写在提示词里，也可独立成模块",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "增加新的执行Agent会影响Planner的调度逻辑，需要更新指令。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "修改日志级别是运维操作，不影响Planner的核心规划职责。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "更换API密钥是凭据管理，不影响Planner的规划逻辑。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "调整切片长度属于RAG优化参数，与Planner的Agent调度无关。"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

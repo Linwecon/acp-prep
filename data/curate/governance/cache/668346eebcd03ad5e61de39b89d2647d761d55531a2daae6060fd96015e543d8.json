@@ -1,0 +1,212 @@
+{
+  "9-0167": {
+    "qid": "9-0167",
+    "classification": "own",
+    "chapter": 9,
+    "quality": "ok",
+    "reason": "考查max_tokens参数作用，原文明确其限制生成长度上限",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "`max_tokens`：限制生成长度上限",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "原文明确限制生成长度上限"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "多样性由temperature/top_p控制"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "确定性由temperature控制"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "重复性由presence_penalty控制"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "9-0225": {
+    "qid": "9-0225",
+    "classification": "own",
+    "chapter": 9,
+    "quality": "ok",
+    "reason": "新闻初稿和代码均属事实类任务，需稳定输出",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "事实问答、代码生成、信息抽取 | 0 ~ 0.3 | 低 | 要稳定、少随机",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "高top_p增加多样性，不适合事实类"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "低top_p保证输出稳定可复现"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "默认值0.8偏高，不满足事实类要求"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "随机设置违反工程确定性原则"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "9-0326": {
+    "qid": "9-0326",
+    "classification": "own",
+    "chapter": 9,
+    "quality": "ok",
+    "reason": "代码生成器插件对应Function Calling能力",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "Function Calling（函数调用）是 API 内置的能力：你在请求里通过 `tools` 参数告诉模型'有哪些工具可用'",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "插件本质是预定义工具调用"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "图像分类属多模态任务，非API插件范畴"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "实时翻译需ASR/TTS管道，非单插件功能"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "股票预测需专业模型，非通用插件能力"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "9-0463": {
+    "qid": "9-0463",
+    "classification": "own",
+    "chapter": 9,
+    "quality": "ok",
+    "reason": "题干未提供代码，无法判断thread创建与流式状态",
+    "answer": [],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "缺少代码无法验证thread创建方式"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "缺少代码无法验证thread创建方式"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "缺少代码无法验证thread创建方式"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "缺少代码无法验证thread创建方式"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "9-0468": {
+    "qid": "9-0468",
+    "classification": "own",
+    "chapter": 9,
+    "quality": "ok",
+    "reason": "temperature数学含义明确影响输出分布",
+    "answer": [
+      "A",
+      "B"
+    ],
+    "supported": true,
+    "quote": "temperature 的数学含义：模型先算出每个候选 token 的得分（logits），除以 temperature 后再做 softmax。T 越小，高分 token 被放得越大、分布越尖锐，输出越确定",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "T越小分布越尖锐，输出越确定"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "T越大分布越平坦，输出越多样"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "temperature直接影响输出分布"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "temperature不影响生成速度"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "9-0487": {
+    "qid": "9-0487",
+    "classification": "own",
+    "chapter": 9,
+    "quality": "ok",
+    "reason": "确定性由temperature和seed共同控制",
+    "answer": [
+      "A",
+      "D"
+    ],
+    "supported": true,
+    "quote": "`seed`：随机种子，尽量复现输出 | `temperature=0` 时大部分输出都是'骏马'",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "降低temperature使分布更尖锐"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "max_tokens只限长度，不影响确定性"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "presence_penalty控制重复，非确定性"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "固定seed增强输出可复现性"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

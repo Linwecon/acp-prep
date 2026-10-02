@@ -1,0 +1,215 @@
+{
+  "new-9-36-0": {
+    "qid": "new-9-36-0",
+    "classification": "own",
+    "chapter": 9,
+    "quality": "ok",
+    "reason": "题干描述固定间隔重试导致重试请求同步，符合9.8节指数退避+抖动的工程缺陷考点。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "指数退避 + 抖动（Exponential Backoff with Jitter）是处理 429/5xx 的标准做法：在等待时间上加一个随机抖动，避免大量客户端‘踩点同时重试’把服务再次打爆",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "题干已明确是429错误，且5xx也建议退避重试，非核心缺陷。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "固定间隔导致重试同步，加剧压力，违背退避抖动原则。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "题干未提401，且401不应重试，非核心缺陷。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "题干已说明重试3次，已设最大次数，非核心缺陷。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-9-36-1": {
+    "qid": "new-9-36-1",
+    "classification": "own",
+    "chapter": 9,
+    "quality": "ok",
+    "reason": "题干问降低输入Token成本最直接有效的方法，涉及9.9节输入长度控制与RAG优化。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "控制输入长度——压缩历史、过滤无关检索结果、精简 system prompt；RAG 检索片段：检索回来的 chunk 全部进输入，控制 Top K",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "降级模型降低单价，但输入Token数未变，非最直接有效。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "用RAG检索Top-3替代全文，直接减少输入Token数。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "流式输出不改变输入Token数和计费。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "添加system消息会增加输入Token，与目标相悖。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-9-36-2": {
+    "qid": "new-9-36-2",
+    "classification": "own",
+    "chapter": 9,
+    "quality": "ok",
+    "reason": "题干描述多轮对话失忆问题，考查9.5节messages结构与无状态服务的核心知识点。",
+    "answer": [
+      "A",
+      "B"
+    ],
+    "supported": true,
+    "quote": "大模型 API 是无状态的——每次 HTTP 请求之间相互独立。所谓‘多轮对话能力’，本质是客户端把历史消息按角色组织好，每次调用都完整地放进 messages 里再传一遍",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "必须包含第一次的user消息，否则模型不知前文。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "必须包含第一次的assistant回复，模型才能理解指代。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "system消息稳定即可，与失忆问题无直接关系。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "题干未涉及Function Calling，无需tool角色。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-9-36-3": {
+    "qid": "new-9-36-3",
+    "classification": "own",
+    "chapter": 9,
+    "quality": "ok",
+    "reason": "题干描述Batch API结果错位问题，考查9.10节结果校验与对齐的工程要点。",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "校验对齐：必须校验输入输出行数、请求 ID 是否一一对应，防止错位或丢失",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "未设request_id可能导致错位，但题干已发生错位，C是根本原因。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "超时终止可能导致行数少，但无法解释内容错位。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "未校验行数与ID对应是导致错位和丢失的根本原因。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "Batch API不应使用stream=True，且与错位无直接关系。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-9-36-4": {
+    "qid": "new-9-36-4",
+    "classification": "own",
+    "chapter": 9,
+    "quality": "ok",
+    "reason": "题干描述Function Calling实现中缺少异常处理的风险，考查9.7节工具执行与错误处理的工程实践。",
+    "answer": [
+      "A",
+      "B",
+      "C"
+    ],
+    "supported": true,
+    "quote": "工具执行超时导致整个API调用链路阻塞；工具返回格式错误（如非JSON字符串），导致后续模型调用解析失败；未捕获tool_calls为空的情况，导致程序空指针异常",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "工具执行超时未处理，会阻塞调用链路。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "工具返回非JSON，模型后续调用会解析失败。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "未处理tool_calls为空，可能导致空指针异常。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "题干说已拼接结果到messages，未提是否添加role='tool'，无法确定。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-9-36-5": {
+    "qid": "new-9-36-5",
+    "classification": "own",
+    "chapter": 9,
+    "quality": "ok",
+    "reason": "题干描述代理服务日志记录完整API Key，违反9.3节API Key安全军规。",
+    "answer": [
+      "D"
+    ],
+    "supported": true,
+    "quote": "打印进日志或错误信息——日志被收集、分享后间接泄露。API Key 安全的五条军规：不打印进日志或错误信息",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "题干已通过代理调用，Key可能已托管，但日志泄露是直接违规。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "未提及提交Git，是日志泄露问题。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "异常监控是正向实践，与泄露行为无关。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "日志记录完整Key，直接违反‘不打印进日志’军规。"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

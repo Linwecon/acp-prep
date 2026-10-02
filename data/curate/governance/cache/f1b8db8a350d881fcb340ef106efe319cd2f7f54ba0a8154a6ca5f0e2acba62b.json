@@ -1,0 +1,212 @@
+{
+  "5-0436": {
+    "qid": "5-0436",
+    "classification": "own",
+    "chapter": 5,
+    "quality": "ok",
+    "reason": "考查批大小定义，原文明确其影响显存和单次处理样本数",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "Batch Size：每次更新用的样本数；大 → 梯度稳、显存高、通常需配套调大 lr",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "学习率控制参数更新步长，不决定样本数量"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "原文明确定义batch size为单次处理样本数"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "正则化用于防止过拟合，不决定样本数量"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "动态学习率策略调整lr，不决定样本数量"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "5-0681": {
+    "qid": "5-0681",
+    "classification": "own",
+    "chapter": 5,
+    "quality": "ok",
+    "reason": "考查蒸馏数据质量改进，C项纯人工标注成本最高且未提必要性",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "数据合成蒸馏（黑盒蒸馏）只需教师 API，不需要教师权重",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "人工抽样检查可识别噪声，有帮助"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "提示词优化可提升教师输出质量"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "完全放弃蒸馏违背降本初衷，最无帮助"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "多模型投票可降低标注噪声"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "5-0824": {
+    "qid": "5-0824",
+    "classification": "cross",
+    "chapter": 5,
+    "quality": "ok",
+    "reason": "考查微调与模块化方案权衡，B属多模态预处理，但题干聚焦低成本改进",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "高频考点：微调主要改变输出行为/风格/格式/领域适配，而不是'注入新知识'",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "全参微调成本高，非最便宜方案"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "分割小模型+大模型分步处理更省算力"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "降分辨率可能丢失关键特征"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "增加摄像头会提高成本和复杂度"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "5-0909": {
+    "qid": "5-0909",
+    "classification": "own",
+    "chapter": 5,
+    "quality": "ok",
+    "reason": "考查数据集划分原则，C违反测试集独立性要求",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "训练/验证/测试三者必须相互独立；测试集泄漏进训练集 → 评测分数虚高",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "数据集迭代是推荐实践"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "准确相关是基本要求"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "测试集必须独立，不能包含在训练集中"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "覆盖全场景是质量要求"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "5-0929": {
+    "qid": "5-0929",
+    "classification": "own",
+    "chapter": 5,
+    "quality": "ok",
+    "reason": "考查过拟合判断，原文明确验证loss先降后升为过拟合铁证",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "验证 loss 先降后升 = 过拟合的铁证，应回退到验证 loss 最低的 checkpoint",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "欠拟合时两loss均下降"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "最佳拟合需验证loss最低且稳定"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "原文明确定义该现象为过拟合"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "分布一致不会导致验证loss上升"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "5-0971": {
+    "qid": "5-0971",
+    "classification": "own",
+    "chapter": 5,
+    "quality": "ok",
+    "reason": "考查数据质量优先级，A直指标注噪声这一根本原因",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "正确性：答案/标注无误。蒸馏时教师也会犯错……必须自动过滤",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "标注噪声是小众类别效果差主因"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "增参未解决数据质量问题"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "换架构成本高且不必要"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "合并类别牺牲业务需求"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

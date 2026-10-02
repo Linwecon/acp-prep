@@ -1,0 +1,215 @@
+{
+  "new-11-18-0": {
+    "qid": "new-11-18-0",
+    "classification": "own",
+    "chapter": 11,
+    "quality": "ok",
+    "reason": "考查多模态RAG中视觉信息缺失的根本原因，符合11.4节知识。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "纯图片库：用多模态 Embedding 把图片向量化，做'以文搜图/以图搜图'；图文混排文档：文本与图片各自向量化，检索时按需召回，再交给多模态模型统一作答",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "文生图是生成任务，与RAG检索增强无关。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "图像语义未进入检索通道，导致画面信息遗漏。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "视频理解需多模型联合，非单模型端到端。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "题干问题在画面信息缺失，非语音字幕割裂。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-11-18-1": {
+    "qid": "new-11-18-1",
+    "classification": "own",
+    "chapter": 11,
+    "quality": "ok",
+    "reason": "考查扫描件PDF处理缺失OCR步骤的根本原因，符合11.4节。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "扫描件/图片文档：OCR + 版面分析 → 结构化文本 → 常规 RAG；拿到扫描件直接按固定长度切片 → 切的是空白或乱码，根本没有文字。第一步必须是 OCR/解析",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "微调非前置步骤，根本是未提取文字。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "PDF是图像，未OCR导致无文字输入模型。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "切片设置非根本，前提是需有文本内容。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "DashScopeParse包含OCR，非单独调用。"
+      }
+    ],
+    "duplicate_of": "11-5166"
+  },
+  "new-11-18-2": {
+    "qid": "new-11-18-2",
+    "classification": "own",
+    "chapter": 11,
+    "quality": "ok",
+    "reason": "考查多模态教育应用合规与体验的必须措施，覆盖安全、标识、隐私。",
+    "answer": [
+      "A",
+      "C",
+      "D"
+    ],
+    "supported": true,
+    "quote": "图像检测不仅要看画面，还要审'图里的字'；深度合成内容必须按规定加 AI 生成标识；学生数据安全与隐私",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "图像安全检测必须覆盖画面和文字。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "语音助手对延迟敏感，应优先实时ASR。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "AI生成视频摘要属深度合成，须加标识。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "人脸隐私需脱敏并审计，符合合规要求。"
+      }
+    ],
+    "duplicate_of": "11-5182"
+  },
+  "new-11-18-3": {
+    "qid": "new-11-18-3",
+    "classification": "own",
+    "chapter": 11,
+    "quality": "ok",
+    "reason": "考查语音助手中意图误判的工程要点，符合11.5节低置信度追问原则。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "意图理解：识别用户想做什么（查制度/办报销/闲聊）；低置信度要追问澄清，而不是硬答",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "TTS配置错误非意图误判直接原因。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "低置信度意图未澄清，导致错误触发。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "会话记忆有助于，但非误判主因。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "ASR识别正确，非专有名词问题。"
+      }
+    ],
+    "duplicate_of": "11-5185"
+  },
+  "new-11-18-4": {
+    "qid": "new-11-18-4",
+    "classification": "own",
+    "chapter": 11,
+    "quality": "ok",
+    "reason": "考查文生图自动指标局限性，符合11.7和11.10节风险描述。",
+    "answer": [
+      "A",
+      "C"
+    ],
+    "supported": true,
+    "quote": "自动指标很难评判，必须靠人工抽检或多模态审核模型兜底；图文一致性、指令跟随等需人工评测校准兜底",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "CLIP Score无法检测空间布局等细节错误。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "BLEU是文本指标，但题干已指出是误用。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "自动指标不可靠，需人工或多模态审核兜底。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "FID也属自动指标，同样存在局限性。"
+      }
+    ],
+    "duplicate_of": "11-5173"
+  },
+  "new-11-18-5": {
+    "qid": "new-11-18-5",
+    "classification": "own",
+    "chapter": 11,
+    "quality": "ok",
+    "reason": "考查音视频异步审核的技术原则，符合11.8节多模态安全要求。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "音频/视频因耗时长采用'提交任务拿 task_id → 等待 → 按 task_id 查结果'的异步模式；音视频检测是异步任务模式（提交 task_id、轮询结果），不能假设实时返回",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "覆盖四类模态是要求，但非本题具体违规点。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "音视频异步检测需轮询结果，不能假设实时返回。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "视频理解限制非审核异步原则。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "深度合成标识是生成内容要求，非审核流程。"
+      }
+    ],
+    "duplicate_of": "11-5176"
+  }
+}

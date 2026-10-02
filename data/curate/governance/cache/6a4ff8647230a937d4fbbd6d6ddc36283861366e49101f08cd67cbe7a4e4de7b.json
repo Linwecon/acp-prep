@@ -1,0 +1,218 @@
+{
+  "11-5157": {
+    "qid": "11-5157",
+    "classification": "own",
+    "chapter": 11,
+    "quality": "ok",
+    "reason": "考查语音助手音色一致性实现方式，原文明确指向TTS音色克隆",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "个性化语音助手的“个性化”主要体现在 TTS 音色克隆与基于记忆的用户偏好上。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "随机选择无法保持长期同一音色"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "不控制音色则无法保证一致性"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "原文明确指出个性化体现在TTS音色克隆"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "音频与图像处理技术路径不同"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "11-5158": {
+    "qid": "11-5158",
+    "classification": "own",
+    "chapter": 11,
+    "quality": "ok",
+    "reason": "考查语音助手核心能力组成，原文给出端到端链路ASR→LLM→TTS",
+    "answer": [
+      "A",
+      "B",
+      "D"
+    ],
+    "supported": true,
+    "quote": "个性化语音助手端到端链路：ASR 语音识别→意图理解（LLM）→TTS 语音合成",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "ASR是语音输入转文字必经环节"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "LLM负责语义理解与生成回复"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "关键词匹配不符合LLM语义理解要求"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "TTS是语音输出必经环节"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "11-5159": {
+    "qid": "11-5159",
+    "classification": "own",
+    "chapter": 11,
+    "quality": "ok",
+    "reason": "考查图文编辑任务所需能力，需理解图像内容并修改文本信息",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "多模态模型相较纯文本 LLM 的价值边界；图文理解与跨模态编辑或生成能力",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "仅文本分类无法处理图像内容"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "音频识别与图像任务无关"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "需理解图中文字并跨模态编辑"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "数据库查询无法修改图像内文本"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "11-5160": {
+    "qid": "11-5160",
+    "classification": "own",
+    "chapter": 11,
+    "quality": "ok",
+    "reason": "考查多模态交互设计原则，原文强调模态路由、语义对齐与降级方案",
+    "answer": [
+      "A",
+      "B",
+      "D"
+    ],
+    "supported": true,
+    "quote": "识别并路由不同输入模态；保证不同模态特征在语义上对齐；对不支持某些模态的终端提供降级方案",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "模态路由是多模态交互基础"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "语义对齐是多模态融合前提"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "强制全模态违背用户体验原则"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "降级方案保障兼容性"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "11-5161": {
+    "qid": "11-5161",
+    "classification": "own",
+    "chapter": 11,
+    "quality": "ok",
+    "reason": "考查ASR鲁棒性优化，原文指出噪声影响识别需前端降噪",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "ASR 识别错误会沿链路放大，专有名词多的场景要配置热词或在识别后纠错",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "降噪和鲁棒性优化直击问题根源"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "删除ASR模块将丧失语音能力"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "违背降低表达门槛的核心价值"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "降低采样率会进一步损害识别质量"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "11-5162": {
+    "qid": "11-5162",
+    "classification": "own",
+    "chapter": 11,
+    "quality": "ok",
+    "reason": "考查TTS自然度提升方法，原文强调音色匹配、文本规范与参数调节",
+    "answer": [
+      "A",
+      "B",
+      "C"
+    ],
+    "supported": true,
+    "quote": "TTS（文字→语音），音色、语速、情绪一致性；可做个性化音色",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "音色匹配提升场景适配性"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "文本规范与节奏控制提升可懂度"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "语速韵律调节增强自然感"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "高码率不能替代文本规范化"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

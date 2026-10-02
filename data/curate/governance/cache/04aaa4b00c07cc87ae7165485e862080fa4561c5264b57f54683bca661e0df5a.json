@@ -1,0 +1,216 @@
+{
+  "6-5128": {
+    "qid": "6-5128",
+    "classification": "own",
+    "chapter": 6,
+    "quality": "ok",
+    "reason": "离线批量推理需稳定GPU利用率，ECS常驻部署最匹配",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "晚间批量跑评测、白天几乎无流量 → FC 或百炼批量推理",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "ECS可常驻运行，GPU利用率稳定"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "临时脚本无法保障7×24和GPU稳定"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "人工阅读不属模型部署范畴"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "纯前端无法执行GPU推理"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "6-5129": {
+    "qid": "6-5129",
+    "classification": "own",
+    "chapter": 6,
+    "quality": "ok",
+    "reason": "vLLM核心是PagedAttention与连续批处理",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "vLLM 高吞吐的两大核心：PagedAttention（分页管理 KV Cache、消除碎片）+ 连续批处理（请求动态进出、GPU 不空转）",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "重新加载权重会严重降低吞吐"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "分页KV缓存+连续批处理是核心"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "模型不能转图片推理"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "vLLM专为高并发设计"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "6-5130": {
+    "qid": "6-5130",
+    "classification": "own",
+    "chapter": 6,
+    "quality": "ok",
+    "reason": "vLLM优势含显存管理、连续批处理、高并发",
+    "answer": [
+      "A",
+      "B",
+      "D"
+    ],
+    "supported": true,
+    "quote": "vLLM 高吞吐的两大核心：PagedAttention（分页管理 KV Cache、消除碎片）+ 连续批处理（请求动态进出、GPU 不空转）",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "PagedAttention优化显存"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "连续批处理提升吞吐"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "vLLM无需重训练模型"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "高效管理使并发更高"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "6-5133": {
+    "qid": "6-5133",
+    "classification": "own",
+    "chapter": 6,
+    "quality": "ok",
+    "reason": "部署平台需考虑模型来源、弹性运维、性能要求",
+    "answer": [
+      "A",
+      "B",
+      "D"
+    ],
+    "supported": true,
+    "quote": "部署形态对比：MaaS、自建开源、云托管……不同抽象层级、不同控制力与运维责任的取舍",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "影响是否能部署自定义模型"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "弹性与运维成本是选型关键"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "办公室面积无关部署决策"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "延迟并发吞吐是核心指标"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "6-5134": {
+    "qid": "6-5134",
+    "classification": "own",
+    "chapter": 6,
+    "quality": "ok",
+    "reason": "PAI-EAS支持私有模型弹性扩缩容与策略定制",
+    "answer": [
+      "D"
+    ],
+    "supported": true,
+    "quote": "PAI-EAS（Elastic Algorithm Service）是阿里云 PAI 平台的模型在线服务，可把开源社区模型或自训练/微调模型部署为在线服务，提供弹性扩缩容、蓝绿/灰度发布、资源组管理、版本控制、资源监控等企业级能力",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "离线脚本无弹性扩缩容"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "对象存储不提供服务化能力"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "大屏系统不承载推理服务"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "PAI-EAS专为弹性推理设计"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "6-5001": {
+    "qid": "6-5001",
+    "classification": "own",
+    "chapter": 6,
+    "quality": "ok",
+    "reason": "批量异步任务适合非实时、降本、免并发管理",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "晚间批量跑评测、白天几乎无流量 → FC 或百炼批量推理；批量推理适合离线、时效要求低的任务",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "单条实时处理成本高且慢"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "流式仍属实时请求模式"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "批量异步符合低成本免管理"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "客户端并发难控且成本高"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

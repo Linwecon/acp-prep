@@ -1,0 +1,225 @@
+{
+  "new-4-42-0": {
+    "qid": "new-4-42-0",
+    "classification": "own",
+    "chapter": 4,
+    "quality": "ok",
+    "reason": "考查Function Calling核心流程，模型只提议，程序才执行。",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "模型只输出结构化的'调用哪个工具、传什么参数'；由你的应用代码解析 tool_calls、真正执行对应函数",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "模型不执行函数，只提议调用。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "前端非必须，后端应用代码执行。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "应用代码执行函数，结果以role='tool'回传。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "模型已提议调用，无需用户手动输入。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-4-42-1": {
+    "qid": "new-4-42-1",
+    "classification": "own",
+    "chapter": 4,
+    "quality": "ok",
+    "reason": "考查ReAct铁律与规划策略，需设上限并灵活调整。",
+    "answer": [
+      "A",
+      "B",
+      "D"
+    ],
+    "supported": true,
+    "quote": "ReAct 不是无限循环：必须设置最大迭代轮数 / 超时 / token 预算上限；外部反馈：用工具真实执行/校验，把报错、日志、截图喂回模型",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "设置最大迭代轮数符合ReAct铁律。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "外部反馈用工具获取真实状态。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "无限重试违反ReAct铁律。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "切换工具是自主规划的体现。"
+      },
+      {
+        "label": "E",
+        "selected": false,
+        "why": "压缩摘要非必须，且可能丢失关键信息。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-4-42-2": {
+    "qid": "new-4-42-2",
+    "classification": "own",
+    "chapter": 4,
+    "quality": "ok",
+    "reason": "考查MCP协议与Function Calling的互补关系。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "MCP 解决'工具怎么被发现、被管理、被复用'（接入标准化）；Function Calling 解决'模型会不会、怎么调用工具'（调用机制）",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "MCP不替代Function Calling，是互补。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "MCP解决工具发现，FC负责调用触发。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "ReAct框架不解决工具Schema管理问题。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "Skill固化SOP，不解决动态发现。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-4-42-3": {
+    "qid": "new-4-42-3",
+    "classification": "own",
+    "chapter": 4,
+    "quality": "ok",
+    "reason": "考查多Agent设计四原则，题干明确违反两条。",
+    "answer": [
+      "B",
+      "D"
+    ],
+    "supported": true,
+    "quote": "独立凭据：不同 Agent 不得共用同一套账号/API 凭据；避免全量注入：不要把所有 Agent 的知识/工具清单一次性写进主 Prompt",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "题干未体现职责不明确。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "共用管理员API Key违反独立凭据。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "题干未体现中央调度问题。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "拼接全部Agent提示词违反避免全量注入。"
+      },
+      {
+        "label": "E",
+        "selected": false,
+        "why": "题干未涉及Memory分离问题。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-4-42-4": {
+    "qid": "new-4-42-4",
+    "classification": "own",
+    "chapter": 4,
+    "quality": "ok",
+    "reason": "考查Skill设计原则，固化SOP并渐进式披露。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "Skill（技能）是把'在什么场景下、按什么流程、用什么标准、调用什么工具'打包成的模块化、可复用、可版本化的能力单元",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "全局配置非模块化，易污染上下文。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "创建Skill目录符合模块化、渐进披露原则。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "向量检索适合事实，不适合固化SOP。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "主Prompt添加规则违反避免全量注入。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-4-42-5": {
+    "qid": "new-4-42-5",
+    "classification": "own",
+    "chapter": 4,
+    "quality": "ok",
+    "reason": "考查Agent评测方法，问题在过程需白盒化评测。",
+    "answer": [
+      "D"
+    ],
+    "supported": true,
+    "quote": "Agent 评测比 RAG 更难：问题常出在过程而非最终答案；白盒化评测：关键组件/中间步骤（工具调用序列、参数、轨迹）",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "LLM-as-Judge仍可能忽略过程错误。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "确定性检查是白盒一部分，但D更全面。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "Rubric拆解细则，但仍可能忽略过程。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "白盒化评测能精准定位过程环节问题。"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

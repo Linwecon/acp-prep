@@ -1,0 +1,109 @@
+{
+  "new-5-18-1": {
+    "qid": "new-5-18-1",
+    "classification": "own",
+    "chapter": 5,
+    "quality": "ok",
+    "reason": "考查数据质量过滤原则，教材有明确依据。",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "质量过滤：逐条校验——JSON 能否解析、5 个必填字段是否齐全、字段值是否在合法范围内，不合格直接丢弃",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "教材强调自动过滤，非人工修正。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "统一替换会引入错误标注。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "教材明确越界值不合格直接丢弃。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "未提及用正则映射，且可能不准确。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-5-18-2": {
+    "qid": "new-5-18-2",
+    "classification": "own",
+    "chapter": 5,
+    "quality": "ok",
+    "reason": "考查LoRA超参数选择原则，教材有具体指导。",
+    "answer": [
+      "B",
+      "D"
+    ],
+    "supported": true,
+    "quote": "lora_rank：任务要同时学 5 个字段的联合映射，比单标签分类复杂，故取 8；数据极少可降 4，数据多/更复杂可升 16。max_length：依据样本 token 长度的 P95 设定并留余量",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "教材建议复杂任务可升秩，非降秩。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "联合建模多字段依赖，需提升容量。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "未提及loss下降缓慢时调大lr。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "按数据token长度P95设定并留余量。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-5-18-4": {
+    "qid": "new-5-18-4",
+    "classification": "own",
+    "chapter": 5,
+    "quality": "ok",
+    "reason": "考查蒸馏与普通微调的核心区别，教材有明确对比。",
+    "answer": [
+      "A",
+      "D"
+    ],
+    "supported": true,
+    "quote": "蒸馏和普通微调的关系：二者的训练流程几乎完全相同，唯一区别是训练数据的来源：人工标注 vs 教师模型生成",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "数据来源是核心区别。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "教材未提损失函数不同。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "输出约束非本质区别。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "训练目标复现对象不同。"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

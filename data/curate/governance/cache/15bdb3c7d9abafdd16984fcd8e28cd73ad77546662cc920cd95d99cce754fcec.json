@@ -1,0 +1,154 @@
+{
+  "items": [
+    {
+      "type": 0,
+      "stem": "某教育公司新人答疑机器人初期仅需单轮问答，两周后需支持RAG知识库、多轮对话、调用三个内部系统、效果评测及前端API接入。此时工程师发现代码从几十行膨胀至数百行，messages手工拼接、历史重复维护、检索逻辑散落各处。根据第12章核心观点，导致该困境的根本原因是什么？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "未使用最新版qwen-plus模型，导致生成质量不足，需额外逻辑补偿"
+        },
+        {
+          "option_label": "B",
+          "option_text": "缺乏统一的工程化编排机制，导致共性脏活（如提示词拼装、记忆管理、检索复用）重复实现且难以组合"
+        },
+        {
+          "option_label": "C",
+          "option_text": "选择了错误的向量数据库，Milvus性能低于FAISS，引发响应延迟和代码补丁堆叠"
+        },
+        {
+          "option_label": "D",
+          "option_text": "未启用LangChain的LCEL语法，导致函数式编程能力缺失，无法进行异步调用"
+        }
+      ],
+      "answer": "B",
+      "analysis": "依据12.1节‘为什么需要框架’原文：真实应用反复出现‘共性脏活’——提示词拼装、多轮对话历史、文档加载切片向量化检索、多步骤流程编排、工具调用与Agent循环、链路追踪等；裸调SDK时需‘自己写’，而框架将其抽象为可组合组件。题干中‘messages手工拼接、历史重复维护、检索逻辑散落’正是这些共性脏活未被抽象的直接表现。A、C、D均为具体技术点干扰项：A混淆了框架价值（不提升模型智力）；C引入未提及的向量库选型，且原文明确‘Retriever不要求必须用某种向量库’；D将LCEL窄化为‘异步调用工具’，而原文强调其本质是Runnable协议带来的流式/异步/批处理/回调等生产级能力‘开箱即用’，但根本问题在于缺乏抽象本身，而非语法形式。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 1,
+      "stem": "某团队正为金融合规问答系统选型：需接入扫描件合同PDF、复杂表格报表，并支持HR非技术人员上传/更新文档。根据第12章12.5节文档解析工具链与12.6.2节Dify定位，以下哪些组合符合‘按需分派、角色适配’原则？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "使用DashScopeParse处理扫描件PDF，因其具备OCR+版面分析+表格识别能力"
+        },
+        {
+          "option_label": "B",
+          "option_text": "采用SimpleDirectoryReader作为默认入口，因其一行代码读入目录且支持PDF/DOCX/MD"
+        },
+        {
+          "option_label": "C",
+          "option_text": "选用Dify平台，让HR通过可视化界面上传文档并自动触发百炼文档智能解析"
+        },
+        {
+          "option_label": "D",
+          "option_text": "强制所有成员学习Unstructured源码，自行开发定制化分区解析器以满足合规审计要求"
+        }
+      ],
+      "answer": "AC",
+      "analysis": "A正确：12.5节明确‘扫描件/复杂表格PDF → 上DashScopeParse（OCR+版面结构化）’，且指出其‘输出结构化Markdown’，符合金融文档对表格保真度的要求。C正确：12.6.2节定义Dify为‘低代码平台，让产品、运营和业务人员也能参与’，并举例‘HR想自己搭制度问答机器人，IT只提供API Key’场景，与题干‘HR非技术人员上传/更新’完全匹配。B错误：SimpleDirectoryReader对‘扫描件PDF’无能为力（原文：‘扫描件无文字层时无能为力’），题干明确要求处理扫描件合同，故不能作为默认方案。D错误：12.5节‘选型决策路径’强调‘内部专有格式→自定义Reader’，但题干未说明是‘专有格式’，且‘强制所有成员学习源码’违背‘按需分派’原则，属于过度工程化（呼应12.8节‘七大误区’中‘为技术先进强行上复杂方案’）。",
+      "difficulty_label": "高阶"
+    },
+    {
+      "type": 0,
+      "stem": "在构建‘新人答疑机器人’的演进过程中，团队先用SDK实现单轮问答，后引入LlamaIndex支持RAG，再增加Agent调用请假系统API，最后需对整体效果进行量化评估。根据第12章12.7节技术栈分层与12.8节选型主线，RAGAS在此架构中承担的核心角色是什么？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "作为RAG数据层组件，替代LlamaIndex的Index与Retriever，提供更精准的向量检索"
+        },
+        {
+          "option_label": "B",
+          "option_text": "作为评估层工具，利用大模型对检索结果（Context Precision/Recall）和生成答案（Faithfulness/Answer Correctness）进行分段打分"
+        },
+        {
+          "option_label": "C",
+          "option_text": "作为编排层框架，通过LCEL管道串联LlamaIndex检索与Agent工具调用"
+        },
+        {
+          "option_label": "D",
+          "option_text": "作为服务层中间件，将LlamaIndex QueryEngine封装为FastAPI兼容的HTTP端点"
+        }
+      ],
+      "answer": "B",
+      "analysis": "依据12.7.1节‘RAGAS：RAG与Agent的评估尺’原文：‘RAGAS是主流的开源RAG评估框架...不是编排框架，而是评测框架’；‘用大模型当评委，对检索端（Context Precision/Recall）和生成端（Faithfulness/Answer Correctness）分别打分’；并明确其指标名称与作用。A错误：RAGAS不参与数据处理，原文强调‘RAGAS是评估器，LangChain是模型适配器，LlamaIndex是被评估的RAG系统’。C错误：LCEL是LangChain的组链方式，RAGAS无编排能力。D错误：服务层由FastAPI承担，RAGAS是离线评测工具，不提供HTTP服务。",
+      "difficulty_label": "基础"
+    },
+    {
+      "type": 1,
+      "stem": "某项目需实现‘用户提问→Agent判断是否需查知识库→若需则调用LlamaIndex检索→再决定是否调用报销系统API→最终生成回答’的闭环。根据第12章12.4节LangChain vs LlamaIndex对比及12.6.1节AgentScope定位，以下关于框架分工的描述，哪些符合原文‘各司其职、可组合’原则？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "LlamaIndex负责Document→Node→Index→Retriever全链路，确保高质量上下文召回"
+        },
+        {
+          "option_label": "B",
+          "option_text": "LangChain的Agent组件负责规划（Plan）、工具选择（Tool Calling）与状态管理（Memory），协调LlamaIndex Retriever与报销API两个Tool"
+        },
+        {
+          "option_label": "C",
+          "option_text": "AgentScope的MsgHub用于广播用户问题，使知识库Agent与报销Agent并行响应，再由Leader Agent汇总"
+        },
+        {
+          "option_label": "D",
+          "option_text": "为简化架构，将LlamaIndex的QueryEngine直接嵌入LangChain Chain中，避免跨框架调用"
+        }
+      ],
+      "answer": "AB",
+      "analysis": "A正确：12.3节明确LlamaIndex核心链路为‘Document→Node→Index→Retriever→QueryEngine’，且‘最适合RAG为核心的应用’，题干中‘查知识库’正是其强项。B正确：12.2节指出LangChain Agent‘管模型如何根据问题动态选择并调用工具’，12.4节案例明确‘用LlamaIndex建好向量索引、封装成Retriever，再作为Tool挂到LangChain Agent上’，完美匹配题干需求。C错误：12.6.1节说明AgentScope适用于‘多Agent角色协作、消息广播’，但题干是单Agent多工具（一个Agent调用两个不同Tool），属于LangChain Agent典型场景；引入AgentScope MsgHub属于过度设计（呼应12.8节‘七大误区’中‘为技术先进强行上多Agent’）。D错误：12.4节‘反模式’明确警告‘❌在同一个项目里用两套抽象同时建索引、写检索逻辑，导致数据结构和配置重复维护’，将QueryEngine嵌入Chain会破坏职责分离，且LlamaIndex QueryEngine已封装合成逻辑，不应降级为纯Retriever。",
+      "difficulty_label": "高阶"
+    },
+    {
+      "type": 0,
+      "stem": "开发团队在调试一个基于LangChain的Agent应用时，发现模型返回的tool_calls参数中工具名与注册的Tool名称不一致，导致工具调用失败。根据第12章12.2节LangChain核心抽象与考试要点，最应优先检查的配置项是什么？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "ChatPromptTemplate中system prompt是否包含足够清晰的工具描述"
+        },
+        {
+          "option_label": "B",
+          "option_text": "Tool对象的JSON Schema声明中function.name字段是否与模型期望的tool_calls.name严格一致"
+        },
+        {
+          "option_label": "C",
+          "option_text": "BufferMemory是否正确注入了历史消息，避免上下文丢失"
+        },
+        {
+          "option_label": "D",
+          "option_text": "LCEL链中OutputParser是否配置为JsonOutputParser以解析tool_calls"
+        }
+      ],
+      "answer": "B",
+      "analysis": "依据12.2节‘考试要点’原文：‘Tool的参数必须用JSON Schema声明，直接呼应Function Calling考点’；且12.2节概念表明确Tool是LangChain Agent抽象的核心组件之一。Function Calling机制要求模型输出的tool_calls.name必须与开发者注册的Tool.function.name完全匹配，这是调用成功的前提。A虽影响工具选择准确性，但非‘名称不一致’的直接原因；C涉及多轮状态，与单次tool_calls名称无关；D中JsonOutputParser用于解析输出，但tool_calls是模型原生输出字段，无需额外解析器，LangChain Agent内部已处理。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 0,
+      "stem": "某团队计划将‘新人答疑机器人’上线为正式服务，需同时满足：内部员工通过网页聊天界面试用、外部HR系统通过HTTP API集成、运维团队需监控调用量与延迟。根据第12章12.7节配套工具层与12.8节技术栈分层，以下哪项部署策略最符合‘分层解耦、各司其职’原则？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "仅使用Gradio部署单一服务，通过其API端点供HR系统调用，内置Prometheus埋点实现监控"
+        },
+        {
+          "option_label": "B",
+          "option_text": "仅使用FastAPI部署单一服务，通过HTML模板渲染聊天界面供员工使用，集成Uvicorn日志实现监控"
+        },
+        {
+          "option_label": "C",
+          "option_text": "Gradio提供内部Demo界面，FastAPI提供对外HTTP API，二者共享同一套底层RAG/Agent业务逻辑模块"
+        },
+        {
+          "option_label": "D",
+          "option_text": "将Gradio界面、FastAPI路由、RAGAS评测脚本全部打包进一个Docker镜像，统一暴露80端口"
+        }
+      ],
+      "answer": "C",
+      "analysis": "依据12.7.2节Gradio定位：‘Gradio只负责界面，不承载业务逻辑’；12.7.3节FastAPI定位：‘把应用变成可调用的HTTP服务’；12.7节‘技术栈分层速查’明确Gradio是UI层、FastAPI是服务层；且12.7.3节结尾强调‘Gradio适合“给人用的Demo”，FastAPI适合“给系统调的服务”——二者常常同时存在’。C选项严格遵循分层原则：UI层（Gradio）与服务层（FastAPI）分离，但共享底层业务逻辑（RAG/Agent），符合‘解耦’与‘复用’。A错误：Gradio API非生产级，原文称其‘适合Demo’，且其监控能力弱于FastAPI生态。B错误：FastAPI HTML模板非交互式聊天界面首选，Gradio专为此优化。D错误：违反分层，将评估（RAGAS）、UI、服务混部，导致不可维护（呼应12.1节‘框架负担’中的抽象泄漏）。",
+      "difficulty_label": "进阶"
+    }
+  ]
+}

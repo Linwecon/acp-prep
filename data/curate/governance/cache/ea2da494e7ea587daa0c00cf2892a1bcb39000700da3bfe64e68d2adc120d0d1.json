@@ -1,0 +1,213 @@
+{
+  "12-1466": {
+    "qid": "12-1466",
+    "classification": "own",
+    "chapter": 12,
+    "quality": "ok",
+    "reason": "考查文档解析与结构化输出工程实践",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "文档解析是 RAG 链路的\"第一公里\"，这里丢失的结构，后面用再复杂的检索算法也补不回来",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "直接输入Excel模型无法解析二进制格式"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "解析为结构化数据+提示词控制符合工程实践"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "违背用户上传需求，非自动化方案"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "未实现图表描述功能，不完整"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "12-1289": {
+    "qid": "12-1289",
+    "classification": "own",
+    "chapter": 12,
+    "quality": "ok",
+    "reason": "考查LlamaIndex句子窗口检索机制",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "句子窗口替换、Rerank、相似度过滤",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "rerank是独立后处理步骤，非此代码作用"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "SentenceWindowNodeParser生成扩展上下文"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "自动合并是TreeIndex特性，无关窗口"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "加载索引是StorageContext操作，非此代码"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "12-1288": {
+    "qid": "12-1288",
+    "classification": "own",
+    "chapter": 12,
+    "quality": "ok",
+    "reason": "考查文档预处理与标点规范化",
+    "answer": [
+      "A",
+      "C"
+    ],
+    "supported": true,
+    "quote": "把解析结果存为结构化 Markdown：保留标题层级和表格的行列结构",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "代码明确合并所有doc.text为单个Document"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "未涉及乱码检测或修复逻辑"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "中英文标点替换避免切片断裂"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "SimpleDirectoryReader已执行加载，此函数处理的是已加载文档"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "12-1291": {
+    "qid": "12-1291",
+    "classification": "own",
+    "chapter": 12,
+    "quality": "ok",
+    "reason": "考查Python异常处理语法",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "框架封装越深，出错时栈追踪越长，\"为什么框架多塞了一段 system prompt\"常常要翻源码",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "finally必执行，无法捕获异常"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "except位置错误，语法不合法"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "try-except包裹调用，正确捕获打印"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "无异常处理，且重复调用classify_intent"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "12-5056": {
+    "qid": "12-5056",
+    "classification": "own",
+    "chapter": 12,
+    "quality": "ok",
+    "reason": "考查Dify Chatflow核心特性",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "Dify 是一个开源的低代码 LLM 应用开发平台，用可视化界面把\"知识库（RAG）、工作流、Agent、模型接入、工具调用、发布\"串成一条流水线",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "Chatflow专为多轮对话设计"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "Workflow支持多模态，非仅图像"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "无性能比较依据"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "Chatflow含会话状态，Workflow无"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "12-5062": {
+    "qid": "12-5062",
+    "classification": "own",
+    "chapter": 12,
+    "quality": "ok",
+    "reason": "考查LlamaIndex定位本质",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "LlamaIndex 是一个以\"数据接入—索引—检索\"为中心的框架",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "原文明确定义其RAG中心定位"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "非数据库系统"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "非图像处理软件"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "非训练框架，属应用层"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

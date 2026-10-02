@@ -1,0 +1,154 @@
+{
+  "items": [
+    {
+      "type": 0,
+      "stem": "某团队使用 DashScope OpenAI 兼容模式调用 qwen-plus，代码中已正确设置 base_url 和 api_key，但请求始终返回 401 Unauthorized。经核查 API Key 有效且未过期，最可能的根本原因是什么？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "OpenAI 兼容模式要求使用 DashScope 专属的兼容型 API Key，而非通用 DashScope API Key"
+        },
+        {
+          "option_label": "B",
+          "option_text": "base_url 中路径应为 '/compatible-mode/v1'，而代码中误写为 '/compatible-model/v1'（拼写错误）"
+        },
+        {
+          "option_label": "C",
+          "option_text": "qwen-plus 模型在当前地域未开通，需在控制台手动启用该模型服务"
+        },
+        {
+          "option_label": "D",
+          "option_text": "OpenAI SDK 版本低于 1.0.0，不支持阿里云兼容模式的认证头格式"
+        }
+      ],
+      "answer": "B",
+      "analysis": "依据原文 10.3 节示例代码：'base_url=\"https://dashscope.aliyuncs.com/compatible-mode/v1\"'，明确指定路径为 '/compatible-mode/v1'。选项 B 描述的拼写错误（'model' 替代 'mode'）会导致请求被网关拒绝，返回 401（因路由未匹配，认证中间件未执行，或网关直接拦截）。A 错误——原文强调'共用一套 API Key'（10.3、10.9），无兼容专用 Key；C 错误——模型开通属服务可用性问题，通常返回 404 或 403，非 401；D 错误——OpenAI Python SDK v1.0+ 是兼容前提，但 401 是认证失败信号，与 SDK 版本无关，且原文未将 SDK 版本列为必要条件。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 1,
+      "stem": "在以下哪些实际场景中，必须放弃 DashScope OpenAI 兼容模式，转而使用 DashScope 原生 SDK？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "需要调用 TextReRank 模型进行文档重排序，且要求返回 top_n=5 的精确结果"
+        },
+        {
+          "option_label": "B",
+          "option_text": "需对同一请求同时调用 Embedding 和 chat.completions 两个服务，并共享上下文缓存"
+        },
+        {
+          "option_label": "C",
+          "option_text": "要使用 qwen-long 模型处理 128K 上下文，且需启用 'chunking_strategy=semantic' 参数"
+        },
+        {
+          "option_label": "D",
+          "option_text": "需在流式响应中获取每个 Token 的耗时统计（latency per token）用于 APM 监控"
+        }
+      ],
+      "answer": "AC",
+      "analysis": "依据原文 10.3 节'compare'框：'原生接口能用上部分平台特有参数/能力（如特定多模态、重排序服务）'。A 正确——TextReRank 是 DashScope 原生 SDK 独占服务（示例代码明确使用 dashscope.TextReRank.call），OpenAI 兼容模式无对应 endpoint；C 正确——'chunking_strategy=semantic' 是 DashScope 原生 API 的专有参数（见官方文档），兼容模式仅映射标准 OpenAI 参数（temperature/top_p/max_tokens/stream），不支持此扩展。B 错误——上下文缓存是服务端能力，与调用方式无关，兼容模式同样受益；D 错误——Token 耗时是服务端埋点，客户端无法通过任一 SDK 获取单 Token 级别延迟，且原文未将此列为兼容模式限制。",
+      "difficulty_label": "挑战"
+    },
+    {
+      "type": 0,
+      "stem": "开发团队将基于 LangChain 的 RAG 应用从 OpenAI 迁移至 DashScope，仅修改了 base_url 和 api_key。上线后发现：当用户提问含中文标点（如'？'）时，模型回复出现乱码或截断。最应优先检查的兼容性约束是？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "确认 LangChain 版本是否支持 DashScope 兼容模式的字符编码协商机制"
+        },
+        {
+          "option_label": "B",
+          "option_text": "检查请求 header 中是否显式设置了 'Content-Type: application/json; charset=utf-8'"
+        },
+        {
+          "option_label": "C",
+          "option_text": "验证 DashScope 兼容模式是否强制要求 messages.content 字段进行 URL 编码"
+        },
+        {
+          "option_label": "D",
+          "option_text": "确认 OpenAI SDK 的 stream=True 模式在兼容模式下是否仍保持 UTF-8 分块传输"
+        }
+      ],
+      "answer": "D",
+      "analysis": "依据原文 10.3 节价值描述：'流式逐 Token 返回，对话类应用标配'，且示例代码明确使用 stream=True。乱码/截断是流式响应中字符边界错位的典型表现，根源在于分块传输（chunked transfer encoding）时 UTF-8 多字节字符被错误切分。DashScope 兼容模式虽复用 OpenAI 协议，但其流式实现需确保每个 chunk 以完整 UTF-8 字符结尾，否则前端解析会出错。A 错误——LangChain 不参与底层 HTTP 编码协商；B 错误——JSON 默认 charset=utf-8，无需显式声明；C 错误——messages.content 为 JSON 字符串字段，按规范不应 URL 编码。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 1,
+      "stem": "以下哪些条件必须同时满足，才能成功通过百炼应用调用部署在 PAI-EAS 上的私有模型？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "PAI-EAS 服务已开启公网访问或配置了 VPC 内网互通（百炼与 EAS 同地域）"
+        },
+        {
+          "option_label": "B",
+          "option_text": "百炼工作流中配置的 EAS 服务地址需使用 HTTPS 协议且证书由可信 CA 签发"
+        },
+        {
+          "option_label": "C",
+          "option_text": "EAS 服务的 API 接口需兼容 OpenAI 标准格式（如 /v1/chat/completions）"
+        },
+        {
+          "option_label": "D",
+          "option_text": "百炼应用需在知识库设置中勾选'启用自定义模型回溯'并输入 EAS 服务密钥"
+        }
+      ],
+      "answer": "AC",
+      "analysis": "依据原文 10.1 链路描述：'百炼应用再去调用 EAS 上的私有模型'，及 10.5 表格'能否用自定义/私有模型'栏：'可在平台能力范围内调优、可对接'。A 正确——网络连通是前提，原文 10.1 提到'全链路'需打通，隐含网络可达性；C 正确——百炼作为应用层，调用外部模型必须遵循标准协议，原文 10.4 提到 vLLM 本地服务'其 HTTP 接口本身兼容 OpenAI API'，说明 EAS 部署时需适配此格式才能被百炼集成。B 错误——百炼与 EAS 同属阿里云内网，通常走内网通信，无需公网证书；D 错误——原文未提及'自定义模型回溯'概念，百炼调用 EAS 是通过工作流节点配置 URL 实现，非知识库设置。",
+      "difficulty_label": "挑战"
+    },
+    {
+      "type": 0,
+      "stem": "运维工程师发现 DashScope OpenAI 兼容接口调用频繁返回 429，监控显示 TPM（每分钟 Token 数）持续超限，但 RPM（每分钟请求数）远低于配额。此时最应优先执行的操作是？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "立即在代码中增加指数退避重试逻辑，并降低 max_tokens 限制"
+        },
+        {
+          "option_label": "B",
+          "option_text": "检查所有请求的 messages 内容长度，确认是否存在未做 RAG 切片、整本手册塞入 prompt 的情况"
+        },
+        {
+          "option_label": "C",
+          "option_text": "向阿里云提交工单，申请提升 TPM 配额"
+        },
+        {
+          "option_label": "D",
+          "option_text": "将模型从 qwen-plus 切换为 qwen-turbo，降低单次输出 Token 成本"
+        }
+      ],
+      "answer": "B",
+      "analysis": "依据原文 10.8 节'省成本的工程手段'第2条：'控制输入：RAG 只塞最相关的片段，不要每次把整本手册塞进上下文'，及'风险'框强调'API 调用没有上限'的误区。TPM 超限而 RPM 正常，说明单次请求消耗 Token 过高（如长输入+长输出），根本原因是输入内容失控。B 直指问题根源，符合教材'先诊断再干预'原则。A 是后续动作，但未解决输入膨胀；C 是治标不治本，且原文强调'生产环境必须考虑重试、退避与降级'，而非盲目提额；D 可能降低输出成本，但若输入仍是整本手册，TPM 仍会超限。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 0,
+      "stem": "算法团队在 PAI-DSW 中完成 Qwen2-1.5B 微调后，需验证推理效果。若直接使用 DashScope OpenAI 兼容模式调用该模型，最根本的障碍是？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "微调后的模型未部署为在线服务，兼容模式只能调用 DashScope 托管的预置模型"
+        },
+        {
+          "option_label": "B",
+          "option_text": "OpenAI 兼容模式要求模型名称必须是 qwen-* 系列，而自定义模型名不匹配"
+        },
+        {
+          "option_label": "C",
+          "option_text": "PAI-DSW 实例的网络策略默认禁止外发 HTTP 请求，需手动开放安全组"
+        },
+        {
+          "option_label": "D",
+          "option_text": "微调模型权重未上传至 ModelScope，导致 DashScope 无法加载"
+        }
+      ],
+      "answer": "A",
+      "analysis": "依据原文 10.3 节定义：'DashScope（灵积）是阿里云的模型服务 API 平台，把通义千问等模型封装成标准接口'，及 10.5 表格'能否用自定义/私有模型'栏：'DashScope 调用平台预置模型'。OpenAI 兼容模式本质是调用 DashScope 托管的模型 API，其 model 参数仅接受平台已发布模型（如 qwen-plus）。自定义微调模型必须先通过 PAI-EAS 部署为独立服务（10.4 节），再由百炼或自研代码调用，不能直连 DashScope 兼容接口。B 错误——model 名称校验是服务端行为，但根本限制是模型未托管；C 错误——网络策略非教材强调点；D 错误——ModelScope 是下载源，非运行依赖。",
+      "difficulty_label": "进阶"
+    }
+  ]
+}

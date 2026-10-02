@@ -1,0 +1,213 @@
+{
+  "12-5081": {
+    "qid": "12-5081",
+    "classification": "own",
+    "chapter": 12,
+    "quality": "ok",
+    "reason": "考点为LlamaIndex NodeParser选型，原文明确提及按标题分割需HierarchicalNodeParser。",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "LlamaIndex 的核心数据流是每个考生都应该能默写的一条链：Document -> NodeParser -> Node -> Index -> Retriever -> QueryEngine -> Response",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "HierarchicalNodeParser专用于按标题层级切分PDF。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "MarkdownNodeParser仅处理Markdown格式。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "PDFMinerNodeParser是基础文本抽取器。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "SentenceSplitter按句子切分，不识别章节结构。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "12-5082": {
+    "qid": "12-5082",
+    "classification": "own",
+    "chapter": 12,
+    "quality": "ok",
+    "reason": "考点为Dify Chatflow区别于Workflow的核心特性，原文强调会话上下文与变量持久化。",
+    "answer": [
+      "A",
+      "B"
+    ],
+    "supported": true,
+    "quote": "Dify 是一个开源的低代码 LLM 应用开发平台，用可视化界面把'知识库（RAG）、工作流、Agent、模型接入、工具调用、发布'串成一条流水线。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "Chatflow内置会话管理，是其核心设计。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "支持多轮对话变量跨节点持久化。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "UI组件属Gradio范畴，非Dify核心设计。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "Dify不强制输出类型为字符串。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "12-5084": {
+    "qid": "12-5084",
+    "classification": "own",
+    "chapter": 12,
+    "quality": "ok",
+    "reason": "考点为LangChain提示模板动态注入多上下文，原文强调PromptTemplate支持input_variables。",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "LangChain 的组件可以按'四层抽象'理解：Model I/O / Retrieval / Memory / Agent；其中PromptTemplate管'输入怎么拼'。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "{context}无法承载多个片段顺序控制。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "f-string拼接破坏可复用性与调试性。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "PromptTemplate.from_template()支持列表变量注入。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "LLM.invoke()不直接接受list类型context参数。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "12-5086": {
+    "qid": "12-5086",
+    "classification": "own",
+    "chapter": 12,
+    "quality": "ok",
+    "reason": "考点为本地轻量RAG技术栈，原文指出SimpleDirectoryReader+向量库可离线运行。",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "课程 `course_core/chatbot/rag.py` 展示了最精简的 LlamaIndex 用法：SimpleDirectoryReader读入文档，VectorStoreIndex建向量索引。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "全本地、无云依赖、组件最轻量。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "百炼API和DashScope Embedding依赖云服务。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "OpenAIEmbeddings需网络调用，非纯本地。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "百炼可视化工作流属云托管平台，非本地栈。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "12-5087": {
+    "qid": "12-5087",
+    "classification": "own",
+    "chapter": 12,
+    "quality": "ok",
+    "reason": "考点为LangChain Memory组件本质，原文明确其管理对话历史并注入上下文。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "Memory 管'对话历史怎么留、怎么压缩、怎么按需取'；Buffer / Summary / VectorStoreRetriever Memory均用于多轮对话历史管理。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "缓存结果属推理优化，非Memory职责。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "Memory专用于对话历史持久化与上下文注入。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "连接池管理属向量库SDK职责。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "中间变量属Chain内部机制，非Memory功能。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "12-5089": {
+    "qid": "12-5089",
+    "classification": "cross",
+    "chapter": 10,
+    "quality": "ok",
+    "reason": "考点为百炼可视化工作流节点选型，属第10章平台能力，非第12章框架。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "百炼：应用开发平台；智能体与工作流低代码编排；百炼调用PAI-EAS私有模型；控制台vs代码vs训练的决策边界",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "条件分支用于逻辑判断，非意图识别。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "工具调用节点专为意图识别后执行工具设计。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "LLM节点需手动提示词，非优先选项。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "文本处理节点不支持工具调用。"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

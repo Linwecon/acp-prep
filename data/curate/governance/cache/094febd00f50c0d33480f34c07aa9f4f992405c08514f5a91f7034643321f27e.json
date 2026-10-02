@@ -1,0 +1,222 @@
+{
+  "2-1064": {
+    "qid": "2-1064",
+    "classification": "own",
+    "chapter": 2,
+    "quality": "ok",
+    "reason": "考查提示词六要素中上下文与样例的协同消歧",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "提供少量上下文关联示例：在 '干细胞培养' 段落中，NSC→神经干细胞，在 '肺病病理' 段落中，NSC→非小细胞癌",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "角色指定单一领域，无法解决多义缩写场景"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "格式约束不解决语义歧义"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "Few-shot示例+上下文片段可显式对齐缩写含义"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "直接指定违背消歧目标，属指令冲突"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "2-1074": {
+    "qid": "2-1074",
+    "classification": "own",
+    "chapter": 2,
+    "quality": "ok",
+    "reason": "角色要素直接决定语气风格",
+    "answer": [
+      "F"
+    ],
+    "supported": true,
+    "quote": "角色（Role）：定义身份、语气、写作风格",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "输出格式管结构不管语气"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "样例影响风格但非直接指定"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "任务目标管动作不管语气"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "上下文提供事实不决定语气"
+      },
+      {
+        "label": "E",
+        "selected": false,
+        "why": "输入数据非六要素之一"
+      },
+      {
+        "label": "F",
+        "selected": true,
+        "why": "角色要素明确定义语气风格"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "2-1110": {
+    "qid": "2-1110",
+    "classification": "own",
+    "chapter": 2,
+    "quality": "ok",
+    "reason": "temperature控制输出多样性",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "temperature调节输出确定性",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "enable_search属RAG范畴，无关多样性"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "高temperature+不固定seed产生差异输出"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "temperature=0.0导致完全确定性"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "相同提示词必得相同结果"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "2-0030": {
+    "qid": "2-0030",
+    "classification": "own",
+    "chapter": 2,
+    "quality": "ok",
+    "reason": "不同文体需差异化提示词模板",
+    "answer": [
+      "D"
+    ],
+    "supported": true,
+    "quote": "分模块组织，角色 / 任务 / 上下文 / 受众 / 样例 / 约束各归其位",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "人工润色非提示工程手段"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "高temperature加剧不稳定性"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "示例已存在，需先解构问题本质"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "专用模板可分别适配文学/技术场景"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "2-0031": {
+    "qid": "2-0031",
+    "classification": "own",
+    "chapter": 2,
+    "quality": "ok",
+    "reason": "提示词信息不足是首要原因",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "模型回答跑偏，绝大多数情况不是模型笨，而是提示词信息不全",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "参数调优是次要手段"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "Top-p调整不解决核心信息缺失"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "原提示词缺产品信息/主题/结构等关键要素"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "扩大候选范围加剧幻觉"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "2-0034": {
+    "qid": "2-0034",
+    "classification": "own",
+    "chapter": 2,
+    "quality": "ok",
+    "reason": "编码规范需明确约束而非模糊要求",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "任务目标（Object）：明确要完成什么，让模型聚焦",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "未说明规范要求，信息不全"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "明确需求+硬性规范约束最有效"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "CoT对代码生成非必需"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "开源风格不等于公司规范"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

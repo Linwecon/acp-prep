@@ -1,0 +1,240 @@
+{
+  "1-1470": {
+    "qid": "1-1470",
+    "classification": "misplaced",
+    "chapter": 1,
+    "quality": "remove",
+    "reason": "题干'大模型应用开发的核心流程环节'属于工程方法论，原文未定义任何标准化开发流程（如需求分析/技术选型/部署监控/运维优化），所有选项均超出第1章知识范围；'模型开发/微调'在原文中明确归入第5章（微调解决行为适配而非知识更新），且第1章仅提'提示词→RAG→微调三级评估顺序'，未将微调列为开发环节；本题实际考查软件工程通用流程，与大模型基础无关。",
+    "answer": [],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "原文未提及'需求分析'，该概念属于通用软件工程，不在第1章知识列表中"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "原文未定义'技术选型'为流程环节，第1章仅在1.11节对比模型特性，不构成开发流程"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "微调明确属于第5章范畴，第1章知识列表仅含'提示词/RAG/工具的补位逻辑'，不含微调开发"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "部署监控属于第6章'模型部署与推理优化'，第1章知识列表无相关描述"
+      },
+      {
+        "label": "E",
+        "selected": false,
+        "why": "运维优化涉及迭代机制，原文未定义该环节，且'根据用户反馈迭代模型'需结合第7章评测或第5章微调"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "1-1172": {
+    "qid": "1-1172",
+    "classification": "beyond",
+    "chapter": 1,
+    "quality": "remove",
+    "reason": "题干'文本序列化和标准化'及所有选项（tokenize_texts_to_sequences/pad_sequences/vocab_size计算等）属于传统NLP预处理技术，原文第1章知识列表仅含'分词器与BPE子词原理'、'Token是处理最小单位'，未涉及任何代码级序列化操作；所有选项均属TensorFlow/Keras API实践，与大模型基础理论无关。",
+    "answer": [],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "原文未出现'tokenize_texts_to_sequences'函数，仅说明'分词器把文本切成Token'，不涉及代码实现"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "pad_sequences是Keras序列填充函数，原文未提及任何序列填充或标准化操作"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "vocab_size计算属于词表构建细节，原文仅说明'BPE子词原理'，未涉及词表大小编程计算"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "MAX_SEQ_LEN截断是传统NLP做法，原文未提及序列长度截断操作"
+      },
+      {
+        "label": "E",
+        "selected": false,
+        "why": "preprocess函数是泛化文本清洗，原文未定义任何标准化预处理步骤"
+      },
+      {
+        "label": "F",
+        "selected": false,
+        "why": "embedding_matrix初始化属于词向量矩阵构建，原文仅说明'Embedding矩阵查表'，未涉及代码实现"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "1-1200": {
+    "qid": "1-1200",
+    "classification": "beyond",
+    "chapter": 1,
+    "quality": "remove",
+    "reason": "题干'检测敏感词'属于AI安全实践，原文第1章知识列表无任何安全相关内容；敏感词检测属于第8章'AI安全与合规'范畴（原文含'输入过滤/运行监控/输出审查三层防御'），且所有选项均为具体代码实现，超出第1章理论描述层级。",
+    "answer": [],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "原文未提供任何敏感词检测代码或方法，split()分词方式未被提及"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "any(word in text)是基础Python语法，原文未将其与敏感词检测关联"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "lower()字符串处理和异常捕获属于编程实践，原文未涉及"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "NLTK分词库使用超出第1章范围，原文未提及任何第三方库"
+      },
+      {
+        "label": "E",
+        "selected": false,
+        "why": "text in sensitive_words是错误的包含判断（应为sensitive_words中元素是否在text中），原文未讨论此逻辑"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "1-0632": {
+    "qid": "1-0632",
+    "classification": "beyond",
+    "chapter": 1,
+    "quality": "remove",
+    "reason": "abstract_generator函数未在原文第1章出现，所有选项均假设存在该函数并讨论其实现细节（TextRank/JSON输出/字数限制），而原文第1章知识列表仅含'LLM本质是概率性文本生成器'、'五阶段工作流程'等基础概念，未定义任何具体函数接口或算法实现。",
+    "answer": [],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "原文未定义abstract_generator函数，'利用大型模型实现摘要'属于功能描述，但第1章未将摘要列为典型能力"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "输入类型要求是代码实现细节，原文未规定任何函数输入格式"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "JSON输出格式是API设计约定，原文未提及任何结构化输出规范"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "TextRank是传统NLP摘要算法，原文第1章知识列表仅含'大模型基础'，未涉及TextRank"
+      },
+      {
+        "label": "E",
+        "selected": false,
+        "why": "40字限制是业务规则，原文未规定任何摘要长度约束"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "1-1379": {
+    "qid": "1-1379",
+    "classification": "beyond",
+    "chapter": 1,
+    "quality": "remove",
+    "reason": "同qid 1-0632，abstract_generator函数未在原文第1章出现；且题干限定'RAG智能答疑机器人'，RAG属于第3章核心内容，本题考点已跨至第3章，与第1章'大模型基础'无直接关联；所有选项均围绕虚构函数展开，缺乏原文支持。",
+    "answer": [],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "TextRank算法未在第1章提及，且RAG摘要应基于向量检索而非TextRank"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "原文未定义该函数，'利用大型模型实现摘要'属于泛化描述，非第1章具体知识"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "输入为字符串是通用假设，原文未规定任何函数参数类型"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "JSON输出格式属于API设计，原文第1章知识列表无结构化输出要求"
+      },
+      {
+        "label": "E",
+        "selected": false,
+        "why": "40字限制是业务需求，原文未设定任何摘要长度标准"
+      }
+    ],
+    "duplicate_of": "1-0632"
+  },
+  "1-1393": {
+    "qid": "1-1393",
+    "classification": "beyond",
+    "chapter": 1,
+    "quality": "remove",
+    "reason": "题干明确限定'RAG智能答疑机器人'，RAG属于第3章核心内容（知识列表含'RAG核心思想：开卷考试'、'RAG两阶段：离线建库+在线问答'），而第1章未涉及RAG应用场景；敏感词检测属于第8章安全范畴，所有选项均为代码实现，完全超出第1章理论描述层级。",
+    "answer": [],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "原文未提供'Detect_sensitive_words'函数，且函数名大小写不一致（Detect vs detect）"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "text.split()分词方式未被提及，且Word首字母大写导致语法错误"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "Text.lower()和sensitive_words.lower()语法错误（sensitive_words是列表），原文未涉及字符串标准化"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "any(word in text)逻辑正确但原文未定义该检测方法"
+      },
+      {
+        "label": "E",
+        "selected": false,
+        "why": "NLTK库使用超出第1章范围，且Tokens首字母大写导致语法错误"
+      },
+      {
+        "label": "F",
+        "selected": false,
+        "why": "re.search用法和函数名拼写错误（D,E,F D,Etect），原文未提及正则表达式检测"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

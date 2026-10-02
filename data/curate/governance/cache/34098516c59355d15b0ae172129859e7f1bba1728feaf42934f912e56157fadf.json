@@ -1,0 +1,154 @@
+{
+  "items": [
+    {
+      "type": 0,
+      "stem": "某HR团队对新人答疑机器人执行切片优化后，RAGAS评测显示Context Recall=0.94、Context Precision=0.31、Faithfulness=0.25、Answer Correctness=0.28，而Answer Relevancy=0.97。日志确认检索片段中明确包含'张伟是教研部的'等完整事实，但该信息位于第18个context中，前17个均为无关内容。此时若仅调高temperature以增强生成多样性，最可能加剧的指标异常是？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "Answer Relevancy进一步下降"
+        },
+        {
+          "option_label": "B",
+          "option_text": "Faithfulness进一步下降"
+        },
+        {
+          "option_label": "C",
+          "option_text": "Context Precision进一步下降"
+        },
+        {
+          "option_label": "D",
+          "option_text": "Answer Correctness进一步下降"
+        }
+      ],
+      "answer": "B",
+      "analysis": "依据教材7.4.3节Faithfulness官方口径：其计算仅依赖question/answer/contexts，判定答案中每句话是否能由contexts直接推断；当相关context深埋于噪声中（Precision=0.31），模型注意力被前17条无关内容严重稀释，易脱离资料自由发挥——此时提高temperature会放大随机性，显著增加幻觉概率，导致Faithfulness进一步恶化（教材7.5节明确指出'Precision低→模型易Lost in the Middle→生成端幻觉风险上升'）。A错误：Relevancy=0.97说明答案未跑题或回避，temperature升高不必然导致跑题；C错误：Context Precision是检索端指标，不受生成参数影响；D虽可能同步恶化，但教材7.5节定位法则强调'Precision低时首要病根在检索端，生成端优化事倍功半'，且Faithfulness对幻觉更敏感、变化更剧烈，故B为最直接加剧项。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 1,
+      "stem": "在构建新人答疑机器人评测集时，以下哪些操作同时违反教材7.2.1节'评测集构建的两条铁律'与7.4.5节Answer Relevancy指标的计算前提？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "技术团队从线上日志抽取问题，但ground_truth由AI工程师根据通用知识库编写，未邀请HR专家审定"
+        },
+        {
+          "option_label": "B",
+          "option_text": "为提升Answer Relevancy分数，刻意筛选'问题表述模糊'的样本加入评测集"
+        },
+        {
+          "option_label": "C",
+          "option_text": "将用户原始提问'年假怎么算'改写为'请用三句话说明年假计算规则'后作为question字段"
+        },
+        {
+          "option_label": "D",
+          "option_text": "在评测集中混入大量'该问题超出政策范围，请咨询上级'类拒答样本，但未标注其应属'noncommittal'负例"
+        }
+      ],
+      "answer": "A,D",
+      "analysis": "A违反'铁律一：ground_truth必须由领域专家提供'（教材7.2.1节），且Answer Relevancy虽不直接依赖ground_truth，但其计算需结合context判断答案是否切题——若ground_truth本身业务违规（如A中工程师编写的答案错误），会导致context质量失真，间接破坏Relevancy评估基础；D违反'铁律一'（拒答样本需由专家定义合规边界）且直接违背7.4.5节Relevancy计算口径：该指标核心检测'noncommittal'含糊回答，若评测集未明确标注拒答样本的预期标签，将导致LLM评委无法校准'何种回避可接受'，使Relevancy分数失去业务意义。B错误：模糊问题本身是真实场景，教材7.8.2节要求评测集'分难度覆盖'，不构成违规；C错误：问题改写属合理预处理，教材未禁止，且Relevancy计算基于原始question与answer的语义匹配，改写后question仍具业务代表性。",
+      "difficulty_label": "挑战"
+    },
+    {
+      "type": 0,
+      "stem": "某团队使用RAGAS评测发现：同一组样本在qwen-plus评委下Answer Correctness均值为0.68，在gpt-4-turbo评委下升至0.82，但人工抽检发现：原评分较低的简洁答案（如'张伟是教研部的'）新评委打分显著提高，而冗长解释型答案（含大量无关细节）新评委打分反而下降。此现象最直接违反教材哪项回归评测基本原则？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "评测配置必须冻结，包括评委模型版本"
+        },
+        {
+          "option_label": "B",
+          "option_text": "评测集必须源自真实用户问题"
+        },
+        {
+          "option_label": "C",
+          "option_text": "ground_truth必须由领域专家提供"
+        },
+        {
+          "option_label": "D",
+          "option_text": "指标分层中算法指标是手段，业务指标才是目标"
+        }
+      ],
+      "answer": "A",
+      "analysis": "教材7.2.4节明确要求'回归评测必须冻结评测集与配置（temperature/seed/模型版本）'，否则分数变化无法归因于系统改动。本题中评委模型从qwen-plus更换为gpt-4-turbo，直接违反'评委模型版本冻结'这一硬性要求（教材7.2.4节原文：'不要频繁更换评测用的LLM与Embedding模型'）。B、C、D均未被违反：问题来源、ground_truth提供、指标分层逻辑均未变动；A是唯一被直接破坏的控制变量条件，导致分数不可比。",
+      "difficulty_label": "入门"
+    },
+    {
+      "type": 1,
+      "stem": "当Answer Relevancy指标持续低于0.4且人工抽检发现大量答案以'根据提供的信息，无法确定...'开头时，依据教材7.4.5节计算口径与7.5节定位法则，以下哪些现象可能同步出现？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "Context Recall保持高位（>0.9）"
+        },
+        {
+          "option_label": "B",
+          "option_text": "Faithfulness得分异常偏高（>0.95）"
+        },
+        {
+          "option_label": "C",
+          "option_text": "Answer Correctness子项中语义相似度接近0，但事实F1为0"
+        },
+        {
+          "option_label": "D",
+          "option_text": "日志显示模型在生成阶段主动过滤了所有contexts"
+        }
+      ],
+      "answer": "A,D",
+      "analysis": "教材7.4.5节明确Answer Relevancy计算逻辑：LLM需'反向生成答案所回答的问题'并判断是否含糊（noncommittal=1）。'无法确定...'是典型noncommittal模式，表明模型放弃作答而非答错。此时：A正确——Relevancy低不反映检索失败，Context Recall可完全正常（教材7.3节对比表：Relevancy只看answer是否切题，与检索覆盖无关）；D正确——模型主动拒答常因提示词过度强调'不确定时不得编造'或上下文拼装逻辑缺陷，导致忽略有效contexts（教材7.5节'优化方向'中'查意图识别、改写问题'即对应此场景）。B错误：Faithfulness要求答案陈述必须有context支撑，拒答类答案无陈述，Faithfulness计算会因分母为0而失效或极低，不可能>0.95；C错误：语义相似度需answer与ground_truth编码计算，拒答答案（如'无法确定'）与ground_truth（如'张伟是教研部的'）余弦相似度必然趋近0，但事实F1中TP=0、FP=0、FN>0，按公式F1=0/(0+0.5×FN)=0，故C描述'语义相似度接近0，事实F1为0'虽数学成立，但教材7.4.4节强调Correctness是综合指标，而本题场景下Relevancy低的主因是拒答行为，Correctness低是结果而非诊断依据，且C未体现'同步出现'的必然性（如拒答答案可能意外与ground_truth有部分重合），故不选。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 0,
+      "stem": "某团队对新人答疑机器人实施切片优化后，RAGAS评测显示Context Recall从0.63升至0.92，但Answer Correctness仅从0.74微升至0.75，且Faithfulness下降0.19。日志确认检索返回的contexts中完整包含'张伟是教研部的'等关键信息。此时若要验证是否因控制变量失效导致分数失真，最应优先核查哪项配置？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "评测脚本中temperature参数是否在两次运行间保持一致"
+        },
+        {
+          "option_label": "B",
+          "option_text": "评测集question字段是否在两次运行中使用相同抽样版本"
+        },
+        {
+          "option_label": "C",
+          "option_text": "ground_truth是否由同一组HR专家在两次运行前共同审定"
+        },
+        {
+          "option_label": "D",
+          "option_text": "RAGAS计算Answer Correctness时使用的embedding模型版本是否冻结"
+        }
+      ],
+      "answer": "A",
+      "analysis": "教材7.2.4节强调'回归评测必须冻结评测配置（temperature/seed/模型版本）'，其中temperature直接影响生成随机性：升高temperature会放大幻觉风险，直接导致Faithfulness下降（教材7.5节'优化方向'：'Faithfulness低→降低temperature'）。本题中Recall大幅提升但Faithfulness显著恶化，符合'temperature未冻结导致生成端波动'的典型特征。B、C、D虽属控制变量范畴，但B（question抽样版本）和C（ground_truth审定）属于评测集构建环节，若变更会导致整体分数漂移而非单项指标异常；D（embedding版本）影响Answer Correctness的语义相似度子项，但本题Correctness变化微弱（+0.01），而Faithfulness大幅下降（-0.19）更指向生成参数失控，故A为最优先核查项。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 1,
+      "stem": "在实施评测驱动开发（EDD）时，以下哪些实践能同时满足教材7.1节'防止回归'用途与7.2.4节'控制变量'要求？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "每次优化后，使用同一冻结版本的评测集、固定temperature=0.3、seed=42、qwen-plus评委模型运行全量评测"
+        },
+        {
+          "option_label": "B",
+          "option_text": "建立黄金测试集，由HR专家标注100个高置信度样本，并定期用其校准自动评测结果"
+        },
+        {
+          "option_label": "C",
+          "option_text": "在CI/CD流水线中集成DeepEval，对每次代码提交触发自动化回归评测"
+        },
+        {
+          "option_label": "D",
+          "option_text": "将线上用户新反馈的失败案例实时补充进评测集，形成'活文档'"
+        }
+      ],
+      "answer": "A,C",
+      "analysis": "A严格满足'控制变量'（冻结评测集、temperature、seed、评委模型）与'防止回归'（同一配置下对比分数变化）双重要求（教材7.2.4节、7.1节'防止回归'用途）。C中DeepEval支持CI/CD集成，其自动化回归评测天然依赖冻结配置与固定评测集，直接实现'防止回归'（教材7.9节'DeepEval可设Pass/Fail阈值，便于接入CI/CD做自动化回归'）。B错误：黄金集用于'校准'而非'回归评测'，其作用是提升自动评测可信度，不直接保证回归可比性；D错误：'活文档'是评测集持续运营策略（教材7.8.2节），但实时补充会破坏评测集冻结性，违反'控制变量'原则，需待新版本评测集发布后才用于回归。",
+      "difficulty_label": "挑战"
+    }
+  ]
+}

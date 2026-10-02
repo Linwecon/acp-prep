@@ -1,0 +1,107 @@
+{
+  "new-4-6-0": {
+    "qid": "new-4-6-0",
+    "classification": "own",
+    "chapter": 4,
+    "quality": "ok",
+    "reason": "考查Function Calling核心原则，题干与教材关键考点一致。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "Function Calling 流程中，模型只输出调用意图，执行工具的是应用代码。这是本章最常考的陷阱题。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "安全沙箱非根本依据，教材强调执行权归属。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "教材明确模型只提议，程序执行以实现可控可审计。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "接口限制非根本，核心是权责分离的设计原则。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "降低token消耗是次要考虑，非根本设计原则。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-4-6-2": {
+    "qid": "new-4-6-2",
+    "classification": "own",
+    "chapter": 4,
+    "quality": "ok",
+    "reason": "考查MCP核心价值，即工具动态发现，无需修改Agent代码。",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "MCP 的核心思想是'谁提供工具，谁定义工具'——把工具 Schema 的维护职责从 Agent（消费方）转移到工具服务（提供方）。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "体现MCP动态发现核心价值，无需改代码。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "MCP不强制统一API，核心是协议标准化。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "JSON格式非MCP独有，非核心价值。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "跨系统事务非MCP核心要解决的独特问题。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-4-6-4": {
+    "qid": "new-4-6-4",
+    "classification": "own",
+    "chapter": 4,
+    "quality": "ok",
+    "reason": "考查Memory管理策略选择，需结合教材最佳实践分析。",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "长期记忆：跨会话持久化的用户偏好、业务事实、经验教训，按需检索。向量化召回：摆脱窗口限制、海量记忆按需取用。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "单纯扩窗口延后问题，会注意力稀释。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "滚动摘要可行，但非最优先（教材推荐组合）。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "最优先，向量化长期记忆可持久化关键约束并精准检索。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "追加提示词是临时补救，非系统性改进。"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

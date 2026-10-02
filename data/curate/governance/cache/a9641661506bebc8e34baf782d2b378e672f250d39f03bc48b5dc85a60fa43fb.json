@@ -1,0 +1,212 @@
+{
+  "2-1315": {
+    "qid": "2-1315",
+    "classification": "own",
+    "chapter": 2,
+    "quality": "ok",
+    "reason": "题干明确问'用于明确要求大模型完成的任务'，对应六要素中'任务目标（Object）'的定义，原文表格和概念描述均直接支持。",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "任务目标（Object）：明确要完成什么，让模型聚焦",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "角色（Role）定义身份、语气、写作风格，不明确具体任务，原文明确区分二者。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "受众（Audience）指定为谁而写，约束内容深度，不明确任务本身。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "原文表格明确定义'任务目标（Object）：明确要完成什么，让模型聚焦'，完全匹配题干。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "上下文（Context）提供背景、事实、范围，是任务执行的依据，非任务本身。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "2-1415": {
+    "qid": "2-1415",
+    "classification": "own",
+    "chapter": 2,
+    "quality": "ok",
+    "reason": "题干问角色（Role）的主要作用，原文明确指出其作用是定义身份、语气、写作风格，与选项C完全一致。",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "角色（Role）：定义身份、语气、写作风格",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "明确具体任务是'任务目标（Object）'的职责，非角色。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "提供背景信息是'上下文（Context）'的作用，原文表格明确区分。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "原文表格明确定义'角色（Role）：定义身份、语气、写作风格'，与选项完全一致。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "指定输出格式是'输出格式（Output Format）'的职责，原文表格明确列出。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "2-1416": {
+    "qid": "2-1416",
+    "classification": "own",
+    "chapter": 2,
+    "quality": "ok",
+    "reason": "题干问'直接提供任务的背景信息'，原文表格中'上下文（Context）'定义即为'提供背景、事实、范围'，完全匹配。",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "上下文（Context）：提供背景、事实、范围",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "原文表格明确定义'上下文（Context）：提供背景、事实、范围'，'背景'二字直接对应题干。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "样例（Samples）用于对齐格式与风格，通过上下文学习模仿，不提供背景信息。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "任务目标（Object）明确要完成什么，不提供背景。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "角色（Role）定义身份与语气，不提供任务背景信息。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "2-0019": {
+    "qid": "2-0019",
+    "classification": "own",
+    "chapter": 2,
+    "quality": "ok",
+    "reason": "题干为数学计算题，原文明确指出CoT适用于'数学计算、逻辑推理'，且'一步步推导'可提升准确率；其他选项虽有用但非最直接有效。",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "思维链（Chain-of-Thought, CoT）：引导模型在给出最终答案前，显式输出中间推理步骤",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "Few-shot适用于格式/风格敏感任务，数学题更需推理过程而非模仿示例。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "明确输出要求（如JSON）对结构化输出必要，但不解决数学推理错误这一核心问题。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "原文场景和概念明确说明CoT对'数学计算、逻辑推理'提升明显，'一步步推导'可避免算错。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "角色与受众影响语气和深度，不解决数学计算逻辑错误。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "2-0029": {
+    "qid": "2-0029",
+    "classification": "own",
+    "chapter": 2,
+    "quality": "ok",
+    "reason": "题干问题为'内容过于学术化'，即深度不匹配，原文明确指出'面向零编程基础的新员工'等案例应优先补充'受众（Audience）'，选项C同时定义角色与受众，最直接解决。",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "受众（Audience）：指定为谁而写，约束内容深度",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "补充任务目标可能增加细节，但不解决'学术化'即深度不匹配的根本问题。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "扩展上下文提供事实依据，但不改变内容深度和术语使用。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "原文明确指出'内容深度不匹配优先补受众'，且'小学科学老师'和'6-12岁学生'直接约束术语和表达方式。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "提供样例可对齐风格，但不如直接定义受众和角色来得精准和根本。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "2-0194": {
+    "qid": "2-0194",
+    "classification": "own",
+    "chapter": 2,
+    "quality": "ok",
+    "reason": "题干问custom_prompt模板在RAG多轮对话中的作用，原文2.3节明确指出模板用于'预设固定信息（角色/规则/格式）+ 变量插值填充动态内容'，即固化业务规则，非改写问题或增删模型资源。",
+    "answer": [
+      "A"
+    ],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "原文未提及custom_prompt用于问题改写；问题改写属于RAG章节（第3章）查询改写范畴，此处属提示工程模板应用，无证据支持。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "模板不增加训练数据，原文强调'不改动模型参数'，训练数据属于微调范畴。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "模板不影响推理时间，原文未提及其与性能指标（TTFT/TPOT）关联。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "模板不增加参数数量，原文明确提示工程'不改变模型参数'。"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

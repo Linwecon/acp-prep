@@ -1,0 +1,212 @@
+{
+  "6-1190": {
+    "qid": "6-1190",
+    "classification": "beyond",
+    "chapter": 6,
+    "quality": "remove",
+    "reason": "Keras pad_sequences属深度学习框架基础，非本章部署优化考点",
+    "answer": [],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "超出本章范围"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "无关摘要"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "非特征缩放"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "非向量化"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "6-5117": {
+    "qid": "6-5117",
+    "classification": "own",
+    "chapter": 6,
+    "quality": "ok",
+    "reason": "ECS自建完全可控，匹配题干要求",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "ECS（Elastic Compute Service）是 IaaS 层的云服务器，用户对操作系统、驱动、框架、依赖拥有完全控制权",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "完全控制GPU环境"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "FC不支持CPU推理"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "本地部署不满足长期稳定"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "推理不需重新训练"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "6-5118": {
+    "qid": "6-5118",
+    "classification": "own",
+    "chapter": 6,
+    "quality": "ok",
+    "reason": "Serverless核心价值是免运维自动扩缩容",
+    "answer": [
+      "D"
+    ],
+    "supported": true,
+    "quote": "函数计算 FC（Function Compute）是事件驱动的 Serverless 计算服务：写好函数代码，平台负责运行、弹性与运维",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "违背Serverless本质"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "Serverless无需预留"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "FC支持HTTP触发器"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "自动扩缩容是核心"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "6-5119": {
+    "qid": "6-5119",
+    "classification": "own",
+    "chapter": 6,
+    "quality": "ok",
+    "reason": "FC发布HTTP助手需触发器和模型调用",
+    "answer": [
+      "A",
+      "B"
+    ],
+    "supported": true,
+    "quote": "编写函数 → 配置环境变量（API Key、模型名）→ 部署并配置 HTTP 触发器（域名）→ 观察日志监控",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "暴露访问入口必需"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "函数必须处理请求"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "浏览器无法加载大模型"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "FC自动管理实例"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "6-5120": {
+    "qid": "6-5120",
+    "classification": "own",
+    "chapter": 6,
+    "quality": "ok",
+    "reason": "冷启动是FC首次调用延迟主因",
+    "answer": [
+      "D"
+    ],
+    "supported": true,
+    "quote": "冷启动延迟：无流量时实例被回收，新请求到来要重新拉起、可能还要加载模型，首个响应明显变慢",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "权重不会被删除"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "安全组不导致拥塞"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "触发器错误则无法调用"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "冷启动导致初始化延迟"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "6-5121": {
+    "qid": "6-5121",
+    "classification": "own",
+    "chapter": 6,
+    "quality": "ok",
+    "reason": "ECS适合长时占用和深度定制场景",
+    "answer": [
+      "A",
+      "B"
+    ],
+    "supported": true,
+    "quote": "ECS自建的核心优势是可控、无冷启动、可深度优化，核心代价是自运维、弹性弱、GPU闲置成本高",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "ECS适合长时稳定"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "ECS完全控制环境"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "FC更适合此场景"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "FC才支持缩容到零"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

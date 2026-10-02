@@ -1,0 +1,154 @@
+{
+  "items": [
+    {
+      "type": 0,
+      "stem": "某企业升级新人答疑机器人为报销查询助手。用户输入“帮我查一下我上个月提交的报销单审批到哪一步了”，模型返回包含 tool_calls 的结构化响应，但系统未返回最终答案，而是陷入静默。经排查，工具执行代码已正确解析参数并调用内部报销服务，结果也成功生成。最可能的根本原因是？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "模型在第二轮调用中未生成有效回复，因未将工具结果以 role=\"tool\" 消息回传至上下文"
+        },
+        {
+          "option_label": "B",
+          "option_text": "Function Calling 的 tools 参数未在首次调用时传入，导致模型无法输出 tool_calls"
+        },
+        {
+          "option_label": "C",
+          "option_text": "Planner 组件未启用，导致模型无法拆解多步任务"
+        },
+        {
+          "option_label": "D",
+          "option_text": "Memory 未启用滚动摘要，导致上下文过长触发模型截断"
+        }
+      ],
+      "answer": "A",
+      "analysis": "依据教材4.3节“Function Calling：模型只提议、程序才执行”核心流程：第1步模型输出 tool_calls；第2步应用代码执行函数；第3步必须将结果包装为 role=\"tool\" 消息（含 tool_call_id、name、content）追加至 messages；第4步再次调用模型，模型才基于完整上下文生成最终答复或下一轮动作。题干明确‘工具执行成功’且‘模型已输出 tool_calls’，说明前两步无误；但‘陷入静默’即无最终回复，直接对应第3步缺失——未按规范注入 tool 消息，导致模型收不到 Observation，无法进入后续生成环节。B错误：若首次未传 tools，模型根本不会输出 tool_calls（教材4.3风险栏明确）；C错误：单步工具调用无需Planner拆解；D错误：上下文截断会导致生成异常或乱码，而非静默（教材4.8强调截断影响连贯性，非阻断执行）。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 0,
+      "stem": "某金融Agent需完成‘评估客户A的贷款申请’任务，涉及调用征信查询、收入验证、风控模型三个工具。当前采用固定流水线工作流：征信→收入→风控。但近期因征信API临时不可用，整个流程卡死。为提升鲁棒性，以下哪些调整符合本章‘规划策略’的最佳实践？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "将征信工具替换为本地缓存数据，并禁用所有外部API调用"
+        },
+        {
+          "option_label": "B",
+          "option_text": "引入ReAct模式，在征信调用失败时主动重试、切换备用征信源或向用户澄清"
+        },
+        {
+          "option_label": "C",
+          "option_text": "为每个工具添加超时熔断机制，失败后自动跳过该步骤继续执行后续"
+        },
+        {
+          "option_label": "D",
+          "option_text": "将整个流水线封装为Skill，通过渐进式披露加载子文档"
+        }
+      ],
+      "answer": "B",
+      "analysis": "教材4.6.3节明确：固定工作流的致命缺陷是‘卡不起’，环境变化（如API不可用）时无法动态调整；Plan-and-Execute/ReAct的核心价值正是‘遇到障碍时重新规划’。B选项完全契合教材4.4节ReAct铁律——‘工具失败时能换方案’及4.2节关键约定‘要给模型失败出口：工具超时、报错时能重试或换方案’。A错误：禁用所有API违背任务本质（需实时征信），且未解决‘如何应对不可用’的规划问题；C错误：跳过关键步骤（征信）将导致风控结论失效，违反‘业务完整性’，教材4.4风险栏强调‘Observation可能含噪声，但不能盲目跳过’；D错误：Skill解决的是SOP固化与复用，不解决运行时故障恢复（教材4.9强调Skill用于‘稳定复用’，非‘动态容错’）。",
+      "difficulty_label": "挑战"
+    },
+    {
+      "type": 0,
+      "stem": "一个课程审查Skill已封装‘代码可执行性检查’为validate_code.py脚本，并返回结构化JSON。当评测该Skill的SOP合规性时，发现Agent在未运行该脚本的情况下就给出了‘代码可运行’结论。为精准定位此环节失效，应优先采用哪种评测手段？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "LLM-as-Judge：用大模型判断审查报告是否可信"
+        },
+        {
+          "option_label": "B",
+          "option_text": "确定性检查：解析执行轨迹，验证是否调用validate_code.py及返回JSON结构"
+        },
+        {
+          "option_label": "C",
+          "option_text": "Rubric评分：按‘检查项完整性’维度对报告打分"
+        },
+        {
+          "option_label": "D",
+          "option_text": "端到端人工评测：由专家阅读最终报告判断质量"
+        }
+      ],
+      "answer": "B",
+      "analysis": "教材4.10节明确区分评测类型：确定性检查用于‘该发生的步骤有没有发生’，结果确定、可调试，适合客观项（如‘是否调了报销工具’‘输出是否符合JSON Schema’）；而题干问题本质是‘脚本未被执行’这一确定性事实，需白盒化追踪执行轨迹。B选项直接对应教材4.10原理‘用代码/脚本判断关键组件/中间步骤’。A错误：LLM-as-Judge适用于主观项（如风格、准确性），对‘是否执行脚本’无判定能力且易偏见；C错误：Rubric用于拆解模糊目标（如‘完整性’），但无法验证脚本是否真实运行；D错误：端到端评测仅看最终输出，无法定位‘未执行脚本’这一中间环节（教材4.10强调‘问题常出在过程而非最终答案’）。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 1,
+      "stem": "某团队采用MCP协议接入多个内部系统工具（OA、HRIS、CRM）。部署后发现：新上线的CRM工具无法被Agent自动发现；同时，Agent在调用HRIS工具时偶发将员工身份证号明文写入日志。以下哪些做法符合本章对MCP的规范要求与风险警示？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "检查CRM MCP Server是否已启动并正确注册Tools原语，且Host端MCP Client连接正常"
+        },
+        {
+          "option_label": "B",
+          "option_text": "为HRIS MCP Server配置鉴权机制，禁止未授权客户端访问"
+        },
+        {
+          "option_label": "C",
+          "option_text": "在HRIS Server的日志模块中增加敏感字段脱敏逻辑"
+        },
+        {
+          "option_label": "D",
+          "option_text": "将CRM工具Schema硬编码至Agent代码，绕过MCP动态发现"
+        }
+      ],
+      "answer": "A,B,C",
+      "analysis": "教材4.5节MCP风险栏明确：‘MCP Server本身需要鉴权，不能裸奔’（B正确）；‘其返回内容也可能被投毒，要防提示注入’——虽未提日志，但‘防投毒’延伸至所有输出环节，C是工程落地必要措施（教材4.11 Harness原则含‘边界约束’）。A正确：MCP核心价值是‘动态发现’，教材4.5图示‘Client自动连接并拉取工具清单’，CRM不可见必是Server未暴露或Client未连接。D错误：硬编码Schema直接违背MCP设计初衷（教材4.5场景：‘每个Agent硬编码Schema导致维护灾难’），属倒退行为。三者均符合‘规范要求’（A）与‘风险警示’（B/C）。",
+      "difficulty_label": "挑战"
+    },
+    {
+      "type": 1,
+      "stem": "某多Agent客服系统设计中，Leader Agent负责分派工单给Worker Agent处理。当前所有Worker共用同一套数据库API Key，并将全部Worker的系统提示词拼接后一次性注入Leader的上下文。上线后出现两个严重问题：1）某Worker误操作删除了核心业务表；2）Leader响应延迟显著升高。根据本章四条硬原则，这两个问题分别违反了哪两条？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "问题1违反‘独立凭据’原则"
+        },
+        {
+          "option_label": "B",
+          "option_text": "问题1违反‘避免全量注入’原则"
+        },
+        {
+          "option_label": "C",
+          "option_text": "问题2违反‘避免全量注入’原则"
+        },
+        {
+          "option_label": "D",
+          "option_text": "问题2违反‘中央调度’原则"
+        }
+      ],
+      "answer": "A,C",
+      "analysis": "教材4.7节多Agent四原则：①‘独立凭据’——‘不同Agent不得共用同一套账号/API凭据，按最小权限分别授权，防止越权与横向扩散’；问题1中Worker误删表，根源是共用高权限Key，直接违反此条（A正确）。②‘避免全量注入’——‘不要把所有Agent的知识/工具清单一次性写进主Prompt’，否则‘上下文膨胀、注意力稀释、token成本飙升’；问题2中Leader延迟升高，正是因拼接全部Worker提示词导致上下文过大（C正确）。B错误：凭据问题不导致延迟；D错误：‘中央调度’指Leader统一决策调用谁，与延迟无关（教材4.7强调其防‘死锁’，非性能）。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 0,
+      "stem": "某企业将新人答疑机器人升级为报销进度查询助手。用户输入'帮我查一下我上个月提交的报销单审批到哪一步了'，Agent首次响应中未调用工具，而是直接回答'一般3–5个工作日'。该行为违反了Agent最核心的哪一本质特征？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "未实现‘感知-规划-行动-观察’闭环"
+        },
+        {
+          "option_label": "B",
+          "option_text": "未使用Function Calling机制"
+        },
+        {
+          "option_label": "C",
+          "option_text": "未启用长期记忆存储用户偏好"
+        },
+        {
+          "option_label": "D",
+          "option_text": "未采用ReAct模式进行多步推理"
+        }
+      ],
+      "answer": "A",
+      "analysis": "教材4.1节开篇定义Agent本质：‘不是更能聊的模型，而是LLM驱动的闭环执行系统’，其核心是‘规划-行动-观察多轮闭环’；对比表格明确Agent与普通对话区别：普通对话‘一次问答’，Agent‘多轮闭环’。题干行为是典型普通对话——用户问具体状态（需行动），却仅凭知识库回答泛泛时效（无行动），完全缺失‘行动’环节，故违反最本质的闭环特征（A正确）。B错误：Function Calling是实现‘行动’的机制之一，但非本质（教材4.1强调‘闭环’是本质，FC是手段）；C错误：长期记忆解决跨会话问题，本题是单次任务失败；D错误：ReAct是闭环的一种实现（教材4.4），但单步工具调用无需ReAct（教材4.4风险栏：‘简单任务不要上ReAct’）。",
+      "difficulty_label": "入门"
+    }
+  ]
+}

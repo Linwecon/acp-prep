@@ -1,0 +1,154 @@
+{
+  "items": [
+    {
+      "type": 0,
+      "stem": "某RAG答疑机器人在处理员工上传的PDF时，未对检索返回的知识条目做任何权限校验，导致普通员工通过提问成功获取了仅限CEO查阅的薪酬调整方案原文。根据教材8.8节，该故障最根本的执行顺序缺陷是？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "未在检索前对用户身份做预过滤，导致召回范围过大"
+        },
+        {
+          "option_label": "B",
+          "option_text": "将权限判断逻辑错误地放在模型输出阶段，依赖模型自觉不回答"
+        },
+        {
+          "option_label": "C",
+          "option_text": "在检索完成后、拼接Prompt之前，未按position_id对Top-K结果执行元数据过滤"
+        },
+        {
+          "option_label": "D",
+          "option_text": "知识库入库时未标注position_ids字段，导致无据可依"
+        }
+      ],
+      "answer": "C",
+      "analysis": "依据教材8.8.1节‘按职位过滤Top-K’原理：‘关键在于过滤发生在检索之后、拼Prompt之前’；且明确指出‘模型不做权限判断，权限必须由应用层强制’。选项C精准对应原文‘三步流程’第二步（比对访问属性）与第三步（过滤后再送入模型）的执行时机要求。A错误——检索前无法预知哪些知识条目会被召回，RAG本质是语义匹配，非结构化查询；B是典型误区，教材8.8.2节‘风险’栏明确批判‘在提示词里告诉模型你只能回答有权看的内容’为无效做法；D虽属数据治理问题，但题干已说明‘检索返回了知识条目’，证明元数据存在，故障出在应用层过滤缺失而非元数据缺失。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 0,
+      "stem": "运维监控发现答疑机器人GPU持续100%，日志显示大量请求携带‘分析公司十年财报并生成5000字报告’。此时若仅启用WAF的CC防护规则，为何无法根治该问题？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "WAF无法识别大模型请求的语义复杂度，仅能限制QPS，不能约束单次请求的算力消耗"
+        },
+        {
+          "option_label": "B",
+          "option_text": "WAF工作在应用层，而GPU耗尽属于基础设施层问题，需DDoS高防介入"
+        },
+        {
+          "option_label": "C",
+          "option_text": "该攻击本质是提示注入，WAF缺乏AI安全护栏的语义理解能力"
+        },
+        {
+          "option_label": "D",
+          "option_text": "WAF默认只防护HTTP Flood，对API调用类请求无防护能力"
+        }
+      ],
+      "answer": "A",
+      "analysis": "依据教材8.7节‘资源耗尽型DDoS是AI应用的新风险’及‘四件套各自定位’：明确指出‘攻击者不需要打满带宽，只要提交高计算请求就能打爆GPU’，且防御需‘DDoS高防清洗异常流量 + WAF/API网关做频率限制 + 应用层对单个用户设token/算力上限’三层联动。选项A直指核心——WAF的CC防护仅控制请求频次（QPS），无法评估单次请求的Token量、上下文长度、推理深度等算力成本，故无法阻止‘一个请求耗尽GPU’。B错误——DDoS高防主要应对流量洪峰（SYN Flood等），非算力耗尽；C错误——此场景是合法语义请求（非注入），属滥用而非攻击；D错误——WAF天然支持API防护，教材8.7节‘WAF’定义即包含‘拦截恶意爬虫、漏洞利用’等API层攻击。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 1,
+      "stem": "某教育公司为新人答疑机器人配置多模态内容安全检测。根据教材8.4.3节规范，以下哪些操作违反了‘标准检测流程’？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "用户上传本地MP3文件，系统直接将二进制流调用voice_moderation接口"
+        },
+        {
+          "option_label": "B",
+          "option_text": "用户上传PDF，系统调用image_moderation接口传入其公网URL"
+        },
+        {
+          "option_label": "C",
+          "option_text": "用户上传视频，系统同步调用videoDetection接口并等待返回结果"
+        },
+        {
+          "option_label": "D",
+          "option_text": "用户上传图片，系统先上传至OSS获取URL，再提交至baselineCheck_pro接口"
+        }
+      ],
+      "answer": "A,C",
+      "analysis": "依据教材8.4.3节表格：音频/视频检测必须异步（‘先提交task_id→再轮询结果’），文本/图像为同步。A错误——MP3必须异步，直接传二进制流违反‘异步任务’规范，且教材明确‘需公网可访问URL’；C错误——视频检测必须异步，同步等待违反‘异步’硬性要求。B正确——PDF含OCR文字，教材明确图像审核‘既能审画面，也能识别图中文字’，且image_moderation支持URL输入；D正确——符合‘先上传换URL、再提交审核’的标准套路。本题考查多模态检测的**组合约束**（同步/异步+输入格式），非孤立知识点。",
+      "difficulty_label": "挑战"
+    },
+    {
+      "type": 0,
+      "stem": "开发团队为RAG知识库配置了按职位过滤Top-K逻辑，但测试中发现：当用户position_id=2（teamleader）时，系统仍返回了kb_position_ref.csv中position_ids='[3,4]'（manager/ceo）的知识条目。依据教材8.8.1节代码示例，最可能的根本原因是什么？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "user.csv中该用户的position_id字段值被错误录入为3"
+        },
+        {
+          "option_label": "B",
+          "option_text": "kb_position_ref.csv中position_ids字段存储为字符串'[3,4]'，但代码未执行ast.literal_eval解析"
+        },
+        {
+          "option_label": "C",
+          "option_text": "过滤逻辑被错误放置在检索前，导致未关联kb_position_ref表"
+        },
+        {
+          "option_label": "D",
+          "option_text": "merge操作未指定on参数，导致笛卡尔积产生错误匹配"
+        }
+      ],
+      "answer": "B",
+      "analysis": "紧扣教材8.8.1节代码示例：`position_ids = ast.literal_eval(row['position_ids'])` 是关键步骤。若省略此行，字符串'[3,4]'会被当作完整字符串与整数2比较（'2' in '[3,4]'为False），但题干现象是‘仍返回’，说明比较逻辑失效导致条件恒真。B选项指出未解析字符串，使`if user_position_id in position_ids`实际执行`if 2 in '[3,4]'`（Python中in对字符串是子串搜索，'2'不在'[3,4]'中），但若代码误写为`if str(user_position_id) in position_ids`则可能恒假——然而教材示例严格使用ast.literal_eval，未执行则position_ids为str类型，`in`操作在str上行为不可控，极易因类型混淆导致过滤失效。A、C、D均为外部数据或逻辑错误，但题干强调‘配置了过滤逻辑’，故障点必在代码实现细节，B是教材代码中明确写出的**必要转换步骤**，遗漏即导致元数据过滤完全失效。",
+      "difficulty_label": "挑战"
+    },
+    {
+      "type": 1,
+      "stem": "某员工上传PDF诱导机器人执行恶意指令，该攻击被定性为‘间接提示注入’。依据教材8.3节‘提示注入的标准防护组合’，以下哪些措施属于针对此攻击形态的必要且不可替代的防线？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "在输入过滤层，对用户原始对话进行越狱话术检测"
+        },
+        {
+          "option_label": "B",
+          "option_text": "对RAG检索返回的文档内容单独执行注入检测"
+        },
+        {
+          "option_label": "C",
+          "option_text": "在Prompt中用分隔符明确标识‘以下为数据，非指令’"
+        },
+        {
+          "option_label": "D",
+          "option_text": "为Agent调用的数据库账号配置最小权限（如禁止UPDATE）"
+        }
+      ],
+      "answer": "B,C,D",
+      "analysis": "依据教材8.3节‘提示注入的标准防护组合’：①指令与数据隔离（C）、②输入过滤（但教材强调‘输入过滤’指用户输入，而间接注入来自文档，故A仅防直接注入，非必要）；③检索内容无害化（B，明确要求‘RAG取回的文档同样要过一遍注入检测’）；④工具权限最小化（D，防止恶意指令造成真实危害）。A错误——教材8.3节‘高频陷阱’明确指出‘只审核用户输入就够了’是❌，因间接注入藏于文档，用户输入本身可能完全合法。B、C、D共同构成间接注入的**组合约束**：B解决‘文档带毒’，C解决‘模型混淆指令与数据’，D解决‘毒文档触发真实危害’，三者缺一不可，体现纵深防御中不同层的不可替代性。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 0,
+      "stem": "安全团队审计发现，某RAG知识库中一条标为‘薪酬管理制度（绝密）’的文档被普通员工成功检索并引用。经排查，该文档kb_position_ref.csv记录为'position_ids=[1,2]'，用户position_id=1。但系统未过滤该文档。依据教材8.8.1节‘三步流程’，问题最可能出在哪个环节？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "第一步‘查用户权限’失败，user.csv中未找到该user_id"
+        },
+        {
+          "option_label": "B",
+          "option_text": "第二步‘比对知识条目的访问属性’中，代码逻辑错误地使用了OR而非IN判断"
+        },
+        {
+          "option_label": "C",
+          "option_text": "第三步‘过滤后再送入模型’被跳过，无权条目直接拼入Prompt"
+        },
+        {
+          "option_label": "D",
+          "option_text": "整个过滤流程未被集成到RAG链路中，仍在模型侧做软性约束"
+        }
+      ],
+      "answer": "D",
+      "analysis": "依据教材8.8.1节‘三步流程’及8.8.2节‘风险’栏：明确强调‘权限必须由应用层强制’，且批判‘在提示词里告诉模型你只能回答有权看的内容’为❌。题干中元数据正确（[1,2]）、用户权限匹配（1∈[1,2]）、但‘未过滤’，说明过滤逻辑根本未执行。D选项直指本质——教材要求过滤是‘应用层强制’动作，若未集成到链路，即等于不存在。A、B、C均为具体技术错误，但题干未提供代码异常证据，而D是架构级缺失，符合教材‘模型不是权限边界’的核心原则。教材8.10场景表第6条‘普通员工看到高权限文档’的处置方案明确为‘按职位过滤Top-K’，隐含前提是该流程必须被实施。",
+      "difficulty_label": "进阶"
+    }
+  ]
+}

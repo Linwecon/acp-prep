@@ -1,0 +1,208 @@
+{
+  "5-0311": {
+    "qid": "5-0311",
+    "classification": "unsure",
+    "chapter": 5,
+    "quality": "remove",
+    "reason": "题干与选项均与本章核心考点无关，考查的是数据安全通用措施，无具体考查价值。",
+    "answer": [],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "未提及，且非标准安全术语。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "未提及，且非本章核心考点。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "未提及，且非本章核心考点。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "未提及，且非本章核心考点。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "5-0351": {
+    "qid": "5-0351",
+    "classification": "own",
+    "chapter": 5,
+    "quality": "ok",
+    "reason": "考查数据质量对微调效果的影响，符合本章数据准备原则。",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "数据质量从四个维度把关，其重要性远高于数量：1. 正确性；2. 多样性；3. 一致性；4. 无重复。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "是正确做法，有助于效果。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "大规模收集不必然导致不佳，关键在质量。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "类别失衡破坏数据平衡性，属低质量数据。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "是正确做法，有助于效果。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "5-0382": {
+    "qid": "5-0382",
+    "classification": "own",
+    "chapter": 5,
+    "quality": "ok",
+    "reason": "考查数据准备的关键步骤，强调数据清洗的重要性。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "数据质量从四个维度把关，其重要性远高于数量：1. 正确性；2. 多样性；3. 一致性；4. 无重复。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "随机排序非关键步骤。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "数据清洗去除噪声，是确保质量的关键。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "划分数据集是必要步骤，但非题干强调的“确保效果”。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "加入无关信息会降低数据质量。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "5-0402": {
+    "qid": "5-0402",
+    "classification": "cross",
+    "chapter": 1,
+    "quality": "ok",
+    "reason": "考查分词（Tokenization）的基本作用，属于大模型基础章节知识。",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "Token是处理最小单位",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "分词目的非直接降低成本。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "分词非为简化内容。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "分词将文本转为模型可处理的Token序列。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "分词目的非提高传输效率。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "5-0427": {
+    "qid": "5-0427",
+    "classification": "own",
+    "chapter": 5,
+    "quality": "ok",
+    "reason": "考查学习率超参数的定义，属于训练过程核心概念。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "学习率（lr）：每次参数更新的步长",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "批大小控制每次更新样本数。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "学习率直接控制参数更新步长。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "训练轮数控制迭代次数。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "正则化系数控制过拟合。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "5-0440": {
+    "qid": "5-0440",
+    "classification": "misplaced",
+    "chapter": -1,
+    "quality": "remove",
+    "reason": "题干提及“RAG应用的文本合规检查”，但选项考查规则匹配缺点，与本章微调训练核心考点无关，且条件模糊。",
+    "answer": [],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "规则匹配通常计算简单，速度快。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "规则匹配无需训练数据。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "缺乏泛化能力是常见缺点，但题干与本章无关。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "规则可处理多语言，但非主要缺点。"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

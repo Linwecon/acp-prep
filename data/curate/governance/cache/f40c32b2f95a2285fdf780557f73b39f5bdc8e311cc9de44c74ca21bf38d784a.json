@@ -1,0 +1,154 @@
+{
+  "items": [
+    {
+      "type": 0,
+      "stem": "某Function Calling实现中，模型首次调用返回了tool_calls，程序也成功执行了对应工具并获取结果，但第二次API调用后最终回答仍不包含工具信息。经检查，messages数组在第二次调用前已追加response_message（含tool_calls），但未添加role='tool'消息。该故障最直接违反第9章强调的哪项API层关键约束？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "未在请求中设置tool_choice='auto'，导致模型无法触发工具调用"
+        },
+        {
+          "option_label": "B",
+          "option_text": "回传工具结果时未提供tool_call_id，模型无法关联决策与执行"
+        },
+        {
+          "option_label": "C",
+          "option_text": "缺少role='tool'类型的消息，模型无法感知工具已执行并获得结果"
+        },
+        {
+          "option_label": "D",
+          "option_text": "tools参数未使用JSON Schema定义required字段，导致参数提取失败"
+        }
+      ],
+      "answer": "C",
+      "analysis": "依据原文9.7节‘Function Calling从API视角’明确指出：‘整个过程是两次API调用：第一次让模型决策，第二次把工具结果送回去生成答案’；且‘role=\"tool\"’是messages中必需的角色类型，用于‘程序执行工具后回传结果的消息，必须带tool_call_id’。题干中‘已追加response_message但未添加role=\"tool\"消息’，直接导致第二次调用时模型上下文缺失执行结果，因此无法生成含工具信息的回答。A选项错误——tool_choice影响首次决策，但题干已明确‘模型返回了tool_calls’，说明决策成功；B选项虽重要，但题干未提tool_call_id缺失，而是根本未添加role='tool'消息，属于更基础的结构缺失；D选项属于Schema设计问题，会导致首次tool_calls为空或参数错误，与题干‘已返回tool_calls’矛盾。教材依据：9.7节‘API视角的四个关键字段’表格及‘API层最常见的错误’第一条‘❌ 忘了把response_message追加进messages’的同类逻辑延伸——本题是‘忘了追加role=\"tool\"消息’，属同级核心约束。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 1,
+      "stem": "在实现Function Calling闭环时，以下哪些操作是确保两次调用能正确衔接的必要条件？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "首次调用响应中若存在tool_calls，必须由应用程序解析并实际执行对应工具函数"
+        },
+        {
+          "option_label": "B",
+          "option_text": "第二次调用前，messages必须同时包含首次的response_message和新增的role='tool'消息"
+        },
+        {
+          "option_label": "C",
+          "option_text": "role='tool'消息中必须严格包含tool_call_id、name和content三个字段"
+        },
+        {
+          "option_label": "D",
+          "option_text": "两次调用必须使用完全相同的model参数，否则上下文无法对齐"
+        }
+      ],
+      "answer": "ABC",
+      "analysis": "A正确：原文9.7节明确‘真正执行工具的是你的应用程序’，且‘❌ 拿到tool_calls就以为工具已经执行’是典型错误，故执行是必要条件；B正确：教材示例代码第4步‘messages.append(response_message)’和‘messages.append({\"tool_call_id\":..., \"role\": \"tool\", ...})’同步追加，缺一不可，否则第二次调用上下文不完整；C正确：9.7节‘API视角的四个关键字段’表中明确role='tool'消息需含tool_call_id，且示例中包含name和content，三者共同构成模型关联决策与结果的唯一标识；D错误：教材未要求两次调用model必须相同，实践中可因成本/性能切换模型（如首次用qwen-plus决策，二次用qwen-turbo生成），只要messages结构合规即可，model一致性非必要条件。教材依据：9.7节全流程代码示例及‘API层最常见的错误’第二条‘❌ 忘了把response_message追加进messages’的隐含前提即B项，C项对应‘必须带tool_call_id’的强制要求。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 0,
+      "stem": "开发团队发现Function Calling流程中，模型首次返回的tool_calls参数为'{\"query\": \"Transformer paper\"}'，但程序执行工具后回传的role='tool'消息content为'{\"paper_id\": \"1706.03762\", \"url\": \"https://arxiv.org/abs/1706.03762\"}'，第二次调用后模型回答称‘未找到相关论文’。最可能的根本原因是什么？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "tools参数中function.description描述模糊，导致模型误解工具能力"
+        },
+        {
+          "option_label": "B",
+          "option_text": "role='tool'消息中遗漏tool_call_id字段，模型无法将结果与原始调用关联"
+        },
+        {
+          "option_label": "C",
+          "option_text": "首次调用时tool_choice设置为'none'，强制禁止工具调用"
+        },
+        {
+          "option_label": "D",
+          "option_text": "system prompt未声明支持工具调用，模型忽略tool_calls意图"
+        }
+      ],
+      "answer": "B",
+      "analysis": "题干关键线索：首次成功返回tool_calls（证明A、C、D均非主因），程序执行工具并回传content，但模型第二次回答‘未找到’，说明工具结果未被模型识别。原文9.7节‘API层最常见的错误’第三条明确指出‘❌ 回传结果时漏tool_call_id’，且‘API视角的四个关键字段’表强调role='tool'消息‘必须带tool_call_id’。若缺失此ID，模型无法将content与原始tool_calls绑定，视作无效输入，故回答‘未找到’。A选项虽影响首次决策质量，但题干已返回有效tool_calls；C选项若为'none'则根本不会返回tool_calls；D选项system prompt未声明工具支持会影响首次调用，但题干已触发调用。教材依据：9.7节‘API层最常见的错误’第三条及‘principle’部分对tool_call_id作用的强调。",
+      "difficulty_label": "挑战"
+    },
+    {
+      "type": 1,
+      "stem": "当Function Calling两次调用闭环失败时，以下哪些现象可直接指向‘工具执行环节’而非‘模型决策环节’的问题？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "首次调用响应中choices[0].message.tool_calls为空"
+        },
+        {
+          "option_label": "B",
+          "option_text": "首次调用返回了tool_calls，但程序日志显示工具函数抛出异常未执行"
+        },
+        {
+          "option_label": "C",
+          "option_text": "首次调用返回tool_calls，程序执行工具后，第二次调用响应中finish_reason='stop'但内容不含工具结果"
+        },
+        {
+          "option_label": "D",
+          "option_text": "首次调用返回tool_calls，程序执行工具并回传role='tool'消息，但第二次调用报错400 Bad Request"
+        }
+      ],
+      "answer": "BCD",
+      "analysis": "A选项属于模型决策环节问题（模型未触发工具），排除；B选项明确‘工具函数抛出异常未执行’，属执行环节失败，正确；C选项表明决策成功（有tool_calls）、执行发生（否则无第二次调用）、但结果未体现，指向执行后回传或模型处理问题，属执行环节下游，正确；D选项中‘回传role=\"tool\"消息后报400’，400是参数错误，而role='tool'消息格式错误（如缺tool_call_id、content非字符串）是执行环节构造不当所致，原文9.7节‘API层最常见的错误’第三条即针对此场景，正确。教材依据：9.7节‘API层最常见的错误’分类——‘❌ 拿到tool_calls就以为工具已经执行’（B）、‘❌ 回传结果时漏tool_call_id’（C/D的潜在原因）均属执行环节约束。",
+      "difficulty_label": "挑战"
+    },
+    {
+      "type": 0,
+      "stem": "某Function Calling实现中，首次调用成功返回tool_calls，程序执行工具后构造role='tool'消息时，误将tool_call.id赋值给字段'tool_id'而非标准字段'tool_call_id'。第二次API调用时最可能出现的错误现象是？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "服务端返回400 Bad Request，提示tool消息格式非法"
+        },
+        {
+          "option_label": "B",
+          "option_text": "第二次调用成功，但模型回答中完全忽略工具结果"
+        },
+        {
+          "option_label": "C",
+          "option_text": "首次调用即失败，未返回tool_calls"
+        },
+        {
+          "option_label": "D",
+          "option_text": "第二次调用返回429 Too Many Requests"
+        }
+      ],
+      "answer": "A",
+      "analysis": "题干核心是role='tool'消息字段名错误（'tool_id'非'tool_call_id'）。原文9.7节强调role='tool'消息需符合API规范，而OpenAI兼容接口对消息结构有严格校验。字段名错误属于请求体格式错误，必然触发400 Bad Request（教材9.1节明确‘参数错误返回400’）。B选项是tool_call_id存在但值不匹配时的语义错误表现，非字段名错误；C选项发生在首次调用，与题干无关；D选项是配额问题，与字段名无关。教材依据：9.1节‘一次调用在服务端要走完五关’中‘客户端构造请求→鉴权→配额/限流检查→模型推理→返回响应’，字段错误在‘客户端构造请求’阶段即被拦截，属于400范畴；9.8节错误码表明确400为‘请求参数错误’。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 1,
+      "stem": "为保障Function Calling两次调用闭环的鲁棒性，以下哪些工程实践符合第9章‘API视角’的核心要求？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "在首次调用后，对response_message.tool_calls进行空值检查，避免空列表引发后续索引错误"
+        },
+        {
+          "option_label": "B",
+          "option_text": "将role='tool'消息的content字段强制序列化为JSON字符串，确保传输格式合规"
+        },
+        {
+          "option_label": "C",
+          "option_text": "第二次调用前，对messages数组长度做断言，确保其大于等于3（system+user+response_message）"
+        },
+        {
+          "option_label": "D",
+          "option_text": "在role='tool'消息中，除tool_call_id外，额外添加timestamp字段便于审计"
+        }
+      ],
+      "answer": "AB",
+      "analysis": "A正确：教材虽未明说，但9.7节示例代码`if response_message.tool_calls:`即体现空值防护，属工程必备实践，避免因无工具调用导致程序崩溃；B正确：原文示例中`tool_result = json.dumps({...})`明确将content设为JSON字符串，且9.7节强调content为工具执行结果，JSON序列化是保证结构化数据传输的通用做法；C错误：messages长度无固定下限，单轮对话可仅含system+user（2条），且教材未要求断言长度，属过度约束；D错误：添加非标准字段timestamp虽无害，但教材未提及且非必要，反而可能干扰服务端解析（尽管通常忽略），不符合‘核心要求’。教材依据：9.7节示例代码中`if response_message.tool_calls:`（A）、`tool_result = json.dumps(...)`（B）均为显式实践。",
+      "difficulty_label": "进阶"
+    }
+  ]
+}

@@ -1,0 +1,215 @@
+{
+  "3-1014": {
+    "qid": "3-1014",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "需动态判断是否启用RAG，意图识别是前提",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "首先在检索功能中融入多轮对话改写机制，然后加入意图识别功能，判断该对话是否需要进行 RAG",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "意图识别可精准触发RAG，符合上下文工程原则"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "RAG已有成熟组件，无需从零实现"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "每轮都检索违背按需原则，增加成本"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "用户不应承担知识输入责任"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-1066": {
+    "qid": "3-1066",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "多轮对话需指代消解，否则丢失上下文",
+    "answer": [
+      "D"
+    ],
+    "supported": true,
+    "quote": "员工问\"他的主管是谁\"，直接检索效果很差，最应优先采用哪种技术？",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "embedding对短文本无增益优势"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "未提embedding不擅短文本"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "向量库无记忆功能"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "未改写导致指代丢失，检索失准"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-1068": {
+    "qid": "3-1068",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "切片割裂语义需重叠或扩窗修复",
+    "answer": [
+      "A",
+      "C"
+    ],
+    "supported": true,
+    "quote": "相邻 chunk 之间保留一小段重复文字，防止一句话正好被从中间切断",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "语义切片保连贯性"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "盲目扩大会混入噪声"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "重叠缓解切片断裂"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "temperature影响生成非检索"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-1083": {
+    "qid": "3-1083",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "RAGAS评估依赖source_node溯源",
+    "answer": [
+      "D"
+    ],
+    "supported": true,
+    "quote": "RAGAS 评估需要一份数据集，每条包含四个字段：question、ground_truth、answer、contexts",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "source非RAGAS标准字段"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "reason非RAGAS字段"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "json_object非RAGAS字段"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "source_node存检索片段供溯源"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-1098": {
+    "qid": "3-1098",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "岗位混淆需结构化增强与标签过滤",
+    "answer": [
+      "B",
+      "C"
+    ],
+    "supported": true,
+    "quote": "文档有标题层级（如分部门、分章节的员工手册）→ 优先 Markdown 切片，天然把不同部门拆成独立块",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "Rerank不解决模板同质化"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "标题拼接强化岗位区分"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "标签过滤隔离岗位文档"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "temperature不解决检索混淆"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-1233": {
+    "qid": "3-1233",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "Embedding用余弦相似度，新模型更优",
+    "answer": [
+      "C",
+      "D"
+    ],
+    "supported": true,
+    "quote": "余弦相似度是向量检索首选相似度。新版本模型通常效果更好",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "Embedding可处理长文本分块"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "Embedding仅用于检索非生成"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "原文明确余弦为首选"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "新版本效果更好是常识推论"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

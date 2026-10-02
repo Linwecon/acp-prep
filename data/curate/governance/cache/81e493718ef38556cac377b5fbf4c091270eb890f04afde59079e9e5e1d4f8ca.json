@@ -1,0 +1,142 @@
+{
+  "new-10-120-0": {
+    "qid": "new-10-120-0",
+    "classification": "own",
+    "chapter": 10,
+    "quality": "ok",
+    "reason": "考查qwen-turbo与plus在能力维度的选型逻辑",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "qwen-turbo速度快、延迟低、成本低 | 高频、简单、对延迟敏感的任务（简单问答、分类、摘要）",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "原文未提turbo不支持LoRA微调"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "上下文窗口小属long专属场景"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "turbo适合简单任务，穿透式尽调属复杂语义"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "成本维度非直接决定基座选择"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-10-120-1": {
+    "qid": "new-10-120-1",
+    "classification": "own",
+    "chapter": 10,
+    "quality": "ok",
+    "reason": "考查system prompt重复加载导致计费异常",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "上下文缓存 | 命中固定前缀（系统提示词、知识库片段）可能享受缓存折扣",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "速度失效不解释费用异常"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "未用缓存致固定条文重复计费"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "RAG最佳实践非四维评估项"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "能力维度未比较long与plus"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-10-120-2": {
+    "qid": "new-10-120-2",
+    "classification": "own",
+    "chapter": 10,
+    "quality": "ok",
+    "reason": "考查200页PDF与模型上下文窗口匹配性",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "qwen-long | 支持超长上下文窗口 | 长文档/大文档问答，可减少切片",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "GPU机型属部署约束非必要故障"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "上下文不足则无法覆盖全文"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "链接失效属临时问题非必要故障"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "DLC不支持属框架兼容性非必要故障"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-10-120-3": {
+    "qid": "new-10-120-3",
+    "classification": "own",
+    "chapter": 10,
+    "quality": "ok",
+    "reason": "考查PAI-DSW实例计费规则理解",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "DSW 实例按\"计算时\"计费，关闭浏览器不等于停止实例，必须回控制台停止或删除",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "速度维度指推理非训练"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "未手动停止致持续计费"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "收敛轮次非原文提及约束"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "长文本维度不适用turbo"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

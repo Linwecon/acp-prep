@@ -1,0 +1,215 @@
+{
+  "new-10-12-0": {
+    "qid": "new-10-12-0",
+    "classification": "own",
+    "chapter": 10,
+    "quality": "ok",
+    "reason": "综合考查阿里云平台选型，符合约束条件分析",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "开源模型的价值集中在三点：① 数据隐私与合规（数据不出域）；② 可深度定制（任意微调/改结构）",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "百炼+DashScope需上传文档至公网，违反约束②"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "开源模型本地微调部署，满足数据不出域和快速微调"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "直接调用API需上传切片至公网，违反约束②"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "百炼工作流编排仍可能涉及公网，且训练自研模型不必要"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-10-12-1": {
+    "qid": "new-10-12-1",
+    "classification": "own",
+    "chapter": 10,
+    "quality": "ok",
+    "reason": "考查计费规则与成本优化措施，符合原文",
+    "answer": [
+      "A",
+      "C",
+      "D"
+    ],
+    "supported": true,
+    "quote": "省成本的工程手段：1. 控制输入：RAG 只塞最相关的片段；3. 限制输出：用 max_tokens 给输出设上限；5. 处理限流：遇 429 用指数退避 + 抖动重试",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "RAG减少输入Token，符合控制输入原则"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "切换模型可能影响效果，非立即生效的优化"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "设置max_tokens限制输出，符合限制输出原则"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "指数退避处理限流，符合原文重试策略"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-10-12-2": {
+    "qid": "new-10-12-2",
+    "classification": "own",
+    "chapter": 10,
+    "quality": "ok",
+    "reason": "考查数据不出域场景下的平台选型",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "开源模型的价值集中在三点：① 数据隐私与合规（数据不出域）；② 可深度定制（任意微调/改结构）",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "原文未提及百炼私有化部署版"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "开源模型本地部署满足数据永不离开本地"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "PAI是云端平台，不支持纯本地部署"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "方案B可行，并非均不可行"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-10-12-3": {
+    "qid": "new-10-12-3",
+    "classification": "own",
+    "chapter": 10,
+    "quality": "ok",
+    "reason": "考查百炼平台能力覆盖需求场景",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "百炼（Model Studio）是一站式大模型应用开发平台。它在浏览器里提供'选模型 → 调 Prompt → 建知识库 → 搭智能体/工作流 → 评测观测 → 一键发布'的完整链路",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "百炼知识库、Prompt调试、工作流、一键发布完整覆盖需求"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "DSW+EAS组合复杂，未覆盖提示词调试和发布"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "方案过度复杂，未明确覆盖需求③④"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "插件市场OCR和评测模块非核心需求"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-10-12-4": {
+    "qid": "new-10-12-4",
+    "classification": "own",
+    "chapter": 10,
+    "quality": "ok",
+    "reason": "考查429限流错误的优先处理措施",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "生产环境必须考虑重试、退避与降级，不能假设无限并发",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "申请配额非最优先，应先检查前端触发"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "切换模型可能影响效果，非优先操作"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "检查前端重复请求是根因，防抖可立即减少RPM"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "部署备用模型周期长，非最优先操作"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-10-12-5": {
+    "qid": "new-10-12-5",
+    "classification": "own",
+    "chapter": 10,
+    "quality": "ok",
+    "reason": "考查合规与技术可行性综合选型",
+    "answer": [
+      "B",
+      "C"
+    ],
+    "supported": true,
+    "quote": "开源模型的价值集中在三点：① 数据隐私与合规（数据不出域）；② 可深度定制（任意微调/改结构）",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "仅靠prompt强制要求，无法保证严格合规"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "微调注入术语，EAS部署可通过等保测评"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "百炼知识库支持精准溯源和引用标注工作流"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "仅靠系统提示无法保证严格遵循标准和认证"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

@@ -1,0 +1,154 @@
+{
+  "items": [
+    {
+      "type": 0,
+      "stem": "某企业微信答疑机器人在早高峰出现大量429错误，运维日志显示重试请求集中发生在整点后第1、2、3秒。代码中对429错误采用固定间隔1秒重试3次。该设计最核心的工程缺陷是什么？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "未区分429与其他5xx错误，统一重试策略不合理"
+        },
+        {
+          "option_label": "B",
+          "option_text": "缺少指数退避机制，导致重试请求时间高度同步，加剧服务端压力"
+        },
+        {
+          "option_label": "C",
+          "option_text": "未校验API Key有效性，误将401当作429处理"
+        },
+        {
+          "option_label": "D",
+          "option_text": "未设置最大重试次数，存在无限重试风险"
+        }
+      ],
+      "answer": "B",
+      "analysis": "依据原文9.8节‘指数退避 + 抖动’原则：'在等待时间上加一个随机抖动，避免大量客户端踩点同时重试把服务再次打爆'；表格明确指出429应'✅ 退避后重试'，而'固定间隔重试'违反该规范。选项A错误——429与5xx虽同需重试，但原文未要求区分策略；选项C错误——401属鉴权失败，原文强调'401不该重试'，且题干现象（整点集中）是典型限流特征，非Key问题；选项D虽为常见风险，但题干已限定'重试3次'，未体现无限重试，且'最核心缺陷'指向造成'整点集中'这一具体现象的根本原因，即缺乏抖动的固定间隔。教材依据：9.8节原理框、'重试风暴'场景描述及公式示例。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 0,
+      "stem": "财务部门发现某批量摘要服务月度Token费用异常飙升。经分析，该服务每次调用均将全部历史对话（含30轮闲聊）和完整课程录音稿（平均12000字）作为输入。以下哪项优化措施对降低输入Token成本最直接有效？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "将模型从qwen-max降级为qwen-turbo"
+        },
+        {
+          "option_label": "B",
+          "option_text": "对课程录音稿使用RAG检索Top-3相关段落替代全文输入"
+        },
+        {
+          "option_label": "C",
+          "option_text": "启用stream=True并优化前端展示逻辑"
+        },
+        {
+          "option_label": "D",
+          "option_text": "为每轮对话添加system消息强化任务指令"
+        }
+      ],
+      "answer": "B",
+      "analysis": "依据原文9.9节成本控制优先级：'2. 控制输入长度——压缩历史、过滤无关检索结果、精简system prompt'；'RAG检索片段：检索回来的chunk全部进输入'，优化手段明确包含'控制Top K'。选项B直接针对'完整录音稿'这一最大输入源，用Top-K检索替代全文，符合'过滤无关检索结果'原则。选项A虽能降低单价，但原文强调'先选对模型档位'，而题干问题根源是输入过长（12000字），非模型档位错配；选项C错误——流式不影响输入Token计费，原文9.6节明确'流式不改变最终答案质量'且9.9节指出'输入输出分开计费'；选项D反而增加输入Token，违背'精简system prompt'原则。教材依据：9.9节'影响单次成本的关键因素'表格及'成本控制的优先级'第2条。",
+      "difficulty_label": "高阶"
+    },
+    {
+      "type": 1,
+      "stem": "某新人答疑机器人在企业微信中支持@提问，但员工反馈：'问完Jira账号申请后，再问“密码呢？”时，机器人回答通用密码规则，未关联前文Jira系统'。开发团队检查代码发现messages构造逻辑如下：第一次调用传入[{\"role\":\"user\",\"content\":\"公司用什么项目管理工具？\"}]；第二次调用仅传入[{\"role\":\"user\",\"content\":\"密码呢？\"}]。为修复此问题，必须采取哪些操作？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "在第二次调用的messages中追加第一次的user消息"
+        },
+        {
+          "option_label": "B",
+          "option_text": "在第二次调用的messages中追加第一次模型返回的assistant消息"
+        },
+        {
+          "option_label": "C",
+          "option_text": "将system消息从每次调用都重复添加改为仅首次添加"
+        },
+        {
+          "option_label": "D",
+          "option_text": "为所有messages添加tool角色消息"
+        }
+      ],
+      "answer": "AB",
+      "analysis": "依据原文9.5节核心概念：'大模型API是无状态的...所谓多轮对话能力，本质是客户端把历史消息按角色组织好，每次调用都完整地放进messages里再传一遍'；'为什么第二轮就失忆了：如果第二次调用时messages里只放{...}，模型看到的就是这一句话，根本无法知道这个账号指的是上一轮的Jira'。因此必须同时包含前一轮user（提供上下文指代）和assistant（提供锚定实体'Jira'）。选项A和B共同构成完整上下文链，缺一不可。选项C是最佳实践（原文'建议固定在数组开头'），但非'必须'——即使重复添加system也不会导致失忆，只是浪费Token；选项D错误——tool角色仅用于Function Calling场景，题干无工具调用需求。教材依据：9.5节'concept'定义、'principle'解释及教程代码中'conversation_history.append'的完整追加逻辑。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 0,
+      "stem": "开发团队为培训部门实现夜间批量生成500份课程摘要，采用Batch API。任务提交后，次日发现输出JSONL文件比输入少23行，且部分摘要内容明显错位（如A课程摘要出现在B课程位置）。最可能的根本原因是什么？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "未在输入JSONL中为每行请求设置唯一request_id字段"
+        },
+        {
+          "option_label": "B",
+          "option_text": "Batch任务超时被平台强制终止"
+        },
+        {
+          "option_label": "C",
+          "option_text": "未校验输入输出JSONL文件的行数与request_id一一对应"
+        },
+        {
+          "option_label": "D",
+          "option_text": "使用了stream=True参数导致异步解析失败"
+        }
+      ],
+      "answer": "C",
+      "analysis": "依据原文9.10节'principle'：'必须校验输入输出行数、请求ID是否一一对应，防止错位或丢失'；'risk'框明确警示'结果文件不用校验直接用→❌'。题干现象'少23行'+'错位'正是未校验导致的典型后果。选项A是良好实践（便于对齐），但非根本原因——即使无request_id，严格按行序对齐仍可避免错位；选项B会导致整批失败或部分失败，但不会引发'错位'；选项D错误——Batch API不支持stream参数，原文9.10对比表明确其输入为JSONL文件，非HTTP流式请求。教材依据：9.10节'principle'框'校验对齐'要求及'risk'框'结果文件不用校验直接用'误区。",
+      "difficulty_label": "高阶"
+    },
+    {
+      "type": 1,
+      "stem": "某HR系统集成Function Calling实现'查考勤+发通知'自动化。当前代码在收到model返回的tool_calls后，直接执行工具并拼接结果到messages，但未做任何异常处理。以下哪些风险会因该设计而真实发生？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "工具执行超时导致整个API调用链路阻塞"
+        },
+        {
+          "option_label": "B",
+          "option_text": "工具返回格式错误（如非JSON字符串），导致后续模型调用解析失败"
+        },
+        {
+          "option_label": "C",
+          "option_text": "未捕获tool_calls为空的情况，导致程序空指针异常"
+        },
+        {
+          "option_label": "D",
+          "option_text": "未在messages中添加role='tool'消息，导致第二次调用报上下文错误"
+        }
+      ],
+      "answer": "ABCD",
+      "analysis": "依据原文9.7节'risk'框四大错误：'❌ 拿到tool_calls就以为工具已经执行'（对应A，工具执行需独立超时控制）；'❌ Schema描述含糊→参数提取失败'（对应B，工具结果格式错误属典型解析风险）；'❌ 忘了把response_message追加进messages'（对应D，原文明确要求'必须追加'）；同时，原文9.8节'best'框强调'捕获业务异常：不仅要catch HTTP错误，还要处理JSON解析失败、返回内容被截断等'，选项C属于基础空值校验缺失，违反工程健壮性原则。四者均在原文有直接或间接依据。教材依据：9.7节'risk'框全部四条+9.8节'best'框'捕获业务异常'要求。",
+      "difficulty_label": "高阶"
+    },
+    {
+      "type": 0,
+      "stem": "安全审计发现某前端应用通过代理接口调用大模型，但代理服务日志中持续记录完整API Key（如'sk-xxxxx...'）。该做法违反API Key安全五条军规中的哪一条？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "环境变量/密钥服务托管"
+        },
+        {
+          "option_label": "B",
+          "option_text": "不提交Git"
+        },
+        {
+          "option_label": "C",
+          "option_text": "异常监控"
+        },
+        {
+          "option_label": "D",
+          "option_text": "不打印进日志或错误信息"
+        }
+      ],
+      "answer": "D",
+      "analysis": "依据原文9.3节'risk'框：'三种最常见的泄漏途径：3. 打印进日志或错误信息——日志被收集、分享后间接泄露'；'五条军规'第5条虽为'异常监控'，但其说明是'对异常地域、异常频率、额度突增做告警'，与日志明文打印无关。题干明确'日志中持续记录完整API Key'，直接对应'risk'框第3条及军规隐含要求——'不打印进日志'是基本安全红线。选项A错误——代理服务用环境变量读取Key是合规的，问题出在日志打印环节；选项B无关Git提交；选项C的'异常监控'是主动防御措施，非禁止性规范。教材依据：9.3节'risk'框第3点及'exam'中'打印进日志或错误信息'为典型错误示例。",
+      "difficulty_label": "进阶"
+    }
+  ]
+}

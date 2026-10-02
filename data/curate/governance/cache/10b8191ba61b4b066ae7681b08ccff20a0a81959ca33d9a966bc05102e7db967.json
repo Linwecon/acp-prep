@@ -1,0 +1,217 @@
+{
+  "1-0442": {
+    "qid": "1-0442",
+    "classification": "own",
+    "chapter": 1,
+    "quality": "ok",
+    "reason": "考查messages中user角色的正确使用。需满足：1）user必须是用户输入，不能是系统指令；2）结构为合法JSON列表，每个元素是含role/content键的字典；3）role值必须为'user'（非'assistant'或'system'）；4）system应设人设/任务，user应提具体问题。",
+    "answer": [
+      "D"
+    ],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "首条消息role='assistant'错误：assistant是模型输出，不能作为初始提问；且system缺失，无法设定人设。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "语法错误：Python中字典用{}而非[]，且内部字符串键未加引号，不符合JSON格式；role值正确但结构非法。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "role与content错位：system内容应是模型人设（如'你是一个诗歌生成器'），user内容应是用户请求（如'写一首关于秋天的诗'），此处完全颠倒。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "虽选项文本显示为[...]格式（疑似笔误），但内容上：第一条role='user'且content为指令性语句，不符合user定义；然而对比其他选项，B/C存在语法或逻辑硬伤，A明显错误，D是唯一可能意图表达user提问的选项——但严格来说所有选项均存在格式缺陷。原文未提供合法Python代码示例，仅说明'messages是列表，每条含role/content'，故无法确认D是否合法。因无原文支持其格式正确性，supported=false。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "1-0453": {
+    "qid": "1-0453",
+    "classification": "own",
+    "chapter": 1,
+    "quality": "ok",
+    "reason": "考查system角色的正确定义：system用于设定模型人设、任务、规则，而非用户提问或客服话术。原文明确：'system prompt设定模型的人设、任务、规则、约束'，且示例为'你是教育内容公司的答疑助手，名字叫公司小蜜'。",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "system prompt设定模型的人设、任务、规则、约束",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "content='我想咨询一下退货流程'是用户视角的提问，属于user角色职责，不是system设定人设。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "content='您好，请问有什么可以帮您的？'是客服的应答话术，属于assistant输出范畴，非system角色功能。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "content='你是一位友好的客服代表，随时准备帮助客户解决问题'直接定义模型人设和行为准则，符合system角色定义。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "content='用户想咨询退货流程'描述用户意图，属于上下文信息，应放入user消息，非system设定任务。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "1-0460": {
+    "qid": "1-0460",
+    "classification": "own",
+    "chapter": 1,
+    "quality": "ok",
+    "reason": "考查messages三角色的正确顺序与职责。原文强调：system通常0或1条放在最前；user每轮1条；assistant每轮1条；模型看到全部消息生成下一条assistant回复。正确顺序必须是system→user→assistant。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "system prompt设定模型的人设、任务、规则、约束",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "顺序错误：assistant出现在最前，且system在user之后，违反'system应放最前'原则；首条assistant无依据。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "顺序正确：system（人设）→ user（提问）→ assistant（模型响应），符合原文'通常0或1条system放在最前'及对话流程。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "顺序错误：user在最前，system在中间，导致模型无法在处理user前获知人设，违背system前置要求。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "空列表无法构成有效对话，不满足'展示三种角色交互顺序'的要求。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "1-0467": {
+    "qid": "1-0467",
+    "classification": "own",
+    "chapter": 1,
+    "quality": "ok",
+    "reason": "考查temperature对概率分布的影响。原文明确：'T越小→概率越集中在高概率Token上'；'T越大→分布越平坦，低概率Token也有机会被选中'。",
+    "answer": [
+      "A",
+      "B"
+    ],
+    "supported": true,
+    "quote": "T 越小 → 概率越集中在高概率 Token 上，输出越确定；T 越大 → 分布越平坦，低概率 Token 也有机会被选中",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "正确：低温度使高概率Token被选中的概率增加，符合原文'T越小→概率越集中在高概率Token上'。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "正确：高温度使分布平坦化，低概率Token被选中的机会增加，符合原文'T越大→分布越平坦，低概率Token也有机会被选中'。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "错误：低温度实际是增加高概率Token的选择概率，而非减少。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "错误：高温度会增加低概率Token的选择概率，而非减少。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "1-0485": {
+    "qid": "1-0485",
+    "classification": "misplaced",
+    "chapter": 1,
+    "quality": "remove",
+    "reason": "题干'提取标签的过程'在原文中无任何对应知识点。第1章知识列表未提及'标签类型'，也无NLP实体识别相关内容；该题属于信息抽取或NLU任务，应属第7章评估或第12章框架工具（如LlamaIndex节点类型），但原文未覆盖。无支持依据，且考点偏离本章核心。",
+    "answer": [],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "原文未定义任何标签类型，无法判断是否支持。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "同上，无原文依据。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "同上，无原文依据。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "同上，无原文依据。"
+      },
+      {
+        "label": "E",
+        "selected": false,
+        "why": "同上，无原文依据。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "1-0619": {
+    "qid": "1-0619",
+    "classification": "own",
+    "chapter": 1,
+    "quality": "ok",
+    "reason": "考查分词（Tokenization）基本概念。原文明确：'Token是模型处理文本的最小单位'；'分词器按词表把文本切成Token'；'Token通常是子词片段'；'Token会被映射为词表里的整数ID'。",
+    "answer": [
+      "B",
+      "D"
+    ],
+    "supported": true,
+    "quote": "Token（词元） 是模型处理文本的最小单位。分词器按词表把文本切成 Token",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "错误：原文明确Token需'映射为词表里的整数ID'，而非直接用字符串标识。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "正确：原文定义'分词器把文本切成一个个Token'，且'Token是处理最小单位'，符合'切成更小管理单元'描述。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "错误：原文未提及'词粒度分词化适用于英语'，且BPE子词算法适用于所有语言，非仅英语。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "正确：原文指出'分词器把文本切成Token，并映射为词表里的整数ID'，ID是计算机处理必需的数字表示。"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

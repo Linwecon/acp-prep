@@ -1,0 +1,208 @@
+{
+  "3-0147": {
+    "qid": "3-0147",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "考查切片策略选型，Token切片适用于长度受限场景。",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "Token 切片：按固定 token 数切（如每 100 token、重叠 20） | 适用场景：上下文长度受限的模型、需要严格控制长度",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "Token切片按固定token数切，适合控制长度防超限。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "句子切片按句子边界，不保证token数。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "句子窗口切片用于精准命中与上下文完整。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "语义切片成本高，不专为token超限设计。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-0153": {
+    "qid": "3-0153",
+    "classification": "unsure",
+    "chapter": 3,
+    "quality": "remove",
+    "reason": "题干“答疑机器人没有理解用户意图”原因不明，选项与题干逻辑断裂，无考查价值。",
+    "answer": [],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "知识库上下文干扰可能影响理解，但非主要原因。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "增加训练数据非RAG场景下理解意图的典型方法。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "减少推理时间与理解意图无直接关系。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "增加参数数量非RAG中解决意图理解的方法。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-0156": {
+    "qid": "3-0156",
+    "classification": "unsure",
+    "chapter": 3,
+    "quality": "remove",
+    "reason": "选项均为宽泛技术领域，与RAG处理大规模文本的具体技术无明确对应，题干模糊。",
+    "answer": [],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "GraphRAG教材未提及，无法判断。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "NLP是宽泛领域，非RAG专用技术。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "机器学习是宽泛领域，非RAG专用技术。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "深度学习是宽泛领域，非RAG专用技术。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-0157": {
+    "qid": "3-0157",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "考查切片策略选型，Token切片适用于对Token数量有严格要求的场景。",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "Token 切片：按固定 token 数切（如每 100 token、重叠 20） | 适用场景：上下文长度受限的模型、需要严格控制长度",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "Token切片按固定token数切，适合严格长度要求。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "句子切片不保证token数严格符合要求。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "句子窗口切片不专为严格token要求设计。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "语义切片成本高，不专为token数要求设计。"
+      }
+    ],
+    "duplicate_of": "3-0147"
+  },
+  "3-0158": {
+    "qid": "3-0158",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "考查切片策略选型，Markdown切片适合处理Markdown文档。",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "Markdown 切片：按标题层级（`#`/`##`/`###`）切 | 适用场景：有清晰标题结构的制度、手册、文档",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "Markdown切片按标题层级切，适合Markdown文档。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "语义切片通用，不专为Markdown设计。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "Token切片按token数切，不保留结构。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "句子切片通用，不专为Markdown结构设计。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-0174": {
+    "qid": "3-0174",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "考查查询改写技术，HyDE通过生成假想文档增强检索。",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "HyDE（假设文档嵌入）：先让 LLM 编一段“假想答案”，用假想答案的向量去检索真实文档",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "HyDE通过大模型生成假想文档来增强检索。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "重排序是对检索结果重新打分排序。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "滑动窗口检索是句子窗口检索，非问题改写方法。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "增加训练数据非问题改写技术。"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

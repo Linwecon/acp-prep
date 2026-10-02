@@ -1,0 +1,250 @@
+{
+  "10-1186": {
+    "qid": "10-1186",
+    "classification": "beyond",
+    "chapter": 10,
+    "quality": "remove",
+    "reason": "DashScope Runs.wait返回状态未在第10章原文中定义，属SDK细节超纲",
+    "answer": [],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "原文未列Runs状态枚举"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "原文未列Runs状态枚举"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "原文未列Runs状态枚举"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "原文未列Runs状态枚举"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "10-1199": {
+    "qid": "10-1199",
+    "classification": "beyond",
+    "chapter": 10,
+    "quality": "remove",
+    "reason": "代码中forward_and_submit_outputs等函数未在第10章出现，属SDK实现细节",
+    "answer": [],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "原文未提该函数"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "原文未提Runs.wait交互语义"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "原文未提Messages.create交互语义"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "原文未提Messages.list交互语义"
+      },
+      {
+        "label": "E",
+        "selected": false,
+        "why": "原文未提JSON解析步骤"
+      },
+      {
+        "label": "F",
+        "selected": false,
+        "why": "原文未提Runs.create交互语义"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "10-1301": {
+    "qid": "10-1301",
+    "classification": "beyond",
+    "chapter": 10,
+    "quality": "remove",
+    "reason": "Runs.wait阻塞语义未在第10章说明，属SDK底层行为",
+    "answer": [],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "原文未提工具输出等待"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "原文未提异步机制"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "原文未提实时进度"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "原文未提线程阻塞"
+      },
+      {
+        "label": "E",
+        "selected": false,
+        "why": "原文未提消息存储保障"
+      },
+      {
+        "label": "F",
+        "selected": false,
+        "why": "原文未提后台监听资源消耗"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "10-1388": {
+    "qid": "10-1388",
+    "classification": "beyond",
+    "chapter": 10,
+    "quality": "remove",
+    "reason": "query流程中各步骤与LLM交互关系未在第10章定义，属SDK调用链细节",
+    "answer": [],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "原文未定义该函数作用"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "原文未定义Runs.wait作用"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "原文未定义Messages.create作用"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "原文未定义Messages.list作用"
+      },
+      {
+        "label": "E",
+        "selected": false,
+        "why": "原文未定义JSON解析作用"
+      },
+      {
+        "label": "F",
+        "selected": false,
+        "why": "原文未定义Runs.create作用"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "10-1415": {
+    "qid": "10-1415",
+    "classification": "cross",
+    "chapter": 11,
+    "quality": "review",
+    "reason": "CosyVoice/moviepy属多模态工具链，需查第11章多模态内容",
+    "answer": [],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "CosyVoice属语音模块，需查11章"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "CosyVoice非视频剪辑工具"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "moviepy不直接文生视频"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "Qwen-Max非字幕专用模型"
+      },
+      {
+        "label": "E",
+        "selected": false,
+        "why": "moviepy可获取音频时长，需查11章"
+      },
+      {
+        "label": "F",
+        "selected": false,
+        "why": "三工具协同流程未在10章说明"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "10-1426": {
+    "qid": "10-1426",
+    "classification": "beyond",
+    "chapter": 10,
+    "quality": "remove",
+    "reason": "callback参数及进度打印未在第10章提及，属SDK高级用法",
+    "answer": [],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "原文未提异步机制"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "原文未提线程阻塞"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "原文未提工具输出等待"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "原文未提后台监听"
+      },
+      {
+        "label": "E",
+        "selected": false,
+        "why": "原文未提消息存储保障"
+      },
+      {
+        "label": "F",
+        "selected": false,
+        "why": "原文未提callback进度回调"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

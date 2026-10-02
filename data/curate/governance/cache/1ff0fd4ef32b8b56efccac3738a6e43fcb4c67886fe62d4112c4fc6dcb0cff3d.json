@@ -1,0 +1,219 @@
+{
+  "3-0569": {
+    "qid": "3-0569",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "题目考查RAGAS评估中Context Recall指标优化时对知识库的检查目的，符合本章知识。",
+    "answer": [
+      "A",
+      "B"
+    ],
+    "supported": true,
+    "quote": "评估需要一份数据集，每条包含四个字段：`question`、`ground_truth`、`answer`、`contexts`。`ground_truth` 必须由业务领域专家提供。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "知识库内容完备是保证Context Recall高的基础。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "测试样本的ground_truth需知识库支持，否则无法被检索到。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "优化Context Recall不涉及增加模型训练数据。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "减少推理时间与提升Context Recall指标无关。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-0574": {
+    "qid": "3-0574",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "题目考查RAG离线建库的标准步骤，是本章核心知识点。",
+    "answer": [
+      "A",
+      "B",
+      "C",
+      "D"
+    ],
+    "supported": true,
+    "quote": "第一阶段：离线建库（Indexing，一次做好、多次复用）1. 文档解析；2. 文本切片（Chunking）；3. 向量化；4. 入库。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "文档解析是建库第一步。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "文本分段（切片）是建库关键步骤。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "文本向量化（Embedding）是建库必要环节。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "存储索引（入库）是建库的最后一步。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-0577": {
+    "qid": "3-0577",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "题目考查多轮对话中导致检索不准确的问题，属于RAG进阶检索知识点。",
+    "answer": [
+      "A",
+      "B"
+    ],
+    "supported": true,
+    "quote": "多轮对话中后续问题检索不准 → 应先结合历史改写问题，而不是把全部对话历史塞进检索（会降低 embedding 质量）。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "直接比较相似度会忽略历史上下文，导致指代不清。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "丢失历史信息会导致问题语义不完整。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "使用长文本检索本身不必然导致不准确。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "增加训练数据与多轮对话检索准确性无关。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-0579": {
+    "qid": "3-0579",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "题目考查多轮对话中提升检索准确性的业界常用方法，符合本章内容。",
+    "answer": [
+      "A",
+      "D"
+    ],
+    "supported": true,
+    "quote": "查询改写：多轮对话中他/这个指代不清 → 先用 LLM 把含代词的问题改写成完整问题再检索。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "问题改写是解决多轮对话指代不清的常用方法。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "增加训练数据不是解决多轮对话检索的常用方法。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "减少推理时间与提升多轮对话准确性无关。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "使用改写后的新query进行检索是标准流程。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-0623": {
+    "qid": "3-0623",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "题目考查提升知识索引性能的技术手段，涉及切片、检索优化等本章知识点。",
+    "answer": [
+      "A",
+      "D"
+    ],
+    "supported": true,
+    "quote": "句子窗口检索：建索引时以单个句子为可检索单元，同时在每个句子的元数据里存下它前后各 N 句组成的窗口。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "句子滑窗技术（句子窗口检索）是提升索引覆盖和精准度的技术。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "自动合并检索结果以减少冗余，原文未提及。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "TF-IDF属于关键词匹配，与提升语义索引性能关联不强。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "使用新型嵌入模型（如BGE）可提高语义相似度计算精度。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-0721": {
+    "qid": "3-0721",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "题目考查向量数据库建库的核心步骤，是RAG基础知识点。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "向量化：用 Embedding 模型把每个 chunk 转成一串数字（向量）；入库：把向量 + 原文 + 元数据存进向量数据库。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "直接存储原文无法实现语义检索。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "将文档转换为向量（Embedding）后存储是核心步骤。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "存储分词结果是传统检索方式，非向量数据库核心。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "转换为PDF格式与向量化存储无关。"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

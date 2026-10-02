@@ -1,0 +1,231 @@
+{
+  "4-1129": {
+    "qid": "4-1129",
+    "classification": "own",
+    "chapter": 10,
+    "quality": "ok",
+    "reason": "考查百炼Agent核心价值，原文明确其封装工具与管理能力",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "百炼应用（智能体/Agent）：配置角色、工具、知识库，低代码搭智能体",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "百炼不绕过API限制，仍受DashScope配额约束"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "百炼不提供底层训练控制权"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "原文明确百炼内置工具和智能体配置能力"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "参数调节仍受限于DashScope接口定义"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "4-1271": {
+    "qid": "4-1271",
+    "classification": "own",
+    "chapter": 10,
+    "quality": "ok",
+    "reason": "考查百炼多Agent编排特性，原文强调可视化与验证",
+    "answer": [
+      "A",
+      "D"
+    ],
+    "supported": true,
+    "quote": "工作流编排：拖拽节点把检索→改写→生成→审核串成稳定流程",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "原文明确工作流支持拖拽可视化设计"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "协作逻辑需用户配置，非平台内置"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "低代码非零代码，部分场景需API集成"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "原文强调百炼适合快速验证业务想法"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "4-5154": {
+    "qid": "4-5154",
+    "classification": "own",
+    "chapter": 10,
+    "quality": "ok",
+    "reason": "考查百炼Agent托管能力，原文指出其封装执行闭环",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "百炼应用（智能体/Agent）：配置角色、工具、知识库，低代码搭智能体",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "仍需DashScope API Key"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "无法保证完全无错误"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "原文指出百炼封装智能体执行闭环"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "支持在线实时任务"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "5-0848": {
+    "qid": "5-0848",
+    "classification": "own",
+    "chapter": 10,
+    "quality": "ok",
+    "reason": "考查微调数据格式要求，原文强调数据质量四维标准",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "质量四维标准：正确/多样/一致/无重复",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "百炼支持私有数据微调"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "微调后模型可发布为API"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "数据需清洗符合JSONL等规范"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "支持LoRA等轻量化方法"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "5-0859": {
+    "qid": "5-0859",
+    "classification": "cross",
+    "chapter": 10,
+    "quality": "ok",
+    "reason": "考查应用开发全流程，原文明确调试→发布→监控闭环",
+    "answer": [
+      "A",
+      "B",
+      "C",
+      "D",
+      "E"
+    ],
+    "supported": true,
+    "quote": "调试→上线→监控的闭环",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "需求分析是开发起点"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "选型是平台题核心考点"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "微调属PAI或百炼调优能力"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "百炼支持一键发布与监控"
+      },
+      {
+        "label": "E",
+        "selected": true,
+        "why": "原文强调评测观测闭环"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "8-0981": {
+    "qid": "8-0981",
+    "classification": "cross",
+    "chapter": 10,
+    "quality": "ok",
+    "reason": "考查解决方案评估维度，原文强调四维选型与合规",
+    "answer": [
+      "A",
+      "B",
+      "C",
+      "D",
+      "E"
+    ],
+    "supported": true,
+    "quote": "模型选型四维评估（速度/能力/长文本/成本）",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "对应速度/能力/长文本维度"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "计费与成本是重点章节"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "部署复杂度影响平台选择"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "ModelScope生态是重要考点"
+      },
+      {
+        "label": "E",
+        "selected": true,
+        "why": "安全合规是独立章节核心"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

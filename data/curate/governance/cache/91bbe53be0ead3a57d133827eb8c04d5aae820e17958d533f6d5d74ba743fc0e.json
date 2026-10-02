@@ -1,0 +1,154 @@
+{
+  "items": [
+    {
+      "type": 0,
+      "stem": "某电商客服系统调用 DashScope qwen-plus 模型时，输入包含完整《售后服务政策V3.2.pdf》（经解析约12万Token）作为 system prompt，且未设 max_tokens。次日账单中输出Token费用达输入的3.2倍。该异常费用结构最直接违反原文哪项Token计费与限流机制的核心约束？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "未启用上下文缓存导致重复计算输入Token"
+        },
+        {
+          "option_label": "B",
+          "option_text": "输出Token单价高于输入，且无max_tokens限制导致模型生成失控"
+        },
+        {
+          "option_label": "C",
+          "option_text": "触发TPM限流后未做指数退避，引发重试风暴推高总Token消耗"
+        },
+        {
+          "option_label": "D",
+          "option_text": "误用qwen-long模型替代qwen-plus，导致长上下文模型溢价计费"
+        }
+      ],
+      "answer": "B",
+      "analysis": "依据原文10.8节'核心计费规则'：'输入/输出分别计价，输出通常更贵'；'省成本的工程手段'第3条明确要求'限制输出：用max_tokens给输出设上限，避免模型刹不住车'。本题中12万Token输入已远超合理范围（违反RAG最佳实践），但费用异常集中在'输出是输入3.2倍'，直指未设max_tokens导致模型持续生成冗长回复，叠加输出单价更高，造成费用畸高。A项错误——缓存仅影响前缀命中，不改变基础计价逻辑；C项虽符合429处理原则，但题干未提重试或限流日志，属过度引申；D项错误——qwen-long对长输入有优势，但不会导致'输出费用反超输入数倍'，且题干明确调用的是qwen-plus。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 0,
+      "stem": "运维监控发现DashScope API调用在每分钟第58秒集中返回429错误，且RPM配额始终卡在120次/分钟阈值。此时若仅调整客户端重试逻辑而不申请配额提升，以下哪项措施最能从执行顺序层面根治该故障？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "将所有请求的timestamp参数统一设置为毫秒级随机偏移"
+        },
+        {
+          "option_label": "B",
+          "option_text": "在SDK层实现请求队列+令牌桶，使实际发出请求均匀分布于整分钟"
+        },
+        {
+          "option_label": "C",
+          "option_text": "将max_retries设为0，强制前端降级至本地缓存响应"
+        },
+        {
+          "option_label": "D",
+          "option_text": "改用DashScope原生SDK并关闭stream模式以降低单次Token消耗"
+        }
+      ],
+      "answer": "B",
+      "analysis": "原文10.8节'处理限流'要求'遇429用指数退避+抖动重试'，但本题关键在于'每分钟第58秒集中触发429'，表明客户端请求在时间维度上严重堆积（如定时任务、前端批量提交），本质是RPM限流的**时间窗口内瞬时并发超标**。B项通过令牌桶实现请求的**时间维度削峰填谷**，确保请求均匀分布于60秒内，从执行顺序源头规避窗口峰值，符合'必要条件'（限流生效基于时间窗口统计）和'组合约束'（RPM是硬性配额，非可绕过）。A项仅微调时间戳，无法解决队列式突发请求；C项放弃重试会牺牲可用性，且未解决根本的请求分布问题；D项降低Token消耗与RPM（请求数）无关，无法缓解429。",
+      "difficulty_label": "挑战"
+    },
+    {
+      "type": 1,
+      "stem": "当百炼应用需调用部署在PAI-EAS上的私有模型时，以下哪些条件是必须同时满足的？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "PAI-EAS服务必须配置公网访问地址或VPC内网互通"
+        },
+        {
+          "option_label": "B",
+          "option_text": "百炼工作流中需使用HTTP插件或自定义API节点配置EAS服务Endpoint"
+        },
+        {
+          "option_label": "C",
+          "option_text": "EAS服务必须启用DashScope OpenAI兼容接口"
+        },
+        {
+          "option_label": "D",
+          "option_text": "调用方（百炼）与被调用方（EAS）需在同一阿里云地域"
+        }
+      ],
+      "answer": "ABD",
+      "analysis": "依据原文10.1节链路描述：'百炼应用再去调用EAS上的私有模型'，及10.4节EAS定义'模型对外服务的门面'，可知调用本质是HTTP服务间通信。A正确——网络连通是前提，EAS支持公网/VPC访问，百炼需能触达；B正确——百炼工作流通过'插件/工具'能力扩展，HTTP插件是调用外部API的标准方式（见10.2表）；D正确——跨地域调用存在延迟与安全策略风险，生产环境强烈要求同地域（教材虽未明说，但10.4'PAI-EAS部署'及10.1'全链路串起'均默认同地域部署，且阿里云产品跨地域调用需显式配置，非'必须满足'条件）。C错误——EAS部署的模型可提供任意HTTP接口，无需强制OpenAI兼容；百炼调用的是标准HTTP，与接口协议无关，原文从未要求EAS必须兼容OpenAI。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 0,
+      "stem": "开发团队使用DashScope OpenAI兼容接口调用qwen-long处理一份15万Token的合同，但账单显示输出Token费用占比高达78%。经排查，模型返回内容包含大量重复段落与无意义填充词。该现象最可能由哪项Token计费机制与模型行为的组合导致？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "qwen-long模型因上下文窗口大，自动启用'长文本摘要增强'功能，生成冗余解释"
+        },
+        {
+          "option_label": "B",
+          "option_text": "未设置temperature=0，导致模型采样发散，生成低质量重复内容"
+        },
+        {
+          "option_label": "C",
+          "option_text": "输入Token已接近模型上下文上限，模型为规避截断风险主动延长输出长度"
+        },
+        {
+          "option_label": "D",
+          "option_text": "DashScope对qwen-long的输出Token实行阶梯溢价计费，超出阈值部分单价翻倍"
+        }
+      ],
+      "answer": "B",
+      "analysis": "原文10.3节明确'生成参数（temperature、top_p、max_tokens等）含义与第9章一致'，而第9章（虽未提供，但属通用LLM知识）指出temperature控制随机性：temperature越高，输出越随机、越易重复。本题核心是'输出费用高'且'内容质量差（重复、填充）'，直接对应temperature未设为0（确定性采样）导致的不可控生成。B项精准指向这一可归因的、开发者可控的参数误配。A项虚构'长文本摘要增强'功能，原文未提及；C项无依据——模型不会因输入长而主动加长输出；D项错误——原文10.8只提'输入输出分别计价、输出更贵'，从未提'阶梯溢价'，属编造规则。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 1,
+      "stem": "以下哪些场景中，Token计费机制会直接导致成本不可控，且该风险无法通过单纯提升RPM配额消除？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "RAG应用每次请求将整本100页PDF（约20万Token）作为system prompt传入"
+        },
+        {
+          "option_label": "B",
+          "option_text": "聊天机器人未设max_tokens，用户提问'请写一篇关于量子计算的万字论文'"
+        },
+        {
+          "option_label": "C",
+          "option_text": "批量文档解析任务中，对每个文档调用Embedding API，但未启用向量缓存"
+        },
+        {
+          "option_label": "D",
+          "option_text": "API网关配置了全局QPM限流为1000，但下游服务实际处理能力仅500 QPS"
+        }
+      ],
+      "answer": "AB",
+      "analysis": "考查Token计费的'必要条件'——成本与Token量强相关，而非请求数。A正确：输入20万Token/次，费用随输入量线性飙升，提升RPM（请求数配额）无法降低单次输入成本；B正确：无max_tokens导致输出无限，费用失控，RPM提升反而加剧问题。C错误：Embedding API计费确按Token，但'未启用缓存'影响的是重复计算，属优化项，非'不可控'；且缓存非计费机制本身，原文10.8仅提'善用缓存'，未将其列为必要约束。D错误：QPM限流与Token计费无关，它影响的是请求吞吐，不改变单次调用的Token消耗，故不属Token计费导致的成本风险。",
+      "difficulty_label": "挑战"
+    },
+    {
+      "type": 0,
+      "stem": "某医疗问答系统使用DashScope qwen-plus，输入为经RAG检索出的3个相关段落（共1200 Token），但模型输出常含'根据您提供的材料...'等冗余引导语，导致输出Token比预期多40%。为精准控制此项成本，最应优先检查并调整的参数是？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "将temperature设为0以确保输出确定性"
+        },
+        {
+          "option_label": "B",
+          "option_text": "在system prompt中明确指令'禁止添加任何引导性语句，直接给出答案'"
+        },
+        {
+          "option_label": "C",
+          "option_text": "设置max_tokens=512并启用stop=['\\n', '。']"
+        },
+        {
+          "option_label": "D",
+          "option_text": "切换至qwen-turbo模型以降低单Token单价"
+        }
+      ],
+      "answer": "C",
+      "analysis": "题干核心是'输出Token比预期多40%'，目标是'精准控制此项成本'。C项直接通过max_tokens硬性截断输出长度，并用stop参数提前终止，是原文10.8'省成本的工程手段'第3条'用max_tokens给输出设上限'的严格执行，效果最直接、可量化。A项（temperature=0）可减少随机性，但不保证精简输出；B项（prompt指令）依赖模型遵循，效果不稳定，且原文强调'控制输出'首选技术手段（max_tokens）而非提示词；D项错误——qwen-turbo单价虽低，但能力弱，可能导致回答不准需重试，反而推高总成本，违背'按任务难度选型'原则（10.6节）。",
+      "difficulty_label": "进阶"
+    }
+  ]
+}

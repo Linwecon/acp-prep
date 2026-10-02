@@ -1,0 +1,108 @@
+{
+  "new-7-30-0": {
+    "qid": "new-7-30-0",
+    "classification": "own",
+    "chapter": 7,
+    "quality": "ok",
+    "reason": "考查RAGAS指标组合分析与故障定位能力",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "检索端过度召回噪声，导致生成模型被无关上下文干扰（Lost in the Middle）",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "Recall升但Correctness降，Faithfulness高，符合噪声干扰导致Lost in the Middle现象"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "Recall虚高需ground_truth分解错误，但题干未提"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "Faithfulness保持0.95高，说明幻觉非主因"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "题干未提标注问题，且Recall升说明检索到内容"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-7-30-3": {
+    "qid": "new-7-30-3",
+    "classification": "own",
+    "chapter": 7,
+    "quality": "ok",
+    "reason": "考查根据RAGAS指标定位问题并选择优化措施",
+    "answer": [
+      "A",
+      "C"
+    ],
+    "supported": true,
+    "quote": "Precision低（Recall高）……加Rerank、缩小Top K、相似度阈值过滤、混合检索",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "Precision低需Rerank重排序，符合黄金法则"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "Recall已高，再增Top K会降Precision"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "同义词扩展可改善检索质量，属检索优化"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "约束提示词属生成端优化，非检索优先"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-7-30-4": {
+    "qid": "new-7-30-4",
+    "classification": "own",
+    "chapter": 7,
+    "quality": "ok",
+    "reason": "考查传统自动指标（BLEU）的局限性认知",
+    "answer": [
+      "D"
+    ],
+    "supported": true,
+    "quote": "BLEU高不等于翻译好，更不等于业务表现好",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "题干矛盾在啰嗦导致满意度降，非同义改写"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "BLEU有BP惩罚，但题干未提译文变短"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "长度偏见是LLM评委风险，非BLEU固有"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "BLEU分升但业务满意度降，印证指标与业务目标脱节"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

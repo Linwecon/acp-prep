@@ -1,0 +1,237 @@
+{
+  "3-0549": {
+    "qid": "3-0549",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "考查语义切片核心理念，原文明确列出五种策略及原理",
+    "answer": [
+      "B",
+      "D",
+      "E"
+    ],
+    "supported": true,
+    "quote": "语义切片：用模型判断语义边界，在话题转换处切；句子窗口切片：以单句为单位建索引，检索后再扩出上下文",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "固定长度是Token切片，非语义切片"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "标题/段落是结构化语义边界"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "单元格切分破坏表格语义完整性"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "添加标题等元数据增强语义上下文"
+      },
+      {
+        "label": "E",
+        "selected": true,
+        "why": "语义切片需模型分析语义边界"
+      },
+      {
+        "label": "F",
+        "selected": false,
+        "why": "代码切分属格式适配，非语义切片"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-0563": {
+    "qid": "3-0563",
+    "classification": "beyond",
+    "chapter": 3,
+    "quality": "remove",
+    "reason": "OpenAI模型名称未在章节目录或原文中出现",
+    "answer": [],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "原文未提OpenAI模型名称"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "原文未提OpenAI模型名称"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "原文未提OpenAI模型名称"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "原文未提OpenAI模型名称"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-0642": {
+    "qid": "3-0642",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "考查LlamaIndex代码实践细节，原文有对应配置示例",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "典型配置（粗召回 20 → 重排取 3 → 再用相似度阈值 0.2 过滤）",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "重排数3大于召回数？原文示例为20→3，合理"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "原文明确rerank在node_postprocessors中"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "原文示例含streaming=True"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "原文未规定阈值高低标准"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-0728": {
+    "qid": "3-0728",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "考查RAG适用场景，原文强调知识接入与溯源",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "RAG的核心思路是“开卷考试”，在回答前先从企业知识库检索最相关资料",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "售后政策属私域知识，需RAG接入"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "CoT解决推理，不解决知识缺失"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "通用模型无私域知识，会幻觉"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "ASR是多模态预处理，非RAG核心"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-0776": {
+    "qid": "3-0776",
+    "classification": "cross",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "考查向量检索在商品推荐的应用，属RAG延伸场景",
+    "answer": [
+      "A",
+      "B",
+      "D"
+    ],
+    "supported": true,
+    "quote": "Embedding是把一段文本转换成一串数字，语义相近的文本向量距离近",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "咨询向量化是检索前提"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "商品特征向量化支持语义检索"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "Few-shot不解决知识接入问题"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "库存API保障推荐可行性"
+      },
+      {
+        "label": "E",
+        "selected": false,
+        "why": "脱离实时数据会导致推荐失效"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-0783": {
+    "qid": "3-0783",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "考查RAG在课件题生成中的应用，原文有文档解析与生成阶段描述",
+    "answer": [
+      "A",
+      "B",
+      "C",
+      "D"
+    ],
+    "supported": true,
+    "quote": "文档解析是RAG质量的地基；生成阶段做三件事：拼装上下文、提示词约束、生成与溯源",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "PDF解析是文档解析必要步骤"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "Few-shot可约束生成格式"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "格式约束属生成阶段关键操作"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "课件存库是RAG离线建库核心"
+      },
+      {
+        "label": "E",
+        "selected": false,
+        "why": "脱离课件内容违背RAG初衷"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

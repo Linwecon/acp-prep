@@ -1,0 +1,228 @@
+{
+  "1-0631": {
+    "qid": "1-0631",
+    "classification": "own",
+    "chapter": -1,
+    "quality": "remove",
+    "reason": "题目考查的是提示词设计，属于第2章提示工程，但题干未提供任何原文依据，无法判断哪些是“有效”的。选项均为自然语言指令，无对错标准，缺乏考查价值。",
+    "answer": [],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "无原文依据，无法判断有效性。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "无原文依据，无法判断有效性。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "无原文依据，无法判断有效性。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "翻译任务与改写语气无关。"
+      },
+      {
+        "label": "E",
+        "selected": false,
+        "why": "无原文依据，无法判断有效性。"
+      },
+      {
+        "label": "F",
+        "selected": false,
+        "why": "要求去掉非专业表达，与轻松友好语气矛盾。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "1-0653": {
+    "qid": "1-0653",
+    "classification": "cross",
+    "chapter": -1,
+    "quality": "remove",
+    "reason": "题目考查智能辅导系统的功能设计，属于应用场景设计，不在第1章大模型基础的核心知识范围内。题干未提供任何原文依据，所有选项看起来都合理，无法基于教材判断“值得推荐”的标准。",
+    "answer": [],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "无原文依据，无法判断是否推荐。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "无原文依据，无法判断是否推荐。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "无原文依据，无法判断是否推荐。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "无原文依据，无法判断是否推荐。"
+      },
+      {
+        "label": "E",
+        "selected": false,
+        "why": "无原文依据，无法判断是否推荐。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "1-0729": {
+    "qid": "1-0729",
+    "classification": "cross",
+    "chapter": -1,
+    "quality": "remove",
+    "reason": "题目考查电商推荐系统的技术方案设计，属于应用架构，不在第1章大模型基础的核心知识范围内。题干未提供任何原文依据，无法基于教材判断方案是否“合适”。",
+    "answer": [],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "无原文依据，无法判断是否合适。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "无原文依据，无法判断是否合适。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "无原文依据，无法判断是否合适。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "无原文依据，无法判断是否合适。"
+      },
+      {
+        "label": "E",
+        "selected": false,
+        "why": "无原文依据，无法判断是否合适。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "1-0739": {
+    "qid": "1-0739",
+    "classification": "own",
+    "chapter": 1,
+    "quality": "ok",
+    "reason": "题目考查多轮对话中模型遗忘前文的解决方案，属于第1章“多轮对话：messages结构与‘无状态’特性”知识点，有原文支持。",
+    "answer": [
+      "A",
+      "D"
+    ],
+    "supported": true,
+    "quote": "大模型 API 是无状态（Stateless）的：每次 HTTP 请求相互独立，服务端不会因为你上次调过就‘记得’你。所谓‘多轮对话’，本质是客户端把历史消息拼进 messages，每次重新发一遍。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "符合无状态特性，需将历史对话放入messages。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "实体标注提示是额外技巧，非本章核心解决方案。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "增加窗口可容纳更多历史，但非解决无状态的根本方法。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "总结前文要点是压缩历史、放入messages的有效手段。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "1-0940": {
+    "qid": "1-0940",
+    "classification": "cross",
+    "chapter": -1,
+    "quality": "remove",
+    "reason": "题目考查跨文化应用的文化适配性考虑，属于产品本地化或AI安全合规范畴，不在第1章大模型基础的核心知识范围内。题干未提供任何原文依据。",
+    "answer": [],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "无原文依据，无法判断是否重要。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "无原文依据，无法判断是否重要。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "无原文依据，无法判断是否重要。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "题干强调不仅仅是翻译，此选项与之矛盾。"
+      },
+      {
+        "label": "E",
+        "selected": false,
+        "why": "统一全球策略与文化适配性可能冲突。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "1-1194": {
+    "qid": "1-1194",
+    "classification": "misplaced",
+    "chapter": -1,
+    "quality": "remove",
+    "reason": "题目考查Python列表遍历和索引的基本语法，属于编程基础，与大模型应用开发无关，严重偏离教材所有章节的知识点。",
+    "answer": [],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "query是元组，直接传入classify_intent可能错误。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "query[1]正确获取问题文本，但无原文支持。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "item[0]是ID，不是问题文本。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "feedback_list[i]是元组，直接传入可能错误。"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

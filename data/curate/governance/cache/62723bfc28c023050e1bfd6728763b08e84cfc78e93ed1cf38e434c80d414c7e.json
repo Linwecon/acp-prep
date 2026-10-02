@@ -1,0 +1,215 @@
+{
+  "new-10-66-0": {
+    "qid": "new-10-66-0",
+    "classification": "own",
+    "chapter": 10,
+    "quality": "ok",
+    "reason": "综合考查私有化、微调、部署等平台选型，符合本章分层与组合原则。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "PAI 面向模型训练与推理部署；开源模型从 ModelScope 下载；数据全程在云端私有环境，满足不出域要求。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "DashScope API 非私有化，ModelScope仅下载，未涉及训练部署。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "PAI三件套满足私有VPC内开发、训练、部署及灰度发布要求。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "百炼智能体非训练平台，PAI-EAS仅部署，未涵盖微调开发训练。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "ModelScope Notebook微调非生产级，DashScope API 非私有化。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-10-66-1": {
+    "qid": "new-10-66-1",
+    "classification": "own",
+    "chapter": 10,
+    "quality": "ok",
+    "reason": "考查成本控制措施，直接对应10.8节计费与工程手段。",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "控制输入：RAG 只塞最相关的片段，不要每次把整本手册塞进上下文。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "RAG检索相关段落可大幅减少输入Token，降本最直接。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "切换模型可能影响效果，非最直接且立即生效的措施。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "仅限制输出，未解决巨大输入Token的根本问题。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "缓存对重复前缀有效，但首次巨大输入无缓存折扣。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-10-66-2": {
+    "qid": "new-10-66-2",
+    "classification": "own",
+    "chapter": 10,
+    "quality": "ok",
+    "reason": "考查百炼知识库与工作流能力，符合文档解析、RAG防幻觉、格式化输出要求。",
+    "answer": [
+      "A",
+      "D"
+    ],
+    "supported": true,
+    "quote": "百炼知识库（RAG）：内置文档解析、切片、向量化、检索，上传文档即可问答。工作流编排：拖拽节点把'检索→改写→生成→审核'串成稳定流程。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "百炼知识库具备文档解析与RAG检索，可基于原文防幻觉。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "Qwen-VL多模态模型非本章指定公文格式解析方案。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "仅用长上下文模型和提示词，未确保严格基于原文解析。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "工作流可编排解析、检索到格式化生成全流程，满足要求。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-10-66-3": {
+    "qid": "new-10-66-3",
+    "classification": "own",
+    "chapter": 10,
+    "quality": "ok",
+    "reason": "考查限流原理与错误诊断，直接对应10.8节RPM/TPM配额。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "限流（RPM/TPM、QPM）：每分钟请求数/Token 数有配额，超限返回 429。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "流式响应占用Token是持续过程，但前端卡顿和高频请求更指向RPM。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "前端未防抖导致高频短间隔请求，易触发RPM（每分钟请求数）限流。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "权限不足通常返回403等，非429限流错误。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "模型下线通常返回其他错误码，非429限流。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-10-66-4": {
+    "qid": "new-10-66-4",
+    "classification": "own",
+    "chapter": 10,
+    "quality": "ok",
+    "reason": "考查平台分层选型，需区分应用开发、API调用、训练部署场景。",
+    "answer": [
+      "A",
+      "B",
+      "D"
+    ],
+    "supported": true,
+    "quote": "百炼是应用开发平台；PAI面向模型训练与推理部署；DashScope是标准模型API服务；ModelScope是开源模型社区。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "百炼知识库管理文档并生成内容，通过API集成，符合应用层定位。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "PAI三件套满足自定义PPT解析模型开发、训练、部署全流程。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "qwen-long API是文本模型，不能直接解析PPT二进制流。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "ModelScope下载模型并本地部署，满足私有化API需求。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-10-66-5": {
+    "qid": "new-10-66-5",
+    "classification": "own",
+    "chapter": 10,
+    "quality": "ok",
+    "reason": "考查百炼知识库RAG检索失败的根本原因，符合RAG原理与平台特性。",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "百炼知识库（RAG）：内置文档解析、切片、向量化、检索，上传文档即可问答。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "知识库检索未召回相关段落是RAG流程失败的典型原因。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "qwen-plus作为通用模型，知识截止非主因，且手册已上传。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "审核节点用于内容安全或格式，不解决检索失败问题。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "配额耗尽通常返回429错误，而非特定兜底响应。"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

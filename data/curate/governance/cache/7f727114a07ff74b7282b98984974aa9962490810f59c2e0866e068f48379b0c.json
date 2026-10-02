@@ -1,0 +1,266 @@
+{
+  "10-0060": {
+    "qid": "10-0060",
+    "classification": "cross",
+    "chapter": 10,
+    "quality": "ok",
+    "reason": "考查RAG、Function Calling与平台能力边界，需结合第3、4、10章知识",
+    "answer": [
+      "B"
+    ],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "RAG无法解决时效性问题，新闻库非实时"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "function call可调搜索工具获取最新新闻"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "百炼无enable_search参数，原文未提"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "模型无实时知识，仅提示无法保证"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "10-0458": {
+    "qid": "10-0458",
+    "classification": "own",
+    "chapter": 10,
+    "quality": "ok",
+    "reason": "代码功能判断，原文明确function calling闭环",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "Function Calling四步流程",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "未创建新Assistant"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "未提交用户query"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "执行tool并提交输出给服务器"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "未获取最终回复"
+      },
+      {
+        "label": "E",
+        "selected": false,
+        "why": "未创建Thread"
+      },
+      {
+        "label": "F",
+        "selected": false,
+        "why": "未等待Run完成"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "10-0782": {
+    "qid": "10-0782",
+    "classification": "own",
+    "chapter": 10,
+    "quality": "ok",
+    "reason": "平台组件选型，紧扣PAI三件套与配套服务",
+    "answer": [
+      "A",
+      "C",
+      "D"
+    ],
+    "supported": true,
+    "quote": "PAI（Platform for AI，人工智能平台）是阿里云面向算法工程师的机器学习全流程平台，覆盖模型开发、分布式训练、在线推理部署。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "PAI覆盖训练部署监控全流程"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "向量数据库非阿里云核心AI产品"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "OSS是数据底座，存训练数据/权重"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "ARMS是阿里云应用监控服务"
+      },
+      {
+        "label": "E",
+        "selected": false,
+        "why": "千问API仅提供生成能力"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "10-1452": {
+    "qid": "10-1452",
+    "classification": "own",
+    "chapter": 10,
+    "quality": "ok",
+    "reason": "代码逻辑解析，考察关键函数调用链",
+    "answer": [
+      "A",
+      "B",
+      "C",
+      "D",
+      "E",
+      "F"
+    ],
+    "supported": true,
+    "quote": "Function Calling两次调用闭环",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "message = dashscope.Messages.create"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "if run_status.required_action: self.forward..."
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "message_run = dashscope.Runs.create"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "run_status = dashscope.Runs.wait"
+      },
+      {
+        "label": "E",
+        "selected": true,
+        "why": "msgs = dashscope.Messages.list"
+      },
+      {
+        "label": "F",
+        "selected": true,
+        "why": "answer = ...['data'][0]['content'][0]['text']['value']"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "10-0575": {
+    "qid": "10-0575",
+    "classification": "own",
+    "chapter": 10,
+    "quality": "ok",
+    "reason": "Runs.wait语义判断，属Agent运行机制核心",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "Agent本质是规划-行动-观察闭环",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "非监听消耗资源"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "阻塞线程直到响应就绪"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "非异步机制"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "非确保消息存储"
+      },
+      {
+        "label": "E",
+        "selected": false,
+        "why": "非等待所有工具输出"
+      },
+      {
+        "label": "F",
+        "selected": false,
+        "why": "不返回实时进度"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "10-1021": {
+    "qid": "10-1021",
+    "classification": "cross",
+    "chapter": 10,
+    "quality": "ok",
+    "reason": "多模态工具链协同，需结合第11章知识",
+    "answer": [
+      "A",
+      "E",
+      "F"
+    ],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "CosVoice是语音合成服务"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "CosVoice非视频剪辑"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "moviepy不支持文生视频"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "Qwen-Max非专用于字幕"
+      },
+      {
+        "label": "E",
+        "selected": true,
+        "why": "moviepy可获取音频时长"
+      },
+      {
+        "label": "F",
+        "selected": true,
+        "why": "典型流程：文本生成→TTS→音视频合成"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

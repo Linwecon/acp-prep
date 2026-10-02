@@ -1,0 +1,154 @@
+{
+  "items": [
+    {
+      "type": 0,
+      "stem": "某教育公司新人答疑机器人在默认参数（temperature=0.7, top_p=0.8）下，对同一问题'我们公司项目管理用什么工具？'连续三次返回不同答案：Jira、Microsoft Project、Asana。messages结构完整、上下文窗口充足、无RAG注入。此时若需确保输出严格一致以满足HR审计要求，最应优先调整的参数组合及依据是？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "将temperature设为0.0，并固定seed=42；依据：temperature=0使softmax分布退化为one-hot，seed保障采样可复现"
+        },
+        {
+          "option_label": "B",
+          "option_text": "将top_p设为0.1，并固定seed=42；依据：小top_p大幅缩小候选集，配合seed可锁定唯一路径"
+        },
+        {
+          "option_label": "C",
+          "option_text": "同时将temperature降至0.1、top_p降至0.3；依据：二者协同压缩概率分布，比单参数更可靠"
+        },
+        {
+          "option_label": "D",
+          "option_text": "仅固定seed=42；依据：教材明确seed能‘尽最大努力’复现结果，无需调其他参数"
+        }
+      ],
+      "answer": "A",
+      "analysis": "A正确：原文1.7.1明确temperature→0时近似贪婪解码（取最高概率Token），且1.7.3强调‘seed+其他参数不变’可尽力复现；A项同时满足‘确定性来源（T→0）’和‘复现保障（seed）’两个必要条件。B错误：top_p=0.1虽缩小候选，但若最高概率Token未达0.1（如0.08），仍可能从次高Token中采样，无法保证唯一性；教材1.7.4风险提示‘top_p越接近1越发散’，但未说越小越确定——其确定性依赖于分布形态，不如temperature直接控制分布陡峭度可靠。C错误：教材1.7.4‘不要同时大改temperature和top_p’，因二者作用机制重叠且交互复杂，易导致不可预测行为；题干要求‘最应优先’，须选最直接、最可控的单一主因。D错误：教材1.7.3明确‘无法100%保证完全一致’，且1.7.4风险指出‘temperature=0只能最大限度降低随机性’，说明仅靠seed不足——必须先通过temperature消除分布平坦性这一根本随机源。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 0,
+      "stem": "开发团队为客服工单系统配置结构化字段抽取功能，需从用户描述中稳定提取'问题类型（网络/硬件/权限）'、'紧急程度（高/中/低）'三类枚举值。当前使用temperature=0.9导致结果波动。若严格遵循教材1.7.4调参建议，以下哪项操作最符合'先调一个、再微调另一个'的工程实践？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "将temperature从0.9降至0.3，观察抽取稳定性；若仍有波动，再将top_p从0.8微调至0.5"
+        },
+        {
+          "option_label": "B",
+          "option_text": "将top_p从0.8升至0.95以扩大候选，再将temperature从0.9降至0.2平衡多样性"
+        },
+        {
+          "option_label": "C",
+          "option_text": "同步将temperature降至0.2、top_p降至0.4，一步到位解决波动"
+        },
+        {
+          "option_label": "D",
+          "option_text": "仅增加system prompt约束'必须从给定枚举中选择'，不调整任何生成参数"
+        }
+      ],
+      "answer": "A",
+      "analysis": "A正确：教材1.7.4明确‘建议先调一个，观察后再微调另一个，每次幅度约±0.2’，A项完全遵循此流程——先降temperature（核心确定性参数）至0.3（降幅0.6，属合理微调范围），再视情况微调top_p（0.8→0.5，降幅0.3）。B错误：先升top_p会进一步增大随机性，与目标矛盾；且‘扩大候选+降temperature’存在方向冲突，违背‘二者都控随机性’的原理。C错误：直接同步大改两参数，违反教材‘不要同时大改’的硬性建议，会导致结果难以归因调试。D错误：教材1.2对比表明确‘抑制幻觉’需‘RAG+提示词约束’组合，但此处是确定性问题而非事实性问题；且1.7.4风险指出‘请保持一致的提示词无法从根本上改变采样机制’，故仅靠提示词无效。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 1,
+      "stem": "某RAG增强的合同审核机器人在temperature=0.1时仍出现关键条款遗漏。经排查，检索返回的3段合同条款（共1800 Token）与system prompt（200 Token）、user query（50 Token）合计已占满8K窗口的95%。此时输出不稳定的根本原因及对应教材依据是？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "上下文过载导致模型注意力被稀释，触发'Lost in the Middle'现象；依据：1.6节指出'过长的无关上下文会稀释注意力、引入噪声'"
+        },
+        {
+          "option_label": "B",
+          "option_text": "temperature过低使模型陷入局部最优，无法跳出预设模式；依据：1.7.1未提及temperature与注意力稀释的关联"
+        },
+        {
+          "option_label": "C",
+          "option_text": "输入Token超窗后被截断，关键条款片段丢失；依据：1.6节明确'超过窗口的内容通常会被截断（往往丢弃最早的部分）'"
+        },
+        {
+          "option_label": "D",
+          "option_text": "RAG检索片段未做语义去重，重复信息干扰生成；依据：1.2节未涉及RAG去重，且教材未将此列为常见故障"
+        }
+      ],
+      "answer": "A,C",
+      "analysis": "A和C均正确：A对应教材1.6节‘高频误区’中‘❌ 窗口越大效果越好’的解释——‘过长的无关上下文会稀释注意力’，且1.6节原理明确‘上下文工程的核心不是喂得多，而是喂得准’，本题中1800 Token条款若未精炼即全量注入，属于典型‘喂得多但不准’；C对应1.6节‘概念’中‘超过窗口的内容通常会被截断’，且题干‘占满95%’暗示极可能触发截断，而合同条款顺序敏感，截断最早部分（如定义条款）将直接导致后续理解错误。B错误：教材1.7.1仅说明temperature控制分布陡峭度，从未关联其与注意力机制或局部最优，属无依据臆断。D错误：教材1.2节‘遇到问题该用什么补位’及1.6节‘长文本应用手段’均未提及RAG去重，且‘重复信息干扰’非教材列出的风险点，属过度引申。",
+      "difficulty_label": "挑战"
+    },
+    {
+      "type": 0,
+      "stem": "测试工程师发现：当向模型发送数学计算请求'计算12345×6789'时，temperature=0.1下90%返回正确结果，temperature=1.5下正确率降至35%。该现象不能印证以下哪一教材观点？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "LLM不擅精确计算，因其自回归逐Token生成缺乏符号运算机制（1.2节）"
+        },
+        {
+          "option_label": "B",
+          "option_text": "temperature只改变采样随机性，不增加知识或推理能力（1.7.4风险）"
+        },
+        {
+          "option_label": "C",
+          "option_text": "调高temperature能让模型更聪明（1.7.4风险）"
+        },
+        {
+          "option_label": "D",
+          "option_text": "幻觉源于上下文不足时模型仍按概率编造答案（1.2节）"
+        }
+      ],
+      "answer": "C",
+      "analysis": "C是唯一不能印证的观点，且教材明确将其列为错误认知：1.7.4风险栏首条即‘❌ 调高 temperature 能让模型更聪明 / 知识更多’，强调其‘只增加随机性，不增加任何知识或推理能力’。本题现象（高温降低计算正确率）恰恰反证C错误——若高温真能‘更聪明’，正确率应上升而非暴跌。A可印证：计算错误率随temperature升高而恶化，印证‘不擅计算’本质是生成机制缺陷，非知识缺失。B可印证：正确率下降源于采样随机性增大（高温使低概率错误数字更易被选中），而非模型能力变化。D可印证：计算场景中‘上下文不足’体现为缺乏算式推导步骤，模型被迫‘编造’数字，高温加剧此幻觉倾向。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 1,
+      "stem": "某多轮对话机器人在temperature=0.7时出现‘第二轮回答与第一轮结论矛盾’现象（如首轮答‘用Jira’，次轮答‘用Asana’）。已确认messages包含全部历史、窗口未满、无RAG干扰。以下哪些排查方向直指temperature调节失效的根本条件？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "检查是否在两次API调用间修改了system prompt内容"
+        },
+        {
+          "option_label": "B",
+          "option_text": "验证两次调用是否使用相同模型版本（如qwen-max vs qwen-plus）"
+        },
+        {
+          "option_label": "C",
+          "option_text": "确认两次调用是否传入相同seed值"
+        },
+        {
+          "option_label": "D",
+          "option_text": "排查是否因分布式推理节点差异导致logits计算微小偏移"
+        }
+      ],
+      "answer": "B,C,D",
+      "analysis": "B、C、D均直指temperature生效的必要条件：B正确——教材1.7.4参数速查表注明参数范围‘Qwen系列’，不同模型（如qwen-max与qwen-plus）的logits分布不同，同temperature下实际采样行为不可比；C正确——1.7.3明确‘seed在每次调用时传入相同seed且其他参数不变，模型会尽最大努力返回相同结果’，缺失seed则temperature再低也无法复现；D正确——1.7.3指出‘分布式调度、模型版本更新、推理优化都可能引入微小差异’，这是temperature=0.7下无法保证一致的底层技术原因。A错误：system prompt变更属于输入变化，与temperature参数调节无关；且题干已限定‘messages结构完整’，隐含prompt一致，此为干扰项。",
+      "difficulty_label": "挑战"
+    },
+    {
+      "type": 0,
+      "stem": "运维监控发现某RAG服务token消耗突增300%，分析显示用户query长度未变，但检索返回chunk数量翻倍。此时若依据教材1.6节上下文工程原则，最应立即采取的根治措施是？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "强制将temperature降至0.1以减少生成token数"
+        },
+        {
+          "option_label": "B",
+          "option_text": "优化检索策略，提升chunk相关性阈值，确保只注入最相关的1-2段"
+        },
+        {
+          "option_label": "C",
+          "option_text": "升级至128K窗口模型以容纳更多chunk"
+        },
+        {
+          "option_label": "D",
+          "option_text": "在system prompt中添加'请用最少token回答'指令"
+        }
+      ],
+      "answer": "B",
+      "analysis": "B正确：教材1.6节核心原则是‘上下文工程的核心不是喂得多，而是喂得准’，且1.2节对比表明确‘最新/私域知识 → RAG检索’，而RAG有效性取决于检索精度。chunk数量翻倍说明检索质量下降，注入大量低相关性文本，既浪费token又稀释注意力（1.6节‘稀释注意力、引入噪声’）。A错误：temperature影响采样随机性，不改变输入token数，且题干是‘消耗突增’主因在输入侧。C错误：教材1.6节风险明确‘❌ 窗口越大效果越好’，盲目扩容忽视‘喂得准’原则，且成本飙升。D错误：指令无法强制减少token消耗，教材1.7.4风险指出‘提示词无法从根本上改变采样机制’，且‘最少token’属模糊指令，模型可能以牺牲质量为代价压缩。",
+      "difficulty_label": "进阶"
+    }
+  ]
+}

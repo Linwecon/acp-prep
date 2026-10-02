@@ -1,0 +1,213 @@
+{
+  "1-0818": {
+    "qid": "1-0818",
+    "classification": "own",
+    "chapter": 2,
+    "quality": "ok",
+    "reason": "考查结构化输出的工程实践，原文明确要求'结构化输出+Schema校验'",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "下游程序要解析模型输出 → 用结构化输出（JSON Mode）+ 枚举约束 + Schema 校验",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "仅要求不保证可解析"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "强制解析是可靠手段"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "模型会出错不可信"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "XML非本题目标格式"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "1-0125": {
+    "qid": "1-0125",
+    "classification": "own",
+    "chapter": 2,
+    "quality": "ok",
+    "reason": "考查JSON模式API参数含义，属提示工程输出控制",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "结构化输出（JSON Mode）：要求严格按 JSON 等格式输出，配合 Schema 校验",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "直指JSON对象格式"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "与XML无关"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "非文本格式"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "与CSV无关"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "1-0431": {
+    "qid": "1-0431",
+    "classification": "own",
+    "chapter": 2,
+    "quality": "ok",
+    "reason": "考查输出长度控制的正确方式，需在提示词中约束",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "输出格式（Output Format）：指定格式、枚举值、禁止项",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "提示词内明确约束"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "后截断破坏语义"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "截断输入无效"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "A正确故D错"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "1-0580": {
+    "qid": "1-0580",
+    "classification": "own",
+    "chapter": 2,
+    "quality": "ok",
+    "reason": "考查标签提取的规范输出，原文强调结构化与枚举",
+    "answer": [
+      "A",
+      "C"
+    ],
+    "supported": true,
+    "quote": "结构化输出（JSON Mode）+ 枚举约束 + Schema 校验",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "未识别不输出符合规范"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "强制输出违反原则"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "JSON是标准结构化格式"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "XML非推荐格式"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-1081": {
+    "qid": "3-1081",
+    "classification": "cross",
+    "chapter": 2,
+    "quality": "ok",
+    "reason": "文档审阅分段处理属2.9节内容，非RAG章节",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "长文档先按章节/切片逐段审，再审阅汇总，避免一次审全篇漏项",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "营销非审阅维度"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "防漏审是核心原因"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "错误必须处理"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "非理解难度问题"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-0746": {
+    "qid": "3-0746",
+    "classification": "cross",
+    "chapter": 2,
+    "quality": "ok",
+    "reason": "代码文档生成需上下文对齐，属提示工程中的上下文设计",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "依据上下文信息来回答用户问题。你只需要回答用户的问题，不要输出其他信息",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "重写代码不解决文档问题"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "基于代码即提供准确上下文"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "空泛要求无效"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "非最有效措施"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

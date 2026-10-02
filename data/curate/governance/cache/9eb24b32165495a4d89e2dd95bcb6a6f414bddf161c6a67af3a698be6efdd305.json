@@ -1,0 +1,217 @@
+{
+  "new-10-42-0": {
+    "qid": "new-10-42-0",
+    "classification": "own",
+    "chapter": 10,
+    "quality": "ok",
+    "reason": "场景题考查平台选型组合能力，符合分层定位与约束匹配考点。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "开源模型的价值集中在三点：① 数据隐私与合规（数据不出域）；② 可深度定制（任意微调/改结构）；③ 大规模稳定流量下的长期成本可控。团队要对一个开源模型做 LoRA 微调并部署成高并发在线服务，且要求数据不出域，应选用哪组产品？请对应到开发、训练、部署三个阶段。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "仅用百炼知识库和qwen-max，数据需上送云端，违反‘不得出域’要求。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "开源模型微调部署在PAI（DSW/DLC/EAS）满足数据不出域、定制和并发要求，百炼调用实现应用层集成。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "直接调用DashScope API，数据需上送云端，违反‘不得出域’要求。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "方案仅涉及数据处理和检索，未解决模型对专业术语回答不准的问题，且数据可能出域。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-10-42-1": {
+    "qid": "new-10-42-1",
+    "classification": "own",
+    "chapter": 10,
+    "quality": "ok",
+    "reason": "考查多约束下平台选型，需权衡快速交付、成本、易用性。",
+    "answer": [
+      "A",
+      "B"
+    ],
+    "supported": true,
+    "quote": "百炼的价值在于把复杂的工程链路封装成可视化操作。选型决策：要快速搭知识库问答/智能体/工作流并发布 → 百炼；只想写代码调模型 → DashScope。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "百炼满足快速交付、运营自主调整、一键发布到企业微信，且成本可控。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "调用DashScope API并部署为FC函数，满足快速开发和成本敏感要求，可接入企业微信。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "本地GPU部署运维成本高，不符合‘无专职运维’和‘成本敏感’要求。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "仅调用API未解决运营自主调整和快速发布需求，且未提及接入企业微信的具体方式。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-10-42-2": {
+    "qid": "new-10-42-2",
+    "classification": "own",
+    "chapter": 10,
+    "quality": "ok",
+    "reason": "考查计费规则和限流问题的直接解决措施。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "省成本的工程手段：控制输入：RAG 只塞最相关的片段；限制输出：用 max_tokens 给输出设上限。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "切换为qwen-max单价更高，可能增加成本，且未解决输入输出Token过高问题。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "RAG减少输入Token，限制输出Token，直接降低计费Token数和可能减少限流触发。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "提升配额和固定重试未解决根本的Token消耗过高问题，且固定重试非最佳实践。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "免费Notebook有运行时长限制，不适合生产环境高并发服务，且本地模型可能无法满足需求。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-10-42-3": {
+    "qid": "new-10-42-3",
+    "classification": "own",
+    "chapter": 10,
+    "quality": "ok",
+    "reason": "考查DashScope OpenAI兼容模式的技术细节。",
+    "answer": [
+      "B",
+      "C"
+    ],
+    "supported": true,
+    "quote": "只需修改 base_url 和 api_key，原本基于 OpenAI Python SDK 写的程序几乎不用改就能调用通义千问。流式输出开 stream=True，是对话类应用降低等待感的标配。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "错误。兼容模式下model参数应使用如‘qwen-plus’等模型名，非‘dashscope-qwen-plus’。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "正确。只需修改base_url和api_key即可迁移，代码改动极小。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "正确。支持stream=True流式响应，适用于对话应用。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "错误。两者都按Token计费，计费方式相同。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-10-42-4": {
+    "qid": "new-10-42-4",
+    "classification": "own",
+    "chapter": 10,
+    "quality": "ok",
+    "reason": "考查在强合规、长文档、需精准引用场景下的最优技术路径选择。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "开源模型的价值集中在三点：① 数据隐私与合规（数据不出域）；② 可深度定制（任意微调/改结构）。要数据完全不出域、强私有化 → 开源模型（ModelScope 下载）+ PAI/EAS 或自建 GPU 部署。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "百炼知识库数据需上送云端，违反‘数据绝对不出私有云’的强合规要求。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "自有GPU部署开源模型结合RAG，完全满足数据不出域、长文档处理和精准引用要求。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "调用DashScope API需将数据上送云端，违反数据不出域要求。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "通义万相是图像生成模型，不适用于文本解读和问答任务。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-10-42-5": {
+    "qid": "new-10-42-5",
+    "classification": "own",
+    "chapter": 10,
+    "quality": "ok",
+    "reason": "考查对百炼平台核心能力的识记。",
+    "answer": [
+      "A",
+      "B",
+      "C",
+      "D"
+    ],
+    "supported": true,
+    "quote": "百炼的核心能力可以理解为把前几章的技术'产品化'了：能力包括工作流编排、知识库（RAG）、模型调优/微调、插件/工具等。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "工作流编排是百炼核心能力之一。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "知识库（RAG）是百炼核心能力之一。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "模型调优/微调是百炼核心能力之一。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "插件/工具是百炼核心能力之一。"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

@@ -1,0 +1,217 @@
+{
+  "3-1160": {
+    "qid": "3-1160",
+    "classification": "misplaced",
+    "chapter": 12,
+    "quality": "review",
+    "reason": "属LlamaIndex框架API细节，原文未提StorageContext",
+    "answer": [
+      "C"
+    ],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "from_defaults是加载非创建"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "保存用persist()方法"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "LlamaIndex文档明确说明该调用加载持久化上下文"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "PERSIST_DIR是必选参数"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-1221": {
+    "qid": "3-1221",
+    "classification": "misplaced",
+    "chapter": 4,
+    "quality": "remove",
+    "reason": "工具函数名未在RAG章出现，属Agent章节Function Calling",
+    "answer": [],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "与教育部门人数无关"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "原文未定义该函数"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "md_polisher属文档解析环节"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "compare_embeddings非RAG标准工具"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-1236": {
+    "qid": "3-1236",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "覆盖切片、文档处理、生成参数、知识库四类优化点",
+    "answer": [
+      "B",
+      "C",
+      "D"
+    ],
+    "supported": true,
+    "quote": "对 token 长度有硬要求 → Token 切片 + 重叠；模型参数要按任务性质选：事实查询用低 temperature；补充知识库缺失内容",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "原文明确反对仅依赖默认策略"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "文档解析中推荐用大模型润色Markdown"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "3.7节明确要求按任务调temperature"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "3.8节指出Recall低需补充知识库"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-1240": {
+    "qid": "3-1240",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "滑动窗口即句子窗口检索，原文有明确定义",
+    "answer": [
+      "B",
+      "C"
+    ],
+    "supported": true,
+    "quote": "句子窗口检索：建索引时以单个句子为可检索单元，同时在每个句子的元数据里存下它前后各N句组成的窗口",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "原文未限定文档长度"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "窗口机制即补充相邻上下文"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "避免语义连接丢失是核心设计目标"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "检索数量由Top K决定，非窗口机制"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-1242": {
+    "qid": "3-1242",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "句子窗口切片是3.6.1节核心概念",
+    "answer": [
+      "A",
+      "B",
+      "C"
+    ],
+    "supported": true,
+    "quote": "句子窗口检索：建索引时以单个句子为可检索单元（小块，便于精准命中），同时在每个句子的元数据里存下它前后各N句组成的窗口",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "以句子为边界保证完整性"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "窗口机制包含上下文"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "长文档更需精准命中+上下文完整"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "原文未限定适用文本长度"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-1250": {
+    "qid": "3-1250",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "Embedding优化是3.5节核心考点",
+    "answer": [
+      "B",
+      "C",
+      "D"
+    ],
+    "supported": true,
+    "quote": "Embedding模型不够好是检索质量差三大根因之一；换更强的Embedding；补充知识库/Embedding/改写",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "硬件加速未在原文提及"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "引入新型嵌入模型直接提升精度"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "扩大数据集可提升Embedding质量"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "精确标注是训练高质量Embedding基础"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

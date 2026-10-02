@@ -1,0 +1,212 @@
+{
+  "1-1048": {
+    "qid": "1-1048",
+    "classification": "cross",
+    "chapter": 5,
+    "quality": "ok",
+    "reason": "题目考查微调训练循环中计算损失（输出与标签差异）的步骤，属于模型微调与训练章节的核心知识。",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "训练目标是让这个分布尽量贴近真实文本（最小化交叉熵损失）。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "梯度更新是优化参数，不是计算差异。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "参数初始化是训练前步骤，不涉及计算差异。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "反向传播过程包含计算损失（输出与标签差异）。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "正向传播是计算模型输出，不计算差异。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "1-1113": {
+    "qid": "1-1113",
+    "classification": "misplaced",
+    "chapter": 1,
+    "quality": "remove",
+    "reason": "题干是经典数学题，但选项均为对模型的要求，而非具体答案。选项与题干逻辑脱节，考查意图不明，无实际考查价值。",
+    "answer": [],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "选项是要求，不是答案，且与题干逻辑脱节。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "选项是要求，不是答案，且与题干逻辑脱节。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "选项是要求，不是答案，且与题干逻辑脱节。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "选项是要求，不是答案，且与题干逻辑脱节。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "1-1136": {
+    "qid": "1-1136",
+    "classification": "own",
+    "chapter": 1,
+    "quality": "ok",
+    "reason": "题目考查大模型不擅精确计算的边界，以及使用工具（代码解释器）补位的场景，符合本章能力边界知识点。",
+    "answer": [
+      "D"
+    ],
+    "supported": true,
+    "quote": "不擅精确计算：自回归逐 Token 生成，缺乏真正的符号运算机制，多位数进位、大数乘除很容易出错。精确计算应交给工具调用（计算器、代码）。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "文档分类属于文本理解任务，模型可直接处理。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "情感分析属于文本理解任务，模型可直接处理。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "信息抽取属于文本理解任务，模型可直接处理。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "计算相关系数涉及精确数学运算，属于模型不擅长领域，更适合代码解释器。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "1-1349": {
+    "qid": "1-1349",
+    "classification": "cross",
+    "chapter": -1,
+    "quality": "review",
+    "reason": "题目考查处理模型返回错误的工程实践，涉及错误处理和鲁棒性，属于通用编程或工程实践范畴，未明确对应教材章节。",
+    "answer": [
+      "C"
+    ],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "模型可能产生幻觉，不能假设总是正确。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "输入验证重要，但无法处理模型生成阶段的错误。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "try-except是捕获和处理运行时异常的通用编程实践。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "不处理异常可能导致程序崩溃，不可取。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "1-0006": {
+    "qid": "1-0006",
+    "classification": "own",
+    "chapter": 1,
+    "quality": "ok",
+    "reason": "题目考查大模型工作流程的基本知识点，涉及分词、推理和向量化的作用。",
+    "answer": [
+      "A",
+      "C",
+      "D"
+    ],
+    "supported": true,
+    "quote": "第一阶段：文本分词（Tokenization）...第二阶段：Token 向量化（Embedding）...第三阶段：大模型推理（Forward Pass）...第四阶段：解码与自回归（Decoding & Autoregression）...Logits 经 softmax 变成下一个 Token 的概率分布，再按解码策略选出一个 Token。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "正确。输入文本需先分词为Token，是工作流程第一阶段。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "错误。由于采样随机性，即使输入相同，输出Token也可能不同。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "正确。推理阶段生成logits，解码阶段根据概率选择输出Token。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "正确。Token向量化是将ID映射为语义向量，让计算机处理。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "1-0111": {
+    "qid": "1-0111",
+    "classification": "own",
+    "chapter": 1,
+    "quality": "ok",
+    "reason": "题目考查大模型五阶段工作流程中循环生成Token直到结束的阶段，属于核心知识点。",
+    "answer": [
+      "D"
+    ],
+    "supported": true,
+    "quote": "第四阶段：解码与自回归（Decoding & Autoregression）...选出一个 Token，把它追加到输入末尾，然后回到第三阶段继续预测下一个——这就是文字接龙式的自回归生成。循环直到遇到终止符（EOS）。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "分词化是第一阶段，不涉及循环生成。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "Token向量化是第二阶段，不涉及循环生成。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "大模型推理是第三阶段，为单次前向计算，不循环。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "输出Token阶段（解码与自回归）循环生成候选Token直到结束标记。"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

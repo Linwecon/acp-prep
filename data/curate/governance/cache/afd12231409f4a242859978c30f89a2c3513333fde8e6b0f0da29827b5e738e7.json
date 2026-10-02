@@ -1,0 +1,44 @@
+{
+  "items": [
+    {
+      "qid": "new-10-54-3",
+      "duplicate_of": "",
+      "reason": "考点不同：TPM配额耗尽应对 vs RPM超限优先操作"
+    },
+    {
+      "qid": "new-10-66-0",
+      "duplicate_of": "new-10-24-0",
+      "reason": "考点、条件、解题路径高度一致，仅措辞微调"
+    },
+    {
+      "qid": "new-10-72-0",
+      "duplicate_of": "new-10-24-0",
+      "reason": "考点、条件、解题路径相同，仅模型版本描述不同"
+    },
+    {
+      "qid": "new-10-84-0",
+      "duplicate_of": "new-10-12-0",
+      "reason": "考点、条件、解题路径相同，仅措辞和选项顺序不同"
+    },
+    {
+      "qid": "new-11-18-0",
+      "duplicate_of": "new-11-12-0",
+      "reason": "考点、条件、解题路径相同，仅题干细节微调"
+    },
+    {
+      "qid": "new-11-24-1",
+      "duplicate_of": "new-11-0-1",
+      "reason": "考点、条件、解题路径相同，仅提问方式微调"
+    },
+    {
+      "qid": "new-11-30-0",
+      "duplicate_of": "new-11-12-0",
+      "reason": "考点、条件、解题路径相同，仅文档类型和提问细节不同"
+    },
+    {
+      "qid": "new-11-30-1",
+      "duplicate_of": "",
+      "reason": "考点不同：意图理解缺陷 vs ASR错误传递机制"
+    }
+  ]
+}

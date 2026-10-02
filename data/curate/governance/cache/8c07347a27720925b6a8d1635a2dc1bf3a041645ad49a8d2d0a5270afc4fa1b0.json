@@ -1,0 +1,230 @@
+{
+  "7-1465": {
+    "qid": "7-1465",
+    "classification": "own",
+    "chapter": 7,
+    "quality": "ok",
+    "reason": "题目考查RAGAS指标分类，属于本章核心知识。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "RAGAS 的五大核心指标按评价对象分为两类：Context Precision、Context Recall 评价检索端",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "Context Precision属于检索端指标，但题干问“召回阶段”，Recall更直接对应召回。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "Context Recall衡量标准答案信息被检索到的比例，属于召回阶段。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "Answer Correctness是生成端综合指标，评估答案整体正确性。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "Faithfulness评估答案是否忠于检索资料，属于生成端指标。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "7-0538": {
+    "qid": "7-0538",
+    "classification": "own",
+    "chapter": 7,
+    "quality": "ok",
+    "reason": "题目考查Context Precision计算步骤，原文有明确描述。",
+    "answer": [
+      "A",
+      "B",
+      "C"
+    ],
+    "supported": true,
+    "quote": "计算口径（官方，考虑排名）：1. 按顺序读取 contexts 中的每个片段...判断它是否相关；2. 对每个片段...算一个 precision 分；3. Context Precision = 各片段 precision 分之和 / 相关片段总数",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "原文第一步是按顺序读取并判断相关性。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "原文第二步是对每个片段计算precision分。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "原文第三步是对各片段precision分求和除以相关片段总数。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "增加训练数据不是Context Precision计算的必要步骤。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "7-0828": {
+    "qid": "7-0828",
+    "classification": "misplaced",
+    "chapter": 5,
+    "quality": "remove",
+    "reason": "考点是模型训练中的早停法，属于第5章微调与训练，非第7章模型评估。且题干条件模糊，选项存在歧义。",
+    "answer": [],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "验证损失连续不降是常见早停条件，但本章未提及。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "验证损失达阈值是可能条件，但本章未提及。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "训练损失持续增加可能预示过拟合，但本章未提及。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "验证准确率连续提高通常不应触发早停，本章未提及。"
+      },
+      {
+        "label": "E",
+        "selected": false,
+        "why": "训练准确率不再提高是可能条件，但本章未提及。"
+      },
+      {
+        "label": "F",
+        "selected": false,
+        "why": "迭代达最大值是停止条件，但非早停法典型逻辑，本章未提及。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "7-0650": {
+    "qid": "7-0650",
+    "classification": "own",
+    "chapter": 7,
+    "quality": "ok",
+    "reason": "题目考查Answer Correctness构成公式，是本章明确考点。",
+    "answer": [
+      "A",
+      "B"
+    ],
+    "supported": true,
+    "quote": "Answer Correctness = 0.25 × 语义相似度 + 0.75 × 事实准确度（F1）",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "语义相似度是构成Answer Correctness的两部分之一。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "事实准确性（F1）是构成Answer Correctness的另一部分。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "Answer Correctness计算不涉及answer与context的语义相似度。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "与query的一致性由Answer Relevancy衡量，不直接构成Answer Correctness。"
+      },
+      {
+        "label": "E",
+        "selected": false,
+        "why": "答案长度不是Answer Correctness的构成指标。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "7-1034": {
+    "qid": "7-1034",
+    "classification": "own",
+    "chapter": 7,
+    "quality": "ok",
+    "reason": "题目考查RAGAS适配中文场景的方法，原文有提及。",
+    "answer": [
+      "A",
+      "B"
+    ],
+    "supported": true,
+    "quote": "RAGAS 的中文场景可替换 chinese_prompt.py 里的中文提示词模板（instruction / examples），让评委更懂中文业务。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "使用中文能力强的大模型是适配中文场景的有效方法。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "将自带prompt翻译为中文是原文提到的适配方法。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "修改json.dumps函数返回中文，原文未提及，非典型适配方法。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "在System prompt中提醒适配中文，过于笼统，不是原文推荐的有效方法。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "7-1158": {
+    "qid": "7-1158",
+    "classification": "own",
+    "chapter": 7,
+    "quality": "ok",
+    "reason": "题目考查RAGAS指标归属，区分检索与生成阶段。",
+    "answer": [
+      "A",
+      "C"
+    ],
+    "supported": true,
+    "quote": "RAGAS 的五大核心指标按评价对象分为两类：Context Precision、Context Recall 评价检索端；Faithfulness、Answer Correctness、Answer Relevancy 评价生成端。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "Context Precision评价检索片段排名与信噪比，属检索端。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "Answer Relevancy评估答案是否切题，属生成端指标。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "Context Recall衡量标准答案信息被检索到的比例，属检索端。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "Faithfulness评估答案是否忠于资料，属生成端指标。"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

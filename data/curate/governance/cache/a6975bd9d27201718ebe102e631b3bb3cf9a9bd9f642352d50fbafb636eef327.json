@@ -1,0 +1,208 @@
+{
+  "5-1257": {
+    "qid": "5-1257",
+    "classification": "beyond",
+    "chapter": 5,
+    "quality": "remove",
+    "reason": "RLHF未在第5章原文中出现，全章未提强化学习、人类反馈、奖励建模等概念",
+    "answer": [],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "预训练非本章微调方法"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "自监督学习未在本章定义"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "SFT是监督微调，无反馈机制"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "RLHF未在第5章任何位置提及"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "5-1288": {
+    "qid": "5-1288",
+    "classification": "own",
+    "chapter": 5,
+    "quality": "ok",
+    "reason": "原文明确要求选验证集最优checkpoint",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "部署应选验证集表现最优的 checkpoint，而不是最后一个——最后一个可能已经\"练过头\"。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "原文明确要求选验证集最优checkpoint"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "原文强调不能选最后一个"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "初始模型未参与训练"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "合并是后续操作，非checkpoint本身"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "5-1303": {
+    "qid": "5-1303",
+    "classification": "unsure",
+    "chapter": 5,
+    "quality": "review",
+    "reason": "题干引用图片但无图，无法判断损失趋势",
+    "answer": [],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "无图无法判断"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "无图无法判断"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "无图无法判断"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "无图无法判断"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "5-1402": {
+    "qid": "5-1402",
+    "classification": "own",
+    "chapter": 5,
+    "quality": "ok",
+    "reason": "操作系统UI美观度与资源基础设施无关",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "GPU的数量和型号，以支持大规模并行计算；存储容量，以保存庞大的预训练模型及训练过程中的中间状态；网络带宽，以快速传输训练所需的大规模数据集",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "GPU是核心指标"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "存储是核心指标"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "UI美观度不属基础设施评估"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "网络带宽是核心指标"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "5-1403": {
+    "qid": "5-1403",
+    "classification": "own",
+    "chapter": 5,
+    "quality": "ok",
+    "reason": "批大小直接影响每轮处理量和内存",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "Batch Size：每次更新用的样本数；大→梯度稳、显存高、通常需配套调大 lr；小→梯度噪声大",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "学习率影响步长而非批量"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "策略影响lr变化而非批量"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "批大小决定每轮样本量"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "正则化防过拟合"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "5-1419": {
+    "qid": "5-1419",
+    "classification": "own",
+    "chapter": 5,
+    "quality": "ok",
+    "reason": "验证loss上升是过拟合铁证",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "验证 loss 先降后升 = 过拟合的铁证，应回退到验证 loss 最低的 checkpoint。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "欠拟合时两loss均不降"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "验证loss升是过拟合铁证"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "lr低导致loss下降慢"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "数据少易致过拟合但非直接原因"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

@@ -1,0 +1,215 @@
+{
+  "3-1009": {
+    "qid": "3-1009",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "考查RAG检索质量根因定位，原文明确Context Recall低对应知识未被检索到",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "Context Recall 低：有遗漏，查知识库/Embedding/改写",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "Recall低需查Embedding质量"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "调低top_k会进一步降低Recall"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "隐藏结果不解决答案缺失"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "前置叙述不能补真实缺失"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-1047": {
+    "qid": "3-1047",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "考查rerank定义，原文明确其为对候选重排",
+    "answer": [
+      "D"
+    ],
+    "supported": true,
+    "quote": "用更强的重排序模型对候选逐篇精细打分、重新排序",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "rerank不替换embedding"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "top_k由检索阶段设置"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "检索由向量化+相似度完成"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "rerank即对检索结果重排"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-1092": {
+    "qid": "3-1092",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "考查幻觉抑制，原文强调“只依据资料”和“无法回答”兜底",
+    "answer": [
+      "A",
+      "D"
+    ],
+    "supported": true,
+    "quote": "根据上下文信息而非先验知识来回答问题。...无匹配就明确回复 \"无法回答\"",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "限定知识库范围可抑制幻觉"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "调高temperature加剧幻觉"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "rerank不解决无内容时的编造"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "提示词强制无匹配时拒绝回答"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-1102": {
+    "qid": "3-1102",
+    "classification": "cross",
+    "chapter": 8,
+    "quality": "ok",
+    "reason": "考查AI安全三层防御，原文明确输入过滤/运行监控/输出审查",
+    "answer": [
+      "A",
+      "B",
+      "D"
+    ],
+    "supported": true,
+    "quote": "输入过滤/运行监控/输出审查三层防御",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "输入过滤属第一层防御"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "运行监控属第二层防御"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "多样性不解决隐私泄露"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "脱敏属数据合规基础措施"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-1117": {
+    "qid": "3-1117",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "考查查询改写适用场景，原文指出代词/简短问法需改写",
+    "answer": [
+      "D"
+    ],
+    "supported": true,
+    "quote": "多轮对话中\"他/这个\"指代不清...先用LLM把含代词的问题改写成完整问题",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "维度不影响意图理解"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "MultiStepQuery非原文术语"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "HyDE用于表述差异大场景"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "简短关键词需问题改写"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-1118": {
+    "qid": "3-1118",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "考查向量检索前提，原文明确向量化+入库是检索基础",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "把每个chunk转成一串数字（向量）...存进向量数据库，建立索引",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "JSON非向量检索必需格式"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "向量化+入库是检索前提"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "加密非检索必要条件"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "原样拼接超上下文窗口"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

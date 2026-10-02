@@ -1,0 +1,154 @@
+{
+  "items": [
+    {
+      "type": 0,
+      "stem": "某团队上线新版答疑机器人后，RAGAS评测显示Context Recall从0.62升至0.91，但Answer Correctness却从0.78降至0.53，且Faithfulness保持0.95。用户反馈：'张伟部门'类问题答对了，但'年假计算规则'类问题开始出现虚构条款。该现象最可能的根本原因是什么？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "检索端过度召回噪声，导致生成模型被无关上下文干扰（Lost in the Middle）"
+        },
+        {
+          "option_label": "B",
+          "option_text": "知识库中年假相关文档缺失，Context Recall虚高（ground_truth未被正确分解）"
+        },
+        {
+          "option_label": "C",
+          "option_text": "生成模型temperature调高导致幻觉，与检索质量无关"
+        },
+        {
+          "option_label": "D",
+          "option_text": "ground_truth标注不一致，年假类问题的标准答案未由HR专家审定"
+        }
+      ],
+      "answer": "D",
+      "analysis": "依据原文7.2.1节‘评测集四字段’铁律：‘ground_truth必须由业务领域专家编写/审定’；7.2.4节强调‘领域专家的深度参与是评测系统乃至整个AI应用成功的关键’。本题中Context Recall显著提升但Answer Correctness反降，且Faithfulness极高（说明答案忠于所给contexts），表明问题不在检索或生成逻辑本身，而在于评测基准失真——年假类ground_truth若未由HR专家审定，其内容可能与真实政策不符，导致Recall计算时LLM误判‘已覆盖’，实则覆盖的是错误信息。A选项错误：Lost in the Middle会拉低Precision而非Recall；B选项错误：Recall虚高需归因于ground_truth分解或标注问题，非知识库缺失（缺失会导致Recall真实偏低）；C选项错误：Faithfulness=0.95排除了模型编造，说明答案严格基于contexts，幻觉源在contexts或ground_truth本身。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 1,
+      "stem": "在构建新人答疑机器人的自动化评测集时，以下哪些操作符合原文强调的‘评测先行’与‘防止跷跷板效应’原则？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "从近3个月线上工单中按问题类型和频率抽样，覆盖入职流程、报销、年假、IT支持等全场景"
+        },
+        {
+          "option_label": "B",
+          "option_text": "用当前线上版本运行全部抽样问题，收集answer和contexts，再请HR专家为每个question撰写ground_truth"
+        },
+        {
+          "option_label": "C",
+          "option_text": "将评测集按难度分层：简单题（单轮事实查询）、中难题（多步骤政策解释）、困难题（含模糊表述的对抗样本）"
+        },
+        {
+          "option_label": "D",
+          "option_text": "每次模型优化后，仅用新改写的5个测试用例验证效果，不再运行全量评测集"
+        }
+      ],
+      "answer": "ABC",
+      "analysis": "A正确：原文7.2.1节‘评测集构建铁律’明确要求‘问题来自真实用户场景’，并‘覆盖主要业务场景与边界情况’；B正确：原文7.2.1节强调ground_truth‘必须由业务领域专家编写/审定’，且7.1节‘评测先行’流程要求‘先建评测集、拿到基线分数，再动手优化’，B项正是建立基线的规范动作；C正确：原文7.8.2节‘评测集设计要点’指出‘分层/分难度覆盖’是防止分数虚高的关键，‘只含简单题会导致分数虚高’；D错误：原文7.1节定义‘跷跷板效应’即‘修一个、坏一个’，而‘防止回归’是评测五大用途之一，必须‘每次改动后跑同一套题’（7.1节表格），D项仅测5个用例完全违背回归评测原则。",
+      "difficulty_label": "高"
+    },
+    {
+      "type": 0,
+      "stem": "某Agent在课程写作任务中端到端评测得分为4.2/5，但用户投诉‘生成的Python代码无法运行’。此时若仅增加LLM-as-Judge对代码可执行性的主观评分，最可能忽视的关键风险是什么？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "LLM评委存在长度偏见，倾向给冗长代码更高分"
+        },
+        {
+          "option_label": "B",
+          "option_text": "LLM评委无法100%准确判断代码语法与逻辑正确性，存在幻觉风险"
+        },
+        {
+          "option_label": "C",
+          "option_text": "未建立白盒评测，无法定位是代码生成组件故障还是工具调用链路中断"
+        },
+        {
+          "option_label": "D",
+          "option_text": "未使用黄金集校准，导致评分阈值漂移"
+        }
+      ],
+      "answer": "C",
+      "analysis": "依据原文7.6节核心观点：‘Agent出问题往往在过程里……光看最终答案发现不了这些’；7.6节明确对比‘端到端评测’（看最终输出）与‘白盒评测’（深入链路对关键组件单独打分），并以‘课程写作Agent’为例指出‘单独评测代码生成组件，检查代码是否自包含、能否被解释器执行’才是正解。C项直指本质——端到端总分掩盖了组件级故障，而LLM-as-Judge仍是端到端视角的主观评分，无法替代确定性检查（如实际执行代码）。A、B、D虽是LLM-as-Judge固有缺陷（7.8.1节），但本题焦点是‘方法选择错误’：当问题明确指向‘代码不可运行’这一客观硬指标时，应首选确定性检查（7.6.1节），而非依赖LLM主观判断。",
+      "difficulty_label": "高"
+    },
+    {
+      "type": 1,
+      "stem": "当RAGAS评测显示Context Precision=0.35、Context Recall=0.88时，以下哪些优化措施符合原文‘黄金法则’与‘检索优先’原则？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "引入Rerank模型对检索结果重排序"
+        },
+        {
+          "option_label": "B",
+          "option_text": "将Top K从20调增至50以提升召回覆盖率"
+        },
+        {
+          "option_label": "C",
+          "option_text": "在Embedding阶段添加领域术语同义词扩展"
+        },
+        {
+          "option_label": "D",
+          "option_text": "在提示词中增加‘请严格依据前3条检索片段作答’的约束"
+        }
+      ],
+      "answer": "AD",
+      "analysis": "依据原文7.5节‘定位问题的黄金法则’：‘Precision低（Recall高）→ 加Rerank、缩小Top K、相似度阈值过滤’；7.5节‘踩坑提醒’明确警告‘Recall低就一味调大Top K’是错误做法，因会加剧噪声（B错误）。A正确：Rerank是原文7.5节表格中针对Precision低的首推方案；D正确：原文7.5节指出‘检索指标都好但Faithfulness低’才查提示词，但此处Recall高而Precision低，说明相关片段存在但排序靠后，强制模型聚焦前3条可规避‘Lost in the Middle’（7.4.2节公式直觉），属生成端对检索缺陷的补偿性约束，符合‘先检索后生成’总体顺序；C错误：同义词扩展旨在提升Recall（解决‘找不全’），而Recall已高达0.88，非瓶颈；B错误：原文7.5节‘踩坑提醒’直接批判此做法，会恶化Precision。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 0,
+      "stem": "某团队用BLEU-4评估模型蒸馏效果，发现蒸馏后BLEU-4从0.42升至0.45。但业务方质疑：‘新模型回答更啰嗦，用户满意度反而下降’。该矛盾最能印证原文关于传统自动指标的哪项风险？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "BLEU只认字面重合，同义改写会被误伤"
+        },
+        {
+          "option_label": "B",
+          "option_text": "BLEU侧重精确率，短译文有简洁惩罚（BP）"
+        },
+        {
+          "option_label": "C",
+          "option_text": "BLEU无法衡量语义等价，且存在长度偏见"
+        },
+        {
+          "option_label": "D",
+          "option_text": "BLEU高不等于翻译好，更不等于业务表现好"
+        }
+      ],
+      "answer": "C",
+      "analysis": "题干核心矛盾是‘BLEU微升但用户满意度下降’，直接对应原文7.2.3节‘风险’框：‘❌ BLEU 高 = 翻译好’→ ‘BLEU 只认字面重合，同义改写会被误伤’；但更关键的是7.8.1节对LLM-as-Judge偏见的延伸——‘长度偏见’虽在LLM评委部分，但BLEU本身也隐含长度偏好（BP惩罚短文本，但未惩罚长文本），而题干明确指出‘新模型回答更啰嗦’，这正是长度偏见的典型表现：BLEU奖励冗长匹配，却牺牲用户体验。C项完整涵盖‘无法衡量语义等价’（BLEU本质缺陷）与‘长度偏见’（导致啰嗦得分高），且原文7.2.3节‘高频误区’明确将BLEU与ROUGE并列讨论其语义盲区。A、B仅描述BLEU技术细节，未触及‘业务效果背离’本质；D虽正确但过于宽泛，未精准定位到‘长度偏见’这一题干特异性原因。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 1,
+      "stem": "在实施评测驱动开发（EDD）时，以下哪些实践能同时满足‘防止回归’与‘定位问题’双重目标？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "每次优化后，用冻结的评测集运行全部RAGAS指标，并对比各指标分项变化"
+        },
+        {
+          "option_label": "B",
+          "option_text": "将评测脚本、LLM评委版本、embedding模型版本全部纳入CI/CD流水线并版本锁定"
+        },
+        {
+          "option_label": "C",
+          "option_text": "仅记录Answer Correctness总分，当总分提升即判定优化成功"
+        },
+        {
+          "option_label": "D",
+          "option_text": "对评测集按业务场景打标签（如‘报销’‘年假’‘IT’），分析各场景下Context Recall与Faithfulness的差异"
+        }
+      ],
+      "answer": "ABD",
+      "analysis": "A正确：原文7.1节‘评测先行’强调‘冻结评测集’是回归前提，7.5节‘黄金法则’要求‘结合检索端指标一起看’才能定位，A项‘对比各指标分项变化’直接实现双目标；B正确：原文7.2.4节‘控制变量’明确要求‘评测脚本、推理参数、模型版本都要固定’，否则‘分数变化无法归因’，B项确保分数可比性，是回归评测的技术基础；D正确：原文7.8.2节‘评测集设计要点’要求‘按题型、难度、类别细分找短板’，D项按业务场景细分正是定位具体问题领域的实践；C错误：原文7.5节‘踩坑提醒’明确批判‘只看Answer Correctness一个总分’，因‘总分低时分不清是检索还是生成的锅’，违背定位原则。",
+      "difficulty_label": "高"
+    }
+  ]
+}

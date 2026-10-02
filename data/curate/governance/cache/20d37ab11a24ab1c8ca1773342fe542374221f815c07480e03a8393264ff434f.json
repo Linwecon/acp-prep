@@ -1,0 +1,223 @@
+{
+  "new-10-198-0": {
+    "qid": "new-10-198-0",
+    "classification": "own",
+    "chapter": 10,
+    "quality": "ok",
+    "reason": "题目考查百炼知识库RAG流程中切片策略对结果的影响，属于本章知识库功能细节。",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "知识库（RAG）内置文档解析、切片、向量化、检索，上传文档即可问答",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "题干未提及向量化模型选型问题，故障源于切片。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "题干明确故障在切片环节，非检索排序。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "题干描述固定长度切片导致关键信息被截断，是文档预处理阶段缺失语义分块。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "上下文缓存是成本优化，与答案准确性无关。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-10-198-1": {
+    "qid": "new-10-198-1",
+    "classification": "own",
+    "chapter": 10,
+    "quality": "fixable",
+    "reason": "考查百炼RAG准确性前提，但部分选项过于绝对或非必要，需修正。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "知识库（RAG）内置文档解析、切片、向量化、检索，上传文档即可问答",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "原文未要求必须通过OSS和DataWorks预处理。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "原文指出知识库内置解析、切片、向量化，是RAG必要流程。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "原文未要求必须配置私有Embedding模型。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "重排序可提升效果，但“必须”和“top_n≥3”过于绝对。"
+      },
+      {
+        "label": "E",
+        "selected": false,
+        "why": "原文未提及Embedding与生成模型必须同系列。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-10-198-2": {
+    "qid": "new-10-198-2",
+    "classification": "own",
+    "chapter": 10,
+    "quality": "ok",
+    "reason": "考查长文档处理与模型选型，符合10.6节千问模型家族选型逻辑。",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "qwen-long支持超长上下文窗口，长文档/大文档问答，可减少切片",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "max能力最强，但未提及支持更大上下文窗口。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "“智能摘要”非原文提及的紧急处置方案。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "qwen-long专为长上下文设计，符合原文选型原则。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "流式分批次发送无法解决上下文窗口超限问题。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-10-198-3": {
+    "qid": "new-10-198-3",
+    "classification": "own",
+    "chapter": 10,
+    "quality": "ok",
+    "reason": "考查百炼调用PAI-EAS私有模型的条件，属于平台组合应用场景。",
+    "answer": [
+      "A",
+      "B"
+    ],
+    "supported": true,
+    "quote": "百炼应用也可以调用部署在PAI-EAS上的私有模型",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "EAS服务需配置为OpenAI兼容API格式，百炼才能调用。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "需通过自定义API节点显式调用EAS地址，而非用内置选择器。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "EAS服务使用自身鉴权，无需与百炼共用同一套Key。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "EAS可部署第三方基座模型，原文未禁止。"
+      },
+      {
+        "label": "E",
+        "selected": false,
+        "why": "知识库Embedding服务可替换，非必须用DashScope。"
+      }
+    ],
+    "duplicate_of": "10-5192"
+  },
+  "new-10-198-4": {
+    "qid": "new-10-198-4",
+    "classification": "own",
+    "chapter": 10,
+    "quality": "ok",
+    "reason": "考查百炼知识库更新机制，故障原因与文档描述相符。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "知识库（RAG）内置文档解析、切片、向量化、检索，上传文档即可问答",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "题干未提及版本升级导致索引失效，故障是未触发向量化。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "未点击‘重新向量化’导致新文档未入库，是根本原因。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "向量空间兼容性问题非题干描述的根本原因。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "OSS权限变更非题干描述的故障原因。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-10-198-5": {
+    "qid": "new-10-198-5",
+    "classification": "own",
+    "chapter": 10,
+    "quality": "ok",
+    "reason": "考查百炼托管模式下的数据出域风险，符合平台数据控制议题。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "百炼平台托管模式下，所有文档内容需上送至阿里云服务器进行切片与向量化",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "外部OCR引擎非题干描述的根本风险来源。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "托管模式下文档需上送阿里云服务器，是数据出域的根本原因。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "向量化过程暴露文本是具体表现，非根本来源。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "TLS加密传输是传输安全，不解决数据上送的根本风险。"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

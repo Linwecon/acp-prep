@@ -1,0 +1,37 @@
+{
+  "new-7-84-0": {
+    "qid": "new-7-84-0",
+    "classification": "own",
+    "chapter": 7,
+    "quality": "ok",
+    "reason": "考查控制变量原则，需核查导致分数不可比的配置变化。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "回归评测的前提是除了待测改动，其他一切都冻结：评测集版本、评测脚本、推理参数（temperature、seed）、模型版本、甚至当评委的大模型版本都要固定。否则分数变化无法归因",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "评测集来源是构建要求，非控制变量核心。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "评委LLM参数变化直接影响Faithfulness等主观评分。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "ground_truth来源是构建要求，非两次评测间变量。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "Embedding模型影响检索，但Recall已升，非首要怀疑。"
+      }
+    ],
+    "duplicate_of": "7-5089"
+  }
+}

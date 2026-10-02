@@ -1,0 +1,215 @@
+{
+  "new-10-18-0": {
+    "qid": "new-10-18-0",
+    "classification": "own",
+    "chapter": 10,
+    "quality": "ok",
+    "reason": "考查百炼RAG知识库切片策略对检索效果的影响",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "文本切片策略与重叠机制",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "题干明确检索片段不含答案，应优先排查切片策略"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "Embedding模型切换非必要，且非题干核心问题"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "重排序模型接入非排查检索失败的必要条件"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "CORS策略与检索内容无关"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-10-18-1": {
+    "qid": "new-10-18-1",
+    "classification": "own",
+    "chapter": 10,
+    "quality": "ok",
+    "reason": "考查百炼集成RAG知识库的必要条件",
+    "answer": [
+      "A",
+      "C",
+      "D"
+    ],
+    "supported": true,
+    "quote": "百炼知识库（RAG）... 上传文档即可问答",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "文档需上传或关联OSS，是知识库基础"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "训练专用Embedding非百炼RAG必要条件"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "需调用DashScope的Embedding和LLM模型"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "API Key需具备百炼和DashScope访问权限"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-10-18-2": {
+    "qid": "new-10-18-2",
+    "classification": "own",
+    "chapter": 10,
+    "quality": "ok",
+    "reason": "考查百炼RAG知识库检索参数设置的影响",
+    "answer": [
+      "D"
+    ],
+    "supported": true,
+    "quote": "Top K召回-精确率权衡",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "题干未提及新文档，与增量更新无关"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "日志显示每次均触发Embedding，非缓存问题"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "题干未提429错误，且降级模式非根本原因"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "相似度阈值过高可能导致缓存命中后跳过检索"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-10-18-3": {
+    "qid": "new-10-18-3",
+    "classification": "own",
+    "chapter": 10,
+    "quality": "ok",
+    "reason": "考查百炼调用PAI-EAS自定义RAG服务的约束",
+    "answer": [
+      "A",
+      "B"
+    ],
+    "supported": true,
+    "quote": "百炼应用也可以调用部署在PAI-EAS上的私有模型",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "EAS服务接口需兼容OpenAI规范以便调用"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "需通过HTTP请求插件调用EAS服务地址"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "相同地域非必须，网络可达即可"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "关闭内置知识库非必须约束"
+      }
+    ],
+    "duplicate_of": "10-5192"
+  },
+  "new-10-18-4": {
+    "qid": "new-10-18-4",
+    "classification": "own",
+    "chapter": 10,
+    "quality": "ok",
+    "reason": "考查私有化部署RAG时向量维度匹配的必要条件",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "向量检索与余弦相似度",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "Embedding与LLM来自同一系列非必要"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "使用相同分词器非向量维度匹配的直接条件"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "向量数据库维度需与Embedding输出维度一致"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "版本号完全一致非维度匹配的必要条件"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-10-18-5": {
+    "qid": "new-10-18-5",
+    "classification": "own",
+    "chapter": 10,
+    "quality": "ok",
+    "reason": "考查高并发下DashScope API延迟激增的应对措施",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "遇 429 用指数退避 + 抖动重试，必要时降级到更小模型",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "缓存非立即应对措施，且题干未提内容重复"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "扩大切片粒度可能降低精度，非立即措施"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "申请提升TPM配额是应对限流延迟的直接措施"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "训练部署私有模型非立即应对措施"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

@@ -1,0 +1,212 @@
+{
+  "2-0208": {
+    "qid": "2-0208",
+    "classification": "own",
+    "chapter": 2,
+    "quality": "ok",
+    "reason": "考查分隔符使用风险，原文明确指出分隔符冲突问题，选项A直接对应原文警示。",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "如果提示词中已大量使用某种符号（如【】），就应换一种符号当分隔符",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "原文明确指出：'如果提示词中已大量使用某种符号（如【】），就应换一种符号当分隔符'，这是为防止分隔符冲突导致模型边界识别错乱。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "训练数据属于模型训练阶段，提示词设计不涉及增加训练数据。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "分隔符选择与推理时间无直接因果关系，原文未提及此关联。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "提示词设计不改变模型参数数量，这是微调或架构变更范畴。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "2-0211": {
+    "qid": "2-0211",
+    "classification": "own",
+    "chapter": 2,
+    "quality": "ok",
+    "reason": "考查样例要素作用，原文明确其通过上下文学习对齐格式与风格，选项A准确表述。",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "Few-shot 之所以有效，是因为示例让模型通过上下文学习对齐\"输出什么格式、什么口吻\"",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "原文明确说明：'Few-shot 之所以有效，是因为示例让模型通过上下文学习对齐\"输出什么格式、什么口吻\"'，即让模型参考具体案例进行模仿。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "提供背景信息是'上下文（Context）'要素的作用，非样例功能。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "定义角色是'角色（Role）'要素的作用，原文表格中明确区分。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "指定输出格式是'输出格式（Output Format）'要素的作用，原文表格中单独列出。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "2-0221": {
+    "qid": "2-0221",
+    "classification": "own",
+    "chapter": 2,
+    "quality": "ok",
+    "reason": "考查CoT核心价值，原文强调其提升复杂推理准确率，选项A最贴合本质描述。",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "CoT 为什么有效？它把原本要求模型\"一步到位\"的高难度概率判断，拆成多个低难度的小步骤",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "原文明确指出CoT将高难度概率判断拆解为低难度小步骤，从而'大幅降低中间推理失误的累积概率'，本质是提升复杂任务表现能力。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "CoT不涉及增加训练数据，属于推理时引导策略。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "CoT需显式输出中间步骤，实际会增加token消耗和推理时间，原文未提减少时间。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "提示词技巧不改变模型参数数量，这是模型架构或微调范畴。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "2-0230": {
+    "qid": "2-0230",
+    "classification": "own",
+    "chapter": 2,
+    "quality": "ok",
+    "reason": "考查意图识别中提示词的本质作用，所有干扰项均属模型训练/部署范畴，与提示工程无关。",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "提示工程（Prompt Engineering）：通过精心设计输入文本（提示词），引导大模型稳定生成符合预期输出的技术",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "原文开篇定义：'提示工程是通过精心设计输入文本（提示词），引导大模型稳定生成符合预期输出的技术'，意图识别正是该技术的具体应用场景。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "增加训练数据属于数据工程或蒸馏范畴，提示词不改变训练数据。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "提示词设计可能影响token长度但不直接减少推理时间，原文未建立此因果。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "参数数量由模型架构决定，提示词无法改变。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "2-0233": {
+    "qid": "2-0233",
+    "classification": "own",
+    "chapter": 2,
+    "quality": "ok",
+    "reason": "考查提示词模板核心价值，原文明确其预设固定规则+变量插值，选项A精准概括。",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "提示词模板的核心价值是预设固定信息（角色/规则/格式）+ 变量插值填充动态内容",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "原文明确指出：'提示词模板的核心价值是预设固定信息（角色/规则/格式）+ 变量插值填充动态内容'，即通过预设信息约束模型行为。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "模板不增加训练数据，仅组织运行时输入。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "模板本身不优化推理速度，可能因结构化反而增加解析开销。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "模板不改变模型参数，属于输入层设计。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "2-0275": {
+    "qid": "2-0275",
+    "classification": "own",
+    "chapter": 2,
+    "quality": "ok",
+    "reason": "考查分隔符形式多样性，原文列举多种符号且明确'常见形式有'，选项D正确覆盖。",
+    "answer": [
+      "D"
+    ],
+    "supported": true,
+    "quote": "常见形式有：三引号 \"\"\"...\"\"\"、XML 标签 <context>...</context>、Markdown 代码块、分隔线 ---/-----、方括号 【】、<< >>、### 等",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "原文明确将'方括号 【】'列为常见分隔符形式之一，[]属于方括号变体。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "原文明确将'XML 标签 <context>...</context>'列为常见分隔符形式。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "原文明确将'###'列为常见分隔符形式，##属于其子集。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "因A/B/C均被原文列为常见分隔符形式，'以上都可以'是正确结论。"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

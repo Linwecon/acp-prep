@@ -1,0 +1,210 @@
+{
+  "12-0075": {
+    "qid": "12-0075",
+    "classification": "own",
+    "chapter": 12,
+    "quality": "ok",
+    "reason": "考查LlamaIndex核心概念context_str定义",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "`{context_str}` 注入的是从向量库召回的资料，用户问题由 `{query_str}` 注入",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "原文明确说context_str是召回的资料"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "原文指出query_str才是用户问题"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "角色由system prompt定义"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "格式由output_parser控制"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "12-0229": {
+    "qid": "12-0229",
+    "classification": "own",
+    "chapter": 12,
+    "quality": "ok",
+    "reason": "考查LlamaIndex多轮对话能力",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "LlamaIndex 也提供 **ChatEngine**（RAG 场景下的多轮对话）",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "原文明确提到ChatEngine支持多轮对话"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "LlamaIndex不参与模型训练"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "未提及推理时间优化"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "索引不改变模型参数"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "12-0255": {
+    "qid": "12-0255",
+    "classification": "own",
+    "chapter": 12,
+    "quality": "ok",
+    "reason": "考查LlamaIndex建索引关键方法",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "`index = VectorStoreIndex.from_documents(documents, embed_model=...)`",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "Reader用于加载文档"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "原文代码显示此为建索引方法"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "as_query_engine生成查询引擎"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "persist用于持久化已建索引"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "12-0288": {
+    "qid": "12-0288",
+    "classification": "own",
+    "chapter": 12,
+    "quality": "ok",
+    "reason": "考查LlamaIndex核心概念query_str定义",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "`{context_str}` 注入的是从向量库召回的资料，用户问题由 `{query_str}` 注入",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "原文明确说query_str是用户问题"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "context_str才是召回资料"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "角色由system prompt定义"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "格式由output_parser控制"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "12-0456": {
+    "qid": "12-0456",
+    "classification": "own",
+    "chapter": 12,
+    "quality": "ok",
+    "reason": "考查LlamaIndex默认数据存储方式",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "`VectorStoreIndex.from_documents(...)` 把文档转为向量索引",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "未提云服务存储"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "向量索引本质是内存中向量嵌入"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "未提直接写数据库"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "持久化需显式调用persist"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "12-0755": {
+    "qid": "12-0755",
+    "classification": "misplaced",
+    "chapter": 12,
+    "quality": "remove",
+    "reason": "难度控制属提示工程范畴，非框架工具考点",
+    "answer": [],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "随机生成无系统性"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "布鲁姆分类法属提示工程知识"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "要求简单属提示词技巧"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "人工编写非框架工具题"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

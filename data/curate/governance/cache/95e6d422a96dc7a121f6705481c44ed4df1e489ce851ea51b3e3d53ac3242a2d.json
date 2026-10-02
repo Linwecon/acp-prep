@@ -1,0 +1,154 @@
+{
+  "items": [
+    {
+      "type": 0,
+      "stem": "某教育公司新人答疑机器人初期仅需单轮问答，两周后需支持RAG知识库、多轮对话、调用三个内部系统、人工评测及前端API接入。此时代码迅速膨胀至数百行，出现大量手动拼接messages、重复检索逻辑和历史维护混乱。该现象最直接印证了本章强调的哪一核心观点？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "框架能提升大模型本身的推理能力，解决模型智力瓶颈"
+        },
+        {
+          "option_label": "B",
+          "option_text": "裸调SDK在任何阶段都优于框架，因更轻量可控"
+        },
+        {
+          "option_label": "C",
+          "option_text": "框架的价值在于将反复出现的工程模式抽象为可组合组件，降低拼装复杂度"
+        },
+        {
+          "option_label": "D",
+          "option_text": "应优先引入LangChain Agent而非LlamaIndex，因其Agent抽象更成熟"
+        }
+      ],
+      "answer": "C",
+      "analysis": "题干描述的‘从十几行到数百行’‘手动拼接messages’‘重复写检索逻辑’正是12.1节‘共性脏活’的典型场景（多轮对话历史、文档加载切片检索、多步骤编排），而原文明确指出：‘框架的本质价值是把大模型应用中反复出现的工程模式抽象成可组合的组件’，并列举了Memory、Retriever、Chain等对应抽象。A错误——原文多次强调‘框架不提升模型本身的智力’（12.1、12.8）；B错误——原文明确‘简单脚本直接用SDK更合适’，但题干已进入复杂阶段，裸调反而低效（12.1、12.8）；D错误——选型应看需求，此处RAG是首要新增需求，LlamaIndex才是更直接匹配项，且题干未涉及Agent必要性（12.4、12.8）。",
+      "difficulty_label": "基础"
+    },
+    {
+      "type": 0,
+      "stem": "在构建新人答疑机器人时，团队发现使用LlamaIndex的QueryEngine返回答案质量尚可，但当用户追问‘刚才说的年假天数依据哪条制度？’时，系统无法关联原始文档出处。经排查，其QueryEngine初始化代码为：index.as_query_engine(streaming=True, llm=...)。为支持溯源，最符合本章最佳实践的修改方式是？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "改用ChatEngine替代QueryEngine，并启用memory参数"
+        },
+        {
+          "option_label": "B",
+          "option_text": "在QueryEngine中设置response_mode='tree_summarize'以增强摘要能力"
+        },
+        {
+          "option_label": "C",
+          "option_text": "配置QueryEngine的response_synthesizer，使其返回包含source_nodes的响应对象"
+        },
+        {
+          "option_label": "D",
+          "option_text": "将LlamaIndex替换为LangChain的RetrievalQA链，因其内置source追踪"
+        }
+      ],
+      "answer": "C",
+      "analysis": "题干核心问题是‘无法关联原始文档出处’，即缺失溯源（source attribution）。根据12.3节，QueryEngine由Retriever + ResponseSynthesizer组成，而ResponseSynthesizer控制响应生成方式；原文明确指出‘QueryEngine默认返回Response对象，其中source_nodes字段即为召回的Node列表’，且课程`rag.py`示例虽未显式展示，但12.3节‘高频考点细节’及12.7节RAGAS评估均隐含对source_nodes的依赖。C选项直指ResponseSynthesizer配置，符合‘最小侵入式修改’原则。A错误——ChatEngine用于多轮对话，不解决单次查询的溯源问题（12.3）；B错误——tree_summarize用于长文档摘要，与溯源无关（LlamaIndex文档）；D错误——LangChain RetrievalQA无原生source_nodes结构，且本章强调‘二者可组合而非替代’，强行替换违反‘各司其职’原则（12.4）。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 1,
+      "stem": "某团队需为扫描件合同PDF构建高精度RAG问答系统，要求准确回答‘甲方违约金比例’等数值类问题。在文档解析阶段，以下哪些操作符合本章12.5节‘文档解析工具链’的最佳实践？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "使用SimpleDirectoryReader直接加载PDF，因其支持PDF格式"
+        },
+        {
+          "option_label": "B",
+          "option_text": "选用DashScopeParse进行OCR与版面分析，输出结构化Markdown"
+        },
+        {
+          "option_label": "C",
+          "option_text": "将解析结果存为保留标题层级和表格行列结构的Markdown"
+        },
+        {
+          "option_label": "D",
+          "option_text": "在NodeParser中启用SentenceWindowNodeParser，以增强上下文连贯性"
+        }
+      ],
+      "answer": "BC",
+      "analysis": "题干关键约束是‘扫描件合同PDF’‘数值类问题总答错’，这直接对应12.5节‘场景题’考点：‘合同/报表中的数值类问题总答错→病根往往是解析阶段表格被打散成纯文本’，且明确建议‘扫描件→上DashScopeParse（OCR+版面结构化）’。B正确——DashScopeParse专为扫描件设计，提供OCR与表格识别（12.5）；C正确——原文强调‘无论用哪种，都要把解析结果存为结构化Markdown：保留标题层级和表格行列结构’，这是后续切片与检索利用语义边界的前提（12.5）。A错误——SimpleDirectoryReader对扫描件‘读出来是空的’，因无文字层（12.5）；D错误——SentenceWindowNodeParser属于切片环节（12.3），题干问的是‘文档解析阶段’，且其作用是窗口上下文增强，非解决扫描件解析问题（12.3、12.5）。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 0,
+      "stem": "在将新人答疑机器人升级为多Agent协作系统时，团队需实现‘HR Agent负责解读制度、IT Agent负责查系统状态、Leader Agent协调任务分发与结果整合’。该需求最凸显AgentScope相较于LangChain/LangGraph的核心差异化优势是？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "提供更丰富的向量索引类型（如树索引、知识图谱索引）"
+        },
+        {
+          "option_text": "内置DashScopeEmbedding等百炼专属模型适配器",
+          "option_label": "B"
+        },
+        {
+          "option_label": "C",
+          "option_text": "将Agent间消息通信、广播与协作模式（如Blackboard）作为一等公民抽象"
+        },
+        {
+          "option_label": "D",
+          "option_text": "支持通过LCEL管道符（|）声明式编排多步Agent工作流"
+        }
+      ],
+      "answer": "C",
+      "analysis": "题干明确要求‘HR Agent、IT Agent、Leader Agent’三者‘协调任务分发与结果整合’，即多角色间的协同与通信。12.6.1节指出AgentScope定位是‘让开发者用Python代码构建可协同、可分布式、可观测的多Agent系统’，并强调其核心抽象包括‘Msg / MsgHub’和‘两种多Agent协作模式：分层规划（Leader-Worker）和共创协作（Blackboard）’，且‘这正是AgentScope相对于LangChain的差异点：它把多Agent之间如何说话、由谁发言、消息怎么广播做成了一等公民’。C选项精准复述此定义。A错误——向量索引是LlamaIndex强项（12.3）；B错误——模型适配器是通用能力，非AgentScope独有（12.6.1）；D错误——LCEL是LangChain特性，AgentScope不使用该语法（12.2、12.6.1）。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 1,
+      "stem": "某业务部门希望自助搭建一个制度问答机器人，IT仅提供百炼API Key，要求HR可自行上传/更新PDF文档、无需写代码、支持内部试用。在技术栈选型时，以下哪些组合符合本章12.6.2节对Dify的定位与12.8节选型表的推荐？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "Dify平台 + DashScopeParse（通过Dify内置或自定义插件启用）"
+        },
+        {
+          "option_label": "B",
+          "option_text": "LangChain + LlamaIndex + Gradio，由IT编写完整代码并部署"
+        },
+        {
+          "option_label": "C",
+          "option_text": "Dify平台 + SimpleDirectoryReader（Dify默认解析器）"
+        },
+        {
+          "option_label": "D",
+          "option_text": "AgentScope + FastAPI，由IT开发多Agent服务并暴露API"
+        }
+      ],
+      "answer": "AC",
+      "analysis": "题干核心需求：‘HR自助’‘无需写代码’‘IT只提供API Key’，这完全匹配12.6.2节对Dify的定义：‘面向少写代码甚至不写代码的搭建体验，让产品、运营和业务人员也能参与’，以及12.8节选型表‘业务/运营同学自助搭建、内部工具 → Dify’。A正确——Dify是平台，DashScopeParse可作为其文档解析能力（12.5、12.6.2）；C正确——SimpleDirectoryReader是Dify默认支持的解析器，适用于可编辑PDF（12.5、12.6.2）。B错误——LangChain+LlamaIndex+Gradio需IT编写代码，违背‘HR自助’（12.6.2）；D错误——AgentScope是代码框架，需开发，且FastAPI是服务层，非自助平台（12.6.1、12.7.3）。",
+      "difficulty_label": "基础"
+    },
+    {
+      "type": 0,
+      "stem": "在对新人答疑机器人进行RAG效果评测时，团队使用RAGAS计算context_recall指标。该指标的分数高低主要反映以下哪个环节的质量？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "LLM生成的答案是否忠实于检索到的上下文"
+        },
+        {
+          "option_label": "B",
+          "option_text": "检索系统能否从全部相关文档中召回足够多的相关片段"
+        },
+        {
+          "option_label": "C",
+          "option_text": "最终答案是否与人工标注的标准答案一致"
+        },
+        {
+          "option_label": "D",
+          "option_text": "提示词模板中{query_str}与{context_str}的注入逻辑是否正确"
+        }
+      ],
+      "answer": "B",
+      "analysis": "题干考查RAGAS指标的定位。12.7.1节明确RAGAS是‘评测框架’，‘用大模型当评委，对检索端（Context Precision/Recall）和生成端（Faithfulness/Answer Correctness）分别打分’，并列出metrics=[answer_correctness, context_recall, context_precision]。其中context_recall（上下文召回率）定义为‘检索出的相关上下文数量 / 全部相关上下文总数’，直接衡量检索端覆盖度。B选项准确描述此含义。A错误——对应faithfulness（忠实性）（12.7.1）；C错误——对应answer_correctness（答案正确性）（12.7.1）；D错误——{query_str}/{context_str}注入是LlamaIndex提示词模板实现细节，影响生成质量，但非context_recall的评测目标（12.3、12.7.1）。",
+      "difficulty_label": "基础"
+    }
+  ]
+}

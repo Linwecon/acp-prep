@@ -1,0 +1,2858 @@
+[
+  {
+    "qid": "1-0080",
+    "chapter": 1,
+    "fingerprint": "deb96db1a65fab130c5d7ffc65a4f4a5",
+    "action": "move",
+    "reason": "目标章原文下两模型独立解题与归属复核一致：考查提示词任务定义，A是直接任务描述，其余混淆提示工程与模型训练 / 考查提示词任务目标的理解，选项区分度好。",
+    "first": {
+      "qid": "1-0080",
+      "classification": "own",
+      "chapter": 2,
+      "quality": "ok",
+      "reason": "考查提示词任务定义，A是直接任务描述，其余混淆提示工程与模型训练",
+      "answer": [
+        "A"
+      ],
+      "supported": true,
+      "quote": "提示工程（Prompt Engineering）：通过精心设计输入文本（提示词），引导大模型稳定生成符合预期输出的技术。",
+      "per_option": [
+        {
+          "label": "A",
+          "selected": true,
+          "why": "直接对应文本扩写润色任务"
+        },
+        {
+          "label": "B",
+          "selected": false,
+          "why": "属数据工程，非提示词作用"
+        },
+        {
+          "label": "C",
+          "selected": false,
+          "why": "推理时间由部署优化，非提示词控制"
+        },
+        {
+          "label": "D",
+          "selected": false,
+          "why": "参数数量由模型架构决定"
+        }
+      ],
+      "duplicate_of": "",
+      "quote_exact": true
+    },
+    "second": {
+      "qid": "1-0080",
+      "classification": "own",
+      "chapter": 2,
+      "quality": "ok",
+      "reason": "考查提示词任务目标的理解，选项区分度好。",
+      "answer": [
+        "A"
+      ],
+      "supported": true,
+      "quote": "提示工程（Prompt Engineering）：通过精心设计输入文本（提示词），引导大模型稳定生成符合预期输出的技术。",
+      "per_option": [
+        {
+          "label": "A",
+          "selected": true,
+          "why": "文本扩写和润色是提示词典型任务。"
+        },
+        {
+          "label": "B",
+          "selected": false,
+          "why": "增加训练数据与提示词无关。"
+        },
+        {
+          "label": "C",
+          "selected": false,
+          "why": "减少推理时间非提示词主要目标。"
+        },
+        {
+          "label": "D",
+          "selected": false,
+          "why": "增加参数数量非提示词功能。"
+        }
+      ],
+      "duplicate_of": "",
+      "quote_exact": true
+    },
+    "answer_correction": false
+  },
+  {
+    "qid": "1-0177",
+    "chapter": 1,
+    "fingerprint": "4ab45c4efbdd3019afae7d1d719e9687",
+    "action": "move",
+    "reason": "目标章原文下两模型独立解题与归属复核一致：考查分隔符核心作用，A准确对应原文结构化与防注入功能 / 考查分隔符核心作用，选项干扰项明显。",
+    "first": {
+      "qid": "1-0177",
+      "classification": "own",
+      "chapter": 2,
+      "quality": "ok",
+      "reason": "考查分隔符核心作用，A准确对应原文结构化与防注入功能",
+      "answer": [
+        "A"
+      ],
+      "supported": true,
+      "quote": "分隔符（Delimiters）是用特殊符号或标签，把提示词中不同部分（指令、上下文、样例、待处理内容）显式切分开的写法。",
+      "per_option": [
+        {
+          "label": "A",
+          "selected": true,
+          "why": "原文明确结构化与防注入作用"
+        },
+        {
+          "label": "B",
+          "selected": false,
+          "why": "训练数据需重新训练，非提示词功能"
+        },
+        {
+          "label": "C",
+          "selected": false,
+          "why": "推理时间由硬件/量化决定"
+        },
+        {
+          "label": "D",
+          "selected": false,
+          "why": "参数数量由模型架构固定"
+        }
+      ],
+      "duplicate_of": "",
+      "quote_exact": true
+    },
+    "second": {
+      "qid": "1-0177",
+      "classification": "own",
+      "chapter": 2,
+      "quality": "ok",
+      "reason": "考查分隔符核心作用，选项干扰项明显。",
+      "answer": [
+        "A"
+      ],
+      "supported": true,
+      "quote": "分隔符（Delimiters）是用特殊符号或标签，把提示词中不同部分（指令、上下文、样例、待处理内容）显式切分开的写法。",
+      "per_option": [
+        {
+          "label": "A",
+          "selected": true,
+          "why": "分隔符使模型抓住目标，减少处理不必要信息。"
+        },
+        {
+          "label": "B",
+          "selected": false,
+          "why": "分隔符不增加训练数据。"
+        },
+        {
+          "label": "C",
+          "selected": false,
+          "why": "分隔符不直接减少推理时间。"
+        },
+        {
+          "label": "D",
+          "selected": false,
+          "why": "分隔符不增加模型参数。"
+        }
+      ],
+      "duplicate_of": "",
+      "quote_exact": true
+    },
+    "answer_correction": false
+  },
+  {
+    "qid": "1-0186",
+    "chapter": 1,
+    "fingerprint": "d00bb5776825d9e9937ee297970db8e5",
+    "action": "move",
+    "reason": "目标章原文下两模型独立解题与归属复核一致：考察RAGAS evaluate函数作用，原文明确其为评测核心函数 / 题目考查对评测函数核心作用的理解，符合本章主题。",
+    "first": {
+      "qid": "1-0186",
+      "classification": "own",
+      "chapter": 7,
+      "quality": "ok",
+      "reason": "考察RAGAS evaluate函数作用，原文明确其为评测核心函数",
+      "answer": [
+        "A"
+      ],
+      "supported": true,
+      "quote": "from ragas import evaluate",
+      "per_option": [
+        {
+          "label": "A",
+          "selected": true,
+          "why": "evaluate是RAGAS评测核心函数"
+        },
+        {
+          "label": "B",
+          "selected": false,
+          "why": "与训练数据无关"
+        },
+        {
+          "label": "C",
+          "selected": false,
+          "why": "不涉及推理时间优化"
+        },
+        {
+          "label": "D",
+          "selected": false,
+          "why": "不改变模型参数"
+        }
+      ],
+      "duplicate_of": "",
+      "quote_exact": true
+    },
+    "second": {
+      "qid": "1-0186",
+      "classification": "own",
+      "chapter": 7,
+      "quality": "ok",
+      "reason": "题目考查对评测函数核心作用的理解，符合本章主题。",
+      "answer": [
+        "A"
+      ],
+      "supported": true,
+      "quote": "自动化评估的核心是‘让机器批量阅卷’：用固定的评测集运行待测系统，收集输出，再用规则或大模型逐项打分。",
+      "per_option": [
+        {
+          "label": "A",
+          "selected": true,
+          "why": "evaluate函数用于自动化评估，核心是评估答案质量。"
+        },
+        {
+          "label": "B",
+          "selected": false,
+          "why": "评测不增加训练数据。"
+        },
+        {
+          "label": "C",
+          "selected": false,
+          "why": "评测不减少推理时间。"
+        },
+        {
+          "label": "D",
+          "selected": false,
+          "why": "评测不增加模型参数。"
+        }
+      ],
+      "duplicate_of": "",
+      "quote_exact": true
+    },
+    "answer_correction": false
+  },
+  {
+    "qid": "1-0457",
+    "chapter": 1,
+    "fingerprint": "988e6b15d1a045b5bda1a62204882951",
+    "action": "move",
+    "reason": "目标章原文下两模型独立解题与归属复核一致：考查微调核心优势，原文明确其复用预训练知识降低成本 / 考查微调相对于预训练的核心优势，考点明确。",
+    "first": {
+      "qid": "1-0457",
+      "classification": "own",
+      "chapter": 5,
+      "quality": "ok",
+      "reason": "考查微调核心优势，原文明确其复用预训练知识降低成本",
+      "answer": [
+        "C"
+      ],
+      "supported": true,
+      "quote": "微调之所以成本可控、收敛快，是因为模型底层的语言规律已经学到了，微调主要调整的是上层行为。",
+      "per_option": [
+        {
+          "label": "A",
+          "selected": false,
+          "why": "微调成本低于预训练，原文称'成本可控、收敛快'"
+        },
+        {
+          "label": "B",
+          "selected": false,
+          "why": "训练时间短，原文称'收敛快'"
+        },
+        {
+          "label": "C",
+          "selected": true,
+          "why": "原文明确'复用预训练知识，降低训练成本'"
+        },
+        {
+          "label": "D",
+          "selected": false,
+          "why": "'所有任务'绝对化，微调仅适配特定行为"
+        }
+      ],
+      "duplicate_of": "",
+      "quote_exact": true
+    },
+    "second": {
+      "qid": "1-0457",
+      "classification": "own",
+      "chapter": 5,
+      "quality": "ok",
+      "reason": "考查微调相对于预训练的核心优势，考点明确。",
+      "answer": [
+        "C"
+      ],
+      "supported": true,
+      "quote": "微调之所以成本可控、收敛快，是因为模型底层的语言规律已经学到了",
+      "per_option": [
+        {
+          "label": "A",
+          "selected": false,
+          "why": "错误。微调成本低于预训练。"
+        },
+        {
+          "label": "B",
+          "selected": false,
+          "why": "错误。微调训练时间通常更短。"
+        },
+        {
+          "label": "C",
+          "selected": true,
+          "why": "正确。微调复用预训练学到的通用知识。"
+        },
+        {
+          "label": "D",
+          "selected": false,
+          "why": "错误。微调主要适配特定任务行为。"
+        }
+      ],
+      "duplicate_of": "",
+      "quote_exact": true
+    },
+    "answer_correction": false
+  },
+  {
+    "qid": "1-1052",
+    "chapter": 1,
+    "fingerprint": "b6183b001507b22be163a151ecda3555",
+    "action": "move",
+    "reason": "目标章原文下两模型独立解题与归属复核一致：考查微调本质优势，原文强调复用预训练知识 / 考查微调相比从头训练的主要优势，与1-0457考点相同。",
+    "first": {
+      "qid": "1-1052",
+      "classification": "own",
+      "chapter": 5,
+      "quality": "ok",
+      "reason": "考查微调本质优势，原文强调复用预训练知识",
+      "answer": [
+        "B"
+      ],
+      "supported": true,
+      "quote": "微调之所以成本可控、收敛快，是因为模型底层的语言规律已经学到了，微调主要调整的是上层行为。",
+      "per_option": [
+        {
+          "label": "A",
+          "selected": false,
+          "why": "训练时间更短，原文称'收敛快'"
+        },
+        {
+          "label": "B",
+          "selected": true,
+          "why": "原文明确'复用预训练学到的通用知识'"
+        },
+        {
+          "label": "C",
+          "selected": false,
+          "why": "计算资源更少，原文称'成本可控'"
+        },
+        {
+          "label": "D",
+          "selected": false,
+          "why": "表现更好，原文称'更稳定、更贴合业务'"
+        }
+      ],
+      "duplicate_of": "",
+      "quote_exact": true
+    },
+    "second": {
+      "qid": "1-1052",
+      "classification": "own",
+      "chapter": 5,
+      "quality": "ok",
+      "reason": "考查微调相比从头训练的主要优势，与1-0457考点相同。",
+      "answer": [
+        "B"
+      ],
+      "supported": true,
+      "quote": "微调之所以成本可控、收敛快，是因为模型底层的语言规律已经学到了",
+      "per_option": [
+        {
+          "label": "A",
+          "selected": false,
+          "why": "错误。微调训练时间更短。"
+        },
+        {
+          "label": "B",
+          "selected": true,
+          "why": "正确。微调利用预训练学到的通用知识。"
+        },
+        {
+          "label": "C",
+          "selected": false,
+          "why": "错误。微调需要更少计算资源。"
+        },
+        {
+          "label": "D",
+          "selected": false,
+          "why": "错误。微调通常能提升特定任务表现。"
+        }
+      ],
+      "duplicate_of": "1-0457",
+      "quote_exact": true
+    },
+    "answer_correction": false
+  },
+  {
+    "qid": "1-1048",
+    "chapter": 1,
+    "fingerprint": "bf7b004867e59e1a19bd7dd109838073",
+    "action": "move",
+    "reason": "目标章原文下两模型独立解题与归属复核一致：考查训练循环基础步骤，损失计算在正向传播后 / 考查训练循环中计算输出与标签差异的步骤。",
+    "first": {
+      "qid": "1-1048",
+      "classification": "own",
+      "chapter": 5,
+      "quality": "ok",
+      "reason": "考查训练循环基础步骤，损失计算在正向传播后",
+      "answer": [
+        "D"
+      ],
+      "supported": true,
+      "quote": "训练循环仍是那四步：前向传播算出预测 → 对比标准答案算损失 → 反向传播求梯度 → 优化器更新参数。",
+      "per_option": [
+        {
+          "label": "A",
+          "selected": false,
+          "why": "梯度更新是参数调整步骤"
+        },
+        {
+          "label": "B",
+          "selected": false,
+          "why": "参数初始化在训练开始前完成"
+        },
+        {
+          "label": "C",
+          "selected": false,
+          "why": "反向传播计算梯度，非损失值"
+        },
+        {
+          "label": "D",
+          "selected": true,
+          "why": "正向传播输出预测，用于算损失"
+        }
+      ],
+      "duplicate_of": "",
+      "quote_exact": true
+    },
+    "second": {
+      "qid": "1-1048",
+      "classification": "own",
+      "chapter": 5,
+      "quality": "ok",
+      "reason": "考查训练循环中计算输出与标签差异的步骤。",
+      "answer": [
+        "D"
+      ],
+      "supported": true,
+      "quote": "训练循环仍是那四步：前向传播算出预测 → 对比标准答案算损失",
+      "per_option": [
+        {
+          "label": "A",
+          "selected": false,
+          "why": "错误。梯度更新是优化参数。"
+        },
+        {
+          "label": "B",
+          "selected": false,
+          "why": "错误。参数初始化在训练开始前。"
+        },
+        {
+          "label": "C",
+          "selected": false,
+          "why": "错误。反向传播是计算梯度。"
+        },
+        {
+          "label": "D",
+          "selected": true,
+          "why": "正确。正向传播计算模型输出。"
+        }
+      ],
+      "duplicate_of": "",
+      "quote_exact": true
+    },
+    "answer_correction": false
+  },
+  {
+    "qid": "1-1113",
+    "chapter": 1,
+    "fingerprint": "e82fb3e036ff5156e023d0389c16fd7e",
+    "action": "remove",
+    "reason": "题目为经典数学逻辑题（蜗牛爬井），与大模型基础无关；无任何LLM特性、机制、边界或工作流程考查点；纯数学推理，不涉及概率生成、token、上下文窗口、temperature等本章知识。 / 题干是经典数学题，但选项均为对模型的要求，而非具体答案。选项与题干逻辑脱节，考查意图不明，无实际考查价值。",
+    "first": {
+      "qid": "1-1113",
+      "classification": "beyond",
+      "chapter": 1,
+      "quality": "remove",
+      "reason": "题目为经典数学逻辑题（蜗牛爬井），与大模型基础无关；无任何LLM特性、机制、边界或工作流程考查点；纯数学推理，不涉及概率生成、token、上下文窗口、temperature等本章知识。",
+      "answer": [],
+      "supported": false,
+      "quote": "",
+      "per_option": [
+        {
+          "label": "A",
+          "selected": false,
+          "why": "平均速度法是数学解法，非LLM能力考查；本章未提及'平均速度计算'作为提示策略或模型能力。"
+        },
+        {
+          "label": "B",
+          "selected": false,
+          "why": "CoT（思维链）属第2章提示工程内容，非本章考点；原文未将'解释逻辑推导'列为大模型基础能力或边界。"
+        },
+        {
+          "label": "C",
+          "selected": false,
+          "why": "直接输出结果属通用行为，不体现本章任何核心概念（如自回归、采样、无状态等）。"
+        },
+        {
+          "label": "D",
+          "selected": false,
+          "why": "'陷阱'为数学题干扰项，本章无'陷阱解答'定义；幻觉/知识截止等边界不通过此类题型考查。"
+        }
+      ],
+      "duplicate_of": "",
+      "quote_exact": false
+    },
+    "second": {
+      "qid": "1-1113",
+      "classification": "misplaced",
+      "chapter": 1,
+      "quality": "remove",
+      "reason": "题干是经典数学题，但选项均为对模型的要求，而非具体答案。选项与题干逻辑脱节，考查意图不明，无实际考查价值。",
+      "answer": [],
+      "supported": false,
+      "quote": "",
+      "per_option": [
+        {
+          "label": "A",
+          "selected": false,
+          "why": "选项是要求，不是答案，且与题干逻辑脱节。"
+        },
+        {
+          "label": "B",
+          "selected": false,
+          "why": "选项是要求，不是答案，且与题干逻辑脱节。"
+        },
+        {
+          "label": "C",
+          "selected": false,
+          "why": "选项是要求，不是答案，且与题干逻辑脱节。"
+        },
+        {
+          "label": "D",
+          "selected": false,
+          "why": "选项是要求，不是答案，且与题干逻辑脱节。"
+        }
+      ],
+      "duplicate_of": "",
+      "quote_exact": false
+    },
+    "answer_correction": false
+  },
+  {
+    "qid": "1-0818",
+    "chapter": 1,
+    "fingerprint": "8773002f055aaea071194a573e1cbe1b",
+    "action": "move",
+    "reason": "目标章原文下两模型独立解题与归属复核一致：考查结构化输出的工程实践，原文明确要求'结构化输出+Schema校验' / 考查结构化输出与工程化实践，符合提示工程章节知识。",
+    "first": {
+      "qid": "1-0818",
+      "classification": "own",
+      "chapter": 2,
+      "quality": "ok",
+      "reason": "考查结构化输出的工程实践，原文明确要求'结构化输出+Schema校验'",
+      "answer": [
+        "B"
+      ],
+      "supported": true,
+      "quote": "下游程序要解析模型输出 → 用结构化输出（JSON Mode）+ 枚举约束 + Schema 校验",
+      "per_option": [
+        {
+          "label": "A",
+          "selected": false,
+          "why": "仅要求不保证可解析"
+        },
+        {
+          "label": "B",
+          "selected": true,
+          "why": "强制解析是可靠手段"
+        },
+        {
+          "label": "C",
+          "selected": false,
+          "why": "模型会出错不可信"
+        },
+        {
+          "label": "D",
+          "selected": false,
+          "why": "XML非本题目标格式"
+        }
+      ],
+      "duplicate_of": "",
+      "quote_exact": true
+    },
+    "second": {
+      "qid": "1-0818",
+      "classification": "own",
+      "chapter": 2,
+      "quality": "ok",
+      "reason": "考查结构化输出与工程化实践，符合提示工程章节知识。",
+      "answer": [
+        "B"
+      ],
+      "supported": true,
+      "quote": "结构化输出要在提示词里写清字段和取值，并**在程序端做 JSON 解析容错**（模型偶尔会输出多余文字或格式偏差）",
+      "per_option": [
+        {
+          "label": "A",
+          "selected": false,
+          "why": "仅要求不够可靠，模型可能输出非标准JSON。"
+        },
+        {
+          "label": "B",
+          "selected": true,
+          "why": "使用库强制解析是工程化可靠做法。"
+        },
+        {
+          "label": "C",
+          "selected": false,
+          "why": "模型输出可能包含非JSON内容。"
+        },
+        {
+          "label": "D",
+          "selected": false,
+          "why": "与题干要求的JSON格式不符。"
+        }
+      ],
+      "duplicate_of": "",
+      "quote_exact": true
+    },
+    "answer_correction": false
+  },
+  {
+    "qid": "1-1037",
+    "chapter": 1,
+    "fingerprint": "35f214252a78085039a5a853604f0db5",
+    "action": "move",
+    "reason": "目标章原文下两模型独立解题与归属复核一致：考查训练循环必要步骤，正向传播和反向传播必含 / 考查训练循环的核心必要步骤。",
+    "first": {
+      "qid": "1-1037",
+      "classification": "own",
+      "chapter": 5,
+      "quality": "ok",
+      "reason": "考查训练循环必要步骤，正向传播和反向传播必含",
+      "answer": [
+        "C",
+        "D",
+        "F"
+      ],
+      "supported": true,
+      "quote": "训练循环仍是那四步：前向传播算出预测 → 对比标准答案算损失 → 反向传播求梯度 → 优化器更新参数。",
+      "per_option": [
+        {
+          "label": "A",
+          "selected": false,
+          "why": "梯度裁剪是可选防爆梯度手段"
+        },
+        {
+          "label": "B",
+          "selected": false,
+          "why": "模型保存非训练循环必需步骤"
+        },
+        {
+          "label": "C",
+          "selected": true,
+          "why": "正向传播是循环第一步"
+        },
+        {
+          "label": "D",
+          "selected": true,
+          "why": "反向传播是循环第二步"
+        },
+        {
+          "label": "E",
+          "selected": false,
+          "why": "超参调整在训练前完成"
+        },
+        {
+          "label": "F",
+          "selected": true,
+          "why": "梯度更新即优化器更新参数"
+        }
+      ],
+      "duplicate_of": "",
+      "quote_exact": true
+    },
+    "second": {
+      "qid": "1-1037",
+      "classification": "own",
+      "chapter": 5,
+      "quality": "ok",
+      "reason": "考查训练循环的核心必要步骤。",
+      "answer": [
+        "C",
+        "D",
+        "F"
+      ],
+      "supported": true,
+      "quote": "训练循环仍是那四步：前向传播算出预测 → 对比标准答案算损失 → 反向传播求梯度 → 优化器更新参数",
+      "per_option": [
+        {
+          "label": "A",
+          "selected": false,
+          "why": "错误。梯度裁剪不是必须步骤。"
+        },
+        {
+          "label": "B",
+          "selected": false,
+          "why": "错误。模型保存不是训练循环必须步骤。"
+        },
+        {
+          "label": "C",
+          "selected": true,
+          "why": "正确。正向传播是必须步骤。"
+        },
+        {
+          "label": "D",
+          "selected": true,
+          "why": "正确。反向传播是必须步骤。"
+        },
+        {
+          "label": "E",
+          "selected": false,
+          "why": "错误。超参数调整不是训练循环内步骤。"
+        },
+        {
+          "label": "F",
+          "selected": true,
+          "why": "正确。梯度更新是必须步骤。"
+        }
+      ],
+      "duplicate_of": "",
+      "quote_exact": true
+    },
+    "answer_correction": false
+  },
+  {
+    "qid": "1-1471",
+    "chapter": 1,
+    "fingerprint": "0cf25bac2b1e75cc2a0397b126d2b3ac",
+    "action": "move",
+    "reason": "目标章原文下两模型独立解题与归属复核一致：考查文档解析中语义完整性，B选项破坏标题结构，原文明确要求保留结构。 / 题目考查文本切片策略对语义独立性与完整性的影响，属于RAG核心知识点。",
+    "first": {
+      "qid": "1-1471",
+      "classification": "own",
+      "chapter": 3,
+      "quality": "ok",
+      "reason": "考查文档解析中语义完整性，B选项破坏标题结构，原文明确要求保留结构。",
+      "answer": [
+        "B"
+      ],
+      "supported": true,
+      "quote": "解析阶段丢失的结构，后面用再复杂的算法也补不回来。",
+      "per_option": [
+        {
+          "label": "A",
+          "selected": false,
+          "why": "不同数据类型需差异化处理，符合结构保留原则"
+        },
+        {
+          "label": "B",
+          "selected": true,
+          "why": "合并标题下文本会破坏语义边界"
+        },
+        {
+          "label": "C",
+          "selected": false,
+          "why": "扩写表格字段可增强语义完整性"
+        },
+        {
+          "label": "D",
+          "selected": false,
+          "why": "清晰边界和完整上下文是基本要求"
+        }
+      ],
+      "duplicate_of": "",
+      "quote_exact": true
+    },
+    "second": {
+      "qid": "1-1471",
+      "classification": "own",
+      "chapter": 3,
+      "quality": "ok",
+      "reason": "题目考查文本切片策略对语义独立性与完整性的影响，属于RAG核心知识点。",
+      "answer": [
+        "B"
+      ],
+      "supported": true,
+      "quote": "文本切片（Chunking）是把解析后的长文档，切成若干长度合适、语义相对完整的小文本块。切出来的每个 chunk 就是后续向量化和检索的基本单位。",
+      "per_option": [
+        {
+          "label": "A",
+          "selected": false,
+          "why": "对不同数据类型采用不同处理方式有助于保留结构，符合语义独立完整原则。"
+        },
+        {
+          "label": "B",
+          "selected": true,
+          "why": "合并标题下所有文本会破坏语义单元边界，导致信息混杂，不符合要求。"
+        },
+        {
+          "label": "C",
+          "selected": false,
+          "why": "为表格数据扩写标题和字段说明，能增强上下文完整性，符合要求。"
+        },
+        {
+          "label": "D",
+          "selected": false,
+          "why": "确保语义单元边界清晰和上下文完整，是切片策略的核心目标。"
+        }
+      ],
+      "duplicate_of": "",
+      "quote_exact": true
+    },
+    "answer_correction": false
+  },
+  {
+    "qid": "1-0632",
+    "chapter": 1,
+    "fingerprint": "06d179d91f1b248c5ed7c36c5029e4e5",
+    "action": "remove",
+    "reason": "abstract_generator函数未在原文第1章出现，所有选项均假设存在该函数并讨论其实现细节（TextRank/JSON输出/字数限制），而原文第1章知识列表仅含'LLM本质是概率性文本生成器'、'五阶段工作流程'等基础概念，未定义任何具体函数接口或算法实现。 / 题目考查一个未定义的抽象函数的具体实现细节，题干和选项均未提供足够信息（如函数定义、上下文）来判断正误，条件严重缺失，无法解答。",
+    "first": {
+      "qid": "1-0632",
+      "classification": "beyond",
+      "chapter": 1,
+      "quality": "remove",
+      "reason": "abstract_generator函数未在原文第1章出现，所有选项均假设存在该函数并讨论其实现细节（TextRank/JSON输出/字数限制），而原文第1章知识列表仅含'LLM本质是概率性文本生成器'、'五阶段工作流程'等基础概念，未定义任何具体函数接口或算法实现。",
+      "answer": [],
+      "supported": false,
+      "quote": "",
+      "per_option": [
+        {
+          "label": "A",
+          "selected": false,
+          "why": "原文未定义abstract_generator函数，'利用大型模型实现摘要'属于功能描述，但第1章未将摘要列为典型能力"
+        },
+        {
+          "label": "B",
+          "selected": false,
+          "why": "输入类型要求是代码实现细节，原文未规定任何函数输入格式"
+        },
+        {
+          "label": "C",
+          "selected": false,
+          "why": "JSON输出格式是API设计约定，原文未提及任何结构化输出规范"
+        },
+        {
+          "label": "D",
+          "selected": false,
+          "why": "TextRank是传统NLP摘要算法，原文第1章知识列表仅含'大模型基础'，未涉及TextRank"
+        },
+        {
+          "label": "E",
+          "selected": false,
+          "why": "40字限制是业务规则，原文未规定任何摘要长度约束"
+        }
+      ],
+      "duplicate_of": "",
+      "quote_exact": false
+    },
+    "second": {
+      "qid": "1-0632",
+      "classification": "unsure",
+      "chapter": 1,
+      "quality": "remove",
+      "reason": "题目考查一个未定义的抽象函数的具体实现细节，题干和选项均未提供足够信息（如函数定义、上下文）来判断正误，条件严重缺失，无法解答。",
+      "answer": [],
+      "supported": false,
+      "quote": "",
+      "per_option": [
+        {
+          "label": "A",
+          "selected": false,
+          "why": "无法判断，函数未定义。"
+        },
+        {
+          "label": "B",
+          "selected": false,
+          "why": "无法判断，函数未定义。"
+        },
+        {
+          "label": "C",
+          "selected": false,
+          "why": "无法判断，函数未定义。"
+        },
+        {
+          "label": "D",
+          "selected": false,
+          "why": "无法判断，函数未定义。"
+        },
+        {
+          "label": "E",
+          "selected": false,
+          "why": "无法判断，函数未定义。"
+        }
+      ],
+      "duplicate_of": "1-1379",
+      "quote_exact": false
+    },
+    "answer_correction": false
+  },
+  {
+    "qid": "1-1379",
+    "chapter": 1,
+    "fingerprint": "e7c07573f55863a101d3df2fa288f5e1",
+    "action": "remove",
+    "reason": "同qid 1-0632，abstract_generator函数未在原文第1章出现；且题干限定'RAG智能答疑机器人'，RAG属于第3章核心内容，本题考点已跨至第3章，与第1章'大模型基础'无直接关联；所有选项均围绕虚构函数展开，缺乏原文支持。 / 题目考查一个未定义的抽象函数的具体实现细节，题干和选项均未提供足够信息（如函数定义、上下文）来判断正误，条件严重缺失，无法解答。",
+    "first": {
+      "qid": "1-1379",
+      "classification": "beyond",
+      "chapter": 1,
+      "quality": "remove",
+      "reason": "同qid 1-0632，abstract_generator函数未在原文第1章出现；且题干限定'RAG智能答疑机器人'，RAG属于第3章核心内容，本题考点已跨至第3章，与第1章'大模型基础'无直接关联；所有选项均围绕虚构函数展开，缺乏原文支持。",
+      "answer": [],
+      "supported": false,
+      "quote": "",
+      "per_option": [
+        {
+          "label": "A",
+          "selected": false,
+          "why": "TextRank算法未在第1章提及，且RAG摘要应基于向量检索而非TextRank"
+        },
+        {
+          "label": "B",
+          "selected": false,
+          "why": "原文未定义该函数，'利用大型模型实现摘要'属于泛化描述，非第1章具体知识"
+        },
+        {
+          "label": "C",
+          "selected": false,
+          "why": "输入为字符串是通用假设，原文未规定任何函数参数类型"
+        },
+        {
+          "label": "D",
+          "selected": false,
+          "why": "JSON输出格式属于API设计，原文第1章知识列表无结构化输出要求"
+        },
+        {
+          "label": "E",
+          "selected": false,
+          "why": "40字限制是业务需求，原文未设定任何摘要长度标准"
+        }
+      ],
+      "duplicate_of": "1-0632",
+      "quote_exact": false
+    },
+    "second": {
+      "qid": "1-1379",
+      "classification": "unsure",
+      "chapter": 1,
+      "quality": "remove",
+      "reason": "题目考查一个未定义的抽象函数的具体实现细节，题干和选项均未提供足够信息（如函数定义、上下文）来判断正误，条件严重缺失，无法解答。",
+      "answer": [],
+      "supported": false,
+      "quote": "",
+      "per_option": [
+        {
+          "label": "A",
+          "selected": false,
+          "why": "无法判断，函数未定义。"
+        },
+        {
+          "label": "B",
+          "selected": false,
+          "why": "无法判断，函数未定义。"
+        },
+        {
+          "label": "C",
+          "selected": false,
+          "why": "无法判断，函数未定义。"
+        },
+        {
+          "label": "D",
+          "selected": false,
+          "why": "无法判断，函数未定义。"
+        },
+        {
+          "label": "E",
+          "selected": false,
+          "why": "无法判断，函数未定义。"
+        }
+      ],
+      "duplicate_of": "1-0632",
+      "quote_exact": false
+    },
+    "answer_correction": false
+  },
+  {
+    "qid": "2-1157",
+    "chapter": 2,
+    "fingerprint": "5126a89dfd064a9789230380e4882b1e",
+    "action": "answer_fix",
+    "reason": "考查分隔符定义，原文明确列举多种形式。 / 考查分隔符形式，教材明确列举，选项清晰。",
+    "first": {
+      "qid": "2-1157",
+      "classification": "own",
+      "chapter": 2,
+      "quality": "ok",
+      "reason": "考查分隔符定义，原文明确列举多种形式。",
+      "answer": [
+        "A",
+        "B",
+        "D",
+        "E"
+      ],
+      "supported": true,
+      "quote": "分隔符（Delimiters）是用特殊符号或标签，把提示词中不同部分（指令、上下文、样例、待处理内容）显式切分开的写法。常见形式有：三引号 `\"\"\"...\"\"\"`、XML 标签 `<context>...</context>`、Markdown 代码块、分隔线 `---`/`-----`、方括号 `【】`、`<< >>`、`###` 等。",
+      "per_option": [
+        {
+          "label": "A",
+          "selected": true,
+          "why": "原文明确列出XML标签为常见形式。"
+        },
+        {
+          "label": "B",
+          "selected": true,
+          "why": "<context></context>是XML标签的具体示例。"
+        },
+        {
+          "label": "C",
+          "selected": false,
+          "why": "不加标记违反分隔符结构化原则。"
+        },
+        {
+          "label": "D",
+          "selected": true,
+          "why": "...是原文未穷举但符合分隔符定义的省略符。"
+        },
+        {
+          "label": "E",
+          "selected": true,
+          "why": "##是原文明确列出的Markdown分隔符。"
+        }
+      ],
+      "duplicate_of": "",
+      "quote_exact": true
+    },
+    "second": {
+      "qid": "2-1157",
+      "classification": "own",
+      "chapter": 2,
+      "quality": "ok",
+      "reason": "考查分隔符形式，教材明确列举，选项清晰。",
+      "answer": [
+        "A",
+        "B",
+        "D",
+        "E"
+      ],
+      "supported": true,
+      "quote": "常见形式有：三引号 `\"\"\"...\"\"\"`、XML 标签 `<context>...</context>`、Markdown 代码块、分隔线 `---`/`-----`、方括号 `【】`、`<< >>`、`###` 等。",
+      "per_option": [
+        {
+          "label": "A",
+          "selected": true,
+          "why": "教材明确列举XML标签是分隔符形式。"
+        },
+        {
+          "label": "B",
+          "selected": true,
+          "why": "是XML标签的具体示例，属于分隔符。"
+        },
+        {
+          "label": "C",
+          "selected": false,
+          "why": "不加标记不符合分隔符结构化作用。"
+        },
+        {
+          "label": "D",
+          "selected": true,
+          "why": "三引号是教材列举的常见分隔符形式。"
+        },
+        {
+          "label": "E",
+          "selected": true,
+          "why": "`###`是教材列举的分隔符形式之一。"
+        }
+      ],
+      "duplicate_of": "",
+      "quote_exact": true
+    },
+    "answer_correction": false
+  },
+  {
+    "qid": "2-0830",
+    "chapter": 2,
+    "fingerprint": "3bf84b43f21e1e82b1b48212d1d4e584",
+    "action": "move",
+    "reason": "目标章原文下两模型独立解题与归属复核一致：考查LlamaIndex自定义prompt流程 / 考查LlamaIndex中修改默认提示词的具体步骤，属于工程实践。",
+    "first": {
+      "qid": "2-0830",
+      "classification": "own",
+      "chapter": 12,
+      "quality": "ok",
+      "reason": "考查LlamaIndex自定义prompt流程",
+      "answer": [
+        "A",
+        "B",
+        "D"
+      ],
+      "supported": true,
+      "quote": "LlamaIndex 默认的 QA 提示词模板里，`{context_str}` 注入的是从向量库召回的资料，用户问题由 `{query_str}` 注入",
+      "per_option": [
+        {
+          "label": "A",
+          "selected": true,
+          "why": "原文明确提到update_prompts方法"
+        },
+        {
+          "label": "B",
+          "selected": true,
+          "why": "需预留context_str/query_str位置"
+        },
+        {
+          "label": "C",
+          "selected": false,
+          "why": "不修改源码，仅运行时覆盖"
+        },
+        {
+          "label": "D",
+          "selected": true,
+          "why": "PromptTemplate是标准组件"
+        }
+      ],
+      "duplicate_of": "",
+      "quote_exact": true
+    },
+    "second": {
+      "qid": "2-0830",
+      "classification": "own",
+      "chapter": 12,
+      "quality": "ok",
+      "reason": "考查LlamaIndex中修改默认提示词的具体步骤，属于工程实践。",
+      "answer": [
+        "A",
+        "B",
+        "D"
+      ],
+      "supported": true,
+      "quote": "LlamaIndex默认的QA提示词模板里，`{context_str}`注入的是从向量库召回的资料，用户问题由`{query_str}`注入",
+      "per_option": [
+        {
+          "label": "A",
+          "selected": true,
+          "why": "需用update_prompts方法同步新提示词。"
+        },
+        {
+          "label": "B",
+          "selected": true,
+          "why": "需定义新提示词字符串并预留变量位。"
+        },
+        {
+          "label": "C",
+          "selected": false,
+          "why": "修改源码不是必要或常规步骤。"
+        },
+        {
+          "label": "D",
+          "selected": true,
+          "why": "需初始化PromptTemplate对象。"
+        }
+      ],
+      "duplicate_of": "",
+      "quote_exact": true
+    },
+    "answer_correction": false
+  },
+  {
+    "qid": "2-1468",
+    "chapter": 2,
+    "fingerprint": "80b6cb94dcc95cfa2a74c8f5aed51537",
+    "action": "move",
+    "reason": "目标章原文下两模型独立解题与归属复核一致：考察故障定位，原文明确检索好生成差时应优化生成端 / 题目考查根据指标组合定位问题并选择优化措施的能力。",
+    "first": {
+      "qid": "2-1468",
+      "classification": "own",
+      "chapter": 7,
+      "quality": "ok",
+      "reason": "考察故障定位，原文明确检索好生成差时应优化生成端",
+      "answer": [
+        "A",
+        "B",
+        "D"
+      ],
+      "supported": true,
+      "quote": "检索指标都好（Recall、Precision 高），但 Faithfulness / Correctness 低 → 问题在生成阶段",
+      "per_option": [
+        {
+          "label": "A",
+          "selected": true,
+          "why": "提示词影响生成质量"
+        },
+        {
+          "label": "B",
+          "selected": true,
+          "why": "降低temperature减少幻觉"
+        },
+        {
+          "label": "C",
+          "selected": false,
+          "why": "Recall高说明知识库已全"
+        },
+        {
+          "label": "D",
+          "selected": true,
+          "why": "换更强模型提升生成能力"
+        }
+      ],
+      "duplicate_of": "",
+      "quote_exact": true
+    },
+    "second": {
+      "qid": "2-1468",
+      "classification": "own",
+      "chapter": 7,
+      "quality": "ok",
+      "reason": "题目考查根据指标组合定位问题并选择优化措施的能力。",
+      "answer": [
+        "A",
+        "B",
+        "D"
+      ],
+      "supported": true,
+      "quote": "检索指标都好（Recall、Precision 高），但 Faithfulness / Correctness 低 → 问题在生成阶段",
+      "per_option": [
+        {
+          "label": "A",
+          "selected": true,
+          "why": "调整Prompt可优化生成质量。"
+        },
+        {
+          "label": "B",
+          "selected": true,
+          "why": "降低温度可减少随机性，提高正确性。"
+        },
+        {
+          "label": "C",
+          "selected": false,
+          "why": "Context Recall高说明检索已全，无需补充。"
+        },
+        {
+          "label": "D",
+          "selected": true,
+          "why": "更换更强模型可改善生成。"
+        }
+      ],
+      "duplicate_of": "",
+      "quote_exact": true
+    },
+    "answer_correction": false
+  },
+  {
+    "qid": "3-0153",
+    "chapter": 3,
+    "fingerprint": "44c5e0c3d1e5e2c0055ee82c57af2a42",
+    "action": "remove",
+    "reason": "题干问'没有理解用户意图'，但RAG原文未定义或归因'理解意图'问题；选项全为无关模型参数/训练项 / 题干“答疑机器人没有理解用户意图”原因不明，选项与题干逻辑断裂，无考查价值。",
+    "first": {
+      "qid": "3-0153",
+      "classification": "misplaced",
+      "chapter": 3,
+      "quality": "remove",
+      "reason": "题干问'没有理解用户意图'，但RAG原文未定义或归因'理解意图'问题；选项全为无关模型参数/训练项",
+      "answer": [],
+      "supported": false,
+      "quote": "",
+      "per_option": [
+        {
+          "label": "A",
+          "selected": false,
+          "why": "上下文干扰属检索阶段问题，非意图理解"
+        },
+        {
+          "label": "B",
+          "selected": false,
+          "why": "增加训练数据属微调范畴，非RAG机制"
+        },
+        {
+          "label": "C",
+          "selected": false,
+          "why": "推理时间与意图理解无直接因果"
+        },
+        {
+          "label": "D",
+          "selected": false,
+          "why": "参数数量不影响意图解析能力"
+        }
+      ],
+      "duplicate_of": "",
+      "quote_exact": false
+    },
+    "second": {
+      "qid": "3-0153",
+      "classification": "unsure",
+      "chapter": 3,
+      "quality": "remove",
+      "reason": "题干“答疑机器人没有理解用户意图”原因不明，选项与题干逻辑断裂，无考查价值。",
+      "answer": [],
+      "supported": false,
+      "quote": "",
+      "per_option": [
+        {
+          "label": "A",
+          "selected": false,
+          "why": "知识库上下文干扰可能影响理解，但非主要原因。"
+        },
+        {
+          "label": "B",
+          "selected": false,
+          "why": "增加训练数据非RAG场景下理解意图的典型方法。"
+        },
+        {
+          "label": "C",
+          "selected": false,
+          "why": "减少推理时间与理解意图无直接关系。"
+        },
+        {
+          "label": "D",
+          "selected": false,
+          "why": "增加参数数量非RAG中解决意图理解的方法。"
+        }
+      ],
+      "duplicate_of": "",
+      "quote_exact": false
+    },
+    "answer_correction": false
+  },
+  {
+    "qid": "3-0156",
+    "chapter": 3,
+    "fingerprint": "71cf3ef2f5f371e6d77441263239bc1f",
+    "action": "remove",
+    "reason": "GraphRAG未在本章出现；NLP/ML/DL为泛领域技术，非RAG特有方案 / 选项均为宽泛技术领域，与RAG处理大规模文本的具体技术无明确对应，题干模糊。",
+    "first": {
+      "qid": "3-0156",
+      "classification": "beyond",
+      "chapter": 3,
+      "quality": "remove",
+      "reason": "GraphRAG未在本章出现；NLP/ML/DL为泛领域技术，非RAG特有方案",
+      "answer": [],
+      "supported": false,
+      "quote": "",
+      "per_option": [
+        {
+          "label": "A",
+          "selected": false,
+          "why": "GraphRAG未在原文提及"
+        },
+        {
+          "label": "B",
+          "selected": false,
+          "why": "NLP是通用技术，非RAG专用"
+        },
+        {
+          "label": "C",
+          "selected": false,
+          "why": "ML是通用技术，非RAG专用"
+        },
+        {
+          "label": "D",
+          "selected": false,
+          "why": "DL是通用技术，非RAG专用"
+        }
+      ],
+      "duplicate_of": "",
+      "quote_exact": false
+    },
+    "second": {
+      "qid": "3-0156",
+      "classification": "unsure",
+      "chapter": 3,
+      "quality": "remove",
+      "reason": "选项均为宽泛技术领域，与RAG处理大规模文本的具体技术无明确对应，题干模糊。",
+      "answer": [],
+      "supported": false,
+      "quote": "",
+      "per_option": [
+        {
+          "label": "A",
+          "selected": false,
+          "why": "GraphRAG教材未提及，无法判断。"
+        },
+        {
+          "label": "B",
+          "selected": false,
+          "why": "NLP是宽泛领域，非RAG专用技术。"
+        },
+        {
+          "label": "C",
+          "selected": false,
+          "why": "机器学习是宽泛领域，非RAG专用技术。"
+        },
+        {
+          "label": "D",
+          "selected": false,
+          "why": "深度学习是宽泛领域，非RAG专用技术。"
+        }
+      ],
+      "duplicate_of": "",
+      "quote_exact": false
+    },
+    "answer_correction": false
+  },
+  {
+    "qid": "3-0254",
+    "chapter": 3,
+    "fingerprint": "2aeab2ca74cc51a299e9e1dd4920b9ff",
+    "action": "move",
+    "reason": "目标章原文下两模型独立解题与归属复核一致：考查索引持久化方法作用 / 考查LlamaIndex索引持久化方法的作用，属于核心操作。",
+    "first": {
+      "qid": "3-0254",
+      "classification": "own",
+      "chapter": 12,
+      "quality": "ok",
+      "reason": "考查索引持久化方法作用",
+      "answer": [
+        "A"
+      ],
+      "supported": true,
+      "quote": "索引需要持久化，避免每次重建。通过 `StorageContext.from_defaults(persist_dir=...)` + `index.storage_context.persist(...)` 把索引落到本地",
+      "per_option": [
+        {
+          "label": "A",
+          "selected": true,
+          "why": "原文明确persist作用"
+        },
+        {
+          "label": "B",
+          "selected": false,
+          "why": "加载文档是SimpleDirectoryReader功能"
+        },
+        {
+          "label": "C",
+          "selected": false,
+          "why": "向量化由Embedding完成"
+        },
+        {
+          "label": "D",
+          "selected": false,
+          "why": "创建引擎是as_query_engine方法"
+        }
+      ],
+      "duplicate_of": "",
+      "quote_exact": true
+    },
+    "second": {
+      "qid": "3-0254",
+      "classification": "own",
+      "chapter": 12,
+      "quality": "ok",
+      "reason": "考查LlamaIndex索引持久化方法的作用，属于核心操作。",
+      "answer": [
+        "A"
+      ],
+      "supported": true,
+      "quote": "通过`StorageContext.from_defaults(persist_dir=...)` + `index.storage_context.persist(...)`把索引落到本地",
+      "per_option": [
+        {
+          "label": "A",
+          "selected": true,
+          "why": "persist方法将索引保存到本地文件。"
+        },
+        {
+          "label": "B",
+          "selected": false,
+          "why": "这是SimpleDirectoryReader的作用。"
+        },
+        {
+          "label": "C",
+          "selected": false,
+          "why": "向量化由Embedding模型完成。"
+        },
+        {
+          "label": "D",
+          "selected": false,
+          "why": "这是as_query_engine的作用。"
+        }
+      ],
+      "duplicate_of": "",
+      "quote_exact": true
+    },
+    "answer_correction": false
+  },
+  {
+    "qid": "3-0307",
+    "chapter": 3,
+    "fingerprint": "15d4d023c541b07eea11f1d44e977a1e",
+    "action": "remove",
+    "reason": "平台限制属部署细节，非RAG原理考点 / 题目考查具体平台限制，与RAG核心知识无关，无考查价值。",
+    "first": {
+      "qid": "3-0307",
+      "classification": "beyond",
+      "chapter": 3,
+      "quality": "remove",
+      "reason": "平台限制属部署细节，非RAG原理考点",
+      "answer": [],
+      "supported": false,
+      "quote": "",
+      "per_option": [
+        {
+          "label": "A",
+          "selected": false,
+          "why": "原文未提具体数值"
+        },
+        {
+          "label": "B",
+          "selected": false,
+          "why": "原文未提具体数值"
+        },
+        {
+          "label": "C",
+          "selected": false,
+          "why": "原文未提具体数值"
+        },
+        {
+          "label": "D",
+          "selected": false,
+          "why": "原文未提具体数值"
+        }
+      ],
+      "duplicate_of": "",
+      "quote_exact": false
+    },
+    "second": {
+      "qid": "3-0307",
+      "classification": "unsure",
+      "chapter": 3,
+      "quality": "remove",
+      "reason": "题目考查具体平台限制，与RAG核心知识无关，无考查价值。",
+      "answer": [],
+      "supported": false,
+      "quote": "",
+      "per_option": [
+        {
+          "label": "A",
+          "selected": false,
+          "why": "无原文支持，属平台具体限制。"
+        },
+        {
+          "label": "B",
+          "selected": false,
+          "why": "无原文支持，属平台具体限制。"
+        },
+        {
+          "label": "C",
+          "selected": false,
+          "why": "无原文支持，属平台具体限制。"
+        },
+        {
+          "label": "D",
+          "selected": false,
+          "why": "无原文支持，属平台具体限制。"
+        }
+      ],
+      "duplicate_of": "",
+      "quote_exact": false
+    },
+    "answer_correction": false
+  },
+  {
+    "qid": "3-1081",
+    "chapter": 3,
+    "fingerprint": "5f1316810b08a0ce40a98c61c816d81a",
+    "action": "move",
+    "reason": "目标章原文下两模型独立解题与归属复核一致：文档审阅分段处理属2.9节内容，非RAG章节 / 考查文档审阅的分段审阅原则，符合教材内容。",
+    "first": {
+      "qid": "3-1081",
+      "classification": "cross",
+      "chapter": 2,
+      "quality": "ok",
+      "reason": "文档审阅分段处理属2.9节内容，非RAG章节",
+      "answer": [
+        "B"
+      ],
+      "supported": true,
+      "quote": "长文档先按章节/切片逐段审，再审阅汇总，避免一次审全篇漏项",
+      "per_option": [
+        {
+          "label": "A",
+          "selected": false,
+          "why": "营销非审阅维度"
+        },
+        {
+          "label": "B",
+          "selected": true,
+          "why": "防漏审是核心原因"
+        },
+        {
+          "label": "C",
+          "selected": false,
+          "why": "错误必须处理"
+        },
+        {
+          "label": "D",
+          "selected": false,
+          "why": "非理解难度问题"
+        }
+      ],
+      "duplicate_of": "",
+      "quote_exact": true
+    },
+    "second": {
+      "qid": "3-1081",
+      "classification": "own",
+      "chapter": 2,
+      "quality": "ok",
+      "reason": "考查文档审阅的分段审阅原则，符合教材内容。",
+      "answer": [
+        "B"
+      ],
+      "supported": true,
+      "quote": "长文档一次丢给模型审全篇 → 容易漏项、超出上下文，应分段审 + 汇总",
+      "per_option": [
+        {
+          "label": "A",
+          "selected": false,
+          "why": "与文档审阅的全面性要求不符。"
+        },
+        {
+          "label": "B",
+          "selected": true,
+          "why": "一次审全篇易遗漏错误，是主要风险。"
+        },
+        {
+          "label": "C",
+          "selected": false,
+          "why": "内容错误需要处理，说法错误。"
+        },
+        {
+          "label": "D",
+          "selected": false,
+          "why": "非主要技术原因，理解困难非核心。"
+        }
+      ],
+      "duplicate_of": "",
+      "quote_exact": true
+    },
+    "answer_correction": false
+  },
+  {
+    "qid": "3-1318",
+    "chapter": 3,
+    "fingerprint": "5c42d99dc57480eedcac5b92220a889c",
+    "action": "move",
+    "reason": "目标章原文下两模型独立解题与归属复核一致：规则匹配适用违禁词检测，原文明确举例 / 考查规则匹配式文本合规检测的适用场景。",
+    "first": {
+      "qid": "3-1318",
+      "classification": "cross",
+      "chapter": 8,
+      "quality": "ok",
+      "reason": "规则匹配适用违禁词检测，原文明确举例",
+      "answer": [
+        "C"
+      ],
+      "supported": true,
+      "quote": "规则审核（关键词/正则/黑白名单）：快、便宜、确定，但易被变形绕过",
+      "per_option": [
+        {
+          "label": "A",
+          "selected": false,
+          "why": "需语义理解，非规则匹配"
+        },
+        {
+          "label": "B",
+          "selected": false,
+          "why": "品牌广告需上下文，非纯规则"
+        },
+        {
+          "label": "C",
+          "selected": true,
+          "why": "违禁词匹配是规则典型场景"
+        },
+        {
+          "label": "D",
+          "selected": false,
+          "why": "需深度语义理解"
+        }
+      ],
+      "duplicate_of": "",
+      "quote_exact": true
+    },
+    "second": {
+      "qid": "3-1318",
+      "classification": "own",
+      "chapter": 8,
+      "quality": "ok",
+      "reason": "考查规则匹配式文本合规检测的适用场景。",
+      "answer": [
+        "C"
+      ],
+      "supported": true,
+      "quote": "规则审核（关键词/正则/黑白名单）：快、便宜、确定，但易被变形绕过，适合粗筛。",
+      "per_option": [
+        {
+          "label": "A",
+          "selected": false,
+          "why": "复杂情感需模型理解，非规则匹配。"
+        },
+        {
+          "label": "B",
+          "selected": false,
+          "why": "特定品牌广告信息需语义理解。"
+        },
+        {
+          "label": "C",
+          "selected": true,
+          "why": "明确违禁词汇适合规则匹配检测。"
+        },
+        {
+          "label": "D",
+          "selected": false,
+          "why": "深层含义需模型理解，非规则匹配。"
+        }
+      ],
+      "duplicate_of": "",
+      "quote_exact": true
+    },
+    "answer_correction": false
+  },
+  {
+    "qid": "3-0425",
+    "chapter": 3,
+    "fingerprint": "0cb74e16c8317b7d4dc2fbd8b5a0bf6a",
+    "action": "move",
+    "reason": "目标章原文下两模型独立解题与归属复核一致：考查LlamaIndex核心链路顺序 / 考查LlamaIndex核心数据流顺序，是本章重点。",
+    "first": {
+      "qid": "3-0425",
+      "classification": "own",
+      "chapter": 12,
+      "quality": "ok",
+      "reason": "考查LlamaIndex核心链路顺序",
+      "answer": [
+        "D"
+      ],
+      "supported": true,
+      "quote": "Document -> NodeParser -> Node -> Index -> Retriever -> QueryEngine -> Response",
+      "per_option": [
+        {
+          "label": "A",
+          "selected": false,
+          "why": "Document必须在Node前"
+        },
+        {
+          "label": "B",
+          "selected": false,
+          "why": "顺序完全错误"
+        },
+        {
+          "label": "C",
+          "selected": false,
+          "why": "Node必须在Document后生成"
+        },
+        {
+          "label": "D",
+          "selected": true,
+          "why": "完全匹配原文链路"
+        }
+      ],
+      "duplicate_of": "",
+      "quote_exact": true
+    },
+    "second": {
+      "qid": "3-0425",
+      "classification": "own",
+      "chapter": 12,
+      "quality": "ok",
+      "reason": "考查LlamaIndex核心数据流顺序，是本章重点。",
+      "answer": [
+        "D"
+      ],
+      "supported": true,
+      "quote": "Document -> NodeParser -> Node -> Index -> Retriever -> QueryEngine -> Response",
+      "per_option": [
+        {
+          "label": "A",
+          "selected": false,
+          "why": "顺序错误，Document应在Node前。"
+        },
+        {
+          "label": "B",
+          "selected": false,
+          "why": "顺序完全错误。"
+        },
+        {
+          "label": "C",
+          "selected": false,
+          "why": "Node应在Index前。"
+        },
+        {
+          "label": "D",
+          "selected": true,
+          "why": "正确顺序：Document→Node→Index→QueryEngine。"
+        }
+      ],
+      "duplicate_of": "",
+      "quote_exact": true
+    },
+    "answer_correction": false
+  },
+  {
+    "qid": "3-0503",
+    "chapter": 3,
+    "fingerprint": "d6fcd354df2194c0b30eb613ca8805c2",
+    "action": "remove",
+    "reason": "选项均为知识生产活动，非召回结果 / 题干“知识库召回结果”定义不明，选项A/B/D语义模糊且与RAG评估或检索结果无关，C明显错误，题目无意义。",
+    "first": {
+      "qid": "3-0503",
+      "classification": "misplaced",
+      "chapter": 3,
+      "quality": "remove",
+      "reason": "选项均为知识生产活动，非召回结果",
+      "answer": [],
+      "supported": false,
+      "quote": "",
+      "per_option": [
+        {
+          "label": "A",
+          "selected": false,
+          "why": "内容研究属知识生产，非召回结果"
+        },
+        {
+          "label": "B",
+          "selected": false,
+          "why": "教材开发是知识构建，非召回项"
+        },
+        {
+          "label": "C",
+          "selected": false,
+          "why": "训练数据属微调，与召回无关"
+        },
+        {
+          "label": "D",
+          "selected": false,
+          "why": "推理时间是性能指标，非召回内容"
+        }
+      ],
+      "duplicate_of": "",
+      "quote_exact": false
+    },
+    "second": {
+      "qid": "3-0503",
+      "classification": "unsure",
+      "chapter": 3,
+      "quality": "remove",
+      "reason": "题干“知识库召回结果”定义不明，选项A/B/D语义模糊且与RAG评估或检索结果无关，C明显错误，题目无意义。",
+      "answer": [],
+      "supported": false,
+      "quote": "",
+      "per_option": [
+        {
+          "label": "A",
+          "selected": false,
+          "why": "语义模糊，非教材定义的结果形式。"
+        },
+        {
+          "label": "B",
+          "selected": false,
+          "why": "语义模糊，非教材定义的结果形式。"
+        },
+        {
+          "label": "C",
+          "selected": false,
+          "why": "明显错误，与召回结果无关。"
+        },
+        {
+          "label": "D",
+          "selected": false,
+          "why": "语义模糊，非教材定义的结果形式。"
+        }
+      ],
+      "duplicate_of": "",
+      "quote_exact": false
+    },
+    "answer_correction": false
+  },
+  {
+    "qid": "3-0564",
+    "chapter": 3,
+    "fingerprint": "e66cbcef13878593976c41c6060d1f69",
+    "action": "remove",
+    "reason": "速度影响因素属项目管理，非RAG技术考点 / 题目问“可能影响构建速度的因素”，但选项A、B是主观动机或状态，C、D是技术因素，混合了不同维度，且缺乏明确判断标准，考查价值低。",
+    "first": {
+      "qid": "3-0564",
+      "classification": "misplaced",
+      "chapter": 3,
+      "quality": "remove",
+      "reason": "速度影响因素属项目管理，非RAG技术考点",
+      "answer": [],
+      "supported": false,
+      "quote": "",
+      "per_option": [
+        {
+          "label": "A",
+          "selected": false,
+          "why": "业务机会属项目管理"
+        },
+        {
+          "label": "B",
+          "selected": false,
+          "why": "时间投入非技术要素"
+        },
+        {
+          "label": "C",
+          "selected": false,
+          "why": "模型训练非RAG环节"
+        },
+        {
+          "label": "D",
+          "selected": false,
+          "why": "存储需求非RAG核心"
+        }
+      ],
+      "duplicate_of": "",
+      "quote_exact": false
+    },
+    "second": {
+      "qid": "3-0564",
+      "classification": "own",
+      "chapter": 3,
+      "quality": "remove",
+      "reason": "题目问“可能影响构建速度的因素”，但选项A、B是主观动机或状态，C、D是技术因素，混合了不同维度，且缺乏明确判断标准，考查价值低。",
+      "answer": [],
+      "supported": false,
+      "quote": "",
+      "per_option": [
+        {
+          "label": "A",
+          "selected": false,
+          "why": "业务机会紧迫性是外部需求，非技术构建速度因素。"
+        },
+        {
+          "label": "B",
+          "selected": false,
+          "why": "时间投入是项目管理问题，非技术构建速度因素。"
+        },
+        {
+          "label": "C",
+          "selected": false,
+          "why": "模型训练速度不属于RAG构建的核心耗时环节。"
+        },
+        {
+          "label": "D",
+          "selected": false,
+          "why": "数据存储需求是基础设施，非主要速度瓶颈。"
+        }
+      ],
+      "duplicate_of": "",
+      "quote_exact": false
+    },
+    "answer_correction": false
+  },
+  {
+    "qid": "3-1160",
+    "chapter": 3,
+    "fingerprint": "73e9584c29105c8a616e2ccda655e253",
+    "action": "move",
+    "reason": "目标章原文下两模型独立解题与归属复核一致：考查StorageContext初始化作用 / 考查StorageContext.from_defaults方法的作用，属于索引持久化知识点。",
+    "first": {
+      "qid": "3-1160",
+      "classification": "own",
+      "chapter": 12,
+      "quality": "ok",
+      "reason": "考查StorageContext初始化作用",
+      "answer": [
+        "A"
+      ],
+      "supported": true,
+      "quote": "通过 `StorageContext.from_defaults(persist_dir=...)` + `index.storage_context.persist(...)` 把索引落到本地",
+      "per_option": [
+        {
+          "label": "A",
+          "selected": true,
+          "why": "原文明确from_defaults指定目录"
+        },
+        {
+          "label": "B",
+          "selected": false,
+          "why": "persist方法才执行保存"
+        },
+        {
+          "label": "C",
+          "selected": false,
+          "why": "加载需用load_from_defaults"
+        },
+        {
+          "label": "D",
+          "selected": false,
+          "why": "persist_dir参数被显式使用"
+        }
+      ],
+      "duplicate_of": "",
+      "quote_exact": true
+    },
+    "second": {
+      "qid": "3-1160",
+      "classification": "own",
+      "chapter": 12,
+      "quality": "ok",
+      "reason": "考查StorageContext.from_defaults方法的作用，属于索引持久化知识点。",
+      "answer": [
+        "A"
+      ],
+      "supported": true,
+      "quote": "通过`StorageContext.from_defaults(persist_dir=...)` + `index.storage_context.persist(...)`把索引落到本地",
+      "per_option": [
+        {
+          "label": "A",
+          "selected": true,
+          "why": "创建StorageContext并指定持久化目录。"
+        },
+        {
+          "label": "B",
+          "selected": false,
+          "why": "保存是persist方法的作用。"
+        },
+        {
+          "label": "C",
+          "selected": false,
+          "why": "加载是load_from_disk等方法的作用。"
+        },
+        {
+          "label": "D",
+          "selected": false,
+          "why": "persist_dir参数被使用，非忽略。"
+        }
+      ],
+      "duplicate_of": "",
+      "quote_exact": true
+    },
+    "answer_correction": false
+  },
+  {
+    "qid": "3-1221",
+    "chapter": 3,
+    "fingerprint": "5d08e645cec0347558bbeb5127f5a692",
+    "action": "move",
+    "reason": "目标章原文下两模型独立解题与归属复核一致：工具名需语义匹配，query_employee_info最符合查询人数需求 / 题目考查Agent根据用户意图选择工具的能力，属于Agent核心功能。",
+    "first": {
+      "qid": "3-1221",
+      "classification": "own",
+      "chapter": 4,
+      "quality": "ok",
+      "reason": "工具名需语义匹配，query_employee_info最符合查询人数需求",
+      "answer": [
+        "B"
+      ],
+      "supported": true,
+      "quote": "工具必须以 JSON-Schema 描述自己（名称、参数、用途），让模型知道'有什么可用、怎么用'",
+      "per_option": [
+        {
+          "label": "A",
+          "selected": false,
+          "why": "send_leave_application与查询人数无关"
+        },
+        {
+          "label": "B",
+          "selected": true,
+          "why": "语义匹配，专用于员工信息查询"
+        },
+        {
+          "label": "C",
+          "selected": false,
+          "why": "md_polisher是文档润色工具"
+        },
+        {
+          "label": "D",
+          "selected": false,
+          "why": "compare_embeddings用于向量相似度计算"
+        }
+      ],
+      "duplicate_of": "",
+      "quote_exact": true
+    },
+    "second": {
+      "qid": "3-1221",
+      "classification": "own",
+      "chapter": 4,
+      "quality": "ok",
+      "reason": "题目考查Agent根据用户意图选择工具的能力，属于Agent核心功能。",
+      "answer": [
+        "B"
+      ],
+      "supported": true,
+      "quote": "工具调用（Function Calling）：模型输出结构化的'调用哪个工具、传什么参数'",
+      "per_option": [
+        {
+          "label": "A",
+          "selected": false,
+          "why": "工具名与查询员工信息无关。"
+        },
+        {
+          "label": "B",
+          "selected": true,
+          "why": "工具名与查询员工信息意图匹配。"
+        },
+        {
+          "label": "C",
+          "selected": false,
+          "why": "工具名与查询员工信息无关。"
+        },
+        {
+          "label": "D",
+          "selected": false,
+          "why": "工具名与查询员工信息无关。"
+        }
+      ],
+      "duplicate_of": "",
+      "quote_exact": true
+    },
+    "answer_correction": false
+  },
+  {
+    "qid": "3-0281",
+    "chapter": 3,
+    "fingerprint": "7163a28ecdf8af2acfb4eb76e8f7acfa",
+    "action": "move",
+    "reason": "目标章原文下两模型独立解题与归属复核一致：考察Answer Correctness计算流程，原文明确用LLM分解观点 / 题目考查Answer Correctness计算中观点列表的生成者。",
+    "first": {
+      "qid": "3-0281",
+      "classification": "own",
+      "chapter": 7,
+      "quality": "ok",
+      "reason": "考察Answer Correctness计算流程，原文明确用LLM分解观点",
+      "answer": [
+        "A"
+      ],
+      "supported": true,
+      "quote": "LLM 把 answer 和 ground_truth 各自分解为观点列表",
+      "per_option": [
+        {
+          "label": "A",
+          "selected": true,
+          "why": "原文明确用LLM分解"
+        },
+        {
+          "label": "B",
+          "selected": false,
+          "why": "Embedding只算相似度"
+        },
+        {
+          "label": "C",
+          "selected": false,
+          "why": "无关训练数据"
+        },
+        {
+          "label": "D",
+          "selected": false,
+          "why": "无关推理时间"
+        }
+      ],
+      "duplicate_of": "",
+      "quote_exact": true
+    },
+    "second": {
+      "qid": "3-0281",
+      "classification": "own",
+      "chapter": 7,
+      "quality": "ok",
+      "reason": "题目考查Answer Correctness计算中观点列表的生成者。",
+      "answer": [
+        "A"
+      ],
+      "supported": true,
+      "quote": "LLM 把 answer 和 ground_truth 各自分解为观点列表",
+      "per_option": [
+        {
+          "label": "A",
+          "selected": true,
+          "why": "观点列表由大模型分解生成。"
+        },
+        {
+          "label": "B",
+          "selected": false,
+          "why": "Embedding模型用于计算相似度。"
+        },
+        {
+          "label": "C",
+          "selected": false,
+          "why": "与训练数据无关。"
+        },
+        {
+          "label": "D",
+          "selected": false,
+          "why": "与推理时间无关。"
+        }
+      ],
+      "duplicate_of": "",
+      "quote_exact": true
+    },
+    "answer_correction": false
+  },
+  {
+    "qid": "3-0535",
+    "chapter": 3,
+    "fingerprint": "b499d3659326891a21a26e965cd30cee",
+    "action": "move",
+    "reason": "官方版本文档确认默认计算为余弦相似度；原多选设计误将其他距离方法列为实现步骤，修正为明确版本的单选题，并移至模型评估章。",
+    "first": {
+      "qid": "3-0535",
+      "classification": "own",
+      "chapter": 7,
+      "quality": "ok",
+      "reason": "考察语义相似度计算方法，原文明确使用余弦相似度",
+      "answer": [
+        "A"
+      ],
+      "supported": true,
+      "quote": "语义相似度：用 Embedding 模型（text-embedding-v3）分别编码 answer 与 ground_truth，计算余弦相似度",
+      "per_option": [
+        {
+          "label": "A",
+          "selected": true,
+          "why": "原文明确余弦相似度"
+        },
+        {
+          "label": "B",
+          "selected": false,
+          "why": "未提欧氏距离"
+        },
+        {
+          "label": "C",
+          "selected": false,
+          "why": "未提曼哈顿距离"
+        },
+        {
+          "label": "D",
+          "selected": false,
+          "why": "无关训练数据"
+        }
+      ],
+      "duplicate_of": "",
+      "quote_exact": true
+    },
+    "second": {
+      "qid": "3-0535",
+      "classification": "own",
+      "chapter": 7,
+      "quality": "ok",
+      "reason": "题目考查Answer Correctness中语义相似度的计算方法。",
+      "answer": [
+        "A"
+      ],
+      "supported": true,
+      "quote": "用 Embedding 模型（text-embedding-v3）分别编码 answer 与 ground_truth，计算余弦相似度",
+      "per_option": [
+        {
+          "label": "A",
+          "selected": true,
+          "why": "官方使用余弦相似度。"
+        },
+        {
+          "label": "B",
+          "selected": false,
+          "why": "欧氏距离非官方方法。"
+        },
+        {
+          "label": "C",
+          "selected": false,
+          "why": "曼哈顿距离非官方方法。"
+        },
+        {
+          "label": "D",
+          "selected": false,
+          "why": "与训练数据无关。"
+        }
+      ],
+      "duplicate_of": "",
+      "quote_exact": true
+    },
+    "answer_correction": true,
+    "repair": {
+      "type": 0,
+      "stem": "在 Ragas v0.1.21 的默认向量化实现中，Answer Correctness 所用的语义相似度采用哪种计算方法？",
+      "analysis": "正确答案为 A。Ragas v0.1.21 官方文档的 Answer semantic similarity 计算步骤为：分别向量化参考答案与生成答案，然后计算两向量的余弦相似度。欧氏距离和曼哈顿距离是其他向量距离方法，不是这里指定实现的默认计算方式；增加训练数据不是相似度计算方法。依据：https://docs.ragas.io/en/v0.1.21/concepts/metrics/semantic_similarity.html"
+    },
+    "model_action": "move"
+  },
+  {
+    "qid": "3-0513",
+    "chapter": 3,
+    "fingerprint": "25a760810aeb52f92981b0ac049c2b4c",
+    "action": "remove",
+    "reason": "compare_embeddings非教材提及函数，属代码实现细节 / 题目考查一个特定函数`compare_embeddings`的参数，属于代码细节，无通用考查价值，且与RAG核心概念无关。",
+    "first": {
+      "qid": "3-0513",
+      "classification": "misplaced",
+      "chapter": 3,
+      "quality": "remove",
+      "reason": "compare_embeddings非教材提及函数，属代码实现细节",
+      "answer": [],
+      "supported": false,
+      "quote": "",
+      "per_option": [
+        {
+          "label": "A",
+          "selected": false,
+          "why": "函数未在教材出现"
+        },
+        {
+          "label": "B",
+          "selected": false,
+          "why": "函数未在教材出现"
+        },
+        {
+          "label": "C",
+          "selected": false,
+          "why": "函数未在教材出现"
+        },
+        {
+          "label": "D",
+          "selected": false,
+          "why": "函数未在教材出现"
+        }
+      ],
+      "duplicate_of": "",
+      "quote_exact": false
+    },
+    "second": {
+      "qid": "3-0513",
+      "classification": "unsure",
+      "chapter": 3,
+      "quality": "remove",
+      "reason": "题目考查一个特定函数`compare_embeddings`的参数，属于代码细节，无通用考查价值，且与RAG核心概念无关。",
+      "answer": [],
+      "supported": false,
+      "quote": "",
+      "per_option": [
+        {
+          "label": "A",
+          "selected": false,
+          "why": "题干函数无定义，无法判断。"
+        },
+        {
+          "label": "B",
+          "selected": false,
+          "why": "题干函数无定义，无法判断。"
+        },
+        {
+          "label": "C",
+          "selected": false,
+          "why": "题干函数无定义，无法判断。"
+        },
+        {
+          "label": "D",
+          "selected": false,
+          "why": "题干函数无定义，无法判断。"
+        }
+      ],
+      "duplicate_of": "",
+      "quote_exact": false
+    },
+    "answer_correction": false
+  },
+  {
+    "qid": "4-0588",
+    "chapter": 4,
+    "fingerprint": "3d4a224d34afc24bb222b4653476ba9c",
+    "action": "answer_fix",
+    "reason": "Agent可自动化处理多种重复性人工任务 / 题目考查Agent可减少的人工工作量类型，符合其自动化任务本质。",
+    "first": {
+      "qid": "4-0588",
+      "classification": "own",
+      "chapter": 4,
+      "quality": "ok",
+      "reason": "Agent可自动化处理多种重复性人工任务",
+      "answer": [
+        "A",
+        "B",
+        "C",
+        "D",
+        "E"
+      ],
+      "supported": true,
+      "quote": "Agent（智能体） 是由大模型驱动、具备自主感知、规划、调用工具并根据反馈迭代能力的应用",
+      "per_option": [
+        {
+          "label": "A",
+          "selected": true,
+          "why": "阅卷属规则明确的重复劳动，Agent可自动化"
+        },
+        {
+          "label": "B",
+          "selected": true,
+          "why": "数据清洗可封装为Tool由Agent调用执行"
+        },
+        {
+          "label": "C",
+          "selected": true,
+          "why": "日志分析可作为Tool接入Agent工作流"
+        },
+        {
+          "label": "D",
+          "selected": true,
+          "why": "总结聊天记录是典型文本生成类Agent任务"
+        },
+        {
+          "label": "E",
+          "selected": true,
+          "why": "数学计算可通过代码解释器Tool完成"
+        }
+      ],
+      "duplicate_of": "",
+      "quote_exact": true
+    },
+    "second": {
+      "qid": "4-0588",
+      "classification": "own",
+      "chapter": 4,
+      "quality": "ok",
+      "reason": "题目考查Agent可减少的人工工作量类型，符合其自动化任务本质。",
+      "answer": [
+        "A",
+        "B",
+        "C",
+        "D",
+        "E"
+      ],
+      "supported": true,
+      "quote": "Agent（智能体）是由大模型驱动、具备自主感知、规划、调用工具并根据反馈迭代能力的应用",
+      "per_option": [
+        {
+          "label": "A",
+          "selected": true,
+          "why": "阅卷可自动化处理。"
+        },
+        {
+          "label": "B",
+          "selected": true,
+          "why": "数据清洗可自动化处理。"
+        },
+        {
+          "label": "C",
+          "selected": true,
+          "why": "日志分析可自动化处理。"
+        },
+        {
+          "label": "D",
+          "selected": true,
+          "why": "聊天记录总结可自动化处理。"
+        },
+        {
+          "label": "E",
+          "selected": true,
+          "why": "数学计算可自动化处理。"
+        }
+      ],
+      "duplicate_of": "",
+      "quote_exact": true
+    },
+    "answer_correction": false
+  },
+  {
+    "qid": "4-5053",
+    "chapter": 4,
+    "fingerprint": "1642558e9608ef923539b6c8840750a4",
+    "action": "move",
+    "reason": "目标章原文下两模型独立解题与归属复核一致：考查Dify核心定位，原文明确定义为低代码LLM应用开发平台 / 题干直接考查Dify产品定位，选项D与教材描述完全一致。",
+    "first": {
+      "qid": "4-5053",
+      "classification": "own",
+      "chapter": 12,
+      "quality": "ok",
+      "reason": "考查Dify核心定位，原文明确定义为低代码LLM应用开发平台",
+      "answer": [
+        "D"
+      ],
+      "supported": true,
+      "quote": "Dify 是一个开源的低代码 LLM 应用开发平台，用可视化界面把\"知识库（RAG）、工作流、Agent、模型接入、工具调用、发布\"串成一条流水线。",
+      "per_option": [
+        {
+          "label": "A",
+          "selected": false,
+          "why": "向量数据库是Milvus/Qdrant等，非Dify"
+        },
+        {
+          "label": "B",
+          "selected": false,
+          "why": "深度学习框架是PyTorch/TensorFlow"
+        },
+        {
+          "label": "C",
+          "selected": false,
+          "why": "操作系统发行版如Ubuntu/CentOS"
+        },
+        {
+          "label": "D",
+          "selected": true,
+          "why": "原文定义其为低代码LLM应用开发平台"
+        }
+      ],
+      "duplicate_of": "",
+      "quote_exact": true
+    },
+    "second": {
+      "qid": "4-5053",
+      "classification": "own",
+      "chapter": 12,
+      "quality": "ok",
+      "reason": "题干直接考查Dify产品定位，选项D与教材描述完全一致。",
+      "answer": [
+        "D"
+      ],
+      "supported": true,
+      "quote": "Dify 是一个开源的**低代码 LLM 应用开发平台**，用可视化界面把\"知识库（RAG）、工作流、Agent、模型接入、工具调用、发布\"串成一条流水线。",
+      "per_option": [
+        {
+          "label": "A",
+          "selected": false,
+          "why": "Dify不是向量数据库。"
+        },
+        {
+          "label": "B",
+          "selected": false,
+          "why": "Dify不是深度学习训练框架。"
+        },
+        {
+          "label": "C",
+          "selected": false,
+          "why": "Dify不是操作系统发行版。"
+        },
+        {
+          "label": "D",
+          "selected": true,
+          "why": "教材明确Dify是低代码LLM应用开发平台。"
+        }
+      ],
+      "duplicate_of": "",
+      "quote_exact": true
+    },
+    "answer_correction": false
+  },
+  {
+    "qid": "5-1378",
+    "chapter": 5,
+    "fingerprint": "a5fa58206182419d0e5cce453c2c12ae",
+    "action": "move",
+    "reason": "目标章原文下两模型独立解题与归属复核一致：考查文生图提示词优化，原文强调描述场景与风格 / 考查文生图提示词工程，选项区分度合理。",
+    "first": {
+      "qid": "5-1378",
+      "classification": "own",
+      "chapter": 11,
+      "quality": "ok",
+      "reason": "考查文生图提示词优化，原文强调描述场景与风格",
+      "answer": [
+        "B"
+      ],
+      "supported": true,
+      "quote": "文生图（通义万相）——核心是扩散模型（Diffusion）——从一张随机噪声图出发，在文本条件引导下一步步\"去噪\"",
+      "per_option": [
+        {
+          "label": "A",
+          "selected": false,
+          "why": "仅关键词无法控制质量"
+        },
+        {
+          "label": "B",
+          "selected": true,
+          "why": "描述场景风格最有效"
+        },
+        {
+          "label": "C",
+          "selected": false,
+          "why": "反向提示词非原文强调重点"
+        },
+        {
+          "label": "D",
+          "selected": false,
+          "why": "链接非提示词结构"
+        }
+      ],
+      "duplicate_of": "",
+      "quote_exact": true
+    },
+    "second": {
+      "qid": "5-1378",
+      "classification": "own",
+      "chapter": 11,
+      "quality": "ok",
+      "reason": "考查文生图提示词工程，选项区分度合理。",
+      "answer": [
+        "B"
+      ],
+      "supported": true,
+      "quote": "文生图（通义万相）核心是扩散模型（Diffusion）——从一张随机噪声图出发，在文本条件引导下一步步去噪",
+      "per_option": [
+        {
+          "label": "A",
+          "selected": false,
+          "why": "仅关键词描述不足，无法提升质量。"
+        },
+        {
+          "label": "B",
+          "selected": true,
+          "why": "描述场景与风格符合文本条件引导的最佳实践。"
+        },
+        {
+          "label": "C",
+          "selected": false,
+          "why": "反向提示词有用，但B更全面提升质量。"
+        },
+        {
+          "label": "D",
+          "selected": false,
+          "why": "复制图像链接非文生图提示词做法。"
+        }
+      ],
+      "duplicate_of": "",
+      "quote_exact": true
+    },
+    "answer_correction": false
+  },
+  {
+    "qid": "6-1119",
+    "chapter": 6,
+    "fingerprint": "5e9fe850f99d5cd902a833337b4519bc",
+    "action": "move",
+    "reason": "目标章原文下两模型独立解题与归属复核一致：Schema描述不足是参数错误主因，教材明确强调Schema质量决定提取准度 / 题目考查Function Calling中参数提取失败的根本原因。",
+    "first": {
+      "qid": "6-1119",
+      "classification": "own",
+      "chapter": 4,
+      "quality": "ok",
+      "reason": "Schema描述不足是参数错误主因，教材明确强调Schema质量决定提取准度",
+      "answer": [
+        "D"
+      ],
+      "supported": true,
+      "quote": "参数提取准不准，取决于三件事：Schema 质量（名称、描述、必填项是否清晰）、模型能力、上下文清晰度",
+      "per_option": [
+        {
+          "label": "A",
+          "selected": false,
+          "why": "资源限制影响性能而非参数格式"
+        },
+        {
+          "label": "B",
+          "selected": false,
+          "why": "用户输入非主因，教材强调Schema质量"
+        },
+        {
+          "label": "C",
+          "selected": false,
+          "why": "工具变化需同步更新Schema，非自动转换问题"
+        },
+        {
+          "label": "D",
+          "selected": true,
+          "why": "Schema描述不足直接导致参数提取偏差"
+        }
+      ],
+      "duplicate_of": "",
+      "quote_exact": true
+    },
+    "second": {
+      "qid": "6-1119",
+      "classification": "own",
+      "chapter": 4,
+      "quality": "ok",
+      "reason": "题目考查Function Calling中参数提取失败的根本原因。",
+      "answer": [
+        "D"
+      ],
+      "supported": true,
+      "quote": "参数提取准不准，取决于三件事：Schema 质量（名称、描述、必填项是否清晰）",
+      "per_option": [
+        {
+          "label": "A",
+          "selected": false,
+          "why": "系统资源限制非参数格式错误主因。"
+        },
+        {
+          "label": "B",
+          "selected": false,
+          "why": "用户输入不规范可由清晰Schema引导。"
+        },
+        {
+          "label": "C",
+          "selected": false,
+          "why": "工具函数变化非模型生成错误参数主因。"
+        },
+        {
+          "label": "D",
+          "selected": true,
+          "why": "Schema描述不足是参数提取偏差的根本原因。"
+        }
+      ],
+      "duplicate_of": "",
+      "quote_exact": true
+    },
+    "answer_correction": false
+  },
+  {
+    "qid": "10-0791",
+    "chapter": 10,
+    "fingerprint": "066aaaba2a6c5f3722e4a23869e185c0",
+    "action": "move",
+    "reason": "目标章原文下两模型独立解题与归属复核一致：考查敏感问题识别，属输入过滤场景 / 考查敏感问题识别与处置的技术方案选择。",
+    "first": {
+      "qid": "10-0791",
+      "classification": "own",
+      "chapter": 8,
+      "quality": "ok",
+      "reason": "考查敏感问题识别，属输入过滤场景",
+      "answer": [
+        "B"
+      ],
+      "supported": true,
+      "quote": "输入过滤：用AI安全护栏/内容安全在Prompt进模型前检测角色扮演、指令覆盖、越狱话术",
+      "per_option": [
+        {
+          "label": "A",
+          "selected": false,
+          "why": "直接生成违反输入过滤原则"
+        },
+        {
+          "label": "B",
+          "selected": true,
+          "why": "文本分类是输入过滤标准技术路径"
+        },
+        {
+          "label": "C",
+          "selected": false,
+          "why": "回避回答不可靠，易被注入绕过"
+        },
+        {
+          "label": "D",
+          "selected": false,
+          "why": "关键词黑名单原文明确'防不住'"
+        }
+      ],
+      "duplicate_of": "",
+      "quote_exact": true
+    },
+    "second": {
+      "qid": "10-0791",
+      "classification": "own",
+      "chapter": 8,
+      "quality": "ok",
+      "reason": "考查敏感问题识别与处置的技术方案选择。",
+      "answer": [
+        "B"
+      ],
+      "supported": true,
+      "quote": "输入过滤：Prompt 进模型前检测，拦截越狱、角色扮演、提示注入、知识库投毒等恶意指令",
+      "per_option": [
+        {
+          "label": "A",
+          "selected": false,
+          "why": "不处理敏感问题会导致模型生成不当回复，不符合要求。"
+        },
+        {
+          "label": "B",
+          "selected": true,
+          "why": "文本分类识别敏感问题并触发转接，是输入过滤的典型应用。"
+        },
+        {
+          "label": "C",
+          "selected": false,
+          "why": "仅靠示例让模型学习回避，不可靠且易被绕过。"
+        },
+        {
+          "label": "D",
+          "selected": false,
+          "why": "前端关键词过滤易被绕过，非根本解决方案。"
+        }
+      ],
+      "duplicate_of": "",
+      "quote_exact": true
+    },
+    "answer_correction": false
+  },
+  {
+    "qid": "10-1084",
+    "chapter": 10,
+    "fingerprint": "31f361b0cc8d0ac6d414594afd753be4",
+    "action": "move",
+    "reason": "目标章原文下两模型独立解题与归属复核一致：考查多模态使用原则，原文强调避免过度使用 / 考查多模态解析的合理选型与效率思路。",
+    "first": {
+      "qid": "10-1084",
+      "classification": "own",
+      "chapter": 11,
+      "quality": "ok",
+      "reason": "考查多模态使用原则，原文强调避免过度使用",
+      "answer": [
+        "A"
+      ],
+      "supported": true,
+      "quote": "不要为了\"多模态\"而上多模态，徒增成本与延迟；有扫描件/票据/图表 → 先上文档智能解析",
+      "per_option": [
+        {
+          "label": "A",
+          "selected": true,
+          "why": "违背避免过度使用原则"
+        },
+        {
+          "label": "B",
+          "selected": false,
+          "why": "用DashScopeParse符合工程实践"
+        },
+        {
+          "label": "C",
+          "selected": false,
+          "why": "任务拆分符合管道式架构"
+        },
+        {
+          "label": "D",
+          "selected": false,
+          "why": "正则处理简单任务合理"
+        }
+      ],
+      "duplicate_of": "",
+      "quote_exact": true
+    },
+    "second": {
+      "qid": "10-1084",
+      "classification": "own",
+      "chapter": 11,
+      "quality": "ok",
+      "reason": "考查多模态解析的合理选型与效率思路。",
+      "answer": [
+        "A"
+      ],
+      "supported": true,
+      "quote": "只涉及文本的问答/写作，不要为了‘多模态’而上多模态，徒增成本与延迟",
+      "per_option": [
+        {
+          "label": "A",
+          "selected": true,
+          "why": "所有图片都用视觉模型解析不符合效率思路，成本高。"
+        },
+        {
+          "label": "B",
+          "selected": false,
+          "why": "使用DashScopeParse解析文档符合提升效率思路。"
+        },
+        {
+          "label": "C",
+          "selected": false,
+          "why": "拆分任务使用不同工具处理符合效率思路。"
+        },
+        {
+          "label": "D",
+          "selected": false,
+          "why": "简单文本替换用正则表达式符合效率思路。"
+        }
+      ],
+      "duplicate_of": "",
+      "quote_exact": true
+    },
+    "answer_correction": false
+  }
+]

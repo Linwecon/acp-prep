@@ -1,0 +1,214 @@
+{
+  "3-0191": {
+    "qid": "3-0191",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "考查余弦相似度在向量检索中的作用",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "余弦相似度是向量检索首选相似度。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "原文明确指出余弦相似度是向量检索首选相似度"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "与训练数据无关"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "不直接影响推理时间"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "不改变模型参数"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-0192": {
+    "qid": "3-0192",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "考查内存向量库适用场景",
+    "answer": [
+      "A",
+      "B"
+    ],
+    "supported": true,
+    "quote": "开发测试可用 LlamaIndex 内置的内存向量库；生产环境可选用云服务（如阿里云 DashVector）或自建开源库",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "原文明确说开发测试可用内存向量库"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "小规模应用符合内存库适用条件"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "原文指出生产环境应选云服务或自建库"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "大规模应用需高性能向量数据库"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-0215": {
+    "qid": "3-0215",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "考查本地向量数据库适用场景",
+    "answer": [
+      "A",
+      "B"
+    ],
+    "supported": true,
+    "quote": "开发测试可用 LlamaIndex 内置的内存向量库；生产环境可选用云服务（如阿里云 DashVector）或自建开源库",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "小规模应用适合本地向量库"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "开发测试明确可用内存向量库"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "生产环境推荐云服务或自建库"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "大规模应用需更高性能方案"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-0236": {
+    "qid": "3-0236",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "考查RAG链路优化必要性",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "不要为了'省'而砍掉 Rerank 或用太小的 Top K——检索质量下降导致答错，反而代价更高",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "原文强调节省资源避免干扰"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "与训练数据无关"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "非直接减少推理时间"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "不增加模型参数"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-0277": {
+    "qid": "3-0277",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "考查embedding检索原理",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "把用户问题也向量化，找出与问题向量距离最近的若干 chunk",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "原文明确描述该过程"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "与训练数据无关"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "不直接减少推理时间"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "不增加模型参数"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-0315": {
+    "qid": "3-0315",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "考查问题分解方法",
+    "answer": [
+      "D"
+    ],
+    "supported": true,
+    "quote": "RAG 中的 Decomposition 问题分解：将复杂问题拆解为更小、更易管理的部分来改善理解",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "RAG-Fusion是融合技术"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "Multi-Query是多路召回"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "Sentence Sliding非标准术语"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "原文定义Decomposition为问题拆解"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

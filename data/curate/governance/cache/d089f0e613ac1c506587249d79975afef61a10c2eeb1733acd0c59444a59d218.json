@@ -1,0 +1,214 @@
+{
+  "new-6-30-0": {
+    "qid": "new-6-30-0",
+    "classification": "own",
+    "chapter": 6,
+    "quality": "ok",
+    "reason": "考查SLO驱动下，根据压测结果调整并发限制的权衡逻辑。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "并发已超过服务最优处理能力，GPU/显存成为瓶颈，请求开始排队导致RT劣化和超时。应通过压测找到最优并发阈值并做限流",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "并发32已导致性能劣化，不应强制承载。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "应稳定在已验证的平衡点，符合SLO权衡逻辑。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "并发24未经验证，可能仍导致性能劣化。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "需主动限流，自动调度无法解决瓶颈。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-6-30-1": {
+    "qid": "new-6-30-1",
+    "classification": "own",
+    "chapter": 6,
+    "quality": "ok",
+    "reason": "考查PagedAttention参数调整对KV Cache碎片问题的缓解。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "PagedAttention（分页注意力）把KV Cache切成一个个固定大小的块（block），按需分配，再用一张“页表”记录逻辑位置到物理块的映射。消除碎片",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "增大块容量可能加剧内部碎片。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "减小块大小可提升分配粒度，减少浪费。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "前缀缓存针对公共前缀，非解决碎片问题。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "允许更长序列会加剧碎片，与目标相反。"
+      }
+    ],
+    "duplicate_of": "6-5145"
+  },
+  "new-6-30-2": {
+    "qid": "new-6-30-2",
+    "classification": "own",
+    "chapter": 6,
+    "quality": "ok",
+    "reason": "考查KV Cache成为显存瓶颈的根本原因分析。",
+    "answer": [
+      "A",
+      "B"
+    ],
+    "supported": true,
+    "quote": "KV Cache随“序列长度 × 并发数”线性增长，长上下文、高并发时KV Cache往往成为显存大头。PagedAttention解决的是KV Cache的显存碎片与预分配浪费",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "并发峰值可能超过KV Cache容量上限。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "长度方差大可能导致PagedAttention分配不均产生碎片。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "GPU总显存占用仅60%，权重非主因。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "连续批处理解决GPU空转，不导致KV Cache无效占用。"
+      }
+    ],
+    "duplicate_of": "6-5153"
+  },
+  "new-6-30-3": {
+    "qid": "new-6-30-3",
+    "classification": "own",
+    "chapter": 6,
+    "quality": "ok",
+    "reason": "考查PagedAttention相比传统分配的核心节省机制。",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "PagedAttention把KV Cache切成固定大小块，按需分配，不再按最大长度预分配浪费",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "描述的是MLA等压缩技术，非PagedAttention。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "这是传统连续分配的缺点，非PagedAttention的优点。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "按实际长度动态分配，消除预分配浪费是核心机制。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "前缀缓存是优化，非主要节省来源。"
+      }
+    ],
+    "duplicate_of": "6-5147"
+  },
+  "new-6-30-4": {
+    "qid": "new-6-30-4",
+    "classification": "own",
+    "chapter": 6,
+    "quality": "ok",
+    "reason": "考查连续批处理对TTFT（首token延迟）的影响机制。",
+    "answer": [
+      "D"
+    ],
+    "supported": true,
+    "quote": "TTFT（首token延迟）受Prefill速度、排队时长、prompt长度影响",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "连续批处理不增加Prefill阶段的跨请求数据依赖。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "连续批处理不强制Prefill阶段对齐。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "连续批处理不降低Prefill并行度。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "并发增加导致Prefill排队延长是TTFT上升的合理原因。"
+      }
+    ],
+    "duplicate_of": "6-5148"
+  },
+  "new-6-30-5": {
+    "qid": "new-6-30-5",
+    "classification": "own",
+    "chapter": 6,
+    "quality": "ok",
+    "reason": "考查高TTFT且资源使用正常时的故障诊断逻辑。",
+    "answer": [
+      "B",
+      "D"
+    ],
+    "supported": true,
+    "quote": "TTFT（首token延迟）受Prefill速度、排队时长、prompt长度影响。长prompt会让“等很久才开口”（Prefill变慢）",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "KV Cache占用率仅30%，显存OOM可能性低。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "排队等待时间延长是导致TTFT升高的常见原因。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "线上服务通常已就绪，冷启动非主因。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "突增超长prompt会导致Prefill计算爆炸，TTFT升高。"
+      }
+    ],
+    "duplicate_of": "6-5139"
+  }
+}

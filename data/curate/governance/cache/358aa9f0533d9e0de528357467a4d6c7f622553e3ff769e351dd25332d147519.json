@@ -1,0 +1,222 @@
+{
+  "1-0984": {
+    "qid": "1-0984",
+    "classification": "beyond",
+    "chapter": 1,
+    "quality": "remove",
+    "reason": "题干问'优化大模型应用的推理效率'，但所列技术（模型量化、注意力机制优化、批处理、蒸馏、增参）均属于模型部署与训练章节（ch6/ch5），原文第1章未覆盖任何一项。'推理效率'在ch1中仅提及TTFT/TPOT等指标定义，但未涉及优化技术。",
+    "answer": [],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "模型量化和压缩属于第6章'模型部署与推理优化'知识范畴，ch1原文未提及。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "注意力机制优化是工程实现细节，ch1仅解释自注意力直觉，未提优化技术。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "批处理推理属于ch6'连续批处理（Continuous Batching）'，ch1未覆盖。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "模型蒸馏属于ch5'模型微调与训练'知识，ch1未涉及。"
+      },
+      {
+        "label": "E",
+        "selected": false,
+        "why": "增加参数规模属于Scaling Law直觉，但ch1明确指出'参数不是唯一因素'，且'增参'非推理效率优化手段，属能力提升范畴。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "1-1037": {
+    "qid": "1-1037",
+    "classification": "beyond",
+    "chapter": 1,
+    "quality": "remove",
+    "reason": "题干问'大语言模型微调的训练循环'，所有选项（梯度裁剪、保存、正向传播、反向传播、超参调整、梯度更新）均属于第5章'模型微调与训练'核心内容，ch1原文完全未涉及训练循环任何步骤。",
+    "answer": [],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "梯度裁剪是ch5训练稳定性技术，ch1未提及。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "模型保存属于ch5训练流程环节，ch1无相关内容。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "正向传播是ch5训练基础步骤，ch1仅在五阶段中描述推理阶段，非训练循环。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "反向传播是ch5训练核心，ch1未涉及训练过程。"
+      },
+      {
+        "label": "E",
+        "selected": false,
+        "why": "超参数调整属于ch5训练实践，ch1未覆盖。"
+      },
+      {
+        "label": "F",
+        "selected": false,
+        "why": "梯度更新是ch5训练关键步骤，ch1未提及。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "1-1087": {
+    "qid": "1-1087",
+    "classification": "cross",
+    "chapter": 1,
+    "quality": "review",
+    "reason": "题干要求'提升产品吸引力和实用性'，需结合ch1LLM本质及边界判断：A项符合LLM文本生成能力；B项路径规划需工具调用（ch4）；C项图像识别属多模态（ch11）；D项'完全相同'违背LLM概率性本质。但ch1原文未直接讨论旅游场景设计，需确认是否超出本章考查范围。",
+    "answer": [
+      "A",
+      "C"
+    ],
+    "supported": true,
+    "quote": "LLM 的本质是条件概率模型：给定上文（第 1、2、…、t-1 个词），模型计算下一个词的概率分布 P(下一个词 | 上文)",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "符合ch1'LLM本质是概率性文本生成器'，能结合上下文生成个性化介绍，原文明确'擅长语言理解、文本生成、知识问答'。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "路径规划需实时数据和符号运算，ch1明确'不擅精确计算'且'应交给计算器/代码工具'，属ch4Agent范畴，非ch1直接考查点。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "图像识别属多模态能力，ch11有'多模态模型 vs 纯文本LLM'，但ch1原文未否定多模态应用，且'图文对比学习（CLIP范式）'在ch11，本题需跨章判断。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "ch1明确'同一个问题每次回答不一样'，'输出每次不同=正常现象'，'流畅≠正确'，'概率性生成器'，'完全相同'违背LLM本质。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "1-1089": {
+    "qid": "1-1089",
+    "classification": "cross",
+    "chapter": 1,
+    "quality": "review",
+    "reason": "题干要求体现'个性化、智能化、普惠教育'，需结合ch1LLM能力边界与ch11多模态、ch5微调等交叉判断。A/B/C/D均涉及不同章节技术，ch1仅提供基础能力判断依据（如个性化生成、多模态支持），但未直接定义教育场景方案。",
+    "answer": [
+      "A",
+      "B",
+      "C"
+    ],
+    "supported": true,
+    "quote": "LLM 的本质是条件概率模型：给定上文（第 1、2、…、t-1 个词），模型计算下一个词的概率分布 P(下一个词 | 上文)",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "自适应学习符合ch1'LLM擅长知识问答、推理分析'，且'个性化'呼应ch1'根据上下文生成'能力。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "VR实验室属多模态应用（ch11），ch1虽未直接提及，但'多模态模型'在ch11目录，且ch1承认LLM可作为多模态系统组件。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "方言识别属多模态ASR→LLM管道（ch11），ch11明确'ASR→LLM→TTS管道式架构'，符合普惠教育目标。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "选择题判卷和错别字纠正属传统NLP任务，ch1未强调LLM在此类确定性任务上的优势，且'问答错误别字纠正'可能涉及幻觉风险，ch1强调'幻觉无法100%消除'。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "1-1182": {
+    "qid": "1-1182",
+    "classification": "beyond",
+    "chapter": 1,
+    "quality": "remove",
+    "reason": "题干考查'system角色使用'，但选项均为字符串格式错误（缺少外层列表括号、引号嵌套错误），属编程语法题，ch1原文仅说明'system role设定人设/任务/规则'，未涉及JSON字符串编写规范。该题应属ch9'API调用'或编程基础题。",
+    "answer": [],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "代码片段缺少外层方括号包裹，且字符串内引号未转义，ch1未教JSON语法，属ch9API调用实操范畴。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "assistant角色用于模型回复，非system角色指示，ch1明确'system设定人设'。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "user角色为用户输入，非system角色，ch1明确三角色分工。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "system内容应为人设指令，'用户想咨询退货流程'是user内容，ch1示例中system为'你是教育内容公司的答疑助手'。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "1-1239": {
+    "qid": "1-1239",
+    "classification": "beyond",
+    "chapter": 1,
+    "quality": "remove",
+    "reason": "题干考查'文生视频模型'具体型号能力对比，ch1原文未提及任何视频生成模型（Sora/MiniMax/Kling等），ch11目录虽有'扩散模型原理（文生图/视频）'，但原文未展开具体模型对比，属超纲信息题。",
+    "answer": [],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "ch1未提及Sora或MiniMax-Video-01，属ch11未覆盖的厂商模型细节。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "Dream Machine1.5未在ch1或ch11原文出现，属外部模型信息。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "Gen-3 AlphaTurbo未在教材中出现，属超纲内容。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "DIIT架构未在ch1或ch11提及，属技术细节超纲。"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

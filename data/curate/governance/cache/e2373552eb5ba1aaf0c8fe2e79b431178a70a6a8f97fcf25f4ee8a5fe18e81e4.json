@@ -1,0 +1,232 @@
+{
+  "4-1129": {
+    "qid": "4-1129",
+    "classification": "own",
+    "chapter": 10,
+    "quality": "ok",
+    "reason": "考查百炼Assistant API构建Agent的简化优势",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "百炼的核心能力可以理解为把前几章的技术'产品化'了：应用（智能体/Agent）对应第4章Agent，配置角色、工具、知识库，低代码搭智能体",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "未提及绕过API限制"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "百炼不控制模型训练"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "百炼内置工具简化开发"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "未提及修改不提供参数"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "4-1271": {
+    "qid": "4-1271",
+    "classification": "own",
+    "chapter": 10,
+    "quality": "ok",
+    "reason": "考查百炼平台多Agent编排的优势",
+    "answer": [
+      "A",
+      "B",
+      "D"
+    ],
+    "supported": true,
+    "quote": "工作流编排对应Workflow，拖拽节点把'检索→改写→生成→审核'串成稳定流程；百炼的价值在于把复杂的工程链路封装成可视化操作",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "支持可视化流程设计"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "内置智能体协作逻辑"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "'完全无需'过于绝对"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "可快速验证业务效果"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "4-5154": {
+    "qid": "4-5154",
+    "classification": "own",
+    "chapter": 10,
+    "quality": "ok",
+    "reason": "考查百炼Assistant API托管上下文与工具调用的优势",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "百炼的价值在于把复杂的工程链路封装成可视化操作：智能体背后就是ReAct + 工具调用",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "需要API Key"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "不能保证完全无错误"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "平台托管上下文与执行闭环"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "可用于在线任务"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "5-0848": {
+    "qid": "5-0848",
+    "classification": "own",
+    "chapter": 10,
+    "quality": "ok",
+    "reason": "考查对百炼模型微调功能的错误描述",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "微调过程中无需关注数据格式，任意格式数据均可直接使用",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "支持使用私有数据微调"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "微调后模型可部署为API"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "数据格式需规范，非任意"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "支持LoRA轻量化微调"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "5-0859": {
+    "qid": "5-0859",
+    "classification": "cross",
+    "chapter": 2,
+    "quality": "ok",
+    "reason": "考查大模型应用开发通用流程，非阿里云平台特有",
+    "answer": [
+      "A",
+      "B",
+      "C",
+      "D",
+      "E"
+    ],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "需求分析是核心环节"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "技术选型是必要步骤"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "模型开发/微调是关键"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "部署与监控是必须的"
+      },
+      {
+        "label": "E",
+        "selected": true,
+        "why": "运维优化是持续过程"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "8-0981": {
+    "qid": "8-0981",
+    "classification": "cross",
+    "chapter": -1,
+    "quality": "ok",
+    "reason": "考查大模型解决方案通用评估维度，非本章知识",
+    "answer": [
+      "A",
+      "B",
+      "C",
+      "D",
+      "E"
+    ],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "需评估模型能力性能"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "需评估成本资源需求"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "需评估部署维护复杂度"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "需评估社区生态支持"
+      },
+      {
+        "label": "E",
+        "selected": true,
+        "why": "需评估合规安全认证"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

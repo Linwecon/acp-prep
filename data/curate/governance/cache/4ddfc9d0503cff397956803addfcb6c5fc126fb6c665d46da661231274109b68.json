@@ -1,0 +1,219 @@
+{
+  "10-0444": {
+    "qid": "10-0444",
+    "classification": "own",
+    "chapter": 10,
+    "quality": "ok",
+    "reason": "Qwen-Max是文本模型，仅支持文本生成类任务",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "通义千问 Qwen 负责文本/语言，对话、问答、生成、推理",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "Qwen-Max不支持图像设计，属通义万相范畴"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "课程文案属文本生成，Qwen-Max适用"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "视频剪辑非Qwen-Max能力范围"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "执行代码需工具调用，非Qwen-Max原生能力"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "10-0587": {
+    "qid": "10-0587",
+    "classification": "own",
+    "chapter": 10,
+    "quality": "ok",
+    "reason": "列表法模拟记忆需显式维护与注入上下文",
+    "answer": [
+      "A",
+      "B",
+      "D"
+    ],
+    "supported": true,
+    "quote": "百炼应用（智能体/Agent）配置角色、工具、知识库，低代码搭智能体",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "列表可累积存储关键信息"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "列表需作为上下文附加到问题中"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "列表不会自动清空，需手动管理"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "可手动编辑列表并选择性展示"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "10-0591": {
+    "qid": "10-0591",
+    "classification": "own",
+    "chapter": 10,
+    "quality": "ok",
+    "reason": "上下文记忆需动态筛选与更新以提升质量",
+    "answer": [
+      "A",
+      "B",
+      "C"
+    ],
+    "supported": true,
+    "quote": "工作流编排背后就是可控的多步编排",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "自动丢弃旧记录可缓解窗口限制"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "按相关性更新可提升记忆有效性"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "智能筛选保留有用信息是核心策略"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "跨会话共享记忆可增强连贯性"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "10-0596": {
+    "qid": "10-0596",
+    "classification": "own",
+    "chapter": 10,
+    "quality": "ok",
+    "reason": "百炼知识库支持主流文档格式解析",
+    "answer": [
+      "A",
+      "B",
+      "C",
+      "D"
+    ],
+    "supported": true,
+    "quote": "知识库（RAG）内置文档解析、切片、向量化、检索，上传文档即可问答",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "pdf是标准支持格式"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "html为常见网页文档格式"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "docx是Word文档标准格式"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "csv属结构化数据支持格式"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "10-1055": {
+    "qid": "10-1055",
+    "classification": "own",
+    "chapter": 10,
+    "quality": "ok",
+    "reason": "Qwen-Max专精文本生成，不支持多模态操作",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "通义千问 Qwen 负责文本/语言，对话、问答、生成、推理",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "执行代码需Function Calling支持"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "课程脚本属文本生成任务"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "视频剪辑非Qwen-Max能力"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "图像设计属通义万相范畴"
+      }
+    ],
+    "duplicate_of": "10-0444"
+  },
+  "10-1073": {
+    "qid": "10-1073",
+    "classification": "own",
+    "chapter": 10,
+    "quality": "ok",
+    "reason": "百炼API遵循messages角色化结构规范",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "messages角色化结构，system/user/assistant/tool角色分工",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "content字段承载用户输入内容"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "model参数指定模型名称"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "api_key用于身份认证"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "base_url指定API端点地址"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

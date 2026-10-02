@@ -1,0 +1,146 @@
+{
+  "new-11-36-0": {
+    "qid": "new-11-36-0",
+    "classification": "own",
+    "chapter": 11,
+    "quality": "ok",
+    "reason": "考查扫描件PDF在RAG中处理不当的根本原因与修复动作，符合本章知识。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "扫描件PDF本质是图片，文本切片器一行字都读不出来。需要文档智能解析先把结构还原出来。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "问题根源在数据解析，非模型能力。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "扫描件需先OCR和结构化，才能正确切片入库。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "通用加载器无法读取图片文字，增大chunk无效。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "问题在解析阶段，非检索阶段向量化方法。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-11-36-2": {
+    "qid": "new-11-36-2",
+    "classification": "own",
+    "chapter": 11,
+    "quality": "ok",
+    "reason": "考查多模态教育场景所需技术组件，覆盖图文理解、语音处理与生成。",
+    "answer": [
+      "A",
+      "B",
+      "D"
+    ],
+    "supported": true,
+    "quote": "语音助手是典型的管道式架构：ASR语音识别（语音→文字，通义听悟）...LLM理解与生成...TTS语音合成（文字→语音，CosyVoice）。看图作答需要Qwen-VL这类多模态模型。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "语音提问需ASR转文字，通义听悟对应此能力。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "拍照上传数学题和板书需图文理解模型。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "生成解题步骤示意图非必须，题干未明确要求。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "语音播报讲解需TTS合成，CosyVoice对应此能力。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-11-36-3": {
+    "qid": "new-11-36-3",
+    "classification": "own",
+    "chapter": 11,
+    "quality": "ok",
+    "reason": "考查文生图应用中自动评测指标的局限性，符合本章风险提示。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "图文/视频一致性：模型可能生成'看起来对但细节错'的内容，自动指标很难评判，必须靠人工抽检或多模态审核模型兜底。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "题干未提及训练数据问题，非根本原因。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "自动指标无法有效评估图文一致性和指令遵循度。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "未启用控制功能可能导致问题，但非自动指标失效的根本原因。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "AI标识是合规要求，与质量评估问题无关。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-11-36-4": {
+    "qid": "new-11-36-4",
+    "classification": "own",
+    "chapter": 11,
+    "quality": "ok",
+    "reason": "考查医疗多模态应用的安全与合规措施，覆盖内容审核与AI标识。",
+    "answer": [
+      "A",
+      "B",
+      "C"
+    ],
+    "supported": true,
+    "quote": "内容审核必须覆盖文本、图像、音频、视频全部模态...深度合成内容，必须按规定加AI生成标识（如界面标注'本内容由AI生成，仅供参考'）。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "CT影像和病历图片需同步图像内容安全检测。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "医生语音记录需异步音频内容安全检测。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "AI生成的诊断建议属于深度合成内容，需加标识。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "原文未要求删除CT影像中的人脸信息。"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

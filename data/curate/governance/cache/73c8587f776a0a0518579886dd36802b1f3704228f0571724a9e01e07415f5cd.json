@@ -1,0 +1,154 @@
+{
+  "items": [
+    {
+      "type": 0,
+      "stem": "某企业升级新人答疑机器人为报销进度查询助手。用户提问后，模型输出包含 tool_calls 的响应，但系统未返回最终答案，而是报错 'No tool result in context'。根据第4章 Function Calling 流程，最可能的根本原因是什么？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "模型未正确生成 tool_calls 结构，导致程序无法解析"
+        },
+        {
+          "option_label": "B",
+          "option_text": "应用代码未执行工具调用，也未将结果以 role='tool' 消息回传"
+        },
+        {
+          "option_label": "C",
+          "option_text": "工具 Schema 中 parameters 缺少 required 字段，参数提取失败"
+        },
+        {
+          "option_label": "D",
+          "option_text": "LLM 在第二轮调用时因上下文过长被截断，丢失了原始 user 消息"
+        }
+      ],
+      "answer": "B",
+      "analysis": "依据4.3节Function Calling流程四步（教材原文明确强调）：第1步定义tools、第2步模型输出tool_calls、第3步由应用代码执行函数、第4步将结果作为role='tool'消息回传。题干中模型已成功输出tool_calls（说明第2步完成），但系统报错'No tool result in context'，直接对应第4步缺失——工具结果未被程序注入上下文。A项属第2步失败，与题干'输出包含tool_calls'矛盾；C项会导致第2步无有效tool_calls或参数为空，但题干未提示参数错误；D项是Memory管理问题，而错误信息精准指向'无tool结果'，非上下文截断现象。教材风险提示栏明确指出：'❌ 工具结果模型自己能看到 → ✅ 结果必须由程序作为 role=\"tool\" 消息追加回上下文'。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 1,
+      "stem": "在部署一个需实时查询OA审批流的ReAct Agent时，为保障生产稳定性，必须设置哪些硬性约束？依据第4章4.4节ReAct铁律，以下哪些选项符合规范要求？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "设定最大迭代轮数为5，超限后主动终止并提示用户'审批状态暂无法获取，请稍后重试'"
+        },
+        {
+          "option_label": "B",
+          "option_text": "允许Agent在工具返回空结果时自动重试3次，不设总轮数上限"
+        },
+        {
+          "option_label": "C",
+          "option_text": "为每次调用设置30秒HTTP超时，并在Observation中强制校验返回JSON结构有效性"
+        },
+        {
+          "option_label": "D",
+          "option_text": "当检测到连续两轮Thought内容高度重复时，触发降级策略，改用静态FAQ回答"
+        }
+      ],
+      "answer": "ACD",
+      "analysis": "依据4.4节'ReAct的三条铁律'：①'不是无限循环'→必须设最大轮数/超时/token预算上限（A、C正确）；②'Observation可能含噪声'→需校验外部返回（C中校验JSON结构即体现此原则）；③'简单任务不要上ReAct'→D中重复Thought表明陷入无效循环，触发降级符合'主动收尾'要求。B项违反铁律一：'无限循环'是明确禁止的，'不设总轮数上限'直接违背'必须设置最大迭代轮数'的强制要求（教材原文：'必须设置最大迭代轮数 / 超时 / token 预算上限'）。教材风险提示强调'超限要主动收尾或向用户澄清，否则会陷入死循环并烧光预算'。",
+      "difficulty_label": "高阶"
+    },
+    {
+      "type": 0,
+      "stem": "某团队需为15个内部系统（CRM、ERP、HRIS等）统一接入AI助手。当前每个Agent均硬编码各系统API Schema，工具方参数变更需全量更新所有Agent代码。依据第4章4.5节MCP原理，最根本的架构改进应是？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "将所有Schema集中存入配置中心，Agent启动时动态拉取"
+        },
+        {
+          "option_label": "B",
+          "option_text": "为每个系统开发独立MCP Server，由Agent通过MCP Client自动发现并连接"
+        },
+        {
+          "option_label": "C",
+          "option_text": "用RAG将各系统API文档向量化，按需检索注入上下文"
+        },
+        {
+          "option_label": "D",
+          "option_text": "编写通用Schema解析器，支持运行时加载YAML格式描述文件"
+        }
+      ],
+      "answer": "B",
+      "analysis": "依据4.5节MCP核心思想：'谁提供工具，谁定义工具'，其本质是将工具Schema维护权从Agent（消费方）转移到工具服务（提供方）。教材明确类比：'Function Calling像内部总线，MCP像USB接口'，且'Agent通过MCP Client发现工具→把工具Schema注入→模型仍通过Function Calling触发调用'。B项完全匹配三层架构（Server提供、Client发现、Host调用）和'即插即用'目标。A项仍是中心化硬编码，未解决'工具方改参需全量更新'痛点；C项属RAG范畴，解决知识检索而非工具接入；D项未改变Schema由消费方维护的本质，且YAML解析器仍需适配各系统。教材exam栏明确示例：'新增十几个内部系统工具...引入MCP，让工具作为独立Server暴露，Agent通过标准协议动态发现'。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 1,
+      "stem": "设计一个负责课程质量审查的多Agent系统，需兼顾技术准确性与教学规范性。依据第4章4.7节多Agent四原则及4.9节Skill实践，以下哪些设计违反了核心规范？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "为'代码审校Agent'和'内容审校Agent'配置同一套数据库只读账号"
+        },
+        {
+          "option_label": "B",
+          "option_text": "将全部12个专家Agent的系统提示词拼接成超长字符串，作为Leader Agent的初始system prompt"
+        },
+        {
+          "option_label": "C",
+          "option_text": "将团队《Python课程审查SOP》写成Skill目录，通过渐进式披露机制按需加载"
+        },
+        {
+          "option_label": "D",
+          "option_text": "当Leader Agent发现子任务依赖未满足时，直接向用户发起HITL审批请求"
+        }
+      ],
+      "answer": "AB",
+      "analysis": "依据4.7节'多Agent设计四原则'：A项违反'独立凭据'原则（教材原文：'不同Agent不得共用同一套账号/API凭据，按最小权限分别授权'）；B项违反'避免全量注入'（教材原文：'不要把所有Agent的知识/工具清单一次性写进主Prompt'，会导致上下文膨胀、注意力稀释）。C项完全符合4.9节Skill定义——'固化SOP，渐进式披露'，是推荐实践；D项符合4.6.2节工作流中HITL模式（'在关键节点暂停，交人类审批/决策'），属于合规设计。教材exam栏明确警示：'所有Agent共用一个管理员账号'和'把所有Agent系统提示词拼到主Prompt'均为典型错误。",
+      "difficulty_label": "高阶"
+    },
+    {
+      "type": 0,
+      "stem": "某客服Agent连续处理30轮对话后，开始忽略用户首轮强调的'请用表格形式回复'要求。当前采用固定窗口截断（保留最近10轮）。依据第4章4.8节Memory策略，最治本的优化方案是？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "将窗口大小从10轮扩大至50轮，确保首轮消息不被丢弃"
+        },
+        {
+          "option_label": "B",
+          "option_text": "启用滚动摘要，在窗口满时用LLM将前20轮压缩为'用户偏好摘要'并替换"
+        },
+        {
+          "option_label": "C",
+          "option_text": "建立长期记忆向量库，将'输出格式要求'等关键指令持久化，新会话按语义检索注入"
+        },
+        {
+          "option_label": "D",
+          "option_text": "在每轮system prompt中重复添加'请始终用表格回复'的硬性指令"
+        }
+      ],
+      "answer": "C",
+      "analysis": "依据4.8节Memory分类与策略：'短期记忆'（窗口/摘要）维持本次会话连贯，'长期记忆'（向量召回）解决跨会话持久化。题干中'首轮要求被忽略'是典型的长期记忆失效问题——固定窗口截断必然丢失早期关键指令。C项直接对应'向量化长期记忆'方案（教材原文：'把关键偏好持久化、按需检索'），且明确指出'摆脱窗口限制'。A项违背教材警告：'单纯扩窗口只是延后爆炸'，且'会注意力稀释/中间迷失'；B项滚动摘要虽优于截断，但摘要质量不可控，'用户偏好'易在压缩中丢失；D项属提示词工程，无法解决记忆持久化本质问题。教材exam栏直接给出同类问题答案：'引入向量化长期记忆'。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 1,
+      "stem": "对一个用于生成财务报告的Agent进行评测时，发现端到端分数达标但用户投诉'数据引用来源缺失'。依据第4章4.10节评测方法论，应组合使用哪些手段定位并解决该问题？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "编写确定性检查脚本，验证输出中每个数值是否附带[Source:xxx]标记"
+        },
+        {
+          "option_label": "B",
+          "option_text": "用LLM-as-Judge评估'信息溯源完整性'，并用黄金测试集校准评委"
+        },
+        {
+          "option_label": "C",
+          "option_text": "构建Rubric评分量表，将'数据来源标注'列为独立检查项并强制结构化输出"
+        },
+        {
+          "option_label": "D",
+          "option_text": "增加端到端人工抽检频次，覆盖更多样化财务场景"
+        }
+      ],
+      "answer": "ABC",
+      "analysis": "依据4.10节评测三法及'白盒化评测'理念：题干问题'数据引用来源缺失'是可客观判定的中间步骤缺陷（非最终答案好坏），需白盒手段。A项'确定性检查'直接验证结构化要求（教材：'验证是否调工具/输出是否符合JSON Schema/必填字段是否齐全'）；B项'LLM-as-Judge'适合主观维度'溯源完整性'，但必须'用黄金集校准'（教材：'项目初期用人工标注建立黄金测试集，用它校准LLM评委'）；C项'Rubric'将模糊目标拆解为可判定细则（教材：'把模糊目标拆成逐条可判定的细则'），且'强制结构化输出'提升稳定性。D项'端到端人工抽检'属黑盒评测，无法定位'来源缺失'这一具体环节，且效率低，不符合'精准定位瓶颈'要求（教材：'白盒化评测能精准定位瓶颈、快速迭代'）。",
+      "difficulty_label": "高阶"
+    }
+  ]
+}

@@ -1,0 +1,214 @@
+{
+  "12-5069": {
+    "qid": "12-5069",
+    "classification": "own",
+    "chapter": 12,
+    "quality": "ok",
+    "reason": "考查LlamaIndex检索后处理组件，考点明确",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "Postprocessor（如句子窗口替换、Rerank、相似度过滤）",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "BaseSynthesizer负责生成答案，非重排序"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "SentenceWindowNodeParser是切片器，非重排序"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "LlmReranker是重排序组件"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "VectorStoreQueryMode是查询模式，非重排序"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "12-5070": {
+    "qid": "12-5070",
+    "classification": "own",
+    "chapter": 12,
+    "quality": "ok",
+    "reason": "考查本地轻量RAG技术栈选型，符合框架选型决策",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "需要离线跑开源模型做调试 → Ollama / LM Studio + Transformers",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "全本地组件，最轻量且不依赖云服务"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "依赖OpenAI API，非本地"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "依赖百炼云服务，非本地"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "依赖HuggingFace Embeddings，非完全本地"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "12-5071": {
+    "qid": "12-5071",
+    "classification": "own",
+    "chapter": 12,
+    "quality": "ok",
+    "reason": "考查Dify Chatflow特性，属于低代码平台能力",
+    "answer": [
+      "A",
+      "B",
+      "D"
+    ],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "Chatflow专为对话设计，应有输入输出端口"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "实时流式响应是对话应用常见特性"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "知识库与模型需配置，非自动继承"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "一键发布为Web App是Dify核心能力"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "12-5072": {
+    "qid": "12-5072",
+    "classification": "cross",
+    "chapter": -1,
+    "quality": "review",
+    "reason": "考点涉及SQLDatabaseChain错误排查，但教材未提及此组件",
+    "answer": [
+      "B"
+    ],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "错误提示表不存在，应先查数据库连接"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "表不存在应优先确认数据库加载正确"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "权限问题通常报错不同"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "表结构描述缺失可能导致查询错误，但非首要"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "12-5073": {
+    "qid": "12-5073",
+    "classification": "cross",
+    "chapter": -1,
+    "quality": "review",
+    "reason": "考查百炼可视化工作流节点，但教材未详细展开",
+    "answer": [
+      "C"
+    ],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "条件判断需预设规则，不直接分类意图"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "大模型节点可分类，但非专用优化节点"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "意图识别专用节点最符合需求"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "硬编码不灵活，非优先推荐"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "12-5074": {
+    "qid": "12-5074",
+    "classification": "own",
+    "chapter": 12,
+    "quality": "ok",
+    "reason": "考查LangChain中重排序实践，符合检索后处理考点",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "Postprocessor（如句子窗口替换、Rerank、相似度过滤）",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "模型排序不可靠，非推荐实践"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "专用reranker链是官方推荐方式"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "归一化非重排序，效果有限"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "丢弃rerank可能影响精度"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

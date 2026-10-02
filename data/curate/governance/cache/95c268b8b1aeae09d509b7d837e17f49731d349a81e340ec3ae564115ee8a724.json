@@ -1,0 +1,210 @@
+{
+  "4-1325": {
+    "qid": "4-1325",
+    "classification": "misplaced",
+    "chapter": 4,
+    "quality": "remove",
+    "reason": "题干问Multi-Agent结合技术，但原文未提Agent与视觉/ML/区块链的结合，属无依据臆测",
+    "answer": [],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "原文未提Agent与视觉标注结合"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "原文未提Agent与NLP结合"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "原文未提Agent与ML优化结合"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "原文未提Agent与区块链结合"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "5-1353": {
+    "qid": "5-1353",
+    "classification": "own",
+    "chapter": 11,
+    "quality": "ok",
+    "reason": "考查文生图提示词结构，原文明确要求描述场景与风格",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "文生图（通义万相）——核心是扩散模型（Diffusion）——从一张随机噪声图出发，在文本条件引导下一步步\"去噪\"",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "深度学习是方法论非提示词"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "符合文生图需描述场景风格"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "过于笼统无具体特征"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "超参数是训练概念非提示词"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "5-1378": {
+    "qid": "5-1378",
+    "classification": "own",
+    "chapter": 11,
+    "quality": "ok",
+    "reason": "考查文生图提示词优化，原文强调描述场景与风格",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "文生图（通义万相）——核心是扩散模型（Diffusion）——从一张随机噪声图出发，在文本条件引导下一步步\"去噪\"",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "仅关键词无法控制质量"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "描述场景风格最有效"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "反向提示词非原文强调重点"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "链接非提示词结构"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "10-0455": {
+    "qid": "10-0455",
+    "classification": "own",
+    "chapter": 11,
+    "quality": "ok",
+    "reason": "考查视觉模型适用场景，原文指出复杂图片需深层次解析",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "扫描件/图片文档 → OCR + 版面分析 → 结构化文本 → 常规 RAG；表格/图表 → 表格转 Markdown 保留结构",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "命令行截图文字简单无需视觉模型"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "清晰文本截图可用OCR直接处理"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "不规则复杂图片需视觉模型解析"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "已解析文本无需视觉模型"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "10-0388": {
+    "qid": "10-0388",
+    "classification": "own",
+    "chapter": 11,
+    "quality": "ok",
+    "reason": "考查Qwen-VL能力边界，原文未提三维重建",
+    "answer": [
+      "D"
+    ],
+    "supported": true,
+    "quote": "Qwen-VL（理解）、通义万相（生成）、通义听悟（语音）；图文理解（Qwen-VL）：图片 → patch 向量 → 进 LLM → 输出文本",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "物体识别是Qwen-VL基础能力"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "图表转表格属文档智能范畴"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "基于图像创作故事属图文理解延伸"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "三维重建非原文提及能力"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "10-1084": {
+    "qid": "10-1084",
+    "classification": "own",
+    "chapter": 11,
+    "quality": "ok",
+    "reason": "考查多模态使用原则，原文强调避免过度使用",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "不要为了\"多模态\"而上多模态，徒增成本与延迟；有扫描件/票据/图表 → 先上文档智能解析",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "违背避免过度使用原则"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "用DashScopeParse符合工程实践"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "任务拆分符合管道式架构"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "正则处理简单任务合理"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

@@ -1,0 +1,215 @@
+{
+  "3-5039": {
+    "qid": "3-5039",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "考查表格解析问题处理，属于RAG文档解析环节的典型场景。",
+    "answer": [
+      "D"
+    ],
+    "supported": true,
+    "quote": "表格若被当成普通文字按固定长度切碎，行列关系会被打散，后面问'违约金比例''对比数值'就会答错。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "向量数据库不解决解析问题。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "temperature调节输出随机性，无关。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "删除内容会丢失信息，不合理。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "优化解析策略是根本解决之道。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-5040": {
+    "qid": "3-5040",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "考查固定长度切分的典型缺点，属于文本切片核心知识。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "切得太小：语义被截断（一句话被切成两半），即使检索命中也信息不全",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "说法绝对，可用于某些场景。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "固定长度切分易破坏语义完整性。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "并非一定会丢失所有表格。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "固定长度切分可以设置重叠。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-5041": {
+    "qid": "3-5041",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "考查结构感知切分与固定长度切分的核心区别。",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "Markdown 切片：按标题层级（`#`/`##`/`###`）切 | 有清晰标题结构的制度、手册、文档",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "随机切分不符合结构感知。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "按字节数均分是固定长度切分。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "沿自然边界切分是结构感知核心。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "结构感知切分也可设置重叠。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-5042": {
+    "qid": "3-5042",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "考查语义切分的特点，属于切片策略知识。",
+    "answer": [
+      "A",
+      "B",
+      "C"
+    ],
+    "supported": true,
+    "quote": "语义切片：用模型判断语义边界，在话题转换处切 | 高价值、结构复杂的文档（成本更高）",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "语义切分旨在边界处切分。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "保持语义单元完整是其目标。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "使用模型判断边界，计算开销更高。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "语义切分不保证完全无重叠。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-5043": {
+    "qid": "3-5043",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "考查重叠（overlap）设置的主要目的，属于切片基础。",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "因此工程上通常会设置 重叠（overlap）——相邻 chunk 之间保留一小段重复文字，防止一句话正好被从中间切断。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "防止上下文被切断，保持衔接。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "重叠增加存储，不会减少。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "重叠不提升检索速度。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "重叠是为减少噪声，非增加。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-5044": {
+    "qid": "3-5044",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "考查较小chunk的适用场景，属于切片策略选择。",
+    "answer": [
+      "A",
+      "C"
+    ],
+    "supported": true,
+    "quote": "切得太小：语义被截断（一句话被切成两半），即使检索命中也信息不全，模型无法据此回答。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "精确引用事实需要小颗粒度。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "理解完整脉络需要较大上下文。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "定位具体条款需要精准检索。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "跨段落推理需要更大上下文。"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

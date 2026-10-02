@@ -1,0 +1,154 @@
+{
+  "items": [
+    {
+      "type": 0,
+      "stem": "某教育公司HR部门需在3天内上线一个制度问答原型，文档为扫描件PDF和带复杂表格的员工手册，IT仅提供百炼API Key且不参与开发。根据第12章12.6.2节对Dify的定位及12.5节解析能力要求，以下哪项是Dify能直接满足而裸调SDK或手写LlamaIndex无法满足的必要条件？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "自动调用DashScopeParse完成OCR与版面结构化解析，并将结果持久化为向量索引"
+        },
+        {
+          "option_label": "B",
+          "option_text": "通过可视化界面让HR自主上传、预览解析效果、调整切片参数并发布Web应用"
+        },
+        {
+          "option_label": "C",
+          "option_text": "支持在Python中动态注册自定义Tool并嵌入ReAct循环进行多步推理"
+        },
+        {
+          "option_label": "D",
+          "option_text": "提供LCEL管道语法实现prompt | retriever | llm | parser的声明式编排"
+        }
+      ],
+      "answer": "B",
+      "analysis": "依据原文12.6.2节：'Dify是面向少写代码甚至不写代码的搭建体验，让产品、运营和业务人员也能参与'；其核心价值在于'可视化 + 少量代码'，典型场景即'HR想自己搭一个制度问答机器人，IT只提供模型API Key'（原文考试例题）。选项B明确指向Dify独有的非工程人员自助能力——上传、预览、调参、发布全流程可视化，这是裸调SDK（无UI/无解析）和手写LlamaIndex（需编码、调试、部署）均无法满足的必要条件。选项A错误：Dify虽可集成DashScopeParse，但'自动调用'非Dify原生能力，需配置或依赖插件，且原文强调'Dify不是解析器，而是平台'；选项C属于AgentScope/LangChain范畴；选项D是LangChain LCEL特性，与Dify无关。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 1,
+      "stem": "在验证Dify原型可行性时，发现上传扫描件PDF后知识库检索返回空结果。根据第12章12.5节文档解析选型原则与12.6.2节Dify能力边界，以下哪些原因可能构成故障的充分必要条件？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "Dify实例未启用OCR解析引擎，且未配置DashScopeParse等云端解析服务"
+        },
+        {
+          "option_label": "B",
+          "option_text": "PDF文件实际为纯图像扫描件，无文字层，而Dify默认使用SimpleDirectoryReader解析"
+        },
+        {
+          "option_label": "C",
+          "option_text": "知识库设置中未勾选'启用向量化'，导致文档未被嵌入"
+        },
+        {
+          "option_label": "D",
+          "option_text": "用户提问时未启用RAG模式，系统回退至基础LLM生成"
+        }
+      ],
+      "answer": "AB",
+      "analysis": "依据原文12.5节：'扫描件PDF读出来是空的 → 需要OCR / DashScopeParse'；'SimpleDirectoryReader对扫描件处理有限'；12.6.2节指出Dify是'低代码平台'，其解析能力取决于后端配置。选项A正确：Dify本身不内置OCR，必须显式启用DashScopeParse等服务（原文12.5表明确列DashScopeParse为OCR方案），未启用则无法解析扫描件；选项B正确：直接对应12.5节'扫描件PDF读出来是空的'这一典型故障现象，且SimpleDirectoryReader是Dify默认fallback解析器（课程实践逻辑），构成充分必要条件；选项C错误：'未启用向量化'会导致检索无结果，但文档应已存入知识库（可预览），与'返回空结果'（无任何上下文）不完全等价，且非解析阶段故障；选项D错误：RAG模式开关影响的是是否注入上下文，但若知识库为空，则无论是否启用RAG都无内容可注入，故非根本原因。",
+      "difficulty_label": "挑战"
+    },
+    {
+      "type": 0,
+      "stem": "团队使用Dify构建新人答疑机器人，初期仅需单轮问答。当需求演进到需'先查制度知识库，再根据回答决定是否调用请假审批API'时，工程师尝试在Dify Chatflow中添加HTTP工具节点，但发现无法基于LLM输出动态判断是否调用。根据第12章12.6.2节对Dify的定位及12.4节框架组合原则，此限制的根本原因是什么？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "Dify的Chatflow不支持条件分支逻辑，所有节点均为线性执行"
+        },
+        {
+          "option_label": "B",
+          "option_text": "Dify作为低代码平台，其Agent能力聚焦于预设工具链，缺乏LangChain级的动态Tool Calling决策机制"
+        },
+        {
+          "option_label": "C",
+          "option_text": "HTTP工具节点必须配置固定URL，无法根据LLM输出实时生成请求参数"
+        },
+        {
+          "option_label": "D",
+          "option_text": "Dify未提供JSON Schema工具描述规范，导致LLM无法理解工具调用约束"
+        }
+      ],
+      "answer": "B",
+      "analysis": "依据原文12.6.2节：'Dify是低代码平台...可视化配置工具与推理策略'，其Agent能力是'Function Calling的可视化封装'，但原文明确对比'用了Dify就不用懂提示词和RAG'是误区，且强调'深度定制仍需写代码'；12.4节指出'LangChain的Agent是动态选择并调用工具'，而Dify的工具调用是预设、静态的。选项B精准指出本质：Dify的Agent抽象层级低于LangChain，它封装了工具调用，但不提供'根据问题动态选择工具'的运行时决策能力（即ReAct循环），这正是LangChain Agent的核心（12.2节）。选项A错误：Dify Chatflow支持条件分支（如意图分类后路由）；选项C错误：HTTP节点支持变量注入；选项D错误：Dify工具配置需声明参数，但非JSON Schema标准，且非根本限制。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 1,
+      "stem": "某团队在Dify中完成原型验证后，需将能力迁移至生产环境。根据第12章12.6.2节'成本'分析与12.8节'七大常见误区'，以下哪些操作属于从Dify原型到生产落地时必须主动实施的关键约束？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "配置独立的内容安全审核服务，对用户输入与模型输出进行实时过滤"
+        },
+        {
+          "option_label": "B",
+          "option_text": "为不同部门HR设置细粒度知识库访问权限，避免跨部门制度泄露"
+        },
+        {
+          "option_label": "C",
+          "option_text": "将Dify私有部署集群接入企业统一身份认证（IAM）系统"
+        },
+        {
+          "option_label": "D",
+          "option_text": "在Dify控制台中开启'自动备份知识库索引'功能"
+        }
+      ],
+      "answer": "ABC",
+      "analysis": "依据原文12.6.2节'成本'部分：'私有部署 ≠ 自动合规；内容安全审核、权限分级、审计日志仍需自己配置'；12.8节误区7：'Dify私有部署 = 自动安全合规'是典型错误。选项A、B、C均对应原文明确指出的'需自行配置'项：内容安全（A）、权限分级（B）、审计/认证（C）。选项D错误：'自动备份'非Dify原生功能，原文未提及，且备份策略属运维范畴，非Dify平台能力，不符合'必须主动实施的关键约束'（Dify不提供该功能，需外部方案）。",
+      "difficulty_label": "挑战"
+    },
+    {
+      "type": 0,
+      "stem": "在对比Dify与LangChain/LlamaIndex时，以下哪项最能体现Dify在原型验证阶段不可替代的独特价值？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "提供开箱即用的RAG评估模块，可一键生成RAGAS指标报告"
+        },
+        {
+          "option_label": "B",
+          "option_text": "支持通过拖拽工作流节点快速组合知识库、意图识别、工具调用与LLM生成"
+        },
+        {
+          "option_label": "C",
+          "option_text": "允许开发者直接修改底层VectorStoreIndex的相似度计算算法"
+        },
+        {
+          "option_label": "D",
+          "option_text": "内置LangGraph状态机引擎，可定义Leader-Worker多Agent协作流程"
+        }
+      ],
+      "answer": "B",
+      "analysis": "依据原文12.6.2节：'Dify用可视化界面把知识库、工作流、Agent、模型接入、工具调用、发布串成一条流水线'；'面向少写代码甚至不写代码的搭建体验'；12.8节选型表明确'业务/运营同学自助搭建、内部工具 → Dify'。选项B直接对应Dify核心价值——可视化拖拽工作流（原文'拖拽节点：开始→意图分类→检索/工具→LLM→输出'），这是原型验证'快'的本质，也是区别于代码框架的根本特征。选项A错误：RAGAS是独立评估框架，Dify不内置；选项C错误：Dify不开放VectorStoreIndex底层算法；选项D错误：Leader-Worker是AgentScope特性（12.6.1节），非Dify能力。",
+      "difficulty_label": "入门"
+    },
+    {
+      "type": 1,
+      "stem": "根据第12章贯穿案例与12.8节'务实的选型主线'，以下哪些条件同时成立时，Dify成为比LangChain+LlamaIndex手写方案更优的原型验证选择？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "验证目标是确认业务方对问答效果的接受度，而非技术链路性能压测"
+        },
+        {
+          "option_label": "B",
+          "option_text": "团队中存在非工程背景的业务方需直接参与文档维护与效果调优"
+        },
+        {
+          "option_label": "C",
+          "option_text": "知识库文档格式统一为Markdown，无需OCR或复杂表格解析"
+        },
+        {
+          "option_label": "D",
+          "option_text": "后续生产环境明确要求支持高并发、毫秒级响应及全链路追踪"
+        }
+      ],
+      "answer": "AB",
+      "analysis": "依据原文12.8节'务实选型主线'：'能用→好用→可靠→上线'，其中Dify定位在'好用'阶段（业务方参与）；12.6.2节强调'让产品、运营和业务人员也能参与'；12.8节误区6警示'本地跑通≠生产就绪'。选项A正确：原型验证核心是业务反馈，Dify的快速迭代能力完美匹配；选项B正确：直接对应Dify设计初衷（非工程人员自助）；选项C错误：格式简单反而降低Dify优势，此时手写LlamaIndex更轻量（12.8表：'一次性脚本→SDK直调'）；选项D错误：高并发/追踪属'上线'阶段，需FastAPI+监控，Dify非为此设计，原文明确'大规模生产需自行评估性能'。",
+      "difficulty_label": "进阶"
+    }
+  ]
+}

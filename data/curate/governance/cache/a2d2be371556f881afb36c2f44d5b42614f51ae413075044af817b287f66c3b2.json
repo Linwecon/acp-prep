@@ -1,0 +1,220 @@
+{
+  "5-0695": {
+    "qid": "5-0695",
+    "classification": "own",
+    "chapter": 5,
+    "quality": "ok",
+    "reason": "泛化能力是微调核心概念，原文多处定义",
+    "answer": [
+      "A",
+      "B",
+      "C"
+    ],
+    "supported": true,
+    "quote": "泛化能力指模型在未见过的数据 / 任务上的表现",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "原文明确定义泛化能力"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "预训练数据多样性影响泛化"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "过拟合会降低泛化能力"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "参数量非决定性因素"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "5-0816": {
+    "qid": "5-0816",
+    "classification": "own",
+    "chapter": 5,
+    "quality": "ok",
+    "reason": "过拟合是微调失败最常见现象",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "验证 loss 先降后升 = 过拟合的铁证",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "训练好验证差即过拟合"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "欠拟合则训练验证均差"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "梯度爆炸loss会飙升"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "收敛是正常训练状态"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "5-0913": {
+    "qid": "5-0913",
+    "classification": "own",
+    "chapter": 5,
+    "quality": "ok",
+    "reason": "代码规范属行为适配，C选项无依据",
+    "answer": [
+      "C"
+    ],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "提示词可约束风格"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "微调可学编码规范"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "原文未提自审查机制"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "Few-shot可提升规范性"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "5-1095": {
+    "qid": "5-1095",
+    "classification": "own",
+    "chapter": 5,
+    "quality": "ok",
+    "reason": "LoRA选参需综合资源与任务",
+    "answer": [
+      "A",
+      "B",
+      "C",
+      "D"
+    ],
+    "supported": true,
+    "quote": "LoRA两个关键旋钮：lora_rank（r）和lora_alpha",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "显存决定rank上限"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "数据量影响rank选择"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "任务复杂度定rank"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "基础模型d决定r/d比"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "5-1101": {
+    "qid": "5-1101",
+    "classification": "own",
+    "chapter": 5,
+    "quality": "ok",
+    "reason": "前置评估三原则覆盖全部选项",
+    "answer": [
+      "A",
+      "B",
+      "C",
+      "D"
+    ],
+    "supported": true,
+    "quote": "标准的优化顺序：提示词优化 → RAG → （仍不满足才考虑）微调",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "数据量是评估前提"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "RAG是前置选项"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "提示词是第一优先级"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "成本是决策关键因素"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "5-1150": {
+    "qid": "5-1150",
+    "classification": "own",
+    "chapter": 5,
+    "quality": "ok",
+    "reason": "LoRA小数据时应减秩而非增秩",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "数据少时全参微调反而容易过拟合，LoRA扰动小、更稳",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "小数据应减秩防过拟合"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "质量好增数据有效"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "LoRA数据需求远小于预训练"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "原文称常接近全参效果"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

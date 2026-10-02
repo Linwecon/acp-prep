@@ -1,0 +1,215 @@
+{
+  "new-12-12-0": {
+    "qid": "new-12-12-0",
+    "classification": "own",
+    "chapter": 12,
+    "quality": "ok",
+    "reason": "题干描述与12.1节场景完全一致，考查框架解决共性工程模式的核心价值。",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "真实应用通常会反复出现几类‘共性脏活’：提示词拼装与变量替换、多轮对话历史、文档加载切片向量化检索、多步骤流程编排、工具调用与Agent循环、链路追踪回调流式。框架的本质价值是‘把大模型应用中反复出现的工程模式抽象成可组合的组件’。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "未提及API不兼容是根本原因。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "题干困境是工程模式重复，非模型输出不稳定。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "裸调SDK无法抽象共性工程模式，导致重复造轮子，是根本原因。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "Dify是低代码平台，非解决此工程困境的根本。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-12-12-1": {
+    "qid": "new-12-12-1",
+    "classification": "own",
+    "chapter": 12,
+    "quality": "ok",
+    "reason": "综合考查文档解析选型与低代码平台适用场景，符合分层原则。",
+    "answer": [
+      "A",
+      "B",
+      "C"
+    ],
+    "supported": true,
+    "quote": "文档是扫描件、截图、复杂表格、图文混排PDF → 上DashScopeParse（OCR + 版面结构化）。Dify是一个开源的‘低代码LLM应用开发平台’，用可视化界面把‘知识库（RAG）、工作流、Agent、模型接入、工具调用、发布’串成一条流水线。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "扫描件PDF需DashScopeParse解析。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "HR非技术人员上传文档，Dify低代码平台合适。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "Dify支持‘仅知识库回答’开关，符合禁止自由发挥需求。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "需求未明确需要多Agent协作，AgentScope非必需。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-12-12-2": {
+    "qid": "new-12-12-2",
+    "classification": "own",
+    "chapter": 12,
+    "quality": "ok",
+    "reason": "考查LlamaIndex中context_str与query_str的区别及常见错误。",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "context_str是检索到的上下文，不是用户问题。用户问题由query_str注入——考试常把二者互换作为错误选项。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "streaming配置影响输出方式，非引用错误条款的根本原因。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "切片过粗可能导致信息不全，但题干说context_str内容准确。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "误将query_str当作context_str注入提示词模板，导致模型混淆。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "持久化索引影响效率，非生成答案内容错误的直接原因。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-12-12-3": {
+    "qid": "new-12-12-3",
+    "classification": "own",
+    "chapter": 12,
+    "quality": "ok",
+    "reason": "考查复杂场景下框架组合选型，符合各司其职原则。",
+    "answer": [
+      "A",
+      "B"
+    ],
+    "supported": true,
+    "quote": "LlamaIndex最适合的场景：以RAG为核心的应用。LangChain最适合的场景：需要把多个模型调用、工具、检索、记忆串成稳定流程的应用；需要Agent动态选择工具。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "LlamaIndex擅长文档解析、切片与向量索引。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "LangChain+LangGraph生态完整，适合编排复杂工作流。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "需求是单Agent多步骤流程，非多Agent消息广播协作。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "团队有开发能力且要求可观测，Dify低代码平台非最优。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-12-12-4": {
+    "qid": "new-12-12-4",
+    "classification": "cross",
+    "chapter": 7,
+    "quality": "ok",
+    "reason": "考查RAGAS指标context_recall的定义，属于第7章评估知识。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "RAGAS是主流的开源RAG评估框架：用大模型当评委，对检索端（Context Precision/Recall）和生成端（Faithfulness/Answer Correctness）分别打分。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "context_recall评估检索端，非生成答案相似度。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "context_recall低分反映检索上下文未覆盖标准答案关键信息。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "并发处理能力是服务层性能，非RAGAS评估指标。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "Gradio界面体验是UI层，非RAGAS评估内容。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-12-12-5": {
+    "qid": "new-12-12-5",
+    "classification": "own",
+    "chapter": 12,
+    "quality": "ok",
+    "reason": "考查引入框架的典型负担，与12.1节风险描述一致。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "引入框架会同时带来学习成本、版本依赖、抽象泄漏和调试黑盒四类负担。框架封装越深，出错时栈追踪越长，‘为什么框架多塞了一段system prompt/多调了一次模型’常常要翻源码。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "题干现象是调试黑盒，非学习成本高。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "抽象泄漏与调试黑盒导致响应变慢、栈追踪长。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "题干未提及版本冲突导致初始化失败。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "题干已引入框架，现象是其负担，非选型误区。"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

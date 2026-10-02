@@ -1,0 +1,215 @@
+{
+  "new-9-6-0": {
+    "qid": "new-9-6-0",
+    "classification": "own",
+    "chapter": 9,
+    "quality": "ok",
+    "reason": "题目考查限流（429）的根因定位与工程修复，符合本章错误处理与配额管理考点。",
+    "answer": [
+      "D"
+    ],
+    "supported": true,
+    "quote": "超出任一配额都会返回 429，配合 9.8 的退避重试处理；配额不够可向平台申请调整。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "题干明确RPM配额超限，非服务端临时过载。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "重试策略是缓解手段，非根因；根因是并发超配额。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "429是配额超限，非API Key权限问题。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "根因是并发超RPM配额，主动控流是首步修复。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-9-6-1": {
+    "qid": "new-9-6-1",
+    "classification": "own",
+    "chapter": 9,
+    "quality": "ok",
+    "reason": "题目考查Batch API的正确应用实践，符合本章批量生成考点。",
+    "answer": [
+      "A",
+      "B"
+    ],
+    "supported": true,
+    "quote": "准备输入文件：通常是 JSONL 格式，每行是一个独立请求（含自定义请求 ID，便于结果对齐）。轮询/回调：查询任务状态（排队中 → 运行中 → 已完成/失败）。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "JSONL文件是Batch标准输入格式。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "轮询任务状态是标准流程。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "必须校验请求ID对齐，防错位。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "批内单行失败通常不影响其他行。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-9-6-2": {
+    "qid": "new-9-6-2",
+    "classification": "own",
+    "chapter": 9,
+    "quality": "ok",
+    "reason": "题目考查API无状态与多轮对话上下文传递，是本章核心概念。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "大模型 API 是无状态的——每次 HTTP 请求之间相互独立，服务端不会保存任何对话历史。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "未涉及Function Calling。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "现象违反API无状态，需客户端传全历史。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "流式不影响上下文感知。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "temperature影响随机性，非失忆主因。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-9-6-3": {
+    "qid": "new-9-6-3",
+    "classification": "own",
+    "chapter": 9,
+    "quality": "ok",
+    "reason": "题目考查结构化输出与成本控制的参数配置，符合本章核心参数与计费考点。",
+    "answer": [
+      "A",
+      "C",
+      "D"
+    ],
+    "supported": true,
+    "quote": "事实问答、代码生成、信息抽取要稳定、少随机。简单任务用低档。system message 用于设置大模型的角色和任务。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "低temperature保障格式稳定。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "PDF全文作system prompt会极大增加输入成本。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "简单任务用低档模型降成本。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "system消息明确指令是标准实践。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-9-6-4": {
+    "qid": "new-9-6-4",
+    "classification": "own",
+    "chapter": 9,
+    "quality": "ok",
+    "reason": "题目考查Function Calling API流程中工具结果回传的关键步骤。",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "把模型决策和工具结果一起加进 messages。第二次调用：让模型基于工具结果生成最终回答。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "描述正确，但非题干错误直接违反的原则。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "题干错误是未追加tool结果到messages。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "Schema要求非题干错误直接原因。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "tool_choice设置与题干错误无关。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "new-9-6-5": {
+    "qid": "new-9-6-5",
+    "classification": "own",
+    "chapter": 9,
+    "quality": "ok",
+    "reason": "题目考查API Key安全规范，特别是前端硬编码和提交Git的风险。",
+    "answer": [
+      "D"
+    ],
+    "supported": true,
+    "quote": "前端绝不放 Key：浏览器端请求走后端代理，由后端附加 Key。不提交 Git：.gitignore 排除密钥文件；提交前用扫描工具检查。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "涉及但非题干操作最严重违反的。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "涉及但非最直接对应的违规。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "提交Git是违规，但题干同时涉及前端硬编码。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "前端硬编码Key并提交，双重违反此条。"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

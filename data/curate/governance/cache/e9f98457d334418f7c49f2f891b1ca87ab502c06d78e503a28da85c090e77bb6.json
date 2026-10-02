@@ -1,0 +1,212 @@
+{
+  "3-1433": {
+    "qid": "3-1433",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "结构化文档提升检索定位效率，原文明确强调结构保留对检索命中关键",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "结构化如此重要：同样的信息，放在结构清晰的表格里，比散落在大段文字中更容易被切片和检索命中",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "结构化提升检索命中率"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "训练数据属模型训练阶段"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "推理时间不提升定位效率"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "参数数量不直接影响定位"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-1434": {
+    "qid": "3-1434",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "结构化格式增强语义理解，原文指出结构保留利于语义检索",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "结构化如此重要：同样的信息，放在结构清晰的表格里，比散落在大段文字中更容易被切片和检索命中",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "训练数据影响模型能力"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "结构化利于语义解析"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "参数数量不直接提升理解"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "推理时间无关语义理解"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-1435": {
+    "qid": "3-1435",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "similarity_top_k直接控制召回范围，原文明确其与召回率关系",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "K 调大 → 召回率（相关文档被找到的比例）↑，但无关噪声也增多、精确率 ↓、token 成本 ↑",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "top_k参数直接控制召回数"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "训练数据不改变召回范围"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "推理时间不影响召回"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "参数数量不决定召回范围"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-1442": {
+    "qid": "3-1442",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "索引核心作用是加速检索，原文指出向量数据库用ANN索引实现毫秒级检索",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "向量数据库用近似最近邻（ANN）索引（如 HNSW、IVF）实现毫秒级检索",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "索引不增加训练数据"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "索引专为加速检索设计"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "推理时间非索引目的"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "索引不改变模型参数"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-1443": {
+    "qid": "3-1443",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "文本分段使检索颗粒度适配，原文定义切片为检索基本单位",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "切出来的每个 chunk 就是后续向量化和检索的基本单位",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "分段不直接减推理时间"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "速度提升靠索引而非分段"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "分段使检索精准命中内容"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "分段不增加训练数据"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "3-1448": {
+    "qid": "3-1448",
+    "classification": "own",
+    "chapter": 3,
+    "quality": "ok",
+    "reason": "权限过滤应在检索前完成，原文明确元数据过滤在检索阶段",
+    "answer": [
+      "B"
+    ],
+    "supported": true,
+    "quote": "元数据过滤：检索前按来源/时间/部门等标签先过滤候选集",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "召回后过滤效率低"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "元数据过滤在检索前"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "权限控制非仅管理员"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "模型不负责权限判断"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

@@ -1,0 +1,221 @@
+{
+  "6-1366": {
+    "qid": "6-1366",
+    "classification": "own",
+    "chapter": 6,
+    "quality": "ok",
+    "reason": "考查上下文缓存的核心优势，考点明确，选项清晰。",
+    "answer": [
+      "A"
+    ],
+    "supported": true,
+    "quote": "上下文缓存复用公共前缀（系统提示词、知识库），减少重复计算；如千问系列缓存 token 单价约为输入 token 的 40%",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "原文指出缓存复用公共前缀可降本。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "缓存主要降成本，非直接提速。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "缓存不扩展上下文窗口。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "缓存不减少模型参数。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "6-0960": {
+    "qid": "6-0960",
+    "classification": "own",
+    "chapter": 6,
+    "quality": "ok",
+    "reason": "考查推理服务关键性能指标，符合本章知识。",
+    "answer": [
+      "A",
+      "B",
+      "D",
+      "E"
+    ],
+    "supported": true,
+    "quote": "监控推理服务必须同时看 QPS、RT/TTFT、错误率、GPU 利用率与 KV Cache 占用，不能只看单一指标。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "响应延迟是核心指标。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "吞吐量是核心指标。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "准确率属质量评估，非本章性能指标。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "可用性是服务稳定性指标。"
+      },
+      {
+        "label": "E",
+        "selected": true,
+        "why": "成本是部署优化关键考量。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "6-1099": {
+    "qid": "6-1099",
+    "classification": "own",
+    "chapter": 6,
+    "quality": "ok",
+    "reason": "考查多轮对话场景的成本优化策略，符合本章内容。",
+    "answer": [
+      "A",
+      "D"
+    ],
+    "supported": true,
+    "quote": "上下文缓存复用公共前缀（系统提示词、知识库），减少重复计算；如千问系列缓存 token 单价约为输入 token 的 40%",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "使用长上下文缓存API是推荐方案。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "仅保留2轮可能损失上下文，非最优。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "固定长度截断可能损失信息，非最优。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "总结历史对话是有效降本策略。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "6-1190": {
+    "qid": "6-1190",
+    "classification": "misplaced",
+    "chapter": 5,
+    "quality": "remove",
+    "reason": "考查Keras序列填充，与模型部署推理优化无关，属微调数据预处理。",
+    "answer": [
+      "A"
+    ],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "pad_sequences用于填充序列。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "非文本摘要功能。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "非特征缩放。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "非文本向量化。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "6-5118": {
+    "qid": "6-5118",
+    "classification": "own",
+    "chapter": 6,
+    "quality": "ok",
+    "reason": "考查函数计算FC的核心价值，考点明确。",
+    "answer": [
+      "D"
+    ],
+    "supported": true,
+    "quote": "函数计算FC（Function Compute）是事件驱动的Serverless计算服务：写好函数代码，平台负责运行、弹性与运维，按调用量和实际资源消耗计费",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "FC无需用户自维护服务器。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "FC按需弹性，无需长期预留。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "FC可配置多种触发器。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "自动扩缩容免运维是核心价值。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "6-5122": {
+    "qid": "6-5122",
+    "classification": "own",
+    "chapter": 6,
+    "quality": "ok",
+    "reason": "考查FC灰度发布最佳实践，符合部署运维知识。",
+    "answer": [
+      "D"
+    ],
+    "supported": true,
+    "quote": "PAI-EAS支持蓝绿部署、版本控制、回滚，便于灰度验证。",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "直接删除旧版本风险高。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "随机创建服务不可控。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "修改安全组非灰度策略。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "使用版本别名灰度放量是标准做法。"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}

@@ -1,0 +1,43 @@
+{
+  "new-10-48-3": {
+    "qid": "new-10-48-3",
+    "classification": "own",
+    "chapter": 10,
+    "quality": "ok",
+    "reason": "题目考查PAI-DSW微调后的验证路径，与教材10.4节流程一致，选项设计合理。",
+    "answer": [
+      "A",
+      "D"
+    ],
+    "supported": true,
+    "quote": "得到合并后的模型，用 vLLM 本地起服务验证（其 HTTP 接口本身兼容 OpenAI API）",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "教材推荐用vLLM本地起HTTP服务验证。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "跳过本地验证不符合推荐路径，应先本地验证。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "EAS部署是后续步骤，非本地验证路径。"
+      },
+      {
+        "label": "D",
+        "selected": true,
+        "why": "在DSW中加载权重推理是直接验证方式。"
+      },
+      {
+        "label": "E",
+        "selected": false,
+        "why": "导出ONNX并通过DataWorks验证非教材推荐路径。"
+      }
+    ],
+    "duplicate_of": "10-5189"
+  }
+}

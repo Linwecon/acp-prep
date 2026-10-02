@@ -1,0 +1,162 @@
+{
+  "items": [
+    {
+      "type": 0,
+      "stem": "某教育公司新人答疑机器人上线后，HR反馈：员工上传一份PDF，机器人读取后未回答原问题，反而执行了PDF中隐藏的指令——向全员邮箱发送含钓鱼链接的会议邀请。该现象最应归因于哪类攻击面？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "攻击大模型本身：通过对抗样本干扰模型推理"
+        },
+        {
+          "option_label": "B",
+          "option_text": "攻击基础设施：DDoS导致服务异常，触发默认行为"
+        },
+        {
+          "option_label": "C",
+          "option_text": "攻击大模型应用：间接提示注入劫持Agent工具调用"
+        },
+        {
+          "option_label": "D",
+          "option_text": "攻击数据层：知识库投毒导致检索结果被篡改"
+        }
+      ],
+      "answer": "C",
+      "analysis": "依据原文8.3节‘提示注入与越狱’及8.10场景表：该案例明确符合‘上传精心构造的PDF，机器人读完后忽略用户真问题、执行PDF里的隐藏指令’，教材定义为‘间接提示注入’，属于‘攻击大模型应用’范畴（原文表格首行）。A错误：对抗样本属‘攻击模型本身’，需输入扰动图像/音频等，PDF文本不构成对抗样本；B错误：DDoS表现为资源耗尽（GPU 100%、响应延迟），而非定向执行恶意操作；D错误：知识库投毒指恶意上传污染RAG源文档，而本例中PDF是用户实时上传、未入库，属运行时注入，非知识库污染。教材强调‘间接注入危害更大……一旦被RAG检索进上下文，可能诱导调用工具’，且‘工具权限越大，破坏越大’，与发送邮件行为完全吻合。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 0,
+      "stem": "开发团队为答疑机器人配置了阿里云内容安全服务，对用户输入文本进行检测。当用户提交一段Base64编码的SQL注入语句（如'UPDATE employees SET salary=0'）时，系统未触发拦截。最根本的原因是？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "内容安全服务未启用‘LLM查询审核模型’，仅使用通用文本模型"
+        },
+        {
+          "option_label": "B",
+          "option_text": "Base64编码绕过了关键词黑名单，而规则审核无法识别语义变形"
+        },
+        {
+          "option_label": "C",
+          "option_text": "API请求头未携带X-DashScope-DataInspection，未触发安全审查链路"
+        },
+        {
+          "option_label": "D",
+          "option_text": "服务端未配置自定义词库，导致无法识别企业内部敏感字段"
+        }
+      ],
+      "answer": "B",
+      "analysis": "依据原文8.3节‘为什么关键词黑名单防不住？’：明确指出‘把UPDATE xxx用Base64编码，黑名单根本看不见’，并强调‘黑名单越攒越长，维护成本高，却永远追不上攻击者的造词速度’。B项直指教材核心原理——规则审核（关键词/正则）本质是模式匹配，无法理解编码后的语义，故被绕过。A错误：LLM查询审核模型（llm_query_moderation）确为推荐服务，但即使启用，若未结合语义分析能力，仍可能漏判编码内容；C错误：X-DashScope-DataInspection是百炼平台特有请求头，而题干明确使用‘阿里云内容安全服务’，其调用独立于百炼，不依赖此头；D错误：自定义词库用于拦截企业私域词（如项目代号），与SQL语法无关。教材将‘编码混淆’列为越狱典型手法，与Base64绕过逻辑一致。",
+      "difficulty_label": "中等"
+    },
+    {
+      "type": 0,
+      "stem": "在RAG知识库权限控制实现中，课程工程采用四张CSV表关联过滤Top-K结果。当用户提问‘如何申请CEO级差旅’时，系统返回了薪酬方案文档片段。经排查，该文档在kb_position_ref.csv中position_ids字段值为'[1,2]'（对应employer/teamleader），而当前用户position_id为3（manager）。问题最可能出在以下哪个环节？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "user.csv中用户position_id字段录入错误"
+        },
+        {
+          "option_label": "B",
+          "option_text": "kb_position_ref.csv中该文档position_ids应为'[3,4]'但误写为'[1,2]'"
+        },
+        {
+          "option_label": "C",
+          "option_text": "过滤代码未正确解析position_ids字符串，导致ast.literal_eval失败后跳过校验"
+        },
+        {
+          "option_label": "D",
+          "option_text": "检索阶段未将position_id作为filter下推，导致无权文档被召回"
+        }
+      ],
+      "answer": "C",
+      "analysis": "依据原文8.8.1节代码示例及8.8.2‘常见误区’：课程代码明确使用ast.literal_eval(row['position_ids'])解析字符串列表。若position_ids字段格式非法（如多空格、单引号错用、JSON格式错误），literal_eval会抛出异常，若代码未捕获该异常，则循环中断或跳过校验，导致无权文档未被过滤。C项直指代码健壮性缺陷，符合‘技术落地细节’考查要求。A、B为数据录入错误，属低级运维问题，非架构设计重点；D错误：教材强调‘过滤发生在检索之后、拼Prompt之前’，且明确‘不能靠模型自觉’，说明检索本身不带权限filter，而是后置过滤，故D描述与课程设计矛盾。教材8.8.2风险提示‘❌在提示词里告诉模型只能回答有权内容’即反证D不可行。",
+      "difficulty_label": "进阶"
+    },
+    {
+      "type": 1,
+      "stem": "某AI客服系统需处理用户上传的报销PDF，其中可能夹带违规文字或OCR可识别的违法内容。根据教材8.4.3节多模态检测规范，以下哪些操作符合‘标准检测流程’？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "调用image_moderation接口，传入PDF文件二进制流"
+        },
+        {
+          "option_label": "B",
+          "option_text": "先将PDF上传至OSS获取公网URL，再调用image_moderation接口传入该URL"
+        },
+        {
+          "option_label": "C",
+          "option_text": "调用text_moderation_plus接口，service参数设为'pdf_ocr_moderation'"
+        },
+        {
+          "option_label": "D",
+          "option_text": "调用image_moderation接口，service参数设为'baselineCheck_pro'，传入OSS URL"
+        },
+        {
+          "option_label": "E",
+          "option_text": "对PDF每页截图后批量调用image_moderation"
+        }
+      ],
+      "answer": "B,D",
+      "analysis": "依据原文8.4.3节‘多模态检测需要公网可访问URL’及表格：图像检测要求‘公网可访问的图片URL’，课程实践为‘先上传OSS，再传URL’（B正确）；service列明确‘图像’对应‘baselineCheck_pro’（D正确）。A错误：image_moderation不接受二进制流，必须URL；C错误：text_moderation_plus无'pdf_ocr_moderation' service参数，教材仅列出'llm_query_moderation'；E错误：截图非标准流程，增加开销且未被教材提及。教材强调‘这套先上传换URL、再提交审核是多模态检测的标准套路’，B、D共同构成该标准。",
+      "difficulty_label": "中等"
+    },
+    {
+      "type": 0,
+      "stem": "运维监控发现答疑机器人GPU利用率持续100%，日志显示大量请求携带‘请基于附件中的十年财报生成5000字深度分析报告’。此时应立即启动哪一层防御机制？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "输入过滤层：增强越狱话术检测模型阈值"
+        },
+        {
+          "option_label": "B",
+          "option_text": "运行监控层：审计Agent工具调用链路并熔断"
+        },
+        {
+          "option_label": "C",
+          "option_text": "基础设施层：启用DDoS高防清洗流量洪峰"
+        },
+        {
+          "option_label": "D",
+          "option_text": "应用层：对单用户设置token/算力上限并成本预估熔断"
+        }
+      ],
+      "answer": "D",
+      "analysis": "依据原文8.7节‘资源耗尽型DDoS是AI应用的新风险’及8.10场景表：该现象明确对应‘大量分析五年财报写5000字请求把GPU打到100%、账单飙升’，教材定性为‘资源耗尽型DDoS’，并指出防御需‘DDoS高防清洗 + WAF/API网关限流 + 应用层按用户设算力/费用熔断’。D项‘应用层按用户设算力上限’是教材指定的三层联动中关键一环，且‘立即启动’要求精准定位到应用层熔断（最直接可控）。A错误：输入过滤针对越狱/注入，非算力滥用；B错误：运行监控审计工具调用，但本例无工具调用，纯模型推理；C错误：DDoS高防针对SYN Flood等网络层洪峰，而本例是合法HTTP请求的算力耗尽，属应用层攻击，需应用层限流而非流量清洗。教材强调‘应用层对单个用户设token/算力上限’是核心措施。",
+      "difficulty_label": "中等"
+    },
+    {
+      "type": 1,
+      "stem": "根据教材8.9纵深防御体系及8.10场景表，以下哪些做法同时满足‘RAG权限隔离’与‘数据安全’双重目标？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "在检索后、拼Prompt前，按用户position_id过滤Top-K知识条目"
+        },
+        {
+          "option_label": "B",
+          "option_text": "对知识库原始文档使用AES-256加密存储"
+        },
+        {
+          "option_label": "C",
+          "option_text": "为每个RAM子账号分配独立AK，并授予OSS只读权限"
+        },
+        {
+          "option_label": "D",
+          "option_text": "在向量数据库中对嵌入向量应用DCPE加噪处理"
+        },
+        {
+          "option_label": "E",
+          "option_text": "将知识库元数据（如position_ids）存入独立权限服务，通过API鉴权"
+        }
+      ],
+      "answer": "A,B,D",
+      "analysis": "依据原文8.8.2节‘为什么访问控制+加密要双保险’及8.9清单：A项对应‘RAG权限隔离’核心流程（教材8.8.1三步流程第3步），B、D项对应‘双重加密’要求（文本+向量加密），三者共同构成RAG安全闭环。C项属云权限管理（RAM），与RAG知识库无直接关联；E项虽为权限设计，但教材未提及独立权限服务，且‘元数据存入独立服务’增加复杂度，非课程推荐范式（课程用CSV表关联）。教材8.8.2明确‘RAG防护：访问控制+知识库双重加密’，A、B、D分别覆盖应用层过滤、文本加密、向量加密，完全契合‘双重目标’要求。",
+      "difficulty_label": "进阶"
+    }
+  ]
+}

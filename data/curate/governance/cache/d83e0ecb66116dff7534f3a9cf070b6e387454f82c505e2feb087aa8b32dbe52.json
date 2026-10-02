@@ -1,0 +1,140 @@
+{
+  "12-5063": {
+    "qid": "12-5063",
+    "classification": "own",
+    "chapter": 10,
+    "quality": "remove",
+    "reason": "题干考查百炼平台可视化工作流的具体节点功能，但教材原文未提及任何内置节点名称或高亮功能，无法确定答案。",
+    "answer": [],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "教材未提及此节点功能。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "教材未提及此节点功能。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "教材未提及此节点功能。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "教材未提及此节点功能。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "12-5066": {
+    "qid": "12-5066",
+    "classification": "cross",
+    "chapter": -1,
+    "quality": "remove",
+    "reason": "题干考查Dify平台知识库PDF解析问题，但教材第10章未提及Dify平台，也未讨论PDF解析的具体技术细节或限制。",
+    "answer": [],
+    "supported": false,
+    "quote": "",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "教材未提及Dify或‘自动解析’开关。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "教材未提及Dify或PDF文件大小限制。"
+      },
+      {
+        "label": "C",
+        "selected": false,
+        "why": "教材未提及Dify或PyPDF2依赖。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "教材未提及Dify或‘结构化数据’知识库类型。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "12-5068": {
+    "qid": "12-5068",
+    "classification": "own",
+    "chapter": 10,
+    "quality": "ok",
+    "reason": "考查百炼平台智能体工具调用的集成能力，教材明确提及工具调用可接入内部API和插件。",
+    "answer": [
+      "A",
+      "B",
+      "C"
+    ],
+    "supported": true,
+    "quote": "百炼的核心能力可以理解为把前几章的技术'产品化'了：...插件/工具 Function Calling 接入搜索、内部 API、插件市场扩展能力",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": true,
+        "why": "工具调用可接入企业内部API。"
+      },
+      {
+        "label": "B",
+        "selected": true,
+        "why": "执行SQL查询属于工具调用范畴。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "调用DashScope服务属于工具调用。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "自动修正错别字不属于工具调用。"
+      }
+    ],
+    "duplicate_of": ""
+  },
+  "12-5089": {
+    "qid": "12-5089",
+    "classification": "own",
+    "chapter": 10,
+    "quality": "ok",
+    "reason": "考查百炼可视化工作流中意图识别与工具调用的实现方式，教材提及工作流可编排检索、生成等步骤。",
+    "answer": [
+      "C"
+    ],
+    "supported": true,
+    "quote": "工作流（Workflow） 拖拽节点把'检索→改写→生成→审核'串成稳定流程",
+    "per_option": [
+      {
+        "label": "A",
+        "selected": false,
+        "why": "条件分支需预设规则，不适合动态意图识别。"
+      },
+      {
+        "label": "B",
+        "selected": false,
+        "why": "工具调用节点需先识别意图。"
+      },
+      {
+        "label": "C",
+        "selected": true,
+        "why": "大模型节点+提示词适合动态意图识别。"
+      },
+      {
+        "label": "D",
+        "selected": false,
+        "why": "文本处理节点不适合意图识别。"
+      }
+    ],
+    "duplicate_of": ""
+  }
+}
