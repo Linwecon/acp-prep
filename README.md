@@ -41,6 +41,7 @@
 ### 可选增强
 
 - **AI 答疑**：答题后调用任意 OpenAI 兼容大模型（阿里云百炼、DeepSeek、智谱、硅基流动等）逐项讲解，SSE 流式输出，结果本地缓存，API Key 仅存本机。
+- **题目助手（AI 追问）**：讲解之后点击「💬 继续追问」唤出一个**可拖动的浮动窗**（非模态、无背景遮罩与模糊，方便边看题目边追问），围绕该题无限追问，始终携带题干、选项、我的作答与已有讲解作为上下文，支持多轮连续问答、中途停止与重试；窗口位置会被记住，双击标题栏复位。追问按题目隔离存本机，可随时清空（不影响 AI 讲解缓存）。
 - **跨设备同步**：邮箱注册登录后，进度、错题、收藏、成绩、续做位置通过 Supabase 实时同步，冲突按"计数取大、时间戳取新、收藏取并集"自动合并。
 
 ---
@@ -113,34 +114,31 @@ API Key 仅保存在浏览器 `localStorage`（键名 `acp_ai_config`），浏�
 
 > **安全提示**：前端只能使用 `anon` public key，并依靠 RLS（Row Level Security）保证用户只能访问自己的数据。`service_role` 密钥严禁进入前端代码或仓库。
 
-#### 免费版保活（重要）
+#### 免费版保活
 
-Supabase 免费版项目**连续 7 天无任何活动会被自动暂停**。暂停后 `<project_ref>.supabase.co` 的 DNS 记录会被移除，前端表现为**登录 / 注册直接失败**（域名解析失败），需要到 Dashboard 手动 Resume 才能恢复。
+保活脚本每 6 小时检查 Auth 服务，并通过只读 RPC 实际查询数据库。网络错误、HTTP 408/429/5xx 最多尝试 3 次，每次请求超时 15 秒；任一检查失败会让 GitHub Actions 任务失败。
 
-仓库已内置保活定时任务，无需任何配置：
+**首次启用：**
 
-| 文件 | 作用 |
-|------|------|
-| [`.github/workflows/supabase-keepalive.yml`](.github/workflows/supabase-keepalive.yml) | 每天 UTC 03:17 自动触发，也支持手动 `workflow_dispatch` |
-| [`.github/scripts/supabase-keepalive.mjs`](.github/scripts/supabase-keepalive.mjs) | 从 `config/supabase.js` 读取配置，请求项目接口制造活动 |
-| [`supabase/keepalive_ping.sql`](supabase/keepalive_ping.sql) | **可选**：创建一个 anon 可调用的只读 `ping()` 函数 |
+1. 在 Supabase Dashboard → SQL Editor 执行 [supabase/keepalive_ping.sql](supabase/keepalive_ping.sql)，创建只返回 `pong` 的只读函数；这一步是必需的，可重复执行。
+2. 确认 [config/supabase.js](config/supabase.js) 是当前项目的 URL 和公开密钥，无需管理员密钥。
+3. 将保活相关文件推送到 GitHub 默认分支，在 Actions 中启用 **Supabase Keep-Alive**。
+4. 点击 **Run workflow** 手动运行一次，确认 Auth 和数据库检查都通过。
 
-脚本执行两项检查：
+自动运行时间为北京时间 **05:17、11:17、17:17、23:17**，由 GitHub 执行，不需要电脑开机；实际调度可能延迟。可在 GitHub 通知设置中开启 Actions 失败通知。公共仓库长期无活动时定时任务可能被停用，需检查 Actions 状态。
 
-| 检查项 | 端点 | 是否必需 |
-|--------|------|----------|
-| Auth 服务健康检查 | `GET /auth/v1/health` | ✅ 必需，返回 200 即判定项目活跃 |
-| 数据库触达 | `GET /rest/v1/rpc/ping` | ➖ 可选，需先执行 `keepalive_ping.sql` |
+本地验证（Node.js 22）：
 
-> **为什么不直接查业务表？** `schema.sql` 只给 `authenticated` 授了表权限（`anon` 无任何表的 GRANT），且 `/rest/v1/` 根路径（OpenAPI 文档）现已被 Supabase 限制为仅 `service_role` 可访问。因此若要让保活请求真正落到数据库层，需要一个显式的只读 RPC 出口，即 `keepalive_ping.sql`。不执行它也能正常工作，只是少了这一层保险。
+```bash
+node .github/scripts/supabase-keepalive.mjs
+node --test scripts/test_keepalive.mjs
+```
 
-注意事项：
+- 数据库 HTTP 404：执行上面的 SQL，等待接口刷新后重试。
+- HTTP 401/403：检查公开密钥和函数执行权限。
+- 域名解析失败或超时：检查网络和项目状态；若已暂停，先在控制台 Resume。
 
-1. 定时任务只在默认分支（`main`）上生效；
-2. 仓库连续 60 天没有任何提交时，GitHub 会自动停用定时任务，届时到 Actions 页面点一次「Enable workflow」即可恢复；
-3. 本地可随时验证：`node .github/scripts/supabase-keepalive.mjs`（退出码 `0` 表示项目活跃）。
-
-> 若不想依赖定时任务，也可选择升级 Supabase Pro（$25/月），付费组织的项目不会被暂停。
+脚本仅确认本次请求成功，不能确认平台暂停计时已重置，也不能保证免费项目永不暂停。平台的低活跃判断依据见 [Supabase 官方说明](https://supabase.com/docs/guides/platform/free-project-pausing)。
 
 ---
 

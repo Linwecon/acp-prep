@@ -73,7 +73,8 @@
 
     /* ---------- keyboard ---------- */
     document.addEventListener('keydown', e => {
-        if (e.target.tagName === 'INPUT') return;
+        // 输入框/追问浮动窗的文本域内不响应全局快捷键（A-G 选题、Enter 判题、方向键翻题）
+        if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
         if (e.key === 'Escape') { ACP.closeNotes(); if (ACP.sync) ACP.sync.closeAuth(); return; }
         if (S.ui.view === 'chapter' && S.ui.mode === 'single' && S.ui.pool.length) {
             const q = S.ui.pool[S.ui.idx];

@@ -1,8 +1,8 @@
 name: Supabase Keep-Alive
 
-# 目的：防止 Supabase 免费版项目因「7 天无活动」被自动暂停。
-#       项目被暂停后域名解析会失败，前端表现为登录 / 注册不可用。
-# 频率：每天一次，远小于 7 天阈值，留足容错空间（公共仓库 Actions 分钟数免费）。
+# 每 6 小时检查 Auth 并执行数据库查询，降低低活跃暂停风险。
+# 前置条件：在 SQL Editor 执行 supabase/keepalive_ping.sql。
+# 定时请求不能保证平台不暂停项目，也无法恢复已暂停项目。
 #
 # ⚠️ 两点注意：
 #   1. 定时任务只在仓库默认分支（main）上生效；
@@ -11,8 +11,8 @@ name: Supabase Keep-Alive
 
 on:
   schedule:
-    # UTC 03:17 = 北京时间 11:17，避开整点调度高峰
-    - cron: '17 3 * * *'
+    # 北京时间 05:17、11:17、17:17、23:17（实际运行可能延迟）
+    - cron: '17 3,9,15,21 * * *'
   workflow_dispatch: # 支持手动触发，便于随时验证
 
 permissions:
@@ -33,7 +33,7 @@ jobs:
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
-          node-version: '20'
+          node-version: '22'
 
       - name: Ping Supabase
         run: node .github/scripts/supabase-keepalive.mjs

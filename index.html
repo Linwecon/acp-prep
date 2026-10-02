@@ -229,6 +229,39 @@ window.__copyLinkFallback = function (text) {
     </div>
   </div>
 
+  <!-- ==================== AI FOLLOW-UP CHAT PANEL（题目助手·可拖动浮动窗，无遮罩） ==================== -->
+  <div class="modal modal-chat" id="aiChatModal" role="dialog" aria-modal="false" aria-label="题目助手">
+    <div class="modal-head chat-head" id="aiChatHead" title="按住此处拖动窗口，双击复位到默认位置">
+      <div class="chat-head-main">
+        <span class="modal-title">💬 题目助手</span>
+        <span class="chat-qtag" id="aiChatQTag"></span>
+        <span class="ai-model-tag" id="aiChatModel"></span>
+      </div>
+      <div class="chat-head-tools">
+        <button class="btn btn-sm" onclick="ACP.clearAIChat()" title="清空本题的全部追问记录">🗑 清空</button>
+        <button class="modal-close" onclick="ACP.closeAIChat()" title="关闭">✕</button>
+      </div>
+    </div>
+
+    <!-- 本题上下文（追问的固定锚点） -->
+    <div class="chat-ctx" id="aiChatCtx">
+      <div class="chat-ctx-brief" id="aiChatCtxBrief" onclick="ACP.toggleChatCtx()" title="点击查看完整题干"></div>
+      <div class="chat-ctx-full" id="aiChatCtxFull" style="display:none;"></div>
+    </div>
+
+    <!-- 消息流：AI 讲解 → 多轮追问 -->
+    <div class="chat-body" id="aiChatBody"></div>
+
+    <!-- 快捷追问 -->
+    <div class="chat-quick" id="aiChatQuick"></div>
+
+    <div class="chat-input-wrap">
+      <textarea id="aiChatInput" rows="1" placeholder="就这道题继续追问…（Enter 发送，Shift+Enter 换行）" autocomplete="off" spellcheck="false"></textarea>
+      <button class="btn btn-primary chat-send" id="aiChatSendBtn" onclick="ACP.aiChatSend()">发送</button>
+      <button class="btn chat-stop" id="aiChatStopBtn" style="display:none;" onclick="ACP.aiChatStop()">■ 停止</button>
+    </div>
+  </div>
+
   <!-- ==================== AUTH MODAL ==================== -->
   <div class="modal-overlay" id="authOverlay" onclick="ACP.sync.closeAuth()"></div>
   <div class="modal" id="authModal" role="dialog" aria-modal="true" aria-label="登录">
