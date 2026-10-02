@@ -30,7 +30,8 @@ const eq = (label, got, want) => {
     if (!ok) fails.push(label);
 };
 
-eq('total questions', ACP.BANK.length, 1652);
+// 注意：删题/补题后需同步此数字（与 data/quiz_categorized.json 的 total 一致）
+eq('total questions', ACP.BANK.length, 1656);
 eq('chapters', Object.keys(ACP.BY_CH).length, 12);
 const q1 = ACP.BANK[0];
 eq('q1 has options', q1.options.length > 0 && !!q1.options[0].text, true);
@@ -49,8 +50,8 @@ for (let t = 0; t < 30; t++) {
 }
 console.log('30 exam draws with compressed bank ->', fails.some(f => f.includes('draw')) ? 'FAIL' : 'OK');
 
-// analysis preserved for new questions (e.g. 9-5001 Batch API)
-const fixed = ACP.ID_MAP['9-5001'];
+// analysis preserved for new questions (e.g. 6-5001 Batch API；原 9-5001，2026-10 移章至第 6 章)
+const fixed = ACP.ID_MAP['6-5001'];
 eq('sample new question analysis exists', !!fixed && fixed.analysis.length > 20, true);
 eq('sample new question answer', fixed && fixed.ansArr, ['C']);
 

@@ -83,13 +83,23 @@ def validate(q):
     return errs
 
 
-def load_drafts():
+def load_drafts(extra=None):
+    """extra: 额外的草稿文件名列表（相对 scripts/_drafts 或任意路径）。"""
     new_qs = []
     errors = []
-    for path in DRAFTS:
+    paths = list(DRAFTS)
+    if extra:
+        for name in extra:
+            p = pathlib.Path(name)
+            if not p.is_absolute():
+                p = ROOT / "scripts" / "_drafts" / name
+            paths.append(p)
+    loaded_any = False
+    for path in paths:
         if not path.exists():
             print(f"[跳过] 未找到草稿: {path.name}")
             continue
+        loaded_any = True
         data = json.loads(path.read_text(encoding="utf-8"))
         if not isinstance(data, list):
             errors.append(f"{path.name}: 顶层不是数组")
@@ -101,10 +111,19 @@ def load_drafts():
             else:
                 new_qs.append(q)
         print(f"[读取] {path.name}: {len(data)} 题")
+    if not loaded_any:
+        errors.append("没有任何草稿文件被加载")
     return new_qs, errors
 
 
 def main():
+    import argparse
+
+    ap = argparse.ArgumentParser(description="合并新题草稿到题库")
+    ap.add_argument("--drafts", nargs="*", default=[],
+                    help="额外草稿文件（如 questions_auto_ch12.json），默认仍加载 questions_a/b.json")
+    args = ap.parse_args()
+
     bank = json.loads(JSON_PATH.read_text(encoding="utf-8"))
     by_ch = bank["questions_by_chapter"]
     old_total = sum(len(v) for v in by_ch.values())
@@ -113,11 +132,14 @@ def main():
     seen_seq = {str(q["seq"]) for arr in by_ch.values() for q in arr}
     seen_stem = {re.sub(r"\s", "", q["stem"]) for arr in by_ch.values() for q in arr}
 
-    new_qs, errors = load_drafts()
+    new_qs, errors = load_drafts(args.drafts)
     if errors:
         print("\n[校验错误]")
         for e in errors:
             print(" -", e)
+        return 1
+    if not new_qs:
+        print("\n[提示] 草稿中没有可合入的题目")
         return 1
 
     added = 0
