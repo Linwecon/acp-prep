@@ -1,5 +1,12 @@
 ﻿# ACP 备考助手 - 一键更新部署脚本
 # 由 一键更新.bat 调用；也可右键"使用 PowerShell 运行"
+#
+# 默认只提交「代码/数据」变更，跳过 README.md（文案描述不随一键更新改动）。
+# 需要更新 GitHub 上的项目描述时，显式加参数运行： .\update.ps1 -IncludeReadme
+param(
+    [switch]$IncludeReadme
+)
+
 $ErrorActionPreference = 'Continue'
 Set-Location $PSScriptRoot
 
@@ -14,7 +21,13 @@ git config http.proxy http://127.0.0.1:7897
 git config https.proxy http://127.0.0.1:7897
 
 Write-Host "[2/3] 提交变更..."
-git add -A
+if ($IncludeReadme) {
+    git add -A
+} else {
+    # 排除 README.md：只提交代码与数据，文案描述保持不动
+    git add -A -- . ':(exclude)README.md'
+    Write-Host "      已跳过 README.md（文案描述不提交）" -ForegroundColor DarkGray
+}
 git commit -m "update $(Get-Date -Format 'yyyy-MM-dd HH:mm')" 2>$null | Out-Null
 
 Write-Host "[3/3] 推送到 GitHub..."
