@@ -182,6 +182,7 @@ acp/
 │
 ├── scripts/                 # 数据处理与测试脚本（Python / Node）
 │   ├── build_knowledge.py   # 把知识点 Markdown 打包为 knowledge.js
+│   ├── quiz_curate.py       # 题库策展：错分/低质/补题/删除（见「题库维护」节）
 │   ├── classify_questions.py
 │   ├── compress_bank.py
 │   ├── verify_answers.py
@@ -223,6 +224,34 @@ python scripts/build_knowledge.py
 - 共 **1652 题**，覆盖 12 章；
 - 题目按章节存放在 `data/quiz_categorized.js`；
 - 压缩版 `quiz_categorized.min.js` 用于生产环境，体积更小。
+
+### 题库维护（策展工具）
+
+题库治理统一入口为 [`scripts/quiz_curate.py`](scripts/quiz_curate.py)，覆盖四类场景：**章节错分检测、低质题筛选、答案错误校验、按章补题**。所有流程均为「AI/规则建议 → 人工确认 → 工具执行」，**绝不自动删除**：
+
+```bash
+# 1. 章节错分：规则初筛（免 Key）→ 加 --llm 用大模型逐题复核归属
+python scripts/quiz_curate.py chapter --llm
+#    输出 data/curate/chapter_audit.json + docs/chapter_audit_report.md + remove_chapter.json
+
+# 2. 低质题：残缺/送分/重复/占位符等多维规则打分 → 加 --llm 复核
+python scripts/quiz_curate.py quality --llm --min-score 3
+
+# 3. 答案错误：复用既有 verify 流水线（独立作答 → 6 模型投票 ≥3 票才修正）
+python scripts/verify_answers.py --resume --workers 8   # 全库独立作答交叉验证
+python scripts/verify_disputed.py --vote --report       # 争议题终裁
+python scripts/verify_disputed.py --apply               # 确认报告后回写题库
+python scripts/quiz_curate.py answers                   # 汇总当前待修清单
+
+# 4. 按章补题：LLM 生成草稿（含风格对齐与查重）→ 人工逐题审核 → 合入
+python scripts/quiz_curate.py generate --chapter 12 --count 30
+python scripts/merge_new_questions.py --drafts questions_auto_ch12.json
+
+# 5. 执行删除（读上面输出的清单，默认 dry-run，--apply 才真删，删前自动备份）
+python scripts/quiz_curate.py remove --from data/curate/remove_chapter.json --apply
+```
+
+说明：LLM 相关子命令复用 `config/verify_config.json`（模板见 `config/verify_config.example.json`）；删除**不重排 seq**，用户已保存的进度/错题记录（按 `章-seq` 索引）不受影响；改动题库后记得同步更新 `index.html` 中 `quiz_categorized.min.js?v=` 版本号强刷缓存。
 
 ### 考试大纲
 

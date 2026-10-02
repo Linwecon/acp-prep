@@ -1,0 +1,10 @@
+{
+  "source": "quiz_curate chapter",
+  "generated_at": "2026-10-02T12:45:17",
+  "items": [
+    {
+      "qid": "8-5146",
+      "reason": "考查WAF和CC攻击，属传统网络安全，非AI安全与合规"
+    }
+  ]
+}

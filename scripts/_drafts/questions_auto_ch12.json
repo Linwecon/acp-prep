@@ -1,0 +1,785 @@
+[
+  {
+    "seq": "5063",
+    "type": 0,
+    "stem": "在百炼平台中，使用「可视化工作流」构建RAG应用时，若需对召回文档做关键词高亮，应选用哪个内置节点？",
+    "options": [
+      {
+        "option_label": "A",
+        "option_text": "文本清洗节点"
+      },
+      {
+        "option_label": "B",
+        "option_text": "答案生成节点"
+      },
+      {
+        "option_label": "C",
+        "option_text": "富文本渲染节点"
+      },
+      {
+        "option_label": "D",
+        "option_text": "关键词提取节点"
+      }
+    ],
+    "answer": "C",
+    "analysis": "富文本渲染节点支持HTML格式输出与关键词高亮；A仅做基础清洗；B负责LLM生成；D提取关键词但不渲染，无法实现高亮展示。",
+    "chapter": 12,
+    "difficulty_score": 1,
+    "difficulty_label": "入门",
+    "difficulty_sort": 1
+  },
+  {
+    "seq": "5064",
+    "type": 0,
+    "stem": "使用LangChain构建大模型应用时，若需将用户输入动态注入到提示词中，应优先使用哪种模板语法？",
+    "options": [
+      {
+        "option_label": "A",
+        "option_text": "Jinja2双花括号 {{ input }}"
+      },
+      {
+        "option_label": "B",
+        "option_text": "Python f-string格式化"
+      },
+      {
+        "option_label": "C",
+        "option_text": "Markdown变量占位符 $input"
+      },
+      {
+        "option_label": "D",
+        "option_text": "JSON Schema定义字段"
+      }
+    ],
+    "answer": "A",
+    "analysis": "LangChain原生支持Jinja2模板语法（如{{ input }}），可安全动态注入；f-string易引发注入风险且不支持链式调用；C/D非LangChain标准语法。",
+    "chapter": 12,
+    "difficulty_score": 1,
+    "difficulty_label": "入门",
+    "difficulty_sort": 1
+  },
+  {
+    "seq": "5065",
+    "type": 1,
+    "stem": "在LlamaIndex中，以下哪些操作属于NodeParser的典型职责？",
+    "options": [
+      {
+        "option_label": "A",
+        "option_text": "将原始文档切分为语义连贯的文本块（Nodes）"
+      },
+      {
+        "option_label": "B",
+        "option_text": "为每个Node嵌入向量并写入向量数据库"
+      },
+      {
+        "option_label": "C",
+        "option_text": "添加窗口上下文、父-子节点关系等元数据"
+      },
+      {
+        "option_label": "D",
+        "option_text": "执行query重写以提升检索召回率"
+      }
+    ],
+    "answer": "A,C",
+    "analysis": "NodeParser核心职责是分块（A）和增强元数据（C）；B属Embedding+Storage流程；D属QueryEngine或Retriever组件功能。",
+    "chapter": 12,
+    "difficulty_score": 2,
+    "difficulty_label": "进阶",
+    "difficulty_sort": 2
+  },
+  {
+    "seq": "5066",
+    "type": 0,
+    "stem": "某开发者在Dify中配置知识库后，发现上传PDF未被解析为文本。最可能的原因是？",
+    "options": [
+      {
+        "option_label": "A",
+        "option_text": "未启用‘自动解析’开关"
+      },
+      {
+        "option_label": "B",
+        "option_text": "PDF文件超过10MB限制"
+      },
+      {
+        "option_label": "C",
+        "option_text": "未安装PyPDF2依赖"
+      },
+      {
+        "option_label": "D",
+        "option_text": "知识库类型误选为‘结构化数据’"
+      }
+    ],
+    "answer": "A",
+    "analysis": "Dify控制台需手动开启‘自动解析’才能触发PDF文本提取；B/C非用户可控配置项；D不影响PDF解析，仅影响后续处理逻辑。",
+    "chapter": 12,
+    "difficulty_score": 1,
+    "difficulty_label": "入门",
+    "difficulty_sort": 1
+  },
+  {
+    "seq": "5067",
+    "type": 0,
+    "stem": "在LangChain中，Memory组件的核心作用是？",
+    "options": [
+      {
+        "option_label": "A",
+        "option_text": "缓存LLM响应以加速重复查询"
+      },
+      {
+        "option_label": "B",
+        "option_text": "持久化存储用户会话历史供多轮对话使用"
+      },
+      {
+        "option_label": "C",
+        "option_text": "管理向量数据库连接池"
+      },
+      {
+        "option_label": "D",
+        "option_text": "压缩prompt长度避免超限"
+      }
+    ],
+    "answer": "B",
+    "analysis": "Memory专用于维护对话状态（如ConversationBufferMemory），支撑多轮上下文感知；A属LLM缓存机制；C/D非Memory职责。",
+    "chapter": 12,
+    "difficulty_score": 2,
+    "difficulty_label": "进阶",
+    "difficulty_sort": 2
+  },
+  {
+    "seq": "5068",
+    "type": 1,
+    "stem": "使用百炼平台构建智能体时，以下哪些能力可通过「工具调用（Tool Calling）」节点直接集成？",
+    "options": [
+      {
+        "option_label": "A",
+        "option_text": "调用企业内部HR系统API查询员工信息"
+      },
+      {
+        "option_label": "B",
+        "option_text": "执行SQL查询分析数据库表"
+      },
+      {
+        "option_label": "C",
+        "option_text": "调用DashScope Text-to-Speech服务生成语音"
+      },
+      {
+        "option_label": "D",
+        "option_text": "自动修正用户输入中的错别字"
+      }
+    ],
+    "answer": "A,B,C",
+    "analysis": "工具调用节点支持任意HTTP/API/SDK接入（A/B/C）；D属NLP预处理，需自定义代码节点而非标准工具调用。",
+    "chapter": 12,
+    "difficulty_score": 2,
+    "difficulty_label": "进阶",
+    "difficulty_sort": 2
+  },
+  {
+    "seq": "5069",
+    "type": 0,
+    "stem": "在LlamaIndex中，若需对检索结果进行重排序（rerank），应优先配置哪个组件？",
+    "options": [
+      {
+        "option_label": "A",
+        "option_text": "BaseSynthesizer"
+      },
+      {
+        "option_label": "B",
+        "option_text": "SentenceWindowNodeParser"
+      },
+      {
+        "option_label": "C",
+        "option_text": "LlmReranker"
+      },
+      {
+        "option_label": "D",
+        "option_text": "VectorStoreQueryMode"
+      }
+    ],
+    "answer": "C",
+    "analysis": "LlmReranker是LlamaIndex官方提供的重排序器，基于LLM对候选节点打分重排；A负责答案合成；B是分块器；D仅控制向量检索模式。",
+    "chapter": 12,
+    "difficulty_score": 2,
+    "difficulty_label": "进阶",
+    "difficulty_sort": 2
+  },
+  {
+    "seq": "5070",
+    "type": 0,
+    "stem": "某团队希望在本地快速验证RAG流程，不依赖云服务。以下最轻量可行的技术栈是？",
+    "options": [
+      {
+        "option_label": "A",
+        "option_text": "LlamaIndex + ChromaDB + Ollama（Qwen2）"
+      },
+      {
+        "option_label": "B",
+        "option_text": "LangChain + Pinecone + OpenAI API"
+      },
+      {
+        "option_label": "C",
+        "option_text": "Dify + 百炼向量库 + DashScope API"
+      },
+      {
+        "option_label": "D",
+        "option_text": "LlamaIndex + Elasticsearch + HuggingFace Embeddings"
+      }
+    ],
+    "answer": "A",
+    "analysis": "A全本地部署（Chroma内存模式+Ollama离线模型），零云依赖；B/C强依赖外部API；D需独立部署ES，复杂度高于Chroma。",
+    "chapter": 12,
+    "difficulty_score": 3,
+    "difficulty_label": "挑战",
+    "difficulty_sort": 3
+  },
+  {
+    "seq": "5071",
+    "type": 1,
+    "stem": "在Dify的Chatflow中，以下哪些特性区别于普通Workflow？",
+    "options": [
+      {
+        "option_label": "A",
+        "option_text": "内置用户消息输入与AI回复输出端口"
+      },
+      {
+        "option_label": "B",
+        "option_text": "支持WebSocket实时流式响应"
+      },
+      {
+        "option_label": "C",
+        "option_text": "自动继承知识库与模型配置"
+      },
+      {
+        "option_label": "D",
+        "option_text": "可直接发布为Web App供终端用户访问"
+      }
+    ],
+    "answer": "A,B,D",
+    "analysis": "Chatflow专为对话场景设计，含输入/输出端口（A）、流式能力（B）、Web App发布（D）；C错误——知识库需手动绑定，不自动继承。",
+    "chapter": 12,
+    "difficulty_score": 2,
+    "difficulty_label": "进阶",
+    "difficulty_sort": 2
+  },
+  {
+    "seq": "5072",
+    "type": 0,
+    "stem": "使用LangChain的SQLDatabaseChain时，若遇到‘no such table’错误，首要排查方向是？",
+    "options": [
+      {
+        "option_label": "A",
+        "option_text": "检查LLM是否返回了合法SQL"
+      },
+      {
+        "option_label": "B",
+        "option_text": "确认SQLDatabase对象是否正确加载目标数据库文件"
+      },
+      {
+        "option_label": "C",
+        "option_text": "验证数据库用户是否有SELECT权限"
+      },
+      {
+        "option_label": "D",
+        "option_text": "检查prompt中是否遗漏表结构描述"
+      }
+    ],
+    "answer": "B",
+    "analysis": "‘no such table’本质是数据库连接未指向正确实例或文件路径错误；A/D影响SQL质量但不导致表不存在；C在权限错误时通常报'access denied'。",
+    "chapter": 12,
+    "difficulty_score": 3,
+    "difficulty_label": "挑战",
+    "difficulty_sort": 3
+  },
+  {
+    "seq": "5073",
+    "type": 0,
+    "stem": "在百炼平台「可视化工作流」中，若需对用户输入进行意图分类并路由至不同处理分支，应优先选用哪个节点？",
+    "options": [
+      {
+        "option_label": "A",
+        "option_text": "条件判断（Condition）节点"
+      },
+      {
+        "option_label": "B",
+        "option_text": "大模型调用（LLM）节点 + 自定义提示词"
+      },
+      {
+        "option_label": "C",
+        "option_text": "意图识别（Intent Classification）专用节点"
+      },
+      {
+        "option_label": "D",
+        "option_text": "Python 脚本节点硬编码规则"
+      }
+    ],
+    "answer": "C",
+    "analysis": "百炼平台提供开箱即用的‘意图识别’专用节点，内置轻量模型与配置界面，准确率高且免开发；A需手动写逻辑表达式，不支持语义意图；B成本高且不稳定；D可维护性差。",
+    "chapter": 12,
+    "difficulty_score": 1,
+    "difficulty_label": "入门",
+    "difficulty_sort": 1
+  },
+  {
+    "seq": "5074",
+    "type": 0,
+    "stem": "使用 LangChain 构建 RAG 应用时，若需将检索结果按相关性重排序（rerank），以下哪种方式最符合官方推荐实践？",
+    "options": [
+      {
+        "option_label": "A",
+        "option_text": "在 LLM prompt 中要求模型自行排序"
+      },
+      {
+        "option_label": "B",
+        "option_text": "调用 CohereRerank 或 BGE-Reranker 等专用 reranker 链"
+      },
+      {
+        "option_label": "C",
+        "option_text": "对向量相似度分数做线性归一化后截断"
+      },
+      {
+        "option_label": "D",
+        "option_text": "丢弃 rerank 步骤，仅依赖向量检索 Top-K"
+      }
+    ],
+    "answer": "B",
+    "analysis": "LangChain 官方明确推荐使用 CohereRerank/BGE-Reranker 等专用链进行重排序；A不可控且无标准输出；C忽略语义相关性；D在复杂query下召回质量显著下降。",
+    "chapter": 12,
+    "difficulty_score": 2,
+    "difficulty_label": "进阶",
+    "difficulty_sort": 2
+  },
+  {
+    "seq": "5075",
+    "type": 1,
+    "stem": "在 LlamaIndex 中，以下哪些操作属于 NodeParser 的核心职责？",
+    "options": [
+      {
+        "option_label": "A",
+        "option_text": "将原始文档切分为语义连贯的文本块（nodes）"
+      },
+      {
+        "option_label": "B",
+        "option_text": "为每个 node 注入 metadata（如来源页码、标题）"
+      },
+      {
+        "option_label": "C",
+        "option_text": "执行向量嵌入计算并存入向量数据库"
+      },
+      {
+        "option_label": "D",
+        "option_text": "对 nodes 进行去重、过滤或合并"
+      }
+    ],
+    "answer": "A,B,D",
+    "analysis": "NodeParser 负责分块、元数据注入、清洗合并；C属EmbeddingModel与StorageContext职责，非NodeParser范畴。",
+    "chapter": 12,
+    "difficulty_score": 1,
+    "difficulty_label": "入门",
+    "difficulty_sort": 1
+  },
+  {
+    "seq": "5076",
+    "type": 0,
+    "stem": "某团队需在本地快速搭建支持多格式（PDF/Word/Markdown）知识解析的 RAG 原型，以下哪项工具组合最轻量且开箱即用？",
+    "options": [
+      {
+        "option_label": "A",
+        "option_text": "LlamaIndex + SimpleDirectoryReader + 默认 PDF 解析器"
+      },
+      {
+        "option_label": "B",
+        "option_text": "自研解析器 + SQLite + 手写向量化脚本"
+      },
+      {
+        "option_label": "C",
+        "option_text": "LangChain DocumentLoader + UnstructuredIO + FAISS"
+      },
+      {
+        "option_label": "D",
+        "option_text": "Dify 本地部署版 + 知识库上传接口"
+      }
+    ],
+    "answer": "A",
+    "analysis": "LlamaIndex 的 SimpleDirectoryReader 内置多格式解析（含 PyMuPDF、Unstructured 封装），无需额外依赖；B/C工程量大；D需完整服务部署，非轻量原型。",
+    "chapter": 12,
+    "difficulty_score": 1,
+    "difficulty_label": "入门",
+    "difficulty_sort": 1
+  },
+  {
+    "seq": "5077",
+    "type": 0,
+    "stem": "在 Dify 平台中，若希望问答结果严格限定于知识库内容、禁止模型自由发挥，应启用哪项关键开关？",
+    "options": [
+      {
+        "option_label": "A",
+        "option_text": "开启‘引用溯源’并设置最小置信度"
+      },
+      {
+        "option_label": "B",
+        "option_text": "关闭‘LLM 回退’并启用‘知识库强制模式’"
+      },
+      {
+        "option_label": "C",
+        "option_text": "将 temperature 设为 0.0 并禁用 system prompt"
+      },
+      {
+        "option_label": "D",
+        "option_text": "仅上传结构化 JSON 数据作为知识源"
+      }
+    ],
+    "answer": "B",
+    "analysis": "Dify 官方文档明确‘知识库强制模式’+关闭回退可确保仅基于知识库回答；A仅影响溯源显示；C无法阻止幻觉；D不改变模型行为逻辑。",
+    "chapter": 12,
+    "difficulty_score": 2,
+    "difficulty_label": "进阶",
+    "difficulty_sort": 2
+  },
+  {
+    "seq": "5078",
+    "type": 1,
+    "stem": "关于百炼平台提供的 LlamaIndex 组件，以下哪些描述符合其设计定位？",
+    "options": [
+      {
+        "option_label": "A",
+        "option_text": "封装了 DashScope Embedding 与 Qwen 系列 LLM 的默认适配"
+      },
+      {
+        "option_label": "B",
+        "option_text": "提供可视化索引构建与调试能力"
+      },
+      {
+        "option_label": "C",
+        "option_text": "完全替代原生 LlamaIndex API，不兼容社区代码"
+      },
+      {
+        "option_label": "D",
+        "option_text": "支持一键导出为标准 LlamaIndex Python 脚本"
+      }
+    ],
+    "answer": "A,B,D",
+    "analysis": "百炼组件聚焦易用性：预集成阿里云模型（A）、可视化操作（B）、导出兼容脚本（D）；C错误，其设计为增强而非替代，兼容原生API。",
+    "chapter": 12,
+    "difficulty_score": 2,
+    "difficulty_label": "进阶",
+    "difficulty_sort": 2
+  },
+  {
+    "seq": "5079",
+    "type": 0,
+    "stem": "在 LangChain 中，Memory 组件若配置为 ConversationBufferMemory，其底层状态存储默认位于何处？",
+    "options": [
+      {
+        "option_label": "A",
+        "option_text": "Redis 缓存集群"
+      },
+      {
+        "option_label": "B",
+        "option_text": "当前 Python 进程内存（dict）"
+      },
+      {
+        "option_label": "C",
+        "option_text": "本地 SQLite 文件"
+      },
+      {
+        "option_label": "D",
+        "option_text": "百炼平台统一会话服务"
+      }
+    ],
+    "answer": "B",
+    "analysis": "ConversationBufferMemory 默认使用内存 dict 存储历史，无外部依赖；A/C需显式配置对应Memory类；D非LangChain原生能力。",
+    "chapter": 12,
+    "difficulty_score": 1,
+    "difficulty_label": "入门",
+    "difficulty_sort": 1
+  },
+  {
+    "seq": "5080",
+    "type": 0,
+    "stem": "某开发者在百炼平台使用「工具调用（Tool Calling）」节点接入企业内部 CRM API，但调用始终失败。最应优先检查哪一项？",
+    "options": [
+      {
+        "option_label": "A",
+        "option_text": "CRM API 是否返回 JSON Schema 格式的 OpenAPI 描述"
+      },
+      {
+        "option_label": "B",
+        "option_text": "工具节点是否配置了正确的 HTTP Method 和请求头"
+      },
+      {
+        "option_label": "C",
+        "option_text": "是否在百炼控制台开通了「公网访问白名单」"
+      },
+      {
+        "option_label": "D",
+        "option_text": "是否为该工具启用了「异步执行」开关"
+      }
+    ],
+    "answer": "A",
+    "analysis": "百炼工具调用节点依赖 OpenAPI Schema 自动生成参数映射与校验；缺失或格式错误将导致解析失败；B/C/D为次要配置项，Schema 正确是前提。",
+    "chapter": 12,
+    "difficulty_score": 3,
+    "difficulty_label": "挑战",
+    "difficulty_sort": 3
+  },
+  {
+    "seq": "5081",
+    "type": 0,
+    "stem": "在 LlamaIndex 中，若需对 PDF 文档执行‘按章节标题分割’而非简单按长度切分，应选用哪个 NodeParser？",
+    "options": [
+      {
+        "option_label": "A",
+        "option_text": "HierarchicalNodeParser"
+      },
+      {
+        "option_label": "B",
+        "option_text": "MarkdownNodeParser"
+      },
+      {
+        "option_label": "C",
+        "option_text": "PDFMinerNodeParser"
+      },
+      {
+        "option_label": "D",
+        "option_text": "SentenceSplitter（with paragraph separator）"
+      }
+    ],
+    "answer": "A",
+    "analysis": "HierarchicalNodeParser 支持按标题层级（如#、##）构建父子节点关系，天然适配章节结构；B仅处理Markdown；C仅提取文本无结构；D仍为线性分割。",
+    "chapter": 12,
+    "difficulty_score": 2,
+    "difficulty_label": "进阶",
+    "difficulty_sort": 2
+  },
+  {
+    "seq": "5082",
+    "type": 1,
+    "stem": "使用 Dify 构建 Chatflow 时，以下哪些特性是其区别于普通 Workflow 的核心设计？",
+    "options": [
+      {
+        "option_label": "A",
+        "option_text": "内置用户会话上下文管理与历史自动注入"
+      },
+      {
+        "option_label": "B",
+        "option_text": "支持多轮对话中的变量跨节点持久化"
+      },
+      {
+        "option_label": "C",
+        "option_text": "提供对话 UI 组件（如消息气泡、输入框）"
+      },
+      {
+        "option_label": "D",
+        "option_text": "强制要求每个节点输出必须为字符串类型"
+      }
+    ],
+    "answer": "A,B",
+    "analysis": "Chatflow 专为对话场景设计，核心是上下文管理（A）与跨节点变量持久化（B）；C属前端SDK能力，非Chatflow节点特性；D无此限制。",
+    "chapter": 12,
+    "difficulty_score": 3,
+    "difficulty_label": "挑战",
+    "difficulty_sort": 3
+  },
+  {
+    "seq": "5084",
+    "type": 0,
+    "stem": "使用LangChain构建RAG应用时，若需动态注入多个上下文片段并保持顺序可控，应优先采用哪种提示模板语法？",
+    "options": [
+      {
+        "option_label": "A",
+        "option_text": "{context} + {question}"
+      },
+      {
+        "option_label": "B",
+        "option_text": "f-string拼接：f'{ctx1}\\n{ctx2}\\n{query}'"
+      },
+      {
+        "option_label": "C",
+        "option_text": "PromptTemplate.from_template()配合input_variables=['context_list', 'question']"
+      },
+      {
+        "option_label": "D",
+        "option_text": "直接传入list类型context参数给LLM.invoke()"
+      }
+    ],
+    "answer": "C",
+    "analysis": "LangChain官方推荐PromptTemplate统一管理变量注入，支持context_list等结构化输入；A无法处理多片段；B破坏可维护性；D非标准用法且LLM不直接接收list。",
+    "chapter": 12,
+    "difficulty_score": 2,
+    "difficulty_label": "进阶",
+    "difficulty_sort": 2
+  },
+  {
+    "seq": "5086",
+    "type": 0,
+    "stem": "某团队需在本地快速验证RAG流程，要求支持PDF解析、向量化、检索与问答全链路，且不依赖云服务。以下最轻量可行的技术栈是？",
+    "options": [
+      {
+        "option_label": "A",
+        "option_text": "LlamaIndex + PyMuPDF + SentenceTransformers + Chroma（in-memory）"
+      },
+      {
+        "option_label": "B",
+        "option_text": "Dify + 百炼API + DashScope Embedding"
+      },
+      {
+        "option_label": "C",
+        "option_text": "LangChain + Unstructured + OpenAIEmbeddings + FAISS"
+      },
+      {
+        "option_label": "D",
+        "option_text": "百炼可视化工作流 + 本地知识库上传"
+      }
+    ],
+    "answer": "A",
+    "analysis": "A完全离线：PyMuPDF解析PDF，SentenceTransformers本地嵌入，Chroma内存索引，零云依赖；B/C/D均需网络或云服务，违反‘不依赖云服务’前提。",
+    "chapter": 12,
+    "difficulty_score": 1,
+    "difficulty_label": "入门",
+    "difficulty_sort": 1
+  },
+  {
+    "seq": "5087",
+    "type": 0,
+    "stem": "关于LangChain的Memory组件，以下哪项描述最准确？",
+    "options": [
+      {
+        "option_label": "A",
+        "option_text": "用于缓存LLM调用结果以提升响应速度"
+      },
+      {
+        "option_label": "B",
+        "option_text": "用于持久化存储用户对话历史并支持多轮上下文注入"
+      },
+      {
+        "option_label": "C",
+        "option_text": "用于管理向量数据库连接池"
+      },
+      {
+        "option_label": "D",
+        "option_text": "用于在Chain执行中临时保存中间变量"
+      }
+    ],
+    "answer": "B",
+    "analysis": "LangChain Memory核心定位是对话状态管理，支持ConversationBufferMemory等实现多轮上下文注入；A属缓存机制，非Memory职责；C/D与Memory无关。",
+    "chapter": 12,
+    "difficulty_score": 1,
+    "difficulty_label": "入门",
+    "difficulty_sort": 1
+  },
+  {
+    "seq": "5089",
+    "type": 0,
+    "stem": "在百炼平台「可视化工作流」中，若需对用户输入执行意图识别并调用对应工具（如查天气、查订单），应优先选用哪个节点类型？",
+    "options": [
+      {
+        "option_label": "A",
+        "option_text": "条件分支（Condition）节点"
+      },
+      {
+        "option_label": "B",
+        "option_text": "工具调用（Tool Calling）节点"
+      },
+      {
+        "option_label": "C",
+        "option_text": "大模型（LLM）节点 + 自定义提示词"
+      },
+      {
+        "option_label": "D",
+        "option_text": "文本处理（Text Processing）节点"
+      }
+    ],
+    "answer": "B",
+    "analysis": "工具调用节点专为意图识别+自动路由至注册工具而设计；A仅做逻辑判断无调用能力；C需手动解析意图且易出错；D不支持工具集成。",
+    "chapter": 12,
+    "difficulty_score": 1,
+    "difficulty_label": "入门",
+    "difficulty_sort": 1
+  },
+  {
+    "seq": "5090",
+    "type": 0,
+    "stem": "使用 LangChain 构建 RAG 应用时，若需将检索到的多个文档片段按语义相关性重排序（rerank），官方推荐的最轻量集成方式是？",
+    "options": [
+      {
+        "option_label": "A",
+        "option_text": "自定义 Python 函数实现 BM25 排序"
+      },
+      {
+        "option_label": "B",
+        "option_text": "接入 CohereRerank 或 BGE-Reranker 等专用 reranker 链"
+      },
+      {
+        "option_label": "C",
+        "option_text": "在 LLM 提示词中要求模型自行排序"
+      },
+      {
+        "option_label": "D",
+        "option_text": "使用向量相似度分数直接排序"
+      }
+    ],
+    "answer": "B",
+    "analysis": "LangChain 官方明确推荐集成专用 reranker 链（如 CohereRerank）提升排序质量；A非语义排序；C不可控且消耗 token；D未解决语义偏差问题。",
+    "chapter": 12,
+    "difficulty_score": 2,
+    "difficulty_label": "进阶",
+    "difficulty_sort": 2
+  },
+  {
+    "seq": "5091",
+    "type": 1,
+    "stem": "在 LlamaIndex 中，以下哪些 NodeParser 支持基于文档结构（如标题层级）进行智能切分？",
+    "options": [
+      {
+        "option_label": "A",
+        "option_text": "HierarchicalNodeParser"
+      },
+      {
+        "option_label": "B",
+        "option_text": "MarkdownNodeParser"
+      },
+      {
+        "option_label": "C",
+        "option_text": "SentenceSplitter"
+      },
+      {
+        "option_label": "D",
+        "option_text": "JSONNodeParser"
+      }
+    ],
+    "answer": "A,B",
+    "analysis": "HierarchicalNodeParser 按标题层级构建父子节点；MarkdownNodeParser 识别#标题结构；C按句切分无结构感知；D仅解析JSON字段结构。",
+    "chapter": 12,
+    "difficulty_score": 2,
+    "difficulty_label": "进阶",
+    "difficulty_sort": 2
+  },
+  {
+    "seq": "5092",
+    "type": 0,
+    "stem": "某团队使用百炼平台构建 RAG 应用，希望在召回文档后自动提取关键实体（如人名、地名）用于后续高亮与过滤。以下哪项能力最符合需求？",
+    "options": [
+      {
+        "option_label": "A",
+        "option_text": "启用知识库内置的实体识别开关"
+      },
+      {
+        "option_label": "B",
+        "option_text": "在可视化工作流中添加「实体抽取（NER）」内置节点"
+      },
+      {
+        "option_label": "C",
+        "option_text": "调用 DashScope NER API 封装为自定义工具"
+      },
+      {
+        "option_label": "D",
+        "option_text": "在 LLM 提示词中要求模型输出 JSON 格式实体"
+      }
+    ],
+    "answer": "B",
+    "analysis": "百炼「可视化工作流」提供开箱即用的NER节点，专为召回后结构化抽取设计；A知识库无此开关；C需开发成本；D不稳定且非实时处理。",
+    "chapter": 12,
+    "difficulty_score": 3,
+    "difficulty_label": "挑战",
+    "difficulty_sort": 3
+  }
+]

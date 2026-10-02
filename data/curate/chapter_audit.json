@@ -1,0 +1,831 @@
+{
+  "generated_at": "2026-10-02T12:45:17",
+  "mode": "llm",
+  "summary": {
+    "scanned": 1644,
+    "candidates": 34,
+    "suggest_move": 29,
+    "suggest_remove": 1,
+    "keep": 4
+  },
+  "items": [
+    {
+      "qid": "3-5048",
+      "chapter": 3,
+      "chapter_name": "RAG 检索增强生成",
+      "seq": "5048",
+      "type": 1,
+      "answer": "A,B,C",
+      "stem": "RAGAS 评估体系中，通常关注以下哪些维度？",
+      "predicted_chapter": 7,
+      "predicted_chapter_name": "模型评估",
+      "current_score": 16,
+      "top_score": 69,
+      "matched_keywords": [
+        "精确率",
+        "评估体系",
+        "RAGAS",
+        "ragas",
+        "Faithfulness",
+        "faithfulness"
+      ],
+      "llm": {
+        "action": "move",
+        "chapter": 7,
+        "chapter_name": "模型评估",
+        "confidence": "high",
+        "reason": "考点为RAG系统评估指标，属模型评估章节"
+      }
+    },
+    {
+      "qid": "3-5052",
+      "chapter": 3,
+      "chapter_name": "RAG 检索增强生成",
+      "seq": "5052",
+      "type": 0,
+      "answer": "A",
+      "stem": "某 RAG 系统生成的答案表述流畅，但引用了与检索上下文相反的数据。RAGAS 中哪项指标最可能显著偏低？",
+      "predicted_chapter": 7,
+      "predicted_chapter_name": "模型评估",
+      "current_score": 8,
+      "top_score": 44,
+      "matched_keywords": [
+        "RAGAS",
+        "ragas",
+        "Faithfulness",
+        "faithfulness"
+      ],
+      "llm": {
+        "action": "keep",
+        "chapter": null,
+        "chapter_name": null,
+        "confidence": "high",
+        "reason": "考点为RAG评估指标faithfulness，属RAG核心评估维度"
+      }
+    },
+    {
+      "qid": "3-5051",
+      "chapter": 3,
+      "chapter_name": "RAG 检索增强生成",
+      "seq": "5051",
+      "type": 1,
+      "answer": "A,B,C",
+      "stem": "使用 RAGAS 进行评测时，以下哪些做法是合理的？",
+      "predicted_chapter": 7,
+      "predicted_chapter_name": "模型评估",
+      "current_score": 0,
+      "top_score": 32,
+      "matched_keywords": [
+        "RAGAS",
+        "ragas"
+      ],
+      "llm": {
+        "action": "move",
+        "chapter": 7,
+        "chapter_name": "模型评估",
+        "confidence": "high",
+        "reason": "考点是RAG系统评测方法，属模型评估章节"
+      }
+    },
+    {
+      "qid": "3-5049",
+      "chapter": 3,
+      "chapter_name": "RAG 检索增强生成",
+      "seq": "5049",
+      "type": 0,
+      "answer": "C",
+      "stem": "RAGAS 中的 faithfulness（忠实度）主要衡量什么？",
+      "predicted_chapter": 7,
+      "predicted_chapter_name": "模型评估",
+      "current_score": 3,
+      "top_score": 30,
+      "matched_keywords": [
+        "RAGAS",
+        "ragas",
+        "Faithfulness",
+        "faithfulness"
+      ],
+      "llm": {
+        "action": "move",
+        "chapter": 7,
+        "chapter_name": "模型评估",
+        "confidence": "high",
+        "reason": "faithfulness是RAG评估指标，属模型评估章节"
+      }
+    },
+    {
+      "qid": "10-5154",
+      "chapter": 10,
+      "chapter_name": "阿里云 AI 平台",
+      "seq": "5154",
+      "type": 0,
+      "answer": "C",
+      "stem": "相比完全自行管理多轮对话状态和工具调用，使用百炼 Assistant API 构建 Agent 的主要优势是？",
+      "predicted_chapter": 4,
+      "predicted_chapter_name": "Agent 智能体",
+      "current_score": 5,
+      "top_score": 24,
+      "matched_keywords": [
+        "Agent",
+        "agent",
+        "工具调用",
+        "Agent 的"
+      ],
+      "llm": {
+        "action": "move",
+        "chapter": 4,
+        "chapter_name": "Agent 智能体",
+        "confidence": "high",
+        "reason": "考点是Agent构建中平台托管执行流程与工具闭环"
+      }
+    },
+    {
+      "qid": "6-5132",
+      "chapter": 6,
+      "chapter_name": "模型部署与推理优化",
+      "seq": "5132",
+      "type": 0,
+      "answer": "A",
+      "stem": "某应用想直接调用平台托管的通用模型 API、降低运维成本；另一团队需要把自训练模型部署成自定义在线服务，最适合的组合是？",
+      "predicted_chapter": 10,
+      "predicted_chapter_name": "阿里云 AI 平台",
+      "current_score": 9,
+      "top_score": 28,
+      "matched_keywords": [
+        "百炼",
+        "PAI",
+        "模型服务"
+      ],
+      "llm": {
+        "action": "move",
+        "chapter": 10,
+        "chapter_name": "阿里云 AI 平台",
+        "confidence": "high",
+        "reason": "考点为阿里云平台服务选型（百炼、PAI-EAS）"
+      }
+    },
+    {
+      "qid": "3-5047",
+      "chapter": 3,
+      "chapter_name": "RAG 检索增强生成",
+      "seq": "5047",
+      "type": 0,
+      "answer": "A",
+      "stem": "RAGAS 主要用于解决哪类问题？",
+      "predicted_chapter": 7,
+      "predicted_chapter_name": "模型评估",
+      "current_score": 14,
+      "top_score": 32,
+      "matched_keywords": [
+        "RAGAS",
+        "ragas"
+      ],
+      "llm": {
+        "action": "move",
+        "chapter": 7,
+        "chapter_name": "模型评估",
+        "confidence": "high",
+        "reason": "考点是RAG系统评估，属模型评估章节"
+      }
+    },
+    {
+      "qid": "3-5050",
+      "chapter": 3,
+      "chapter_name": "RAG 检索增强生成",
+      "seq": "5050",
+      "type": 0,
+      "answer": "D",
+      "stem": "RAGAS 中的 context_precision（上下文精确率）最关注什么？",
+      "predicted_chapter": 7,
+      "predicted_chapter_name": "模型评估",
+      "current_score": 6,
+      "top_score": 22,
+      "matched_keywords": [
+        "精确率",
+        "RAGAS",
+        "ragas"
+      ],
+      "llm": {
+        "action": "move",
+        "chapter": 7,
+        "chapter_name": "模型评估",
+        "confidence": "high",
+        "reason": "context_precision是RAG评估指标，属模型评估章节"
+      }
+    },
+    {
+      "qid": "12-5060",
+      "chapter": 12,
+      "chapter_name": "框架与工具",
+      "seq": "5060",
+      "type": 1,
+      "answer": "A,B,D",
+      "stem": "在 Dify 中管理知识库时，以下哪些操作是合理的？",
+      "predicted_chapter": 3,
+      "predicted_chapter_name": "RAG 检索增强生成",
+      "current_score": 0,
+      "top_score": 14,
+      "matched_keywords": [
+        "知识库",
+        "召回"
+      ],
+      "llm": {
+        "action": "move",
+        "chapter": 3,
+        "chapter_name": "RAG 检索增强生成",
+        "confidence": "high",
+        "reason": "考点为RAG中知识库的构建与评估"
+      }
+    },
+    {
+      "qid": "2-5023",
+      "chapter": 2,
+      "chapter_name": "提示工程",
+      "seq": "5023",
+      "type": 0,
+      "answer": "B",
+      "stem": "对一份很长的合同进行自动修订时，为避免模型遗漏后半部分内容，最稳妥的做法是？",
+      "predicted_chapter": 3,
+      "predicted_chapter_name": "RAG 检索增强生成",
+      "current_score": 0,
+      "top_score": 14,
+      "matched_keywords": [
+        "超长文档",
+        "长文档"
+      ],
+      "llm": {
+        "action": "move",
+        "chapter": 3,
+        "chapter_name": "RAG 检索增强生成",
+        "confidence": "high",
+        "reason": "考查长文档处理中的分块与上下文保持，属RAG核心实践"
+      }
+    },
+    {
+      "qid": "9-5001",
+      "chapter": 9,
+      "chapter_name": "API 调用与工具使用",
+      "seq": "5001",
+      "type": 0,
+      "answer": "C",
+      "stem": "某内容团队每天需要对约 5 万条历史评论做情感分类，任务不要求实时返回，团队希望尽量降低单位调用成本并减少对并发请求的管理。以下哪种调用方式最合适？",
+      "predicted_chapter": 6,
+      "predicted_chapter_name": "模型部署与推理优化",
+      "current_score": 0,
+      "top_score": 14,
+      "matched_keywords": [
+        "并发",
+        "延迟"
+      ],
+      "llm": {
+        "action": "move",
+        "chapter": 6,
+        "chapter_name": "模型部署与推理优化",
+        "confidence": "high",
+        "reason": "考点是批量异步处理以优化推理成本与部署效率"
+      }
+    },
+    {
+      "qid": "12-5055",
+      "chapter": 12,
+      "chapter_name": "框架与工具",
+      "seq": "5055",
+      "type": 0,
+      "answer": "D",
+      "stem": "在 Dify 中构建一个“只依据企业知识库回答”的问答应用，核心配置思路是？",
+      "predicted_chapter": 3,
+      "predicted_chapter_name": "RAG 检索增强生成",
+      "current_score": 0,
+      "top_score": 12,
+      "matched_keywords": [
+        "知识库"
+      ],
+      "llm": {
+        "action": "move",
+        "chapter": 3,
+        "chapter_name": "RAG 检索增强生成",
+        "confidence": "high",
+        "reason": "考点是RAG中知识库接入与提示约束，属RAG检索增强生成"
+      }
+    },
+    {
+      "qid": "12-5053",
+      "chapter": 12,
+      "chapter_name": "框架与工具",
+      "seq": "5053",
+      "type": 0,
+      "answer": "D",
+      "stem": "关于 Dify 的产品定位，下列描述最准确的是？",
+      "predicted_chapter": 3,
+      "predicted_chapter_name": "RAG 检索增强生成",
+      "current_score": 4,
+      "top_score": 14,
+      "matched_keywords": [
+        "知识库",
+        "向量数据库"
+      ],
+      "llm": {
+        "action": "move",
+        "chapter": 4,
+        "chapter_name": "Agent 智能体",
+        "confidence": "high",
+        "reason": "Dify 是 Agent 应用开发与编排平台，核心属于 Agent 智能体章节"
+      }
+    },
+    {
+      "qid": "8-5146",
+      "chapter": 8,
+      "chapter_name": "AI 安全与合规",
+      "seq": "5146",
+      "type": 0,
+      "answer": "C",
+      "stem": "WAF 针对 CC 攻击的主要防护思路是？",
+      "predicted_chapter": 6,
+      "predicted_chapter_name": "模型部署与推理优化",
+      "current_score": 0,
+      "top_score": 10,
+      "matched_keywords": [
+        "限流",
+        "GPU"
+      ],
+      "llm": {
+        "action": "remove",
+        "chapter": null,
+        "chapter_name": null,
+        "confidence": "high",
+        "reason": "考查WAF和CC攻击，属传统网络安全，非AI安全与合规"
+      }
+    },
+    {
+      "qid": "12-5061",
+      "chapter": 12,
+      "chapter_name": "框架与工具",
+      "seq": "5061",
+      "type": 0,
+      "answer": "D",
+      "stem": "关于 LangChain 的定位，下列描述最准确的是？",
+      "predicted_chapter": 4,
+      "predicted_chapter_name": "Agent 智能体",
+      "current_score": 20,
+      "top_score": 28,
+      "matched_keywords": [
+        "Agent",
+        "agent"
+      ],
+      "llm": {
+        "action": "move",
+        "chapter": 4,
+        "chapter_name": "Agent 智能体",
+        "confidence": "high",
+        "reason": "LangChain核心是Agent编排与抽象，属Agent智能体章节"
+      }
+    },
+    {
+      "qid": "8-5145",
+      "chapter": 8,
+      "chapter_name": "AI 安全与合规",
+      "seq": "5145",
+      "type": 1,
+      "answer": "A,B,D",
+      "stem": "面对 DDoS 攻击，以下哪些防护措施是合理的？",
+      "predicted_chapter": 6,
+      "predicted_chapter_name": "模型部署与推理优化",
+      "current_score": 0,
+      "top_score": 8,
+      "matched_keywords": [
+        "限流"
+      ],
+      "llm": {
+        "action": "move",
+        "chapter": 8,
+        "chapter_name": "AI 安全与合规",
+        "confidence": "high",
+        "reason": "DDoS防护属于AI系统安全防护范畴，归属AI安全与合规"
+      }
+    },
+    {
+      "qid": "12-5054",
+      "chapter": 12,
+      "chapter_name": "框架与工具",
+      "seq": "5054",
+      "type": 1,
+      "answer": "A,B,C,D",
+      "stem": "Dify 平台通常提供以下哪些能力模块？",
+      "predicted_chapter": 3,
+      "predicted_chapter_name": "RAG 检索增强生成",
+      "current_score": 0,
+      "top_score": 6,
+      "matched_keywords": [
+        "知识库"
+      ],
+      "llm": {
+        "action": "move",
+        "chapter": 10,
+        "chapter_name": "阿里云 AI 平台",
+        "confidence": "high",
+        "reason": "Dify是阿里云AI平台生态工具，考点为平台能力模块归属"
+      }
+    },
+    {
+      "qid": "12-5057",
+      "chapter": 12,
+      "chapter_name": "框架与工具",
+      "seq": "5057",
+      "type": 1,
+      "answer": "A,B,C,D",
+      "stem": "在 Dify 可视化工作流中，以下哪些节点类型属于常见能力？",
+      "predicted_chapter": 3,
+      "predicted_chapter_name": "RAG 检索增强生成",
+      "current_score": 0,
+      "top_score": 6,
+      "matched_keywords": [
+        "知识检索"
+      ],
+      "llm": {
+        "action": "move",
+        "chapter": 4,
+        "chapter_name": "Agent 智能体",
+        "confidence": "high",
+        "reason": "Dify工作流节点属于Agent智能体编排能力"
+      }
+    },
+    {
+      "qid": "12-5058",
+      "chapter": 12,
+      "chapter_name": "框架与工具",
+      "seq": "5058",
+      "type": 0,
+      "answer": "C",
+      "stem": "调试 Dify 知识库问答应用时，发现模型回答正确但没有显示引用来源。应优先检查？",
+      "predicted_chapter": 3,
+      "predicted_chapter_name": "RAG 检索增强生成",
+      "current_score": 0,
+      "top_score": 6,
+      "matched_keywords": [
+        "知识库"
+      ],
+      "llm": {
+        "action": "move",
+        "chapter": 3,
+        "chapter_name": "RAG 检索增强生成",
+        "confidence": "high",
+        "reason": "考点是RAG中知识库检索与引用来源配置"
+      }
+    },
+    {
+      "qid": "2-5015",
+      "chapter": 2,
+      "chapter_name": "提示工程",
+      "seq": "5015",
+      "type": 0,
+      "answer": "D",
+      "stem": "某意图分类应用上线后出现大量误判。最应优先检查的是？",
+      "predicted_chapter": 6,
+      "predicted_chapter_name": "模型部署与推理优化",
+      "current_score": 0,
+      "top_score": 6,
+      "matched_keywords": [
+        "GPU",
+        "延迟"
+      ],
+      "llm": {
+        "action": "move",
+        "chapter": 7,
+        "chapter_name": "模型评估",
+        "confidence": "high",
+        "reason": "考点是分类任务误判根因，属模型评估中的错误分析"
+      }
+    },
+    {
+      "qid": "2-5022",
+      "chapter": 2,
+      "chapter_name": "提示工程",
+      "seq": "5022",
+      "type": 0,
+      "answer": "D",
+      "stem": "模型在自动修订时把未要求修改的段落也一并改写了。以下哪种控制手段最直接有效？",
+      "predicted_chapter": 1,
+      "predicted_chapter_name": "大模型基础",
+      "current_score": 2,
+      "top_score": 8,
+      "matched_keywords": [
+        "Token"
+      ],
+      "llm": {
+        "action": "move",
+        "chapter": 2,
+        "chapter_name": "提示工程",
+        "confidence": "high",
+        "reason": "考点是提示设计中的任务边界与约束控制，属提示工程核心"
+      }
+    },
+    {
+      "qid": "12-5059",
+      "chapter": 12,
+      "chapter_name": "框架与工具",
+      "seq": "5059",
+      "type": 0,
+      "answer": "B",
+      "stem": "Dify 支持接入多个模型提供方，这一能力的主要价值是？",
+      "predicted_chapter": 5,
+      "predicted_chapter_name": "模型微调与训练",
+      "current_score": 0,
+      "top_score": 5,
+      "matched_keywords": [
+        "训练过程",
+        "模型训练"
+      ],
+      "llm": {
+        "action": "move",
+        "chapter": 9,
+        "chapter_name": "API 调用与工具使用",
+        "confidence": "high",
+        "reason": "考查Dify作为工具对多模型提供方的API接入与管理能力"
+      }
+    },
+    {
+      "qid": "2-5009",
+      "chapter": 2,
+      "chapter_name": "提示工程",
+      "seq": "5009",
+      "type": 1,
+      "answer": "B,C,D",
+      "stem": "以下哪些是提示词中使用分隔符的常见作用？",
+      "predicted_chapter": 1,
+      "predicted_chapter_name": "大模型基础",
+      "current_score": 5,
+      "top_score": 10,
+      "matched_keywords": [
+        "幻觉",
+        "模型输出"
+      ],
+      "llm": {
+        "action": "keep",
+        "chapter": null,
+        "chapter_name": null,
+        "confidence": "high",
+        "reason": "考点为提示词设计技巧中的分隔符作用，属提示工程核心内容"
+      }
+    },
+    {
+      "qid": "3-5025",
+      "chapter": 3,
+      "chapter_name": "RAG 检索增强生成",
+      "seq": "5025",
+      "type": 0,
+      "answer": "A",
+      "stem": "关于“句子窗口检索”，下列描述最准确的是？",
+      "predicted_chapter": 1,
+      "predicted_chapter_name": "大模型基础",
+      "current_score": 0,
+      "top_score": 5,
+      "matched_keywords": [
+        "上下文窗口"
+      ],
+      "llm": {
+        "action": "keep",
+        "chapter": null,
+        "chapter_name": null,
+        "confidence": "high",
+        "reason": "考点为RAG中细粒度检索策略，属RAG核心方法"
+      }
+    },
+    {
+      "qid": "4-5101",
+      "chapter": 4,
+      "chapter_name": "Agent 智能体",
+      "seq": "5101",
+      "type": 0,
+      "answer": "A",
+      "stem": "在百炼 Assistant API 中，若同一个 Assistant 需要同时服务多个用户会话且互不串扰，应当使用以下哪个对象来承载并隔离每个用户的多轮上下文？",
+      "predicted_chapter": 10,
+      "predicted_chapter_name": "阿里云 AI 平台",
+      "current_score": 0,
+      "top_score": 5,
+      "matched_keywords": [
+        "百炼"
+      ],
+      "llm": {
+        "action": "move",
+        "chapter": 9,
+        "chapter_name": "API 调用与工具使用",
+        "confidence": "high",
+        "reason": "考查百炼 Assistant API 的核心对象使用，属 API 调用与工具使用"
+      }
+    },
+    {
+      "qid": "8-5137",
+      "chapter": 8,
+      "chapter_name": "AI 安全与合规",
+      "seq": "5137",
+      "type": 0,
+      "answer": "B",
+      "stem": "在 AI Web 应用前部署 WAF，最主要的作用是？",
+      "predicted_chapter": 6,
+      "predicted_chapter_name": "模型部署与推理优化",
+      "current_score": 0,
+      "top_score": 5,
+      "matched_keywords": [
+        "GPU",
+        "推理速度"
+      ],
+      "llm": {
+        "action": "move",
+        "chapter": 8,
+        "chapter_name": "AI 安全与合规",
+        "confidence": "high",
+        "reason": "WAF属于AI系统外部安全防护，归属AI安全与合规"
+      }
+    },
+    {
+      "qid": "8-5147",
+      "chapter": 8,
+      "chapter_name": "AI 安全与合规",
+      "seq": "5147",
+      "type": 0,
+      "answer": "D",
+      "stem": "大模型应用上线前的内容安全合规检查，最合适的做法是？",
+      "predicted_chapter": 3,
+      "predicted_chapter_name": "RAG 检索增强生成",
+      "current_score": 9,
+      "top_score": 14,
+      "matched_keywords": [
+        "知识库",
+        "检查知识库"
+      ],
+      "llm": {
+        "action": "keep",
+        "chapter": null,
+        "chapter_name": null,
+        "confidence": "high",
+        "reason": "考点为AI内容安全的全链路合规检查，属AI安全与合规核心内容"
+      }
+    },
+    {
+      "qid": "1-0107",
+      "chapter": 1,
+      "chapter_name": "大模型基础",
+      "seq": "0107",
+      "type": 0,
+      "answer": "A",
+      "stem": "Dataset.from_dict(data_samples) 的主要作用是什么？",
+      "predicted_chapter": 12,
+      "predicted_chapter_name": "框架与工具",
+      "current_score": 4,
+      "top_score": 7,
+      "matched_keywords": [
+        "Dataset.from_dict"
+      ],
+      "llm": {
+        "action": "move",
+        "chapter": 12,
+        "chapter_name": "框架与工具",
+        "confidence": "high",
+        "reason": "Dataset.from_dict是Hugging Face datasets库的工具方法，属框架与工具范畴"
+      }
+    },
+    {
+      "qid": "10-1096",
+      "chapter": 10,
+      "chapter_name": "阿里云 AI 平台",
+      "seq": "1096",
+      "type": 1,
+      "answer": "B,D",
+      "stem": "你发现大量员工信息都存放在 PDF、Word 文档里，部分还包含表格和图片，RAG 无法正确提取关键信息。你可以怎么处理？",
+      "predicted_chapter": 11,
+      "predicted_chapter_name": "多模态 AI",
+      "current_score": 5,
+      "top_score": 8,
+      "matched_keywords": [
+        "OCR",
+        "图片"
+      ],
+      "llm": {
+        "action": "move",
+        "chapter": 3,
+        "chapter_name": "RAG 检索增强生成",
+        "confidence": "high",
+        "reason": "考点是RAG中非结构化文档的解析预处理"
+      }
+    },
+    {
+      "qid": "10-1122",
+      "chapter": 10,
+      "chapter_name": "阿里云 AI 平台",
+      "seq": "1122",
+      "type": 0,
+      "answer": "C",
+      "stem": "某企业计划通过阿里云平台构建一个大模型应用，用于处理对实时性要求不高的任务（如离线招生成、批量内容摘要提取等）。为了在满足业务需求的同时降低运行成本，以下哪种措施可以最有效地优化成本？",
+      "predicted_chapter": 6,
+      "predicted_chapter_name": "模型部署与推理优化",
+      "current_score": 45,
+      "top_score": 48,
+      "matched_keywords": [
+        "Context Cache",
+        "上下文缓存",
+        "批量推理"
+      ],
+      "llm": {
+        "action": "move",
+        "chapter": 6,
+        "chapter_name": "模型部署与推理优化",
+        "confidence": "high",
+        "reason": "考点是批量推理服务的成本优化，属模型部署与推理优化"
+      }
+    },
+    {
+      "qid": "10-5155",
+      "chapter": 10,
+      "chapter_name": "阿里云 AI 平台",
+      "seq": "5155",
+      "type": 0,
+      "answer": "A",
+      "stem": "在百炼 Assistant API 中，创建 Assistant 时配置的 instructions 主要用于？",
+      "predicted_chapter": 8,
+      "predicted_chapter_name": "AI 安全与合规",
+      "current_score": 5,
+      "top_score": 8,
+      "matched_keywords": [
+        "安全",
+        "内容安全"
+      ],
+      "llm": {
+        "action": "move",
+        "chapter": 9,
+        "chapter_name": "API 调用与工具使用",
+        "confidence": "high",
+        "reason": "考查百炼Assistant API的instructions参数用途，属API调用与工具使用"
+      }
+    },
+    {
+      "qid": "3-1176",
+      "chapter": 3,
+      "chapter_name": "RAG 检索增强生成",
+      "seq": "1176",
+      "type": 0,
+      "answer": "B",
+      "stem": "replacements 的作用是： python ...def get_documents(path): # 读取目录下所有文档 documents = SimpleDirectoryReader(path).load_data() # ",
+      "predicted_chapter": 12,
+      "predicted_chapter_name": "框架与工具",
+      "current_score": 4,
+      "top_score": 7,
+      "matched_keywords": [
+        "SimpleDirectoryReader"
+      ],
+      "llm": {
+        "action": "move",
+        "chapter": 9,
+        "chapter_name": "API 调用与工具使用",
+        "confidence": "high",
+        "reason": "考点是Python字符串替换操作及LlamaIndex文本预处理，属API/工具使用细节"
+      }
+    },
+    {
+      "qid": "5-0149",
+      "chapter": 5,
+      "chapter_name": "模型微调与训练",
+      "seq": "0149",
+      "type": 0,
+      "answer": "A",
+      "stem": "以下哪种问题需要经过 RAG 链路？",
+      "predicted_chapter": 3,
+      "predicted_chapter_name": "RAG 检索增强生成",
+      "current_score": 2,
+      "top_score": 5,
+      "matched_keywords": [
+        "RAG"
+      ],
+      "llm": {
+        "action": "move",
+        "chapter": 3,
+        "chapter_name": "RAG 检索增强生成",
+        "confidence": "high",
+        "reason": "RAG链路用于检索增强生成，核心是外部知识检索，A选项典型适用"
+      }
+    },
+    {
+      "qid": "6-5131",
+      "chapter": 6,
+      "chapter_name": "模型部署与推理优化",
+      "seq": "5131",
+      "type": 0,
+      "answer": "C",
+      "stem": "与自建 GPU ECS 相比，使用 PAI-EAS 部署模型服务的突出特点是？",
+      "predicted_chapter": 10,
+      "predicted_chapter_name": "阿里云 AI 平台",
+      "current_score": 15,
+      "top_score": 18,
+      "matched_keywords": [
+        "PAI",
+        "模型服务"
+      ],
+      "llm": {
+        "action": "move",
+        "chapter": 10,
+        "chapter_name": "阿里云 AI 平台",
+        "confidence": "high",
+        "reason": "考查阿里云PAI-EAS平台特性，属阿里云AI平台章节"
+      }
+    }
+  ]
+}

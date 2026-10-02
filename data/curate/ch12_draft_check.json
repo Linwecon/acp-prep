@@ -1,0 +1,422 @@
+{
+  "model": "qwen-plus",
+  "agree": 27,
+  "mismatch": 3,
+  "items": [
+    {
+      "qid": "12-5063",
+      "bank": [
+        "C"
+      ],
+      "model": [
+        "C"
+      ],
+      "confidence": "high",
+      "reason": "富文本渲染节点支持对召回文档进行关键词高亮等格式化展示",
+      "stem": "在百炼平台中，使用「可视化工作流」构建RAG应用时，若需对召回文档做关键词高亮，应选用哪个内置节点？",
+      "match": true
+    },
+    {
+      "qid": "12-5064",
+      "bank": [
+        "A"
+      ],
+      "model": [
+        "A"
+      ],
+      "confidence": "high",
+      "reason": "LangChain官方文档明确推荐Jinja2语法（如{{ input }}）用于提示词模板动态注入。",
+      "stem": "使用LangChain构建大模型应用时，若需将用户输入动态注入到提示词中，应优先使用哪种模板语法？",
+      "match": true
+    },
+    {
+      "qid": "12-5065",
+      "bank": [
+        "A",
+        "C"
+      ],
+      "model": [
+        "A",
+        "C"
+      ],
+      "confidence": "high",
+      "reason": "NodeParser负责文档切分和添加元数据（如父子关系、窗口上下文），嵌入和query重写不属于其职责。",
+      "stem": "在LlamaIndex中，以下哪些操作属于NodeParser的典型职责？",
+      "match": true
+    },
+    {
+      "qid": "12-5066",
+      "bank": [
+        "A"
+      ],
+      "model": [
+        "A"
+      ],
+      "confidence": "high",
+      "reason": "Dify知识库需手动开启‘自动解析’开关才能解析上传文件",
+      "stem": "某开发者在Dify中配置知识库后，发现上传PDF未被解析为文本。最可能的原因是？",
+      "match": true
+    },
+    {
+      "qid": "12-5067",
+      "bank": [
+        "B"
+      ],
+      "model": [
+        "B"
+      ],
+      "confidence": "high",
+      "reason": "LangChain Memory用于保存和管理对话历史，支持多轮上下文感知交互。",
+      "stem": "在LangChain中，Memory组件的核心作用是？",
+      "match": true
+    },
+    {
+      "qid": "12-5068",
+      "bank": [
+        "A",
+        "B",
+        "C"
+      ],
+      "model": [
+        "A",
+        "B",
+        "C"
+      ],
+      "confidence": "high",
+      "reason": "工具调用节点支持集成任意HTTP API、数据库查询及DashScope等官方服务，错别字修正属模型内生能力，无需工具调用",
+      "stem": "使用百炼平台构建智能体时，以下哪些能力可通过「工具调用（Tool Calling）」节点直接集成？",
+      "match": true
+    },
+    {
+      "qid": "12-5069",
+      "bank": [
+        "C"
+      ],
+      "model": [
+        "C"
+      ],
+      "confidence": "high",
+      "reason": "LlamaIndex中LlmReranker专用于对检索结果进行重排序，是官方推荐的rerank组件。",
+      "stem": "在LlamaIndex中，若需对检索结果进行重排序（rerank），应优先配置哪个组件？",
+      "match": true
+    },
+    {
+      "qid": "12-5070",
+      "bank": [
+        "A"
+      ],
+      "model": [
+        "A"
+      ],
+      "confidence": "high",
+      "reason": "Ollama本地运行Qwen2，ChromaDB轻量嵌入式向量库，LlamaIndex简洁RAG框架，全栈离线可运行。",
+      "stem": "某团队希望在本地快速验证RAG流程，不依赖云服务。以下最轻量可行的技术栈是？",
+      "match": true
+    },
+    {
+      "qid": "12-5071",
+      "bank": [
+        "A",
+        "B",
+        "D"
+      ],
+      "model": [
+        "A",
+        "B",
+        "D"
+      ],
+      "confidence": "high",
+      "reason": "Chatflow专为对话场景设计，含内置I/O端口、WebSocket流式响应及Web App发布能力；知识库与模型需手动配置，非自动继承。",
+      "stem": "在Dify的Chatflow中，以下哪些特性区别于普通Workflow？",
+      "match": true
+    },
+    {
+      "qid": "12-5072",
+      "bank": [
+        "B"
+      ],
+      "model": [
+        "B"
+      ],
+      "confidence": "high",
+      "reason": "‘no such table’表明数据库连接或表加载失败，首要确认SQLDatabase对象是否正确初始化并加载了目标数据库",
+      "stem": "使用LangChain的SQLDatabaseChain时，若遇到‘no such table’错误，首要排查方向是？",
+      "match": true
+    },
+    {
+      "qid": "12-5073",
+      "bank": [
+        "C"
+      ],
+      "model": [
+        "C"
+      ],
+      "confidence": "high",
+      "reason": "百炼可视化工作流提供开箱即用的‘意图识别’专用节点，专为意图分类与路由设计，最符合题干‘优先选用’要求。",
+      "stem": "在百炼平台「可视化工作流」中，若需对用户输入进行意图分类并路由至不同处理分支，应优先选用哪个节点？",
+      "match": true
+    },
+    {
+      "qid": "12-5074",
+      "bank": [
+        "B"
+      ],
+      "model": [
+        "B"
+      ],
+      "confidence": "high",
+      "reason": "LangChain 官方文档明确推荐使用 CohereRerank、BGE-Reranker 等专用 reranker 链进行重排序",
+      "stem": "使用 LangChain 构建 RAG 应用时，若需将检索结果按相关性重排序（rerank），以下哪种方式最符合官方推荐",
+      "match": true
+    },
+    {
+      "qid": "12-5075",
+      "bank": [
+        "A",
+        "B",
+        "D"
+      ],
+      "model": [
+        "A",
+        "B",
+        "D"
+      ],
+      "confidence": "high",
+      "reason": "NodeParser负责文档切分、metadata注入及nodes预处理（如去重/过滤/合并），嵌入计算属EmbeddingModel职责。",
+      "stem": "在 LlamaIndex 中，以下哪些操作属于 NodeParser 的核心职责？",
+      "match": true
+    },
+    {
+      "qid": "12-5076",
+      "bank": [
+        "A"
+      ],
+      "model": [
+        "A"
+      ],
+      "confidence": "high",
+      "reason": "LlamaIndex + SimpleDirectoryReader 支持多格式开箱即用，依赖少、启动快，最轻量。",
+      "stem": "某团队需在本地快速搭建支持多格式（PDF/Word/Markdown）知识解析的 RAG 原型，以下哪项工具组合最轻量且",
+      "match": true
+    },
+    {
+      "qid": "12-5077",
+      "bank": [
+        "B"
+      ],
+      "model": [
+        "B"
+      ],
+      "confidence": "high",
+      "reason": "Dify官方文档明确指出‘知识库强制模式’可禁用LLM回退，确保仅基于知识库回答",
+      "stem": "在 Dify 平台中，若希望问答结果严格限定于知识库内容、禁止模型自由发挥，应启用哪项关键开关？",
+      "match": true
+    },
+    {
+      "qid": "12-5078",
+      "bank": [
+        "A",
+        "B",
+        "D"
+      ],
+      "model": [
+        "A",
+        "B",
+        "D"
+      ],
+      "confidence": "high",
+      "reason": "百炼LlamaIndex组件适配DashScope/Qwen，提供可视化能力，并支持导出标准脚本，但兼容而非完全替代原生API。",
+      "stem": "关于百炼平台提供的 LlamaIndex 组件，以下哪些描述符合其设计定位？",
+      "match": true
+    },
+    {
+      "qid": "12-5079",
+      "bank": [
+        "B"
+      ],
+      "model": [
+        "B"
+      ],
+      "confidence": "high",
+      "reason": "ConversationBufferMemory 默认使用 Python 字典在内存中存储对话历史",
+      "stem": "在 LangChain 中，Memory 组件若配置为 ConversationBufferMemory，其底层状态存储",
+      "match": true
+    },
+    {
+      "qid": "12-5080",
+      "bank": [
+        "A"
+      ],
+      "model": [
+        "A"
+      ],
+      "confidence": "high",
+      "reason": "工具调用依赖OpenAPI Schema解析参数与响应结构，缺失则无法生成正确请求",
+      "stem": "某开发者在百炼平台使用「工具调用（Tool Calling）」节点接入企业内部 CRM API，但调用始终失败。最应优先",
+      "match": true
+    },
+    {
+      "qid": "12-5081",
+      "bank": [
+        "A"
+      ],
+      "model": [
+        "A"
+      ],
+      "confidence": "high",
+      "reason": "HierarchicalNodeParser 支持基于标题层级（如 PDF 章节标题）的结构化分割，符合题意。",
+      "stem": "在 LlamaIndex 中，若需对 PDF 文档执行‘按章节标题分割’而非简单按长度切分，应选用哪个 NodePars",
+      "match": true
+    },
+    {
+      "qid": "12-5082",
+      "bank": [
+        "A",
+        "B"
+      ],
+      "model": [
+        "A",
+        "B"
+      ],
+      "confidence": "high",
+      "reason": "Dify Chatflow 专为对话设计，内置会话管理与跨节点变量持久化；UI组件属前端实现，非Chatflow核心设计；无字符串输出强制要求。",
+      "stem": "使用 Dify 构建 Chatflow 时，以下哪些特性是其区别于普通 Workflow 的核心设计？",
+      "match": true
+    },
+    {
+      "qid": "12-5083",
+      "bank": [
+        "B"
+      ],
+      "model": [
+        "A"
+      ],
+      "confidence": "high",
+      "reason": "百炼可视化工作流中，文本清洗节点专用于敏感词过滤与星号替换",
+      "stem": "在百炼平台「可视化工作流」中，若需对用户输入进行敏感词过滤并替换为星号，应选用哪个内置节点？",
+      "match": false
+    },
+    {
+      "qid": "12-5084",
+      "bank": [
+        "C"
+      ],
+      "model": [
+        "C"
+      ],
+      "confidence": "high",
+      "reason": "LangChain官方推荐PromptTemplate.from_template()动态注入变量，支持列表展开与顺序控制。",
+      "stem": "使用LangChain构建RAG应用时，若需动态注入多个上下文片段并保持顺序可控，应优先采用哪种提示模板语法？",
+      "match": true
+    },
+    {
+      "qid": "12-5085",
+      "bank": [
+        "A",
+        "B",
+        "C"
+      ],
+      "model": [
+        "A",
+        "B"
+      ],
+      "confidence": "high",
+      "reason": "SentenceSplitter按句子语义切分；HierarchicalNodeParser支持语义层级切分；C和D基于格式或固定token长度",
+      "stem": "在LlamaIndex中，以下哪些NodeParser支持按语义边界（而非固定长度）进行文档切分？",
+      "match": false
+    },
+    {
+      "qid": "12-5086",
+      "bank": [
+        "A"
+      ],
+      "model": [
+        "A"
+      ],
+      "confidence": "high",
+      "reason": "A方案全本地运行，无云依赖，组件轻量且覆盖PDF解析、向量化、检索与问答全链路。",
+      "stem": "某团队需在本地快速验证RAG流程，要求支持PDF解析、向量化、检索与问答全链路，且不依赖云服务。以下最轻量可行的技术栈是",
+      "match": true
+    },
+    {
+      "qid": "12-5087",
+      "bank": [
+        "B"
+      ],
+      "model": [
+        "B"
+      ],
+      "confidence": "high",
+      "reason": "LangChain Memory专用于管理对话历史，支持多轮上下文记忆与注入",
+      "stem": "关于LangChain的Memory组件，以下哪项描述最准确？",
+      "match": true
+    },
+    {
+      "qid": "12-5088",
+      "bank": [
+        "D"
+      ],
+      "model": [
+        "B"
+      ],
+      "confidence": "high",
+      "reason": "百炼可视化工作流中，HTML标记节点专用于对文本内容进行关键词高亮并生成HTML格式输出。",
+      "stem": "在百炼平台「可视化工作流」中，若需对召回文档做关键词高亮，应选用哪个内置节点？",
+      "match": false
+    },
+    {
+      "qid": "12-5089",
+      "bank": [
+        "B"
+      ],
+      "model": [
+        "B"
+      ],
+      "confidence": "high",
+      "reason": "工具调用节点专为意图识别后自动调用对应工具设计，符合百炼可视化工作流最佳实践。",
+      "stem": "在百炼平台「可视化工作流」中，若需对用户输入执行意图识别并调用对应工具（如查天气、查订单），应优先选用哪个节点类型？",
+      "match": true
+    },
+    {
+      "qid": "12-5090",
+      "bank": [
+        "B"
+      ],
+      "model": [
+        "B"
+      ],
+      "confidence": "high",
+      "reason": "LangChain 官方文档明确推荐使用 CohereRerank、BGE-Reranker 等专用 reranker 链进行语义重排序",
+      "stem": "使用 LangChain 构建 RAG 应用时，若需将检索到的多个文档片段按语义相关性重排序（rerank），官方推荐的",
+      "match": true
+    },
+    {
+      "qid": "12-5091",
+      "bank": [
+        "A",
+        "B"
+      ],
+      "model": [
+        "A",
+        "B"
+      ],
+      "confidence": "high",
+      "reason": "HierarchicalNodeParser按标题层级切分，MarkdownNodeParser解析Markdown标题结构；其余为通用切分器",
+      "stem": "在 LlamaIndex 中，以下哪些 NodeParser 支持基于文档结构（如标题层级）进行智能切分？",
+      "match": true
+    },
+    {
+      "qid": "12-5092",
+      "bank": [
+        "B"
+      ],
+      "model": [
+        "B"
+      ],
+      "confidence": "high",
+      "reason": "百炼可视化工作流提供内置NER节点，专为RAG后处理实体抽取设计，开箱即用。",
+      "stem": "某团队使用百炼平台构建 RAG 应用，希望在召回文档后自动提取关键实体（如人名、地名）用于后续高亮与过滤。以下哪项能力最",
+      "match": true
+    }
+  ]
+}
