@@ -8,7 +8,7 @@ const { QUIZ_DATA_BY_CHAPTER, QUIZ_CHAPTERS } = w.__d;
 const memStore = {};
 function stubEl() {
     return { innerHTML: '', textContent: '', style: {}, dataset: {}, classList: { toggle() {}, add() {}, remove() {} },
-             addEventListener() {}, querySelector() { return null; }, querySelectorAll() { return []; },
+             addEventListener() {}, setAttribute(name, value) { this[name] = value; }, querySelector() { return null; }, querySelectorAll() { return []; },
              scrollTo() {}, getBoundingClientRect() { return { top: 0 }; } };
 }
 global.document = { getElementById: () => stubEl(), querySelector: () => stubEl(), querySelectorAll: () => [] };

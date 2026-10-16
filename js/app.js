@@ -18,7 +18,9 @@
         localStorage.removeItem('acp_chapter_progress');
         localStorage.removeItem('acp_quiz_progress_glass');
         localStorage.removeItem('acp_quiz_favorites_glass');
-        S.store = { v: 2, p: {}, fav: [], last: null, exams: [] };
+        localStorage.removeItem('acp_kp_done');
+        localStorage.removeItem('acp_study_course_v1');
+        S.store = { v: 2, owner: S.store.owner || null, p: {}, fav: [], last: null, exams: [], studyDone: {}, studySettings: {} };
         ACP.saveStore();
         if (ACP.sync) ACP.sync.clearCloud();
         S.exam = null;
@@ -31,6 +33,7 @@
         const landing = document.getElementById('landing');
         if (!landing || landing.classList.contains('hide')) return;
         landing.classList.add('hide');
+        try { localStorage.setItem('acp_workspace_visited', '1'); } catch (e) {}
         ACP.go(mode === 'study' ? 'study' : (mode === 'tutorial' ? 'tutorial' : 'dashboard'));
         setTimeout(() => landing.remove(), 460);
     }
@@ -73,9 +76,16 @@
 
     /* ---------- keyboard ---------- */
     document.addEventListener('keydown', e => {
+        if (e.key === 'Escape') {
+            ACP.closeNotes();
+            if (ACP.sync) ACP.sync.closeAuth();
+            if (ACP.closeAISettings) ACP.closeAISettings();
+            if (ACP.closeAIChat) ACP.closeAIChat();
+            ACP.toggleSidebar(false);
+            return;
+        }
         // 输入框/追问浮动窗的文本域内不响应全局快捷键（A-G 选题、Enter 判题、方向键翻题）
         if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
-        if (e.key === 'Escape') { ACP.closeNotes(); if (ACP.sync) ACP.sync.closeAuth(); return; }
         if (S.ui.view === 'chapter' && S.ui.mode === 'single' && S.ui.pool.length) {
             const q = S.ui.pool[S.ui.idx];
             if (e.key === 'ArrowLeft') { ACP.navQ(-1); e.preventDefault(); }
@@ -105,6 +115,7 @@
         ACP.TOTAL = ACP.BANK.length;
 
         S.store = ACP.loadStore();
+        if (ACP.initDesign) ACP.initDesign();
 
         if (ACP.sync) ACP.sync.init();
 
@@ -134,6 +145,12 @@
 
         // deep link: #study / #quiz / #exam / #tutorial (可带参数如 #study?ch=0) 跳过落地页
         const hash = location.hash;
+        try {
+            if (!hash && localStorage.getItem('acp_workspace_visited') === '1') {
+                const landing = document.getElementById('landing');
+                if (landing) landing.remove();
+            }
+        } catch (e) {}
         if (hash.startsWith('#study') || hash.startsWith('#quiz') || hash.startsWith('#exam')
             || hash.startsWith('#tutorial')) {
             const landing = document.getElementById('landing');

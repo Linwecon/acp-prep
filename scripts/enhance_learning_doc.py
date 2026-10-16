@@ -385,8 +385,9 @@ CHAPTERS = {
 },
 }
 
-def insert_intro_and_summary():
-    text = P.read_text(encoding="utf-8")
+def insert_intro_and_summary(path=None):
+    target = pathlib.Path(path) if path is not None else P
+    text = target.read_text(encoding="utf-8")
     lines = text.splitlines()
 
     # 插入全局“如何使用本手册 + 贯穿案例”
@@ -454,22 +455,24 @@ def insert_intro_and_summary():
     # 采用文本级处理更稳妥
     text2 = "\n".join(lines) + "\n"
     h2s = [(m.start(), m.group(1), m.group(2)) for m in re.finditer(r"^## (\d+)\.\s+(.*)$", text2, flags=re.M)]
-    for idx, (start, num_s, title) in enumerate(h2s):
+    for idx in reversed(range(len(h2s))):
+        start, num_s, title = h2s[idx]
         n = int(num_s)
         cfg = CHAPTERS.get(n)
         if not cfg:
             continue
-        end = h2s[idx+1][0] if idx+1 < len(h2s) else len(text2)
+        next_heading = re.search(r"^## ", text2[start + 1:], flags=re.M)
+        end = start + 1 + next_heading.start() if next_heading else len(text2)
         chapter_text = text2[start:end]
         marker = "**本章总结与自测**"
-        if marker in chapter_text:
+        if marker in chapter_text or "：本章总结与自测" in chapter_text or ":::qa" in chapter_text:
             continue
         # 找到本章最后一个 '---'（通常位于下一章标题之前）
         last_hr = chapter_text.rfind("\n---\n")
-        insert_pos = last_hr if last_hr != -1 else end
+        insert_pos = start + last_hr if last_hr != -1 else end
         summary_block = []
         summary_block.append("")
-        summary_block.append("### " + title + "：本章总结与自测")
+        summary_block.append("#### " + title + "：本章总结与自测")
         summary_block.append("")
         summary_block.append("**高密度总结**：")
         for s in cfg["summary"]:
@@ -485,7 +488,7 @@ def insert_intro_and_summary():
         else:
             text2 = text2[:end] + summary_text + "\n" + text2[end:]
 
-    P.write_text(text2.rstrip() + "\n", encoding="utf-8")
+    target.write_text(text2.rstrip() + "\n", encoding="utf-8")
     print("done")
 
 if __name__ == "__main__":

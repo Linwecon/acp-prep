@@ -648,19 +648,23 @@
     }
 
     /* 限制在视口内，避免拖出去找不回来 */
+    function chatBottomInset() {
+        const nav = document.querySelector && document.querySelector('.mobile-nav');
+        return nav && nav.getBoundingClientRect ? nav.getBoundingClientRect().height : 0;
+    }
     function clampChatPos(p, m) {
         const vp = viewport();
         const w = m.offsetWidth || 600;
         const h = m.offsetHeight || 480;
         const maxX = Math.max(8, vp.w - w - 8);
-        const maxY = Math.max(8, vp.h - h - 8);
+        const maxY = Math.max(8, vp.h - chatBottomInset() - h - 8);
         return { x: Math.min(Math.max(8, p.x), maxX), y: Math.min(Math.max(8, p.y), maxY) };
     }
 
     /* 默认贴右下角，尽量不遮挡题目正文 */
     function defaultChatPos(m) {
         const vp = viewport();
-        return { x: vp.w - (m.offsetWidth || 600) - 24, y: vp.h - (m.offsetHeight || 480) - 24 };
+        return { x: vp.w - (m.offsetWidth || 600) - 24, y: vp.h - chatBottomInset() - (m.offsetHeight || 480) - 24 };
     }
 
     function applyChatPos(forceDefault, override) {
@@ -734,6 +738,14 @@
 
     initChatDrag();
 
+    // Streaming replies and the growing input can change the floating panel's height.
+    if (typeof ResizeObserver !== 'undefined') {
+        const panel = el('aiChatModal');
+        if (panel) new ResizeObserver(() => {
+            if (panel.classList.contains('show')) applyChatPos();
+        }).observe(panel);
+    }
+
     /* 视口变化时把浮动窗拉回可见区域 */
     if (typeof window !== 'undefined' && window.addEventListener) {
         window.addEventListener('resize', () => {
@@ -799,9 +811,10 @@
         updateChatHead();
         updateInputState();
         m.classList.add('show');
-        applyChatPos();
         const input = el('aiChatInput');
         if (input) { input.value = ''; autoGrow(input); setTimeout(() => input.focus(), 60); }
+        // Measure after the input has grown, otherwise the panel can extend past a small screen.
+        applyChatPos();
     }
 
     function closeAIChat() {

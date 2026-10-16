@@ -39,6 +39,8 @@ def compress_q(q):
     out["ds"] = q.get("difficulty_score", 99)
     out["dl"] = q.get("difficulty_label", "进阶")
     out["dsrt"] = q.get("difficulty_sort", 999)
+    if q.get("revised_at"):
+        out["ra"] = q["revised_at"]
     return out
 
 

@@ -4,6 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>ACP 题库治理台</title>
+<script>try { document.documentElement.dataset.theme = localStorage.getItem("acp_v2_theme") || ""; } catch (e) {}</script>
 <style>
     :root {
         --bg: #f6f7f9; --card: #fff; --line: #e3e6ea; --txt: #23282e;
@@ -49,10 +50,58 @@
     .empty { color: var(--sub); padding: 24px; text-align: center; }
     code { font-family: var(--mono); background: #eef1f4; padding: 1px 5px; border-radius: 4px; font-size: 12px; }
     .summary { display: flex; gap: 14px; flex-wrap: wrap; margin-bottom: 10px; color: var(--sub); font-size: 13px; }
+
+    /* Same visual language as the learning workspace; operational controls are unchanged. */
+    :root { --bg:#f4f6fa; --card:#fff; --line:#e3e8f0; --txt:#26334a; --sub:#65728a; --accent:#465cd3; --danger:#bd4557; --warn:#a66916; --ok:#16836a; --soft:#f1f4f9; }
+    .admin-heading { position:relative; padding-right:90px; }
+    .admin-theme-switch { position:absolute; right:0; top:12px; }
+    .btn,select,.bar input { background:var(--card); color:var(--txt); }
+    [data-theme="dark"] { --bg:#101722; --card:#192231; --line:#2a364a; --txt:#e2e8f4; --sub:#a0aec4; --accent:#afbdff; --soft:#263456; --danger:#f295a4; --warn:#e6bb72; --ok:#65cdb0; }
+    [data-theme="dark"] .btn.primary { background:#8295ff; color:#101a30; }
+    [data-theme="dark"] .warnbox { background:#3a3022; border-color:#625034; color:#e6bb72; }
+    [data-theme="dark"] .ev,[data-theme="dark"] code { background:var(--bg); }
+    body { max-width:1500px; margin:0 auto; padding:32px; font-family:"Microsoft YaHei UI","Microsoft YaHei",sans-serif; }
+    button,input,select { font:inherit; }
+    button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible { outline:3px solid var(--accent); outline-offset:3px; }
+    .admin-eyebrow { display:block; font-size:10px; letter-spacing:.15em; font-weight:700; color:var(--sub); }
+    h1 { font-size:28px; font-weight:650; margin:7px 0 9px; letter-spacing:-.04em; }
+    h1>span { color:var(--accent); }
+    .meta { margin-bottom:25px; line-height:1.9; font-size:12px; }
+    .tabs { padding:6px; background:var(--card); border:1px solid var(--line); border-radius:12px; margin-bottom:20px; gap:4px; }
+    .tabs button { min-height:39px; border:0; background:transparent; color:var(--sub); border-radius:8px; padding:8px 14px; font-size:12px; }
+    .tabs button.active { background:var(--soft); color:var(--accent); font-weight:600; }
+    .bar { gap:9px; margin-bottom:18px; }
+    .bar input,select { min-height:38px; border-radius:8px; font-size:12px; color:var(--txt); }
+    .btn { min-height:37px; padding:7px 12px; border-radius:8px; font-size:12px; }
+    .layout { grid-template-columns:minmax(0,1fr) 370px; gap:18px; }
+    .layout>.card { min-width:0; border-radius:13px; }
+    #listWrap { overflow:auto; max-height:calc(100dvh - 245px); }
+    table { min-width:680px; font-size:12px; }
+    th { position:sticky; top:0; z-index:1; background:var(--soft); font-weight:600; }
+    th,td { padding:11px 12px; }
+    tr:hover td { background:var(--soft); }
+    tr.sel td { background:var(--soft); }
+    .preview { padding:22px; top:24px; max-height:calc(100dvh - 48px); overflow-wrap:anywhere; }
+    .preview h3 { font-size:16px; margin-bottom:16px; }
+    .preview .stem { font-size:14px; line-height:1.9; }
+    .preview .opt { font-size:13px; line-height:1.9; padding:5px 0; }
+    .ev { padding:12px; border-radius:0 8px 8px 0; line-height:1.9; }
+    .warnbox { border-radius:10px; padding:14px 17px; font-size:12px; line-height:1.9; }
+    .empty { padding:45px 20px; line-height:1.9; font-size:12px; }
+    @media(max-width:1000px) { .layout { grid-template-columns:minmax(0,1fr); } .preview { position:static; max-height:none; } }
+    @media(max-width:640px) { body { padding:23px 14px; } h1 { font-size:25px; } .tabs { gap:3px; } .tabs button { font-size:11px; padding:8px 10px; flex:1 1 30%; } .bar { gap:7px; } .bar select { max-width:100%; } #listWrap { max-height:65dvh; } .preview { padding:18px; } }
+
+
+    [data-theme="dark"] { color-scheme:dark; }
+    [data-theme="dark"] .t-own,[data-theme="dark"] .t-cross,[data-theme="dark"] .t-ok,[data-theme="dark"] .t-keep { background:#193b35; color:var(--ok); }
+    [data-theme="dark"] .t-misplaced,[data-theme="dark"] .t-remove,[data-theme="dark"] .t-fix { background:#3c2631; color:var(--danger); }
+    [data-theme="dark"] .t-beyond,[data-theme="dark"] .t-unsure,[data-theme="dark"] .t-fixable,[data-theme="dark"] .t-multi_answer { background:#3a3022; color:var(--warn); }
+    [data-theme="dark"] .t-review,[data-theme="dark"] .t-insufficient { background:var(--soft); color:var(--accent); }
+    [data-theme="dark"] .btn.danger { background:#8c3448; color:#fff; }
 </style>
 </head>
 <body>
-<h1>ACP 题库治理台</h1>
+<header class="admin-heading"><button class="btn admin-theme-switch" onclick="document.documentElement.dataset.theme = document.documentElement.dataset.theme === 'dark' ? '' : 'dark'; localStorage.setItem('acp_v2_theme', document.documentElement.dataset.theme)">切换主题</button><span class="admin-eyebrow">ACP CONTENT WORKSPACE</span><h1>题库治理台<span>.</span></h1></header>
 <div class="meta">全库治理结果与题目预览 · 本机管理服务支持软删除、恢复和回滚；未确认的问题保留待复核。</div>
 <div class="warnbox" id="fetchWarn" hidden>
     无法读取报告文件：请通过本地服务器访问（<code>python -m http.server 8080</code> 后打开

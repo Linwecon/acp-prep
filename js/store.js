@@ -17,6 +17,15 @@
         s.p = s.p || {};
         s.fav = s.fav || [];
         s.exams = s.exams || [];
+        // 首次升级时将旧版独立存储纳入当前档案，之后不再跨档案读取。
+        if (!s.studyDone) {
+            try { s.studyDone = JSON.parse(localStorage.getItem('acp_kp_done') || '{}'); } catch (e) {}
+        }
+        if (!s.studySettings) {
+            try { s.studySettings = JSON.parse(localStorage.getItem('acp_study_course_v1') || '{}'); } catch (e) {}
+        }
+        s.studyDone = s.studyDone || {};
+        s.studySettings = s.studySettings || {};
         migrateMovedQids(s);
         return s;
     }
@@ -44,6 +53,11 @@
                     c: newer.c || 0,
                     t: Math.max(oldRec.t || 0, newRec.t || 0)
                 };
+                const wrongNewer = (oldRec.wt || oldRec.t || 0) > (newRec.wt || newRec.t || 0) ? oldRec : newRec;
+                if (oldRec.wt || newRec.wt) {
+                    s.p[newId].w = wrongNewer.w || 0;
+                    s.p[newId].wt = wrongNewer.wt || wrongNewer.t || 0;
+                }
                 if (newer.a) s.p[newId].a = newer.a;
             }
             delete s.p[oldId];
@@ -65,6 +79,22 @@
 
     function saveStore() {
         localStorage.setItem(ACP.STORE_KEY, JSON.stringify(ACP.state.store));
+    }
+
+    function activateAccount(userId) {
+        const owner = userId || null;
+        const current = ACP.state.store;
+        if ((current.owner || null) === owner) return;
+        const key = id => ACP.STORE_KEY + ':account:' + (id || 'guest');
+        localStorage.setItem(key(current.owner), JSON.stringify(current));
+        let next = null;
+        try { next = JSON.parse(localStorage.getItem(key(owner)) || 'null'); } catch (e) {}
+        ACP.state.store = next || { v: 2, p: {}, fav: [], last: null, exams: [], studyDone: {}, studySettings: {} };
+        ACP.state.store.owner = owner;
+        if (ACP.stopExamTimer) ACP.stopExamTimer();
+        ACP.state.exam = null;
+        if (ACP.resetPracticeSession) ACP.resetPracticeSession();
+        saveStore();
     }
 
     function migrateLegacy(s) {
@@ -101,11 +131,17 @@
     function isWrong(id) { const p = ACP.state.store.p[id]; return p && p.w > 0; }
     function isFav(id) { return ACP.state.store.fav.includes(id); }
 
-    function markResult(q, correct) {
+    function markResult(q, correct, sel) {
         const p = ACP.state.store.p[q.id] || (ACP.state.store.p[q.id] = { d: 0, w: 0, c: 0 });
+        if (p.wt === undefined) p.wt = p.t || 0;
         p.d++;
-        if (!correct) p.w++;
+        if (!correct) { p.w++; p.wt = Math.max(Date.now(), p.wt + 1); }
         p.c = correct ? 1 : 0;
+        p.t = Date.now();
+        if (sel) {
+            p.a = sel.slice();
+            if (ACP.state.session) ACP.state.session[q.id] = { sel: sel.slice(), correct: !!correct };
+        }
         saveStore();
         if (ACP.sync) ACP.sync.pushProgress(q.id);
     }
@@ -113,6 +149,7 @@
     /* 保存作答快照（用户选了哪些选项，无论对错）+ 作答时间戳 */
     function saveAnswer(q, sel) {
         const p = ACP.state.store.p[q.id] || (ACP.state.store.p[q.id] = { d: 0, w: 0, c: 0 });
+        if (p.wt === undefined) p.wt = p.t || 0;
         p.a = (sel || []).slice();
         p.t = Date.now();
         saveStore();
@@ -128,6 +165,8 @@
     function clearWrong(id) {
         if (ACP.state.store.p[id]) {
             ACP.state.store.p[id].w = 0;
+            const p = ACP.state.store.p[id];
+            p.wt = Math.max(Date.now(), (p.wt || p.t || 0) + 1);
             saveStore();
             if (ACP.sync) ACP.sync.pushProgress(id);
         }
@@ -142,6 +181,7 @@
     }
 
     ACP.loadStore = loadStore;
+    ACP.activateAccount = activateAccount;
     ACP.saveStore = saveStore;
     ACP.migrateMovedQids = migrateMovedQids;
     ACP.prog = prog;

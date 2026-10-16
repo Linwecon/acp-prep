@@ -46,14 +46,12 @@
             const sQuota = quotaAlloc(ACP.EXAM_SINGLE, ACP.EXAM_DOMAINS.map(d => d.pct));
             const mQuota = quotaAlloc(ACP.EXAM_MULTI, ACP.EXAM_DOMAINS.map(d => d.pct));
             root.innerHTML = `
-      <div class="card exam-result">
-        <div style="font-size:44px;margin-bottom:10px;">📝</div>
-        <h2 style="font-size:19px;font-weight:700;margin-bottom:8px;">ACP 模拟考试</h2>
-        <p style="color:var(--text-2);font-size:13px;line-height:2;">
-          单选 ${ACP.EXAM_SINGLE} 题 × 1 分 + 多选 ${ACP.EXAM_MULTI} 题 × 2 分 = 100 分<br>
-          及格线 <b>80 分</b> · 限时 <b>120 分钟</b> · 按新版大纲考点比例从 ${ACP.TOTAL} 题题库抽取<br>
-          <span style="color:var(--text-3);font-size:12px">（题库现有单选 ${singles} 题 / 多选 ${multis} 题）</span>
-        </p>
+      <header class="page-intro"><span class="eyebrow">PUT YOUR KNOWLEDGE TO THE TEST</span><h1>模拟考试</h1><p>给自己一场完整演练，找到下一步的复习方向。</p></header>
+      <div class="card exam-result exam-setup">
+        <div class="exam-setup-head"><span class="exam-setup-icon">${ACP.icon ? ACP.icon('exam') : '▤'}</span><div><span class="eyebrow">ACP MOCK EXAM</span><h2>准备好，检验一下自己。</h2><p>按知识域比例抽题，每次都是一份新的试卷。</p></div></div>
+        <div class="exam-rules"><div><b>${ACP.EXAM_SINGLE + ACP.EXAM_MULTI}<small> 题</small></b><span>${ACP.EXAM_SINGLE} 单选 + ${ACP.EXAM_MULTI} 多选</span></div><div><b>120<small> 分钟</small></b><span>完整模拟考试时长</span></div><div><b>80<small> 分</small></b><span>满分 100 分 · 及格线</span></div></div>
+        <div class="exam-start-row"><p>单选每题 1 分，多选每题 2 分。<br>交卷后可查看逐题解析与薄弱章节。</p><button class="btn btn-primary" onclick="ACP.startExam()">开始考试 →</button></div>
+        <div class="exam-section-title"><h3>试卷如何组成</h3><span>当前题库：${singles} 单选 / ${multis} 多选</span></div>
         <div class="domain-list">
           ${ACP.EXAM_DOMAINS.map((d, i) => `
             <div class="domain-row">
@@ -65,7 +63,7 @@
         </div>
         <div class="outline">
           <div class="outline-head">
-            <span class="outline-title">📋 新版考试大纲</span>
+            <span class="outline-title">考试大纲与复习范围</span>
             <span class="hint">点击知识域展开考点 · 章节直达刷题</span>
             <span class="spacer"></span>
             <button class="btn btn-sm" onclick="ACP.toggleOutlineAll()">展开全部</button>
@@ -92,7 +90,7 @@
             </div>
           </div>`).join('')}
         </div>
-        <button class="btn btn-primary" style="padding:10px 28px;font-size:14px;" onclick="ACP.startExam()">开始考试</button>
+
         ${examHistoryHTML(8)}
       </div>`;
             return;
@@ -112,8 +110,8 @@
         root.innerHTML = `
     <div class="exam-bar">
       ${review
-        ? `<div class="exam-timer">📝 已交卷</div>`
-        : `<div class="exam-timer ${t < 600000 ? 'urgent' : ''}">⏱ <span id="examClock">${mm}:${ss}</span></div>`}
+        ? `<div class="exam-timer">已交卷 · 回顾中</div>`
+        : `<div class="exam-timer ${t < 600000 ? 'urgent' : ''}"><span class="timer-label">剩余时间</span> <span id="examClock">${mm}:${ss}</span></div>`}
       <span class="exam-meta">已答 ${Object.values(S.exam.answers).filter(a => (a || []).length).length}/${S.exam.pool.length}</span>
       <span class="spacer"></span>
       ${review
@@ -121,8 +119,8 @@
         : `<button class="btn btn-primary btn-sm" onclick="ACP.submitExam()">交卷</button>`}
     </div>
 
-    <div class="card answer-sheet">
-      <h4>答题卡 · 1-${ACP.EXAM_SINGLE} 单选 / ${ACP.EXAM_SINGLE + 1}-${ACP.EXAM_SINGLE + ACP.EXAM_MULTI} 多选</h4>
+    <details class="card answer-sheet"><summary><span>答题卡 <small>${S.exam.pool.length} 题 · 点击展开</small></span><span class="answer-sheet-toggle">查看全部 ▾</span></summary>
+      <p class="answer-sheet-hint">1–${ACP.EXAM_SINGLE} 单选 / ${ACP.EXAM_SINGLE + 1}–${ACP.EXAM_SINGLE + ACP.EXAM_MULTI} 多选 · 点击题号跳转</p>
       <div class="sheet-grid">
         ${S.exam.pool.map((x, i) => {
           const answered = (S.exam.answers[i] || []).length > 0;
@@ -132,12 +130,12 @@
             cls = ok ? 'ok' : 'err';
           }
           if (i === S.exam.idx) cls += ' current';
-          return `<button class="sheet-cell ${cls}" onclick="ACP.examJump(${i})">${i + 1}</button>`;
+          return `<button class="sheet-cell ${cls}" aria-label="第 ${i + 1} 题${answered ? '，已作答' : '，未作答'}" onclick="ACP.examJump(${i})">${i + 1}</button>`;
         }).join('')}
       </div>
-    </div>
+    </details>
 
-    <div class="card q-card">
+    <div class="card q-card exam-question">
       <div class="q-head">
         <span class="q-index">第 ${S.exam.idx + 1} 题</span>
         <span class="tag ${q.multi ? 'tag-multi' : 'tag-single'}">${q.multi ? '多选 · 2分' : '单选 · 1分'}</span>
@@ -249,7 +247,7 @@
             const ok = isExamCorrect(i);
             if (ok) { score += q.multi ? 2 : 1; correct++; }
             else weakByCh[q.ch] = (weakByCh[q.ch] || 0) + 1;
-            if ((S.exam.answers[i] || []).length > 0) ACP.markResult(q, ok);
+            if ((S.exam.answers[i] || []).length > 0) ACP.markResult(q, ok, S.exam.answers[i]);
         });
 
         S.exam.state = 'done';
@@ -290,13 +288,9 @@
         const maxWeak = weak.length ? weak[0][1] : 1;
 
         root.innerHTML = `
-    <div class="card exam-result">
-      <div class="score-circle ${r.pass ? 'pass' : 'fail'}">
-        <div class="score-num">${r.score}</div>
-        <div class="score-lbl">分 / 100</div>
-      </div>
-      <h2 style="font-size:18px;font-weight:700;">${r.pass ? '🎉 已通过（≥80分）' : '未通过（差 ' + (80 - r.score) + ' 分）'}</h2>
-      <p style="color:var(--text-3);font-size:12.5px;margin-top:4px;">用时 ${mm}:${ss}</p>
+    <div class="card exam-result exam-summary">
+      <header class="exam-score-header"><div class="score-circle ${r.pass ? 'pass' : 'fail'}"><div class="score-num">${r.score}</div><div class="score-lbl">分 / 100</div></div>
+      <div><span class="eyebrow">YOUR EXAM REVIEW</span><h1>${r.pass ? '这一次，顺利通过。' : '找到差距，就是进步。'}</h1><p>${r.pass ? '已达到 80 分及格线，继续保持。' : `距及格线还有 ${80 - r.score} 分，下面这些知识值得再巩固。`}</p><span class="exam-time-used">本次用时 ${mm}:${ss}</span></div></header>
       <div class="score-row">
         <div class="score-cell ok"><div class="v">${r.correct}</div><div class="l">答对</div></div>
         <div class="score-cell err"><div class="v">${r.wrong}</div><div class="l">答错 / 未答</div></div>
@@ -317,8 +311,8 @@
       </div>` : '<p style="color:var(--success);font-weight:600;">满分发挥，没有薄弱章节！</p>'}
 
       <div style="display:flex;gap:8px;justify-content:center;margin-top:14px;">
-        <button class="btn btn-primary" onclick="ACP.state.exam.state='review';ACP.state.exam.idx=0;ACP.renderExam(document.getElementById('contentInner'))">🔍 逐题回顾</button>
-        <button class="btn" onclick="ACP.startExam()">🔄 再考一次</button>
+        <button class="btn btn-primary" onclick="ACP.state.exam.state='review';ACP.state.exam.idx=0;ACP.renderExam(document.getElementById('contentInner'))">逐题回顾 →</button>
+        <button class="btn" onclick="ACP.startExam()">再考一次</button>
       </div>
 
       <div class="review-list">

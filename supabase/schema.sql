@@ -15,6 +15,7 @@ create table if not exists public.user_progress (
   correct     integer not null default 0,   -- 最近一次 1=对 0=错
   answer      jsonb,                         -- 最近一次作答选项，如 ["A","B"]
   answered_at timestamptz,                   -- 最近一次作答时间
+  wrong_updated_at timestamptz,              -- 最近一次答错/移出错题的时间
   updated_at  timestamptz not null default now(),
   primary key (user_id, question_id)
 );

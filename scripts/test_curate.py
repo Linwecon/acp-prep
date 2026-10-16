@@ -131,6 +131,9 @@ class TestAnswerFix(CurateTestBase):
         self.assertEqual(q["answer_history"][0]["old_answer"], "B")
         self.assertEqual(q["answer_history"][0]["batch_id"], "b1")
         self.assertEqual(q["analysis"], "新解析")
+        q["revised_at"] = 200
+        r["ledger_items"][0]["before"]["revised_at"] = 100
+        r["ledger_items"][0]["after"]["revised_at"] = 200
         # 台账
         cc.append_batch("answer_fix", "test", r["ledger_items"], batch_id="b1")
         ledger = cc.load_ledger()
@@ -143,6 +146,7 @@ class TestAnswerFix(CurateTestBase):
         q2 = bank2["questions_by_chapter"]["1"][0]
         self.assertEqual(q2["answer"], "B")
         self.assertEqual(q2["analysis"], "解析内容")
+        self.assertEqual(q2["revised_at"], 100)
         self.assertFalse(q2.get("answer_history"))
 
     def test_fix_idempotent(self):

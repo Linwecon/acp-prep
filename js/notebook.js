@@ -21,6 +21,7 @@
         const t = tutStore();
         t[id] = Object.assign({ d: 0, b: 0, at: 0 }, t[id] || {}, patch, { at: Date.now() });
         ACP.saveStore();
+        if (ACP.sync) ACP.sync.pushTutorial(id);
     }
 
     /* ---------- Python 代码高亮（单遍扫描，避免二次替换破坏结构） ---------- */
@@ -110,11 +111,11 @@
       <div class="nb">
         <div class="nb-hero">
           <div class="nb-hero-head">
-            <span class="nb-hero-title">📓 官方实战教程文档</span>
-            <span class="nb-hero-sub">阿里云 ACP 官方教程 Notebook · 讲解 / 代码 / 运行输出完整呈现 · 按章节分类</span>
+            <span class="eyebrow">LEARN BY BUILDING</span><h1 class="nb-hero-title">让知识，落到实践里。</h1>
+            <span class="nb-hero-sub">${all} 篇官方实战教程 · 从讲解到代码，一步步动手理解</span>
             <a class="nb-hero-link" href="https://github.com/AlibabaCloudDocs/aliyun_acp_learning"
                target="_blank" rel="noopener" title="前往官方教程仓库下载 .ipynb 源文件">
-              ⬇ 教程源文件（官方 GitHub 仓库）
+              查看官方源文件 ↗
             </a>
           </div>
           <div class="nb-hero-progress">
@@ -154,8 +155,9 @@
         <span class="nb-row-main">
           <span class="nb-row-title">${ACP.esc(it.title)}</span>
           <span class="nb-row-desc">${ACP.esc(it.desc || '')}</span>
-          <span class="nb-row-meta">⏱ 约 ${it.minutes} 分钟 · ${it.cells} 个单元（${it.code} 段代码${it.outs ? ' · ' + it.outs + ' 条输出' : ''}）</span>
+          <span class="nb-row-meta">约 ${it.minutes} 分钟 · ${it.cells} 个单元（${it.code} 段代码${it.outs ? ' · ' + it.outs + ' 条输出' : ''}）</span>
         </span>
+        <span class="nb-row-status-mobile">${state}</span>
         <span class="nb-row-side">
           ${state}
           <span class="nb-row-go">→</span>
@@ -219,6 +221,7 @@
             </div>
           </div>
           <div class="nb-actions">
+            ${ACP.readingControls ? ACP.readingControls() : ''}
             <button class="btn btn-sm" id="nbTocBtn" onclick="ACP.nbToggleToc()" title="展开 / 收起目录">☰ 目录</button>
             <button class="btn btn-sm ${rec.d ? '' : 'btn-primary'}" id="nbDoneBtn" onclick="ACP.nbMarkDone('${id}')">${rec.d ? '✓ 已学完（点击撤销）' : '标记学完'}</button>
           </div>

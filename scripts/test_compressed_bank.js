@@ -39,6 +39,9 @@ const q1 = ACP.BANK[0];
 eq('q1 has options', q1.options.length > 0 && !!q1.options[0].text, true);
 eq('q1 has stem', !!q1.stem, true);
 eq('q1 id format', /^\d+-\d+$/.test(q1.id), true);
+const revised = ACP.BY_CH['3'].find(q => q.revisedAt);
+eq('RAG has exactly 200 questions', ACP.BY_CH['3'].length, 200);
+eq('question revision survives compressed export', !!revised && revised.revisedAt > 0, true);
 
 // exam draw still works with compressed data
 for (let t = 0; t < 30; t++) {

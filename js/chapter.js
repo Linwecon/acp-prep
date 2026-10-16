@@ -25,6 +25,7 @@
     }
 
     function render() {
+        if (ACP.updateMobileNav) ACP.updateMobileNav();
         document.querySelectorAll('[data-nav]').forEach(el => {
             el.classList.toggle('active', el.dataset.nav === S.ui.view);
         });
@@ -90,9 +91,17 @@
         let prev = S.session[q.id];
         if (!prev) {
             const p = ACP.prog(q.id);
-            if (p && p.a && p.a.length) prev = { sel: p.a, correct: p.c === 1 };
+            if (p && p.a && p.a.length && (!q.revisedAt || (p.t || 0) >= q.revisedAt)) {
+                prev = { sel: p.a, correct: p.c === 1 };
+            }
         }
         return prev;
+    }
+
+    function revisionNotice(q) {
+        const p = ACP.prog(q.id);
+        return q.revisedAt && p && p.d > 0 && (p.t || 0) < q.revisedAt
+            ? '<span class="tag">题目已修订 · 请重新作答</span>' : '';
     }
 
     function renderChapter(root) {
@@ -116,10 +125,11 @@
         ).join('');
 
         root.innerHTML = `
+    <header class="page-intro"><span class="eyebrow">CHAPTER PRACTICE</span><h1>${ACP.esc(title)}</h1><p>专注这一题，把知识再巩固一点。共 ${S.ui.pool.length} 题</p></header>
     <div class="quiz-toolbar">
       ${filterChips}
       <span class="spacer"></span>
-      <button class="chip ${S.ui.shuffle ? 'active' : ''}" onclick="ACP.toggleShuffle()" title="随机顺序">🔀 随机</button>
+      <button class="chip ${S.ui.shuffle ? 'active' : ''}" onclick="ACP.toggleShuffle()" title="随机顺序">${ACP.icon ? ACP.icon('shuffle') : '↝'} 随机</button>
       <button class="chip" onclick="ACP.toggleMode()" title="切换单题/列表">${S.ui.mode === 'single' ? '☰ 列表' : '☝ 单题'}</button>
     </div>
     <div id="quizArea"></div>`;
@@ -163,11 +173,12 @@
       <div class="progress-track"><i style="width:${((S.ui.idx + 1) / S.ui.pool.length) * 100}%"></i></div>
       <span class="progress-label">${S.ui.idx + 1} / ${S.ui.pool.length}</span>
     </div>
-    <div class="card q-card">
+    <div class="card q-card practice-card">
       <div class="q-head">
         <span class="q-index">第 ${S.ui.idx + 1} 题</span>
         <span class="tag ${q.multi ? 'tag-multi' : 'tag-single'}">${q.multi ? '多选' : '单选'}</span>
         <span class="tag">${q.difficultyLabel}</span>
+        ${revisionNotice(q)}
         <span class="q-index" style="font-weight:400">#${q.ch}-${q.seq}</span>
         <span class="spacer"></span>
         <button class="fav-btn ${ACP.isFav(q.id) ? 'active' : ''}" id="favBtn" onclick="ACP.onFav()" title="收藏">${ACP.isFav(q.id) ? '已收藏' : '收藏'}</button>
@@ -233,8 +244,7 @@
         const correct = userAns === q.ansArr.slice().sort().join(',');
         S.judged = true;
         S.session[q.id] = { sel: [...S.sel], correct };
-        ACP.saveAnswer(q, [...S.sel]);
-        ACP.markResult(q, correct);
+        ACP.markResult(q, correct, [...S.sel]);
         renderSingle();
     }
 
@@ -295,7 +305,7 @@
         <span class="list-idx">#${i + 1}</span>
         <span class="tag ${q.multi ? 'tag-multi' : 'tag-single'}">${q.multi ? '多选' : '单选'}</span>
         <span class="tag">${q.difficultyLabel}</span>
-        ${ACP.isDone(q.id) ? `<span class="tag ${ACP.isWrong(q.id) ? 'tag-err' : 'tag-ok'}">${ACP.isWrong(q.id) ? '曾答错' : '已答对'}</span>` : ''}
+        ${revisionNotice(q) || (ACP.isDone(q.id) ? `<span class="tag ${ACP.isWrong(q.id) ? 'tag-err' : 'tag-ok'}">${ACP.isWrong(q.id) ? '曾答错' : '已答对'}</span>` : '')}
       </div>
       <div class="q-stem">${ACP.esc(q.stem)}</div>
       <div class="options">
@@ -342,8 +352,7 @@
         const correct = picked.sort().join(',') === q.ansArr.slice().sort().join(',');
         S.listJudged[i] = true;
         S.session[q.id] = { sel: picked.slice(), correct };
-        ACP.saveAnswer(q, picked.slice());
-        ACP.markResult(q, correct);
+        ACP.markResult(q, correct, picked);
 
         const ansSet = q.ansArr;
         document.querySelectorAll(`.opt[data-q="${i}"]`).forEach(b => {
@@ -372,30 +381,24 @@
         const groups = ACP.CH_IDS.map(ch => ({ ch, qs: (ACP.BY_CH[ch] || []).filter(pick) })).filter(g => g.qs.length > 0);
         const total = groups.reduce((s, g) => s + g.qs.length, 0);
 
+        const heading = `<header class="page-intro collection-intro"><div><span class="eyebrow">${wrongView ? 'REVIEW & GROW' : 'YOUR COLLECTION'}</span><h1>${wrongView ? '错题回顾' : '我的收藏'}</h1><p>${wrongView ? '把容易混淆的知识，再理清一次。' : '把值得反复看的题，留在这里。'}</p></div><span class="collection-count">${total}<small> 道题目</small></span></header>`;
         if (total === 0) {
-            root.innerHTML = `<div class="empty-state">
-      <div class="icon">${wrongView ? '✅' : '⭐'}</div>
-      <h3>${wrongView ? '没有错题，太棒了' : '还没有收藏题目'}</h3>
-      <p>${wrongView ? '做错的题会自动进入错题本' : '刷题时点击右上角"收藏"即可标记'}</p>
-    </div>`;
+            root.innerHTML = heading + `<div class="empty-state collection-empty">
+              <div class="empty-icon">${ACP.icon ? ACP.icon(wrongView ? 'review' : 'star') : '◇'}</div>
+              <h2>${wrongView ? '暂时没有需要回顾的错题' : '遇到好题，随手收藏'}</h2>
+              <p>${wrongView ? '练习中答错的题目，会自动收录在这里。' : '点击题目右上角的“收藏”，就能在这里集中复习。'}</p>
+              <button class="btn btn-primary" onclick="ACP.openChapter(ACP.CH_IDS[0])">去练习几题 →</button>
+            </div>`;
             return;
         }
-
-        root.innerHTML = `
-    <div class="quiz-toolbar">
-      <span style="font-size:13px;color:var(--text-2)">共 <b>${total}</b> 题，分布在 ${groups.length} 个章节</span>
-      <span class="spacer"></span>
-      <button class="btn btn-primary btn-sm" onclick="ACP.startGroupPractice('${kind}')">🔀 全部重练</button>
-    </div>
-    ${groups.map(g => `
-      <div class="card group-card">
-        <button class="group-row" onclick="ACP.startChapterFilter('${g.ch}','${kind}')">
-          <span class="ch-num">${g.ch}</span>
-          <span class="g-name">${ACP.esc(ACP.chapterName(g.ch))}</span>
-          <span class="g-count">${g.qs.length} 题</span>
-          <span class="g-arrow">开始复习 →</span>
-        </button>
-      </div>`).join('')}`;
+        root.innerHTML = heading + `
+          <div class="collection-toolbar"><span>按章节整理 · 共 ${groups.length} 个章节</span><button class="btn btn-primary" onclick="ACP.startGroupPractice('${kind}')">全部重练 →</button></div>
+          <div class="collection-grid">${groups.map(g => `
+            <button class="collection-card" onclick="ACP.startChapterFilter('${g.ch}','${kind}')">
+              <span class="collection-number">${String(g.ch).padStart(2, '0')}</span>
+              <span class="collection-main"><b>${ACP.esc(ACP.chapterName(g.ch))}</b><small>${g.qs.length} 道${wrongView ? '错题，值得再看一次' : '收藏题目'}</small></span>
+              <span class="collection-arrow">${ACP.icon ? ACP.icon('arrow') : '→'}</span>
+            </button>`).join('')}</div>`;
     }
 
     function startChapterFilter(ch, kind) {

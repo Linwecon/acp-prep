@@ -5,6 +5,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>ACP 备考助手</title>
 <link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="workspace.css?v=2">
+<link rel="stylesheet" href="knowledge.css?v=3">
+<meta name="theme-color" content="#f4f6fa">
 <script>
 /* 进入兜底：题库仍在加载时点击卡片，等待就绪后自动进入 */
 window.__enter = function (mode) {
@@ -55,26 +58,27 @@ window.__copyLinkFallback = function (text) {
   <div class="landing-grid"></div>
   <div class="landing-inner">
     <div class="landing-brand">
-      <div class="landing-logo">🎓</div>
-      <h1>ACP 备考助手</h1>
-      <p>阿里云大模型高级工程师认证 · 一站式学习与刷题</p>
+      <div class="landing-logo" data-icon="layers"></div>
+      <div><span class="eyebrow">ACP LEARNING STUDIO</span><p>大模型高级工程师 · 备考助手</p></div>
     </div>
+    <h1 class="landing-headline">系统学习，<br>从容应考<span>.</span></h1>
+    <p class="landing-intro">从理解原理，到动手实践。<br>为每一步复习，找到清晰的方向。</p>
     <div class="landing-cards">
       <button class="landing-card" onclick="__enter('study')" tabindex="0">
-        <span class="lc-ico">📖</span>
-        <span class="lc-title">学 习</span>
+        <span class="lc-ico" data-icon="book"></span>
+        <span class="lc-title">系统学知识</span>
         <span class="lc-desc">高频知识点系统精讲<br>分章复习 · 查漏补缺</span>
-        <span class="lc-key">1</span>
+        <span class="lc-key" data-icon="arrow"></span>
       </button>
       <button class="landing-card" onclick="__enter('quiz')" tabindex="0">
-        <span class="lc-ico">🎯</span>
-        <span class="lc-title">刷 题</span>
+        <span class="lc-ico" data-icon="target"></span>
+        <span class="lc-title">开始练习</span>
         <span class="lc-desc" id="lcQuizDesc">章节练习 · 模拟考试<br>错题本 · 收藏夹</span>
-        <span class="lc-key">2</span>
+        <span class="lc-key" data-icon="arrow"></span>
       </button>
     </div>
     <div class="landing-loading" id="landingTip" style="display:none;">⏳ 题库加载中，请稍候…</div>
-    <button class="landing-tut-link" onclick="__enter('tutorial')">📓 官方实战教程文档 →</button>
+    <button class="landing-tut-link" onclick="__enter('tutorial')"><span data-icon="code"></span> 官方实战教程 <span data-icon="arrow"></span></button>
     <div class="landing-notes">
       <details class="ln-details">
         <summary class="ln-summary">📌 使用注意事项</summary>
@@ -99,7 +103,7 @@ window.__copyLinkFallback = function (text) {
   <!-- ==================== SIDEBAR ==================== -->
   <aside class="sidebar" id="sidebar">
     <div class="sidebar-brand">
-      <div class="brand-logo" aria-hidden="true">🎓</div>
+      <div class="brand-logo" aria-hidden="true" data-icon="layers"></div>
       <div class="brand-text">
         <div class="brand-title">ACP 备考助手</div>
         <div class="brand-sub" id="brandSub">大模型高级工程师认证</div>
@@ -108,17 +112,17 @@ window.__copyLinkFallback = function (text) {
     <div class="sidebar-scroll">
       <div class="nav-group-label">学习</div>
       <button class="nav-item" data-nav="study" onclick="ACP.go('study')">
-        <span class="nav-ico">📚</span> 知识点
+        <span class="nav-ico" data-icon="book"></span> 知识点
       </button>
       <button class="nav-item" data-nav="dashboard" onclick="ACP.go('dashboard')">
-        <span class="nav-ico">📊</span> 学习总览
+        <span class="nav-ico" data-icon="grid"></span> 学习工作台
       </button>
       <button class="nav-item" data-nav="tutorial" onclick="ACP.go('tutorial')">
-        <span class="nav-ico">📓</span> 官方实战教程
+        <span class="nav-ico" data-icon="code"></span> 官方实战教程
         <span class="nav-badge" id="tutBadge">24篇</span>
       </button>
       <button class="nav-item" data-nav="exam" onclick="ACP.go('exam')">
-        <span class="nav-ico">📝</span> 模拟考试
+        <span class="nav-ico" data-icon="exam"></span> 模拟考试
         <span class="nav-badge">75题</span>
       </button>
 
@@ -127,23 +131,23 @@ window.__copyLinkFallback = function (text) {
 
       <div class="nav-group-label">复习</div>
       <button class="nav-item" data-nav="wrong" onclick="ACP.go('wrong')">
-        <span class="nav-ico">✗</span> 错题本
+        <span class="nav-ico" data-icon="review"></span> 错题本
         <span class="nav-badge alert" id="wrongBadge" style="display:none;">0</span>
       </button>
       <button class="nav-item" data-nav="fav" onclick="ACP.go('fav')">
-        <span class="nav-ico">藏</span> 收藏夹
+        <span class="nav-ico" data-icon="star"></span> 收藏夹
         <span class="nav-badge" id="favBadge" style="display:none;">0</span>
       </button>
 
       <div class="nav-group-label">关于</div>
       <button class="nav-item" data-nav="notes" onclick="ACP.openNotes()">
-        <span class="nav-ico">📌</span> 注意事项
+        <span class="nav-ico" data-icon="info"></span> 注意事项
       </button>
     </div>
     <div class="sidebar-footer">
-      <button class="foot-btn" onclick="ACP.openAISettings()" title="AI 答疑设置（API Key）">🤖 AI 设置</button>
-      <button class="foot-btn" onclick="ACP.toggleTheme()" title="切换主题">🌓 <span id="themeLabel">深色</span></button>
-      <button class="foot-btn" onclick="ACP.resetAllData()" title="清空所有学习记录">🗑 清空数据</button>
+      <button class="foot-btn" onclick="ACP.openAISettings()" title="AI 答疑设置（API Key）"><span data-icon="settings"></span> AI 设置</button>
+      <button class="foot-btn" onclick="ACP.toggleTheme()" title="切换主题"><span data-icon="sun"></span> <span id="themeLabel">深色</span></button>
+      <button class="foot-btn" onclick="ACP.resetAllData()" title="清空所有学习记录"><span data-icon="trash"></span> 清空</button>
     </div>
   </aside>
 
@@ -151,8 +155,8 @@ window.__copyLinkFallback = function (text) {
   <div class="modal-overlay" id="notesOverlay" onclick="ACP.closeNotes()"></div>
   <div class="modal" id="notesModal" role="dialog" aria-modal="true" aria-label="使用注意事项">
     <div class="modal-head">
-      <span class="modal-title">📌 使用注意事项</span>
-      <button class="modal-close" onclick="ACP.closeNotes()" title="关闭">✕</button>
+      <span class="modal-title"><span data-icon="info"></span> 使用注意事项</span>
+      <button class="modal-close" onclick="ACP.closeNotes()" title="关闭" aria-label="关闭" data-icon="close"></button>
     </div>
     <div class="modal-body">
       <div class="note-item">
@@ -192,8 +196,8 @@ window.__copyLinkFallback = function (text) {
   <div class="modal-overlay" id="aiOverlay" onclick="ACP.closeAISettings()"></div>
   <div class="modal" id="aiModal" role="dialog" aria-modal="true" aria-label="AI 答疑设置">
     <div class="modal-head">
-      <span class="modal-title">🤖 AI 答疑设置</span>
-      <button class="modal-close" onclick="ACP.closeAISettings()" title="关闭">✕</button>
+      <span class="modal-title"><span data-icon="settings"></span> AI 答疑设置</span>
+      <button class="modal-close" onclick="ACP.closeAISettings()" title="关闭" aria-label="关闭" data-icon="close"></button>
     </div>
     <div class="modal-body">
       <p class="ai-modal-tip">
@@ -220,10 +224,10 @@ window.__copyLinkFallback = function (text) {
         <span class="ai-field-hint" id="aiModelHint">选择服务商后可直接下拉选择模型</span>
       </label>
       <div class="ai-field-link">
-        💡 <b>免费方案</b>：硅基流动（注册送免费额度、部分模型长期免费）、智谱 glm-4-flash（免费）、阿里云百炼（新用户免费额度）——均需注册后获取 API Key，无 Key 无法调用。
+        <b>接入提示</b>：在服务商控制台获取 API Key。可用模型与额度以服务商当前说明为准。
       </div>
       <div class="ai-test-row">
-        <button class="btn" id="aiTestBtn" onclick="ACP.testAIConnection()">🔌 测试连接</button>
+        <button class="btn" id="aiTestBtn" onclick="ACP.testAIConnection()"><span data-icon="settings"></span> 测试连接</button>
         <div class="ai-test-result" id="aiTestResult"></div>
       </div>
       <div class="ai-modal-actions">
@@ -238,13 +242,13 @@ window.__copyLinkFallback = function (text) {
   <div class="modal modal-chat" id="aiChatModal" role="dialog" aria-modal="false" aria-label="题目助手">
     <div class="modal-head chat-head" id="aiChatHead" title="按住此处拖动窗口，双击复位到默认位置">
       <div class="chat-head-main">
-        <span class="modal-title">💬 题目助手</span>
+        <span class="modal-title"><span data-icon="chat"></span> 题目助手</span>
         <span class="chat-qtag" id="aiChatQTag"></span>
         <span class="ai-model-tag" id="aiChatModel"></span>
       </div>
       <div class="chat-head-tools">
-        <button class="btn btn-sm" onclick="ACP.clearAIChat()" title="清空本题的全部追问记录">🗑 清空</button>
-        <button class="modal-close" onclick="ACP.closeAIChat()" title="关闭">✕</button>
+        <button class="btn btn-sm" onclick="ACP.clearAIChat()" title="清空本题的全部追问记录"><span data-icon="trash"></span> 清空</button>
+        <button class="modal-close" onclick="ACP.closeAIChat()" title="关闭" aria-label="关闭" data-icon="close"></button>
       </div>
     </div>
 
@@ -261,7 +265,7 @@ window.__copyLinkFallback = function (text) {
     <div class="chat-quick" id="aiChatQuick"></div>
 
     <div class="chat-input-wrap">
-      <textarea id="aiChatInput" rows="1" placeholder="就这道题继续追问…（Enter 发送，Shift+Enter 换行）" autocomplete="off" spellcheck="false"></textarea>
+      <textarea id="aiChatInput" aria-label="向题目助手提问" rows="1" placeholder="就这道题继续追问…（Enter 发送，Shift+Enter 换行）" autocomplete="off" spellcheck="false"></textarea>
       <button class="btn btn-primary chat-send" id="aiChatSendBtn" onclick="ACP.aiChatSend()">发送</button>
       <button class="btn chat-stop" id="aiChatStopBtn" style="display:none;" onclick="ACP.aiChatStop()">■ 停止</button>
     </div>
@@ -271,7 +275,7 @@ window.__copyLinkFallback = function (text) {
   <div class="modal-overlay" id="authOverlay" onclick="ACP.sync.closeAuth()"></div>
   <div class="modal" id="authModal" role="dialog" aria-modal="true" aria-label="登录">
     <div class="modal-head auth-head">
-      <button class="modal-close" onclick="ACP.sync.closeAuth()" title="关闭">✕</button>
+      <button class="modal-close" onclick="ACP.sync.closeAuth()" title="关闭" aria-label="关闭" data-icon="close"></button>
     </div>
     <div class="modal-body">
       <div id="authSetup" style="display:none;">
@@ -290,7 +294,7 @@ window.__copyLinkFallback = function (text) {
       </div>
       <div id="authForm">
         <div class="auth-brand">
-          <div class="auth-logo">🎓</div>
+          <div class="auth-logo" data-icon="layers"></div>
           <div class="auth-brand-text">
             <div class="auth-brand-title">ACP 备考助手</div>
             <div class="auth-brand-sub">登录后云端同步学习进度 · 跨设备续学</div>
@@ -308,13 +312,13 @@ window.__copyLinkFallback = function (text) {
         <div id="authSignInPage">
           <div id="authPwdPane">
             <div class="auth-input">
-              <span class="auth-input-ico">✉️</span>
-              <input id="authEmail" type="email" placeholder="邮箱地址" autocomplete="email" spellcheck="false">
+              <span class="auth-input-ico" data-icon="mail"></span>
+              <input id="authEmail" aria-label="登录邮箱" type="email" placeholder="邮箱地址" autocomplete="email" spellcheck="false">
             </div>
             <div class="auth-input">
-              <span class="auth-input-ico">🔒</span>
-              <input id="authPassword" type="password" placeholder="密码" autocomplete="current-password">
-              <button type="button" class="pwd-toggle" onclick="ACP.sync.togglePassword('authPassword', this)" title="显示密码">👁</button>
+              <span class="auth-input-ico" data-icon="lock"></span>
+              <input id="authPassword" aria-label="登录密码" type="password" placeholder="密码" autocomplete="current-password">
+              <button type="button" class="pwd-toggle" onclick="ACP.sync.togglePassword('authPassword', this)" title="显示密码" aria-label="显示密码" aria-pressed="false" data-icon="eye"></button>
             </div>
             <button class="btn btn-primary auth-full" id="authPwdBtn" data-loading="登录中…" onclick="ACP.sync.signInWithPassword()">登录</button>
           </div>
@@ -323,21 +327,21 @@ window.__copyLinkFallback = function (text) {
         <!-- ============ 注册页 ============ -->
         <div id="authSignUpPage" style="display:none;">
           <div class="auth-input">
-            <span class="auth-input-ico">✉️</span>
-            <input id="authRegEmail" type="email" placeholder="邮箱地址" autocomplete="email" spellcheck="false">
+            <span class="auth-input-ico" data-icon="mail"></span>
+            <input id="authRegEmail" aria-label="注册邮箱" type="email" placeholder="邮箱地址" autocomplete="email" spellcheck="false">
           </div>
           <div class="auth-input">
-            <span class="auth-input-ico">🔒</span>
-            <input id="authRegPassword" type="password" placeholder="设置密码（至少 6 位）" autocomplete="new-password">
-            <button type="button" class="pwd-toggle" onclick="ACP.sync.togglePassword('authRegPassword', this)" title="显示密码">👁</button>
+            <span class="auth-input-ico" data-icon="lock"></span>
+            <input id="authRegPassword" aria-label="设置密码" type="password" placeholder="设置密码（至少 6 位）" autocomplete="new-password">
+            <button type="button" class="pwd-toggle" onclick="ACP.sync.togglePassword('authRegPassword', this)" title="显示密码" aria-label="显示密码" aria-pressed="false" data-icon="eye"></button>
           </div>
           <div class="auth-input">
-            <span class="auth-input-ico">🔒</span>
-            <input id="authRegPassword2" type="password" placeholder="确认密码" autocomplete="new-password">
-            <button type="button" class="pwd-toggle" onclick="ACP.sync.togglePassword('authRegPassword2', this)" title="显示密码">👁</button>
+            <span class="auth-input-ico" data-icon="lock"></span>
+            <input id="authRegPassword2" aria-label="确认密码" type="password" placeholder="确认密码" autocomplete="new-password">
+            <button type="button" class="pwd-toggle" onclick="ACP.sync.togglePassword('authRegPassword2', this)" title="显示密码" aria-label="显示密码" aria-pressed="false" data-icon="eye"></button>
           </div>
           <button class="btn btn-primary auth-full" id="authRegBtn" data-loading="注册中…" onclick="ACP.sync.signUp()">注册并登录</button>
-          <div class="auth-switch-link"><a onclick="ACP.sync.switchAuthPage('signin')">已有账号？返回登录</a></div>
+          <div class="auth-switch-link"><button class="text-link" type="button" onclick="ACP.sync.switchAuthPage('signin')">已有账号？返回登录</button></div>
         </div>
 
         <div class="auth-msg" id="authOtpHint"></div>
@@ -348,11 +352,11 @@ window.__copyLinkFallback = function (text) {
   <!-- ==================== MAIN ==================== -->
   <main class="main">
     <div class="topbar">
-      <button class="hamburger" onclick="ACP.toggleSidebar()">☰</button>
+      <button class="hamburger" onclick="ACP.toggleSidebar()" aria-label="打开导航菜单" aria-controls="sidebar" aria-expanded="false"><span data-icon="menu"></span></button>
       <div class="crumb" id="crumb">学习总览</div>
       <div class="search-wrap">
-        <span class="search-ico">🔍</span>
-        <input class="search-input" id="searchInput" placeholder="搜索题干关键词…" autocomplete="off">
+        <span class="search-ico" data-icon="search"></span>
+        <input class="search-input" id="searchInput" aria-label="搜索题目" placeholder="搜索题干关键词…" autocomplete="off">
         <div class="search-results" id="searchResults"></div>
       </div>
       <div class="auth-area" id="authArea"></div>
@@ -363,18 +367,26 @@ window.__copyLinkFallback = function (text) {
   </main>
 </div>
 
+<nav class="mobile-nav" aria-label="主要导航">
+  <button data-mobile-nav="dashboard" onclick="ACP.go('dashboard')"><span data-icon="grid"></span><span>总览</span></button>
+  <button data-mobile-nav="study" onclick="ACP.go('study')"><span data-icon="book"></span><span>学习</span></button>
+  <button data-mobile-nav="chapter" onclick="ACP.mobilePractice()"><span data-icon="target"></span><span>练习</span></button>
+  <button data-mobile-nav="exam" onclick="ACP.go('exam')"><span data-icon="exam"></span><span>模考</span></button>
+</nav>
+
 <script defer src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-<script defer src="data/quiz_categorized.min.js?v=govern-0e3811f50daf"></script>
+<script defer src="data/quiz_categorized.min.js?v=rag200-c5d2009ad6c1"></script>
 <script defer src="data/knowledge.js"></script>
 <script defer src="data/notebooks.js"></script>
    <script defer src="data/quiz_qid_migration.js"></script>
 <script defer src="js/acp.js"></script>
+<script defer src="js/design.js"></script>
 <script defer src="js/utils.js"></script>
 <script defer src="js/store.js"></script>
-<script defer src="js/data.js"></script>
+<script defer src="js/data.js?v=rag200-1"></script>
 <script defer src="js/sidebar.js"></script>
 <script defer src="js/dashboard.js"></script>
-<script defer src="js/chapter.js"></script>
+<script defer src="js/chapter.js?v=rag200-1"></script>
 <script defer src="js/study.js"></script>
 <script defer src="js/notebook.js"></script>
 <script defer src="js/exam.js"></script>

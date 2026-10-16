@@ -77,6 +77,16 @@ ACP.state.session[q2.id] = { sel: ['D'], correct: true };
 prev = ACP.questionPrev(q2);
 eq('questionPrev session priority', prev.sel, ['D']);
 
+// Old answer labels must not be shown as a judgment on rewritten content.
+const revised = ACP.BY_CH['3'].find(q => q.revisedAt);
+ACP.state.session = {};
+ACP.state.store.p[revised.id] = { d: 2, w: 1, c: 1, a: ['A'], t: revised.revisedAt - 1 };
+const oldSnapshot = JSON.stringify(ACP.state.store.p[revised.id]);
+eq('revised question ignores old selected options', ACP.questionPrev(revised), undefined);
+eq('revision check preserves old record', JSON.stringify(ACP.state.store.p[revised.id]), oldSnapshot);
+ACP.state.store.p[revised.id].t = revised.revisedAt;
+eq('new answer snapshot is eligible', ACP.questionPrev(revised).sel, ['A']);
+
 /* ============ 4. retry reset: clearAnswer ============ */
 ACP.state.session = {};
 delete ACP.state.session[q2.id];

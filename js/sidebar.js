@@ -60,6 +60,8 @@
         const open = force !== undefined ? force : !sb.classList.contains('open');
         sb.classList.toggle('open', open);
         ov.classList.toggle('show', open);
+        const trigger = document.querySelector('.hamburger');
+        if (trigger) trigger.setAttribute('aria-expanded', String(open));
     }
 
     ACP.renderSidebar = renderSidebar;

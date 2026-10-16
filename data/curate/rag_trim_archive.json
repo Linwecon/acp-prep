@@ -1,0 +1,3290 @@
+{
+  "batch_id": "rag-trim-20261017",
+  "chapter": 3,
+  "questions": [
+    {
+      "seq": "0088",
+      "type": 0,
+      "stem": "在文档切片过程中，以下哪种切片方法适合处理逻辑性强、内容专业的文档？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "语义切片"
+        },
+        {
+          "option_label": "B",
+          "option_text": "Token 切片"
+        },
+        {
+          "option_label": "C",
+          "option_text": "句子切片"
+        },
+        {
+          "option_label": "D",
+          "option_text": "句子窗口切片"
+        }
+      ],
+      "answer": "A",
+      "analysis": "暂无",
+      "chapter": 3,
+      "difficulty_score": 1,
+      "difficulty_label": "入门",
+      "difficulty_sort": 41,
+      "deleted": true,
+      "deleted_meta": {
+        "reason": "同一考点重复设问，保留更有代表性的题目；保留 3-5042",
+        "source": "user-request-rag-trim",
+        "at": "2026-10-17T01:09:17",
+        "batch_id": "rag-trim-20261017"
+      }
+    },
+    {
+      "seq": "0091",
+      "type": 0,
+      "stem": "以下哪项任务需要经过 RAG 链路来生成答案？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "内部知识查询"
+        },
+        {
+          "option_label": "B",
+          "option_text": "文档审查"
+        },
+        {
+          "option_label": "C",
+          "option_text": "增加模型的训练数据"
+        },
+        {
+          "option_label": "D",
+          "option_text": "减少模型的推理时间"
+        }
+      ],
+      "answer": "A",
+      "analysis": "暂无",
+      "chapter": 3,
+      "difficulty_score": 1,
+      "difficulty_label": "入门",
+      "difficulty_sort": 41,
+      "deleted": true,
+      "deleted_meta": {
+        "reason": "同一考点重复设问，保留更有代表性的题目；保留 3-0149",
+        "source": "user-request-rag-trim",
+        "at": "2026-10-17T01:09:17",
+        "batch_id": "rag-trim-20261017"
+      }
+    },
+    {
+      "seq": "0102",
+      "type": 0,
+      "stem": "在问题改写中，以下哪种方法会通过生成假想文档来增强检索效果？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "用假设文档来增强检索（HyDE）"
+        },
+        {
+          "option_label": "B",
+          "option_text": "使用大模型扩充用户问题"
+        },
+        {
+          "option_label": "C",
+          "option_text": "将单一查询改写为多步骤查询"
+        },
+        {
+          "option_label": "D",
+          "option_text": "重排序"
+        }
+      ],
+      "answer": "A",
+      "analysis": "暂无",
+      "chapter": 3,
+      "difficulty_score": 1,
+      "difficulty_label": "入门",
+      "difficulty_sort": 41,
+      "deleted": true,
+      "deleted_meta": {
+        "reason": "同一考点重复设问，保留更有代表性的题目；保留 3-1454",
+        "source": "user-request-rag-trim",
+        "at": "2026-10-17T01:09:17",
+        "batch_id": "rag-trim-20261017"
+      }
+    },
+    {
+      "seq": "0103",
+      "type": 0,
+      "stem": "在RAG应用的建立索引阶段，文本向量化的主要作用是什么？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "增加模型的训练数据"
+        },
+        {
+          "option_label": "B",
+          "option_text": "将文本转换为数字表示以便进行相似度比较"
+        },
+        {
+          "option_label": "C",
+          "option_text": "减少模型的推理时间"
+        },
+        {
+          "option_label": "D",
+          "option_text": "增加模型的参数数量"
+        }
+      ],
+      "answer": "B",
+      "analysis": "暂无",
+      "chapter": 3,
+      "difficulty_score": 1,
+      "difficulty_label": "入门",
+      "difficulty_sort": 41,
+      "deleted": true,
+      "deleted_meta": {
+        "reason": "同一考点重复设问，保留更有代表性的题目；保留 3-0074",
+        "source": "user-request-rag-trim",
+        "at": "2026-10-17T01:09:17",
+        "batch_id": "rag-trim-20261017"
+      }
+    },
+    {
+      "seq": "0135",
+      "type": 0,
+      "stem": "检索增强生成（RAG）应用的主要优势是什么？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "避免传入大量背景信息"
+        },
+        {
+          "option_label": "B",
+          "option_text": "提高模型训练速度"
+        },
+        {
+          "option_label": "C",
+          "option_text": "减少模型推理时间"
+        },
+        {
+          "option_label": "D",
+          "option_text": "增加模型参数数量"
+        }
+      ],
+      "answer": "A",
+      "analysis": "暂无",
+      "chapter": 3,
+      "difficulty_score": 1,
+      "difficulty_label": "入门",
+      "difficulty_sort": 41,
+      "deleted": true,
+      "deleted_meta": {
+        "reason": "同一考点重复设问，保留更有代表性的题目；保留 3-0690",
+        "source": "user-request-rag-trim",
+        "at": "2026-10-17T01:09:17",
+        "batch_id": "rag-trim-20261017"
+      }
+    },
+    {
+      "seq": "0146",
+      "type": 0,
+      "stem": "在检索召回阶段，以下哪种方法用于在检索后减少无关信息？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "重排序"
+        },
+        {
+          "option_label": "B",
+          "option_text": "问题改写"
+        },
+        {
+          "option_label": "C",
+          "option_text": "问题扩写"
+        },
+        {
+          "option_label": "D",
+          "option_text": "增加模型的训练数据"
+        }
+      ],
+      "answer": "A",
+      "analysis": "在检索召回阶段，重排序是用于在检索后减少无关信息的方法。通过调整检索结果的排序，可以提高相关性，从而减少无关信息。",
+      "chapter": 3,
+      "difficulty_score": 1,
+      "difficulty_label": "入门",
+      "difficulty_sort": 41,
+      "deleted": true,
+      "deleted_meta": {
+        "reason": "同一考点重复设问，保留更有代表性的题目；保留 3-1047",
+        "source": "user-request-rag-trim",
+        "at": "2026-10-17T01:09:17",
+        "batch_id": "rag-trim-20261017"
+      }
+    },
+    {
+      "seq": "0147",
+      "type": 0,
+      "stem": "在文档切片过程中，以下哪种切片方法适合模型总是报 Token 超限的场景？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "Token 切片"
+        },
+        {
+          "option_label": "B",
+          "option_text": "句子切片"
+        },
+        {
+          "option_label": "C",
+          "option_text": "句子窗口切片"
+        },
+        {
+          "option_label": "D",
+          "option_text": "语义切片"
+        }
+      ],
+      "answer": "A",
+      "analysis": "暂无",
+      "chapter": 3,
+      "difficulty_score": 1,
+      "difficulty_label": "入门",
+      "difficulty_sort": 41,
+      "deleted": true,
+      "deleted_meta": {
+        "reason": "同一考点重复设问，保留更有代表性的题目；保留 3-0272",
+        "source": "user-request-rag-trim",
+        "at": "2026-10-17T01:09:17",
+        "batch_id": "rag-trim-20261017"
+      }
+    },
+    {
+      "seq": "0152",
+      "type": 0,
+      "stem": "在构建 RAG 应用时，以下哪种向量存储方案适合快速开发和测试？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "内存向量存储"
+        },
+        {
+          "option_label": "B",
+          "option_text": "本地向量数据库"
+        },
+        {
+          "option_label": "C",
+          "option_text": "云服务向量存储"
+        },
+        {
+          "option_label": "D",
+          "option_text": "增加模型的训练数据"
+        }
+      ],
+      "answer": "A",
+      "analysis": "暂无",
+      "chapter": 3,
+      "difficulty_score": 1,
+      "difficulty_label": "入门",
+      "difficulty_sort": 41,
+      "deleted": true,
+      "deleted_meta": {
+        "reason": "同一考点重复设问，保留更有代表性的题目；保留 3-0117",
+        "source": "user-request-rag-trim",
+        "at": "2026-10-17T01:09:17",
+        "batch_id": "rag-trim-20261017"
+      }
+    },
+    {
+      "seq": "0155",
+      "type": 0,
+      "stem": "在优化检索效果时，哪种方法有助于提升文档的结构化程度？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "使用 Markdown 格式"
+        },
+        {
+          "option_label": "B",
+          "option_text": "增加模型的训练数据"
+        },
+        {
+          "option_label": "C",
+          "option_text": "减少模型的推理时间"
+        },
+        {
+          "option_label": "D",
+          "option_text": "增加模型的参数数量"
+        }
+      ],
+      "answer": "A",
+      "analysis": "暂无",
+      "chapter": 3,
+      "difficulty_score": 1,
+      "difficulty_label": "入门",
+      "difficulty_sort": 41,
+      "deleted": true,
+      "deleted_meta": {
+        "reason": "同一考点重复设问，保留更有代表性的题目；保留 3-0143",
+        "source": "user-request-rag-trim",
+        "at": "2026-10-17T01:09:17",
+        "batch_id": "rag-trim-20261017"
+      }
+    },
+    {
+      "seq": "0157",
+      "type": 0,
+      "stem": "在文档切片过程中，以下哪种切片方法适合对 Token 数量有严格要求的场景？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "Token 切片"
+        },
+        {
+          "option_label": "B",
+          "option_text": "句子切片"
+        },
+        {
+          "option_label": "C",
+          "option_text": "句子窗口切片"
+        },
+        {
+          "option_label": "D",
+          "option_text": "语义切片"
+        }
+      ],
+      "answer": "A",
+      "analysis": "暂无",
+      "chapter": 3,
+      "difficulty_score": 1,
+      "difficulty_label": "入门",
+      "difficulty_sort": 41,
+      "deleted": true,
+      "deleted_meta": {
+        "reason": "同一考点重复设问，保留更有代表性的题目；保留 3-0272",
+        "source": "user-request-rag-trim",
+        "at": "2026-10-17T01:09:17",
+        "batch_id": "rag-trim-20261017"
+      }
+    },
+    {
+      "seq": "0168",
+      "type": 0,
+      "stem": "在构建 RAG 应用时，以下哪种向量存储方案最简单？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "内存向量存储"
+        },
+        {
+          "option_label": "B",
+          "option_text": "本地向量数据库"
+        },
+        {
+          "option_label": "C",
+          "option_text": "云服务向量存储"
+        },
+        {
+          "option_label": "D",
+          "option_text": "增加模型的训练数据"
+        }
+      ],
+      "answer": "A",
+      "analysis": "暂无",
+      "chapter": 3,
+      "difficulty_score": 1,
+      "difficulty_label": "入门",
+      "difficulty_sort": 41,
+      "deleted": true,
+      "deleted_meta": {
+        "reason": "同一考点重复设问，保留更有代表性的题目；保留 3-0117",
+        "source": "user-request-rag-trim",
+        "at": "2026-10-17T01:09:17",
+        "batch_id": "rag-trim-20261017"
+      }
+    },
+    {
+      "seq": "0174",
+      "type": 0,
+      "stem": "在问题改写中，以下哪种方法通过大模型生成假想文档？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "用假设文档来增强检索 (HyDE)"
+        },
+        {
+          "option_label": "B",
+          "option_text": "重排序"
+        },
+        {
+          "option_label": "C",
+          "option_text": "滑动窗口检索"
+        },
+        {
+          "option_label": "D",
+          "option_text": "增加模型的训练数据"
+        }
+      ],
+      "answer": "A",
+      "analysis": "暂无",
+      "chapter": 3,
+      "difficulty_score": 1,
+      "difficulty_label": "入门",
+      "difficulty_sort": 41,
+      "deleted": true,
+      "deleted_meta": {
+        "reason": "同一考点重复设问，保留更有代表性的题目；保留 3-1454",
+        "source": "user-request-rag-trim",
+        "at": "2026-10-17T01:09:17",
+        "batch_id": "rag-trim-20261017"
+      }
+    },
+    {
+      "seq": "0175",
+      "type": 0,
+      "stem": "在文档解析与切片阶段，以下哪种改进策略适用于文档切片长度过大的情况？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "减少切片长度或开发更合适的切片策略"
+        },
+        {
+          "option_label": "B",
+          "option_text": "增加模型的训练数据"
+        },
+        {
+          "option_label": "C",
+          "option_text": "减少模型的推理时间"
+        },
+        {
+          "option_label": "D",
+          "option_text": "增加模型的参数数量"
+        }
+      ],
+      "answer": "A",
+      "analysis": "暂无",
+      "chapter": 3,
+      "difficulty_score": 1,
+      "difficulty_label": "入门",
+      "difficulty_sort": 41,
+      "deleted": true,
+      "deleted_meta": {
+        "reason": "同一考点重复设问，保留更有代表性的题目；保留 3-0567",
+        "source": "user-request-rag-trim",
+        "at": "2026-10-17T01:09:17",
+        "batch_id": "rag-trim-20261017"
+      }
+    },
+    {
+      "seq": "0183",
+      "type": 0,
+      "stem": "在优化检索效果时，哪种方法可以增强文档的结构组织性？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "使用 Markdown 格式"
+        },
+        {
+          "option_label": "B",
+          "option_text": "增加模型的训练数据"
+        },
+        {
+          "option_label": "C",
+          "option_text": "减少模型的推理时间"
+        },
+        {
+          "option_label": "D",
+          "option_text": "增加模型的参数数量"
+        }
+      ],
+      "answer": "A",
+      "analysis": "暂无",
+      "chapter": 3,
+      "difficulty_score": 1,
+      "difficulty_label": "入门",
+      "difficulty_sort": 41,
+      "deleted": true,
+      "deleted_meta": {
+        "reason": "同一考点重复设问，保留更有代表性的题目；保留 3-0143",
+        "source": "user-request-rag-trim",
+        "at": "2026-10-17T01:09:17",
+        "batch_id": "rag-trim-20261017"
+      }
+    },
+    {
+      "seq": "0201",
+      "type": 0,
+      "stem": "在问题改写中，以下哪种方法用假设文档来增强检索？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "用假设文档来增强检索（HyDE）"
+        },
+        {
+          "option_label": "B",
+          "option_text": "重排序"
+        },
+        {
+          "option_label": "C",
+          "option_text": "滑动窗口检索"
+        },
+        {
+          "option_label": "D",
+          "option_text": "增加模型的训练数据"
+        }
+      ],
+      "answer": "A",
+      "analysis": "暂无",
+      "chapter": 3,
+      "difficulty_score": 1,
+      "difficulty_label": "入门",
+      "difficulty_sort": 41,
+      "deleted": true,
+      "deleted_meta": {
+        "reason": "同一考点重复设问，保留更有代表性的题目；保留 3-1454",
+        "source": "user-request-rag-trim",
+        "at": "2026-10-17T01:09:17",
+        "batch_id": "rag-trim-20261017"
+      }
+    },
+    {
+      "seq": "0217",
+      "type": 0,
+      "stem": "在问题改写中，以下哪种方法会通过分解复杂问题为多个子问题来解决问题？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "将单一查询改写为多步骤查询"
+        },
+        {
+          "option_label": "B",
+          "option_text": "使用大模型扩充用户问题"
+        },
+        {
+          "option_label": "C",
+          "option_text": "用假设文档来增强检索（HyDe）"
+        },
+        {
+          "option_label": "D",
+          "option_text": "重排序"
+        }
+      ],
+      "answer": "A",
+      "analysis": "暂无",
+      "chapter": 3,
+      "difficulty_score": 1,
+      "difficulty_label": "入门",
+      "difficulty_sort": 41,
+      "deleted": true,
+      "deleted_meta": {
+        "reason": "同一考点重复设问，保留更有代表性的题目；保留 3-0205",
+        "source": "user-request-rag-trim",
+        "at": "2026-10-17T01:09:17",
+        "batch_id": "rag-trim-20261017"
+      }
+    },
+    {
+      "seq": "0220",
+      "type": 0,
+      "stem": "在文档解析与切片阶段，以下哪种改进策略适用于文档类型不统一的情况？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "开发对应格式的解析器或转换文档格式"
+        },
+        {
+          "option_label": "B",
+          "option_text": "增加模型的训练数据"
+        },
+        {
+          "option_label": "C",
+          "option_text": "减少模型的推理时间"
+        },
+        {
+          "option_label": "D",
+          "option_text": "增加模型的参数数量"
+        }
+      ],
+      "answer": "A",
+      "analysis": "暂无",
+      "chapter": 3,
+      "difficulty_score": 1,
+      "difficulty_label": "入门",
+      "difficulty_sort": 41,
+      "deleted": true,
+      "deleted_meta": {
+        "reason": "同一考点重复设问，保留更有代表性的题目；保留 3-0557",
+        "source": "user-request-rag-trim",
+        "at": "2026-10-17T01:09:17",
+        "batch_id": "rag-trim-20261017"
+      }
+    },
+    {
+      "seq": "0234",
+      "type": 0,
+      "stem": "在构建 RAG 应用时，以下哪种向量存储方案无需关注运维，自动扩容？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "云服务向量存储"
+        },
+        {
+          "option_label": "B",
+          "option_text": "内存向量存储"
+        },
+        {
+          "option_label": "C",
+          "option_text": "本地向量数据库"
+        },
+        {
+          "option_label": "D",
+          "option_text": "增加模型的训练数据"
+        }
+      ],
+      "answer": "A",
+      "analysis": "暂无",
+      "chapter": 3,
+      "difficulty_score": 1,
+      "difficulty_label": "入门",
+      "difficulty_sort": 41,
+      "deleted": true,
+      "deleted_meta": {
+        "reason": "同一考点重复设问，保留更有代表性的题目；保留 3-0232",
+        "source": "user-request-rag-trim",
+        "at": "2026-10-17T01:09:17",
+        "batch_id": "rag-trim-20261017"
+      }
+    },
+    {
+      "seq": "0235",
+      "type": 0,
+      "stem": "在文档切片过程中，以下哪种切片方法适合文档逻辑性强、内容专业的场景？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "语义切片"
+        },
+        {
+          "option_label": "B",
+          "option_text": "Token 切片"
+        },
+        {
+          "option_label": "C",
+          "option_text": "句子切片"
+        },
+        {
+          "option_label": "D",
+          "option_text": "句子窗口切片"
+        }
+      ],
+      "answer": "A",
+      "analysis": "暂无",
+      "chapter": 3,
+      "difficulty_score": 1,
+      "difficulty_label": "入门",
+      "difficulty_sort": 41,
+      "deleted": true,
+      "deleted_meta": {
+        "reason": "同一考点重复设问，保留更有代表性的题目；保留 3-5042",
+        "source": "user-request-rag-trim",
+        "at": "2026-10-17T01:09:17",
+        "batch_id": "rag-trim-20261017"
+      }
+    },
+    {
+      "seq": "0238",
+      "type": 0,
+      "stem": "在问题改写中，以下哪种方法通过生成假想文档来增强检索效果？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "用假设文档来增强检索 (HyDE)"
+        },
+        {
+          "option_label": "B",
+          "option_text": "重排序"
+        },
+        {
+          "option_label": "C",
+          "option_text": "滑动窗口检索"
+        },
+        {
+          "option_label": "D",
+          "option_text": "增加模型的训练数据"
+        }
+      ],
+      "answer": "A",
+      "analysis": "暂无",
+      "chapter": 3,
+      "difficulty_score": 1,
+      "difficulty_label": "入门",
+      "difficulty_sort": 41,
+      "deleted": true,
+      "deleted_meta": {
+        "reason": "同一考点重复设问，保留更有代表性的题目；保留 3-1454",
+        "source": "user-request-rag-trim",
+        "at": "2026-10-17T01:09:17",
+        "batch_id": "rag-trim-20261017"
+      }
+    },
+    {
+      "seq": "0248",
+      "type": 0,
+      "stem": "在构建 RAG 应用时，以下哪种向量存储方案适合小规模应用？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "本地向量数据库"
+        },
+        {
+          "option_label": "B",
+          "option_text": "内存向量存储"
+        },
+        {
+          "option_label": "C",
+          "option_text": "云服务向量存储"
+        },
+        {
+          "option_label": "D",
+          "option_text": "增加模型的训练数据"
+        }
+      ],
+      "answer": "B",
+      "analysis": "B选项正确，因为内存向量存储（如FAISS in-memory模式）无需外部依赖、启动快、延迟低，适合小规模RAG应用（如单机原型验证、文档数＜1万、QPS＜10场景），符合阿里云百炼平台对轻量级RAG快速搭建的推荐实践。A项本地向量数据库虽可离线部署，但需维护服务进程与持久化，复杂度高于纯内存方案；C项云服务向量存储（如阿里云OpenSearch向量检索）面向高并发、海量数据生产环境，小规模下成本与运维开销不经济；D项增加训练数据属于微调范畴，与向量存储无关，且违背RAG“检索增强、非重训”的核心设计原则。",
+      "chapter": 3,
+      "difficulty_score": 1,
+      "difficulty_label": "入门",
+      "difficulty_sort": 41,
+      "deleted": true,
+      "deleted_meta": {
+        "reason": "同一考点重复设问，保留更有代表性的题目；保留 3-0117",
+        "source": "user-request-rag-trim",
+        "at": "2026-10-17T01:09:17",
+        "batch_id": "rag-trim-20261017"
+      }
+    },
+    {
+      "seq": "0250",
+      "type": 0,
+      "stem": "以下哪个步骤最能体现 RAG 中的“知识增强”的思想?",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "文档解析:将PDF转换为Markdown"
+        },
+        {
+          "option_label": "B",
+          "option_text": "表格单元格改写:kv形式补充单元格信息,增强语义信息"
+        },
+        {
+          "option_label": "C",
+          "option_text": "语义化分割:基于段落为主体进行语义化分割"
+        },
+        {
+          "option_label": "D",
+          "option_text": "文段召回:从数据库中匹配合适的文段用于回答问题"
+        }
+      ],
+      "answer": "D",
+      "analysis": "暂无",
+      "chapter": 3,
+      "difficulty_score": 1,
+      "difficulty_label": "入门",
+      "difficulty_sort": 41,
+      "deleted": true,
+      "deleted_meta": {
+        "reason": "同一考点重复设问，保留更有代表性的题目；保留 3-0690",
+        "source": "user-request-rag-trim",
+        "at": "2026-10-17T01:09:17",
+        "batch_id": "rag-trim-20261017"
+      }
+    },
+    {
+      "seq": "0253",
+      "type": 0,
+      "stem": "在优化检索效果时，以下哪种方法可以提升大模型对参考信息的结构化理解？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "使用结构化的文档格式"
+        },
+        {
+          "option_label": "B",
+          "option_text": "增加模型的训练数据"
+        },
+        {
+          "option_label": "C",
+          "option_text": "减少模型的推理时间"
+        },
+        {
+          "option_label": "D",
+          "option_text": "增加模型的参数数量"
+        }
+      ],
+      "answer": "A",
+      "analysis": "暂无",
+      "chapter": 3,
+      "difficulty_score": 1,
+      "difficulty_label": "入门",
+      "difficulty_sort": 41,
+      "deleted": true,
+      "deleted_meta": {
+        "reason": "同一考点重复设问，保留更有代表性的题目；保留 3-0143",
+        "source": "user-request-rag-trim",
+        "at": "2026-10-17T01:09:17",
+        "batch_id": "rag-trim-20261017"
+      }
+    },
+    {
+      "seq": "0261",
+      "type": 0,
+      "stem": "在检索召回阶段，以下哪种方法会通过重排序和过滤来减少无关信息？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "重排序"
+        },
+        {
+          "option_label": "B",
+          "option_text": "问题改写"
+        },
+        {
+          "option_label": "C",
+          "option_text": "问题扩写"
+        },
+        {
+          "option_label": "D",
+          "option_text": "增加模型的训练数据"
+        }
+      ],
+      "answer": "A",
+      "analysis": "暂无",
+      "chapter": 3,
+      "difficulty_score": 1,
+      "difficulty_label": "入门",
+      "difficulty_sort": 41,
+      "deleted": true,
+      "deleted_meta": {
+        "reason": "同一考点重复设问，保留更有代表性的题目；保留 3-1047",
+        "source": "user-request-rag-trim",
+        "at": "2026-10-17T01:09:17",
+        "batch_id": "rag-trim-20261017"
+      }
+    },
+    {
+      "seq": "0269",
+      "type": 0,
+      "stem": "在 RAG 应用中，检索生成阶段包括以下哪一组步骤？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "检索与生成"
+        },
+        {
+          "option_label": "B",
+          "option_text": "文档解析与文本分段"
+        },
+        {
+          "option_label": "C",
+          "option_text": "文本向量化与存储索引"
+        },
+        {
+          "option_label": "D",
+          "option_text": "文档解析与检索"
+        }
+      ],
+      "answer": "A",
+      "analysis": "暂无",
+      "chapter": 3,
+      "difficulty_score": 1,
+      "difficulty_label": "入门",
+      "difficulty_sort": 41,
+      "deleted": true,
+      "deleted_meta": {
+        "reason": "同一考点重复设问，保留更有代表性的题目；保留 3-0085",
+        "source": "user-request-rag-trim",
+        "at": "2026-10-17T01:09:17",
+        "batch_id": "rag-trim-20261017"
+      }
+    },
+    {
+      "seq": "0278",
+      "type": 0,
+      "stem": "在文档切片过程中，以下哪种切片方法专门针对 Markdown 文档优化？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "Markdown 切片"
+        },
+        {
+          "option_label": "B",
+          "option_text": "Token 切片"
+        },
+        {
+          "option_label": "C",
+          "option_text": "句子切片"
+        },
+        {
+          "option_label": "D",
+          "option_text": "语义切片"
+        }
+      ],
+      "answer": "A",
+      "analysis": "暂无",
+      "chapter": 3,
+      "difficulty_score": 1,
+      "difficulty_label": "入门",
+      "difficulty_sort": 41,
+      "deleted": true,
+      "deleted_meta": {
+        "reason": "同一考点重复设问，保留更有代表性的题目；保留 3-0158",
+        "source": "user-request-rag-trim",
+        "at": "2026-10-17T01:09:17",
+        "batch_id": "rag-trim-20261017"
+      }
+    },
+    {
+      "seq": "0279",
+      "type": 0,
+      "stem": "在 RAG 应用中，建立索引阶段包括以下哪一组步骤？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "文档解析、文本分段、文本向量化、存储索引"
+        },
+        {
+          "option_label": "B",
+          "option_text": "文档解析、文本向量化、检索、生成"
+        },
+        {
+          "option_label": "C",
+          "option_text": "文本分段、文本向量化、检索、生成"
+        },
+        {
+          "option_label": "D",
+          "option_text": "文档解析、文本分段、检索、生成"
+        }
+      ],
+      "answer": "A",
+      "analysis": "在RAG应用中，建立索引阶段包括以下步骤：文档解析、文本分段、文本向量化、存储索引。选项A准确描述了这一过程。",
+      "chapter": 3,
+      "difficulty_score": 1,
+      "difficulty_label": "入门",
+      "difficulty_sort": 41,
+      "deleted": true,
+      "deleted_meta": {
+        "reason": "同一考点重复设问，保留更有代表性的题目；保留 3-1004",
+        "source": "user-request-rag-trim",
+        "at": "2026-10-17T01:09:17",
+        "batch_id": "rag-trim-20261017"
+      }
+    },
+    {
+      "seq": "0289",
+      "type": 0,
+      "stem": "similarity_top_k=20 的作用是什么？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "设置召回切片的最大数量"
+        },
+        {
+          "option_label": "B",
+          "option_text": "设置重排序的切片数量"
+        },
+        {
+          "option_label": "C",
+          "option_text": "设置相似度阈值"
+        },
+        {
+          "option_label": "D",
+          "option_text": "设置模型类型"
+        }
+      ],
+      "answer": "A",
+      "analysis": "暂无",
+      "chapter": 3,
+      "difficulty_score": 1,
+      "difficulty_label": "入门",
+      "difficulty_sort": 41,
+      "deleted": true,
+      "deleted_meta": {
+        "reason": "同一考点重复设问，保留更有代表性的题目；保留 3-0179",
+        "source": "user-request-rag-trim",
+        "at": "2026-10-17T01:09:17",
+        "batch_id": "rag-trim-20261017"
+      }
+    },
+    {
+      "seq": "0410",
+      "type": 0,
+      "stem": "以下哪种说法最能体现RAG的核心思想？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "RAG是一种利用大语言模型直接生成最终答案的技术"
+        },
+        {
+          "option_label": "B",
+          "option_text": "RAG是一种将大语言模型与外部知识库结合,提升模型回答能力的技术"
+        },
+        {
+          "option_label": "C",
+          "option_text": "RAG是一种通过微调大语言模型来适应特定领域问答的技术"
+        },
+        {
+          "option_label": "D",
+          "option_text": "RAG是一种利用大语言模型进行知识图谱构建的技术"
+        }
+      ],
+      "answer": "B",
+      "analysis": "RAG（Retrieval-Augmented Generation）是一种将大语言模型与外部知识库结合，提升模型回答能力的技术。它通过检索相关知识来增强生成的回答质量，从而实现更准确和上下文相关的回答。",
+      "chapter": 3,
+      "difficulty_score": 1,
+      "difficulty_label": "入门",
+      "difficulty_sort": 41,
+      "deleted": true,
+      "deleted_meta": {
+        "reason": "同一考点重复设问，保留更有代表性的题目；保留 3-0690",
+        "source": "user-request-rag-trim",
+        "at": "2026-10-17T01:09:17",
+        "batch_id": "rag-trim-20261017"
+      }
+    },
+    {
+      "seq": "0433",
+      "type": 0,
+      "stem": "大语言模型RAG应用建立索引阶段需要先对文本进行切片，以下哪种文本切片方法最有可能保留完整的语义信息？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "按字符分割，每50个字符为一个chunk"
+        },
+        {
+          "option_label": "B",
+          "option_text": "按token长度分割，每100个token为一个chunk"
+        },
+        {
+          "option_label": "C",
+          "option_text": "按标点符号分割，例如句号、问号等"
+        },
+        {
+          "option_label": "D",
+          "option_text": "使用专门的语义分割模型将文本分割成语义完整的段落"
+        }
+      ],
+      "answer": "D",
+      "analysis": "暂无",
+      "chapter": 3,
+      "difficulty_score": 1,
+      "difficulty_label": "入门",
+      "difficulty_sort": 41,
+      "deleted": true,
+      "deleted_meta": {
+        "reason": "同一考点重复设问，保留更有代表性的题目；保留 3-5042",
+        "source": "user-request-rag-trim",
+        "at": "2026-10-17T01:09:17",
+        "batch_id": "rag-trim-20261017"
+      }
+    },
+    {
+      "seq": "0767",
+      "type": 0,
+      "stem": "某开发者使用 RAG 技术开发知识问答系统，发现部分最新文档（如 2025 年发布的政策）无法被检索到。以下哪种原因最可能？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "向量数据库未更新，未存入 2025 年的文档"
+        },
+        {
+          "option_label": "B",
+          "option_text": "模型的上下文窗口过小"
+        },
+        {
+          "option_label": "C",
+          "option_text": "检索时使用的相似度阈值过高"
+        },
+        {
+          "option_label": "D",
+          "option_text": "文档分块粒度不当"
+        }
+      ],
+      "answer": "A",
+      "analysis": "暂无",
+      "chapter": 3,
+      "difficulty_score": 1,
+      "difficulty_label": "入门",
+      "difficulty_sort": 41,
+      "deleted": true,
+      "deleted_meta": {
+        "reason": "同一考点重复设问，保留更有代表性的题目；保留 3-1459",
+        "source": "user-request-rag-trim",
+        "at": "2026-10-17T01:09:17",
+        "batch_id": "rag-trim-20261017"
+      }
+    },
+    {
+      "seq": "1141",
+      "type": 0,
+      "stem": "在 RAG 应用中，为什么需要将文本转化为向量表示？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "提高向量在前端界面的显示效果"
+        },
+        {
+          "option_label": "B",
+          "option_text": "减少存储空间"
+        },
+        {
+          "option_label": "C",
+          "option_text": "方便人工阅读"
+        },
+        {
+          "option_label": "D",
+          "option_text": "便于计算语义相似度"
+        }
+      ],
+      "answer": "D",
+      "analysis": "暂无",
+      "chapter": 3,
+      "difficulty_score": 1,
+      "difficulty_label": "入门",
+      "difficulty_sort": 41,
+      "deleted": true,
+      "deleted_meta": {
+        "reason": "同一考点重复设问，保留更有代表性的题目；保留 3-0074",
+        "source": "user-request-rag-trim",
+        "at": "2026-10-17T01:09:17",
+        "batch_id": "rag-trim-20261017"
+      }
+    },
+    {
+      "seq": "1273",
+      "type": 0,
+      "stem": "使用DashScopeRerank组件的目的的是?",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "生成假想文档"
+        },
+        {
+          "option_label": "B",
+          "option_text": "对召回结果重排序"
+        },
+        {
+          "option_label": "C",
+          "option_text": "解析PDF文件"
+        },
+        {
+          "option_label": "D",
+          "option_text": "压缩向量维度"
+        }
+      ],
+      "answer": "B",
+      "analysis": "DashScopeRerank 组件的主要目的是 对召回结果重排序，以提高结果的相关性和质量。",
+      "chapter": 3,
+      "difficulty_score": 1,
+      "difficulty_label": "入门",
+      "difficulty_sort": 41,
+      "deleted": true,
+      "deleted_meta": {
+        "reason": "同一考点重复设问，保留更有代表性的题目；保留 3-1047",
+        "source": "user-request-rag-trim",
+        "at": "2026-10-17T01:09:17",
+        "batch_id": "rag-trim-20261017"
+      }
+    },
+    {
+      "seq": "1350",
+      "type": 0,
+      "stem": "以下哪种切片策略适合处理逻辑性强、内容专业的文档",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "Token 切片"
+        },
+        {
+          "option_label": "B",
+          "option_text": "默认句子切片"
+        },
+        {
+          "option_label": "C",
+          "option_text": "句子窗口切片"
+        },
+        {
+          "option_label": "D",
+          "option_text": "语义切片"
+        }
+      ],
+      "answer": "D",
+      "analysis": "对于逻辑性强、内容专业的文档，语义切片是最佳选择，因为它能够根据文档的语义和结构进行智能分割，从而保留完整的上下文信息。",
+      "chapter": 3,
+      "difficulty_score": 1,
+      "difficulty_label": "入门",
+      "difficulty_sort": 41,
+      "deleted": true,
+      "deleted_meta": {
+        "reason": "同一考点重复设问，保留更有代表性的题目；保留 3-5042",
+        "source": "user-request-rag-trim",
+        "at": "2026-10-17T01:09:17",
+        "batch_id": "rag-trim-20261017"
+      }
+    },
+    {
+      "seq": "1386",
+      "type": 0,
+      "stem": "在构建 RAG 应用时，以下关于句子滑窗检索优势的说法，正确的是哪一项？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "对大模型的注意力机制进行了针对性改善"
+        },
+        {
+          "option_label": "B",
+          "option_text": "提高大模型生成的速度"
+        },
+        {
+          "option_label": "C",
+          "option_text": "提高检索阶段的精确性同时，保证了生成阶段的信息完整性"
+        },
+        {
+          "option_label": "D",
+          "option_text": "可以降低对数据库存储空间要求"
+        }
+      ],
+      "answer": "C",
+      "analysis": "“提高检索阶段的精确性同时，保证了生成阶段的信息完整性”是正确的描述。这种方法通过精确检索和保留上下文信息，提高了RAG应用的整体性能和效果。",
+      "chapter": 3,
+      "difficulty_score": 1,
+      "difficulty_label": "入门",
+      "difficulty_sort": 41,
+      "deleted": true,
+      "deleted_meta": {
+        "reason": "同一考点重复设问，保留更有代表性的题目；保留 3-0420",
+        "source": "user-request-rag-trim",
+        "at": "2026-10-17T01:09:17",
+        "batch_id": "rag-trim-20261017"
+      }
+    },
+    {
+      "seq": "1387",
+      "type": 0,
+      "stem": "在检索后处理阶段，以下哪种方法用于提升相关性？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "问题扩写"
+        },
+        {
+          "option_label": "B",
+          "option_text": "增加切片数量"
+        },
+        {
+          "option_label": "C",
+          "option_text": "重排序（ReRank）"
+        },
+        {
+          "option_label": "D",
+          "option_text": "降低相似度阈值"
+        }
+      ],
+      "answer": "C",
+      "analysis": "在检索后处理阶段，重排序（ReRank）是专门用于提升检索结果相关性的关键技术。",
+      "chapter": 3,
+      "difficulty_score": 1,
+      "difficulty_label": "入门",
+      "difficulty_sort": 41,
+      "deleted": true,
+      "deleted_meta": {
+        "reason": "同一考点重复设问，保留更有代表性的题目；保留 3-1047",
+        "source": "user-request-rag-trim",
+        "at": "2026-10-17T01:09:17",
+        "batch_id": "rag-trim-20261017"
+      }
+    },
+    {
+      "seq": "1389",
+      "type": 0,
+      "stem": "在检索召回阶段，以下哪种方法通过滑动窗口检索补充相邻切片？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "重排序"
+        },
+        {
+          "option_label": "B",
+          "option_text": "滑动窗口检索"
+        },
+        {
+          "option_label": "C",
+          "option_text": "增加模型的训练数据"
+        },
+        {
+          "option_label": "D",
+          "option_text": "问题改写"
+        }
+      ],
+      "answer": "B",
+      "analysis": "滑动窗口检索通过补充相邻切片确保不会因为过度切分而丢失文本文档的语义连接。",
+      "chapter": 3,
+      "difficulty_score": 1,
+      "difficulty_label": "入门",
+      "difficulty_sort": 41,
+      "deleted": true,
+      "deleted_meta": {
+        "reason": "同一考点重复设问，保留更有代表性的题目；保留 3-0257",
+        "source": "user-request-rag-trim",
+        "at": "2026-10-17T01:09:17",
+        "batch_id": "rag-trim-20261017"
+      }
+    },
+    {
+      "seq": "1424",
+      "type": 0,
+      "stem": "在文档解析与切片阶段，以下哪种改进策略适用于文档切片长度过短的情况？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "增加模型的参数数量"
+        },
+        {
+          "option_label": "B",
+          "option_text": "增加模型的训练数据"
+        },
+        {
+          "option_label": "C",
+          "option_text": "减少模型的推理时间"
+        },
+        {
+          "option_label": "D",
+          "option_text": "扩大切片长度或开发更合适的切片策略"
+        }
+      ],
+      "answer": "D",
+      "analysis": "如果文档切片长度过短，可以扩大切片长度或结合具体业务开发更合适的切片策略。",
+      "chapter": 3,
+      "difficulty_score": 1,
+      "difficulty_label": "入门",
+      "difficulty_sort": 41,
+      "deleted": true,
+      "deleted_meta": {
+        "reason": "同一考点重复设问，保留更有代表性的题目；保留 3-0494",
+        "source": "user-request-rag-trim",
+        "at": "2026-10-17T01:09:17",
+        "batch_id": "rag-trim-20261017"
+      }
+    },
+    {
+      "seq": "1425",
+      "type": 0,
+      "stem": "在文档切片过程中，以下哪种切片方法适合处理 Markdown 文档？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "Token 切片"
+        },
+        {
+          "option_label": "B",
+          "option_text": "句子切片"
+        },
+        {
+          "option_label": "C",
+          "option_text": "Markdown 切片"
+        },
+        {
+          "option_label": "D",
+          "option_text": "语义切片"
+        }
+      ],
+      "answer": "C",
+      "analysis": "Markdown 切片专门针对 Markdown 文档优化。",
+      "chapter": 3,
+      "difficulty_score": 1,
+      "difficulty_label": "入门",
+      "difficulty_sort": 41,
+      "deleted": true,
+      "deleted_meta": {
+        "reason": "同一考点重复设问，保留更有代表性的题目；保留 3-0158",
+        "source": "user-request-rag-trim",
+        "at": "2026-10-17T01:09:17",
+        "batch_id": "rag-trim-20261017"
+      }
+    },
+    {
+      "seq": "1427",
+      "type": 0,
+      "stem": "在学习管理模块中，新增专题时，上传的附件文档格式支持上传大小为0。",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "100MB"
+        },
+        {
+          "option_label": "B",
+          "option_text": "500 MB"
+        },
+        {
+          "option_label": "C",
+          "option_text": "10 MB"
+        },
+        {
+          "option_label": "D",
+          "option_text": "1 GB"
+        }
+      ],
+      "answer": "A",
+      "analysis": "在学习管理模块中新增专题时，上传的附件文档格式通常会有一个大小限制以确保文件可以被有效处理和存储。从给出的选项来看，最常见和支持较好的大小限制是A、100M。这个大小既能够满足大多数文档的需求，又避免了因文件过大导致的上传时间过长或系统负担过重的问题。因此，选项B是一个合理的选择。不过，请注意实际支持的大小可能依赖于具体的系统设置，建议参照具体平台的指南或帮助文档确认确切的限制。",
+      "chapter": 3,
+      "difficulty_score": 1,
+      "difficulty_label": "入门",
+      "difficulty_sort": 41,
+      "deleted": true,
+      "deleted_meta": {
+        "reason": "学习管理模块附件大小题缺平台和版本，题干损坏，解析选项自相矛盾",
+        "source": "user-request-rag-trim",
+        "at": "2026-10-17T01:09:17",
+        "batch_id": "rag-trim-20261017"
+      }
+    },
+    {
+      "seq": "1433",
+      "type": 0,
+      "stem": "在优化检索效果时，以下哪种方法可以提升大模型对参考信息的定位效率？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "使用结构化的文档格式"
+        },
+        {
+          "option_label": "B",
+          "option_text": "增加模型的训练数据"
+        },
+        {
+          "option_label": "C",
+          "option_text": "减少模型的推理时间"
+        },
+        {
+          "option_label": "D",
+          "option_text": "增加模型的参数数量"
+        }
+      ],
+      "answer": "A",
+      "analysis": "使用结构化的文档格式可以提升大模型对参考信息的查找效率，因为结构化的信息更容易查找。",
+      "chapter": 3,
+      "difficulty_score": 1,
+      "difficulty_label": "入门",
+      "difficulty_sort": 41,
+      "deleted": true,
+      "deleted_meta": {
+        "reason": "同一考点重复设问，保留更有代表性的题目；保留 3-0143",
+        "source": "user-request-rag-trim",
+        "at": "2026-10-17T01:09:17",
+        "batch_id": "rag-trim-20261017"
+      }
+    },
+    {
+      "seq": "1434",
+      "type": 0,
+      "stem": "在优化检索效果时，以下哪种方法可以提升大模型对参考信息的语义理解？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "增加模型的训练数据"
+        },
+        {
+          "option_label": "B",
+          "option_text": "使用结构化的文档格式"
+        },
+        {
+          "option_label": "C",
+          "option_text": "增加模型的参数数量"
+        },
+        {
+          "option_label": "D",
+          "option_text": "减少模型的推理时间"
+        }
+      ],
+      "answer": "B",
+      "analysis": "使用结构化的文档格式（如 Markdown）可以提升大模型对参考信息的理解，因为结构化的信息更容易查找和理解。",
+      "chapter": 3,
+      "difficulty_score": 1,
+      "difficulty_label": "入门",
+      "difficulty_sort": 41,
+      "deleted": true,
+      "deleted_meta": {
+        "reason": "同一考点重复设问，保留更有代表性的题目；保留 3-0143",
+        "source": "user-request-rag-trim",
+        "at": "2026-10-17T01:09:17",
+        "batch_id": "rag-trim-20261017"
+      }
+    },
+    {
+      "seq": "1435",
+      "type": 0,
+      "stem": "在优化检索效果时，哪种方法可以扩大召回的文档切片范围？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "调整 similarity_top_k 参数"
+        },
+        {
+          "option_label": "B",
+          "option_text": "增加模型的训练数据"
+        },
+        {
+          "option_label": "C",
+          "option_text": "减少模型的推理时间"
+        },
+        {
+          "option_label": "D",
+          "option_text": "增加模型的参数数量"
+        }
+      ],
+      "answer": "A",
+      "analysis": "调整 similarity_top_k 参数可以增加召回的文档切片数量。",
+      "chapter": 3,
+      "difficulty_score": 1,
+      "difficulty_label": "入门",
+      "difficulty_sort": 41,
+      "deleted": true,
+      "deleted_meta": {
+        "reason": "同一考点重复设问，保留更有代表性的题目；保留 3-0164",
+        "source": "user-request-rag-trim",
+        "at": "2026-10-17T01:09:17",
+        "batch_id": "rag-trim-20261017"
+      }
+    },
+    {
+      "seq": "1442",
+      "type": 0,
+      "stem": "在RAG的应用的建立索引阶段，存储索引的主要目的是什么？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "增加模型的训练数据"
+        },
+        {
+          "option_label": "B",
+          "option_text": "提高检索速度"
+        },
+        {
+          "option_label": "C",
+          "option_text": "减少模型的推理时间"
+        },
+        {
+          "option_label": "D",
+          "option_text": "增加模型的参数数量"
+        }
+      ],
+      "answer": "B",
+      "analysis": "存储索引将向量化后的段落存储为向量数据库，从而提高检索速度，避免每次检索时重复向量化步骤。",
+      "chapter": 3,
+      "difficulty_score": 1,
+      "difficulty_label": "入门",
+      "difficulty_sort": 41,
+      "deleted": true,
+      "deleted_meta": {
+        "reason": "同一考点重复设问，保留更有代表性的题目；保留 3-0109",
+        "source": "user-request-rag-trim",
+        "at": "2026-10-17T01:09:17",
+        "batch_id": "rag-trim-20261017"
+      }
+    },
+    {
+      "seq": "1443",
+      "type": 0,
+      "stem": "在RAG应用的建立索引阶段，文本分段的主要目的是什么？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "减少模型的推理时间"
+        },
+        {
+          "option_label": "B",
+          "option_text": "提高检索速度"
+        },
+        {
+          "option_label": "C",
+          "option_text": "便于后续快速找到与提问最相关的内容"
+        },
+        {
+          "option_label": "D",
+          "option_text": "增加模型的训练数据"
+        }
+      ],
+      "answer": "C",
+      "analysis": "文本分段的主要目的是便于后续快速找到与提问最相关的内容，提高检索效率",
+      "chapter": 3,
+      "difficulty_score": 1,
+      "difficulty_label": "入门",
+      "difficulty_sort": 41,
+      "deleted": true,
+      "deleted_meta": {
+        "reason": "同一考点重复设问，保留更有代表性的题目；保留 3-0399",
+        "source": "user-request-rag-trim",
+        "at": "2026-10-17T01:09:17",
+        "batch_id": "rag-trim-20261017"
+      }
+    },
+    {
+      "seq": "0071",
+      "type": 0,
+      "stem": "RAG（Retrieval Augmented Generation）的主要目的是什么？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "增加模型的训练数据"
+        },
+        {
+          "option_label": "B",
+          "option_text": "为大模型提供参考资料以提高回答质量"
+        },
+        {
+          "option_label": "C",
+          "option_text": "减少模型的推理时间"
+        },
+        {
+          "option_label": "D",
+          "option_text": "增加模型的参数数量"
+        }
+      ],
+      "answer": "B",
+      "analysis": "暂无",
+      "chapter": 3,
+      "difficulty_score": 2,
+      "difficulty_label": "入门",
+      "difficulty_sort": 42,
+      "deleted": true,
+      "deleted_meta": {
+        "reason": "同一考点重复设问，保留更有代表性的题目；保留 3-0690",
+        "source": "user-request-rag-trim",
+        "at": "2026-10-17T01:09:17",
+        "batch_id": "rag-trim-20261017"
+      }
+    },
+    {
+      "seq": "0081",
+      "type": 0,
+      "stem": "在切片向量化与存储阶段，以下哪种 Embedding 模型是更新的版本？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "text-embedding-v3"
+        },
+        {
+          "option_label": "B",
+          "option_text": "text-embedding-v2"
+        },
+        {
+          "option_label": "C",
+          "option_text": "增加模型的训练数据"
+        },
+        {
+          "option_label": "D",
+          "option_text": "减少模型的推理时间"
+        }
+      ],
+      "answer": "A",
+      "analysis": "暂无",
+      "chapter": 3,
+      "difficulty_score": 2,
+      "difficulty_label": "入门",
+      "difficulty_sort": 42,
+      "deleted": true,
+      "deleted_meta": {
+        "reason": "Embedding 型号新旧辨认题重复过多，保留一题多选辨认；保留 3-0516",
+        "source": "user-request-rag-trim",
+        "at": "2026-10-17T01:09:17",
+        "batch_id": "rag-trim-20261017"
+      }
+    },
+    {
+      "seq": "0084",
+      "type": 0,
+      "stem": "query_engine = index.as_query_engine(...) 的作用是什么？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "创建查询引擎"
+        },
+        {
+          "option_label": "B",
+          "option_text": "设置召回切片的最大数量"
+        },
+        {
+          "option_label": "C",
+          "option_text": "设置重排序的切片数量"
+        },
+        {
+          "option_label": "D",
+          "option_text": "设置相似度阈值"
+        }
+      ],
+      "answer": "A",
+      "analysis": "暂无",
+      "chapter": 3,
+      "difficulty_score": 2,
+      "difficulty_label": "入门",
+      "difficulty_sort": 42,
+      "deleted": true,
+      "deleted_meta": {
+        "reason": "重复考查 index.as_query_engine 创建查询引擎；保留 3-0223",
+        "source": "user-request-rag-trim",
+        "at": "2026-10-17T01:09:17",
+        "batch_id": "rag-trim-20261017"
+      }
+    },
+    {
+      "seq": "0138",
+      "type": 0,
+      "stem": "在切片向量化与存储阶段，以下哪种方法用于执行比较？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "compare_embeddings 函数"
+        },
+        {
+          "option_label": "B",
+          "option_text": "增加模型的训练数据"
+        },
+        {
+          "option_label": "C",
+          "option_text": "减少模型的推理时间"
+        },
+        {
+          "option_label": "D",
+          "option_text": "增加模型的参数数量"
+        }
+      ],
+      "answer": "A",
+      "analysis": "在切片向量化与存储阶段，compare_embeddings 函数用于执行比较。",
+      "chapter": 3,
+      "difficulty_score": 2,
+      "difficulty_label": "入门",
+      "difficulty_sort": 42,
+      "deleted": true,
+      "deleted_meta": {
+        "reason": "只问“哪种方法用于执行比较”，未交代代码或比较对象，设问缺乏区分度",
+        "source": "user-request-rag-trim",
+        "at": "2026-10-17T01:09:17",
+        "batch_id": "rag-trim-20261017"
+      }
+    },
+    {
+      "seq": "0171",
+      "type": 0,
+      "stem": "在切片向量化与存储阶段，以下哪种方法用于计算余弦相似度？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "cosine_similarity 函数"
+        },
+        {
+          "option_label": "B",
+          "option_text": "增加模型的训练数据"
+        },
+        {
+          "option_label": "C",
+          "option_text": "减少模型的推理时间"
+        },
+        {
+          "option_label": "D",
+          "option_text": "增加模型的参数数量"
+        }
+      ],
+      "answer": "A",
+      "analysis": "暂无",
+      "chapter": 3,
+      "difficulty_score": 2,
+      "difficulty_label": "入门",
+      "difficulty_sort": 42,
+      "deleted": true,
+      "deleted_meta": {
+        "reason": "同一考点重复设问，保留更有代表性的题目；保留 3-0093",
+        "source": "user-request-rag-trim",
+        "at": "2026-10-17T01:09:17",
+        "batch_id": "rag-trim-20261017"
+      }
+    },
+    {
+      "seq": "0199",
+      "type": 0,
+      "stem": "在切片向量化与存储阶段，以下哪种方法用于准备测试数据？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "compare_embeddings 函数"
+        },
+        {
+          "option_label": "B",
+          "option_text": "增加模型的训练数据"
+        },
+        {
+          "option_label": "C",
+          "option_text": "减少模型的推理时间"
+        },
+        {
+          "option_label": "D",
+          "option_text": "增加模型的参数数量"
+        }
+      ],
+      "answer": "A",
+      "analysis": "暂无",
+      "chapter": 3,
+      "difficulty_score": 2,
+      "difficulty_label": "入门",
+      "difficulty_sort": 42,
+      "deleted": true,
+      "deleted_meta": {
+        "reason": "只考未展示定义的 prepare_test_data 自定义函数名，减少孤立函数名记忆题",
+        "source": "user-request-rag-trim",
+        "at": "2026-10-17T01:09:17",
+        "batch_id": "rag-trim-20261017"
+      }
+    },
+    {
+      "seq": "0240",
+      "type": 0,
+      "stem": "在切片向量化与存储阶段，以下哪种 Embedding 模型是较旧的版本？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "text-embedding-v2"
+        },
+        {
+          "option_label": "B",
+          "option_text": "text-embedding-v3"
+        },
+        {
+          "option_label": "C",
+          "option_text": "增加模型的训练数据"
+        },
+        {
+          "option_label": "D",
+          "option_text": "减少模型的推理时间"
+        }
+      ],
+      "answer": "A",
+      "analysis": "暂无",
+      "chapter": 3,
+      "difficulty_score": 2,
+      "difficulty_label": "入门",
+      "difficulty_sort": 42,
+      "deleted": true,
+      "deleted_meta": {
+        "reason": "Embedding 型号新旧辨认题重复过多，保留一题多选辨认；保留 3-0516",
+        "source": "user-request-rag-trim",
+        "at": "2026-10-17T01:09:17",
+        "batch_id": "rag-trim-20261017"
+      }
+    },
+    {
+      "seq": "0256",
+      "type": 0,
+      "stem": "在文本向量化过程中，embedding模型的主要作用是什么？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "将自然语言转化为计算机能够理解的数字形式"
+        },
+        {
+          "option_label": "B",
+          "option_text": "增加模型的训练数据"
+        },
+        {
+          "option_label": "C",
+          "option_text": "减少模型的推理时间"
+        },
+        {
+          "option_label": "D",
+          "option_text": "增加模型的参数数量"
+        }
+      ],
+      "answer": "A",
+      "analysis": "暂无",
+      "chapter": 3,
+      "difficulty_score": 2,
+      "difficulty_label": "入门",
+      "difficulty_sort": 42,
+      "deleted": true,
+      "deleted_meta": {
+        "reason": "同一考点重复设问，保留更有代表性的题目；保留 3-0074",
+        "source": "user-request-rag-trim",
+        "at": "2026-10-17T01:09:17",
+        "batch_id": "rag-trim-20261017"
+      }
+    },
+    {
+      "seq": "0264",
+      "type": 0,
+      "stem": "在切片向量化与存储阶段，以下哪种 Embedding 模型通常表现更好?",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "更新的 Embedding 模型"
+        },
+        {
+          "option_label": "B",
+          "option_text": "旧的 Embedding 模型"
+        },
+        {
+          "option_label": "C",
+          "option_text": "增加模型的训练数据"
+        },
+        {
+          "option_label": "D",
+          "option_text": "减少模型的推理时间"
+        }
+      ],
+      "answer": "A",
+      "analysis": "暂无",
+      "chapter": 3,
+      "difficulty_score": 2,
+      "difficulty_label": "入门",
+      "difficulty_sort": 42,
+      "deleted": true,
+      "deleted_meta": {
+        "reason": "未限定模型版本与任务，仅以新旧判断效果；删去笼统设问；保留 3-0516",
+        "source": "user-request-rag-trim",
+        "at": "2026-10-17T01:09:17",
+        "batch_id": "rag-trim-20261017"
+      }
+    },
+    {
+      "seq": "0766",
+      "type": 0,
+      "stem": "某开发者使用 RAG 技术开发知识问答系统，发现部分最新文档（如 2025 年发布的行业政策文档）无法被检索到，导致模型无法回答相关问题。以下哪种原因最可能？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "向量数据库未更新，未将 2025 年的政策文档转换为向量并存入数据库"
+        },
+        {
+          "option_label": "B",
+          "option_text": "模型的上下文窗口过小，无法处理长文档"
+        },
+        {
+          "option_label": "C",
+          "option_text": "检索时使用的相似度阈值过高（如 0.9），过滤了相关文档"
+        },
+        {
+          "option_label": "D",
+          "option_text": "文档分块粒度不当（如分块过大），导致检索精度低"
+        }
+      ],
+      "answer": "A",
+      "analysis": "该问题描述的是在使用 RAG（Retrieval-Augmented Generation）技术时，部分最新文档无法被检索到，导致模型无法回答相关问题。分析选项：A选项指出向量数据库未更新，未将2025年的政策文档转换为向量并存入数据库，这会导致模型无法检索到最新的文档，是导致问题的最可能原因。B选项提到模型上下文窗口过小，这会影响模型处理长文档的能力，但通常不会导致“无法检索到”最新文档的问题。C选项提到相似度阈值过高，这会过滤掉相关文档，但通常不会导致无法检索到最新文档。D选项提到分块粒度不当，这会影响检索精度，但通常不会导致无法检索到最新文档。因此，最可能的原因是向量数据库未更新，未将2025年的政策文档转换为向量并存入数据库。",
+      "chapter": 3,
+      "difficulty_score": 2,
+      "difficulty_label": "入门",
+      "difficulty_sort": 42,
+      "deleted": true,
+      "deleted_meta": {
+        "reason": "同一考点重复设问，保留更有代表性的题目；保留 3-1459",
+        "source": "user-request-rag-trim",
+        "at": "2026-10-17T01:09:17",
+        "batch_id": "rag-trim-20261017"
+      }
+    },
+    {
+      "seq": "0870",
+      "type": 0,
+      "stem": "在 RAG 的建立索引过程中，以下哪一点是将知识库文件分割成文本段的主要原因？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "减少索引构建时间"
+        },
+        {
+          "option_label": "B",
+          "option_text": "减少数据存储空间"
+        },
+        {
+          "option_label": "C",
+          "option_text": "让大模型输出更加多样"
+        },
+        {
+          "option_label": "D",
+          "option_text": "提高检索精度，更快定位相关段落 试题"
+        }
+      ],
+      "answer": "D",
+      "analysis": "暂无",
+      "chapter": 3,
+      "difficulty_score": 2,
+      "difficulty_label": "入门",
+      "difficulty_sort": 42,
+      "deleted": true,
+      "deleted_meta": {
+        "reason": "同一考点重复设问，保留更有代表性的题目；保留 3-0399",
+        "source": "user-request-rag-trim",
+        "at": "2026-10-17T01:09:17",
+        "batch_id": "rag-trim-20261017"
+      }
+    },
+    {
+      "seq": "1126",
+      "type": 0,
+      "stem": "在 RAG 的建立索引过程中， 以下哪一点是将源知识文件分割成文段的主要原因？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "让大模型输出更加多样"
+        },
+        {
+          "option_label": "B",
+          "option_text": "提高检索精度，更快定位相关段落"
+        },
+        {
+          "option_label": "C",
+          "option_text": "减少数据存储空间"
+        },
+        {
+          "option_label": "D",
+          "option_text": "减少索引构建时间"
+        }
+      ],
+      "answer": "B",
+      "analysis": "暂无",
+      "chapter": 3,
+      "difficulty_score": 2,
+      "difficulty_label": "入门",
+      "difficulty_sort": 42,
+      "deleted": true,
+      "deleted_meta": {
+        "reason": "同一考点重复设问，保留更有代表性的题目；保留 3-0399",
+        "source": "user-request-rag-trim",
+        "at": "2026-10-17T01:09:17",
+        "batch_id": "rag-trim-20261017"
+      }
+    },
+    {
+      "seq": "1156",
+      "type": 0,
+      "stem": "你开发了一个 RAG 应用，用户反馈回复效果不佳。你通过后台日志发现用户的输入有时缺少信息，如“我要读研”、“请假”，你应该优先进行哪方面的优化？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "更换检索速度更快的向量数据库"
+        },
+        {
+          "option_label": "B",
+          "option_text": "调整大模型的 top_p 参数"
+        },
+        {
+          "option_label": "C",
+          "option_text": "结合历史常见问题，使用大模型对 query 进行改写"
+        },
+        {
+          "option_label": "D",
+          "option_text": "优化文档切分策略"
+        }
+      ],
+      "answer": "C",
+      "analysis": "暂无",
+      "chapter": 3,
+      "difficulty_score": 2,
+      "difficulty_label": "入门",
+      "difficulty_sort": 42,
+      "deleted": true,
+      "deleted_meta": {
+        "reason": "同一考点重复设问，保留更有代表性的题目；保留 3-0039",
+        "source": "user-request-rag-trim",
+        "at": "2026-10-17T01:09:17",
+        "batch_id": "rag-trim-20261017"
+      }
+    },
+    {
+      "seq": "1364",
+      "type": 0,
+      "stem": "在 RAG 应用中，文档切片的长度和内容对检索效果有很大影响。如果文档切片长度过大，导致引入过多的干扰信息，应该如何处理？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "增加文档的数量"
+        },
+        {
+          "option_label": "B",
+          "option_text": "减少切片长度，或根据业务特点开发更合理的切片策略"
+        },
+        {
+          "option_label": "C",
+          "option_text": "使用更高级的检索算法"
+        },
+        {
+          "option_label": "D",
+          "option_text": "提升大模型的训练水平"
+        }
+      ],
+      "answer": "B",
+      "analysis": "在RAG（RetrievalAugmentedGeneration，检索增强生成）应用中，文档切片是检索过程中的一个重要环节。当文档切片长度过大时，可能会引入过多的干扰信息，从而影响检索的准确性和效率。为了处理这一问题，可以采取两种主要策略：一是减少切片长度，以降低干扰信息的引入；二是根据具体的业务特点开发更合理的切片策略，以更好地适应检索需求。这两种策略都能有效改善检索效果。",
+      "chapter": 3,
+      "difficulty_score": 2,
+      "difficulty_label": "入门",
+      "difficulty_sort": 42,
+      "deleted": true,
+      "deleted_meta": {
+        "reason": "同一考点重复设问，保留更有代表性的题目；保留 3-0567",
+        "source": "user-request-rag-trim",
+        "at": "2026-10-17T01:09:17",
+        "batch_id": "rag-trim-20261017"
+      }
+    },
+    {
+      "seq": "1374",
+      "type": 0,
+      "stem": "OpenAIEmbedding 类的主要作用是什么？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "增加模型的训练数据"
+        },
+        {
+          "option_label": "B",
+          "option_text": "增加模型的参数数量"
+        },
+        {
+          "option_label": "C",
+          "option_text": "加载 embeddin模型"
+        },
+        {
+          "option_label": "D",
+          "option_text": "减少模型的推理时间"
+        }
+      ],
+      "answer": "C",
+      "analysis": "OpenAIEmbedding 类用于加载 embedding 模型。",
+      "chapter": 3,
+      "difficulty_score": 2,
+      "difficulty_label": "入门",
+      "difficulty_sort": 42,
+      "deleted": true,
+      "deleted_meta": {
+        "reason": "同一考点重复设问，保留更有代表性的题目；保留 3-0074",
+        "source": "user-request-rag-trim",
+        "at": "2026-10-17T01:09:17",
+        "batch_id": "rag-trim-20261017"
+      }
+    },
+    {
+      "seq": "1470",
+      "type": 1,
+      "stem": "以下哪种文本切片方法最有可能保留完整的语义信息？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "按标点符号分割，例如句号、问号等。"
+        },
+        {
+          "option_label": "B",
+          "option_text": "按字符数分割，每50 个字符为一个chunk。"
+        },
+        {
+          "option_label": "C",
+          "option_text": "按token 长度分割，每100 个token 为一个chunk。"
+        },
+        {
+          "option_label": "D",
+          "option_text": "使用专门的语义分割模型将文本分割成语义完整的段落。"
+        }
+      ],
+      "answer": "D",
+      "analysis": "D 通过算法或模型主动理解语义边界，是唯一能确保分割后文本保持语义完整性的方法",
+      "chapter": 3,
+      "difficulty_score": 2,
+      "difficulty_label": "入门",
+      "difficulty_sort": 42,
+      "deleted": true,
+      "deleted_meta": {
+        "reason": "同一考点重复设问，保留更有代表性的题目；保留 3-5042",
+        "source": "user-request-rag-trim",
+        "at": "2026-10-17T01:09:17",
+        "batch_id": "rag-trim-20261017"
+      }
+    },
+    {
+      "seq": "0099",
+      "type": 0,
+      "stem": "在切片向量化与存储阶段，以下哪种方法用于比较不同 Embedding 模型的文本相似度？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "compare_embeddings 函数"
+        },
+        {
+          "option_label": "B",
+          "option_text": "增加模型的训练数据"
+        },
+        {
+          "option_label": "C",
+          "option_text": "减少模型的推理时间"
+        },
+        {
+          "option_label": "D",
+          "option_text": "增加模型的参数数量"
+        }
+      ],
+      "answer": "A",
+      "analysis": "暂无",
+      "chapter": 3,
+      "difficulty_score": 3,
+      "difficulty_label": "进阶",
+      "difficulty_sort": 43,
+      "deleted": true,
+      "deleted_meta": {
+        "reason": "同一考点重复设问，保留更有代表性的题目；保留 3-1400",
+        "source": "user-request-rag-trim",
+        "at": "2026-10-17T01:09:17",
+        "batch_id": "rag-trim-20261017"
+      }
+    },
+    {
+      "seq": "0140",
+      "type": 0,
+      "stem": "在切片向量化与存储阶段，compare_embedding_models 函数的以下哪项作用是正确的？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "比较不同 Embeddin模型在 RA 中的表现"
+        },
+        {
+          "option_label": "B",
+          "option_text": "增加模型的训练数据"
+        },
+        {
+          "option_label": "C",
+          "option_text": "减少模型的推理时间"
+        },
+        {
+          "option_label": "D",
+          "option_text": "增加模型的参数数量"
+        }
+      ],
+      "answer": "A",
+      "analysis": "暂无",
+      "chapter": 3,
+      "difficulty_score": 3,
+      "difficulty_label": "进阶",
+      "difficulty_sort": 43,
+      "deleted": true,
+      "deleted_meta": {
+        "reason": "同一考点重复设问，保留更有代表性的题目；保留 3-1399",
+        "source": "user-request-rag-trim",
+        "at": "2026-10-17T01:09:17",
+        "batch_id": "rag-trim-20261017"
+      }
+    },
+    {
+      "seq": "0162",
+      "type": 0,
+      "stem": "在切片向量化与存储阶段，以下哪个是较旧的 Embedding 模型？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "text-embedding-v2"
+        },
+        {
+          "option_label": "B",
+          "option_text": "text-embedding-v3"
+        },
+        {
+          "option_label": "C",
+          "option_text": "text-embedding-3-small"
+        },
+        {
+          "option_label": "D",
+          "option_text": "text-embedding-3-large"
+        }
+      ],
+      "answer": "A",
+      "analysis": "暂无",
+      "chapter": 3,
+      "difficulty_score": 3,
+      "difficulty_label": "进阶",
+      "difficulty_sort": 43,
+      "deleted": true,
+      "deleted_meta": {
+        "reason": "Embedding 型号新旧辨认题重复过多，保留一题多选辨认；保留 3-0516",
+        "source": "user-request-rag-trim",
+        "at": "2026-10-17T01:09:17",
+        "batch_id": "rag-trim-20261017"
+      }
+    },
+    {
+      "seq": "0191",
+      "type": 0,
+      "stem": "在切片向量化与存储阶段，cosine_similarity 函数的以下哪项作用是正确的？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "计算向量之间的余弦相似度"
+        },
+        {
+          "option_label": "B",
+          "option_text": "增加模型的训练数据"
+        },
+        {
+          "option_label": "C",
+          "option_text": "减少模型的推理时间"
+        },
+        {
+          "option_label": "D",
+          "option_text": "增加模型的参数数量"
+        }
+      ],
+      "answer": "A",
+      "analysis": "暂无",
+      "chapter": 3,
+      "difficulty_score": 3,
+      "difficulty_label": "进阶",
+      "difficulty_sort": 43,
+      "deleted": true,
+      "deleted_meta": {
+        "reason": "同一考点重复设问，保留更有代表性的题目；保留 3-0093",
+        "source": "user-request-rag-trim",
+        "at": "2026-10-17T01:09:17",
+        "batch_id": "rag-trim-20261017"
+      }
+    },
+    {
+      "seq": "0315",
+      "type": 0,
+      "stem": "在问题处理策略中，通过将复杂问题拆解为更小、更易管理的部分来改善理解的是哪个方法？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "RAG-Fusion问题过滤融合"
+        },
+        {
+          "option_label": "B",
+          "option_text": "Multi-Query多路召回"
+        },
+        {
+          "option_label": "C",
+          "option_text": "Sentence Sliding句子滑窗"
+        },
+        {
+          "option_label": "D",
+          "option_text": "Decomposition问题分解"
+        }
+      ],
+      "answer": "D",
+      "analysis": "暂无",
+      "chapter": 3,
+      "difficulty_score": 3,
+      "difficulty_label": "进阶",
+      "difficulty_sort": 43,
+      "deleted": true,
+      "deleted_meta": {
+        "reason": "同一考点重复设问，保留更有代表性的题目；保留 3-0205",
+        "source": "user-request-rag-trim",
+        "at": "2026-10-17T01:09:17",
+        "batch_id": "rag-trim-20261017"
+      }
+    },
+    {
+      "seq": "0501",
+      "type": 1,
+      "stem": "在构建 RAG 应用时，以下哪些是云服务向量存储的特点？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "无需关注运维"
+        },
+        {
+          "option_label": "B",
+          "option_text": "自动扩容"
+        },
+        {
+          "option_label": "C",
+          "option_text": "提供完善的监控和管理工具"
+        },
+        {
+          "option_label": "D",
+          "option_text": "按量付费"
+        }
+      ],
+      "answer": "A,B,C,D",
+      "analysis": "暂无",
+      "chapter": 3,
+      "difficulty_score": 3,
+      "difficulty_label": "进阶",
+      "difficulty_sort": 43,
+      "deleted": true,
+      "deleted_meta": {
+        "reason": "同一考点重复设问，保留更有代表性的题目；保留 3-1384",
+        "source": "user-request-rag-trim",
+        "at": "2026-10-17T01:09:17",
+        "batch_id": "rag-trim-20261017"
+      }
+    },
+    {
+      "seq": "0526",
+      "type": 1,
+      "stem": "在优化检查效果时，以下哪些是 Markdown 格式的特点？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "结构清晰，层次分明"
+        },
+        {
+          "option_label": "B",
+          "option_text": "语法简单，易于阅读和维护"
+        },
+        {
+          "option_label": "C",
+          "option_text": "增加模型的训练数据"
+        },
+        {
+          "option_label": "D",
+          "option_text": "减少模型的推理时间"
+        }
+      ],
+      "answer": "A,B",
+      "analysis": "暂无",
+      "chapter": 3,
+      "difficulty_score": 3,
+      "difficulty_label": "进阶",
+      "difficulty_sort": 43,
+      "deleted": true,
+      "deleted_meta": {
+        "reason": "同一考点重复设问，保留更有代表性的题目；保留 3-1432",
+        "source": "user-request-rag-trim",
+        "at": "2026-10-17T01:09:17",
+        "batch_id": "rag-trim-20261017"
+      }
+    },
+    {
+      "seq": "0556",
+      "type": 1,
+      "stem": "在构建 RAG 应用时，以下哪些是内存向量存储的特点？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "功能完整"
+        },
+        {
+          "option_label": "B",
+          "option_text": "可控性强"
+        },
+        {
+          "option_label": "C",
+          "option_text": "无需额外配置"
+        },
+        {
+          "option_label": "D",
+          "option_text": "自动扩容"
+        }
+      ],
+      "answer": "A,B,C",
+      "analysis": "内存向量存储（如FAISS in-memory）在阿里云RAG方案中常用于开发测试阶段，其特点包括：A正确，因支持完整向量检索功能（如相似度搜索、Top-K返回）；B正确，用户可直接控制索引构建、插入、查询等全流程；C正确，无需部署独立服务或配置连接参数，开箱即用。D错误，内存存储不具备自动扩容能力——其容量受限于进程内存上限，无法像Elasticsearch或阿里云OpenSearch等持久化向量库那样动态伸缩节点或分片。",
+      "chapter": 3,
+      "difficulty_score": 3,
+      "difficulty_label": "进阶",
+      "difficulty_sort": 43,
+      "deleted": true,
+      "deleted_meta": {
+        "reason": "同一考点重复设问，保留更有代表性的题目；保留 3-1383",
+        "source": "user-request-rag-trim",
+        "at": "2026-10-17T01:09:17",
+        "batch_id": "rag-trim-20261017"
+      }
+    },
+    {
+      "seq": "0560",
+      "type": 1,
+      "stem": "在RAG应用中，建立索引阶段的主要步骤包括哪些？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "文档解析"
+        },
+        {
+          "option_label": "B",
+          "option_text": "文本分段"
+        },
+        {
+          "option_label": "C",
+          "option_text": "文本向量化"
+        },
+        {
+          "option_label": "D",
+          "option_text": "存储索引"
+        }
+      ],
+      "answer": "A,B,C,D",
+      "analysis": "暂无",
+      "chapter": 3,
+      "difficulty_score": 3,
+      "difficulty_label": "进阶",
+      "difficulty_sort": 43,
+      "deleted": true,
+      "deleted_meta": {
+        "reason": "同一考点重复设问，保留更有代表性的题目；保留 3-1004",
+        "source": "user-request-rag-trim",
+        "at": "2026-10-17T01:09:17",
+        "batch_id": "rag-trim-20261017"
+      }
+    },
+    {
+      "seq": "0574",
+      "type": 1,
+      "stem": "在 RAG 应用中，从原始文档到索引构建通常包括哪些步骤？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "文档解析"
+        },
+        {
+          "option_label": "B",
+          "option_text": "文本分段"
+        },
+        {
+          "option_label": "C",
+          "option_text": "文本向量化"
+        },
+        {
+          "option_label": "D",
+          "option_text": "存储索引"
+        }
+      ],
+      "answer": "A,B,C,D",
+      "analysis": "暂无",
+      "chapter": 3,
+      "difficulty_score": 3,
+      "difficulty_label": "进阶",
+      "difficulty_sort": 43,
+      "deleted": true,
+      "deleted_meta": {
+        "reason": "同一考点重复设问，保留更有代表性的题目；保留 3-1004",
+        "source": "user-request-rag-trim",
+        "at": "2026-10-17T01:09:17",
+        "batch_id": "rag-trim-20261017"
+      }
+    },
+    {
+      "seq": "0582",
+      "type": 1,
+      "stem": "在RAG应用中，检索生成阶段的主要步骤包括哪些？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "检索"
+        },
+        {
+          "option_label": "B",
+          "option_text": "生成"
+        },
+        {
+          "option_label": "C",
+          "option_text": "文档解析"
+        },
+        {
+          "option_label": "D",
+          "option_text": "文本分段"
+        }
+      ],
+      "answer": "A,B",
+      "analysis": "暂无",
+      "chapter": 3,
+      "difficulty_score": 3,
+      "difficulty_label": "进阶",
+      "difficulty_sort": 43,
+      "deleted": true,
+      "deleted_meta": {
+        "reason": "同一考点重复设问，保留更有代表性的题目；保留 3-0085",
+        "source": "user-request-rag-trim",
+        "at": "2026-10-17T01:09:17",
+        "batch_id": "rag-trim-20261017"
+      }
+    },
+    {
+      "seq": "0789",
+      "type": 0,
+      "stem": "某企业开发内部知识库问答系统，需让大模型能精准回答企业内部规章制度、产品参数等密信息，且要求数据不对外泄露。以下哪种方案要求？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "使用公有云大模型 API，将涉密信息直接嵌入提示词"
+        },
+        {
+          "option_label": "B",
+          "option_text": "基于开源大模型进行私有化部署，结合 RAG 接入内部知识库"
+        },
+        {
+          "option_label": "C",
+          "option_text": "将涉密信息脱敏后，调用第三方大模型 API"
+        },
+        {
+          "option_label": "D",
+          "option_text": "选用免费的通用大模型，仅输入非核心涉密信息"
+        }
+      ],
+      "answer": "B",
+      "analysis": "基于开源大模型进行私有化部署，结合 RAG 接入内部知识库 是正确答案。根据大纲 \"大模型安全与隐私保护\" 及 \"RAG 技术应用\" 考点，私有化部署可避免数据外泄，RAG 技能能让模型精准检索内部涉密知识库，同时不对外暴露原始数据；公有云 API、第三方模型存在数据泄露风险，脱敏或仅输入非核心信息无法满足 \"精准回答涉密信息\" 的需求。",
+      "chapter": 3,
+      "difficulty_score": 3,
+      "difficulty_label": "进阶",
+      "difficulty_sort": 43,
+      "deleted": true,
+      "deleted_meta": {
+        "reason": "同一考点重复设问，保留更有代表性的题目；保留 3-1456",
+        "source": "user-request-rag-trim",
+        "at": "2026-10-17T01:09:17",
+        "batch_id": "rag-trim-20261017"
+      }
+    },
+    {
+      "seq": "0847",
+      "type": 0,
+      "stem": "以下关于 RAG 技术中 \"文本分块\" 的描述，错误的是？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "文本分块过大会导致检索时包含过多冗余信息，降低相关性"
+        },
+        {
+          "option_label": "B",
+          "option_text": "文本分块过小会导致上下文丢失，无法理解文本完整含义"
+        },
+        {
+          "option_label": "C",
+          "option_text": "所有类型的文档（如小说、合同、论文）都应采用相同的分块大小"
+        },
+        {
+          "option_label": "D",
+          "option_text": "分块时可保留文本的元数据（如章节名、页码），提升检索准确性"
+        }
+      ],
+      "answer": "C",
+      "analysis": "所有类型的文档（如小说、合同、论文）都应采用相同的分块大小是正确答案。大纲“RAG 文本分块策略”指出，分块大小需根据文档类型调整：如小说可按章节分块（较大），合同按条款分块（较小），论文按段落分块（中等）；",
+      "chapter": 3,
+      "difficulty_score": 3,
+      "difficulty_label": "进阶",
+      "difficulty_sort": 43,
+      "deleted": true,
+      "deleted_meta": {
+        "reason": "同一考点重复设问，保留更有代表性的题目；保留 3-1458",
+        "source": "user-request-rag-trim",
+        "at": "2026-10-17T01:09:17",
+        "batch_id": "rag-trim-20261017"
+      }
+    },
+    {
+      "seq": "1347",
+      "type": 0,
+      "stem": "以下哪种方式最适合统一抽取 PDF 和 Word 文档文本，用于后续的 RAG 处理？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "使用专门的库，例如Python的PyPDF2和python - docx"
+        },
+        {
+          "option_label": "B",
+          "option_text": "使用光学字符识别(OCR)技术"
+        },
+        {
+          "option_label": "C",
+          "option_text": "手动复制粘贴文本内容"
+        },
+        {
+          "option_label": "D",
+          "option_text": "使用正则表达式直接提取文本"
+        }
+      ],
+      "answer": "A",
+      "analysis": "A选项通过专用库实现高精度解析，是RAG文档处理的标准方法，其他选项或低效或仅限特定场景。",
+      "chapter": 3,
+      "difficulty_score": 3,
+      "difficulty_label": "进阶",
+      "difficulty_sort": 43,
+      "deleted": true,
+      "deleted_meta": {
+        "reason": "同一考点重复设问，保留更有代表性的题目；保留 3-0421",
+        "source": "user-request-rag-trim",
+        "at": "2026-10-17T01:09:17",
+        "batch_id": "rag-trim-20261017"
+      }
+    },
+    {
+      "seq": "1360",
+      "type": 1,
+      "stem": "云服务存储向量的优势包括哪些?",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "按量付费"
+        },
+        {
+          "option_label": "B",
+          "option_text": "自动扩容"
+        },
+        {
+          "option_label": "C",
+          "option_text": "无需任何配置"
+        },
+        {
+          "option_label": "D",
+          "option_text": "支持混合检索"
+        }
+      ],
+      "answer": "A,B,D",
+      "analysis": "云服务存储向量的优势: 按量付费、自动扩容和支持混合检索。这些优势使得云服务存储向量在处理大规模数据时既灵活又经济高效。",
+      "chapter": 3,
+      "difficulty_score": 3,
+      "difficulty_label": "进阶",
+      "difficulty_sort": 43,
+      "deleted": true,
+      "deleted_meta": {
+        "reason": "同一考点重复设问，保留更有代表性的题目；保留 3-1384",
+        "source": "user-request-rag-trim",
+        "at": "2026-10-17T01:09:17",
+        "batch_id": "rag-trim-20261017"
+      }
+    },
+    {
+      "seq": "1285",
+      "type": 0,
+      "stem": "通过LamAlindex创建RAG应用时，node_postprocessors的作用是?",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "修改prompt模板"
+        },
+        {
+          "option_label": "B",
+          "option_text": "进行后处理,如相似度阈值、rerank等"
+        },
+        {
+          "option_label": "C",
+          "option_text": "开启句子滑窗检索"
+        },
+        {
+          "option_label": "D",
+          "option_text": "设置召回文本段个数"
+        }
+      ],
+      "answer": "B",
+      "analysis": "node_postprocessors 的核心作用是对检索到的节点进行后处理，例如过滤低相似度结果或重新排序。",
+      "chapter": 3,
+      "difficulty_score": 4,
+      "difficulty_label": "进阶",
+      "difficulty_sort": 44,
+      "deleted": true,
+      "deleted_meta": {
+        "reason": "同一考点重复设问，保留更有代表性的题目；保留 3-0429",
+        "source": "user-request-rag-trim",
+        "at": "2026-10-17T01:09:17",
+        "batch_id": "rag-trim-20261017"
+      }
+    },
+    {
+      "seq": "1340",
+      "type": 1,
+      "stem": "以下哪些因素会影响RAG系统的性能?",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "查询语句的表达方式"
+        },
+        {
+          "option_label": "B",
+          "option_text": "切片方法的选择"
+        },
+        {
+          "option_label": "C",
+          "option_text": "所使用的预训练语言模型的大小和性能"
+        },
+        {
+          "option_label": "D",
+          "option_text": "向量数据库的类型和配置"
+        },
+        {
+          "option_label": "E",
+          "option_text": "硬件资源的限制"
+        },
+        {
+          "option_label": "F",
+          "option_text": "文档的质量和数量"
+        }
+      ],
+      "answer": "A,B,C,D,E,F",
+      "analysis": "所有选项均通过知识库内容验证，是RAG系统性能的关键影响因素。因此，正确答案为全部选项。",
+      "chapter": 3,
+      "difficulty_score": 4,
+      "difficulty_label": "进阶",
+      "difficulty_sort": 44,
+      "deleted": true,
+      "deleted_meta": {
+        "reason": "同一考点重复设问，保留更有代表性的题目；保留 3-1464",
+        "source": "user-request-rag-trim",
+        "at": "2026-10-17T01:09:17",
+        "batch_id": "rag-trim-20261017"
+      }
+    },
+    {
+      "seq": "1441",
+      "type": 1,
+      "stem": "在RAG中，关于文档解析阶段可能遇到的问题，以下说法正确的有哪些?",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "即使原始文档质量很高，也可能因为解析工具的问题导致解析出错"
+        },
+        {
+          "option_label": "B",
+          "option_text": "不同版本的Word文档，即使内容相同，也可能因为格式差异导致解析结果不同"
+        },
+        {
+          "option_label": "C",
+          "option_text": "PDF文件的解析通常比纯文本文件更简单"
+        },
+        {
+          "option_label": "D",
+          "option_text": "文档解析阶段的问题只跟技术层面相关，与业务层面无关"
+        },
+        {
+          "option_label": "E",
+          "option_text": "选择合适的解析工具和方法对于提高解析效率和准确性至关重要"
+        },
+        {
+          "option_label": "F",
+          "option_text": "在线文档由于其动态特性，解析难度通常比静态文件更大"
+        }
+      ],
+      "answer": "A,B,E,F",
+      "analysis": "在RAG（检索增强生成）系统中，文档解析阶段是关键环节。解析工具的准确性、文档格式的差异以及文档的动态特性都会影响解析结果。A选项指出，即使原始文档质量高，解析工具的问题仍可能导致解析错误，这是正确的。B选项指出，不同版本的Word文档即使内容相同，由于格式差异，解析结果也可能不同，这也是正确的。C选项错误，PDF文件的解析通常比纯文本文件更复杂，而不是更简单。D选项错误，文档解析阶段的问题不仅与技术相关，还与业务需求密切相关。E选项正确，选择合适的解析工具和方法对于提高效率和准确性至关重要。F选项正确，在线文档由于其动态特性，解析难度通常比静态文件更大。因此，正确的选项是A、B、E、F。",
+      "chapter": 3,
+      "difficulty_score": 4,
+      "difficulty_label": "进阶",
+      "difficulty_sort": 44,
+      "deleted": true,
+      "deleted_meta": {
+        "reason": "同一考点重复设问，保留更有代表性的题目；保留 3-0636",
+        "source": "user-request-rag-trim",
+        "at": "2026-10-17T01:09:17",
+        "batch_id": "rag-trim-20261017"
+      }
+    },
+    {
+      "seq": "0529",
+      "type": 1,
+      "stem": "在切片向量化与存储阶段，以下哪些是 compare_em bedding_models 函数的参数？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "documents"
+        },
+        {
+          "option_label": "B",
+          "option_text": "question"
+        },
+        {
+          "option_label": "C",
+          "option_text": "ground_truth"
+        },
+        {
+          "option_label": "D",
+          "option_text": "sentence_splitter"
+        }
+      ],
+      "answer": "A,B,C,D",
+      "analysis": "compare_embedding_models 函数用于对比不同嵌入模型在切片向量化与存储阶段的效果，其设计需支持对文档、查询问题、标注答案及文本切分逻辑的统一评估。A项documents为待向量化的原始文本切片集合；B项question代表检索或RAG场景中的用户查询输入；C项ground_truth提供人工标注的标准答案，用于计算准确率等指标；D项sentence_splitter指定切片策略（如按句/段分割），直接影响向量化粒度。四项均为该函数在阿里云百炼平台Embedding评测模块中明确定义的必选或可选参数，符合官方API文档规范。",
+      "chapter": 3,
+      "difficulty_score": 5,
+      "difficulty_label": "进阶",
+      "difficulty_sort": 45,
+      "deleted": true,
+      "deleted_meta": {
+        "reason": "与3-1398同题答案冲突，均未提供自定义函数定义，暂不保留参数背诵题",
+        "source": "user-request-rag-trim",
+        "at": "2026-10-17T01:09:17",
+        "batch_id": "rag-trim-20261017"
+      }
+    },
+    {
+      "seq": "0572",
+      "type": 1,
+      "stem": "在 RAG 应用的建立索引阶段，核心步骤通常包括哪些？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "将文件内容分割并转化为多维向量"
+        },
+        {
+          "option_label": "B",
+          "option_text": "使用专用Embedding模型"
+        },
+        {
+          "option_label": "C",
+          "option_text": "结合向量存储保留文本的语义信息"
+        },
+        {
+          "option_label": "D",
+          "option_text": "增加模型的训练数据"
+        }
+      ],
+      "answer": "A,B,C",
+      "analysis": "暂无",
+      "chapter": 3,
+      "difficulty_score": 5,
+      "difficulty_label": "进阶",
+      "difficulty_sort": 45,
+      "deleted": true,
+      "deleted_meta": {
+        "reason": "同一考点重复设问，保留更有代表性的题目；保留 3-1004",
+        "source": "user-request-rag-trim",
+        "at": "2026-10-17T01:09:17",
+        "batch_id": "rag-trim-20261017"
+      }
+    },
+    {
+      "seq": "0735",
+      "type": 1,
+      "stem": "某电商平台使用大模型优化商品推荐，要求“结合用户历史订单、实时浏览、商品库存”生成推荐列表。以下哪些技术组件需集成?",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "向量数据库（存储商品特征与用户行为向量）"
+        },
+        {
+          "option_label": "B",
+          "option_text": "大模型（生成个性化推荐理由与列表）"
+        },
+        {
+          "option_label": "C",
+          "option_text": "库存管理系统 API（获取实时商品库存状态）"
+        },
+        {
+          "option_label": "D",
+          "option_text": "用户行为分析工具（提取历史订单与实时浏览数据）"
+        }
+      ],
+      "answer": "A,B,C,D",
+      "analysis": "大模型电商推荐系统集成指出，向量数据库支撑相似商品检索，大模型实现个性化推荐，库存 API 确保推荐商品可售，行为分析工具提供用户数据，四者均需集成。",
+      "chapter": 3,
+      "difficulty_score": 6,
+      "difficulty_label": "挑战",
+      "difficulty_sort": 46,
+      "deleted": true,
+      "deleted_meta": {
+        "reason": "同一考点重复设问，保留更有代表性的题目；保留 3-6002",
+        "source": "user-request-rag-trim",
+        "at": "2026-10-17T01:09:17",
+        "batch_id": "rag-trim-20261017"
+      }
+    },
+    {
+      "seq": "0765",
+      "type": 1,
+      "stem": "某开发者使用 RAG 技术开发产品手册问答系统，发现“用户提问如何重置密码”，检索到的文档是“账号注册流程”。以下哪些优化措施能提升检索相关性？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "优化文本分块策略，将“密码重置”相关内容单独分块"
+        },
+        {
+          "option_label": "B",
+          "option_text": "调整检索相似度阈值，提高匹配精度"
+        },
+        {
+          "option_label": "C",
+          "option_text": "对文档进行关键词标注（如给“密码重置”分块标注“重置密码、密码找回”）"
+        },
+        {
+          "option_label": "D",
+          "option_text": "更换更适合文本检索的向量模型（如通义千问Embedding 模型）"
+        }
+      ],
+      "answer": "A,B,C,D",
+      "analysis": "RAG检索相关性优化需从数据、模型、策略三方面入手。A正确：阿里云RAG最佳实践强调语义连贯分块，将‘密码重置’独立成块可提升关键片段召回率；B正确：调高相似度阈值（如设置cosine相似度>0.7）能过滤低相关文档，符合DashScope API中rerank_threshold参数设计逻辑；C正确：关键词标注增强向量表示，通义千问Embedding支持实体标签注入，提升语义对齐；D正确：通义千问Embedding模型在中文短文本匹配任务上SOTA，显著优于通用模型。四选项均属阿里云RAG优化标准路径，无错误选项。",
+      "chapter": 3,
+      "difficulty_score": 6,
+      "difficulty_label": "挑战",
+      "difficulty_sort": 46,
+      "deleted": true,
+      "deleted_meta": {
+        "reason": "同一考点重复设问，保留更有代表性的题目；保留 3-1462",
+        "source": "user-request-rag-trim",
+        "at": "2026-10-17T01:09:17",
+        "batch_id": "rag-trim-20261017"
+      }
+    },
+    {
+      "seq": "1020",
+      "type": 1,
+      "stem": "以下哪些情况可能导致大模型检索不准确?",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "文档中包含大量的图片信息，而当前的文档解析器无法有效提取和理解图片内容。"
+        },
+        {
+          "option_label": "B",
+          "option_text": "使用了基于深度学习的语义搜索引擎，但模型训练数据不足，导致检索结果不准确。"
+        },
+        {
+          "option_label": "C",
+          "option_text": "文档中包含复杂的表格结构，而简单的文本解析器无法理解表格单元格之间的关系。"
+        },
+        {
+          "option_label": "D",
+          "option_text": "使用了复杂的文档解析器，导致解析速度慢，影响检索效率。"
+        },
+        {
+          "option_label": "E",
+          "option_text": "索引构建过程中使用了错误的 embedding 模型，导致语义相似度计算错误。"
+        },
+        {
+          "option_label": "F",
+          "option_text": "文档切片时，仅简单地按照字符长度进行分割，丢失了文档的语义信息。"
+        }
+      ],
+      "answer": "A,B,C,E,F",
+      "analysis": "复杂文档解析器导致解析速度慢，主要影响的是检索效率，而非检索的准确性。",
+      "chapter": 3,
+      "difficulty_score": 6,
+      "difficulty_label": "挑战",
+      "difficulty_sort": 46,
+      "deleted": true,
+      "deleted_meta": {
+        "reason": "同一考点重复设问，保留更有代表性的题目；保留 3-1463",
+        "source": "user-request-rag-trim",
+        "at": "2026-10-17T01:09:17",
+        "batch_id": "rag-trim-20261017"
+      }
+    },
+    {
+      "seq": "1392",
+      "type": 1,
+      "stem": "在开发大语言模型RAG应用过程中，以下哪些描述符合\"基于语义的文档切片\"的理念？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "使用机器学习模型对文档进行语义分析，并根据语义边界进行切分"
+        },
+        {
+          "option_label": "B",
+          "option_text": "将文档按照固定长度进行切分"
+        },
+        {
+          "option_label": "C",
+          "option_text": "根据文档的结构，例如标题、段落、列表等进行切分"
+        },
+        {
+          "option_label": "D",
+          "option_text": "将表格的每个单元格作为一个独立的Chunk"
+        },
+        {
+          "option_label": "E",
+          "option_text": "将代码块单独切分出来，并标注其编程语言"
+        },
+        {
+          "option_label": "F",
+          "option_text": "在Chunk中添加上下文信息，例如标题、父级列表项等"
+        }
+      ],
+      "answer": "A",
+      "analysis": "基于语义的文档切片强调依据文本深层语义连贯性进行分块，而非表面格式或固定规则。阿里云百炼平台RAG最佳实践中明确指出：应使用Embedding模型或语义分割模型识别段落主题边界，实现‘语义完整’的Chunk（如百炼API中/rag/split接口支持语义感知切分）。A项准确体现该理念；B为固定长度切片，易割裂语义；C属结构化切片，依赖显式标记而非语义；D、E、F虽提升信息完整性，但本质是后处理增强或格式适配，并非‘基于语义’的切分依据。",
+      "chapter": 3,
+      "difficulty_score": 7,
+      "difficulty_label": "挑战",
+      "difficulty_sort": 47,
+      "deleted": true,
+      "deleted_meta": {
+        "reason": "同一考点重复设问，保留更有代表性的题目；保留 3-0549",
+        "source": "user-request-rag-trim",
+        "at": "2026-10-17T01:09:17",
+        "batch_id": "rag-trim-20261017"
+      }
+    },
+    {
+      "seq": "1398",
+      "type": 1,
+      "stem": "在切片向量化与存储阶段，以下哪些是 Compare_embedding_models 函数的参数？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "documents"
+        },
+        {
+          "option_label": "B",
+          "option_text": "question"
+        },
+        {
+          "option_label": "C",
+          "option_text": "ground_truth"
+        },
+        {
+          "option_label": "D",
+          "option_text": "sentence_splitter"
+        }
+      ],
+      "answer": "A,B,C",
+      "analysis": "Compare_embedding_models 函数用于对比不同嵌入模型在特定语料上的效果，其核心参数需提供待评估的文本输入与参考标准。A项documents为待向量化的切片文本列表，是模型Embedding的原始输入；B项question代表查询意图，用于评估检索相关性；C项ground_truth为人工标注的标准答案，用于计算准确率等指标，三者均为函数必需的评估维度。D项sentence_splitter属于文本预处理阶段的分句工具，通常在切片生成环节使用，并非Compare_embedding_models的参数，该函数不负责文本切分逻辑。",
+      "chapter": 3,
+      "difficulty_score": 7,
+      "difficulty_label": "挑战",
+      "difficulty_sort": 47,
+      "deleted": true,
+      "deleted_meta": {
+        "reason": "与3-0529同题答案冲突，均未提供自定义函数定义，暂不保留参数背诵题",
+        "source": "user-request-rag-trim",
+        "at": "2026-10-17T01:09:17",
+        "batch_id": "rag-trim-20261017"
+      }
+    },
+    {
+      "seq": "0787",
+      "type": 1,
+      "stem": "某企业开发大模型文档问答系统，要求“支持 PDF、Word、TXT 多种格式文档，且能精准定位回答来源页码”。以下哪些技术方案能实现？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "使用文档解析工具（如 PyPDF2、python-docx）提取不同格式文档的文本与页码"
+        },
+        {
+          "option_label": "B",
+          "option_text": "对提取的文本按“段落 + 页码”进行分块，保留页码元数据"
+        },
+        {
+          "option_label": "C",
+          "option_text": "将分块文本转换为向量，存入向量数据库"
+        },
+        {
+          "option_label": "D",
+          "option_text": "检索时返回匹配向量对应的页码信息"
+        },
+        {
+          "option_label": "E",
+          "option_text": "让模型直接读取原始文档格式，无需解析"
+        }
+      ],
+      "answer": "A,B,C,D",
+      "analysis": "该问题要求开发一个大模型文档问答系统，支持多种格式文档，并能精准定位回答来源页码。分析如下：\n\nA. 使用文档解析工具（如 PyPDF2、python-docx）提取不同格式文档的文本与页码：此方案是实现文档内容提取的核心步骤，能够将PDF、Word、TXT等格式的文档转换为可处理的文本和页码信息，是实现系统功能的基础。\n\nB. 对提取的文本按“段落 + 页码”进行分块，保留页码元数据：此方案能够将文本内容按逻辑分块，并保留原始页码信息，为后续的向量检索和定位提供准确的上下文支持。\n\nC. 将分块文本转换为向量，存入向量数据库：此方案是实现向量检索的关键步骤，将分块文本转换为向量后，可以高效地进行相似度匹配，从而实现精准的文档定位。\n\nD. 检索时返回匹配向量对应的页码信息：此方案是系统的核心功能之一，通过向量检索找到与查询内容最相似的文档片段，然后返回其对应的页码信息，实现精准回答。\n\nE. 让模型直接读取原始文档格式，无需解析：此方案虽然简单，但无法实现对多种格式文档的统一处理，且无法保证对文档内容的准确提取，因此不能实现题目要求的功能。\n\n综上所述，A、B、C、D四个方案均能实现题目要求的功能，因此正确答案为A、B、C、D。",
+      "chapter": 3,
+      "difficulty_score": 8,
+      "difficulty_label": "挑战",
+      "difficulty_sort": 48,
+      "deleted": true,
+      "deleted_meta": {
+        "reason": "同一考点重复设问，保留更有代表性的题目；保留 3-1461",
+        "source": "user-request-rag-trim",
+        "at": "2026-10-17T01:09:17",
+        "batch_id": "rag-trim-20261017"
+      }
+    },
+    {
+      "seq": "1026",
+      "type": 1,
+      "stem": "用户上传了一个包含复杂表格的 Markdown 文档，使用默认的 RAG 流程进行问答。用户提问关于表格含义的问题时，大模型经常给出错误或不相关的答案。请问以下哪些方案可以尝试解决这个问题？",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "对用户提问进行预处理，提取表格相关的关键词。"
+        },
+        {
+          "option_label": "B",
+          "option_text": "在文档切片时，将表格的行列信息添加到每个单元格的 Chunk 中。"
+        },
+        {
+          "option_label": "C",
+          "option_text": "将表格转换成 JSON 格式，然后使用 JSON Loader 加载数据。"
+        },
+        {
+          "option_label": "D",
+          "option_text": "使用 OCR 技术识别表格中的文字，并将识别结果添加到文本中。"
+        },
+        {
+          "option_label": "E",
+          "option_text": "使用更强大的 Embedding 模型。"
+        },
+        {
+          "option_label": "F",
+          "option_text": "增加训练数据，让大模型更好地理解表格内容。"
+        }
+      ],
+      "answer": "A,B,C,E",
+      "analysis": "A正确：关键词提取可增强查询与表格语义的对齐，阿里云RAG中支持Query Rewriting预处理；B正确：保留行列结构信息（如'第2行第3列'）能显著提升Chunk表意完整性，符合阿里云文档解析最佳实践；C正确：JSON Loader能结构化保留表格逻辑，避免Markdown渲染失真；E正确：更强Embedding模型（如text-embedding-v3）提升表格语义向量表征能力。D错误：OCR仅适用于图片型表格，题干明确为Markdown文档；F错误：RAG流程不涉及模型微调，属混淆了RAG与Fine-tuning范式。",
+      "chapter": 3,
+      "difficulty_score": 8,
+      "difficulty_label": "挑战",
+      "difficulty_sort": 48,
+      "deleted": true,
+      "deleted_meta": {
+        "reason": "同一考点重复设问，保留更有代表性的题目；保留 3-6003",
+        "source": "user-request-rag-trim",
+        "at": "2026-10-17T01:09:17",
+        "batch_id": "rag-trim-20261017"
+      }
+    },
+    {
+      "seq": "1204",
+      "type": 1,
+      "stem": "通过 Llamaindex 创建 RAG 应用，这段代码有哪些问题？python query_engine = index.as_query_engine( similarity_top_k=3, streaming=True, node_postprocessor=[DepthScopeRank(top_n=8, model=\"gte- rerank\"), SimilarityPostprocessor(similarity_cutoff=1)] ) response = query_engine.retrieval(\"需求分析使用的工具是什么？\") response.print_response_strea",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "query_engine 不支持 retrieve"
+        },
+        {
+          "option_label": "B",
+          "option_text": "重选中的 chunk 数大于初步召回的 chunk 数"
+        },
+        {
+          "option_label": "C",
+          "option_text": "相似度阈值设置过高"
+        },
+        {
+          "option_label": "D",
+          "option_text": "Llamaindex 在 RAG 回答时不可以使用流式输出"
+        }
+      ],
+      "answer": "B,C",
+      "analysis": "B正确：DepthScopeRank(top_n=8)要求重排序8个chunk，但similarity_top_k=3仅召回3个，导致重排输入不足，违反LlamaIndex数据流逻辑。C正确：SimilarityPostprocessor(similarity_cutoff=1)要求相似度严格等于1才保留，实际向量相似度极少达1，几乎过滤全部结果。A错误：query_engine有retrieve()方法（非retrieval），题干属拼写错误而非能力缺失。D错误：LlamaIndex明确支持streaming=True及print_response_stream()，阿里云ACP考纲亦认可流式RAG输出。",
+      "chapter": 3,
+      "difficulty_score": 8,
+      "difficulty_label": "挑战",
+      "difficulty_sort": 48,
+      "deleted": true,
+      "deleted_meta": {
+        "reason": "代码片段拼写/截断损坏，与3-1465相近题答案冲突，降低重复代码排错题负担",
+        "source": "user-request-rag-trim",
+        "at": "2026-10-17T01:09:17",
+        "batch_id": "rag-trim-20261017"
+      }
+    },
+    {
+      "seq": "1465",
+      "type": 2,
+      "stem": "通过Llamaindex 创建RAG 应用，这段代码有哪些问题？query_engine = index.as_query_engine(similarity_top_k=3,streaming=True,node_postprocessors=[DepthScopeRank(top_n=8, model=\"gte-rerank\"),SimilarityPostprocessor(similarity_cutoff=1)])response = query_engine.retrieve(\"需求分析使用的工具是什么？\")response.print_response_stream()",
+      "options": [
+        {
+          "option_label": "A",
+          "option_text": "query_engine 不支持retrieve"
+        },
+        {
+          "option_label": "B",
+          "option_text": "重排选中的chunk 数大于初步召回的chunk 数"
+        },
+        {
+          "option_label": "C",
+          "option_text": "相似度阈值设置过高"
+        },
+        {
+          "option_label": "D",
+          "option_text": "Llamaindex 在RAG 回答时不可以使用流式输出"
+        }
+      ],
+      "answer": "A,B,C",
+      "analysis": "A正确：LlamaIndex的QueryEngine无retrieve()方法，该方法属于BaseRetriever，应调用query()或直接使用retriever；B正确：DepthScopeRank(top_n=8)要求重排8个节点，但similarity_top_k=3仅召回3个，导致运行时错误；C正确：SimilarityPostprocessor的similarity_cutoff=1要求相似度严格等于1才保留，实际余弦相似度最大为1但极少达到，几乎过滤全部节点。D错误：LlamaIndex明确支持streaming=True及print_response_stream()，阿里云文档和官方示例均验证流式输出可用。",
+      "chapter": 3,
+      "difficulty_score": 8,
+      "difficulty_label": "挑战",
+      "difficulty_sort": 48,
+      "deleted": true,
+      "deleted_meta": {
+        "reason": "与3-1204相近代码题答案冲突，暂移出；保留其他重排、阈值及代码应用题",
+        "source": "user-request-rag-trim",
+        "at": "2026-10-17T01:09:17",
+        "batch_id": "rag-trim-20261017"
+      }
+    }
+  ]
+}

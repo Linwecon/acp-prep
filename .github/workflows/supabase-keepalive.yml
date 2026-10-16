@@ -6,7 +6,7 @@ name: Supabase Keep-Alive
 #
 # ⚠️ 两点注意：
 #   1. 定时任务只在仓库默认分支（main）上生效；
-#   2. 仓库连续 60 天没有任何提交时，GitHub 会自动停用定时任务，
+#   2. 公共仓库连续 60 天没有活动时，GitHub 会自动停用定时任务，
 #      届时到 Actions 页面点一次「Enable workflow」即可恢复。
 
 on:
@@ -14,6 +14,13 @@ on:
     # 北京时间 05:17、11:17、17:17、23:17（实际运行可能延迟）
     - cron: '17 3,9,15,21 * * *'
   workflow_dispatch: # 支持手动触发，便于随时验证
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/supabase-keepalive.yml'
+      - '.github/scripts/supabase-keepalive.mjs'
+      - 'config/supabase.js'
+      - 'supabase/keepalive_ping.sql'
 
 permissions:
   contents: read

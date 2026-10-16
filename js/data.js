@@ -21,6 +21,7 @@
                     id,
                     ch,
                     seq: g('seq', 's'),
+                    revisedAt: Number(g('revised_at', 'ra') || 0),
                     stem: g('stem', 't') || '',
                     options: (g('options', 'o') || []).map(o => ({
                         label: o.option_label !== undefined ? o.option_label : o.l,

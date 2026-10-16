@@ -60,13 +60,13 @@
     }
 
     function blockquoteHTML(buf) {
-        const t = buf.map(l => l.replace(/^\s*>\s?/, '')).join(' ');
+        const t = buf.map(l => l.replace(/^\s*>\s?/, '')).join('\n');
         let cls = 'study-bq';
         if (t.indexOf('⚠️') >= 0) cls += ' warn';
         else if (t.indexOf('导读') >= 0) cls += ' guide';
         else if (t.indexOf('白话') >= 0) cls += ' plain';
         else if (t.indexOf('💡') >= 0 || t.indexOf('📝') >= 0) cls += ' tip';
-        return `<blockquote class="${cls}">${inline(t)}</blockquote>`;
+        return `<blockquote class="${cls}">${mdToHtml(t)}</blockquote>`;
     }
 
     function listHTML(buf) {
@@ -137,7 +137,14 @@
 
     function containerHTML(type, body) {
         const label = TB_LABELS[type] || '';
-        return `<div class="tb tb-${type}">${label ? `<div class="tb-hd">${label}</div>` : ''}<div class="tb-bd">${mdToHtml(body)}</div></div>`;
+        let content;
+        const answerAt = type === 'qa' ? body.search(/^\*\*解析/m) : -1;
+        if (answerAt >= 0) {
+            content = mdToHtml(body.slice(0, answerAt)) +
+                '<details class="knowledge-answers"><summary>完成自测后，查看答案与解析</summary>' +
+                mdToHtml(body.slice(answerAt)) + '</details>';
+        } else content = mdToHtml(body);
+        return `<div class="tb tb-${type}">${label ? `<div class="tb-hd">${label}</div>` : ''}<div class="tb-bd">${content}</div></div>`;
     }
 
     function mdToHtml(md) {
@@ -449,18 +456,32 @@
     const DONE_KEY = 'acp_kp_done';
 
     function loadDone() {
+        if (ACP.state.store) return ACP.state.store.studyDone || {};
         try { return JSON.parse(localStorage.getItem(DONE_KEY) || '{}'); }
         catch (e) { return {}; }
     }
     function saveDone(d) {
+        if (ACP.state.store) {
+            ACP.state.store.studyDone = d;
+            ACP.saveStore();
+            return;
+        }
         try { localStorage.setItem(DONE_KEY, JSON.stringify(d)); } catch (e) {}
     }
 
     const STUDY_KEY = 'acp_study_course_v1';
     function loadStudy() {
+        if (ACP.state.store) return ACP.state.store.studySettings || {};
         try { return JSON.parse(localStorage.getItem(STUDY_KEY) || '{}'); } catch (e) { return {}; }
     }
     function saveStudy(d) {
+        if (ACP.state.store) {
+            ACP.state.store.studySettings = d;
+            ACP.state.store.studySettingsAt = Date.now();
+            ACP.saveStore();
+            if (ACP.sync) ACP.sync.pushStudySettings();
+            return;
+        }
         try { localStorage.setItem(STUDY_KEY, JSON.stringify(d)); } catch (e) {}
     }
 
@@ -548,11 +569,27 @@
     ];
 
     function h2IconFor(title) {
-        for (const [kw, icon] of H2_ICONS) {
-            if (title.includes(kw)) return icon;
-        }
-        return '📖';
+        const match = H2_ICONS.find(([keyword]) => title.includes(keyword));
+        return match ? match[1] : '📖';
     }
+
+    const CHAPTER_BLURBS = [
+        '从 Token 到 Transformer，理解模型的能力与边界',
+        '把模糊需求，变成清晰、稳定、可验证的指令',
+        '让回答有据可查，串起检索与生成的完整链路',
+        '从回答问题到执行任务，搭建可控的行动闭环',
+        '用数据适配任务，理解 LoRA、蒸馏与训练评测',
+        '平衡吞吐、延迟与成本，让模型稳定服务',
+        '用指标定位问题，用业务评测验证真实效果',
+        '从提示注入到数据权限，建立多层安全防线',
+        '掌握请求、流式响应、工具调用与错误处理',
+        '理清百炼、DashScope 与 PAI 的能力分工',
+        '连接文字、图像、语音与视频的应用场景',
+        '理解框架的分工，选择适合自己的工程工具',
+        '识别常见错误表述，补上容易忽略的边界',
+        '放在一起比较，把相似概念真正分清',
+        '从题干条件出发，形成自己的解题方法'
+    ];
 
     function galleryClass(idx, title) {
         if (title.includes('附录')) return 'gk-appendix';
@@ -603,26 +640,23 @@
     /* ---------- gallery view ---------- */
 
     function renderGallery(root) {
-        ACP.setCrumb('知识点', '互动学习 · 知识宇宙');
+        ACP.setCrumb('知识学习', '理解原理，串起考点');
         const s = totalStats();
         const pct = s.total ? Math.round(s.done / s.total * 100) : 0;
 
         root.innerHTML = `
-      <div class="study">
+      <div class="study knowledge-universe">
         <div class="study-hero">
           <div class="sh-head">
-            <span class="sh-title">✦ 知识宇宙</span>
-            <span class="sh-sub">${s.total} 个知识点 · 官方大纲考点全覆盖 · 点击知识域开始闯关</span>
+            <span class="eyebrow">EXPLORE · CONNECT · MASTER</span><h1 class="sh-title"><span class="universe-spark" aria-hidden="true">✦</span> 知识宇宙<span class="universe-dot">.</span></h1>
+            <span class="sh-sub">12 个主题章节 · ${s.total} 个知识点 · 从理解原理到解决问题</span>
           </div>
           <div class="sh-progress">
             <div class="sh-track"><i style="width:${pct}%"></i></div>
             <span class="sh-num">已掌握 <b>${s.done}</b> / ${s.total} 个知识点</span>
           </div>
         </div>
-        <div class="study-outline">
-          <div class="ol-title">官方大纲考点占比</div>
-          ${outlineRing()}
-        </div>
+        <section class="study-outline" aria-label="考试大纲占比"><div class="outline-heading"><div><span class="eyebrow">EXAM MAP</span><h2>先看全局，再选方向</h2><p>六大知识域的考试占比，与下方学习章节交叉对应。</p></div><a href="https://help.aliyun.com/zh/document_detail/2986614.html" target="_blank" rel="noopener noreferrer">大纲比例来源 ↗</a></div>${outlineRing()}</section><div class="knowledge-section-heading"><h2>探索知识章节</h2><span>理解原理 · 贯穿案例 · 章末自测</span></div>
         <div class="study-gallery">
           ${chapters.map((ch, i) => {
             const st = chapterStats(ch);
@@ -630,9 +664,9 @@
             <button class="gallery-card ${galleryClass(i, ch.title)}" data-ch="${i}"
                     style="animation-delay:${i * 40}ms"
                     onclick="ACP.openStudyChapter(${i})">
-              <span class="gk-icon">${h2IconFor(ch.title)}</span>
-              <span class="gk-name">${ACP.esc(ch.title)}</span>
-              <span class="gk-meta">${st.total ? `已掌握 ${st.done}/${st.total} · 进入闯关 →` : '进入学习 →'}</span>
+              <div class="gallery-card-top"><span class="gk-icon">${h2IconFor(ch.title)}</span><span class="gallery-index">${String(i + 1).padStart(2, '0')}</span></div>
+              <span class="gk-name">${ACP.esc(ch.title.replace(/^\d+\.\s*/, ''))}</span><span class="gk-desc">${CHAPTER_BLURBS[i] || '查漏补缺，串联知识'}</span>
+              <span class="gk-meta">${st.total ? `已掌握 ${st.done} / ${st.total}` : '专题阅读'}<span class="gk-enter">开始学习 ↗</span></span><span class="gallery-track"><i style="width:${st.total ? st.done / st.total * 100 : 0}%"></i></span>
             </button>`;
           }).join('')}
         </div>
@@ -712,11 +746,12 @@
         ACP.setCrumb(ch.title, `课程模式 · ${st.done}/${st.total}`);
 
         root.innerHTML = `
-      <div class="lx-course ${mode === 'exam' ? 'exam-mode' : ''} ${isTextbook ? 'lx-textbook' : ''}">
+      <div class="lx-course ${galleryClass(ci, ch.title)} ${mode === 'exam' ? 'exam-mode' : ''} ${isTextbook ? 'lx-textbook' : ''}">
         <main class="lx-main-col">
           <header class="lx-hero ${galleryClass(ci, ch.title)}">
             <div class="lx-hero-top">
-              <button class="lx-back" onclick="ACP.backToGallery()">← 知识宇宙</button>
+              <button class="lx-back" onclick="ACP.backToGallery()">← 全部知识章节</button>
+              ${ACP.readingControls ? ACP.readingControls() : ''}
               <div class="lx-mode">
                 <button class="lx-mode-btn ${mode === 'deep' ? 'active' : ''}" data-mode="deep">深度学习</button>
                 <button class="lx-mode-btn ${mode === 'exam' ? 'active' : ''}" data-mode="exam">考前速记</button>
@@ -726,11 +761,11 @@
               <span class="lx-hero-ico">${h2IconFor(ch.title)}</span>
               <div class="lx-hero-info">
                 <h1>${ACP.esc(ch.title)}</h1>
-                <p>${ACP.esc(heroSummary(ch))}</p>
+                <p>${ACP.esc(CHAPTER_BLURBS[ci] || heroSummary(ch))}</p>
                 <div class="lx-hero-meta">
-                  <span>📚 ${ch.kps.length} 个知识模块</span>
-                  <span>⏱ 约 ${est} 分钟</span>
-                  <span>📊 进度 ${st.done}/${st.total}</span>
+                  <span>${ch.kps.length} 个知识模块</span>
+                  <span>约 ${est} 分钟</span>
+                  <span>已掌握 ${st.done}/${st.total}</span>
                 </div>
               </div>
               <div class="lx-hero-ring" style="--pct:${pct}">
@@ -740,7 +775,9 @@
             <div class="lx-progress"><i style="width:${pct}%"></i></div>
           </header>
 
-          ${ch.html ? `<section class="lx-chapter-intro">${ch.html}</section>` : ''}
+          ${ch.html ? `<details class="lx-chapter-intro"><summary>本章导读 · 学习目标与贯穿案例</summary><div class="chapter-intro-content">${ch.html}</div></details>` : ''}
+
+          ${ch.kps.length ? `<nav class="knowledge-jump" aria-label="本章知识点导航"><label for="knowledge-module">本章知识点</label><select id="knowledge-module" onchange="document.getElementById('lx-m-' + this.value)?.scrollIntoView({block:'start'})"><option value="0">选择知识点，快速跳转</option>${ch.kps.map((kp, i) => `<option value="${i}">${ACP.esc(kp.title)}</option>`).join('')}</select></nav>` : ''}
 
           <div class="lx-module-list">
             ${ch.kps.map((kp, i) => {
@@ -878,6 +915,12 @@
                 const d = loadDone();
                 d[kpBtn.dataset.kp] = !d[kpBtn.dataset.kp];
                 saveDone(d);
+                if (ACP.state.store) {
+                    const times = ACP.state.store.studyDoneAt || (ACP.state.store.studyDoneAt = {});
+                    times[kpBtn.dataset.kp] = Date.now();
+                    ACP.saveStore();
+                    if (ACP.sync) ACP.sync.pushStudyDone(kpBtn.dataset.kp);
+                }
                 kpBtn.classList.toggle('on', d[kpBtn.dataset.kp]);
                 kpBtn.textContent = d[kpBtn.dataset.kp] ? '✓ 已掌握' : '标记掌握';
                 kpBtn.closest('.lx-module').classList.toggle('done', d[kpBtn.dataset.kp]);

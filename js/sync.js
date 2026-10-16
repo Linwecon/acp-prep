@@ -13,6 +13,10 @@
 
     let supabase = null;
     let uid = null;          // 当前登录用户 id
+    let epoch = 0;
+    let queue = Promise.resolve();
+    let syncing = null;
+    let syncFailed = false;
     let syncReady = false;   // 是否已完成首次云端合并
     let connState = 'unknown'; // unknown | ok | bad —— Supabase 项目是否可达
     let connInfo = '';         // 不可达时的中文说明（展示在登录弹窗）
@@ -95,40 +99,62 @@
 
     function uidFromSession(session) { return session && session.user ? session.user.id : null; }
 
-    /* ---------- 合并规则（本地字段 ↔ 云端字段） ----------
-       进度合并：done/wrong 取两者较大值（不丢失累计次数）；
-       correct/answer 取"最近一次作答"（answered_at 较新者）。
-       收藏合并：取并集（删除类操作依赖实时同步，见 README 说明）。
-    */
-    function mergeProgress(local, cloud) {
-        const cloudT = cloud.answered_at ? new Date(cloud.answered_at).getTime() : 0;
-        const localT = (local && local.t) || 0;
-        const cloudNewer = cloudT > localT;
+    function millis(value) { return value ? (new Date(value).getTime() || 0) : 0; }
 
+    // 作答快照与错题状态有独立时间戳；移出错题不会被旧设备的累计次数覆盖。
+    function mergeProgress(local, cloud) {
+        local = local || {};
+        const cloudT = millis(cloud.answered_at);
+        const localT = local.t || 0;
+        const cloudNewer = cloudT > localT || (!local.d && !local.a);
+        const localW = local.wt === undefined ? localT : local.wt;
+        const cloudW = cloud.wrong_updated_at == null ? cloudT : millis(cloud.wrong_updated_at);
         const merged = {
-            d: Math.max((local && local.d) || 0, cloud.done || 0),
-            w: Math.max((local && local.w) || 0, cloud.wrong || 0),
-            c: cloudNewer ? (cloud.correct ? 1 : 0) : ((local && local.c) || 0),
+            d: Math.max(local.d || 0, cloud.done || 0),
+            w: cloudW > localW ? (cloud.wrong || 0) : localW > cloudW ? (local.w || 0)
+                : (local.w === 0 || cloud.wrong === 0 ? 0 : Math.max(local.w || 0, cloud.wrong || 0)),
+            wt: Math.max(localW, cloudW),
+            c: cloudNewer ? (cloud.correct ? 1 : 0) : (local.c || 0),
             t: Math.max(localT, cloudT)
         };
-        const ans = cloudNewer ? cloud.answer : (local && local.a);
-        if (ans && ans.length) merged.a = ans;
+        const ans = cloudNewer ? cloud.answer : local.a;
+        if (ans && ans.length) merged.a = ans.slice();
         return merged;
     }
 
-    function toProgressRow(qid, p) {
+    function context() { return { uid, store: S.store, epoch }; }
+    function current(c) { return c.uid === uid && c.store === S.store && c.epoch === epoch; }
+    function requireCurrent(c) {
+        if (!current(c)) { const e = new Error('账号已切换'); e.stale = true; throw e; }
+    }
+    async function checked(query, c) {
+        requireCurrent(c);
+        const result = await query;
+        requireCurrent(c);
+        if (result && result.error) throw new Error(result.error.message || '云端请求失败');
+        return result || {};
+    }
+    function failed(e) {
+        if (e.stale) return;
+        console.warn('[sync] failed', e.message);
+        if (!syncFailed) ACP.toast('云端同步失败，记录已保存在本机；请点击“同步”重试');
+        syncFailed = true;
+    }
+    function enqueue(task) {
+        const c = context();
+        const job = queue.then(() => { requireCurrent(c); return task(c); });
+        queue = job.catch(() => {});
+        return job.catch(e => { if (current(c)) failed(e); return false; });
+    }
+    function toProgressRow(qid, p, c) {
         return {
-            user_id: uid,
-            question_id: qid,
-            done: p.d || 0,
-            wrong: p.w || 0,
-            correct: p.c ? 1 : 0,
-            answer: (p.a && p.a.length) ? p.a : null,
+            user_id: c.uid, question_id: qid, done: p.d || 0, wrong: p.w || 0,
+            correct: p.c ? 1 : 0, answer: p.a && p.a.length ? p.a : null,
             answered_at: p.t ? new Date(p.t).toISOString() : null,
+            wrong_updated_at: new Date(p.wt === undefined ? (p.t || 0) : p.wt).toISOString(),
             updated_at: new Date().toISOString()
         };
     }
-
     function genId() {
         if (ACP.uuid) return ACP.uuid();
         try { if (typeof crypto !== 'undefined' && crypto.randomUUID) return crypto.randomUUID(); } catch (e) {}
@@ -137,127 +163,160 @@
             return (c === 'x' ? r : (r & 0x3 | 0x8)).toString(16);
         });
     }
+    async function readAll(table, order, c) {
+        const rows = [];
+        for (let start = 0; ; start += 500) {
+            const r = await checked(supabase.from(table).select('*').eq('user_id', c.uid)
+                .order(order).range(start, start + 499), c);
+            rows.push(...(r.data || []));
+            if (!r.data || r.data.length < 500) return rows;
+        }
+    }
+    function metaRow(key, value, time, c) {
+        return { user_id: c.uid, key, value, updated_at: new Date(time || 0).toISOString() };
+    }
+    function learningRows(c) {
+        const s = c.store;
+        const rows = Object.entries(s.tut || {}).map(([id, rec]) => metaRow('tutorial:' + id, rec, rec.at, c));
+        Object.entries(s.studyDone || {}).forEach(([id, done]) => {
+            rows.push(metaRow('study_done:' + id, !!done, (s.studyDoneAt || {})[id], c));
+        });
+        if (s.studySettings) rows.push(metaRow('study_settings', s.studySettings, s.studySettingsAt, c));
+        return rows;
+    }
 
-    /* ---------- 拉取云端 → 合并到本地 ---------- */
-    async function pullAndMerge() {
-        if (!isConfigured() || !uid) return;
-        const store = S.store;
+    async function pullAndMerge(c = context()) {
+        if (!isConfigured() || !c.uid) return;
+        syncReady = false;
+        // 全部读取成功后再更新本地；任何一张表失败都不能开始回推。
+        const [progress, favorites, meta, examR] = await Promise.all([
+            readAll('user_progress', 'question_id', c), readAll('favorites', 'question_id', c),
+            readAll('user_meta', 'key', c),
+            checked(supabase.from('exam_records').select('*').eq('user_id', c.uid)
+                .order('created_at', { ascending: false }).limit(100), c)
+        ]);
+        requireCurrent(c);
+        const store = c.store;
         store.p = store.p || {};
         store.fav = store.fav || [];
         store.exams = store.exams || [];
-
-        const [progR, favR, metaR, examR] = await Promise.all([
-            supabase.from('user_progress').select('*').eq('user_id', uid),
-            supabase.from('favorites').select('question_id').eq('user_id', uid),
-            supabase.from('user_meta').select('*').eq('user_id', uid),
-            supabase.from('exam_records').select('*').eq('user_id', uid).order('created_at', { ascending: false }).limit(100)
-        ]);
-
-        (progR.data || []).forEach(r => {
-            store.p[r.question_id] = mergeProgress(store.p[r.question_id], r);
+        progress.forEach(r => { store.p[r.question_id] = mergeProgress(store.p[r.question_id], r); });
+        favorites.forEach(r => { if (!store.fav.includes(r.question_id)) store.fav.push(r.question_id); });
+        meta.forEach(r => {
+            const time = millis(r.updated_at);
+            if (r.key === 'last' && r.value && typeof r.value === 'object') {
+                if ((r.value.t || 0) > ((store.last || {}).t || 0)) store.last = r.value;
+            } else if (r.key.startsWith('tutorial:') && r.value && typeof r.value === 'object') {
+                const id = r.key.slice(9);
+                store.tut = store.tut || {};
+                if (!store.tut[id] || (r.value.at || 0) > (store.tut[id].at || 0)) store.tut[id] = r.value;
+            } else if (r.key.startsWith('study_done:') && typeof r.value === 'boolean') {
+                const id = r.key.slice(11);
+                store.studyDone = store.studyDone || {};
+                store.studyDoneAt = store.studyDoneAt || {};
+                if (!(id in store.studyDone) || time > (store.studyDoneAt[id] || 0)) {
+                    store.studyDone[id] = r.value;
+                    store.studyDoneAt[id] = time;
+                }
+            } else if (r.key === 'study_settings' && r.value && typeof r.value === 'object') {
+                if (!store.studySettings || time > (store.studySettingsAt || 0)) {
+                    store.studySettings = r.value;
+                    store.studySettingsAt = time;
+                }
+            }
         });
-
-        (favR.data || []).forEach(r => {
-            if (!store.fav.includes(r.question_id)) store.fav.push(r.question_id);
-        });
-
-        // 云端记录可能仍用移章前的旧题号：合并后统一迁移到新编号（保留记录，不清空云端）
         if (ACP.migrateMovedQids) ACP.migrateMovedQids(store);
-
-        const lastRow = (metaR.data || []).find(r => r.key === 'last');
-        if (lastRow && lastRow.value && typeof lastRow.value === 'object') {
-            const cloudT = lastRow.value.t || 0;
-            const localT = (store.last && store.last.t) || 0;
-            if (cloudT > localT) store.last = lastRow.value;
-        }
-
         const ids = new Set(store.exams.map(e => e.id));
-        (examR.data || []).forEach(r => {
-            if (!ids.has(r.id)) { store.exams.push(r); ids.add(r.id); }
-        });
+        (examR.data || []).forEach(r => { if (!ids.has(r.id)) { store.exams.push(r); ids.add(r.id); } });
         store.exams.sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
         store.exams = store.exams.slice(0, 100);
-
         ACP.saveStore();
         syncReady = true;
     }
-
-    /* ---------- 回推（全量）：把合并后的本地数据写回云端，使两端一致 ---------- */
-    async function pushAll() {
-        if (!isConfigured() || !uid) return;
-        const store = S.store;
-        store.p = store.p || {};
-        store.fav = store.fav || [];
-        store.exams = store.exams || [];
-
-        const progRows = Object.entries(store.p).map(([qid, p]) => toProgressRow(qid, p));
-        if (progRows.length) {
-            await supabase.from('user_progress').upsert(progRows, { onConflict: 'user_id,question_id' });
+    async function upsertRows(table, rows, conflict, c) {
+        for (let i = 0; i < rows.length; i += 500) {
+            requireCurrent(c);
+            await checked(supabase.from(table).upsert(rows.slice(i, i + 500), { onConflict: conflict }), c);
         }
-        if (store.fav.length) {
-            const favRows = store.fav.map(qid => ({ user_id: uid, question_id: qid }));
-            await supabase.from('favorites').upsert(favRows, { onConflict: 'user_id,question_id' });
-        }
-        if (store.last) {
-            await supabase.from('user_meta').upsert(
-                { user_id: uid, key: 'last', value: store.last, updated_at: new Date().toISOString() },
-                { onConflict: 'user_id,key' }
-            );
-        }
-        const examRows = store.exams.map(e => ({
-            id: e.id, user_id: uid, score: e.score, correct: e.correct, wrong: e.wrong,
+    }
+    async function pushAll(c = context()) {
+        if (!isConfigured() || !c.uid || !syncReady) return;
+        requireCurrent(c);
+        const s = c.store;
+        await upsertRows('user_progress', Object.entries(s.p || {}).map(([id, p]) => toProgressRow(id, p, c)), 'user_id,question_id', c);
+        await upsertRows('favorites', (s.fav || []).map(id => ({ user_id: c.uid, question_id: id })), 'user_id,question_id', c);
+        const rows = learningRows(c);
+        if (s.last) rows.push(metaRow('last', s.last, s.last.t, c));
+        await upsertRows('user_meta', rows, 'user_id,key', c);
+        await upsertRows('exam_records', (s.exams || []).map(e => ({
+            id: e.id, user_id: c.uid, score: e.score, correct: e.correct, wrong: e.wrong,
             pass: e.pass, time_used: e.time_used, weak_by_ch: e.weak_by_ch || null,
             created_at: e.created_at || new Date().toISOString()
-        }));
-        if (examRows.length) {
-            await supabase.from('exam_records').upsert(examRows, { onConflict: 'id' });
-        }
+        })), 'id', c);
     }
-
-    /* ---------- 单条实时推送 ---------- */
-    async function pushProgress(qid) {
-        if (!isConfigured() || !uid || !syncReady) return;
-        const p = S.store.p && S.store.p[qid];
-        if (!p) return;
-        const { error } = await supabase.from('user_progress').upsert(toProgressRow(qid, p), { onConflict: 'user_id,question_id' });
-        if (error) console.warn('[sync] pushProgress failed', error.message);
+    function syncNow() {
+        if (!isConfigured() || !uid) return Promise.resolve(false);
+        if (syncing) return syncing;
+        const job = enqueue(async c => {
+            await pullAndMerge(c);
+            try { await pushAll(c); } catch (e) { if (current(c)) syncReady = false; throw e; }
+            requireCurrent(c);
+            syncFailed = false;
+            ACP.toast('云端同步完成');
+            ACP.render();
+            ACP.renderSidebarBadges();
+            return true;
+        });
+        syncing = job;
+        job.finally(() => { if (syncing === job) syncing = null; });
+        return job;
     }
-
-    async function pushFav(qid, added) {
-        if (!isConfigured() || !uid || !syncReady) return;
-        if (added) {
-            await supabase.from('favorites').upsert({ user_id: uid, question_id: qid }, { onConflict: 'user_id,question_id' });
-        } else {
-            await supabase.from('favorites').delete().eq('user_id', uid).eq('question_id', qid);
-        }
+    function realtime(task) {
+        if (!isConfigured() || !uid || !syncReady) return Promise.resolve(false);
+        return enqueue(task);
     }
-
-    async function pushExam(record) {
-        if (!isConfigured() || !uid || !syncReady) return;
-        await supabase.from('exam_records').upsert({
-            id: record.id, user_id: uid, score: record.score, correct: record.correct,
+    function pushProgress(qid) {
+        return realtime(async c => {
+            const p = c.store.p && c.store.p[qid];
+            if (p) await upsertRows('user_progress', [toProgressRow(qid, p, c)], 'user_id,question_id', c);
+        });
+    }
+    function pushFav(qid, added) {
+        return realtime(async c => {
+            if (added) await upsertRows('favorites', [{ user_id: c.uid, question_id: qid }], 'user_id,question_id', c);
+            else await checked(supabase.from('favorites').delete().eq('user_id', c.uid).eq('question_id', qid), c);
+        });
+    }
+    function pushExam(record) {
+        return realtime(c => upsertRows('exam_records', [{
+            id: record.id, user_id: c.uid, score: record.score, correct: record.correct,
             wrong: record.wrong, pass: record.pass, time_used: record.time_used,
             weak_by_ch: record.weak_by_ch || null, created_at: record.created_at
-        }, { onConflict: 'id' });
+        }], 'id', c));
     }
-
-    async function pushLast() {
-        if (!isConfigured() || !uid || !syncReady) return;
-        if (!S.store.last) return;
-        await supabase.from('user_meta').upsert(
-            { user_id: uid, key: 'last', value: S.store.last, updated_at: new Date().toISOString() },
-            { onConflict: 'user_id,key' }
-        );
+    function pushLast() {
+        return realtime(c => c.store.last && upsertRows('user_meta', [metaRow('last', c.store.last, c.store.last.t, c)], 'user_id,key', c));
     }
-
-    async function clearCloud() {
-        if (!isConfigured() || !uid) return;
-        await Promise.all([
-            supabase.from('user_progress').delete().eq('user_id', uid),
-            supabase.from('favorites').delete().eq('user_id', uid),
-            supabase.from('exam_records').delete().eq('user_id', uid),
-            supabase.from('user_meta').delete().eq('user_id', uid)
-        ]);
+    function pushTutorial(id) {
+        return realtime(c => {
+            const rec = (c.store.tut || {})[id];
+            return rec && upsertRows('user_meta', [metaRow('tutorial:' + id, rec, rec.at, c)], 'user_id,key', c);
+        });
+    }
+    function pushStudyDone(id) {
+        return realtime(c => upsertRows('user_meta', [metaRow('study_done:' + id,
+            !!(c.store.studyDone || {})[id], (c.store.studyDoneAt || {})[id], c)], 'user_id,key', c));
+    }
+    function pushStudySettings() {
+        return realtime(c => upsertRows('user_meta', [metaRow('study_settings', c.store.studySettings || {}, c.store.studySettingsAt, c)], 'user_id,key', c));
+    }
+    function clearCloud() {
+        return enqueue(async c => {
+            if (!isConfigured() || !c.uid) return;
+            for (const table of ['user_progress', 'favorites', 'exam_records', 'user_meta']) {
+                await checked(supabase.from(table).delete().eq('user_id', c.uid), c);
+            }
+        });
     }
 
     /* ---------- 认证 ---------- */
@@ -290,7 +349,12 @@
         if (!el) return;
         const show = el.type === 'password';
         el.type = show ? 'text' : 'password';
-        if (btn) { btn.textContent = show ? '🙈' : '👁'; btn.title = show ? '隐藏密码' : '显示密码'; }
+        if (btn) {
+            btn.innerHTML = ACP.icon ? ACP.icon(show ? 'eye-off' : 'eye') : (show ? '隐藏' : '显示');
+            btn.title = show ? '隐藏密码' : '显示密码';
+            btn.setAttribute('aria-label', btn.title);
+            btn.setAttribute('aria-pressed', String(show));
+        }
     }
 
     function setBtnLoading(id, loading) {
@@ -355,11 +419,12 @@
 
     async function signOut() {
         if (!isConfigured()) return;
-        await ensureClient().auth.signOut();
-        uid = null;
-        syncReady = false;
-        ACP.toast('已退出登录，数据仍保存在本地');
-        renderAuthButton();
+        try {
+            const result = await ensureClient().auth.signOut();
+            if (result.error) throw new Error(result.error.message);
+            await applySession(null, false);
+            ACP.toast('已退出登录，账号记录已保留，当前为访客模式');
+        } catch (e) { failed(e); }
     }
 
     /* ---------- 登录 UI ---------- */
@@ -370,6 +435,7 @@
             // 已登录：头像（邮箱首字母）+ 邮箱 + 退出
             area.innerHTML = `
           <span class="auth-user" id="authUser" title="已登录">…</span>
+          <button class="auth-btn" onclick="ACP.sync.syncNow()" title="重试云端同步">同步</button>
           <button class="auth-btn" onclick="ACP.sync.signOut()" title="退出登录">退出</button>`;
             renderAuthUser();
         } else {
@@ -419,58 +485,56 @@
         if (o) o.classList.remove('show');
     }
 
-    /* ---------- 启动 ---------- */
+    async function applySession(session, announce) {
+        const newUid = uidFromSession(session);
+        const sameOwner = (S.store.owner || null) === newUid;
+        if (newUid === uid && sameOwner && (!newUid || syncReady || syncing)) return;
+        if (newUid !== uid || !sameOwner) {
+            epoch++;
+            syncing = null;
+            syncReady = false;
+            syncFailed = false;
+            if (ACP.activateAccount) ACP.activateAccount(newUid);
+            uid = newUid;
+            ACP.render();
+            ACP.renderSidebarBadges();
+        } else if (!newUid && ACP.activateAccount) {
+            ACP.activateAccount(null);
+        }
+        renderAuthButton();
+        if (newUid) {
+            if (announce) { closeAuth(); ACP.toast('登录成功，正在同步…'); }
+            await syncNow();
+        }
+    }
     async function init() {
-        renderAuthButton(); // 无论是否配置，都先渲染登录入口
-
-        // 配置存在但 SDK 没加载出来：明确提示，而不是静默失败
+        renderAuthButton();
         if (configured && !ensureClient()) {
             connState = 'bad';
-            connInfo = 'Supabase SDK 未加载成功（CDN 可能被网络拦截），请刷新页面或更换网络后重试。';
-            console.warn('[sync] supabase-js 未加载，请检查 CDN 是否可访问');
-            return;
+            connInfo = 'Supabase SDK 未加载成功，请刷新页面或更换网络后重试。';
         }
         if (!isConfigured()) return;
-
-        // 后台探测项目可达性（暂停/删除的项目域名会解析失败）
-        checkConnection().then(r => {
-            if (!r.ok) console.warn('[sync] Supabase 不可达：', r, connInfo);
-        });
-
+        checkConnection().then(r => { if (!r.ok) console.warn('[sync] Supabase 不可达', r.reason); });
         const sb = ensureClient();
+        let revision = 0;
         sb.auth.onAuthStateChange((event, session) => {
-            const newUid = uidFromSession(session);
-            const justSignedIn = (event === 'SIGNED_IN') && newUid && newUid !== uid;
-            uid = newUid;
-            if (event === 'SIGNED_OUT') {
-                uid = null;
-                syncReady = false;
-            }
-            renderAuthButton();
-            if (justSignedIn) {
-                closeAuth();
-                ACP.toast('登录成功，正在同步…');
-                pullAndMerge().then(pushAll).then(() => {
-                    ACP.toast('云端同步完成');
-                    ACP.render(); // 刷新当前视图（进度/错题/收藏等）
-                    ACP.renderSidebarBadges();
-                }).catch(e => { console.warn('[sync] merge failed', e); });
-            }
+            const rev = ++revision;
+            // 避免在 Supabase auth 锁内调用 getUser / 数据库 API。
+            setTimeout(() => {
+                if (rev === revision) applySession(session, event === 'SIGNED_IN').catch(failed);
+            }, 0);
         });
-
-        // 恢复会话：刷新页面后仍是登录态
+        const rev = revision;
         try {
-            const { data } = await sb.auth.getSession();
-            const session = data && data.session;
-            if (session) {
-                uid = uidFromSession(session);
-                renderAuthButton();
-                await pullAndMerge();
-                await pushAll();
+            const result = await sb.auth.getSession();
+            if (result.error) throw new Error(result.error.message);
+            if (rev === revision) {
+                const session = result.data && result.data.session;
+                if (!session && ACP.activateAccount) ACP.activateAccount(null);
+                await applySession(session, false);
             }
-        } catch (e) {
-            console.warn('[sync] getSession failed', e);
-        }
+        } catch (e) { failed(e); }
+        if (window.addEventListener) window.addEventListener('online', () => { if (uid) syncNow(); });
     }
 
     ACP.sync = {
@@ -480,6 +544,7 @@
         checkConnection, testConnection,
         renderAuthButton, renderAuthUser,
         pushProgress, pushFav, pushExam, pushLast, pushAll, clearCloud,
+        pushTutorial, pushStudyDone, pushStudySettings, syncNow,
         pullAndMerge,
         _mergeProgress: mergeProgress,
         _genId: genId

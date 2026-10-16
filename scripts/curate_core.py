@@ -219,7 +219,7 @@ def rollback_batch(batch_id: str, dry_run: bool = True) -> tuple[int, list]:
             q["deleted_meta"] = it.get("after_meta") or {"reason": f"回滚批次 {batch_id} 的恢复操作"}
         elif kind == "answer_fix":
             before = it.get("before") or {}
-            for field in ("answer", "analysis", "type", "stem", "options"):
+            for field in ("answer", "analysis", "type", "stem", "options", "revised_at"):
                 if field in before:
                     q[field] = before[field]
             q["answer_history"] = [h for h in q.get("answer_history", [])
