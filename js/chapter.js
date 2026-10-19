@@ -36,7 +36,7 @@
         // 教程页画布更宽（目录 + 正文两栏），其它视图恢复默认宽度
         c.classList.toggle('is-nb-wide', S.ui.view === 'tutorial');
         c.innerHTML = '';
-        if (!ACP.DATA_READY) {
+        if (!ACP.DATA_READY && !(S.ui.view === 'chapter' && S.ui.filter === 'foundation')) {
             ACP.setCrumb('题库加载失败', '请检查 quiz_categorized.js');
             c.innerHTML = `
       <div class="empty-state">
@@ -105,6 +105,7 @@
     }
 
     function renderChapter(root) {
+        if (S.ui.filter === 'foundation' && ACP.renderFoundation) { ACP.renderFoundation(root); return; }
         const title = S.ui.customTitle || (S.ui.ch ? `${S.ui.ch} · ${ACP.chapterName(S.ui.ch)}` : '练习');
         S.ui.pool = buildPool();
         if (S.ui.idx >= S.ui.pool.length) S.ui.idx = 0;
@@ -119,13 +120,13 @@
         ACP.setCrumb(title, `${S.ui.pool.length} 题`);
 
         const filterChips = [
-            ['all', '全部'], ['undone', '未答'], ['wrong', '错题'], ['fav', '收藏']
+            ['foundation', '基础学习'], ['all', '全部'], ['undone', '未答'], ['wrong', '错题'], ['fav', '收藏']
         ].map(([k, label]) =>
             `<button class="chip ${S.ui.filter === k ? 'active' : ''}" onclick="ACP.setFilter('${k}')">${label}</button>`
         ).join('');
 
         root.innerHTML = `
-    <header class="page-intro"><span class="eyebrow">CHAPTER PRACTICE</span><h1>${ACP.esc(title)}</h1><p>专注这一题，把知识再巩固一点。共 ${S.ui.pool.length} 题</p></header>
+    <header class="page-intro"><span class="eyebrow">CHAPTER PRACTICE</span><h1>${ACP.esc(title)}</h1><p>${S.ui.filter === 'foundation' ? '按知识点重新理解基础 · 先作答，再解释原因。基础初选，共 ' : '专注这一题，把知识再巩固一点。共 '}${S.ui.pool.length} 题</p></header>
     <div class="quiz-toolbar">
       ${filterChips}
       <span class="spacer"></span>
@@ -148,9 +149,10 @@
         else renderList();
     }
 
-    function setFilter(f) { S.ui.filter = f; S.ui.idx = 0; renderChapter(document.getElementById('contentInner')); }
+    function setFilter(f) { S.ui.filter = f; S.ui.idx = 0; if (f === 'foundation') { S.ui.mode = 'single'; S.ui.shuffle = false; } renderChapter(document.getElementById('contentInner')); }
     function toggleShuffle() { S.ui.shuffle = !S.ui.shuffle; S.ui.idx = 0; renderChapter(document.getElementById('contentInner')); }
     function toggleMode() {
+        if (S.ui.filter === 'foundation') { ACP.toast('基础学习按知识点逐题进行'); return; }
         S.ui.mode = S.ui.mode === 'single' ? 'list' : 'single';
         renderChapter(document.getElementById('contentInner'));
     }

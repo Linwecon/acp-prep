@@ -109,6 +109,7 @@
 </div>
 
 <div class="tabs">
+    <button data-tab="current">当前体检</button>
     <button data-tab="latest" class="active">本轮全库结果</button>
     <button data-tab="chapter">章节错配原始报告</button>
     <button data-tab="quality">低质量题</button>
@@ -163,6 +164,17 @@
                 reason: c.reason, evidence: c.evidence, ops: [] };
         }); },
         columns: [['状态', 'cat'], ['题号', 'qid'], ['当前章节', 'chName'], ['处理依据', 'reason'], ['题干', 'stem']]
+    };
+
+    TABS.current = {
+        file: 'data/curate/current_audit.json',
+        note: '当前题库格式与精确重复检查。待复核不等于应删除；优先修复题型或条件。未覆盖知识性答案错误与语义错章。改库后运行 python scripts/build_foundation.py 更新。',
+        cmdOf: function () { return 'python scripts/build_foundation.py'; },
+        rowsOf: function (d) { return (d.items || []).map(function (r) {
+            return { qid:r.qid, chapter:r.chapter, stem:r.stem, _cat:r.status, catLabel:r.status,
+                reason:r.reason, evidence:'题面快照：' + r.fingerprint, ops:[] };
+        }); },
+        columns: [['状态','cat'], ['题号','qid'], ['章节','chName'], ['问题','reason'], ['题干','stem']]
     };
 
     TABS.chapter = {

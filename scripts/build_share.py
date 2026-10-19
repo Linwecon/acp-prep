@@ -22,6 +22,9 @@ OUT = OUT_DIR / "acp_share.zip"
 INCLUDE = [
     "index.html",
     "style.css",
+    "foundation.css",
+    "data/foundation.js",
+    "js/foundation.js",
     "js/acp.js",
     "js/utils.js",
     "js/store.js",

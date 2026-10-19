@@ -804,6 +804,7 @@
           </div>
 
           <nav class="lx-bottom-nav">
+            <button class="btn btn-primary" onclick="ACP.openFoundation('${ci + 1}')">学完本章 · 30题巩固基础</button>
             <button class="btn" onclick="ACP.openStudyChapter(${ci - 1})" ${ci === 0 ? 'disabled' : ''}>← 上一章</button>
             <button class="btn" onclick="ACP.backToGallery()">章节目录</button>
             <button class="btn btn-primary" onclick="ACP.openStudyChapter(${ci + 1})" ${ci === chapters.length - 1 ? 'disabled' : ''}>下一章 →</button>

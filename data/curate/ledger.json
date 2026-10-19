@@ -46518,6 +46518,28 @@
           }
         }
       ]
+    },
+    {
+      "batch_id": "20261019_101513_4cc11d",
+      "at": "2026-10-19T10:15:13",
+      "kind": "answer_fix",
+      "source": "current_bank_structural_review",
+      "reason": "",
+      "count": 1,
+      "items": [
+        {
+          "qid": "7-0160",
+          "before": {
+            "type": 0,
+            "revised_at": 0
+          },
+          "after": {
+            "type": 2,
+            "revised_at": 1792376113007
+          },
+          "reason": "题干明确问哪些，现有答案A,B,C与解析一致；仅将错误的单选标记修正为多选，未声称重新验证知识性答案。"
+        }
+      ]
     }
   ]
 }
