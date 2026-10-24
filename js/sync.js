@@ -18,6 +18,8 @@
     let syncing = null;
     let syncFailed = false;
     let syncReady = false;   // 是否已完成首次云端合并
+    let initialization = null;
+    let legacyProgress = false;
     let connState = 'unknown'; // unknown | ok | bad —— Supabase 项目是否可达
     let connInfo = '';         // 不可达时的中文说明（展示在登录弹窗）
 
@@ -49,9 +51,10 @@
             return { ok: false, reason: 'sdk' };
         }
         const url = CFG.url.replace(/\/+$/, '') + '/auth/v1/health';
+        let timer = null;
         try {
             const ctrl = (typeof AbortController !== 'undefined') ? new AbortController() : null;
-            const timer = ctrl ? setTimeout(() => ctrl.abort(), 10000) : null;
+            timer = ctrl ? setTimeout(() => ctrl.abort(), 10000) : null;
             const res = await fetch(url, {
                 headers: { apikey: CFG.anonKey },
                 signal: ctrl ? ctrl.signal : undefined
@@ -68,6 +71,8 @@
             connState = 'bad';
             connInfo = '无法连接 Supabase 项目（域名解析失败或网络不通）。常见原因：项目被暂停（免费版长期无活动会自动暂停）、项目已删除、或 URL 填错。请到 Supabase Dashboard 检查并恢复项目。';
             return { ok: false, reason: 'network', message: e && e.message };
+        } finally {
+            if (timer) clearTimeout(timer);
         }
     }
 
@@ -131,13 +136,17 @@
         requireCurrent(c);
         const result = await query;
         requireCurrent(c);
-        if (result && result.error) throw new Error(result.error.message || '云端请求失败');
+        if (result && result.error) {
+            const error = new Error(result.error.message || '云端请求失败');
+            error.code = result.error.code;
+            throw error;
+        }
         return result || {};
     }
     function failed(e) {
         if (e.stale) return;
         console.warn('[sync] failed', e.message);
-        if (!syncFailed) ACP.toast('云端同步失败，记录已保存在本机；请点击“同步”重试');
+        if (!syncFailed) ACP.toast('云端同步失败，记录已保存在本机：' + e.message + '；请点击“同步”重试');
         syncFailed = true;
     }
     function enqueue(task) {
@@ -182,7 +191,16 @@
             rows.push(metaRow('study_done:' + id, !!done, (s.studyDoneAt || {})[id], c));
         });
         if (s.studySettings) rows.push(metaRow('study_settings', s.studySettings, s.studySettingsAt, c));
+        Object.entries(s.favState || {}).forEach(([id, rec]) => {
+            rows.push(metaRow('favorite:' + id, !!rec.added, rec.at, c));
+        });
+        if (legacyProgress) Object.entries(s.p || {}).forEach(([id, p]) => rows.push(wrongMetaRow(id, p, c)));
         return rows;
+    }
+    // Older databases store the independent wrong-state timestamp in the existing meta table.
+    function wrongMetaRow(id, p, c) {
+        return metaRow('progress_wrong:' + id, { wrong: p.w || 0 },
+            p.wt === undefined ? (p.t || 0) : p.wt, c);
     }
 
     async function pullAndMerge(c = context()) {
@@ -200,11 +218,23 @@
         store.p = store.p || {};
         store.fav = store.fav || [];
         store.exams = store.exams || [];
-        progress.forEach(r => { store.p[r.question_id] = mergeProgress(store.p[r.question_id], r); });
+        const wrongStates = new Map(meta.filter(r => r.key.startsWith('progress_wrong:') &&
+            r.value && typeof r.value.wrong === 'number').map(r => [r.key.slice(15), r]));
+        progress.forEach(r => {
+            const wrong = wrongStates.get(r.question_id);
+            if (wrong && (r.wrong_updated_at == null || millis(wrong.updated_at) > millis(r.wrong_updated_at))) {
+                r = { ...r, wrong: wrong.value.wrong, wrong_updated_at: wrong.updated_at };
+            }
+            store.p[r.question_id] = mergeProgress(store.p[r.question_id], r);
+        });
         favorites.forEach(r => { if (!store.fav.includes(r.question_id)) store.fav.push(r.question_id); });
         meta.forEach(r => {
             const time = millis(r.updated_at);
-            if (r.key === 'last' && r.value && typeof r.value === 'object') {
+            if (r.key.startsWith('favorite:') && typeof r.value === 'boolean') {
+                const id = r.key.slice(9);
+                const states = store.favState || (store.favState = {});
+                if (!states[id] || time > states[id].at) states[id] = { added: r.value, at: time };
+            } else if (r.key === 'last' && r.value && typeof r.value === 'object') {
                 if ((r.value.t || 0) > ((store.last || {}).t || 0)) store.last = r.value;
             } else if (r.key.startsWith('tutorial:') && r.value && typeof r.value === 'object') {
                 const id = r.key.slice(9);
@@ -225,6 +255,10 @@
                 }
             }
         });
+        Object.entries(store.favState || {}).forEach(([id, rec]) => {
+            store.fav = store.fav.filter(qid => qid !== id);
+            if (rec.added) store.fav.push(id);
+        });
         if (ACP.migrateMovedQids) ACP.migrateMovedQids(store);
         const ids = new Set(store.exams.map(e => e.id));
         (examR.data || []).forEach(r => { if (!ids.has(r.id)) { store.exams.push(r); ids.add(r.id); } });
@@ -236,7 +270,23 @@
     async function upsertRows(table, rows, conflict, c) {
         for (let i = 0; i < rows.length; i += 500) {
             requireCurrent(c);
-            await checked(supabase.from(table).upsert(rows.slice(i, i + 500), { onConflict: conflict }), c);
+            const batch = rows.slice(i, i + 500);
+            const legacyRows = () => batch.map(({ wrong_updated_at, ...row }) => row);
+            // Favorites contain only identity; submitted exams are immutable. Old schemas
+            // allow INSERT but have no UPDATE policy for these two tables.
+            const options = { onConflict: conflict };
+            if (table === 'favorites' || table === 'exam_records') options.ignoreDuplicates = true;
+            try {
+                await checked(supabase.from(table).upsert(
+                    table === 'user_progress' && legacyProgress ? legacyRows() : batch,
+                    options), c);
+            } catch (e) {
+                // Retry only this known schema mismatch; permission/network errors must remain visible.
+                if (table !== 'user_progress' || legacyProgress ||
+                    !['PGRST204', '42703'].includes(e.code) || !/wrong_updated_at/.test(e.message)) throw e;
+                legacyProgress = true;
+                await checked(supabase.from(table).upsert(legacyRows(), options), c);
+            }
         }
     }
     async function pushAll(c = context()) {
@@ -248,6 +298,9 @@
         const rows = learningRows(c);
         if (s.last) rows.push(metaRow('last', s.last, s.last.t, c));
         await upsertRows('user_meta', rows, 'user_id,key', c);
+        for (const [id, rec] of Object.entries(s.favState || {})) {
+            if (!rec.added) await checked(supabase.from('favorites').delete().eq('user_id', c.uid).eq('question_id', id), c);
+        }
         await upsertRows('exam_records', (s.exams || []).map(e => ({
             id: e.id, user_id: c.uid, score: e.score, correct: e.correct, wrong: e.wrong,
             pass: e.pass, time_used: e.time_used, weak_by_ch: e.weak_by_ch || null,
@@ -272,17 +325,28 @@
         return job;
     }
     function realtime(task) {
-        if (!isConfigured() || !uid || !syncReady) return Promise.resolve(false);
-        return enqueue(task);
+        if (!isConfigured() || !uid) return Promise.resolve(false);
+        // Changes made during the initial pull must wait for it, not disappear.
+        return enqueue(c => syncReady ? task(c) : false);
     }
     function pushProgress(qid) {
         return realtime(async c => {
             const p = c.store.p && c.store.p[qid];
-            if (p) await upsertRows('user_progress', [toProgressRow(qid, p, c)], 'user_id,question_id', c);
+            if (p) {
+                const row = toProgressRow(qid, p, c);
+                const wrongRow = wrongMetaRow(qid, p, c);
+                await upsertRows('user_progress', [row], 'user_id,question_id', c);
+                if (legacyProgress) await upsertRows('user_meta', [wrongRow], 'user_id,key', c);
+            }
         });
     }
     function pushFav(qid, added) {
         return realtime(async c => {
+            const rec = (c.store.favState || {})[qid];
+            if (rec) {
+                await upsertRows('user_meta', [metaRow('favorite:' + qid, !!rec.added, rec.at, c)], 'user_id,key', c);
+                added = rec.added;
+            }
             if (added) await upsertRows('favorites', [{ user_id: c.uid, question_id: qid }], 'user_id,question_id', c);
             else await checked(supabase.from('favorites').delete().eq('user_id', c.uid).eq('question_id', qid), c);
         });
@@ -372,7 +436,8 @@
 
     async function signInWithPassword() {
         if (!isConfigured()) { ACP.toast('未配置 Supabase'); return; }
-        const email = (document.getElementById('authEmail') || {}).value || '';
+        await init();
+        const email = ((document.getElementById('authEmail') || {}).value || '').trim();
         const password = (document.getElementById('authPassword') || {}).value || '';
         if (!email || !password) { showAuthMsg('请填写邮箱和密码', 'err'); return; }
         setBtnLoading('authPwdBtn', true);
@@ -392,7 +457,8 @@
 
     async function signUp() {
         if (!isConfigured()) { ACP.toast('未配置 Supabase'); return; }
-        const email = (document.getElementById('authRegEmail') || {}).value || '';
+        await init();
+        const email = ((document.getElementById('authRegEmail') || {}).value || '').trim();
         const password = (document.getElementById('authRegPassword') || {}).value || '';
         const password2 = (document.getElementById('authRegPassword2') || {}).value || '';
         if (!email || !password) { showAuthMsg('请填写邮箱和密码', 'err'); return; }
@@ -491,6 +557,8 @@
         if (newUid === uid && sameOwner && (!newUid || syncReady || syncing)) return;
         if (newUid !== uid || !sameOwner) {
             epoch++;
+            // A stalled request for the previous account cannot block this account.
+            queue = Promise.resolve();
             syncing = null;
             syncReady = false;
             syncFailed = false;
@@ -507,7 +575,16 @@
             await syncNow();
         }
     }
-    async function init() {
+    function init() {
+        if (initialization) return initialization;
+        if (!isConfigured()) {
+            renderAuthButton();
+            return Promise.resolve();
+        }
+        initialization = initialize();
+        return initialization;
+    }
+    async function initialize() {
         renderAuthButton();
         if (configured && !ensureClient()) {
             connState = 'bad';

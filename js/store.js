@@ -63,7 +63,20 @@
             delete s.p[oldId];
             changed = true;
         });
+        Object.keys(s.favState || {}).forEach(oldId => {
+            const newId = map[oldId];
+            if (!newId || newId === oldId || !ACP.ID_MAP[newId]) return;
+            if (!s.favState[newId] || s.favState[oldId].at > s.favState[newId].at) {
+                s.favState[newId] = s.favState[oldId];
+            }
+            delete s.favState[oldId];
+            changed = true;
+        });
         s.fav = (s.fav || []).map(id => (map[id] && ACP.ID_MAP[map[id]]) ? map[id] : id);
+        Object.entries(s.favState || {}).forEach(([id, rec]) => {
+            s.fav = s.fav.filter(qid => qid !== id);
+            if (rec.added) s.fav.push(id);
+        });
         s.fav = Array.from(new Set(s.fav));
         if (s.last && s.last.id && map[s.last.id] && ACP.ID_MAP[map[s.last.id]]) {
             s.last.id = map[s.last.id];
@@ -176,6 +189,8 @@
         const i = ACP.state.store.fav.indexOf(id);
         if (i >= 0) { ACP.state.store.fav.splice(i, 1); ACP.toast('已取消收藏'); }
         else { ACP.state.store.fav.push(id); ACP.toast('已收藏'); }
+        const states = ACP.state.store.favState || (ACP.state.store.favState = {});
+        states[id] = { added: i < 0, at: Math.max(Date.now(), ((states[id] || {}).at || 0) + 1) };
         saveStore();
         if (ACP.sync) ACP.sync.pushFav(id, i < 0);
     }

@@ -8,26 +8,32 @@ const source = name => fs.readFileSync(path.join(__dirname, '..', 'js', name + '
 const clone = value => JSON.parse(JSON.stringify(value));
 const pause = () => new Promise(resolve => setTimeout(resolve, 5));
 
-function harness({ user = 'A', store = {}, rows = {} } = {}) {
+function harness({ user = 'A', store = {}, rows = {}, lateSdk = false } = {}) {
     const memory = new Map([['acp_v2_store', JSON.stringify({ p: {}, fav: [], exams: [], owner: user, ...store })]]);
     const logs = [], writes = [], reads = [];
-    const control = { readError: null, writeError: null, signOutError: null, gate: null };
+    const control = { readError: null, writeError: null, signOutError: null, gate: null, subscriptions: 0, credentials: null,
+        legacySchema: false, missingColumnAttempts: 0 };
     const db = { user_progress: [], favorites: [], user_meta: [], exam_records: [], ...clone(rows) };
     let listener;
     const sb = {
         auth: {
             getSession: async () => ({ data: { session: user ? { user: { id: user } } : null } }),
             getUser: async () => ({ data: { user: { email: 'test@example.invalid' } } }),
-            onAuthStateChange: cb => { listener = cb; },
+            onAuthStateChange: cb => { listener = cb; control.subscriptions++; },
+            signInWithPassword: async credentials => {
+                control.credentials = credentials;
+                if (listener) listener('SIGNED_IN', { user: { id: 'A' } });
+                return { error: null };
+            },
             signOut: async () => ({ error: control.signOutError })
         },
         from(table) {
-            let op = 'select', filters = [], range = [0, 999], input, order, ascending = true;
+            let op = 'select', filters = [], range = [0, 999], input, order, ascending = true, options = {};
             const q = {
                 select() { return q; }, eq(k, v) { filters.push([k, v]); return q; },
                 order(k, opts = {}) { order = k; ascending = opts.ascending !== false; return q; },
                 range(a, b) { range = [a, b]; return q; }, limit(n) { range = [0, n - 1]; return q; },
-                delete() { op = 'delete'; return q; }, upsert(value) { op = 'upsert'; input = clone(Array.isArray(value) ? value : [value]); return q; },
+                delete() { op = 'delete'; return q; }, upsert(value, opts = {}) { op = 'upsert'; options = opts; input = clone(Array.isArray(value) ? value : [value]); return q; },
                 then(resolve, reject) {
                     return (async () => {
                         if (op === 'select') {
@@ -39,12 +45,19 @@ function harness({ user = 'A', store = {}, rows = {} } = {}) {
                             return { data: clone(data.slice(range[0], range[1] + 1)), error: null };
                         }
                         if (control.writeError === table) return { error: { message: 'write denied' } };
+                        if (control.legacySchema && table === 'user_progress' && op === 'upsert' && input.some(r => 'wrong_updated_at' in r)) {
+                            control.missingColumnAttempts++;
+                            return { error: { code: 'PGRST204', message: "Could not find the 'wrong_updated_at' column of 'user_progress' in the schema cache" } };
+                        }
+                        if (control.legacySchema && ['favorites', 'exam_records'].includes(table) && op === 'upsert' && !options.ignoreDuplicates) {
+                            return { error: { code: '42501', message: 'new row violates row-level security policy' } };
+                        }
                         writes.push({ table, op, rows: input });
                         if (op === 'delete') db[table] = db[table].filter(r => !filters.every(([k, v]) => r[k] === v));
                         else for (const row of input) {
                             const keys = table === 'exam_records' ? ['id'] : ['user_id', table === 'user_meta' ? 'key' : 'question_id'];
                             const i = db[table].findIndex(r => keys.every(k => r[k] === row[k]));
-                            if (i < 0) db[table].push(row); else db[table][i] = row;
+                            if (i < 0) db[table].push(row); else if (!options.ignoreDuplicates) db[table][i] = row;
                         }
                         return { error: null };
                     })().then(resolve, reject);
@@ -54,7 +67,7 @@ function harness({ user = 'A', store = {}, rows = {} } = {}) {
         }
     };
     const context = vm.createContext({
-        window: { SUPABASE_CONFIG: { url: 'https://test.invalid', anonKey: 'test' }, supabase: { createClient: () => sb } },
+        window: { SUPABASE_CONFIG: { url: 'https://test.invalid', anonKey: 'test' }, supabase: lateSdk ? null : { createClient: () => sb } },
         document: { getElementById: () => null },
         localStorage: { getItem: k => memory.get(k) || null, setItem: (k, v) => memory.set(k, String(v)), removeItem: k => memory.delete(k) },
         fetch: async () => ({ ok: true }), console: { warn() {} }, setTimeout, clearTimeout, clearInterval,
@@ -66,6 +79,7 @@ function harness({ user = 'A', store = {}, rows = {} } = {}) {
     ACP.toast = text => logs.push(text);
     ACP.render = ACP.renderSidebarBadges = ACP.renderExam = () => {};
     return { ACP, control, db, writes, reads, logs, memory, context,
+        loadSdk() { context.window.supabase = { createClient: () => sb }; },
         async emit(event, id) { listener(event, id ? { user: { id } } : null); await pause(); if (id) await ACP.sync.syncNow(); }
     };
 }
@@ -208,4 +222,114 @@ test('failed sign-out keeps the current account active', async () => {
     await h.ACP.sync.signOut();
     assert.equal(h.ACP.sync.isSignedIn(), true);
     assert.equal(h.ACP.state.store.owner, 'A');
+});
+
+test('late SDK login installs auth listener once and trims the email', async () => {
+    const h = harness({ user: null, lateSdk: true });
+    await h.ACP.sync.init();
+    assert.equal(h.control.subscriptions, 0);
+    h.loadSdk();
+    const fields = { authEmail: { value: '  test@example.invalid  ' }, authPassword: { value: ' secret ' } };
+    h.context.document.getElementById = id => fields[id] || null;
+    await h.ACP.sync.signInWithPassword();
+    await pause();
+    await h.ACP.sync.syncNow();
+    assert.equal(h.ACP.state.store.owner, 'A');
+    assert.deepEqual(h.control.credentials.email, 'test@example.invalid');
+    assert.equal(h.control.credentials.password, ' secret ');
+    await Promise.all([h.ACP.sync.init(), h.ACP.sync.init()]);
+    assert.equal(h.control.subscriptions, 1);
+});
+
+test('new account synchronizes without waiting for a stalled old account request', async () => {
+    const h = harness();
+    let release;
+    h.control.gate = new Promise(resolve => { release = resolve; });
+    const startup = h.ACP.sync.init();
+    await pause();
+    h.control.gate = null;
+    try {
+        const switching = h.emit('SIGNED_IN', 'B');
+        await pause();
+        await pause();
+        assert.ok(h.logs.includes('云端同步完成'), 'B must complete before A is released');
+        assert.equal(h.ACP.state.store.owner, 'B');
+        await switching;
+    } finally {
+        release();
+        await startup;
+    }
+});
+
+test('failed favorite removal survives retry and is understood by another device', async () => {
+    const h = harness({ store: { fav: ['q'] }, rows: { favorites: [{ user_id: 'A', question_id: 'q' }] } });
+    await h.ACP.sync.init();
+    h.control.writeError = 'user_meta';
+    h.ACP.toggleFav('q');
+    await pause();
+    assert.equal(h.ACP.isFav('q'), false);
+    h.control.writeError = null;
+    await h.ACP.sync.syncNow();
+    assert.equal(h.ACP.isFav('q'), false);
+    assert.equal(h.db.favorites.length, 0);
+    assert.equal(h.db.user_meta.find(r => r.key === 'favorite:q').value, false);
+    const other = harness({ store: { fav: ['q'] }, rows: h.db });
+    await other.ACP.sync.init();
+    assert.equal(other.ACP.isFav('q'), false);
+    other.ACP.toggleFav('q');
+    await other.ACP.sync.syncNow();
+    assert.equal(other.db.user_meta.find(r => r.key === 'favorite:q').value, true);
+});
+
+test('favorite cancellation during initial pull is retained and uploaded', async () => {
+    const h = harness({ store: { fav: ['q'] }, rows: { favorites: [{ user_id: 'A', question_id: 'q' }] } });
+    let release;
+    h.control.gate = new Promise(resolve => { release = resolve; });
+    const startup = h.ACP.sync.init();
+    await pause();
+    h.ACP.toggleFav('q');
+    release();
+    await startup;
+    await h.ACP.sync.syncNow();
+    assert.equal(h.ACP.isFav('q'), false);
+    assert.equal(h.db.favorites.length, 0);
+    assert.equal(h.db.user_meta.find(r => r.key === 'favorite:q').value, false);
+});
+
+test('deployed legacy schema syncs without the new column or favorite/exam UPDATE policies', async () => {
+    const h = harness({ store: {
+        p: { q: { d: 2, w: 1, c: 0, a: ['B'], t: 1000, wt: 1000 } }, fav: ['q'],
+        exams: [{ id: 'exam', score: 80, correct: 60, wrong: 15, pass: true, created_at: new Date(1000).toISOString() }]
+    } });
+    h.control.legacySchema = true;
+    await h.ACP.sync.init();
+    assert.ok(h.logs.includes('云端同步完成'));
+    assert.equal(h.control.missingColumnAttempts, 1);
+    assert.equal(h.db.user_progress[0].done, 2);
+    assert.equal(h.db.user_meta.find(r => r.key === 'progress_wrong:q').value.wrong, 1);
+    h.ACP.clearWrong('q');
+    await h.ACP.sync.syncNow();
+    assert.equal(h.db.user_progress[0].wrong, 0);
+    assert.equal(h.db.user_meta.find(r => r.key === 'progress_wrong:q').value.wrong, 0);
+    assert.equal(h.control.missingColumnAttempts, 1, 'remember compatibility for subsequent writes');
+    assert.equal(h.db.favorites.length, 1);
+    assert.equal(h.db.exam_records.length, 1);
+
+    const other = harness({ store: { p: { q: { d: 2, w: 1, c: 0, t: 1000, wt: 1000 } } }, rows: h.db });
+    other.control.legacySchema = true;
+    await other.ACP.sync.init();
+    assert.equal(other.ACP.state.store.p.q.w, 0, 'metadata carries removal to other devices');
+    assert.ok(other.logs.includes('云端同步完成'));
+    other.ACP.markResult({ id: 'q' }, false, ['C']);
+    await other.ACP.sync.syncNow();
+    assert.equal(other.db.user_meta.find(r => r.key === 'progress_wrong:q').value.wrong, 1);
+});
+
+test('permission errors remain visible and do not trigger schema fallback', async () => {
+    const h = harness({ store: { p: { q: { d: 1 } } } });
+    h.control.writeError = 'user_progress';
+    await h.ACP.sync.init();
+    assert.equal(h.control.missingColumnAttempts, 0);
+    assert.ok(h.logs.some(s => s.includes('write denied')));
+    assert.equal(h.logs.includes('云端同步完成'), false);
 });
