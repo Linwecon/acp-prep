@@ -8,6 +8,52 @@ const source = name => fs.readFileSync(path.join(__dirname, '..', 'js', name + '
 const clone = value => JSON.parse(JSON.stringify(value));
 const pause = () => new Promise(resolve => setTimeout(resolve, 5));
 
+test('submitted paper survives failed upload, retry and a fresh device; review is immutable', async () => {
+    const h = harness();
+    await h.ACP.sync.init();
+    h.ACP.uuid = () => 'paper-test';
+    const question = { id: 'q', ch: '1', multi: false, stem: 'Original question',
+        options: [{ label: 'A', text: 'Original option' }], ansArr: ['A'], analysis: 'Original explanation' };
+    h.ACP.state.exam = { state: 'on', pool: [question], answers: { 0: ['A'] }, startAt: Date.now() };
+    h.control.writeError = 'user_meta';
+    h.ACP.submitExam(true);
+    h.ACP.submitExam(true);
+    await pause();
+    assert.equal(h.ACP.state.store.exams.length, 1, 'duplicate submission is ignored');
+    question.stem = 'Changed bank question';
+    assert.equal(h.ACP.state.store.exams[0].paper.pool[0].stem, 'Original question');
+    assert.equal(h.db.exam_records.length, 0, 'summary cannot imply a paper was uploaded');
+    assert.ok(h.logs.some(s => s.includes('云端同步失败')));
+    h.control.writeError = null;
+    await h.ACP.sync.syncNow();
+    await h.ACP.sync.syncNow();
+    assert.equal(h.db.exam_records.length, 1);
+    const other = harness({ rows: h.db });
+    await other.ACP.sync.init();
+    assert.deepEqual(clone(other.ACP.state.store.exams[0].paper), clone(h.ACP.state.store.exams[0].paper));
+    other.ACP.openExamHistory(0);
+    assert.equal(other.ACP.state.exam.result.score, 1);
+    assert.equal(other.ACP.isExamCorrect(0), true);
+    other.ACP.state.exam.state = 'review';
+    other.ACP.examOpt('B');
+    assert.deepEqual(clone(other.ACP.state.exam.answers[0]), ['A']);
+    assert.equal(other.ACP.state.store.p.q.d, 1, 'review does not record a new attempt');
+    const stranger = harness({ user: 'B', rows: h.db });
+    await stranger.ACP.sync.init();
+    assert.equal(stranger.ACP.state.store.exams.length, 0);
+});
+
+test('all exam history is retained beyond the former 100 record limit', async () => {
+    const records = Array.from({ length: 105 }, (_, i) => ({ id: 'exam-' + i, user_id: 'A',
+        score: 80, correct: 60, wrong: 15, pass: true, created_at: new Date(i * 1000).toISOString() }));
+    const h = harness({ rows: { exam_records: records } });
+    await h.ACP.sync.init();
+    assert.equal(h.ACP.state.store.exams.length, 105);
+    assert.equal(h.ACP.state.store.exams[0].id, 'exam-104');
+    h.ACP.openExamHistory(0);
+    assert.equal(h.ACP.state.exam, null, 'summary-only legacy records cannot open as papers');
+});
+
 function harness({ user = 'A', store = {}, rows = {}, lateSdk = false } = {}) {
     const memory = new Map([['acp_v2_store', JSON.stringify({ p: {}, fav: [], exams: [], owner: user, ...store })]]);
     const logs = [], writes = [], reads = [];

@@ -210,8 +210,7 @@
         const [progress, favorites, meta, examR] = await Promise.all([
             readAll('user_progress', 'question_id', c), readAll('favorites', 'question_id', c),
             readAll('user_meta', 'key', c),
-            checked(supabase.from('exam_records').select('*').eq('user_id', c.uid)
-                .order('created_at', { ascending: false }).limit(100), c)
+            readAll('exam_records', 'id', c)
         ]);
         requireCurrent(c);
         const store = c.store;
@@ -261,9 +260,13 @@
         });
         if (ACP.migrateMovedQids) ACP.migrateMovedQids(store);
         const ids = new Set(store.exams.map(e => e.id));
-        (examR.data || []).forEach(r => { if (!ids.has(r.id)) { store.exams.push(r); ids.add(r.id); } });
+        examR.forEach(r => { if (!ids.has(r.id)) { store.exams.push(r); ids.add(r.id); } });
+        const papers = new Map(meta.filter(r => r.key.startsWith('exam_paper:')).map(r => [r.key.slice(11), r.value]));
+        store.exams.forEach(e => {
+            const paper = papers.get(e.id);
+            if (!e.paper && paper && Array.isArray(paper.pool) && paper.pool.length) e.paper = paper;
+        });
         store.exams.sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
-        store.exams = store.exams.slice(0, 100);
         ACP.saveStore();
         syncReady = true;
     }
@@ -296,6 +299,9 @@
         await upsertRows('user_progress', Object.entries(s.p || {}).map(([id, p]) => toProgressRow(id, p, c)), 'user_id,question_id', c);
         await upsertRows('favorites', (s.fav || []).map(id => ({ user_id: c.uid, question_id: id })), 'user_id,question_id', c);
         const rows = learningRows(c);
+        (s.exams || []).forEach(e => {
+            if (e.paper) rows.push(metaRow('exam_paper:' + e.id, e.paper, millis(e.created_at), c));
+        });
         if (s.last) rows.push(metaRow('last', s.last, s.last.t, c));
         await upsertRows('user_meta', rows, 'user_id,key', c);
         for (const [id, rec] of Object.entries(s.favState || {})) {
@@ -352,11 +358,18 @@
         });
     }
     function pushExam(record) {
-        return realtime(c => upsertRows('exam_records', [{
+        return realtime(async c => {
+            // Existing per-user JSON storage keeps complete papers without a schema migration.
+            if (record.paper) await upsertRows('user_meta', [
+                metaRow('exam_paper:' + record.id, record.paper, millis(record.created_at), c)
+            ], 'user_id,key', c);
+            await upsertRows('exam_records', [{
             id: record.id, user_id: c.uid, score: record.score, correct: record.correct,
             wrong: record.wrong, pass: record.pass, time_used: record.time_used,
             weak_by_ch: record.weak_by_ch || null, created_at: record.created_at
-        }], 'id', c));
+            }], 'id', c);
+            return true;
+        });
     }
     function pushLast() {
         return realtime(c => c.store.last && upsertRows('user_meta', [metaRow('last', c.store.last, c.store.last.t, c)], 'user_id,key', c));

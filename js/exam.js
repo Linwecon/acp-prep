@@ -18,10 +18,10 @@
 
     function examHistoryHTML(limit = 8) {
         const exams = S.store.exams || [];
-        if (!exams.length) return '';
-        const rows = exams.slice(0, limit).map((e, i) => {
+        if (!exams.length) return '<div class="section-title">历史试卷</div><p class="hint">暂无考试记录，交卷后会自动保存。登录后可同步到云端。</p>';
+        const rows = exams.map((e, i) => {
             const d = new Date(e.created_at);
-            const date = `${d.getMonth() + 1}/${d.getDate()} ${String(d.getHours()).padStart(2, '0')}:${String(d.getMinutes()).padStart(2, '0')}`;
+            const date = `${d.getFullYear()}/${d.getMonth() + 1}/${d.getDate()} ${String(d.getHours()).padStart(2, '0')}:${String(d.getMinutes()).padStart(2, '0')}`;
             const mm = String(Math.floor((e.time_used || 0) / 60)).padStart(2, '0');
             const ss = String((e.time_used || 0) % 60).padStart(2, '0');
             return `
@@ -31,11 +31,26 @@
             <span class="hist-meta">对 ${e.correct} · 错 ${e.wrong}</span>
             <span class="hist-meta">${mm}:${ss}</span>
             <span class="hist-time">${date}</span>
+            ${e.paper && e.paper.pool && e.paper.pool.length ? `<button class="btn btn-sm" onclick="ACP.openExamHistory(${i})">查看试卷</button>` : '<span class="hint">旧记录仅保存成绩</span>'}
           </div>`;
-        }).join('');
+        });
         return `
-      <div class="section-title">历史试卷 <span class="hint">最近 ${Math.min(limit, exams.length)} 次</span></div>
-      <div class="exam-history">${rows}</div>`;
+      <div class="section-title">历史试卷 <span class="hint">共 ${exams.length} 次</span></div>
+      <div class="exam-history">${rows.slice(0, limit).join('')}${rows.length > limit ? `<details><summary>查看更早的 ${rows.length - limit} 次考试</summary>${rows.slice(limit).join('')}</details>` : ''}</div>`;
+    }
+
+    function openExamHistory(index) {
+        if (S.exam && S.exam.state === 'on') return;
+        const record = (S.store.exams || [])[index];
+        if (!record || !record.paper || !record.paper.pool.length) return;
+        stopExamTimer();
+        const paper = JSON.parse(JSON.stringify(record.paper));
+        S.exam = {
+            state: 'done', idx: 0, pool: paper.pool, answers: paper.answers || {},
+            result: { score: record.score, correct: record.correct, wrong: record.wrong,
+                pass: record.pass, timeUsed: record.time_used || 0, weakByCh: record.weak_by_ch || {} }
+        };
+        ACP.renderExam(document.getElementById('contentInner'));
     }
 
     function renderExam(root) {
@@ -267,13 +282,19 @@
             pass: score >= 80,
             time_used: S.exam.result.timeUsed,
             weak_by_ch: weakByCh,
+            paper: JSON.parse(JSON.stringify({ pool: S.exam.pool, answers: S.exam.answers })),
             created_at: new Date().toISOString()
         };
         S.store.exams = S.store.exams || [];
         S.store.exams.unshift(record);
-        S.store.exams = S.store.exams.slice(0, 100);
         ACP.saveStore();
-        if (ACP.sync) ACP.sync.pushExam(record);
+        if (ACP.sync) {
+            const ownerStore = S.store;
+            ACP.sync.pushExam(record).then(saved => {
+                if (saved && S.store === ownerStore) ACP.toast('本次试卷和作答已保存到云端');
+            });
+        }
+        if (!ACP.sync || !ACP.sync.isSignedIn()) ACP.toast('试卷已保存在本机；登录账号后参加考试可自动保存到云端');
 
         ACP.renderSidebarBadges();
         ACP.renderExam(document.getElementById('contentInner'));
@@ -347,6 +368,7 @@
     }
 
     ACP.renderExam = renderExam;
+    ACP.openExamHistory = openExamHistory;
     ACP.startExam = startExam;
     ACP.quotaAlloc = quotaAlloc;
     ACP.toggleOutlineAll = toggleOutlineAll;
