@@ -1,0 +1,563 @@
+QID: 6-0773
+TYPE: 单选
+ANSWER: C
+STEM: 某开发者使用开源大模型进行本地部署，发现模型推理速度过慢，影响用户体验。以下哪种优化措施不适用？
+  A. 对模型进行量化（如从 FP32 转为 INT8）
+  B. 减少模型的上下文窗口大小
+  C. 增加服务器的 CPU 核心数（模型仅依赖 GPU 推理）
+  D. 使用模型蒸馏技术，简化模型结构
+CURRENT_ANALYSIS: 暂无
+
+QID: 6-1275
+TYPE: 单选
+ANSWER: B
+STEM: 使用wrk进行压测时，-d10s参数表示?
+  A. 并发连接数为10
+  B. 持续压测时间10秒
+  C. 每秒请求10次
+  D. 使用10个线程
+CURRENT_ANALYSIS: -d参数指定测试持续时间
+
+QID: 6-1103
+TYPE: 单选
+ANSWER: B
+STEM: 某企业需要部署一个大模型，不定期地自动分析现有的产品文档，并产出改进建议，以下哪一种方式可以在满足业务需求的同时最大化降低运行成本？：
+  A. 通过按量付费方式创建 GPU 资源
+  B. 使用抢占式实例（Spot Instance），同时设计好任务中断的自动恢复机制
+  C. 购买显卡并搭建本地服务器
+  D. 通过预付费（包年包月）方式创建 GPU 资源
+CURRENT_ANALYSIS: 暂无
+
+QID: 6-1124
+TYPE: 单选
+ANSWER: C
+STEM: 以下哪种方式有助于在大模型多轮对话场景中，保障生成内容质量的同时，降低成本，并提升响应速度？
+  A. 使用 Batch API
+  B. 并行调用大模型 API
+  C. 使用支持上下文缓存的大模型 API
+  D. 使用经过量化的模型
+CURRENT_ANALYSIS: 暂无
+
+QID: 6-1304
+TYPE: 多选
+ANSWER: A,B,C
+STEM: 压测工具wrk的关键参数包括?
+  A. "-c(并发连接数)"
+  B. "-d(持续时间)"
+  C. "-s(Lua脚本路径)"
+  D. "-g(生成报告)"
+CURRENT_ANALYSIS: 暂无
+
+QID: 6-0876
+TYPE: 多选
+ANSWER: A,B,D,E
+STEM: 在部署大型模型服务时，以下哪些措施有助于优化系统性能和成本？
+  A. 使用模型量化技术减少内存占用和推理延迟
+  B. 实现动态批处理以提高GPU利用率
+  C. 采用持续的预训练来提升模型通用能力
+  D. 设置合理的请求超时和重试机制
+  E. 使用缓存机制存储频繁请求的响应
+CURRENT_ANALYSIS: 暂无
+
+QID: 6-0983
+TYPE: 多选
+ANSWER: A,B,C,D,E
+STEM: 在优化大模型应用的成本效益时，以下哪些策略是有效的？（）
+  A. 根据业务需求选择合适的模型规模
+  B. 实施请求频率限制和配额管理
+  C. 使用模型量化等推理优化技术
+  D. 建立监控体系识别异常使用模式
+  E. 考虑混合云部署平衡性能与成本
+CURRENT_ANALYSIS: 暂无
+
+QID: 6-1088
+TYPE: 多选
+ANSWER: B,C,D
+STEM: 某金融智能风控系统在高峰期偶尔出现模型不可用的情况，以下哪些方案可以作为降级策略？
+  A. 增加 GPU 实例数量
+  B. 切换至规则引擎兜底
+  C. 使用备份模型继续服务
+  D. 关闭部分非核心功能
+CURRENT_ANALYSIS: 暂无
+
+QID: 6-1328
+TYPE: 多选
+ANSWER: A,B
+STEM: 以下哪些是 vLLM 启动命令的有效参数？
+  A. --port 8000
+  B. --load-format "safetensors"
+  C. --model-name "qwen"
+  D. --gpu-memory 16GB
+CURRENT_ANALYSIS: 暂无
+
+QID: 7-0072
+TYPE: 单选
+ANSWER: A
+STEM: 在优化 context recall 指标时，以下哪种方法可以提升召回的准确率？
+  A. 使用大模型改写 query
+  B. 增加模型的训练数据
+  C. 减少模型的推理时间
+  D. 增加模型的参数数量
+CURRENT_ANALYSIS: 暂无
+
+QID: 7-0090
+TYPE: 单选
+ANSWER: A
+STEM: 在 Ragas 中，context recall 指标主要衡量什么？
+  A. 评估 RA 应用在检查阶段的表现
+  B. 评估生成答案的准确度
+  C. 增加模型的训练数据
+  D. 减少模型的推理时间
+CURRENT_ANALYSIS: 暂无
+
+QID: 7-0092
+TYPE: 单选
+ANSWER: A
+STEM: 在优化 answer correctness 指标时，以下哪种方法可以提升生成答案的准确度？
+  A. 调整大模型生成的超参数（如 temperature）
+  B. 增加模型的训练数据
+  C. 减少模型的推理时间
+  D. 增加模型的参数数量
+CURRENT_ANALYSIS: 暂无
+
+QID: 7-0100
+TYPE: 单选
+ANSWER: A
+STEM: Ragas 提供的以下哪个指标用于评估生成答案与检索资料的事实一致性？
+  A. Faithfulness
+  B. Answer Relevancy
+  C. Context Precision
+  D. Context Recall
+CURRENT_ANALYSIS: 暂无
+
+QID: 7-0122
+TYPE: 单选
+ANSWER: A
+STEM: 在 Answer Correctness 的计算过程中，以下哪个指标用于衡量 answer 与 ground_truth 在事实描述上的差异？
+  A. 事实准确度
+  B. 语义相似度
+  C. 增加模型的训练数据
+  D. 减少模型的推理时间
+CURRENT_ANALYSIS: 暂无
+
+QID: 7-0165
+TYPE: 单选
+ANSWER: A
+STEM: Ragas 提供的 Faithfulness 指标用于评估什么?
+  A. 生成答案与检索资料的事实一致性
+  B. RAG 应用生成答案的准确度
+  C. 生成答案与问题的相关性
+  D. 相关参考资料被检索到的数量
+CURRENT_ANALYSIS: 暂无
+
+QID: 7-0231
+TYPE: 单选
+ANSWER: A
+STEM: Ragas 提供的 Context Precision 指标用于评估什么?
+  A. contexts 中与准确答案相关的条目是否排名靠前、占比高
+  B. RAG 应用生成答案的准确度
+  C. 生成答案与问题的相关性
+  D. 相关参考资料被检索到的数量
+CURRENT_ANALYSIS: 暂无
+
+QID: 7-0290
+TYPE: 单选
+ANSWER: A
+STEM: 在 context recall 的计算过程中，首先需要完成哪一步准备？
+  A. 由大模型将 ground_trut分解成观点列表
+  B. 增加模型的训练数据
+  C. 减少模型的推理时间
+  D. 增加模型的参数数量
+CURRENT_ANALYSIS: 暂无
+
+QID: 7-0188
+TYPE: 单选
+ANSWER: A
+STEM: 在 context recall 的计算过程中，以下哪一步用于核验召回内容是否覆盖 ground truth 观点？
+  A. 由大模型判断每个观点是否能在 contexts 中找到依据
+  B. 增加模型的训练数据
+  C. 减少模型的推理时间
+  D. 增加模型的参数数量
+CURRENT_ANALYSIS: 暂无
+
+QID: 7-1116
+TYPE: 单选
+ANSWER: B
+STEM: 在进行 RAG 应用评测时，应该如何获取测试集中的正确答案（ground_truth）？
+  A. 由性能最强的大模型进行编写
+  B. 由该领域的专家进行编写
+  C. 由数据工程师进行编写
+  D. 由算法工程师进行编写
+CURRENT_ANALYSIS: 暂无
+
+QID: 7-1459
+TYPE: 多选
+ANSWER: A,B,C
+STEM: ROUGE指标的核心评估维度包括？
+  A. 召回率
+  B. 精确率
+  C. F1分数
+  D. 余弦相似度
+CURRENT_ANALYSIS: 暂无
+
+QID: 7-0370
+TYPE: 单选
+ANSWER: C
+STEM: 在批量处理上万个问卷的过程中，大模型API相比传统的人工处理方式，最大的优势是什么？
+  A. 处理速度慢，但准确率极高
+  B. 需要大量人力物力投入
+  C. 能够保持高度一致性和效率，同时处理大量数据
+  D. 只能处理结构化数据，无法理解自由文本
+CURRENT_ANALYSIS: 暂无
+
+QID: 7-0465
+TYPE: 多选
+ANSWER: A,B
+STEM: Ragas 提供的以下哪些指标用于评估生成环节?
+  A. Answer Relevancy
+  B. Faithfulness
+  C. Context Precision
+  D. Context Recall
+CURRENT_ANALYSIS: 暂无
+
+QID: 7-0471
+TYPE: 多选
+ANSWER: A,B
+STEM: 在 Answer Correctness 的计算过程中，以下哪些是事实准确度的比较对象？
+  A. answer 的观点列表
+  B. ground_truth 的观点列表
+  C. 增加模型的训练数据
+  D. 减少模型的推理时间
+CURRENT_ANALYSIS: 暂无
+
+QID: 7-0475
+TYPE: 多选
+ANSWER: A,B
+STEM: 在 context precision 的计算过程中，以下哪些是判断 contexti 是否相关的依据？
+  A. question
+  B. ground_truth
+  C. 增加模型的训练数据
+  D. 减少模型的推理时间
+CURRENT_ANALYSIS: 暂无
+
+QID: 7-1174
+TYPE: 单选
+ANSWER: C
+STEM: 下面哪个 Python 库函数常用于计算 F1 分数？
+  A. sklearn.metrics.recall_score
+  B. sklearn.metrics.accuracy_score
+  C. sklearn.metrics.f1_score
+  D. sklearn.metrics.precision_score
+CURRENT_ANALYSIS: 暂无
+
+QID: 7-0186
+TYPE: 单选
+ANSWER: A
+STEM: evaluate 函数的主要作用是什么？
+  A. 评估数据集的答案正确性
+  B. 增加模型的训练数据
+  C. 减少模型的推理时间
+  D. 增加模型的参数数量
+CURRENT_ANALYSIS: 暂无
+
+QID: 7-0825
+TYPE: 单选
+ANSWER: D
+STEM: 你正在开发一款面向客户的智能客服助手，主要功能包括产品咨询订单查询和售后 服务支持。在初步开发阶段，应该优先针对哪方面进行评测？
+  A. 界面交互设计的友好程度
+  B. 系统对高峰期并发请求的处理能力
+  C. 客户提问响应的时间
+  D. 大模型对用户的意图理解准确率
+CURRENT_ANALYSIS: 暂无
+
+QID: 8-0245
+TYPE: 单选
+ANSWER: A
+STEM: 在自定义提示词模板中，以下哪项是用于处理涉及隐私问题的注意事项？
+  A. 提醒用户问题触及及安全红线，无法提供
+  B. 增加模型的训练数据
+  C. 减少模型的推理时间
+  D. 增加模型的参数数量
+CURRENT_ANALYSIS: 暂无
+
+QID: 8-0301
+TYPE: 单选
+ANSWER: C
+STEM: 在大模型应用备案的过程中，未完成合规手续的应用将会面临什么样的处理措施？
+  A. 数据删除
+  B. 服务降级
+  C. 应用下架
+  D. 数据压缩
+CURRENT_ANALYSIS: 暂无
+
+QID: 8-0343
+TYPE: 单选
+ANSWER: C
+STEM: 在大语言模型的安全风险中，"不安全的插件设计"可能导致哪些后果？
+  A. 模型生成的文本含有歧视性内容
+  B. 模型无法处理政治敏感话题
+  C. 插件可能存在不安全的输入和不足的访问控制
+  D. 模型无法生成准确的时效性信息
+CURRENT_ANALYSIS: 暂无
+
+QID: 8-0346
+TYPE: 单选
+ANSWER: C
+STEM: 在大模型安全治理中，如何识别和避免对用户输入的非法查询进行响应？
+  A. 增加训练数据量
+  B. 引导用户输入示范
+  C. 利用大模型服务平台的快速干预功能
+  D. 提高模型的复杂性
+CURRENT_ANALYSIS: 暂无
+
+QID: 8-0348
+TYPE: 单选
+ANSWER: D
+STEM: 在合规与数据安全方面，以下哪项措施对于保护敏感数据在微调过程中不被泄露不是必要的？
+  A. 对数据集进行去标识化处理，移除个人可识别信息
+  B. 在传输和存储过程中实施加密技术
+  C. 在公开分享模型时，仅分享模型参数而非训练数据
+  D. 定期对模型进行非功能性测试，确保其性能稳定
+CURRENT_ANALYSIS: 暂无
+
+QID: 8-0353
+TYPE: 单选
+ANSWER: B
+STEM: 在使用大型语言模型之前，用户首先应该做什么？
+  A. 直接开始使用模型
+  B. 阅读并理解服务条款和隐私政策
+  C. 尝试模型的所有功能
+  D. 与模型进行多次交互
+CURRENT_ANALYSIS: 暂无
+
+QID: 8-0371
+TYPE: 单选
+ANSWER: A
+STEM: 在大模型的使用过程中，以下哪项属于其主要的安全合规风险？
+  A. 个人信息风险
+  B. 数据存储成本风险
+  C. 数据压缩风险
+  D. 模型训练效率风险
+CURRENT_ANALYSIS: 暂无
+
+QID: 8-0454
+TYPE: 单选
+ANSWER: B
+STEM: 小李作为某RAG智能答疑机器人应用的负责人，发现机器人输出的内容包含不安全信息，以下哪种做法最不推荐？
+  A. 过滤掉不安全信息，返回剩余安全内容
+  B. 直接将原始输出返回给用户
+  C. 向用户返回提示信息，告知其输出内容存在风险
+  D. 记录不安全信息，用于后续模型改进和安全策略优化
+CURRENT_ANALYSIS: 暂无
+
+QID: 8-1212
+TYPE: 单选
+ANSWER: C
+STEM: 本地部署相比云端部署的主要优势是?
+  A. 动态资源扩展
+  B. 更低延迟
+  C. 数据安全性更高
+  D. 运维成本更低
+CURRENT_ANALYSIS: 数据安全性是最重要的
+
+QID: 8-1071
+TYPE: 单选
+ANSWER: D
+STEM: 作为应用开发者，如果想要让大模型避免回答与个人隐私相关的问题，最推荐在哪个角色中设置相应的限制？
+  A. user
+  B. assistant
+  C. 任何角色都可以
+  D. system
+CURRENT_ANALYSIS: 暂无
+
+QID: 8-1151
+TYPE: 单选
+ANSWER: C
+STEM: 开发过程中，你注意到系统日志显示大模型对某工具函数调用频率异常高，但调用结果经常出错，最可能的原因是什么？
+  A. 大模型的计算资源不足
+  B. 该工具函数的调用接口存在安全漏洞
+  C. 该工具函数的描述过于宽泛，导致大模型误以为适用于多种任务
+  D. 用户输入错误导致大模型误调用该工具
+CURRENT_ANALYSIS: 暂无
+
+QID: 8-0341
+TYPE: 单选
+ANSWER: C
+STEM: 使用Python notebook调用大模型API处理调查问卷时，以下哪个步骤不是必要的？
+  A. 安装并配置API软件依赖库
+  B. 编写代码循环遍历每份问卷并调用大模型接口
+  C. 为每种可能的问卷答案编写详细的人工判断逻辑
+  D. 设置API密钥以授权访问大模型服务
+CURRENT_ANALYSIS: 暂无
+
+QID: 8-0461
+TYPE: 单选
+ANSWER: D
+STEM: 在多模态场景下，用户向基于RAG的智能答疑机器人提交报销申请，以下哪种情况不需要进行内容安全合规检查？
+  A. 用户提交的文本描述
+  B. 用户上传的发票图片
+  C. 机器人返回的报销审批结果
+  D. 用户的个人账户余额
+CURRENT_ANALYSIS: 暂无
+
+QID: 8-0613
+TYPE: 多选
+ANSWER: A,B,C,D
+STEM: 在确保合规与数据安全方面，微调大模型项目需要关注哪些方面？
+  A. 获取并遵守数据使用的合法授权
+  B. 实施数据脱敏和隐私保护措施，避免泄露敏感信息
+  C. 建立数据审计机制，追踪数据使用情况
+  D. 采用加密技术保护数据传输和存储的安全
+CURRENT_ANALYSIS: 暂无
+
+QID: 8-1139
+TYPE: 单选
+ANSWER: B
+STEM: 在开发一个需要调用大模型 API 的应用时，为了保护敏感信息不被泄露，以下哪种方式是处理 API Key 的安全做法？
+  A. 在代码中写入 API Key
+  B. 将 API Key 存储到环境变量中
+  C. 在代码注释中记录 API Key
+  D. 将 API Key 保存在公开的配置文件中
+CURRENT_ANALYSIS: 暂无
+
+QID: 8-1214
+TYPE: 多选
+ANSWER: A,B
+STEM: 大模型应用备案的核心要求包括?
+  A. 完成算法备案
+  B. 建立内容过滤机制
+  C. 开源模型参数
+  D. 每日提交运行报告
+CURRENT_ANALYSIS: 暂无
+
+QID: 8-0584
+TYPE: 多选
+ANSWER: A,B,D,E
+STEM: 如何引导大型语言模型提供合规、无害内容的产生？
+  A. 明确使用目标与生成内容范围
+  B. 设计内容时进行多轮审查
+  C. 允许模型自由生成任何内容
+  D. 主动设置内容过滤机制
+  E. 审查并确保内容符合社会伦理标准和法律法规
+  F. 忽略对模型输出内容的审核
+CURRENT_ANALYSIS: 暂无
+
+QID: 8-0663
+TYPE: 多选
+ANSWER: A,B,C,D,E
+STEM: 大模型可能存在的风险包括以下哪些?
+  A. 生成虚假或误导性信息
+  B. 泄露训练数据中的隐私信息
+  C. 产生带有偏见或不公平的内容
+  D. 被恶意利用生成有害内容
+  E. 消耗大量计算资源和能源
+CURRENT_ANALYSIS: 暂无
+
+QID: 8-0705
+TYPE: 多选
+ANSWER: A,B,C,D,E
+STEM: 关于大模型的安全防护，以下哪些措施是有效的？
+  A. 输入输出内容过滤
+  B. 对抗性攻击检测
+  C. 安全对齐训练
+  D. 红队测试
+  E. 权限控制和访问管理
+CURRENT_ANALYSIS: 暂无
+
+QID: 8-0707
+TYPE: 多选
+ANSWER: A,B,C,E
+STEM: 关于大模型的伦理治理，以下哪些做法是推荐的？
+  A. 建立多学科参与的伦理审查委员会
+  B. 开展针对模型偏见和公平性的评估
+  C. 制定明确的内容安全红线策略
+  D. 对模型能力进行过度宣传以获取投资
+  E. 建立透明的用户告知和同意机制
+CURRENT_ANALYSIS: 暂无
+
+QID: 8-0905
+TYPE: 多选
+ANSWER: A,B,C,D,E
+STEM: 在构建面向企业的大型应用时，以下哪些因素是需要重点考虑的？（）
+  A. 数据隐私和安全合规要求
+  B. 与现有系统的集成能力
+  C. 应用的可维护性和扩展性
+  D. 终端用户的使用体验
+  E. 总体拥有成本（TCO）
+CURRENT_ANALYSIS: 暂无
+
+QID: 8-0906
+TYPE: 多选
+ANSWER: A,B,C,D,E
+STEM: 在构建面向特定行业的大型模型应用时，以下哪些挑战是常见的？（）
+  A. 领域专业术语和知识的准确理解
+  B. 行业合规性和数据安全要求
+  C. 与现有工作流程的整合
+  D. 用户对新技术接受度不同
+  E. 领域数据的获取和质量保障
+CURRENT_ANALYSIS: 暂无
+
+QID: 8-0958
+TYPE: 多选
+ANSWER: A,B,C,D,E
+STEM: 在评估大模型生成内容的质量时，以下哪些维度是重要的？（）
+  A. 相关性和准确性
+  B. 流畅度和连贯性
+  C. 安全性和合规性
+  D. 信息量和深度
+  E. 风格和语调的恰当性
+CURRENT_ANALYSIS: 暂无
+
+QID: 8-0981
+TYPE: 多选
+ANSWER: A,B,C,D,E
+STEM: 在选择大模型解决方案时，需要评估以下哪些方面？
+  A. 模型能力和性能表现
+  B. 成本和资源需求
+  C. 部署和维护复杂度
+  D. 社区生态和支持
+  E. 合规性和安全认证
+CURRENT_ANALYSIS: 暂无
+
+QID: 8-0604
+TYPE: 多选
+ANSWER: A,B,C,D
+STEM: 利用大模型API开发应用时，开发者需要注意的事项包括：
+  A. 数据隐私和安全问题
+  B. 控制和应对模型输出的不确定性
+  C. 成本控制，避免无限制的API调用
+  D. 模型的版权和使用条款遵守
+  E. 必须具备高级编程技能才能使用
+CURRENT_ANALYSIS: 暂无
+
+QID: 8-0907
+TYPE: 多选
+ANSWER: A,B,C,D,E
+STEM: 在构建企业级大模型应用时，以下哪些是重要的考虑因素？
+  A. 数据隐私和安全合规性
+  B. 模型输出的可解释性
+  C. 系统集成和API设计
+  D. 成本效益分析和ROI
+  E. 技术债务和长期维护
+CURRENT_ANALYSIS: 暂无
+
+QID: 8-1318
+TYPE: 单选
+ANSWER: C
+STEM: 在 RAG 场景中，以下哪种应用最适合采用规则匹配式文本合规检测？
+  A. 识别文章中蕴含的复杂情感
+  B. 判断用户评论是否包含特定品牌的广告信息
+  C. 检测用户上传的文本是否包含明确的违禁词汇
+  D. 理解用户提问的深层含义
+CURRENT_ANALYSIS: 暂无
+
+QID: 8-0595
+TYPE: 多选
+ANSWER: A,B
+STEM: 在大模型的风险评测中，哪些步骤可以帮助有效评估模型的安全性？
+  A. 定义风险类型
+  B. 构建评估基准 (Benchmark)
+  C. 优化用户界面
+  D. 增加模型的计算资源
+CURRENT_ANALYSIS: 暂无
+

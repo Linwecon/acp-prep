@@ -1,0 +1,261 @@
+QID: 9-0073
+TYPE: 单选
+ANSWER: A
+STEM: temperature=0.1 的作用是什么？
+  A. 使输出更具确定性
+  B. 使输出更具创造性
+  C. 增加输出的多样性
+  D. 减少输出的长度
+CURRENT_ANALYSIS: 暂无
+
+QID: 9-0078
+TYPE: 单选
+ANSWER: B
+STEM: 在控制大模型生成内容的随机性时，top_p参数的作用是什么？
+  A. 调整候选Token的概率分布
+  B. 筛选出累计概率达到阈值的候选Token
+  C. 增加候选Token的数量
+  D. 减少候选Token的数量
+CURRENT_ANALYSIS: 暂无
+
+QID: 9-0136
+TYPE: 单选
+ANSWER: B
+STEM: 在top_p=0.5的设置下，大模型的输出会有什么特点？
+  A. 输出内容非常多样化
+  B. 输出内容相对单一
+  C. 输出内容完全随机
+  D. 输出内容无法预测
+CURRENT_ANALYSIS: 暂无
+
+QID: 9-0190
+TYPE: 单选
+ANSWER: A
+STEM: 在需要创意和多样化的场景中，建议如何设置temperature参数?
+  A. 设置较高的温度值
+  B. 设置较低的温度值
+  C. 使用默认温度值
+  D. 随机设置温度值
+CURRENT_ANALYSIS: 暂无
+
+QID: 9-0244
+TYPE: 单选
+ANSWER: A
+STEM: is_chat_model=True 的作用是什么？
+  A. 指定模型为聊天模型
+  B. 增加输出的多样性
+  C. 使输出更具确定性
+  D. 控制输出长度
+CURRENT_ANALYSIS: 暂无
+
+QID: 9-0295
+TYPE: 单选
+ANSWER: A
+STEM: 在需要生成创意写作和诗歌的场景中，建议如何设置top_p参数？
+  A. 设置较高的top_p值
+  B. 设置较低的top_p值
+  C. 使用默认top_p值
+  D. 随机设置top_p值
+CURRENT_ANALYSIS: 暂无
+
+QID: 9-1178
+TYPE: 单选
+ANSWER: D
+STEM: 以下哪种参数组合会使得模型生成结果最具多样性?
+  A. temperature = 0.1, top_p = 0.9
+  B. temperature = 0.1, top_p = 0.1
+  C. temperature = 0.9, top_p = 0.1
+  D. temperature = 0.9, top_p = 0.9
+CURRENT_ANALYSIS: 暂无
+
+QID: 9-0239
+TYPE: 单选
+ANSWER: A
+STEM: 在高温度（temperature=1.2）设置下，大模型的输出会有什么特点？
+  A. 输出内容非常多样化
+  B. 输出内容相对单一
+  C. 输出内容完全固定
+  D. 输出内容无法生成
+CURRENT_ANALYSIS: 暂无
+
+QID: 9-0313
+TYPE: 单选
+ANSWER: C
+STEM: 在使用大模型API处理调查问卷时，以下哪个步骤不是必要的？
+  A. 将问卷数据预处理为适合模型输入的格式
+  B. 通过代码调用大模型API
+  C. 手动检查每一份问卷的每一个答案
+  D. 收集大模型处理后的输出并分析结果
+CURRENT_ANALYSIS: 暂无
+
+QID: 9-0468
+TYPE: 多选
+ANSWER: A,B
+STEM: 以下关于temperature参数的描述，哪些是正确的？
+  A. 温度值越低，输出结果越固定
+  B. 温度值越高，输出结果越多样化
+  C. 温度值不影响输出结果
+  D. 温度值只影响生成速度
+CURRENT_ANALYSIS: 暂无
+
+QID: 9-0487
+TYPE: 多选
+ANSWER: A,D
+STEM: 哪些操作有助于生成更具确定性的文本？
+  A. 降低temperature值
+  B. 减少max_tokens值
+  C. 降低presence_penalty值
+  D. 固定seed值
+CURRENT_ANALYSIS: 暂无
+
+QID: 9-0492
+TYPE: 多选
+ANSWER: A,B
+STEM: 为了控制生成内容的随机性，以下哪些参数可以进行调整?
+  A. temperature
+  B. top_p
+  C. learning_rate
+  D. batch_size
+CURRENT_ANALYSIS: 暂无
+
+QID: 9-0499
+TYPE: 多选
+ANSWER: A,B
+STEM: 以下关于top_p参数的描述，哪些是正确的？
+  A. top_p值越大，生成内容越多样化
+  B. top_p值越小，生成内容越固定
+  C. top_p值不影响生成内容
+  D. top_p值只影响生成速度
+CURRENT_ANALYSIS: 暂无
+
+QID: 9-0558
+TYPE: 多选
+ANSWER: A,B
+STEM: 在设置temperature参数时，以下哪些建议是合理的？
+  A. 对于明确答案的场景，设置较低的温度值
+  B. 对于创意和多样化的情景，设置较高的温度值
+  C. 对于所有场景，使用默认温度值
+  D. 对于所有场景，随机设置温度值
+CURRENT_ANALYSIS: 暂无
+
+QID: 9-0565
+TYPE: 多选
+ANSWER: A,B
+STEM: 在设置top_p参数时，以下哪些建议是合理的？
+  A. 对于创意和多样化的情景，设置较高的top_p值
+  B. 对于明确和固定的场景，设置较低的top_p值
+  C. 对于所有场景，使用默认top_p值
+  D. 对于所有场景，随机设置top_p值
+CURRENT_ANALYSIS: 暂无
+
+QID: 9-0771
+TYPE: 单选
+ANSWER: C
+STEM: 某开发者使用阿里云通义千问 API 开发应用，需控制每次 API 调用的成本。以下哪种措施最有效？
+  A. 增加每次请求的文本输入长度
+  B. 选用更高精度的模型版本
+  C. 合理设置 "max_tokens" 参数，限制输出文本长度
+  D. 提高 API 调用的并发量
+CURRENT_ANALYSIS: 暂无
+
+QID: 9-0212
+TYPE: 单选
+ANSWER: D
+STEM: client.chat.completions.create 的作用是什么？
+  A. 调用API进行标签提取
+  B. 调用API进行模型训练
+  C. 调用API进行文档检索
+  D. 调用API进行文本生成
+CURRENT_ANALYSIS: 暂无
+
+QID: 9-0545
+TYPE: 多选
+ANSWER: A,B
+STEM: top_p参数如何影响候选Token的筛选?
+  A. 高top_p值增加候选Token的范围
+  B. 低top_p值减少候选Token的范围
+  C. 高top_p值减少候选Token的范围
+  D. 低top_p值增加候选Token的范围
+CURRENT_ANALYSIS: 暂无
+
+QID: 9-1093
+TYPE: 多选
+ANSWER: A,C,D
+STEM: 关于 temperature 和 top_p 参数的作用，以下哪三个描述是正确的?
+  A. 较低的 top_p 可以提高生成内容的稳定性
+  B. 较低的 temperature 可以增加生成内容的多样性
+  C. 通常情况下，只需调整其中一个参数即可。
+  D. 较高的 temperature 可以增加生成内容的多样性
+CURRENT_ANALYSIS: 暂无
+
+QID: 9-1133
+TYPE: 单选
+ANSWER: A
+STEM: 设计程序时，一般不会设计为调用一次大模型就处理完所有任务。下列关于上述说法的分析，错误的是哪一项？
+  A. 单个大模型无法处理多种格式的文件。
+  B. 可以根据任务特点选择合适的模型和参数。
+  C. 难以同时保证每项工作的质量。
+  D. 可以分步优化，提高整体处理效率和成本。
+CURRENT_ANALYSIS: 暂无
+
+QID: 9-0510
+TYPE: 多选
+ANSWER: A,B
+STEM: 以下哪些场景适合设置较低的top_p值？
+  A. 新闻稿
+  B. 代码生成
+  C. 创意写作
+  D. 诗歌生成
+CURRENT_ANALYSIS: 暂无
+
+QID: 9-0531
+TYPE: 多选
+ANSWER: A,B
+STEM: 以下哪些场景适合设置较高的top_p值？
+  A. 创意写作
+  B. 诗歌生成
+  C. 新闻稿
+  D. 代码生成
+CURRENT_ANALYSIS: 暂无
+
+QID: 9-0543
+TYPE: 多选
+ANSWER: A,B
+STEM: 以下哪些场景适合设置较高的temperature值？
+  A. 生成广告文案
+  B. 创作诗歌
+  C. 生成代码
+  D. 提取数据结构
+CURRENT_ANALYSIS: 暂无
+
+QID: 9-0554
+TYPE: 多选
+ANSWER: A,B
+STEM: 以下哪些场景适合设置较低的temperature值？
+  A. 生成代码
+  B. 提取数据结构
+  C. 生成广告文案
+  D. 创作诗歌
+CURRENT_ANALYSIS: 暂无
+
+QID: 9-0592
+TYPE: 多选
+ANSWER: A,B,D
+STEM: 在利用大模型处理调查问卷时，以下哪些步骤可能是必要的?
+  A. 将问卷数据预处理为模型可接受的格式
+  B. 设定评分标准或关键词以判断回答质量
+  C. 人工检查每一份问卷的每一个答案
+  D. 使用API调用大模型进行批量分析
+  E. 直接将原始问卷文档上传至大模型进行处理
+CURRENT_ANALYSIS: 暂无
+
+QID: 9-0693
+TYPE: 多选
+ANSWER: A,B,C,D
+STEM: 关于阿里云大模型 API 的 "参数调优"，以下哪些参数调整可能影响模型的输出效果？
+  A. max_tokens：控制模型生成文本的最大长度
+  B. temperature：控制生成内容的随机性（创新性）
+  C. top_p：控制生成时选择词汇的范围（如 top_p = 0.9 表示仅从概率前 90% 的词汇中选择）
+  D. stop：设置生成终止词（如遇到 "END" 时停止生成）
+CURRENT_ANALYSIS: 暂无
+

@@ -40,7 +40,9 @@ eq('q1 has options', q1.options.length > 0 && !!q1.options[0].text, true);
 eq('q1 has stem', !!q1.stem, true);
 eq('q1 id format', /^\d+-\d+$/.test(q1.id), true);
 const revised = ACP.BY_CH['3'].find(q => q.revisedAt);
-eq('RAG has exactly 200 questions', ACP.BY_CH['3'].length, 200);
+const srcCh3 = (sourceBank.questions_by_chapter['3'] || []).filter(q => !q.deleted).length;
+eq('RAG chapter count matches source', ACP.BY_CH['3'].length, srcCh3);
+eq('RAG has >= exam quota margin', ACP.BY_CH['3'].length >= 15, true);
 eq('question revision survives compressed export', !!revised && revised.revisedAt > 0, true);
 
 // exam draw still works with compressed data

@@ -1,0 +1,176 @@
+=== 1-0521 type=1 ans=C
+STEM: 在大模型的问答工作流程中，以下哪些阶段涉及Tone的处理？
+  A. 输入文本分词化
+  B. Token向量化
+  C. 大模型推理
+  D. 输出Token
+ANALYSIS: Tone（语气/语调）是大模型在生成响应时体现的情感倾向、正式程度或风格特征，属于高层语义与生成策略范畴，仅在大模型推理阶段由模型内部参数动态建模并调控输出风格。阿里云百炼平台明确指出，Tone控制通过推理时的system prompt指令或API参数（如temperature、top_p及自定义tone参数）在inference过程中生效。A项分词化仅做字符切分，无语义理解；B项向量化为静态嵌入映射，不涉及风格判断；D项输出Token是推理结果的编码表示，本身不处理Tone——Tone已在C阶段决定，D仅为呈现形式。
+
+=== 2-1166 type=1 ans=B
+STEM: 以下选项中属于使用分隔符的主要目的有哪些?
+  A. 规范化文档格式
+  B. 明确提示词各要素之间的界限
+  C. 使文档看起来更复杂
+  D. 增加文字数量
+  E. 随意分割文本
+  F. 提高模型的运行速度
+ANALYSIS: 分隔符（如###、---、<|endoftext|>等）在提示工程中核心作用是明确划分系统指令、用户输入、示例、输出等提示词各要素的边界，帮助大模型准确理解结构化提示，这与阿里云百炼平台推荐的提示词设计规范一致。选项B正确。A错误：分隔符不负责文档格式规范化，属排版范畴；C、D、E明显违背提示工程简洁性与目的性原则；F错误：分隔符本身不影响模型推理速度，运行效率取决于模型架构与硬件资源。
+
+=== 2-1025 type=1 ans=D
+STEM: 在使用大语言模型时，什么是"样例"的作用？
+  A. 确定目标用户
+  B. 辅助模型生成单一答案
+  C. 明确限制模型的回答长度
+  D. 提供有指导性的案例
+  E. 设定模型的情感色彩
+  F. 抽象出实现方案
+ANALYSIS: 样例（Example）在大语言模型提示工程中，指提供给模型的输入-输出示范对，用于引导模型理解任务格式、风格和预期响应方式，属于阿里云百炼平台Prompt Engineering核心实践之一。D选项正确，因样例本质是提供有指导性的案例，提升少样本/零样本推理效果。A、B、C、E、F均非样例的直接作用：目标用户由业务场景定义（A错）；单一答案依赖约束而非样例（B错）；长度限制需通过max_tokens等参数控制（C错）；情感色彩靠system prompt或指令调控（E错）；方案抽象属推理过程，非样例功能（F错）。
+
+=== 12-1289 type=1 ans=B
+STEM: 请问这段代码的主要作用是？node_parser = SentenceWindowNodeParser.from_defaults(window_size=3,window_metadata_key="window",original_text_metadata_key="original_text",)nodes = node_parser.get_nodes_from_documents([document])window_text_replace = MetadataReplacementPostProcessor(target_metadata_key="window")
+  A. 对召回的文本段进行rerank 后，输入大模型进行回复
+  B. 在句子窗口检索中，将扩展后的句子传入上下文并进行回复
+  C. 在自动合并检索中，判断父节点是否有超过半数的子节点被召回
+  D. 加载本地索引，对query 进行回复
+ANALYSIS: 代码直接对应句子窗口检索的流程，扩展上下文优化生成，其他选项不符合代码功能
+
+=== 12-1291 type=1 ans=C
+STEM: 以下哪个代码片段能够正确处理classify_intent 函数可能抛出的异常，并打印错误信息？
+  A. pythonfor id, query in feedback_list:try:intent = classify_intent(query)print(f"ID: {id}, Intent: {intent}")finally:print("Finished processing query.")
+  B. pythonfor id, query in feedback_list:intent = classify_intent(query)print(f"ID: {id}, Intent: {intent}")except Exception as e:print(f"Error: {e}")
+  C. pythonfor id, query in feedback_list:try:intent = classify_intent(query)print(f"ID: {id}, Intent: {intent}")except Exception as e:print(f"Error processing query {id}: {e}")
+  D. pythonfor id, query in feedback_list:if classify_intent(query):intent = classify_intent(query)print(f"ID: {id}, Intent: {intent}")else:
+ANALYSIS: 语法正确且能有效处理异常的选项
+
+=== 6-1190 type=0 ans=A
+STEM: 下列代码片段的作用是？ python from keras.preprocessing.sequence import pad_sequences padded_sequences(maxlen= max_len, padding='post', truncating='post')
+  A. 序列填充到固定长度
+  B. 文本摘要生成
+  C. 特征缩放
+  D. 文本向量化
+ANALYSIS: 暂无
+
+=== 7-1184 type=0 ans=C
+STEM: 在 RAGS 的这行代码中，data_samples 可能是什么格式？ python dataset = Dataset.from_dict(data_samples)
+  A. data_samples = {"question": "sample_question", "answer": "sample_answer", "contexts": "sample_contexts"}
+  B. data_samples = {"question": "sample_question", "answer": "sample_answer", "contexts": ["sample_context1", "sample_context2"], "ground_truth": ["sample_ground_truth1", "sample_ground_truth2"]}
+  C. data_samples = {"question": "sample_question", "answer": "sample_answer", "contexts": ["sample_context1", "sample_context2"]}
+  D. data_samples = DataFrame(question="sample_question", answer="sample_answer", content="sample_contexts")
+ANALYSIS: 在 RAGAS（检索增强生成评估框架）中，data_samples 通常需要包含以下核心字段：question：用户提问（字符串）answer：模型生成的答案（字符串）contexts：检索到的参考上下文（列表形式，因 RAG 可能返回多个相关文档片段）
+
+=== 8-1180 type=0 ans=B
+STEM: 以下代码片段实现了哪种文本合规检查方法？ python ... import re def check_text(text): pattern = r"假货|劣质骗子" if re.search(pattern, text): return "包含敏感词" else: return "文本安全" text = "这个产品质量很好，不像其他假货" result = check_text(text) print(result) # 输出：包含敏感词 ...
+  A. 语义分析
+  B. 模式匹配
+  C. 机器学习
+  D. 词性匹配
+ANALYSIS: 代码中使用了正则表达式re.search(pattern, text)来检查文本中是否包含预定义的模式，即'假货'或'劣质骗子'。如果找到匹配，则返回'包含敏感词'，否则返回'文本安全'。这正是模式匹配的典型应用。
+
+=== 9-1176 type=0 ans=B
+STEM: replacements 的作用是： python ...def get_documents(path):
+    # 读取目录下所有文档
+    documents = SimpleDirectoryReader(path).load_data()
+    
+    # 合并文档内容
+    document = Document(text="\n".join([doc.text for doc in documents]))
+    
+    # 字符替换规则
+    replacements = {
+        '"': '"',
+        '!': '!',
+        '?': '?'
+    }
+    
+    # 执行替换
+    for src, dst in replacements.items():
+        document.text = document.text.replace(src, dst)
+    return document
+  A. 使得文本更有层级
+  B. Llamalndex 按照英文标点切分句子，这么做保证每个句子不会太大
+  C. 提高大模型对标点符号的识别准确率
+  D. 降低召回文本段的中文含量
+ANALYSIS: 正确答案B：LlamaIndex默认使用英文标点（如'!'、'?'、'.'）作为句子切分依据，若原始文本中存在非标准编码或全角标点，可能导致切分异常或句子过长；replacements虽当前未实际修改字符，但其设计意图是统一标点为标准ASCII形式，确保SentenceSplitter等分块器能准确按英文标点切分，避免单句过大影响后续嵌入与检索效果。A错误：替换不涉及层级结构构建；C错误：标点识别准确率取决于模型本身，非预处理阶段可控；D错误：替换内容均为英文标点，与中文含量无关。
+
+=== 10-1187 type=0 ans=C
+STEM: 如何获取大模型返回的信息的文本内容？ python import os, getenv('DASHSCOPE_API_KEY'), base_url = "https://dashscope.aliyuncs.com/compatible-model/v1" completion = client.chat.completions.create( model="qwen-max", messages=[{'role': 'user', 'content': '你 是 谁?'}], print(completion.choices[0].message.content)
+  A. completion.choices[0]
+  B. completion.message.content
+  C. completion.choices[0].message.content
+  D. completion.choices.content
+ANALYSIS: 题目要求获取大模型返回的信息的文本内容。根据代码中的调用，completion.choices[0].message.content 是正确答案，因为completion.choices[0]是模型返回的响应，其message.content是其中的文本内容。
+
+=== 2-1290 type=1 ans=C
+STEM: 检查以下代码，如果需要添加一个新的意图类别，例如“入职流程”，需要修改哪一部分代码？# 获取用户意图的核心算法def get_purpose(document):prompt_template="【角色背景】你是一个专业的管理者，你将阅读一条用户的问题并进行用户意图分类【任务要求】我们需要将用户的意图分成如下几类：请假政策，福利待遇，绩效考核，工作职责，开发规范【输出要求】请以json 格式输出，不要输出其他内容格式如{"purpose":"请假政策","query":"请假流程是怎样的，需要提前多久申请？"}其中，purpose 是你识别出的意图，query 是用户输入的原始文本【用户输入】以下是用户输入，请审阅："query = prompt_template + document
+  A. 只需要修改输入的用户query 列表
+  B. 需要修改输出格式要求。
+  C. 需要修改prompt_template 中的【任务要求】部分，以及可能需要更新get_purpose 函数中的逻辑。
+  D. 只需要修改大模型query 函数Q_S_Line
+ANALYSIS: 
+
+=== 4-1286 type=2 ans=A,C,E,F
+STEM: 下列关于将AgentModule 类设计为基类的原因，正确的有哪些？class AgentModule():def __init__(self, name: str, description: str):self.name = nameself.description = descriptiondef __call__(self, query:str):return self.query(query)def query(self, query:str):pass
+  A. 简化子类中的构造函数，减少重复代码
+  B. 由于Python 不支持多重继承，因此需要这样设计
+  C. 允许每个子类定义自己的query 方法，增加灵活性
+  D. 作为一个基类，可以方便地隐藏私有属性，保护数据
+  E. 提供统一的call 方法以便通过相同的方式调用所有子类
+  F. 使得多个不同的代理模块可以共享相同的接口，实现代码复用
+ANALYSIS: B Python 支持多重继承，因此该选项的说法本身错误，设计基类与Python 是否支持多 重继承无关;D 基类的设计主要是为了实现代码复用和统一接口，而不是为了隐藏私有属 性,Python 中通过命名约定来表示私有属性，与基类的设计并无直接关系
+
+=== 12-1288 type=2 ans=A,C,D
+STEM: 通过LlamaIndex 创建RAG 应用，关于下面这段代码作用的描述正确的有哪些？def get_documents(path):documents = SimpleDirectoryReader(path).load_data()document = Document(text="\n\n".join([doc.text for doc in documents]))replacements = {'，': ',','！': '!','？': '?'}for src, dst in replacements.items():document.text = document.text.replace(src, dst)return document
+  A. 将所有Document 对象合并为一个Document 对象
+  B. 对乱码内容进行数据清洗
+  C. 将中文的标点符号预先转化为英文标点符号，使得切分时不会使得chunk 长度过长
+  D. 将指定文件夹中的文件加载为document 对象
+ANALYSIS: 码仅替换特定标点符号，未涉及乱码检测或修复
+
+=== 3-1471 type=2 ans=A,B
+STEM: 向量服务支持自动扩容，哪些结论仍然成立？（多选）
+  A. 需要设置预算并监控资源和请求费用
+  B. 需要验证扩容期间的延迟与服务限额
+  C. 自动扩容意味着无限容量与零排队
+  D. 自动扩容会自动修复所有召回质量问题
+ANALYSIS: 弹性能力不等于无限服务，也不解决解析或相关性问题。成本、限额与扩容效果仍需监控和验证。
+
+=== 3-1466 type=2 ans=A,B
+STEM: 已确认原始知识库缺少所问条款，其他相关资料的召回正常。哪些措施可能补上证据缺口？（多选）
+  A. 获取经审核的缺失条款并更新知识库索引
+  B. 当来源暂不可得时明确说明证据不足
+  C. 只对当前候选重排就能生成缺失条款
+  D. 无限增加相似度阈值就能补全事实
+ANALYSIS: 缺失知识应补来源并更新索引，或如实说明限制。重排和阈值调整不能创造原库不存在的事实。
+
+=== 3-1462 type=2 ans=A,B,C
+STEM: 密码重置查询总命中账号注册说明，哪些改进值得用标注样本验证？（多选）
+  A. 检查重置流程的解析和分块是否完整
+  B. 在确认语义未改变的前提下优化查询与检索表示
+  C. 比较关键词/向量混合检索与重排效果
+  D. 为减少错误，删除正常的账号注册知识
+ANALYSIS: 先定位证据为何未命中，再比较候选方案。每项改进都需评测，不应通过删除正常业务资料掩盖问题。
+
+=== 3-1461 type=2 ans=A,B,C
+STEM: 多格式文档问答需要准确显示来源位置，哪些设计合理？（多选）
+  A. 解析时保留文档 ID、版本和可获得的位置元数据
+  B. 切分后让每个片段仍能追溯到来源
+  C. 检索与生成结果中返回可核对的来源标识
+  D. 要求模型根据文本内容猜测页码
+ANALYSIS: PDF 常有稳定页码；TXT 可用行号，Word 页码受排版影响。应保存实际可用的位置，而不是假设所有解析器都会自动提供固定页码。
+
+=== 3-6003 type=2 ans=A,B
+STEM: 表格中的数值能被检索到，但经常被归到错误年份或指标。哪些措施更直接？（多选）
+  A. 检查并保留表头、单位、行列与单元格的对应关系
+  B. 把指标、时间和单位等必要上下文带入表格切片
+  C. 仅把所有数字排序后重新拼接
+  D. 不查解析结果，只增加生成模型输出长度
+ANALYSIS: 此处问题是结构语义丢失。应先核对表格解析和切片，再用带明确指标与年份的问题验证，而不是只扩大生成预算。
+
+=== 1-1470 type=2 ans=A,B,C,D,E
+STEM: 以下哪些是大模型应用开发的核心流程环节？（多选，5 个选项）
+  A. 需求分析（明确应用场景与功能目标）
+  B. 技术选型（如模型、部署平台、工具链）
+  C. 模型开发 / 微调（如提示工程、微调训练）
+  D. 应用部署与监控（如 API 部署、性能监控）
+  E. 运维优化（如根据用户反馈迭代模型）
+ANALYSIS: 大纲 “大模型应用开发全流程” 明确，需求分析（A）、技术选型（B）、模型开发（C）、部署监控（D）、运维优化（E）均为核心环节，构成完整的开发闭环。
+

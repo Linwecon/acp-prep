@@ -1,0 +1,1067 @@
+QID: 1-0097
+TYPE: 单选
+ANSWER: A
+STEM: extract_tags 函数的作用是什么？
+  A. 从文本中提取标签
+  B. 从文本中提取关键词
+  C. 从文本中提取句子
+  D. 从文本中提取段落
+CURRENT_ANALYSIS: 暂无
+
+QID: 1-0151
+TYPE: 单选
+ANSWER: A
+STEM: seed=42 的作用是什么？
+  A. 使输出可重现
+  B. 增加输出的多样性
+  C. 使输出更具确定性
+  D. 控制输出长度
+CURRENT_ANALYSIS: 暂无
+
+QID: 1-0172
+TYPE: 单选
+ANSWER: A
+STEM: score.to_pandas() 的主要作用是什么？
+  A. 将评估结果转换为 Pandas 数据框
+  B. 增加模型的训练数据
+  C. 减少模型的推理时间
+  D. 增加模型的参数数量
+CURRENT_ANALYSIS: 暂无
+
+QID: 1-0178
+TYPE: 单选
+ANSWER: A
+STEM: ask_lm_route 规定的输入格式是什么？
+  A. 【输入如下】
+  B. 增加模型的训练数据
+  C. 减少模型的推理时间
+  D. 增加模型的参数数量
+CURRENT_ANALYSIS: 暂无
+
+QID: 1-0181
+TYPE: 单选
+ANSWER: A
+STEM: data_samples 字典的主要作用是什么？
+  A. 存储问题、答案和真实答案的数据
+  B. 增加模型的训练数据
+  C. 减少模型的推理时间
+  D. 增加模型的参数数量
+CURRENT_ANALYSIS: 暂无
+
+QID: 1-0184
+TYPE: 单选
+ANSWER: A
+STEM: 为了避免知识信息干扰大模型推理，以下哪种方法更合适？
+  A. 根据问题类型选择不同的提示词和工作流程
+  B. 增加模型的训练数据
+  C. 减少模型的推理时间
+  D. 增加模型的参数数量
+CURRENT_ANALYSIS: 暂无
+
+QID: 1-0195
+TYPE: 单选
+ANSWER: A
+STEM: 在大模型的问答工作流程中，哪个阶段将句子分割成更小且具有独立语义的词语？
+  A. 输入文本分词化
+  B. Token向量化
+  C. 大模型推理
+  D. 输出Token
+CURRENT_ANALYSIS: 暂无
+
+QID: 1-0219
+TYPE: 单选
+ANSWER: A
+STEM: 为了节省答疑机器人的资源消耗，以下哪种方法更合适？
+  A. 根据问题类型选择不同的提示词和工作流程
+  B. 增加模型的训练数据
+  C. 减少模型的推理时间
+  D. 增加模型的参数数量
+CURRENT_ANALYSIS: 暂无
+
+QID: 1-0237
+TYPE: 单选
+ANSWER: A
+STEM: index.as_query_engine 方法的主要作用是什么？
+  A. 创建用于提问的引擎
+  B. 增加模型的训练数据
+  C. 减少模型的推理时间
+  D. 增加模型的参数数量
+CURRENT_ANALYSIS: 暂无
+
+QID: 1-0268
+TYPE: 单选
+ANSWER: A
+STEM: OpenAILike 类的主要作用是什么？
+  A. 加载大模型
+  B. 增加模型的训练数据
+  C. 减少模型的推理时间
+  D. 增加模型的参数数量
+CURRENT_ANALYSIS: 暂无
+
+QID: 1-0284
+TYPE: 单选
+ANSWER: B
+STEM: 在大模型推理阶段，模型如何选择下一个输出的Token？
+  A. 随机选择一个Token
+  B. 根据候选Token的概率进行选择
+  C. 选择第一个候选Token
+  D. 选择最后一个候选Token
+CURRENT_ANALYSIS: 暂无
+
+QID: 1-0294
+TYPE: 单选
+ANSWER: A
+STEM: presence_penalty=0.6 的作用是什么？
+  A. 减少输出的重复性
+  B. 增加输出的多样性
+  C. 使输出更具确定性
+  D. 控制输出长度
+CURRENT_ANALYSIS: 暂无
+
+QID: 1-0318
+TYPE: 单选
+ANSWER: C
+STEM: 为了加强大语言模型生成内容的信用机制，哪项措施最具有效果？
+  A. 提高模型参数
+  B. 增加训练轮数
+  C. 添加AIGC声明
+  D. 优化用户界面
+CURRENT_ANALYSIS: 暂无
+
+QID: 1-0335
+TYPE: 单选
+ANSWER: C
+STEM: 以下关于用户对生成的内容负责的描述中，最合理的是哪一项？
+  A. 忽略内容的合法性和适宜性
+  B. 只需关注内容的创意性
+  C. 对生成内容的合法性和适宜性负责
+  D. 校验服务提供商负责内容的合法性
+CURRENT_ANALYSIS: 暂无
+
+QID: 1-0342
+TYPE: 单选
+ANSWER: B
+STEM: 关于大模型内容生成过程中的信任机制，以下哪项措施可以提高用户对生成内容的信任？
+  A. 增加训练数据量
+  B. 提供生成内容的依据链接
+  C. 使用复杂算法
+  D. 减少模型参数
+CURRENT_ANALYSIS: 暂无
+
+QID: 1-0362
+TYPE: 单选
+ANSWER: A
+STEM: 大模型应用中处理个人信息的人员变更时，以下哪个选项是要首先执行的？
+  A. 重新取得用户同意
+  B. 提供数据备份
+  C. 通知相关机构
+  D. 更改数据存储路径
+CURRENT_ANALYSIS: 暂无
+
+QID: 1-0365
+TYPE: 单选
+ANSWER: B
+STEM: 在大型语言模型中，为什么需要对模型生成的内容进行检查？
+  A. 为了确保内容的多样性
+  B. 为了确保没有不适宜、冒犯性或有害信息
+  C. 为了增加模型的复杂性
+  D. 为了提高模型的训练难度
+CURRENT_ANALYSIS: 暂无
+
+QID: 1-0384
+TYPE: 单选
+ANSWER: B
+STEM: 以下关于大模型推理过程的描述中，正确的是？
+  A. 这是模型学习新知识和技能的过程
+  B. 这是模型根据已学习到的知识对新输入做出响应的过程
+  C. 这是向模型添加更多数据以提高其性能的过程
+  D. 这是指设计和构建模型架构的初始步骤
+CURRENT_ANALYSIS: 正确答案:B
+试题解析：暂无
+
+QID: 1-0397
+TYPE: 单选
+ANSWER: B
+STEM: 以下哪个任务最适合使用大语言模型？
+  A. 计算一组数据的标准差
+  B. 检测一组销售数据中的异常值
+  C. 对一组图像进行精确的像素级分割
+  D. 在一个大型数据集上训练一个复杂的机器学习模型 (例如, 深度神经网络)
+CURRENT_ANALYSIS: 暂无
+
+QID: 1-0823
+TYPE: 单选
+ANSWER: C
+STEM: 你需要在资源受限的环境下部署一个大模型，以下哪种方案有助于你减少对显存的需求？
+  A. 微调现有模型，改善其效果
+  B. 扩大允许的输入Token长度
+  C. 知识蒸馏，训练一个更小参数量的模型
+  D. 提高模型批量任务的数量 试题
+CURRENT_ANALYSIS: 暂无
+
+QID: 1-1082
+TYPE: 单选
+ANSWER: A
+STEM: 以下哪个选项最适合用于请求大模型总结一篇文章的主要内容？
+  A. 用简洁的语言概括以下文章的核心观点：（文章内容）
+  B. 文章的主要内容是什么？（文章内容）
+  C. 重写这篇文章。
+  D. 这篇文章写了什么？
+CURRENT_ANALYSIS: 暂无
+
+QID: 1-1154
+TYPE: 单选
+ANSWER: C
+STEM: 游戏公司开发 AI 数字 NPC 时，以下哪项技术要求目前最难实现？
+  A. 根据玩家情绪调整对话语气
+  B. 识别语音指令执行简单任务
+  C. 实时生成符合角色设定的剧情分支
+  D. 通过动作捕捉复现预设舞蹈动作
+CURRENT_ANALYSIS: 暂无
+
+QID: 1-1317
+TYPE: 单选
+ANSWER: D
+STEM: 以下哪个用户查询语句无法有效指导大语言模型完成摘要任务？
+  A. 请总结以下文章的主要内容
+  B. 用一句话概括以下文字
+  C. 提取以下文本的关键词
+  D. 以下文本写得怎么样
+CURRENT_ANALYSIS: 暂无
+
+QID: 1-0329
+TYPE: 单选
+ANSWER: A
+STEM: 预训练 (Pre-training) 在自然语言处理大模型中的核心目的是什么？
+  A. 利用大量未标注文本数据学习通用的语言结构和模式
+  B. 直接在特定任务的数据集上进行模型参数优化
+  C. 通过人类反馈机制不断调整模型输出以更贴合人类偏好
+  D. 减少模型对大规模计算资源的需求
+CURRENT_ANALYSIS: 暂无
+
+QID: 1-0401
+TYPE: 单选
+ANSWER: B
+STEM: 如果让语言模型输出意图分类置信度，但我们发现大语言模型意图分类结果的置信度普遍较低，应该如何处理？
+  A. 直接忽略置信度，使用预测结果
+  B. 设置一个置信度阈值，低于阈值的结果需要人工审核
+  C. 重新训练大模型
+  D. 放弃使用大模型进行意图分类
+CURRENT_ANALYSIS: 暂无
+
+QID: 1-0406
+TYPE: 单选
+ANSWER: A
+STEM: 当你在工作中使用大语言模型(如：Qwen - Max)优化录音稿时，应该优先考虑的目标是什么？
+  A. 提高文本的口语化程度，便于录音和听众理解
+  B. 确保每个句子都保持原文的长度和复杂度
+  C. 尽量引用原始资料中的每个细节
+  D. 确保录音稿内容高度技术化，使用专业术语
+CURRENT_ANALYSIS: 暂无
+
+QID: 1-0450
+TYPE: 单选
+ANSWER: B
+STEM: 在通过大语言模型检测文档内容中是否存在营销表达时，下列哪种方法可以更全面地识别问题？
+  A. 一次性生成所有类型的识别结果
+  B. 按照营销表达分类逐条单独识别营销词汇
+  C. 仅识别有内容错误的部分
+  D. 按文档段落拖整篇文档,每段完成所有类型的识别,汇总后一次性返回结果
+CURRENT_ANALYSIS: 暂无
+
+QID: 1-0459
+TYPE: 单选
+ANSWER: B
+STEM: 如果将调用大语言模型的参数temperature参数设置为0，模型的生成结果会有什么特点？
+  A. 生成结果更加随机
+  B. 生成结果更加确定性,倾向于选择概率最高的词
+  C. 生成结果长度会变短
+  D. 生成结果长度会变长
+CURRENT_ANALYSIS: 暂无
+
+QID: 1-0477
+TYPE: 多选
+ANSWER: A,B
+STEM: 在RAG应用的检索与生成阶段，主要优势包括哪些？
+  A. 提高大模型输出的准确性
+  B. 提高大模型输出的相关性
+  C. 减少模型推理时间
+  D. 增加模型参数数量
+CURRENT_ANALYSIS: 暂无
+
+QID: 1-1136
+TYPE: 单选
+ANSWER: D
+STEM: 以下哪种情况更适合使用代码解释器插件而不是直接使用大模型？
+  A. 将一组文档按主题分类
+  B. 分析一段文本的情感
+  C. 从用户评论中提取关键信息
+  D. 计算两组数据之间的皮尔逊相关系数
+CURRENT_ANALYSIS: 暂无
+
+QID: 1-0378
+TYPE: 单选
+ANSWER: B
+STEM: 增强大模型能力的插件通常是通过什么方式与大模型集成的?
+  A. 直接修改大模型源代码
+  B. 使用API接口进行功能扩展
+  C. 通过硬件升级提升性能
+  D. 安装特定操作系统插件
+CURRENT_ANALYSIS: 暂无
+
+QID: 1-0387
+TYPE: 单选
+ANSWER: B
+STEM: 开启代码解释器插件后，大模型能够直接实现什么操作？
+  A. 仅提供代码编写建议
+  B. 执行用户请求的代码逻辑并给出结果
+  C. 修改外部程序的源代码
+  D. 为用户提供代码编辑器界面
+CURRENT_ANALYSIS: 暂无
+
+QID: 1-0428
+TYPE: 单选
+ANSWER: B
+STEM: 以下哪个代码片段最适合帮助RAG应用将文本片段转换为向量表示？
+  A. import numpy as np
+  B. from sentence_transformers import Sentence Transformer
+  C. import hashlib
+  D. def embed_text(text): return len(text)
+CURRENT_ANALYSIS: 暂无
+
+QID: 1-0470
+TYPE: 多选
+ANSWER: B,C
+STEM: 在大模型的问答工作流程中，以下哪些阶段涉及模型的推理过程？
+  A. Token向量化
+  B. 大模型推理
+  C. 输出Token
+  D. 输出文本
+CURRENT_ANALYSIS: 暂无
+
+QID: 1-0496
+TYPE: 多选
+ANSWER: A,B,C,D
+STEM: 在优化后的答题机器人中，以下哪些是可能的输出？
+  A. 文档审查结果
+  B. 公司内部文档查询结果
+  C. 内容翻译结果
+  D. “未能识别问题类型，请重新输入。”
+CURRENT_ANALYSIS: 暂无
+
+QID: 1-0551
+TYPE: 多选
+ANSWER: A,B,C,D
+STEM: 在大模型的问答工作流程中，以下哪些阶段是必要的？
+  A. 输入文本分词化
+  B. Token向量化
+  C. 大模型推理
+  D. 输出Token
+CURRENT_ANALYSIS: 暂无
+
+QID: 1-0605
+TYPE: 多选
+ANSWER: A,B
+STEM: 在模型安全防控中，哪些措施可以增强模型的鲁棒性（健壮性）？
+  A. 增加训练数据多样性
+  B. 对抗性攻击测试
+  C. 缩小模型规模
+  D. 提升模型参数
+CURRENT_ANALYSIS: 暂无
+
+QID: 1-0626
+TYPE: 多选
+ANSWER: A,C,D
+STEM: 以下概念属于机器学习范畴的是?
+  A. 无监督学习
+  B. 超监督学习
+  C. 监督学习
+  D. 强化学习
+CURRENT_ANALYSIS: 暂无
+
+QID: 1-1322
+TYPE: 多选
+ANSWER: A,B,C
+STEM: 以下哪些场景适合使用语义切片?
+  A. 文档逻辑性强
+  B. 内容专业且结构复杂
+  C. 需要严格控制 Token 数量
+  D. 处理简单对话文本
+CURRENT_ANALYSIS: 暂无
+
+QID: 1-1329
+TYPE: 多选
+ANSWER: A,B,D
+STEM: 以下哪些是大模型生成内容的版权风险？
+  A. 使用未经授权的训练数据
+  B. 生成内容与现有作品高度相似
+  C. 自动添加水印标识
+  D. 用户未明确授权使用场景
+CURRENT_ANALYSIS: 暂无
+
+QID: 1-0467
+TYPE: 多选
+ANSWER: A,B
+STEM: temperature参数如何影响候选Token的概率分布？
+  A. 低温度增加高概率Token的选择
+  B. 高温度增加低概率Token的选择
+  C. 低温度减少高概率Token的选择
+  D. 高温度减少低概率Token的选择
+CURRENT_ANALYSIS: 暂无
+
+QID: 1-0485
+TYPE: 多选
+ANSWER: A,B,C,D,E
+STEM: 在提取标签的过程中，以下哪些标签类型是支持的？
+  A. 人名
+  B. 部门名称
+  C. 职位名称
+  D. 技术领域
+  E. 产品名称
+CURRENT_ANALYSIS: 暂无
+
+QID: 1-0646
+TYPE: 多选
+ANSWER: A,B,C,D
+STEM: 以下哪些方法可以有效降低大语言模型在私域场景下泄露敏感信息的风险?
+  A. 对用户输入进行敏感信息检测和过滤
+  B. 对大模型的输出进行敏感信息检测和过滤
+  C. 使用微调技术,使大模型学习私域数据的安全策略
+  D. 对大模型访问私域数据做适当程度的限制
+  E. 使用通用大模型的自我意识来防范
+CURRENT_ANALYSIS: 暂无
+
+QID: 1-0706
+TYPE: 多选
+ANSWER: A,B,C,D,E
+STEM: 关于大模型的局限性，以下哪些认识是正确的？
+  A. 可能产生看似合理但实际错误的内容
+  B. 知识受限于训练数据截止时间
+  C. 对输入提示的微小变化可能敏感
+  D. 缺乏真正的理解和常识
+  E. 无法保证长期对话的完全一致性
+CURRENT_ANALYSIS: 暂无
+
+QID: 1-0858
+TYPE: 多选
+ANSWER: A,B,D
+STEM: 以下哪些技术有助于扩展大模型的上下文处理能力？
+  A. 滑动窗口注意力
+  B. 层次化注意力机制
+  C. 知识蒸馏
+  D. 线性注意力近似
+  E. 模型量化
+CURRENT_ANALYSIS: 暂无
+
+QID: 1-0925
+TYPE: 多选
+ANSWER: A,B,C,D,E
+STEM: 在管理大模型项目时，以下哪些是成功的关键要素？（选择所有适用的项）
+  A. 明确的问题定义和成功标准
+  B. 高质量的数据准备和管理
+  C. 迭代式的开发和评估流程
+  D. 跨职能团队的协作
+  E. 对技术局限性的清醒认识
+CURRENT_ANALYSIS: 暂无
+
+QID: 1-1239
+TYPE: 多选
+ANSWER: B,C
+STEM: 关于当前主流的文生视频模型，以下哪些描述是正确的的？
+  A. MiniMax-Video-01和 Kling 1.5 已达到 Sora 模型级别。
+  B. Dream Machine1.5 提供了高质量的逼真视频生成能力。
+  C. Gen-3 AlphaTurbo 在运动控制方面表现出色。
+  D. 所有上述模型都依赖于 DIIT 架构。
+CURRENT_ANALYSIS: 暂无
+
+QID: 1-0497
+TYPE: 多选
+ANSWER: A,B,C,D
+STEM: OpenAILike 类的参数有哪些？
+  A. model
+  B. api_base
+  C. api_key
+  D. is_chat_model
+CURRENT_ANALYSIS: 暂无
+
+QID: 1-0580
+TYPE: 多选
+ANSWER: A,C
+STEM: 在提取标签的过程中，以下哪些操作是正确的？
+  A. 如果某类标签未识别到，则不输出该类
+  B. 输出所有标签类型，即使未识别到
+  C. 使用JSON格式输出标签
+  D. 使用XML格式输出标签
+CURRENT_ANALYSIS: 暂无
+
+QID: 1-0609
+TYPE: 多选
+ANSWER: A,C,D
+STEM: 在自动化处理问卷调查数据时，以下哪些步骤是适当的？
+  A. 调用大模型API
+  B. 人工逐个审阅
+  C. 使用数据可视化工具分析结果
+  D. 应用统计分析
+CURRENT_ANALYSIS: 暂无
+
+QID: 1-1002
+TYPE: 多选
+ANSWER: A,C,D
+STEM: 以下哪些方法有助于你减少大模型应用的输出结果等待时间?
+  A. 使用支持上下文缓存的模型 API
+  B. 使用参数数量更大的模型
+  C. 提前生成和复用内容
+  D. 减少输入 Token 数量
+CURRENT_ANALYSIS: 暂无
+
+QID: 1-1194
+TYPE: 单选
+ANSWER: B
+STEM: 以下哪个代码片段能够正确遍历feedback list并打印每个问题的意图? feedback_list的格式为[(1,"问题1"),(2,"问题2"),...]
+  A. for query in feedback_list:intent =classify_intent(query)print(f"Intent:{intent}")
+  B. for query in feedback_list:intent =classify_intent(query [1])print(f"Intent:{intent}")
+  C. for item in feedback_list:id =item[0]intent=classify_intent(item[0])print(f"ID:{id},Intent:{intent}")
+  D. for i in range(len(feedback_list)):intent =classify_intent(feedback_list[i])print(f"Intent:{intent}")
+CURRENT_ANALYSIS: 
+
+QID: 9-0073
+TYPE: 单选
+ANSWER: A
+STEM: temperature=0.1 的作用是什么？
+  A. 使输出更具确定性
+  B. 使输出更具创造性
+  C. 增加输出的多样性
+  D. 减少输出的长度
+CURRENT_ANALYSIS: 暂无
+
+QID: 9-0078
+TYPE: 单选
+ANSWER: B
+STEM: 在控制大模型生成内容的随机性时，top_p参数的作用是什么？
+  A. 调整候选Token的概率分布
+  B. 筛选出累计概率达到阈值的候选Token
+  C. 增加候选Token的数量
+  D. 减少候选Token的数量
+CURRENT_ANALYSIS: 暂无
+
+QID: 9-0136
+TYPE: 单选
+ANSWER: B
+STEM: 在top_p=0.5的设置下，大模型的输出会有什么特点？
+  A. 输出内容非常多样化
+  B. 输出内容相对单一
+  C. 输出内容完全随机
+  D. 输出内容无法预测
+CURRENT_ANALYSIS: 暂无
+
+QID: 9-0190
+TYPE: 单选
+ANSWER: A
+STEM: 在需要创意和多样化的场景中，建议如何设置temperature参数?
+  A. 设置较高的温度值
+  B. 设置较低的温度值
+  C. 使用默认温度值
+  D. 随机设置温度值
+CURRENT_ANALYSIS: 暂无
+
+QID: 9-0244
+TYPE: 单选
+ANSWER: A
+STEM: is_chat_model=True 的作用是什么？
+  A. 指定模型为聊天模型
+  B. 增加输出的多样性
+  C. 使输出更具确定性
+  D. 控制输出长度
+CURRENT_ANALYSIS: 暂无
+
+QID: 9-0295
+TYPE: 单选
+ANSWER: A
+STEM: 在需要生成创意写作和诗歌的场景中，建议如何设置top_p参数？
+  A. 设置较高的top_p值
+  B. 设置较低的top_p值
+  C. 使用默认top_p值
+  D. 随机设置top_p值
+CURRENT_ANALYSIS: 暂无
+
+QID: 9-1178
+TYPE: 单选
+ANSWER: D
+STEM: 以下哪种参数组合会使得模型生成结果最具多样性?
+  A. temperature = 0.1, top_p = 0.9
+  B. temperature = 0.1, top_p = 0.1
+  C. temperature = 0.9, top_p = 0.1
+  D. temperature = 0.9, top_p = 0.9
+CURRENT_ANALYSIS: 暂无
+
+QID: 9-0239
+TYPE: 单选
+ANSWER: A
+STEM: 在高温度（temperature=1.2）设置下，大模型的输出会有什么特点？
+  A. 输出内容非常多样化
+  B. 输出内容相对单一
+  C. 输出内容完全固定
+  D. 输出内容无法生成
+CURRENT_ANALYSIS: 暂无
+
+QID: 9-0313
+TYPE: 单选
+ANSWER: C
+STEM: 在使用大模型API处理调查问卷时，以下哪个步骤不是必要的？
+  A. 将问卷数据预处理为适合模型输入的格式
+  B. 通过代码调用大模型API
+  C. 手动检查每一份问卷的每一个答案
+  D. 收集大模型处理后的输出并分析结果
+CURRENT_ANALYSIS: 暂无
+
+QID: 9-0468
+TYPE: 多选
+ANSWER: A,B
+STEM: 以下关于temperature参数的描述，哪些是正确的？
+  A. 温度值越低，输出结果越固定
+  B. 温度值越高，输出结果越多样化
+  C. 温度值不影响输出结果
+  D. 温度值只影响生成速度
+CURRENT_ANALYSIS: 暂无
+
+QID: 9-0487
+TYPE: 多选
+ANSWER: A,D
+STEM: 哪些操作有助于生成更具确定性的文本？
+  A. 降低temperature值
+  B. 减少max_tokens值
+  C. 降低presence_penalty值
+  D. 固定seed值
+CURRENT_ANALYSIS: 暂无
+
+QID: 9-0492
+TYPE: 多选
+ANSWER: A,B
+STEM: 为了控制生成内容的随机性，以下哪些参数可以进行调整?
+  A. temperature
+  B. top_p
+  C. learning_rate
+  D. batch_size
+CURRENT_ANALYSIS: 暂无
+
+QID: 9-0499
+TYPE: 多选
+ANSWER: A,B
+STEM: 以下关于top_p参数的描述，哪些是正确的？
+  A. top_p值越大，生成内容越多样化
+  B. top_p值越小，生成内容越固定
+  C. top_p值不影响生成内容
+  D. top_p值只影响生成速度
+CURRENT_ANALYSIS: 暂无
+
+QID: 9-0558
+TYPE: 多选
+ANSWER: A,B
+STEM: 在设置temperature参数时，以下哪些建议是合理的？
+  A. 对于明确答案的场景，设置较低的温度值
+  B. 对于创意和多样化的情景，设置较高的温度值
+  C. 对于所有场景，使用默认温度值
+  D. 对于所有场景，随机设置温度值
+CURRENT_ANALYSIS: 暂无
+
+QID: 9-0565
+TYPE: 多选
+ANSWER: A,B
+STEM: 在设置top_p参数时，以下哪些建议是合理的？
+  A. 对于创意和多样化的情景，设置较高的top_p值
+  B. 对于明确和固定的场景，设置较低的top_p值
+  C. 对于所有场景，使用默认top_p值
+  D. 对于所有场景，随机设置top_p值
+CURRENT_ANALYSIS: 暂无
+
+QID: 9-0771
+TYPE: 单选
+ANSWER: C
+STEM: 某开发者使用阿里云通义千问 API 开发应用，需控制每次 API 调用的成本。以下哪种措施最有效？
+  A. 增加每次请求的文本输入长度
+  B. 选用更高精度的模型版本
+  C. 合理设置 "max_tokens" 参数，限制输出文本长度
+  D. 提高 API 调用的并发量
+CURRENT_ANALYSIS: 暂无
+
+QID: 9-0212
+TYPE: 单选
+ANSWER: D
+STEM: client.chat.completions.create 的作用是什么？
+  A. 调用API进行标签提取
+  B. 调用API进行模型训练
+  C. 调用API进行文档检索
+  D. 调用API进行文本生成
+CURRENT_ANALYSIS: 暂无
+
+QID: 9-0545
+TYPE: 多选
+ANSWER: A,B
+STEM: top_p参数如何影响候选Token的筛选?
+  A. 高top_p值增加候选Token的范围
+  B. 低top_p值减少候选Token的范围
+  C. 高top_p值减少候选Token的范围
+  D. 低top_p值增加候选Token的范围
+CURRENT_ANALYSIS: 暂无
+
+QID: 9-1093
+TYPE: 多选
+ANSWER: A,C,D
+STEM: 关于 temperature 和 top_p 参数的作用，以下哪三个描述是正确的?
+  A. 较低的 top_p 可以提高生成内容的稳定性
+  B. 较低的 temperature 可以增加生成内容的多样性
+  C. 通常情况下，只需调整其中一个参数即可。
+  D. 较高的 temperature 可以增加生成内容的多样性
+CURRENT_ANALYSIS: 暂无
+
+QID: 9-1133
+TYPE: 单选
+ANSWER: A
+STEM: 设计程序时，一般不会设计为调用一次大模型就处理完所有任务。下列关于上述说法的分析，错误的是哪一项？
+  A. 单个大模型无法处理多种格式的文件。
+  B. 可以根据任务特点选择合适的模型和参数。
+  C. 难以同时保证每项工作的质量。
+  D. 可以分步优化，提高整体处理效率和成本。
+CURRENT_ANALYSIS: 暂无
+
+QID: 9-0510
+TYPE: 多选
+ANSWER: A,B
+STEM: 以下哪些场景适合设置较低的top_p值？
+  A. 新闻稿
+  B. 代码生成
+  C. 创意写作
+  D. 诗歌生成
+CURRENT_ANALYSIS: 暂无
+
+QID: 9-0531
+TYPE: 多选
+ANSWER: A,B
+STEM: 以下哪些场景适合设置较高的top_p值？
+  A. 创意写作
+  B. 诗歌生成
+  C. 新闻稿
+  D. 代码生成
+CURRENT_ANALYSIS: 暂无
+
+QID: 9-0543
+TYPE: 多选
+ANSWER: A,B
+STEM: 以下哪些场景适合设置较高的temperature值？
+  A. 生成广告文案
+  B. 创作诗歌
+  C. 生成代码
+  D. 提取数据结构
+CURRENT_ANALYSIS: 暂无
+
+QID: 9-0554
+TYPE: 多选
+ANSWER: A,B
+STEM: 以下哪些场景适合设置较低的temperature值？
+  A. 生成代码
+  B. 提取数据结构
+  C. 生成广告文案
+  D. 创作诗歌
+CURRENT_ANALYSIS: 暂无
+
+QID: 9-0592
+TYPE: 多选
+ANSWER: A,B,D
+STEM: 在利用大模型处理调查问卷时，以下哪些步骤可能是必要的?
+  A. 将问卷数据预处理为模型可接受的格式
+  B. 设定评分标准或关键词以判断回答质量
+  C. 人工检查每一份问卷的每一个答案
+  D. 使用API调用大模型进行批量分析
+  E. 直接将原始问卷文档上传至大模型进行处理
+CURRENT_ANALYSIS: 暂无
+
+QID: 9-0693
+TYPE: 多选
+ANSWER: A,B,C,D
+STEM: 关于阿里云大模型 API 的 "参数调优"，以下哪些参数调整可能影响模型的输出效果？
+  A. max_tokens：控制模型生成文本的最大长度
+  B. temperature：控制生成内容的随机性（创新性）
+  C. top_p：控制生成时选择词汇的范围（如 top_p = 0.9 表示仅从概率前 90% 的词汇中选择）
+  D. stop：设置生成终止词（如遇到 "END" 时停止生成）
+CURRENT_ANALYSIS: 暂无
+
+QID: 10-0076
+TYPE: 单选
+ANSWER: A
+STEM: model="qwen-plus" 的作用是什么？
+  A. 指定使用的模型
+  B. 增加输出的多样性
+  C. 使输出更具确定性
+  D. 控制输出长度
+CURRENT_ANALYSIS: 暂无
+
+QID: 10-0297
+TYPE: 单选
+ANSWER: C
+STEM: Qwen-Max线上模型可能指的是以下哪一种情况？
+  A. 经过大规模预训练的原始模型
+  B. 针对特定任务经过充分微调的模型
+  C. 经过大量在线交互不断优化的模型
+  D. 参数量最大的基线模型
+CURRENT_ANALYSIS: 暂无
+
+QID: 10-0391
+TYPE: 单选
+ANSWER: C
+STEM: 通义听悟主要聚焦于哪种类型的数据处理能力?
+  A. 将图像转换为高质量的视频内容
+  B. 结合图像和文本进行创造性内容生成
+  C. 基于音频内容生成文字记录、摘要及翻译
+  D. 通过图像进行复杂的推理分析
+CURRENT_ANALYSIS: 暂无
+
+QID: 10-0196
+TYPE: 单选
+ANSWER: A
+STEM: model="qwen-turbo" 的作用是什么？
+  A. 指定使用的模型
+  B. 指定使用的API密钥
+  C. 指定使用的标签类型
+  D. 指定使用的输出格式
+CURRENT_ANALYSIS: 暂无
+
+QID: 10-0306
+TYPE: 单选
+ANSWER: B
+STEM: 以下哪项插件功能最可能通过大模型API及百炼应用A PI实现，以辅助日常办公？
+  A. 高级图像识别与编辑
+  B. 实时多语言翻译服务
+  C. 复杂的3D建模与渲染
+  D. 高精度的物理实验模拟
+CURRENT_ANALYSIS: 暂无
+
+QID: 10-0363
+TYPE: 单选
+ANSWER: C
+STEM: Qwen系列模型中，哪个模型代表了经过大规模数据预训练后的基础版本，未针对特定任务进行过多调整？
+  A. Qwen-7B-Chat
+  B. Qwen-Max线上模型
+  C. Qwen-7B预训练模型
+  D. Qwen-14B-Chat
+CURRENT_ANALYSIS: 暂无
+
+QID: 10-0444
+TYPE: 单选
+ANSWER: B
+STEM: 在下列使用Qwen - Max辅助内容生产的场景中，以下哪个操作是可以执行的？
+  A. 直接使用Qwen - Max进行图像设计
+  B. 利用Qwen - Max生成课程文案
+  C. 应用Qwen - Max进行视频剪辑
+  D. 让Qwen - Max执行编程代码
+CURRENT_ANALYSIS: 暂无
+
+QID: 10-0587
+TYPE: 多选
+ANSWER: A,B,D
+STEM: 以下哪些描述符合使用列表方法给通义千问大模型增加记忆的场景？
+  A. 在与模型的交互中，将关键信息以列表形式累积存储
+  B. 每次提问时，将该列表作为上下文附加到问题中，帮助模型理解历史对话
+  C. 列表中存储的信息会随每次请求自动清空，保证每次对话独立性
+  D. 可以手动编辑列表内容，选择性地向模型展示特定的记忆信息
+CURRENT_ANALYSIS: 暂无
+
+QID: 10-0591
+TYPE: 多选
+ANSWER: A,B,C
+STEM: 为了有效利用上下文记忆提升通义千问大模型的交互质量，可以采取哪些策略？
+  A. 设计高效的内存管理机制，自动丢弃较旧的对话记录
+  B. 根据对话内容的相关性选择性地更新记忆列表
+  C. 实现一个智能筛选机制，仅保留对当前对话有帮助的信息
+  D. 为每一次对话创建独立的记忆列表，不进行跨会话信息共享
+CURRENT_ANALYSIS: 暂无
+
+QID: 10-1073
+TYPE: 单选
+ANSWER: A
+STEM: 在调用百炼大模型接口时，如何指定用户的输入内容？
+  A. 将用户输入内容作为'messages'列表中字典的'content'字段的值传入
+  B. 将用户输入内容作为model参数的值传入
+  C. 将用户输入内容作为api_key 参数的值传入
+  D. 将用户输入内容作为base_url 参数的值传入
+CURRENT_ANALYSIS: 暂无
+
+QID: 10-1209
+TYPE: 多选
+ANSWER: A,B,C,D
+STEM: 阿里云支持的模型部署平台包括?
+  A. 云服务器ECS
+  B. 函数计算FC
+  C. 人工智能平台PAI-EAS
+  D. 大模型服务平台百炼
+CURRENT_ANALYSIS: 四种均为阿里云官方部署方案
+
+QID: 10-0769
+TYPE: 多选
+ANSWER: A,B,D
+STEM: 某开发者使用阿里云 PAI 平台部署大模型应用，要求支持 '高并发请求、低延迟响应、资源弹性扩展'。以下哪些 PAI 平台功能需要重点配置？
+  A. PAI-EAS（弹性计算服务）的容器化部署
+  B. PAI-EAS 的自动扩缩容功能
+  C. PAI-Studio 的模型微调功能
+  D. PAI-EAS 的性能监控与告警功能
+CURRENT_ANALYSIS: 暂无
+
+QID: 10-1189
+TYPE: 单选
+ANSWER: D
+STEM: 如何从百炼大模型的接口返回结果中获取模型生成的文本?
+  A. print(completion.message.content)
+  B. print(completion.choices[0].message)
+  C. print(completion.choices.message.content)
+  D. print(completion.choices[0].message.content)
+CURRENT_ANALYSIS: 暂无
+
+QID: 10-1129
+TYPE: 单选
+ANSWER: C
+STEM: 相比直接使用大模型的 API，使用百炼的 Assistant A PI 构建 Agent 的主要优势是什么？
+  A. 能够绕过一些 API 调用限制，使得开发出的 A agent 功能更强大
+  B. 能够完全控制模型底层训练过程
+  C. 自带了会话管理和网络搜索等工具，简化 Agent t 开发工作
+  D. 能够修改一些大模型 API 不直接提供的参数，使得开发 Agent 的过程更灵活
+CURRENT_ANALYSIS: 暂无
+
+QID: 12-0229
+TYPE: 单选
+ANSWER: A
+STEM: 在RAG应用的多轮对话中，LlamaIndex提供了什么工具？
+  A. 快速实现多轮对话
+  B. 增加模型的训练数据
+  C. 减少模型的推理时间
+  D. 增加模型的参数数量
+CURRENT_ANALYSIS: 暂无
+
+QID: 12-0255
+TYPE: 单选
+ANSWER: B
+STEM: 在创建索引时，以下哪个方法被使用？
+  A. SimpleDirectoryReader
+  B. VectorStoreIndex.from_documents
+  C. index.as_query_engine
+  D. index.storage_context.persist
+CURRENT_ANALYSIS: 暂无
+
+QID: 12-0288
+TYPE: 单选
+ANSWER: A
+STEM: 在LlamaIndex的默认提示词模板中，query_str表示什么？
+  A. 用户的问题
+  B. 从向量库中检索到的上下文信息
+  C. 大模型的角色
+  D. 输出的格式
+CURRENT_ANALYSIS: 暂无
+
+QID: 12-0456
+TYPE: 单选
+ANSWER: B
+STEM: 在Llamaindex中，默认情况下，加载的数据是如何存储的？
+  A. 存储在云服务中
+  B. 存储在内存中作为一系列向量嵌入
+  C. 直接写入数据库
+  D. 存储在文件系统中的特定目录
+CURRENT_ANALYSIS: 暂无
+
+QID: 12-0209
+TYPE: 单选
+ANSWER: A
+STEM: 在 RAG 应用的多轮对话中，以下哪个工具可以快速实现多轮对话？
+  A. LlamaIndex
+  B. SimpleDirectoryReader
+  C. VectorStoreIndex
+  D. OpenAIEmbedding
+CURRENT_ANALYSIS: 暂无
+
+QID: 12-0438
+TYPE: 单选
+ANSWER: B
+STEM: 在借助 LlamaIndex 构建问答机器人时，如果存储目录不存在，首次创建索引应使用哪个类读取文档？
+  A. VectorStoreIndex
+  B. SimpleDirectoryReader
+  C. StorageContext
+  D. load_index_from_storage
+CURRENT_ANALYSIS: 暂无
+
+QID: 12-0154
+TYPE: 单选
+ANSWER: B
+STEM: 如果你想快速构建一个效果不错的 RAG 应用，可以参考哪篇文档？
+  A. 使用 LlamaIndex 构建 GraphRAG 应用
+  B. 0代码构建私有知识问答应用
+  C. 可视化工作流、智能体编排
+  D. LlamaIndex API 文档
+CURRENT_ANALYSIS: 暂无
+
+QID: 12-0213
+TYPE: 单选
+ANSWER: A
+STEM: 如果你想深入了解如何实际运用 GraphRAG，可以参考哪个教程？
+  A. 使用 LlamaIndex 构建 GraphRAG 应用
+  B. 0代码构建私有知识问答应用
+  C. 可视化工作流、智能体编排
+  D. LlamaIndex API 文档
+CURRENT_ANALYSIS: 暂无
+
+QID: 12-0267
+TYPE: 单选
+ANSWER: A
+STEM: 百炼提供了一系列 LlamaIndex 组件，其主要目的是什么？
+  A. 方便继续使用熟悉的 LlamaIndex API 构建 RA G应用
+  B. 提高模型训练速度
+  C. 减少数据存储需求
+  D. 增加输出的多样性
+CURRENT_ANALYSIS: 暂无
+
+QID: 12-0478
+TYPE: 多选
+ANSWER: A,B
+STEM: 如果你的业务流程比较复杂，可以借助百炼上的哪些工具来构建更强大的应用？
+  A. 可视化工作流
+  B. 智能体编排
+  C. LlamaIndex 组件
+  D. 自然语言处理模型
+CURRENT_ANALYSIS: 暂无
+
+QID: 12-0500
+TYPE: 多选
+ANSWER: A,B
+STEM: 在保存与加载索引时，以下哪些方法被使用？
+  A. index.storage_context.persist
+  B. load_index_from_storage
+  C. SimpleDirectoryReader
+  D. VectorStoreIndex.from_documents
+CURRENT_ANALYSIS: 暂无
+
+QID: 12-0573
+TYPE: 多选
+ANSWER: C,D
+STEM: 在通过LlamaIndex创建RAG应用时，以下关于流式输出相比非流式输出的优势的说法正确的有哪些？
+  A. 能够提升大模型回复的效果
+  B. 能够加快大模型回复的速度
+  C. 能够给用户带来良好的阅读体验
+  D. 如果返回的内容很长可以逐步返回结果，避免超时
+CURRENT_ANALYSIS: 暂无
+
+QID: 12-0107
+TYPE: 单选
+ANSWER: A
+STEM: Dataset.from_dict(data_samples) 的主要作用是什么？
+  A. 将字典数据转换为数据集
+  B. 增加模型的训练数据
+  C. 减少模型的推理时间
+  D. 增加模型的参数数量
+CURRENT_ANALYSIS: 暂无
+
+QID: 12-0254
+TYPE: 单选
+ANSWER: A
+STEM: 在保存与加载索引时，index.storage_context.persist方法的主要作用是什么？
+  A. 将索引保存为本地文件
+  B. 将指定文件夹中的文件加载为document对象
+  C. 将文本向量化
+  D. 创建用于提问的引擎
+CURRENT_ANALYSIS: 暂无
+

@@ -1,0 +1,942 @@
+﻿========== 私有函数引用题 ==========
+
+### [PRIVATE_FN] 1-0097  type=0 ans=A diff=入门
+STEM: extract_tags 函数的作用是什么？
+  A: 从文本中提取标签
+  B: 从文本中提取关键词
+  C: 从文本中提取句子
+  D: 从文本中提取段落
+ANALYSIS: 暂无
+
+### [PRIVATE_FN] 1-0178  type=0 ans=A diff=入门
+STEM: ask_lm_route 规定的输入格式是什么？
+  A: 【输入如下】
+  B: 增加模型的训练数据
+  C: 减少模型的推理时间
+  D: 增加模型的参数数量
+ANALYSIS: 暂无
+
+### [PRIVATE_FN] 2-0127  type=0 ans=A diff=进阶
+STEM: ask_llm_route 函数在“文档审查”场景下会使用哪个提示词？
+  A: reviewed_prompt
+  B: translate_prompt
+  C: query_engine
+  D: ra ask
+ANALYSIS: 在阿里云大模型高级工程师认证（ACP）所涉的文档审查场景中，ask_llm_route 函数依据任务类型路由至对应提示词模板，'文档审查'明确对应 reviewed_prompt，该提示词已预置于阿里云百炼平台Prompt管理模块，专用于结构化提取、合规性判断等审查类任务。选项B translate_prompt 仅适用于多语言翻译场景；C query_engine 是RAG检索组件名称，非提示词
+
+### [PRIVATE_FN] 2-0141  type=0 ans=A diff=进阶
+STEM: ask_llm_route 函数在“内容翻译”场景下会使用哪个提示词？
+  A: translate_prompt
+  B: reviewed_prompt
+  C: query_engine
+  D: ra ask
+ANALYSIS: 暂无
+
+### [PRIVATE_FN] 2-0207  type=0 ans=A diff=进阶
+STEM: ask_lm_route 函数在“公司内部文档查询”场景下会使用哪个方法？
+  A: ra ask
+  B: reviewed_prompt
+  C: translate_prompt
+  D: llm.invoke
+ANALYSIS: 在阿里云百炼平台中，ask_lm_route函数用于路由用户请求至合适的语言模型处理路径，在'公司内部文档查询'场景下默认调用ra ask方法，该方法专为检索增强（RAG）类任务设计，支持结合向量库与LLM进行精准问答。选项B reviewed_prompt和C translate_prompt属于特定预处理策略，不参与主路由逻辑；D llm.invoke是底层模型调用接口，由路由方法内部触发，而
+
+### [PRIVATE_FN] 2-0210  type=0 ans=A diff=进阶
+STEM: ask_lm_route 函数在问题类型无法识别时会返回什么？
+  A: 未能识别问题类型，请重新输入。
+  B: reviewed_prompt
+  C: translate_prompt
+  D: ra ask
+ANALYSIS: 暂无
+
+### [PRIVATE_FN] 2-0484  type=1 ans=A,B,C,D diff=进阶
+STEM: ask_llm_route 函数可能的输出有哪些？
+  A: 文档审查结果
+  B: 公司内部文档查询结果
+  C: 内容翻译结果
+  D: “未能识别问题类型，请重新输入。”
+ANALYSIS: ask_llm_route 是阿里云百炼平台中用于智能路由的核心函数，根据用户输入自动识别问题类型并分发至对应专业模型（如文档理解、知识库检索、翻译模型等）。依据百炼官方文档，该函数支持文档审查（A）、内部知识库查询（B）、多语种翻译（C）三类标准能力，且当输入语义模糊或无法匹配预设意图时，统一返回兜底提示“未能识别问题类型，请重新输入。”（D），符合平台健壮性设计规范。所有选项均在百炼API行为
+
+### [PRIVATE_FN] 2-0524  type=1 ans=A,B diff=进阶
+STEM: ask_llm_route 函数对应提示词中规定了哪些角色背景？
+  A: 文档纠错专家
+  B: 翻译专家
+  C: 增加模型的训练数据
+  D: 减少模型的推理时间
+ANALYSIS: ask_llm_route 函数是阿里云百炼平台中用于动态路由提示词任务的关键函数，其内置提示词明确将调用角色限定为‘文档纠错专家’和‘翻译专家’两类专业能力角色，对应平台对结构化任务分发的官方设计（参见《百炼平台开发者指南》v3.2中‘智能路由与角色绑定’章节）。选项A、B准确反映该函数在实际API调用中所激活的预设角色能力。C错误：增加训练数据属于离线模型优化范畴，与运行时路由函数无关；D错误
+
+### [PRIVATE_FN] 2-0546  type=1 ans=A,B diff=进阶
+STEM: ask_llm_route 函数对应提示词中规定了哪些任务要求？
+  A: 文档纠错专家需要言简意赅的回复
+  B: 翻译专家需要识别不同语言的文本并翻译为中文
+  C: 增加模型的训练数据
+  D: 减少模型的推理时间
+ANALYSIS: ask_llm_route 是阿里云百炼平台中用于动态路由至不同专业 LLM 专家角色的函数，其提示词明确约束各专家的行为规范。A 正确：文档纠错专家被要求‘言简意赅’，符合百炼平台对任务型专家输出格式的标准化定义；B 正确：翻译专家需识别源语言并统一译为中文，体现百炼多语言理解与可控生成能力。C 错误：该函数仅影响推理时的路由决策，不涉及训练数据增广；D 错误：路由本身可能引入微秒级开销，实际目
+
+### [PRIVATE_FN] 2-1437  type=0 ans=C diff=进阶
+STEM: ask_llm_route 函数在问题类型无法识别时会返回什么？
+  A: reviewed_prompt
+  B: translate_prompt
+  C: query_engine
+  D: rag.ask
+ANALYSIS: 正确答案是C（query_engine）。根据阿里云大模型服务平台（如百炼）的典型RAG应用架构，ask_llm_route函数作为路由中枢，在问题类型无法识别时默认降级至通用查询引擎query_engine，确保请求不失败，体现平台的容错与兜底设计原则。A项reviewed_prompt和B项translate_prompt均为特定场景提示模板，仅在明确识别为审核或翻译类问题时触发；D项rag.
+
+### [PRIVATE_FN] 2-1170  type=1 ans=A,B,C,E diff=进阶
+STEM: abstract_generator 提示词模板包含哪些关键组成部分？
+  A: 任务要求描述
+  B: 角色背景设定
+  C: 输出格式要求
+  D: 错误处理机制
+  E: 用户输入示例
+ANALYSIS: abstract_generator 是阿里云百炼平台中用于生成摘要的提示词模板，其核心设计遵循清晰的任务定义原则。A项任务要求描述是基础，明确摘要目标；B项角色背景设定（如'你是一名专业编辑'）提升生成质量；C项输出格式要求（如JSON/字数限制）确保结构化输出；E项用户输入示例提供上下文范式，增强泛化能力。D项错误处理机制并非该模板的组成部分，百炼平台的提示词模板聚焦于正向引导与约束，异常响应
+
+### [PRIVATE_FN] 2-0541  type=1 ans=A,B,C,D diff=进阶
+STEM: ask_llm_route 函数可能的处理流程有哪些？
+  A: 使用reviewed_prompt进行文档审查
+  B: 使用ra ask进行公司内部文档查询
+  C: 使用translate_prompt进行内容翻译
+  D: 返回'未能识别问题类型，请重新输入。'
+ANALYSIS: ask_llm_route 是阿里云百炼平台中用于动态路由用户请求至不同LLM处理链路的核心函数，其设计遵循‘意图识别→路由分发→结果返回’逻辑。A正确：reviewed_prompt对应文档审查场景，属百炼内置合规审查能力；B正确：ra ask是阿里云内部知识库检索专用接口，支持企业级文档查询；C正确：translate_prompt调用百炼多语言翻译模型，符合平台标准化prompt路由机制；D
+count: 12
+
+========== 图片依赖题 ==========
+
+### [IMAGE] 5-0008  type=0 ans=C diff=入门
+STEM: 下面是一qwen2.5-1.5b 微调训练过程中的损失趋势图，当前的状态是？
+  A: 欠拟合
+  B: 过拟合
+  C: 训练失败
+  D: 训练成功
+ANALYSIS: 正确答案为C（训练失败），因图中损失值在训练初期未下降甚至剧烈震荡或发散，表明梯度爆炸、学习率过高或数据预处理异常，违反阿里云PAI平台对稳定收敛的基本要求。ACP认证强调：微调需确保loss单调递减至平稳，否则判定为训练失败。A（欠拟合）表现为训练/验证loss均高但稳定；B（过拟合）特征是训练loss持续下降而验证loss上升；D（训练成功）需loss收敛至合理阈值且无异常波动。本题图示明显不
+
+========== 结构异常 ==========
+
+### [MULTI_SINGLE_ANS] 2-1448  type=2 ans=D diff=进阶
+STEM: 在使用大语言模型时，什么是“样例” 的作用？
+  A: 确定目标用户
+  B: 辅助模型生成单一答案
+  C: 明确限制模型的回答长度
+  D: 提供有指导性的案例
+  E: 设定模型的情感色彩
+  F: 抽象出实现方案
+ANALYSIS: ‘样例’（Example）在阿里云百炼平台及大语言模型Prompt工程中，指提供给模型的输入-输出示范对，用于引导模型理解任务格式、风格和预期响应，即‘提供有指导性的案例’（D正确）。阿里云官方文档明确将样例列为Few-shot Prompt的关键组成，用以提升生成一致性与准确性。A、B、C、E、F均非样例的核心作用：目标用户由业务场景定义（A错）；单一答案依赖约束而非样例（B错）；长度限制需通过
+
+### [FEW_OPTIONS] 2-0523  type=1 ans=A,B,C diff=进阶
+STEM: 在提示词中，以下哪些符号可以作为分隔符？
+  A: []
+  B: <context></context>
+  C: ##
+ANALYSIS: 提示词里的分隔符可以采用方括号、自定义 XML/HTML 风格标签、井号标题等形式。只要能稳定地区分不同内容块，都可以作为分隔符使用。
+
+========== 同题异答重复对 ==========
+
+--- sim=0.743 ---
+
+### [1-0280] 1-0280  type=0 ans=A diff=入门
+STEM: answer_correctness 指标的主要作用是什么？
+  A: 评估答案的准确度
+  B: 增加模型的训练数据
+  C: 减少模型的推理时间
+  D: 增加模型的参数数量
+ANALYSIS: 暂无
+
+### [7-1367] 7-1367  type=0 ans=C diff=入门
+STEM: 在 Ragas 中, answer Correctness 指标的主要作用是什么?
+  A: 增加模型的训练数据
+  B: 评估 contexts 与 Ground_trut的事实上一致性程度
+  C: 评估 RAG系统整体的综合指标
+  D: 减少模型的推理时间
+ANALYSIS: 教材官方口径：Answer Correctness 用 question/answer/ground_truth（不要 contexts），按 0.25×语义相似度+0.75×事实 F1 综合评估答案与标准答案的整体一致程度。B 混入 contexts 不符合口径；C『评估 RAG 系统整体的综合指标』为最接近选项。
+
+--- sim=0.92 ---
+
+### [1-0392] 1-0392  type=0 ans=D diff=入门
+STEM: 自然语言处理(NLP)任务中，为什么需要对文本进行分词？
+  A: 分词化是为了加强文本加密，保证数据传输的安全性
+  B: 分词化可以精简文本内容，删除不必要的信息，减少存储空间
+  C: 分词化目的是为了改善文本的阅读性，使人们阅读更加流畅
+  D: 分词化使计算机能够理解和处理文本数据，转换成模型能够使用的数据结构
+ANALYSIS: 分词化是自然语言处理中的一项关键步骤，其主要目的是将连续的文本分解为独立的词语或词组，以便计算机能够理解和处理文本数据。分词后的文本可以被转换为模型能够使用的结构化数据，从而提高模型的处理效率和准确性。因此，分词化是实现文本理解、分类、命名实体识别等任务的基础。
+
+### [1-1436] 1-1436  type=0 ans=C diff=入门
+STEM: 在自然语言处理(NLP)任务中，为什么需要对文本进行分词化？
+  A: 改善文本阅读流畅性
+  B: 加强文本加密安全性
+  C: 使计算机能够理解和处理文本数据
+  D: 精简文本内容减少存储空间
+ANALYSIS: 分词化是将文本分解为更小的单元（如单词），以便于机器理解和处理。
+
+--- sim=0.826 ---
+
+### [1-0441] 1-0441  type=0 ans=C diff=入门
+STEM: 在下列哪项任务中，大语言模型可能不是最佳工具选择？
+  A: 自动为新闻文章分配合适的标签类别
+  B: 从大量日志数据中自动检测异常登录行为
+  C: 确定两种药物治疗效果是否有统计学上的显著差异
+  D: 分析用户反馈,识别产品改进建议的主题
+ANALYSIS: 暂无
+
+### [1-1044] 1-1044  type=0 ans=B diff=入门
+STEM: 在下列哪项任务中，大模型可能不是最佳工具选择？
+  A: 分析用户反馈，识别产品改进建议的主题。
+  B: 确定两种药物治疗效果是否有统计学上的显著差异。
+  C: 自动为新闻文章分配合适的标签类别。
+  D: 从大量日志数据中自动检测异常登录行为
+ANALYSIS: 确定统计学显著性需专业工具，大模型更适合语言相关任务。其他选项均可通过 LLM 实现（或辅助）。
+
+--- sim=0.8 ---
+
+### [1-0446] 1-0446  type=0 ans=B diff=入门
+STEM: 大语言模型中的top_P (nucleus sampling)参数的主要作用是什么？
+  A: 控制模型生成文本的长度
+  B: 控制模型只考虑概率最高的几个词,例如这里设置0.9,则模型只考虑累积概率前90%的词
+  C: 控制模型使用的CPU核心数量
+  D: 控制模型输出的格式
+ANALYSIS: 暂无
+
+### [9-1389] 9-1389  type=1 ans=D diff=入门
+STEM: top_p (nucleus sampling) 参数的主要作用是什么？
+  A: 控制模型使用的CPU 核心数量。
+  B: 控制模型生成文本的长度。
+  C: 控制模型输出的格式。
+  D: 控制模型只考虑概率最高的几个词，例如这里设置0.9，则模型只考虑累积概率前90% 的词
+ANALYSIS: 
+
+--- sim=0.97 ---
+
+### [1-0400] 1-0400  type=0 ans=B diff=入门
+STEM: 以下哪种方式可以更好地处理大语言模型返回结果中可能存在的错误或异常？
+  A: 不处理,直接使用返回结果
+  B: 使用try - except块捕获潜在的异常
+  C: 在调用大模型之前进行输入验证
+  D: 假设大模型总是返回正确的结果
+ANALYSIS: 使用try-except块捕获潜在的异常可以更好地处理大模型返回结果中可能存在的错误或异常
+
+### [1-1349] 1-1349  type=0 ans=C diff=入门
+STEM: 以下哪种方式可以更好地处理大语言模型返回结果中可能存在的错误或异常?
+  A: 假设大模型总是返回正确的结果
+  B: 在调用大模型之前进行输入验证
+  C: 使用try - except块捕获潜在的异常
+  D: 不处理,直接使用返回结果
+ANALYSIS: 使用try - except块捕获潜在的异常是更好地处理大语言模型返回结果中可能存在的错误或异常的方法。这种方法可以在程序运行时动态地捕获和处理异常，从而提高程序的健壮性和可靠性。同时，结合输入验证等其他方法，可以更全面地确保处理结果的准确性和其他方法，可以更全面地确保处理结果的准确性和可靠性。
+
+--- sim=0.75 ---
+
+### [1-0300] 1-0300  type=0 ans=A diff=进阶
+STEM: 以下关于大模型、机器学习与知识库应用的描述中，错误的是？
+  A: 优秀的基础模型（大模型）只需要自身庞大的参数规模和计算硬件，对数据量没有太大要求
+  B: 小明希望做一个企业专有的知识库工程，他可以在基座模型上用微调的形式来实现
+  C: 生成式人工智能是机器学习中快速增长的子集
+  D: 深度学习是机器学习的一个分支
+ANALYSIS: 暂无
+
+### [1-1312] 1-1312  type=0 ans=D diff=进阶
+STEM: 以下关于大模型、机器学习与知识库应用的描述中，不正确的是？
+  A: 深度学习是机器学习的一个分支
+  B: 小明希望做一个企业专有的知识库工程，他可以在基座模型上用微调的形式来实现
+  C: 生成式人工智能是机器学习中快速增长的子集
+  D: 优秀的基础模型（大模型）只需要自身庞大的参数规模和计算硬件，对数据量没有太大要求
+ANALYSIS: 优秀的基础模型不仅依赖于庞大的参数规模和强大的计算硬件，还需要大量的数据来训练以确保其能够学习到丰富的特征和知识。数据量对于训练高质量的大模型至关重要，因为更多的数据可以帮助模型更好地泛化，并提高其在多种任务上的性能。
+
+--- sim=0.725 ---
+
+### [1-0453] 1-0453  type=0 ans=C diff=进阶
+STEM: 在调用大语言模型的API过程中，以下哪个代码片段正确地使用了system角色来指示模型扮演一个友好的客服代表？
+  A: messages = ["role": "system", "content": "我想咨询一下退货流程。"]
+  B: messages = ["role": "system", "content": "您好，请问有什么可以帮您的？"]
+  C: messages = ["role": "system", "content": "你是一位友好的客服代表，随时准备帮助客户解决问题。"]
+  D: messages = ["role": "system", "content": "用户想咨询退货流程。"]
+ANALYSIS: 在大语言模型的API中，'role'字段用于指定模型扮演的角色。'system'角色用于指示模型扮演一个固定的、预设的角色，例如客服代表。选项C中，'role'字段明确设置为'system'，并且'content'字段描述了模型作为客服代表的职责，即随时准备帮助客户解决问题，这符合'系统'角色的定义。其他选项要么没有正确设置'role'，要么'content'内容与'系统'角色的定义不符。
+
+### [1-1182] 1-1182  type=0 ans=A diff=进阶
+STEM: 以下哪个代码片段正确地使用了 system 角色来指示模型扮演一个友好的客服代表？
+  A: python messages = ["{"role": "system", "content": "你是一位友好的客服代表，随时准备帮助客户解决问题。"}]
+  B: python messages = ["{"role": "assistant", "content": "您好，请问有什么可以帮您的？"}]
+  C: python messages = ["{"role": "user", "content": "我想咨询一下退货流程。"}]
+  D: python messages = ["{"role": "system", "content": "用户想咨询退货流程。"}]
+ANALYSIS: system 角色用于设定模型的行为和身份，通常用于指示模型扮演一个特定的角色。在选项A中，'role'字段被设置为'system'，这符合题干中要求的使用system角色来指示模型扮演一个友好的客服代表。
+
+--- sim=0.867 ---
+
+### [2-0079] 2-0079  type=0 ans=A diff=入门
+STEM: 在自定义提示词模板中，以下哪项是用于约束大模型行为的注意事项？
+  A: 根据上下文信息而非先验知识来回答问题
+  B: 增加模型的训练数据
+  C: 减少模型的推理时间
+  D: 增加模型的参数数量
+ANALYSIS: 暂无
+
+### [2-0505] 2-0505  type=1 ans=A,B,C diff=进阶
+STEM: 在自定义提示词模板中，以下哪些是用于约束大模型行为的注意事项？
+  A: 根据上下文信息而非先验知识来回答问题
+  B: 提醒用户问题触及安全红线，无法提供
+  C: 只回答用户的问题，不输出其他信息
+  D: 增加模型的训练数据
+ANALYSIS: A、B、C 均属于提示词工程中典型的约束性指令：A 对应阿里云百炼平台推荐的‘上下文依赖原则’，确保模型严格依据RAG检索结果作答；B 是安全合规类硬性约束，符合阿里云《大模型内容安全规范》中关于主动拦截高危请求的要求；C 属于输出格式控制，对应百炼API中response_format参数的语义约束目标。D错误——提示词模板仅影响推理阶段行为，无法增加训练数据，模型训练数据由厂商在离线阶段固化，
+
+--- sim=0.789 ---
+
+### [2-0275] 2-0275  type=0 ans=D diff=入门
+STEM: 在提示词中，以下哪种符号可以作为分隔符？
+  A: []
+  B: <context></context>
+  C: ##
+  D: 以上都可以
+ANALYSIS: 方括号、自定义标签和 `##` 都可以作为提示词中的分隔符。关键不在于具体符号，而在于边界清晰、含义稳定、前后一致。
+
+### [2-0523] 2-0523  type=1 ans=A,B,C diff=进阶
+STEM: 在提示词中，以下哪些符号可以作为分隔符？
+  A: []
+  B: <context></context>
+  C: ##
+ANALYSIS: 提示词里的分隔符可以采用方括号、自定义 XML/HTML 风格标签、井号标题等形式。只要能稳定地区分不同内容块，都可以作为分隔符使用。
+
+--- sim=0.783 ---
+
+### [2-1005] 2-1005  type=0 ans=C diff=入门
+STEM: 某大模型客服系统被攻击者通过提示词注入获取机密数据，以下哪个措施能更有效防范这一问题？
+  A: 改进提示词，让大模型避免回答这类问题
+  B: 改进提示词，确保模型在回答问题时避免回答列表形式的内容
+  C: 在知识检索阶段严格控制用户的查询访问权限，过滤掉非法请求并报警
+  D: 改进提示词，并且在输入阶段过滤掉敏感关键词
+ANALYSIS: 暂无
+
+### [2-1111] 2-1111  type=0 ans=D diff=入门
+STEM: 某大模型客服系统被攻击者通过提示词注入获取知识库数据，以下哪个措施能更有效地防范这一问题？
+  A: 改进提示词，确保模型在回答问题时避免回答列表形式的内容
+  B: 改进提示词，让大模型避免回答这类问题
+  C: 改进提示词，并且在输入阶段过滤数据‘关键词’
+  D: 在知识库检索前严格限制应用的数据访问权限，避免泄露公开信息
+ANALYSIS: 暂无
+
+--- sim=0.963 ---
+
+### [2-0210] 2-0210  type=0 ans=A diff=进阶
+STEM: ask_lm_route 函数在问题类型无法识别时会返回什么？
+  A: 未能识别问题类型，请重新输入。
+  B: reviewed_prompt
+  C: translate_prompt
+  D: ra ask
+ANALYSIS: 暂无
+
+### [2-1437] 2-1437  type=0 ans=C diff=进阶
+STEM: ask_llm_route 函数在问题类型无法识别时会返回什么？
+  A: reviewed_prompt
+  B: translate_prompt
+  C: query_engine
+  D: rag.ask
+ANALYSIS: 正确答案是C（query_engine）。根据阿里云大模型服务平台（如百炼）的典型RAG应用架构，ask_llm_route函数作为路由中枢，在问题类型无法识别时默认降级至通用查询引擎query_engine，确保请求不失败，体现平台的容错与兜底设计原则。A项reviewed_prompt和B项translate_prompt均为特定场景提示模板，仅在明确识别为审核或翻译类问题时触发；D项rag.
+
+--- sim=0.724 ---
+
+### [2-0628] 2-0628  type=1 ans=A,B,C,D diff=进阶
+STEM: 关于大语言模型在文本处理中的局限性，以下哪些描述是准确的？
+  A: 大模型可能在处理特定领域专业术语时出现误解
+  B: 在没有明确指示的情况下，大模型可能无法自动识别源语言和目标语言
+  C: 即使有合适的系统提示词，大模型生成的内容仍需人工复审以保证质量
+  D: 大模型对用户查询的依赖性强，如果查询表述不清，结果可能偏预期
+  E: 大模型技术已经完全成熟，能够无差错地执行所有文本转换和润色任务
+ANALYSIS: 大语言模型在处理特定领域专业术语时存在局限性，可能产生误解。在没有明确指示的情况下，大模型可能无法准确识别源语言和目标语言。即使有合适的系统提示词，生成的内容仍需人工复审。大模型对用户查询的依赖性强，如果查询表述不清，结果可能偏预期。大模型技术尚未完全成熟，不能保证无差错地执行所有任务。
+
+### [2-1024] 2-1024  type=1 ans=A,C,D,E diff=进阶
+STEM: 关于大模型在文本处理中的局限性，以下哪些陈述是准确的？
+  A: 即使有合适的系统提示词，大模型生成的内容仍需人工复审以保证质量。
+  B: 大模型技术已经完全成熟，能够无差错地执行所有文本转换和润色任务。
+  C: 大模型可能在处理特定领域专业术语时出现误解。
+  D: 大模型对用户查询的依赖性强，如果查询表述不清，结果可能偏离预期。
+  E: 在没有明确指示的情况下，大模型可能无法自动识别源语言和目标语言。
+ANALYSIS: 大模型技术还在不断发展和完善中，存在局限性，不能无差错地执行所有文本转换和润色任务
+
+--- sim=0.967 ---
+
+### [2-1450] 2-1450  type=2 ans=B,D,F diff=挑战
+STEM: 以下哪些选项属于提示词要素中的“输出格式（Output Format）”？
+  A: 请你总结一下这篇文章的主要内容。
+  B: 请用表格形式展示结果。
+  C: 假设你是一个资深律师。
+  D: 请使用JSON 格式输出。
+  E: 我希望你以第一人称的口吻写作。
+  F: 结果需要包含姓名、年龄和地址。
+ANALYSIS: A/C/E 属于其他提示词要素，B/D/F 是标准的输出格式指令
+
+### [2-0864] 2-0864  type=1 ans=C,D,F diff=挑战
+STEM: 以下哪些选项属于提示词要素中的"输出格式 (Output Format)"?
+  A: 我希望你以第一人称的口吻写作。
+  B: 请你总结一下这篇文章的主要内容。
+  C: 结果需要包含姓名、年龄和地址。
+  D: 请使用JSON格式输出。
+  E: 假设你是一个资深律师。
+  F: 请用表格形式展示结果。
+ANALYSIS: 输出格式 (Output Format) 是提示词中的一个要素，用于指定模型生成结果的格式。选项C、D、F都明确指出了需要输出的格式，分别是：包含姓名、年龄和地址的结构化结果，使用JSON格式输出，以及用表格形式展示结果。选项A、B、E则描述了任务的其他要求，如口吻、总结内容、角色扮演，这些属于提示词的其他要素，而非输出格式。因此，正确答案是C、D、F。
+
+--- sim=0.818 ---
+
+### [3-0041] 3-0041  type=0 ans=C diff=入门
+STEM: 在优化检索效果时，若知识库内容充足但精确率低，以下哪种方法是合理的？
+  A: 降低相似度阈值
+  B: 增加知识库文档
+  C: 加入rerank的步骤
+  D: 增加查询请求的并发量以加快响应速度
+ANALYSIS: 在知识库规模和覆盖度已经足够的情况下，主要问题是相关性排序不佳导致精确率低。Rerank（重排序）模型会在首轮向量检索结果上再做语义匹配评分，重新排序或截断无关文档，可显著提升 Top-K 命中精准度。降低阈值会放宽召回，反而进一步拉低精确率；增加文档只会扩大候选集合，对精确率无直接帮助；提高并发仅影响吞吐和延迟，与准确度无关。
+
+### [3-0044] 3-0044  type=0 ans=A diff=入门
+STEM: 在优化检索效果时，若知识库内容充足但召回率低，以下哪种方法是合理的？
+  A: 更换embedding模型
+  B: 增加知识库文档
+  C: 提高相似度阈值
+  D: 增加查询请求的并发量以加快响应速度
+ANALYSIS: 症状：知识库文档足够，但检索召回率低。根因：大概率是现用embedding模型的语义表示能力不足，导致相似度搜索无法把相关片段召回。对策：采用更强、领域更匹配或维度更高的embedding模型（如从通用模型换成中文/领域专用模型）可以显著提升向量近邻搜索的覆盖率。其余选项：增加文档：内容已足够，不解决召回问题；提高相似度阈值：会进一步降低召回率；提高并发：只影响吞吐和延迟，与召回效果无关。
+
+--- sim=0.833 ---
+
+### [4-0344] 4-0344  type=1 ans=A,B diff=入门
+STEM: 在开发智能体系统中，智能体的工作日志、历史检索数据等等，会占用大量的大模型上下文，影响智能体做规划的性能。人们可以通过哪些手段来缓解这方面压力？
+  A: 引入上下文感知的动态记忆机制，优先保留关键信息。
+  B: 使用固定窗口长度，或固定tokens长度截断上下文，保留最近的对话历史。
+  C: 实施注意力机制的变种，如Transformer-XL，以覆盖更长的上下文范围。
+  D: 每次对话都重启Agent对话状态，以清空不再相关的旧信息。
+ANALYSIS: 在开发智能体系统中，智能体的工作日志、历史检索数据等等，会占用大量的大模型上下文，影响智能体做规划的性能。人们可以通过引入上下文感知的动态记忆机制，优先保留关键信息来缓解这方面压力。
+
+### [4-1395] 4-1395  type=0 ans=C diff=进阶
+STEM: 在开发智能体系统中，智能体的工作日志、历史检索数据等等，会占用大量的大模型上下文，影响智能体做规划的性能。无法通过哪些手段来缓解这方面的压力？
+  A: 引入上下文感知的动态记忆机制，优先保留关键信息。
+  B: 使用固定窗口长度，或固定tokens长度截断上下文，保留最近的对话历史。
+  C: 实施注意力机制的变种，如Transformer-XL，以覆盖更长的上下文范围。
+  D: 每次对话都重启Agent对话状态，以清空不再相关的旧信息。
+ANALYSIS: 正确答案是C，因为Transformer-XL等长上下文注意力机制虽能扩展上下文覆盖范围，但会显著增加计算开销与显存占用，并未减少上下文总量，反而可能加剧推理延迟，违背‘缓解上下文压力’的根本目标。阿里云百炼平台明确推荐通过记忆裁剪（如选项A）、滑动窗口截断（B）和对话状态重置（D）等轻量级策略控制上下文规模。而C选项本质是‘扩大承载’而非‘减负’，在智能体实时规划场景中不具实用性，属于典型的方向
+
+--- sim=1.0 ---
+
+### [4-1261] 4-1261  type=0 ans=A diff=进阶
+STEM: 如果我们让大模型系统设计一个分阶段、分批次的投资策略，大模型系统需要考虑各种不同的资产组合、投资策略，综合考虑成本、风险、收益之后，生成最优的投 资策略。那么，在设计大模型系统应对多路径策略规划时，以下哪种方式不能有效避免策略冲突和资源浪费？
+  A: 强制所有Agent采用相同的决策逻辑和目标函数以保证一致性
+  B: 建立中心化协调机制，监控并调度各Agent的行动策略
+  C: 采用博弈论模型预测并解决潜在的策略冲突
+  D: 开发自适应学习算法，让Agent根据环境反馈自我调整策略
+ANALYSIS: 强制所有Agent采用相同的决策逻辑和目标函数以保证一致性，这种方式不能有效避免策略冲突和资源浪费。虽然统一的决策逻辑和目标函数可以简化系统设计，但在复杂的多路径策略规划中，这种方法缺乏灵活性，无法适应不同的市场条件和个人投资目标，容易导致资源分配和策略冲突。相比之下，其他选项通过中心化协调、博弈论模型预测以及自适应学习算法等方式能够灵活地应对复杂环境，优化资源配置，减少冲突和浪费。
+
+### [4-0302] 4-0302  type=0 ans=C diff=进阶
+STEM: 如果我们让大模型系统设计一个分阶段、分批次的投资策略，大模型系统需要考虑各种不同的资产组合投资策略，综合考虑成本、风险、收益之后，生成最优的投资策略。那么，在设计大模型系统应对多路径策略规划时，以下哪种方式不能有效避免策略冲突和资源浪费？
+  A: 建立中心化协调机制，监控并调度各Agent的行动策略
+  B: 采用博弈论模型预测并解决潜在的策略冲突
+  C: 强制所有Agent采用相同的决策逻辑和目标函数以保证一致性
+  D: 开发自适应学习算法，让Agent根据环境反馈自我调整策略
+ANALYSIS: 在设计大模型系统应对多路径策略规划时，需要避免策略冲突和资源浪费。选项A通过中心化协调机制可以有效监控和调度，避免冲突。选项B采用博弈论模型可以预测并解决潜在冲突。选项D通过自适应学习算法，让Agent根据环境反馈调整策略，可以有效避免冲突。而选项C强制所有Agent采用相同的决策逻辑和目标函数，虽然可以保证一致性，但会限制Agent的灵活性，可能导致策略冲突和资源浪费，因此不能有效避免策略冲突和
+
+--- sim=0.722 ---
+
+### [4-5169] 4-5169  type=0 ans=B diff=进阶
+STEM: 某企业升级新人答疑机器人为报销查询助手。用户问'帮我查一下我上个月提交的报销单审批到哪一步了'，模型返回tool_calls=[{'name':'get_reimbursement','args':{'user_id':'U123'}}]。此时若工具执行后返回'未找到匹配单据'，系统下一步最应采取的行动是？
+  A: 立即终止流程，向用户返回'未找到报销单'并结束对话
+  B: 由应用代码将错误结果以role='tool'消息回传，再调用模型生成新响应
+  C: 自动重试三次get_reimbursement，参数不变
+  D: 跳过该工具，直接调用另一个工具如list_recent_submissions
+ANALYSIS: 依据4.3节Function Calling流程铁律：模型只输出tool_calls（提议），执行与结果回传必须由应用代码完成；且工具结果必须作为role='tool'消息追加至上下文，模型才能基于Observation继续推理（教材原文：'结果必须由程序作为role="tool"的消息追加回上下文，模型才"知道"发生了什么'）。选项A违反ReAct闭环原则（未利用反馈迭代）；C违背'失败出口'设
+
+### [4-5175] 4-5175  type=0 ans=C diff=进阶
+STEM: 某企业升级新人答疑机器人为报销查询助手。用户输入'帮我查一下我上个月提交的报销单审批到哪一步了'，模型返回tool_calls=[{'name':'get_reimbursement','args':{'user_id':'U123','month':'2024-07'}}]。此时若工具执行超时返回空结果，Agent下一步最应采取的行动是？
+  A: 立即终止流程，向用户返回'系统繁忙，请稍后再试'
+  B: 忽略超时，直接基于空结果生成'未查到报销单'的回答
+  C: 将超时事件作为Observation回传，触发ReAct循环进入新Thought，决定重试、换工具或追问工单号
+  D: 由LLM自行在后台重试三次，不向用户暴露失败过程
+ANALYSIS: 依据4.4节ReAct铁律：'要给模型“失败出口”：工具超时、报错时能重试或换方案，而不是整轮崩溃'；且4.4节明确指出'ReAct不是无限循环，但必须设置最大迭代轮数/超时/预算上限'——这意味着失败是闭环内可处理的正常状态，需通过Observation反馈并进入下一轮规划。选项A违反闭环原则（未尝试恢复）；B违背'模型不能盲目信任外部返回'的风险提示（4.4节）；D错误地将执行权赋予模型（4.
+
+--- sim=0.97 ---
+
+### [4-5175] 4-5175  type=0 ans=C diff=进阶
+STEM: 某企业升级新人答疑机器人为报销查询助手。用户输入'帮我查一下我上个月提交的报销单审批到哪一步了'，模型返回tool_calls=[{'name':'get_reimbursement','args':{'user_id':'U123','month':'2024-07'}}]。此时若工具执行超时返回空结果，Agent下一步最应采取的行动是？
+  A: 立即终止流程，向用户返回'系统繁忙，请稍后再试'
+  B: 忽略超时，直接基于空结果生成'未查到报销单'的回答
+  C: 将超时事件作为Observation回传，触发ReAct循环进入新Thought，决定重试、换工具或追问工单号
+  D: 由LLM自行在后台重试三次，不向用户暴露失败过程
+ANALYSIS: 依据4.4节ReAct铁律：'要给模型“失败出口”：工具超时、报错时能重试或换方案，而不是整轮崩溃'；且4.4节明确指出'ReAct不是无限循环，但必须设置最大迭代轮数/超时/预算上限'——这意味着失败是闭环内可处理的正常状态，需通过Observation反馈并进入下一轮规划。选项A违反闭环原则（未尝试恢复）；B违背'模型不能盲目信任外部返回'的风险提示（4.4节）；D错误地将执行权赋予模型（4.
+
+### [4-5192] 4-5192  type=0 ans=A diff=入门
+STEM: 某企业升级新人答疑机器人为报销进度查询助手。用户输入'帮我查一下我上个月提交的报销单审批到哪一步了'，模型返回tool_calls=[{'name':'get_reimbursement','args':{'user_id':'U123','month':'2024-07'}}]。此时若工具执行超时返回空结果，Agent下一步最应采取的行动是？
+  A: 将空结果作为role='tool'消息追加回上下文，再次调用模型，由模型决定后续动作
+  B: 立即终止流程，向用户返回'系统繁忙，请稍后再试'
+  C: 由应用代码自动重试get_reimbursement三次，成功后再回传结果
+  D: 忽略超时结果，直接调用另一个工具（如get_reimbursement_history）获取替代信息
+ANALYSIS: 依据原文4.3节【principle】Function Calling四步流程第4步：“结果回传：带着工具结果再次调用模型，模型据此生成最终回复，或决定继续调下一个工具。”且4.2节【关键约定】强调：“工具返回结果必须回灌到上下文，否则模型等于‘做完就忘’”。超时返回空结果仍是Observation，必须作为role='tool'消息注入上下文，交由模型基于此新事实决策（重试/换工具/追问/收尾）
+
+--- sim=0.833 ---
+
+### [5-0049] 5-0049  type=0 ans=A diff=入门
+STEM: 在qwen2.5-1.5b模型微调时，训练损失和验证损失在同时快速下降，以下说法正确的是?
+  A: 说明训练策略有效，应继续训练
+  B: 说明模型开始过拟合，需立即停止
+  C: 说明模型已收效，可停止训练
+  D: 说明学习率设置过高，需调小
+ANALYSIS: 当训练损失和验证损失同步快速下降时，代表模型正在有效地学习并且仍保持良好的泛化能力——尚未出现过拟合迹象，也说明当前学习率、批量大小等超参数组合基本合适。因此此时应继续训练，直到验证损失趋于收敛或出现拐点再考虑早停或调参。
+
+### [5-1155] 5-1155  type=0 ans=D diff=入门
+STEM: 在 qwen2.5 - 1.5b 模型微调时，训练损失和验证损失在快速下降， 以下说法正确的是？选项：
+  A: 说明模型已收敛，可停止训练
+  B: 说明模型开始过拟合，需立即停止
+  C: 说明学习率设置过高，需调小
+  D: 说明训练策略有效，应继续训练
+ANALYSIS: 在 qwen2.5 - 1.5b 模型微调时，训练损失和验证损失在快速下降，说明模型正在快速学习，且训练效果良好。此时，如果训练损失和验证损失都在快速下降，通常表明模型已经很好地适应了训练数据，且训练策略有效，因此应继续训练以获得更好的性能。选项D正确。
+
+--- sim=1.0 ---
+
+### [5-0293] 5-0293  type=0 ans=B diff=进阶
+STEM: 以下关于 LoRa 的描述，哪一项是错误的？（)
+  A: LoR可以有效降低微调大型语言模型的成本。
+  B: LoR会修改被微调模型的原始权重。
+  C: LoR的实现相对简单，易于集成。
+  D: LoR微调的结果可以方便地回退。
+ANALYSIS: 暂无
+
+### [5-1309] 5-1309  type=0 ans=D diff=进阶
+STEM: 以下关于 LoRa 的描述，哪一项是错误的？
+  A: LoRa的实现相对简单，易于集成。
+  B: LoRa微调的结果可以方便地回退。
+  C: LoRa可以有效降低微调大型语言模型的成本。
+  D: LoRa会修改被微调模型的原始权重。
+ANALYSIS: LoRa 并不直接修改原始权重，而是通过添加低秩矩阵间影响模型行为。这使得回退操作变得简单，只需移除添加的低秩矩阵即可。
+
+--- sim=0.864 ---
+
+### [5-0647] 5-0647  type=1 ans=A,B,D diff=进阶
+STEM: 关于大语言模型微调的潜在挑战，下列描述正确的是？
+  A: 过度微调可能导致泛化能力下降
+  B: 特定任务数据不足可能限制模型性能
+  C: 微调总是能显著提升模型性能
+  D: 微调过程可能加剧模型的偏见
+  E: 微调比从头训练更容易导致模型欠拟合
+  F: 高质量预测训练模型的可获得性是个问题
+ANALYSIS: 关于大语言模型微调的潜在挑战，下列描述正确的是？
+A. 过度微调可能导致泛化能力下降：正确。过度微调会使模型过度适应于训练数据，从而导致在新数据上的泛化能力下降。
+B. 特定任务数据不足可能限制模型性能：正确。如果训练数据不足以覆盖特定任务，模型可能无法充分学习该任务的特征，从而限制其性能。
+C. 微调总是能显著提升模型性能：错误。微调的效果取决于训练数据和任务的复杂性，不一定总是提升性能。
+D.
+
+### [5-1238] 5-1238  type=1 ans=A,D,E diff=进阶
+STEM: 关于语言模型微调的潜在挑战，下列描述正确的是？
+  A: 特定任务数据不足可能限制模型性能
+  B: 微调总是能显著提升模型性能
+  C: 微调比从头训练更容易导致模型欠拟合
+  D: 微调过程可能加剧模型的偏见
+  E: 过度微调可能导致泛化能力下降
+  F: 高质量预测模型的可获得性是个问题(争议点:虽然高质量预训练模型可获得性在一定程度上影响微调,但文档中未重点强调)
+ANALYSIS: 数据不足与过拟合:微调依赖有限任务数据,易导致过拟合,限制泛化能力。偏见放大:微调数据的偏差可能被放大,加剧模型不公平性。模型退化与性能不确定性:微调未必总提升性能,可能因数据冲突导致退化。其他选项或因逻辑矛盾,或因未被知识库重点提及而被排除。
+
+--- sim=0.803 ---
+
+### [6-5136] 6-5136  type=1 ans=A,C diff=进阶
+STEM: 某团队将Qwen3-0.6B模型量化为AWQ INT4后部署于vLLM，观测到：①显存占用下降58%；②TPOT降低22%；③TTFT无明显变化；④在代码补全任务上BLEU分数下降1.3分。以下哪些结论可被教材原文直接支持？
+  A: AWQ INT4量化主要通过减少Decode阶段显存带宽压力来加速TPOT
+  B: TTFT未变化是因为Prefill阶段计算密集，不受量化后权重读取带宽影响
+  C: BLEU下降1.3分属于‘INT4在敏感任务上可能掉点更明显’的典型表现，需用业务评测集验证
+  D: 显存下降58%接近理论值（FP16→INT4应为75%降幅），说明量化过程无异常
+ANALYSIS: 依据教材6.4节‘量化’与6.5节‘vLLM原理’：A项正确——教材6.4明确‘量化通常也加速……因为Decode阶段是显存带宽密集型，从显存读权重的字节数变少了’，且AWQ被定义为‘在低比特下通常更稳、更快’的PTQ方法，TPOT下降正印证此机制；C项正确——教材6.4‘量化的几个关键判断’指出‘INT4在敏感任务上可能掉点更明显’，并强调‘需要用业务评测集验证’，BLEU下降1.3分完全符合该
+
+### [6-5160] 6-5160  type=0 ans=C diff=进阶
+STEM: 某团队将Qwen3-0.6B模型量化为AWQ INT4后部署于vLLM，压测发现：①显存占用下降58%；②TPOT降低22%；③TTFT无明显变化；④在代码补全任务上BLEU分数下降1.3分。以下哪项结论可被教材第6.4节‘模型量化’原文直接支持？
+  A: TPOT降低证明INT4量化必然加速Decode阶段
+  B: TTFT无变化说明量化对Prefill阶段计算无影响
+  C: BLEU下降1.3分符合教材所述‘INT4在敏感任务上可能掉点更明显’的判断
+  D: 显存下降58%验证了INT4相对FP16体积降为1/4的理论值
+ANALYSIS: 教材6.4节明确指出：‘INT4在低比特下通常更稳、更快’（AWQ优势），但同时强调‘INT4在敏感任务上可能掉点更明显’，并要求‘需要用业务评测集验证’；选项C直接对应该原文表述与实践要求。A错误：教材强调‘能否加速取决于推理框架/硬件是否有对应的低比特算子’，TPOT降低是结果而非‘必然’结论；B错误：TTFT受Prefill计算强度与排队影响，量化虽不改变Prefill计算逻辑，但显存释放可
+
+--- sim=0.848 ---
+
+### [6-5146] 6-5146  type=0 ans=C diff=挑战
+STEM: 开发人员尝试在vLLM中禁用PagedAttention（通过--disable-visual-batch等非标准参数），发现服务启动失败并报错'PagedAttention is required for vLLM v0.4+'.以下哪项最准确解释该现象？
+  A: vLLM的连续批处理调度器深度耦合PagedAttention的block管理接口，移除后无法实现请求动态进出
+  B: PagedAttention提供的页表机制是vLLM实现OpenAI兼容流式响应的必要基础
+  C: 现代vLLM版本已将PagedAttention作为KV Cache管理的强制抽象层，所有调度逻辑均基于block指针
+  D: 禁用PagedAttention会导致KV Cache无法共享，违反vLLM对多请求前缀复用的设计要求
+ANALYSIS: 依据原文6.5节技术定位：'PagedAttention（分页注意力）：借鉴操作系统的虚拟内存分页思想，把KV Cache切成一个个固定大小的块（block）……'，并强调其是vLLM'两大核心发明'之一。教材虽未明说'强制耦合'，但6.5节全程以PagedAttention为KV Cache管理唯一范式展开，且6.5节对比静态批处理时明确'vLLM的OpenAI兼容服务'建立在PagedAtte
+
+### [6-5164] 6-5164  type=1 ans=A,C diff=挑战
+STEM: 开发者尝试在vLLM中禁用PagedAttention（通过--disable-visual-batch等非标准参数），发现服务启动失败并报错'PagedAttention is required for vLLM v0.4+'。以下哪些选项准确解释该现象？
+  A: vLLM v0.4+架构已深度耦合PagedAttention，其连续批处理调度器依赖页表进行块级请求管理
+  B: 禁用PagedAttention会导致KV Cache无法按需分配，触发显存预分配逻辑崩溃
+  C: 教材6.5节指出PagedAttention是vLLM高吞吐的两大核心之一，v0.4+版本已移除传统连续内存分配路径
+  D: 该报错表明vLLM强制要求使用分页机制以保证多请求间KV Cache共享功能
+ANALYSIS: 教材6.5节明确：'vLLM高吞吐的两大核心：PagedAttention（分页管理KV Cache、消除碎片）+ 连续批处理'；6.5节进一步说明'PagedAttention借鉴操作系统的虚拟内存分页思想，把KV Cache切成块...天然支持共享'；6.5节图表标题'静态批处理 vs 连续批处理'隐含连续批处理与PagedAttention的协同设计。A项正确：连续批处理需动态调度不同长度请
+
+--- sim=0.947 ---
+
+### [6-5147] 6-5147  type=0 ans=A diff=入门
+STEM: 当vLLM服务处理一批混合长度请求（128/2048/16384 tokens）时，PagedAttention相比传统连续内存分配，其显存节省主要来源于以下哪一机制？
+  A: 为每个请求按实际生成长度分配block，避免按最大长度预分配的浪费
+  B: 将不同请求的KV Cache块在物理显存中非连续存放，消除内存碎片
+  C: 复用相同前缀请求的block，减少重复KV Cache存储
+  D: 压缩每个block内的KV值，降低单block显存占用
+ANALYSIS: 依据原文6.5节对PagedAttention的核心定义：'按需分配，不再按最大长度预分配浪费'，并明确其好处第一项即'按需分配：生成多长用多少，不再按最大长度预分配浪费'。A项直接对应原文原意，是PagedAttention解决的首要痛点（6.5节开头'痛点一'）。B项'消除碎片'是A项的实现手段而非节省来源——碎片消除提升的是利用率，但显存总量节省来自按需分配；C项'天然支持共享'是额外优势，
+
+### [6-5162] 6-5162  type=1 ans=A,B,D diff=进阶
+STEM: 当vLLM服务处理一批混合长度请求（128/2048/16384 tokens）时，PagedAttention相比传统连续内存分配，其显存节省主要来源于以下哪些机制？
+  A: 按需分配KV Cache块，避免为最长序列预分配整段连续显存
+  B: 将不同请求的相同前缀KV块在物理显存中共享存储
+  C: 对KV Cache进行INT4量化存储，降低单块字节数
+  D: 消除因请求长度差异导致的显存碎片，提升物理显存利用率
+ANALYSIS: 依据教材6.5节'PagedAttention（分页注意力）'定义：其核心是'把KV Cache切成固定大小的块（block），按需分配，再用页表映射逻辑位置到物理块'，并明确带来三大好处：'消除碎片'、'按需分配'、'天然支持共享'（6.5节原文）。A项对应'按需分配'——传统方式需为每个请求按'最大可能长度'预分配连续空间，而PagedAttention仅按实际生成长度分配块；B项对应'天然支
+
+--- sim=0.879 ---
+
+### [7-0150] 7-0150  type=0 ans=A diff=入门
+STEM: 在 context precision 的计算过程中，以下哪个步骤是必要的？
+  A: 按顺序读取 contexts 中的 context，判断其是否相关
+  B: 增加模型的训练数据
+  C: 减少模型的推理时间
+  D: 增加模型的参数数量
+ANALYSIS: 暂无
+
+### [7-0538] 7-0538  type=1 ans=A,B,C diff=进阶
+STEM: 在 context precision 的计算过程中，以下哪些步骤是必要的？
+  A: 按顺序读取 contexts 中的 contexti，判断其是否相关
+  B: 计算每个 context 的 precision 分
+  C: 对每个 context 的 precision 分求和，除以相关的 context 个数
+  D: 增加模型的训练数据
+ANALYSIS: Context Precision 是衡量检索结果相关性的重要指标，定义为相关 context 数量与总 context 数量的比值。A 正确：需逐个判断每个 contexti 是否与问题相关，这是计算基础；B 正确：每个 context 的 precision 分为 0 或 1（相关为1），体现二元判定逻辑；C 正确：最终 precision = 相关 context 数 / 总 context
+
+--- sim=0.875 ---
+
+### [7-1362] 7-1362  type=0 ans=B diff=入门
+STEM: 在 context recall 的计算过程中，以下哪个步骤是必要的?
+  A: 减少模型的推理时间
+  B: 由大模型判断每个观点是否能在 contexts 中找到依据
+  C: 增加模型的参数数量
+  D: 增加模型的训练数据
+ANALYSIS: 在 context recall 的计算过程中，由大模型判断每个观点是否能在 Contexts 中找到依据。
+
+### [7-0488] 7-0488  type=1 ans=A,B diff=进阶
+STEM: 在 context recall 的计算过程中，以下哪些步骤是必要的?
+  A: 由大模型将 ground_trut 分解成观点列表
+  B: 由大模型判断每个观点是否能在 contexts 中找到依据
+  C: 增加模型的训练数据
+  D: 减少模型的推理时间
+ANALYSIS: 暂无
+
+--- sim=0.759 ---
+
+### [7-5080] 7-5080  type=1 ans=A,B,D diff=挑战
+STEM: 在构建新人答疑机器人评测集时，以下哪些操作同时违反教材7.2.1节'评测集构建的两条铁律'及7.2.2节'指标分层'原则？
+  A: 由AI工程师编写ground_truth，未邀请HR部门专家审定
+  B: 为提升自动化评测分数，将评测集question字段全部替换为模型训练时见过的合成问题
+  C: 在评测脚本中固定temperature=0.3，但每次运行时动态切换评委LLM版本（qwen-plus→qwen-max）
+  D: 将'用户满意度>90%'这一业务指标直接作为自动化评测的唯一打分依据
+ANALYSIS: A项违反'铁律二：标准答案必须由领域专家提供'（7.2.1节表格及best框），且导致算法指标失去业务锚点，破坏'业务→技术→算法'分层传导（7.2.2节原理）；B项违反'铁律一：问题必须来自真实用户场景'（7.2.1节），且造成数据泄漏（7.8.2节exam框），使算法指标无法反映真实业务表现，混淆算法层与业务层边界；D项直接将业务指标'用户满意度'当作算法指标使用，严重违背'算法指标是手段，业
+
+### [7-5094] 7-5094  type=1 ans=A,B,C diff=挑战
+STEM: 在构建新人答疑机器人评测集时，以下哪些操作同时违反教材7.2.1节'评测集构建的两条铁律'及7.2.4节'控制变量'原则？
+  A: 从线上工单抽样问题，但由实习生编写ground_truth
+  B: 使用同一组问题，但每次评测时动态调用最新版qwen-plus API作为评委
+  C: 为覆盖更多场景，每轮优化后向评测集追加50个新问题
+  D: 将训练数据中的用户提问直接复用为评测question字段
+ANALYSIS: A违反'ground_truth必须由领域专家提供'（7.2.1节铁律二）；B违反'回归评测必须冻结评测用LLM版本'（7.2.4节）；C违反'冻结评测集做回归'（7.1节'评测先行'原则及7.2.4节'否则无法判断分数变化来自改动还是题目本身'）；D虽违反'防止数据泄漏'（7.8.2节），但题干要求'同时违反两条铁律+控制变量'，D仅触犯数据泄漏，未直接违背7.2.1两条铁律（问题来源真实但gr
+
+--- sim=0.846 ---
+
+### [9-0136] 9-0136  type=0 ans=B diff=入门
+STEM: 在top_p=0.5的设置下，大模型的输出会有什么特点？
+  A: 输出内容非常多样化
+  B: 输出内容相对单一
+  C: 输出内容完全随机
+  D: 输出内容无法预测
+ANALYSIS: 暂无
+
+### [9-0283] 9-0283  type=0 ans=A diff=入门
+STEM: 在top_p=0.9的设置下，大模型的输出会有什么特点？
+  A: 输出内容非常多样化
+  B: 输出内容相对单一
+  C: 输出内容完全固定
+  D: 输出内容无法生成
+ANALYSIS: 在阿里云大模型平台中，top_p（核采样）参数控制概率质量阈值，当top_p=0.9时，模型仅从累积概率≥0.9的最小词元子集中随机采样，既保留主流语义路径又引入合理多样性，因此输出内容更丰富、灵活，符合选项A。阿里云官方文档明确指出：top_p增大（如0.9→0.95）会提升生成多样性，而过小（如0.1）才导致输出趋同。B错误——top_p高而非低，不会导致单一；C错误——完全固定需设置temp
+
+--- sim=0.743 ---
+
+### [10-1430] 10-1430  type=0 ans=D diff=挑战
+STEM: 在以下提供的代码片段中，（）最终答案的步骤是直接从DashScope服务获取并处理查询结果的关键环节。
+def query(self, query: str):
+    message = dashscope.Messages.create(self.thread.id, content=query)
+    message_run = dashscope.Runs.create(self.thread.id, assistant_id=self.assistant.id)
+    run_status = dashscope.Runs.wait(message_run.id, thread_id=self.thread.id)
+    if run_status.required_action:
+        self.forward_and_submit_outputs(run_status)
+        run_status = dashscope.Runs.wait(run_status.id, thread_id=self.thread.id)
+    msgs = dashscope.Messages.list(self.thread.id)
+    answer = json.loads(json.dumps(msgs, default=lambda o: o.__dict__))['data'][0]['content'][0]['text']['value']
+    return answer
+  A: 调用 dashscope.Runs.create 函数
+  B: 调用 dashscope.Messages.list 函数
+  C: 调用用_and_submit_outputs 函数
+  D: 解析 msgs 获取最终答案
+ANALYSIS: 在提供的代码片段中，解析 msgs 获取最终答案的步骤是直接从DashScope服务获取并处理查询结果的关键环节。这包括将消息对象转换为字典，然后从字典中提取出实际的答案内容。这一步骤是整个查询过程中最终获取用户所需信息的部分，因此它是实现查询目的的核心步骤。其他步骤如创建消息、创建运行、等待运行状态等，都是为这一最终步骤服务的。
+
+### [10-0575] 10-0575  type=1 ans=B diff=挑战
+STEM: 下列Class APIAssistant Agent的Run.wait的作用是什么？
+class APIAssistantAgent(AgentModule):
+    def query(self, query: str):
+        message = dashscope.Messages.create(self.thread.id, content=query)
+        message_run = dashscope.Runs.create(self.thread.id, assistant_id=self.assistant.id)
+        run_status = dashscope.Runs.wait(message_run.id, thread_id=self.thread.id)
+        
+        if run_status.required_action:
+            self.forward_and_submit_outputs(run_status)
+            run_status = dashscope.Runs.wait(run_status.id, thread_id=self.thread.id)
+        
+        msgs = dashscope.Messages.list(self.thread.id)
+        answer = json.loads(json.dumps(msgs, default=lambda o: o.__dict__))['data'][0]['content'][0]['text']['value']
+        return answer
+  A: 监听后台请求，并在用户的等待期间消耗资源
+  B: 阻塞当前线程，直到请求的响应准备好为止
+  C: 提供异步呼叫的机制，以提升查询响应速度
+  D: 确保所有消息都已处理并存储好
+  E: 等待所有的辅助工具输出，确保信息的完整性
+  F: 返回请求的实时进度，对于调试非常有用
+ANALYSIS: 在这段 Assistant API 示例代码里，`dashscope.Runs.wait(...)` 的核心职责是阻塞当前线程，直到本次 run 的结果准备好或进入下一步可继续处理状态。题干并未展示实时进度回调，因此不应把“返回实时进度”算作本题正确项。
+
+--- sim=0.748 ---
+
+### [10-0575] 10-0575  type=1 ans=B diff=挑战
+STEM: 下列Class APIAssistant Agent的Run.wait的作用是什么？
+class APIAssistantAgent(AgentModule):
+    def query(self, query: str):
+        message = dashscope.Messages.create(self.thread.id, content=query)
+        message_run = dashscope.Runs.create(self.thread.id, assistant_id=self.assistant.id)
+        run_status = dashscope.Runs.wait(message_run.id, thread_id=self.thread.id)
+        
+        if run_status.required_action:
+            self.forward_and_submit_outputs(run_status)
+            run_status = dashscope.Runs.wait(run_status.id, thread_id=self.thread.id)
+        
+        msgs = dashscope.Messages.list(self.thread.id)
+        answer = json.loads(json.dumps(msgs, default=lambda o: o.__dict__))['data'][0]['content'][0]['text']['value']
+        return answer
+  A: 监听后台请求，并在用户的等待期间消耗资源
+  B: 阻塞当前线程，直到请求的响应准备好为止
+  C: 提供异步呼叫的机制，以提升查询响应速度
+  D: 确保所有消息都已处理并存储好
+  E: 等待所有的辅助工具输出，确保信息的完整性
+  F: 返回请求的实时进度，对于调试非常有用
+ANALYSIS: 在这段 Assistant API 示例代码里，`dashscope.Runs.wait(...)` 的核心职责是阻塞当前线程，直到本次 run 的结果准备好或进入下一步可继续处理状态。题干并未展示实时进度回调，因此不应把“返回实时进度”算作本题正确项。
+
+### [10-1199] 10-1199  type=1 ans=B,C,D,F diff=挑战
+STEM: APIAssistantAgent 的 query 函数里，哪些步骤与大语言模型交互？
+def query(self, query: str):
+    """
+    query: string, the query string to the assistant, e.g. Who is the Jack Chou?
+    """
+    message = dashscope.Messages.create(self.thread_id, content=query)
+    message_run = dashscope.Runs.create(
+        self.thread_id,
+        assistant_id=self.assistant_id
+    )
+    run_status = dashscope.Runs.wait(message_run.id, thread_id=self.thread_id)    
+    if run_status.required_action:
+        self.forward_and_submit_outputs(run_status)
+        run_status = dashscope.Runs.wait(run_status.id, thread_id=self.thread_id)
+    msgs = dashscope.Messages.list(self.thread_id)
+    answer = json.loads(
+        json.dumps(msgs, default=lambda o: o.__dict__)
+    )["data"][0]["content"][0]["text"]["value"]
+    return answer
+  A: 调用 forward_and_submit_outputs 函数
+  B: 调用 Runs.wait 函数
+  C: 创建 message 对象
+  D: 调用 dashscope.Messages.list 函数
+  E: 解析 msg s 获取最终答案
+  F: 调用 dashscope.Runs.create 函数
+ANALYSIS: 正确选项B、C、D、F均直接触发与大语言模型的交互：C（Messages.create）提交用户查询至线程，启动LLM推理上下文；F（Runs.create）显式触发助手执行，调用绑定的LLM完成推理；B（Runs.wait）轮询等待LLM生成完成，是同步获取模型输出的关键环节；D（Messages.list）拉取包含LLM生成结果的消息列表。A错误：forward_and_submit_outp
+
+--- sim=0.759 ---
+
+### [10-0575] 10-0575  type=1 ans=B diff=挑战
+STEM: 下列Class APIAssistant Agent的Run.wait的作用是什么？
+class APIAssistantAgent(AgentModule):
+    def query(self, query: str):
+        message = dashscope.Messages.create(self.thread.id, content=query)
+        message_run = dashscope.Runs.create(self.thread.id, assistant_id=self.assistant.id)
+        run_status = dashscope.Runs.wait(message_run.id, thread_id=self.thread.id)
+        
+        if run_status.required_action:
+            self.forward_and_submit_outputs(run_status)
+            run_status = dashscope.Runs.wait(run_status.id, thread_id=self.thread.id)
+        
+        msgs = dashscope.Messages.list(self.thread.id)
+        answer = json.loads(json.dumps(msgs, default=lambda o: o.__dict__))['data'][0]['content'][0]['text']['value']
+        return answer
+  A: 监听后台请求，并在用户的等待期间消耗资源
+  B: 阻塞当前线程，直到请求的响应准备好为止
+  C: 提供异步呼叫的机制，以提升查询响应速度
+  D: 确保所有消息都已处理并存储好
+  E: 等待所有的辅助工具输出，确保信息的完整性
+  F: 返回请求的实时进度，对于调试非常有用
+ANALYSIS: 在这段 Assistant API 示例代码里，`dashscope.Runs.wait(...)` 的核心职责是阻塞当前线程，直到本次 run 的结果准备好或进入下一步可继续处理状态。题干并未展示实时进度回调，因此不应把“返回实时进度”算作本题正确项。
+
+### [10-1426] 10-1426  type=1 ans=B,F diff=挑战
+STEM: 在下列 Assistant API 示例代码的 query 方法中，dashscope.Runs.wait 的以下哪些作用描述是正确的？ class APIAssistantAgent(AgentModule):def query(self,query:str):Message =dashscope.Messages.create(self.thread.id,content=query)message_run =dashscope.Runs.create(self.thread.id,assistant_id=self.assistant.id)Run_status =dashscope.Runs.wait(message_run.id,thread_id=self.thread.id,Callback=lambda progress:print(f"Progress:{progress}%"))if Run_status.required_action:self.forward_and_submit_outputs(run_status)Run_status =dashscope.Runs.wait(run_status.id,thread_id=self.thread.id)msgs =dashscope.Messages.list(self.thread.id)answer=json.loads(json.dumps(msgs,Default=lambda o:0. dict )['data'][0]['content'][O]['text']['value']return Answer
+  A: 提供异步呼叫的机制，以提升查询响应速度
+  B: 阻塞当前线程，直到请求的响应准备好为止
+  C: 等待所有的辅助工具输出，确保信息的完整性
+  D: 监听后台请求，并在用户的等待期间消耗资源
+  E: 确保所有消息都已处理井存储好
+  F: 返回请求的实时进度，对于调试非常有用
+ANALYSIS: dashscope.Runs.wait 是同步阻塞式等待方法，官方文档明确其作用是轮询 Run 状态直至完成或超时（B 正确）；其 callback 参数支持实时进度回调，便于监控执行过程（F 正确）。A 错误：wait 本质是同步阻塞，非异步机制；C 错误：它不保证‘所有工具输出’，仅等待当前 Run 状态变为 completed 或 requires_action；D 错误：虽有轮询但属必要资
+
+--- sim=0.907 ---
+
+### [10-5162] 10-5162  type=0 ans=B diff=进阶
+STEM: 某金融公司需构建合规问答系统，要求：① 所有客户合同与监管文件严禁出域；② 通用千问模型对'穿透式尽调'等术语回答不准；③ 需支持1000+并发实时响应。技术团队决定基于Qwen2-7B开源模型微调后部署。以下哪组阿里云产品组合最符合全链路需求？
+  A: ModelScope下载模型 → 百炼知识库上传合同 → DashScope API调用qwen-plus
+  B: ModelScope下载Qwen2-7B → PAI-DSW开发LoRA微调代码 → PAI-DLC分布式训练 → PAI-EAS部署为高可用服务
+  C: DashScope开通qwen-max专属实例 → 在百炼中配置自定义Prompt模板 → 发布为钉钉机器人
+  D: OSS存储合同PDF → DataWorks清洗文本 → 百炼工作流调用DashScope Embedding + qwen-long生成答案
+ANALYSIS: 题干明确要求'数据不出域、微调开源模型、高并发部署'，三者共同指向PAI训练部署层：ModelScope是开源模型下载渠道（教材10.7节），DSW提供交互式开发环境（10.4节），DLC支持分布式训练（10.4节），EAS提供弹性伸缩的生产级服务（10.4节）。A错在百炼/DashScope均需数据上送，违反'不出域'；C错在DashScope无专属实例且百炼不支持自研结构微调；D虽用RAG但全
+
+### [10-5203] 10-5203  type=0 ans=A diff=挑战
+STEM: 某金融公司需构建合规问答系统，要求：① 所有客户合同与监管文件严禁出域；② 通用千问模型对'穿透式尽调'等术语回答不准；③ 需支持1000+并发实时响应。技术团队决定基于Qwen2-7B开源模型微调后部署。以下哪组阿里云产品组合最符合全链路需求，且严格遵循原文分层定位？
+  A: ModelScope（下载模型）→ PAI-DSW（微调开发）→ PAI-DLC（大规模训练）→ PAI-EAS（高并发部署）
+  B: DashScope（调用qwen-max）→ 百炼（知识库增强）→ OSS（存储合同）→ DataWorks（数据清洗）
+  C: ModelScope（下载模型）→ PAI-DSW（微调开发）→ 百炼（封装为应用）→ EAS（部署）
+  D: OSS（存储模型）→ MaxCompute（训练）→ PAI-EAS（部署）→ DashScope（API网关）
+ANALYSIS: 依据原文10.1分层表：ModelScope是'开源模型社区'（下载权重），PAI-DSW是'交互式建模'（开发调试），DLC是'分布式训练'（大规模训练），EAS是'在线服务'（高并发部署）——完全匹配题干'下载→开发→训练→部署'四阶段。选项B使用DashScope/API，违反'数据严禁出域'；选项C错误将百炼用于'封装自有模型'，但原文10.2明确百炼'核心动作是建知识库、调Prompt、
+
+--- sim=0.767 ---
+
+### [10-5163] 10-5163  type=0 ans=A diff=入门
+STEM: 算法团队在PAI-DSW中完成Qwen2-1.5B模型微调后，需验证推理效果。以下哪种操作最符合教材推荐的验证路径？
+  A: 直接在DSW中启动vLLM服务，用curl测试HTTP接口，确认返回符合预期
+  B: 将模型导出为ONNX格式，在本地Python脚本中加载验证
+  C: 提交至PAI-DLC进行全量训练验证，再导出模型
+  D: 在百炼平台新建应用，选择'自定义模型'并指向DSW中的模型路径
+ANALYSIS: 教材10.4节原理部分明确指出：'得到合并后的模型，用vLLM本地起服务验证（其HTTP接口本身兼容OpenAI API）'，这是PAI官方推荐的DSW阶段验证方式。A选项完全复现该路径，且vLLM服务在DSW中可一键启动（课程实验验证）。B错误：ONNX转换非必需步骤，且可能损失精度，教材未提及；C错误：DLC用于大规模分布式训练，验证效果无需耗用DLC资源；D错误：百炼不支持直接挂载DSW本地
+
+### [10-5189] 10-5189  type=1 ans=A,E diff=进阶
+STEM: 算法团队在PAI-DSW中完成Qwen2-1.5B模型微调后，需验证推理效果。以下哪些操作符合教材10.4节推荐的验证路径？
+  A: 在DSW中直接加载微调后模型权重，用vLLM启动本地HTTP服务进行测试
+  B: 将模型导出至OSS，再通过DashScope API调用该模型
+  C: 提交DLC任务进行大规模验证集推理
+  D: 使用PAI-EAS部署模型服务，通过压测工具验证首Token延迟
+  E: 在DSW中编写Python脚本，调用transformers库加载模型进行单样本推理
+ANALYSIS: 验证路径需区分'开发验证'与'生产验证'。教材10.4原理明确：'在PAI-DSW的GPU实例里写代码、用ms-swift做LoRA微调'，并指出'得到合并后的模型，用vLLM本地起服务验证（其HTTP接口本身兼容OpenAI API）'——这直接对应A项（vLLM本地服务）和E项（transformers单样本推理），二者均为DSW内轻量级验证，符合'调试'定位。B错误：DashScope只调用
+
+--- sim=0.908 ---
+
+### [10-5167] 10-5167  type=0 ans=B diff=挑战
+STEM: 某医疗AI初创公司需构建'医学指南解读助手'，要求：① 严格遵循HIPAA等合规要求，患者数据绝对不出私有云；② 指南文本长达200页PDF；③ 需支持医生用自然语言提问并返回带引用的精准答案。根据原文10.1分层与10.7开源模型逻辑，最优技术路径是？
+  A: 使用百炼知识库上传PDF，选择qwen-long模型，开启自动切片与引用溯源功能
+  B: 在自有GPU集群部署Qwen2-72B-Instruct开源模型（ModelScope下载），结合LlamaIndex构建RAG服务
+  C: 调用DashScope qwen-long API，将PDF全文Base64编码后作为system message传入
+  D: 用PAI-EAS部署通义万相模型，对PDF进行图像识别后调用DashScope生成摘要
+ANALYSIS: B正确：原文10.7明确'开源模型价值：①数据隐私与合规（数据不出域）；②可深度定制；③长期成本可控'，且ModelScope是'下载开源模型权重'的社区（10.7概念）；200页PDF需RAG处理，LlamaIndex是典型RAG框架，符合'自然语言提问+引用溯源'需求。A错误：百炼为托管服务，数据需上送阿里云，违反①（10.5对比表'数据与模型控制'栏）；C错误：DashScope为托管API
+
+### [10-5180] 10-5180  type=1 ans=A,C,D diff=挑战
+STEM: 某医疗AI初创公司需构建'医学指南解读助手'，要求：① 严格遵循HIPAA等合规要求，患者数据绝对不出私有云；② 指南文本长达200页PDF；③ 需支持医生用自然语言提问并返回带引用的精准答案。根据原文10.1分层与10.7开源模型逻辑，最优技术路径必须包含以下哪些环节？
+  A: 从ModelScope下载Qwen系列开源模型权重
+  B: 使用百炼知识库功能上传PDF并启用自动切片与向量化
+  C: 在PAI-DSW中加载模型，结合RAG框架实现本地化检索增强
+  D: 将微调后的模型通过PAI-EAS部署至客户私有云环境
+ANALYSIS: 题干核心约束'患者数据绝对不出私有云'，直接排除所有托管服务：B选项百炼知识库需将PDF上传至阿里云平台（教材10.2：'知识库背后就是RAG的解析→切片→向量化→检索'，且百炼属应用层托管服务），违反数据不出域原则（教材10.5对比表：百炼'数据与模型控制'为'平台托管'）。A正确：ModelScope是开源模型社区，下载权重后可完全离线使用（教材10.7：'可下载开源模型权重到本地，自行部署'
+
+--- sim=0.969 ---
+
+### [10-5174] 10-5174  type=0 ans=C diff=进阶
+STEM: 某电商团队上线智能客服后，首月账单远超预期。排查发现：用户每次咨询都上传整份《售后服务政策V3.2.pdf》（86页）作为system prompt，且未设置max_tokens。该问题违反了原文哪项成本控制原则？
+  A: 应按任务难度路由模型，避免无脑使用qwen-max
+  B: 输入Token与输出Token分别计价，且输出通常更贵
+  C: 应控制输入内容，RAG只塞最相关片段，而非整本手册
+  D: 需用指数退避处理429限流，避免重试推高费用
+ANALYSIS: 原文10.8节'省成本的工程手段'第2条明确指出：'控制输入：RAG 只塞最相关的片段，不要每次把整本手册塞进上下文'。题干中'上传整份86页PDF作为system prompt'正是典型违规操作——既造成输入Token爆炸式增长（违反'按Token计费'规则），又违背RAG最佳实践（10.2知识库能力说明中强调'内置文档解析、切片、向量化、检索'，即应由平台自动处理而非人工塞全文）。A虽正确但非
+
+### [10-5181] 10-5181  type=1 ans=A,B diff=进阶
+STEM: 某电商团队上线智能客服后，首月账单远超预期。排查发现：用户每次咨询都上传整份《售后服务政策V3.2.pdf》（86页）作为system prompt，且未设置max_tokens。该问题违反了原文哪几项成本控制原则？
+  A: 控制输入：RAG只塞最相关的片段，不要每次把整本手册塞进上下文
+  B: 限制输出：用max_tokens给输出设上限，避免模型'刹不住车'
+  C: 选对模型尺寸：简单任务用turbo/小模型，复杂任务才上max
+  D: 善用缓存：对重复的系统提示词、知识库前缀利用上下文缓存折扣
+ANALYSIS: 题干明确两点违规：'上传整份86页PDF作为system prompt'——直接对应教材10.8'省成本的工程手段'第2条：'控制输入：RAG只塞最相关的片段，不要每次把整本手册塞进上下文'（A正确）；'未设置max_tokens'——对应第3条：'限制输出：用max_tokens给输出设上限，避免模型刹不住车'（B正确）。C涉及模型选型，题干未提模型选择错误；D涉及缓存，但整本PDF作为syst
+
+--- sim=0.901 ---
+
+### [10-5178] 10-5178  type=1 ans=A,C diff=挑战
+STEM: 某医疗AI初创公司计划构建临床指南问答系统，技术负责人提出采用‘ModelScope下载Qwen2-7B开源模型 + PAI-EAS部署’方案。根据原文10.7节对开源模型价值的阐述，以下哪些因素会显著增强该方案的合理性？
+  A: 需满足HIPAA等医疗数据合规要求，患者病历数据绝对不可上传至公网
+  B: 团队已具备GPU服务器运维能力，可承担自建成本
+  C: 系统需支持对新发布的《诊疗指南》进行快速微调并上线
+  D: 初期日均调用量仅200次，预算有限，需最小化初始投入
+ANALYSIS: 依据原文10.7节‘开源模型的价值集中在三点’：①数据隐私与合规（数据不出域）；②可深度定制（任意微调/改结构）；③大规模稳定流量下长期成本可控。A正确：直接对应价值点①，HIPAA要求数据不出域，开源+PAI-EAS可完全私有化部署；C正确：对应价值点②，开源模型支持任意微调，满足‘快速微调指南’需求。B错误：原文明确‘代价是需要GPU、算法与运维能力’，但‘具备能力’是前提而非增强合理性的因素
+
+### [10-5215] 10-5215  type=0 ans=B diff=进阶
+STEM: 某医疗AI初创公司计划构建临床指南问答系统，技术负责人提出采用'ModelScope下载Qwen2-7B开源模型 + PAI-EAS部署'方案。根据原文10.7节对开源模型价值的阐述，以下哪项因素会显著增强该方案的合理性？
+  A: 团队已采购多台A10服务器，希望复用现有硬件降低初期投入
+  B: 项目需满足等保三级认证要求，且所有患者对话日志必须加密存储于本地私有云
+  C: 当前API调用量较低，DashScope免费额度足以覆盖全部测试流量
+  D: 团队缺乏Python开发经验，希望使用低代码界面快速搭建原型
+ANALYSIS: 原文10.7节'value'框明确指出开源模型三大价值：'① 数据隐私与合规（数据不出域）；② 可深度定制（任意微调/改结构）；③ 大规模稳定流量下的长期成本可控'。选项B中'等保三级认证'和'患者对话日志加密存于本地私有云'直接对应价值①'数据隐私与合规'，且'本地私有云'即实现'数据不出域'——这正是ModelScope+PAI-EAS组合的核心优势（开源模型可私有化部署，PAI-EAS支持私
+
+--- sim=0.839 ---
+
+### [11-5170] 11-5170  type=0 ans=B diff=入门
+STEM: 某教育平台接入多模态审核系统，需对用户上传的‘解题过程截图’进行内容安全检测。依据11.8节多模态安全原理，以下哪项检测动作必不可少？
+  A: 仅对截图中的OCR识别结果进行文本敏感词过滤
+  B: 调用image_moderation接口同步检测画面内容及图中文字
+  C: 将截图转换为Base64后提交至voice_moderation异步任务
+  D: 在前端JavaScript中对上传文件名进行正则匹配过滤
+ANALYSIS: 依据11.8节‘图像检测不仅要看画面，还要审图里的字’及‘攻击者可以把违规文字写进图片里绕过文本过滤’，明确要求对图像模态做同步检测（image_moderation），且必须覆盖‘画面+图中文字’。选项B完全匹配。A错误：仅OCR后文本过滤，无法检测画面本身违规（如暴力图像），且绕过‘图中文字’检测；C错误：voice_moderation用于音频，非图像；D错误：文件名过滤属弱防护，无法检测内
+
+### [11-5208] 11-5208  type=1 ans=A,B diff=进阶
+STEM: 某教育平台接入多模态审核系统，需对用户上传的'解题过程截图'进行内容安全检测。依据11.8节多模态安全原理，以下哪些检测动作必不可少？
+  A: 调用image_moderation同步检测截图画面内容
+  B: 对截图执行OCR，再将识别出的文字送入文本敏感词过滤
+  C: 将截图直接输入纯文本LLM进行违规性判断
+  D: 调用voice_moderation异步检测截图中的音频轨
+ANALYSIS: 依据原文11.8节：图像检测必须覆盖'画面和图片中的文字'，因此A（画面检测）和B（OCR后审文字）均属必需，且B正是为防范'把违规文字写进图片绕过文本过滤'的攻击方式；C错误，纯文本LLM无法处理图像输入，原文11.4节明确指出'纯文本模型无法看图作答'；D错误，截图不含音频轨，voice_moderation仅用于音频文件/直播流，原文11.8节表格明确其适用对象。教材依据：11.8节'图像检
+
+--- sim=0.875 ---
+
+### [12-1284] 12-1284  type=0 ans=A diff=进阶
+STEM: 通过LlamaIndex创建RAG应用时，一份知识文件传入RAG应用的顺序是以下哪一项?
+  A: Document对象 - Node对象 - Index - query_engine
+  B: Document对象 - index - Node对象 - query_engine
+  C: Node对象 - Document对象 - index - query_engine
+  D: Node对象 - query_engine - Document对象 - index
+ANALYSIS: 知识文件传入LlamaIndex RAG应用的正确顺序是 Document → Node → Index → query_engine。因此正确答案是A。
+
+### [12-0425] 12-0425  type=0 ans=D diff=进阶
+STEM: 通过LamalIndex创建RAG应用时，一份知识文件传入RAG应用的顺序是以下哪一项？
+  A: Node对象 - Document对象 - index - query_engine
+  B: Node对象 - query_engine - Document对象 - index
+  C: Document对象 - index - Node对象 - query_engine
+  D: Document对象 - Node对象 - index - query_engine
+ANALYSIS: 暂无
+
+--- sim=0.822 ---
+
+### [12-1205] 12-1205  type=0 ans=D diff=进阶
+STEM: 请问这个函数的主要作用是、、、def set_default_model() : EMBED_MODEL=DashScopeEmbedding ( model_name=DashScopeTextEmbeddingModels.TEX_EMBEDDING_V2, text_type=DashScopeTextEmbeddingType.TEXT_TYPE_DOCUMENT,) LLM_MODE = DashScope(model_name='qwen-plus') Settings.ilm=LLM_MODEL. embed_model=EMBED_MODEL Settings.ilm=LLM_MODEL
+  A: 定义了EMBED_MODEL 与 LLM_MODEL
+  B: 使得 embedding 模型可以参与 LLM 的生成过程中
+  C: 使得 LLM 可以流式输出
+  D: 使得有关 LlamaIndex 的后续步骤中无需再次指定 LLM 与 embed_model
+ANALYSIS: 该函数定义了EMBED_MODEL和LLM_MODEL，但其主要作用是将EMBED_MODEL和LLM_MODEL的设置进行初始化，使得在后续的LlamaIndex流程中，可以无需再次指定LLM和embed_model。因此，正确答案是D。
+
+### [12-1179] 12-1179  type=0 ans=C diff=挑战
+STEM: def set_default_model(): EMBED_MODEL = DashScopeEmbedding(model_name=DashScopeTextEmbeddingsModels.TEXT_EMBEDDING_V2, type_name=DashScopeTextEmbeddingType.TEXT_TYPE_DOCUMENT, LLM_MODEL = DashScope(model_name="qwen-plus") Settings.embed(model_name=EMBED_MODEL Settings.llm=LLM_MODEL ...)
+  A: 使得 llm 可以流式输出
+  B: 使得 embedding 模型可以参与与 llm 的生成过程中
+  C: 使得有关 Llamaindex 的后续步骤中无需再次指定 llm 与 embed_model
+  D: 定义了 EMBED_MODEL 与 LLM_MODEL
+ANALYSIS: 根据代码片段，`set_default_model()` 函数中，`EMBED_MODEL` 和 `LLM_MODEL` 分别被设置为 `DashScopeTextEmbedding` 和 `DashScope` 模型。`Settings.embed(model_name=EMBED_MODEL)` 表示使用 `EMBED_MODEL` 模型进行嵌入，而 `Settings.llm=LLM_MOD
+
+--- sim=0.833 ---
+
+### [12-5065] 12-5065  type=1 ans=A,C diff=进阶
+STEM: 在LlamaIndex中，以下哪些操作属于NodeParser的典型职责？
+  A: 将原始文档切分为语义连贯的文本块（Nodes）
+  B: 为每个Node嵌入向量并写入向量数据库
+  C: 添加窗口上下文、父-子节点关系等元数据
+  D: 执行query重写以提升检索召回率
+ANALYSIS: NodeParser核心职责是分块（A）和增强元数据（C）；B属Embedding+Storage流程；D属QueryEngine或Retriever组件功能。
+
+### [12-5075] 12-5075  type=1 ans=A,B,D diff=入门
+STEM: 在 LlamaIndex 中，以下哪些操作属于 NodeParser 的核心职责？
+  A: 将原始文档切分为语义连贯的文本块（nodes）
+  B: 为每个 node 注入 metadata（如来源页码、标题）
+  C: 执行向量嵌入计算并存入向量数据库
+  D: 对 nodes 进行去重、过滤或合并
+ANALYSIS: NodeParser 负责分块、元数据注入、清洗合并；C属EmbeddingModel与StorageContext职责，非NodeParser范畴。
+同题异答对数: 40

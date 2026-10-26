@@ -1,0 +1,1176 @@
+[
+ {
+  "id": "10-0076",
+  "flags": [
+   "no_analysis"
+  ],
+  "type": 0,
+  "stem": "model=\"qwen-plus\" 的作用是什么？",
+  "options": [
+   {
+    "l": "A",
+    "x": "指定使用的模型"
+   },
+   {
+    "l": "B",
+    "x": "增加输出的多样性"
+   },
+   {
+    "l": "C",
+    "x": "使输出更具确定性"
+   },
+   {
+    "l": "D",
+    "x": "控制输出长度"
+   }
+  ],
+  "answer": "A",
+  "analysis": "暂无",
+  "difficulty_label": "入门"
+ },
+ {
+  "id": "10-0297",
+  "flags": [
+   "no_analysis"
+  ],
+  "type": 0,
+  "stem": "Qwen-Max线上模型可能指的是以下哪一种情况？",
+  "options": [
+   {
+    "l": "A",
+    "x": "经过大规模预训练的原始模型"
+   },
+   {
+    "l": "B",
+    "x": "针对特定任务经过充分微调的模型"
+   },
+   {
+    "l": "C",
+    "x": "经过大量在线交互不断优化的模型"
+   },
+   {
+    "l": "D",
+    "x": "参数量最大的基线模型"
+   }
+  ],
+  "answer": "C",
+  "analysis": "暂无",
+  "difficulty_label": "入门"
+ },
+ {
+  "id": "10-0391",
+  "flags": [
+   "no_analysis"
+  ],
+  "type": 0,
+  "stem": "通义听悟主要聚焦于哪种类型的数据处理能力?",
+  "options": [
+   {
+    "l": "A",
+    "x": "将图像转换为高质量的视频内容"
+   },
+   {
+    "l": "B",
+    "x": "结合图像和文本进行创造性内容生成"
+   },
+   {
+    "l": "C",
+    "x": "基于音频内容生成文字记录、摘要及翻译"
+   },
+   {
+    "l": "D",
+    "x": "通过图像进行复杂的推理分析"
+   }
+  ],
+  "answer": "C",
+  "analysis": "暂无",
+  "difficulty_label": "入门"
+ },
+ {
+  "id": "10-0196",
+  "flags": [
+   "no_analysis"
+  ],
+  "type": 0,
+  "stem": "model=\"qwen-turbo\" 的作用是什么？",
+  "options": [
+   {
+    "l": "A",
+    "x": "指定使用的模型"
+   },
+   {
+    "l": "B",
+    "x": "指定使用的API密钥"
+   },
+   {
+    "l": "C",
+    "x": "指定使用的标签类型"
+   },
+   {
+    "l": "D",
+    "x": "指定使用的输出格式"
+   }
+  ],
+  "answer": "A",
+  "analysis": "暂无",
+  "difficulty_label": "进阶"
+ },
+ {
+  "id": "10-0306",
+  "flags": [
+   "no_analysis"
+  ],
+  "type": 0,
+  "stem": "以下哪项插件功能最可能通过大模型API及百炼应用A PI实现，以辅助日常办公？",
+  "options": [
+   {
+    "l": "A",
+    "x": "高级图像识别与编辑"
+   },
+   {
+    "l": "B",
+    "x": "实时多语言翻译服务"
+   },
+   {
+    "l": "C",
+    "x": "复杂的3D建模与渲染"
+   },
+   {
+    "l": "D",
+    "x": "高精度的物理实验模拟"
+   }
+  ],
+  "answer": "B",
+  "analysis": "暂无",
+  "difficulty_label": "进阶"
+ },
+ {
+  "id": "10-0363",
+  "flags": [
+   "no_analysis"
+  ],
+  "type": 0,
+  "stem": "Qwen系列模型中，哪个模型代表了经过大规模数据预训练后的基础版本，未针对特定任务进行过多调整？",
+  "options": [
+   {
+    "l": "A",
+    "x": "Qwen-7B-Chat"
+   },
+   {
+    "l": "B",
+    "x": "Qwen-Max线上模型"
+   },
+   {
+    "l": "C",
+    "x": "Qwen-7B预训练模型"
+   },
+   {
+    "l": "D",
+    "x": "Qwen-14B-Chat"
+   }
+  ],
+  "answer": "C",
+  "analysis": "暂无",
+  "difficulty_label": "进阶"
+ },
+ {
+  "id": "10-0412",
+  "flags": [
+   "longest_is_answer_leak",
+   "duplicate_cluster"
+  ],
+  "type": 0,
+  "stem": "以下哪个代码片段正确设置了百炼大语言模型的API Key?",
+  "options": [
+   {
+    "l": "A",
+    "x": "client = OpenAI(base_url=\"https://dashscope.aliyuncs.com/compatible-mode/v1\")"
+   },
+   {
+    "l": "B",
+    "x": "client = OpenAI(api_key=os.getenv(\"DASHSCOPE_API_KEY\"))"
+   },
+   {
+    "l": "C",
+    "x": "client = OpenAI(base_url=\"https://dashscope.aliyuncs.com/compatible-mode/v1\", api_key=os.environ.get(\"DASHSCOPE_API_KEY\"))"
+   },
+   {
+    "l": "D",
+    "x": "client = OpenAI(\"your_api_key\", \"https://dashscope.aliyuncs.com/compatible-mode/v1\")"
+   }
+  ],
+  "answer": "C",
+  "analysis": "正确答案是C。选项C中，通过os.environ.get(\"DASHSCOPE_API_KEY\")获取环境变量中的API密钥，这是正确的做法。选项A中，OpenAI的base_url参数是固定的，不支持通过环境变量设置API密钥。选项B中，虽然使用了api_key，但没有正确地从环境变量中获取。选项D中，API密钥的格式不正确，OpenAI的API密钥需要通过环境变量或配置文件来设置。",
+  "difficulty_label": "进阶"
+ },
+ {
+  "id": "10-0444",
+  "flags": [
+   "no_analysis"
+  ],
+  "type": 0,
+  "stem": "在下列使用Qwen - Max辅助内容生产的场景中，以下哪个操作是可以执行的？",
+  "options": [
+   {
+    "l": "A",
+    "x": "直接使用Qwen - Max进行图像设计"
+   },
+   {
+    "l": "B",
+    "x": "利用Qwen - Max生成课程文案"
+   },
+   {
+    "l": "C",
+    "x": "应用Qwen - Max进行视频剪辑"
+   },
+   {
+    "l": "D",
+    "x": "让Qwen - Max执行编程代码"
+   }
+  ],
+  "answer": "B",
+  "analysis": "暂无",
+  "difficulty_label": "进阶"
+ },
+ {
+  "id": "10-0587",
+  "flags": [
+   "no_analysis"
+  ],
+  "type": 1,
+  "stem": "以下哪些描述符合使用列表方法给通义千问大模型增加记忆的场景？",
+  "options": [
+   {
+    "l": "A",
+    "x": "在与模型的交互中，将关键信息以列表形式累积存储"
+   },
+   {
+    "l": "B",
+    "x": "每次提问时，将该列表作为上下文附加到问题中，帮助模型理解历史对话"
+   },
+   {
+    "l": "C",
+    "x": "列表中存储的信息会随每次请求自动清空，保证每次对话独立性"
+   },
+   {
+    "l": "D",
+    "x": "可以手动编辑列表内容，选择性地向模型展示特定的记忆信息"
+   }
+  ],
+  "answer": "A,B,D",
+  "analysis": "暂无",
+  "difficulty_label": "进阶"
+ },
+ {
+  "id": "10-0591",
+  "flags": [
+   "no_analysis"
+  ],
+  "type": 1,
+  "stem": "为了有效利用上下文记忆提升通义千问大模型的交互质量，可以采取哪些策略？",
+  "options": [
+   {
+    "l": "A",
+    "x": "设计高效的内存管理机制，自动丢弃较旧的对话记录"
+   },
+   {
+    "l": "B",
+    "x": "根据对话内容的相关性选择性地更新记忆列表"
+   },
+   {
+    "l": "C",
+    "x": "实现一个智能筛选机制，仅保留对当前对话有帮助的信息"
+   },
+   {
+    "l": "D",
+    "x": "为每一次对话创建独立的记忆列表，不进行跨会话信息共享"
+   }
+  ],
+  "answer": "A,B,C",
+  "analysis": "暂无",
+  "difficulty_label": "进阶"
+ },
+ {
+  "id": "10-1073",
+  "flags": [
+   "no_analysis"
+  ],
+  "type": 0,
+  "stem": "在调用百炼大模型接口时，如何指定用户的输入内容？",
+  "options": [
+   {
+    "l": "A",
+    "x": "将用户输入内容作为'messages'列表中字典的'content'字段的值传入"
+   },
+   {
+    "l": "B",
+    "x": "将用户输入内容作为model参数的值传入"
+   },
+   {
+    "l": "C",
+    "x": "将用户输入内容作为api_key 参数的值传入"
+   },
+   {
+    "l": "D",
+    "x": "将用户输入内容作为base_url 参数的值传入"
+   }
+  ],
+  "answer": "A",
+  "analysis": "暂无",
+  "difficulty_label": "进阶"
+ },
+ {
+  "id": "10-1209",
+  "flags": [
+   "thin_analysis"
+  ],
+  "type": 1,
+  "stem": "阿里云支持的模型部署平台包括?",
+  "options": [
+   {
+    "l": "A",
+    "x": "云服务器ECS"
+   },
+   {
+    "l": "B",
+    "x": "函数计算FC"
+   },
+   {
+    "l": "C",
+    "x": "人工智能平台PAI-EAS"
+   },
+   {
+    "l": "D",
+    "x": "大模型服务平台百炼"
+   }
+  ],
+  "answer": "A,B,C,D",
+  "analysis": "四种均为阿里云官方部署方案",
+  "difficulty_label": "进阶"
+ },
+ {
+  "id": "10-1314",
+  "flags": [
+   "duplicate_cluster"
+  ],
+  "type": 0,
+  "stem": "以下哪个代码片段正确设置了百炼大语言模型的API key?",
+  "options": [
+   {
+    "l": "A",
+    "x": "client = OpenAI('your_api_key', 'https://dashscope.aliyuncs.com/compatible-mode/v1')"
+   },
+   {
+    "l": "B",
+    "x": "client = OpenAI(base_url='https://dashscope.aliyuncs.com/compatible-mode/v1', Api_key=os.environ.get('DASHSCOPE_API_KEY'))"
+   },
+   {
+    "l": "C",
+    "x": "client = OpenAI(api_key=os.getenv('DASHSCOPE_API_KEY'))"
+   },
+   {
+    "l": "D",
+    "x": "client = OpenAI(base_url='https://dashscope.aliyuncs.com/compatible-mode/v1')"
+   }
+  ],
+  "answer": "C",
+  "analysis": "正确答案是C，因为百炼API兼容OpenAI SDK，需通过api_key参数传入密钥，且官方推荐从环境变量DASHSCOPE_API_KEY读取（见阿里云百炼文档‘快速开始’章节）。选项A错误：OpenAI构造函数无位置参数形式的API key传入方式；B错误：参数名应为api_key（小写），而非Api_key（大小写敏感），且未指定base_url时无法路由至百炼服务；D错误：缺少api_key参数，请求将因鉴权失败而报错。考生需牢记百炼调用必须同时满足：使用标准OpenAI SDK、正确参数名、密钥来源合规。",
+  "difficulty_label": "进阶"
+ },
+ {
+  "id": "10-0769",
+  "flags": [
+   "no_analysis"
+  ],
+  "type": 1,
+  "stem": "某开发者使用阿里云 PAI 平台部署大模型应用，要求支持 '高并发请求、低延迟响应、资源弹性扩展'。以下哪些 PAI 平台功能需要重点配置？",
+  "options": [
+   {
+    "l": "A",
+    "x": "PAI-EAS（弹性计算服务）的容器化部署"
+   },
+   {
+    "l": "B",
+    "x": "PAI-EAS 的自动扩缩容功能"
+   },
+   {
+    "l": "C",
+    "x": "PAI-Studio 的模型微调功能"
+   },
+   {
+    "l": "D",
+    "x": "PAI-EAS 的性能监控与告警功能"
+   }
+  ],
+  "answer": "A,B,D",
+  "analysis": "暂无",
+  "difficulty_label": "进阶"
+ },
+ {
+  "id": "10-1189",
+  "flags": [
+   "no_analysis"
+  ],
+  "type": 0,
+  "stem": "如何从百炼大模型的接口返回结果中获取模型生成的文本?",
+  "options": [
+   {
+    "l": "A",
+    "x": "print(completion.message.content)"
+   },
+   {
+    "l": "B",
+    "x": "print(completion.choices[0].message)"
+   },
+   {
+    "l": "C",
+    "x": "print(completion.choices.message.content)"
+   },
+   {
+    "l": "D",
+    "x": "print(completion.choices[0].message.content)"
+   }
+  ],
+  "answer": "D",
+  "analysis": "暂无",
+  "difficulty_label": "进阶"
+ },
+ {
+  "id": "10-1430",
+  "flags": [
+   "duplicate_cluster"
+  ],
+  "type": 0,
+  "stem": "在以下提供的代码片段中，（）最终答案的步骤是直接从DashScope服务获取并处理查询结果的关键环节。\ndef query(self, query: str):\n    message = dashscope.Messages.create(self.thread.id, content=query)\n    message_run = dashscope.Runs.create(self.thread.id, assistant_id=self.assistant.id)\n    run_status = dashscope.Runs.wait(message_run.id, thread_id=self.thread.id)\n    if run_status.required_action:\n        self.forward_and_submit_outputs(run_status)\n        run_status = dashscope.Runs.wait(run_status.id, thread_id=self.thread.id)\n    msgs = dashscope.Messages.list(self.thread.id)\n    answer = json.loads(json.dumps(msgs, default=lambda o: o.__dict__))['data'][0]['content'][0]['text']['value']\n    return answer",
+  "options": [
+   {
+    "l": "A",
+    "x": "调用 dashscope.Runs.create 函数"
+   },
+   {
+    "l": "B",
+    "x": "调用 dashscope.Messages.list 函数"
+   },
+   {
+    "l": "C",
+    "x": "调用用_and_submit_outputs 函数"
+   },
+   {
+    "l": "D",
+    "x": "解析 msgs 获取最终答案"
+   }
+  ],
+  "answer": "D",
+  "analysis": "在提供的代码片段中，解析 msgs 获取最终答案的步骤是直接从DashScope服务获取并处理查询结果的关键环节。这包括将消息对象转换为字典，然后从字典中提取出实际的答案内容。这一步骤是整个查询过程中最终获取用户所需信息的部分，因此它是实现查询目的的核心步骤。其他步骤如创建消息、创建运行、等待运行状态等，都是为这一最终步骤服务的。",
+  "difficulty_label": "挑战"
+ },
+ {
+  "id": "10-0575",
+  "flags": [
+   "duplicate_cluster"
+  ],
+  "type": 1,
+  "stem": "下列Class APIAssistant Agent的Run.wait的作用是什么？\nclass APIAssistantAgent(AgentModule):\n    def query(self, query: str):\n        message = dashscope.Messages.create(self.thread.id, content=query)\n        message_run = dashscope.Runs.create(self.thread.id, assistant_id=self.assistant.id)\n        run_status = dashscope.Runs.wait(message_run.id, thread_id=self.thread.id)\n        \n        if run_status.required_action:\n            self.forward_and_submit_outputs(run_status)\n            run_status = dashscope.Runs.wait(run_status.id, thread_id=self.thread.id)\n        \n        msgs = dashscope.Messages.list(self.thread.id)\n        answer = json.loads(json.dumps(msgs, default=lambda o: o.__dict__))['data'][0]['content'][0]['text']['value']\n        return answer",
+  "options": [
+   {
+    "l": "A",
+    "x": "监听后台请求，并在用户的等待期间消耗资源"
+   },
+   {
+    "l": "B",
+    "x": "阻塞当前线程，直到请求的响应准备好为止"
+   },
+   {
+    "l": "C",
+    "x": "提供异步呼叫的机制，以提升查询响应速度"
+   },
+   {
+    "l": "D",
+    "x": "确保所有消息都已处理并存储好"
+   },
+   {
+    "l": "E",
+    "x": "等待所有的辅助工具输出，确保信息的完整性"
+   },
+   {
+    "l": "F",
+    "x": "返回请求的实时进度，对于调试非常有用"
+   }
+  ],
+  "answer": "B",
+  "analysis": "在这段 Assistant API 示例代码里，`dashscope.Runs.wait(...)` 的核心职责是阻塞当前线程，直到本次 run 的结果准备好或进入下一步可继续处理状态。题干并未展示实时进度回调，因此不应把“返回实时进度”算作本题正确项。",
+  "difficulty_label": "挑战"
+ },
+ {
+  "id": "10-1199",
+  "flags": [
+   "duplicate_cluster"
+  ],
+  "type": 1,
+  "stem": "APIAssistantAgent 的 query 函数里，哪些步骤与大语言模型交互？\ndef query(self, query: str):\n    \"\"\"\n    query: string, the query string to the assistant, e.g. Who is the Jack Chou?\n    \"\"\"\n    message = dashscope.Messages.create(self.thread_id, content=query)\n    message_run = dashscope.Runs.create(\n        self.thread_id,\n        assistant_id=self.assistant_id\n    )\n    run_status = dashscope.Runs.wait(message_run.id, thread_id=self.thread_id)    \n    if run_status.required_action:\n        self.forward_and_submit_outputs(run_status)\n        run_status = dashscope.Runs.wait(run_status.id, thread_id=self.thread_id)\n    msgs = dashscope.Messages.list(self.thread_id)\n    answer = json.loads(\n        json.dumps(msgs, default=lambda o: o.__dict__)\n    )[\"data\"][0][\"content\"][0][\"text\"][\"value\"]\n    return answer",
+  "options": [
+   {
+    "l": "A",
+    "x": "调用 forward_and_submit_outputs 函数"
+   },
+   {
+    "l": "B",
+    "x": "调用 Runs.wait 函数"
+   },
+   {
+    "l": "C",
+    "x": "创建 message 对象"
+   },
+   {
+    "l": "D",
+    "x": "调用 dashscope.Messages.list 函数"
+   },
+   {
+    "l": "E",
+    "x": "解析 msg s 获取最终答案"
+   },
+   {
+    "l": "F",
+    "x": "调用 dashscope.Runs.create 函数"
+   }
+  ],
+  "answer": "B,C,D,F",
+  "analysis": "正确选项B、C、D、F均直接触发与大语言模型的交互：C（Messages.create）提交用户查询至线程，启动LLM推理上下文；F（Runs.create）显式触发助手执行，调用绑定的LLM完成推理；B（Runs.wait）轮询等待LLM生成完成，是同步获取模型输出的关键环节；D（Messages.list）拉取包含LLM生成结果的消息列表。A错误：forward_and_submit_outputs用于处理工具调用（如函数调用），属外部系统交互，非LLM本身；E仅为本地JSON解析，不涉及API调用或模型计算；所有交互均以dashscope SDK调用阿里云百炼平台LLM服务为依据。",
+  "difficulty_label": "挑战"
+ },
+ {
+  "id": "10-1415",
+  "flags": [
+   "longest_is_answer_leak"
+  ],
+  "type": 2,
+  "stem": "关于Qwen-Max、CosyVoice 和moviepy 的协同使用，以下哪些说法是正确的？",
+  "options": [
+   {
+    "l": "A",
+    "x": "CosyVoice 可以将文本转换为音频。"
+   },
+   {
+    "l": "B",
+    "x": "CosyVoice 的主要功能是视频剪辑。"
+   },
+   {
+    "l": "C",
+    "x": "moviepy 可以直接将文本转换为视频。"
+   },
+   {
+    "l": "D",
+    "x": "Qwen-Max 主要用于生成视频字幕。"
+   },
+   {
+    "l": "E",
+    "x": "moviepy 可以用来获取音频文件的持续时间，用于生成字幕。"
+   },
+   {
+    "l": "F",
+    "x": "使用这三个工具的典型流程是，Qwen-Max -> CosyVoice -> moviepy。"
+   }
+  ],
+  "answer": "A,E,F",
+  "analysis": "B.CosyVoice 主要功能是语音合成，将文本转化为语音，而不是视频剪辑;C. moviepy 是 一个用于视频编辑的Python 库，但它不能直接将文本转换为视频，需要结合其他操作来实 现;D.Qwen - Max 是一个语言模型，主要用于生成文本等自然语言处理任务，而不是专门用于 生成视频字幕，虽然可以生成字幕相关文本，但这不是其主要功能.",
+  "difficulty_label": "挑战"
+ },
+ {
+  "id": "10-1426",
+  "flags": [
+   "duplicate_cluster"
+  ],
+  "type": 1,
+  "stem": "在下列 Assistant API 示例代码的 query 方法中，dashscope.Runs.wait 的以下哪些作用描述是正确的？ class APIAssistantAgent(AgentModule):def query(self,query:str):Message =dashscope.Messages.create(self.thread.id,content=query)message_run =dashscope.Runs.create(self.thread.id,assistant_id=self.assistant.id)Run_status =dashscope.Runs.wait(message_run.id,thread_id=self.thread.id,Callback=lambda progress:print(f\"Progress:{progress}%\"))if Run_status.required_action:self.forward_and_submit_outputs(run_status)Run_status =dashscope.Runs.wait(run_status.id,thread_id=self.thread.id)msgs =dashscope.Messages.list(self.thread.id)answer=json.loads(json.dumps(msgs,Default=lambda o:0. dict )['data'][0]['content'][O]['text']['value']return Answer",
+  "options": [
+   {
+    "l": "A",
+    "x": "提供异步呼叫的机制，以提升查询响应速度"
+   },
+   {
+    "l": "B",
+    "x": "阻塞当前线程，直到请求的响应准备好为止"
+   },
+   {
+    "l": "C",
+    "x": "等待所有的辅助工具输出，确保信息的完整性"
+   },
+   {
+    "l": "D",
+    "x": "监听后台请求，并在用户的等待期间消耗资源"
+   },
+   {
+    "l": "E",
+    "x": "确保所有消息都已处理井存储好"
+   },
+   {
+    "l": "F",
+    "x": "返回请求的实时进度，对于调试非常有用"
+   }
+  ],
+  "answer": "B,F",
+  "analysis": "dashscope.Runs.wait 是同步阻塞式等待方法，官方文档明确其作用是轮询 Run 状态直至完成或超时（B 正确）；其 callback 参数支持实时进度回调，便于监控执行过程（F 正确）。A 错误：wait 本质是同步阻塞，非异步机制；C 错误：它不保证‘所有工具输出’，仅等待当前 Run 状态变为 completed 或 requires_action；D 错误：虽有轮询但属必要资源消耗，非无谓消耗；E 错误：消息存储由 Messages.create/list 等独立接口保障，wait 不负责持久化；题目中两次调用 wait 也印证其核心是状态同步与进度反馈。",
+  "difficulty_label": "挑战"
+ },
+ {
+  "id": "10-5153",
+  "flags": [
+   "abs_words_only_on_distractors"
+  ],
+  "type": 1,
+  "stem": "百炼平台构建 AI 智能体通常提供以下哪些能力？",
+  "options": [
+   {
+    "l": "A",
+    "x": "模型 API 或托管推理服务"
+   },
+   {
+    "l": "B",
+    "x": "知识库与文档管理"
+   },
+   {
+    "l": "C",
+    "x": "应用编排与对话配置"
+   },
+   {
+    "l": "D",
+    "x": "完全离线的本地大模型训练"
+   }
+  ],
+  "answer": "A,B,C",
+  "analysis": "解析：百炼平台提供模型服务、知识库和应用编排等能力，A、B、C 正确；完全离线的本地训练不是百炼平台的核心定位。",
+  "difficulty_label": "入门"
+ },
+ {
+  "id": "10-5157",
+  "flags": [
+   "context_dependent",
+   "abs_words_only_on_distractors"
+  ],
+  "type": 1,
+  "stem": "某医疗AI初创公司计划构建临床指南问答系统，面临关键决策：是否采用开源模型。根据教材10.7与10.5，以下哪些因素会显著增强其选择ModelScope开源模型+PAI部署的合理性？",
+  "options": [
+   {
+    "l": "A",
+    "x": "公司已通过等保三级认证，要求患者数据全程不出本地机房"
+   },
+   {
+    "l": "B",
+    "x": "团队拥有3名NLP算法工程师，具备LoRA微调与vLLM部署经验"
+   },
+   {
+    "l": "C",
+    "x": "预计日均调用量将稳定在50万次以上，当前DashScope账单已达月均20万元"
+   },
+   {
+    "l": "D",
+    "x": "需要快速验证市场反馈，6周内必须上线MVP版本"
+   }
+  ],
+  "answer": "A,B,C",
+  "analysis": "A正确：教材10.7明确‘开源版可私有化部署，数据可不出域’，等保三级强制本地化是典型驱动因素；B正确：教材10.4指出PAI面向‘算法工程师’，且10.7强调开源模型需‘自己承担GPU与运维成本’，团队能力是前提；C正确：教材10.7结论‘当流量足够大，自托管可能更经济’，50万次/日对应年调用量超1.8亿次，账单20万/月印证成本临界点；D错误：教材10.5明确‘三人团队、无运维、要尽快上线→选百炼’，MVP阶段应优先百炼或DashScope，而非投入资源部署开源模型。",
+  "difficulty_label": "进阶"
+ },
+ {
+  "id": "10-5162",
+  "flags": [
+   "duplicate_cluster"
+  ],
+  "type": 0,
+  "stem": "某金融公司需构建合规问答系统，要求：① 所有客户合同与监管文件严禁出域；② 通用千问模型对'穿透式尽调'等术语回答不准；③ 需支持1000+并发实时响应。技术团队决定基于Qwen2-7B开源模型微调后部署。以下哪组阿里云产品组合最符合全链路需求？",
+  "options": [
+   {
+    "l": "A",
+    "x": "ModelScope下载模型 → 百炼知识库上传合同 → DashScope API调用qwen-plus"
+   },
+   {
+    "l": "B",
+    "x": "ModelScope下载Qwen2-7B → PAI-DSW开发LoRA微调代码 → PAI-DLC分布式训练 → PAI-EAS部署为高可用服务"
+   },
+   {
+    "l": "C",
+    "x": "DashScope开通qwen-max专属实例 → 在百炼中配置自定义Prompt模板 → 发布为钉钉机器人"
+   },
+   {
+    "l": "D",
+    "x": "OSS存储合同PDF → DataWorks清洗文本 → 百炼工作流调用DashScope Embedding + qwen-long生成答案"
+   }
+  ],
+  "answer": "B",
+  "analysis": "题干明确要求'数据不出域、微调开源模型、高并发部署'，三者共同指向PAI训练部署层：ModelScope是开源模型下载渠道（教材10.7节），DSW提供交互式开发环境（10.4节），DLC支持分布式训练（10.4节），EAS提供弹性伸缩的生产级服务（10.4节）。A错在百炼/DashScope均需数据上送，违反'不出域'；C错在DashScope无专属实例且百炼不支持自研结构微调；D虽用RAG但全程依赖托管API，数据仍需上送且无法满足专业术语微调需求。教材10.5节选型决策第4条明确'要数据完全不出域、强私有化→开源模型+PAI/EAS'。",
+  "difficulty_label": "进阶"
+ },
+ {
+  "id": "10-5163",
+  "flags": [
+   "duplicate_cluster"
+  ],
+  "type": 0,
+  "stem": "算法团队在PAI-DSW中完成Qwen2-1.5B模型微调后，需验证推理效果。以下哪种操作最符合教材推荐的验证路径？",
+  "options": [
+   {
+    "l": "A",
+    "x": "直接在DSW中启动vLLM服务，用curl测试HTTP接口，确认返回符合预期"
+   },
+   {
+    "l": "B",
+    "x": "将模型导出为ONNX格式，在本地Python脚本中加载验证"
+   },
+   {
+    "l": "C",
+    "x": "提交至PAI-DLC进行全量训练验证，再导出模型"
+   },
+   {
+    "l": "D",
+    "x": "在百炼平台新建应用，选择'自定义模型'并指向DSW中的模型路径"
+   }
+  ],
+  "answer": "A",
+  "analysis": "教材10.4节原理部分明确指出：'得到合并后的模型，用vLLM本地起服务验证（其HTTP接口本身兼容OpenAI API）'，这是PAI官方推荐的DSW阶段验证方式。A选项完全复现该路径，且vLLM服务在DSW中可一键启动（课程实验验证）。B错误：ONNX转换非必需步骤，且可能损失精度，教材未提及；C错误：DLC用于大规模分布式训练，验证效果无需耗用DLC资源；D错误：百炼不支持直接挂载DSW本地路径的模型（10.2节说明百炼调用的是平台预置或EAS部署模型）。教材10.4节成本提醒强调'DSW按计算时计费'，故本地验证比提交DLC更经济高效。",
+  "difficulty_label": "入门"
+ },
+ {
+  "id": "10-5164",
+  "flags": [
+   "context_dependent"
+  ],
+  "type": 1,
+  "stem": "关于阿里云AI产品分层定位，以下哪些描述准确反映了教材10.1节的核心观点？",
+  "options": [
+   {
+    "l": "A",
+    "x": "百炼属于应用开发层，核心价值是将RAG、Agent等技术封装为可视化操作"
+   },
+   {
+    "l": "B",
+    "x": "DashScope与ModelScope同属模型服务层，区别仅在于商业版与开源版API"
+   },
+   {
+    "l": "C",
+    "x": "PAI的DSW、DLC、EAS分别对应模型生命周期的开发、训练、部署阶段"
+   },
+   {
+    "l": "D",
+    "x": "OSS、MaxCompute、DataWorks构成数据底座层，为上层AI应用提供数据支撑"
+   }
+  ],
+  "answer": "A,C,D",
+  "analysis": "A正确：教材10.2节'价值'段落明确'把复杂的工程链路封装成可视化操作：知识库背后就是RAG...'，10.1节分层表也定义百炼为'应用开发层'；C正确：教材10.4节表格清晰列出DSW=开发、DLC=训练、EAS=部署，且口诀'调试选DSW、训练选DLC、上线选EAS'；D正确：教材10.1节分层表将OSS/MaxCompute/DataWorks归为'数据底座层'，并说明其作用。B错误：教材10.7节严格区分DashScope（商业API服务）与ModelScope（开源模型社区），二者分属不同层次——DashScope是模型服务层（MaaS），ModelScope是开源社区（非服务层），且ModelScope不提供API计费服务（10.7节'exam'强调'ModelScope不是按Token计费的API服务'）。",
+  "difficulty_label": "入门"
+ },
+ {
+  "id": "10-5165",
+  "flags": [
+   "context_dependent"
+  ],
+  "type": 1,
+  "stem": "某电商团队需为客服系统实现多轮对话能力，要求：① 前端H5页面嵌入实时聊天窗口；② 后端服务需兼容现有Python微服务架构；③ 对话延迟敏感（首Token<800ms）；④ 预算有限，需控制API成本。以下哪些措施符合本章成本优化与技术选型原则？",
+  "options": [
+   {
+    "l": "A",
+    "x": "选用qwen-turbo模型，因其在简单问答场景下速度最快、成本最低"
+   },
+   {
+    "l": "B",
+    "x": "在DashScope OpenAI兼容接口中设置stream=True，实现流式响应降低用户等待感"
+   },
+   {
+    "l": "C",
+    "x": "将整份《售后服务政策》作为system prompt每次发送，确保信息完整"
+   },
+   {
+    "l": "D",
+    "x": "对高频问题（如‘退货流程’）启用上下文缓存，复用固定前缀提示词"
+   },
+   {
+    "l": "E",
+    "x": "当API返回429时，采用无间隔循环重试直至成功"
+   }
+  ],
+  "answer": "A,B,D",
+  "analysis": "依据原文10.6节‘turbo适合高频、简单、对延迟敏感的任务’（A正确）；10.3节‘stream=True是对话类应用降低等待感的标配’（B正确）；10.8节‘善用缓存：对重复的系统提示词、知识库前缀利用上下文缓存折扣’（D正确）；C错误：10.8节明确警示‘不要每次把整本手册塞进上下文’，应通过RAG检索相关片段；E错误：10.8节强调‘遇429用指数退避+抖动重试’，无间隔重试会加剧限流并推高成本（10.8节‘切忌无间隔死循环重试’）。所有选项均需结合10.6/10.3/10.8节具体规则判断，非泛泛而谈。",
+  "difficulty_label": "进阶"
+ },
+ {
+  "id": "10-5167",
+  "flags": [
+   "duplicate_cluster"
+  ],
+  "type": 0,
+  "stem": "某医疗AI初创公司需构建'医学指南解读助手'，要求：① 严格遵循HIPAA等合规要求，患者数据绝对不出私有云；② 指南文本长达200页PDF；③ 需支持医生用自然语言提问并返回带引用的精准答案。根据原文10.1分层与10.7开源模型逻辑，最优技术路径是？",
+  "options": [
+   {
+    "l": "A",
+    "x": "使用百炼知识库上传PDF，选择qwen-long模型，开启自动切片与引用溯源功能"
+   },
+   {
+    "l": "B",
+    "x": "在自有GPU集群部署Qwen2-72B-Instruct开源模型（ModelScope下载），结合LlamaIndex构建RAG服务"
+   },
+   {
+    "l": "C",
+    "x": "调用DashScope qwen-long API，将PDF全文Base64编码后作为system message传入"
+   },
+   {
+    "l": "D",
+    "x": "用PAI-EAS部署通义万相模型，对PDF进行图像识别后调用DashScope生成摘要"
+   }
+  ],
+  "answer": "B",
+  "analysis": "B正确：原文10.7明确'开源模型价值：①数据隐私与合规（数据不出域）；②可深度定制；③长期成本可控'，且ModelScope是'下载开源模型权重'的社区（10.7概念）；200页PDF需RAG处理，LlamaIndex是典型RAG框架，符合'自然语言提问+引用溯源'需求。A错误：百炼为托管服务，数据需上送阿里云，违反①（10.5对比表'数据与模型控制'栏）；C错误：DashScope为托管API，同样违反数据不出域（10.7误区澄清）；D错误：通义万相是文生图模型（10.6表格），不适用于PDF文本解析，且EAS是部署平台，非模型能力来源。原文10.5'选型决策'第4条直接对应：'要数据完全不出域、强私有化→开源模型+PAI/EAS或自建'，B即自建方案。",
+  "difficulty_label": "挑战"
+ },
+ {
+  "id": "10-5174",
+  "flags": [
+   "duplicate_cluster"
+  ],
+  "type": 0,
+  "stem": "某电商团队上线智能客服后，首月账单远超预期。排查发现：用户每次咨询都上传整份《售后服务政策V3.2.pdf》（86页）作为system prompt，且未设置max_tokens。该问题违反了原文哪项成本控制原则？",
+  "options": [
+   {
+    "l": "A",
+    "x": "应按任务难度路由模型，避免无脑使用qwen-max"
+   },
+   {
+    "l": "B",
+    "x": "输入Token与输出Token分别计价，且输出通常更贵"
+   },
+   {
+    "l": "C",
+    "x": "应控制输入内容，RAG只塞最相关片段，而非整本手册"
+   },
+   {
+    "l": "D",
+    "x": "需用指数退避处理429限流，避免重试推高费用"
+   }
+  ],
+  "answer": "C",
+  "analysis": "原文10.8节'省成本的工程手段'第2条明确指出：'控制输入：RAG 只塞最相关的片段，不要每次把整本手册塞进上下文'。题干中'上传整份86页PDF作为system prompt'正是典型违规操作——既造成输入Token爆炸式增长（违反'按Token计费'规则），又违背RAG最佳实践（10.2知识库能力说明中强调'内置文档解析、切片、向量化、检索'，即应由平台自动处理而非人工塞全文）。A虽正确但非本题主因（未提模型选型错误）；B描述正确但题干未涉及输出失控；D针对限流场景，题干未出现429。本题直击原文成本控制最易忽视的输入治理环节。",
+  "difficulty_label": "进阶"
+ },
+ {
+  "id": "10-5178",
+  "flags": [
+   "duplicate_cluster"
+  ],
+  "type": 1,
+  "stem": "某医疗AI初创公司计划构建临床指南问答系统，技术负责人提出采用‘ModelScope下载Qwen2-7B开源模型 + PAI-EAS部署’方案。根据原文10.7节对开源模型价值的阐述，以下哪些因素会显著增强该方案的合理性？",
+  "options": [
+   {
+    "l": "A",
+    "x": "需满足HIPAA等医疗数据合规要求，患者病历数据绝对不可上传至公网"
+   },
+   {
+    "l": "B",
+    "x": "团队已具备GPU服务器运维能力，可承担自建成本"
+   },
+   {
+    "l": "C",
+    "x": "系统需支持对新发布的《诊疗指南》进行快速微调并上线"
+   },
+   {
+    "l": "D",
+    "x": "初期日均调用量仅200次，预算有限，需最小化初始投入"
+   }
+  ],
+  "answer": "A,C",
+  "analysis": "依据原文10.7节‘开源模型的价值集中在三点’：①数据隐私与合规（数据不出域）；②可深度定制（任意微调/改结构）；③大规模稳定流量下长期成本可控。A正确：直接对应价值点①，HIPAA要求数据不出域，开源+PAI-EAS可完全私有化部署；C正确：对应价值点②，开源模型支持任意微调，满足‘快速微调指南’需求。B错误：原文明确‘代价是需要GPU、算法与运维能力’，但‘具备能力’是前提而非增强合理性的因素；D错误：原文10.7价值分析指出‘业务初期、规模不确定...直接用百炼/DashScope最划算’，200次/日属极低频，自托管反而增加初始成本（GPU租用+运维），违背‘初期最划算’原则。",
+  "difficulty_label": "挑战"
+ },
+ {
+  "id": "10-5180",
+  "flags": [
+   "duplicate_cluster"
+  ],
+  "type": 1,
+  "stem": "某医疗AI初创公司需构建'医学指南解读助手'，要求：① 严格遵循HIPAA等合规要求，患者数据绝对不出私有云；② 指南文本长达200页PDF；③ 需支持医生用自然语言提问并返回带引用的精准答案。根据原文10.1分层与10.7开源模型逻辑，最优技术路径必须包含以下哪些环节？",
+  "options": [
+   {
+    "l": "A",
+    "x": "从ModelScope下载Qwen系列开源模型权重"
+   },
+   {
+    "l": "B",
+    "x": "使用百炼知识库功能上传PDF并启用自动切片与向量化"
+   },
+   {
+    "l": "C",
+    "x": "在PAI-DSW中加载模型，结合RAG框架实现本地化检索增强"
+   },
+   {
+    "l": "D",
+    "x": "将微调后的模型通过PAI-EAS部署至客户私有云环境"
+   }
+  ],
+  "answer": "A,C,D",
+  "analysis": "题干核心约束'患者数据绝对不出私有云'，直接排除所有托管服务：B选项百炼知识库需将PDF上传至阿里云平台（教材10.2：'知识库背后就是RAG的解析→切片→向量化→检索'，且百炼属应用层托管服务），违反数据不出域原则（教材10.5对比表：百炼'数据与模型控制'为'平台托管'）。A正确：ModelScope是开源模型社区，下载权重后可完全离线使用（教材10.7：'可下载开源模型权重到本地，自行部署'）；C正确：DSW提供GPU Notebook环境，可在私有云内加载开源模型+自研RAG流程（教材10.4：'DSW是写代码、做实验的工作台'）；D正确：EAS支持私有化部署（教材10.4：'EAS是模型对外服务的门面'，且10.5明确'要数据完全不出域、强私有化→PAI/EAS或自建'）。三者构成'下载→开发→部署'闭环，满足全量约束。",
+  "difficulty_label": "挑战"
+ },
+ {
+  "id": "10-5181",
+  "flags": [
+   "duplicate_cluster"
+  ],
+  "type": 1,
+  "stem": "某电商团队上线智能客服后，首月账单远超预期。排查发现：用户每次咨询都上传整份《售后服务政策V3.2.pdf》（86页）作为system prompt，且未设置max_tokens。该问题违反了原文哪几项成本控制原则？",
+  "options": [
+   {
+    "l": "A",
+    "x": "控制输入：RAG只塞最相关的片段，不要每次把整本手册塞进上下文"
+   },
+   {
+    "l": "B",
+    "x": "限制输出：用max_tokens给输出设上限，避免模型'刹不住车'"
+   },
+   {
+    "l": "C",
+    "x": "选对模型尺寸：简单任务用turbo/小模型，复杂任务才上max"
+   },
+   {
+    "l": "D",
+    "x": "善用缓存：对重复的系统提示词、知识库前缀利用上下文缓存折扣"
+   }
+  ],
+  "answer": "A,B",
+  "analysis": "题干明确两点违规：'上传整份86页PDF作为system prompt'——直接对应教材10.8'省成本的工程手段'第2条：'控制输入：RAG只塞最相关的片段，不要每次把整本手册塞进上下文'（A正确）；'未设置max_tokens'——对应第3条：'限制输出：用max_tokens给输出设上限，避免模型刹不住车'（B正确）。C涉及模型选型，题干未提模型选择错误；D涉及缓存，但整本PDF作为system prompt无法享受固定前缀缓存（教材10.8：'命中固定前缀（系统提示词、知识库片段）可能享受缓存折扣'），且86页PDF显然非'固定前缀'。本题考查对成本漏洞的归因能力，紧扣原文具体条款。",
+  "difficulty_label": "进阶"
+ },
+ {
+  "id": "10-5189",
+  "flags": [
+   "context_dependent",
+   "duplicate_cluster"
+  ],
+  "type": 1,
+  "stem": "算法团队在PAI-DSW中完成Qwen2-1.5B模型微调后，需验证推理效果。以下哪些操作符合教材10.4节推荐的验证路径？",
+  "options": [
+   {
+    "l": "A",
+    "x": "在DSW中直接加载微调后模型权重，用vLLM启动本地HTTP服务进行测试"
+   },
+   {
+    "l": "B",
+    "x": "将模型导出至OSS，再通过DashScope API调用该模型"
+   },
+   {
+    "l": "C",
+    "x": "提交DLC任务进行大规模验证集推理"
+   },
+   {
+    "l": "D",
+    "x": "使用PAI-EAS部署模型服务，通过压测工具验证首Token延迟"
+   },
+   {
+    "l": "E",
+    "x": "在DSW中编写Python脚本，调用transformers库加载模型进行单样本推理"
+   }
+  ],
+  "answer": "A,E",
+  "analysis": "验证路径需区分'开发验证'与'生产验证'。教材10.4原理明确：'在PAI-DSW的GPU实例里写代码、用ms-swift做LoRA微调'，并指出'得到合并后的模型，用vLLM本地起服务验证（其HTTP接口本身兼容OpenAI API）'——这直接对应A项（vLLM本地服务）和E项（transformers单样本推理），二者均为DSW内轻量级验证，符合'调试'定位。B错误：DashScope只调用平台预置模型，不支持用户上传模型（10.5表明确'能否用自定义/私有模型：百炼/ DashScope→否，PAI→是'）；C错误：DLC用于'大规模/分布式训练'（10.4表格），非推理验证；D错误：EAS用于'稳定对外提供高并发服务'（10.4），是上线步骤，非微调后即时验证。教材10.4原则强调'调试选DSW'，验证必须在DSW内闭环。",
+  "difficulty_label": "进阶"
+ },
+ {
+  "id": "10-5192",
+  "flags": [
+   "abs_words_only_on_distractors"
+  ],
+  "type": 1,
+  "stem": "当百炼应用需要调用部署在PAI-EAS上的私有模型时，以下哪些条件是必须同时满足的？",
+  "options": [
+   {
+    "l": "A",
+    "x": "EAS服务已开启公网访问或与百炼所在VPC已通过云企业网CEN打通网络"
+   },
+   {
+    "l": "B",
+    "x": "EAS服务配置了兼容OpenAI API的HTTP接口（如vLLM服务），且百炼工作流中使用标准OpenAI格式调用"
+   },
+   {
+    "l": "C",
+    "x": "百炼工作流中需填写EAS服务的完整公网域名或内网Endpoint，以及EAS服务自身的Access Token"
+   },
+   {
+    "l": "D",
+    "x": "PAI-EAS服务必须使用DashScope提供的预置模型镜像，不能使用用户自定义镜像"
+   }
+  ],
+  "answer": "A,B,C",
+  "analysis": "依据原文10.4节EAS定义（‘模型在线服务’）、10.5节‘三者可组合’（‘百炼应用也可调用EAS上的私有模型’）及10.3节OpenAI兼容模式（‘vLLM本地起服务验证（其HTTP接口本身兼容OpenAI API）’）：A正确，网络连通是调用前提，教材虽未明说，但‘调用’逻辑必然要求可达性；B正确，百炼工作流调用外部模型需遵循标准协议，而vLLM等主流推理框架均提供OpenAI兼容API，教材10.4原理明确将其作为EAS部署前验证环节；C正确，调用需Endpoint（地址）和认证凭证（EAS Access Token），百炼不共享DashScope Key；D错误，教材10.4明确EAS支持‘自定义部署’，且10.7节强调开源模型需‘自行部署’，预置镜像仅为便利选项，非强制约束。",
+  "difficulty_label": "挑战"
+ },
+ {
+  "id": "10-5194",
+  "flags": [
+   "longest_is_answer_leak"
+  ],
+  "type": 1,
+  "stem": "生产环境调用 DashScope API 时持续返回 HTTP 429 错误，日志显示 RPM（每分钟请求数）稳定在 600，TPM（每分钟 Token 数）为 180,000。已知当前配额为 RPM=500、TPM=200,000。以下哪些原因及应对措施符合原文 10.8 节对限流与成本控制的双重要求？",
+  "options": [
+   {
+    "l": "A",
+    "x": "RPM 超限主因是前端未做请求合并，大量短查询被拆分为独立请求；应实施客户端请求聚合"
+   },
+   {
+    "l": "B",
+    "x": "TPM 接近上限说明模型输出过长，需检查是否遗漏 max_tokens 限制，或存在未收敛的循环生成"
+   },
+   {
+    "l": "C",
+    "x": "429 是临时性限流，应立即采用无退避的高频重试直至成功，避免用户等待"
+   },
+   {
+    "l": "D",
+    "x": "当前 RPM 超限但 TPM 未满，说明请求粒度细、单次Token少，可评估将多个轻量查询合并为单次多轮 messages 请求"
+   }
+  ],
+  "answer": "A,B,D",
+  "analysis": "原文 10.8 明确：‘处理限流’必须用‘指数退避 + 抖动’重试（C错误，无退避重试会加剧限流并推高成本）；‘省成本’第3条强调‘限制输出：用 max_tokens 给输出设上限’（B正确）；第1条‘选对模型尺寸’和第5条‘处理限流’隐含对请求模式的优化——RPM 超限而 TPM 未满，表明请求过于碎片化（A正确），此时合并请求（D正确）既降低RPM消耗，又可能通过更优上下文减少总Token（如用system+user+assistant多轮替代多次单轮），符合‘按Token计费’本质。D中‘多轮messages请求’是OpenAI兼容接口原生支持的合法模式，且原文10.3示例代码即使用messages列表，属于合规优化。",
+  "difficulty_label": "挑战"
+ },
+ {
+  "id": "10-5203",
+  "flags": [
+   "duplicate_cluster"
+  ],
+  "type": 0,
+  "stem": "某金融公司需构建合规问答系统，要求：① 所有客户合同与监管文件严禁出域；② 通用千问模型对'穿透式尽调'等术语回答不准；③ 需支持1000+并发实时响应。技术团队决定基于Qwen2-7B开源模型微调后部署。以下哪组阿里云产品组合最符合全链路需求，且严格遵循原文分层定位？",
+  "options": [
+   {
+    "l": "A",
+    "x": "ModelScope（下载模型）→ PAI-DSW（微调开发）→ PAI-DLC（大规模训练）→ PAI-EAS（高并发部署）"
+   },
+   {
+    "l": "B",
+    "x": "DashScope（调用qwen-max）→ 百炼（知识库增强）→ OSS（存储合同）→ DataWorks（数据清洗）"
+   },
+   {
+    "l": "C",
+    "x": "ModelScope（下载模型）→ PAI-DSW（微调开发）→ 百炼（封装为应用）→ EAS（部署）"
+   },
+   {
+    "l": "D",
+    "x": "OSS（存储模型）→ MaxCompute（训练）→ PAI-EAS（部署）→ DashScope（API网关）"
+   }
+  ],
+  "answer": "A",
+  "analysis": "依据原文10.1分层表：ModelScope是'开源模型社区'（下载权重），PAI-DSW是'交互式建模'（开发调试），DLC是'分布式训练'（大规模训练），EAS是'在线服务'（高并发部署）——完全匹配题干'下载→开发→训练→部署'四阶段。选项B使用DashScope/API，违反'数据严禁出域'；选项C错误将百炼用于'封装自有模型'，但原文10.2明确百炼'核心动作是建知识库、调Prompt、搭Agent'，其模型调优能力限于平台内轻量微调，不支持接入自定义EAS服务（10.5表未列此能力）；选项D中MaxCompute是'海量离线计算'（10.1表），非模型训练平台，且DashScope是API服务层，非网关组件。本题考查对'开源模型私有化全链路'与'各产品不可替代职能'的精确映射。",
+  "difficulty_label": "挑战"
+ },
+ {
+  "id": "10-5211",
+  "flags": [
+   "longest_is_answer_leak"
+  ],
+  "type": 0,
+  "stem": "某企业已在PAI-EAS上成功部署一个经LoRA微调的Qwen2-7B私有模型服务，地址为https://xxx.eas.aliyuncs.com。现需在百炼平台中配置该模型作为知识库问答的后端生成引擎。以下哪项是调用该EAS服务前必须完成的必要条件？",
+  "options": [
+   {
+    "l": "A",
+    "x": "在百炼工作流中启用‘自定义HTTP调用’节点，并将EAS服务URL填入请求地址"
+   },
+   {
+    "l": "B",
+    "x": "在百炼模型广场中手动注册该EAS服务为‘自定义模型’，并配置其OpenAI兼容API格式（含model字段映射）"
+   },
+   {
+    "l": "C",
+    "x": "确保该PAI-EAS服务已开启公网访问权限，且其HTTP接口严格遵循OpenAI Chat Completions API规范（含/compatible-mode/v1路径结构）"
+   },
+   {
+    "l": "D",
+    "x": "在百炼应用设置中绑定同一阿里云主账号下的PAI资源目录，并在EAS服务详情页开启‘百炼直连授权’开关"
+   }
+  ],
+  "answer": "C",
+  "analysis": "依据原文10.4节‘PAI三件套’与10.5节‘三者可组合’明确指出：‘百炼应用可回调PAI-EAS服务’，但未提供自动集成机制；而10.3节强调DashScope OpenAI兼容模式的核心是‘base_url指向兼容地址+标准参数’，且10.4节原理说明中明确‘vLLM本地起服务验证（其HTTP接口本身兼容OpenAI API）’——这表明百炼调用外部服务的前提是该服务具备标准OpenAI API契约。选项C准确指出两个刚性约束：①公网可达（百炼为SaaS服务，无法内网直连VPC中EAS）；②接口协议必须兼容（否则百炼工作流或智能体无法解析响应）。A错误：百炼工作流HTTP节点不支持直接对接非标准API；B错误：百炼模型广场仅展示平台预置模型，不支持用户注册任意EAS服务；D错误：原文无‘百炼直连授权’概念，且资源目录绑定非必要条件（百炼与EAS跨产品调用依赖网络与协议，非账号级开关）。",
+  "difficulty_label": "进阶"
+ },
+ {
+  "id": "10-5215",
+  "flags": [
+   "duplicate_cluster"
+  ],
+  "type": 0,
+  "stem": "某医疗AI初创公司计划构建临床指南问答系统，技术负责人提出采用'ModelScope下载Qwen2-7B开源模型 + PAI-EAS部署'方案。根据原文10.7节对开源模型价值的阐述，以下哪项因素会显著增强该方案的合理性？",
+  "options": [
+   {
+    "l": "A",
+    "x": "团队已采购多台A10服务器，希望复用现有硬件降低初期投入"
+   },
+   {
+    "l": "B",
+    "x": "项目需满足等保三级认证要求，且所有患者对话日志必须加密存储于本地私有云"
+   },
+   {
+    "l": "C",
+    "x": "当前API调用量较低，DashScope免费额度足以覆盖全部测试流量"
+   },
+   {
+    "l": "D",
+    "x": "团队缺乏Python开发经验，希望使用低代码界面快速搭建原型"
+   }
+  ],
+  "answer": "B",
+  "analysis": "原文10.7节'value'框明确指出开源模型三大价值：'① 数据隐私与合规（数据不出域）；② 可深度定制（任意微调/改结构）；③ 大规模稳定流量下的长期成本可控'。选项B中'等保三级认证'和'患者对话日志加密存于本地私有云'直接对应价值①'数据隐私与合规'，且'本地私有云'即实现'数据不出域'——这正是ModelScope+PAI-EAS组合的核心优势（开源模型可私有化部署，PAI-EAS支持私有VPC部署）。A错误：题干未提硬件复用需求，且PAI是云服务，与自购A10无关；C错误：免费额度充足反而削弱自托管必要性；D错误：低代码需求应选百炼，而非PAI。",
+  "difficulty_label": "进阶"
+ },
+ {
+  "id": "10-1129",
+  "flags": [
+   "no_analysis"
+  ],
+  "type": 0,
+  "stem": "相比直接使用大模型的 API，使用百炼的 Assistant A PI 构建 Agent 的主要优势是什么？",
+  "options": [
+   {
+    "l": "A",
+    "x": "能够绕过一些 API 调用限制，使得开发出的 A agent 功能更强大"
+   },
+   {
+    "l": "B",
+    "x": "能够完全控制模型底层训练过程"
+   },
+   {
+    "l": "C",
+    "x": "自带了会话管理和网络搜索等工具，简化 Agent t 开发工作"
+   },
+   {
+    "l": "D",
+    "x": "能够修改一些大模型 API 不直接提供的参数，使得开发 Agent 的过程更灵活"
+   }
+  ],
+  "answer": "C",
+  "analysis": "暂无",
+  "difficulty_label": "进阶"
+ },
+ {
+  "id": "10-1271",
+  "flags": [
+   "abs_words_only_on_distractors"
+  ],
+  "type": 1,
+  "stem": "使用百炼平台进行多Agent编排的优势包括？",
+  "options": [
+   {
+    "l": "A",
+    "x": "可视化流程设计"
+   },
+   {
+    "l": "B",
+    "x": "内置智能体协作逻辑"
+   },
+   {
+    "l": "C",
+    "x": "完全无需代码开发"
+   },
+   {
+    "l": "D",
+    "x": "快速验证业务效果"
+   }
+  ],
+  "answer": "A,B,D",
+  "analysis": "使用百炼平台进行多Agent编排的优势包括：可视化流程设计、内置智能体协作逻辑和快速验证业务效果。这些优势使得百炼平台在多智能体系统开发中具有显著的效率和便利性。",
+  "difficulty_label": "进阶"
+ }
+]

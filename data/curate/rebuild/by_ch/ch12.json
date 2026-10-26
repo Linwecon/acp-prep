@@ -1,0 +1,1063 @@
+[
+ {
+  "id": "12-0229",
+  "flags": [
+   "no_analysis"
+  ],
+  "type": 0,
+  "stem": "在RAG应用的多轮对话中，LlamaIndex提供了什么工具？",
+  "options": [
+   {
+    "l": "A",
+    "x": "快速实现多轮对话"
+   },
+   {
+    "l": "B",
+    "x": "增加模型的训练数据"
+   },
+   {
+    "l": "C",
+    "x": "减少模型的推理时间"
+   },
+   {
+    "l": "D",
+    "x": "增加模型的参数数量"
+   }
+  ],
+  "answer": "A",
+  "analysis": "暂无",
+  "difficulty_label": "入门"
+ },
+ {
+  "id": "12-0255",
+  "flags": [
+   "no_analysis"
+  ],
+  "type": 0,
+  "stem": "在创建索引时，以下哪个方法被使用？",
+  "options": [
+   {
+    "l": "A",
+    "x": "SimpleDirectoryReader"
+   },
+   {
+    "l": "B",
+    "x": "VectorStoreIndex.from_documents"
+   },
+   {
+    "l": "C",
+    "x": "index.as_query_engine"
+   },
+   {
+    "l": "D",
+    "x": "index.storage_context.persist"
+   }
+  ],
+  "answer": "B",
+  "analysis": "暂无",
+  "difficulty_label": "入门"
+ },
+ {
+  "id": "12-0288",
+  "flags": [
+   "no_analysis"
+  ],
+  "type": 0,
+  "stem": "在LlamaIndex的默认提示词模板中，query_str表示什么？",
+  "options": [
+   {
+    "l": "A",
+    "x": "用户的问题"
+   },
+   {
+    "l": "B",
+    "x": "从向量库中检索到的上下文信息"
+   },
+   {
+    "l": "C",
+    "x": "大模型的角色"
+   },
+   {
+    "l": "D",
+    "x": "输出的格式"
+   }
+  ],
+  "answer": "A",
+  "analysis": "暂无",
+  "difficulty_label": "入门"
+ },
+ {
+  "id": "12-0456",
+  "flags": [
+   "no_analysis"
+  ],
+  "type": 0,
+  "stem": "在Llamaindex中，默认情况下，加载的数据是如何存储的？",
+  "options": [
+   {
+    "l": "A",
+    "x": "存储在云服务中"
+   },
+   {
+    "l": "B",
+    "x": "存储在内存中作为一系列向量嵌入"
+   },
+   {
+    "l": "C",
+    "x": "直接写入数据库"
+   },
+   {
+    "l": "D",
+    "x": "存储在文件系统中的特定目录"
+   }
+  ],
+  "answer": "B",
+  "analysis": "暂无",
+  "difficulty_label": "入门"
+ },
+ {
+  "id": "12-0209",
+  "flags": [
+   "no_analysis"
+  ],
+  "type": 0,
+  "stem": "在 RAG 应用的多轮对话中，以下哪个工具可以快速实现多轮对话？",
+  "options": [
+   {
+    "l": "A",
+    "x": "LlamaIndex"
+   },
+   {
+    "l": "B",
+    "x": "SimpleDirectoryReader"
+   },
+   {
+    "l": "C",
+    "x": "VectorStoreIndex"
+   },
+   {
+    "l": "D",
+    "x": "OpenAIEmbedding"
+   }
+  ],
+  "answer": "A",
+  "analysis": "暂无",
+  "difficulty_label": "入门"
+ },
+ {
+  "id": "12-0438",
+  "flags": [
+   "no_analysis"
+  ],
+  "type": 0,
+  "stem": "在借助 LlamaIndex 构建问答机器人时，如果存储目录不存在，首次创建索引应使用哪个类读取文档？",
+  "options": [
+   {
+    "l": "A",
+    "x": "VectorStoreIndex"
+   },
+   {
+    "l": "B",
+    "x": "SimpleDirectoryReader"
+   },
+   {
+    "l": "C",
+    "x": "StorageContext"
+   },
+   {
+    "l": "D",
+    "x": "load_index_from_storage"
+   }
+  ],
+  "answer": "B",
+  "analysis": "暂无",
+  "difficulty_label": "入门"
+ },
+ {
+  "id": "12-0154",
+  "flags": [
+   "no_analysis"
+  ],
+  "type": 0,
+  "stem": "如果你想快速构建一个效果不错的 RAG 应用，可以参考哪篇文档？",
+  "options": [
+   {
+    "l": "A",
+    "x": "使用 LlamaIndex 构建 GraphRAG 应用"
+   },
+   {
+    "l": "B",
+    "x": "0代码构建私有知识问答应用"
+   },
+   {
+    "l": "C",
+    "x": "可视化工作流、智能体编排"
+   },
+   {
+    "l": "D",
+    "x": "LlamaIndex API 文档"
+   }
+  ],
+  "answer": "B",
+  "analysis": "暂无",
+  "difficulty_label": "进阶"
+ },
+ {
+  "id": "12-0213",
+  "flags": [
+   "no_analysis"
+  ],
+  "type": 0,
+  "stem": "如果你想深入了解如何实际运用 GraphRAG，可以参考哪个教程？",
+  "options": [
+   {
+    "l": "A",
+    "x": "使用 LlamaIndex 构建 GraphRAG 应用"
+   },
+   {
+    "l": "B",
+    "x": "0代码构建私有知识问答应用"
+   },
+   {
+    "l": "C",
+    "x": "可视化工作流、智能体编排"
+   },
+   {
+    "l": "D",
+    "x": "LlamaIndex API 文档"
+   }
+  ],
+  "answer": "A",
+  "analysis": "暂无",
+  "difficulty_label": "进阶"
+ },
+ {
+  "id": "12-0267",
+  "flags": [
+   "no_analysis",
+   "longest_is_answer_leak"
+  ],
+  "type": 0,
+  "stem": "百炼提供了一系列 LlamaIndex 组件，其主要目的是什么？",
+  "options": [
+   {
+    "l": "A",
+    "x": "方便继续使用熟悉的 LlamaIndex API 构建 RA G应用"
+   },
+   {
+    "l": "B",
+    "x": "提高模型训练速度"
+   },
+   {
+    "l": "C",
+    "x": "减少数据存储需求"
+   },
+   {
+    "l": "D",
+    "x": "增加输出的多样性"
+   }
+  ],
+  "answer": "A",
+  "analysis": "暂无",
+  "difficulty_label": "进阶"
+ },
+ {
+  "id": "12-0478",
+  "flags": [
+   "no_analysis"
+  ],
+  "type": 1,
+  "stem": "如果你的业务流程比较复杂，可以借助百炼上的哪些工具来构建更强大的应用？",
+  "options": [
+   {
+    "l": "A",
+    "x": "可视化工作流"
+   },
+   {
+    "l": "B",
+    "x": "智能体编排"
+   },
+   {
+    "l": "C",
+    "x": "LlamaIndex 组件"
+   },
+   {
+    "l": "D",
+    "x": "自然语言处理模型"
+   }
+  ],
+  "answer": "A,B",
+  "analysis": "暂无",
+  "difficulty_label": "进阶"
+ },
+ {
+  "id": "12-1284",
+  "flags": [
+   "duplicate_cluster"
+  ],
+  "type": 0,
+  "stem": "通过LlamaIndex创建RAG应用时，一份知识文件传入RAG应用的顺序是以下哪一项?",
+  "options": [
+   {
+    "l": "A",
+    "x": "Document对象 - Node对象 - Index - query_engine"
+   },
+   {
+    "l": "B",
+    "x": "Document对象 - index - Node对象 - query_engine"
+   },
+   {
+    "l": "C",
+    "x": "Node对象 - Document对象 - index - query_engine"
+   },
+   {
+    "l": "D",
+    "x": "Node对象 - query_engine - Document对象 - index"
+   }
+  ],
+  "answer": "A",
+  "analysis": "知识文件传入LlamaIndex RAG应用的正确顺序是 Document → Node → Index → query_engine。因此正确答案是A。",
+  "difficulty_label": "进阶"
+ },
+ {
+  "id": "12-0500",
+  "flags": [
+   "no_analysis"
+  ],
+  "type": 1,
+  "stem": "在保存与加载索引时，以下哪些方法被使用？",
+  "options": [
+   {
+    "l": "A",
+    "x": "index.storage_context.persist"
+   },
+   {
+    "l": "B",
+    "x": "load_index_from_storage"
+   },
+   {
+    "l": "C",
+    "x": "SimpleDirectoryReader"
+   },
+   {
+    "l": "D",
+    "x": "VectorStoreIndex.from_documents"
+   }
+  ],
+  "answer": "A,B",
+  "analysis": "暂无",
+  "difficulty_label": "进阶"
+ },
+ {
+  "id": "12-0573",
+  "flags": [
+   "no_analysis"
+  ],
+  "type": 1,
+  "stem": "在通过LlamaIndex创建RAG应用时，以下关于流式输出相比非流式输出的优势的说法正确的有哪些？",
+  "options": [
+   {
+    "l": "A",
+    "x": "能够提升大模型回复的效果"
+   },
+   {
+    "l": "B",
+    "x": "能够加快大模型回复的速度"
+   },
+   {
+    "l": "C",
+    "x": "能够给用户带来良好的阅读体验"
+   },
+   {
+    "l": "D",
+    "x": "如果返回的内容很长可以逐步返回结果，避免超时"
+   }
+  ],
+  "answer": "C,D",
+  "analysis": "暂无",
+  "difficulty_label": "进阶"
+ },
+ {
+  "id": "12-0763",
+  "flags": [
+   "longest_is_answer_leak",
+   "duplicate_cluster"
+  ],
+  "type": 0,
+  "stem": "某开发者开发大模型应用时，需实现‘用户上传 Excel 表格，模型分析表格数据并生成可视化图表描述’的功能。以下哪种技术方案最完整？",
+  "options": [
+   {
+    "l": "A",
+    "x": "直接将 Excel 表格输入大模型，要求生成图表描述"
+   },
+   {
+    "l": "B",
+    "x": "使用 Excel 解析库（如 Pandas）提取表格数据（转为 JSON/CSV 格式），结合提示词要求模型‘按’图表类型 - 数据维度 - 关键结论’的结构，生成可视化描述（如‘柱状图：Q1 产品 A 销量 1200 件，同比增长 15%’）"
+   },
+   {
+    "l": "C",
+    "x": "让用户手动输入表格数据，再调用模型"
+   },
+   {
+    "l": "D",
+    "x": "仅生成表格数据的文本总结，不涉及图表描述"
+   }
+  ],
+  "answer": "B",
+  "analysis": "使用 Excel 解析库（如 Pandas）提取数据（转为 JSON/CSV 格式），结合提示词要求模型“按 图表类型 - 数据维度 - 关键结论 的结构，生成可视化描述（如柱状图：Q1产品A销量1200件，同比增长15%）”是正确答案。大模型无法直接读取 Excel 格式，需先通过解析库提取结构化数据，再通过结构化提示引导模型生成符合可视化需求的描述；A 无法处理 Excel 格式，模型会因输入格式错误无法分析；C 增加用户操作成本，不符合应用便捷性需求；D 未满足“可视化图表描述”的核心功能，方案不完整。",
+  "difficulty_label": "进阶"
+ },
+ {
+  "id": "12-1197",
+  "flags": [
+   "context_dependent",
+   "duplicate_cluster"
+  ],
+  "type": 0,
+  "stem": "请问这段代码的主要作用是？ python node_parser = SentenceWindowNodeParser.from_defaults( window = w_size=3, window_metadata_key=\"window\", origin_text_metadata_key=\"original_text\", ) nodes = node_parser.get_nodes_from_documents([document]) window_text_replace = MetadataReplacementPostProcessor(target_metadata_key=\"window\")",
+  "options": [
+   {
+    "l": "A",
+    "x": "对召回的文本段进行 rerank 后，输入大模型进行回复"
+   },
+   {
+    "l": "B",
+    "x": "在句子窗口检查中，将扩展后的句子传入上下文并进行回复"
+   },
+   {
+    "l": "C",
+    "x": "在自动合并检查中，判断父节点是否有超过半数的子节点被召回"
+   },
+   {
+    "l": "D",
+    "x": "加载本地索引，对 query 进行回复"
+   }
+  ],
+  "answer": "B",
+  "analysis": "代码直接对应句子窗口检索的流程，扩展上下文优化生成，其他选项不符合代码功能",
+  "difficulty_label": "进阶"
+ },
+ {
+  "id": "12-1205",
+  "flags": [
+   "duplicate_cluster"
+  ],
+  "type": 0,
+  "stem": "请问这个函数的主要作用是、、、def set_default_model() : EMBED_MODEL=DashScopeEmbedding ( model_name=DashScopeTextEmbeddingModels.TEX_EMBEDDING_V2, text_type=DashScopeTextEmbeddingType.TEXT_TYPE_DOCUMENT,) LLM_MODE = DashScope(model_name='qwen-plus') Settings.ilm=LLM_MODEL. embed_model=EMBED_MODEL Settings.ilm=LLM_MODEL",
+  "options": [
+   {
+    "l": "A",
+    "x": "定义了EMBED_MODEL 与 LLM_MODEL"
+   },
+   {
+    "l": "B",
+    "x": "使得 embedding 模型可以参与 LLM 的生成过程中"
+   },
+   {
+    "l": "C",
+    "x": "使得 LLM 可以流式输出"
+   },
+   {
+    "l": "D",
+    "x": "使得有关 LlamaIndex 的后续步骤中无需再次指定 LLM 与 embed_model"
+   }
+  ],
+  "answer": "D",
+  "analysis": "该函数定义了EMBED_MODEL和LLM_MODEL，但其主要作用是将EMBED_MODEL和LLM_MODEL的设置进行初始化，使得在后续的LlamaIndex流程中，可以无需再次指定LLM和embed_model。因此，正确答案是D。",
+  "difficulty_label": "进阶"
+ },
+ {
+  "id": "12-1466",
+  "flags": [
+   "longest_is_answer_leak",
+   "duplicate_cluster"
+  ],
+  "type": 1,
+  "stem": "某开发者开发大模型应用时，需实现 “用户上传 Excel 表格，模型分析表格数据并生成可视化图表描述” 的功能。以下哪种技术方案最完整？",
+  "options": [
+   {
+    "l": "A",
+    "x": "直接将 Excel 表格输入大模型，要求生成图表描述"
+   },
+   {
+    "l": "B",
+    "x": "使用 Excel 解析库提取表格数据（如转为 JSON 格式），结合提示词要求模型生成结构化图表描述（如 “柱状图：产品 A 销量 100，产品 B 销量 80”）"
+   },
+   {
+    "l": "C",
+    "x": "让用户手动输入表格数据，再调用模型"
+   },
+   {
+    "l": "D",
+    "x": "仅生成文本总结，不涉及图表描述"
+   }
+  ],
+  "answer": "B",
+  "analysis": "使用 Excel 解析库提取表格数据（如转为 JSON 格式），结合提示词要求模型生成结构化图表描述（如 “柱状图：产品 A 销量 100，产品 B 销量 80”） 是正确答案。大纲 “大模型与数据解析工具集成” 指出，大模型无法直接读取 Excel 格式，需先通过解析库提取结构化数据，再结合明确提示生成图表描述；A 无法处理 Excel 格式，C 增加用户负担，D 不满足图表描述需求。",
+  "difficulty_label": "挑战"
+ },
+ {
+  "id": "12-1289",
+  "flags": [
+   "context_dependent",
+   "duplicate_cluster"
+  ],
+  "type": 1,
+  "stem": "请问这段代码的主要作用是？node_parser = SentenceWindowNodeParser.from_defaults(window_size=3,window_metadata_key=\"window\",original_text_metadata_key=\"original_text\",)nodes = node_parser.get_nodes_from_documents([document])window_text_replace = MetadataReplacementPostProcessor(target_metadata_key=\"window\")",
+  "options": [
+   {
+    "l": "A",
+    "x": "对召回的文本段进行rerank 后，输入大模型进行回复"
+   },
+   {
+    "l": "B",
+    "x": "在句子窗口检索中，将扩展后的句子传入上下文并进行回复"
+   },
+   {
+    "l": "C",
+    "x": "在自动合并检索中，判断父节点是否有超过半数的子节点被召回"
+   },
+   {
+    "l": "D",
+    "x": "加载本地索引，对query 进行回复"
+   }
+  ],
+  "answer": "B",
+  "analysis": "代码直接对应句子窗口检索的流程，扩展上下文优化生成，其他选项不符合代码功能",
+  "difficulty_label": "挑战"
+ },
+ {
+  "id": "12-1288",
+  "flags": [
+   "thin_analysis",
+   "context_dependent",
+   "longest_is_answer_leak"
+  ],
+  "type": 2,
+  "stem": "通过LlamaIndex 创建RAG 应用，关于下面这段代码作用的描述正确的有哪些？def get_documents(path):documents = SimpleDirectoryReader(path).load_data()document = Document(text=\"\\n\\n\".join([doc.text for doc in documents]))replacements = {'，': ',','！': '!','？': '?'}for src, dst in replacements.items():document.text = document.text.replace(src, dst)return document",
+  "options": [
+   {
+    "l": "A",
+    "x": "将所有Document 对象合并为一个Document 对象"
+   },
+   {
+    "l": "B",
+    "x": "对乱码内容进行数据清洗"
+   },
+   {
+    "l": "C",
+    "x": "将中文的标点符号预先转化为英文标点符号，使得切分时不会使得chunk 长度过长"
+   },
+   {
+    "l": "D",
+    "x": "将指定文件夹中的文件加载为document 对象"
+   }
+  ],
+  "answer": "A,C,D",
+  "analysis": "码仅替换特定标点符号，未涉及乱码检测或修复",
+  "difficulty_label": "挑战"
+ },
+ {
+  "id": "12-1291",
+  "flags": [
+   "thin_analysis",
+   "duplicate_cluster"
+  ],
+  "type": 1,
+  "stem": "以下哪个代码片段能够正确处理classify_intent 函数可能抛出的异常，并打印错误信息？",
+  "options": [
+   {
+    "l": "A",
+    "x": "pythonfor id, query in feedback_list:try:intent = classify_intent(query)print(f\"ID: {id}, Intent: {intent}\")finally:print(\"Finished processing query.\")"
+   },
+   {
+    "l": "B",
+    "x": "pythonfor id, query in feedback_list:intent = classify_intent(query)print(f\"ID: {id}, Intent: {intent}\")except Exception as e:print(f\"Error: {e}\")"
+   },
+   {
+    "l": "C",
+    "x": "pythonfor id, query in feedback_list:try:intent = classify_intent(query)print(f\"ID: {id}, Intent: {intent}\")except Exception as e:print(f\"Error processing query {id}: {e}\")"
+   },
+   {
+    "l": "D",
+    "x": "pythonfor id, query in feedback_list:if classify_intent(query):intent = classify_intent(query)print(f\"ID: {id}, Intent: {intent}\")else:"
+   }
+  ],
+  "answer": "C",
+  "analysis": "语法正确且能有效处理异常的选项",
+  "difficulty_label": "挑战"
+ },
+ {
+  "id": "12-5065",
+  "flags": [
+   "duplicate_cluster"
+  ],
+  "type": 1,
+  "stem": "在LlamaIndex中，以下哪些操作属于NodeParser的典型职责？",
+  "options": [
+   {
+    "l": "A",
+    "x": "将原始文档切分为语义连贯的文本块（Nodes）"
+   },
+   {
+    "l": "B",
+    "x": "为每个Node嵌入向量并写入向量数据库"
+   },
+   {
+    "l": "C",
+    "x": "添加窗口上下文、父-子节点关系等元数据"
+   },
+   {
+    "l": "D",
+    "x": "执行query重写以提升检索召回率"
+   }
+  ],
+  "answer": "A,C",
+  "analysis": "NodeParser核心职责是分块（A）和增强元数据（C）；B属Embedding+Storage流程；D属QueryEngine或Retriever组件功能。",
+  "difficulty_label": "进阶"
+ },
+ {
+  "id": "12-5075",
+  "flags": [
+   "duplicate_cluster"
+  ],
+  "type": 1,
+  "stem": "在 LlamaIndex 中，以下哪些操作属于 NodeParser 的核心职责？",
+  "options": [
+   {
+    "l": "A",
+    "x": "将原始文档切分为语义连贯的文本块（nodes）"
+   },
+   {
+    "l": "B",
+    "x": "为每个 node 注入 metadata（如来源页码、标题）"
+   },
+   {
+    "l": "C",
+    "x": "执行向量嵌入计算并存入向量数据库"
+   },
+   {
+    "l": "D",
+    "x": "对 nodes 进行去重、过滤或合并"
+   }
+  ],
+  "answer": "A,B,D",
+  "analysis": "NodeParser 负责分块、元数据注入、清洗合并；C属EmbeddingModel与StorageContext职责，非NodeParser范畴。",
+  "difficulty_label": "入门"
+ },
+ {
+  "id": "12-5084",
+  "flags": [
+   "longest_is_answer_leak"
+  ],
+  "type": 0,
+  "stem": "使用LangChain构建RAG应用时，若需动态注入多个上下文片段并保持顺序可控，应优先采用哪种提示模板语法？",
+  "options": [
+   {
+    "l": "A",
+    "x": "{context} + {question}"
+   },
+   {
+    "l": "B",
+    "x": "f-string拼接：f'{ctx1}\\n{ctx2}\\n{query}'"
+   },
+   {
+    "l": "C",
+    "x": "PromptTemplate.from_template()配合input_variables=['context_list', 'question']"
+   },
+   {
+    "l": "D",
+    "x": "直接传入list类型context参数给LLM.invoke()"
+   }
+  ],
+  "answer": "C",
+  "analysis": "LangChain官方推荐PromptTemplate统一管理变量注入，支持context_list等结构化输入；A无法处理多片段；B破坏可维护性；D非标准用法且LLM不直接接收list。",
+  "difficulty_label": "进阶"
+ },
+ {
+  "id": "12-0107",
+  "flags": [
+   "no_analysis"
+  ],
+  "type": 0,
+  "stem": "Dataset.from_dict(data_samples) 的主要作用是什么？",
+  "options": [
+   {
+    "l": "A",
+    "x": "将字典数据转换为数据集"
+   },
+   {
+    "l": "B",
+    "x": "增加模型的训练数据"
+   },
+   {
+    "l": "C",
+    "x": "减少模型的推理时间"
+   },
+   {
+    "l": "D",
+    "x": "增加模型的参数数量"
+   }
+  ],
+  "answer": "A",
+  "analysis": "暂无",
+  "difficulty_label": "入门"
+ },
+ {
+  "id": "12-0254",
+  "flags": [
+   "no_analysis"
+  ],
+  "type": 0,
+  "stem": "在保存与加载索引时，index.storage_context.persist方法的主要作用是什么？",
+  "options": [
+   {
+    "l": "A",
+    "x": "将索引保存为本地文件"
+   },
+   {
+    "l": "B",
+    "x": "将指定文件夹中的文件加载为document对象"
+   },
+   {
+    "l": "C",
+    "x": "将文本向量化"
+   },
+   {
+    "l": "D",
+    "x": "创建用于提问的引擎"
+   }
+  ],
+  "answer": "A",
+  "analysis": "暂无",
+  "difficulty_label": "入门"
+ },
+ {
+  "id": "12-0425",
+  "flags": [
+   "no_analysis",
+   "duplicate_cluster"
+  ],
+  "type": 0,
+  "stem": "通过LamalIndex创建RAG应用时，一份知识文件传入RAG应用的顺序是以下哪一项？",
+  "options": [
+   {
+    "l": "A",
+    "x": "Node对象 - Document对象 - index - query_engine"
+   },
+   {
+    "l": "B",
+    "x": "Node对象 - query_engine - Document对象 - index"
+   },
+   {
+    "l": "C",
+    "x": "Document对象 - index - Node对象 - query_engine"
+   },
+   {
+    "l": "D",
+    "x": "Document对象 - Node对象 - index - query_engine"
+   }
+  ],
+  "answer": "D",
+  "analysis": "暂无",
+  "difficulty_label": "进阶"
+ },
+ {
+  "id": "12-5095",
+  "flags": [
+   "context_dependent"
+  ],
+  "type": 0,
+  "stem": "在调试一个基于LlamaIndex的RAG应用时，发现模型回答‘根据资料，年假有5天’，但实际知识库中明确写着‘司龄满3年员工年假10天’。检查QueryEngine日志显示检索返回了包含‘5天’的旧政策片段，而新政策未被召回。根据12.3节索引持久化要求，最可能的根本原因是什么？",
+  "options": [
+   {
+    "l": "A",
+    "x": "未在SimpleDirectoryReader中设置file_extractor参数"
+   },
+   {
+    "l": "B",
+    "x": "新增政策文档后未重建索引，仍使用旧persist_dir中的缓存索引"
+   },
+   {
+    "l": "C",
+    "x": "DashScopeEmbedding的model_name配置为text-embedding-v1而非v2"
+   },
+   {
+    "l": "D",
+    "x": "QueryEngine未启用streaming=True参数"
+   }
+  ],
+  "answer": "B",
+  "analysis": "依据12.3节‘索引需要持久化’考点：‘新增/修改文档后必须重新走解析→切片→建索引流程’，且‘通过StorageContext.persist保存索引’。若未重建索引，旧索引无法包含新文档，导致召回遗漏。A影响解析质量但非本题现象主因；C可能导致向量质量下降，但不会完全漏掉整篇文档；D与流式输出无关。原文强调‘避免每次重建’是为效率，但‘必须重建’是数据一致性前提，B直指运维疏漏这一高频故障点。",
+  "difficulty_label": "进阶"
+ },
+ {
+  "id": "12-5105",
+  "flags": [
+   "context_dependent"
+  ],
+  "type": 1,
+  "stem": "某金融企业需上线合规审计问答机器人，文档含大量扫描版合同、带复杂表格的监管报表及内部Markdown制度。团队要求：1）解析结果必须保留表格结构与标题层级；2）所有处理需离线完成；3）IT部门拒绝引入云服务。根据第12.5节文档解析工具链选型原则，以下哪些工具组合符合要求？",
+  "options": [
+   {
+    "l": "A",
+    "x": "DashScopeParse（因具备OCR和表格识别能力）"
+   },
+   {
+    "l": "B",
+    "x": "Unstructured（支持离线分区解析，可保留表格与标题结构）"
+   },
+   {
+    "l": "C",
+    "x": "SimpleDirectoryReader（默认支持PDF/DOCX，轻量易用）"
+   },
+   {
+    "l": "D",
+    "x": "PyMuPDF（纯文本PDF抽取快，但对扫描件无效）"
+   },
+   {
+    "l": "E",
+    "x": "自定义Reader（继承BaseReader，针对合同/报表格式专项开发）"
+   }
+  ],
+  "answer": "B,E",
+  "analysis": "题干三条件直指12.5节‘选型决策路径’：1）扫描件+复杂表格→需OCR/版面分析；2）离线→排除DashScopeParse（云端服务，12.5 table）；3）拒绝云服务→排除A。B正确：Unstructured明确标注‘完全离线、多格式统一分区’，且‘擅长按分区识别标题、段落、表格’（12.5 table、best）；E正确：原文指出‘内部专有格式→自定义Reader’，合同/报表属典型专有格式，且可完全离线（12.5 table、best）；C错误：SimpleDirectoryReader对扫描件‘处理有限’（12.5 table），无法满足条件1；D错误：PyMuPDF‘扫描件无文字层时无能为力’（12.5 exam），直接违反条件1；A错误：DashScopeParse是‘云端服务，有调用费用与数据出域考虑’（12.5 table），违反条件2、3。",
+  "difficulty_label": "进阶"
+ },
+ {
+  "id": "12-5106",
+  "flags": [
+   "context_dependent"
+  ],
+  "type": 0,
+  "stem": "运维团队收到告警：某基于LlamaIndex的RAG服务响应延迟突增300%，日志显示索引重建耗时异常。经排查，代码中每次用户查询均执行‘VectorStoreIndex.from_documents(documents, embed_model=...)’。此问题根源及最优解最符合本章哪一知识点？",
+  "options": [
+   {
+    "l": "A",
+    "x": "未使用LCEL管道，导致同步阻塞；应改用prompt | model | parser异步链"
+   },
+   {
+    "l": "B",
+    "x": "索引未持久化，每次查询重建索引；应使用StorageContext.persist()与load_index_from_storage()"
+   },
+   {
+    "l": "C",
+    "x": "Document解析质量差，导致向量化失败；应更换为DashScopeParse解析器"
+   },
+   {
+    "l": "D",
+    "x": "Retriever配置similarity_top_k过大，引发向量计算爆炸；应调小该参数"
+   }
+  ],
+  "answer": "B",
+  "analysis": "题干描述‘每次用户查询均执行from_documents’，直接对应原文12.3节关键考点：‘索引需要持久化，避免每次重建’，并给出具体方案‘StorageContext.from_defaults(persist_dir=...) + index.storage_context.persist(...)’（12.3 exam、code snippet）。延迟突增源于重复建索引（O(n²)级开销），而非模型调用或解析问题。A错误：LCEL解决的是链路流式/异步，不解决索引重建问题（12.2 LCEL作用）；C错误：解析质量影响检索精度，但不会导致‘索引重建耗时异常’这一特定现象（12.5 exam聚焦答案错误，非性能）；D错误：similarity_top_k影响召回数量，不改变索引构建过程（12.3 QueryEngine参数说明）。",
+  "difficulty_label": "入门"
+ },
+ {
+  "id": "12-5107",
+  "flags": [
+   "context_dependent"
+  ],
+  "type": 1,
+  "stem": "某团队使用FastAPI暴露RAG服务，同时用Gradio搭建内部演示界面。测试中发现：Gradio界面响应正常，但FastAPI接口返回500错误，日志提示‘query_engine未初始化’。检查代码发现query_engine在Gradio的answer函数内创建，未在FastAPI路由函数中声明。此故障揭示了本章关于技术栈分层的哪两个关键原则？",
+  "options": [
+   {
+    "l": "A",
+    "x": "Gradio和FastAPI属于同一服务层，应共享实例"
+   },
+   {
+    "l": "B",
+    "x": "UI层（Gradio）与服务层（FastAPI）应解耦，业务逻辑需下沉为独立可复用模块"
+   },
+   {
+    "l": "C",
+    "x": "RAGAS评估必须与FastAPI集成，否则无法监控生产指标"
+   },
+   {
+    "l": "D",
+    "x": "框架选型应遵循‘先看需求复杂度，再选工具’，而非先定框架"
+   },
+   {
+    "l": "E",
+    "x": "业务逻辑不应与UI绑定，否则无法被不同入口复用"
+   }
+  ],
+  "answer": "B,E",
+  "analysis": "题干故障本质是业务逻辑（query_engine）与UI（Gradio）强耦合，导致FastAPI无法访问。原文12.7.2明确警告：‘Gradio只负责界面，不承载业务逻辑。RAG、Agent、提示词这些应放在下层可独立测试的模块里，UI只调用它们的接口。否则一旦要把Demo变成正式产品，所有逻辑都和UI耦在一起，无法重写’（12.7.2 concept）。B、E共同指向这一核心原则：UI层与服务层解耦，业务逻辑下沉为独立模块（如单独rag.py），供Gradio和FastAPI共同调用。A错误：原文12.7.3明确区分‘Gradio适合给人用的Demo，FastAPI适合给系统调的服务’，二者是不同层次（12.7.3 compare）；C错误：RAGAS是评估层，与服务暴露无关（12.7.1）；D虽是本章原则（12.1 exam），但与此故障无直接因果关系。",
+  "difficulty_label": "进阶"
+ },
+ {
+  "id": "12-5108",
+  "flags": [
+   "context_dependent"
+  ],
+  "type": 0,
+  "stem": "安全团队审计发现：某Dify私有部署实例中，HR上传的敏感制度文档可通过未授权API被外部调用。运维人员辩称‘已私有部署，数据不出域，因此绝对安全’。此认知违背本章哪一重要风险警示？",
+  "options": [
+   {
+    "l": "A",
+    "x": "框架引入会带来抽象泄漏和调试黑盒，增加安全排查难度"
+   },
+   {
+    "l": "B",
+    "x": "Dify私有部署只解决数据出域，内容安全、权限分级、审计日志仍需自行配置"
+   },
+   {
+    "l": "C",
+    "x": "LangChain的Callback机制若未启用，将无法追踪恶意API调用"
+   },
+   {
+    "l": "D",
+    "x": "RAGAS评估缺失导致无法发现生成内容的安全漏洞"
+   }
+  ],
+  "answer": "B",
+  "analysis": "题干‘私有部署≠自动安全合规’直接复现原文12.6.2节‘cost’框中的核心警示：‘私有部署 ≠ 自动合规：数据不出域只是第一步，内容安全审核、权限分级、审计日志仍需自己配置’（12.6.2 cost）。故障根源是权限控制缺失（未授权API访问），而非框架抽象或评估问题。A虽是风险（12.1 risk），但与‘权限配置’无直接关联；C错误：Callback用于链路追踪，非安全防护机制（12.1 table）；D错误：RAGAS评估生成质量，不解决API鉴权问题（12.7.1）。",
+  "difficulty_label": "入门"
+ },
+ {
+  "id": "12-5109",
+  "flags": [
+   "longest_is_answer_leak"
+  ],
+  "type": 0,
+  "stem": "某教育公司正为新人答疑机器人选型：当前仅需单轮问答，但已明确3个月内将接入内部制度文档（含扫描件PDF）、支持多轮对话、调用HR系统API，并需对效果进行量化评估。团队仅有1名全栈工程师，无专职AI运维。依据第12章框架选型决策主线，最符合‘务实演进路径’的初始技术选型是？",
+  "options": [
+   {
+    "l": "A",
+    "x": "直接使用 LangChain + LangGraph 构建完整 Agent 工作流，预埋所有扩展点"
+   },
+   {
+    "l": "B",
+    "x": "用 DashScope SDK 裸调 qwen-plus 实现基础问答，后续按需逐步引入 LlamaIndex（RAG）、LangChain（Agent）、RAGAS（评测）"
+   },
+   {
+    "l": "C",
+    "x": "立即部署 Dify 私有化版本，由HR同事上传扫描件并配置工作流"
+   },
+   {
+    "l": "D",
+    "x": "首选 AgentScope 搭建多 Agent 协作架构，预留 Leader-Worker 扩展能力"
+   }
+  ],
+  "answer": "B",
+  "analysis": "依据第12章‘一条务实的选型主线’（12.8节）：‘1. 能用：先用 SDK 把核心问答跑通；2. 好用：私域知识多 → 上 LlamaIndex 做 RAG……’。题干明确‘当前仅需单轮问答’，此时裸调 SDK（如课程 `course_core/chatbot/llm.py`）是最轻量、可控、易调试的起点，完全契合‘能用’阶段；而A、D过早引入复杂框架，违背‘不要为用框架而用框架’的第七大误区；C虽适合非工程人员，但题干限定‘仅有1名全栈工程师’且需后续深度集成API与评测，Dify 的可视化抽象在复杂工具链和定制化评测（RAGAS）上灵活性不足，且‘立即部署’不符合渐进演进逻辑。教材原文明确指出：‘简单脚本直接用 OpenAI/DashScope SDK 更合适（课程 `llm.py` 即是例证）’（12.1节 Exam 栏）。",
+  "difficulty_label": "进阶"
+ },
+ {
+  "id": "12-5119",
+  "flags": [
+   "context_dependent"
+  ],
+  "type": 1,
+  "stem": "在调试一个基于LlamaIndex的RAG应用时，发现QueryEngine返回的答案频繁出现‘根据资料，年假有5天’，但知识库最新政策明确写‘司龄满3年员工年假10天’。日志显示检索召回了包含‘5天’的旧制度片段，而新政策未被命中。根据第12章12.3节索引持久化要求与12.5节解析质量关联性，以下哪些原因可能共同导致该故障？",
+  "options": [
+   {
+    "l": "A",
+    "x": "索引未持久化，每次查询均重建，但新增文档未纳入load_data()调用范围"
+   },
+   {
+    "l": "B",
+    "x": "使用SimpleDirectoryReader解析扫描件PDF，导致新政策关键条款因OCR失败而丢失"
+   },
+   {
+    "l": "C",
+    "x": "NodeParser配置为SentenceSplitter，将‘司龄满3年’与‘年假10天’切分至不同Node，破坏语义完整性"
+   },
+   {
+    "l": "D",
+    "x": "Embedding模型未更新，仍使用旧版text-embedding-v1向量化新文档"
+   }
+  ],
+  "answer": "A,B,C",
+  "analysis": "依据原文12.3节：‘索引需要持久化，避免每次重建’——A直接对应‘未持久化+新增文档未加载’，是根本操作错误；依据12.5节：‘扫描件PDF读出来是空的→需要OCR/DashScopeParse’——B指出SimpleDirectoryReader对扫描件解析失效，导致新政策文本未进入Document，是数据源头污染；依据12.3节NodeParser作用及12.5节‘结构化Markdown’要求——C中SentenceSplitter粗暴切分会割裂关键语义单元（如‘司龄满3年员工年假10天’被切成两段），使向量检索无法召回完整上下文，原文强调‘后续切片与检索才能利用语义边界’；D错误：Embedding模型版本不一致会影响向量质量，但原文未将模型版本列为索引重建失败的归因，且题干现象是‘旧政策被召回、新政策未命中’，主因是新政策未进入索引流程（A/B）或被错误切分（C），而非向量表示偏差。",
+  "difficulty_label": "进阶"
+ },
+ {
+  "id": "12-1179",
+  "flags": [
+   "duplicate_cluster"
+  ],
+  "type": 0,
+  "stem": "def set_default_model(): EMBED_MODEL = DashScopeEmbedding(model_name=DashScopeTextEmbeddingsModels.TEXT_EMBEDDING_V2, type_name=DashScopeTextEmbeddingType.TEXT_TYPE_DOCUMENT, LLM_MODEL = DashScope(model_name=\"qwen-plus\") Settings.embed(model_name=EMBED_MODEL Settings.llm=LLM_MODEL ...)",
+  "options": [
+   {
+    "l": "A",
+    "x": "使得 llm 可以流式输出"
+   },
+   {
+    "l": "B",
+    "x": "使得 embedding 模型可以参与与 llm 的生成过程中"
+   },
+   {
+    "l": "C",
+    "x": "使得有关 Llamaindex 的后续步骤中无需再次指定 llm 与 embed_model"
+   },
+   {
+    "l": "D",
+    "x": "定义了 EMBED_MODEL 与 LLM_MODEL"
+   }
+  ],
+  "answer": "C",
+  "analysis": "根据代码片段，`set_default_model()` 函数中，`EMBED_MODEL` 和 `LLM_MODEL` 分别被设置为 `DashScopeTextEmbedding` 和 `DashScope` 模型。`Settings.embed(model_name=EMBED_MODEL)` 表示使用 `EMBED_MODEL` 模型进行嵌入，而 `Settings.llm=LLM_MODEL` 表示使用 `LLM_MODEL` 模型进行生成。因此，`LLM_MODEL` 的设置是用于生成过程，而 `EMBED_MODEL` 的设置是用于嵌入过程。选项C正确描述了 `Llamaindex` 的后续步骤中无需再次指定 `llm` 与 `embed_model` 的情况。",
+  "difficulty_label": "挑战"
+ },
+ {
+  "id": "12-5126",
+  "flags": [
+   "longest_is_answer_leak"
+  ],
+  "type": 0,
+  "stem": "LlamaIndex 与 LangChain 组合使用时的合理分工是什么？",
+  "options": [
+   {
+    "l": "A",
+    "x": "LlamaIndex 负责知识库检索并封装为 Retriever/Tool，LangChain 负责 Agent 编排、工具调用与 Memory"
+   },
+   {
+    "l": "B",
+    "x": "LlamaIndex 负责前端界面渲染，LangChain 负责向量索引"
+   },
+   {
+    "l": "C",
+    "x": "LangChain 负责文档解析入索引，LlamaIndex 负责 HTTP 服务"
+   },
+   {
+    "l": "D",
+    "x": "二者功能完全重叠，只能二选一"
+   }
+  ],
+  "answer": "A",
+  "analysis": "A 正确：教材场景题解析明确“LlamaIndex 负责知识库检索（数据层），封装为 Retriever/Tool；LangChain（或 LangGraph）负责 Agent 编排、工具调用和 Memory”，原因是 RAG 是 LlamaIndex 强项、多工具多轮状态机是 LangChain 强项。",
+  "difficulty_label": "挑战"
+ },
+ {
+  "id": "12-5131",
+  "flags": [
+   "longest_is_answer_leak"
+  ],
+  "type": 0,
+  "stem": "关于 Gradio 与 FastAPI 在技术栈中的分工，正确的说法是？",
+  "options": [
+   {
+    "l": "A",
+    "x": "Gradio 适合“给人用的 Demo”，FastAPI 适合“给系统调的服务”，二者常常同时存在"
+   },
+   {
+    "l": "B",
+    "x": "Gradio 应承载核心业务逻辑"
+   },
+   {
+    "l": "C",
+    "x": "FastAPI 只能用来训练模型"
+   },
+   {
+    "l": "D",
+    "x": "二者互斥，同一项目只能选其一"
+   }
+  ],
+  "answer": "A",
+  "analysis": "A 正确：教材明确 Gradio 适合“给人用的 Demo”，FastAPI 适合“给系统调的服务”，二者常常同时存在（内部演示用 Gradio、线上走 FastAPI），同一份 RAG 能力可被两者复用。B 与误区表相反（业务逻辑应下沉）；C/D 错误。",
+  "difficulty_label": "入门"
+ }
+]

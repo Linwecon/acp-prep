@@ -28,9 +28,23 @@ from classify_questions import (
 )
 
 
-QUIZ_FILE = PROJECT_ROOT / "data" / "quiz_data.json"
+QUIZ_FILE = PROJECT_ROOT / "data" / "quiz_categorized.json"
 JSON_REPORT = PROJECT_ROOT / "题库全库问题清单.json"
 MD_REPORT = PROJECT_ROOT / "题库全库体检.md"
+
+
+def load_live_questions() -> list[dict]:
+    """从当前运行时题库（questions_by_chapter，排除软删除）展平取题。"""
+    bank = json.loads(QUIZ_FILE.read_text(encoding="utf-8"))
+    out = []
+    for ch, qs in bank["questions_by_chapter"].items():
+        for q in qs:
+            if q.get("deleted"):
+                continue
+            q = dict(q)
+            q["chapter"] = int(ch)
+            out.append(q)
+    return out
 
 
 MULTI_HINTS = [
@@ -121,7 +135,7 @@ def issue_brief(q: dict) -> dict:
 
 
 def main() -> None:
-    raw_questions = json.loads(QUIZ_FILE.read_text(encoding="utf-8"))
+    raw_questions = load_live_questions()
     questions = [apply_manual_fixes(q) for q in raw_questions]
 
     duplicate_option_texts = []
